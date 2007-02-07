@@ -41,9 +41,15 @@ module Ronin
       end
 
       def get_category(name)
+	unless has_category?(name)
+	  raise, CategoryNotFound, "category '#{name}' not found in repository '#{@name}'"
+	end
+
+	return Category.new(self,name)
       end
 
       def has_category?(category)
+	return File.directory?(@path + File.SEPARATOR + category)
       end
 
     end

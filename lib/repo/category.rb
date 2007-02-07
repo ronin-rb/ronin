@@ -34,22 +34,17 @@ module Ronin
 	@category = category
       end
 
-      def resolve(config)
-	if @repo
-	  repository = config.get_repository(@repo)
-	  unless repository
-	    raise, MissingRepository, "missing repository '#{repo}'"
-	  end
-
-	  return repository.get_category(@category)
-	end
-
-	return config.get_category(@category)
+      def to_s
+	return @category unless @repo
+	return @repo + File.SEPARATOR + @category
       end
 
     end
 
     class Category
+
+      # Repository
+      attr_reader :repo
 
       # Name of the Category
       attr_reader :name
@@ -57,9 +52,43 @@ module Ronin
       # Depedencies on other Categories
       attr_reader :deps
 
-      def initialize(name,deps)
+      # Actions
+      attr_reader :actions
+
+      def initialize(repo,name)
+	@repo = repo
 	@name = name
-	@deps = deps
+
+	@deps = {}
+	@actions = []
+      end
+
+      def setup
+	action('setup')
+      end
+
+      def load
+	action('load')
+      end
+
+      def teardown
+	action('teardown')
+      end
+
+      def action(name)
+	unless actions[name]
+	  raise, ActionNotFound, "can not find action '#{name}' in category '#{@name}'"
+	end
+
+	actions[name].call(self.path)
+      end
+
+      def path
+	return @repo.path + File.SEPARATOR + @name
+      end
+
+      def to_s
+	return path
       end
 
     end

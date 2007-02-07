@@ -29,22 +29,20 @@ module Ronin
 
     class Config
 
+      # Path of config file
+      attr_reader :path
+
       # Hash of loaded repositories
       attr_reader :repos
 
       def initialize(path=CONFIG_PATH)
-        @repos = Hash.new
+	@path = path
+        @repos = []
         # TODO: parse REPOS_CONFIG and create Hash of repositories.
       end
 
-      def get_repository(name)
-        return @repos[name]
-      end
-
-      def get_category(repo_name=nil,category_name)
-        if repo_name
-          return @repos[repo_name].get_category(category_name)
-        end
+      def load_category(repo_name=nil,category_name)
+        return @repos[repo_name].get_category(category_name) if repo_name
 
         @repos.each do |r|
           return r.get_category(category_name) if r.has_category?(category_name)
