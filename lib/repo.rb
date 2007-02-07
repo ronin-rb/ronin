@@ -22,3 +22,4 @@
 require 'repo/category'
 require 'repo/repository'
 require 'repo/config'
+require 'repo/exceptions'

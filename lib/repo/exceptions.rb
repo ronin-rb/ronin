@@ -19,40 +19,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'category'
+require 'exceptions/actionnotfound'
 require 'exceptions/categorynotfound'
-
-module Ronin
-  module Repo
-    class Repository
-
-      # Name of the Repository
-      attr_reader :name
-
-      # URL of the Repository source
-      attr_reader :url
-
-      # Local path to the Repository
-      attr_reader :path
-
-      def initialize(name,url,path)
-        @name = name
-        @url = url
-	@path = path
-      end
-
-      def get_category(name)
-	unless has_category?(name)
-	  raise, CategoryNotFound, "category '#{name}' not found in repository '#{@name}'"
-	end
-
-	return Category.new(self,name)
-      end
-
-      def has_category?(category)
-	return File.directory?(@path + File.SEPARATOR + category)
-      end
-
-    end
-  end
-end
+require 'exceptions/missingrepository'
