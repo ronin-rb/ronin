@@ -19,42 +19,4 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'category'
-require 'exceptions/repositorynotfound'
-
-module Ronin
-  module Repo
-
-    # TODO: make this cross-platform later
-    CONFIG_PATH = "/etc/ronin.conf"
-
-    # Current operating configuration
-    $current_config = nil
-
-    class Config
-
-      # Path of config file
-      attr_reader :path
-
-      # Hash of loaded repositories
-      attr_reader :repos
-
-      def initialize(path=CONFIG_PATH)
-	@path = path
-        @repos = {}
-        # TODO: parse REPOS_CONFIG and create Hash of repositories.
-      end
-
-      def get_repository(repo)
-	unless @repos[repo]
-	  raise, RepositoryNotFound, "repository not listed in config file '#{self}'"
-	end
-      end
-
-      def to_s
-	return @path
-      end
-
-    end
-  end
-end
+require 'extensions/kernel.rb'

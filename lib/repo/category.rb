@@ -23,33 +23,10 @@ require 'exceptions/actionnotfound'
 
 module Ronin
   module Repo
-    class CategoryDependency
+    class CategoryContext < Module
 
-      # Name of repository
-      attr_reader :repo
-
-      # Name of Category
-      attr_reader :category
-
-      def initialize(repo=nil,category)
-	@repo = repo
-	@category = category
-      end
-
-      def to_s
-	return @category unless @repo
-	return @repo + File.SEPARATOR + @category
-      end
-
-    end
-
-    class Category
-
-      # Repository
-      attr_reader :repo
-
-      # Name of the Category
-      attr_reader :name
+      # Associated view
+      attr_reader :view
 
       # Depedencies on other Categories
       attr_reader :deps
@@ -57,40 +34,111 @@ module Ronin
       # Actions
       attr_reader :actions
 
-      def initialize(repo,name)
-	@repo = repo
-	@name = name
+      # Working directory
+      attr_accessor :path
 
-	@deps = {}
-	@actions = []
+      def initialize(view,&block)
+	@view = view
+	@deps = []
+	@actions = {}
+	@path = ""
+
+	class_eval(&block)
       end
 
-      def setup
-	action('setup')
-      end
-
-      def load
-	action('load')
-      end
-
-      def teardown
-	action('teardown')
-      end
-
-      def action(name)
-	unless actions[name]
-	  raise, ActionNotFound, "can not find action '#{name}' in category '#{@name}'"
-	end
-
-	actions[name].call(self.path)
+      def depend(name)
+	@deps << @view.load_category(name)
       end
 
       def path
-	return @repo.path + File.SEPARATOR + @name
+	return @path
+      end
+
+      def ronin_path(postfix)
+      end
+
+      def ronin_file(name)
+      end
+
+      def ronin_dir(name)
+      end
+
+      def ronin_include(name)
+      end
+
+      def ronin_require(name)
+      end
+
+      def setup(&block)
+	@actions[:setup] = &block
+      end
+
+      def action(name,&block)
+	@actions[name] = &block
+      end
+
+      def teardown(&block)
+	@actions[:teardown] = &block
+      end
+
+      def perform_action(name)
+	return false unless @actions[name]
+
+	instance_eval(@actions[name])
+	return true
+      end
+
+      def perform_setup
+	perform_action(:setup)
+      end
+
+      def perform_teardown
+	perform_action(:teardown)
+      end
+
+    end
+
+    class Category
+
+      # Associated view
+      attr_reader :view
+
+      # Repository
+      attr_reader :repo
+
+      # Name of the Category
+      attr_reader :name
+
+      # Path to the Category
+      attr_reader :path
+
+      def initialize(repo,name,context)
+	@repo = repo
+	@name = name
+	@path = @repo.path + File.SEPARATOR + @name
+
+	@context = context
+	@context.path = @path if @context
+      end
+
+      def action(name)
+	return unless @context
+
+	unless @context.perform_action(name)
+	  raise, ActionNotFound, "can not find action '#{name}' in category '#{self}'"
+	end
+      end
+
+      def setup
+	@context.perform_setup if @context
+      end
+
+      def teardown
+	@context.perform_teardown if @context
       end
 
       def to_s
-	return path
+	return @repo + File.SEPARATOR + @name
       end
 
     end

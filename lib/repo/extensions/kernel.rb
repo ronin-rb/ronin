@@ -19,44 +19,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'category'
-require 'exceptions/categorynotfound'
-
 module Ronin
   module Repo
-    class Repository
+    module Kernel
 
-      # Name of the Repository
-      attr_reader :name
-
-      # URL of the Repository source
-      attr_reader :url
-
-      # Local path to the Repository
-      attr_reader :path
-
-      def initialize(name,url,path)
-        @name = name
-        @url = url
-	@path = path
-      end
-
-      def load_category(name)
-	unless has_category?(name)
-	  raise, CategoryNotFound, "category '#{name}' not found in repository '#{@name}'"
-	end
-
-	category_context_path = @path + File.SEPARATOR + name + File.SEPARATOR + name + '.rb'
-	if File.file?(category_context_path)
-	  load(category_context_path)
-	  return Category.new(self,name,$current_category_context)
-	end
-
-	return Category.new(self,name,nil)
-      end
-
-      def has_category?(category)
-	return File.directory?(@path + File.SEPARATOR + category)
+      def ronin_category(&block)
+	$current_category_context = CategoryContext.new($current_view,&block)
       end
 
     end
