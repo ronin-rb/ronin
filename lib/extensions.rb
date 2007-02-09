@@ -19,14 +19,4 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'exceptions'
-require 'extensions'
-require 'payload'
-require 'exploit'
-require 'platformexploit'
-require 'bufferoverflow'
-require 'formatstring'
-
-module Ronin
-  VERSION = "0.0.0"
-end
+require 'extensions/integer.rb'
