@@ -29,4 +29,6 @@ require 'formatstring'
 
 module Ronin
   VERSION = "0.0.0"
+  SHARE_PATH = "/usr/share/ronin/"
+  CONFIG_PATH = "/etc/ronin.conf"
 end
