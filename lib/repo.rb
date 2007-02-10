@@ -19,7 +19,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/exceptions'
+require 'repo/extensions'
+require 'repo/context'
 require 'repo/category'
+require 'repo/group'
 require 'repo/repository'
 require 'repo/config'
-require 'repo/exceptions'
