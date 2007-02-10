@@ -19,70 +19,28 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'context'
-require 'category'
-require 'group_stub'
-
 module Ronin
   module Repo
-    class Group < Context
-
-      include FileAccess
-
-      # Name
-      attr_reader :name
-
-      def initialize(name,categories,path,&block)
-	@name = name
-	@deps = categories
-	@path = path
-
-	super(&block)
-      end
-
+    module FileAccess
       def contains?(path)
-	FileAccess::contains?(path)
-	@deps.each do |dep|
-	  return true if dep.contains?(path)
-	end
+	File.exists?(@path + File.SEPARATOR + path)
       end
 
       def contains_file?(path)
-	FileAccess::contains_file?(path)
-	@deps.each do |dep|
-	  return true if dep.contains_file?(path)
-	end
+	File.file?(@path + File.SEPARATOR + path)
       end
 
       def contains_directory?(path)
-	FileAccess::contains_directory?(path)
-	@deps.each do |dep|
-	  return true if dep.contains_directory?(path)
-	end
+	File.directory?(@path + File.SEPARATOR + path)
       end
 
       def load_file(path)
-	return FileAccess::load_file(path) if FileAccess::contains_file?(path)
-	@deps.each do |dep|
-	  if dep.contains_file?(path)
-	    return dep.load_file(path)
-	  end
-	end
+	load(@path + File.SEPARATOR + path)
       end
 
       def require_file(path)
-	return FileAccess::require_file(path) if FileAccess::contains_file?(path)
-	@deps.each do |dep|
-	  if dep.contains_file?(path)
-	    return dep.require_file(path)
-	  end
-	end
+	require(@path + File.SEPARATOR + path)
       end
-
-      def to_s
-	@name
-      end
-
     end
   end
 end

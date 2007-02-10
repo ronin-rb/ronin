@@ -20,11 +20,15 @@
 #
 
 require 'context'
+require 'fileaccess'
+require 'repository'
 require 'exceptions/actionnotfound'
 
 module Ronin
   module Repo
     class Category < Context
+
+      include FileAccess
 
       # Repository
       attr_reader :repo
@@ -41,10 +45,6 @@ module Ronin
 	@path = @repo.path + File.SEPARATOR + @name
 
 	super(&block)
-      end
-
-      def path
-	return @path
       end
 
       def to_s

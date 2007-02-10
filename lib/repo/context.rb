@@ -68,8 +68,8 @@ module Ronin
       end
 
       def perform_setup
-	@deps.each do |category|
-	  category.perform_setup
+	@deps.each do |dep|
+	  dep.perform_setup
 	end
 	@actions[:setup].call if @actions.has_key?(:setup)
       end
@@ -79,9 +79,9 @@ module Ronin
 	  return @actions[name].call(*args)
 	end
 
-	@deps.each do |category|
-	  if category.has_action?(name)
-	    return category.perform_action(name,*args)
+	@deps.each do |dep|
+	  if dep.has_action?(name)
+	    return dep.perform_action(name,*args)
 	  end
 	end
 
@@ -90,15 +90,15 @@ module Ronin
 
       def perform_teardown
 	@actions[:teardown].call if @actions.has_key?(:teardown)
-	@deps.each do |category|
-	  category.perform_teardown
+	@deps.each do |dep|
+	  dep.perform_teardown
 	end
       end
 
       def has_action?(name)
 	return true if @actions.has_key(name)
-	@deps.each do |category|
-	  return true if category.has_action?(name)
+	@deps.each do |dep|
+	  return true if dep.has_action?(name)
 	end
       end
 

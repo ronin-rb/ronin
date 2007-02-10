@@ -88,22 +88,26 @@ module Ronin
 	end
 
 	group_stub = @groups[name]
-	group_groups = []
+	group_categories = []
 	group_stub.repositories.each do |repository|
-	  group_groups << repository.get_category(name)
+	  group_categories << repository.get_category(name)
 	end
 
-	group_context_path = 'categories' + File.SEPARATOR + name + File.SEPARATOR + name + '.rb'
+	group_context_dir = 'categories' + File.SEPARATOR + name
+	group_context_path = group_context_dir + File.SEPARATOR + name + '.rb'
 	if group_stub.context_repo
 	  group_stub.context_repo.load_file(group_context_path)
+	  group_context_dir = group_stub.context_repo.path + File.SEPARATOR + group_context_dir
 	else
 	  unless File.file?(SHARE_PATH + group_context_path)
 	    raise, "category '#{name}' must have a context directory in atleast one repositories 'categories' directory"
 	  end
+
 	  load(SHARE_PATH + group_context_path)
+	  group_context_dir = SHARE_PATH + group_context_dir
 	end
 
-	new_group = Group.new(name,group_groups,$current_block)
+	new_group = Group.new(name,group_categories,group_context_dir,$current_block)
 	group_cache << new_group
 	return new_group
       end
