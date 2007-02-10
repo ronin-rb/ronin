@@ -19,12 +19,31 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repository'
+
 module Ronin
   module Repo
-    module Kernel
+    class GroupStub
 
-      def ronin_category(&block)
-	$current_block = &block
+      # Name of category group
+      attr_reader :name
+
+      # Repository which contains the group context
+      attr_reader :context_repo
+
+      # Repositories containing group member categories
+      attr_reader :repositories
+
+      def initialize(name,repositories)
+	@name = name
+	@repositories = repositories
+	@context_repo = nil
+	@repositores.each do |repository|
+	  if repository.contains_directory?('categories' + File.SEPARATOR + name)
+	    @context_repo = repository
+	    break
+	  end
+	end
       end
 
     end

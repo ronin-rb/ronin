@@ -19,12 +19,29 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'context'
+require 'category'
+require 'group_stub'
+
 module Ronin
   module Repo
-    module Kernel
+    class Group < Context
 
-      def ronin_category(&block)
-	$current_block = &block
+      # Name
+      attr_reader :name
+
+      # Similar categories
+      attr_reader :deps
+
+      def initialize(name,categories,&block)
+	@name = name
+	@deps = categories
+
+	super(&block)
+      end
+
+      def to_s
+	@name
       end
 
     end

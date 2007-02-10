@@ -41,7 +41,7 @@ module Ronin
 	@path = path
       end
 
-      def load_category(name)
+      def get_category(name)
 	unless has_category?(name)
 	  raise, CategoryNotFound, "category '#{name}' not found in repository '#{@name}'"
 	end
@@ -49,14 +49,35 @@ module Ronin
 	category_context_path = @path + File.SEPARATOR + name + File.SEPARATOR + name + '.rb'
 	if File.file?(category_context_path)
 	  load(category_context_path)
-	  return Category.new(self,name,$current_category_context)
+	  return Category.new(self,name,$current_block)
 	end
 
-	return Category.new(self,name,nil)
+	return Category.new(self,name)
       end
 
       def has_category?(category)
-	return File.directory?(@path + File.SEPARATOR + category)
+	return false if (category == 'categories' || category.include?('.') || category.include?(File.SEPARATOR))
+	return contains_directory?(category)
+      end
+
+      def contains?(path)
+	File.exists?(@path + File.SEPARATOR + path)
+      end
+
+      def contains_file?(path)
+	File.file?(@path + File.SEPARATOR + path)
+      end
+
+      def contains_directory?(path)
+	File.directory?(@path + File.SEPARATOR + path)
+      end
+
+      def load_file(path)
+	load(@path + File.SEPARATOR + path)
+      end
+
+      def require_file(path)
+	require(@path + File.SEPARATOR + path)
       end
 
     end
