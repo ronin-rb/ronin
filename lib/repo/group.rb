@@ -30,9 +30,6 @@ module Ronin
       # Name
       attr_reader :name
 
-      # Similar categories
-      attr_reader :deps
-
       def initialize(name,categories,&block)
 	@name = name
 	@deps = categories
