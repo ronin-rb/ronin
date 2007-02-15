@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'exceptions/actionnotfound'
+require 'repo/exceptions/actionnotfound'
 
 module Ronin
   module Repo
@@ -32,7 +32,8 @@ module Ronin
 	class_eval(&block) unless block.nil?
       end
 
-      def depend(repo=nil,name)
+      # TODO: split 'name' into [repo, category]
+      def depend(name)
 	if repo.nil?
 	  @deps << $current_config.get_group(name)
 	else
@@ -41,15 +42,15 @@ module Ronin
       end
 
       def setup(&block)
-	@actions[:setup] = &block
+	@actions[:setup] = block
       end
 
       def action(name,&block)
-	@actions[name] = &block
+	@actions[name] = block
       end
 
       def teardown(&block)
-	@actions[:teardown] = &block
+	@actions[:teardown] = block
       end
 
       def ronin_path(path)
@@ -85,7 +86,7 @@ module Ronin
 	  end
 	end
 
-	raise, ActionNotFound, "cannot find action '#{name}' in group '#{self}'"
+	raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
       end
 
       def perform_teardown

@@ -63,10 +63,10 @@ module Ronin
 
       if low<high
 	low-=(target.platform.arch.address_length*2)
-	buffer+=format("%%.%ud%%%lu$hn%%.%ud%%%lu$hn",low,target.pop_length,high-low,target->pop_length+1)
+	buffer+=format("%%.%ud%%%lu$hn%%.%ud%%%lu$hn",low,target.pop_length,high-low,target.pop_length+1)
       else
 	high-=(target.platform.arch.address_length*2)
-	buffer+=format("%%.%ud%%%lu$hn%%.%ud%%%lu$hn",high,target.pop_length+1,low-high,target->pop_length)
+	buffer+=format("%%.%ud%%%lu$hn%%.%ud%%%lu$hn",high,target.pop_length+1,low-high,target.pop_length)
       end
       buffer+=payload
 

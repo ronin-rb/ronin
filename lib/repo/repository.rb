@@ -19,9 +19,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'fileaccess'
-require 'category'
-require 'exceptions/categorynotfound'
+require 'repo/fileaccess'
+require 'repo/category'
+require 'repo/exceptions/categorynotfound'
 
 module Ronin
   module Repo
@@ -46,7 +46,7 @@ module Ronin
 
       def get_category(name)
 	unless has_category?(name)
-	  raise, CategoryNotFound, "category '#{name}' not found in repository '#{@name}'"
+	  raise CategoryNotFound, "category '#{name}' not found in repository '#{@name}'", caller
 	end
 
 	category_context_path = @path + File.SEPARATOR + name + File.SEPARATOR + name + '.rb'

@@ -54,7 +54,7 @@ module Ronin
 
     def build_buffer(target=get_target,payload="",pad=get_pad)
       if payload.length>target.buffer_length
-        raise PayloadOverflow, "the payload specified is too large for the target's buffer length", caller
+        raise PayloadSize, "the payload specified is too large for the target's buffer length", caller
       end
 
       buffer = ""

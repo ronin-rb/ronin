@@ -19,10 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'context'
-require 'fileaccess'
-require 'repository'
-require 'exceptions/actionnotfound'
+require 'repo/context'
+require 'repo/fileaccess'
 
 module Ronin
   module Repo
@@ -39,7 +37,7 @@ module Ronin
       # Path to the Category
       attr_reader :path
 
-      def initialize(repo,name,&block=nil)
+      def initialize(repo,name,&block)
 	@repo = repo
 	@name = name
 	@path = @repo.path + File.SEPARATOR + @name

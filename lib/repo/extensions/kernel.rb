@@ -24,7 +24,7 @@ module Ronin
     module Kernel
 
       def ronin_category(&block)
-	$current_block = &block
+	$current_block = block
       end
 
     end

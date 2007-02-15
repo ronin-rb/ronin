@@ -19,4 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'exceptions/restrictedtext'
+module Ronin
+  class PayloadSize < RuntimeError
+  end
+end

@@ -19,11 +19,11 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'category'
-require 'group'
-require 'extensions/kernel'
-require 'exceptions/repositorynotfound'
-require 'exceptions/categorynotfound'
+require 'repo/exceptions/repositorynotfound'
+require 'repo/exceptions/categorynotfound'
+require 'repo/repository'
+require 'repo/category'
+require 'repo/group'
 
 module Ronin
   module Repo
@@ -61,7 +61,7 @@ module Ronin
 
       def get_repository(name)
 	unless @repositories.has_key(name)
-	  raise, RepositoryNotFound, "repository '#{name}' not listed in config file '#{self}'"
+	  raise RepositoryNotFound, "repository '#{name}' not listed in config file '#{self}'", caller
 	end
 
 	return @repositories[name]
@@ -84,7 +84,7 @@ module Ronin
 	end
 
 	unless @groups.has_key?(name)
-	  raise, CategoryNotFound, "category '#{name}' not found in config file '#{self}'"
+	  raise CategoryNotFound, "category '#{name}' not found in config file '#{self}'", caller
 	end
 
 	group_stub = @groups[name]
@@ -100,7 +100,7 @@ module Ronin
 	  group_context_dir = group_stub.context_repo.path + File.SEPARATOR + group_context_dir
 	else
 	  unless File.file?(SHARE_PATH + group_context_path)
-	    raise, "category '#{name}' must have a context directory in atleast one repositories 'categories' directory"
+	    raise CategoryNotFound, "category '#{name}' must have a context directory in atleast one repositories 'categories' directory", caller
 	  end
 
 	  load(SHARE_PATH + group_context_path)
@@ -108,6 +108,7 @@ module Ronin
 	end
 
 	new_group = Group.new(name,group_categories,group_context_dir,$current_block)
+	$current_block = nil
 	group_cache << new_group
 	return new_group
       end
