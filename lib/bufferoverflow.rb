@@ -48,8 +48,8 @@ module Ronin
 
   class BufferOverflow < PlatformExploit
 
-    def initialize(vuln=nil)
-      super(vuln)
+    def initialize(advisory=nil)
+      super(advisory)
     end
 
     def build_buffer(target=get_target,payload="",pad=get_pad)
@@ -57,9 +57,7 @@ module Ronin
         raise PayloadSize, "the payload specified is too large for the target's buffer length", caller
       end
 
-      buffer = ""
-
-      buffer+=pad*((target.buffer_length-payload.length)/pad.length)
+      buffer = pad*((target.buffer_length-payload.length)/pad.length)
 
       pad_remaining = ((target.buffer_length-payload.length) % pad.length)
       buffer+=pad[0,pad_remaining] if pad_remaining != 0
