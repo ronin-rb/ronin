@@ -41,8 +41,8 @@ module Ronin
 
   class Parameters < Hash
 
-    def <<(param)
-      self[param.name] = param
+    def add_param(name,description="",value=nil)
+      self[name] = Param.new(name,description,value)
     end
 
   end
