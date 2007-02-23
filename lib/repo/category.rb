@@ -37,12 +37,14 @@ module Ronin
       # Path to the Category
       attr_reader :path
 
-      def initialize(repo,name,&block)
+      def initialize(repo,name)
 	@repo = repo
 	@name = name
 	@path = @repo.path + File.SEPARATOR + @name
 
-	super(&block)
+	config.cache_category(self)
+
+	load_context(@path + File.SEPARATOR + @name + '.rb')
       end
 
       def to_s
