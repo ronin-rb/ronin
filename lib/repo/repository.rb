@@ -48,13 +48,6 @@ module Ronin
 	unless has_category?(name)
 	  raise CategoryNotFound, "category '#{name}' not found in repository '#{@name}'", caller
 	end
-
-	category_context_path = @path + File.SEPARATOR + name + File.SEPARATOR + name + '.rb'
-	if File.file?(category_context_path)
-	  load(category_context_path)
-	  return Category.new(self,name,$current_block)
-	end
-
 	return Category.new(self,name)
       end
 
