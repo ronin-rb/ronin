@@ -38,6 +38,7 @@ module Ronin
       attr_reader :path
 
       def initialize(repo,name)
+	super
 	@repo = repo
 	@name = name
 	@path = @repo.path + File.SEPARATOR + @name
