@@ -19,17 +19,23 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/exceptions/repositorynotfound'
-require 'repo/exceptions/categorynotfound'
 require 'repo/repository'
 require 'repo/category'
 require 'repo/group'
+require 'repo/exceptions/repositorynotfound'
+require 'repo/exceptions/categorynotfound'
 
 module Ronin
   module Repo
 
-    # Current operating configuration
-    $current_config = nil
+    def open_config(path=CONFIG_PATH)
+      $current_config = Config.new(path)
+    end
+
+    def config
+      return open_config if $current_config.nil?
+      return $current_config
+    end
 
     class Config
 
@@ -48,7 +54,7 @@ module Ronin
       # Cache of loaded groups
       attr_reader :group_cache
 
-      def initialize(path=CONFIG_PATH)
+      def initialize(path)
 	@path = path
         @repositories = {}
 	@groups = {}
@@ -72,10 +78,11 @@ module Ronin
 	  return category if (category.repo.name==repo && category.name==name)
 	end
 
-        repository = get_repository(repo)
-        new_category = repository.load_category(name)
-	category_cache << new_category
-	return new_category
+        return get_repository(repo).load_category(name)
+      end
+
+      def cache_category(category)
+	@category_cache << category
       end
 
       def get_group(name)
@@ -87,30 +94,11 @@ module Ronin
 	  raise CategoryNotFound, "category '#{name}' not found in config file '#{self}'", caller
 	end
 
-	group_stub = @groups[name]
-	group_categories = []
-	group_stub.repositories.each do |repository|
-	  group_categories << repository.get_category(name)
-	end
+	return Group.new(@groups[name])
+      end
 
-	group_context_dir = 'categories' + File.SEPARATOR + name
-	group_context_path = group_context_dir + File.SEPARATOR + name + '.rb'
-	if group_stub.context_repo
-	  group_stub.context_repo.load_file(group_context_path)
-	  group_context_dir = group_stub.context_repo.path + File.SEPARATOR + group_context_dir
-	else
-	  unless File.file?(SHARE_PATH + group_context_path)
-	    raise CategoryNotFound, "category '#{name}' must have a context directory in atleast one repositories 'categories' directory", caller
-	  end
-
-	  load(SHARE_PATH + group_context_path)
-	  group_context_dir = SHARE_PATH + group_context_dir
-	end
-
-	new_group = Group.new(name,group_categories,group_context_dir,$current_block)
-	$current_block = nil
-	group_cache << new_group
-	return new_group
+      def cache_group(group)
+	@group_cache << group
       end
 
       def to_s
@@ -119,9 +107,16 @@ module Ronin
 
       private
 
+      # TODO: fill this in later, joyous lexical parsing.
       def parse_config
       end
 
     end
+
+    protected
+
+    # Current operating configuration
+    $current_config = nil
+
   end
 end
