@@ -19,53 +19,17 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/extensions/kernel'
 require 'repo/exceptions/actionnotfound'
+require 'repo/exceptions/contextnotfound'
 
 module Ronin
   module Repo
     class Context < Module
 
-      def initialize(&block)
-	@deps ||= []
-	@actions ||= {}
-
-	class_eval(&block) unless block.nil?
-      end
-
-      # TODO: split 'name' into [repo, category]
-      def depend(name)
-	if repo.nil?
-	  @deps << $current_config.get_group(name)
-	else
-	  @deps << $current_config.get_category(repo,name)
-	end
-      end
-
-      def setup(&block)
-	@actions[:setup] = block
-      end
-
-      def action(name,&block)
-	@actions[name] = block
-      end
-
-      def teardown(&block)
-	@actions[:teardown] = block
-      end
-
-      def ronin_path(path)
-      end
-
-      def ronin_file(name)
-      end
-
-      def ronin_dir(name)
-      end
-
-      def ronin_include(name)
-      end
-
-      def ronin_require(name)
+      def initialize
+	@deps = []
+	@actions = {}
       end
 
       def perform_setup
@@ -105,8 +69,67 @@ module Ronin
 
       protected
 
+      def require_context(path)
+	unless File.file?(path)
+	  raise ContextNotFound, "context file '#{path}' does not exist", caller
+	end
+
+ 	load(path)
+
+	unless has_context?
+	  raise ContextNotFound, "context file '#{path}' does not contain a context definition", caller
+	end
+	class_eval(get_context)
+      end
+
+      def load_context(path)
+	return unless File.file?(path)
+
+	load(path)
+	class_eval(get_context) if has_context?
+      end
+
       def method_missing(name,*args)
 	perform_action(name,*args)
+      end
+
+      private
+
+      # TODO: split 'name' into [repo, category]
+      def depend(name)
+	if repo.nil?
+	  @deps << config.get_group(name)
+	else
+	  @deps << config.get_category(repo,name)
+	end
+      end
+
+      def setup(&block)
+	@actions[:setup] = block
+      end
+
+      def action(name,&block)
+	@actions[name] = block
+      end
+
+      def teardown(&block)
+	@actions[:teardown] = block
+      end
+
+      def ronin_file(name)
+	contains_file?(name)
+      end
+
+      def ronin_dir(name)
+	contains_dir?(name)
+      end
+
+      def ronin_load(name)
+	load_file(name)
+      end
+
+      def ronin_require(name)
+	require_file(name)
       end
     end
   end
