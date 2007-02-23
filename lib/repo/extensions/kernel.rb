@@ -24,9 +24,24 @@ module Ronin
     module Kernel
 
       def ronin_category(&block)
-	$current_block = block
+	$current_context_block = block
       end
 
     end
+
+    def has_context?
+      $current_context_block.nil?
+    end
+
+    def get_context
+      block = $current_context_block
+      $current_context_block = nil
+      return block
+    end
+
+    protected
+
+    $current_context_block = nil
+
   end
 end
