@@ -28,11 +28,11 @@ module Ronin
       # Name of category group
       attr_reader :name
 
-      # Repository which contains the group context
-      attr_reader :context_repo
-
       # Repositories containing group member categories
       attr_reader :repositories
+
+      # Repository which contains the group context
+      attr_reader :context_repo
 
       def initialize(name,repositories)
 	@name = name
