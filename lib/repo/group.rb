@@ -32,12 +32,26 @@ module Ronin
       # Name
       attr_reader :name
 
-      def initialize(name,categories,path,&block)
-	@name = name
-	@deps = categories
-	@path = path
+      def initialize(group_stub)
+	super
 
-	super(&block)
+	@name = group_stub.name
+	config.cache_group(self)
+
+	group_stub.repositories.each do |repository|
+	  @deps << repository.get_category(@name)
+	end
+
+	group_context_dir = 'categories' + File.SEPARATOR + @name
+	if group_stub.context_repo
+	  @path = group_stub.context_repo.path + File.SEPARATOR + group_context_dir
+	else
+	  @path = SHARE_PATH + File.SEPARATOR + group_context_dir
+	  unless File.file?(@path + File.SEPARATOR + @name + '.rb')
+	    raise CategoryNotFound, "category '#{@name}' must have a context directory in atleast one repositories 'categories' directory", caller
+	  end
+	end
+        require_context(@path + File.SEPARATOR + @name + '.rb')
       end
 
       def contains?(path)
