@@ -20,6 +20,8 @@
 #
 
 module Ronin
-  class RepositoryNotFound < RuntimeError
+  module Repo
+    class RepositoryNotFound < RuntimeError
+    end
   end
 end

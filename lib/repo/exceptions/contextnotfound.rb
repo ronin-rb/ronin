@@ -21,7 +21,7 @@
 
 module Ronin
   module Repo
-    class CategoryNotFound < RuntimeError
+    class ContextNotFound < RuntimeError
     end
   end
 end

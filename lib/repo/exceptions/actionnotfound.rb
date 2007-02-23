@@ -20,6 +20,8 @@
 #
 
 module Ronin
-  class ActionNotFound < RuntimeError
+  module Repo
+    class ActionNotFound < RuntimeError
+    end
   end
 end
