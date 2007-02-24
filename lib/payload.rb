@@ -28,11 +28,13 @@ module Ronin
     attr_accessor :params
 
     # payload data
-    attr_accessor :data
+    attr_reader :data
 
     def initialize
       @params = Parameters.new
-      @data = nil
+      @data = ""
+
+      yield self if block_given?
     end
 
     def build!
@@ -40,6 +42,11 @@ module Ronin
 	@data = ""
 	yield self
       end
+    end
+
+    def clean!
+      yield self if block_given?
+      @data = nil
     end
 
   end
