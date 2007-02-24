@@ -52,11 +52,12 @@ module Ronin
       super(advisory)
     end
 
-    def build_buffer(target=get_target,payload="",pad=get_pad)
+    def build_buffer(target=get_target,payload="")
       if payload.length>target.buffer_length
         raise PayloadSize, "the payload specified is too large for the target's buffer length", caller
       end
 
+      pad = get_pad
       buffer = pad*((target.buffer_length-payload.length)/pad.length)
 
       pad_remaining = ((target.buffer_length-payload.length) % pad.length)
