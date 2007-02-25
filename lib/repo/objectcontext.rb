@@ -19,11 +19,46 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/exceptions'
-require 'repo/extensions'
 require 'repo/context'
-require 'repo/objectcontext'
-require 'repo/category'
-require 'repo/group'
-require 'repo/repository'
-require 'repo/config'
+
+module Ronin
+  module Repo
+    class ObjectContext < Context
+
+      # Object metadata
+      attr_reader :metadata
+
+      def initialize
+	super
+	@metadata = { :name => "", :version => "", :author => "" }
+      end
+
+      private
+
+      def name
+	return @metadata[:name]
+      end
+
+      def name=(new_name)
+	@metadata[:name] = new_name
+      end
+
+      def version
+	return @metadata[:version]
+      end
+
+      def version=(new_version)
+	@metadata[:version] = new_version
+      end
+
+      def author
+	return @metadata[:author]
+      end
+
+      def author=(new_author)
+	@metadata[:author] = new_author
+      end
+
+    end
+  end
+end
