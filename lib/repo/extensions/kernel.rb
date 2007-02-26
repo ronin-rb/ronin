@@ -21,13 +21,39 @@
 
 module Ronin
   module Repo
-    module Kernel
-
-      def ronin_category(&block)
-	$current_context_block = block
+    def Repo::attr_context(*contexts)
+      for context in contexts
+	module_eval <<-"end_eval"
+	  module Kernel
+	    def ronin_#{context}(&block)
+	      $current_context_block = block
+	    end
+	  end
+	end_eval
       end
-
     end
+
+    # Category context
+    attr_context :category
+
+    # Exploit context
+    attr_context :exploit
+
+    # Payload context
+    attr_context :payload
+
+    # PlatformExploit context
+    attr_context :platformexploit
+
+    # BufferOverflow context
+    attr_context :bufferoverflow
+
+    # FormatString context
+    attr_context :formatstring
+
+    protected
+
+    $current_context_block = nil
 
     def has_context?
       $current_context_block.nil?
@@ -38,10 +64,5 @@ module Ronin
       $current_context_block = nil
       return block
     end
-
-    protected
-
-    $current_context_block = nil
-
   end
 end
