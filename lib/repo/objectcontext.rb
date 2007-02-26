@@ -28,9 +28,11 @@ module Ronin
       # Object metadata
       attr_reader :metadata
 
-      def initialize(category)
-	super(category.path)
+      def initialize(path)
+	super(File.dirname(path))
 	@metadata = { :name => "", :version => "", :author => "" }
+	
+	load_context(path)
       end
 
       protected
