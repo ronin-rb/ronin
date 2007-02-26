@@ -26,22 +26,16 @@ module Ronin
   module Repo
     class Category < Context
 
-      include FileAccess
-
       # Repository
       attr_reader :repo
 
       # Name of the Category
       attr_reader :name
 
-      # Path to the Category
-      attr_reader :path
-
       def initialize(repo,name)
-	super
 	@repo = repo
 	@name = name
-	@path = @repo.path + File.SEPARATOR + @name
+	super(@repo.path + File.SEPARATOR + @name)
 
 	config.cache_category(self)
 

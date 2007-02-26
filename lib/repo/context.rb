@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/fileaccess'
 require 'repo/extensions/kernel'
 require 'repo/exceptions/actionnotfound'
 require 'repo/exceptions/contextnotfound'
@@ -27,7 +28,13 @@ module Ronin
   module Repo
     class Context < Module
 
-      def initialize
+      include FileAccess
+
+      # Path to the Category
+      attr_reader :path      
+
+      def initialize(path)
+	@path = path
 	@deps = []
 	@actions = {}
       end
@@ -69,6 +76,22 @@ module Ronin
 
       protected
 
+      def Context.attr_action(*ids)
+	for id in ids
+	  module_eval <<-"end_eval"
+	    def #{id}(&block)
+	      @actions[#{id}] = block
+	    end
+	  end_eval
+	end
+      end
+
+      # Setup action
+      attr_action :setup
+      
+      # Teardown action
+      attr_action :teardown
+
       def require_context(path)
 	unless File.file?(path)
 	  raise ContextNotFound, "context file '#{path}' does not exist", caller
@@ -89,12 +112,6 @@ module Ronin
 	class_eval(get_context) if has_context?
       end
 
-      def method_missing(name,*args)
-	perform_action(name,*args)
-      end
-
-      private
-
       # TODO: split 'name' into [repo, category]
       def depend(name)
 	if repo.nil?
@@ -104,16 +121,8 @@ module Ronin
 	end
       end
 
-      def setup(&block)
-	@actions[:setup] = block
-      end
-
       def action(name,&block)
 	@actions[name] = block
-      end
-
-      def teardown(&block)
-	@actions[:teardown] = block
       end
 
       def ronin_file(name)
@@ -131,6 +140,11 @@ module Ronin
       def ronin_require(name)
 	require_file(name)
       end
+
+      def method_missing(name,*args)
+	perform_action(name,*args)
+      end
+
     end
   end
 end

@@ -27,30 +27,28 @@ module Ronin
   module Repo
     class Group < Context
 
-      include FileAccess
-
       # Name
       attr_reader :name
 
       def initialize(group_stub)
-	super
-
 	@name = group_stub.name
+	group_context_dir = 'categories' + File.SEPARATOR + @name
+
+	if group_stub.context_repo
+	  super(group_stub.context_repo.path + File.SEPARATOR + group_context_dir)
+	else
+	  super(SHARE_PATH + File.SEPARATOR + group_context_dir)
+	  unless File.file?(@path + File.SEPARATOR + @name + '.rb')
+	    raise CategoryNotFound, "category '#{@name}' must have a context directory in atleast one repositories 'categories' directory", caller
+	  end
+	end
+
 	config.cache_group(self)
 
 	group_stub.repositories.each do |repository|
 	  @deps << repository.get_category(@name)
 	end
 
-	group_context_dir = 'categories' + File.SEPARATOR + @name
-	if group_stub.context_repo
-	  @path = group_stub.context_repo.path + File.SEPARATOR + group_context_dir
-	else
-	  @path = SHARE_PATH + File.SEPARATOR + group_context_dir
-	  unless File.file?(@path + File.SEPARATOR + @name + '.rb')
-	    raise CategoryNotFound, "category '#{@name}' must have a context directory in atleast one repositories 'categories' directory", caller
-	  end
-	end
         require_context(@path + File.SEPARATOR + @name + '.rb')
       end
 
@@ -75,6 +73,12 @@ module Ronin
 	end
       end
 
+      def to_s
+	@name
+      end
+
+      protected
+
       def load_file(path)
 	return FileAccess::load_file(path) if FileAccess::contains_file?(path)
 	@deps.each do |dep|
@@ -91,10 +95,6 @@ module Ronin
 	    return dep.require_file(path)
 	  end
 	end
-      end
-
-      def to_s
-	@name
       end
 
     end
