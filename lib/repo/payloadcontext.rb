@@ -19,44 +19,41 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/context'
+require 'exploit'
+require 'repo/objectcontext'
 
 module Ronin
   module Repo
-    class ObjectContext < Context
+    class PayloadContext < ObjectContext
 
-      # Object metadata
-      attr_reader :metadata
+      # The payload object
+      attr_reader :payload
 
       def initialize(category)
-	super(category.path)
-	@metadata = { :name => "", :version => "", :author => "" }
+	super(category)
+	@metadata[:advisory] = nil
+	@metadata[:restricted] = nil
+
+	@payload = nil
+      end
+
+      def perform_build
+	return unless payload
+	payload.build! { perform_action(:build) }
+      end
+
+      def perform_clean
+	return unless payload
+	payload.clean! { perform_action(:clean) }
       end
 
       protected
 
-      def ObjectContext.attr_metadata(*ids)
-	for id in ids
-	  module_eval <<-"end_eval"
-	    def #{id}
-	      @metadata[#{id}]
-	    end
-
-	    def #{id}=(data)
-	      @metadata[#{id}] = data
-	    end
-	  end_eval
-	end
-      end
-
-      # Name of the object
-      attr_metadata :name
+      # Build action for the payload
+      attr_action :build
       
-      # Version of the object
-      attr_metadata :version
-      
-      # Author of the object
-      attr_metadata :author
+      # Clean action for the payload
+      attr_action :clean
 
     end
   end
