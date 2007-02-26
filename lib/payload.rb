@@ -33,8 +33,6 @@ module Ronin
     def initialize
       @params = Parameters.new
       @data = ""
-
-      yield self if block_given?
     end
 
     def build!

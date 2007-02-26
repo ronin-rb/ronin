@@ -34,7 +34,8 @@ module Ronin
     # Overwrite
     attr_reader :overwrite
 
-    def initialize(pop_length,address,overwrite)
+    def initialize(product_version,platform,pop_length,address,overwrite,comments=nil)
+      super(product_version,platform,comments)
       @pop_length = pop_length 
       @address = address 
       @overwrite = overwrite

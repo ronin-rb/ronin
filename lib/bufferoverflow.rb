@@ -37,7 +37,8 @@ module Ronin
     # Instruction Pointer
     attr_reader :ip
 
-    def initialize(buffer_length,return_length,bp,ip)
+    def initialize(product_version,platform,buffer_length,return_length,bp,ip,comments=nil)
+      super(product_version,platform,comments)
       @buffer_length = buffer_length
       @return_length = return_length
       @bp = bp
