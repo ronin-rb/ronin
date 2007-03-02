@@ -28,11 +28,18 @@ module Ronin
       # Object metadata
       attr_reader :metadata
 
-      def initialize(path)
-	super(File.dirname(path))
+      # Path to object control file
+
+      def initialize(path,category)
+	super
+	@paths = category.paths
+	@path = path
+
 	@metadata = { :name => "", :version => "", :author => "" }
-	
-	load_context(path)
+      end
+
+      def initialize_object
+	depend_context(File.basename(@path,'.rb'),File.dirname(@path))
       end
 
       protected

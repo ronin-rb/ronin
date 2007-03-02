@@ -21,9 +21,6 @@
 
 require 'repo/repository'
 require 'repo/category'
-require 'repo/group'
-require 'repo/exceptions/repositorynotfound'
-require 'repo/exceptions/categorynotfound'
 
 module Ronin
   module Repo
@@ -45,60 +42,36 @@ module Ronin
       # Hash of loaded repositories
       attr_reader :repositories
 
-      # Hash of group stubs
-      attr_reader :groups
-
-      # Cache of loaded groups
-      attr_reader :category_cache
-
-      # Cache of loaded groups
-      attr_reader :group_cache
+      # Hash of all categories, each element containing the hash of
+      # respositories that contain that category.
+      attr_reader :categories
 
       def initialize(path)
 	@path = path
         @repositories = {}
-	@groups = {}
+	@categories = {}
 
-	@category_cache = []
-	@group_cache = []
-
-        # TODO: parse REPOS_CONFIG and create Hash of repositories.
+        # TODO: parse path and load data
       end
 
       def get_repository(name)
-	unless @repositories.has_key(name)
+	unless has_repository?(name)
 	  raise RepositoryNotFound, "repository '#{name}' not listed in config file '#{self}'", caller
 	end
 
 	return @repositories[name]
       end
 
-      def get_category(repo,name)
-	@category_cache.each do |category|
-	  return category if (category.repo.name==repo && category.name==name)
-	end
-
-        return get_repository(repo).load_category(name)
+      def has_repository?(name)
+	return @repositories.has_key?(name)
       end
 
-      def cache_category(category)
-	@category_cache << category
+      def get_category(name)
+        return Category.new(name)
       end
 
-      def get_group(name)
-	@group_cache.each do |group|
-	  return group if group.name==name
-	end
-
-	unless @groups.has_key?(name)
-	  raise CategoryNotFound, "category '#{name}' not found in config file '#{self}'", caller
-	end
-
-	return Group.new(@groups[name])
-      end
-
-      def cache_group(group)
-	@group_cache << group
+      def has_category?(name)
+	return @categories.has_key?(name)
       end
 
       def to_s

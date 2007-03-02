@@ -29,20 +29,22 @@ module Ronin
       # The payload object
       attr_reader :payload
 
-      def initialize(path)
-	super(path)
+      def initialize(path,category)
+	super(path,category)
+
 	@metadata[:advisory] = nil
 	@metadata[:restricted] = nil
 
 	@payload = nil
       end
 
-      def create_payload!
-	@payload = Payload.new
+      def initialize_object
+	ObjectContext::initialize_object
+	create_payload
       end
 
-      def destroy_payload!
-	@payload = nil
+      def create_payload
+	@payload = Payload.new
       end
 
       def perform_build

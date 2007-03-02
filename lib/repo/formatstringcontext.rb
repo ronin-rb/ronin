@@ -30,7 +30,7 @@ module Ronin
 	super(path)
       end
 
-      def create_exploit!
+      def create_exploit
 	@exploit = FormatString.new(self.advisory)
 	load_formatstring(@exploit)
       end

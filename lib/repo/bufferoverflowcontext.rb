@@ -30,7 +30,7 @@ module Ronin
 	super(path)
       end
 
-      def create_exploit!
+      def create_exploit
 	@exploit = BufferOverflow.new(self.advisory)
 	load_bufferoverflow(@exploit)
       end
