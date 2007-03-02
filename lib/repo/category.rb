@@ -23,6 +23,11 @@ require 'repo/context'
 require 'repo/exceptions/categorynotfound'
 require 'repo/config'
 require 'repo/objectcontext'
+require 'repo/exploitcontext'
+require 'repo/platformexploitcontext'
+require 'repo/bufferoverflowcontext'
+require 'repo/formatstringcontext'
+require 'repo/payloadcontext'
 
 module Ronin
   module Repo
@@ -79,25 +84,6 @@ module Ronin
 	return @name
       end
 
-    end
-
-    protected
-
-    def Repo::attr_object(*classes)
-      for c in classes
-	name = c.inspect
-	module_eval <<-"end_eval"
-	  class Category
-	    def new_#{name.downcase.chomp("context")}(path,*args)
-	      ronin_path(path) do |file|
-	        obj = #{name}.new(file,self,args)
-	        obj.initialize_object
-	        return obj
-	      end
-	    end
-	  end
-	end_eval
-      end
     end
   end
 end

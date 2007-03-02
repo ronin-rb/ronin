@@ -68,5 +68,25 @@ module Ronin
       attr_metadata :author
 
     end
+
+    def Repo::attr_object(*ids)
+      for id in ids
+	name = id.id2name
+	module_eval <<-"end_eval"
+	  class Category < Context
+	    def new_#{name.downcase.chomp("context")}(path,*args)
+	      ronin_path(path) do |file|
+	        obj = #{name}.new(file,self,args)
+	        obj.initialize_object
+	        return obj
+	      end
+	    end
+	  end
+	end_eval
+      end
+    end
+
+    # Object constructor for ObjectContext
+    attr_object :ObjectContext
   end
 end

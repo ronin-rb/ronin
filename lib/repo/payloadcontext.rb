@@ -66,5 +66,8 @@ module Ronin
       attr_action :clean
 
     end
+
+    # Object constructor for PayloadContext
+    attr_object :PayloadContext
   end
 end
