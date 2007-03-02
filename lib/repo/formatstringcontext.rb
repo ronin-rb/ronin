@@ -46,8 +46,5 @@ module Ronin
       end
 
     end
-
-    # Object constructor for FormatStringContext
-    attr_object :FormatStringContext
   end
 end

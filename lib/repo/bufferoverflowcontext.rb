@@ -46,8 +46,5 @@ module Ronin
       end
 
     end
-
-    # Object constructor for BufferOverflowContext
-    attr_object :BufferOverflowContext
   end
 end
