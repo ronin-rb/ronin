@@ -88,7 +88,7 @@ module Ronin
 	name = c.inspect
 	module_eval <<-"end_eval"
 	  class Category
-	    def new_#{name.downcase}(path,*args)
+	    def new_#{name.downcase.chomp("context")}(path,*args)
 	      ronin_path(path) do |file|
 	        obj = #{name}.new(file,self,args)
 	        obj.initialize_object
