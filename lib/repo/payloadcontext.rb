@@ -32,8 +32,8 @@ module Ronin
       def initialize(path,category)
 	super(path,category)
 
-	@metadata[:advisory] = nil
-	@metadata[:restricted] = nil
+	@metadata['advisory'] = nil
+	@metadata['restricted'] = nil
 
 	@payload = nil
       end
@@ -49,12 +49,12 @@ module Ronin
 
       def perform_build
 	return unless payload
-	payload.build! { perform_action(:build) }
+	payload.build! { perform_action('build') }
       end
 
       def perform_clean
 	return unless payload
-	payload.clean! { perform_action(:clean) }
+	payload.clean! { perform_action('clean') }
       end
 
       protected

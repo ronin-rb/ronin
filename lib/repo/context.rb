@@ -41,11 +41,11 @@ module Ronin
       end
 
       def perform_setup
-	perform_action(:setup)
+	perform_action('setup')
       end
 
       def perform_teardown
-	perform_action(:teardown)
+	perform_action('teardown')
       end
 
       def perform_action(name,context=nil,*args)
