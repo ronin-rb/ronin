@@ -25,7 +25,7 @@ require 'repo/category'
 module Ronin
   module Repo
 
-    def open_config(path=CONFIG_PATH)
+    def open_config(path=Config::CONFIG_PATH)
       $current_config = Config.new(path)
     end
 
@@ -46,7 +46,10 @@ module Ronin
       # respositories that contain that category.
       attr_reader :categories
 
-      def initialize(path)
+      # Path to config file
+      CONFIG_PATH = File.join(ENV['HOME'],'.ronin','config')
+
+      def initialize(path=CONFIG_PATH)
 	@path = path
         @repositories = {}
 	@categories = {}
