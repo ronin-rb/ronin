@@ -59,7 +59,7 @@ module Ronin
     def supported?(product)
       return false if @name!=product.name
       return false if @version!=product.version
-      return false if (@venders & [product.vendor]).empty?
+      return false if @venders.include?(product.vendor)
       return true
     end
 
@@ -69,8 +69,9 @@ module Ronin
 
     def contains?(product)
       self.each do |support|
-	break true if support.supported(product)
+	return true if support.supported(product)
       end
+      return false
     end
 
   end
