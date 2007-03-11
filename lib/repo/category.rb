@@ -43,6 +43,8 @@ module Ronin
 	super
 
 	@name = name
+	@objects = {}
+
 	depend(@name)
       end
 
@@ -80,44 +82,31 @@ module Ronin
 	return true
       end
 
+      def register_object(object)
+	name = object.class.name
+	unless object.kind_of?(ObjectContext)
+	  raise "Object #{name} does not inherit ObjectContext, thus cannot be registered", caller
+	end
+	@objects["load_#{name}"] = object.class
+      end
+
       def to_s
 	return @name
       end
 
       protected
 
-      def Category.attr_object(*ids)
-	for id in ids
-	  name = id.id2name
-	  module_eval <<-"end_eval"
-	    def new_#{name.downcase.chomp('context')}(path,*args)
-	      ronin_path(path) do |file|
-	        obj = #{name}.new(file,self,args)
-	        obj.initialize_object
-	        return obj
-	      end
-	    end
-	  end_eval
+      def method_missing(sym,*args)
+	name = sym.id2name
+	if @objects.has_key?(name)
+	  path = args.shift
+	  obj = @objects[name].new(self,*args)
+	  obj.load_object(path)
+	  return obj
 	end
+
+	return Context::send(sym,*args)
       end
-
-      # Object constructor for ObjectContext
-      attr_object :ObjectContext
-
-      # Object constructor for ExploitContext
-      attr_object :ExploitContext
-
-      # Object constructor for PlatformExploitContext
-      attr_object :PlatformExploitContext
-
-      # Object constructor for BufferOverflowContext
-      attr_object :BufferOverflowContext
-
-      # Object constructor for FormatStringContext
-      attr_object :FormatStringContext
-
-      # Object constructor for PayloadContext
-      attr_object :PayloadContext
 
     end
   end

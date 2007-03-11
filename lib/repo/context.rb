@@ -41,35 +41,40 @@ module Ronin
       end
 
       def perform_setup
-	perform_action('setup')
+	context_perform_action(top_scope,'setup')
       end
 
       def perform_teardown
-	perform_action('teardown')
+	context_perform_action(top_scope,'teardown')
       end
 
-      def perform_action(name,context=nil,*args)
-	if @actions.has_key?(name)
-	  if context
-	    unless @actions[name].has_key?(context)
-	      raise ActionNotFound, "cannot find action '#{context}::#{name}' in context '#{self}'", caller
-	    end
-
-	    return @actions[name][context].call(*args)
-	  end
-
-	  return @actions[name][current_scope].call(*args)
+      def perform_action(name,*args)
+	unless @actions.has_key?(name)
+	  raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
 	end
 
-	raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
+	return @actions[name][current_scope].call(*args)
       end
 
-      def has_action?(name,context=nil)
-	return false unless @actions.has_key(name)
-	if context
-	  return false unless @actions[name].has_key(context)
+      def context_perform_action(context,name,*args)
+	unless @actions.has_key?(name)
+	  raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
 	end
 
+	unless @actions[name].has_key?(context)
+	  raise ActionNotFound, "cannot find action '#{context}::#{name}' in context '#{self}'", caller
+	end
+
+	return @actions[name][context].call(*args)
+      end
+
+      def has_action?(name)
+	@actions.has_key?(name)
+      end
+
+      def context_has_action?(context,name)
+	return false unless @actions.has_key?(name)
+	return false unless @actions[name].has_key?(context)
 	return true
       end
 
@@ -97,6 +102,10 @@ module Ronin
 
       def current_scope
 	@scope[0]
+      end
+
+      def top_scope
+	@scope.last
       end
 
       def leave_scope
@@ -196,8 +205,8 @@ module Ronin
 	raise ContextNotFound, "context '#{name}' not found", caller
       end
 
-      def method_missing(id,*args)
-	perform_action(id,*args)
+      def method_missing(sym,*args)
+	perform_action(sym,*args)
       end
 
     end

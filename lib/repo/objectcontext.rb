@@ -20,26 +20,28 @@
 #
 
 require 'repo/context'
+require 'repo/category'
 
 module Ronin
   module Repo
     class ObjectContext < Context
 
       # Object metadata
-      attr_reader :metadata
+      attr_accessor :metadata
 
-      # Path to object control file
+      # Object that is wrapped
+      attr_reader :object
 
-      def initialize(path,category)
+      def initialize(category)
 	super
 	@paths = category.paths
-	@path = path
+	@metadata = { 'name' => "", 'version' => "", 'author' => "" }
 
-	@metadata = { :name => "", :version => "", :author => "" }
+	category.register_object(self)
       end
 
-      def initialize_object
-	depend_context(File.basename(@path,'.rb'),File.dirname(@path))
+      def load_object(path)
+	depend_context(File.basename(path,'.rb'),File.dirname(path))
       end
 
       protected
@@ -48,7 +50,7 @@ module Ronin
 	for id in ids
 	  module_eval <<-"end_eval"
 	    def #{id}
-	      @metadata[#{id}]
+	      return @metadata[#{id}] if @metadata[#{id}]
 	    end
 
 	    def #{id}=(data)
@@ -66,6 +68,18 @@ module Ronin
       
       # Author of the object
       attr_metadata :author
+
+      def method_missing(sym,*args)
+	if @object
+	  if @object.method_defined?(sym)
+	    @object.send(sym,*args) do |*obj_args|
+	     perform_action(sym.id2name,@object,*obj_args) if has_action?(sym.id2name)
+	    end
+	  end
+	end
+
+	Context::send(sym,*args)
+      end
 
     end
   end
