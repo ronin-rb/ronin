@@ -19,8 +19,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/exceptions/actionnotfound'
-require 'repo/exceptions/contextnotfound'
-require 'repo/exceptions/objectnotfound'
-require 'repo/exceptions/categorynotfound'
-require 'repo/exceptions/repositorynotfound'
+module Ronin
+  module Repo
+    class ObjectNotFound < RuntimeError
+    end
+  end
+end

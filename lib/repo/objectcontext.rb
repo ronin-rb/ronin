@@ -36,11 +36,9 @@ module Ronin
 	super
 	@paths = category.paths
 	@metadata = { 'name' => "", 'version' => "", 'author' => "" }
-
-	category.register_object(self)
       end
 
-      def load_object(path)
+      def load(path)
 	depend_context(File.basename(path,'.rb'),File.dirname(path))
       end
 

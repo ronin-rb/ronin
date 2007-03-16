@@ -22,6 +22,7 @@
 require 'repo/extensions/kernel'
 require 'repo/exceptions/actionnotfound'
 require 'repo/exceptions/contextnotfound'
+require 'repo/exceptions/objectnotfound'
 
 module Ronin
   module Repo
@@ -95,22 +96,6 @@ module Ronin
       
       # Teardown action
       attr_action :teardown
-
-      def enter_scope(name)
-	@scope.unshift(name)
-      end
-
-      def current_scope
-	@scope[0]
-      end
-
-      def top_scope
-	@scope.last
-      end
-
-      def leave_scope
-	@scope.shift
-      end
 
       def action(id,&block)
 	@actions[id][current_scope] = block
@@ -205,8 +190,36 @@ module Ronin
 	raise ContextNotFound, "context '#{name}' not found", caller
       end
 
+      def load_object(path)
+	ronin_file(path) do |file|
+	  obj = ObjectContext.new(self)
+	  obj.load(file)
+	  return obj
+	end
+
+	raise ObjectNotFound, "object file '#{path}' not found", caller
+      end
+
       def method_missing(sym,*args)
 	perform_action(sym,*args)
+      end
+
+      private
+
+      def enter_scope(name)
+	@scope.unshift(name)
+      end
+
+      def current_scope
+	@scope[0]
+      end
+
+      def top_scope
+	@scope.last
+      end
+
+      def leave_scope
+	@scope.shift
       end
 
     end
