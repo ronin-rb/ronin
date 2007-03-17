@@ -26,6 +26,7 @@ require 'exploit'
 require 'platformexploit'
 require 'bufferoverflow'
 require 'formatstring'
+require 'asm'
 require 'repo'
 
 module Ronin

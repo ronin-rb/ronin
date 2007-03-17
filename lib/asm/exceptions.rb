@@ -1,0 +1,1 @@
+require 'asm/exceptions/redefinition'
