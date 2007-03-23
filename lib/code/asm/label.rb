@@ -32,6 +32,10 @@ module Ronin
 	@name = name
       end
 
+      def to_s
+	@name.id2name
+      end
+
     end
   end
 end

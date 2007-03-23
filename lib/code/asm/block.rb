@@ -19,23 +19,28 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'asm/type'
-require 'asm/reg'
-require 'asm/variable'
-require 'asm/label'
-require 'asm/instruction'
-require 'asm/func'
-require 'asm/exceptions/redefinition'
+require 'code/asm/archtarget'
+require 'code/variable'
+require 'code/asm/type'
+require 'code/asm/reg'
+require 'code/asm/label'
+require 'code/asm/instruction'
+require 'code/asm/func'
+require 'code/asm/exceptions/redefinition'
 
 module Ronin
   module Asm
     class Block
 
-      def initialize(&block)
+      # Target architecture
+      attr_reader :target
+
+      def initialize(target,&block)
+	@target = target
 	@functions = {}
 	@labels = {}
-	@variables = {}
 
+	@data = []
 	@blocks = []
 	@instructions = []
 
@@ -46,13 +51,18 @@ module Ronin
 	instance_eval(&block)
       end
 
-      def emit(op,*args)
-	new_inst = Instruction.new(op,*args)
-	@instructions << new_inst
-	return new_inst
+      def block(&block)
+	new_block = Block.new(@arch_target,&block)
+	@blocks << new_block
+	@instructions << new_block
+	return new_block
       end
 
       def label(name)
+	if @functions.has_key?(name)
+	  raise Redefinition, "cannot redefine function '#{name}' as label", caller
+	end
+
 	if @labels.has_key?(name)
 	  raise Redefinition, "cannot redefine label '#{name}'", caller
 	end
@@ -63,121 +73,38 @@ module Ronin
 	return new_label
       end
 
-      def data(type,name,data=nil)
-	if @functions.has_key?(name)
-	  raise Redefinition, "cannot redefine function '#{name}' as a variable", caller
-	end
-
-	new_var = Variable.new(type,name,data)
-	@variables[name] = new_var
-	@instructions << new_var
-	return new_var
-      end
-
-      def nop
-	emit(:nop)
-      end
-
-      def mov(src,dest)
-	emit(:mov,src,dest)
-      end
-
-      def add(src,dest)
-	emit(:add,src,dest)
-      end
-
-      def sub(src,dest)
-	emit(:sub,src,dest)
-      end
-
-      def mul(src,dest)
-	emit(:mul,src,dest)
-      end
-
-      def div(src,dest)
-	emit(:div,src,dest)
-      end
-
-      def and(src,dest)
-	emit(:and,src,dest)
-      end
-
-      def or(src,dest)
-	emit(:or,src,dest)
-      end
-
-      def xor(src,dest)
-	emit(:xor,src,dest)
-      end
-
-      def cmp(data1,data2)
-	emit(:cmp,data1,data2)
-      end
-
-      def jmp(dest)
-	emit(:jmp,dest)
-      end
-
-      def je(dest)
-	emit(:je,dest)
-      end
-
-      def jne(dest)
-	emit(:jne,dest)
-      end
-
-      def jg(dest)
-	emit(:jg,dest)
-      end
-
-      def jge(dest)
-	emit(:jge,dest)
-      end
-
-      def jl(dest)
-	emit(:jl,dest)
-      end
-
-      def jle(dest)
-	emit(:jle,dest)
-      end
-
-      def jz(dest)
-	emit(:jz,dest)
-      end
-
-      def jnz(dest)
-	emit(:jnz,dest)
-      end
-
-      def push(src)
-	emit(:push,src)
-      end
-
-      def pop(dest)
-	emit(:pop,dest)
-      end
-
-      def call(dest)
-	emit(:call,dest)
-      end
-
-      def ret
-	emit(:ret)
+      def data(&block)
+	new_data = DataBlock.new(&block)
+	@data << new_data
+	return new_data
       end
 
       def func(name,*args,&block)
-	if @variables.has_key(name)
-	  raise Redefinition, "cannot redefine variable '#{name}' as a function", caller
+	if @labels.has_key?(name)
+	  raise Redefinition, "cannot redefine function '#{name}' as label", caller
 	end
 
-	@functions[name] = Func.new(name,*args,&block)
+	if @functions.has_key?(name)
+	  raise Redefinition, "cannot redefine function '#{name}'", caller
+	end
+
+	new_func = Func.new(name,*args,&block)
+	@functions[name] = new_func
+	return new_func
       end
 
       protected
 
       def method_missing(sym,*args)
-	emit(sym,*args)
+	return @target.reg if @target.has_reg?(sym)
+
+        if @target.has_instruction?(sym)
+	  new_instruction = @target.instruction(sym,*args)
+	  @instructions << new_instruction
+	  return new_instruction
+	end
+
+	return sym
       end
 
     end

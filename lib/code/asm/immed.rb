@@ -56,6 +56,20 @@ module Ronin
 	Immed.new(self,disp)
       end
 
+      def to_s
+	if index==1
+	  return "(#{@base},1,#{@scale})"
+	elsif index!=0
+	  if scale==1
+	    return "(#{@base},#{@index})"
+	  else
+	    return "(#{@base},#{@index},#{@scale})"
+	  end
+	else
+	  return "(#{@base})"
+	end
+      end
+
     end
   end
 end

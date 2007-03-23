@@ -38,6 +38,10 @@ module Ronin
 	@name = name
       end
 
+      def to_s
+	@name.id2name
+      end
+
     end
 
     class Func < Block
@@ -48,21 +52,11 @@ module Ronin
       # Arguments of the function
       attr_reader :args
 
-      def initialize(name,*args,&block)
+      def initialize(arch_target,name,*args,&block)
 	@name = name
 	@args = args
 
-	super(&block)
-      end
-
-      protected
-
-      def resolve(sym)
-	@args.each do |arg|
-	  return arg if arg.name==sym
-	end
-
-	return Block::resolve(sym)
+	super(arch_target,&block)
       end
 
     end

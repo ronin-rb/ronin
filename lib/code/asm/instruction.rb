@@ -36,6 +36,20 @@ module Ronin
 	@args = args
       end
 
+      def to_s
+	str = "#{@op}"
+
+	unless @args.empty
+	  str+="\t"
+	  @args[0,@args.length-1].each do |arg|
+	    str+="#{arg}, "
+	  end
+	  str+="#{@args.last}"
+	end
+
+	return str
+      end
+
     end
   end
 end
