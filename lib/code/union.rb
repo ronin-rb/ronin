@@ -1,20 +1,26 @@
 require 'code/datatype'
-require 'code/group'
+require 'code/datablock'
 
 module Ronin
   module Code
     class Union < DataType
 
-      include Group
-
       # Name of the union
       attr_reader :name
 
-      def initialize(name)
+      # Data block of the union
+      attr_reader :data
+
+      def initialize(name,&block)
 	super(:union)
 	@name = name
+	@data = DataBlock.new(&block)
       end
 
+    end
+
+    def union(name)
+      Union.new(name)
     end
   end
 end

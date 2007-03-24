@@ -1,9 +1,8 @@
 require 'platform'
-require 'code/asm/archtarget'
 
 module Ronin
   module Asm
-    class PlatformTarget < ArchTarget
+    class PlatformTarget
 
       # Platform target
       attr_reader :platform
@@ -12,17 +11,17 @@ module Ronin
       attr_reader :syscalls
 
       def initialize(platform)
-	super(platform.arch)
 	@platform = platform
 	@syscalls = {}
       end
 
       def has_syscall?(sym)
-	@syscalls.has_key?(sym)
+	return false unless @syscalls.has_key?(@platform.arch.name)
+	return @syscalls[@platform.arch.name].has_key?(sym)
       end
 
       def syscall(sym)
-	@syscalls[sym]
+	@syscalls[@platform.arch.name][sym]
       end
 
       def to_s

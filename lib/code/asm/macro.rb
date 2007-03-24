@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'code/asm/platformtarget'
 require 'code/asm/block'
 
 module Ronin
@@ -28,10 +29,10 @@ module Ronin
       # Name of the macro
       attr_reader :name
 
-      def initialize(arch_target,name,&block)
+      def initialize(name,target,&block)
 	@name = name
 
-	super(arch_target,&block)
+	super(target,&block)
       end
 
     end

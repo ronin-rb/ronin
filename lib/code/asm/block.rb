@@ -19,13 +19,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/asm/archtarget'
-require 'code/variable'
+require 'code/asm/platformtarget'
 require 'code/asm/type'
 require 'code/asm/reg'
-require 'code/asm/label'
 require 'code/asm/instruction'
 require 'code/asm/func'
+require 'code/asm/label'
 require 'code/asm/exceptions/redefinition'
 
 module Ronin
@@ -40,7 +39,6 @@ module Ronin
 	@functions = {}
 	@labels = {}
 
-	@data = []
 	@blocks = []
 	@instructions = []
 
@@ -64,7 +62,7 @@ module Ronin
 	end
 
 	if @labels.has_key?(name)
-	  raise Redefinition, "cannot redefine label '#{name}'", caller
+	 raise Redefinition, "cannot redefine label '#{name}'", caller
 	end
 
 	new_label = Label.new(name)
@@ -73,13 +71,7 @@ module Ronin
 	return new_label
       end
 
-      def data(&block)
-	new_data = DataBlock.new(&block)
-	@data << new_data
-	return new_data
-      end
-
-      def func(name,*args,&block)
+      def func(name,&block)
 	if @labels.has_key?(name)
 	  raise Redefinition, "cannot redefine function '#{name}' as label", caller
 	end
@@ -88,7 +80,7 @@ module Ronin
 	  raise Redefinition, "cannot redefine function '#{name}'", caller
 	end
 
-	new_func = Func.new(name,*args,&block)
+	new_func = Func.new(name,&block)
 	@functions[name] = new_func
 	return new_func
       end
@@ -96,14 +88,24 @@ module Ronin
       protected
 
       def method_missing(sym,*args)
+	# Resolve registers
 	return @target.reg if @target.has_reg?(sym)
 
+	# Resolve instructions
         if @target.has_instruction?(sym)
 	  new_instruction = @target.instruction(sym,*args)
 	  @instructions << new_instruction
 	  return new_instruction
 	end
 
+	# Resolve syscalls
+	return @target.syscall(sym) if @target.has_syscall?(sym)
+
+	# Early resolution of local functions and labels
+	return @functions[sym] if @functions.has_key?(sym)
+	return @labels[sym] if @labels.has_key?(sym)
+
+	# Return unknown symbol for later resolution
 	return sym
       end
 

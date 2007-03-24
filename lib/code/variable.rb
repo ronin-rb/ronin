@@ -19,6 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'code/exceptions/dereference'
+
 module Ronin
   module Code
     class Variable
@@ -29,18 +31,38 @@ module Ronin
       # Name of the variable
       attr_reader :name
 
-      # Variable's data
-      attr_reader :data
+      # Variable's value
+      attr_reader :value
 
-      def initialize(type,name,data=nil)
+      def initialize(type,name,value=nil)
 	@type = type
 	@name = name
 
-	if data
-	  @data = data.clone
+	if value
+	  @value = value.clone
 	else
-	  @data = nil
+	  @value = nil
 	end
+      end
+
+      def =(value)
+	@value = value
+      end
+
+      def addr
+	Ref.new(self)
+      end
+
+      def data
+	unless @type==DataType.POINTER
+	  raise Dereference, "cannot dereference non-pointer data '#{@name}'", caller
+	end
+
+	return Deref.new(self)
+      end
+
+      def method_missing(sym,*args)
+	Variable.new(@type,@name,@value.send(sym,args)) if @data
       end
 
     end

@@ -19,44 +19,18 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'asm/type'
-require 'asm/block'
+require 'code/asm/block'
 
 module Ronin
   module Asm
-
-    class Arg < Type
-
-      # Type of argument
-      attr_reader :type
-
-      # Name of the argument
-      attr_reader :name
-
-      def initialize(type,name)
-	@type = type
-	@name = name
-      end
-
-      def to_s
-	@name.id2name
-      end
-
-    end
-
     class Func < Block
 
       # Name of the function
       attr_reader :name
 
-      # Arguments of the function
-      attr_reader :args
-
-      def initialize(arch_target,name,*args,&block)
+      def initialize(target,name,&block)
 	@name = name
-	@args = args
-
-	super(arch_target,&block)
+	super(target,&block)
       end
 
     end
