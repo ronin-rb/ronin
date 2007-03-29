@@ -30,20 +30,43 @@ module Ronin
     # payload data
     attr_reader :data
 
-    def initialize
+    def initialize(&block)
       @params = Parameters.new
       @data = ""
+
+      @build_block = nil
+      @clean_block = nil
+
+      instance_eval(&block) if block
     end
 
-    def build!
+    def builder(&block)
+      @build_block = block
+    end
+
+    def build
       if block_given?
 	@data = ""
-	yield self
+
+	if block_given?
+	  yield self
+	elsif @build_block
+	  @build_block.call(self)
+	end
       end
     end
 
-    def clean!
-      yield self if block_given?
+    def cleaner(&block)
+      @clean_block = block
+    end
+
+    def clean
+      if block_given?
+        yield self
+      elsif @clean_block
+	@clean_block.call(self)
+      end
+
       @data = nil
     end
 

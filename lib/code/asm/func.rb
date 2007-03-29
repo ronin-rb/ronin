@@ -28,7 +28,7 @@ module Ronin
       # Name of the function
       attr_reader :name
 
-      def initialize(target,name,&block)
+      def initialize(name,target,&block)
 	@name = name
 	super(target,&block)
       end

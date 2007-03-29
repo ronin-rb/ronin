@@ -23,26 +23,92 @@ require 'code/asm/platformtarget'
 require 'code/asm/type'
 require 'code/asm/reg'
 require 'code/asm/instruction'
-require 'code/asm/func'
 require 'code/asm/label'
 require 'code/asm/exceptions/redefinition'
 
 module Ronin
   module Asm
-    class Block
+    class Block < Type
 
-      # Target architecture
+      # Target platform
       attr_reader :target
+
+      # Labels
+      attr_reader :labels
+
+      # Functions
+      attr_reader :functions
+
+      # Sub-Blocks
+      attr_reader :blocks
+
+      # Instructions
+      attr_reader :instructions
 
       def initialize(target,&block)
 	@target = target
-	@functions = {}
 	@labels = {}
+	@functions = {}
 
 	@blocks = []
 	@instructions = []
 
 	inline(&block) if block
+      end
+
+      def emit(ins)
+	if ins.kind_of?(Block)
+	  link(ins)
+	elsif ins.kind_of?(Label)
+	  emit_label(ins)
+	else
+	  @instructions << ins
+	end
+      end
+
+      def link(block)
+	if block.kind_of?(Func)
+	  link_func(block)
+	elsif block.kind_of?(Block)
+	  @blocks << block
+	  @instructions << block
+	else
+	  raise "cannot link in non-block", caller
+	end
+      end
+
+      def emit_label(label)
+	if is_restricted?(label.name)
+	  raise Restricted, "cannot define label with name '#{label.name}'", caller
+	end
+
+	if @functions.has_key?(label.name)
+	  raise Redefinition, "cannot redefine function '#{label.name}' as label", caller
+	end
+
+	if @labels.has_key?(label.name)
+	 raise Redefinition, "cannot redefine label '#{label.name}'", caller
+	end
+
+	@labels << label
+	@instructions << label
+      end
+
+      def link_func(func)
+	if is_restricted?(func.name)
+	  raise Restricted, "cannot define function with name '#{func.name}'", caller
+	end
+
+	if @labels.has_key?(func.name)
+	  raise Redefinition, "cannot redefine label '#{func.name}' as function", caller
+	end
+
+	if @functions.has_key?(func.name)
+	 raise Redefinition, "cannot redefine function '#{func.name}'", caller
+	end
+
+	@functions << func
+	@instructions << func
       end
 
       def inline(&block)
@@ -51,41 +117,53 @@ module Ronin
 
       def block(&block)
 	new_block = Block.new(@arch_target,&block)
-	@blocks << new_block
-	@instructions << new_block
+	link(block)
 	return new_block
       end
 
       def label(name)
-	if @functions.has_key?(name)
-	  raise Redefinition, "cannot redefine function '#{name}' as label", caller
-	end
-
-	if @labels.has_key?(name)
-	 raise Redefinition, "cannot redefine label '#{name}'", caller
-	end
-
 	new_label = Label.new(name)
-	@labels[name] = new_label
-	@instructions << new_label
+	emit_label(new_label)
 	return new_label
       end
 
       def func(name,&block)
-	if @labels.has_key?(name)
-	  raise Redefinition, "cannot redefine function '#{name}' as label", caller
-	end
-
-	if @functions.has_key?(name)
-	  raise Redefinition, "cannot redefine function '#{name}'", caller
-	end
-
 	new_func = Func.new(name,&block)
-	@functions[name] = new_func
+	link_func(new_func)
 	return new_func
       end
 
+      def resolve_sym(sym)
+	if sym.kind_of?(Symbol)
+	  new_sym = symbol(sym)
+
+	  unless new_sym
+	    raise Unresolved, "cannot resolve symbol '#{sym}'", caller
+	  end
+	  return new_sym
+	end
+	return sym
+      end
+
       protected
+
+      def symbol(sym)
+	return @functions[sym] if @functions.has_key?(sym)
+	return @labels[sym] if @labels.has_key?(sym)
+
+	@blocks.each do |block|
+	  resolved = block.symbol(sym)
+	  return resolved if resolved
+	end
+	return nil
+      end
+
+      def is_restricted?(sym)
+	return true if @target.has_reg?(sym)
+	return true if @target.has_instruction?(sym)
+	return true if @target.has_syscall?(sym)
+	return false
+      end
 
       def method_missing(sym,*args)
 	# Resolve registers

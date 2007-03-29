@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'asm/type'
+require 'code/asm/type'
 
 module Ronin
   module Asm
@@ -54,6 +54,21 @@ module Ronin
 
       def +(disp)
 	Immed.new(self,disp)
+      end
+
+      def is_resolved?
+	return false if @base.kind_of?(Symbol)
+	return false if @index.kind_of?(Symbol)
+	return false if @scale.kind_of?(Symbol)
+	return true
+      end
+
+      def resolve(block)
+	unless is_resolved?
+	  return Immed.new(block.resolve_sym(@base),block.resolve_sym(@index),block.resolve_sym(@scale))
+	end
+
+	return self
       end
 
       def to_s

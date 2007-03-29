@@ -19,9 +19,19 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'code/asm/exceptions/unresolved'
+
 module Ronin
   module Asm
     class Type
+
+      def is_resolved?
+	return true
+      end
+
+      def resolve(block)
+	return self
+      end
 
       def compile(context)
       end

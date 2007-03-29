@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'asm/type'
+require 'code/asm/type'
 
 module Ronin
   module Asm
@@ -36,18 +36,35 @@ module Ronin
 	@args = args
       end
 
-      def to_s
-	str = "#{@op}"
-
-	unless @args.empty
-	  str+="\t"
-	  @args[0,@args.length-1].each do |arg|
-	    str+="#{arg}, "
+      def is_resolved?
+	@args.each do |arg|
+	  if arg.kind_of?(Symbol)
+	    return false
+	  elsif arg.kind_of?(Type)
+	    return false unless arg.is_resolved?
 	  end
-	  str+="#{@args.last}"
+	end
+	return true
+      end
+
+      def resolve(block)
+	unless is_resolved?
+	  new_args = @args.map do |arg|
+	    block.resolve_sym(arg)
+	  end
+
+	  return Instruction.new(@op,*new_args)
 	end
 
-	return str
+	return self
+      end
+
+      def to_s
+	unless @args.empty
+	  return "#{@op}\t#{@args * ', '}"
+	else
+	  return "#{@op}"
+	end
       end
 
     end

@@ -19,8 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'asm/type'
-require 'asm/immed'
+require 'code/asm/type'
+require 'code/asm/immed'
 
 module Ronin
   module Asm
