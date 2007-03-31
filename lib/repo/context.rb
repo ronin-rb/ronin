@@ -28,55 +28,71 @@ module Ronin
   module Repo
     class Context < Module
 
-      # Dependencies of the Context
-      attr_reader :deps
+      # Name of context
+      attr_reader :name
 
-      # Path to the Context
-      attr_reader :paths
+      # Working directory of the context
+      attr_reader :wd
 
-      def initialize
+      # Scopes of the context
+      attr_reader :scopes
+
+      def initialize(path)
+	unless File.file?(path)
+	  raise ContextNotFound, "context '#{name}' does not exist", caller
+	end
+
+	@name = scope_name(path)
+	@wd = File.dirname(path)
+	@actions = {}
 	@deps = []
-	@scope = []
-	@paths = []
-	@actions = Hash.new { Hash.new }
+
+	load(file)
+	module_eval(get_context) if has_context?
       end
 
       def perform_setup
-	context_perform_action(top_scope,'setup')
+	perform_action(:setup)
       end
 
       def perform_teardown
-	context_perform_action(top_scope,'teardown')
-      end
-
-      def perform_action(name,*args)
-	unless @actions.has_key?(name)
-	  raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
-	end
-
-	return @actions[name][current_scope].call(*args)
-      end
-
-      def context_perform_action(context,name,*args)
-	unless @actions.has_key?(name)
-	  raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
-	end
-
-	unless @actions[name].has_key?(context)
-	  raise ActionNotFound, "cannot find action '#{context}::#{name}' in context '#{self}'", caller
-	end
-
-	return @actions[name][context].call(*args)
+	perform_action(:teardown)
       end
 
       def has_action?(name)
-	@actions.has_key?(name)
+	return true if @actions.has_key?(name)
+
+	@scopes.each do |sub_scope|
+	  return true if sub_scope.has_action?(name)
+	end
+	return false
       end
 
-      def context_has_action?(context,name)
-	return false unless @actions.has_key?(name)
-	return false unless @actions[name].has_key?(context)
-	return true
+      def perform_action(name,*args)
+	return @actions[name].call(*args) if @actions.has_key?(name)
+
+	@scopes.each do |sub_scope|
+	  return sub_scope.perform_action(name,*args) if sub_scope.has_action?(name)
+	end
+	raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
+      end
+
+      def has_scope?(name)
+	return true if name==@name
+
+	@scopes.each do |scope|
+	  return true if scope.has_scope?(name)
+	end
+	return false
+      end
+
+      def scope(name)
+	return self if name==@name
+
+	@scopes.each do |sub_scope|
+	  return sub_scope.scope(name) if sub_scope.has_scope?(name)
+	end
+	return nil
       end
 
       protected
@@ -85,7 +101,7 @@ module Ronin
 	for id in ids
 	  module_eval <<-"end_eval"
 	    def #{id}(&block)
-	      @actions[#{id}][current_scope] = block
+	      action(:#{id},&block)
 	    end
 	  end_eval
 	end
@@ -97,22 +113,27 @@ module Ronin
       # Teardown action
       attr_action :teardown
 
-      def action(id,&block)
-	@actions[id][current_scope] = block
+      def action(sym,&block)
+	@actions[sym] = block
       end
 
-      def ronin_path(path,&block)
-	@paths.each do |wd|
-	  real_path = File.join(wd,path)
-	  block.call(real_path) if File.exists?(real_path)
+      def ronin_path(path)
+	real_path = File.join(@wd,path)
+
+        unless File.exists?(real_path)
+	  return nil
+	end
+
+	if block_given?
+	  yield real_path 
+	else
+	  return real_path
 	end
       end
 
       def ronin_glob(pattern,&block)
-	@paths.each do |wd|
-	  Dir.glob(File.join(wd,pattern)).each do |path|
-	    block.call(path)
-	  end
+	Dir.glob(File.join(@wd,pattern)).each do |path|
+	  block.call(path)
 	end
       end
 
@@ -161,33 +182,13 @@ module Ronin
 	return false
       end
 
-      def depend_context(name,path=nil)
-	if path
-	  context_path = File.join(path,name,'.rb')
-	  unless File.file?(context_path)
-	    raise ContextNotFound, "context file '#{context_path}' does not exist", caller
-	  end
-
-	  @paths << path unless @paths.include?(path)
+      def depend(path)
+	ronin_path(path) do |file|
+	  @scopes << Context.new(path) unless has_scope?(scope_name(path))
+	  return
 	end
 
-	return load_context(name)
-      end
-
-      def load_context(name)
-	return false if @deps.include?(name)
-
-	ronin_file(name + '.rb') do |file|
-	  return false unless require(file)
-
-	  @deps << name
-	  enter_scope(name)
-	  class_eval(get_context) if has_context?
-	  leave_scope
-	  return true
-	end
-
-	raise ContextNotFound, "context '#{name}' not found", caller
+	raise ContextNotFound, "context '#{name}' does not exist", caller
       end
 
       def load_object(path)
@@ -200,26 +201,13 @@ module Ronin
 	raise ObjectNotFound, "object file '#{path}' not found", caller
       end
 
+      def scope_name(path)
+	File.basename(path).chomp(File.extname(path))
+      end
+
       def method_missing(sym,*args)
-	perform_action(sym,*args)
-      end
-
-      private
-
-      def enter_scope(name)
-	@scope.unshift(name)
-      end
-
-      def current_scope
-	@scope[0]
-      end
-
-      def top_scope
-	@scope.last
-      end
-
-      def leave_scope
-	@scope.shift
+	return scope(sym.id2name) if has_scope?(sym.id2name)
+	return perform_action(sym,*args) if has_action?(sym)
       end
 
     end

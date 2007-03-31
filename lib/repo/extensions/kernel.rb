@@ -33,6 +33,9 @@ module Ronin
       end
     end
 
+    # Generic context
+    attr_reader :context
+
     # Category context
     attr_context :category
 
