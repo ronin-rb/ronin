@@ -26,24 +26,46 @@ module Ronin
     attr_reader :name
 
     # Description of parameter
-    attr_reader :description
+    attr_reader :desc
 
     # Value associated with parameter
     attr_accessor :value
 
-    def initialize(name,description="",value=nil)
+    def initialize(name,desc="",value=nil)
       @name = name
-      @description = description
+      @desc = desc
       @value = value
     end
 
   end
 
-  class Parameters < Hash
-
-    def add_param(name,description="",value=nil)
-      self[name] = Param.new(name,description,value)
+  module Parameters
+    def params
+      @params ||= {}
     end
 
+    def params=(parameters)
+      @params = parameters
+    end
+
+    def add_param(name,desc="",value=nil)
+      params[name] = Param.new(name,desc,value)
+    end
+
+    def has_param?(name)
+      params.has_key?(name)
+    end
+
+    def param(name)
+      return params[name]
+    end
+
+    def param_desc(name)
+      return param(name).desc if has_param?(name)
+    end
+
+    def param_value(name)
+      return param(name).value if has_param?(name)
+    end
   end
 end

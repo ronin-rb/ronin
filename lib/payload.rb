@@ -24,6 +24,17 @@ require 'parameters'
 module Ronin
   class Payload
 
+    include Parameters
+
+    # Name of the specific exploit
+    attr_accessor :name
+
+    # Version of the exploit
+    attr_accessor :version
+
+    # Author of the exploit
+    attr_accessor :author
+
     # payload parameters
     attr_accessor :params
 
@@ -31,7 +42,9 @@ module Ronin
     attr_reader :data
 
     def initialize(&block)
-      @params = Parameters.new
+      @name = ""
+      @version = ""
+      @author = ""
       @data = ""
 
       @build_block = nil
@@ -68,6 +81,13 @@ module Ronin
       end
 
       @data = nil
+    end
+
+    protected
+
+    def method_missing(sym,*args)
+      name = sym.id2name
+      param_value(name) if has_param(name)
     end
 
   end

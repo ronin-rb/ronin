@@ -19,7 +19,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'target'
 require 'platformexploit'
 
 module Ronin
@@ -34,7 +33,7 @@ module Ronin
     # Overwrite
     attr_reader :overwrite
 
-    def initialize(product_version,platform,pop_length,address,overwrite,comments=nil)
+    def initialize(product_version,platform,pop_length,address,overwrite,comments="")
       super(product_version,platform,comments)
       @pop_length = pop_length 
       @address = address 

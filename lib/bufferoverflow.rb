@@ -19,7 +19,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'target'
 require 'platformexploit'
 
 module Ronin
@@ -37,7 +36,7 @@ module Ronin
     # Instruction Pointer
     attr_reader :ip
 
-    def initialize(product_version,platform,buffer_length,return_length,bp,ip,comments=nil)
+    def initialize(product_version,platform,buffer_length,return_length,bp,ip,comments="")
       super(product_version,platform,comments)
       @buffer_length = buffer_length
       @return_length = return_length
@@ -58,7 +57,6 @@ module Ronin
         raise PayloadSize, "the payload specified is too large for the target's buffer length", caller
       end
 
-      pad = get_pad
       buffer = pad*((target.buffer_length-payload.length)/pad.length)
 
       pad_remaining = ((target.buffer_length-payload.length) % pad.length)
