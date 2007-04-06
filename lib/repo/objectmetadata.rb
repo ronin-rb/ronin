@@ -19,40 +19,30 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'payload'
-require 'repo/objectcontext'
-
 module Ronin
   module Repo
-    class PayloadContext < ObjectContext
+    module ObjectMetadata
+      def Object.attr_metadata(*ids)
+	for id in ids
+	  module_eval <<-"end_eval"
+	    def #{id}
+	      @metadata[:#{id}]
+	    end
 
-      def initialize(path)
-	super(path)
-      end
-
-      def create
-	return Payload.new do |payload|
-	  load_payload(payload)
+	    def #{id}=(data)
+	      @metadata[:#{id}] = data
+	    end
+	  end_eval
 	end
       end
 
-      protected
+      def metadata_set(sym,value)
+	@metadata ||= {}
 
-      # Build action for the payload
-      attr_action :builder
-
-      # Clean action for the payload
-      attr_action :cleaner
-
-      def load_payload(payload)
-	payload.name = name
-	payload.version = version
-	payload.author = author
-
-	payload.cleaner(get_action(:cleaner))
-	payload.builder(get_action(:builder))
+	unless @metadata.has_key?(sym)
+	  @metadata[sym] = value
+	end
       end
-
     end
   end
 end

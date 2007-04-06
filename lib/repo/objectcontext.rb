@@ -20,43 +20,35 @@
 #
 
 require 'repo/context'
-require 'repo/category'
+require 'repo/objectmetadata'
 
 module Ronin
   module Repo
     class ObjectContext < Context
 
+      include ObjectMetadata
+
+      # Object file
+      attr_reader :file
+
       # Object metadata
       attr_accessor :metadata
 
-      # Object that is wrapped
-      attr_reader :object
+      def initialize(path)
+	@file = path
 
-      def initialize(category)
-	super
-	@paths = category.paths
-	@metadata = { 'name' => "", 'version' => "", 'author' => "" }
+	metadata_set(:name,"")
+	metadata_set(:version,"")
+	metadata_set(:author,"")
+
+	super(File.basename(path,'.rb'),File.dirname(path))
       end
 
-      def load(path)
-	depend_context(File.basename(path,'.rb'),File.dirname(path))
+      def create
+	nil
       end
 
       protected
-
-      def ObjectContext.attr_metadata(*ids)
-	for id in ids
-	  module_eval <<-"end_eval"
-	    def #{id}
-	      return @metadata[#{id}] if @metadata[#{id}]
-	    end
-
-	    def #{id}=(data)
-	      @metadata[#{id}] = data
-	    end
-	  end_eval
-	end
-      end
 
       # Name of the object
       attr_metadata :name
@@ -66,18 +58,6 @@ module Ronin
       
       # Author of the object
       attr_metadata :author
-
-      def method_missing(sym,*args)
-	if @object
-	  if @object.method_defined?(sym)
-	    @object.send(sym,*args) do |*obj_args|
-	     perform_action(sym.id2name,@object,*obj_args) if has_action?(sym.id2name)
-	    end
-	  end
-	end
-
-	Context::send(sym,*args)
-      end
 
     end
   end

@@ -24,27 +24,51 @@ require 'repo/platformexploitcontext'
 
 module Ronin
   module Repo
+    class FormatStringTargetContext < TargetContext
+
+      def initialize(block)
+	metadata_set(:pop_length,0)
+	metadata_set(:address,0)
+	metadata_set(:overwrite,0)
+
+	super(&block)
+      end
+
+      def to_target
+	FormatStringTarget.new(product_version,platform,pop_length,address,overwrite,comments)
+      end
+
+      protected
+
+      # Pop length
+      attr_metadata :pop_length
+
+      # Address
+      attr_metadata :address
+
+      # Overwrite
+      attr_metadata :overwrite
+
+    end
+
     class FormatStringContext < PlatformExploitContext
 
       def initialize(path)
 	super(path)
       end
 
-      def create_exploit
-	@exploit = FormatString.new(self.advisory)
-	load_formatstring(@exploit)
+      def create
+	return FormatString.new(advisory) do |exp|
+	  load_platformexploit(exp)
+	end
       end
 
       protected
 
-      def target(product_version,platform,pop_length,address,overwrite,comments=nil)
-	@targets << FormatStringTarget.new(product_version,platform,pop_length,address,overwrite,comments)
+      def target(&block)
+	@targets << FormatStringTargetContext.new(&block)
       end
       
-      def load_formatstring(exploit)
-	load_platformexploit(exploit)
-      end
-
     end
   end
 end

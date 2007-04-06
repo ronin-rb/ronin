@@ -21,20 +21,18 @@
 
 module Ronin
   module Repo
-    def Repo::attr_context(*contexts)
+    def Repo.attr_context(*contexts)
       for context in contexts
-	module_eval <<-"end_eval"
-	  module Kernel
-	    def ronin_#{context}(&block)
-	      $current_context_block = block
-	    end
-	  end
-	end_eval
+	Kernel.module_eval <<-"end_eval"
+          def ronin_#{context}(&block)
+	    $current_context_block = block
+          end
+        end_eval
       end
     end
 
     # Generic context
-    attr_reader :context
+    attr_context :context
 
     # Category context
     attr_context :category
@@ -59,7 +57,7 @@ module Ronin
     $current_context_block = nil
 
     def has_context?
-      $current_context_block.nil?
+      !($current_context_block.nil?)
     end
 
     def get_context

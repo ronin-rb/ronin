@@ -24,25 +24,53 @@ require 'repo/platformexploitcontext'
 
 module Ronin
   module Repo
+    class BufferOverflowTargetContext < TargetContext
+
+      def initialize(&block)
+	metadata_set(:buffer_length,0)
+	metadata_set(:return_length,0)
+	metadata_set(:bp,0)
+	metadata_set(:ip,0)
+
+	super(&block)
+      end
+
+      def to_target
+	BufferOverflowTarget.new(product_version,platform,buffer_length,return_length,bp,ip,comments)
+      end
+
+      protected
+
+      # Buffer length
+      attr_metadata :buffer_length
+
+      # Return length
+      attr_metadata :return_length
+
+      # Stack base pointer
+      attr_metadata :bp
+
+      # Instruction Pointer
+      attr_metadata :ip
+
+    end
+
     class BufferOverflowContext < PlatformExploitContext
 
       def initialize(path)
 	super(path)
       end
 
-      def create_exploit
-	@exploit = BufferOverflow.new(self.advisory)
-	load_bufferoverflow(@exploit)
+      def create
+	return BufferOverflow.new(advisory) do |exp|
+	  load_platformexploit(exp)
+	end
       end
 
       protected
 
-      def target(product_version,platform,buffer_length,return_length,bp,ip,comments=nil)
-	@targets << BufferOverflowTarget.new(product_version,platform,buffer_length,return_length,bp,ip,comments)
-      end
-
-      def load_bufferoverflow(exploit)
-	load_platformexploit(exploit)
+      def target(&block)
+	@targets << BufferOverflowTargetContext.new(&block)
       end
 
     end

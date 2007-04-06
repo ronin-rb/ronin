@@ -33,61 +33,84 @@ module Ronin
   module Repo
     class Category < Context
 
-      # Name of category
-      attr_reader :name
-
       # Category control directory
       CONTROL_DIR = 'categories'
 
+      # Category contexts
+      attr_reader :contexts
+
+      # Category dependencies
+      attr_reader :categories
+
       def initialize(name)
-	super
-
-	@name = name
-	@objects = {}
-
-	depend(@name)
-      end
-
-      def depend(name)
-	if name.include?(File::SEPARATOR)
-	  parts = name.split(File::SEPARATOR)
-	  unless parts.length==2
-	    raise "bad category dependencies string '#{name}'", caller
-	  end
-
-	  repository = current_config.get_repository(parts[0])
-	  category = parts[1]
-
-	  unless (name!=CONTROL_DIR && current_config.has_category?(category))
-	    raise CategoryNotFound, "category '#{category}' does not exist", caller
-	  end
-
-	  return depend_context(category,File.join(repository.path,category))
+	if name==CONTROL_DIR
+	  raise CategoryNotFound, "invlaid category name '#{name}'", caller
 	end
-
-	unless (name!=CONTROL_DIR && current_config.has_category?(name))
+	
+	if !config.has_category?(name)
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
 	end
 
-	current_config.categories[name].each_value do |repository|
-	  if repository.contains_dir?(File.join(CONTEXT_DIR,name))
-	    depend_context(name,File.join(repository.path,CONTEXT_DIR,name))
-	    break
+	@contexts = []
+	@categories = []
+
+	super(name,find_controller(name))
+
+	config.categories[name].each_value do |repository|
+	  repository.find_dir(name) do |dir|
+	    @contexts << Context.new(name,dir)
 	  end
 	end
-
-	current_config.categories[name].each_value do |repository|
-	  depend_context(File.join(repository,name),File.join(repository.path,name))
-	end
-	return true
       end
 
-      def register_object(object)
-	name = object.class.name
-	unless object.kind_of?(ObjectContext)
-	  raise "Object #{name} does not inherit ObjectContext, thus cannot be registered", caller
+      def has_dependency?(name)
+	return true if name==@name
+
+	@categories.each do |category|
+	  return true if category.has_dependency?(name)
 	end
-	@objects["load_#{name}"] = object.class
+	return false
+      end
+
+      def dependency(name)
+	return self if name==@name
+
+	@categories.each do |category|
+	  return category.dependency(name) if category.has_dependency?(name)
+	end
+	return nil
+      end
+
+      def distribute(&block)
+	results = [Context::instance_eval(&block)]
+
+	@contexts.each do |context|
+	  results << context.instance_eval(&block)
+	end
+
+	@categories.each do |context|
+	  results << context.distribute(&block)
+	end
+
+	return results.flatten.reject { |item| item.nil? }
+      end
+
+      def find_path(path,&block)
+	paths = distribute { find_path(path) }
+	if block
+	  paths.each { |i| block.call(i) }
+	else
+	  return paths
+	end
+      end
+
+      def glob_path(pattern,&block)
+	paths = distribute { glob_path(path) }
+	if block
+	  paths.each { |i| block.call(i) }
+	else
+	  return paths
+	end
       end
 
       def to_s
@@ -96,16 +119,48 @@ module Ronin
 
       protected
 
-      def method_missing(sym,*args)
-	name = sym.id2name
-	if @objects.has_key?(name)
-	  path = args.shift
-	  obj = @objects[name].new(self,*args)
-	  obj.load_object(path)
-	  return obj
+      def find_controller(name)
+	config.categories[name].each_value do |repository|
+	  repository.find_dir?(File.join(CONTROL_DIR,name)) do |dir|
+	    return dir
+	  end
 	end
 
-	return Context::send(sym,*args)
+	raise CategoryNotFound, "category controller for category '#{name}' not found", caller
+      end
+
+      def depend(name)
+	if name==CONTROL_DIR
+	  raise CategoryNotFound, "invlaid category name '#{name}'", caller
+	end
+	
+	if !config.has_category?(name)
+	  raise CategoryNotFound, "category '#{name}' does not exist", caller
+	end
+
+	if has_scope?(name)
+	  return false
+	else
+	  new_category = Category.new(name)
+	  @categories << new_category
+	  @scope << new_category
+	  return true
+	end
+      end
+
+      def method_missing(sym,*args)
+	name = sym.id2name
+
+	# Resolve scopes
+	return scope(name) if has_scope?(name)
+
+	# Perform top-level action first
+	perform_action(sym,*args) if has_action?(sym)
+
+	# Perform context actions as well
+	@contexts.each do |context|
+	  context.perform_action(sym,*args) if context.has_action?(sym)
+	end
       end
 
     end

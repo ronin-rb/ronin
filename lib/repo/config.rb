@@ -36,6 +36,9 @@ module Ronin
 
     class Config
 
+      # Path to config file
+      CONFIG_PATH = File.join(ENV['HOME'],'.ronin','config')
+
       # Path of config file
       attr_reader :path
 
@@ -45,9 +48,6 @@ module Ronin
       # Hash of all categories, each element containing the hash of
       # respositories that contain that category.
       attr_reader :categories
-
-      # Path to config file
-      CONFIG_PATH = File.join(ENV['HOME'],'.ronin','config')
 
       def initialize(path=CONFIG_PATH)
 	@path = path

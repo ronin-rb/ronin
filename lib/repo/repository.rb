@@ -19,12 +19,15 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/fileaccess'
 require 'repo/category'
 require 'repo/exceptions/categorynotfound'
 
 module Ronin
   module Repo
     class Repository
+
+      include FileAccess
 
       # Name of the Repository
       attr_reader :name
@@ -47,19 +50,7 @@ module Ronin
 
       def has_category?(category)
 	return false if (category == Category::CONTROL_DIR || category.include?('.') || category.include?(File::SEPARATOR))
-	return contains_directory?(category)
-      end
-
-      def contains?(path)
-	File.exists?(File.join(@path,path))
-      end
-
-      def contains_file?(path)
-	File.file?(File.join(@path,path))
-      end
-
-      def contains_directory?(path)
-	File.directory?(File.join(@path,path))
+	return contains_dir?(category)
       end
 
       def to_s
