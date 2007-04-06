@@ -37,5 +37,16 @@ module Ronin
       end
 
     end
+
+    protected
+
+    def resolved?(obj)
+      if obj.kind_of?(Symbol)
+	return false
+      elsif obj.kind_of?(Type)
+	return false unless obj.is_resolved?
+      end
+      return true
+    end
   end
 end

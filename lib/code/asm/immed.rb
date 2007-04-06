@@ -57,9 +57,9 @@ module Ronin
       end
 
       def is_resolved?
-	return false if @base.kind_of?(Symbol)
-	return false if @index.kind_of?(Symbol)
-	return false if @scale.kind_of?(Symbol)
+	return false if resolved?(@base)
+	return false if resolved?(@index)
+	return false if resolved?(@scale)
 	return true
       end
 

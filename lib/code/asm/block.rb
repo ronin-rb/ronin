@@ -117,7 +117,7 @@ module Ronin
 
       def block(&block)
 	new_block = Block.new(@arch_target,&block)
-	link(block)
+	link(new_block)
 	return new_block
       end
 

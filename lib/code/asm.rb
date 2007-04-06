@@ -19,47 +19,13 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'code/asm/exceptions'
 require 'code/asm/type'
-
-module Ronin
-  module Asm
-    class Instruction < Type
-
-      # The instruction opcode
-      attr_reader :op
-
-      # The arguments associated with the instruction
-      attr_reader :args
-
-      def initialize(op,*args)
-	@op = op
-	@args = args
-      end
-
-      def is_resolved?
-	@args.each do |arg|
-	  return false if resolved?(arg)
-	end
-	return true
-      end
-
-      def resolve(block)
-	return self if is_resolved?
-
-	new_args = @args.map do |arg|
-	  block.resolve_sym(arg)
-	end
-	return Instruction.new(@op,*new_args)
-      end
-
-      def to_s
-	unless @args.empty
-	  return "#{@op}\t#{@args * ', '}"
-	else
-	  return "#{@op}"
-	end
-      end
-
-    end
-  end
-end
+require 'code/asm/immed'
+require 'code/asm/reg'
+require 'code/asm/instruction'
+require 'code/asm/label'
+require 'code/asm/block'
+require 'code/asm/func'
+require 'code/asm/archtarget'
+require 'code/asm/platformtarget'
