@@ -20,9 +20,11 @@
 #
 
 require 'repo/exceptions'
-require 'repo/extensions'
+require 'repo/action'
+require 'repo/fileaccess'
 require 'repo/context'
 require 'repo/category'
+require 'repo/objectmetadata'
 require 'repo/objectcontext'
 require 'repo/exploitcontext'
 require 'repo/payloadcontext'
