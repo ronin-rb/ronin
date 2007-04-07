@@ -21,6 +21,7 @@
 
 require 'repo/repository'
 require 'repo/category'
+require 'rexml/document'
 
 module Ronin
   module Repo
@@ -45,9 +46,6 @@ module Ronin
       # Path of config file
       attr_reader :path
 
-      # Path to repositories directory
-      attr_reader :repos_path
-
       # Hash of loaded repositories
       attr_reader :repositories
 
@@ -59,12 +57,10 @@ module Ronin
 	@path = path
         @repositories = {}
 	@categories = {}
-
-        # TODO: parse path and load data
       end
 
       def has_repository?(name)
-	return @repositories.has_key?(name)
+	@repositories.has_key?(name)
       end
 
       def get_repository(name)
@@ -76,15 +72,15 @@ module Ronin
       end
 
       def has_category?(name)
-	return @categories.has_key?(name)
+	@categories.has_key?(name)
       end
 
       def get_category(name)
-        return Category.new(name)
+        Category.new(name)
       end
 
       def to_s
-	return @path
+	@path
       end
 
       protected

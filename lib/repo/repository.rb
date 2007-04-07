@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'rexml/document'
 require 'repo/fileaccess'
 require 'repo/category'
 require 'repo/exceptions/categorynotfound'
@@ -32,24 +33,22 @@ module Ronin
       # Name of the Repository
       attr_reader :name
 
-      # URL of the Repository source
-      attr_reader :url
-
       # Local path to the Repository
       attr_reader :path
+
+      # URL of the Repository source
+      attr_reader :url
 
       # Description
       attr_reader :description
 
-      def initialize(name,url,path,descriptor="")
-        @name = name
-        @url = url
+      def initialize(name,path)
+	@name = name
 	@path = path
-	@description = description
       end
 
       def has_category?(category)
-	return false if (category == Category.CONTROL_DIR || category.include?(File.SEPARATOR))
+	return false if (category == Category::CONTROL_DIR || category.include?(File::SEPARATOR))
 	return contains_dir?(category)
       end
 

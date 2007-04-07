@@ -168,10 +168,12 @@ module Ronin
 	    wd = dir
 	  end
 
-	  return false if has_scope?(name)
+	  new_scope = scope(name)
+	  return new_scope if new_scope
 
-	  @scopes << Context.new(name,wd)
-	  return true
+	  new_scope = Context.new(name,wd)
+	  @scopes << new_scope
+	  return new_scope
 	end
 
 	raise ContextNotFound, "context '#{path}' does not exist", caller

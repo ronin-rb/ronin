@@ -44,7 +44,7 @@ module Ronin
   class Linux < Platform
 
     def initialize(version,arch)
-      super("Linux",version,arch)
+      super('Linux',version,arch)
     end
 
   end
@@ -52,7 +52,7 @@ module Ronin
   class FreeBSD < Platform
 
     def initialize(version,arch)
-      super("FreeBSD",version,arch)
+      super('FreeBSD',version,arch)
     end
 
   end
@@ -60,7 +60,7 @@ module Ronin
   class OpenBSD < Platform
 
     def initialize(version,arch)
-      super("OpenBSD",version,arch)
+      super('OpenBSD',version,arch)
     end
 
   end
@@ -68,7 +68,7 @@ module Ronin
   class NetBSD < Platform
 
     def initialize(version,arch)
-      super("NetBSD",version,arch)
+      super('NetBSD',version,arch)
     end
 
   end
@@ -76,7 +76,7 @@ module Ronin
   class Windows < Platform
 
     def initialize(version,arch)
-      super("Windows",version,arch)
+      super('Windows',version,arch)
     end
 
   end
@@ -84,7 +84,7 @@ module Ronin
   class OSX < Platform
 
     def initialize(version,arch)
-      super("OSX",version,arch)
+      super('OSX',version,arch)
     end
 
   end

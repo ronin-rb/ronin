@@ -35,10 +35,10 @@ module Ronin
     # Author of the exploit
     attr_accessor :author
 
-    # payload parameters
+    # Payload parameters
     attr_accessor :params
 
-    # payload data
+    # Payload data
     attr_reader :data
 
     def initialize(&block)

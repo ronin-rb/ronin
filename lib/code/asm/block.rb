@@ -166,24 +166,24 @@ module Ronin
       end
 
       def method_missing(sym,*args)
-	# Resolve registers
+	# resolve registers
 	return @target.reg if @target.has_reg?(sym)
 
-	# Resolve instructions
+	# resolve instructions
         if @target.has_instruction?(sym)
 	  new_instruction = @target.instruction(sym,*args)
 	  @instructions << new_instruction
 	  return new_instruction
 	end
 
-	# Resolve syscalls
+	# resolve syscalls
 	return @target.syscall(sym) if @target.has_syscall?(sym)
 
-	# Early resolution of local functions and labels
+	# early resolution of local functions and labels
 	return @functions[sym] if @functions.has_key?(sym)
 	return @labels[sym] if @labels.has_key?(sym)
 
-	# Return unknown symbol for later resolution
+	# return unknown symbol for later resolution
 	return sym
       end
 
