@@ -26,7 +26,8 @@ module Ronin
   module Repo
     class FormatStringTargetContext < TargetContext
 
-      def initialize(block)
+      def initialize(&block)
+	# initialize formatstring metadata
 	metadata_set(:pop_length,0)
 	metadata_set(:address,0)
 	metadata_set(:overwrite,0)
@@ -64,6 +65,9 @@ module Ronin
       end
 
       protected
+
+      # Name of context to load
+      attr_context :formatstring
 
       def target(&block)
 	@targets << FormatStringTargetContext.new(&block)

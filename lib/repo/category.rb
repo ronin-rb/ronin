@@ -21,13 +21,13 @@
 
 require 'repo/context'
 require 'repo/exceptions/categorynotfound'
-require 'repo/config'
 require 'repo/objectcontext'
 require 'repo/exploitcontext'
 require 'repo/platformexploitcontext'
 require 'repo/bufferoverflowcontext'
 require 'repo/formatstringcontext'
 require 'repo/payloadcontext'
+require 'repo/config'
 
 module Ronin
   module Repo
@@ -54,8 +54,9 @@ module Ronin
 	@contexts = []
 	@categories = []
 
-	super(name,find_controller(name))
+	super(name,controller_path(name))
 
+	# load similarly named contexts from all repositories
 	config.categories[name].each_value do |repository|
 	  repository.find_dir(name) do |dir|
 	    @contexts << Context.new(name,dir)
@@ -64,39 +65,39 @@ module Ronin
       end
 
       def has_dependency?(name)
-	return true if name==@name
-
-	@categories.each do |category|
-	  return true if category.has_dependency?(name)
-	end
-	return false
+	!(dependency(name).nil?)
       end
 
       def dependency(name)
+	# self is the dependency
 	return self if name==@name
 
+	# search categories for the dependency
 	@categories.each do |category|
-	  return category.dependency(name) if category.has_dependency?(name)
+	  dep = category.dependency(name)
+	  return dep if dep
 	end
 	return nil
       end
 
-      def distribute(&block)
-	results = [Context::instance_eval(&block)]
+      def dist(&block)
+	# distribute block over self and scopes
+	results = Context::dist(&block)
 
+	# distribute block over contexts
 	@contexts.each do |context|
-	  results << context.instance_eval(&block)
+	  results.concat(context.dist(&block))
 	end
 
-	@categories.each do |context|
-	  results << context.distribute(&block)
+	# distribute block over dependencies
+	@categories.each do |category|
+	  results.concat(category.dist(&block))
 	end
-
-	return results.flatten.reject { |item| item.nil? }
+	return results
       end
 
       def find_path(path,&block)
-	paths = distribute { find_path(path) }
+	paths = dist { find_path(path) }.compact
 	if block
 	  paths.each { |i| block.call(i) }
 	else
@@ -105,7 +106,7 @@ module Ronin
       end
 
       def glob_path(pattern,&block)
-	paths = distribute { glob_path(path) }
+	paths = dist { glob_path(path) }.compact
 	if block
 	  paths.each { |i| block.call(i) }
 	else
@@ -113,20 +114,37 @@ module Ronin
 	end
       end
 
+      def get_action(sym)
+	dist { get_action(sym) }.compact
+      end
+
+      def perform_action(sym,*args)
+	action_list = get_action(sym)
+	if action_list.empty?
+	  raise ActionNotFound, "action '#{sym}' was not found in category '#{self}'", caller
+	end
+
+	# map actions to results
+	return action_list.map { |act| act.call(*args) }
+      end
+
       def to_s
-	return @name
+	@name
       end
 
       protected
 
-      def find_controller(name)
+      # Name of context to load
+      attr_context :category
+
+      def controller_path(name)
 	config.categories[name].each_value do |repository|
 	  repository.find_dir?(File.join(CONTROL_DIR,name)) do |dir|
 	    return dir
 	  end
 	end
 
-	raise CategoryNotFound, "category controller for category '#{name}' not found", caller
+	raise CategoryNotFound, "controller for category '#{name}' not found", caller
       end
 
       def depend(name)
@@ -138,29 +156,29 @@ module Ronin
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
 	end
 
-	if has_scope?(name)
-	  return false
-	else
-	  new_category = Category.new(name)
-	  @categories << new_category
-	  @scope << new_category
-	  return true
-	end
+	# return existing dependency
+	category = dependency(name)
+	return category if category
+
+	# add new dependency
+	category = Category.new(name)
+	@categories << category
+	return category
       end
 
       def method_missing(sym,*args)
 	name = sym.id2name
 
-	# Resolve scopes
-	return scope(name) if has_scope?(name)
+	# resolve dependencies
+	dep = dependency(name)
+	return dep if dep
 
-	# Perform top-level action first
-	perform_action(sym,*args) if has_action?(sym)
+	# resolve scopes
+	sub_scope = scope(name)
+	return sub_scope if sub_scope
 
-	# Perform context actions as well
-	@contexts.each do |context|
-	  context.perform_action(sym,*args) if context.has_action?(sym)
-	end
+	# resolve actions
+	return perform_action(sym,*args)
       end
 
     end

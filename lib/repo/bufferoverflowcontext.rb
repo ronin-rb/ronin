@@ -27,6 +27,7 @@ module Ronin
     class BufferOverflowTargetContext < TargetContext
 
       def initialize(&block)
+	# initialize bufferoverflow target metadata
 	metadata_set(:buffer_length,0)
 	metadata_set(:return_length,0)
 	metadata_set(:bp,0)
@@ -68,6 +69,9 @@ module Ronin
       end
 
       protected
+
+      # Name of context to load
+      attr_context :bufferoverflow
 
       def target(&block)
 	@targets << BufferOverflowTargetContext.new(&block)

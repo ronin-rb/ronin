@@ -37,6 +37,7 @@ module Ronin
       def initialize(path)
 	@file = path
 
+	# initialize metadata
 	metadata_set(:name,"")
 	metadata_set(:version,"")
 	metadata_set(:author,"")
@@ -45,10 +46,13 @@ module Ronin
       end
 
       def create
-	nil
+	# dummy place holder
       end
 
       protected
+
+      # Name of context to load
+      attr_context :object
 
       # Name of the object
       attr_metadata :name

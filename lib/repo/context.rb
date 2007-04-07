@@ -20,7 +20,6 @@
 #
 
 require 'repo/fileaccess'
-require 'repo/extensions/kernel'
 require 'repo/exceptions/actionnotfound'
 require 'repo/exceptions/contextnotfound'
 require 'repo/exceptions/objectnotfound'
@@ -46,29 +45,37 @@ module Ronin
 	@actions = {}
 	@scopes = []
 
+	# load context file if it exists
 	file = File.join(@path,@name,'.rb')
 	if File.file?(file)
 	  load(file)
-	  class_eval(get_context) if has_context?
+
+	  # evaluate the context block if present
+	  class_eval(get_context(context_type)) if has_context?(context_type)
 	end
       end
 
-      def has_action?(name)
-	return true if @actions.has_key?(name)
+      def get_action(sym)
+	return @actions[name] if @actions.has_key?(name)
 
 	@scopes.each do |scope|
-	  return true if scope.has_action?(name)
+	  action = scope.get_action(sym)
+	  return action if action
 	end
-	return false
+	return nil
       end
 
-      def perform_action(name,*args)
-	return @actions[name].call(*args) if @actions.has_key?(name)
+      def has_action?(sym)
+	!(get_action(sym).nil?)
+      end
 
-	@scopes.each do |scope|
-	  return scope.perform_action(name,*args) if scope.has_action?(name)
+      def perform_action(sym,*args)
+	action = get_action(sym)
+	unless action
+	  raise ActionNotFound, "cannot find action '#{sym}' in group '#{self}'", caller
 	end
-	raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
+
+	return action.call(*args)
       end
 
       def perform_setup
@@ -80,28 +87,57 @@ module Ronin
       end
 
       def has_scope?(name)
-	return true if name==@name
-
-	@scopes.each do |sub_scope|
-	  return true if sub_scope.has_scope?(name)
-	end
-	return false
+	!(scope(name).nil?)
       end
 
       def scope(name)
+	# self is the scope
 	return self if name==@name
 
-	@scopes.each do |sub_scope|
-	  return sub_scope.scope(name) if sub_scope.has_scope?(name)
+	# search sub-scopes
+	@scopes.each do |context|
+	  sub_scope = context.scope(name)
+	  return sub_scope if sub_scope
 	end
 	return nil
       end
 
+      def dist(&block)
+	# evaluate block within self
+	results = [instance_eval(&block)]
+
+	# distribute block within sub-scopes
+	@scopes.each do |context|
+	  results.concat(context.dist(&block))
+	end
+	return results
+      end
+
+      def to_s
+	@name
+      end
+
       protected
+
+      def Context.attr_context(*id)
+	# define context_type
+	class_eval <<-"end_eval"
+	  def context_type
+	    :#{id}
+	  end
+	end_eval
+
+	# define kernel-level context method
+	Kernel.module_eval <<-"end_eval"
+	  def ronin_#{id}(&block)
+	    $context_block[:#{id}] = block
+	  end
+	end_eval
+      end
 
       def Context.attr_action(*ids)
 	for id in ids
-	  module_eval <<-"end_eval"
+	  class_eval <<-"end_eval"
 	    def #{id}(&block)
 	      action(:#{id},&block)
 	    end
@@ -109,18 +145,17 @@ module Ronin
 	end
       end
 
+      # Name of context to load
+      attr_context :context
+
       # Setup action
       attr_action :setup
       
       # Teardown action
       attr_action :teardown
 
-      def get_action(sym)
-	@action[sym]
-      end
-
       def action(sym,&block)
-	@actions[sym] = block
+	@actions[sym] = Action.new(sym,self,&block)
       end
 
       def inherit(path)
@@ -135,7 +170,7 @@ module Ronin
 
 	  return false if has_scope?(name)
 
-	  @scope << Context.new(name,wd)
+	  @scopes << Context.new(name,wd)
 	  return true
 	end
 
@@ -143,10 +178,31 @@ module Ronin
       end
 
       def method_missing(sym,*args)
-	return scope(sym.id2name) if has_scope?(sym.id2name)
-	return perform_action(sym,*args) if has_action?(sym)
+	# resolve scopes
+	sub_scope = scope(sym.id2name)
+	return sub_scope if sub_scope
+
+	# resolve actions
+	return perform_action(sym,*args)
+      end
+
+      private
+
+      def has_context?(sym)
+	!($context_block[sym].nil?)
+      end
+
+      def get_context(sym)
+	block = $context_block[sym]
+	$context_block[sym] = nil
+	return block
       end
 
     end
+
+    protected
+
+    # Context block hash
+    $context_block = {}
   end
 end

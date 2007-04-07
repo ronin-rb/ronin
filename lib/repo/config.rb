@@ -39,8 +39,14 @@ module Ronin
       # Path to config file
       CONFIG_PATH = File.join(ENV['HOME'],'.ronin','config')
 
+      # Path to repositories dir
+      REPOS_PATH = File.join(ENV['HOME'],'.ronin','repos')
+
       # Path of config file
       attr_reader :path
+
+      # Path to repositories directory
+      attr_reader :repos_path
 
       # Hash of loaded repositories
       attr_reader :repositories
@@ -57,6 +63,10 @@ module Ronin
         # TODO: parse path and load data
       end
 
+      def has_repository?(name)
+	return @repositories.has_key?(name)
+      end
+
       def get_repository(name)
 	unless has_repository?(name)
 	  raise RepositoryNotFound, "repository '#{name}' not listed in config file '#{self}'", caller
@@ -65,23 +75,19 @@ module Ronin
 	return @repositories[name]
       end
 
-      def has_repository?(name)
-	return @repositories.has_key?(name)
+      def has_category?(name)
+	return @categories.has_key?(name)
       end
 
       def get_category(name)
         return Category.new(name)
       end
 
-      def has_category?(name)
-	return @categories.has_key?(name)
-      end
-
       def to_s
 	return @path
       end
 
-      private
+      protected
 
       # TODO: fill this in later, joyous lexical parsing.
       def parse_config
@@ -93,6 +99,5 @@ module Ronin
 
     # Current operating configuration
     $current_config = nil
-
   end
 end

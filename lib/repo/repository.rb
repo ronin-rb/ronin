@@ -49,7 +49,7 @@ module Ronin
       end
 
       def has_category?(category)
-	return false if (category == Category::CONTROL_DIR || category.include?('.') || category.include?(File::SEPARATOR))
+	return false if (category == Category.CONTROL_DIR || category.include?(File.SEPARATOR))
 	return contains_dir?(category)
       end
 

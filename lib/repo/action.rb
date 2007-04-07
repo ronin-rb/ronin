@@ -19,51 +19,55 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/exceptions/actionunbound'
+
 module Ronin
   module Repo
-    def Repo.attr_context(*contexts)
-      for context in contexts
-	Kernel.module_eval <<-"end_eval"
-          def ronin_#{context}(&block)
-	    $current_context_block = block
-          end
-        end_eval
+    class Action
+
+      # Name of action
+      attr_reader :name
+
+      # Context that the action is bound to
+      attr_reader :context
+
+      # Action block
+      attr_reader :block
+
+      def initialize(name,context=nil,&block)
+	@name = name
+	@context = context
+	@block = block
       end
-    end
 
-    # Generic context
-    attr_context :context
+      def bind(context)
+	Action.new(name,context,&(@block))
+      end
 
-    # Category context
-    attr_context :category
+      def bind!(context)
+	@context = context
+      end
 
-    # Exploit context
-    attr_context :exploit
+      def unbind
+	@context = nil
+      end
 
-    # Payload context
-    attr_context :payload
+      def call(*args)
+	unless @context
+	  raise ActionUnbound, "action #{@name} is not bound to any context", caller
+	end
 
-    # PlatformExploit context
-    attr_context :platformexploit
+	call_context(context,*args)
+      end
 
-    # BufferOverflow context
-    attr_context :bufferoverflow
+      def call_context(context,*args)
+	context.instance_eval { @block.call(*args) }
+      end
 
-    # FormatString context
-    attr_context :formatstring
+      def to_s
+	@name
+      end
 
-    protected
-
-    $current_context_block = nil
-
-    def has_context?
-      !($current_context_block.nil?)
-    end
-
-    def get_context
-      block = $current_context_block
-      $current_context_block = nil
-      return block
     end
   end
 end

@@ -38,6 +38,9 @@ module Ronin
 
       protected
 
+      # Name of context to load
+      attr_context :payload
+
       # Build action for the payload
       attr_action :builder
 
@@ -45,12 +48,17 @@ module Ronin
       attr_action :cleaner
 
       def load_payload(payload)
+	# load payload metadata
 	payload.name = name
 	payload.version = version
 	payload.author = author
 
-	payload.cleaner(get_action(:cleaner))
-	payload.builder(get_action(:builder))
+	# load payload actions
+	cleaner_action = get_action(:cleaner)
+	payload.cleaner(&(cleaner_action.block)) if cleaner_action
+
+	builder_action = get_action(:builder)
+	payload.builder(&(builder_action.block)) if builder_action
       end
 
     end

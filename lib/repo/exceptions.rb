@@ -20,6 +20,7 @@
 #
 
 require 'repo/exceptions/actionnotfound'
+require 'repo/exceptions/actionunbound'
 require 'repo/exceptions/contextnotfound'
 require 'repo/exceptions/objectnotfound'
 require 'repo/exceptions/categorynotfound'
