@@ -35,14 +35,14 @@ module Ronin
       # Name of the repository
       attr_reader :name
 
-      # Type of repository
-      attr_reader :type
-
       # Local path to the repository
       attr_reader :path
 
       # URL of the repository source
       attr_reader :url
+
+      # Type of repository
+      attr_reader :type
 
       # Author of the repository
       attr_reader :author
@@ -62,11 +62,11 @@ module Ronin
       # Cateogires
       attr_reader :categories
 
-      def initialize(type,path,url)
+      def initialize(path,url,type='local')
 	@name = File.basename(path)
-	@type = type
 	@path = path
 	@url = url
+	@type = type
 	@categories = []
 
 	Dir.foreach(@path) do |file|
@@ -76,16 +76,16 @@ module Ronin
 	end
 
 	if has_file?('metadata.xml')
-	  metadata = Document.new(find_file('metadata.xml'))
+	  metadata = Document.new(File.new(find_file('metadata.xml')))
 	  metadata.elements.each('/metadata/author') do |element|
 	    unless element.has_attribute('name')
 	      raise "Repository author metadata must atleast give the author name", caller
 	    end
 
 	    @author = element.attribute('name')
-	    element.each_elements_with_text('biography',1) { |bio| @author_biography = bio.get_text }
-	    element.each_elements_with_text('email',1) { |email| @author_email = email.get_text }
-	    element.each_elements_with_text('url',1) { |url| @author_url = url.get_text }
+	    element.each_element('biography') { |bio| @author_biography = bio.get_text }
+	    element.each_element('email') { |email| @author_email = email.get_text }
+	    element.each_element('url') { |url| @author_url = url.get_text }
 	  end
 
 	  metadata.elements.each('/metadata/description') do |desc|

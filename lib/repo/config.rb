@@ -63,16 +63,11 @@ module Ronin
 
 	config_doc = Document.new(File.new(path))
 	config_doc.elements.each('/config/repos/repo') do |repo|
-	  if repo.has_attribute?('type')
-	    repo_type = repo.attribute('type')
-	  else
-	    repo_type = 'local'
-	  end
+	  repo_type = repo.attribute('type')
+	  repo.each_element('path') { |element| repo_path = element.get_text }
+	  repo.each_element('url') { |element| repo_url = element.get_text }
 
-	  repo.each_element_with_text('path',1) { |element| repo_path = element.get_text }
-	  repo.each_element_with_text('url',1) { |element| repo_url = element.get_text }
-
-	  new_repo = Repository.new(repo_type,repo_path,repo_url)
+	  new_repo = Repository.new(repo_path,repo_url,repo_type)
 	  @repositories[new_repo] = new_repo
 
 	  new_repo.categories.each do |category|
