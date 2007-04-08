@@ -60,24 +60,27 @@ module Ronin
 	@path = path
         @repositories = {}
 	@categories = Hash.new { |hash,key| hash[key] = {} }
+	@changed = false
 
-	config_doc = Document.new(File.new(path))
-	config_doc.elements.each('/config/repos/repo') do |repo|
-	  repo_type = repo.attribute('type')
-	  repo.each_element('path') { |element| repo_path = element.get_text }
-	  repo.each_element('url') { |element| repo_url = element.get_text }
+	if File.file?(path)
+	  config_doc = Document.new(File.new(path))
+	  config_doc.elements.each('/config/repos/repo') do |repo|
+	    repo_type = repo.attribute('type')
+	    repo.each_element('path') { |element| repo_path = element.get_text }
+	    repo.each_element('url') { |element| repo_url = element.get_text }
 
-	  new_repo = Repository.new(repo_path,repo_url,repo_type)
-	  @repositories[new_repo] = new_repo
-
-	  new_repo.categories.each do |category|
-	    @categories[category][new_repo] = new_repo
+	    register_repository(Repository.new(repo_path,repo_url,repo_type))
 	  end
 	end
       end
 
       def has_repository?(name)
 	@repositories.has_key?(name)
+      end
+
+      def add_repository(repo)
+	@changed = true
+	register_repository(repo)
       end
 
       def get_repository(name)
@@ -100,13 +103,46 @@ module Ronin
         Category.new(name)
       end
 
+      def write
+	return unless @changed
+
+	# create skeleton config document
+	new_config = Document.new("<config></config>")
+	repos_elem = Element.new('repos',new_config.root)
+
+	# populate with repositories
+	@repositories.each do |repo|
+	  repo_elem = Element.new('repo',repos_elem)
+	  repo_elem.add_attribute('type',repo.type)
+
+	  path_elem = Element.new('path',repo_elem)
+	  path_elem.add_text(repo.path)
+
+	  url_elem = Element.new('url',repo_elem)
+	  url_elem.add_text(repo.url)
+	end
+
+	# save config document
+	new_config << XMLDecl.new
+	new_config.write(File.new(@path,'w'),0)
+      end
+
       def to_s
 	@path
       end
 
+      protected
+
+      def register_repository(repo)
+	@repositories[repo] = repo
+	repo.categories.each do |category|
+	  @categories[category][repo] = repo
+	end
+      end
+
     end
 
-    protected
+    private
 
     # Current operating configuration
     $current_config = nil
