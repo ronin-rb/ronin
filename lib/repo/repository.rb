@@ -105,6 +105,15 @@ module Ronin
 	@categories.include?(category)
       end
 
+      def update
+       case @type
+         when 'svn' then system("svn up '#{@path}'")
+	 when 'cvs' then system("cvs update -dP '#{@path}'")
+	 when 'rsync','http','https','ftp' then
+	   system("rsync -av --delete-after --progress '#{@url}' '#{@path}'")
+       end
+      end
+
       def to_s
 	@name
       end

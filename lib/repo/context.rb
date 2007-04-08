@@ -267,7 +267,7 @@ module Ronin
 
     end
 
-    protected
+    private
 
     # Context block hash
     $context_block = {}
