@@ -88,7 +88,7 @@ module Ronin
 	end
       end
 
-      def contains?(path,&block)
+      def has_path?(path,&block)
 	find_path(path) do
 	  if block
 	    return block.call
@@ -100,7 +100,7 @@ module Ronin
 	return false
       end
 
-      def contains_file?(path,&block)
+      def has_file?(path,&block)
 	find_file(path) do
 	  if block
 	    return block.call
@@ -112,7 +112,7 @@ module Ronin
 	return false
       end
 
-      def contains_dir?(path,&block)
+      def has_dir?(path,&block)
 	find_dir(path) do
 	  if block
 	    return block.call
