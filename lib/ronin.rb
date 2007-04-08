@@ -29,6 +29,5 @@ require 'formatstring'
 require 'repo'
 
 module Ronin
-  VERSION = "0.0.0"
-  SHARE_PATH = "/usr/share/ronin/"
+  RONIN_VERSION = "0.0.1"
 end
