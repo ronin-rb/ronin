@@ -21,6 +21,7 @@
 
 require 'repo/repository'
 require 'repo/category'
+require 'repo/exceptions/categorynotfound'
 require 'rexml/document'
 
 module Ronin
@@ -43,6 +44,8 @@ module Ronin
       # Path to repositories dir
       REPOS_PATH = File.join(ENV['HOME'],'.ronin','repos')
 
+      include REXML
+
       # Path of config file
       attr_reader :path
 
@@ -56,7 +59,26 @@ module Ronin
       def initialize(path=CONFIG_PATH)
 	@path = path
         @repositories = {}
-	@categories = {}
+	@categories = Hash.new { |hash,key| hash[key] = {} }
+
+	config_doc = Document.new(File.new(path))
+	config_doc.elements.each('/config/repos/repo') do |repo|
+	  if repo.has_attribute?('type')
+	    repo_type = repo.attribute('type')
+	  else
+	    repo_type = 'local'
+	  end
+
+	  repo.each_element_with_text('path',1) { |element| repo_path = element.get_text }
+	  repo.each_element_with_text('url',1) { |element| repo_url = element.get_text }
+
+	  new_repo = Repository.new(repo_type,repo_path,repo_url)
+	  @repositories[new_repo] = new_repo
+
+	  new_repo.categories.each do |category|
+	    @categories[category][new_repo] = new_repo
+	  end
+	end
       end
 
       def has_repository?(name)
@@ -76,17 +98,15 @@ module Ronin
       end
 
       def get_category(name)
+	unless has_category?(name)
+	  raise CategoryNotFound, "category '#{name}' does not exist", caller
+	end
+
         Category.new(name)
       end
 
       def to_s
 	@path
-      end
-
-      protected
-
-      # TODO: fill this in later, joyous lexical parsing.
-      def parse_config
       end
 
     end
