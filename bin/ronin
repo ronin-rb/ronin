@@ -11,6 +11,13 @@ opt = Getopt::Long.getopts(
   ['--config','-C',Getopt::REQUIRED],
   ['--category','-c',Getopt::REQUIRED],
   ['--action','-a',Getopt::REQUIRED],
+  ['--add-repo','-A',Getopt::REQUIRED],
+  ['--list-repo','-L',Getopt::BOOLEAN],
+  ['--remove-repo','-R',Getopt::REQUIRED],
+  ['--update-repo','-U',Getopt::REQUIRED],
+  ['--list-repos','-l'],
+  ['--update-repos','-u'],
+  ['--verbose','-v',Getopt::BOOLEAN],
   ['--version','-V']
 )
 
@@ -21,6 +28,67 @@ end
 
 if opt['config']
   open_config(opt['config'])
+end
+
+if opt['list-repo']
+  repo = config.get_repository(opt['list-repo'])
+
+  puts "[ #{repo} ]"
+  puts "\tname: #{repo.name}"
+  puts "\tpath: #{repo.path}"
+  puts "\ttype: #{repo.type}"
+
+  if opt['verbose']
+    if repo.author
+      puts "\tauthor: #{repo.author}"
+    end
+
+    if repo.author_email
+      puts "\tauthor email: #{repo.author_email}"
+    end
+
+    if repo.author_url
+      puts "\tauthor url: #{repo.author_url}"
+    end
+
+    if repo.author_biography
+      puts "\tauthor biography: #{repo.author_biography}"
+    end
+
+    if repo.description
+      puts "\tdescription:\n\n\t\t#{repo.description}"
+    end
+  end
+
+  unless repo.deps.empty?
+    puts "\n\tdependencies:\n\n"
+
+    repo.deps.each do |dep|
+      print "\t\t#{dep}"
+
+      unless config.has_repository?(dep)
+        print " (missing)"
+      end
+      putc "\n"
+    end
+
+    putc "\n"
+  end
+
+  if (opt['verbose'] && !(repo.categories.empty?))
+    puts "\tcategories:\n\n"
+    repo.categories.each { |category| puts "\t\t#{category}" }
+  end
+  exit
+elsif opt['update-repo']
+  config.get_repository(opt['update-repo']).update
+  exit
+elsif opt['list-repos']
+  config.repositories.each { |repo| puts "#{repo}" }
+  exit
+elsif opt['update-repos']
+  config.repositories.each { |repo| repo.update }
+  exit
 end
 
 if opt['category']
