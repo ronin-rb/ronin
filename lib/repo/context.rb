@@ -37,13 +37,13 @@ module Ronin
       attr_reader :path
 
       # Scopes of the context
-      attr_reader :scopes
+      attr_reader :context_deps
 
       def initialize(name,path)
 	@name = name
 	@path = path
 	@actions = {}
-	@scopes = []
+	@context_deps = []
 
 	# load context file if it exists
 	file = File.join(@path,@name,'.rb')
@@ -58,7 +58,7 @@ module Ronin
       def get_action(sym)
 	return @actions[name] if @actions.has_key?(name)
 
-	@scopes.each do |scope|
+	@context_deps.each do |scope|
 	  action = scope.get_action(sym)
 	  return action if action
 	end
@@ -90,27 +90,68 @@ module Ronin
 	!(scope(name).nil?)
       end
 
-      def scope(name)
+      def context(name)
 	# self is the scope
 	return self if name==@name
 
-	# search sub-scopes
-	@scopes.each do |context|
-	  sub_scope = context.scope(name)
-	  return sub_scope if sub_scope
+	# search context dependencies
+	@context_deps.each do |sub_context|
+	  search_context = sub_context.context(name)
+	  return search_scope if search_scope
 	end
 	return nil
+      end
+
+      def context_eval(name=@name,&block)
+	sub_context = context(name)
+	unless sub_context
+	  raise ContextNotFound, "sub-context '#{name}' not found within context '#{@name}'", caller
+	end
+
+	return sub_context.instance_eval(&block)
       end
 
       def dist(&block)
 	# evaluate block within self
 	results = [instance_eval(&block)]
 
-	# distribute block within sub-scopes
-	@scopes.each do |context|
-	  results.concat(context.dist(&block))
+	# distribute block within context dependencies
+	@context_deps.each do |sub_context|
+	  results.concat(sub_context.dist(&block))
 	end
 	return results
+      end
+
+      def find_local_path(path,&block)
+	find_path(path,&block)
+      end
+
+      def find_local_file(path,&block)
+	find_file(path,&block)
+      end
+
+      def find_local_dir(path,&block)
+	find_dir(path,&block)
+      end
+
+      def local_load(path)
+	ronin_load(path)
+      end
+
+      def local_require(path)
+	ronin_require(path)
+      end
+
+      def has_local_path?(path,&block)
+	has_path?(path,&block)
+      end
+
+      def has_local_file?(path,&block)
+	has_file?(path,&block)
+      end
+
+      def has_local_dir?(path,&block)
+	has_dir?(path,&block)
       end
 
       def to_s
@@ -168,21 +209,21 @@ module Ronin
 	    wd = dir
 	  end
 
-	  new_scope = scope(name)
-	  return new_scope if new_scope
+	  new_context = context(name)
+	  return new_context if new_context
 
-	  new_scope = Context.new(name,wd)
-	  @scopes << new_scope
-	  return new_scope
+	  new_context = Context.new(name,wd)
+	  @context_deps << new_context
+	  return new_context
 	end
 
 	raise ContextNotFound, "context '#{path}' does not exist", caller
       end
 
       def method_missing(sym,*args)
-	# resolve scopes
-	sub_scope = scope(sym.id2name)
-	return sub_scope if sub_scope
+	# resolve contexts
+	sub_context = context(sym.id2name)
+	return sub_context if sub_context
 
 	# resolve actions
 	return perform_action(sym,*args)

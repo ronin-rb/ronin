@@ -40,7 +40,7 @@ module Ronin
       attr_reader :contexts
 
       # Category dependencies
-      attr_reader :categories
+      attr_reader :category_deps
 
       def initialize(name)
 	if name==CONTROL_DIR
@@ -52,7 +52,7 @@ module Ronin
 	end
 
 	@contexts = []
-	@categories = []
+	@category_deps = []
 
 	super(name,controller_path(name))
 
@@ -64,24 +64,33 @@ module Ronin
 	end
       end
 
-      def has_dependency?(name)
-	!(dependency(name).nil?)
+      def has_category?(name)
+	!(category(name).nil?)
       end
 
-      def dependency(name)
-	# self is the dependency
+      def category(name)
+	# self is the category
 	return self if name==@name
 
-	# search categories for the dependency
-	@categories.each do |category|
-	  dep = category.dependency(name)
+	# search category dependencies for the category
+	@category_deps.each do |sub_category|
+	  dep = sub_category.category(name)
 	  return dep if dep
 	end
 	return nil
       end
 
+      def category_eval(name=@name,&block)
+	sub_category = category(name)
+	unless sub_category
+	  raise CategoryNotFound, "sub-category '#{name}' not found within category '#{@name}'", caller
+	end
+
+	return sub_category.instance_eval(&block)
+      end
+
       def dist(&block)
-	# distribute block over self and scopes
+	# distribute block over self and context dependencies
 	results = Context::dist(&block)
 
 	# distribute block over contexts
@@ -89,8 +98,8 @@ module Ronin
 	  results.concat(context.dist(&block))
 	end
 
-	# distribute block over dependencies
-	@categories.each do |category|
+	# distribute block over category dependencies
+	@category_deps.each do |category|
 	  results.concat(category.dist(&block))
 	end
 	return results
@@ -112,6 +121,38 @@ module Ronin
 	else
 	  return paths
 	end
+      end
+
+      def find_local_path(path,&block)
+	Context::find_path(path,&block)
+      end
+
+      def find_local_file(path,&block)
+	Context::find_file(path,&block)
+      end
+
+      def find_local_dir(path,&block)
+	Context::find_dir(path,&block)
+      end
+
+      def local_load(path)
+	Context::ronin_load(path)
+      end
+
+      def local_require(path)
+	Context::ronin_require(path)
+      end
+
+      def has_local_path?(path,&block)
+	Context::has_path?(path,&block)
+      end
+
+      def has_local_file?(path,&block)
+	Context::has_file?(path,&block)
+      end
+
+      def has_local_dir?(path,&block)
+	Context::has_dir?(path,&block)
       end
 
       def get_action(sym)
@@ -156,26 +197,26 @@ module Ronin
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
 	end
 
-	# return existing dependency
-	category = dependency(name)
-	return category if category
+	# return existing category
+	new_category = category(name)
+	return new_category if new_category
 
-	# add new dependency
-	category = Category.new(name)
-	@categories << category
-	return category
+	# add new category
+	new_category = Category.new(name)
+	@category_deps << new_category
+	return new_category
       end
 
       def method_missing(sym,*args)
 	name = sym.id2name
 
 	# resolve dependencies
-	dep = dependency(name)
+	dep = category(name)
 	return dep if dep
 
-	# resolve scopes
-	sub_scope = scope(name)
-	return sub_scope if sub_scope
+	# resolve contexts
+	sub_context = context(name)
+	return sub_context if sub_context
 
 	# resolve actions
 	return perform_action(sym,*args)
