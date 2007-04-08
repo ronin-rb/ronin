@@ -114,7 +114,7 @@ module Ronin
 	end
       end
 
-      def glob_path(pattern,&block)
+      def glob_paths(pattern,&block)
 	paths = dist { glob_path(path) }.compact
 	if block
 	  paths.each { |i| block.call(i) }
@@ -133,6 +133,30 @@ module Ronin
 
       def find_local_dir(path,&block)
 	Context::find_dir(path,&block)
+      end
+
+      def glob_local_paths(pattern,&block)
+	Context::glob_paths(patter,&block)
+      end
+
+      def glob_local_files(pattern,&block)
+	Context::glob_files(pattern,&block)
+      end
+
+      def glob_local_dirs(pattern,&block)
+	Context::glob_dirs(pattern,&block)
+      end
+
+      def all_local_paths(&block)
+	Context::all_paths(&block)
+      end
+
+      def all_local_files(&block)
+	Context::all_files(&block)
+      end
+
+      def all_local_dirs(&block)
+	Context::all_dirs(&block)
       end
 
       def local_load(path)

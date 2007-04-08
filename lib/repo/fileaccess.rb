@@ -36,16 +36,6 @@ module Ronin
 	end
       end
 
-      def glob_path(pattern,&block)
-	paths = Dir.glob(File.join(@path,pattern))
-	
-	if block
-	  paths.each { |path| block.call(path) }
-	else
-	  return paths
-	end
-      end
-
       def find_file(path,&block)
 	if block
 	  find_path(path) do |file|
@@ -71,6 +61,84 @@ module Ronin
 
 	  find_path(path) do |dir|
 	    dirs << dir if File.directory?(dir)
+	  end
+	  return dirs
+	end
+      end
+
+      def glob_paths(pattern,&block)
+	paths = Dir.glob(File.join(@path,pattern))
+	
+	if block
+	  paths.each { |path| block.call(path) }
+	else
+	  return paths
+	end
+      end
+
+      def glob_files(pattern,&block)
+	if block
+	  glob_paths(pattern) do |path|
+	    block.call(path) if File.file?(path)
+	  end
+	else
+	  files = []
+
+	  glob_paths(pattern) do |path|
+	    files << path if File.file?(path)
+	  end
+	  return files
+	end
+      end
+
+      def glob_dirs(pattern,&block)
+	if block
+	  glob_paths(pattern) do |path|
+	    block.call(path) if File.directory?(path)
+	  end
+	else
+	  dirs = []
+
+	  glob_paths(pattern) do |path|
+	    dirs << path if File.directory?(path)
+	  end
+	  return dirs
+	end
+      end
+
+      def all_paths(&block)
+	if block
+	  glob_paths('*',&block)
+	else
+	  return glob_paths('*')
+	end
+      end
+
+      def all_files(&block)
+	if block
+	  all_paths do |path|
+	    block.call(path) if File.file?(path)
+	  end
+	else
+	  files = []
+
+	  all_paths do |path|
+	    files << path if File.file?(path)
+	  end
+	  return files
+	end
+      end
+
+      def all_dirs(&block)
+	if block
+	  all_paths do |path|
+	    block.call(path) if File.directory?(path)
+	  end
+	else
+	  dirs = []
+
+	  all_paths do |path|
+	    dirs << path if File.directory?(path)
 	  end
 	  return dirs
 	end

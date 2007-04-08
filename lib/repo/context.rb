@@ -134,6 +134,30 @@ module Ronin
 	find_dir(path,&block)
       end
 
+      def glob_local_paths(pattern,&block)
+	glob_paths(patter,&block)
+      end
+
+      def glob_local_files(pattern,&block)
+	glob_files(pattern,&block)
+      end
+
+      def glob_local_dirs(pattern,&block)
+	glob_dirs(pattern,&block)
+      end
+
+      def all_local_paths(&block)
+	all_paths(&block)
+      end
+
+      def all_local_files(&block)
+	all_files(&block)
+      end
+
+      def all_local_dirs(&block)
+	all_dirs(&block)
+      end
+
       def local_load(path)
 	ronin_load(path)
       end
