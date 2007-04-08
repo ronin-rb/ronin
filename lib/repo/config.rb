@@ -38,13 +38,13 @@ module Ronin
 
     class Config
 
+      include REXML
+
       # Path to config file
       CONFIG_PATH = File.join(ENV['HOME'],'.ronin','config')
 
       # Path to repositories dir
       REPOS_PATH = File.join(ENV['HOME'],'.ronin','repos')
-
-      include REXML
 
       # Path of config file
       attr_reader :path

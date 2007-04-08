@@ -19,17 +19,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'rexml/document'
 require 'repo/fileaccess'
 require 'repo/category'
 require 'repo/exceptions/categorynotfound'
+require 'rexml/document'
 
 module Ronin
   module Repo
     class Repository
 
       include FileAccess
-
       include REXML
 
       # Name of the repository

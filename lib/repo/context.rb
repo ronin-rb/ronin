@@ -86,8 +86,8 @@ module Ronin
 	perform_action(:teardown)
       end
 
-      def has_scope?(name)
-	!(scope(name).nil?)
+      def has_context?(name)
+	!(context(name).nil?)
       end
 
       def context(name)
