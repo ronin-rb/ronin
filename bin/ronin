@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require 'getopt/long'
+
+$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
+require 'ronin'
+
+include Ronin
+
+opt = Getopt::Long.getopts(
+  ['--config','-C',Getopt::REQUIRED],
+  ['--category','-c',Getopt::REQUIRED],
+  ['--action','-a',Getopt::REQUIRED],
+  ['--version','-V']
+)
+
+if opt['version']
+  puts "ronin v#{RONIN_VERSION}"
+  exit
+end
+
+if opt['config']
+  open_config(opt['config'])
+end
+
+if opt['category']
+  category = config.get_category(opt['category'])
+
+  category.perform_setup
+  if (opt['action'] && opt['action']!='setup' && opt['action']!='teardown')
+    category.perform(opt['action'].to_sym)
+  end
+  category.perform_teardown
+end
