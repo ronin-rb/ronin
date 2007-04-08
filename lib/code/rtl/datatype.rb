@@ -25,35 +25,35 @@ module Ronin
     end
 
     def char
-      DataType.CHAR
+      DataType::CHAR
     end
 
     def int
-      DataType.INT
+      DataType::INT
     end
 
     def int8
-      DataType.INT8
+      DataType::INT8
     end
 
     def int16
-      DataType.INT16
+      DataType::INT16
     end
 
     def int32
-      DataType.INT32
+      DataType::INT32
     end
 
     def int64
-      DataType.INT64
+      DataType::INT64
     end
 
     def string
-      DataType.STRING
+      DataType::STRING
     end
 
     def pointer
-      DataType.POINTER
+      DataType::POINTER
     end
   end
 end

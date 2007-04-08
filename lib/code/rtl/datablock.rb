@@ -16,35 +16,35 @@ module Ronin
       end
 
       def char(name)
-	add_member(DataType.CHAR,name)
+	add_member(DataType::CHAR,name)
       end
 
       def int(name)
-	add_member(DataType.INT,name)
+	add_member(DataType::INT,name)
       end
 
       def int8(name)
-	add_member(DataType.INT8,name)
+	add_member(DataType::INT8,name)
       end
       
       def int16(name)
-	add_member(DataType.INT16,name)
+	add_member(DataType::INT16,name)
       end
       
       def int32(name)
-	add_member(DataType.INT32,name)
+	add_member(DataType::INT32,name)
       end
 
       def int64(name)
-	add_member(DataType.INT64,name)
+	add_member(DataType::INT64,name)
       end
 
       def string(name)
-	add_member(DataType.STRING,name)
+	add_member(DataType::STRING,name)
       end
 
       def pointer(name)
-	add_member(DataType.POINTER,name)
+	add_member(DataType::POINTER,name)
       end
 
       def struct(type,name=nil)
