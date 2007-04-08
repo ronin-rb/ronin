@@ -59,6 +59,9 @@ module Ronin
       # Description
       attr_reader :description
 
+      # Repository dependencies
+      attr_reader :deps
+
       # Cateogires
       attr_reader :categories
 
@@ -67,6 +70,7 @@ module Ronin
 	@path = path
 	@url = url
 	@type = type
+	@deps = []
 	@categories = []
 
 	Dir.foreach(@path) do |file|
@@ -90,6 +94,10 @@ module Ronin
 
 	  metadata.elements.each('/metadata/description') do |desc|
 	    @description = desc.get_text
+	  end
+
+	  metadata.elements.each('/metadata/dependency') do |dep|
+	    @deps << dep.get_text
 	  end
 	end
       end
