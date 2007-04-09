@@ -41,7 +41,7 @@ module Ronin
       end
 
       def bind(context)
-	Action.new(name,context,&(@block))
+	Action.new(@name,@context,&(@block))
       end
 
       def bind!(context)
@@ -57,7 +57,7 @@ module Ronin
 	  raise ActionUnbound, "action #{@name} is not bound to any context", caller
 	end
 
-	call_context(context,*args)
+	call_context(@context,*args)
       end
 
       def call_context(context,*args)

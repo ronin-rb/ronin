@@ -55,22 +55,24 @@ module Ronin
 	end
       end
 
-      def get_action(sym)
+      def get_action(id)
+	name = id.to_s
+
 	return @actions[name] if @actions.has_key?(name)
 
 	@context_deps.each do |scope|
-	  action = scope.get_action(sym)
+	  action = scope.get_action(name)
 	  return action if action
 	end
 	return nil
       end
 
-      def has_action?(sym)
-	!(get_action(sym).nil?)
+      def has_action?(id)
+	!(get_action(id).nil?)
       end
 
-      def perform_action(sym,*args)
-	action = get_action(sym)
+      def perform_action(id,*args)
+	action = get_action(id)
 	unless action
 	  raise ActionNotFound, "cannot find action '#{sym}' in group '#{self}'", caller
 	end
@@ -188,14 +190,14 @@ module Ronin
 	# define context_type
 	class_eval <<-"end_eval"
 	  def context_type
-	    :#{id}
+	    '#{id}'
 	  end
 	end_eval
 
 	# define kernel-level context method
 	Kernel.module_eval <<-"end_eval"
 	  def ronin_#{id}(&block)
-	    $context_block[:#{id}] = block
+	    $context_block['#{id}'] = block
 	  end
 	end_eval
       end
@@ -220,7 +222,8 @@ module Ronin
       attr_action :teardown
 
       def action(sym,&block)
-	@actions[sym] = Action.new(sym,self,&block)
+	name = sym.to_s
+	@actions[name] = Action.new(name,self,&block)
       end
 
       def inherit(path)

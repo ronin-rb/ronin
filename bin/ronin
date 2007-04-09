@@ -96,7 +96,8 @@ if opt['category']
 
   category.perform_setup
   if (opt['action'] && opt['action']!='setup' && opt['action']!='teardown')
-    category.perform(opt['action'].to_sym)
+    category.perform_action(opt['action'])
   end
   category.perform_teardown
+  exit
 end

@@ -243,7 +243,7 @@ module Ronin
 	return sub_context if sub_context
 
 	# resolve actions
-	return perform_action(sym,*args)
+	return perform_action(name,*args)
       end
 
     end
