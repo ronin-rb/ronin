@@ -1,15 +1,8 @@
 1. lib/advisory.rb:
 	Add xml parsing code for loading advisory info.
 
-2. lib/repo/repository.rb:
-	Add code to handle updating a repository based on it's type.
-
 3. lib/repo/config.rb:
 	a. Add code to handle addition/deletion of repositories.
-	b. Add code to handle input/output of config file.
-
-4. bin:
-	Add utils for managing repositories.
 
 5. Add rake build system.
 6. Add unit tests for top level ronin code.
