@@ -38,41 +38,4 @@ module Ronin
     end
 
   end
-
-  class ProductSupport
-
-    # Name
-    attr_reader :name
-
-    # Version
-    attr_reader :version
-
-    # Venders
-    attr_reader :vendors
-
-    def initialize(name,version,vendors=[])
-      @name = name
-      @version = version
-      @vendors = vendors
-    end
-
-    def supported?(product)
-      return false if @name!=product.name
-      return false if @version!=product.version
-      return false if @venders.include?(product.vendor)
-      return true
-    end
-
-  end
-
-  class ProductList < Array
-
-    def contains?(product)
-      self.each do |support|
-	return true if support.supported(product)
-      end
-      return false
-    end
-
-  end
 end
