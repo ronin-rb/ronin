@@ -50,7 +50,7 @@ module Ronin
       @build_block = nil
       @clean_block = nil
 
-      instance_eval(&block) if block
+      block.call(self) if block
     end
 
     def builder(&block)
@@ -58,15 +58,9 @@ module Ronin
     end
 
     def build
-      if block_given?
-	@data = ""
+      @data = ""
 
-	if block_given?
-	  yield self
-	elsif @build_block
-	  @build_block.call(self)
-	end
-      end
+      @build_block.call(self) if @build_block
     end
 
     def cleaner(&block)
@@ -74,11 +68,7 @@ module Ronin
     end
 
     def clean
-      if block_given?
-        yield self
-      elsif @clean_block
-	@clean_block.call(self)
-      end
+      @clean_block.call(self) if @clean_block
 
       @data = nil
     end

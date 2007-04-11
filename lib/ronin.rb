@@ -21,7 +21,12 @@
 
 require 'exceptions'
 require 'extensions'
+require 'arch'
+require 'platform'
+require 'parameters'
 require 'payload'
+require 'product'
+require 'advisory'
 require 'exploit'
 require 'platformexploit'
 require 'bufferoverflow'
