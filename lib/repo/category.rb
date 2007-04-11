@@ -179,18 +179,24 @@ module Ronin
 	Context::has_dir?(path,&block)
       end
 
-      def get_action(sym)
-	dist { get_action(sym) }.compact
+      def get_action(id)
+	dist { get_action(id.to_s) }.compact
       end
 
-      def perform_action(sym,*args)
-	action_list = get_action(sym)
+      def perform_action(id,*args)
+	name = id.to_s
+	action_list = get_action(name)
+
 	if action_list.empty?
-	  raise ActionNotFound, "action '#{sym}' was not found in category '#{self}'", caller
+	  raise ActionNotFound, "action '#{name}' was not found in category '#{self}'", caller
 	end
 
 	# map actions to results
 	return action_list.map { |act| act.call(*args) }
+      end
+
+      def main
+	perform_action('main')
       end
 
       def to_s
@@ -201,6 +207,9 @@ module Ronin
 
       # Name of context to load
       attr_context :category
+
+      # Main action
+      attr_action :main
 
       def controller_path(name)
 	config.categories[name].each_value do |repository|

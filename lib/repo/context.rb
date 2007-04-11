@@ -80,12 +80,12 @@ module Ronin
 	return action.call(*args)
       end
 
-      def perform_setup
-	perform_action(:setup)
+      def setup
+	perform_action('setup')
       end
 
-      def perform_teardown
-	perform_action(:teardown)
+      def teardown
+	perform_action('teardown')
       end
 
       def has_context?(name)
@@ -186,7 +186,7 @@ module Ronin
 
       protected
 
-      def Context.attr_context(*id)
+      def Context.attr_context(id)
 	# define context_type
 	class_eval <<-"end_eval"
 	  def context_type
@@ -205,8 +205,8 @@ module Ronin
       def Context.attr_action(*ids)
 	for id in ids
 	  class_eval <<-"end_eval"
-	    def #{id}(&block)
-	      action(:#{id},&block)
+	    def action_#{id}(&block)
+	      action('#{id}',&block)
 	    end
 	  end_eval
 	end

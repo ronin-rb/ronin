@@ -94,10 +94,14 @@ end
 if opt['category']
   category = config.get_category(opt['category'])
 
-  category.perform_setup
-  if (opt['action'] && opt['action']!='setup' && opt['action']!='teardown')
-    category.perform_action(opt['action'])
+  category.setup
+  if opt['action']
+    if (opt['action']!='setup' && opt['action']!='teardown')
+      category.perform_action(opt['action'])
+    end
+  else
+    category.main
   end
-  category.perform_teardown
+  category.teardown
   exit
 end
