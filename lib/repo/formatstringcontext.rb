@@ -66,8 +66,8 @@ module Ronin
 
       protected
 
-      # Name of context to load
-      attr_context :formatstring
+      # Name of object to load
+      attr_object :formatstring
 
       def target(&block)
 	@targets << FormatStringTargetContext.new(&block)

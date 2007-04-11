@@ -38,8 +38,8 @@ module Ronin
 
       protected
 
-      # Name of context to load
-      attr_context :payload
+      # Name of object to load
+      attr_object :payload
 
       # Build action for the payload
       attr_action :builder

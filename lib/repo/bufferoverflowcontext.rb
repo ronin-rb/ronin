@@ -70,8 +70,8 @@ module Ronin
 
       protected
 
-      # Name of context to load
-      attr_context :bufferoverflow
+      # Name of object to load
+      attr_object :bufferoverflow
 
       def target(&block)
 	@targets << BufferOverflowTargetContext.new(&block)
