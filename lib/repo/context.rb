@@ -36,6 +36,9 @@ module Ronin
       # Working directory of the context
       attr_reader :path
 
+      # Context actions
+      attr_reader :actions
+
       # Scopes of the context
       attr_reader :context_deps
 
@@ -81,11 +84,11 @@ module Ronin
       end
 
       def setup
-	perform_action('setup')
+	perform_action(:setup)
       end
 
       def teardown
-	perform_action('teardown')
+	perform_action(:teardown)
       end
 
       def has_context?(name)
@@ -206,7 +209,7 @@ module Ronin
 	for id in ids
 	  class_eval <<-"end_eval"
 	    def action_#{id}(&block)
-	      action('#{id}',&block)
+	      action(:#{id},&block)
 	    end
 	  end_eval
 	end
@@ -221,9 +224,8 @@ module Ronin
       # Teardown action
       attr_action :teardown
 
-      def action(sym,&block)
-	name = sym.to_s
-	@actions[name] = Action.new(name,self,&block)
+      def action(id,&block)
+	@actions[id.to_s] = Action.new(id,self,&block)
       end
 
       def inherit(path)
@@ -258,13 +260,13 @@ module Ronin
 
       private
 
-      def has_context?(sym)
-	!($context_block[sym].nil?)
+      def has_context?(id)
+	!($context_block[id].nil?)
       end
 
-      def get_context(sym)
-	block = $context_block[sym]
-	$context_block[sym] = nil
+      def get_context(id)
+	block = $context_block[id]
+	$context_block[id] = nil
 	return block
       end
 
