@@ -23,6 +23,8 @@ require 'repo/fileaccess'
 require 'repo/category'
 require 'repo/exceptions/categorynotfound'
 require 'rexml/document'
+require 'uri'
+require 'open-uri'
 
 module Ronin
   module Repo
@@ -43,17 +45,8 @@ module Ronin
       # Type of repository
       attr_reader :type
 
-      # Author of the repository
-      attr_reader :author
-
-      # Author biography
-      attr_reader :author_biography
-
-      # Email of author
-      attr_reader :author_email
-
-      # URL for author
-      attr_reader :author_url
+      # Author(s) of the repository
+      attr_reader :authors
 
       # Description
       attr_reader :description
@@ -64,12 +57,11 @@ module Ronin
       # Cateogires
       attr_reader :categories
 
-      def initialize(path,url,type='local')
-	@name = File.basename(path)
+      def initialize(name,path)
+	@name = name
 	@path = path
-	@url = url
-	@type = type
-	@deps = []
+	@authors = {}
+	@deps = {}
 	@categories = []
 
 	Dir.foreach(@path) do |file|
@@ -80,23 +72,21 @@ module Ronin
 
 	if has_file?('metadata.xml')
 	  metadata = Document.new(File.new(find_file('metadata.xml')))
-	  metadata.elements.each('/metadata/author') do |element|
-	    unless element.has_attribute('name')
-	      raise "Repository author metadata must atleast give the author name", caller
-	    end
 
-	    @author = element.attribute('name')
-	    element.each_element('biography') { |bio| @author_biography = bio.get_text }
-	    element.each_element('email') { |email| @author_email = email.get_text }
-	    element.each_element('url') { |url| @author_url = url.get_text }
+	  metadata.elements.each('/ronin/repository/type') { |type| @type = type.get_text.to_s }
+	  metadata.elements.each('/ronin/repository/src') { |src| @src = URI.parse(src.get_text.to_s) }
+
+	  metadata.elements.each('/ronin/repository/author') do |author|
+	    new_author = Author.parse_xml(author)
+	    @authors[new_author.name] = new_author
 	  end
 
-	  metadata.elements.each('/metadata/description') do |desc|
-	    @description = desc.get_text
+	  metadata.elements.each('/ronin/repository/description') do |desc|
+	    @description = desc.get_text.to_s
 	  end
 
-	  metadata.elements.each('/metadata/dependency') do |dep|
-	    @deps << dep.get_text
+	  metadata.elements.each('/ronin/repository/dependency') do |dep|
+	    @deps[dep.attribute('name')] = URI.parse(dep.get_text.to_s)
 	  end
 	end
       end
@@ -105,13 +95,29 @@ module Ronin
 	@categories.include?(category)
       end
 
+      def install(name,src,path=File.join(Config::REPOS_PATH,name))
+	metadata = Document.new(open(src))
+
+	metadata.elements.each('/ronin/repository/type') { |type| repo_type = type }
+	metadata.elements.each('/ronin/repository/src') { |src| repo_src = src }
+
+	case repo_type
+	  when 'svn' then system("svn co '#{repo_src}' '#{path}'")
+	  when 'cvs' then system("cvs checkout '#{repo_src}' '#{path}'")
+	  when 'rsync' then system("rsync -av --progress '#{repo_src}' '#{path}'")
+	end
+
+	new_repo = Repository.new(name,path)
+	config.add_registory(new_repo)
+	return new_repo
+      end
+
       def update
-       case @type
-         when 'svn' then system("svn up '#{@path}'")
-	 when 'cvs' then system("cvs update -dP '#{@path}'")
-	 when 'rsync','http','https','ftp' then
-	   system("rsync -av --delete-after --progress '#{@url}' '#{@path}'")
-       end
+        case @type
+          when 'svn' then system("svn up '#{@path}'")
+          when 'cvs' then system("cvs update -dP '#{@path}'")
+          when 'rsync' then system("rsync -av --delete-after --progress '#{@url}' '#{@path}'")
+        end
       end
 
       def to_s
