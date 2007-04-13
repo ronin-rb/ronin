@@ -34,8 +34,8 @@ module Ronin
       # Action block
       attr_reader :block
 
-      def initialize(name,context=nil,&block)
-	@name = name
+      def initialize(id,context=nil,&block)
+	@name = id.to_s
 	@context = context
 	@block = block
       end
@@ -54,7 +54,7 @@ module Ronin
 
       def call(*args)
 	unless @context
-	  raise ActionUnbound, "action #{@name} is not bound to any context", caller
+	  raise ActionUnbound, "action '#{@name}' is not bound to any context", caller
 	end
 
 	call_context(@context,*args)

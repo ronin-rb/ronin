@@ -196,7 +196,7 @@ module Ronin
       end
 
       def main
-	perform_action('main')
+	perform_action(:main)
       end
 
       def to_s

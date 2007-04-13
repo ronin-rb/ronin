@@ -26,21 +26,22 @@ module Ronin
 	for id in ids
 	  module_eval <<-"end_eval"
 	    def #{id}
-	      @metadata[:#{id}]
+	      @metadata['#{id}']
 	    end
 
 	    def #{id}=(data)
-	      @metadata[:#{id}] = data
+	      @metadata['#{id}'] = data
 	    end
 	  end_eval
 	end
       end
 
-      def metadata_set(sym,value)
+      def metadata_set(id,value)
 	@metadata ||= {}
 
-	unless @metadata.has_key?(sym)
-	  @metadata[sym] = value
+	name = id.to_s
+	unless @metadata.has_key?(name)
+	  @metadata[name] = value
 	end
       end
     end
