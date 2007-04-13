@@ -64,12 +64,11 @@ module Ronin
 
 	if File.file?(path)
 	  config_doc = Document.new(File.new(path))
-	  config_doc.elements.each('/config/repos/repo') do |repo|
-	    repo_type = repo.attribute('type')
-	    repo.each_element('path') { |element| repo_path = element.get_text }
-	    repo.each_element('url') { |element| repo_url = element.get_text }
+	  config_doc.elements.each('/ronin/config/repository') do |repo|
+	    repo_name = repo.attribute('name').to_s
+	    repo_path = repo.get_text.to_s
 
-	    register_repository(Repository.new(repo_path,repo_url,repo_type))
+	    register_repository(Repository.new(repo_name,repo_path))
 	  end
 	end
       end
@@ -107,19 +106,14 @@ module Ronin
 	return unless @changed
 
 	# create skeleton config document
-	new_config = Document.new("<config></config>")
-	repos_elem = Element.new('repos',new_config.root)
+	new_config = Document.new('<ronin></ronin>')
+	config_elem = Element.new('config',new_config.root)
 
 	# populate with repositories
 	@repositories.each do |repo|
-	  repo_elem = Element.new('repo',repos_elem)
-	  repo_elem.add_attribute('type',repo.type)
-
-	  path_elem = Element.new('path',repo_elem)
-	  path_elem.add_text(repo.path)
-
-	  url_elem = Element.new('url',repo_elem)
-	  url_elem.add_text(repo.url)
+	  repo_elem = Element.new('repository',config_elem)
+	  repo_elem.add_attribute('name',repo.name)
+	  repo_elem.add_text(repo.path)
 	end
 
 	# save config document
