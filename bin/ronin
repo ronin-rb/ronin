@@ -10,6 +10,7 @@ include Ronin
 opt = Getopt::Long.getopts(
   ['--config','-C',Getopt::REQUIRED],
   ['--category','-c',Getopt::REQUIRED],
+  ['--list-actions'],
   ['--action','-a',Getopt::REQUIRED],
   ['--add-repo','-A',Getopt::REQUIRED],
   ['--list-repo','-L',Getopt::BOOLEAN],
@@ -18,7 +19,8 @@ opt = Getopt::Long.getopts(
   ['--list-repos','-l'],
   ['--update-repos','-u'],
   ['--verbose','-v',Getopt::BOOLEAN],
-  ['--version','-V']
+  ['--version','-V'],
+  ['--help','-h',Getopt::OPTIONAL]
 )
 
 if opt['version']
@@ -30,7 +32,8 @@ if opt['config']
   open_config(opt['config'])
 end
 
-if opt['list-repo']
+if opt['add-repo']
+elsif opt['list-repo']
   repo = config.get_repository(opt['list-repo'])
 
   puts "[ #{repo} ]"
@@ -39,20 +42,18 @@ if opt['list-repo']
   puts "\ttype: #{repo.type}"
 
   if opt['verbose']
-    if repo.author
-      puts "\tauthor: #{repo.author}"
-    end
+    repo.author.each_value do |author|
+      puts "\n\tauthor: #{author.name}\n"
 
-    if repo.author_email
-      puts "\tauthor email: #{repo.author_email}"
-    end
+      author.contacts.each do |key,value|
+        puts "\t\t#{key}: #{value}"
+      end
 
-    if repo.author_url
-      puts "\tauthor url: #{repo.author_url}"
-    end
+      if author.biography
+        puts "\t\tbiography:\n\n\t\t\t#{author.biography}"
+      end
 
-    if repo.author_biography
-      puts "\tauthor biography: #{repo.author_biography}"
+      putc "\n"
     end
 
     if repo.description
@@ -63,7 +64,7 @@ if opt['list-repo']
   unless repo.deps.empty?
     puts "\n\tdependencies:\n\n"
 
-    repo.deps.each do |dep|
+    repo.deps.each_key do |dep|
       print "\t\t#{dep}"
 
       unless config.has_repository?(dep)
@@ -94,14 +95,20 @@ end
 if opt['category']
   category = config.get_category(opt['category'])
 
-  category.setup
-  if opt['action']
-    if (opt['action']!='setup' && opt['action']!='teardown')
-      category.perform_action(opt['action'])
-    end
+  if opt['list-actions']
+    category.actions.each_value { |action| puts "#{action}" }
   else
-    category.main
+    category.setup
+
+    if opt['action']
+      if (opt['action']!='setup' && opt['action']!='teardown')
+        category.perform_action(opt['action'])
+      end
+    else
+      category.main
+    end
+
+    category.teardown
+    exit
   end
-  category.teardown
-  exit
 end
