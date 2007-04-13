@@ -32,7 +32,7 @@ module Ronin
     attr_accessor :value
 
     def initialize(name,desc="",value=nil)
-      @name = name
+      @name = name.to_s
       @desc = desc
       @value = value
     end
@@ -49,15 +49,15 @@ module Ronin
     end
 
     def add_param(name,desc="",value=nil)
-      params[name] = Param.new(name,desc,value)
+      params[name.to_s] = Param.new(name,desc,value)
     end
 
     def has_param?(name)
-      params.has_key?(name)
+      params.has_key?(name.to_s)
     end
 
     def param(name)
-      return params[name]
+      return params[name.to_s]
     end
 
     def param_desc(name)

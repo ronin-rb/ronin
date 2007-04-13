@@ -50,22 +50,26 @@ module Ronin
 
     def initialize(advisory=nil)
       super(advisory)
+
+      builder do |bof|
+	bof.data = bof.prefix+build_buffer(get_target,payload.to_s)+bof.postfix
+      end
     end
 
-    def build_buffer(target=get_target,payload="")
-      if payload.length>target.buffer_length
+    def build_buffer(target=get_target,payload_str="")
+      if payload_str.length>target.buffer_length
         raise PayloadSize, "the payload specified is too large for the target's buffer length", caller
       end
 
-      buffer = pad*((target.buffer_length-payload.length)/pad.length)
+      buffer = pad*((target.buffer_length-payload_str.length)/pad.length)
 
-      pad_remaining = ((target.buffer_length-payload.length) % pad.length)
-      buffer+=pad[0,pad_remaining] if pad_remaining != 0
+      pad_remaining = ((target.buffer_length-payload_str.length) % pad.length)
+      buffer+=pad[0,pad_remaining] unless pad_remaining==0
 
-      buffer+=payload
+      buffer+=payload_str
 
       ip_packed = target.ip.pack(target.platform.arch)
-      if target.bp != 0
+      unless target.bp==0
 	buffer+=(target.bp.pack(target.platform.arch)+ip_packed)*target.return_length.times
       else
         buffer+=ip_packed*(target.return_length*2)
