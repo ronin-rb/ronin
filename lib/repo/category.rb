@@ -47,7 +47,7 @@ module Ronin
 	  raise CategoryNotFound, "invlaid category name '#{name}'", caller
 	end
 	
-	if !config.has_category?(name)
+	unless config.has_category?(name)
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
 	end
 
@@ -226,7 +226,7 @@ module Ronin
 	  raise CategoryNotFound, "invlaid category name '#{name}'", caller
 	end
 	
-	if !config.has_category?(name)
+	unless config.has_category?(name)
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
 	end
 

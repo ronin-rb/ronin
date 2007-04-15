@@ -49,7 +49,7 @@ module Ronin
 	@context_deps = []
 
 	# load context file if it exists
-	file = File.join(@path,@name,'.rb')
+	file = File.join(@path,@name)+'.rb'
 	if File.file?(file)
 	  load(file)
 
