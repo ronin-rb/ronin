@@ -26,14 +26,14 @@ module Ronin
 
     include Parameters
 
-    # Name of the specific exploit
+    # Name of the specific payload
     attr_accessor :name
 
-    # Version of the exploit
+    # Version of the payload
     attr_accessor :version
 
-    # Author of the exploit
-    attr_accessor :author
+    # Authors of the payload
+    attr_accessor :authors
 
     # Payload parameters
     attr_accessor :params
@@ -44,11 +44,8 @@ module Ronin
     def initialize(&block)
       @name = ""
       @version = ""
-      @author = ""
+      @authors = {}
       @data = ""
-
-      @build_block = nil
-      @clean_block = nil
 
       block.call(self) if block
     end

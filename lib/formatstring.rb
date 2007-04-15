@@ -45,11 +45,11 @@ module Ronin
   class FormatString < PlatformExploit
 
     def initialize(advisory=nil)
-      super(advisory)
-
       builder do |fmt|
 	fmt.data = fmt.prefix+build_format_string(get_target,payload.to_s)+fmt.postfix
       end
+
+      super(advisory)
     end
 
     def build_format_string(target=get_target,payload_str="")

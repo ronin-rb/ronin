@@ -49,11 +49,11 @@ module Ronin
   class BufferOverflow < PlatformExploit
 
     def initialize(advisory=nil)
-      super(advisory)
-
       builder do |bof|
 	bof.data = bof.prefix+build_buffer(get_target,payload.to_s)+bof.postfix
       end
+
+      super(advisory)
     end
 
     def build_buffer(target=get_target,payload_str="")
