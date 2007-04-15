@@ -7,42 +7,57 @@ module Ronin
     # Name of author
     attr_reader :name
 
-    # Author's contact information
-    attr_reader :contact
+    # Author's
+    attr_reader :address
 
-    # Biography
+    # Author's phone
+    attr_reader :phone
+
+    # Author's email
+    attr_reader :email
+
+    # Author's site
+    attr_reader :site
+
+    # Author's biography
     attr_reader :biography
 
     def initialize(name,biography='',contact={})
       @name = name
+      @address = contact[:address]
+      @phone = contact[:phone]
+      @email = contact[:email]
+      @site = contact[:site]
       @biography = biography
-      @contact = contact
     end
 
-    def parse_xml(element)
-      author_name = element.attribute('name')
+    def parse_xml(doc,xpath)
+      authors = {}
 
-      if (author_name.nil? || author_name=AUTHOR_NO_ONE.name)
-	return AUTHOR_NO_ONE
-      else
-	author_contact = {}
+      doc.elements.each(xpath+'/author') do |element|
+	author_name = element.attribute('name')
 
-	element.each_element('contact/address') { |address| author_contract[:address] = address.get_text.to_s }
-	element.each_element('contact/phone') { |phone| author_contract[:phone] = phone.get_text.to_s }
-	element.each_element('contact/email') { |email| author_contract[:email] = URI.parse(email.get_text.to_s) }
-	element.each_element('contact/site') { |site| author_contract[:site] = URI.parse(site.get_text.to_s) }
+	if (author_name.nil? || author_name=AUTHOR_NO_ONE.name)
+	  authors[AUTHOR_NO_ONE.name] = AUTHOR_NO_ONE
+	else
+	  author_contact = {}
 
-	element.each_element('biography') { |biography| author_biography = biography.get_text.to_s }
+	  element.each_element('contact/address') { |address| author_contract[:address] = address.get_text.to_s }
+	  element.each_element('contact/phone') { |phone| author_contract[:phone] = phone.get_text.to_s }
+	  element.each_element('contact/email') { |email| author_contract[:email] = URI.parse(email.get_text.to_s) }
+	  element.each_element('contact/site') { |site| author_contract[:site] = URI.parse(site.get_text.to_s) }
 
-	return Author.new(author_name,author_biography,author_contract)
+	  element.each_element('biography') { |biography| author_biography = biography.get_text.to_s }
+
+	  authors[author_name] = Author.new(author_name,author_biography,author_contract)
+	end
       end
+
+      return authors
     end
 
-    protected
-
-    def method_missing(sym,*args)
-      name = sym.id2name
-      return @contact[name] if @contact.has_key?(name)
+    def to_s
+      @name
     end
 
   end
