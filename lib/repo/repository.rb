@@ -19,74 +19,32 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/repositorymetadata'
 require 'repo/fileaccess'
 require 'repo/category'
 require 'repo/exceptions/categorynotfound'
-require 'rexml/document'
-require 'uri'
-require 'open-uri'
 
 module Ronin
   module Repo
-    class Repository
+    class Repository < RepositoryMetadata
 
       include FileAccess
-      include REXML
-
-      # Name of the repository
-      attr_reader :name
 
       # Local path to the repository
       attr_reader :path
 
-      # URL of the repository source
-      attr_reader :url
-
-      # Type of repository
-      attr_reader :type
-
-      # Author(s) of the repository
-      attr_reader :authors
-
-      # Description
-      attr_reader :description
-
-      # Repository dependencies
-      attr_reader :deps
-
       # Cateogires
       attr_reader :categories
 
-      def initialize(name,path)
-	@name = name
+      def initialize(path)
+	super(File.join(path,'metadata.xml'))
+
 	@path = path
-	@authors = {}
-	@deps = {}
 	@categories = []
 
 	Dir.foreach(@path) do |file|
 	  if (File.directory?(file) && file!='.' && file!='..' && file!=Category::CONTROL_DIR)
 	    @categories << file
-	  end
-	end
-
-	if has_file?('metadata.xml')
-	  metadata = Document.new(File.new(find_file('metadata.xml')))
-
-	  metadata.elements.each('/ronin/repository/type') { |type| @type = type.get_text.to_s }
-	  metadata.elements.each('/ronin/repository/src') { |src| @src = URI.parse(src.get_text.to_s) }
-
-	  metadata.elements.each('/ronin/repository/author') do |author|
-	    new_author = Author.parse_xml(author)
-	    @authors[new_author.name] = new_author
-	  end
-
-	  metadata.elements.each('/ronin/repository/description') do |desc|
-	    @description = desc.get_text.to_s
-	  end
-
-	  metadata.elements.each('/ronin/repository/dependency') do |dep|
-	    @deps[dep.attribute('name')] = URI.parse(dep.get_text.to_s)
 	  end
 	end
       end
@@ -95,28 +53,17 @@ module Ronin
 	@categories.include?(category)
       end
 
-      def install(name,src,path=File.join(Config::REPOS_PATH,name))
-	metadata = Document.new(open(src))
-
-	metadata.elements.each('/ronin/repository/type') { |type| repo_type = type }
-	metadata.elements.each('/ronin/repository/src') { |src| repo_src = src }
-
-	case repo_type
-	  when 'svn' then system("svn co '#{repo_src}' '#{path}'")
-	  when 'cvs' then system("cvs checkout '#{repo_src}' '#{path}'")
-	  when 'rsync' then system("rsync -av --progress '#{repo_src}' '#{path}'")
+      def update
+	update_cmd = lambda do |cmd,*args|
+	  unless system(cmd,*args)
+	    raise "failed to update repository '#{@name}'", caller
+	  end
 	end
 
-	new_repo = Repository.new(name,path)
-	config.add_registory(new_repo)
-	return new_repo
-      end
-
-      def update
         case @type
-          when 'svn' then system("svn up '#{@path}'")
-          when 'cvs' then system("cvs update -dP '#{@path}'")
-          when 'rsync' then system("rsync -av --delete-after --progress '#{@url}' '#{@path}'")
+          when 'svn' then update_cmd.call('svn','up',@path)
+          when 'cvs' then update_cmd.call('cvs','update','-dP',@path)
+          when 'rsync' then update_cmd.call('rsync','-av','--delete-after','--progress',@url,@path)
         end
       end
 

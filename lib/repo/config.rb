@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/repositorymetadata'
 require 'repo/repository'
 require 'repo/category'
 require 'repo/exceptions/categorynotfound'
@@ -60,7 +61,6 @@ module Ronin
 	@path = path
         @repositories = {}
 	@categories = Hash.new { |hash,key| hash[key] = {} }
-	@changed = false
 
 	if File.file?(path)
 	  config_doc = Document.new(File.new(path))
@@ -77,9 +77,30 @@ module Ronin
 	@repositories.has_key?(name)
       end
 
-      def add_repository(repo)
-	@changed = true
-	register_repository(repo)
+      def install_repository(metadata,install_dir=Config::REPOS_PATH)
+	repo_metadata = RepositoryMetadata.new(metadata)
+	install_path = File.join(install_dir,repo_metadata.name)
+
+	download = lambda do |cmd,*args|
+	  unless system(cmd,*args)
+	    raise "failed to download repository '#{repo_metadata}'", caller
+	  end
+	end
+
+	case repo_metadata.type
+	  when 'svn' then
+	    download.call('svn','checkout',repo_metadata.src.to_s,install_path)
+	  when 'cvs' then
+	    download.call('cvs','checkout',repo_metadata.src.to_s,install_path)
+	  when 'rsync' then
+	    download.call('rsync','-av','--progress',repo_metadata.src.to_s,install_path)
+	end
+
+	new_repo = Repository.new(install_path)
+	register_repository(new_repo)
+
+	write
+	return new_repo
       end
 
       def get_repository(name)
@@ -88,6 +109,10 @@ module Ronin
 	end
 
 	return @repositories[name]
+      end
+
+      def update
+	@repositories.each { |repo| repo.update }
       end
 
       def has_category?(name)
@@ -102,9 +127,21 @@ module Ronin
         Category.new(name)
       end
 
-      def write
-	return unless @changed
+      def to_s
+	@path
+      end
 
+      protected
+
+      def register_repository(repo)
+	@repositories[repo] = repo
+	repo.categories.each do |category|
+	  @categories[category][repo] = repo
+	end
+	return repo
+      end
+
+      def write
 	# create skeleton config document
 	new_config = Document.new('<ronin></ronin>')
 	config_elem = Element.new('config',new_config.root)
@@ -119,19 +156,6 @@ module Ronin
 	# save config document
 	new_config << XMLDecl.new
 	new_config.write(File.new(@path,'w'),0)
-      end
-
-      def to_s
-	@path
-      end
-
-      protected
-
-      def register_repository(repo)
-	@repositories[repo] = repo
-	repo.categories.each do |category|
-	  @categories[category][repo] = repo
-	end
       end
 
     end
