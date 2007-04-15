@@ -51,7 +51,10 @@ module Ronin
 	# load payload metadata
 	payload.name = name
 	payload.version = version
-	payload.author = author
+
+	authors.each do |key,value|
+	  payload.authors[key] = value.to_author
+	end
 
 	# load payload actions
 	cleaner_action = get_action(:cleaner)

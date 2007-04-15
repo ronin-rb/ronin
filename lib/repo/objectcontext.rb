@@ -21,6 +21,7 @@
 
 require 'repo/context'
 require 'repo/objectmetadata'
+require 'repo/authorcontext'
 
 module Ronin
   module Repo
@@ -40,7 +41,7 @@ module Ronin
 	# initialize metadata
 	metadata_set(:name,"")
 	metadata_set(:version,"")
-	metadata_set(:author,"")
+	metadata_set(:authors,{})
 
 	super(File.basename(path,'.rb'),File.dirname(path))
       end
@@ -79,8 +80,14 @@ module Ronin
       # Version of the object
       attr_metadata :version
       
-      # Author of the object
-      attr_metadata :author
+      # Authors of the object
+      attr_metadata :authors
+
+      def author(name,&block)
+	new_author = AuthorContext.new(name,&block)
+	authors[new_author.name] = new_author
+	return new_author
+      end
 
     end
   end
