@@ -2,7 +2,7 @@
 
 require 'getopt/long'
 
-$LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
+$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__),'..','lib')))
 require 'ronin'
 
 include Ronin
@@ -10,15 +10,16 @@ include Ronin
 opt = Getopt::Long.getopts(
   ['--config','-C',Getopt::REQUIRED],
   ['--category','-c',Getopt::REQUIRED],
-  ['--list-actions'],
   ['--action','-a',Getopt::REQUIRED],
   ['--add-repo','-A',Getopt::REQUIRED],
-  ['--list-repo','-L',Getopt::BOOLEAN],
+  ['--repo-path','-P',Getopt::REQUIRED],
+  ['--list-repo','-L',Getopt::REQUIRED],
   ['--remove-repo','-R',Getopt::REQUIRED],
   ['--update-repo','-U',Getopt::REQUIRED],
   ['--list-repos','-l'],
   ['--update-repos','-u'],
-  ['--verbose','-v',Getopt::BOOLEAN],
+  ['--list-actions',''],
+  ['--verbose','-v'],
   ['--version','-V'],
   ['--help','-h',Getopt::OPTIONAL]
 )
@@ -33,6 +34,12 @@ if opt['config']
 end
 
 if opt['add-repo']
+  if opt['repo-path']
+    config.install_repository(opt['add-repo'],opt['repo-path'])
+  else
+    config.install_repository(opt['add-repo'])
+  end
+  exit
 elsif opt['list-repo']
   repo = config.get_repository(opt['list-repo'])
 
@@ -88,7 +95,7 @@ elsif opt['list-repos']
   config.repositories.each { |repo| puts "#{repo}" }
   exit
 elsif opt['update-repos']
-  config.repositories.each { |repo| repo.update }
+  config.update
   exit
 end
 
