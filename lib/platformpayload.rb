@@ -19,21 +19,20 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'exceptions'
-require 'extensions'
-require 'arch'
-require 'platform'
-require 'parameters'
 require 'payload'
-require 'platformpayload'
-require 'product'
-require 'advisory'
-require 'exploit'
-require 'platformexploit'
-require 'bufferoverflow'
-require 'formatstring'
-require 'repo'
 
 module Ronin
-  RONIN_VERSION = "0.0.1"
+  class PlatformPayload < Payload
+
+    # Targeted platform
+    attr_reader :platform
+
+    def initialize(platform,&block)
+      @platform = platform
+
+      super(&block)
+    end
+
+
+  end
 end
