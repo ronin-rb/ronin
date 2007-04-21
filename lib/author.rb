@@ -52,11 +52,11 @@ module Ronin
       @biography = biography
     end
 
-    def parse_xml(doc,xpath)
+    def parse(doc,xpath='/ronin/author')
       authors = {}
 
-      doc.elements.each(xpath+'/author') do |element|
-	author_name = element.attribute('name')
+      doc.elements.each(xpath) do |element|
+	author_name = element.attribute('name').to_s
 
 	if (author_name.nil? || author_name=AUTHOR_NO_ONE.name)
 	  authors[AUTHOR_NO_ONE.name] = AUTHOR_NO_ONE
