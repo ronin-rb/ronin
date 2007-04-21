@@ -36,10 +36,10 @@ module Ronin
 	end
       end
 
-      def metadata_set(id,value)
+      def metadata_set(name,value)
 	@metadata ||= {}
 
-	name = id.to_s
+	name = name.to_s
 	unless @metadata.has_key?(name)
 	  @metadata[name] = value
 	end

@@ -34,8 +34,8 @@ module Ronin
       # Action block
       attr_reader :block
 
-      def initialize(id,context=nil,&block)
-	@name = id.to_s
+      def initialize(name,context=nil,&block)
+	@name = name.to_s
 	@context = context
 	@block = block
       end

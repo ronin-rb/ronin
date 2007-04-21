@@ -43,6 +43,7 @@ module Ronin
       attr_reader :category_deps
 
       def initialize(name)
+	name = name.to_s
 	if name==CONTROL_DIR
 	  raise CategoryNotFound, "invlaid category name '#{name}'", caller
 	end
@@ -69,6 +70,8 @@ module Ronin
       end
 
       def category(name)
+	name = name.to_s
+
 	# self is the category
 	return self if name==@name
 
@@ -81,6 +84,8 @@ module Ronin
       end
 
       def category_eval(name=@name,&block)
+	name = name.to_s
+
 	sub_category = category(name)
 	unless sub_category
 	  raise CategoryNotFound, "sub-category '#{name}' not found within category '#{@name}'", caller
@@ -179,14 +184,14 @@ module Ronin
 	Context::has_dir?(path,&block)
       end
 
-      def get_action(id)
-	dist { get_action(id.to_s) }.compact
+      def get_action(name)
+	dist { get_action(name) }.compact
       end
 
-      def perform_action(id,*args)
-	name = id.to_s
-	action_list = get_action(name)
+      def perform_action(name,*args)
+	name = name.to_s
 
+	action_list = get_action(name)
 	if action_list.empty?
 	  raise ActionNotFound, "action '#{name}' was not found in category '#{self}'", caller
 	end
@@ -212,6 +217,8 @@ module Ronin
       attr_action :main
 
       def controller_path(name)
+	name = name.to_s
+
 	config.categories[name].each_value do |repository|
 	  repository.find_dir?(File.join(CONTROL_DIR,name)) do |dir|
 	    return dir
@@ -222,6 +229,8 @@ module Ronin
       end
 
       def depend(name)
+	name = name.to_s
+
 	if name==CONTROL_DIR
 	  raise CategoryNotFound, "invlaid category name '#{name}'", caller
 	end
