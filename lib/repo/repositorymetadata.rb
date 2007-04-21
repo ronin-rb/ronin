@@ -47,6 +47,9 @@ module Ronin
       # Description
       attr_reader :description
 
+      # Cateogires provided
+      attr_reader :categories
+
       # Metadata URIs of dependencies
       attr_reader :deps
 
@@ -54,8 +57,9 @@ module Ronin
 	metadata = Document.new(open(metadata_uri))
 
 	@description = ""
+	@categories = []
 	@deps = {}
-	@authors = Author.parse_xml(metadata,'/ronin/repository/authors')
+	@authors = Author.parse(metadata,'/ronin/repository/author')
 
 	metadata.elements.each('/ronin/repository') do |repo|
 	  repo.each_element('type') { |type| @type = type.get_text.to_s }
@@ -64,12 +68,28 @@ module Ronin
 	  repo.each_element('license') { |license| @license = license.get_text.to_s }
 	  repo.each_element('description') { |desc| @description = desc.get_text.to_s }
 
+	  repo.each_element('category') { |category| @categories << category.get_text.to_s }
+
 	  repo.each_element('dependency') do |dep|
-	    @deps[dep.attribute('name')] = URI.parse(dep.get_text.to_s)
+	    @deps[dep.attribute('name').to_s] = URI.parse(dep.get_text.to_s)
 	  end
 	end
 
 	block.call(self) if block
+      end
+
+      def download(install_path)
+	download_cmd = lambda do |cmd,*args|
+	  unless system(cmd,*args)
+	    raise "failed to download repository '#{self}'", caller
+	  end
+	end
+
+	case @type
+	  when 'svn' then download_cmd.call('svn','checkout',@src.to_s,install_path.to_s)
+	  when 'cvs' then download_cmd.call('cvs','checkout',@src.to_s,install_path.to_s)
+	  when 'rsync' then download_cmd.call('rsync','-av','--progress',@src.to_s,install_path.to_s)
+	end
       end
 
       def to_s

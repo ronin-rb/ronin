@@ -33,12 +33,7 @@ module Ronin
       # Local path to the repository
       attr_reader :path
 
-      # Cateogires
-      attr_reader :categories
-
-      def initialize(path)
-	super(File.join(path,'metadata.xml'))
-
+      def initialize(path,&block)
 	@path = path
 	@categories = []
 
@@ -47,23 +42,25 @@ module Ronin
 	    @categories << file
 	  end
 	end
+
+	super(File.join(path,'metadata.xml'),&block)
       end
 
-      def has_category?(category)
-	@categories.include?(category)
+      def has_category?(name)
+	@categories.include?(name.to_s)
       end
 
       def update
 	update_cmd = lambda do |cmd,*args|
 	  unless system(cmd,*args)
-	    raise "failed to update repository '#{@name}'", caller
+	    raise "failed to update repository '#{self}'", caller
 	  end
 	end
 
         case @type
           when 'svn' then update_cmd.call('svn','up',@path)
           when 'cvs' then update_cmd.call('cvs','update','-dP',@path)
-          when 'rsync' then update_cmd.call('rsync','-av','--delete-after','--progress',@url,@path)
+          when 'rsync' then update_cmd.call('rsync','-av','--delete-after','--progress',@src.to_s,@path)
         end
       end
 
