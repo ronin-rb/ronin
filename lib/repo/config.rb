@@ -68,39 +68,25 @@ module Ronin
 	    repo_name = repo.attribute('name').to_s
 	    repo_path = repo.get_text.to_s
 
-	    register_repository(Repository.new(repo_name,repo_path))
+	    add_repository(Repository.new(repo_name,repo_path))
 	  end
 	end
+      end
+
+      def add_repository(repo)
+	if has_repository?(repo.name)
+	  raise "repository '#{repo}' already present in config '#{self}'", caller
+	end
+
+	@repositories[repo.name] = repo
+	repo.categories.each do |category|
+	  @categories[category][repo.name] = repo
+	end
+	return repo
       end
 
       def has_repository?(name)
-	@repositories.has_key?(name)
-      end
-
-      def install_repository(metadata,install_dir=Config::REPOS_PATH)
-	repo_metadata = RepositoryMetadata.new(metadata)
-	install_path = File.join(install_dir,repo_metadata.name)
-
-	download = lambda do |cmd,*args|
-	  unless system(cmd,*args)
-	    raise "failed to download repository '#{repo_metadata}'", caller
-	  end
-	end
-
-	case repo_metadata.type
-	  when 'svn' then
-	    download.call('svn','checkout',repo_metadata.src.to_s,install_path)
-	  when 'cvs' then
-	    download.call('cvs','checkout',repo_metadata.src.to_s,install_path)
-	  when 'rsync' then
-	    download.call('rsync','-av','--progress',repo_metadata.src.to_s,install_path)
-	end
-
-	new_repo = Repository.new(install_path)
-	register_repository(new_repo)
-
-	write
-	return new_repo
+	@repositories.has_key?(name.to_s)
       end
 
       def get_repository(name)
@@ -108,15 +94,11 @@ module Ronin
 	  raise RepositoryNotFound, "repository '#{name}' not listed in config file '#{self}'", caller
 	end
 
-	return @repositories[name]
-      end
-
-      def update
-	@repositories.each { |repo| repo.update }
+	return @repositories[name.to_s]
       end
 
       def has_category?(name)
-	@categories.has_key?(name)
+	@categories.has_key?(name.to_s)
       end
 
       def get_category(name)
@@ -127,21 +109,31 @@ module Ronin
         Category.new(name)
       end
 
-      def to_s
-	@path
-      end
-
-      protected
-
-      def register_repository(repo)
-	@repositories[repo] = repo
-	repo.categories.each do |category|
-	  @categories[category][repo] = repo
+      def install(metadata,install_path=File.join(REPOS_PATH,metadata.name))
+	if has_repository?(metadata.name)
+	  raise "repository '#{metadata}' already present in config '#{self}'", caller
 	end
-	return repo
+
+	metadata.download(install_path)
+
+	return Repository.new(install_path) do |new_repo|
+	  add_repository(new_repo)
+	  write
+	end
       end
 
-      def write
+      def link(repo_path)
+	Repository.new(repo_path) do |new_repo|
+	  add_repository(new_repo)
+	  write
+	end
+      end
+
+      def update
+	@repositories.each_value { |repo| repo.update }
+      end
+
+      def write(config_path=@path)
 	# create skeleton config document
 	new_config = Document.new('<ronin></ronin>')
 	config_elem = Element.new('config',new_config.root)
@@ -155,7 +147,11 @@ module Ronin
 
 	# save config document
 	new_config << XMLDecl.new
-	new_config.write(File.new(@path,'w'),0)
+	new_config.write(File.new(config_path,'w'),0)
+      end
+
+      def to_s
+	@path
       end
 
     end
