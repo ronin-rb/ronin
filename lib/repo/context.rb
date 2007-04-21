@@ -54,12 +54,12 @@ module Ronin
 	  load(file)
 
 	  # evaluate the context block if present
-	  class_eval(get_context(context_type)) if has_context?(context_type)
+	  class_eval(get_context_block) if has_context_block?
 	end
       end
 
-      def get_action(id)
-	name = id.to_s
+      def get_action(name)
+	name = name.to_s
 
 	return @actions[name] if @actions.has_key?(name)
 
@@ -70,14 +70,14 @@ module Ronin
 	return nil
       end
 
-      def has_action?(id)
-	!(get_action(id).nil?)
+      def has_action?(name)
+	!(get_action(name).nil?)
       end
 
-      def perform_action(id,*args)
-	action = get_action(id)
+      def perform_action(name,*args)
+	action = get_action(name)
 	unless action
-	  raise ActionNotFound, "cannot find action '#{sym}' in group '#{self}'", caller
+	  raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
 	end
 
 	return action.call(*args)
@@ -96,6 +96,8 @@ module Ronin
       end
 
       def context(name)
+	name = name.to_s
+
 	# self is the scope
 	return self if name==@name
 
@@ -108,6 +110,8 @@ module Ronin
       end
 
       def context_eval(name=@name,&block)
+	name = name.to_s
+
 	sub_context = context(name)
 	unless sub_context
 	  raise ContextNotFound, "sub-context '#{name}' not found within context '#{@name}'", caller
@@ -192,15 +196,29 @@ module Ronin
       def Context.attr_context(id)
 	# define context_type
 	class_eval <<-"end_eval"
-	  def context_type
+	  def context_name
 	    '#{id}'
 	  end
 	end_eval
 
 	# define kernel-level context method
-	Kernel.module_eval <<-"end_eval"
+	Kernel::module_eval <<-"end_eval"
 	  def ronin_#{id}(&block)
 	    $context_block['#{id}'] = block
+	  end
+	end_eval
+
+	Ronin::module_eval <<-"end_eval"
+	  def ronin_load_#{id}(path,&block)
+	    obj = #{self.name}.new(path)
+	    if block
+	      obj.setup
+	      v = block.call(obj)
+	      obj.teardown
+	      return v
+	    else
+	      return obj
+	    end
 	  end
 	end_eval
       end
@@ -224,8 +242,8 @@ module Ronin
       # Teardown action
       attr_action :teardown
 
-      def action(id,&block)
-	@actions[id.to_s] = Action.new(id,self,&block)
+      def action(name,&block)
+	@actions[name.to_s] = Action.new(name,self,&block)
       end
 
       def inherit(path)
@@ -260,13 +278,13 @@ module Ronin
 
       private
 
-      def has_context?(id)
-	!($context_block[id].nil?)
+      def has_context_block?
+	!($context_block[context_name].nil?)
       end
 
-      def get_context(id)
-	block = $context_block[id]
-	$context_block[id] = nil
+      def get_context_block
+	block = $context_block[context_name]
+	$context_block[context_name] = nil
 	return block
       end
 

@@ -56,18 +56,6 @@ module Ronin
 	attr_context id
 
 	Ronin::module_eval <<-"end_eval"
-	  def ronin_load_#{id}(path,&block)
-	    obj = #{self.name}.new(path)
-	    if block
-	      obj.setup
-	      v = block.call(obj)
-	      obj.teardown
-	      return v
-	    else
-	      return obj
-	    end
-	  end
-
 	  def ronin_create_#{id}(path)
 	    ronin_load_#{id}(path) { |obj| obj.create }
 	  end
