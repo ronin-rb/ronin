@@ -9,8 +9,7 @@ include Ronin
 
 opt = Getopt::Long.getopts(
   ['--config','-C',Getopt::REQUIRED],
-  ['--category','-c',Getopt::REQUIRED],
-  ['--action','-a',Getopt::REQUIRED],
+  ['--install-repo','-I',Getopt::REQUIRED],
   ['--add-repo','-A',Getopt::REQUIRED],
   ['--repo-path','-P',Getopt::REQUIRED],
   ['--list-repo','-L',Getopt::REQUIRED],
@@ -18,6 +17,8 @@ opt = Getopt::Long.getopts(
   ['--update-repo','-U',Getopt::REQUIRED],
   ['--list-repos','-l'],
   ['--update-repos','-u'],
+  ['--category','-c',Getopt::REQUIRED],
+  ['--action','-a',Getopt::REQUIRED],
   ['--list-actions',''],
   ['--verbose','-v'],
   ['--version','-V'],
@@ -30,18 +31,24 @@ if opt['version']
 end
 
 if opt['config']
-  open_config(opt['config'])
+  Repo::open_config(opt['config'])
 end
 
-if opt['add-repo']
-  if opt['repo-path']
-    config.install_repository(opt['add-repo'],opt['repo-path'])
-  else
-    config.install_repository(opt['add-repo'])
+if opt['install-repo']
+  Repo::RepositoryMetadata.new(opt['install-repo']) do |metadata| 
+    if opt['repo-path']
+      Repo::config.install(metadata,opt['repo-path'])
+    else
+      Repo::config.install(metadata)
+    end
   end
+
+  exit
+elsif opt['add-repo']
+  Repo::config.link(opt['add-repo'])
   exit
 elsif opt['list-repo']
-  repo = config.get_repository(opt['list-repo'])
+  repo = Repo::config.get_repository(opt['list-repo'])
 
   puts "[ #{repo} ]"
   puts "\tname: #{repo.name}"
@@ -74,7 +81,7 @@ elsif opt['list-repo']
     repo.deps.each_key do |dep|
       print "\t\t#{dep}"
 
-      unless config.has_repository?(dep)
+      unless Repo::config.has_repository?(dep)
         print " (missing)"
       end
       putc "\n"
@@ -89,18 +96,18 @@ elsif opt['list-repo']
   end
   exit
 elsif opt['update-repo']
-  config.get_repository(opt['update-repo']).update
+  Repo::config.get_repository(opt['update-repo']).update
   exit
 elsif opt['list-repos']
-  config.repositories.each { |repo| puts "#{repo}" }
+  Repo::config.repositories.each { |repo| puts "#{repo}" }
   exit
 elsif opt['update-repos']
-  config.update
+  Repo::config.update
   exit
 end
 
 if opt['category']
-  category = config.get_category(opt['category'])
+  category = Repo::config.get_category(opt['category'])
 
   if opt['list-actions']
     category.actions.each_value { |action| puts "#{action}" }
