@@ -19,20 +19,39 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/exceptions'
-require 'repo/action'
-require 'repo/fileaccess'
-require 'repo/context'
-require 'repo/category'
+require 'product'
 require 'repo/objectmetadata'
-require 'repo/objectcontext'
-require 'repo/productcontext'
-require 'repo/advisorycontext'
-require 'repo/exploitcontext'
-require 'repo/payloadcontext'
-require 'repo/platformexploitcontext'
-require 'repo/bufferoverflowcontext'
-require 'repo/formatstringcontext'
-require 'repo/repositorymetadata'
-require 'repo/repository'
-require 'repo/config'
+
+module Ronin
+  module Repo
+    class ProductContext
+
+      def initialize(&block)
+	# initialize product metadata
+	metadata_set(:name)
+	metadata_set(:version,"")
+	metadata_set(:vendor,"")
+
+	instance_eval(&block)
+      end
+
+      def to_product
+	Product.new(name,version,vendor)
+      end
+
+      protected
+
+      include ObjectMetadata
+
+      # Product name
+      attr_metadata :product
+
+      # Product version
+      attr_metadata :version
+
+      # Product vendor
+      attr_metadata :vendor
+
+    end
+  end
+end

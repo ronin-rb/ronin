@@ -21,39 +21,10 @@
 
 require 'advisory'
 require 'repo/objectcontext'
+require 'repo/productcontext'
 
 module Ronin
   module Repo
-    class ProductContext
-
-      def initialize(&block)
-	# initialize product metadata
-	metadata_set(:name)
-	metadata_set(:version,"")
-	metadata_set(:vendor,"")
-
-	instance_eval(&block)
-      end
-
-      def to_product
-	Product.new(name,version,vendor)
-      end
-
-      protected
-
-      include ObjectMetadata
-
-      # Product name
-      attr_metadata :product
-
-      # Product version
-      attr_metadata :version
-
-      # Product vendor
-      attr_metadata :vendor
-
-    end
-
     class AdvisoryContext < ObjectContext
 
       def initialize(path)
@@ -61,7 +32,7 @@ module Ronin
 	metadata_set(:class)
 	metadata_set(:cve)
 	metadata_set(:remote,false)
-	metadata_set(:local,true)
+	metadata_set(:local,false)
 	metadata_set(:published,"")
 	metadata_set(:updated,"")
 	metadata_set(:credits,"")
