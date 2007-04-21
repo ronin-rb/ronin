@@ -19,6 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'rexml/document'
+
 module Ronin
   class Product
 
@@ -35,6 +37,20 @@ module Ronin
       @name = name
       @version = version
       @vendor = vendor
+    end
+
+    def parse(doc,xpath='/ronin/product')
+      products = []
+
+      doc.element.each(xpath) do |element|
+	product_name = element.attribute('name').to_s
+	element.each_element('version') { |version| product_version = version.get_text.to_s }
+	element.each_element('vendor') { |vendor| product_vendor = vendor.get_text.to_s }
+
+	products << Procut.new(product_name,product_version,product_vendor)
+      end
+
+      return products
     end
 
   end

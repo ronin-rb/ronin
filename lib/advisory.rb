@@ -20,6 +20,8 @@
 #
 
 require 'product'
+require 'open-uri'
+require 'rexml/document'
 
 module Ronin
   class Advisory
@@ -67,6 +69,9 @@ module Ronin
 	end
       end
 
+      @remote = false
+      @local = false
+
       hash_array = lambda {
 	Hash.new { |hash,key| hash[key] = [] }
       }
@@ -105,6 +110,39 @@ module Ronin
 
     def has_vendor?(vendor)
       @product_vendors.has_key?(vendor)
+    end
+
+    def parse(doc,xpath='/ronin/advisory')
+      advisories = []
+
+      doc.elements.each('/ronin/advisory') do |element|
+	new_adv = Advisory.new
+
+	element.each_element('classification') { |classification| new_adv.classification = classification.get_text.to_s }
+	element.each_element('cve') { |cve| new_adv.cve = cve.get_text.to_s }
+
+	if element.has_attribute('remote')
+	  new_adv.remote = true if element.attribute('remote').to_s=='true'
+	end
+
+	if element.has_attribute('local')
+	  new_adv.remote = true if element.attribute('local').to_s=='true'
+	end
+
+	element.each_element('published') { |published| new_adv.published = published.get_text.to_s }
+	element.each_element('updated') { |updated| new_adv.updated = updated.get_text.to_s }
+
+	element.each_element('credits') { |credits| new_adv.credits = credits.get_text.to_s }
+
+	products = Parse.parse(doc,'/ronin/advisory/products/product')
+	products.each { |product| new_adv.add_product(product) }
+
+	element.each_element('comments') { |comments| new_adv.comments = comments.get_text.to_s }
+
+	advisories << new_adv
+      end
+
+      return advisories
     end
 
   end
