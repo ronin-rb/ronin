@@ -20,11 +20,13 @@
 #
 
 require 'product'
-require 'open-uri'
 require 'rexml/document'
 
 module Ronin
   class Advisory
+
+    # Name of the Advisory
+    attr_reader :name
 
     # Vulnerability classification.
     attr_accessor :classification
@@ -62,7 +64,9 @@ module Ronin
     # Comments on the vulnerability.
     attr_accessor :comments
 
-    def initialize(&block)
+    def initialize(name,&block)
+      @name = name
+
       @products = Hash.new do |hash,key|
 	hash[key] = Hash.new do |sub_hash,sub_key|
 	  sub_hash[sub_key] = {}
@@ -116,7 +120,7 @@ module Ronin
       advisories = []
 
       doc.elements.each('/ronin/advisory') do |element|
-	new_adv = Advisory.new
+	new_adv = Advisory.new(element.attribute('name').to_s)
 
 	element.each_element('classification') { |classification| new_adv.classification = classification.get_text.to_s }
 	element.each_element('cve') { |cve| new_adv.cve = cve.get_text.to_s }
