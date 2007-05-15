@@ -28,6 +28,8 @@ require 'rexml/document'
 module Ronin
   module Repo
 
+    RONIN_HOME_PATH = File.join(ENV['HOME'],'.ronin')
+
     def open_config(path=Config::CONFIG_PATH)
       $current_config = Config.new(path)
     end
@@ -42,10 +44,10 @@ module Ronin
       include REXML
 
       # Path to config file
-      CONFIG_PATH = File.join(ENV['HOME'],'.ronin','config')
+      CONFIG_PATH = File.join(RONIN_HOME_PATH,'config')
 
       # Path to repositories dir
-      REPOS_PATH = File.join(ENV['HOME'],'.ronin','repos')
+      REPOS_PATH = File.join(RONIN_HOME_PATH,'repos')
 
       # Path of config file
       attr_reader :path
@@ -114,18 +116,18 @@ module Ronin
 	  raise "repository '#{metadata}' already present in config '#{self}'", caller
 	end
 
-	metadata.download(install_path)
+	metadata.install(install_path)
 
 	return Repository.new(install_path) do |new_repo|
 	  add_repository(new_repo)
-	  write
+	  save
 	end
       end
 
       def link(repo_path)
 	Repository.new(repo_path) do |new_repo|
 	  add_repository(new_repo)
-	  write
+	  save
 	end
       end
 
@@ -133,7 +135,7 @@ module Ronin
 	@repositories.each_value { |repo| repo.update }
       end
 
-      def write(config_path=@path)
+      def save(config_path=@path)
 	# create skeleton config document
 	new_config = Document.new('<ronin></ronin>')
 	config_elem = Element.new('config',new_config.root)

@@ -53,12 +53,16 @@ module Ronin
       # Metadata URIs of dependencies
       attr_reader :deps
 
+      # Ruby-gems required by the repositories contents
+      attr_reader :gems
+
       def initialize(metadata_uri,&block)
 	metadata = Document.new(open(metadata_uri))
 
 	@description = ""
 	@categories = []
 	@deps = {}
+	@gems = []
 	@authors = Author.parse(metadata,'/ronin/repository/author')
 
 	metadata.elements.each('/ronin/repository') do |repo|
@@ -73,12 +77,16 @@ module Ronin
 	  repo.each_element('dependency') do |dep|
 	    @deps[dep.attribute('name').to_s] = URI.parse(dep.get_text.to_s)
 	  end
+
+	  repo.each_element('gem') do |gem|
+	    @gems << gem.get_text.to_s
+	  end
 	end
 
 	block.call(self) if block
       end
 
-      def download(install_path)
+      def install(path)
 	download_cmd = lambda do |cmd,*args|
 	  unless system(cmd,*args)
 	    raise "failed to download repository '#{self}'", caller
@@ -86,9 +94,9 @@ module Ronin
 	end
 
 	case @type
-	  when 'svn' then download_cmd.call('svn','checkout',@src.to_s,install_path.to_s)
-	  when 'cvs' then download_cmd.call('cvs','checkout',@src.to_s,install_path.to_s)
-	  when 'rsync' then download_cmd.call('rsync','-av','--progress',@src.to_s,install_path.to_s)
+	  when 'svn' then download_cmd.call('svn','checkout',@src.to_s,path.to_s)
+	  when 'cvs' then download_cmd.call('cvs','checkout',@src.to_s,path.to_s)
+	  when 'rsync' then download_cmd.call('rsync','-av','--progress',@src.to_s,path.to_s)
 	end
       end
 
