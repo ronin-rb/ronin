@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/cache'
 require 'repo/repositorymetadata'
 require 'repo/fileaccess'
 require 'repo/category'
@@ -37,17 +38,34 @@ module Ronin
 	@path = path
 	@categories = []
 
-	Dir.foreach(@path) do |file|
-	  if (File.directory?(file) && file!='.' && file!='..' && file!=Category::CONTROL_DIR)
-	    @categories << file
-	  end
-	end
+	cache_categories
 
-	super(File.join(path,'metadata.xml'),&block)
+	super(File.join(@path,'metadata.xml'),&block)
       end
 
       def has_category?(name)
 	@categories.include?(name.to_s)
+      end
+
+      def is_resolved?
+	@deps.each_key do |dep|
+	  return false unless cache.has_repository?(dep)
+	end
+	return true
+      end
+
+      def resolve
+	@deps.each do |key,value|
+	  unless cache.has_repository?(key)
+	    cache.install(RespositoryMetadata.new(value))
+	  end
+	end
+      end
+
+      def install
+	cache.register_repository(self)
+	resolve unless if_resolved?
+	cache.write
       end
 
       def update
@@ -57,15 +75,31 @@ module Ronin
 	  end
 	end
 
-        case @type
-          when 'svn' then update_cmd.call('svn','up',@path)
-          when 'cvs' then update_cmd.call('cvs','update','-dP',@path)
-          when 'rsync' then update_cmd.call('rsync','-av','--delete-after','--progress',@src.to_s,@path)
-        end
+	case @type
+	when 'svn' then
+	  update_cmd.call('svn','up',@path.to_s)
+	when 'cvs' then
+	  update_cmd.call('cvs','update','-dP',@path.to_s)
+	when 'rsync' then
+	  update_cmd.call('rsync','-av','--delete-after','--progress',@src.to_s,@path.to_s)
+	end
+
+	cache_categories
       end
 
       def to_s
 	@name
+      end
+
+      protected
+
+      def cache_categories
+	@categories.clear
+	Dir.foreach(@path) do |file|
+	  if (File.directory?(file) && file!='.' && file!='..' && file!=Category::CONTROL_DIR)
+	    @categories << file
+	  end
+	end
       end
 
     end

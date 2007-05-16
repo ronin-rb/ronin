@@ -86,7 +86,7 @@ module Ronin
 	block.call(self) if block
       end
 
-      def install(path)
+      def download(path)
 	download_cmd = lambda do |cmd,*args|
 	  unless system(cmd,*args)
 	    raise "failed to download repository '#{self}'", caller
@@ -94,10 +94,15 @@ module Ronin
 	end
 
 	case @type
-	  when 'svn' then download_cmd.call('svn','checkout',@src.to_s,path.to_s)
-	  when 'cvs' then download_cmd.call('cvs','checkout',@src.to_s,path.to_s)
-	  when 'rsync' then download_cmd.call('rsync','-av','--progress',@src.to_s,path.to_s)
+	when 'svn' then
+	  download_cmd.call('svn','checkout',@src.to_s,path.to_s)
+	when 'cvs' then
+	  download_cmd.call('cvs','checkout',@src.to_s,path.to_s)
+	when 'rsync' then
+	  download_cmd.call('rsync','-av','--progress',@src.to_s,path.to_s)
 	end
+
+	return Repository.new(path) { |new_repo| new_repo.install }
       end
 
       def to_s

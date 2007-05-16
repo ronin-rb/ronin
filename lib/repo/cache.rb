@@ -30,26 +30,28 @@ module Ronin
 
     RONIN_HOME_PATH = File.join(ENV['HOME'],'.ronin')
 
-    def open_config(path=Config::CONFIG_PATH)
-      $current_config = Config.new(path)
+    RONIN_GEM_PATH = RONIN_HOME_PATH
+
+    def load_cache(path=Config::CONFIG_PATH)
+      $current_cache = Config.new(path)
     end
 
-    def config
-      return open_config if $current_config.nil?
-      return $current_config
+    def cache
+      return load_cache if $current_cache.nil?
+      return $current_cache
     end
 
     class Config
 
       include REXML
 
-      # Path to config file
-      CONFIG_PATH = File.join(RONIN_HOME_PATH,'config')
+      # Path to cache file
+      CONFIG_PATH = File.join(RONIN_HOME_PATH,'cache')
 
       # Path to repositories dir
       REPOS_PATH = File.join(RONIN_HOME_PATH,'repos')
 
-      # Path of config file
+      # Path of cache file
       attr_reader :path
 
       # Hash of loaded repositories
@@ -64,26 +66,25 @@ module Ronin
         @repositories = {}
 	@categories = Hash.new { |hash,key| hash[key] = {} }
 
-	if File.file?(path)
-	  config_doc = Document.new(File.new(path))
-	  config_doc.elements.each('/ronin/config/repository') do |repo|
-	    repo_name = repo.attribute('name').to_s
-	    repo_path = repo.get_text.to_s
-
-	    add_repository(Repository.new(repo_name,repo_path))
-	  end
-	end
+	read
       end
 
-      def add_repository(repo)
+      def register_repository(repo)
 	if has_repository?(repo.name)
-	  raise "repository '#{repo}' already present in config '#{self}'", caller
+	  raise "repository '#{repo}' already present in the cache '#{self}'", caller
 	end
 
 	@repositories[repo.name] = repo
-	repo.categories.each do |category|
-	  @categories[category][repo.name] = repo
+	@categories.each do |hash,key|
 	end
+      end
+
+      def unregister_repository(repo)
+	unless has_repository?(repo.name)
+	  raise "repository '#{repo}' is not present in the cache '#{self}'", caller
+	end
+
+	@repository[repo.name] = nil
 	return repo
       end
 
@@ -93,14 +94,17 @@ module Ronin
 
       def get_repository(name)
 	unless has_repository?(name)
-	  raise RepositoryNotFound, "repository '#{name}' not listed in config file '#{self}'", caller
+	  raise RepositoryNotFound, "repository '#{name}' not listed in cache '#{self}'", caller
 	end
 
 	return @repositories[name.to_s]
       end
 
       def has_category?(name)
-	@categories.has_key?(name.to_s)
+	@repositories.each_value do |repo|
+	  return true if repo.has_category?(name)
+	end
+	return false
       end
 
       def get_category(name)
@@ -108,26 +112,21 @@ module Ronin
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
 	end
 
-        Category.new(name)
+        return Category.new(name)
       end
 
       def install(metadata,install_path=File.join(REPOS_PATH,metadata.name))
 	if has_repository?(metadata.name)
-	  raise "repository '#{metadata}' already present in config '#{self}'", caller
+	  raise "repository '#{metadata}' already present in cache '#{self}'", caller
 	end
 
-	metadata.install(install_path)
-
-	return Repository.new(install_path) do |new_repo|
-	  add_repository(new_repo)
-	  save
-	end
+	return metadata.download(install_path)
       end
 
       def link(repo_path)
 	Repository.new(repo_path) do |new_repo|
 	  add_repository(new_repo)
-	  save
+	  write_cache
 	end
       end
 
@@ -135,21 +134,33 @@ module Ronin
 	@repositories.each_value { |repo| repo.update }
       end
 
-      def save(config_path=@path)
-	# create skeleton config document
-	new_config = Document.new('<ronin></ronin>')
-	config_elem = Element.new('config',new_config.root)
+      def read
+	return unless File.file?(@path)
+
+	cache_doc = Document.new(File.new(@path))
+	cache_doc.elements.each('/ronin/cache/repository') do |repo|
+	  repo_name = repo.attribute('name').to_s
+	  repo_path = repo.get_text.to_s
+
+	  add_repository(Repository.new(repo_name,repo_path))
+	end
+      end
+
+      def write
+	# create skeleton cache document
+	new_cache = Document.new('<ronin></ronin>')
+	cache_elem = Element.new('cache',new_cache.root)
 
 	# populate with repositories
 	@repositories.each do |repo|
-	  repo_elem = Element.new('repository',config_elem)
+	  repo_elem = Element.new('repository',cache_elem)
 	  repo_elem.add_attribute('name',repo.name)
 	  repo_elem.add_text(repo.path)
 	end
 
-	# save config document
-	new_config << XMLDecl.new
-	new_config.write(File.new(config_path,'w'),0)
+	# save cache document
+	new_cache << XMLDecl.new
+	new_cache.write(File.new(@path,'w'),0)
       end
 
       def to_s
@@ -160,7 +171,7 @@ module Ronin
 
     private
 
-    # Current operating configuration
-    $current_config = nil
+    # Current operating cacheuration
+    $current_cache = nil
   end
 end

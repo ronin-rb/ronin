@@ -27,7 +27,7 @@ require 'repo/platformexploitcontext'
 require 'repo/bufferoverflowcontext'
 require 'repo/formatstringcontext'
 require 'repo/payloadcontext'
-require 'repo/config'
+require 'repo/cache'
 
 module Ronin
   module Repo
@@ -48,7 +48,7 @@ module Ronin
 	  raise CategoryNotFound, "invlaid category name '#{name}'", caller
 	end
 	
-	unless config.has_category?(name)
+	unless cache.has_category?(name)
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
 	end
 
@@ -58,7 +58,7 @@ module Ronin
 	super(name,controller_path(name))
 
 	# load similarly named contexts from all repositories
-	config.categories[name].each_value do |repository|
+	cache.categories[name].each_value do |repository|
 	  repository.find_dir(name) do |dir|
 	    @contexts << Context.new(name,dir)
 	  end
@@ -219,7 +219,7 @@ module Ronin
       def controller_path(name)
 	name = name.to_s
 
-	config.categories[name].each_value do |repository|
+	cache.categories[name].each_value do |repository|
 	  repository.find_dir?(File.join(CONTROL_DIR,name)) do |dir|
 	    return dir
 	  end
@@ -235,7 +235,7 @@ module Ronin
 	  raise CategoryNotFound, "invlaid category name '#{name}'", caller
 	end
 	
-	unless config.has_category?(name)
+	unless cache.has_category?(name)
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
 	end
 
