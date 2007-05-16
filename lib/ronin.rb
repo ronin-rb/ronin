@@ -32,7 +32,6 @@ require 'exploit'
 require 'platformexploit'
 require 'bufferoverflow'
 require 'formatstring'
-require 'repo'
 
 module Ronin
   RONIN_VERSION = "0.0.1"
