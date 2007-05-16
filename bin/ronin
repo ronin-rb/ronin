@@ -3,23 +3,15 @@
 require 'getopt/long'
 
 $LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__),'..','lib')))
-require 'ronin'
-
+require 'repo/cache'
 include Ronin
 
 opt = Getopt::Long.getopts(
-  ['--config','-C',Getopt::REQUIRED],
-  ['--install-repo','-I',Getopt::REQUIRED],
-  ['--add-repo','-A',Getopt::REQUIRED],
+  ['--cache','-C',Getopt::REQUIRED],
   ['--repo-path','-P',Getopt::REQUIRED],
-  ['--list-repo','-L',Getopt::REQUIRED],
-  ['--remove-repo','-R',Getopt::REQUIRED],
-  ['--update-repo','-U',Getopt::REQUIRED],
-  ['--list-repos','-l'],
-  ['--update-repos','-u'],
   ['--category','-c',Getopt::REQUIRED],
   ['--action','-a',Getopt::REQUIRED],
-  ['--list-actions',''],
+  ['--actions','-A',Getopt::OPTIONAL],
   ['--verbose','-v'],
   ['--version','-V'],
   ['--help','-h',Getopt::OPTIONAL]
@@ -30,99 +22,109 @@ if opt['version']
   exit
 end
 
-if opt['config']
-  Repo::open_config(opt['config'])
+if opt['cache']
+  Repo::load_cache(opt['cache'])
 end
 
-if opt['install-repo']
-  Repo::RepositoryMetadata.new(opt['install-repo']) do |metadata| 
+ronin_command = ARGV.shift
+ronin_args = ARGV
+
+case ronin_command
+
+# Install a repository
+when 'install' then
+  Repo::RepositoryMetadata.new(ronin_args[0]) do |metadata| 
     if opt['repo-path']
-      Repo::config.install(metadata,opt['repo-path'])
+      Repo::cache.install(metadata,opt['repo-path'])
     else
-      Repo::config.install(metadata)
+      Repo::cache.install(metadata)
     end
   end
 
-  exit
-elsif opt['add-repo']
-  Repo::config.link(opt['add-repo'])
-  exit
-elsif opt['list-repo']
-  repo = Repo::config.get_repository(opt['list-repo'])
+# Add a repository
+when 'add' then
+  Repo::cache.link(ronin_args[0])
 
-  puts "[ #{repo} ]"
-  puts "\tname: #{repo.name}"
-  puts "\tpath: #{repo.path}"
-  puts "\ttype: #{repo.type}"
+# List all repositories or a specific one
+when 'list','ls' then
+  if ronin_args[0]
+    repo = Repo::cache.get_repository(ronin_args[0])
 
-  if opt['verbose']
-    repo.author.each_value do |author|
-      puts "\n\tauthor: #{author.name}\n"
+    puts "[ #{repo} ]"
+    puts "\tname: #{repo.name}"
+    puts "\tpath: #{repo.path}"
+    puts "\ttype: #{repo.type}"
 
-      author.contacts.each do |key,value|
-        puts "\t\t#{key}: #{value}"
+    if opt['verbose']
+      repo.author.each_value do |author|
+	puts "\n\tauthor: #{author.name}\n"
+
+	author.contacts.each do |key,value|
+	  puts "\t\t#{key}: #{value}"
+	end
+
+	if author.biography
+	  puts "\t\tbiography:\n\n\t\t\t#{author.biography}"
+	end
+
+	putc "\n"
       end
 
-      if author.biography
-        puts "\t\tbiography:\n\n\t\t\t#{author.biography}"
+      if repo.description
+	puts "\tdescription:\n\n\t\t#{repo.description}"
+      end
+    end
+
+    unless repo.deps.empty?
+      puts "\n\tdependencies:\n\n"
+
+      repo.deps.each_key do |dep|
+	print "\t\t#{dep}"
+
+	unless Repo::cache.has_repository?(dep)
+	  print " (missing)"
+	end
+	putc "\n"
       end
 
       putc "\n"
     end
 
-    if repo.description
-      puts "\tdescription:\n\n\t\t#{repo.description}"
+    if (opt['verbose'] && !(repo.categories.empty?))
+      puts "\tcategories:\n\n"
+      repo.categories.each { |category| puts "\t\t#{category}" }
     end
+  else
+    Repo::cache.repositories.each { |repo| puts "#{repo}" }
   end
 
-  unless repo.deps.empty?
-    puts "\n\tdependencies:\n\n"
-
-    repo.deps.each_key do |dep|
-      print "\t\t#{dep}"
-
-      unless Repo::config.has_repository?(dep)
-        print " (missing)"
-      end
-      putc "\n"
-    end
-
-    putc "\n"
+# Update all repositories or a specific one
+when 'update','up' then
+  if ronin_args[0]
+    Repo::cache.get_repository(ronin_args[0]).update
+  else
+    Repo::cache.update
   end
 
-  if (opt['verbose'] && !(repo.categories.empty?))
-    puts "\tcategories:\n\n"
-    repo.categories.each { |category| puts "\t\t#{category}" }
-  end
-  exit
-elsif opt['update-repo']
-  Repo::config.get_repository(opt['update-repo']).update
-  exit
-elsif opt['list-repos']
-  Repo::config.repositories.each { |repo| puts "#{repo}" }
-  exit
-elsif opt['update-repos']
-  Repo::config.update
-  exit
-end
+else
+  # Load the category
+  category = Repo::cache.get_category(ronin_command)
 
-if opt['category']
-  category = Repo::config.get_category(opt['category'])
-
-  if opt['list-actions']
+  if opt['actions']
+    # List actions of the category
     category.actions.each_value { |action| puts "#{action}" }
   else
+    # Perform actions of the category
     category.setup
 
     if opt['action']
       if (opt['action']!='setup' && opt['action']!='teardown')
-        category.perform_action(opt['action'])
+	category.perform_action(opt['action'])
       end
     else
       category.main
     end
 
     category.teardown
-    exit
   end
 end
