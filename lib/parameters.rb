@@ -19,6 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'exceptions/missingparam'
+
 module Ronin
   class Param
 
@@ -26,12 +28,12 @@ module Ronin
     attr_reader :name
 
     # Description of parameter
-    attr_reader :desc
+    attr_accessor :desc
 
     # Value associated with parameter
     attr_accessor :value
 
-    def initialize(name,desc="",value=nil)
+    def initialize(name,desc,value=nil)
       @name = name.to_s
       @desc = desc
       @value = value
@@ -48,8 +50,37 @@ module Ronin
       @params = parameters
     end
 
-    def add_param(name,desc="",value=nil)
-      params[name.to_s] = Param.new(name,desc,value)
+    def Object.attr_param(*ids)
+      for id in ids
+	module_eval <<-end_eval
+	  def #{id}
+	    @params['#{id}'].value if has_param?('#{id}')
+	  end
+
+	  def #{id}=(data)
+	    if has_param?('#{id}')
+	      @params['#{id}'].value = data
+	    else
+	      @params['#{id}'] = Param.new('#{id}',"",data)
+	    end
+	  end
+        end_eval
+      end
+    end
+
+    def param_set(name,desc,value=nil)
+      name = name.id2name
+      unless has_param?(name)
+	params[name] = Param.new(name,desc,value)
+      end
+
+      unless param_desc(name).length
+        params[name].desc = desc
+      end
+
+      unless param_value(name)
+	params[name].value = value
+      end
     end
 
     def has_param?(name)
@@ -61,11 +92,13 @@ module Ronin
     end
 
     def param_desc(name)
-      return param(name).desc if has_param?(name)
+      return false unless has_param?(name)
+      return param(name).desc
     end
 
     def param_value(name)
-      return param(name).value if has_param?(name)
+      return false unless has_param?(name)
+      return param(name).value
     end
   end
 end
