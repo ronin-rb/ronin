@@ -24,14 +24,10 @@ require 'extensions'
 require 'arch'
 require 'platform'
 require 'parameters'
-require 'payload'
-require 'platformpayload'
 require 'product'
 require 'advisory'
-require 'exploit'
-require 'platformexploit'
-require 'bufferoverflow'
-require 'formatstring'
+require 'payloads'
+require 'exploits'
 
 module Ronin
   RONIN_VERSION = "0.0.1"
