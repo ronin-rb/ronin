@@ -34,13 +34,16 @@ module Ronin
       # Local path to the repository
       attr_reader :path
 
+      # Categories
+      attr_reader :categories
+
       def initialize(path,&block)
-	@path = path
+	@path = File.expand_path(path)
 	@categories = []
 
 	cache_categories
 
-	super(File.join(@path,'metadata.xml'),&block)
+	super(File.join(@path,RepositoryMetadata::METADATA_FILE),&block)
       end
 
       def has_category?(name)
@@ -63,9 +66,10 @@ module Ronin
       end
 
       def install
-	cache.register_repository(self)
-	resolve unless if_resolved?
-	cache.write
+	cache.register_repository(self) do
+	  resolve unless is_resolved?
+	  cache.dump
+	end
       end
 
       def update
@@ -75,16 +79,16 @@ module Ronin
 	  end
 	end
 
-	case @type
-	when 'svn' then
-	  update_cmd.call('svn','up',@path.to_s)
-	when 'cvs' then
-	  update_cmd.call('cvs','update','-dP',@path.to_s)
-	when 'rsync' then
-	  update_cmd.call('rsync','-av','--delete-after','--progress',@src.to_s,@path.to_s)
+	cache_categories do
+	  case @type
+	  when 'svn' then
+	    update_cmd.call('svn','up',@path.to_s)
+	  when 'cvs' then
+	    update_cmd.call('cvs','update','-dP',@path.to_s)
+	  when 'rsync' then
+	    update_cmd.call('rsync','-av','--delete-after','--progress',@src.to_s,@path.to_s)
+	  end
 	end
-
-	cache_categories
       end
 
       def to_s
@@ -94,6 +98,8 @@ module Ronin
       protected
 
       def cache_categories
+	yield if block_given?
+
 	@categories.clear
 	Dir.foreach(@path) do |file|
 	  if (File.directory?(file) && file!='.' && file!='..' && file!=Category::CONTROL_DIR)

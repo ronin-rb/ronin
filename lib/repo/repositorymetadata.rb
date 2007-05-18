@@ -29,6 +29,8 @@ module Ronin
 
       include REXML
 
+      METADATA_FILE = "ronin.xml"
+
       # Name of the repository
       attr_reader :name
 
@@ -59,6 +61,10 @@ module Ronin
       def initialize(metadata_uri,&block)
 	metadata = Document.new(open(metadata_uri))
 
+	@name = ""
+	@type = "local"
+	@src = ""
+	@license = ""
 	@description = ""
 	@categories = []
 	@deps = {}
@@ -66,6 +72,8 @@ module Ronin
 	@authors = Author.parse(metadata,'/ronin/repository/author')
 
 	metadata.elements.each('/ronin/repository') do |repo|
+	  @name = repo.attribute('name').to_s
+
 	  repo.each_element('type') { |type| @type = type.get_text.to_s }
 	  repo.each_element('src') { |src| @src = URI.parse(src.get_text.to_s) }
 
@@ -102,7 +110,7 @@ module Ronin
 	  download_cmd.call('rsync','-av','--progress',@src.to_s,path.to_s)
 	end
 
-	return Repository.new(path) { |new_repo| new_repo.install }
+	return Repository.new(path).install
       end
 
       def to_s

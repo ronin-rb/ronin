@@ -19,51 +19,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'payloads/payload'
-require 'repo/objectcontext'
-
 module Ronin
   module Repo
-    class PayloadContext < ObjectContext
-
-      def initialize(path)
-	super(path)
-      end
-
-      def create
-	return Payload.new do |payload|
-	  load_payload(payload)
-	end
-      end
-
-      protected
-
-      # Name of object to load
-      attr_object :payload
-
-      # Build action for the payload
-      attr_action :builder
-
-      # Clean action for the payload
-      attr_action :cleaner
-
-      def load_payload(payload)
-	# load payload metadata
-	payload.name = name
-	payload.version = version
-
-	authors.each do |key,value|
-	  payload.authors[key] = value.to_author
-	end
-
-	# load payload actions
-	cleaner_action = get_action(:cleaner)
-	payload.cleaner(&(cleaner_action.block)) if cleaner_action
-
-	builder_action = get_action(:builder)
-	payload.builder(&(builder_action.block)) if builder_action
-      end
-
+    class RepositoryCached < RuntimeError
     end
   end
 end
