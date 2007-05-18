@@ -52,7 +52,7 @@ module Ronin
       @biography = biography
     end
 
-    def parse(doc,xpath='/ronin/author')
+    def Author.parse(doc,xpath='/ronin/author')
       authors = {}
 
       doc.elements.each(xpath) do |element|

@@ -73,5 +73,4 @@ module Ronin
     end
 
   end
-
 end
