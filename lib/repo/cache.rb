@@ -22,28 +22,31 @@
 require 'repo/repositorymetadata'
 require 'repo/repository'
 require 'repo/category'
+require 'repo/exceptions/repositorycached'
 require 'repo/exceptions/categorynotfound'
-require 'rexml/document'
+require 'fileutils'
+require 'yaml'
 
 module Ronin
   module Repo
 
+    # Ronin home directory
     RONIN_HOME_PATH = File.join(ENV['HOME'],'.ronin')
 
+    # Ronin gem directory
     RONIN_GEM_PATH = RONIN_HOME_PATH
 
-    def load_cache(path=Config::CONFIG_PATH)
-      $current_cache = Config.new(path)
+    def Repo.load_cache(path=Cache::CONFIG_PATH)
+      Cache.new(path)
     end
 
-    def cache
-      return load_cache if $current_cache.nil?
-      return $current_cache
+    def Repo.cache
+      Cache.current
     end
 
-    class Config
+    class Cache
 
-      include REXML
+      include YAML
 
       # Path to cache file
       CONFIG_PATH = File.join(RONIN_HOME_PATH,'cache')
@@ -61,31 +64,53 @@ module Ronin
       # respositories that contain that category.
       attr_reader :categories
 
+      # Global cache variable
+      @@current_cache = nil
+
       def initialize(path=CONFIG_PATH)
 	@path = path
         @repositories = {}
 	@categories = Hash.new { |hash,key| hash[key] = {} }
 
-	read
+	@@current_cache = self
+
+	if File.file?(@path)
+	  File.open(@path) do |file|
+	    YAML.load(file).each do |repo_path|
+	      register_repository(Repository.new(repo_path))
+	    end
+	  end
+	end
+      end
+
+      def Cache.current
+	@@current_cache || Cache.new
       end
 
       def register_repository(repo)
 	if has_repository?(repo.name)
-	  raise "repository '#{repo}' already present in the cache '#{self}'", caller
+	  raise RepositoryCached, "repository '#{repo}' already present in the cache '#{self}'", caller
 	end
 
 	@repositories[repo.name] = repo
-	@categories.each do |hash,key|
+	repo.categories.each do |category|
+	  @categories[category][repo.name] = repo
 	end
+
+	yield if block_given?
       end
 
       def unregister_repository(repo)
 	unless has_repository?(repo.name)
-	  raise "repository '#{repo}' is not present in the cache '#{self}'", caller
+	  raise RepositoryNotFound, "repository '#{repo}' is not present in the cache '#{self}'", caller
 	end
 
-	@repository[repo.name] = nil
-	return repo
+	@repository.delete_if { |key,value| key==repo.name }
+	repo.categories.each do |category|
+	  @categories[category].delete_if { |key,value| key==repo.name }
+	end
+
+	yield if block_given?
       end
 
       def has_repository?(name)
@@ -117,50 +142,38 @@ module Ronin
 
       def install(metadata,install_path=File.join(REPOS_PATH,metadata.name))
 	if has_repository?(metadata.name)
-	  raise "repository '#{metadata}' already present in cache '#{self}'", caller
+	  raise RepositoryCached, "repository '#{metadata}' already present in cache '#{self}'", caller
 	end
 
 	return metadata.download(install_path)
       end
 
       def link(repo_path)
-	Repository.new(repo_path) do |new_repo|
-	  add_repository(new_repo)
-	  write_cache
-	end
+	register_repository(Repository.new(repo_path)) { dump }
       end
 
       def update
 	@repositories.each_value { |repo| repo.update }
       end
 
-      def read
-	return unless File.file?(@path)
+      def dump(cache_path=@path)
+	unless File.exists?(cache_path)
+	  FileUtils.mkdir_p(File.dirname(cache_path))
+	end
 
-	cache_doc = Document.new(File.new(@path))
-	cache_doc.elements.each('/ronin/cache/repository') do |repo|
-	  repo_name = repo.attribute('name').to_s
-	  repo_path = repo.get_text.to_s
-
-	  add_repository(Repository.new(repo_name,repo_path))
+	File.open(cache_path,'w') do |file|
+	  YAML.dump(self,file)
 	end
       end
 
-      def write
-	# create skeleton cache document
-	new_cache = Document.new('<ronin></ronin>')
-	cache_elem = Element.new('cache',new_cache.root)
-
-	# populate with repositories
-	@repositories.each do |repo|
-	  repo_elem = Element.new('repository',cache_elem)
-	  repo_elem.add_attribute('name',repo.name)
-	  repo_elem.add_text(repo.path)
+      def to_yaml(opts={})
+	YAML.quick_emit(self.object_id,opts) do |out|
+	  out.seq('ronin.sourceforge.net',to_yaml_style) do |seq|
+	    @repositories.each_value do |repo|
+	      seq.add(repo.path)
+	    end
+	  end
 	end
-
-	# save cache document
-	new_cache << XMLDecl.new
-	new_cache.write(File.new(@path,'w'),0)
       end
 
       def to_s
@@ -168,10 +181,5 @@ module Ronin
       end
 
     end
-
-    private
-
-    # Current operating cacheuration
-    $current_cache = nil
   end
 end
