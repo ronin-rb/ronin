@@ -64,14 +64,7 @@ module Ronin
     def clean
       @clean_block.call(self) if @clean_block
 
-      @data = nil
-    end
-
-    protected
-
-    def method_missing(sym,*args)
-      name = sym.id2name
-      param_value(name) if has_param(name)
+      @data = ""
     end
 
   end
