@@ -39,7 +39,7 @@ module Ronin
       @vendor = vendor
     end
 
-    def parse(doc,xpath='/ronin/product')
+    def Product.parse(doc,xpath='/ronin/product')
       products = []
 
       doc.element.each(xpath) do |element|

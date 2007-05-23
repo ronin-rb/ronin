@@ -86,6 +86,10 @@ module Ronin
       block.call(self) if block
     end
 
+    def product(name,version,vendor)
+      add_product(Product.new(name,version,vendor))
+    end
+
     def add_product(product)
       @products[product.name][product.version][product.vendor] = product
 
@@ -100,7 +104,7 @@ module Ronin
       return @products[name][version].has_key?(vendor)
     end
 
-    def product(name,version,vendor)
+    def get_product(name,version,vendor)
       @products[name][version][vendor]
     end
 
@@ -125,21 +129,17 @@ module Ronin
 	element.each_element('classification') { |classification| new_adv.classification = classification.get_text.to_s }
 	element.each_element('cve') { |cve| new_adv.cve = cve.get_text.to_s }
 
-	if element.has_attribute('remote')
-	  new_adv.remote = true if element.attribute('remote').to_s=='true'
-	end
-
-	if element.has_attribute('local')
-	  new_adv.remote = true if element.attribute('local').to_s=='true'
-	end
+	new_adv.remote = true if element.attribute('remote').to_s=='true'
+	new_adv.remote = true if element.attribute('local').to_s=='true'
 
 	element.each_element('published') { |published| new_adv.published = published.get_text.to_s }
 	element.each_element('updated') { |updated| new_adv.updated = updated.get_text.to_s }
 
 	element.each_element('credits') { |credits| new_adv.credits = credits.get_text.to_s }
 
-	products = Parse.parse(doc,'/ronin/advisory/products/product')
-	products.each { |product| new_adv.add_product(product) }
+	Product.parse(doc,'/ronin/advisory/products/product').each do |product|
+	  new_adv.add_product(product)
+	end
 
 	element.each_element('comments') { |comments| new_adv.comments = comments.get_text.to_s }
 
