@@ -23,16 +23,13 @@ module Ronin
   module Repo
     module FileAccess
       def find_path(path,&block)
-	real_path = File.join(@path,path)
+	@paths.each do |scope_path|
+	  real_path = File.join(scope_path,path)
 
-	if block
-	  return block.call(real_path)
-	else
-	  unless File.exists?(real_path)
-	    return nil
+	  if File.exists?(real_path)
+	    return block.call(real_path) if block
+	    return real_path
 	  end
-
-	  return real_path
 	end
       end
 
@@ -67,12 +64,14 @@ module Ronin
       end
 
       def glob_paths(pattern,&block)
-	paths = Dir.glob(File.join(@path,pattern))
-	
-	if block
-	  paths.each { |path| block.call(path) }
-	else
-	  return paths
+	@paths.each do |scope_path|
+	  real_paths = Dir.glob(File.join(scope_path,pattern))
+
+	  if block
+	    real_paths.each { |path| block.call(path) }
+	  else
+	    return real_paths
+	  end
 	end
       end
 

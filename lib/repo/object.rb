@@ -21,7 +21,7 @@
 
 require 'repo/context'
 require 'repo/objectmetadata'
-require 'repo/authorcontext'
+require 'repo/author'
 
 module Ronin
   module Repo
@@ -62,19 +62,8 @@ module Ronin
 	end_eval
       end
 
-      # Name of the object
-      attr_metadata :name
-      
-      # Version of the object
-      attr_metadata :version
-      
-      # Authors of the object
-      attr_metadata :authors
-
       def author(name,&block)
-	new_author = AuthorContext.new(name,&block)
-	authors[new_author.name] = new_author
-	return new_author
+	return authors[new_author.name] = AuthorContext.new(name,&block)
       end
 
     end

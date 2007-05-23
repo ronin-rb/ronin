@@ -55,18 +55,27 @@ module Ronin
 	@contexts = []
 	@category_deps = []
 
-	super(name,controller_path(name))
+	super(controller_path(name))
 
 	# load similarly named contexts from all repositories
 	cache.categories[name].each_value do |repository|
 	  repository.find_dir(name) do |dir|
-	    @contexts << Context.new(name,dir)
+	    @contexts << Context.new(File.join(dir,name+'.rb'))
 	  end
 	end
       end
 
       def has_category?(name)
-	!(category(name).nil?)
+	name = name.to_s
+
+	# self is the category
+	return true if name==@name
+
+	# search category dependencies for the category
+	@category_deps.each do |sub_category|
+	  return true if sub_category.category(name)
+	end
+	return false
       end
 
       def category(name)
@@ -99,14 +108,11 @@ module Ronin
 	results = Context::dist(&block)
 
 	# distribute block over contexts
-	@contexts.each do |context|
-	  results.concat(context.dist(&block))
-	end
+	results += @contexts.map { |context| context.dist(&block) }
 
 	# distribute block over category dependencies
-	@category_deps.each do |category|
-	  results.concat(category.dist(&block))
-	end
+	results += @category_deps.map { |category| category.dist(&block) }
+
 	return results
       end
 
@@ -220,7 +226,7 @@ module Ronin
 	name = name.to_s
 
 	cache.categories[name].each_value do |repository|
-	  repository.find_dir?(File.join(CONTROL_DIR,name)) do |dir|
+	  repository.find_dir(File.join(CONTROL_DIR,name)) do |dir|
 	    return dir
 	  end
 	end

@@ -22,28 +22,34 @@
 module Ronin
   module Repo
     module ObjectMetadata
-      def Object.attr_metadata(*ids)
-	for id in ids
-	  module_eval <<-"end_eval"
-	    def #{id}
-	      @metadata['#{id}']
-	    end
+      def metadata
+	@metadata_cache ||= {}
+      end
 
-	    def #{id}=(data)
-	      @metadata['#{id}'] = data
-	    end
-	  end_eval
-	end
+      def has_metadata?(name)
+	metadata.has_key?(name.to_s)
       end
 
       def metadata_set(name,value)
-	@metadata ||= {}
-
 	name = name.to_s
-	unless @metadata.has_key?(name)
-	  @metadata[name] = value
-	end
+	metadata[name] = value unless metadata.has_key?(name)
       end
+
+      protected
+
+      def method_missing(sym,*args)
+      id = sym.id2name
+
+      if id[id.length-1].chr=='='
+	id.chop!
+	return metadata[id] = args[0] if has_metadata?(id)
+      else
+	return metadata[id] if has_metadata?(id)
+      end
+
+      raise NoMethodError.new(id)
+      end
+
     end
   end
 end

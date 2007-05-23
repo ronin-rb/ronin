@@ -34,7 +34,7 @@ module Ronin
     RONIN_HOME_PATH = File.join(ENV['HOME'],'.ronin')
 
     # Ronin gem directory
-    RONIN_GEM_PATH = RONIN_HOME_PATH
+    RONIN_GEM_PATH = File.join(RONIN_HOME_PATH,'gems')
 
     def Repo.load_cache(path=Cache::CONFIG_PATH)
       Cache.new(path)
@@ -42,6 +42,14 @@ module Ronin
 
     def Repo.cache
       Cache.current
+    end
+
+    def Repo.has_category?(name)
+      cache.has_category?(name)
+    end
+
+    def Repo.get_category(name)
+      cache.category(name)
     end
 
     class Cache
@@ -149,7 +157,7 @@ module Ronin
       end
 
       def link(repo_path)
-	register_repository(Repository.new(repo_path)) { dump }
+	register_repository(Repository.new(repo_path))
       end
 
       def update

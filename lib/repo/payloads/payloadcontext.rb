@@ -19,80 +19,49 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'exploits/exploit'
+require 'payloads/payload'
 require 'repo/objectcontext'
 
 module Ronin
   module Repo
-    class ExploitContext < ObjectContext
+    class PayloadContext < ObjectContext
 
       def initialize(path)
-	# initialize exploit metadata
-	metadata_set(:advisory)
-	metadata_set(:restricted)
-
 	super(path)
       end
 
       def create
-	return Exploit.new(advisory) do |exp|
-	  load_exploit(exp)
+	return Payload.new do |payload|
+	  load_payload(payload)
 	end
       end
 
       protected
 
       # Name of object to load
-      attr_object :exploit
+      attr_object :payload
 
-      # Advisory the exploit represents
-      attr_metadata :advisory
-      
-      # Restricted text for the exploit
-      attr_metadata :restricted
-
-      # 'pad' param for the exploit
-      attr_metadata :pad
-
-      # 'lhost' param for the exploit
-      attr_metadata :lhost
-
-      # 'lport' param for the exploit
-      attr_metadata :lport
-
-      # Build action for the exploit
+      # Build action for the payload
       attr_action :builder
 
-      # Clean action for the exploit
+      # Clean action for the payload
       attr_action :cleaner
-      
-      # Transmit action for the exploit
-      attr_action :transmitter
 
-      def load_exploit(exp)
-	# load exploit metadata
-	exp.name = name
-	exp.version = version
+      def load_payload(payload)
+	# load payload metadata
+	payload.name = name
+	payload.version = version
 
-	authors.each do |key,value|
-	  exp.authors[key] = value.to_author
-	end
+	payload.authors.merge!( authors.values.map { |auth| auth.to_author } )
 
-	exp.restricted = restricted
+	payload.params.merge!(params)
 
-	exp.pad = pad
-	exp.lhost = lhost
-	exp.lport = lport
-
-	# load exploit actions
+	# load payload actions
 	cleaner_action = get_action(:cleaner)
-	exp.cleaner(&(cleaner_action.block)) if cleaner_action
+	payload.cleaner(&(cleaner_action.block)) if cleaner_action
 
 	builder_action = get_action(:builder)
-	exp.builder(&(builder_action.block)) if cleaner_action
-
-	transmitter_action = get_action(:transmitter)
-	exp.transmitter(&(transmitter_action.block)) if transmitter_action
+	payload.builder(&(builder_action.block)) if builder_action
       end
 
     end

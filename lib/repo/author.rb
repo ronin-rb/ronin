@@ -19,49 +19,33 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'payloads/payload'
-require 'repo/objectcontext'
+require 'author'
+require 'repo/objectmetadata'
 
 module Ronin
   module Repo
-    class PayloadContext < ObjectContext
+    class AuthorContext
 
-      def initialize(path)
-	super(path)
+      include ObjectMetadata
+
+      # Name of author
+      attr_reader :name
+
+      def initialize(name,&block)
+	@name = name.to_s
+
+	# initialize author metadata
+	metadata_set(:address)
+	metadata_set(:phone)
+	metadata_set(:email)
+	metadata_set(:site)
+	metadata_set(:biography,"")
+
+	instance_eval(&block) if block
       end
 
-      def create
-	return Payload.new do |payload|
-	  load_payload(payload)
-	end
-      end
-
-      protected
-
-      # Name of object to load
-      attr_object :payload
-
-      # Build action for the payload
-      attr_action :builder
-
-      # Clean action for the payload
-      attr_action :cleaner
-
-      def load_payload(payload)
-	# load payload metadata
-	payload.name = name
-	payload.version = version
-
-	authors.each do |key,value|
-	  payload.authors[key] = value.to_author
-	end
-
-	# load payload actions
-	cleaner_action = get_action(:cleaner)
-	payload.cleaner(&(cleaner_action.block)) if cleaner_action
-
-	builder_action = get_action(:builder)
-	payload.builder(&(builder_action.block)) if builder_action
+      def to_author
+	Author.new(@name,biography,{:address => address, :phone => phone, :email => email, :site => site})
       end
 
     end

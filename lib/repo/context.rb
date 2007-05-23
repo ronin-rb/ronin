@@ -42,20 +42,29 @@ module Ronin
       # Scopes of the context
       attr_reader :context_deps
 
-      def initialize(name,path)
-	@name = name
-	@path = path
+      def initialize(context_path)
+	@name = File.basename(context_path,'.rb')
+	@path = File.dirname(context_path)
 	@actions = {}
 	@context_deps = []
 
-	# load context file if it exists
-	file = File.join(@path,@name)+'.rb'
-	if File.file?(file)
-	  load(file)
+	if File.file?(context_path)
+	  load(context_path)
 
 	  # evaluate the context block if present
-	  class_eval(get_context_block) if has_context_block?
+	  instance_eval(get_context_block) if has_context_block?
 	end
+      end
+
+      def has_action?(name)
+	name = name.to_s
+
+	return true if @actions.has_key?(name)
+
+	@context_deps.each do |sub_context|
+	  return true if sub_context.has_action?(name)
+	end
+	return false
       end
 
       def get_action(name)
@@ -63,15 +72,11 @@ module Ronin
 
 	return @actions[name] if @actions.has_key?(name)
 
-	@context_deps.each do |scope|
-	  action = scope.get_action(name)
+	@context_deps.each do |sub_context|
+	  action = sub_context.get_action(name)
 	  return action if action
 	end
 	return nil
-      end
-
-      def has_action?(name)
-	!(get_action(name).nil?)
       end
 
       def perform_action(name,*args)
@@ -92,7 +97,16 @@ module Ronin
       end
 
       def has_context?(name)
-	!(context(name).nil?)
+	name = name.to_s
+
+	# self is the scope
+	return true if name==@name
+
+	# search context dependencies
+	@context_deps.each do |sub_context|
+	  return true if sub_context.has_context?(name)
+	end
+	return false
       end
 
       def context(name)
@@ -104,7 +118,7 @@ module Ronin
 	# search context dependencies
 	@context_deps.each do |sub_context|
 	  search_context = sub_context.context(name)
-	  return search_scope if search_scope
+	  return search_context if search_context
 	end
 	return nil
       end
@@ -121,25 +135,22 @@ module Ronin
       end
 
       def dist(&block)
-	# evaluate block within self
-	results = [instance_eval(&block)]
+	# distribute block over self
+	result = [instance_eval(&block)]
 
-	# distribute block within context dependencies
-	@context_deps.each do |sub_context|
-	  results.concat(sub_context.dist(&block))
-	end
-	return results
+	# distribute block over context dependencies
+	return result + @context_deps.map { |sub_context| sub_context.dist(&block) }
       end
 
-      def find_local_path(path,&block)
+      def local_path(path,&block)
 	find_path(path,&block)
       end
 
-      def find_local_file(path,&block)
+      def local_file(path,&block)
 	find_file(path,&block)
       end
 
-      def find_local_dir(path,&block)
+      def local_dir(path,&block)
 	find_dir(path,&block)
       end
 
@@ -268,12 +279,16 @@ module Ronin
       end
 
       def method_missing(sym,*args)
+	name = sym.id2name
+
 	# resolve contexts
-	sub_context = context(sym.id2name)
+	sub_context = context(name)
 	return sub_context if sub_context
 
 	# resolve actions
-	return perform_action(sym,*args)
+	return perform_action(name,*args) if has_action?(name)
+
+	raise NoMethodError.new(name)
       end
 
       private

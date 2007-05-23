@@ -58,7 +58,7 @@ module Ronin
       # Ruby-gems required by the repositories contents
       attr_reader :gems
 
-      def initialize(metadata_uri,&block)
+      def initialize(metadata_uri)
 	metadata = Document.new(open(metadata_uri))
 
 	@name = ""
@@ -90,8 +90,6 @@ module Ronin
 	    @gems << gem.get_text.to_s
 	  end
 	end
-
-	block.call(self) if block
       end
 
       def download(path)

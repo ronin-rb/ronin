@@ -21,7 +21,6 @@
 
 require 'repo/cache'
 require 'repo/repositorymetadata'
-require 'repo/fileaccess'
 require 'repo/category'
 require 'repo/exceptions/categorynotfound'
 
@@ -29,21 +28,19 @@ module Ronin
   module Repo
     class Repository < RepositoryMetadata
 
-      include FileAccess
-
       # Local path to the repository
       attr_reader :path
 
       # Categories
       attr_reader :categories
 
-      def initialize(path,&block)
+      def initialize(path)
 	@path = File.expand_path(path)
 	@categories = []
 
 	cache_categories
 
-	super(File.join(@path,RepositoryMetadata::METADATA_FILE),&block)
+	super(File.join(@path,RepositoryMetadata::METADATA_FILE))
       end
 
       def has_category?(name)
