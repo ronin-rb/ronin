@@ -30,13 +30,22 @@ module Ronin
     # Description of parameter
     attr_accessor :desc
 
-    # Value associated with parameter
+    # Value of parameter
     attr_accessor :value
 
-    def initialize(name,desc,value=nil)
+    def initialize(name,desc="",value=nil,&block)
       @name = name.to_s
       @desc = desc
       @value = value
+
+      instance_eval(&block) if block
+    end
+
+    def to_s
+      str = @name
+      str+=" - #{@desc}" unless @desc.empty?
+      str+=" [#{@value}]" if @value
+      return str
     end
 
   end
@@ -46,59 +55,65 @@ module Ronin
       @params ||= {}
     end
 
-    def params=(parameters)
+    def params=(parameters={})
       @params = parameters
     end
 
-    def Object.attr_param(*ids)
-      for id in ids
-	module_eval <<-end_eval
-	  def #{id}
-	    @params['#{id}'].value if has_param?('#{id}')
-	  end
-
-	  def #{id}=(data)
-	    if has_param?('#{id}')
-	      @params['#{id}'].value = data
-	    else
-	      @params['#{id}'] = Param.new('#{id}',"",data)
-	    end
-	  end
-        end_eval
-      end
+    def param(name,desc="",value=nil,&block)
+      add_param(Param.new(name,desc,value,&block))
     end
 
-    def param_set(name,desc,value=nil)
-      name = name.id2name
-      unless has_param?(name)
-	params[name] = Param.new(name,desc,value)
-      end
+    def add_param(parameter)
+      if has_param?(parameter.name)
+	# set param description if missing
+	unless param_desc(name).length
+	  params[name].desc = desc
+	end
 
-      unless param_desc(name).length
-        params[name].desc = desc
+	# set param value if missing
+	unless param_value(name)
+	  params[name].value = value
+	end
+      else
+        params[parameter.name] = parameter
       end
-
-      unless param_value(name)
-	params[name].value = value
-      end
+      return parameter
     end
 
     def has_param?(name)
       params.has_key?(name.to_s)
     end
 
-    def param(name)
+    def get_param(name)
       return params[name.to_s]
     end
 
     def param_desc(name)
-      return false unless has_param?(name)
-      return param(name).desc
+      return "" unless has_param?(name)
+      return get_param(name).desc
     end
 
     def param_value(name)
-      return false unless has_param?(name)
-      return param(name).value
+      return nil unless has_param?(name)
+      return get_param(name).value
     end
+
+    protected
+
+    def method_missing(sym,*args)
+      id = sym.id2name
+
+      if id[id.length-1].chr=='='
+	# parameter assignment
+	id.chop!
+	return params[id].value = args[0] if has_param?(id)
+      else
+	# parameter retrieval
+	return params[id].value if has_param?(id)
+      end
+
+      raise NoMethodError.new(id)
+    end
+
   end
 end

@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'payload'
+require 'payloads/payload'
 
 module Ronin
   class PlatformPayload < Payload
@@ -32,7 +32,6 @@ module Ronin
 
       super(&block)
     end
-
 
   end
 end
