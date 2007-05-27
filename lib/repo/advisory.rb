@@ -27,6 +27,33 @@ module Ronin
   module Repo
     class AdvisoryContext < ObjectContext
 
+      # Name of object to load
+      attr_object :advisory
+
+      # Vulnerability class
+      attr_metadata :class
+      
+      # CVE
+      attr_metadata :cve
+
+      # Remote?
+      attr_metadata :remote
+
+      # Local?
+      attr_metadata :local
+
+      # Date published
+      attr_metadata :published
+
+      # Date updated
+      attr_metadata :updated
+
+      # Credits
+      attr_metadata :credits
+      
+      # Comments
+      attr_metadata :comments
+
       def initialize(path)
 	# initialize advisory metadata
 	metadata_set(:class)
@@ -59,33 +86,6 @@ module Ronin
       end
 
       protected
-
-      # Name of object to load
-      attr_object :advisory
-
-      # Vulnerability class
-      attr_metadata :class
-      
-      # CVE
-      attr_metadata :cve
-
-      # Remote?
-      attr_metadata :remote
-
-      # Local?
-      attr_metadata :local
-
-      # Date published
-      attr_metadata :published
-
-      # Date updated
-      attr_metadata :updated
-
-      # Credits
-      attr_metadata :credits
-      
-      # Comments
-      attr_metadata :comments
 
       def product(&block)
 	@products << ProductContext.new(&block)

@@ -38,6 +38,12 @@ module Ronin
       # Category dependencies
       attr_reader :categories
 
+      # Name of context to load
+      attr_context :category
+
+      # Main action
+      attr_action :main
+
       def initialize(name)
 	unless cache.has_category?(name)
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
@@ -132,12 +138,6 @@ module Ronin
       end
 
       protected
-
-      # Name of context to load
-      attr_context :category
-
-      # Main action
-      attr_action :main
 
       def depend(name)
 	name = name.to_s

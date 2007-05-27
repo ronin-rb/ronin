@@ -26,6 +26,12 @@ module Ronin
   module Repo
     class PlatformPayloadContext < PayloadContext
 
+      # Name of object to load
+      attr_object :platformpayload
+
+      # Targeted platform
+      attr_action :platform
+
       def initialize(path)
 	# initialize the platform payload metadata
 	metadata_set(:platform,nil)
@@ -38,12 +44,6 @@ module Ronin
       end
 
       protected
-
-      # Name of object to load
-      attr_object :platformpayload
-
-      # Targeted platform
-      attr_action :platform
 
       def load_platformpayload(payload)
 	# load payload

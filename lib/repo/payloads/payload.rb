@@ -26,14 +26,6 @@ module Ronin
   module Repo
     class PayloadContext < ObjectContext
 
-      def create
-	return Payload.new do |payload|
-	  load_payload(payload)
-	end
-      end
-
-      protected
-
       # Name of object to load
       attr_object :payload
 
@@ -42,6 +34,14 @@ module Ronin
 
       # Clean action for the payload
       attr_action :cleaner
+
+      def create
+	return Payload.new do |payload|
+	  load_payload(payload)
+	end
+      end
+
+      protected
 
       def load_payload(payload)
 	# load payload metadata
