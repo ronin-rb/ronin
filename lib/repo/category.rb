@@ -21,12 +21,14 @@
 
 require 'repo/context'
 require 'repo/exceptions/categorynotfound'
-require 'repo/objectcontext'
-require 'repo/exploitcontext'
-require 'repo/platformexploitcontext'
-require 'repo/bufferoverflowcontext'
-require 'repo/formatstringcontext'
-require 'repo/payloadcontext'
+require 'repo/object'
+require 'repo/exploits/exploit'
+require 'repo/exploits/platformexploit'
+require 'repo/exploits/bufferoverflow'
+require 'repo/exploits/formatstring'
+require 'repo/exploits/webexploit'
+require 'repo/payloads/payload'
+require 'repo/exploits/platformpayload'
 require 'repo/cache'
 
 module Ronin

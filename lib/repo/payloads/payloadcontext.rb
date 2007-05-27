@@ -20,7 +20,7 @@
 #
 
 require 'payloads/payload'
-require 'repo/objectcontext'
+require 'repo/object'
 
 module Ronin
   module Repo

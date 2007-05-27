@@ -20,8 +20,8 @@
 #
 
 require 'advisory'
-require 'repo/objectcontext'
-require 'repo/productcontext'
+require 'repo/object'
+require 'repo/product'
 
 module Ronin
   module Repo
