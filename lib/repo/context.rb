@@ -19,41 +19,105 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/fileaccess'
-require 'repo/exceptions/actionnotfound'
 require 'repo/exceptions/contextnotfound'
-require 'repo/exceptions/objectnotfound'
+require 'repo/exceptions/actionnotfound'
 
 module Ronin
   module Repo
     class Context
 
-      include FileAccess
-
       # Name of context
       attr_reader :name
 
-      # Working directory of the context
-      attr_reader :path
+      # Working directories of the context
+      attr_reader :paths
 
       # Context actions
       attr_reader :actions
 
-      # Scopes of the context
-      attr_reader :context_deps
+      # Sub-contexts inherited by the context
+      attr_reader :contexts
 
-      def initialize(context_path)
-	@name = File.basename(context_path,'.rb')
-	@path = File.dirname(context_path)
+      def initialize(name='')
+	@name = name
+	@paths = []
 	@actions = {}
-	@context_deps = []
+	@contexts = []
+      end
 
-	if File.file?(context_path)
-	  load(context_path)
+      def Context.create(path,&block)
+	new_context = Context.new(File.basename(path,'.rb'))
+	new_context.union!(path)
 
-	  # evaluate the context block if present
-	  instance_eval(get_context_block) if has_context_block?
+	block.call(new_context) if block
+	return new_context
+      end
+
+      def union(path)
+	unless File.file?(path)
+	  raise ContextNotFound, "context '#{path}' does not exist", caller
 	end
+
+	return self.clone.union!(path)
+      end
+
+      def union!(path)
+	unless File.file?(path)
+	  raise ContextNotFound, "context '#{path}' does not exist", caller
+	end
+
+	load(path)
+
+	@paths << File.dirname(path)
+
+	# evaluate the context block if present
+	instance_eval(get_context_block) if has_context_block?
+      end
+
+      def has_context?(name)
+	name = name.to_s
+
+	# self is the scope
+	return true if name==@name
+
+	# search context dependencies
+	@contexts.each do |sub_context|
+	  return true if sub_context.has_context?(name)
+	end
+	return false
+      end
+
+      def context(name)
+	name = name.to_s
+
+	# self is the scope
+	return self if name==@name
+
+	# search context dependencies
+	@contexts.each do |sub_context|
+	  search_context = sub_context.context(name)
+	  return search_context if search_context
+	end
+	return nil
+      end
+
+      def context_eval(name=@name,&block)
+	name = name.to_s
+
+	sub_context = context(name)
+	unless sub_context
+	  raise ContextNotFound, "context '#{name}' not found within context '#{@name}'", caller
+	end
+
+	return sub_context.instance_eval(&block)
+      end
+
+      def dist(&block)
+	# distribute block over self
+	result = [instance_eval(&block)]
+
+	# distribute block over context dependencies
+	return result + @contexts.map { |sub_context| sub_context.dist(&block) }
       end
 
       def has_action?(name)
@@ -61,7 +125,7 @@ module Ronin
 
 	return true if @actions.has_key?(name)
 
-	@context_deps.each do |sub_context|
+	@contexts.each do |sub_context|
 	  return true if sub_context.has_action?(name)
 	end
 	return false
@@ -72,7 +136,7 @@ module Ronin
 
 	return @actions[name] if @actions.has_key?(name)
 
-	@context_deps.each do |sub_context|
+	@contexts.each do |sub_context|
 	  action = sub_context.get_action(name)
 	  return action if action
 	end
@@ -82,7 +146,7 @@ module Ronin
       def perform_action(name,*args)
 	action = get_action(name)
 	unless action
-	  raise ActionNotFound, "cannot find action '#{name}' in group '#{self}'", caller
+	  raise ActionNotFound, "cannot find action '#{name}' in context '#{self}'", caller
 	end
 
 	return action.call(*args)
@@ -96,106 +160,121 @@ module Ronin
 	perform_action(:teardown)
       end
 
-      def has_context?(name)
-	name = name.to_s
+      def find_path(path,&block)
+	@paths.each do |scope_path|
+	  real_path = File.join(scope_path,path)
 
-	# self is the scope
-	return true if name==@name
-
-	# search context dependencies
-	@context_deps.each do |sub_context|
-	  return true if sub_context.has_context?(name)
+	  if File.exists?(real_path)
+	    return block.call(real_path) if block
+	    return real_path
+	  end
 	end
-	return false
       end
 
-      def context(name)
-	name = name.to_s
-
-	# self is the scope
-	return self if name==@name
-
-	# search context dependencies
-	@context_deps.each do |sub_context|
-	  search_context = sub_context.context(name)
-	  return search_context if search_context
+      def find_file(path,&block)
+	if block
+	  find_path(path) do |file|
+	    block.call(file) if File.file?(file)
+	  end
+	else
+	  find_path(path) do |file|
+	    return file if File.file?(file)
+	  end
+	  return nil
 	end
-	return nil
       end
 
-      def context_eval(name=@name,&block)
-	name = name.to_s
-
-	sub_context = context(name)
-	unless sub_context
-	  raise ContextNotFound, "sub-context '#{name}' not found within context '#{@name}'", caller
+      def find_dir(path,&block)
+	if block
+	  find_path(path) do |dir|
+	    block.call(dir) if File.directory?(dir)
+	  end
+	else
+	  find_path(path) do |dir|
+	    return dir if File.directory?(dir)
+	  end
+	  return nil
 	end
-
-	return sub_context.instance_eval(&block)
       end
 
-      def dist(&block)
-	# distribute block over self
-	result = [instance_eval(&block)]
+      def glob_paths(pattern,&block)
+	@paths.each do |scope_path|
+	  real_paths = Dir.glob(File.join(scope_path,pattern))
 
-	# distribute block over context dependencies
-	return result + @context_deps.map { |sub_context| sub_context.dist(&block) }
+	  if block
+	    real_paths.each { |path| block.call(path) }
+	  else
+	    return real_paths
+	  end
+	end
       end
 
-      def local_path(path,&block)
-	find_path(path,&block)
+      def glob_files(pattern,&block)
+	if block
+	  glob_paths(pattern) do |path|
+	    block.call(path) if File.file?(path)
+	  end
+	else
+	  files = []
+
+	  glob_paths(pattern) do |path|
+	    files << path if File.file?(path)
+	  end
+	  return files
+	end
       end
 
-      def local_file(path,&block)
-	find_file(path,&block)
+      def glob_dirs(pattern,&block)
+	if block
+	  glob_paths(pattern) do |path|
+	    block.call(path) if File.directory?(path)
+	  end
+	else
+	  dirs = []
+
+	  glob_paths(pattern) do |path|
+	    dirs << path if File.directory?(path)
+	  end
+	  return dirs
+	end
       end
 
-      def local_dir(path,&block)
-	find_dir(path,&block)
+      def all_paths(&block)
+	if block
+	  glob_paths('*',&block)
+	else
+	  return glob_paths('*')
+	end
       end
 
-      def glob_local_paths(pattern,&block)
-	glob_paths(patter,&block)
+      def all_files(&block)
+	if block
+	  all_paths do |path|
+	    block.call(path) if File.file?(path)
+	  end
+	else
+	  files = []
+
+	  all_paths do |path|
+	    files << path if File.file?(path)
+	  end
+	  return files
+	end
       end
 
-      def glob_local_files(pattern,&block)
-	glob_files(pattern,&block)
-      end
+      def all_dirs(&block)
+	if block
+	  all_paths do |path|
+	    block.call(path) if File.directory?(path)
+	  end
+	else
+	  dirs = []
 
-      def glob_local_dirs(pattern,&block)
-	glob_dirs(pattern,&block)
-      end
-
-      def all_local_paths(&block)
-	all_paths(&block)
-      end
-
-      def all_local_files(&block)
-	all_files(&block)
-      end
-
-      def all_local_dirs(&block)
-	all_dirs(&block)
-      end
-
-      def local_load(path)
-	ronin_load(path)
-      end
-
-      def local_require(path)
-	ronin_require(path)
-      end
-
-      def has_local_path?(path,&block)
-	has_path?(path,&block)
-      end
-
-      def has_local_file?(path,&block)
-	has_file?(path,&block)
-      end
-
-      def has_local_dir?(path,&block)
-	has_dir?(path,&block)
+	  all_paths do |path|
+	    dirs << path if File.directory?(path)
+	  end
+	  return dirs
+	end
       end
 
       def to_s
@@ -204,10 +283,13 @@ module Ronin
 
       protected
 
+      # Global context block hash
+      @@context_block = {}
+
       def Context.attr_context(id)
 	# define context_type
 	class_eval <<-"end_eval"
-	  def context_name
+	  def context_id
 	    '#{id}'
 	  end
 	end_eval
@@ -215,13 +297,13 @@ module Ronin
 	# define kernel-level context method
 	Kernel::module_eval <<-"end_eval"
 	  def ronin_#{id}(&block)
-	    $context_block['#{id}'] = block
+	    @@context_block['#{id}'] = block
 	  end
 	end_eval
 
 	Ronin::module_eval <<-"end_eval"
 	  def ronin_load_#{id}(path,&block)
-	    obj = #{self.name}.new(path)
+	    obj = #{self.name}.create(path)
 	    if block
 	      obj.setup
 	      v = block.call(obj)
@@ -278,36 +360,18 @@ module Ronin
 	raise ContextNotFound, "context '#{path}' does not exist", caller
       end
 
-      def method_missing(sym,*args)
-	name = sym.id2name
-
-	# resolve contexts
-	sub_context = context(name)
-	return sub_context if sub_context
-
-	# resolve actions
-	return perform_action(name,*args) if has_action?(name)
-
-	raise NoMethodError.new(name)
-      end
-
       private
 
       def has_context_block?
-	!($context_block[context_name].nil?)
+	!(@@context_block[context_id].nil?)
       end
 
       def get_context_block
-	block = $context_block[context_name]
-	$context_block[context_name] = nil
+	block = @@context_block[context_id]
+	@@context_block[context_id] = nil
 	return block
       end
 
     end
-
-    private
-
-    # Context block hash
-    $context_block = {}
   end
 end

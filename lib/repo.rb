@@ -21,7 +21,6 @@
 
 require 'repo/exceptions'
 require 'repo/action'
-require 'repo/fileaccess'
 require 'repo/context'
 require 'repo/category'
 require 'repo/objectmetadata'
