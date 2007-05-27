@@ -26,10 +26,6 @@ module Ronin
   module Repo
     class PayloadContext < ObjectContext
 
-      def initialize(path)
-	super(path)
-      end
-
       def create
 	return Payload.new do |payload|
 	  load_payload(payload)

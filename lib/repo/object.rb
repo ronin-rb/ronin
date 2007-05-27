@@ -42,8 +42,6 @@ module Ronin
 	metadata_set(:name,"")
 	metadata_set(:version,"")
 	metadata_set(:authors,{})
-
-	super(File.basename(path,'.rb'),File.dirname(path))
       end
 
       def create

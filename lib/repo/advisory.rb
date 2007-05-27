@@ -40,8 +40,6 @@ module Ronin
 
 	# Product context list
 	@products = []
-
-	super(path)
       end
 
       def create

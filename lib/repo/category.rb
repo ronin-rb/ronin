@@ -28,7 +28,7 @@ require 'repo/exploits/bufferoverflow'
 require 'repo/exploits/formatstring'
 require 'repo/exploits/webexploit'
 require 'repo/payloads/payload'
-require 'repo/exploits/platformpayload'
+require 'repo/payloads/platformpayload'
 require 'repo/cache'
 
 module Ronin

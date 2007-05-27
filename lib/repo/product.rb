@@ -26,6 +26,17 @@ module Ronin
   module Repo
     class ProductContext
 
+      include ObjectMetadata
+
+      # Product name
+      attr_metadata :product
+
+      # Product version
+      attr_metadata :version
+
+      # Product vendor
+      attr_metadata :vendor
+
       def initialize(&block)
 	# initialize product metadata
 	metadata_set(:name)
@@ -38,19 +49,6 @@ module Ronin
       def to_product
 	Product.new(name,version,vendor)
       end
-
-      protected
-
-      include ObjectMetadata
-
-      # Product name
-      attr_metadata :product
-
-      # Product version
-      attr_metadata :version
-
-      # Product vendor
-      attr_metadata :vendor
 
     end
   end

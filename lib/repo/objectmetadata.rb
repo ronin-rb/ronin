@@ -37,19 +37,19 @@ module Ronin
 
       protected
 
-      def method_missing(sym,*args)
-      id = sym.id2name
+      def Object.attr_metadata(*ids)
+	for id in ids
+	  module_eval <<-"end_eval"
+	    def #{id}
+	      metadata['#{id}']
+	    end
 
-      if id[id.length-1].chr=='='
-	id.chop!
-	return metadata[id] = args[0] if has_metadata?(id)
-      else
-	return metadata[id] if has_metadata?(id)
+	    def #{id}=(data)
+	      metadata['#{id}'] = data
+	    end
+	  end_eval
+	end
       end
-
-      raise NoMethodError.new(id)
-      end
-
     end
   end
 end

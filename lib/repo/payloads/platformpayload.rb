@@ -29,8 +29,6 @@ module Ronin
       def initialize(path)
 	# initialize the platform payload metadata
 	metadata_set(:platform,nil)
-
-	super(path)
       end
 
       def create
