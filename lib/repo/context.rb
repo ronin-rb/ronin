@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/extensions/kernel'
 require 'repo/exceptions/contextnotfound'
 require 'repo/exceptions/actionnotfound'
 
@@ -68,10 +69,10 @@ module Ronin
 
 	load(path)
 
-	@paths << File.dirname(path)
+	@paths << File.dirname(File.expand_path(path))
 
 	# evaluate the context block if present
-	instance_eval(get_context_block) if has_context_block?
+	instance_eval(&get_context_block) if has_context_block?
       end
 
       def has_context?(name)
@@ -153,11 +154,13 @@ module Ronin
       end
 
       def setup
-	perform_action(:setup)
+	return unless has_action?(:setup)
+	return perform_action(:setup)
       end
 
       def teardown
-	perform_action(:teardown)
+	return unless has_action?(:teardown)
+	return perform_action(:teardown)
       end
 
       def find_path(path,&block)
@@ -283,9 +286,6 @@ module Ronin
 
       protected
 
-      # Global context block hash
-      @@context_block = {}
-
       def Context.attr_context(id)
 	# define context_type
 	class_eval <<-"end_eval"
@@ -297,7 +297,7 @@ module Ronin
 	# define kernel-level context method
 	Kernel::module_eval <<-"end_eval"
 	  def ronin_#{id}(&block)
-	    @@context_block['#{id}'] = block
+	    ronin_contexts['#{id}'] = block
 	  end
 	end_eval
 
@@ -336,7 +336,7 @@ module Ronin
       attr_action :teardown
 
       def action(name,&block)
-	@actions[name.to_s] = Action.new(name,self,&block)
+	@actions[name.to_s] = block
       end
 
       def inherit(path)
@@ -363,15 +363,16 @@ module Ronin
       private
 
       def has_context_block?
-	!(@@context_block[context_id].nil?)
+	!(ronin_contexts[context_id].nil?)
       end
 
       def get_context_block
-	block = @@context_block[context_id]
-	@@context_block[context_id] = nil
+	block = ronin_contexts[context_id]
+	ronin_contexts[context_id] = nil
 	return block
       end
 
     end
+
   end
 end
