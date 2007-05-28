@@ -151,7 +151,8 @@ module Ronin
       end
 
       def main
-	perform_action(:main)
+	return unless has_action?(:main)
+	return perform_action(:main)
       end
 
       protected
@@ -160,10 +161,19 @@ module Ronin
 	name = sym.id2name
 
 	# resolve dependencies
-	dep = category(name)
-	return dep if dep
+	if (sub_category = category(name))
+	  return sub_category
+	end
 
-	return Context::send(sym,*args)
+	# return sub context
+	if (sub_context = context(name))
+	  return sub_context
+	end
+
+	# perform action
+	return perform_action(sym,*args) if has_action?(name)
+
+	raise NoMethodError.new(name)
       end
 
     end
