@@ -61,6 +61,23 @@ module Ronin
 	end
       end
 
+      def depend(name)
+	name = name.to_s
+
+	unless cache.has_category?(name)
+	  raise CategoryNotFound, "category '#{name}' does not exist", caller
+	end
+
+	# return existing category
+	new_category = category(name)
+	return new_category if new_category
+
+	# add new category
+	new_category = Category.new(name)
+	@categories << new_category
+	return new_category
+      end
+
       def has_category?(name)
 	name = name.to_s
 
@@ -138,23 +155,6 @@ module Ronin
       end
 
       protected
-
-      def depend(name)
-	name = name.to_s
-
-	unless cache.has_category?(name)
-	  raise CategoryNotFound, "category '#{name}' does not exist", caller
-	end
-
-	# return existing category
-	new_category = category(name)
-	return new_category if new_category
-
-	# add new category
-	new_category = Category.new(name)
-	@categories << new_category
-	return new_category
-      end
 
       def method_missing(sym,*args)
 	name = sym.id2name
