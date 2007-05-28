@@ -71,7 +71,8 @@ module Ronin
 	load(path)
 
 	# add parent directory to paths array
-	@paths << File.dirname(File.expand_path(path))
+	wd = File.dirname(File.expand_path(path))
+	@paths << wd unless @paths.include?(wd)
 
 	# evaluate the context block if present
 	instance_eval(&get_context_block) if has_context_block?
@@ -364,6 +365,20 @@ module Ronin
       
       # Teardown action
       attr_action :teardown
+
+      def method_missing(sym,*args)
+	name = sym.id2name
+
+	# return sub context
+	if (sub_context = context(name))
+	  return sub_context
+	end
+
+	# perform action
+	return perform_action(sym,*args) if has_action?(name)
+
+	raise NoMethodError.new(name)
+      end
 
       private
 
