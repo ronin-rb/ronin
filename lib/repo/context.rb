@@ -59,6 +59,7 @@ module Ronin
 	  raise ContextNotFound, "context '#{path}' does not exist", caller
 	end
 
+	# return the unioned copy of this context
 	return self.clone.union!(path)
       end
 
@@ -69,10 +70,35 @@ module Ronin
 
 	load(path)
 
+	# add parent directory to paths array
 	@paths << File.dirname(File.expand_path(path))
 
 	# evaluate the context block if present
 	instance_eval(&get_context_block) if has_context_block?
+
+	# return the newly unioned context
+	return self
+      end
+
+      def inherit(path)
+	find_path(path) do |file|
+	  if File.file?(file)
+	    name = File.basename(file,'.rb')
+	    wd = File.dirname(file)
+	  elsif File.directory?(file)
+	    name = File.basename(dir)
+	    wd = dir
+	  end
+
+	  new_context = context(name)
+	  return new_context if new_context
+
+	  new_context = Context.new(name,wd)
+	  @context_deps << new_context
+	  return new_context
+	end
+
+	raise ContextNotFound, "context '#{path}' does not exist", caller
       end
 
       def has_context?(name)
@@ -119,6 +145,10 @@ module Ronin
 
 	# distribute block over context dependencies
 	return result + @contexts.map { |sub_context| sub_context.dist(&block) }
+      end
+
+      def action(name,&block)
+	@actions[name.to_s] = block
       end
 
       def has_action?(name)
@@ -334,31 +364,6 @@ module Ronin
       
       # Teardown action
       attr_action :teardown
-
-      def action(name,&block)
-	@actions[name.to_s] = block
-      end
-
-      def inherit(path)
-	find_path(path) do |file|
-	  if File.file?(file)
-	    name = File.basename(file,'.rb')
-	    wd = File.dirname(file)
-	  elsif File.directory?(file)
-	    name = File.basename(dir)
-	    wd = dir
-	  end
-
-	  new_context = context(name)
-	  return new_context if new_context
-
-	  new_context = Context.new(name,wd)
-	  @context_deps << new_context
-	  return new_context
-	end
-
-	raise ContextNotFound, "context '#{path}' does not exist", caller
-      end
 
       private
 
