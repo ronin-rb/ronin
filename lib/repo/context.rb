@@ -48,22 +48,13 @@ module Ronin
 
       def Context.create(path,&block)
 	new_context = Context.new(File.basename(path,'.rb'))
-	new_context.union!(path)
+	new_context.import(path)
 
 	block.call(new_context) if block
 	return new_context
       end
 
-      def union(path)
-	unless File.file?(path)
-	  raise ContextNotFound, "context '#{path}' does not exist", caller
-	end
-
-	# return the unioned copy of this context
-	return self.clone.union!(path)
-      end
-
-      def union!(path)
+      def import(path)
 	unless File.file?(path)
 	  raise ContextNotFound, "context '#{path}' does not exist", caller
 	end
@@ -77,7 +68,26 @@ module Ronin
 	# evaluate the context block if present
 	instance_eval(&get_context_block) if has_context_block?
 
-	# return the newly unioned context
+	# return the newly imported context
+	return self
+      end
+
+      def union(other_context)
+	# return the unioned copy of this context
+	return self.clone.union!(other_context)
+      end
+
+      def union!(other_context)
+	other_context.paths do |path|
+	  @paths << path unless @paths.include?(path)
+	end
+
+	@actions.merge!(other_context.actions)
+
+	other_context.contexts do |sub_context|
+	  @contexts << sub_context unless @contexts.include?(sub_context)
+	end
+
 	return self
       end
 

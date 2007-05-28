@@ -56,7 +56,7 @@ module Ronin
 	# union all similar categories together
 	cache.categories[name].each_value do |repository|
 	  repository.find_dir(name) do |dir|
-	    union!(File.join(dir,name+'.rb'))
+	    import(File.join(dir,name+'.rb'))
 	  end
 	end
       end
