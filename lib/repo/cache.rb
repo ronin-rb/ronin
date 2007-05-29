@@ -172,6 +172,8 @@ module Ronin
 	File.open(cache_path,'w') do |file|
 	  YAML.dump(self,file)
 	end
+
+	return self
       end
 
       def to_yaml(opts={})
