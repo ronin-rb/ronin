@@ -55,18 +55,16 @@ module Ronin
       end
 
       def import(path)
-	unless File.file?(path)
-	  raise ContextNotFound, "context '#{path}' does not exist", caller
-	end
-
-	load(path)
-
 	# add parent directory to paths array
 	wd = File.dirname(File.expand_path(path))
 	@paths << wd unless @paths.include?(wd)
 
-	# evaluate the context block if present
-	instance_eval(&get_context_block) if has_context_block?
+	if File.file?(path)
+	  load(path)
+
+	  # evaluate the context block if present
+	  instance_eval(&get_context_block) if has_context_block?
+	end
 
 	# return the newly imported context
 	return self
