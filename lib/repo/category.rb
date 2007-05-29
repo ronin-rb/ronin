@@ -45,18 +45,15 @@ module Ronin
       attr_action :main
 
       def initialize(name)
-	unless cache.has_category?(name)
-	  raise CategoryNotFound, "category '#{name}' does not exist", caller
-	end
+	@categories = []
 
 	super(name)
 
-	@categoryies = []
-
 	# union all similar categories together
-	cache.categories[name].each_value do |repository|
-	  repository.find_dir(name) do |dir|
-	    import(File.join(dir,name+'.rb'))
+	Repo.cache.categories[name].each_value do |repository|
+	  category_dir = File.join(repository.path,name)
+	  if File.directory?(category_dir)
+	    import(File.join(category_dir,'category.rb'))
 	  end
 	end
       end
@@ -118,7 +115,7 @@ module Ronin
 
       def dist(&block)
 	# distribute block over self and context dependencies
-	results = Context::dist(&block)
+	results = super(&block)
 
 	# distribute block over category dependencies
 	results += @categories.map { |sub_category| sub_category.dist(&block) }
@@ -129,7 +126,7 @@ module Ronin
       def has_action?(name)
 	name = name.to_s
 
-	return true if Context::has_key?(name)
+	return true if super(name)
 
 	@categories.each do |sub_category|
 	  return true if sub_category.has_action?(name)
@@ -140,7 +137,7 @@ module Ronin
       def get_action(name)
 	name = name.to_s
 
-	context_action = Context::get_action(name)
+	context_action = super(name)
 	return context_action if context_action
 
 	@categories.each do |sub_category|
