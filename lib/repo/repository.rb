@@ -99,7 +99,7 @@ module Ronin
 
 	@categories.clear
 	Dir.foreach(@path) do |file|
-	  if (File.directory?(file) && file!='.' && file!='..' && file!=Category::CONTROL_DIR)
+	  if (File.directory?(file) && file!='.' && file!='..')
 	    @categories << file
 	  end
 	end
