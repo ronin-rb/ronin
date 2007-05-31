@@ -39,7 +39,7 @@ module Ronin
       # Sub-contexts inherited by the context
       attr_reader :contexts
 
-      def initialize(name='')
+      def initialize(name='',&block)
 	@name = name
 	@paths = []
 	@actions = {}
@@ -48,13 +48,17 @@ module Ronin
 
       def Context.create(path,&block)
 	new_context = Context.new(File.basename(path,'.rb'))
-	new_context.import(path)
+	new_context.union(path)
 
 	block.call(new_context) if block
 	return new_context
       end
 
-      def import(path)
+      def union(path)
+	self.clone.union!(path)
+      end
+
+      def union!(path)
 	# add parent directory to paths array
 	wd = File.dirname(File.expand_path(path))
 	@paths << wd unless @paths.include?(wd)
@@ -70,82 +74,14 @@ module Ronin
 	return self
       end
 
-      def union(other_context)
-	# return the unioned copy of this context
-	return self.clone.union!(other_context)
-      end
-
-      def union!(other_context)
-	other_context.paths do |path|
-	  @paths << path unless @paths.include?(path)
-	end
-
-	@actions.merge!(other_context.actions)
-
-	other_context.contexts do |sub_context|
-	  @contexts << sub_context unless @contexts.include?(sub_context)
-	end
-
-	return self
-      end
-
       def inherit(path)
 	find_path(path) do |file|
-	  if File.file?(file)
-	    name = File.basename(file,'.rb')
-	    wd = File.dirname(file)
-	  elsif File.directory?(file)
-	    name = File.basename(dir)
-	    wd = dir
-	  end
-
-	  new_context = context(name)
-	  return new_context if new_context
-
-	  new_context = Context.new(name,wd)
-	  @context_deps << new_context
+	  new_context = Context.create(file)
+	  @contexts << new_context
 	  return new_context
 	end
 
 	raise ContextNotFound, "context '#{path}' does not exist", caller
-      end
-
-      def has_context?(name)
-	name = name.to_s
-
-	# self is the scope
-	return true if name==@name
-
-	# search context dependencies
-	@contexts.each do |sub_context|
-	  return true if sub_context.has_context?(name)
-	end
-	return false
-      end
-
-      def context(name)
-	name = name.to_s
-
-	# self is the scope
-	return self if name==@name
-
-	# search context dependencies
-	@contexts.each do |sub_context|
-	  search_context = sub_context.context(name)
-	  return search_context if search_context
-	end
-	return nil
-      end
-
-      def context_eval(name=@name,&block)
-	name = name.to_s
-
-	sub_context = context(name)
-	unless sub_context
-	  raise ContextNotFound, "context '#{name}' not found within context '#{@name}'", caller
-	end
-
-	return sub_context.instance_eval(&block)
       end
 
       def dist(&block)
@@ -177,8 +113,9 @@ module Ronin
 	return @actions[name] if @actions.has_key?(name)
 
 	@contexts.each do |sub_context|
-	  action = sub_context.get_action(name)
-	  return action if action
+	  if (action = sub_context.get_action(name))
+	    return action
+	  end
 	end
 	return nil
       end
@@ -376,11 +313,6 @@ module Ronin
 
       def method_missing(sym,*args)
 	name = sym.id2name
-
-	# return sub context
-	if (sub_context = context(name))
-	  return sub_context
-	end
 
 	# perform action
 	return perform_action(sym,*args) if has_action?(name)
