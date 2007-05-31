@@ -44,8 +44,8 @@ module Ronin
       # Main action
       attr_action :main
 
-      def initialize(name)
-	@categories = []
+      def initialize(name,&block)
+	@categories = {}
 
 	super(name)
 
@@ -53,17 +53,15 @@ module Ronin
 	Repo.cache.categories[name].each_value do |repository|
 	  category_dir = File.join(repository.path,name)
 	  if File.directory?(category_dir)
-	    import(File.join(category_dir,'category.rb'))
+	    union!(File.join(category_dir,'category.rb'))
 	  end
 	end
+
+	block.call(self) if block
       end
 
       def depend(name)
 	name = name.to_s
-
-	unless cache.has_category?(name)
-	  raise CategoryNotFound, "category '#{name}' does not exist", caller
-	end
 
 	# return existing category
 	new_category = category(name)
@@ -71,7 +69,7 @@ module Ronin
 
 	# add new category
 	new_category = Category.new(name)
-	@categories << new_category
+	@categories[new_category.name] = new_category
 	return new_category
       end
 
@@ -82,7 +80,7 @@ module Ronin
 	return true if name==@name
 
 	# search category dependencies for the category
-	@categories.each do |sub_category|
+	@categories.each_value do |sub_category|
 	  return true if sub_category.has_category?(name)
 	end
 	return false
@@ -95,9 +93,10 @@ module Ronin
 	return self if name==@name
 
 	# search category dependencies for the category
-	@categories.each do |sub_category|
-	  dep = sub_category.category(name)
-	  return dep if dep
+	@categories.each_value do |sub_category|
+	  if (dep = sub_category.category(name))
+	    return dep
+	  end
 	end
 	return nil
       end
@@ -105,8 +104,7 @@ module Ronin
       def category_eval(name=@name,&block)
 	name = name.to_s
 
-	sub_category = category(name)
-	unless sub_category
+	unless (sub_category = category(name))
 	  raise CategoryNotFound, "category '#{name}' not found within category '#{@name}'", caller
 	end
 
@@ -118,7 +116,7 @@ module Ronin
 	results = super(&block)
 
 	# distribute block over category dependencies
-	results += @categories.map { |sub_category| sub_category.dist(&block) }
+	results += @categories.values.map { |sub_category| sub_category.dist(&block) }
 
 	return results
       end
@@ -128,7 +126,7 @@ module Ronin
 
 	return true if super(name)
 
-	@categories.each do |sub_category|
+	@categories.each_value do |sub_category|
 	  return true if sub_category.has_action?(name)
 	end
 	return false
@@ -137,19 +135,22 @@ module Ronin
       def get_action(name)
 	name = name.to_s
 
-	context_action = super(name)
-	return context_action if context_action
+	if (context_action = super(name))
+	  return context_action
+	end
 
-	@categories.each do |sub_category|
+	@categories.each_value do |sub_category|
 	  category_action = sub_category.get_action(name)
 	  return category_action if category_action
 	end
 	return nil
       end
 
-      def main
-	return unless has_action?(:main)
-	return perform_action(:main)
+      def main(args=[])
+	dist {
+	  return unless has_action?(:main)
+	  return perform_action(:main,args)
+	}
       end
 
       protected
@@ -160,11 +161,6 @@ module Ronin
 	# resolve dependencies
 	if (sub_category = category(name))
 	  return sub_category
-	end
-
-	# return sub context
-	if (sub_context = context(name))
-	  return sub_context
 	end
 
 	# perform action
