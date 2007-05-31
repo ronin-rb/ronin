@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'version'
 require 'exceptions'
 require 'extensions'
 require 'arch'
@@ -28,7 +29,3 @@ require 'product'
 require 'advisory'
 require 'payloads'
 require 'exploits'
-
-module Ronin
-  RONIN_VERSION = "0.0.1"
-end
