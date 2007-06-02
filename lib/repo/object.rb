@@ -22,6 +22,7 @@
 require 'repo/context'
 require 'repo/objectmetadata'
 require 'repo/author'
+require 'repo/exceptions/objectnotfound'
 
 module Ronin
   module Repo
@@ -29,16 +30,11 @@ module Ronin
 
       include ObjectMetadata
 
-      # Object file
-      attr_reader :file
-
-      # Object metadata
-      attr_accessor :metadata
-
-      def initialize(path)
-	@file = path
+      def initialize(name='')
+	super(name)
 
 	# initialize metadata
+	metadata_set(:type,context_id)
 	metadata_set(:name,"")
 	metadata_set(:version,"")
 	metadata_set(:authors,{})
@@ -48,10 +44,24 @@ module Ronin
 	# dummy place holder
       end
 
+      def ObjectContext.objects
+	@@objects ||= {}
+      end
+
+      def ObjectContext.object_defined?(name)
+	ObjectContext.objects.has_key?(name.to_s)
+      end
+
+      def ObjectContext.object(name)
+	ObjectContext.objects[name.to_s]
+      end
+
       protected
 
       def ObjectContext.attr_object(id)
 	attr_context id
+
+	objects[id.to_s] = self
 
 	Ronin::module_eval <<-"end_eval"
 	  def ronin_create_#{id}(path)
@@ -64,6 +74,38 @@ module Ronin
 	return authors[new_author.name] = AuthorContext.new(name,&block)
       end
 
+    end
+
+    def Repo.ronin_load_object(path)
+      unless File.file?(path)
+	raise ObjectNotFound, "object context '#{path}' does not exist", caller
+      end
+
+      # load object context file
+      load(path)
+
+      name = File.basename(path,'.rb')
+      objects = []
+
+      # copy contexts hash and clear it
+      new_contexts = ronin_contexts.clone
+      ronin_contexts.clear
+
+      new_contexts.each do |key,value|
+	unless ObjectContext.object_defined?(key)
+	  raise ObjectNotFound, "object context '#{key}' is unknown", caller
+	end
+
+	# create new object context
+	new_obj = ObjectContext.object(key).new(name)
+
+	new_obj.paths << File.dirname(path)
+	value.each { |block| new_obj.instance_eval(&block) }
+
+	objects << new_obj
+      end
+
+      return objects
     end
   end
 end
