@@ -30,7 +30,7 @@ module Ronin
 	metadata.has_key?(name.to_s)
       end
 
-      def metadata_set(name,value)
+      def metadata_set(name,value=nil)
 	name = name.to_s
 	metadata[name] = value unless metadata.has_key?(name)
       end
