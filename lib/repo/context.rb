@@ -39,7 +39,7 @@ module Ronin
       # Sub-contexts inherited by the context
       attr_reader :contexts
 
-      def initialize(name='',&block)
+      def initialize(name='')
 	@name = name
 	@paths = []
 	@actions = {}
@@ -47,7 +47,7 @@ module Ronin
       end
 
       def Context.create(path,&block)
-	new_context = Context.new(File.basename(path,'.rb'))
+	new_context = self.new(File.basename(path,'.rb'))
 	new_context.union(path)
 
 	block.call(new_context) if block
@@ -67,7 +67,7 @@ module Ronin
 	  load(path)
 
 	  # evaluate the context block if present
-	  instance_eval(&get_context_block) if has_context_block?
+	  get_context_block.each { |block| instance_eval(&block) }
 	end
 
 	# return the newly imported context
@@ -273,7 +273,7 @@ module Ronin
 	# define kernel-level context method
 	Kernel::module_eval <<-"end_eval"
 	  def ronin_#{id}(&block)
-	    ronin_contexts['#{id}'] = block
+	    ronin_contexts['#{id}'] << block
 	  end
 	end_eval
 
@@ -323,13 +323,15 @@ module Ronin
       private
 
       def has_context_block?
-	!(ronin_contexts[context_id].nil?)
+	return false unless ronin_contexts.has_key?(context_id)
+	return !(ronin_contexts[context_id].empty?)
       end
 
       def get_context_block
-	block = ronin_contexts[context_id]
-	ronin_contexts[context_id] = nil
-	return block
+	blocks = ronin_contexts[context_id]
+
+	ronin_contexts.delete_if { |key,value| key==context_id }
+	return blocks
       end
 
     end
