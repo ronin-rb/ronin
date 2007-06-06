@@ -27,37 +27,14 @@ module Ronin
     class PayloadContext < ObjectContext
 
       # Name of object to load
-      attr_object :payload
+      object_context :payload
 
-      # Build action for the payload
-      attr_action :builder
-
-      # Clean action for the payload
-      attr_action :cleaner
-
-      def create
-	return Payload.new do |payload|
-	  load_payload(payload)
-	end
+      def initialize(name='')
+	super(name)
       end
 
-      protected
-
-      def load_payload(payload)
-	# load payload metadata
-	payload.name = name
-	payload.version = version
-
-	payload.authors.merge!( authors.values.map { |auth| auth.to_author } )
-
-	payload.params.merge!(params)
-
-	# load payload actions
-	cleaner_action = get_action(:cleaner)
-	payload.cleaner(&(cleaner_action.block)) if cleaner_action
-
-	builder_action = get_action(:builder)
-	payload.builder(&(builder_action.block)) if builder_action
+      def encapsulate
+	Payload.new
       end
 
     end
