@@ -30,6 +30,9 @@ module Ronin
       # Name of context
       attr_reader :name
 
+      # Path of context
+      attr_reader :path
+
       # Working directories of the context
       attr_reader :paths
 
@@ -41,6 +44,7 @@ module Ronin
 
       def initialize(name='')
 	@name = name
+	@path = nil
 	@paths = []
 	@actions = {}
 	@contexts = []
@@ -59,6 +63,9 @@ module Ronin
       end
 
       def union!(path)
+	# set the initial path of the context
+	@path = path if @paths.empty?
+
 	# add parent directory to paths array
 	wd = File.dirname(File.expand_path(path))
 	@paths << wd unless @paths.include?(wd)
@@ -262,7 +269,7 @@ module Ronin
 
       protected
 
-      def Context.attr_context(id)
+      def Context.context(id)
 	# define context_type
 	class_eval <<-"end_eval"
 	  def context_id
@@ -303,7 +310,7 @@ module Ronin
       end
 
       # Name of context to load
-      attr_context :context
+      context :context
 
       # Setup action
       attr_action :setup
