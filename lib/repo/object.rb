@@ -28,50 +28,52 @@ module Ronin
   module Repo
     class ObjectContext < Context
 
-      include ObjectMetadata
-
       def initialize(name='')
 	super(name)
-
-	# initialize metadata
-	metadata_set(:type,context_id)
-	metadata_set(:name,"")
-	metadata_set(:version,"")
-	metadata_set(:authors,{})
       end
 
-      def create
-	# dummy place holder
+      def ObjectContext.create(path,&block)
+	unless File.file?(path)
+	  raise ObjectNotFound, "object context '#{path}' does not exist", caller
+	end
+
+	super(path,&block)
       end
 
-      def ObjectContext.objects
-	@@objects ||= {}
+      def encapsulate
+	Object.new
       end
 
-      def ObjectContext.object_defined?(name)
-	ObjectContext.objects.has_key?(name.to_s)
+      def object
+	@object ||= encapsulate
       end
 
-      def ObjectContext.object(name)
-	ObjectContext.objects[name.to_s]
+      def object=(value)
+	@object = value
+      end
+
+      def ObjectContext.object_contexts
+	@@object_contexts ||= {}
+      end
+
+      def ObjectContext.has_object_context?(name)
+	ObjectContext.object_contexts.has_key?(name.to_s)
       end
 
       protected
 
-      def ObjectContext.attr_object(id)
-	attr_context id
+      def ObjectContext.object_context(id)
+	context id
 
-	objects[id.to_s] = self
-
-	Ronin::module_eval <<-"end_eval"
-	  def ronin_create_#{id}(path)
-	    ronin_load_#{id}(path) { |obj| obj.create }
-	  end
-	end_eval
+	ObjectContext.object_contexts[id.to_s] = self
       end
 
-      def author(name,&block)
-	return authors[new_author.name] = AuthorContext.new(name,&block)
+      def method_missing(sym,*args)
+	if object
+	  return object.send(sym,*args) if object.respond_to?(sym)
+	end
+
+	return super(sym,*args)
       end
 
     end
@@ -92,12 +94,12 @@ module Ronin
       ronin_contexts.clear
 
       new_contexts.each do |key,value|
-	unless ObjectContext.object_defined?(key)
+	unless ObjectContext.has_object_context?(key)
 	  raise ObjectNotFound, "object context '#{key}' is unknown", caller
 	end
 
 	# create new object context
-	new_obj = ObjectContext.object(key).new(name)
+	new_obj = ObjectContext.object_contexts[key].new(name)
 
 	new_obj.paths << File.dirname(path)
 	value.each { |block| new_obj.instance_eval(&block) }
