@@ -55,10 +55,6 @@ module Ronin
       @params ||= {}
     end
 
-    def params=(parameters={})
-      @params = parameters
-    end
-
     def param(name,desc="",value=nil,&block)
       add_param(Param.new(name,desc,value,&block))
     end
@@ -76,6 +72,16 @@ module Ronin
 	end
       else
         params[parameter.name] = parameter
+
+	instance_eval <<-end_eval
+	  def #{parameter.name}
+	    get_param(:#{parameter.name}).value
+	  end
+
+	  def #{parameter.name}=(value)
+	    get_param(:#{parameter.name}).value = value
+	  end
+	end_eval
       end
       return parameter
     end
@@ -96,23 +102,6 @@ module Ronin
     def param_value(name)
       return nil unless has_param?(name)
       return get_param(name).value
-    end
-
-    protected
-
-    def method_missing(sym,*args)
-      id = sym.id2name
-
-      if id[id.length-1].chr=='='
-	# parameter assignment
-	id.chop!
-	return params[id].value = args[0] if has_param?(id)
-      else
-	# parameter retrieval
-	return params[id].value if has_param?(id)
-      end
-
-      raise NoMethodError.new(id)
     end
 
   end
