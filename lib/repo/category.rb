@@ -35,11 +35,11 @@ module Ronin
   module Repo
     class Category < Context
 
+      # Name of context to load
+      context :category
+
       # Category dependencies
       attr_reader :categories
-
-      # Name of context to load
-      attr_context :category
 
       # Main action
       attr_action :main
