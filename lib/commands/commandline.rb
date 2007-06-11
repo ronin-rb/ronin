@@ -130,9 +130,9 @@ module Ronin
 	options.parse(argv).each do |arg|
 	  Repo::RepositoryMetadata.new(arg) do |metadata| 
 	    if options.path
-	      Repo::cache.install(metadata,options.path)
+	      Repo.cache.install(metadata,options.path)
 	    else
-	      Repo::cache.install(metadata)
+	      Repo.cache.install(metadata)
 	    end
 	  end
 	end
@@ -212,7 +212,7 @@ module Ronin
 	    repo.deps.each_key do |dep|
 	      print "\t\t#{dep}"
 
-	      unless Repo::cache.has_repository?(dep)
+	      unless Repo.cache.has_repository?(dep)
 		print " (missing)"
 	      end
 	      putc "\n"

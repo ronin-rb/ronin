@@ -26,7 +26,7 @@ module Ronin
   class Advisory
 
     # Name of the Advisory
-    attr_reader :name
+    attr_accessor :name
 
     # Vulnerability classification.
     attr_accessor :classification
@@ -64,7 +64,7 @@ module Ronin
     # Comments on the vulnerability.
     attr_accessor :comments
 
-    def initialize(name,&block)
+    def initialize(name='',&block)
       @name = name
 
       @products = Hash.new do |hash,key|
