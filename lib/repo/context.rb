@@ -42,7 +42,7 @@ module Ronin
       # Sub-contexts inherited by the context
       attr_reader :contexts
 
-      def initialize(name='')
+      def initialize(name)
 	@name = name
 	@path = nil
 	@paths = []
@@ -51,6 +51,8 @@ module Ronin
       end
 
       def Context.create(path,&block)
+	path = File.expand_path(path)
+
 	new_context = self.new(File.basename(path,'.rb'))
 	new_context.union(path)
 
@@ -63,11 +65,13 @@ module Ronin
       end
 
       def union!(path)
+	path = File.expand_path(path)
+
 	# set the initial path of the context
 	@path = path if @paths.empty?
 
 	# add parent directory to paths array
-	wd = File.dirname(File.expand_path(path))
+	wd = File.dirname(path)
 	@paths << wd unless @paths.include?(wd)
 
 	if File.file?(path)
@@ -272,6 +276,10 @@ module Ronin
       def Context.context(id)
 	# define context_type
 	class_eval <<-"end_eval"
+	  def Context.context_id
+	    '#{id}'
+	  end
+
 	  def context_id
 	    '#{id}'
 	  end
