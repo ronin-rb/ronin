@@ -19,17 +19,27 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/extensions'
-require 'repo/exceptions'
-require 'repo/context'
-require 'repo/category'
-require 'repo/objectwrapper'
-require 'repo/author'
-require 'repo/object'
-require 'repo/advisory'
-require 'repo/payloads'
-require 'repo/exploits'
-require 'repo/repositorymetadata'
-require 'repo/repository'
-require 'repo/cache'
-require 'repo/ronin'
+module Ronin
+  module Repo
+    module ObjectWrapper
+      def object
+	@object ||= encapsulate
+      end
+
+      def object=(value)
+	@object = value
+      end
+
+      protected
+
+      def method_missing(sym,*args)
+	if (object && object.respond_to?(sym))
+	  return object.send(sym,*args)
+	end
+
+	return super(sym,*args)
+      end
+
+    end
+  end
+end

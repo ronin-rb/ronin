@@ -21,74 +21,22 @@
 
 require 'advisory'
 require 'repo/object'
-require 'repo/product'
 
 module Ronin
   module Repo
     class AdvisoryContext < ObjectContext
 
       # Name of object to load
-      attr_object :advisory
+      object_context :advisory
 
-      # Vulnerability class
-      attr_metadata :class
-      
-      # CVE
-      attr_metadata :cve
-
-      # Remote?
-      attr_metadata :remote
-
-      # Local?
-      attr_metadata :local
-
-      # Date published
-      attr_metadata :published
-
-      # Date updated
-      attr_metadata :updated
-
-      # Credits
-      attr_metadata :credits
-      
-      # Comments
-      attr_metadata :comments
-
-      def initialize(path)
-	# initialize advisory metadata
-	metadata_set(:class)
-	metadata_set(:cve)
-	metadata_set(:remote,false)
-	metadata_set(:local,false)
-	metadata_set(:published,"")
-	metadata_set(:updated,"")
-	metadata_set(:credits,"")
-	metadata_set(:comments,"")
-
-	# Product context list
-	@products = []
-      end
-
-      def create
-	return Advisory.new do |adv|
-	  adv.classification = classification
-	  adv.cve = cve
-	  adv.remote = remote
-	  adv.local = local
-	  adv.published = published
-	  adv.updated = updated
-	  adv.credits = credits
-
-	  @products.each { |product| adv.add_product(product.to_product) }
-
-	  adv.comments = comments
-	end
+      def initialize(name='')
+	super(name)
       end
 
       protected
 
-      def product(&block)
-	@products << ProductContext.new(&block)
+      def encapsulate
+	Advisory.new(@name)
       end
 
     end
