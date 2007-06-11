@@ -171,4 +171,17 @@ module Ronin
 
     end
   end
+
+  def Ronin.ronin_require(category)
+    Repo.cache.categories[name].each_value do |repository|
+      category_dir = File.join(repository.path,name)
+      load_file = File.join(category_dir,name+'.rb')
+
+      if File.file?(load_file)
+	$LOAD_PATH.unshift(category_dir) unless $LOAD_PATH.include?(category_dir)
+
+	require load_file
+      end
+    end
+  end
 end
