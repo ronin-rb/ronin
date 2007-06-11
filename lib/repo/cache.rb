@@ -44,14 +44,6 @@ module Ronin
       Cache.current
     end
 
-    def Repo.has_category?(name)
-      cache.has_category?(name)
-    end
-
-    def Repo.get_category(name)
-      cache.category(name)
-    end
-
     class Cache
 
       include YAML
@@ -140,7 +132,7 @@ module Ronin
 	return false
       end
 
-      def get_category(name)
+      def category(name)
 	unless has_category?(name)
 	  raise CategoryNotFound, "category '#{name}' does not exist", caller
 	end
