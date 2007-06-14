@@ -29,6 +29,33 @@ module Ronin
       # Name of object to load
       object_context :advisory
 
+      # Vulnerability classification.
+      metadata :classification
+
+      # CVE
+      metadata :cve
+
+      # Remote?
+      metadata :remote
+
+      # Local?
+      metadata :local
+
+      # Date published
+      metadata :published
+
+      # Date updated
+      metadata :updated
+
+      # Discovery credit
+      metadata :credits
+
+      # Vulnerable products
+      metadata :products, Hash
+
+      # Comments on the vulnerability.
+      metadata :comments
+
       def initialize(name='')
 	super(name)
       end
@@ -36,7 +63,7 @@ module Ronin
       protected
 
       def encapsulate
-	Advisory.new(@name)
+	Advisory.new
       end
 
     end
