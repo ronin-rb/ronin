@@ -37,6 +37,24 @@ module Ronin
       @os = os
       @version = version
       @arch = arch
+
+      Platform.platforms[os][version][arch.arch] = self
+    end
+
+    def Platform.platforms
+      @@platforms ||= Hash.new do |hash,platform|
+	hash[platform.os] = Hash.new do |hash,platform|
+	  hash[platform.version] = {}
+	end
+      end
+    end
+
+    def Platform.all(&block)
+      Platform.platforms.each_value do |os|
+	os.each_value do |version|
+	  version.each_value { |arch| block.call(arch) }
+	end
+      end
     end
 
   end
