@@ -22,6 +22,7 @@
 module Ronin
   module Repo
     module ObjectWrapper
+
       def object
 	@object ||= encapsulate
       end
@@ -30,11 +31,30 @@ module Ronin
 	@object = value
       end
 
+      def inspect
+	object.inspect
+      end
+
+      def respond_to?(sym)
+	return true if object.respond_to?(sym)
+	return super(sym)
+      end
+
+      def wrap(&block)
+	@wrapping = true
+	instance_eval(&block)
+	@wrapping = false
+      end
+
       protected
 
       def method_missing(sym,*args)
-	if (object && object.respond_to?(sym))
-	  return object.send(sym,*args)
+	if object
+	  if (@wrapping && object.respond_to?("#{sym}="))
+	    return object.send("#{sym}=",*args)
+	  elsif object.respond_to?(sym)
+	    return object.send(sym,*args)
+	  end
 	end
 
 	return super(sym,*args)
