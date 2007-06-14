@@ -54,7 +54,7 @@ module Ronin
 	path = File.expand_path(path)
 
 	new_context = self.new(File.basename(path,'.rb'))
-	new_context.union(path)
+	new_context.union!(path)
 
 	block.call(new_context) if block
 	return new_context
