@@ -22,6 +22,7 @@
 require 'repo/context'
 require 'repo/objectwrapper'
 require 'repo/author'
+require 'repo/objectcache'
 require 'repo/exceptions/objectnotfound'
 
 module Ronin
@@ -45,6 +46,18 @@ module Ronin
 	super(path,&block)
       end
 
+      def ObjectContext.object_contexts
+	@@object_contexts ||= {}
+      end
+
+      def ObjectContext.has_object_context?(name)
+	ObjectContext.object_contexts.has_key?(name.to_s)
+      end
+
+      def ObjectContext.metatypes
+	@@metatypes ||= Hash.new { |hash,key| hash[key] = {} }
+      end
+
       def metadata
 	data = {}
 
@@ -52,14 +65,6 @@ module Ronin
 	  data[name] = send(name)
 	end
 	return data
-      end
-
-      def ObjectContext.object_contexts
-	@@object_contexts ||= {}
-      end
-
-      def ObjectContext.has_object_context?(name)
-	ObjectContext.object_contexts.has_key?(name.to_s)
       end
 
       protected
@@ -71,7 +76,7 @@ module Ronin
       end
 
       def ObjectContext.metadata(id,cls=String)
-	ObjectCache.metatype[self.context_id][id.to_s] = cls
+	ObjectContext.metatypes[self.context_id][id.to_s] = cls
       end
 
       # Object context id of the object
