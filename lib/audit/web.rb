@@ -19,14 +19,4 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'version'
-require 'exceptions'
-require 'extensions'
-require 'arch'
-require 'platform'
-require 'parameters'
-require 'product'
-require 'advisory'
-require 'payloads'
-require 'exploits'
-require 'audit'
+require 'audit/web/sqlinjection'
