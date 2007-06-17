@@ -159,8 +159,20 @@ module Ronin
 	  @@errors ||= Hash.new { |hash,key| hash[key] = [] }
 	end
 
+	def errors
+	  SQLInjection.errors
+	end
+
 	def SQLInjection.error(platform,err)
 	  SQLInjection.errors[platform.to_s] << Regexp.new(err)
+	end
+
+	def SQLInjection.platforms
+	  SQLInjection.errors.keys
+	end
+
+	def platforms
+	  SQLInjection.platforms
 	end
 
 	# Default set of SQL Injection errors to search for.
