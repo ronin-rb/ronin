@@ -94,22 +94,6 @@ module Ronin
 	  block.call(self) if block
 	end
 
-	def SQLInjection.was_injected?(body,platform=nil)
-	  if platform
-	    SQLInjection.errors[platform.to_s].each do |pattern|
-	      return true if body =~ pattern
-	    end
-	  else
-	    SQLInjection.errors.each_value do |platform|
-	      platform.each do |pattern|
-		return true if body =~ pattern
-	      end
-	    end
-	  end
-
-	  return false
-	end
-
 	def param(name,value=nil)
 	  @params[name.to_s].value = value
 	end
@@ -137,15 +121,6 @@ module Ronin
 	  end
 
 	  return @url+'?'+params.join('&')
-	end
-
-	def audit_param(name,body)
-	  name = name.to_s
-	  if @auditors.has_key?(name)
-	    return @auditors[name].call(body)
-	  else
-	    return SQLInjection.was_injected?(body,@platform)
-	  end
 	end
 
 	def audit
@@ -196,7 +171,7 @@ module Ronin
 	error('Microsoft','Microsoft OLE DB Provider for ODBC Drivers.*\[Microsoft\]\[ODBC Access Driver\]')
 	error('Microsoft','Microsoft JET Database Engine')
 	error('Microsoft','ADODB.Command.*error')
-	error('Microsoft','Microsoft VBScript runtime\s+')
+	error('Microsoft','Microsoft VBScript runtime')
 	error('Microsoft','Type mismatch')
 
 	error('ASP.Net','Server Error.*System\.Data\.OleDb\.OleDbException')
@@ -204,9 +179,9 @@ module Ronin
 	error('JSP','Invalid SQL statement or JDBC')
 	error('JSP','javax\.servlet\.ServletException')
 
-	error('MySQL','Warning.*supplied argument is not a valid MySQL result\s+')
-	error('MySQL','You have an error in your SQL syntax.*(on|at) line\s+')
-	error('MySQL','Warning.*mysql_.*\(\)\s+')
+	error('MySQL','Warning.*supplied argument is not a valid MySQL result')
+	error('MySQL','You have an error in your SQL syntax.*(on|at) line')
+	error('MySQL','Warning.*mysql_.*\(\)')
 
 	error('Oracle','ORA-[[:digit:]]{4}')
 
@@ -241,6 +216,31 @@ module Ronin
 	    else
 	      @params[param].injection = @injection
 	    end
+	  end
+	end
+
+	def default_auditor?(body,platform)
+	  if platform
+	    SQLInjection.errors[platform.to_s].each do |pattern|
+	      return true if body =~ pattern
+	    end
+	  else
+	    SQLInjection.errors.each_value do |platform|
+	      platform.each do |pattern|
+		return true if body =~ pattern
+	      end
+	    end
+	  end
+
+	  return false
+	end
+
+	def audit_param(name,body)
+	  name = name.to_s
+	  if @auditors.has_key?(name)
+	    return @auditors[name].call(body,@platform)
+	  else
+	    return default_auditor?(body,@platform)
 	  end
 	end
 
