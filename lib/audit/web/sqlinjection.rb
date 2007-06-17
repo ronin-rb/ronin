@@ -42,13 +42,11 @@ module Ronin
 	  @injection = injection
 	end
 
-	def inject
-	  if @injection
-	    return "#{@name}=#{@injection}"
-	  elsif @value
-	    return "#{@name}=#{@value}"
+	def inject(expr=@injection)
+	  if expr
+	    return "#{@name}=#{expr}"
 	  else
-	    return @name
+	    return self.to_s
 	  end
 	end
 
@@ -96,10 +94,6 @@ module Ronin
 	  block.call(self) if block
 	end
 
-	def SQLInjection.errors
-	  @@errors ||= Hash.new { |hash,key| hash[key] = [] }
-	end
-
 	def SQLInjection.was_injected?(body,platform=nil)
 	  if platform
 	    SQLInjection.errors[platform.to_s].each do |pattern|
@@ -130,10 +124,13 @@ module Ronin
 	end
 
 	def inject_param(name)
-	  name = name.to_s
-	  params = @params.value.map do |param|
+	  params = @params.values.map do |param|
 	    if param.name==name
-	      param.inject
+	      if param.injection
+	        param.inject
+	      else
+		param.inject(@injection)
+	      end
 	    else
 	      param.to_s
 	    end
@@ -165,14 +162,14 @@ module Ronin
 	    end
 	  }
 
-	  injections = @params.values.map { |param| param.injection!=nil }
+	  injections = @params.values.select { |param| param.injection!=nil }
 	  unless injections.empty?
 	    injections.each do |param|
-	      test_param(param)
+	      test_param.call(param)
 	    end
 	  else
 	    @params.each_value do |param|
-	      test_param(param)
+	      test_param.call(param)
 	    end
 	  end
 
@@ -183,10 +180,45 @@ module Ronin
 	  return @url+'?'+@params.value.join('&')
 	end
 
+	def SQLInjection.errors
+	  @@errors ||= Hash.new { |hash,key| hash[key] = [] }
+	end
+
+	def SQLInjection.error(platform,err)
+	  SQLInjection.errors[platform.to_s] << Regexp.new(err)
+	end
+
+	# Default set of SQL Injection errors to search for.
+	# Adapted from SQL injection digger (http://sqid.rubyforge.org/)
+	error('Microsoft','Microsoft OLE DB Provider for SQL Server')
+	error('Microsoft','\[Microsoft\]\[ODBC Microsoft Access Driver\] Syntax error')
+	error('Microsoft','Microsoft OLE DB Provider for ODBC Drivers.*\[Microsoft\]\[ODBC SQL Server Driver\]')
+	error('Microsoft','Microsoft OLE DB Provider for ODBC Drivers.*\[Microsoft\]\[ODBC Access Driver\]')
+	error('Microsoft','Microsoft JET Database Engine')
+	error('Microsoft','ADODB.Command.*error')
+	error('Microsoft','Microsoft VBScript runtime\s+')
+	error('Microsoft','Type mismatch')
+
+	error('ASP.Net','Server Error.*System\.Data\.OleDb\.OleDbException')
+
+	error('JSP','Invalid SQL statement or JDBC')
+	error('JSP','javax\.servlet\.ServletException')
+
+	error('MySQL','Warning.*supplied argument is not a valid MySQL result\s+')
+	error('MySQL','You have an error in your SQL syntax.*(on|at) line\s+')
+	error('MySQL','Warning.*mysql_.*\(\)\s+')
+
+	error('Oracle','ORA-[[:digit:]]{4}')
+
+	error('Tomcat','org\.apache\.jasper\.JasperException')
+
+	error('PHP','Warning.*failed to open stream')
+	error('PHP','Fatal Error.*(on|at) line')
+
 	protected
 
 	def parse_url(url)
-	  index url.index('?')
+	  index = url.index('?')
 	  if index
 	    @url = url[0,index]
 	  else
@@ -202,10 +234,13 @@ module Ronin
 	    sub_index = param.index('=')
 
 	    if sub_index
-	      @params[param[0,sub_index]].value = param[sub_index+1,param.length]
-	    end
+	      name = param[0,sub_index]
 
-	    @params[param].injection = @injection
+	      @params[name].value = param[sub_index+1,param.length]
+	      @params[name].injection = @injection
+	    else
+	      @params[param].injection = @injection
+	    end
 	  end
 	end
 
