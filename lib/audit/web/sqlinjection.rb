@@ -82,8 +82,10 @@ module Ronin
 	def initialize(url,params={},&block)
 	  @params = Hash.new { |hash,key| hash[key.to_s] = SQLInjectionParameter.new(key) }
 
+	  url = url.to_s
 	  parse_url(url)
 	  parse_url_params(url)
+
 	  params.each { |name,value| @params[name.to_s].value = value }
 
 	  @injection = SINGLE_QUOTE
@@ -121,6 +123,11 @@ module Ronin
 	  end
 
 	  return @url+'?'+params.join('&')
+	end
+
+	def SQLInjection.audit(url,params={},&block)
+	  injection = SQLInjection.new(url,params,&block)
+	  return injection.audit
 	end
 
 	def audit
