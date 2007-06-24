@@ -19,16 +19,17 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/expression'
+require 'code/sql/statement'
+require 'code/sql/injection'
 
 module Ronin
   module Code
     def Code.sql(opts={:prepend => "", :append => ""},&block)
-      opts[:prepend]+SQL::Expression.compile(&block)+opts[:append]
+      opts[:prepend]+SQL::Statement.compile(&block)+opts[:append]
     end
 
     def Code.sql_inject(opts={:prepend => "", :expr => "", :append => ""},&block)
-      opts[:prepend]+SQL::Expression.inject(opts[:expr],&block)+opts[:append]
+      opts[:prepend]+SQL::Injection.inject(&block)+opts[:append]
     end
   end
 end

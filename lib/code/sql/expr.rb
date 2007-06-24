@@ -19,6 +19,30 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+require 'code/sql/expressable'
+require 'code/sql/formating'
+
+module Ronin
+  module Code
+    module SQL
+      class Expr
+
+	include Expressable
+	include Formating
+
+	def initialize
+	  @negated = false
+	end
+
+	def compile(*expr)
+	  format_expr(*expr)
+	end
+
+	def to_s
+	  compile
+	end
+
+      end
+    end
+  end
+end

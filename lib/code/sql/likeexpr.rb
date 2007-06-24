@@ -19,6 +19,53 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+require 'code/sql/expr'
+
+module Ronin
+  module Code
+    module SQL
+      class LikeExpr < Expr
+
+	def initialize(op,left,right,escape=nil)
+	  @op = op
+	  @left = left
+	  @right = right
+	  @escape = escape
+	end
+
+	def escape(str)
+	  @escape = str
+	end
+
+	def compile(dialect=nil)
+	  super(@left,negated?,@op,format_pattern(@right),escaped?)
+	end
+
+	protected
+
+	def escape_pattern(pattern)
+	  pattern = pattern.to_s
+
+	  if @escape
+	    return quote_data(pattern)
+	  else
+	    return quote_data("%#{pattern}%")
+	  end
+	end
+
+	def format_pattern(pattern)
+	  if pattern.kind_of?(Regexp)
+	    return escape_pattern(pattern.source)
+	  else
+	    return escape_pattern(pattern)
+	  end
+	end
+
+	def escaped?
+	  return "ESCAPE '#{@escape.to_s[0..0]}'" if @escape
+	end
+
+      end
+    end
+  end
+end

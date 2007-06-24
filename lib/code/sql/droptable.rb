@@ -19,6 +19,27 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+require 'code/sql/command'
+
+module Ronin
+  module Code
+    module SQL
+      class DropTable < Command
+
+	option :if_exists, "IF EXISTS"
+
+	def initialize(table=nil,&block)
+	  @table = table
+	  @exists = false
+
+	  super("DROP TABLE",&block)
+	end
+
+	def compile(dialect=nil,multiline=false)
+	  super(if_exists?,@table)
+	end
+
+      end
+    end
+  end
+end

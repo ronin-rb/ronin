@@ -19,6 +19,47 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+require 'code/sql/command'
+
+module Ronin
+  module Code
+    module SQL
+      class CreateTable < Command
+
+	flag :temp
+	
+	option :if_not_exists, "IF NOT EXISTS"
+	option :or_replace, "OR REPLACE"
+
+	def initialize(table=nil,columns={},not_null={},&block)
+	  @table = table
+	  @columns = columns
+	  @not_null = not_null
+
+	  super("CREATE",&block)
+	end
+
+	def column(name,type,null=false)
+	  name = name.to_s
+	  @columns[name] = type.to_s
+	  @not_null[name] = null
+	end
+
+	def compile(dialect=nil,multiline=false)
+	  format_columns = lambda {
+	    @columns.map { |name,type|
+	      if @not_null[name]
+	        "#{name} #{type} NOT NULL"
+	      else
+	        "#{name} #{type}"
+	      end
+	    }
+	  }
+
+	  return super(or_replace?,"TABLE",@table,format_set(format_columns.call))
+	end
+
+      end
+    end
+  end
+end

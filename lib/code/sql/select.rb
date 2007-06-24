@@ -1,0 +1,101 @@
+#
+# Ronin - A decentralized repository for the storage and sharing of computer
+# security advisories, exploits and payloads.
+#
+# Copyright (c) 2007 Hal Brodigan (postmodern at users.sourceforge.net)
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+
+require 'code/sql/command'
+
+module Ronin
+  module Code
+    module SQL
+      class Select < Command
+
+	option_list :rows, [:all, :distinct]
+
+	def initialize(tables=nil,opts={:fields => [], :from => nil, :where => nil},&block)
+	  @tables = tables
+	  @fields = opts[:fields]
+	  @from = opts[:from]
+	  @where = opts[:where]
+
+	  super("SELECT",&block)
+	end
+
+	def fields(*exprs)
+	  @fields = exprs
+	end
+
+	def from(*tables)
+	  @tables = tables
+	end
+
+	def where(expr)
+	  @where = expr
+	end
+
+	def order_by(*exprs)
+	  @order_by = exprs
+	end
+
+	def join(table,on_expr)
+	  @join_type = :outer
+	  @join_table = table
+	  @join_on = on_expr
+	end
+
+	def inner_join(table,on_expr)
+	  @join_type = :inner
+	  @join_table = table
+	  @join_on = on_expr
+	end
+
+	def left_join(table,on_expr)
+	  @join_type = :left
+	  @join_table = table
+	  @join_on = on_expr
+	end
+
+	def right_join(table,on_expr)
+	  @join_type = :right
+	  @join_table = table
+	  @join_on = on_expr
+	end
+
+	def compile(dialect=nil,multiline=false)
+	  super(rows?,fields?,'FROM',format_list(@tables),where?)
+	end
+
+	protected
+
+	def fields?
+	  unless @fields.empty?
+	    return format_set(@fields)
+	  else
+	    return '*'
+	  end
+	end
+
+	def where?
+	  return "WHERE #{@where}" if @where
+	end
+
+      end
+    end
+  end
+end

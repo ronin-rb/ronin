@@ -19,6 +19,24 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+require 'code/sql/expr'
+
+module Ronin
+  module Code
+    module SQL
+      class BinaryExpr < Expr
+
+	def initialize(op,left,right)
+	  @op = op
+	  @left = left
+	  @right = right
+	end
+
+	def compile(dialect=nil,multiline=false)
+	  super(negated?,format_data(@left),@op,format_data(@right))
+	end
+
+      end
+    end
+  end
+end

@@ -19,6 +19,53 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+require 'code/codeable'
+require 'code/sql/expressable'
+require 'code/sql/fieldable'
+require 'code/sql/formating'
+require 'code/sql/binaryexpr'
+require 'code/sql/unaryexpr'
+require 'code/sql/likeexpr'
+
+module Ronin
+  module Code
+    module SQL
+      class Command
+
+	include Codeable
+	include Expressable
+	include Fieldable
+	include Formating
+
+	def initialize(name,&block)
+	  @name = name
+
+	  instance_eval(&block) if block
+	end
+
+	def compile(*args)
+	  [@name,*args].compact.join(' ')
+	end
+
+	def to_s
+	  compile
+	end
+
+	protected
+
+	def format_list(*expr)
+	  expr.join(', ')
+	end
+
+	def format_set(expr)
+	  "(#{format_list(expr)})"
+	end
+
+	def format_datalist(*expr)
+	  return format_set( expr.flatten.map { |value| format_data(value) } )
+	end
+
+      end
+    end
+  end
+end

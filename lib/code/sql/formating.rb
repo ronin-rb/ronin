@@ -19,6 +19,30 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+module Ronin
+  module Code
+    module SQL
+      module Formating
+	def escape_data(data)
+	  data.to_s.sub("'","''")
+	end
+
+	def quote_data(data)
+	  "'#{escape_data(data)}'"
+	end
+
+	def format_data(data)
+	  if data.kind_of?(Command)
+	    return "(#{data})"
+	  elsif data.kind_of?(Array)
+	    return data.flatten.map { |value| format_data(value) }.join(', ')
+	  elsif (data.kind_of?(String) || data.kind_of?(Symbol))
+	    return quote_data(data)
+	  else
+	    return data.to_s
+	  end
+	end
+      end
+    end
+  end
+end

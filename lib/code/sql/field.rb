@@ -19,6 +19,55 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+require 'code/sql/fieldable'
+require 'code/sql/between'
+
+module Ronin
+  module Code
+    module SQL
+      class Field
+
+	include Expressable
+
+	def initialize(name,prefix=nil)
+	  @prefix = prefix
+	  @name = name
+	end
+
+	def between(start,stop)
+	  Between.new(self,start,stop)
+	end
+
+	def <=>(range)
+	  between(range.begin,range.end)
+	end
+
+	def compile
+	  if @prefix
+	    return "#{@prefix}.#{@name}"
+	  else
+	    return @name
+	  end
+	end
+
+	def to_s
+	  compile
+	end
+
+	protected
+
+	include Fieldable
+
+	def method_missing(sym,*args)
+	  name = sym.id2name
+	  if (@prefix.nil? && args.length==0)
+	    return get_field(name,self)
+	  end
+
+	  raise NoMethodError, name, caller
+	end
+
+      end
+    end
+  end
+end

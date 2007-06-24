@@ -19,6 +19,39 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+require 'code/sql/command'
+
+module Ronin
+  module Code
+    module SQL
+      class Delete < Command
+
+	def initialize(table=nil,where_expr=nil,&block)
+	  @table = table
+	  @where = where_expr
+
+	  super("DELETE",&block)
+	end
+
+	def from(table)
+	  @table = table
+	end
+
+	def where(expr)
+	  @where = expr
+	end
+
+	def compile(dialect=nil,multiline=false)
+	  super('FROM',@table,where?)
+	end
+
+	protected
+
+	def where?
+	  return "WHERE #{@where}" if @where
+	end
+
+      end
+    end
+  end
+end

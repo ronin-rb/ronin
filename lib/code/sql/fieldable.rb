@@ -19,6 +19,32 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+module Ronin
+  module Code
+    module SQL
+      module Fieldable
+
+	protected
+
+	def field_cache
+	  @field_cache ||= {}
+	end
+
+	def get_field(name,prefix=nil)
+	  name = name.to_s
+
+	  return field_cache[name] if field_cache.has_key?(name)
+	  return field_cache[name] = Field.new(name,prefix)
+	end
+
+	def method_missing(sym,*args)
+	  name = sym.id2name
+	  return get_field(name) if args.length==0
+
+	  raise NoMethodError, name, caller
+	end
+
+      end
+    end
+  end
+end

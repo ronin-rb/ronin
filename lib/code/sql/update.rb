@@ -19,6 +19,46 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
-require 'code/sql/injection'
-require 'code/sql/code'
+require 'code/sql/command'
+
+module Ronin
+  module Code
+    module SQL
+      class Update < Command
+
+	def initialize(table=nil,set_data={},where_expr=nil,&block)
+	  @table = table
+	  @set_data = set_data
+	  @where_expr = where_expr
+
+	  super("UPDATE",&block)
+	end
+
+	def table(value)
+	  @table = value
+	end
+
+	def set(data)
+	  @set_data = data
+	end
+
+	def where(expr)
+	  @where_expr = expr
+	end
+
+	def compile(dialect=nil,multiline=false)
+	  set_values = "SET "+@set_data.map { |name,value|
+	    "#{name} = #{quote_data(value)}"
+	  }.join(', ')
+
+	  if @where_expr
+	    return "UPDATE #{table} #{set_values} WHERE #{where_expr}"
+	  else
+	    return "UPDATE #{table} #{set_values}"
+	  end
+	end
+
+      end
+    end
+  end
+end
