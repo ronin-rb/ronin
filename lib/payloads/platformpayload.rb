@@ -22,16 +22,18 @@
 require 'payloads/payload'
 
 module Ronin
-  class PlatformPayload < Payload
+  module Payloads
+    class PlatformPayload < Payload
 
-    # Targeted platform
-    attr_reader :platform
+      # Targeted platform
+      attr_reader :platform
 
-    def initialize(platform,&block)
-      @platform = platform
+      def initialize(platform,&block)
+	@platform = platform
 
-      super(&block)
+	super(&block)
+      end
+
     end
-
   end
 end

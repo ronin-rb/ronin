@@ -22,50 +22,52 @@
 require 'parameters'
 
 module Ronin
-  class Payload
+  module Payloads
+    class Payload
 
-    include Parameters
+      include Parameters
 
-    # Name of the specific payload
-    attr_accessor :name
+      # Name of the specific payload
+      attr_accessor :name
 
-    # Version of the payload
-    attr_accessor :version
+      # Version of the payload
+      attr_accessor :version
 
-    # Authors of the payload
-    attr_accessor :authors
+      # Authors of the payload
+      attr_accessor :authors
 
-    # Payload data
-    attr_reader :data
+      # Payload data
+      attr_reader :data
 
-    def initialize(&block)
-      @name = ""
-      @version = ""
-      @authors = {}
-      @data = ""
+      def initialize(&block)
+	@name = ""
+	@version = ""
+	@authors = {}
+	@data = ""
 
-      block.call(self) if block
+	block.call(self) if block
+      end
+
+      def builder(&block)
+	@build_block = block
+      end
+
+      def build
+	@data = ""
+
+	@build_block.call(self) if @build_block
+      end
+
+      def cleaner(&block)
+	@clean_block = block
+      end
+
+      def clean
+	@clean_block.call(self) if @clean_block
+
+	@data = ""
+      end
+
     end
-
-    def builder(&block)
-      @build_block = block
-    end
-
-    def build
-      @data = ""
-
-      @build_block.call(self) if @build_block
-    end
-
-    def cleaner(&block)
-      @clean_block = block
-    end
-
-    def clean
-      @clean_block.call(self) if @clean_block
-
-      @data = ""
-    end
-
   end
 end
