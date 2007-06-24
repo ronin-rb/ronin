@@ -61,12 +61,6 @@ module Ronin
 
       class SQLInjection
 
-	# Classic single-quote
-	SINGLE_QUOTE = "'"
-
-	# Classic or-true SQL expression
-	OR_TRUE = "' or '1'='1"
-
 	# The URL through which the sql-injection occurrs
 	attr_reader :url
 
@@ -82,16 +76,18 @@ module Ronin
 	def initialize(url,params={},&block)
 	  @params = Hash.new { |hash,key| hash[key.to_s] = SQLInjectionParameter.new(key) }
 
+	  # parse in params from the given URL
 	  url = url.to_s
 	  parse_url(url)
 	  parse_url_params(url)
 
+	  # merge in specified params
 	  params.each { |name,value| @params[name.to_s].value = value }
 
-	  @injection = SINGLE_QUOTE
-	  @auditors = {}
-
+	  # set the default injection string and target all platforms
+	  @injection = "'"
 	  @platform = nil
+	  @auditors = {}
 
 	  block.call(self) if block
 	end
@@ -109,11 +105,21 @@ module Ronin
 	  auditor(name,&block) if block
 	end
 
-	def inject_param(name)
+	def request_page(page)
+	  url = URI.parse(page)
+	  response = Net::HTTP.start(url.host,url.port) do |http|
+	    http.get(url.path)
+	  end
+	  return response.body
+	end
+
+	def inject_url(param_name,value=nil)
 	  params = @params.values.map do |param|
-	    if param.name==name
-	      if param.injection
-	        param.inject
+	    if param.name==param_name
+	      if value
+		param.inject(value)
+	      elsif param.injection
+		param.inject
 	      else
 		param.inject(@injection)
 	      end
@@ -125,37 +131,55 @@ module Ronin
 	  return @url+'?'+params.join('&')
 	end
 
-	def SQLInjection.audit(url,params={},&block)
-	  injection = SQLInjection.new(url,params,&block)
-	  return injection.audit
+	def injectable?(page)
+	  response = request_page(page)
+
+	  if @platform
+	    SQLInjection.errors[@platform.to_s].each do |pattern|
+	      return true if response =~ pattern
+	    end
+	  else
+	    SQLInjection.errors.each_value do |platform|
+	      platform.each do |pattern|
+		return true if response =~ pattern
+	      end
+	    end
+	  end
+
+	  return false
+	end
+
+	def param_injectable?(param)
+	  param = param.to_s
+
+	  url = inject_url(param)
+	  if @auditors.has_key?(param)
+	    return @auditors[param].call
+	  else
+	    return injectable?(url)
+	  end
 	end
 
 	def audit
 	  injectable = []
 
-	  test_param = lambda { |param|
-	    url = URI.parse(inject_param(param.name))
-	    res = Net::HTTP.start(url.host,url.port) do |http|
-	      http.get(url.path)
-	    end
-
-	    if audit_param(param.name,res.body)
-	      injectable << param.name
-	    end
+	  audit_param = lambda { |param|
+	    injectable << param.name if param_injectable?(param.name)
 	  }
 
 	  injections = @params.values.select { |param| param.injection!=nil }
 	  unless injections.empty?
-	    injections.each do |param|
-	      test_param.call(param)
-	    end
+	    injections.each { |param| audit_param.call(param) }
 	  else
-	    @params.each_value do |param|
-	      test_param.call(param)
-	    end
+	    @params.each_value { |param| audit_param.call(param) }
 	  end
 
 	  return injectable
+	end
+
+	def SQLInjection.audit(url,params={},&block)
+	  injection = SQLInjection.new(url,params,&block)
+	  return injection.audit
 	end
 
 	def to_s
@@ -231,35 +255,9 @@ module Ronin
 	      name = param[0,sub_index]
 
 	      @params[name].value = param[sub_index+1,param.length]
-	      @params[name].injection = @injection
 	    else
-	      @params[param].injection = @injection
+	      @params[param].value = nil
 	    end
-	  end
-	end
-
-	def default_auditor?(body,platform)
-	  if platform
-	    SQLInjection.errors[platform.to_s].each do |pattern|
-	      return true if body =~ pattern
-	    end
-	  else
-	    SQLInjection.errors.each_value do |platform|
-	      platform.each do |pattern|
-		return true if body =~ pattern
-	      end
-	    end
-	  end
-
-	  return false
-	end
-
-	def audit_param(name,body)
-	  name = name.to_s
-	  if @auditors.has_key?(name)
-	    return @auditors[name].call(body,@platform)
-	  else
-	    return default_auditor?(body,@platform)
 	  end
 	end
 
