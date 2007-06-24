@@ -26,8 +26,7 @@ module Ronin
     module SQL
       class CreateTable < Command
 
-	flag :temp
-	
+	option :temp, "TEMP"
 	option :if_not_exists, "IF NOT EXISTS"
 	option :or_replace, "OR REPLACE"
 
