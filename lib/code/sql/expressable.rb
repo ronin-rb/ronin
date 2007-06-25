@@ -19,14 +19,26 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'code/sql/primitives'
+
 module Ronin
   module Code
     module SQL
       module Expressable
 
+	include Primitives
+
 	def not!
 	  @negate = true
 	  return self
+	end
+
+	def is_null?
+	  self.is?(null)
+	end
+
+	def not_null?
+	  self.is_not?(null)
 	end
 
 	protected
@@ -45,11 +57,13 @@ module Ronin
 	  end
 	end
 
-	binary_op 'AND', :and
-	
+	binary_op 'OR', :or?
+	binary_op 'AND', :and?
+	binary_op 'XOR', :xor?
 	binary_op '=', :==, :equals?
 	binary_op '!=', :not_equals?
 	binary_op 'IS', :is?
+	binary_op 'IS NOT', :is_not?
 	binary_op 'IN', :===, :in
 	binary_op 'NOT IN', :not_in
 	binary_op 'AS', :as
@@ -81,8 +95,6 @@ module Ronin
 	end
 
 	unary_op 'NOT', :not
-	unary_op 'ISNULL', :is_null?
-	unary_op 'NOTNULL', :not_null
 	unary_op 'EXISTS', :exists?
 
 	def format_expr(*expr)

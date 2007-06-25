@@ -36,7 +36,9 @@ module Ronin
 	    return "(#{data})"
 	  elsif data.kind_of?(Array)
 	    return data.flatten.map { |value| format_data(value) }.join(', ')
-	  elsif (data.kind_of?(String) || data.kind_of?(Symbol))
+	  elsif data.kind_of?(Symbol)
+	    return data.id2name
+	  elsif data.kind_of?(String)
 	    return quote_data(data)
 	  else
 	    return data.to_s

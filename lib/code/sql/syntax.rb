@@ -20,54 +20,64 @@
 #
 
 require 'code/sql/fieldable'
-require 'code/sql/expressable'
-require 'code/sql/between'
 
 module Ronin
   module Code
     module SQL
-      class Field
-
-	include Expressable
-
-	def initialize(name,prefix=nil)
-	  @prefix = prefix
-	  @name = name
-	end
-
-	def between(start,stop)
-	  Between.new(self,start,stop)
-	end
-
-	def <=>(range)
-	  between(range.begin,range.end)
-	end
-
-	def compile
-	  if @prefix
-	    return "#{@prefix}.#{@name}"
-	  else
-	    return @name
-	  end
-	end
-
-	def to_s
-	  compile
-	end
-
-	protected
-
+      module Syntax
 	include Fieldable
 
-	def method_missing(sym,*args)
-	  name = sym.id2name
-	  if (@prefix.nil? && args.length==0)
-	    return get_field(name,self)
-	  end
-
-	  raise NoMethodError, name, caller
+	def dialect(lang)
+	  @dialect = lang.to_s
 	end
 
+	def dialect?
+	  @dialect
+	end
+
+	def sql_and(*expr)
+	  expr.join(' AND ')
+	end
+
+	def sql_or(*expr)
+	  expr.join(' OR ')
+	end	
+
+	def count(fields=[])
+	  Aggregate.new(:count,fields)
+	end
+
+	def sum(fields=[])
+	  Aggregate.new(:sum,fields)
+	end
+
+	def avg(fields=[])
+	  Aggregate.new(:avg,fields)
+	end
+
+	def create_table(table=nil,columns={},not_null={},&block)
+	  CreateTable.new(table,columns,not_null,&block)
+	end
+
+	def insert(table=nil,opts={:fields => [], :values => nil, :from => nil},&block)
+	  Insert.new(table,opts,&block)
+	end
+
+	def select(tables=nil,opts={:fields => [], :from => nil, :where => nil},&block)
+	  Select.new(tables,opts,&block)
+	end
+
+	def update(table=nil,set_data={},where_expr=nil,&block)
+	  Update.new(table,set_data,where_expr,&block)
+	end
+
+	def delete(table=nil,where_expr=nil,&block)
+	  Delete.new(table,where_expr,&block)
+	end
+
+	def drop_table(table=nil,&block)
+	  DropTable.new(table,&block)
+	end
       end
     end
   end

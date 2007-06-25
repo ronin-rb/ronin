@@ -53,6 +53,14 @@ module Ronin
 	  @order_by = exprs
 	end
 
+	def union(expr)
+	  @union = expr
+	end
+
+	def union_all(expr)
+	  @union_all = expr
+	end
+
 	def join(table,on_expr)
 	  @join_type = :outer
 	  @join_table = table
@@ -78,21 +86,33 @@ module Ronin
 	end
 
 	def compile(dialect=nil,multiline=false)
-	  super(rows?,fields?,'FROM',format_list(@tables),where?)
+	  super(rows?,fields?,'FROM',format_list(@tables),where?,unioned?)
 	end
 
 	protected
 
 	def fields?
-	  unless @fields.empty?
-	    return format_set(@fields)
+	  if @fields.kind_of?(Array)
+	    unless @fields.empty?
+	      return format_set(@fields)
+	    else
+	      return '*'
+	    end
 	  else
-	    return '*'
+	    return @fields.to_s
 	  end
 	end
 
 	def where?
 	  return "WHERE #{@where}" if @where
+	end
+
+	def unioned?
+	  if @union_all
+	    return "UNION ALL #{@union_all}"
+	  elsif @union
+	    return "UNION #{@union}"
+	  end
 	end
 
       end

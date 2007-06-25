@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/fieldable'
+require 'code/sql/syntax'
 require 'code/sql/field'
 require 'code/sql/createtable'
 require 'code/sql/insert'
@@ -33,16 +33,12 @@ module Ronin
     module SQL
       class Statement
 
-	include Fieldable
+	include Syntax
 
-	def initialize(&block)
-	  @commands = []
+	def initialize(*cmds,&block)
+	  @commands = cmds
 
 	  instance_eval(&block) if block
-	end
-
-	def dialect(lang)
-	  @dialect = lang.to_s
 	end
 
 	def command(*cmds)
@@ -55,39 +51,45 @@ module Ronin
 	  return self
 	end
 
-	def create_table(table=nil,columns={},not_null={})
-	  @commands << CreateTable.new(table,columns,not_null)
+	def create_table(table=nil,columns={},not_null={},&block)
+	  @commands << super(table,columns,not_null,&block)
 	  return @commands.last
 	end
 
 	def insert(table=nil,opts={:fields => nil, :values => nil, :from => nil},&block)
-	  @commands << Insert.new(table,opts,&block)
+	  @commands << super(table,opts,&block)
 	  return @commands.last
 	end
 
 	def select(tables=nil,opts={:fields => [], :from => nil, :where => nil},&block)
-	  @commands << Select.new(table,opts,&block)
+	  @commands << super(table,opts,&block)
 	  return @commands.last
 	end
 
 	def update(table=nil,set_data={},where_expr=nil,&block)
-	  @commands << Update.new(table,set_data,where_expr,&block)
+	  @commands << super(table,set_data,where_expr,&block)
 	  return @commands.last
 	end
 
 	def delete(table=nil,where_expr=nil,&block)
-	  @commands << Delete.new(table,where_expr,&block)
+	  @commands << super(table,where_expr,&block)
 	  return @commands.last
 	end
 
 	def drop_table(table=nil,&block)
-	  @commands << DropTable.new(table,&block)
+	  @commands << super(table,&block)
 	  return @commands.last
 	end
 
 	def compile(multiline=false)
 	  sub_compile = lambda {
-	    @commands.map { |cmd| cmd.compile(@dialect,multiline) }
+	    @commands.map do |cmd|
+	      if cmd.kind_of?(Command)
+		cmd.compile(@dialect,multiline)
+	      else
+		cmd.to_s
+	      end
+	    end
 	  }
 
 	  if multiline

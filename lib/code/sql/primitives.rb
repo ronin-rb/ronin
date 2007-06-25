@@ -25,9 +25,9 @@ module Ronin
       module Primitives
 	def self.primitive(*ids)
 	  for id in ids
-	    const_name = id.to_s.capitalize
+	    const_name = id.to_s.upcase
 	    class_eval <<-end_eval
-	      #{const_name} = "#{const_name}".freeze
+	      #{const_name} = :#{const_name}.freeze
 
 	      def #{id}
 		#{const_name}
@@ -45,7 +45,6 @@ module Ronin
 	    return VARCHAR
 	  end
 	end
-
       end
     end
   end

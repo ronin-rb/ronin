@@ -20,12 +20,14 @@
 #
 
 require 'code/codeable'
+require 'code/sql/syntax'
+require 'code/sql/field'
 require 'code/sql/expressable'
-require 'code/sql/fieldable'
 require 'code/sql/formating'
 require 'code/sql/binaryexpr'
 require 'code/sql/unaryexpr'
 require 'code/sql/likeexpr'
+require 'code/sql/aggregate'
 
 module Ronin
   module Code
@@ -33,8 +35,8 @@ module Ronin
       class Command
 
 	include Codeable
+	include Syntax
 	include Expressable
-	include Fieldable
 	include Formating
 
 	def initialize(name,&block)
@@ -58,7 +60,11 @@ module Ronin
 	end
 
 	def format_set(expr)
-	  "(#{format_list(expr)})"
+	  if expr.length==1
+	    return expr.to_s
+	  else
+	    return "(#{format_list(expr)})"
+	  end
 	end
 
 	def format_datalist(*expr)

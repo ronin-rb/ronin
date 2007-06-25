@@ -24,12 +24,12 @@ require 'code/sql/injection'
 
 module Ronin
   module Code
-    def Code.sql(opts={:prepend => "", :append => ""},&block)
-      opts[:prepend]+SQL::Statement.compile(&block)+opts[:append]
+    def Code.sql(*expr,&block)
+      SQL::Statement.compile(*expr,&block)
     end
 
-    def Code.sql_inject(opts={:prepend => "", :expr => "", :append => ""},&block)
-      opts[:prepend]+SQL::Injection.inject(&block)+opts[:append]
+    def Code.sql_inject(*expr,&block)
+      SQL::Injection.inject(*expr,&block)
     end
   end
 end
