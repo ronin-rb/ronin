@@ -19,6 +19,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
+require 'code/sql/program'
 require 'code/sql/injection'
 require 'code/sql/code'
