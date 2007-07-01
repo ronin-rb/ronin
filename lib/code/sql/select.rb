@@ -19,22 +19,22 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/command'
+require 'code/sql/statement'
 
 module Ronin
   module Code
     module SQL
-      class Select < Command
+      class Select < Statement
 
 	option_list :rows, [:all, :distinct]
 
-	def initialize(tables=nil,opts={:fields => [], :from => nil, :where => nil},&block)
+	def initialize(style,tables=nil,opts={:fields => [], :from => nil, :where => nil},&block)
 	  @tables = tables
 	  @fields = opts[:fields]
 	  @from = opts[:from]
 	  @where = opts[:where]
 
-	  super("SELECT",&block)
+	  super(style,&block)
 	end
 
 	def fields(*exprs)
@@ -85,8 +85,8 @@ module Ronin
 	  @join_on = on_expr
 	end
 
-	def compile(dialect=nil,multiline=false)
-	  super(rows?,fields?,'FROM',format_list(@tables),where?,unioned?)
+	def compile
+	  compile_expr('SELECT',rows?,fields?,'FROM',compile_list(@tables),where?,unioned?)
 	end
 
 	protected
@@ -94,7 +94,7 @@ module Ronin
 	def fields?
 	  if @fields.kind_of?(Array)
 	    unless @fields.empty?
-	      return format_set(@fields)
+	      return compile_group(@fields)
 	    else
 	      return '*'
 	    end

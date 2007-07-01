@@ -32,8 +32,8 @@ module Ronin
 	  @right = right
 	end
 
-	def compile(dialect=nil,multiline=false)
-	  super(negated?,format_data(@left),@op,format_data(@right))
+	def compile
+	  compile_expr(negated?,compile_data(@left),@op,compile_data(@right))
 	end
 
       end

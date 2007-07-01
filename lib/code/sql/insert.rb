@@ -19,20 +19,20 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/command'
+require 'code/sql/statement'
 
 module Ronin
   module Code
     module SQL
-      class Insert < Command
+      class Insert < Statement
 
-	def initialize(table=nil,opts={:fields => [], :values => nil, :from => nil},&block)
+	def initialize(style,table=nil,opts={:fields => [], :values => nil, :from => nil},&block)
 	  @table = table
 	  @fields = opts[:fields]
 	  @values = opts[:values]
 	  @from = opts[:from]
 
-	  super("INSERT",&block)
+	  super(style,&block)
 	end
 
 	def into(table)
@@ -55,16 +55,16 @@ module Ronin
 	  @from = expr
 	end
 
-	def compile(dialect=nil,multiline=false)
+	def compile
 	  if @values.kind_of?(Hash)
-	    return super('INTO',@table,format_set(@values.keys),'VALUES',format_datalist(@values.values))
+	    return compile_expr('INSERT INTO',@table,compile_group(@values.keys),'VALUES',compile_datalist(@values.values))
 	  elsif @from
-	    return super('INTO',@table,format_set(@fields),@from)
+	    return compile_expr('INSERT INTO',@table,compile_group(@fields),@from)
 	  else
 	    if @fields
-	      return super('INTO',@table,format_set(@fields),'VALUES',format_datalist(@values))
+	      return compile_expr('INSERT INTO',@table,compile_group(@fields),'VALUES',compile_datalist(@values))
 	    else
-	      return super('INTO',@table,'VALUES',format_datalist(@values))
+	      return compile_expr('INSERT INTO',@table,'VALUES',compile_datalist(@values))
 	    end
 	  end
 	end

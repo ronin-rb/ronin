@@ -20,66 +20,74 @@
 #
 
 require 'code/sql/statement'
+require 'code/sql/program'
+require 'extensions/string'
 
 module Ronin
   module Code
     module SQL
-      class Injection
+      class Injection < Statement
 
-	include Syntax
-	include Formating
+	def initialize(expr=[],style=Style.new,&block)
+	  @expressions = expr.flatten
 
-	# compiled SQL expressions
-	attr_reader :expressions
-
-	def initialize(*expr,&block)
-	  @expressions = expr
-
-	  instance_eval(&block) if block
+	  super(style,block)
 	end
 
 	def escape(var)
 	  @escape = var
 	end
 
-	def injection(expr)
-	  @injection = expr
+	def escape_string(var)
+	  @escaped = "#{var}'"
+	end
+
+	def inject(expr)
+	  @expressions << expr
+	end
+
+	def inject_and(expr)
+	  @expressions+=['AND',expr]
+	end
+
+	def inject_or(expr)
+	  @expressions+=['OR',expr]
 	end
 
 	def inject_error(garbage='1')
-	  @injection = garbage
+	  @expressions << garbage
 	end
 
 	def exec_error
-	  @injection = " EXEC SP_ (OR EXEC XP_)"
+	  @expessions << "EXEC SP_ (OR EXEC XP_)"
 	end
 
 	def all_rows(var='1')
-	  var = format_data(var)
+	  var = compile_data(var)
 
-	  @injection = " OR #{var}=#{var}"
+	  inject_or?("#{var}=#{var}")
 	end
 
 	def exact_rows(var='1')
-	  var = format_data(var)
+	  var = compile_data(var)
 
-	  @injection = " AND #{var}=#{var}"
+	  inject_and?("#{var}=#{var}")
 	end
 
 	def running_admin?
-	  @injection = " AND USER_NAME() = 'dbo'"
+	  inject_and?("USER_NAME() = 'dbo'")
 	end
 
 	def has_table?(table)
-	  @injection = ' OR '+(select(table,:fields => count, :from => table)==1)
+	  inject_or?(select_from(table,:fields => count, :from => table)==1)
 	end
 
 	def has_field?(field)
-	  @injection = ' OR '+field.not_null?
+	  inject_or?(field.not_null?)
 	end
 
 	def uses_table?(table)
-	  @injection = ' OR '+table.not_null?
+	  inject_or?(table.not_null?)
 	end
 
 	def expression(*exprs)
@@ -88,83 +96,78 @@ module Ronin
 	  return new_exprs
 	end
 
-	def like(field,search)
-	  @expressions << field.like(search)
-	  return @expressions.last
-	end
-
-	def is?(field,value)
-	  @expressions << field.is?(value)
-	  return @expressions.last
-	end
-
 	def sql(*commands,&block)
-	  @statement = Statement.new(*commands,&block)
-	  if @dialect
-	    @statement.dialect(@dialect)
-	  else
-	    @dialect = @statement.dialect?
-	  end
-
-	  return @statement
+	  @program = Program.new(commands,@style,&block)
 	end
 
-	def inject
-	  if @injection
-	    return escape_injection(@injection)
-	  else
-	    return escape_injection(inject_expression,inject_statement)
-	  end
+	def compile
+	  escape_injection(inject_expression,inject_program)
 	end
 
-	def Injection.inject(*expr,&block)
-	  Injection.new(*expr,&block).inject
+	def Injection.compile(*expr,&block)
+	  Injection.new(*expr,&block).compile
+	end
+
+	def url_encode
+	  compile.url_encode
+	end
+
+	def Injection.url_encode(*expr,&block)
+	  Injection.new(*expr,&block).url_encode
+	end
+
+	def html_hex
+	  compile.html_hex_encode
+	end
+
+	def Injection.html_hex(*expr,&block)
+	  Injection.new(*expr,&block).html_hex
+	end
+
+	def html_dec
+	  compile.html_dec_encode
+	end
+
+	def Injection.html_dec(*expr,&block)
+	  Injection.new(*expr,&block).html_dec
+	end
+
+	def base64
+	  compile.base64_encode
+	end
+
+	def Injection.base64(*expr,&block)
+	  Injection.new(*expr,&block).base64
 	end
 
 	protected
 
-	def escape?
-	  if @escape
-	    return @escape
-	  elsif dialect?
-	    case dialect?
-	    when 'mysql', 'dbd' then
-	      return "\\'"
-	    end
-	  else
-	    return "'"
-	  end
-	end
-
 	def inject_expression
-	  return '' unless @expressions
-
-	  ' OR '+inject_expr = sql_or( @expressions.map { |expr|
-	    if expr.kind_of?(Expr)
-	      expr.compile(@dialect,false)
-	    else
-	      expr.to_s
-	    end
-	  } ).strip
+	  compile_expr(@expresions).strip
 	end
 
-	def inject_statement
-	  return '' unless @statement
-	  return '; '+@statement.compile.strip+';'
+	def inject_program
+	  return '' unless @program
+
+	  if @style.multiline
+	    return "\n#{@program.compile.strip}"
+	  else
+	    return "; #{@program.compile.strip}"
+	  end
 	end
 
 	def escape_injection(*expr)
 	  expr = expr.join
 
-	  if ends_with_quote?(expr)
-	    return escape?+expr.chop
+	  unless escaped.empty?
+	    if expr[-1].chr=="'")
+	      return escaped+expr.chop
+	    else
+	      return escaped+expr+' --'
+	    end
 	  else
-	    return escape?+expr+' --'
+	    return expr
 	  end
-	end
-
-	def ends_with_quote?(str)
-	  str[-1].chr=="'"
 	end
 
       end

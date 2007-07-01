@@ -19,20 +19,22 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/fieldable'
-require 'code/sql/expressable'
+require 'code/sql/expr'
 require 'code/sql/between'
 
 module Ronin
   module Code
     module SQL
-      class Field
-
-	include Expressable
+      class Field < Expr
 
 	def initialize(name,prefix=nil)
 	  @prefix = prefix
 	  @name = name
+	  @fields = Hash.new { |hash,key| hash[key] = Field.new(key,self) }
+	end
+
+	def id
+	  @fields[:id]
 	end
 
 	def between(start,stop)
@@ -47,25 +49,18 @@ module Ronin
 	  if @prefix
 	    return "#{@prefix}.#{@name}"
 	  else
-	    return @name
+	    return @name.to_s
 	  end
-	end
-
-	def to_s
-	  compile
 	end
 
 	protected
 
-	include Fieldable
-
 	def method_missing(sym,*args)
-	  name = sym.id2name
-	  if (@prefix.nil? && args.length==0)
-	    return get_field(name,self)
+	  if (args.length==0 && @prefix.nil?)
+	    return @fields[sym]
 	  end
 
-	  raise NoMethodError, name, caller
+	  raise NoMethodError, sym.id2name, caller
 	end
 
       end

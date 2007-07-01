@@ -19,19 +19,19 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/command'
+require 'code/sql/statement'
 
 module Ronin
   module Code
     module SQL
-      class Update < Command
+      class Update < Statement
 
-	def initialize(table=nil,set_data={},where_expr=nil,&block)
+	def initialize(style,table=nil,set_data={},where_expr=nil,&block)
 	  @table = table
 	  @set_data = set_data
 	  @where_expr = where_expr
 
-	  super("UPDATE",&block)
+	  super(style,&block)
 	end
 
 	def table(value)
@@ -46,16 +46,18 @@ module Ronin
 	  @where_expr = expr
 	end
 
-	def compile(dialect=nil,multiline=false)
+	def compile
 	  set_values = "SET "+@set_data.map { |name,value|
-	    "#{name} = #{quote_data(value)}"
+	    "#{name} = #{quote_string(value)}"
 	  }.join(', ')
 
-	  if @where_expr
-	    return "UPDATE #{table} #{set_values} WHERE #{where_expr}"
-	  else
-	    return "UPDATE #{table} #{set_values}"
-	  end
+	  return compile_expr('UPDATE',@table,set_values,where?)
+	end
+
+	protected
+
+	def where?
+	  "WHERE #{@where_expr}" if @where_expr
 	end
 
       end

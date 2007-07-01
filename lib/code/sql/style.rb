@@ -19,33 +19,42 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/expr'
+require 'code/sql/dialect'
 
 module Ronin
   module Code
     module SQL
-      class Aggregate < Expr
+      class Style
 
-	def initialize(style,func,*fields)
-	  super()
+	# Dialect to use
+	attr_reader :dialect
 
-	  @style = style
-	  @func = func
-	  @fields = fields
+	# Use single-line or multi-line style
+	attr_accessor :multiline
+
+	# Use lowercase style
+	attr_accessor :lowercase
+
+	def initialize(dialect=Dialect)
+	  @dialect = dialect
+	  @multiline = true
+	  @lowercase = false
 	end
 
-	def compile
-	  compile_expr(negated?,"#{@func.to_s.upcase}(#{fields?})")
-	end
-
-	protected
-
-	def fields?
-	  unless @fields.empty?
-	    return compile_list(@fields)
-	  else
-	    return "*"
+	def set_dialect(value)
+	  if value.kind_of?(String)
+	    return @dialect = Dialect.get_dialect(value)
+	  elsif value.kind_of?(Dialect)
+	    return @dialect = value
 	  end
+	end
+
+	def expresses?(sym)
+	  @dialect.respond_to?(sym)
+	end
+
+	def express(sym,*args,&block)
+	  @dialect.send(sym,self,*args,&block)
 	end
 
       end

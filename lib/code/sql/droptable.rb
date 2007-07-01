@@ -19,24 +19,24 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/command'
+require 'code/sql/statement'
 
 module Ronin
   module Code
     module SQL
-      class DropTable < Command
+      class DropTable < Statement
 
 	option :if_exists, "IF EXISTS"
 
-	def initialize(table=nil,&block)
+	def initialize(style,table=nil,&block)
 	  @table = table
 	  @exists = false
 
-	  super("DROP TABLE",&block)
+	  super(style,&block)
 	end
 
-	def compile(dialect=nil,multiline=false)
-	  super(if_exists?,@table)
+	def compile
+	  compile_expr('DROP TABLE',if_exists?,@table)
 	end
 
       end

@@ -19,33 +19,56 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/expr'
+require 'code/sql/statement'
 
 module Ronin
   module Code
     module SQL
-      class Aggregate < Expr
+      class Program < Statement
 
-	def initialize(style,func,*fields)
-	  super()
+	def initialize(cmds=[],style=Style.new,&block)
+	  @commands = cmds.flatten
 
-	  @style = style
-	  @func = func
-	  @fields = fields
+	  super(style,&block)
+	end
+
+	def command(*cmds,&block)
+	  @commands+=cmds.flatten
+
+	  instance_eval(&block) if block
+	  return self
+	end
+
+	def <<(cmd)
+	  @commands << cmd
+	  return self
 	end
 
 	def compile
-	  compile_expr(negated?,"#{@func.to_s.upcase}(#{fields?})")
+	  if multiline?
+	    return @commands.join("\n")
+	  else
+	    return @commands.join('; ')
+	  end
+	end
+
+	def Program.compile(*cmds,&block)
+	  Program.new(*cmds,&block).compile
 	end
 
 	protected
 
-	def fields?
-	  unless @fields.empty?
-	    return compile_list(@fields)
-	  else
-	    return "*"
+	def method_missing(sym,*args,&block)
+	  name = sym.id2name
+
+	  if @style.expresses?(name)
+	    result = @style.express(name,*args,&block)
+
+	    @commands << result if result.kind_of?(Command)
+	    return result
 	  end
+
+	  return super(sym,*args,&block)
 	end
 
       end

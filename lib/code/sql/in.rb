@@ -24,28 +24,15 @@ require 'code/sql/expr'
 module Ronin
   module Code
     module SQL
-      class Aggregate < Expr
+      class In < Expr
 
-	def initialize(style,func,*fields)
-	  super()
-
-	  @style = style
-	  @func = func
-	  @fields = fields
+	def initialize(field,*range)
+	  @field = field
+	  @range = range
 	end
 
 	def compile
-	  compile_expr(negated?,"#{@func.to_s.upcase}(#{fields?})")
-	end
-
-	protected
-
-	def fields?
-	  unless @fields.empty?
-	    return compile_list(@fields)
-	  else
-	    return "*"
-	  end
+	  return compile_expr(@field,'IN',compile_datalist(@range))
 	end
 
       end

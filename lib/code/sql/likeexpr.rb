@@ -27,6 +27,8 @@ module Ronin
       class LikeExpr < Expr
 
 	def initialize(op,left,right,escape=nil)
+	  super('LIKE')
+
 	  @op = op
 	  @left = left
 	  @right = right
@@ -37,8 +39,8 @@ module Ronin
 	  @escape = str
 	end
 
-	def compile(dialect=nil)
-	  super(@left,negated?,@op,format_pattern(@right),escaped?)
+	def compile
+	  compile_expr(@left,negated?,@op,compile_pattern(@right),escaped?)
 	end
 
 	protected
@@ -53,7 +55,7 @@ module Ronin
 	  end
 	end
 
-	def format_pattern(pattern)
+	def compile_pattern(pattern)
 	  if pattern.kind_of?(Regexp)
 	    return escape_pattern(pattern.source)
 	  else

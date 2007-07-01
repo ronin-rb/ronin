@@ -19,23 +19,23 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/command'
+require 'code/sql/statement'
 
 module Ronin
   module Code
     module SQL
-      class CreateTable < Command
+      class CreateTable < Statement
 
 	option :temp, "TEMP"
 	option :if_not_exists, "IF NOT EXISTS"
 	option :or_replace, "OR REPLACE"
 
-	def initialize(table=nil,columns={},not_null={},&block)
+	def initialize(style,table=nil,columns={},not_null={},&block)
 	  @table = table
 	  @columns = columns
 	  @not_null = not_null
 
-	  super("CREATE",&block)
+	  super(style,&block)
 	end
 
 	def column(name,type,null=false)
@@ -55,7 +55,7 @@ module Ronin
 	    }
 	  }
 
-	  return super(or_replace?,"TABLE",@table,format_set(format_columns.call))
+	  return compile_expr('CREATE',or_replace?,"TABLE",@table,compile_group(format_columns.call))
 	end
 
       end

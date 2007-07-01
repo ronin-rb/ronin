@@ -19,17 +19,17 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/statement'
+require 'code/sql/program'
 require 'code/sql/injection'
 
 module Ronin
   module Code
-    def Code.sql(*expr,&block)
-      SQL::Statement.compile(*expr,&block)
+    def Code.sql(*cmds,&block)
+      SQL::Program.compile(cmds,&block)
     end
 
     def Code.sql_inject(*expr,&block)
-      SQL::Injection.inject(*expr,&block)
+      SQL::Injection.compile(expr,&block)
     end
   end
 end

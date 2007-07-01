@@ -36,15 +36,7 @@ module Ronin
 	  end
 	end
 
-	primitive :null, :int, :varchar, :text, :record
-
-	def varchar(length=nil)
-	  if length
-	    return "#{VARCHAR}(#{length})"
-	  else
-	    return VARCHAR
-	  end
-	end
+	primitive :yes, :no, :on, :off, :null, :int, :varchar, :text, :record
       end
     end
   end

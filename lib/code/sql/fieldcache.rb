@@ -19,33 +19,27 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/expr'
+require 'code/sql/field'
 
 module Ronin
   module Code
     module SQL
-      class Aggregate < Expr
-
-	def initialize(style,func,*fields)
-	  super()
-
-	  @style = style
-	  @func = func
-	  @fields = fields
-	end
-
-	def compile
-	  compile_expr(negated?,"#{@func.to_s.upcase}(#{fields?})")
-	end
+      module FieldCache
 
 	protected
 
-	def fields?
-	  unless @fields.empty?
-	    return compile_list(@fields)
-	  else
-	    return "*"
-	  end
+	def field_cache
+	  @field_cache ||= Hash.new { |hash,key| hash[key] = Field.new(key) }
+	end
+
+	def id
+	  field_cache[:id]
+	end
+
+	def method_missing(sym,*args)
+	  return field_cache[sym] if args.length==0
+
+	  raise NoMethodError, sym.id2name, caller
 	end
 
       end

@@ -19,18 +19,18 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/command'
+require 'code/sql/statement'
 
 module Ronin
   module Code
     module SQL
-      class Delete < Command
+      class Delete < Statement
 
-	def initialize(table=nil,where_expr=nil,&block)
+	def initialize(style,table=nil,where_expr=nil,&block)
 	  @table = table
 	  @where = where_expr
 
-	  super("DELETE",&block)
+	  super(style,&block)
 	end
 
 	def from(table)
@@ -41,8 +41,8 @@ module Ronin
 	  @where = expr
 	end
 
-	def compile(dialect=nil,multiline=false)
-	  super('FROM',@table,where?)
+	def compile
+	  compile_expr('DELETE FROM',@table,where?)
 	end
 
 	protected

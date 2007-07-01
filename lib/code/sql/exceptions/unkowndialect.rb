@@ -19,35 +19,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/expr'
-
 module Ronin
   module Code
     module SQL
-      class Aggregate < Expr
-
-	def initialize(style,func,*fields)
-	  super()
-
-	  @style = style
-	  @func = func
-	  @fields = fields
-	end
-
-	def compile
-	  compile_expr(negated?,"#{@func.to_s.upcase}(#{fields?})")
-	end
-
-	protected
-
-	def fields?
-	  unless @fields.empty?
-	    return compile_list(@fields)
-	  else
-	    return "*"
-	  end
-	end
-
+      class DialectNotFound < RuntimeError
       end
     end
   end
