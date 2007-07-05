@@ -35,8 +35,8 @@ module Ronin
 	def initialize(dialect=Dialect.new)
 	  super(dialect)
 
-	  @comment_keywords = false
-	  @swapcase_keywords = false
+	  @comment_evasion = false
+	  @swapcase_evasion = false
 	end
 
 	def compile_keyword(name)
