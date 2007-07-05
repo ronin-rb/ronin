@@ -20,6 +20,7 @@
 #
 
 require 'code/sql/statement'
+require 'code/sql/select'
 
 module Ronin
   module Code
@@ -28,23 +29,39 @@ module Ronin
 
 	option :temp, "TEMP"
 	option :if_not_exists, "IF NOT EXISTS"
-	option :or_replace, "OR REPLACE"
 
-	def initialize(style,table=nil,columns={},not_null={},&block)
+	def initialize(style,table=nil,opts={:columns => {}, :not_null => {}, :as => nil},&block)
 	  @table = table
-	  @columns = columns
-	  @not_null = not_null
+	  @columns = opts[:columns]
+	  @not_null = opts[:not_null]
+	  @as = opts[:as]
 
 	  super(style,&block)
+	end
+
+	def table(field)
+	  @table = field
+	  return self
+	end
+
+	def as(table=nil,opts={:fields => nil, :where => nil},&block)
+	  @as = Select.new(@style,table,opts,&block)
+	  return self
 	end
 
 	def column(name,type,null=false)
 	  name = name.to_s
 	  @columns[name] = type.to_s
 	  @not_null[name] = null
+	  return self
 	end
 
-	def compile(dialect=nil,multiline=false)
+	def primary_key(field)
+	  @primary_key = field
+	  return self
+	end
+
+	def compile
 	  format_columns = lambda {
 	    @columns.map { |name,type|
 	      if @not_null[name]
@@ -55,7 +72,17 @@ module Ronin
 	    }
 	  }
 
-	  return compile_expr('CREATE',or_replace?,"TABLE",@table,compile_group(format_columns.call))
+	  return compile_expr(keyword_create,temp?,keyword_table,if_not_exists?,@table,compile_row(format_columns.call))
+	end
+
+	protected
+
+	keyword :create
+	keyword :table
+	keyword :primary_key
+
+	def primary_key?
+	  compile_expr(keyword_primary_key,@primary_key) if @primary_key
 	end
 
       end

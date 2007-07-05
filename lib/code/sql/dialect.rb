@@ -20,6 +20,7 @@
 #
 
 require 'code/sql/createtable'
+require 'code/sql/createview'
 require 'code/sql/insert'
 require 'code/sql/select'
 require 'code/sql/update'
@@ -32,16 +33,32 @@ module Ronin
     module SQL
       class Dialect
 
-	def create_table(style,table=nil,columns={},not_null={},&block)
-	  CreateTable.new(style,table,columns,not_null,&block)
+	def varchar(length=nil)
+	  if length
+	    return "#{VARCHAR}(#{length})"
+	  else
+	    return VARCHAR
+	  end
 	end
 
-	def insert(style,table=nil,opts={:fields => [], :values => nil, :from => nil},&block)
+	def create_table(style,table=nil,opts={:columns => {}, :not_null => {}, :as => nil},&block)
+	  CreateTable.new(style,table,opts,&block)
+	end
+
+	def create_index(style,index=nil,table=nil,columns={},&block)
+	  CreateIndex.new(style,index,table,columns={},&block)
+	end
+
+	def create_view(style,view=nil,query=nil,&block)
+	  CreateView.new(style,view,query,&block)
+	end
+
+	def insert(style,table=nil,opts={:fields => nil, :values => nil, :from => nil},&block)
 	  Insert.new(style,table,opts,&block)
 	end
 
-	def select_from(style,tables=nil,opts={:fields => [], :from => nil, :where => nil},&block)
-	  Select.new(style,tables,opts,&block)
+	def select_from(style,table=nil,opts={:fields => nil, :where => nil},&block)
+	  Select.new(style,table,opts,&block)
 	end
 
 	def update(style,table=nil,set_data={},where_expr=nil,&block)
@@ -88,11 +105,26 @@ module Ronin
 
 	dialect 'common'
 
+	def self.primitive(*ids)
+	  for id in ids
+	    const_name = id.to_s.upcase
+	    class_eval <<-end_eval
+	      #{const_name} = :#{const_name}.freeze
+
+	      def #{id}
+		#{const_name}
+	      end
+	    end_eval
+	  end
+	end
+
+	primitive :yes, :no, :on, :off, :null, :int, :varchar, :text, :record
+
 	def Dialect.aggregate(*syms)
 	  for sym in syms
 	    class_eval <<-end_eval
-	      def #{sym}(style,*fields)
-	        Aggregate.new(style,:#{sym},*fields)
+	      def #{sym}(style,field)
+	        Function.new(style,:#{sym},field)
 	      end
 	    end_eval
 	  end

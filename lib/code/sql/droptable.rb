@@ -36,8 +36,12 @@ module Ronin
 	end
 
 	def compile
-	  compile_expr('DROP TABLE',if_exists?,@table)
+	  compile_expr(keyword_drop,if_exists?,@table)
 	end
+
+	protected
+
+	keyword :drop, 'DROP TABLE'
 
       end
     end

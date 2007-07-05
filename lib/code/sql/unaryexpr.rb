@@ -26,13 +26,15 @@ module Ronin
     module SQL
       class UnaryExpr < Expr
 
-	def initialize(op,expr)
+	def initialize(style,op,expr)
+	  super(style)
+
 	  @op = op
 	  @expr = expr
 	end
 
-	def compile(dialect=nil,multiline=false)
-	  super(negated?,@op,@expr)
+	def compile
+	  compile_expr(compile_keyword(@op),@expr)
 	end
 	
       end

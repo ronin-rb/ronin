@@ -20,16 +20,36 @@
 #
 
 require 'code/sql/statement'
+require 'code/sql/style'
 
 module Ronin
   module Code
     module SQL
       class Program < Statement
 
+	# Style of the program
+	attr_reader :style
+
 	def initialize(cmds=[],style=Style.new,&block)
 	  @commands = cmds.flatten
 
 	  super(style,&block)
+	end
+
+	def dialect(name)
+	  @style.set_dialect(name)
+	end
+
+	def multiline(value)
+	  @style.multiline = value
+	end
+
+	def lowercase(value)
+	  @style.lowercase = value
+	end
+
+	def less_parenthesis(value)
+	  @style.less_parenthesis = value
 	end
 
 	def command(*cmds,&block)
@@ -46,9 +66,9 @@ module Ronin
 
 	def compile
 	  if multiline?
-	    return @commands.join("\n")
+	    return compile_lines(@commands)
 	  else
-	    return @commands.join('; ')
+	    return compile_lines(@commands,append_space(';'))
 	  end
 	end
 
@@ -64,7 +84,7 @@ module Ronin
 	  if @style.expresses?(name)
 	    result = @style.express(name,*args,&block)
 
-	    @commands << result if result.kind_of?(Command)
+	    @commands << result if result.kind_of?(Statement)
 	    return result
 	  end
 

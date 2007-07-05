@@ -19,32 +19,25 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/primitives'
-
 module Ronin
   module Code
     module SQL
       class Expr
 
-	def initialize
-	  @negated = false
-	end
-
-	def not!
-	  @negated = true
-	  return self
+	def initialize(style)
+	  @style = style
 	end
 
 	def is_null?
-	  self.is?(null)
+	  self.is?(@style.dialect.null)
 	end
 
 	def not_null?
-	  self.is_not?(null)
+	  self.is_not?(@style.dialect.null)
 	end
 
 	def in?(*range)
-	  In.new(self,*range)
+	  In.new(@style,self,*range)
 	end
 
 	def ===(*range)
@@ -65,27 +58,37 @@ module Ronin
 
 	protected
 
-	include Primitives
+	def Expr.keyword(id,value=id.to_s.upcase)
+	  id = id.to_s.downcase
+	  class_eval <<-end_eval
+	    protected
 
-	def negated?
-	  return "NOT" if @negated
+	    def keyword_#{id}
+	      compile_keyword('#{value}')
+	    end
+	  end_eval
 	end
 
 	def Expr.binary_op(op,*ids)
 	  for id in ids
 	    class_eval <<-end_eval
 	      def #{id}(expr)
-	        BinaryExpr.new('#{op}',self,expr)
+	        BinaryExpr.new(@style,'#{op}',self,expr)
 	      end
 	    end_eval
 	  end
 	end
 
-	binary_op 'OR', :or?
-	binary_op 'AND', :and?
-	binary_op 'XOR', :xor?
-	binary_op '=', :==, :equals?
+	binary_op 'OR', :or!
+	binary_op 'AND', :and!
+	binary_op 'XOR', :xor!
+	binary_op '=', '==', :equals?
 	binary_op '!=', :not_equals?
+	binary_op '<>', '<=>', :different?
+	binary_op '>', '>', :greater?
+	binary_op '>=', '>=', :greater_equal?
+	binary_op '<', '<', :less?
+	binary_op '<=', '<=', :less_equal?
 	binary_op 'IS', :is?
 	binary_op 'IS NOT', :is_not?
 	binary_op 'AS', :as
@@ -95,7 +98,7 @@ module Ronin
 	  for id in ids
 	    class_eval <<-end_eval
 	      def #{id}(expr,escape=nil)
-	        LikeExpr.new('#{op}',self,expr,escape)
+	        LikeExpr.new(@style,'#{op}',self,expr,escape)
 	      end
 	    end_eval
 	  end
@@ -110,47 +113,61 @@ module Ronin
 	  for id in ids 
 	    class_eval <<-end_eval
 	      def #{id}
-	        UnaryExpr.new('#{op}',self)
+	        UnaryExpr.new(@style,'#{op}',self)
 	      end
 	    end_eval
 	  end
 	end
 
-	unary_op 'NOT', :not
+	unary_op 'NOT', :not!
 	unary_op 'EXISTS', :exists?
 
+	def dialect?
+	  @style.dialect
+	end
+
+	def multiline?
+	  @style.multiline
+	end
+
+	def lowercase?
+	  @style.lowercase
+	end
+
+	def parenthesis?
+	  @style.parenthesis
+	end
+
 	def quote_string(data)
-	  "'"+data.to_s.sub("'","''")+"'"
+	  @style.quote_string(data)
+	end
+
+	def compile_keyword(name)
+	  @style.compile_keyword(name)
+	end
+
+	def compile_keywords(*names)
+	  names.flatten.map { |str| compile_keyword(str) }
 	end
 
 	def compile_list(*expr)
-	  expr.compact.join(', ')
+	  @style.compile_list(*expr)
 	end
 
 	def compile_datalist(*expr)
-	  compile_group( expr.flatten.map { |value| compile_data(value) } )
+	  @style.compile_list(*expr)
 	end
 
-	def compile_group(*expr)
-	  unless expr.length==1
-	    return "(#{compile_list(expr)})"
-	  else
-	    return expr[0].to_s
-	  end
+	def compile_row(*expr)
+	  @style.compile_row(*expr)
 	end
 
 	def compile_data(data)
-	  if data.kind_of?(Array)
-	    return compile_datalist(data)
-	  elsif data.kind_of?(String)
-	    return quote_string(data)
-	  else
-	    return data.to_s
-	  end
+	  @style.compile_data(data)
 	end
 
 	def compile_expr(*expr)
-	  expr.compact.join(' ')
+	  @style.compile_expr(*expr)
 	end
 
       end

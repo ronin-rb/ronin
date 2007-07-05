@@ -26,17 +26,22 @@ module Ronin
     module SQL
       class LikeExpr < Expr
 
-	def initialize(op,left,right,escape=nil)
-	  super('LIKE')
+	def initialize(style,op,left,right,escape=nil)
+	  super(style)
 
 	  @op = op
 	  @left = left
 	  @right = right
 	  @escape = escape
+	  @negated = false
 	end
 
 	def escape(str)
 	  @escape = str
+	end
+
+	def not!
+	  @negated = true
 	end
 
 	def compile
@@ -44,6 +49,9 @@ module Ronin
 	end
 
 	protected
+
+	keyword :escape
+	keyword :not
 
 	def escape_pattern(pattern)
 	  pattern = pattern.to_s
@@ -64,7 +72,11 @@ module Ronin
 	end
 
 	def escaped?
-	  return "ESCAPE '#{@escape.to_s[0..0]}'" if @escape
+	  compile_expr(keyword_escape,"'#{@escape.to_s[0..0]}'") if @escape
+	end
+
+	def negated?
+	  keyword_not if @negated
 	end
 
       end

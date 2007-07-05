@@ -26,14 +26,16 @@ module Ronin
     module SQL
       class BinaryExpr < Expr
 
-	def initialize(op,left,right)
+	def initialize(style,op,left,right)
+	  super(style)
+
 	  @op = op
 	  @left = left
 	  @right = right
 	end
 
 	def compile
-	  compile_expr(negated?,compile_data(@left),@op,compile_data(@right))
+	  compile_expr(compile_data(@left),compile_keyword(@op),compile_data(@right))
 	end
 
       end

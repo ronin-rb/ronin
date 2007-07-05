@@ -27,10 +27,12 @@ module Ronin
     module SQL
       class Field < Expr
 
-	def initialize(name,prefix=nil)
+	def initialize(style,name,prefix=nil)
+	  super(style)
+
 	  @prefix = prefix
 	  @name = name
-	  @fields = Hash.new { |hash,key| hash[key] = Field.new(key,self) }
+	  @fields = Hash.new { |hash,key| hash[key] = Field.new(@style,key,self) }
 	end
 
 	def id

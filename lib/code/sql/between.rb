@@ -32,10 +32,26 @@ module Ronin
 	  @expr = expr
 	  @lower = lower
 	  @higher = higher
+	  @negated = false
+	end
+
+	def not!
+	  @negated = true
+	  return self
 	end
 
 	def compile
-	  compile_expr(@expr,negated?,'BETWEEN',@lower,'AND',@higher)
+	  compile_expr(@expr,negated?,keyword_between,@lower,keyword_and,@higher)
+	end
+
+	protected
+
+	keyword :between
+	keyword :and
+	keyword :not
+
+	def negated?
+	  keyword_not if @negated
 	end
 
       end

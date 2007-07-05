@@ -25,11 +25,11 @@ require 'code/sql/injection'
 module Ronin
   module Code
     def Code.sql(*cmds,&block)
-      SQL::Program.compile(cmds,&block)
+      SQL::Program.new(cmds,&block)
     end
 
     def Code.sql_inject(*expr,&block)
-      SQL::Injection.compile(expr,&block)
+      SQL::Injection.new(expr,&block)
     end
   end
 end

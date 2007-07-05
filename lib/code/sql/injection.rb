@@ -21,6 +21,7 @@
 
 require 'code/sql/statement'
 require 'code/sql/program'
+require 'code/sql/injectionstyle'
 require 'extensions/string'
 
 module Ronin
@@ -28,7 +29,10 @@ module Ronin
     module SQL
       class Injection < Statement
 
-	def initialize(expr=[],style=Style.new,&block)
+	# Style of the injection
+	attr_reader :style
+
+	def initialize(expr=[],style=InjectionStyle.new,&block)
 	  @expressions = expr.flatten
 
 	  super(style,block)
@@ -36,64 +40,76 @@ module Ronin
 
 	def escape(var)
 	  @escape = var
+	  return self
 	end
 
 	def escape_string(var)
-	  @escaped = "#{var}'"
+	  @escape = "#{var}'"
+	  return self
 	end
 
 	def inject(expr)
 	  @expressions << expr
+	  return self
 	end
 
 	def inject_and(expr)
-	  @expressions+=['AND',expr]
+	  @expressions+=[keyword_and,expr]
+	  return self
 	end
 
 	def inject_or(expr)
-	  @expressions+=['OR',expr]
+	  @expressions+=[keyword_or,expr]
+	  return self
 	end
 
 	def inject_error(garbage='1')
 	  @expressions << garbage
+	  return self
 	end
 
 	def exec_error
-	  @expessions << "EXEC SP_ (OR EXEC XP_)"
+	  @expessions+=compile_keywords('EXEC','SP_','(OR','EXEC','XP_)')
+	  return self
 	end
 
 	def all_rows(var='1')
 	  var = compile_data(var)
 
-	  inject_or?("#{var}=#{var}")
+	  inject_or?("#{var} = #{var}")
+	  return self
 	end
 
 	def exact_rows(var='1')
 	  var = compile_data(var)
 
-	  inject_and?("#{var}=#{var}")
+	  inject_and?("#{var} = #{var}")
+	  return self
 	end
 
 	def running_admin?
 	  inject_and?("USER_NAME() = 'dbo'")
+	  return self
 	end
 
 	def has_table?(table)
 	  inject_or?(select_from(table,:fields => count, :from => table)==1)
+	  return self
 	end
 
 	def has_field?(field)
 	  inject_or?(field.not_null?)
+	  return self
 	end
 
 	def uses_table?(table)
 	  inject_or?(table.not_null?)
+	  return self
 	end
 
 	def expression(*exprs)
-	  new_exprs = exprs.flatten.map { |expr| expr.to_s }
-	  @expressions+=new_exprs
-	  return new_exprs
+	  exprs.each { |expr| inject_or(expr) }
+	  return self
 	end
 
 	def sql(*commands,&block)
@@ -142,6 +158,9 @@ module Ronin
 
 	protected
 
+	keyword :or
+	keyword :and
+
 	def inject_expression
 	  compile_expr(@expresions).strip
 	end
@@ -150,20 +169,20 @@ module Ronin
 	  return '' unless @program
 
 	  if @style.multiline
-	    return "\n#{@program.compile.strip}"
+	    return "\n"+@program.compile.strip
 	  else
-	    return "; #{@program.compile.strip}"
+	    return "; "+@program.compile.strip
 	  end
 	end
 
-	def escape_injection(*expr)
-	  expr = expr.join
+	def escape_injection(*exprs)
+	  expr = exprs.map { |expr| expr.to_s }.join
 
 	  unless escaped.empty?
-	    if expr[-1].chr=="'")
-	      return escaped+expr.chop
+	    if expr[-1].chr=="'"
+	      return @escape+expr.chop
 	    else
-	      return escaped+expr+' --'
+	      return @escape+expr+' --'
 	    end
 	  else
 	    return expr

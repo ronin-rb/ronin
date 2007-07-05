@@ -26,7 +26,7 @@ module Ronin
     module SQL
       class Insert < Statement
 
-	def initialize(style,table=nil,opts={:fields => [], :values => nil, :from => nil},&block)
+	def initialize(style,table=nil,opts={:fields => nil, :values => nil, :from => nil},&block)
 	  @table = table
 	  @fields = opts[:fields]
 	  @values = opts[:values]
@@ -37,10 +37,12 @@ module Ronin
 
 	def into(table)
 	  @table = table
+	  return self
 	end
 
 	def fields(*fields)
 	  @fields = fields
+	  return self
 	end
 
 	def values(*values)
@@ -49,25 +51,32 @@ module Ronin
 	  else
 	    @values = values
 	  end
+	  return self
 	end
 
 	def from(expr)
 	  @from = expr
+	  return self
 	end
 
 	def compile
 	  if @values.kind_of?(Hash)
-	    return compile_expr('INSERT INTO',@table,compile_group(@values.keys),'VALUES',compile_datalist(@values.values))
+	    return compile_expr(keyword_insert,@table,compile_row(@values.keys),keyword_values,compile_datalist(@values.values))
 	  elsif @from
-	    return compile_expr('INSERT INTO',@table,compile_group(@fields),@from)
+	    return compile_expr(keyword_insert,@table,compile_row(@fields),@from)
 	  else
 	    if @fields
-	      return compile_expr('INSERT INTO',@table,compile_group(@fields),'VALUES',compile_datalist(@values))
+	      return compile_expr(keyword_insert,@table,compile_row(@fields),keyword_values,compile_datalist(@values))
 	    else
-	      return compile_expr('INSERT INTO',@table,'VALUES',compile_datalist(@values))
+	      return compile_expr(keyword_insert,@table,keyword_values,compile_datalist(@values))
 	    end
 	  end
 	end
+
+	protected
+
+	keyword :insert, 'INSERT INTO'
+	keyword :values
 
       end
     end

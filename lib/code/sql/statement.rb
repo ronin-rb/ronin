@@ -19,92 +19,110 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/syntax'
+require 'code/sql/expr'
 require 'code/sql/field'
-require 'code/sql/createtable'
-require 'code/sql/insert'
-require 'code/sql/select'
-require 'code/sql/update'
-require 'code/sql/delete'
-require 'code/sql/droptable'
+require 'code/sql/binaryexpr'
+require 'code/sql/unaryexpr'
+require 'code/sql/likeexpr'
+require 'code/sql/in'
+require 'code/sql/aggregate'
 
 module Ronin
   module Code
     module SQL
-      class Statement
+      class Statement < Expr
 
-	include Syntax
+	def initialize(style,&block)
+	  super(style)
 
-	def initialize(*cmds,&block)
-	  @commands = cmds
+	  @style = style
+	  @field_cache = Hash.new { |hash,key| hash[key] = Field.new(@style,key) }
 
 	  instance_eval(&block) if block
 	end
 
-	def command(*cmds)
-	  @commands+=cmds.flatten
-	  return self
-	end
+	protected
 
-	def <<(cmd)
-	  @commands << cmd
-	  return self
-	end
+	def Statement.option(id,value=nil)
+	  class_eval <<-end_eval
+	    def #{id}(&block)
+	      @#{id} = true
 
-	def create_table(table=nil,columns={},not_null={},&block)
-	  @commands << super(table,columns,not_null,&block)
-	  return @commands.last
-	end
-
-	def insert(table=nil,opts={:fields => nil, :values => nil, :from => nil},&block)
-	  @commands << super(table,opts,&block)
-	  return @commands.last
-	end
-
-	def select(tables=nil,opts={:fields => [], :from => nil, :where => nil},&block)
-	  @commands << super(table,opts,&block)
-	  return @commands.last
-	end
-
-	def update(table=nil,set_data={},where_expr=nil,&block)
-	  @commands << super(table,set_data,where_expr,&block)
-	  return @commands.last
-	end
-
-	def delete(table=nil,where_expr=nil,&block)
-	  @commands << super(table,where_expr,&block)
-	  return @commands.last
-	end
-
-	def drop_table(table=nil,&block)
-	  @commands << super(table,&block)
-	  return @commands.last
-	end
-
-	def compile(multiline=false)
-	  sub_compile = lambda {
-	    @commands.map do |cmd|
-	      if cmd.kind_of?(Command)
-		cmd.compile(@dialect,multiline)
-	      else
-		cmd.to_s
-	      end
+	      instance_eval(&block) if block
+	      return self
 	    end
-	  }
+	  end_eval
 
-	  if multiline
-	    return sub_compile.call.join("\n")
+	  if value
+	    class_eval <<-end_eval
+	      protected
+
+	      def #{id}?
+	        compile_keyword('#{value}') if @#{id}
+	      end
+	    end_eval
 	  else
-	    return sub_compile.call.join('; ')
+	    class_eval <<-end_eval
+	      protected
+
+	      def #{id}?
+	        @#{id}
+	      end
+	    end_eval
 	  end
 	end
 
-	def Statement.compile(multiline=false,&block)
-	  Statement.new(&block).compile(multiline)
+	def Statement.option_list(id,values=[])
+	  values.each do |opt|
+	    class_eval <<-end_eval
+	      def #{opt}(&block)
+	        @#{id} = '#{opt.to_s.upcase}'
+
+	        instance_eval(&block) if block
+	        return self
+	      end
+	    end_eval
+	  end
+
+	  class_eval <<-end_eval
+	    def #{id}?
+	      compile_keyword(@#{id})
+	    end
+	  end_eval
 	end
 
-	def to_s
-	  compile
+	def Statement.field(id,name=id.to_s)
+	  class_eval <<-end_eval
+	    def #{id}
+	      @#{id} ||= Field.new(@style,'#{name}')
+	    end
+	  end_eval
+	end
+
+	field :id
+	field :everything, '*'
+
+	def and?(*expr)
+	  if expr.length==1
+	    return expr[0]
+	  else
+	    return expr.shift.and?(and?(*expr))
+	  end
+	end
+
+	def or?(*expr)
+	  if expr.length==1
+	    return expr[0]
+	  else
+	    return expr.shift.or?(or?(*expr))
+	  end
+	end
+
+	def method_missing(sym,*args)
+	  return @style.express(sym,*args) if @style.expresses?(sym)
+	  return @field_cache[sym] if args.length==0
+
+	  raise NoMethodError, sym.id2name, caller
 	end
 
       end

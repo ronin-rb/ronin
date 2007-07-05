@@ -36,28 +36,35 @@ module Ronin
 
 	def table(value)
 	  @table = value
+	  return self
 	end
 
 	def set(data)
 	  @set_data = data
+	  return self
 	end
 
 	def where(expr)
 	  @where_expr = expr
+	  return self
 	end
 
 	def compile
-	  set_values = "SET "+@set_data.map { |name,value|
+	  set_values = "#{keyword_set} "+@set_data.map { |name,value|
 	    "#{name} = #{quote_string(value)}"
 	  }.join(', ')
 
-	  return compile_expr('UPDATE',@table,set_values,where?)
+	  return compile_expr(keyword_update,@table,set_values,where?)
 	end
 
 	protected
 
+	keyword :update
+	keyword :where
+	keyword :set
+
 	def where?
-	  "WHERE #{@where_expr}" if @where_expr
+	  compile_expr(keyword_where,@where_expr) if @where_expr
 	end
 
       end

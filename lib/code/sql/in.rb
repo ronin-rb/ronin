@@ -26,14 +26,20 @@ module Ronin
     module SQL
       class In < Expr
 
-	def initialize(field,*range)
+	def initialize(style,field,*range)
+	  super(style)
+
 	  @field = field
 	  @range = range
 	end
 
 	def compile
-	  return compile_expr(@field,'IN',compile_datalist(@range))
+	  compile_expr(@field,keyword_in,compile_datalist(@range))
 	end
+
+	protected
+
+	keyword :in
 
       end
     end

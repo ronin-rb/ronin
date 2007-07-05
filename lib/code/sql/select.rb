@@ -28,10 +28,9 @@ module Ronin
 
 	option_list :rows, [:all, :distinct]
 
-	def initialize(style,tables=nil,opts={:fields => [], :from => nil, :where => nil},&block)
-	  @tables = tables
-	  @fields = opts[:fields]
-	  @from = opts[:from]
+	def initialize(style,table=nil,opts={:fields => nil, :where => nil},&block)
+	  @fields = opts[:fields] || everything
+	  @table = table
 	  @where = opts[:where]
 
 	  super(style,&block)
@@ -39,26 +38,42 @@ module Ronin
 
 	def fields(*exprs)
 	  @fields = exprs
+	  return self
 	end
 
-	def from(*tables)
-	  @tables = tables
+	def tables(expr)
+	  @table = expr
+	  return self
 	end
 
 	def where(expr)
 	  @where = expr
+	  return self
 	end
 
 	def order_by(*exprs)
 	  @order_by = exprs
+	  return self
 	end
 
-	def union(expr)
-	  @union = expr
+	def group_by(*fields)
+	  @group_by = fields
+	  return self
 	end
 
-	def union_all(expr)
-	  @union_all = expr
+	def having(expr)
+	  @having = expr
+	  return self
+	end
+
+	def union(table,opts={:fields => [], :where => nil},&block)
+	  @union = Select.new(@style,table,opts,&block)
+	  return self
+	end
+
+	def union_all(table,opts={:fields => [], :where => nil},&block)
+	  @union_all = Select.new(@style,table,opts,&block)
+	  return self
 	end
 
 	def join(table,on_expr)
@@ -86,17 +101,26 @@ module Ronin
 	end
 
 	def compile
-	  compile_expr('SELECT',rows?,fields?,'FROM',compile_list(@tables),where?,unioned?)
+	  compile_expr(keyword_select,fields?,keyword_from,compile_list(@tables),where?,order_by?,group_by?,unioned?)
 	end
 
 	protected
 
+	keyword :select
+	keyword :from
+	keyword :where
+	keyword :union
+	keyword :union_all
+	keyword :order_by, 'ORDER BY'
+	keyword :group_by, 'GROUP BY'
+	keyword :having
+
 	def fields?
 	  if @fields.kind_of?(Array)
 	    unless @fields.empty?
-	      return compile_group(@fields)
+	      return compile_row(@fields)
 	    else
-	      return '*'
+	      return everything.to_s
 	    end
 	  else
 	    return @fields.to_s
@@ -104,14 +128,26 @@ module Ronin
 	end
 
 	def where?
-	  return "WHERE #{@where}" if @where
+	  compile_expr(keyword_where,@where) if @where
+	end
+
+	def order_by?
+	  compile_expr(keyword_order_by,@order_by) if @order_by
+	end
+
+	def having?
+	  compile_expr(keyword_having,@having) if @having
+	end
+
+	def group_by?
+	  compile_expr(keyword_group_by,compile_row(@group_by),having?) if @group_by
 	end
 
 	def unioned?
 	  if @union_all
-	    return "UNION ALL #{@union_all}"
+	    return compile_expr(keyword_union_all,@union_all)
 	  elsif @union
-	    return "UNION #{@union}"
+	    return compile_expr(keyword_union,@union)
 	  end
 	end
 

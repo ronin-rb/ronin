@@ -27,7 +27,7 @@ module Ronin
       class Delete < Statement
 
 	def initialize(style,table=nil,where_expr=nil,&block)
-	  @table = table
+	  @table = table || everything
 	  @where = where_expr
 
 	  super(style,&block)
@@ -35,20 +35,25 @@ module Ronin
 
 	def from(table)
 	  @table = table
+	  return self
 	end
 
 	def where(expr)
 	  @where = expr
+	  return self
 	end
 
 	def compile
-	  compile_expr('DELETE FROM',@table,where?)
+	  compile_expr(keyword_delete,@table,where?)
 	end
 
 	protected
 
+	keyword :delete, 'DELETE FROM'
+	keyword :where
+
 	def where?
-	  return "WHERE #{@where}" if @where
+	  compile_expr(keyword_where,@where) if @where
 	end
 
       end
