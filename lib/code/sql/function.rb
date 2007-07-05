@@ -24,10 +24,10 @@ require 'code/sql/expr'
 module Ronin
   module Code
     module SQL
-      class Aggregate < Expr
+      class Function < Expr
 
 	def initialize(style,func,*fields)
-	  super()
+	  super(style)
 
 	  @style = style
 	  @func = func
@@ -35,17 +35,13 @@ module Ronin
 	end
 
 	def compile
-	  compile_expr(negated?,"#{@func.to_s.upcase}(#{fields?})")
+	  compile_expr(compile_keyword(@func),"(#{fields?})")
 	end
 
 	protected
 
 	def fields?
-	  unless @fields.empty?
-	    return compile_list(@fields)
-	  else
-	    return "*"
-	  end
+	  return compile_list(@fields) unless @fields.empty?
 	end
 
       end
