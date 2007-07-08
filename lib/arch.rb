@@ -67,9 +67,11 @@ module Ronin
 
     def method_missing(sym,*args)
       name = sym.id2name
-      return Arch.archs[name] if Arch.archs.has_key?(name)
+      if (Arch.archs.has_key?(name) && args.length==0)
+        return Arch.archs[name]
+      end
 
-      raise NoMethodError, name
+      raise NoMethodError, name, caller
     end
 
   end
