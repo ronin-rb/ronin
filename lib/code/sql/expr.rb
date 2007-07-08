@@ -19,6 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'code/sql/keyword'
+
 module Ronin
   module Code
     module SQL
@@ -58,13 +60,21 @@ module Ronin
 
 	protected
 
+	def keyword(value)
+	  keyword_cache[value.intern]
+	end
+
+	def keywords(*values)
+	  values.map { |value| keyword(value) }
+	end
+
 	def Expr.keyword(id,value=id.to_s.upcase)
 	  id = id.to_s.downcase
 	  class_eval <<-end_eval
 	    protected
 
 	    def keyword_#{id}
-	      compile_keyword('#{value}')
+	      keyword('#{value}')
 	    end
 	  end_eval
 	end
@@ -79,9 +89,6 @@ module Ronin
 	  end
 	end
 
-	binary_op 'OR', :or!
-	binary_op 'AND', :and!
-	binary_op 'XOR', :xor!
 	binary_op '=', '==', :equals?
 	binary_op '!=', :not_equals?
 	binary_op '<>', '<=>', :different?
@@ -134,8 +141,24 @@ module Ronin
 	  @style.lowercase
 	end
 
-	def parenthesis?
-	  @style.parenthesis
+	def less_parenthesis?
+	  @style.less_parenthesis
+	end
+
+	def compile_space
+	  @style.compile_space
+	end
+
+	def preappend_space(str)
+	  @style.preappend_space(str)
+	end
+
+	def append_space(str)
+	  @style.append_space(str)
+	end
+
+	def compile_newline
+	  @style.compile_newline
 	end
 
 	def quote_string(data)
@@ -144,10 +167,6 @@ module Ronin
 
 	def compile_keyword(name)
 	  @style.compile_keyword(name)
-	end
-
-	def compile_keywords(*names)
-	  names.flatten.map { |str| compile_keyword(str) }
 	end
 
 	def compile_list(*expr)
@@ -168,6 +187,16 @@ module Ronin
 
 	def compile_expr(*expr)
 	  @style.compile_expr(*expr)
+	end
+
+	def compile_lines(lines,separator=compile_newline)
+	  @style.compile_lines(lines,separator)
+	end
+
+	private
+
+	def keyword_cache
+	  @keyword_cache ||= Hash.new { |hash,key| hash[key] = Keyword.new(@style,key) }
 	end
 
       end

@@ -113,7 +113,7 @@ module Ronin
 	  exprs = exprs.flatten
 
 	  unless @less_parenthesis
-	    return exprs.compact.join(",#{compile_space}")
+	    return exprs.compact.join(append_space(','))
 	  else
 	    return exprs.compact.join(',')
 	  end
