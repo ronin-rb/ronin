@@ -80,7 +80,7 @@ module Ronin
 	  load_context_blocks(path)
 
 	  # evaluate the context block if present
-	  instance_eval(get_context_block)
+	  instance_eval(&get_context_block)
 	end
 
 	# return the newly imported context

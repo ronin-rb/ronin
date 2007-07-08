@@ -22,7 +22,7 @@
 require 'repo/context'
 require 'repo/objectwrapper'
 require 'repo/author'
-require 'repo/objectcache'
+#require 'repo/objectcache'
 require 'repo/exceptions/objectnotfound'
 
 module Ronin
