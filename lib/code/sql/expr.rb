@@ -61,7 +61,7 @@ module Ronin
 	protected
 
 	def keyword(value)
-	  keyword_cache[value.intern]
+	  keyword_cache[value.to_sym]
 	end
 
 	def keywords(*values)
