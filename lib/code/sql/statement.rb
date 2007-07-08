@@ -25,7 +25,7 @@ require 'code/sql/binaryexpr'
 require 'code/sql/unaryexpr'
 require 'code/sql/likeexpr'
 require 'code/sql/in'
-require 'code/sql/aggregate'
+require 'code/sql/function'
 
 module Ronin
   module Code
@@ -34,9 +34,6 @@ module Ronin
 
 	def initialize(style,&block)
 	  super(style)
-
-	  @style = style
-	  @field_cache = Hash.new { |hash,key| hash[key] = Field.new(@style,key) }
 
 	  instance_eval(&block) if block
 	end
@@ -58,7 +55,7 @@ module Ronin
 	      protected
 
 	      def #{id}?
-	        compile_keyword('#{value}') if @#{id}
+	        keyword('#{value}') if @#{id}
 	      end
 	    end_eval
 	  else
@@ -86,43 +83,61 @@ module Ronin
 
 	  class_eval <<-end_eval
 	    def #{id}?
-	      compile_keyword(@#{id})
+	      keyword(@#{id}) if @#{id}
 	    end
 	  end_eval
 	end
 
-	def Statement.field(id,name=id.to_s)
-	  class_eval <<-end_eval
-	    def #{id}
-	      @#{id} ||= Field.new(@style,'#{name}')
-	    end
-	  end_eval
+	def all_fields
+	  field_cache[:"*"]
 	end
 
-	field :id
-	field :everything, '*'
+	def id
+	  field_cache[:id]
+	end
 
-	def and?(*expr)
-	  if expr.length==1
-	    return expr[0]
+	def or!(*expr)
+	  if expr.length==2
+	    return BinaryExpr.new(@style,'OR',expr[0],expr[1])
 	  else
-	    return expr.shift.and?(and?(*expr))
+	    return BinaryExpr.new(@style,'OR',expr.shift,or!(*expr))
 	  end
 	end
 
-	def or?(*expr)
-	  if expr.length==1
-	    return expr[0]
+	def and!(*expr)
+	  if expr.length==2
+	    return BinaryExpr.new(@style,'AND',expr[0],expr[1])
 	  else
-	    return expr.shift.or?(or?(*expr))
+	    return BinaryExpr.new(@style,'AND',expr.shift,and!(*expr))
+	  end
+	end
+
+	def xor!(*expr)
+	  if expr.length==2
+	    return BinaryExpr.new(@style,'XOR',expr[0],expr[1])
+	  else
+	    return BinaryExpr.new(@style,'XOR',expr.shift,xor!(*expr))
 	  end
 	end
 
 	def method_missing(sym,*args)
 	  return @style.express(sym,*args) if @style.expresses?(sym)
-	  return @field_cache[sym] if args.length==0
+
+	  if args.length
+	    # Return a function if there are arguments
+	    return Function.new(@style,sym,*args)
+	  else
+	    # Otherwise return a field
+	    return field_cache[sym]
+	  end
 
 	  raise NoMethodError, sym.id2name, caller
+	end
+
+	private
+
+	def field_cache
+	  @field_cache ||= Hash.new { |hash,key| hash[key] = Field.new(@style,key) }
 	end
 
       end
