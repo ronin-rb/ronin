@@ -57,8 +57,8 @@ module Ronin
 	  Insert.new(style,table,opts,&block)
 	end
 
-	def select_from(style,table=nil,opts={:fields => nil, :where => nil},&block)
-	  Select.new(style,table,opts,&block)
+	def select_from(style,tables=nil,opts={:fields => nil, :where => nil},&block)
+	  Select.new(style,tables,opts,&block)
 	end
 
 	def update(style,table=nil,set_data={},where_expr=nil,&block)
