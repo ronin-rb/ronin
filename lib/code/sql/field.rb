@@ -32,11 +32,14 @@ module Ronin
 
 	  @prefix = prefix
 	  @name = name
-	  @fields = Hash.new { |hash,key| hash[key] = Field.new(@style,key,self) }
+	end
+
+	def *
+	  field_cache[:"*"]
 	end
 
 	def id
-	  @fields[:id]
+	  field_cache[:id]
 	end
 
 	def between(start,stop)
@@ -59,10 +62,16 @@ module Ronin
 
 	def method_missing(sym,*args)
 	  if (args.length==0 && @prefix.nil?)
-	    return @fields[sym]
+	    return field_cache[sym]
 	  end
 
 	  raise NoMethodError, sym.id2name, caller
+	end
+
+	private
+
+	def field_cache
+	  @field_cache ||= Hash.new { |hash,key| hash[key] = Field.new(@style,key,self) }
 	end
 
       end
