@@ -88,6 +88,25 @@ module Ronin
 	end
       end
 
+      def commit
+	commit_cmd = lambda do |cmd,*args|
+	  unless system(cmd,*args)
+	    raise "failed to commit changes for repository '#{self}'", caller
+	  end
+	end
+
+	cache_categories do
+	  case @type
+	  when 'svn' then
+	    commit_cmd.call('svn','commit',@path.to_s)
+	  when 'cvs' then
+	    commit_cmd.call('cvs','commit',@path.to_s)
+	  when 'rsync' then
+	    commit_cmd.call('rsync','-av','--delete-after','--progress',@path.to_s,@src.to_s)
+	  end
+	end
+      end
+
       def to_s
 	@name
       end
