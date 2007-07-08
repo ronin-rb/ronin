@@ -19,48 +19,65 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'code/sql/builder'
+require 'code/sql/statement'
+require 'code/sql/style'
 
 module Ronin
   module Code
     module SQL
-      class Program
+      class Builder < Statement
 
 	# Style of the program
 	attr_reader :style
 
 	def initialize(cmds=[],style=Style.new,&block)
-	  @style = style
-	  @builder = Builder.new(cmds,style,&block)
+	  @commands = cmds.flatten
+
+	  super(style,&block)
 	end
 
 	def dialect(name)
 	  @style.set_dialect(name)
 	end
 
-	def compile
-	  @builder.to_s
+	def command(*cmds,&block)
+	  @commands+=cmds.flatten
+
+	  instance_eval(&block) if block
+	  return self
+	end
+
+	def <<(cmd)
+	  @commands << cmd
+	  return self
 	end
 
 	def to_s
-	  compile
+	  if @style.multiline
+	    return compile_lines(@commands)
+	  else
+	    return compile_lines(@commands,append_space(';'))
+	  end
 	end
 
-	def Program.compile(*cmds,&block)
-	  Program.new(cmds,&block).compile
+	def respond_to?(sym)
+	  return true if @style.expresses?(sym)
+	  return super(sym)
 	end
 
 	protected
 
 	def method_missing(sym,*args,&block)
-	  return @style.send(sym,*args,&block) if @style.respond_to?(sym)
-	  
-	  if @builder.respond_to?(sym)
-	    @builder.send(sym,*args,&block)
-	    return self
+	  name = sym.id2name
+
+	  if @style.expresses?(name)
+	    result = @style.express(name,*args,&block)
+
+	    @commands << result if result.kind_of?(Statement)
+	    return result
 	  end
 
-	  raise NoMethodError, sym.id2name, caller
+	  return super(sym,*args,&block)
 	end
 
       end
