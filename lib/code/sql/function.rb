@@ -35,7 +35,7 @@ module Ronin
 	end
 
 	def compile
-	  compile_expr(@func,"(#{fields?})")
+	  "#{@func}(#{fields?})"
 	end
 
 	protected
