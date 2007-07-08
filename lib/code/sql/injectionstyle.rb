@@ -42,15 +42,16 @@ module Ronin
 	def compile_keyword(name)
 	  name = name.to_s
 
-	  if (name.length && (@comment_evasion || @swapcase_evasion))
+	  if (!(name.empty?) && (@comment_evasion || @swapcase_evasion))
 
 	    if @swapcase_evasion
-	      for i in rand(name.length-1)
+	      (rand(name.length)+1).times do
+		i = rand(name.length-1).to_i
 		name[i] = name[i..i].swapcase
 	      end
 	    end
 
-	    if (name.length>1 && @command_evasion)
+	    if (name.length>1 && @comment_evasion)
 	      name = name.insert(rand(name.length-2)+1,'/**/')
 	    end
 
