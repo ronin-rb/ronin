@@ -28,9 +28,9 @@ module Ronin
 
 	option_list :rows, [:all, :distinct]
 
-	def initialize(style,table=nil,opts={:fields => nil, :where => nil},&block)
-	  @fields = opts[:fields] || everything
-	  @table = table
+	def initialize(style,tables=nil,opts={:fields => nil, :where => nil},&block)
+	  @fields = opts[:fields] || all_fields
+	  @tables = tables
 	  @where = opts[:where]
 
 	  super(style,&block)
@@ -101,7 +101,7 @@ module Ronin
 	end
 
 	def compile
-	  compile_expr(keyword_select,fields?,keyword_from,compile_list(@tables),where?,order_by?,group_by?,unioned?)
+	  compile_expr(keyword_select,rows?,fields?,keyword_from,compile_list(@tables),where?,order_by?,group_by?,unioned?)
 	end
 
 	protected
@@ -120,7 +120,7 @@ module Ronin
 	    unless @fields.empty?
 	      return compile_row(@fields)
 	    else
-	      return everything.to_s
+	      return all_fields.to_s
 	    end
 	  else
 	    return @fields.to_s
