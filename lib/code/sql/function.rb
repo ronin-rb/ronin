@@ -30,12 +30,12 @@ module Ronin
 	  super(style)
 
 	  @style = style
-	  @func = func
+	  @func = keyword(func)
 	  @fields = fields
 	end
 
 	def compile
-	  compile_expr(compile_keyword(@func),"(#{fields?})")
+	  compile_expr(@func,"(#{fields?})")
 	end
 
 	protected
