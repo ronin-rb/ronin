@@ -75,8 +75,10 @@ module Ronin
 	      def #{opt}(&block)
 	        @#{id} = '#{opt.to_s.upcase}'
 
-	        instance_eval(&block) if block
-	        return self
+	        if block
+	          instance_eval(&block)
+	          return self
+	        end
 	      end
 	    end_eval
 	  end
@@ -123,7 +125,7 @@ module Ronin
 	def method_missing(sym,*args)
 	  return @style.express(sym,*args) if @style.expresses?(sym)
 
-	  if args.length
+	  unless args.empty?
 	    # Return a function if there are arguments
 	    return Function.new(@style,sym,*args)
 	  else
