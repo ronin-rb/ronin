@@ -30,21 +30,21 @@ module Ronin
 	attr_accessor :comment_evasion
 
 	# Swapcase-Obfusciate all keywords
-	attr_accessor :swapcase_evasion
+	attr_accessor :case_evasion
 
 	def initialize(dialect=Dialect.new)
 	  super(dialect)
 
 	  @comment_evasion = false
-	  @swapcase_evasion = false
+	  @case_evasion = false
 	end
 
 	def compile_keyword(name)
 	  name = name.to_s
 
-	  if (!(name.empty?) && (@comment_evasion || @swapcase_evasion))
+	  if (!(name.empty?) && (@comment_evasion || @case_evasion))
 
-	    if @swapcase_evasion
+	    if @case_evasion
 	      (rand(name.length)+1).times do
 		i = rand(name.length-1).to_i
 		name[i] = name[i..i].swapcase
