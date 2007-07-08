@@ -44,7 +44,7 @@ module Ronin
       # Main action
       attr_action :main
 
-      def initialize(name,&block)
+      def initialize(name=context_id,&block)
 	@categories = {}
 
 	super(name)

@@ -31,11 +31,11 @@ module Ronin
 
       include ObjectWrapper
 
-      def initialize(name='')
-	super(name)
-
+      def initialize(name=context_id,&block)
 	@version = ''
 	@authors = {}
+
+	super(name,&block)
       end
 
       def ObjectContext.create(path,&block)
@@ -51,7 +51,37 @@ module Ronin
       end
 
       def ObjectContext.has_object_context?(name)
-	ObjectContext.object_contexts.has_key?(name.to_s)
+	ObjectContext.object_contexts.has_key?(name.to_sym)
+      end
+
+      def ObjectContext.create_object(type,name=type,&block)
+	type = type.to_sym
+	name = name.to_s
+
+	unless ObjectContext.has_object_context?(type)
+	  raise ObjectNotFound, "unknown object context '#{type}'", caller
+	end
+
+	return ObjectContext.object_contexts[type].new(name,&block)
+      end
+
+      def ObjectContext.load_object(path,&block)
+	path = File.expand_path(path)
+
+	unless File.file?(path)
+	  raise ObjectNotFound, "object context '#{path}' does not exist", caller
+	end
+
+	load_context_blocks(path)
+	type = ronin_contexts.keys[0]
+	obj_block = ronin_contexts.values[0]
+
+	new_obj = ObjectContext.create_object(type,File.basename(path,'.rb'),&obj_block)
+	new_obj.path = path
+	new_obj.paths << File.dirname(path)
+
+	block.call(new_obj) if block
+	return new_obj
       end
 
       def ObjectContext.metatypes
@@ -72,11 +102,11 @@ module Ronin
       def ObjectContext.object_context(id)
 	context id
 
-	ObjectContext.object_contexts[id.to_s] = self
+	ObjectContext.object_contexts[id.to_sym] = self
       end
 
       def ObjectContext.metadata(id,cls=String)
-	ObjectContext.metatypes[self.context_id][id.to_s] = cls
+	ObjectContext.metatypes[self.context_id][id.to_sym] = cls
       end
 
       # Object context id of the object
@@ -99,57 +129,6 @@ module Ronin
 	Object.new
       end
 
-    end
-
-    def Repo.ronin_load_object(type,path,&block)
-      type = type.to_s
-
-      unless ObjectContext.has_object_context?(type)
-	raise ObjectNotFound, "object context type '#{type}' is unknown", caller
-      end
-
-      unless File.file?(path)
-	raise ObjectNotFound, "object context '#{path}' does not exist", caller
-      end
-
-      return ObjectContext.object_contexts[type].create(path,&block)
-    end
-
-    def Repo.ronin_load_objects(path,&block)
-      unless File.file?(path)
-	raise ObjectNotFound, "object context '#{path}' does not exist", caller
-      end
-
-      # load object context file
-      load(path)
-
-      name = File.basename(path,'.rb')
-      objects = []
-
-      # copy contexts hash and clear it
-      new_contexts = ronin_contexts.clone
-      ronin_contexts.clear
-
-      new_contexts.each do |type,blocks|
-	unless ObjectContext.has_object_context?(type)
-	  raise ObjectNotFound, "object context '#{type}' is unknown", caller
-	end
-
-	# create new object context
-	new_obj = ObjectContext.object_contexts[type].new(name)
-
-	# add the initial path
-	new_obj.paths << File.dirname(path)
-
-	# evaulate context blocks
-	blocks.each { |context_block| new_obj.instance_eval(&context_block) }
-
-	block.call(new_obj) if block
-
-	objects << new_obj
-      end
-
-      return objects
     end
   end
 end

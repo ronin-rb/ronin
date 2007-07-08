@@ -31,10 +31,10 @@ module Ronin
       attr_reader :name
 
       # Path of context
-      attr_reader :path
+      attr_accessor :path
 
       # Working directories of the context
-      attr_reader :paths
+      attr_accessor :paths
 
       # Context actions
       attr_reader :actions
@@ -42,12 +42,14 @@ module Ronin
       # Sub-contexts inherited by the context
       attr_reader :contexts
 
-      def initialize(name)
-	@name = name
+      def initialize(name=context_id,&block)
+	@name = name.to_s
 	@path = nil
 	@paths = []
 	@actions = {}
 	@contexts = []
+
+	instance_eval(&block) if block
       end
 
       def Context.create(path,&block)
@@ -75,10 +77,10 @@ module Ronin
 	@paths << wd unless @paths.include?(wd)
 
 	if File.file?(path)
-	  load(path)
+	  load_context_blocks(path)
 
 	  # evaluate the context block if present
-	  get_context_block.each { |block| instance_eval(&block) }
+	  instance_eval(get_context_block)
 	end
 
 	# return the newly imported context
@@ -104,11 +106,11 @@ module Ronin
       end
 
       def action(name,&block)
-	@actions[name.to_s] = block
+	@actions[name.to_sym] = block
       end
 
       def has_action?(name)
-	name = name.to_s
+	name = name.to_sym
 
 	return true if @actions.has_key?(name)
 
@@ -119,7 +121,7 @@ module Ronin
       end
 
       def get_action(name)
-	name = name.to_s
+	name = name.to_sym
 
 	return @actions[name] if @actions.has_key?(name)
 
@@ -287,8 +289,13 @@ module Ronin
 
 	# define kernel-level context method
 	Kernel::module_eval <<-"end_eval"
-	  def ronin_#{id}(&block)
-	    ronin_contexts['#{id}'] << block
+	  def ronin_#{id}(name='#{id}',&block)
+	    if ronin_context_pending?
+	      ronin_contexts['#{id}'] = block
+	      return nil
+	    else
+	      return #{self}.new(name,&block)
+	    end
 	  end
 	end_eval
 
@@ -326,6 +333,33 @@ module Ronin
       # Teardown action
       attr_action :teardown
 
+      def load_context_blocks(path)
+	unless File.file?(path)
+	  raise ContextNotFound, "context '#{path}' does not exist", caller
+	end
+
+	# push on the path to load
+	ronin_pending_contexts.unshift(path)
+
+	load(path)
+
+	# pop off the path to load
+	ronin_pending_contexts.shift
+
+	# return the loaded contexts
+	return ronin_contexts
+      end
+
+      def has_context_block?
+	ronin_contexts.has_key?(context_id)
+      end
+
+      def get_context_block
+	block = ronin_contexts[context_id]
+	ronin_contexts.clear
+	return block
+      end
+
       def method_missing(sym,*args)
 	name = sym.id2name
 
@@ -335,21 +369,6 @@ module Ronin
 	raise NoMethodError.new(name)
       end
 
-      private
-
-      def has_context_block?
-	return false unless ronin_contexts.has_key?(context_id)
-	return !(ronin_contexts[context_id].empty?)
-      end
-
-      def get_context_block
-	blocks = ronin_contexts[context_id]
-
-	ronin_contexts.delete_if { |key,value| key==context_id }
-	return blocks
-      end
-
     end
-
   end
 end
