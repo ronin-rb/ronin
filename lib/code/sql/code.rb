@@ -28,7 +28,7 @@ module Ronin
       SQL::Program.new(cmds,&block)
     end
 
-    def Code.sql_inject(*expr,&block)
+    def Code.sql_injection(*expr,&block)
       SQL::Injection.new(expr,&block)
     end
   end
