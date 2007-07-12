@@ -45,7 +45,7 @@ module Ronin
 	  return self
 	end
 
-	def escape_string(var)
+	def escape_string(var=nil)
 	  @escape = "#{var}'"
 	  @escape_string = true
 	  return self
