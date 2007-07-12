@@ -25,7 +25,7 @@ require 'net/http'
 module Ronin
   module Audit
     module Web
-      class SQLInjectionParameter
+      class SQLInjectionParam
 
 	# Name of parameter
 	attr_reader :name
@@ -42,7 +42,7 @@ module Ronin
 	  @injection = injection
 	end
 
-	def inject(expr=@injection)
+	def inject(expr)
 	  if expr
 	    return "#{@name}=#{expr}"
 	  else
@@ -74,7 +74,7 @@ module Ronin
 	attr_accessor :platform
 
 	def initialize(url,params={},&block)
-	  @params = Hash.new { |hash,key| hash[key.to_s] = SQLInjectionParameter.new(key) }
+	  @params = Hash.new { |hash,key| hash[key.to_s] = SQLInjectionParam.new(key) }
 
 	  # parse in params from the given URL
 	  url = url.to_s
@@ -160,7 +160,7 @@ module Ronin
 	  end
 	end
 
-	def audit
+	def perform
 	  injectable = []
 
 	  audit_param = lambda { |param|
@@ -236,29 +236,9 @@ module Ronin
 	protected
 
 	def parse_url(url)
-	  index = url.index('?')
-	  if index
-	    @url = url[0,index]
-	  else
-	    @url = url
-	  end
 	end
 
 	def parse_url_params(url)
-	  index = url.index('?')
-	  return unless index
-
-	  url[index+1,url.length].split('&').each do |param|
-	    sub_index = param.index('=')
-
-	    if sub_index
-	      name = param[0,sub_index]
-
-	      @params[name].value = param[sub_index+1,param.length]
-	    else
-	      @params[param].value = nil
-	    end
-	  end
 	end
 
       end
