@@ -35,4 +35,16 @@ module Kernel
     $ronin_context_block ||= {}
   end
 
+  def ronin_pending_objects
+    $ronin_pending_objects ||= []
+  end
+
+  def ronin_object_pending?
+    !(ronin_pending_objects.empty?)
+  end
+
+  def ronin_objects
+    $ronin_object_block ||= {}
+  end
+
 end
