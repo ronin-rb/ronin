@@ -36,9 +36,6 @@ module Ronin
       # Working directories of the context
       attr_accessor :paths
 
-      # Context actions
-      attr_reader :actions
-
       # Sub-contexts inherited by the context
       attr_reader :contexts
 
@@ -56,17 +53,17 @@ module Ronin
 	path = File.expand_path(path)
 
 	new_context = self.new(File.basename(path,'.rb'))
-	new_context.union!(path)
+	new_context.merge!(path)
 
 	block.call(new_context) if block
 	return new_context
       end
 
-      def union(path)
-	self.clone.union!(path)
+      def merge(path)
+	self.clone.merge!(path)
       end
 
-      def union!(path)
+      def merge!(path)
 	path = File.expand_path(path)
 
 	# set the initial path of the context
@@ -76,12 +73,7 @@ module Ronin
 	wd = File.dirname(path)
 	@paths << wd unless @paths.include?(wd)
 
-	if File.file?(path)
-	  load_context_blocks(path)
-
-	  # evaluate the context block if present
-	  instance_eval(&get_context_block)
-	end
+	load_context(path) if File.file?(path)
 
 	# return the newly imported context
 	return self
@@ -107,6 +99,10 @@ module Ronin
 
       def action(name,&block)
 	@actions[name.to_sym] = block
+      end
+
+      def actions
+	@actions.keys
       end
 
       def has_action?(name)
@@ -277,21 +273,21 @@ module Ronin
 
       def Context.context(id)
 	# define context_type
-	class_eval <<-"end_eval"
+	class_eval <<-end_eval
 	  def Context.context_id
-	    '#{id}'
+	    :#{id}
 	  end
 
 	  def context_id
-	    '#{id}'
+	    Context.context_id
 	  end
 	end_eval
 
 	# define kernel-level context method
-	Kernel::module_eval <<-"end_eval"
+	Kernel.module_eval <<-end_eval
 	  def ronin_#{id}(name='#{id}',&block)
 	    if ronin_context_pending?
-	      ronin_contexts['#{id}'] = block
+	      ronin_contexts[:#{id}] = block
 	      return nil
 	    else
 	      return #{self}.new(name,&block)
@@ -299,7 +295,7 @@ module Ronin
 	  end
 	end_eval
 
-	Ronin::module_eval <<-"end_eval"
+	Ronin.module_eval <<-end_eval
 	  def ronin_load_#{id}(path,&block)
 	    obj = #{self.name}.create(path)
 	    if block
@@ -333,7 +329,7 @@ module Ronin
       # Teardown action
       attr_action :teardown
 
-      def load_context_blocks(path)
+      def load_contexts(path)
 	unless File.file?(path)
 	  raise ContextNotFound, "context '#{path}' does not exist", caller
 	end
@@ -350,14 +346,12 @@ module Ronin
 	return ronin_contexts
       end
 
-      def has_context_block?
-	ronin_contexts.has_key?(context_id)
-      end
-
-      def get_context_block
-	block = ronin_contexts[context_id]
+      def load_context(path)
+	block = load_contexts(path)[context_id]
 	ronin_contexts.clear
-	return block
+
+	instance_eval(&block) if block
+	return self
       end
 
       def method_missing(sym,*args)
