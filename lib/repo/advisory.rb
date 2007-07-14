@@ -23,49 +23,37 @@ require 'advisory'
 require 'repo/object'
 
 module Ronin
-  module Repo
-    class AdvisoryContext < ObjectContext
+  class Advisory
 
-      # Name of object to load
-      object_context :advisory
+    # Name of object to load
+    object_context :advisory
 
-      # Vulnerability classification.
-      metadata :classification
+    # Vulnerability classification.
+    property :classification, String
 
-      # CVE
-      metadata :cve
+    # CVE
+    property :cve, String
 
-      # Remote?
-      metadata :remote
+    # Remote?
+    property :remote, Integer
 
-      # Local?
-      metadata :local
+    # Local?
+    property :local, Integer
 
-      # Date published
-      metadata :published
+    # Date published
+    property :published, Date
 
-      # Date updated
-      metadata :updated
+    # Date updated
+    property :updated, Date
 
-      # Discovery credit
-      metadata :credits
+    # Comments on the vulnerability.
+    property :comments, String
 
-      # Vulnerable products
-      metadata :products, Hash
+    # Discovery credit
+    has_many :credits, String
 
-      # Comments on the vulnerability.
-      metadata :comments
+    # Vulnerable products
+    has_many :products, Product
 
-      def initialize(name='')
-	super(name)
-      end
-
-      protected
-
-      def encapsulate
-	Advisory.new
-      end
-
-    end
   end
 end

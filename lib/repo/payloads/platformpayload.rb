@@ -20,23 +20,16 @@
 #
 
 require 'payloads/platformpayload'
+require 'repo/platform'
 require 'repo/payloads/payload'
 
 module Ronin
-  module Repo
-    class PlatformPayloadContext < PayloadContext
+  class PlatformPayload
 
-      # Name of object to load
-      object_context :platformpayload
+    # Name of object to load
+    object_context :platformpayload
 
-      def initialize(name='')
-	super(name)
-      end
+    property :platform, Platform
 
-      def encapsulate
-	PlatformPayload.new
-      end
-
-    end
   end
 end

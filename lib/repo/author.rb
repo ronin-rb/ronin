@@ -20,29 +20,21 @@
 #
 
 require 'author'
-require 'repo/objectwrapper'
 
 module Ronin
-  module Repo
-    class AuthorContext
+  class Author
 
-      include ObjectWrapper
+    property :name, String
 
-      # Name of author
-      attr_reader :name
+    property :address, String
 
-      def initialize(name,&block)
-	@name = name.to_s
+    property :phone, String
 
-	instance_eval(&block) if block
-      end
+    property :email, String
 
-      protected
+    property :site, String
 
-      def encapsulate
-	Author.new(@name)
-      end
+    property :biography, String
 
-    end
   end
 end

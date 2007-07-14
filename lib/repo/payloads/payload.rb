@@ -23,20 +23,16 @@ require 'payloads/payload'
 require 'repo/object'
 
 module Ronin
-  module Repo
-    class PayloadContext < ObjectContext
+  class Payload
 
-      # Name of object to load
-      object_context :payload
+    # Name of object to load
+    object_context :payload
 
-      def initialize(name='')
-	super(name)
-      end
+    property :name, String
 
-      def encapsulate
-	Payload.new
-      end
+    property :version, String
 
-    end
+    has_many :authors, Author
+
   end
 end
