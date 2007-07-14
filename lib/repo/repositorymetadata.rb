@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'author'
 require 'rexml/document'
 require 'open-uri'
 require 'uri'
