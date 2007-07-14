@@ -20,6 +20,7 @@
 #
 
 require 'payloads/payload'
+require 'platform'
 
 module Ronin
   module Payloads
