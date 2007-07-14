@@ -22,13 +22,8 @@
 require 'repo/context'
 require 'repo/exceptions/categorynotfound'
 require 'repo/object'
-require 'repo/exploits/exploit'
-require 'repo/exploits/platformexploit'
-require 'repo/exploits/bufferoverflow'
-require 'repo/exploits/formatstring'
-require 'repo/exploits/webexploit'
-require 'repo/payloads/payload'
-require 'repo/payloads/platformpayload'
+require 'repo/exploits'
+require 'repo/payloads'
 require 'repo/cache'
 
 module Ronin
@@ -47,17 +42,22 @@ module Ronin
       def initialize(name=context_id,&block)
 	@categories = {}
 
-	super(name)
+	super(name,&block)
+      end
 
-	# union all similar categories together
+      def Category.create(name,&block)
+	new_category = Category.new(name)
+
+	# merge all similar categories together
 	Repo.cache.categories[name].each_value do |repository|
 	  category_dir = File.join(repository.path,name)
 	  if File.directory?(category_dir)
-	    union!(File.join(category_dir,'category.rb'))
+	    new_category.merge!(File.join(category_dir,'category.rb'))
 	  end
 	end
 
-	block.call(self) if block
+	block.call(new_category) if block
+	return new_category
       end
 
       def depend(name)
