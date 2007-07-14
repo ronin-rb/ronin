@@ -43,7 +43,7 @@ module Ronin
     # Author's biography
     attr_reader :biography
 
-    def initialize(name,biography='',contact={})
+    def initialize(name,biography='',contact={:address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil})
       @name = name
       @address = contact[:address]
       @phone = contact[:phone]
