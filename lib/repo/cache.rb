@@ -36,7 +36,7 @@ module Ronin
     # Ronin gem directory
     RONIN_GEM_PATH = File.join(RONIN_HOME_PATH,'gems')
 
-    def Repo.load_cache(path=Cache::CONFIG_PATH)
+    def Repo.load_cache(path=Cache::CACHE_PATH)
       Cache.new(path)
     end
 
@@ -49,7 +49,7 @@ module Ronin
       include YAML
 
       # Path to cache file
-      CONFIG_PATH = File.join(RONIN_HOME_PATH,'cache')
+      CACHE_PATH = File.join(RONIN_HOME_PATH,'cache.yml')
 
       # Path to repositories dir
       REPOS_PATH = File.join(RONIN_HOME_PATH,'repos')
@@ -67,7 +67,7 @@ module Ronin
       # Global cache variable
       @@current_cache = nil
 
-      def initialize(path=CONFIG_PATH)
+      def initialize(path=CACHE_PATH)
 	@path = path
         @repositories = {}
 	@categories = Hash.new { |hash,key| hash[key] = {} }
@@ -76,8 +76,12 @@ module Ronin
 
 	if File.file?(@path)
 	  File.open(@path) do |file|
-	    YAML.load(file).each do |repo_path|
-	      register_repository(Repository.new(repo_path))
+	    paths = YAML.load(file)
+
+	    if paths.kind_of?(Array)
+	      paths.each do |repo_path|
+		register_repository(Repository.new(repo_path))
+	      end
 	    end
 	  end
 	end
@@ -156,26 +160,16 @@ module Ronin
 	@repositories.each_value { |repo| repo.update }
       end
 
-      def dump(cache_path=@path)
+      def save(cache_path=@path)
 	unless File.exists?(cache_path)
 	  FileUtils.mkdir_p(File.dirname(cache_path))
 	end
 
 	File.open(cache_path,'w') do |file|
-	  YAML.dump(self,file)
+	  YAML.dump(@repositories.values.map { |repo| repo.path }, file)
 	end
 
 	return self
-      end
-
-      def to_yaml(opts={})
-	YAML.quick_emit(self.object_id,opts) do |out|
-	  out.seq('ronin.sourceforge.net',to_yaml_style) do |seq|
-	    @repositories.each_value do |repo|
-	      seq.add(repo.path)
-	    end
-	  end
-	end
       end
 
       def to_s
