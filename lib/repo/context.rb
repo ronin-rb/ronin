@@ -19,13 +19,14 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/extensions/kernel'
-require 'repo/exceptions/contextnotfound'
+require 'repo/contextable'
 require 'repo/exceptions/actionnotfound'
 
 module Ronin
   module Repo
     class Context
+
+      include Contextable
 
       # Name of context
       attr_reader :name
@@ -39,7 +40,7 @@ module Ronin
       # Sub-contexts inherited by the context
       attr_reader :contexts
 
-      def initialize(name=context_id,&block)
+      def initialize(name=context_name,&block)
 	@name = name.to_s
 	@path = nil
 	@paths = []
@@ -86,7 +87,7 @@ module Ronin
 	  return new_context
 	end
 
-	raise ContextNotFound, "context '#{path}' does not exist", caller
+	raise ContextNotFound, "context '#{path}' not found", caller
       end
 
       def dist(&block)
@@ -271,17 +272,8 @@ module Ronin
 
       protected
 
-      def Context.context(id)
-	# define context_type
-	class_eval <<-end_eval
-	  def Context.context_id
-	    :#{id}
-	  end
-
-	  def context_id
-	    Context.context_id
-	  end
-	end_eval
+      def Object.context(id)
+	define_context(id)
 
 	# define kernel-level context method
 	Kernel.module_eval <<-end_eval
@@ -310,6 +302,9 @@ module Ronin
 	end_eval
       end
 
+      # Name of context to load
+      context :context
+
       def Context.attr_action(*ids)
 	for id in ids
 	  class_eval <<-"end_eval"
@@ -320,39 +315,11 @@ module Ronin
 	end
       end
 
-      # Name of context to load
-      context :context
-
       # Setup action
       attr_action :setup
       
       # Teardown action
       attr_action :teardown
-
-      def load_contexts(path)
-	unless File.file?(path)
-	  raise ContextNotFound, "context '#{path}' does not exist", caller
-	end
-
-	# push on the path to load
-	ronin_pending_contexts.unshift(path)
-
-	load(path)
-
-	# pop off the path to load
-	ronin_pending_contexts.shift
-
-	# return the loaded contexts
-	return ronin_contexts
-      end
-
-      def load_context(path)
-	block = load_contexts(path)[context_id]
-	ronin_contexts.clear
-
-	instance_eval(&block) if block
-	return self
-      end
 
       def method_missing(sym,*args)
 	name = sym.id2name
