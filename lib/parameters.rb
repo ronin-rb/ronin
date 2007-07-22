@@ -56,17 +56,17 @@ module Ronin
   end
 
   module Parameters
+    def has_param?(name)
+      name = name.to_sym
+
+      return instance_params.has_key?(name) || class_params.has_key?(name)
+    end
+
     def param(name)
       name = name.to_sym
 
       return instance_params[name] if instance_params.has_key?(name)
       return class_params[name] if class_params.has_key?(name)
-    end
-
-    def has_param?(name)
-      name = name.to_sym
-
-      return instance_params.has_key?(name) || class_params.has_key?(name)
     end
 
     def describe_param(name)
@@ -84,6 +84,12 @@ module Ronin
 	block.call(param) unless instance_params.has_key?(key)
       end
       return self
+    end
+
+    def import_params(params)
+      params.each do |param|
+	adopt_param(param) if has_param?(param.name)
+      end
     end
 
     def adopt_params(obj)
