@@ -7,7 +7,7 @@ module Ronin
     module HTTP
       include Parameters
 
-      def HTTP.included(klass)
+      def self.included(klass)
 	klass.parameter :lhost, :desc => 'local hostname'
 	klass.parameter :lport, :desc => 'local port'
 	klass.parameter :rhost, :desc => 'remote hostname'
@@ -17,6 +17,18 @@ module Ronin
 	klass.parameter :proxy_port, :value => 8080, :desc => 'Proxy port'
 	klass.parameter :proxy_user, :desc => 'Proxy user id'
 	klass.parameter :proxy_pass, :desc => 'Proxy user password'
+      end
+
+      def self.extended(obj)
+	obj.parameter :lhost, :desc => 'local hostname'
+	obj.parameter :lport, :desc => 'local port'
+	obj.parameter :rhost, :desc => 'remote hostname'
+	obj.parameter :rport, :value => 80, :desc => 'remote port'
+
+	obj.parameter :proxy_host, :desc => 'Proxy hostname'
+	obj.parameter :proxy_port, :value => 8080, :desc => 'Proxy port'
+	obj.parameter :proxy_user, :desc => 'Proxy user id'
+	obj.parameter :proxy_pass, :desc => 'Proxy user password'
       end
 
       def proxy(host,port=8080,user=nil,pass=nil)

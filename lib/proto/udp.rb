@@ -6,12 +6,20 @@ module Ronin
     module UDP
       include Parameters
 
-      def UDP.included(klass)
-	klass.parameters :lhost, :desc => 'local host'
-	klass.parameters :lport, :desc => 'local port'
+      def self.included(klass)
+	klass.parameter :lhost, :desc => 'local host'
+	klass.parameter :lport, :desc => 'local port'
 
-	klass.parameters :rhost, :desc => 'remote host'
-	klass.parameters :rport, :desc => 'remote port'
+	klass.parameter :rhost, :desc => 'remote host'
+	klass.parameter :rport, :desc => 'remote port'
+      end
+
+      def self.extended(obj)
+	obj.parameter :lhost, :desc => 'local host'
+	obj.parameter :lport, :desc => 'local port'
+
+	obj.parameter :rhost, :desc => 'remote host'
+	obj.parameter :rport, :desc => 'remote port'
       end
 
       protected
