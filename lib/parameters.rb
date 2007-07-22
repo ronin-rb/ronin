@@ -56,6 +56,21 @@ module Ronin
   end
 
   module Parameters
+    def parameter(name,opts={:value => nil, :desc => ""})
+      name = name.to_sym
+
+      instance_params[name] = Param.new(name,opts[:value],opts[:desc])
+      instance_eval <<-end_eval
+        def #{name}
+          instance_params[:#{name}].value
+        end
+
+        def #{name}=(value)
+          instance_params[:#{name}].value = value
+        end
+      end_eval
+    end
+
     def has_param?(name)
       name = name.to_sym
 
@@ -128,21 +143,6 @@ module Ronin
           end
 
           return instance_params[:#{name}].value = value
-        end
-      end_eval
-    end
-
-    def parameter(name,opts={:value => nil, :desc => ""})
-      name = name.to_sym
-
-      instance_params[name] = Param.new(name,opts[:value],opts[:desc])
-      instance_eval <<-end_eval
-        def #{name}
-          instance_params[:#{name}].value
-        end
-
-        def #{name}=(value)
-          instance_params[:#{name}].value = value
         end
       end_eval
     end
