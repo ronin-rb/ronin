@@ -21,7 +21,9 @@
 
 require 'repo/extensions'
 require 'repo/exceptions'
-require 'repo/object'
+require 'repo/contextable'
+require 'repo/objectfile'
+require 'repo/objectcontext'
 require 'repo/author'
 require 'repo/advisory'
 require 'repo/payloads'
