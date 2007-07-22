@@ -22,6 +22,7 @@
 require 'repo/contextable'
 require 'repo/objectfile'
 
+require 'rexml'
 require 'og'
 require 'glue/taggable'
 
@@ -117,7 +118,11 @@ module Ronin
         # define Repo-level object loader method
         Ronin.module_eval %{
           def ronin_load_#{id}(path,&block)
-	    #{self}.create_object(path,&block)
+	    if (File.extname(path)=='.xml' && #{self}.respond_to?(:parse_xml))
+	      return #{self}.parse_xml(REXML::Document.new(path))
+	    else
+	      return #{self}.create_object(path,&block)
+	    end
           end
 	}
 
