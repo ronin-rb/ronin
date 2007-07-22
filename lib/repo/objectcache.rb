@@ -27,12 +27,8 @@ module Ronin
       RONIN_OBJECTS_STORE_PATH = File.join(RONIN_HOME_PATH,'object_cache')
 
       def cache
-	$ronin_objectcache
+	$ronin_objectcache ||= Og.setup(:destroy => false, :evolve_schema => true, :store => :sqlite, :name => RONIN_OBJECTS_STORE_PATH)
       end
-
-      protected
-
-      $ronin_objectcache ||= Og.setup(:destroy => false, :evolve_schema => true, :store => :sqlite, :name => RONIN_OBJECTS_STORE_PATH)
     end
   end
 end
