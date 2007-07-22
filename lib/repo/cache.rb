@@ -24,6 +24,7 @@ require 'repo/repository'
 require 'repo/category'
 require 'repo/exceptions/repositorycached'
 require 'repo/exceptions/categorynotfound'
+
 require 'fileutils'
 require 'yaml'
 

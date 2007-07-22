@@ -23,15 +23,16 @@ require 'repo/cache'
 
 module Ronin
   module Repo
-    RONIN_OBJECTS_DB_PATH = File.join(RONIN_HOME_PATH,'objects')
+    module ObjectCache
+      RONIN_OBJECTS_STORE_PATH = File.join(RONIN_HOME_PATH,'object_cache')
 
-    def ronin_objects
-      $ronin_objects_db
+      def cache
+	$ronin_objectcache
+      end
+
+      protected
+
+      $ronin_objectcache ||= Og.setup(:destroy => false, :evolve_schema => true, :store => :sqlite, :name => RONIN_OBJECTS_STORE_PATH)
     end
-
-    protected
-
-    $ronin_objects_db ||= Og.setup(:destroy => false, :evolve_schema => true, :store => :sqlite, :name => RONIN_OBJECTS_DB_PATH)
-
   end
 end

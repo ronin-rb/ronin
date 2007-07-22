@@ -19,9 +19,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'extensions/object'
 require 'repo/extensions/kernel'
 require 'repo/exceptions/contextnotfound'
+require 'extensions/meta'
 
 module Ronin
   module Repo
@@ -35,7 +35,7 @@ module Ronin
 	class_def(:context_name) { id }
       end
 
-      def Contextable.load_contexts(path)
+      def self.load_contexts(path)
 	unless File.file?(path)
 	  raise ContextNotFound, "context '#{path}' doest not exist", caller
 	end

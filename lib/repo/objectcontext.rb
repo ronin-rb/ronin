@@ -21,6 +21,7 @@
 
 require 'repo/contextable'
 require 'repo/objectfile'
+
 require 'og'
 require 'glue/taggable'
 
@@ -121,13 +122,11 @@ module Ronin
 	}
 
 	# Og enchant the class and make Taggable
-	include Taggable
+	is Taggable
 	attr_accessor :object_path, String
 
 	# ugly hack to hijack og_read and load a live object-context
 	before %{
-	  puts 'haha!' # test output
-
 	  if res['object_path']
 	    load_context(res['object_path'])
 	    return

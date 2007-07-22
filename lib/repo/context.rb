@@ -50,7 +50,7 @@ module Ronin
 	instance_eval(&block) if block
       end
 
-      def Context.create(path,&block)
+      def self.create(path,&block)
 	path = File.expand_path(path)
 
 	new_context = self.new(File.basename(path,'.rb'))
@@ -302,10 +302,7 @@ module Ronin
 	end_eval
       end
 
-      # Name of context to load
-      context :context
-
-      def Context.attr_action(*ids)
+      def Object.attr_action(*ids)
 	for id in ids
 	  class_eval <<-"end_eval"
 	    def action_#{id}(&block)
@@ -314,6 +311,9 @@ module Ronin
 	  end_eval
 	end
       end
+
+      # Name of context to load
+      context :context
 
       # Setup action
       attr_action :setup
