@@ -3,6 +3,7 @@ require 'ostruct'
 require 'commands/command'
 require 'commands/options'
 require 'repo/cache'
+require 'repo/objectcache'
 require 'version'
 
 module Ronin
