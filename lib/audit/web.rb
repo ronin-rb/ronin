@@ -19,4 +19,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'audit/web/sqlinjection'
+require 'audit/web/webtest'
+require 'audit/web/webtestsuite'
+require 'audit/web/sql'

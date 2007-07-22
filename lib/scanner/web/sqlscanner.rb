@@ -20,7 +20,7 @@
 #
 
 require 'scanner/web/crawler'
-require 'audit/web/sqlinjection'
+require 'audit/web/sql/injectiontest'
 
 module Ronin
   module Scanner

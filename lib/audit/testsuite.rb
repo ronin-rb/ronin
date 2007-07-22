@@ -19,13 +19,7 @@ module Ronin
       end
 
       def +(suite)
-	self.clone+=suite
-      end
-
-      def +=(suite)
-	adopt_params(suite)
-	@tests+=suite.tests
-	return self
+	self.clone << suite
       end
 
       def run(&block)

@@ -4,7 +4,7 @@ module Ronin
   module Audit
     module Web
       module SQL
-	class SQLRecord < Report
+	class SQLReport < Report
 
 	  # URL that was injected
 	  attr_accessor :url
