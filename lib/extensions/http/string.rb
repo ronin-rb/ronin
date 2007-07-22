@@ -19,6 +19,19 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'extensions/integer.rb'
-require 'extensions/string.rb'
-require 'extensions/meta'
+require 'scanf'
+
+class String
+
+  def url_encode
+    output = ''
+
+    self.each_byte { |c| output+=sprintf("%%%X",c) }
+    return output
+  end
+
+  def url_decode
+    self.block_scanf('%%%X') { |c| input+=c[0].chr }.join
+  end
+
+end

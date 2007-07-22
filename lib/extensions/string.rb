@@ -19,43 +19,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'scanf'
 require 'base64'
 
 class String
-
-  def url_encode
-    output = ''
-
-    self.each_byte { |c| output+=sprintf("%%%X",c) }
-    return output
-  end
-
-  def url_decode
-    self.block_scanf('%%%X') { |c| input+=c[0].chr }.join
-  end
-
-  def html_dec_encode
-    output = ''
-
-    self.each_byte { |c| output+=sprintf("&#%d",c) }
-    return output
-  end
-
-  def html_dec_decode
-    self.block_scanf('&#%d') { |c| input+=c[0].chr }.join
-  end
-
-  def html_hex_encode
-    output = ''
-
-    self.each_byte { |c| output+=sprintf("&#%X;",c) }
-    return output
-  end
-
-  def html_hex_decode
-    self.block_scanf('&#%X;') { |c| input+=c[0].chr }.join
-  end
 
   def base64_encode
     Base64.encode64(self)
