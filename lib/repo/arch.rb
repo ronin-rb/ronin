@@ -1,13 +1,17 @@
 require 'arch'
+require 'platform'
 
 module Ronin
   class Arch
 
-    property :arch, String, :unique => true
+    # Name of the architecture
+    attr_reader :arch, String, :unique => true
 
-    property :endian, Integer
+    # Endianness of the architecture
+    attr_reader :endian, Integer
 
-    property :address_length, Integer
+    # Address length of the architecture
+    attr_reader :address_length, Integer
 
   end
 end

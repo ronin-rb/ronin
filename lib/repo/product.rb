@@ -3,11 +3,14 @@ require 'product'
 module Ronin
   class Product
 
-    property :name, String
+    # Name
+    attr_reader :name, String
 
-    property :version, String
+    # Version
+    attr_reader :version, String
 
-    property :vendor, String
+    # Venders
+    attr_reader :vendor, String
 
   end
 end

@@ -24,17 +24,23 @@ require 'author'
 module Ronin
   class Author
 
-    property :name, String
+    # Name of author
+    attr_reader :name, String
 
-    property :address, String
+    # Author's
+    attr_reader :address, String
 
-    property :phone, String
+    # Author's phone
+    attr_reader :phone, String
 
-    property :email, String
+    # Author's email
+    attr_reader :email, String
 
-    property :site, String
+    # Author's site
+    attr_reader :site, String
 
-    property :biography, String
+    # Author's biography
+    attr_reader :biography, String
 
   end
 end

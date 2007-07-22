@@ -20,7 +20,6 @@
 #
 
 require 'advisory'
-require 'repo/object'
 
 module Ronin
   class Advisory
@@ -29,25 +28,25 @@ module Ronin
     object_context :advisory
 
     # Vulnerability classification.
-    property :classification, String
+    attr_accessor :classification, String
 
     # CVE
-    property :cve, String
+    attr_accessor :cve, String
 
     # Remote?
-    property :remote, Integer
+    attr_accessor :remote, Integer
 
     # Local?
-    property :local, Integer
+    attr_accessor :local, Integer
 
     # Date published
-    property :published, Date
+    attr_accessor :published, Date
 
     # Date updated
-    property :updated, Date
+    attr_accessor :updated, Date
 
     # Comments on the vulnerability.
-    property :comments, String
+    attr_accessor :comments, String
 
     # Discovery credit
     has_many :credits, String

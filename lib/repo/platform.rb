@@ -3,11 +3,14 @@ require 'platform'
 module Ronin
   class Platform
 
-    property :os, String
+    # Name of the Operating System
+    attr_reader :os, String
 
-    property :version, String
+    # Version of the Operating System
+    attr_reader :version, String
 
-    property :arch, Arch
+    # Architecture of the Platform
+    has_many :arch
 
   end
 end
