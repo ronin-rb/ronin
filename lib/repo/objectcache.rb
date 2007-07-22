@@ -19,7 +19,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/cache'
+require 'repo/objects'
+
+require 'og'
 
 module Ronin
   module Repo

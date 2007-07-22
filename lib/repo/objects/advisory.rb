@@ -20,6 +20,7 @@
 #
 
 require 'advisory'
+require 'repo/objectcontext'
 
 module Ronin
   class Advisory

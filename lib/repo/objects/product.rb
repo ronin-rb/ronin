@@ -20,6 +20,7 @@
 #
 
 require 'product'
+require 'repo/objectcontext'
 
 module Ronin
   class Product

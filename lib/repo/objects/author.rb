@@ -20,6 +20,7 @@
 #
 
 require 'author'
+require 'repo/objectcontext'
 
 module Ronin
   class Author

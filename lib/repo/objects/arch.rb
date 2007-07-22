@@ -21,6 +21,7 @@
 
 require 'arch'
 require 'platform'
+require 'repo/objectcontext'
 
 module Ronin
   class Arch
