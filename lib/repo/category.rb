@@ -21,7 +21,6 @@
 
 require 'repo/context'
 require 'repo/exceptions/categorynotfound'
-require 'repo/object'
 require 'repo/exploits'
 require 'repo/payloads'
 require 'repo/cache'
@@ -39,7 +38,7 @@ module Ronin
       # Main action
       attr_action :main
 
-      def initialize(name=context_id,&block)
+      def initialize(name=context_name,&block)
 	@categories = {}
 
 	super(name,&block)
