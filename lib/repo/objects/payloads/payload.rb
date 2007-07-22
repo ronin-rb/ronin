@@ -22,16 +22,20 @@
 require 'payloads/payload'
 
 module Ronin
-  class Payload
+  module Payloads
+    class Payload
 
-    # Name of object to load
-    object_context :payload
+      # Name of object to load
+      object_context :payload
 
-    property :name, String
+      # Name of the specific payload
+      attr_accessor :name, String
 
-    property :version, String
+      # Version of the payload
+      attr_accessor :version, String
 
-    has_many :authors, Author
+      has_many :authors, Author
 
+    end
   end
 end

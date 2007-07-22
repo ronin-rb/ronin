@@ -24,12 +24,15 @@ require 'repo/objects/platform'
 require 'repo/objects/payloads/payload'
 
 module Ronin
-  class PlatformPayload
+  module Payloads
+    class PlatformPayload
 
-    # Name of object to load
-    object_context :platformpayload
+      # Name of object to load
+      object_context :platformpayload
 
-    property :platform, Platform
+      # Targeted platform
+      attr_reader :platform, Platform
 
+    end
   end
 end
