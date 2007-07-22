@@ -1,2 +1,2 @@
-require 'repo/payloads/payload'
-require 'repo/payloads/platformpayload'
+require 'repo/objects/payloads/payload'
+require 'repo/objects/payloads/platformpayload'
