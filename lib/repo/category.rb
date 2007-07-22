@@ -21,9 +21,8 @@
 
 require 'repo/context'
 require 'repo/exceptions/categorynotfound'
-require 'repo/exploits'
-require 'repo/payloads'
 require 'repo/cache'
+require 'repo/objects'
 
 module Ronin
   module Repo
