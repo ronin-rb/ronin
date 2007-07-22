@@ -20,8 +20,8 @@
 #
 
 require 'payloads/platformpayload'
-require 'repo/platform'
-require 'repo/payloads/payload'
+require 'repo/objects/platform'
+require 'repo/objects/payloads/payload'
 
 module Ronin
   class PlatformPayload
