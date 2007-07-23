@@ -3,7 +3,9 @@ require 'proto/http'
 module Ronin
   module Proto
     module Web
-      include HTTP
+      def self.included(klass)
+	klass.include HTTP
+      end
 
       protected
 
