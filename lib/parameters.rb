@@ -20,6 +20,7 @@
 #
 
 require 'exceptions/paramnotfound'
+require 'extensions/meta'
 
 module Ronin
   class Param
@@ -56,49 +57,97 @@ module Ronin
   end
 
   module Parameters
+    def self.included(klass)
+      # do not re-parameterize classes
+      return unless klass.include?(self)
+
+      # parameterize the class
+      parameterize(klass)
+
+      # define base-methods for the sub-class parameter methods to recurse to
+      klass.class_eval %{
+        def self.has_class_param?(name)
+	  #{klass}.class_params.has_key?(name.to_sym)
+        end
+
+        def has_class_param?(name)
+          #{klass}.has_class_param?(name)
+        end
+
+	def self.has_param?(name)
+	  has_class_param?(name)
+	end
+
+	def instance_params
+	  @instance_params ||= {}
+	end
+
+	def has_instance_param?(name)
+	  instance_params.has_key?(name.to_sym)
+	end
+
+	def self.param(name)
+	  name = name.to_sym
+
+	  return #{klass}.class_params[name] if #{klass}.has_class_param?(name)
+
+	  raise ParamNotFound, "parameter '#\{name\}' does not exist", caller
+	end
+
+        def param(name)
+	  name = name.to_sym
+
+	  return instance_params[name] if has_instance_param?(name)
+	  return #{klass}.class_params[name] if #{klass}.has_class_param?(name)
+
+	  raise ParamNotFound, "parameter '#\{name\}' does not exist", caller
+	end
+
+	def has_param?(name)
+	  name = name.to_sym
+
+	  return true if has_instance_param?(name)
+	  return true if #{klass}.has_class_param?(name)
+	  return false
+	end
+
+        def each_param(&block)
+          instance_params.each_value(&block)
+          class_params.each do |key,param|
+	    block.call(param) unless has_instance_param?(key)
+          end
+
+          return self
+        end
+      }
+
+      # have sub-classes automatically inherit the parameters
+      klass.class_eval {
+	def self.inherited(subclass)
+	  Parameters.inherit_parameters(subclass)
+	end
+      }
+    end
+
     def parameter(name,opts={:value => nil, :desc => ""})
       name = name.to_sym
 
+      # add the parameter to the instance parameters
       instance_params[name] = Param.new(name,opts[:value],opts[:desc])
-      instance_eval <<-end_eval
-        def #{name}
-          instance_params[:#{name}].value
-        end
 
-        def #{name}=(value)
-          instance_params[:#{name}].value = value
-        end
-      end_eval
-    end
+      # define the reader method for the parameter
+      class_def(name) do
+        instance_params[name.to_sym].value
+      end
 
-    def has_param?(name)
-      name = name.to_sym
-
-      return instance_params.has_key?(name) || class_params.has_key?(name)
-    end
-
-    def param(name)
-      name = name.to_sym
-
-      return instance_params[name] if instance_params.has_key?(name)
-      return class_params[name] if class_params.has_key?(name)
+      # define the writer method for the parameter
+      class_def("#{name}=") do |value|
+	instance_params[name.to_sym].value = value
+      end
     end
 
     def describe_param(name)
-      name = name.to_sym
-
-      return instance_param[name].description if instance_param.has_key?(name)
-      return class_param[name].description if class_param.has_key?(name)
-
-      raise ParamNotFound, "parameter '#{name}' does not exist", caller
-    end
-
-    def each_param(&block)
-      instance_params.each_value(&block)
-      class_params.each do |key,param|
-	block.call(param) unless instance_params.has_key?(key)
-      end
-      return self
+      param(name).description
     end
 
     def import_params(params)
@@ -119,43 +168,102 @@ module Ronin
     def Object.parameter(name,opts={:value => nil, :desc => ""})
       name = name.to_sym
 
-      Parameters.class_params[name] = Param.new(name,opts[:value],opts[:desc])
-      class_eval <<-end_eval
-        def self.#{name}
-          Parameters.class_params[:#{name}].value
+      # add the parameter to the class params list
+      class_params[name] = Param.new(name,opts[:value],opts[:desc])
+
+      # define the reader class method for the parameter
+      meta_def(name) {
+	class_params[name].value
+      }
+
+      # define the writer class method for the parameter
+      meta_def("#{name}=") { |value|
+	class_params[name].value = value
+      }
+
+      # define the reader instance method for the parameter
+      class_def(name) {
+	unless instance_params.has_key?(name)
+	  return class_params[name].value.freeze
+	else
+	  return instance_params[name].value
+	end
+      }
+
+      # define the writer instance method for the parameter
+      class_def("#{name}=") { |value|
+	unless instance_params.has_key?(name)
+	  adopt_param(class_params[name])
+	end
+
+	return instance_params[name].value = value
+      }
+    end
+
+    def self.parameterize(klass)
+      # define the class parameters in the class
+      klass.meta_eval {
+	def class_params
+	  @class_params ||= {}
+	end
+      }
+
+      klass.class_eval {
+	def self.class_params
+	  metaclass.class_params
+	end
+      }
+    end
+
+    def self.inherit_parameters(klass)
+      parameterize(klass)
+
+      klass.class_eval %{
+        def self.has_class_param?(name)
+          name = name.to_sym
+
+          return true if #{klass}.class_params.has_key?(name)
+          return super(name)
         end
 
-        def #{name}
-          unless instance_params.has_key?(:#{name})
-            return Parameters.class_params[:#{name}].value.freeze
-          else
-            return instance_params[:#{name}].value
+        def self.param(name)
+          name = name.to_sym
+
+	  return #{klass}.class_params[name] if #{klass}.class_params.has_key?(name)
+          return super(name)
+
+	  raise ParamNotFound, "parameter '#\{name\}' does not exist", caller
+        end
+
+        def param(name)
+	  name = name.to_sym
+
+	  return instance_params[name] if has_instance_param?(name)
+	  return #{klass}.class_params[name] if #{klass}.class_params.has_key?(name)
+	  return super(name)
+	end
+
+	def has_param?(name)
+	  name = name.to_sym
+
+	  return true if instance_params.has_key?(name)
+	  return true if #{klass}.class_params.has_key?(name)
+	  return super(name)
+	end
+
+        def each_param(&block)
+          instance_params.each_value(&block)
+          class_params.each do |key,param|
+	    block.call(param) unless instance_params.has_key?(key)
           end
-        end
 
-        def self.#{name}=(value)
-          Parameters.class_params[:#{name}].value = value
+          super(&block)
+          return self
         end
-
-        def #{name}=(value)
-          unless instance_params.has_key?(:#{name})
-            adopt_param(Parameters.class_params[:#{name}])
-          end
-
-          return instance_params[:#{name}].value = value
-        end
-      end_eval
+      }
     end
 
     private
-
-    def Parameters.class_params
-      @@class_params ||= {}
-    end
-
-    def instance_params
-      @instance_params ||= {}
-    end
 
     def adopt_param(param)
       value = param.value.clone if param.value
