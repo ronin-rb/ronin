@@ -120,7 +120,7 @@ module Ronin
       @product_vendors.has_key?(vendor)
     end
 
-    def Advisory.parse(doc,xpath='/ronin/advisory')
+    def Advisory.parse_xml(doc,xpath='/ronin/advisory')
       advisories = []
 
       doc.elements.each('/ronin/advisory') do |element|
