@@ -5,30 +5,32 @@ require 'net/http'
 module Ronin
   module Proto
     module HTTP
-      include Parameters
+      def self.included(base)
+	base.class_eval {
+	  parameter :lhost, :desc => 'local hostname'
+	  parameter :lport, :desc => 'local port'
+	  parameter :rhost, :desc => 'remote hostname'
+	  parameter :rport, :value => 80, :desc => 'remote port'
 
-      def self.included(klass)
-	klass.parameter :lhost, :desc => 'local hostname'
-	klass.parameter :lport, :desc => 'local port'
-	klass.parameter :rhost, :desc => 'remote hostname'
-	klass.parameter :rport, :value => 80, :desc => 'remote port'
-
-	klass.parameter :proxy_host, :desc => 'Proxy hostname'
-	klass.parameter :proxy_port, :value => 8080, :desc => 'Proxy port'
-	klass.parameter :proxy_user, :desc => 'Proxy user id'
-	klass.parameter :proxy_pass, :desc => 'Proxy user password'
+	  parameter :proxy_host, :desc => 'Proxy hostname'
+	  parameter :proxy_port, :value => 8080, :desc => 'Proxy port'
+	  parameter :proxy_user, :desc => 'Proxy user id'
+	  parameter :proxy_pass, :desc => 'Proxy user password'
+	}
       end
 
-      def self.extended(obj)
-	obj.parameter :lhost, :desc => 'local hostname'
-	obj.parameter :lport, :desc => 'local port'
-	obj.parameter :rhost, :desc => 'remote hostname'
-	obj.parameter :rport, :value => 80, :desc => 'remote port'
+      def self.extended(base)
+	base.instance_eval {
+	  parameter :lhost, :desc => 'local hostname'
+	  parameter :lport, :desc => 'local port'
+	  parameter :rhost, :desc => 'remote hostname'
+	  parameter :rport, :value => 80, :desc => 'remote port'
 
-	obj.parameter :proxy_host, :desc => 'Proxy hostname'
-	obj.parameter :proxy_port, :value => 8080, :desc => 'Proxy port'
-	obj.parameter :proxy_user, :desc => 'Proxy user id'
-	obj.parameter :proxy_pass, :desc => 'Proxy user password'
+	  parameter :proxy_host, :desc => 'Proxy hostname'
+	  parameter :proxy_port, :value => 8080, :desc => 'Proxy port'
+	  parameter :proxy_user, :desc => 'Proxy user id'
+	  parameter :proxy_pass, :desc => 'Proxy user password'
+	}
       end
 
       def proxy(host,port=8080,user=nil,pass=nil)
