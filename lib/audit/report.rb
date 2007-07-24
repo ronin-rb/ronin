@@ -32,8 +32,19 @@ module Ronin
       # Stop time of the test
       attr_reader :stop_time
 
-      def initialize
+      def initialize(&block)
 	@status = true
+
+	if block
+	  # begin reporting
+	  start
+
+	  # collect report data
+	  block.call(self)
+
+	  # stop reporting
+	  stop
+	end
       end
 
       def start

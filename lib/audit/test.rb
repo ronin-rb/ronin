@@ -46,13 +46,15 @@ module Ronin
       end
 
       def run
+	# setup the test
 	setup
 
-	report = Report.start
-	perform(report)
-	report.stop
+	# perform the test and collect the report
+	report = perform
 
+	# teardown the test
 	teardown
+
 	return report
       end
 
