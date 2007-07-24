@@ -23,7 +23,7 @@ require 'audit/testsuite'
 
 module Ronin
   module Audit
-    class WebTestSuite
+    class WebTestSuite < TestSuite
 
       parameter :url, :desc => 'URL to test'
 
