@@ -57,8 +57,8 @@ module Ronin
   end
 
   module Parameters
-    def self.included(klass)
-      klass.metaclass.class_eval do
+    def self.included(base)
+      base.metaclass_eval do
 	def params
 	  @params ||= {}
 	end
@@ -163,32 +163,32 @@ module Ronin
       params[name] = Param.new(name,opts[:value],opts[:desc])
 
       # define the reader class method for the parameter
-      meta_def(name) {
+      meta_def(name) do
 	params[name].value
-      }
+      end
 
       # define the writer class method for the parameter
-      meta_def("#{name}=") { |value|
+      meta_def("#{name}=") do |value|
 	params[name].value = value
-      }
+      end
 
       # define the reader instance method for the parameter
-      class_def(name) {
+      class_def(name) do
 	unless params.has_key?(name)
 	  return class_params[name].value.freeze
 	else
 	  return params[name].value
 	end
-      }
+      end
 
       # define the writer instance method for the parameter
-      class_def("#{name}=") { |value|
+      class_def("#{name}=") do |value|
 	unless params.has_key?(name)
 	  adopt_param(class_params[name])
 	end
 
 	return params[name].value = value
-      }
+      end
     end
   end
 end
