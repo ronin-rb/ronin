@@ -33,11 +33,11 @@ module Ronin
 	  # Injection string
 	  attr_accessor :injection
 
-	  def initialize(platform,injection,url,params,injection_params,post)
-	    super(url,params,injection_params,post)
-
+	  def initialize(platform,injection,url,params,injection_params,post,&block)
 	    @platform = platform
 	    @injection = injection
+
+	    super(url,params,injection_params,post,&block)
 	  end
 
 	end

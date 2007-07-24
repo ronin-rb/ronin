@@ -31,15 +31,15 @@ module Ronin
 	  parameter :url, :desc => 'URL to inject'
 	  parameter :post, :value => false, :desc => 'POST or GET the URL'
 
-	  parameter :params, :value => {}, :desc => 'Parameters to test'
+	  parameter :test_params, :value => {}, :desc => 'Parameters to test'
 	  parameter :injection_params, :value => [], :desc => 'Parameters to inject'
 
 	  def initialize(&block)
 	    super(&block)
 	  end
 
-	  def param(name,value=nil)
-	    params[name.to_s] = value
+	  def test_param(name,value=nil)
+	    test_params[name.to_s] = value
 	  end
 
 	  def perform
@@ -52,25 +52,25 @@ module Ronin
 	    base = parse_url_base(url)
 
 	    unless post
-	      url_params = parse_url_params(url).merge(params)
+	      all_params = parse_url_params(url).merge(test_params)
 
-	      inject_url(injection,base,url_params,injection_params) do |param,injection_url|
-		block.call(param,get_url(injection_url))
+	      inject_url(injection,base,all_params,injection_params) do |param,injected_url|
+		block.call(param,get_url(injected_url))
 	      end
 	    else
-	      inject_params(injection,params,injection_params) do |param,params|
-		block.call(param,post_url(url,params))
+	      inject_params(injection,test_params,injection_params) do |param,injected_params|
+		block.call(param,post_url(url,injected_params))
 	      end
 	    end
 	  end
 
-	  def inject_url(injection,base,params,inject_params=[],&block)
-	    inject_params(injection,params,inject_params) do |param,params|
-	      block.call(param,build_url(base,params))
+	  def inject_url(injection,base,url_params,inject_params=[],&block)
+	    inject_params(injection,url_params,inject_params) do |param,injected_params|
+	      block.call(param,build_url(base,injected_params))
 	    end
 	  end
 
-	  def inject_params(injection,params,inject_params=[],&block)
+	  def inject_params(injection,url_params,inject_params=[],&block)
 	    replace = lambda { |param|
 	      new_params = params.clone
 	      new_params[param] = injection
@@ -82,14 +82,14 @@ module Ronin
 		block.call(name,replace.call(name))
 	      end
 	    else
-	      params.each_key do |param|
+	      url_params.each_key do |param|
 		block.call(param,replace.call(param))
 	      end
 	    end
 	  end
 
-	  def build_url(base,params)
-	    "#{base}?"+params.to_a.map { |param| "#{param[0]}=#{param[1]}" }.join('&')
+	  def build_url(base,url_params)
+	    "#{base}?"+url_params.to_a.map { |param| "#{param[0]}=#{param[1]}" }.join('&')
 	  end
 
 	  def parse_url_base(url)

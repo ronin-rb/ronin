@@ -32,27 +32,31 @@ module Ronin
 	  parameter :injection, :value => "'", :desc => 'Injection string'
 
 	  def perform
-	    report = ErrorReport.new(platform,injection,url,params,injection_params,post)
+	    ErrorReport.new(platform,injection,url,test_params,injection_params,post) do |report|
+	      inject(injection) do |param,resp|
+		report.injectable_params << param if has_error?(resp)
+	      end
+	    end
 	  end
 
-	  def ErrorTest.errors
+	  def self.errors
 	    @@errors ||= Hash.new { |hash,key| hash[key] = [] }
 	  end
 
 	  def errors
-	    ErrorTest.errors
+	    self.errors
 	  end
 
-	  def ErrorTest.error(platform,err)
-	    ErrorTest.errors[platform.to_s] << Regexp.new(err)
+	  def self.error(platform,err)
+	    self.errors[platform.to_s] << Regexp.new(err)
 	  end
 
-	  def ErrorTest.platforms
-	    ErrorTest.errors.keys
+	  def self.platforms
+	    self.errors.keys
 	  end
 
 	  def platforms
-	    ErrorTest.platforms
+	    self.platforms
 	  end
 
 	  # Default set of SQL Injection errors to search for.
@@ -81,7 +85,27 @@ module Ronin
 
 	  error('PHP','Warning.*failed to open stream')
 	  error('PHP','Fatal Error.*(on|at) line')
+
+	  protected
 	  
+	  def has_error?(resp)
+	    platform_test = lambda { |platform|
+	      ErrorTest.errors[platform].each do |pattern|
+		return true if resp =~ Regexp.new(pattern)
+	      end
+	    }
+
+	    if platform
+	      return platform_test.call(platform)
+	    else
+	      ErrorTest.platforms.each do |platform|
+		return true if platform_test.call(platform)
+	      end
+	    end
+
+	    return false
+	  end
+
 	end
       end
     end

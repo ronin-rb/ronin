@@ -26,6 +26,7 @@ module Ronin
   module Audit
     class WebTest < Test
 
+      include Parameters
       include Proto::Web
 
       # TODO: integrate in basic/digest authentication

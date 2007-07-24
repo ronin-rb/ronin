@@ -42,11 +42,13 @@ module Ronin
 	  # Was the URL accessed via GET or POST
 	  attr_accessor :post
 
-	  def initialize(url,params,injection_params,post)
+	  def initialize(url,params,injection_params,post,&block)
 	    @params = {}
 	    @injection_params = []
 	    @injectable_params = []
 	    @post = false
+
+	    super(&block)
 	  end
 
 	end
