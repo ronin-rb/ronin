@@ -19,21 +19,32 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/objectcontext'
 require 'repo/objectcache'
+require 'repo/environment'
 
 module Ronin
   module Repo
-    def ronin_objects_cache
-      ObjectCache.cache
+    # Ronin Environment constant
+    RONIN_ENV = Environment.new
+
+    # Loads a new repository cache
+    def Repo.load_cache(path)
+      @cache = Cache.new(path)
     end
 
-    def ronin_load_objects(path)
-      ObjectContext.load_objects(path)
+    # Repository cache
+    def Repo.cache
+      @cache ||= Cache.new
     end
 
-    def ronin_load_object(type,path)
-      ObjectContext.load_object(type,path)
+    # Load a new object cache
+    def Repo.load_object_cache(path)
+      @object_cache = ObjectCache.new(path)
+    end
+
+    # Object cache
+    def Repo.object_cache
+      @object_cache ||= ObjectCache.new
     end
   end
 end

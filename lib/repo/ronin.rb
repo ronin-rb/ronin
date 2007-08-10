@@ -19,15 +19,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/roninhandler'
 require 'repo/cache'
+require 'repo/objectcache'
+require 'repo/roninhandler'
 
 module Ronin
-  def self.ronin
-    RoninHandler.ronin
+  def Ronin.ronin
+    @ronin ||= RoninHandler.new
   end
 
-  def self.ronin_require(category)
+  def Ronin.ronin_require(category)
     Repo.cache.categories[name].each_value do |repository|
       category_dir = File.join(repository.path,name)
       load_file = File.join(category_dir,name+'.rb')
@@ -38,5 +39,13 @@ module Ronin
 	require load_file
       end
     end
+  end
+
+  def Ronin.ronin_load_objects(path)
+    Repo::ObjectContext.load_objects(path)
+  end
+
+  def Ronin.ronin_load_object(type,path)
+    Repo::ObjectContext.load_object(type,path)
   end
 end
