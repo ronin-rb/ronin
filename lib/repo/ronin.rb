@@ -29,12 +29,12 @@ module Ronin
   end
 
   def Ronin.ronin_require(category)
-    Repo.cache.categories[name].each_value do |repository|
-      category_dir = File.join(repository.path,name)
-      load_file = File.join(category_dir,name+'.rb')
+    Repo.cache.applications[name].each_value do |repository|
+      app_dir = File.join(repository.path,name)
+      load_file = File.join(app_dir,name+'.rb')
 
       if File.file?(load_file)
-	$LOAD_PATH.unshift(category_dir) unless $LOAD_PATH.include?(category_dir)
+	$LOAD_PATH.unshift(app_dir) unless $LOAD_PATH.include?(app_dir)
 
 	require load_file
       end

@@ -22,9 +22,9 @@
 require 'repo/config'
 require 'repo/repositorymetadata'
 require 'repo/repository'
-require 'repo/category'
+require 'repo/application'
 require 'repo/exceptions/repositorycached'
-require 'repo/exceptions/categorynotfound'
+require 'repo/exceptions/applicationnotfound'
 
 require 'yaml'
 
@@ -41,14 +41,14 @@ module Ronin
       # Hash of loaded repositories
       attr_reader :repositories
 
-      # Hash of all categories, each element containing the hash of
-      # respositories that contain that category.
-      attr_reader :categories
+      # Hash of all applications, each element containing the hash of
+      # respositories that contain that application.
+      attr_reader :applications
 
       def initialize(path=CACHE_PATH)
 	@path = path
         @repositories = {}
-	@categories = Hash.new { |hash,key| hash[key] = {} }
+	@applications = Hash.new { |hash,key| hash[key] = {} }
 
 	if File.file?(@path)
 	  File.open(@path) do |file|
@@ -69,8 +69,8 @@ module Ronin
 	end
 
 	@repositories[repo.name] = repo
-	repo.categories.each do |category|
-	  @categories[category][repo.name] = repo
+	repo.applications.each do |app|
+	  @applications[app][repo.name] = repo
 	end
 
 	yield if block_given?
@@ -82,8 +82,8 @@ module Ronin
 	end
 
 	@repository.delete_if { |key,value| key==repo.name }
-	repo.categories.each do |category|
-	  @categories[category].delete_if { |key,value| key==repo.name }
+	repo.applications.each do |app|
+	  @applications[app].delete_if { |key,value| key==repo.name }
 	end
 
 	yield if block_given?
@@ -101,19 +101,19 @@ module Ronin
 	return @repositories[name.to_s]
       end
 
-      def has_category?(name)
+      def has_application?(name)
 	@repositories.each_value do |repo|
-	  return true if repo.has_category?(name)
+	  return true if repo.has_application?(name)
 	end
 	return false
       end
 
-      def category(name)
-	unless has_category?(name)
-	  raise CategoryNotFound, "category '#{name}' does not exist", caller
+      def application(name)
+	unless has_application?(name)
+	  raise ApplicationNotFound, "appliation '#{name}' does not exist", caller
 	end
 
-        return Category.new(name)
+        return Application.new(name)
       end
 
       def install(metadata,install_path=File.join(Repository::REPOS_PATH,metadata.name))

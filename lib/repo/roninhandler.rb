@@ -24,12 +24,12 @@ require 'repo/cache'
 module Ronin
   class RoninHandler
 
-    def categories
-      Repo.cache.categories.keys
+    def applications
+      Repo.cache.applications.keys
     end
 
     def [](name)
-      Repo.cache.category(name.to_s)
+      Repo.cache.application(name.to_s)
     end
 
     protected
@@ -39,7 +39,7 @@ module Ronin
 	name = sym.id2name
 
 	# return a category if present
-	return Repo.cache.category(name) if Repo.cache.has_category?(name)
+	return Repo.cache.application(name) if Repo.cache.has_application?(name)
       end
 
       raise NoMethodError, name
