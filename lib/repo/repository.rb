@@ -22,8 +22,8 @@
 require 'repo/config'
 require 'repo/cache'
 require 'repo/repositorymetadata'
-require 'repo/category'
-require 'repo/exceptions/categorynotfound'
+require 'repo/application'
+require 'repo/exceptions/applicationnotfound'
 
 module Ronin
   module Repo
@@ -35,20 +35,20 @@ module Ronin
       # Local path to the repository
       attr_reader :path
 
-      # Categories
-      attr_reader :categories
+      # Applications
+      attr_reader :applications
 
       def initialize(path)
 	@path = File.expand_path(path)
-	@categories = []
+	@applications = []
 
-	cache_categories
+	cache_applications
 
 	super(File.join(@path,RepositoryMetadata::METADATA_FILE))
       end
 
-      def has_category?(name)
-	@categories.include?(name.to_s)
+      def has_application?(name)
+	@applications.include?(name.to_s)
       end
 
       def is_resolved?
@@ -80,7 +80,7 @@ module Ronin
 	  end
 	end
 
-	cache_categories do
+	cache_applications do
 	  case @type
 	  when 'svn' then
 	    update_cmd.call('svn','up',@path.to_s)
@@ -99,7 +99,7 @@ module Ronin
 	  end
 	end
 
-	cache_categories do
+	cache_applications do
 	  case @type
 	  when 'svn' then
 	    commit_cmd.call('svn','commit',@path.to_s)
@@ -117,13 +117,13 @@ module Ronin
 
       protected
 
-      def cache_categories
-	yield if block_given?
+      def cache_applications(&block)
+	block.call(self) if block
 
-	@categories.clear
+	@applications.clear
 	Dir.foreach(@path) do |file|
 	  if (File.directory?(file) && file!='.' && file!='..')
-	    @categories << file
+	    @applications << file
 	  end
 	end
       end
