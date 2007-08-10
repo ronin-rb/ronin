@@ -28,8 +28,6 @@ module Ronin
   module Repo
     class RepositoryMetadata
 
-      include REXML
-
       METADATA_FILE = "ronin.xml"
 
       # Name of the repository
@@ -60,22 +58,22 @@ module Ronin
       attr_reader :gems
 
       def initialize(metadata_uri)
-	metadata = Document.new(open(metadata_uri))
+	metadata = REXML::Document.new(open(metadata_uri))
 
 	@name = ""
-	@type = "local"
+	@type = :local
 	@src = ""
 	@license = ""
 	@description = ""
 	@categories = []
 	@deps = {}
 	@gems = []
-	@authors = Author.parse(metadata,'/ronin/repository/author')
+	@authors = Author.parse(metadata,'/ronin/repository/authors/author')
 
 	metadata.elements.each('/ronin/repository') do |repo|
 	  @name = repo.attribute('name').to_s
 
-	  repo.each_element('type') { |type| @type = type.get_text.to_s }
+	  repo.each_element('type') { |type| @type = (type.get_text.to_s.downcase).to_sym }
 	  repo.each_element('src') { |src| @src = URI.parse(src.get_text.to_s) }
 
 	  repo.each_element('license') { |license| @license = license.get_text.to_s }
@@ -95,18 +93,20 @@ module Ronin
 
       def download(path)
 	download_cmd = lambda do |cmd,*args|
-	  unless system(cmd,*args)
+	  args = args.map { |arg| arg.to_s }
+
+	  unless system(cmd.to_s,*args)
 	    raise "failed to download repository '#{self}'", caller
 	  end
 	end
 
 	case @type
-	when 'svn' then
-	  download_cmd.call('svn','checkout',@src.to_s,path.to_s)
-	when 'cvs' then
-	  download_cmd.call('cvs','checkout',@src.to_s,path.to_s)
-	when 'rsync' then
-	  download_cmd.call('rsync','-av','--progress',@src.to_s,path.to_s)
+	when :svn then
+	  download_cmd.call('svn','checkout',@src,path)
+	when :cvs then
+	  download_cmd.call('cvs','checkout',@src,path)
+	when :rsync then
+	  download_cmd.call('rsync','-av','--progress',@src,path)
 	end
 
 	return Repository.new(path).install
