@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/config'
 require 'repo/cache'
 require 'repo/repositorymetadata'
 require 'repo/category'
@@ -27,6 +28,9 @@ require 'repo/exceptions/categorynotfound'
 module Ronin
   module Repo
     class Repository < RepositoryMetadata
+
+      # Path to repositories dir
+      REPOS_PATH = File.join(Config::PATH,'repos')
 
       # Local path to the repository
       attr_reader :path

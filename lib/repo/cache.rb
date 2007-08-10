@@ -19,41 +19,21 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'repo/config'
 require 'repo/repositorymetadata'
 require 'repo/repository'
 require 'repo/category'
 require 'repo/exceptions/repositorycached'
 require 'repo/exceptions/categorynotfound'
 
-require 'fileutils'
 require 'yaml'
 
 module Ronin
   module Repo
-
-    # Ronin home directory
-    RONIN_HOME_PATH = File.join(ENV['HOME'],'.ronin')
-
-    # Ronin gem directory
-    RONIN_GEM_PATH = File.join(RONIN_HOME_PATH,'gems')
-
-    def Repo.load_cache(path=Cache::CACHE_PATH)
-      Cache.new(path)
-    end
-
-    def Repo.cache
-      Cache.current
-    end
-
     class Cache
 
-      include YAML
-
       # Path to cache file
-      CACHE_PATH = File.join(RONIN_HOME_PATH,'cache.yml')
-
-      # Path to repositories dir
-      REPOS_PATH = File.join(RONIN_HOME_PATH,'repos')
+      CACHE_PATH = File.join(Config::PATH,'cache.yml')
 
       # Path of cache file
       attr_reader :path
@@ -65,15 +45,10 @@ module Ronin
       # respositories that contain that category.
       attr_reader :categories
 
-      # Global cache variable
-      @@current_cache = nil
-
       def initialize(path=CACHE_PATH)
 	@path = path
         @repositories = {}
 	@categories = Hash.new { |hash,key| hash[key] = {} }
-
-	@@current_cache = self
 
 	if File.file?(@path)
 	  File.open(@path) do |file|
@@ -86,10 +61,6 @@ module Ronin
 	    end
 	  end
 	end
-      end
-
-      def Cache.current
-	@@current_cache || Cache.new
       end
 
       def register_repository(repo)
@@ -145,7 +116,7 @@ module Ronin
         return Category.new(name)
       end
 
-      def install(metadata,install_path=File.join(REPOS_PATH,metadata.name))
+      def install(metadata,install_path=File.join(Repository::REPOS_PATH,metadata.name))
 	if has_repository?(metadata.name)
 	  raise RepositoryCached, "repository '#{metadata}' already present in cache '#{self}'", caller
 	end
@@ -153,7 +124,7 @@ module Ronin
 	return metadata.download(install_path)
       end
 
-      def link(repo_path)
+      def add(repo_path)
 	register_repository(Repository.new(repo_path))
       end
 
@@ -162,7 +133,7 @@ module Ronin
       end
 
       def save(cache_path=@path)
-	unless File.exists?(cache_path)
+	unless File.exists?(File.dirname(cache_path))
 	  FileUtils.mkdir_p(File.dirname(cache_path))
 	end
 
