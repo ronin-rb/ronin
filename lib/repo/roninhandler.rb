@@ -24,17 +24,23 @@ require 'repo/cache'
 module Ronin
   class RoninHandler
 
-    def self.ronin
-      @@ronin ||= RoninHandler.new
+    def categories
+      Repo.cache.categories.keys
+    end
+
+    def [](name)
+      Repo.cache.category(name.to_s)
     end
 
     protected
 
     def method_missing(sym,*args)
-      name = sym.id2name
+      if args.length==0
+	name = sym.id2name
 
-      # return a category if present
-      return Repo.cache.category(name) if Repo.cache.has_category?(name)
+	# return a category if present
+	return Repo.cache.category(name) if Repo.cache.has_category?(name)
+      end
 
       raise NoMethodError, name
     end
