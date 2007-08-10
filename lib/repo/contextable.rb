@@ -26,16 +26,31 @@ require 'extensions/meta'
 module Ronin
   module Repo
     module Contextable
-
       protected
 
       def Object.define_context(id)
-	# define context_type
-	meta_def(:context_name) { id }
-	class_def(:context_name) { id }
+	# define context_name
+	module_eval %{
+	  def self.context_name
+	    :#{id}
+	  end
+
+	  def context_name
+	    :#{id}
+	  end
+	}
+
+	# define load_context for the context_name
+	class_def(:load_context) do |path|
+	  block = Contextable.load_contexts(path)[context_name]
+	  ronin_contexts.clear
+
+	  instance_eval(&block) if block
+	  return self
+	end
       end
 
-      def self.load_contexts(path)
+      def Contextable.load_contexts(path)
 	unless File.file?(path)
 	  raise ContextNotFound, "context '#{path}' doest not exist", caller
 	end
@@ -50,14 +65,6 @@ module Ronin
 
 	# return the loaded contexts
 	return ronin_contexts
-      end
-
-      def load_context(path)
-	block = Contextable.load_contexts(path)[context_name]
-	ronin_contexts.clear
-
-	instance_eval(&block) if block
-	return self
       end
     end
   end
