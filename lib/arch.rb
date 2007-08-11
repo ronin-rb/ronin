@@ -20,10 +20,6 @@
 #
 
 module Ronin
-
-  LITTLE_ENDIAN = 0
-  BIG_ENDIAN = 1
-
   class Arch
 
     # Name of the architecture
@@ -37,7 +33,7 @@ module Ronin
 
     def initialize(arch,endian,address_length)
       @arch = arch
-      @endian = endian
+      @endian = endian.to_sym
       @address_length = address_length
 
       Arch.archs[@arch] = self
@@ -48,20 +44,20 @@ module Ronin
     end
 
     def Arch.all(&block)
-      Arch.archs.each_value { |arch| block.call(arch) }
+      archs.each_value { |arch| block.call(arch) }
     end
 
-    X86 = Arch.new("x86",LITTLE_ENDIAN,4)
-    AMD64 = Arch.new("amd64",LITTLE_ENDIAN,8)
-    IA64 = Arch.new("ia64",LITTLE_ENDIAN,8)
-    PPC = Arch.new("ppc",BIG_ENDIAN,4)
-    PPC64 = Arch.new("ppc64",BIG_ENDIAN,8)
-    SPARC = Arch.new("sparc",BIG_ENDIAN,4)
-    SPARC64 = Arch.new("sparc64",BIG_ENDIAN,8)
-    MIPS_LITTLE = Arch.new("mips_little",LITTLE_ENDIAN,4)
-    MIPS_BIG = Arch.new("mips_big",BIG_ENDIAN,4)
-    ARM_LITTLE = Arch.new("arm_little",LITTLE_ENDIAN,4)
-    ARM_BIG = Arch.new("arm_big",BIG_ENDIAN,4)
+    X86 = Arch.new("x86",:little_endian,4)
+    AMD64 = Arch.new("amd64",:little_endian,8)
+    IA64 = Arch.new("ia64",:little_endian,8)
+    PPC = Arch.new("ppc",:big_endian,4)
+    PPC64 = Arch.new("ppc64",:big_endian,8)
+    SPARC = Arch.new("sparc",:big_endian,4)
+    SPARC64 = Arch.new("sparc64",:big_endian,8)
+    MIPS_LITTLE = Arch.new("mips_little",:little_endian,4)
+    MIPS_BIG = Arch.new("mips_big",:big_endian,4)
+    ARM_LITTLE = Arch.new("arm_little",:little_endian,4)
+    ARM_BIG = Arch.new("arm_big",:big_endian,4)
 
     protected
 
