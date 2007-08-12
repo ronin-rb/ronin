@@ -20,7 +20,7 @@
 #
 
 require 'repo/objectcache'
-require 'repo/environment'
+require 'environment'
 
 module Ronin
   module Repo
