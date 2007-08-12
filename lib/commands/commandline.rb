@@ -104,7 +104,7 @@ module Ronin
       end
 
       def install(argv=[])
-	options = Options.comand("ronin","add","PATH [PATH ...] [options]") do |options|
+	options = Options.comand("ronin","install","PATH [PATH ...] [options]") do |options|
 	  options.specific do
 	    options.option("--install-dir","Specify directory to install the repository in") do |path|
 	      options.path = path
@@ -157,7 +157,7 @@ module Ronin
 	  options.summary("Add a local repository located at the specified PATH to the repository cache")
 	end
 
-	options.parse(argv).each { |path| Repo::cache.link(path) }
+	options.parse(argv).each { |path| Repo.cache.add(path) }
       end
 
       def list(argv=[])
