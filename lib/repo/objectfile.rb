@@ -25,16 +25,22 @@ module Ronin
   module Repo
     class ObjectFile
 
+      # Path of the Object Context
       attr_reader :path, String
 
+      # Modification time of the file
       attr_reader :mtime, Time
 
-      def initialize(path,mtime)
+      # Object Contexts found within the file
+      attr_reader :contexts
+
+      def initialize(path,mtime=File.mtime(path))
 	@path = path
 	@mtime = mtime
+	@contexts = []
       end
 
-      def ObjectFile.timestamp(path)
+      def self.timestamp(path)
 	obj_file = ObjectFile.new(path,File.mtime(path))
 	obj_file.save
 
@@ -54,8 +60,40 @@ module Ronin
       end
 
       def timestamp
+	# update the timestamp
 	@mtime = File.mtime(@path)
+
+	# update the object-file
 	update
+      end
+
+      def cache
+	# clear the contexts list
+	@contexts.clear
+
+	# load objects
+	objs = ObjectContext.load_objects(@path)
+
+	# populate the contexts list
+	@contexts = objs.map { |obj| obj.context_name }
+
+	# save the object-file first
+	save
+
+	# connect each object to this object-file and
+	# save the object
+	objs.each do |obj|
+	  obj.object_file = self
+	  obj.save
+	end
+      end
+
+      def delete
+	@contexts.each do |context|
+	  if ObjectContext.is_object_context?(context)
+	    ObjectContext.object_contexts[context].delete(:condition => ['object_file_oid = ?', self.oid])
+	  end
+	end
       end
 
     end
