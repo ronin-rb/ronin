@@ -22,13 +22,11 @@
 require 'fileutils'
 
 module Ronin
-  module Repo
-    module Config
-      # Ronin home directory
-      PATH = File.join(ENV['HOME'],'.ronin')
+  module Config
+    # Ronin home directory
+    PATH = File.join(ENV['HOME'],'.ronin')
 
-      # Ronin gem directory
-      GEM_PATH = File.join(PATH,'gems')
-    end
+    # Ronin gem directory
+    GEM_PATH = File.join(PATH,'gems')
   end
 end
