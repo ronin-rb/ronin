@@ -19,6 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'objectcache'
+
 require 'rexml/document'
 require 'uri'
 
@@ -26,42 +28,40 @@ module Ronin
   class Author
 
     # Name of author
-    attr_reader :name
+    attr_reader :name, String
 
     # Author's
-    attr_reader :address
+    attr_reader :address, String
 
     # Author's phone
-    attr_reader :phone
+    attr_reader :phone, String
 
     # Author's email
-    attr_reader :email
+    attr_reader :email, String
 
     # Author's site
-    attr_reader :site
+    attr_reader :site, String
 
     # Author's biography
-    attr_reader :biography
+    attr_reader :biography, String
 
-    def initialize(name,biography='',contact={:address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil})
+    def initialize(name,biography=nil,info={:address => nil, :phone => nil, :email => nil, :site => nil})
       @name = name
-      @address = contact[:address]
-      @phone = contact[:phone]
-      @email = contact[:email]
-      @site = contact[:site]
+      @address = info[:address]
+      @phone = info[:phone]
+      @email = info[:email]
+      @site = info[:site]
       @biography = biography
     end
 
-    def Author.parse(doc,xpath='/ronin/author')
-      authors = {}
+    def self.parse(doc,xpath='/ronin/author')
+      authors = []
 
       doc.elements.each(xpath) do |element|
 	author_name = element.attribute('name').to_s
 
-	if (author_name.nil? || author_name=AUTHOR_NO_ONE.name)
-	  authors[AUTHOR_NO_ONE.name] = AUTHOR_NO_ONE
-	else
-	  author_contact = {}
+	unless (author_name.empty? || author_name=NO_ONE.name)
+	  author_info = {}
 
 	  element.each_element('contact/address') { |address| author_contract[:address] = address.get_text.to_s }
 	  element.each_element('contact/phone') { |phone| author_contract[:phone] = phone.get_text.to_s }
@@ -70,7 +70,7 @@ module Ronin
 
 	  element.each_element('biography') { |biography| author_biography = biography.get_text.to_s }
 
-	  authors[author_name] = Author.new(author_name,author_biography,author_contract)
+	  authors << Author.new(author_name,author_biography,author_contract)
 	end
       end
 
@@ -78,15 +78,8 @@ module Ronin
     end
 
     def to_s
-      @name
+      @name.to_s
     end
 
   end
-
-  AUTHOR_NO_ONE = Author.new(
-    'no-one',
-    'A great contributor to culture who wishes to remain anonymous \
-    for philosophical and strategic reasons'
-  )
-
 end
