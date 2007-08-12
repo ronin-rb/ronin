@@ -57,7 +57,7 @@ module Ronin
       protected
 
       def advisory_from_link(link)
-	@osvdb_cache[link[/[[:digit]]+$/].to_i]
+	@osvdb_cache[link[/[[:digit:]]+$/].to_i]
       end
 
     end
