@@ -19,19 +19,21 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'objectcache'
+
 require 'rexml/document'
 
 module Ronin
   class Product
 
     # Name
-    attr_reader :name
+    attr_reader :name, String
 
     # Version
-    attr_reader :version
+    attr_reader :version, String
 
     # Venders
-    attr_reader :vendor
+    attr_reader :vendor, String
 
     def initialize(name,version,vendor)
       @name = name

@@ -19,17 +19,19 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'objectcache'
+
 module Ronin
   class Arch
 
     # Name of the architecture
-    attr_reader :arch
+    attr_reader :arch, String, :unique => true
 
     # Endianness of the architecture
-    attr_reader :endian
+    attr_reader :endian, String
 
     # Address length of the architecture
-    attr_reader :address_length
+    attr_reader :address_length, Integer
 
     def initialize(arch,endian,address_length)
       @arch = arch

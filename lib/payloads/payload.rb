@@ -21,6 +21,8 @@
 
 require 'parameters'
 
+require 'og'
+
 module Ronin
   module Payloads
     class Payload
@@ -28,21 +30,18 @@ module Ronin
       include Parameters
 
       # Name of the specific payload
-      attr_accessor :name
+      attr_accessor :name, String
 
       # Version of the payload
-      attr_accessor :version
+      attr_accessor :version, String
 
-      # Authors of the payload
-      attr_accessor :authors
-
-      # Payload data
-      attr_reader :data
+      # Author(s) of the payload
+      many_to_many :authors
 
       def initialize(&block)
 	@name = ""
 	@version = ""
-	@authors = {}
+	@authors = []
 	@data = ""
 
 	block.call(self) if block

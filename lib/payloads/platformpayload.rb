@@ -22,12 +22,14 @@
 require 'payloads/payload'
 require 'platform'
 
+require 'og'
+
 module Ronin
   module Payloads
     class PlatformPayload < Payload
 
       # Targeted platform
-      attr_reader :platform
+      has_one :platform
 
       def initialize(platform,&block)
 	@platform = platform

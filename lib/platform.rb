@@ -19,19 +19,20 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'objectcache'
 require 'arch'
 
 module Ronin
   class Platform
 
     # Name of the Operating System
-    attr_reader :os
+    attr_reader :os, String
 
     # Version of the Operating System
-    attr_reader :version
+    attr_reader :version, String
 
     # Architecture of the Platform
-    attr_reader :arch
+    has_one :arch
 
     def initialize(os,version,arch)
       @os = os
