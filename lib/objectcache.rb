@@ -19,28 +19,25 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/cache'
-require 'repo/objects'
+require 'config'
 
 require 'og'
 
 module Ronin
-  module Repo
-    class ObjectCache
+  class ObjectCache
 
-      STORE_PATH = File.join(Config::PATH,'object_cache')
+    STORE_PATH = File.join(Config::PATH,'object_cache')
 
-      # Path of the object cache
-      attr_reader :path
+    # Path of the object cache
+    attr_reader :path
 
-      # Object cache store
-      attr_reader :store
+    # Object cache store
+    attr_reader :store
 
-      def initialize(path=STORE_PATH)
-	@path = path
-	@store = Og.setup(:destroy => false, :evolve_schema => :full, :store => :sqlite, :name => @path)
-      end
-
+    def initialize(path=STORE_PATH)
+      @path = path
+      @store = Og.setup(:destroy => false, :evolve_schema => :full, :store => :sqlite, :name => @path)
     end
+
   end
 end
