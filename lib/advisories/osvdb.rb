@@ -30,14 +30,15 @@ module Ronin
 
       include Comparable
 
-      # Group name of this type of advisory
-      GROUP_NAME = 'OSVDB'
+      # Source of this type of advisory
+      SOURCE_NAME = 'OSVDB'
 
+      # Link to the advisory
       attr_reader :link
 
       def initialize(name,&block)
 	name = name.to_i
-	super(GROUP_NAME,name)
+	super(SOURCE_NAME,name)
 
 	@link = URI.parse("http://osvdb.org/displayvuln.php?osvdb_id=#{@name}")
 	update
@@ -53,13 +54,14 @@ module Ronin
 
 	published_cell = (advisory_table/'tr[2]/td')
 	(published_cell/'b').remove
-	
+
 	@published = Date.parse((advisory_table/'tr[2]/td').text.split(':')[1].strip)
 	@description = (advisory_table/'tr[3]/td/p').text.strip
 
 	@classification.clear
 	@requirements.clear
 	@effects.clear
+
 	(advisory_table/'tr[4]/td/ul/li').each do |attributes|
 	end
 
@@ -75,6 +77,7 @@ module Ronin
 	@solution = (advisory_table/'tr[6]/td/p').text.strip
 
 	@credits.clear
+
 	(advisory_table/'tr[8]/td/ul/li/a').each do |credit|
 	  @credits << credit.innerText.strip
 	end
