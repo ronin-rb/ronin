@@ -39,5 +39,11 @@ module Ronin
       @store = Og.setup(:destroy => false, :evolve_schema => :full, :store => :sqlite, :name => @path)
     end
 
+    protected
+
+    def method_missing(sym,*args)
+      @store.send(sym,*args)
+    end
+
   end
 end
