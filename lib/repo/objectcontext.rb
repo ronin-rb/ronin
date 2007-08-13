@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'objectcache'
 require 'repo/contextable'
 require 'repo/objectfile'
 
@@ -31,33 +32,6 @@ module Ronin
     module ObjectContext
       include Contextable
 
-      def self.create_object(path,&block)
-	path = File.expand_path(path)
-
-	new_obj = self.new
-	new_obj.load_context(path)
-	new_obj.object_file = ObjectFile.find_by_path(path)
-
-	block.call(new_obj) if block
-	return new_obj
-      end
-
-      def cache(obj_file)
-	@object_file = obj_file
-	save
-      end
-
-      def update_cache
-	# update the object-file timestamp
-	@object_file.timestamp
-
-	# load and cache the new object
-	new_obj = ronin_load_object(content_id,@object_file.path)
-	new_obj.save
-
-	return new_obj
-      end
-
       def ObjectContext.object_contexts
 	@@object_contexts ||= {}
       end
@@ -67,16 +41,20 @@ module Ronin
       end
 
       def ObjectContext.load_objects(path)
-	contexts = Contextable.load_contexts
+	path = File.expand_path(path)
+	obj_file = ObjectFile.find_by_path(path)
+
+	contexts = Contextable.load_contexts(path)
 	objects = []
 	
 	contexts.each do |id,block|
 	  unless ObjectContext.is_object_context?(id)
-	    raise ObjectNotFound, "object context '#{type}' unknown", caller
+	    raise ObjectNotFound, "object context '#{id}' unknown", caller
 	  end
 
-	  new_obj = ObjectContext.object_contexts[type].new
+	  new_obj = ObjectContext.object_contexts[id].new
 	  new_obj.instance_eval(&block)
+	  new_obj.object_file = obj_file
 
 	  objects << new_obj
 	end
@@ -99,6 +77,25 @@ module Ronin
       def Object.object_context(id)
 	# contextify the class
         contextify(id)
+
+	class_eval do
+	  # Make all object contexts taggable
+	  include Taggable
+
+	  # The object_file from which this object context was loaded
+	  has_one :object_file, ObjectFile
+
+          def self.create_object(path,&block)
+            path = File.expand_path(path)
+
+            new_obj = self.new
+            new_obj.load_context(path)
+            new_obj.object_file = ObjectFile.find_by_path(path)
+
+            block.call(new_obj) if block
+            return new_obj
+          end
+	end
 
         # define kernel-level context method
         Kernel.module_eval %{
@@ -124,10 +121,6 @@ module Ronin
 	    end
           end
 	}
-
-	# Og enchant the class and make Taggable
-	is Taggable
-	has_one :object_file, ObjectFile
 
 	# add the class to the global list of object contexts
 	ObjectContext.object_contexts[id] = self

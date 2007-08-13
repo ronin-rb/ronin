@@ -32,21 +32,17 @@ module Ronin
       attr_reader :mtime, Time
 
       # Object Contexts found within the file
-      attr_reader :contexts
+      attr_reader :contexts, Array
 
       def initialize(path,mtime=File.mtime(path))
-	@path = path
+	@path = File.expand_path(path)
 	@mtime = mtime
 	@contexts = []
       end
 
       def self.timestamp(path)
 	obj_file = ObjectFile.new(path,File.mtime(path))
-	obj_file.save
-
-	ronin_load_objects(path).each do |obj|
-	  obj.cache(obj_file)
-	end
+	obj_file.cache
 
 	return obj_file
       end
@@ -59,14 +55,6 @@ module Ronin
 	File.mtime(@path)!=@mtime
       end
 
-      def timestamp
-	# update the timestamp
-	@mtime = File.mtime(@path)
-
-	# update the object-file
-	update
-      end
-
       def cache
 	# clear the contexts list
 	@contexts.clear
@@ -76,6 +64,9 @@ module Ronin
 
 	# populate the contexts list
 	@contexts = objs.map { |obj| obj.context_name }
+
+	# update the timestamp
+	@mtime = File.mtime(@path)
 
 	# save the object-file first
 	save
@@ -88,12 +79,15 @@ module Ronin
 	end
       end
 
-      def delete
+      def expunge
 	@contexts.each do |context|
 	  if ObjectContext.is_object_context?(context)
-	    ObjectContext.object_contexts[context].delete(:condition => ['object_file_oid = ?', self.oid])
+	    objs = ObjectContext.object_contexts[context].find(:condition => ['object_file_oid = ?', self.oid])
+	    objs.each { |obj| obj.delete }
 	  end
 	end
+
+	delete
       end
 
     end
