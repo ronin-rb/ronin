@@ -22,19 +22,21 @@
 require 'repo/contextable'
 require 'repo/objectfile'
 
-require 'rexml'
 require 'og'
 require 'glue/taggable'
+require 'rexml/document'
 
 module Ronin
   module Repo
     module ObjectContext
       include Contextable
 
-      def Object.create_object(path,&block)
+      def self.create_object(path,&block)
+	path = File.expand_path(path)
+
 	new_obj = self.new
 	new_obj.load_context(path)
-	new_obj.object_path = path
+	new_obj.object_file = ObjectFile.find_by_path(path)
 
 	block.call(new_obj) if block
 	return new_obj
@@ -96,10 +98,7 @@ module Ronin
 
       def Object.object_context(id)
 	# contextify the class
-        define_context(id)
-
-	# add the class to the global list of object contexts
-	ObjectContext.object_contexts[id] = self
+        contextify(id)
 
         # define kernel-level context method
         Kernel.module_eval %{
@@ -128,15 +127,10 @@ module Ronin
 
 	# Og enchant the class and make Taggable
 	is Taggable
-	attr_accessor :object_path, String
+	has_one :object_file, ObjectFile
 
-	# ugly hack to hijack og_read and load a live object-context
-	before %{
-	  if res['object_path']
-	    load_context(res['object_path'])
-	    return
-	  end
-	}, :on => :og_read
+	# add the class to the global list of object contexts
+	ObjectContext.object_contexts[id] = self
       end
     end
   end

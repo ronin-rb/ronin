@@ -23,6 +23,10 @@ require 'repo/objectcontext'
 
 class Object
 
-  include Ronin::Repo::ObjectContext
+  def Object.object_context(id)
+    include Ronin::Repo::ObjectContext
+
+    Ronin::Repo::ObjectContext.object_context(id)
+  end
 
 end
