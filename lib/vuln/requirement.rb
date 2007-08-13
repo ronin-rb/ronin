@@ -24,10 +24,10 @@ module Ronin
     class Requirement
 
       # Name of the effect
-      attr_reader :name
+      attr_reader :name, String
 
       # Description of the effect
-      attr_reader :description
+      attr_reader :description, String
 
       def initialize(name,description=nil)
 	@name = name
