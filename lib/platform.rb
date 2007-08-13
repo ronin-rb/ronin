@@ -26,10 +26,10 @@ module Ronin
   class Platform
 
     # Name of the Operating System
-    attr_reader :os, String
+    attr_reader :os, String, :index => true
 
     # Version of the Operating System
-    attr_reader :version, String
+    attr_reader :version, String, :index => true
 
     # Architecture of the Platform
     has_one :arch
