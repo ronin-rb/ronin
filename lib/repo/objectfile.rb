@@ -56,8 +56,8 @@ module Ronin
       end
 
       def cache
-	# clear the contexts list
-	@contexts.clear
+	# clean out the stale objects
+	clean
 
 	# load objects
 	objs = ObjectContext.load_objects(@path)
@@ -68,25 +68,28 @@ module Ronin
 	# update the timestamp
 	@mtime = File.mtime(@path)
 
-	# save the object-file first
-	save
-
 	# connect each object to this object-file and
 	# save the object
-	objs.each do |obj|
-	  obj.object_file = self
-	  obj.save
-	end
+	objs.each { |obj| obj.save }
+
+	# save the object-file first
+	save
       end
 
-      def expunge
+      def clean
 	@contexts.each do |context|
 	  if ObjectContext.is_object_context?(context)
-	    objs = ObjectContext.object_contexts[context].find(:condition => ['object_file_oid = ?', self.oid])
+	    objs = ObjectContext.object_contexts[context].find(:condition => ['object_path = ?', @path])
 	    objs.each { |obj| obj.delete }
 	  end
 	end
 
+	# clear the contexts list
+	@contexts.clear
+      end
+
+      def expunge
+	clean
 	delete
       end
 
