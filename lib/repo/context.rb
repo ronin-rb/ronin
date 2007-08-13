@@ -273,7 +273,7 @@ module Ronin
       protected
 
       def Object.context(id)
-	define_context(id)
+	contextify(id)
 
 	# define kernel-level context method
 	Kernel.module_eval <<-end_eval
