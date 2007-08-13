@@ -19,23 +19,17 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'vuln/descriptive'
+
 module Ronin
   module Vuln
     class Classification
 
-      # Classification name
-      attr_reader :name, String
-
-      # Classification description
-      attr_reader :description, String
+      include Descriptive
 
       def initialize(name,description=nil)
 	@name = name
 	@description = description
-      end
-
-      def to_s
-	@name
       end
 
     end
