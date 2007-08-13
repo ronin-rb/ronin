@@ -40,7 +40,7 @@ module Ronin
   RONIN_ENV = Environment.new
 
   # Load a new object cache
-  def Ronin.load_object_cache(path)
+  def Ronin.load_object_cache(path=ObjectCache.STORE_PATH)
     @object_cache = ObjectCache.new(path)
   end
 
