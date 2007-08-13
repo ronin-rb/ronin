@@ -42,7 +42,6 @@ module Ronin
 
       def ObjectContext.load_objects(path)
 	path = File.expand_path(path)
-	obj_file = ObjectFile.find_by_path(path)
 
 	contexts = Contextable.load_contexts(path)
 	objects = []
@@ -54,7 +53,7 @@ module Ronin
 
 	  new_obj = ObjectContext.object_contexts[id].new
 	  new_obj.instance_eval(&block)
-	  new_obj.object_file = obj_file
+	  new_obj.object_path = path
 
 	  objects << new_obj
 	end
@@ -82,19 +81,37 @@ module Ronin
 	  # Make all object contexts taggable
 	  include Taggable
 
-	  # The object_file from which this object context was loaded
-	  has_one :object_file, ObjectFile
+	  # The object path from which this object context was loaded
+	  attr_accessor :object_path, String
+
+	  before %{
+	    path = res[res.fields.index('object_path')]
+	    if path
+	      load_object(path)
+
+	      @oid = res[res.fields.index('oid')]
+	      return
+	    end
+	  }, :on => :og_read
 
           def self.create_object(path,&block)
             path = File.expand_path(path)
 
             new_obj = self.new
-            new_obj.load_context(path)
-            new_obj.object_file = ObjectFile.find_by_path(path)
+            new_obj.load_object(path,&block)
 
-            block.call(new_obj) if block
             return new_obj
           end
+
+	  def load_object(path,&block)
+	    path = File.expand_path(path)
+
+	    load_context(path)
+	    @object_path = path
+
+	    block.call(self) if block
+	    return self
+	  end
 	end
 
         # define kernel-level context method
