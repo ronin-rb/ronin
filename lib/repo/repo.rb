@@ -24,9 +24,6 @@ require 'environment'
 
 module Ronin
   module Repo
-    # Ronin Environment constant
-    RONIN_ENV = Environment.new
-
     # Loads a new repository cache
     def Repo.load_cache(path)
       @cache = Cache.new(path)
@@ -35,16 +32,6 @@ module Ronin
     # Repository cache
     def Repo.cache
       @cache ||= Cache.new
-    end
-
-    # Load a new object cache
-    def Repo.load_object_cache(path)
-      @object_cache = ObjectCache.new(path)
-    end
-
-    # Object cache
-    def Repo.object_cache
-      @object_cache ||= ObjectCache.new
     end
   end
 end

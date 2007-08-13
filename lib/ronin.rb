@@ -22,6 +22,9 @@
 require 'version'
 require 'exceptions'
 require 'extensions'
+require 'environment'
+require 'objectcache'
+require 'author'
 require 'arch'
 require 'platform'
 require 'parameters'
@@ -31,3 +34,18 @@ require 'payloads'
 require 'exploits'
 require 'audit'
 require 'scanner'
+
+module Ronin
+  # Ronin Environment constant
+  RONIN_ENV = Environment.new
+
+  # Load a new object cache
+  def Ronin.load_object_cache(path)
+    @object_cache = ObjectCache.new(path)
+  end
+
+  # Object cache
+  def Ronin.object_cache
+    @object_cache ||= ObjectCache.new
+  end
+end
