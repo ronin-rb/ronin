@@ -31,7 +31,7 @@ module Ronin
       include Parameters
 
       # Name of the specific payload
-      attr_accessor :name, String
+      attr_accessor :name, String, :index => true
 
       # Version of the payload
       attr_accessor :version, String
@@ -42,7 +42,6 @@ module Ronin
       def initialize(&block)
 	@name = ""
 	@version = ""
-	@authors = []
 	@data = ""
 
 	block.call(self) if block
