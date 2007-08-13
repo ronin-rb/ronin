@@ -28,7 +28,7 @@ module Ronin
     module Contextable
       protected
 
-      def Object.define_context(id)
+      def Object.contextify(id)
 	# define context_name
 	module_eval %{
 	  def self.context_name
