@@ -20,7 +20,7 @@
 #
 
 require 'repo/context'
-require 'repo/exceptions/categorynotfound'
+require 'repo/exceptions/applicationnotfound'
 require 'repo/cache'
 
 module Ronin
