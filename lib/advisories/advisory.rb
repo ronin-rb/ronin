@@ -29,7 +29,7 @@ module Ronin
     class Advisory
 
       # Group that published the advisory
-      attr_reader :group
+      attr_reader :source
 
       # Name of the advisory
       attr_reader :name
@@ -64,8 +64,8 @@ module Ronin
       # Vulnerability discovery credits
       attr_reader :credits
 
-      def initialize(group,name)
-	@group = group
+      def initialize(source,name)
+	@source = source
 	@name = name
 
 	@classification = []
@@ -104,7 +104,7 @@ module Ronin
       end
 
       def to_s
-        "#{group}-#{name}"
+        "#{@source}-#{@name}"
       end
 
     end
