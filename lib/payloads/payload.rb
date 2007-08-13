@@ -20,6 +20,7 @@
 #
 
 require 'parameters'
+require 'author'
 
 require 'og'
 
@@ -36,7 +37,7 @@ module Ronin
       attr_accessor :version, String
 
       # Author(s) of the payload
-      many_to_many :authors
+      many_to_many :authors, Author
 
       def initialize(&block)
 	@name = ""

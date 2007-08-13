@@ -29,7 +29,7 @@ module Ronin
     class PlatformPayload < Payload
 
       # Targeted platform
-      has_one :platform
+      has_one :platform, Platform
 
       def initialize(platform,&block)
 	@platform = platform
