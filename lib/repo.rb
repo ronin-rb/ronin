@@ -20,10 +20,11 @@
 #
 
 require 'repo/context'
-require 'repo/category'
+require 'repo/application'
 require 'repo/repositorymetadata'
 require 'repo/repository'
 require 'repo/cache'
 require 'repo/objectcontext'
+require 'repo/objects'
 require 'repo/repo'
 require 'repo/ronin'
