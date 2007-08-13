@@ -20,7 +20,7 @@
 #
 
 require 'repo/cache'
-require 'repo/objectcache'
+require 'repo/objectcontext'
 require 'repo/roninhandler'
 
 module Ronin
