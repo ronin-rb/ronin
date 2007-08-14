@@ -49,7 +49,7 @@ module Ronin
       attr_reader :description
 
       # Cateogires provided
-      attr_reader :categories
+      attr_reader :applications
 
       # Metadata URIs of dependencies
       attr_reader :deps
@@ -58,18 +58,26 @@ module Ronin
       attr_reader :gems
 
       def initialize(metadata_uri)
-	metadata = REXML::Document.new(open(metadata_uri))
-
 	@name = ""
 	@type = :local
 	@src = ""
 	@license = ""
 	@description = ""
-	@categories = []
+	@applications = []
 	@deps = {}
 	@gems = []
-	@authors = Author.parse(metadata,'/ronin/repository/authors/author')
 
+	update_metadata(metadata_uri)
+      end
+
+      def update_metadata(uri)
+	metadata = REXML::Document.new(open(uri))
+
+	@applications.clear
+	@deps.clear
+	@gems.clear
+
+	@authors = Author.parse(metadata,'/ronin/repository/authors/author')
 	metadata.elements.each('/ronin/repository') do |repo|
 	  @name = repo.attribute('name').to_s
 
@@ -79,7 +87,7 @@ module Ronin
 	  repo.each_element('license') { |license| @license = license.get_text.to_s }
 	  repo.each_element('description') { |desc| @description = desc.get_text.to_s }
 
-	  repo.each_element('category') { |category| @categories << category.get_text.to_s }
+	  repo.each_element('application') { |app| @applications << app.get_text.to_s }
 
 	  repo.each_element('dependency') do |dep|
 	    @deps[dep.attribute('name').to_s] = URI.parse(dep.get_text.to_s)
@@ -110,6 +118,10 @@ module Ronin
 	end
 
 	return Repository.new(path).install
+      end
+
+      def has_application?(name)
+	@applications.include?(name.to_s)
       end
 
       def to_s

@@ -35,20 +35,14 @@ module Ronin
       # Local path to the repository
       attr_reader :path
 
-      # Applications
-      attr_reader :applications
+      # Local path to the repository metadata
+      attr_reader :metadata_path
 
       def initialize(path)
 	@path = File.expand_path(path)
-	@applications = []
+	@metadata_path = File.join(@path,RepositoryMetadata::METADATA_FILE)
 
-	cache_applications
-
-	super(File.join(@path,RepositoryMetadata::METADATA_FILE))
-      end
-
-      def has_application?(name)
-	@applications.include?(name.to_s)
+	super(@metadata_path)
       end
 
       def is_resolved?
@@ -90,6 +84,8 @@ module Ronin
 	    update_cmd.call('rsync','-av','--delete-after','--progress',@src.to_s,@path.to_s)
 	  end
 	end
+
+	update_metadata(@metadata_path)
       end
 
       def commit
@@ -111,21 +107,12 @@ module Ronin
 	end
       end
 
-      def to_s
-	@name
+      def has_application?(name)
+	@applications.include?(name.to_s)
       end
 
-      protected
-
-      def cache_applications(&block)
-	block.call(self) if block
-
-	@applications.clear
-	Dir.foreach(@path) do |file|
-	  if (File.directory?(file) && file!='.' && file!='..')
-	    @applications << file
-	  end
-	end
+      def to_s
+	@name
       end
 
     end
