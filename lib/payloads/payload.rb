@@ -39,6 +39,8 @@ module Ronin
       # Author(s) of the payload
       many_to_many :authors, Author
 
+      schema_inheritance
+
       def initialize(&block)
 	@name = ""
 	@version = ""
