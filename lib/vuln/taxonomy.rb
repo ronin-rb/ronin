@@ -19,8 +19,19 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'vuln/classification'
-require 'vuln/requirement'
-require 'vuln/effect'
 require 'vuln/vulnerability'
-require 'vuln/taxonomy'
+require 'objectcache'
+
+module Ronin
+  module Vuln
+    class Taxonomy
+
+      # Name of the exploit
+      attr_reader :name, String
+
+      # Vulnerability description
+      has_one :vulnerability
+
+    end
+  end
+end
