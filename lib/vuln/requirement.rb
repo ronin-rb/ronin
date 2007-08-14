@@ -27,6 +27,8 @@ module Ronin
 
       include Descriptive
 
+      many_to_many :inherited, Requirement
+
       def initialize(name,description=nil)
 	@name = name
 	@description = description
