@@ -20,19 +20,19 @@
 #
 
 require 'product'
-require 'vuln/classification'
-require 'vuln/requirement'
-require 'vuln/effect'
+require 'vuln'
+
+require 'og'
 
 module Ronin
   module Advisories
     class Advisory
 
       # Group that published the advisory
-      attr_reader :source
+      attr_reader :source, String
 
       # Name of the advisory
-      attr_reader :name
+      attr_reader :name, String, :unique => true
 
       # Advisory title
       attr_reader :title
@@ -63,6 +63,12 @@ module Ronin
 
       # Vulnerability discovery credits
       attr_reader :credits
+
+      after %{
+        update
+      }, :on => :og_read
+
+      schema_inheritance
 
       def initialize(source,name)
 	@source = source

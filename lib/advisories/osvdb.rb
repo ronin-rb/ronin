@@ -34,7 +34,7 @@ module Ronin
       SOURCE_NAME = 'OSVDB'
 
       # Link to the advisory
-      attr_reader :link
+      attr_reader :link, String
 
       def initialize(name,&block)
 	name = name.to_i
