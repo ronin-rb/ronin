@@ -31,16 +31,16 @@ require 'parameters'
 require 'product'
 require 'advisories'
 require 'payloads'
+require 'vuln'
 require 'exploits'
-require 'audit'
-require 'scanner'
+require 'repo'
 
 module Ronin
   # Ronin Environment constant
   RONIN_ENV = Environment.new
 
   # Load a new object cache
-  def Ronin.load_object_cache(path=ObjectCache.STORE_PATH)
+  def Ronin.load_object_cache(path=ObjectCache::STORE_PATH)
     @object_cache = ObjectCache.new(path)
   end
 
