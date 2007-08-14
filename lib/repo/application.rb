@@ -43,77 +43,78 @@ module Ronin
       end
 
       def self.create(name,&block)
-	new_category = self.new(name)
+	new_app = self.new(name)
 
 	# merge all similar applications together
 	Repo.cache.applications[name].each_value do |repository|
-	  category_dir = File.join(repository.path,name)
-	  if File.directory?(category_dir)
-	    new_category.merge!(File.join(category_dir,'app.rb'))
+	  app_dir = File.join(repository.path,name)
+	  if File.directory?(app_dir)
+	    new_app.merge!(File.join(app_dir,'app.rb'))
 	  end
 	end
 
-	block.call(new_category) if block
-	return new_category
+	block.call(new_app) if block
+	return new_app
       end
 
       def depend(name)
 	name = name.to_s
 
-	# return existing category
-	new_category = category(name)
-	return new_category if new_category
+	# return existing application
+	new_app = application(name)
+	return new_app if new_app
 
-	# add new category
-	new_category = self.new(name)
-	@dependencies[new_category.name] = new_category
-	return new_category
+	# add new application
+	new_app = self.new(name)
+	@dependencies[new_app.name] = new_app
+	return new_app
       end
 
-      def has_category?(name)
+      def has_application?(name)
 	name = name.to_s
 
-	# self is the category
+	# self is the application
 	return true if name==@name
 
-	# search category dependencies for the category
-	@dependencies.each_value do |sub_category|
-	  return true if sub_category.has_category?(name)
+	# search application dependencies for the application
+	@dependencies.each_value do |sub_app|
+	  return true if sub_app.has_application?(name)
 	end
 	return false
       end
 
-      def category(name)
+      def application(name)
 	name = name.to_s
 
-	# self is the category
+	# self is the application
 	return self if name==@name
 
-	# search category dependencies for the category
-	@dependencies.each_value do |sub_category|
-	  if (dep = sub_category.category(name))
+	# search application dependencies for the application
+	@dependencies.each_value do |sub_app|
+	  if (dep = sub_app.application(name))
 	    return dep
 	  end
 	end
 	return nil
       end
 
-      def category_eval(name=@name,&block)
+      def application_eval(name=@name,&block)
 	name = name.to_s
 
-	unless (sub_category = category(name))
-	  raise CategoryNotFound, "category '#{name}' not found within category '#{@name}'", caller
+	sub_app = application(name)
+	unless sub_app
+	  raise CategoryNotFound, "application '#{name}' not found within application '#{@name}'", caller
 	end
 
-	return sub_category.instance_eval(&block)
+	return sub_app.instance_eval(&block)
       end
 
       def dist(&block)
 	# distribute block over self and context dependencies
 	results = super(&block)
 
-	# distribute block over category dependencies
-	results += @dependencies.values.map { |sub_category| sub_category.dist(&block) }
+	# distribute block over application dependencies
+	results += @dependencies.values.map { |sub_app| sub_app.dist(&block) }
 
 	return results
       end
@@ -123,8 +124,8 @@ module Ronin
 
 	return true if super(name)
 
-	@dependencies.each_value do |sub_category|
-	  return true if sub_category.has_action?(name)
+	@dependencies.each_value do |sub_app|
+	  return true if sub_app.has_action?(name)
 	end
 	return false
       end
@@ -136,9 +137,9 @@ module Ronin
 	  return context_action
 	end
 
-	@dependencies.each_value do |sub_category|
-	  category_action = sub_category.get_action(name)
-	  return category_action if category_action
+	@dependencies.each_value do |sub_app|
+	  app_action = sub_app.get_action(name)
+	  return app_action if app_action
 	end
 	return nil
       end
@@ -156,9 +157,8 @@ module Ronin
 	name = sym.id2name
 
 	# resolve dependencies
-	if (sub_category = category(name))
-	  return sub_category
-	end
+	sub_app = application(name)
+	return sub_app if sub_app
 
 	# perform action
 	return perform_action(sym,*args) if has_action?(name)
