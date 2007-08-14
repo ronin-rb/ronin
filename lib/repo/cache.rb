@@ -108,12 +108,12 @@ module Ronin
 	return false
       end
 
-      def application(name)
+      def application(name,&block)
 	unless has_application?(name)
 	  raise ApplicationNotFound, "appliation '#{name}' does not exist", caller
 	end
 
-        return Application.new(name)
+        return Application.create(name,&block)
       end
 
       def install(metadata,install_path=File.join(Repository::REPOS_PATH,metadata.name))

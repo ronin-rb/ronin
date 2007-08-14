@@ -46,8 +46,8 @@ module Ronin
 	new_app = self.new(name)
 
 	# merge all similar applications together
-	Repo.cache.applications[name].each_value do |repository|
-	  app_dir = File.join(repository.path,name)
+	Repo.cache.applications[name].each_value do |repo|
+	  app_dir = File.join(repo.path,name)
 	  if File.directory?(app_dir)
 	    new_app.merge!(File.join(app_dir,'app.rb'))
 	  end
@@ -57,7 +57,7 @@ module Ronin
 	return new_app
       end
 
-      def depend(name)
+      def depend(name,&block)
 	name = name.to_s
 
 	# return existing application
@@ -65,7 +65,7 @@ module Ronin
 	return new_app if new_app
 
 	# add new application
-	new_app = self.new(name)
+	new_app = self.create(name,&block)
 	@dependencies[new_app.name] = new_app
 	return new_app
       end
@@ -145,10 +145,10 @@ module Ronin
       end
 
       def main(args=[])
-	dist {
+	dist do
 	  return unless has_action?(:main)
 	  return perform_action(:main,args)
-	}
+	end
       end
 
       protected
