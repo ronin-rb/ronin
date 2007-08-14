@@ -25,6 +25,9 @@ module Ronin
   module Repo
     class ObjectFile
 
+      # Application that the object file resides within
+      attr_reader :application, String
+
       # Path of the Object Context
       attr_reader :path, String
 
@@ -34,14 +37,15 @@ module Ronin
       # Object Contexts found within the file
       attr_reader :contexts, Array
 
-      def initialize(path,mtime=File.mtime(path))
+      def initialize(application,path,mtime=File.mtime(path))
+	@application = application
 	@path = File.expand_path(path)
 	@mtime = mtime
 	@contexts = []
       end
 
-      def self.timestamp(path)
-	obj_file = ObjectFile.new(path,File.mtime(path))
+      def ObjectFile.timestamp(app,path)
+	obj_file = ObjectFile.new(app,path,File.mtime(path))
 	obj_file.cache
 
 	return obj_file
@@ -74,6 +78,10 @@ module Ronin
 
 	# save the object-file first
 	save
+      end
+
+      def update
+	cache if is_stale?
       end
 
       def clean
