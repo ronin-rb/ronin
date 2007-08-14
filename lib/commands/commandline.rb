@@ -1,10 +1,31 @@
-require 'optparse'
-require 'ostruct'
+#
+# Ronin - A decentralized repository for the storage and sharing of computer
+# security advisories, exploits and payloads.
+#
+# Copyright (c) 2007 Hal Brodigan (postmodern at users.sourceforge.net)
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+
+require 'repo'
 require 'commands/command'
 require 'commands/options'
-require 'repo/cache'
-require 'repo/objectcache'
 require 'version'
+
+require 'optparse'
+require 'ostruct'
 
 module Ronin
   module Commands
@@ -72,23 +93,23 @@ module Ronin
 	  return cmd.run(args)
 	end
 
-	# Load the category
-	category = Repo.cache.get_category(sub_command)
+	# Load the application
+	app = Repo.cache.application(sub_command)
 
-	# Perform actions of the category
-	category.setup
+	# Perform actions of the application
+	app.setup
 
 	if (args.empty? || is_flag?(args[0]))
-	  category.main(args)
+	  app.main(args)
 	else
 	  action = args.shift
 
 	  if (action!='setup' && action!='teardown')
-	    category.perform_action(action)
+	    app.perform_action(action)
 	  end
 	end
 
-	category.teardown
+	app.teardown
       end
 
       def default(argv=[])
@@ -158,6 +179,8 @@ module Ronin
 	end
 
 	options.parse(argv).each { |path| Repo.cache.add(path) }
+
+	Repo.cache.save
       end
 
       def list(argv=[])
@@ -222,11 +245,11 @@ module Ronin
 	  end
 
 	  if (options.verbose && !(repo.categories.empty?))
-	    puts "\tcategories:\n\n"
-	    repo.categories.each { |category| puts "\t\t#{category}" }
+	    puts "\tapplications:\n\n"
+	    repo.applications.each { |app| puts "\t\t#{app}" }
 	  end
 	else
-	  Repo.cache.repositories.each { |repo| puts repo }
+	  Repo.cache.repositories.each_value { |repo| puts repo }
 	end
       end
 
@@ -291,7 +314,7 @@ module Ronin
 	  end
 
 	  options.arguments do
-	    arg("NAME","name of category to load")
+	    arg("NAME","name of application to load")
 	  end
 
 	  options.summary("Displays the actions defined by the specified categories")
@@ -300,8 +323,8 @@ module Ronin
 	arguments = options.parse(argv)
 
 	arguments.each do |name|
-	  category = Repo.cache.get_category(name)
-	  category.actions.each_key { |action| puts "  #{action}" }
+	  app = Repo.cache.application(name)
+	  app.actions.each { |action| puts "  #{action}" }
 	end
       end
 
