@@ -19,19 +19,29 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/audit/web/sql/sqlreport'
+
+module Ronin
+  module Audit
+    module Web
+      module SQL
+        class ErrorReport < SQLReport
+
+          # Targeted platform
+          attr_accessor :platform
+
+          # Injection string
+          attr_accessor :injection
+
+          def initialize(platform,injection,url,params,injection_params,post,&block)
+            @platform = platform
+            @injection = injection
+
+            super(url,params,injection_params,post,&block)
+          end
+
+        end
+      end
+    end
+  end
+end

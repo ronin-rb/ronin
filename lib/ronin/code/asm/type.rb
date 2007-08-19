@@ -19,19 +19,34 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/code/asm/exceptions/unresolved'
+
+module Ronin
+  module Asm
+    class Type
+
+      def is_resolved?
+        return true
+      end
+
+      def resolve(block)
+        return self
+      end
+
+      def compile(context)
+      end
+
+    end
+
+    protected
+
+    def resolved?(obj)
+      if obj.kind_of?(Symbol)
+        return false
+      elsif obj.kind_of?(Type)
+        return false unless obj.is_resolved?
+      end
+      return true
+    end
+  end
+end

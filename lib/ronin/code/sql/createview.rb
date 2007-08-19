@@ -19,19 +19,45 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/code/sql/statement'
+require 'ronin/code/sql/select'
+
+module Ronin
+  module Code
+    module SQL
+      class CreateView < Statement
+
+        option :temp, "TEMP"
+        option :if_not_exists, "IF NOT EXISTS"
+
+        def initialize(style,view=nil,query=nil,&block)
+          @view = view
+          @query = query
+
+          super(style,&block)
+        end
+
+        def view(field)
+          @view = field
+          return self
+        end
+
+        def query(table=nil,opts={:fields => nil, :where => nil},&block)
+          @query = Select.new(@style,table,opts,&block)
+          return self
+        end
+
+        def compile
+          compile_expr(keyword_create,temp?,keyword_view,if_not_exists?,@view,keyword_as,@query)
+        end
+
+        protected
+
+        keyword :create
+        keyword :view
+        keyword :as
+
+      end
+    end
+  end
+end

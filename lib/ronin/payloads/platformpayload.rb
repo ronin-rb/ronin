@@ -19,19 +19,24 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
+require 'ronin/payloads/payload'
 require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+
+require 'og'
+
+module Ronin
+  module Payloads
+    class PlatformPayload < Payload
+
+      # Targeted platform
+      has_one :platform, Platform
+
+      def initialize(platform,&block)
+        @platform = platform
+
+        super(&block)
+      end
+
+    end
+  end
+end

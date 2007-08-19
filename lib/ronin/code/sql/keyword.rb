@@ -19,19 +19,25 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+module Ronin
+  module Code
+    module SQL
+      class Keyword
+
+        def initialize(style,name)
+          @style = style
+          @name = name
+        end
+
+        def compile
+          @style.compile_keyword(@name)
+        end
+
+        def to_s
+          compile
+        end
+
+      end
+    end
+  end
+end

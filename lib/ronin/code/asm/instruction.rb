@@ -19,19 +19,47 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/code/asm/type'
+
+module Ronin
+  module Asm
+    class Instruction < Type
+
+      # The instruction opcode
+      attr_reader :op
+
+      # The arguments associated with the instruction
+      attr_reader :args
+
+      def initialize(op,*args)
+        @op = op
+        @args = args
+      end
+
+      def is_resolved?
+        @args.each do |arg|
+          return false if resolved?(arg)
+        end
+        return true
+      end
+
+      def resolve(block)
+        return self if is_resolved?
+
+        new_args = @args.map do |arg|
+          block.resolve_sym(arg)
+        end
+        return Instruction.new(@op,*new_args)
+      end
+
+      def to_s
+        unless @args.empty
+          return "#{@op}\t#{@args * ', '}"
+        else
+          return "#{@op}"
+        end
+      end
+
+    end
+  end
+end

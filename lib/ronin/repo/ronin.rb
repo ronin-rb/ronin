@@ -19,19 +19,33 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/repo/cache'
+require 'ronin/repo/objectcontext'
+require 'ronin/repo/roninhandler'
+
+module Ronin
+  def Ronin.ronin
+    @ronin ||= RoninHandler.new
+  end
+
+  def Ronin.ronin_require(category)
+    Repo.cache.applications[name].each_value do |repository|
+      app_dir = File.join(repository.path,name)
+      load_file = File.join(app_dir,name+'.rb')
+
+      if File.file?(load_file)
+        $LOAD_PATH.unshift(app_dir) unless $LOAD_PATH.include?(app_dir)
+
+        require load_file
+      end
+    end
+  end
+
+  def Ronin.ronin_load_objects(path)
+    Repo::ObjectContext.load_objects(path)
+  end
+
+  def Ronin.ronin_load_object(type,path)
+    Repo::ObjectContext.load_object(type,path)
+  end
+end

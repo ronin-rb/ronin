@@ -19,19 +19,47 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/config'
+
+require 'og'
+
+module Ronin
+  class ObjectCache
+
+    STORE_PATH = File.join(Config::PATH,'object_cache')
+
+    # Path of the object cache
+    attr_reader :path
+
+    # Object cache store
+    attr_reader :store
+
+    def initialize(path=STORE_PATH)
+      @path = path
+      @store = Og.setup(:destroy => false, :evolve_schema => :full, :store => :sqlite, :name => @path)
+    end
+
+    def self.init(path=STORE_PATH)
+      @@cache ||= self.new(path)
+    end
+
+    def self.load(path=STORE_PATH)
+      @@cache = self.new(path)
+    end
+
+    def self.cache
+      @@cache ||= self.load
+    end
+
+    def sql(*sql)
+      @store.get_store.exec_statement(sql.join('; '))
+    end
+
+    protected
+
+    def method_missing(sym,*args)
+      @store.send(sym,*args)
+    end
+
+  end
+end

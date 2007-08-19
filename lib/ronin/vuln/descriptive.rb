@@ -19,19 +19,28 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'og'
+
+module Ronin
+  module Vuln
+    module Descriptive
+
+      attr_reader :name, String, :unique => true
+
+      attr_reader :description, String
+
+      def ==(other)
+        @name==other.name
+      end
+
+      def <=>(other)
+        @name<=>other.name
+      end
+
+      def to_s
+        @name.to_s
+      end
+
+    end
+  end
+end

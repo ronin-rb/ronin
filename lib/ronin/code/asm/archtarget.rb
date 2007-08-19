@@ -19,19 +19,45 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
 require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/code/asm/reg'
+require 'ronin/code/asm/instruction'
+
+module Ronin
+  module Asm
+    class ArchTarget
+
+      # Target architecture
+      attr_reader :arch
+
+      # Target registers
+      attr_reader :regs
+
+      # Target instructions
+      attr_reader :instructions
+
+      def initialize(arch)
+        @arch = arch
+        @regs = {}
+        @instructions = []
+      end
+
+      def has_reg?(sym)
+        @regs.has_key?(sym)
+      end
+
+      def reg(sym)
+        @regs[sym]
+      end
+
+      def has_instruction?(op)
+        @instructions.include?(op)
+      end
+
+      def instruction(op,*args)
+        Instruction.new(op,*args)
+      end
+
+    end
+  end
+end

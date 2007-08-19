@@ -19,19 +19,31 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/repo/cache'
+
+module Ronin
+  class RoninHandler
+
+    def applications
+      Repo.cache.applications.keys
+    end
+
+    def [](name)
+      Repo.cache.application(name.to_s)
+    end
+
+    protected
+
+    def method_missing(sym,*args)
+      if args.length==0
+        name = sym.id2name
+
+        # return a category if present
+        return Repo.cache.application(name) if Repo.cache.has_application?(name)
+      end
+
+      raise NoMethodError, name
+    end
+
+  end
+end

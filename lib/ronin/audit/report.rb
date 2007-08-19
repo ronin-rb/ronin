@@ -19,19 +19,62 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+module Ronin
+  module Audit
+    class Report
+
+      # Start time of the test
+      attr_reader :start_time
+
+      # Outcome of the test
+      attr_reader :status
+
+      # Stop time of the test
+      attr_reader :stop_time
+
+      def initialize(&block)
+        @status = true
+
+        if block
+          # begin reporting
+          start
+
+          # collect report data
+          block.call(self)
+
+          # stop reporting
+          stop
+        end
+      end
+
+      def start
+        @start_time = Time.now
+      end
+
+      def Report.start
+        Report.new.start
+      end
+
+      def stop
+        @stop_time = Time.now
+      end
+
+      def pass
+        @status = true
+      end
+
+      def passed?
+        @status==true
+      end
+
+      def fail
+        @status = false
+      end
+
+      def failed?
+        @status==false
+      end
+
+    end
+  end
+end

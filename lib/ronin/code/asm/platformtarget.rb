@@ -19,19 +19,46 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
 require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+
+module Ronin
+  module Asm
+    class PlatformTarget
+
+      # Architecture target
+      attr_reader :archtarget
+
+      # Platform target
+      attr_reader :platform
+
+      # Platform syscall numbers
+      attr_reader :syscalls
+
+      def initialize(archtarget,platform)
+        @archtarget = archtarget
+        @platform = platform
+        @syscalls = {}
+      end
+
+      def has_syscall?(sym)
+        return false unless @syscalls.has_key?(@platform.arch.name)
+        return @syscalls[@platform.arch.name].has_key?(sym)
+      end
+
+      def syscall(sym)
+        @syscalls[@platform.arch.name][sym]
+      end
+
+      def to_s
+        @platform.to_s
+      end
+
+      protected
+
+      def method_missing(sym,*args)
+        @archtarget.send(sym,*args)
+      end
+
+    end
+  end
+end

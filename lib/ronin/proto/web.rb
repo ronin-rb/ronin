@@ -19,19 +19,30 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/proto/http'
+
+module Ronin
+  module Proto
+    module Web
+
+      protected
+
+      def get_url(url,&block)
+        uri = URI.parse(page)
+        response = proxify.start(uri.host,uri.port) do |http|
+          http.get(uri.path)
+        end
+
+        block.call(response.body) if block
+        return response.body
+      end
+
+      def post_url(url,post_data,&block)
+        response = proxify.post_form(URI.parse(url),post_data)
+
+        block.call(response.body) if block
+        return response.body
+      end
+    end
+  end
+end

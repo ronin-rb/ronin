@@ -19,19 +19,46 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/code/asm/type'
+require 'ronin/code/asm/immed'
+
+module Ronin
+  module Asm
+    class Reg < Type
+
+      # The register index
+      attr_reader :id
+
+      def initialize(id)
+        @id = id
+      end
+
+      #
+      # reg + disp = disp(reg)
+      #
+      def +(disp)
+        Immed.new(self,disp)
+      end
+
+      #
+      # reg * scale = (reg,,scale)
+      #
+      def *(scale)
+        Immed.new(self,1,scale)
+      end
+
+      #
+      # reg[index] = (reg,index)
+      # reg[index,scale] = (reg,index,scale)
+      #
+      def [](index,scale=1)
+        Immed.new(self,index,scale)
+      end
+
+      def to_s
+        @id.id2name
+      end
+
+    end
+  end
+end

@@ -4,7 +4,7 @@ require 'rake/rdoctask'
 require 'rake/gempackagetask'
 require 'rake/contrib/rubyforgepublisher'
 
-require 'lib/version'
+require 'lib/ronin/version'
 
 Gem::manage_gems
 

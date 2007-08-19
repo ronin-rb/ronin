@@ -19,19 +19,46 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/config'
+
+require 'yaml'
+
+module Ronin
+  class Environment
+
+    # Default path of the environment
+    ENVIRONMENT_PATH = File.join(Config::PATH,'env.yml')
+
+    # Path of the environment
+    attr_reader :path
+
+    def initialize(path=ENVIRONMENT_PATH)
+      @path = path.to_s
+
+      if File.file?(path)
+        @env = YAML.load(path)
+      else
+        @env = Hash.new { |hash,key| ENV[key.to_s] }
+      end
+    end
+
+    def [](name)
+      @env[name.to_s]
+    end
+
+    def []=(name,value)
+      @env[name.to_s] = value
+    end
+
+    def save(path=@path)
+      File.open(path,'w') do |file|
+        YAML.dump(@env,file)
+      end
+    end
+
+    def to_s
+      @path
+    end
+
+  end
+end

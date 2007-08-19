@@ -19,19 +19,44 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/code/sql/statement'
+
+module Ronin
+  module Code
+    module SQL
+      class Delete < Statement
+
+        def initialize(style,table=nil,where_expr=nil,&block)
+          @table = table || everything
+          @where = where_expr
+
+          super(style,&block)
+        end
+
+        def from(table)
+          @table = table
+          return self
+        end
+
+        def where(expr)
+          @where = expr
+          return self
+        end
+
+        def compile
+          compile_expr(keyword_delete,@table,where?)
+        end
+
+        protected
+
+        keyword :delete, 'DELETE FROM'
+        keyword :where
+
+        def where?
+          compile_expr(keyword_where,@where) if @where
+        end
+
+      end
+    end
+  end
+end

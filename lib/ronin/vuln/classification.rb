@@ -19,19 +19,23 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/vuln/descriptive'
+
+module Ronin
+  module Vuln
+    class Classification
+
+      include Descriptive
+
+      many_to_many :inherited, Classification
+
+      belongs_to :vulnerability
+
+      def initialize(name,description=nil)
+        @name = name
+        @description = description
+      end
+
+    end
+  end
+end

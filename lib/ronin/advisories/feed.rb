@@ -19,19 +19,46 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'rss/parser'
+require 'open-uri'
+
+module Ronin
+  module Advisories
+    class Feed
+
+      # Title of the feed
+      attr_reader :title
+
+      # Link of the feed
+      attr_reader :link
+
+      # Description of the feed
+      attr_reader :description
+
+      # Publish date of the feed
+      attr_reader :published
+
+      # URL of the feed
+      attr_reader :url
+
+      def initialize(url)
+        @url = URI.parse(url)
+
+        update
+      end
+
+      def update
+        @rss = RSS::Parser.parse(open(@url),false)
+        @title = @rss.channel.title
+        @link = @rss.channel.link
+        @description = @rss.channel.description
+        @published = @rss.channel.date
+      end
+
+      def to_s
+        @title.to_s
+      end
+
+    end
+  end
+end

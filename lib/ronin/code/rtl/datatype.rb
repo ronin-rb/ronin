@@ -19,19 +19,62 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+module Ronin
+  module Code
+    class DataType
+
+      CHAR = DataType.new(:char)
+      INT = DataType.new(:int)
+      INT8 = DataType.new(:int8)
+      INT16 = DataType.new(:int16)
+      INT32 = DataType.new(:int32)
+      INT64 = DataType.new(:int64)
+      STRING = DataType.new(:string)
+      POINTER = DataType.new(:pointer)
+
+      # Name of data-type
+      attr_reader :type
+
+      # Size of data-type
+      attr_reader :size
+
+      def initialize(type,size=0)
+        @type = type
+        @size = size
+      end
+
+    end
+
+    def char
+      DataType::CHAR
+    end
+
+    def int
+      DataType::INT
+    end
+
+    def int8
+      DataType::INT8
+    end
+
+    def int16
+      DataType::INT16
+    end
+
+    def int32
+      DataType::INT32
+    end
+
+    def int64
+      DataType::INT64
+    end
+
+    def string
+      DataType::STRING
+    end
+
+    def pointer
+      DataType::POINTER
+    end
+  end
+end

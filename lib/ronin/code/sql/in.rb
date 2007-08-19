@@ -19,19 +19,29 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/code/sql/expr'
+
+module Ronin
+  module Code
+    module SQL
+      class In < Expr
+
+        def initialize(style,field,*range)
+          super(style)
+
+          @field = field
+          @range = range
+        end
+
+        def compile
+          compile_expr(@field,keyword_in,compile_datalist(@range))
+        end
+
+        protected
+
+        keyword :in
+
+      end
+    end
+  end
+end

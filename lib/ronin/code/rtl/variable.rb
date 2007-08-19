@@ -19,19 +19,52 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/code/exceptions/dereference'
+
+module Ronin
+  module Code
+    class Variable
+
+      # Type of the variable
+      attr_reader :type
+
+      # Name of the variable
+      attr_reader :name
+
+      # Variable's value
+      attr_reader :value
+
+      def initialize(type,name,value=nil)
+        @type = type
+        @name = name
+
+        if value
+          @value = value.clone
+        else
+          @value = nil
+        end
+      end
+
+      def =(value)
+        @value = value
+      end
+
+      def addr
+        Ref.new(self)
+      end
+
+      def data
+        unless @type==DataType::POINTER
+          raise Dereference, "cannot dereference non-pointer data '#{@name}'", caller
+        end
+
+        return Deref.new(self)
+      end
+
+      def method_missing(sym,*args)
+        Variable.new(@type,@name,@value.send(sym,args)) if @data
+      end
+
+    end
+  end
+end

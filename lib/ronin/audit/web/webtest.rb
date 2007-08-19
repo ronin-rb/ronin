@@ -19,19 +19,24 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/audit/test'
+require 'ronin/proto/web'
+
+module Ronin
+  module Audit
+    class WebTest < Test
+
+      include Parameters
+      include Proto::Web
+
+      # TODO: integrate in basic/digest authentication
+      parameter :basic_auth_user, :desc => 'HTTP Basic Authentication user id'
+      parameter :basic_auth_pass, :desc => 'HTTP Basic Authentication user password'
+
+      def initialize(&block)
+        super(&block)
+      end
+
+    end
+  end
+end

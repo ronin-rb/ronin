@@ -19,19 +19,44 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
 require 'ronin/objectcache'
-require 'ronin/author'
 require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+
+module Ronin
+  class Platform
+
+    # Name of the Operating System
+    attr_reader :os, String, :index => true
+
+    # Version of the Operating System
+    attr_reader :version, String, :index => true
+
+    # Architecture of the Platform
+    has_one :arch
+
+    def initialize(os,version,arch)
+      @os = os
+      @version = version
+      @arch = arch
+
+      Platform.platforms[os][version][arch.arch] = self
+    end
+
+    def Platform.platforms
+      @@platforms ||= Hash.new do |hash,platform|
+        hash[platform.os] = Hash.new do |hash,platform|
+          hash[platform.version] = {}
+        end
+      end
+    end
+
+    def Platform.all(&block)
+      Platform.platforms.each_value do |os|
+        os.each_value do |version|
+          version.each_value { |arch| block.call(arch) }
+        end
+      end
+    end
+
+  end
+end

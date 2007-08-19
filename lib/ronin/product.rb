@@ -19,19 +19,41 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
 require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+
+require 'rexml/document'
+
+module Ronin
+  class Product
+
+    # Name
+    attr_reader :name, String
+
+    # Version
+    attr_reader :version, String
+
+    # Venders
+    attr_reader :vendor, String
+
+    def initialize(name,version,vendor)
+      @name = name
+      @version = version
+      @vendor = vendor
+    end
+
+    def Product.parse(doc,xpath='/ronin/product')
+      products = []
+
+      doc.element.each(xpath) do |element|
+        product_name = element.attribute('name').to_s
+        element.each_element('version') { |version| product_version = version.get_text.to_s }
+        element.each_element('vendor') { |vendor| product_vendor = vendor.get_text.to_s }
+
+        products << Procut.new(product_name,product_version,product_vendor)
+      end
+
+      return products
+    end
+
+  end
+end

@@ -19,19 +19,53 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
 require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/audit/report'
+
+module Ronin
+  module Audit
+    class Test
+
+      include Parameters
+
+      def initialize(&block)
+        block.call(self) if block
+      end
+
+      def setup
+        # place holder
+      end
+
+      def perform
+        # place holder
+        Report.new
+      end
+
+      def teardown
+        # place holder
+      end
+
+      def run
+        # setup the test
+        setup
+
+        # perform the test and collect the report
+        report = perform
+
+        # teardown the test
+        teardown
+
+        return report
+      end
+
+      def passed?
+        run.passed
+      end
+
+      def failed?
+        !(run.passed)
+      end
+
+    end
+  end
+end

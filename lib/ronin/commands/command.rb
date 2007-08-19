@@ -19,19 +19,37 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+module Ronin
+  module Commands
+    class Command
+
+      # Official name of the command
+      attr_reader :name
+
+      # Other short names of the command
+      attr_reader :short_names
+
+      # Command block
+      attr_reader :block
+
+      def initialize(name,*short_names,&block)
+        @name = name
+        @short_names = short_names
+        @block = block
+      end
+
+      def run(argv)
+        @block.call(argv)
+      end
+
+      def to_s
+        str = @name
+        unless @short_names.empty?
+          str+=" "+@short_names.join(', ')
+        end
+        return str
+      end
+
+    end
+  end
+end

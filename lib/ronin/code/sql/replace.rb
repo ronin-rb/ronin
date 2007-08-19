@@ -19,19 +19,38 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/code/sql/statement'
+
+module Ronin
+  module Code
+    module SQL
+      class Replace < Statement
+
+        def initialize(style,table=nil,values=nil,from=nil,&block)
+          @table = table
+          @values = values
+          @from = from
+
+          super(style,&block)
+        end
+
+        def values(data)
+          @values = data
+        end
+
+        def from(expr)
+          @from = expr
+        end
+
+        def compile
+          if @values.kind_of?(Hash)
+            return compile_expr('REPLACE INTO',@table,compile_list(@values.keys),'VALUES',compile_datalist(@values.values))
+          elsif @from.kind_of?(Select)
+            return compile_expr('REPLACE INTO',@table,compile_list(@values),@from)
+          end
+        end
+
+      end
+    end
+  end
+end

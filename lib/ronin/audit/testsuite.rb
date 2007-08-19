@@ -19,19 +19,44 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
 require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/audit/test'
+
+module Ronin
+  module Audit
+    class TestSuite
+
+      include Parameters
+
+      # Tests to perform within the suite
+      attr_accessor :tests
+
+      def initialize(tests=[])
+        @tests = tests
+      end
+
+      def <<(test)
+        @tests << test
+      end
+
+      def +(suite)
+        self.clone << suite
+      end
+
+      def run(&block)
+        reports = []
+
+        @tests.map do |test|
+          test.adopt_params(self)
+          reports << test.run
+        end
+        return reports
+      end
+
+      def verify?
+        run.all? { |report| report.passed? }
+      end
+
+    end
+  end
+end

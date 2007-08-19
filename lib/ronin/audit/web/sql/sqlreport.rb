@@ -19,19 +19,40 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/audit/report'
+
+module Ronin
+  module Audit
+    module Web
+      module SQL
+        class SQLReport < Report
+
+          # URL that was injected
+          attr_accessor :url
+
+          # Parameters of the URL
+          attr_accessor :params
+
+          # Parameters that where injected
+          attr_accessor :injection_params
+
+          # Injectable parameters
+          attr_accessor :injectable_params
+
+          # Was the URL accessed via GET or POST
+          attr_accessor :post
+
+          def initialize(url,params,injection_params,post,&block)
+            @params = {}
+            @injection_params = []
+            @injectable_params = []
+            @post = false
+
+            super(&block)
+          end
+
+        end
+      end
+    end
+  end
+end

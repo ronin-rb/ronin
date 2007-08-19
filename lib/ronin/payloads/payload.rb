@@ -19,19 +19,56 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
-require 'ronin/arch'
-require 'ronin/platform'
 require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+require 'ronin/author'
+
+require 'og'
+
+module Ronin
+  module Payloads
+    class Payload
+
+      include Parameters
+
+      # Name of the specific payload
+      attr_accessor :name, String, :index => true
+
+      # Version of the payload
+      attr_accessor :version, String
+
+      # Author(s) of the payload
+      many_to_many :authors, Author
+
+      schema_inheritance
+
+      def initialize(&block)
+        @name = ""
+        @version = ""
+        @data = ""
+
+        block.call(self) if block
+      end
+
+      def builder(&block)
+        @build_block = block
+      end
+
+      def build
+        @data = ""
+
+        @build_block.call(self) if @build_block
+      end
+
+      def cleaner(&block)
+        @clean_block = block
+      end
+
+      def clean
+        @clean_block.call(self) if @clean_block
+
+        @data = ""
+      end
+
+    end
+  end
+end

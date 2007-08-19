@@ -1,7 +1,9 @@
 #!/usr/bin/env ruby
 
+$DBG = true
+
 $LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__),'..','lib')))
 
-require 'commands'
+require 'ronin/commands'
 
 Ronin::Commands::CommandLine.new.run(ARGV)

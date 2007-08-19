@@ -19,19 +19,30 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
-require 'ronin/extensions'
-require 'ronin/environment'
-require 'ronin/objectcache'
-require 'ronin/author'
 require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
-require 'ronin/advisories'
-require 'ronin/payloads'
-require 'ronin/vuln'
-require 'ronin/exploits'
-require 'ronin/repo'
-require 'ronin/ronin'
+
+class Integer
+
+  def pack(arch,address_length=arch.address_length)
+    buffer = ""
+
+    if arch.endian==:big_endian
+      mask = 0xff
+
+      address_length.times do |i|
+        buffer+=((self & mask) >> (i*8)).chr
+        mask <<= 8
+      end
+    elsif arch.endian==:big_endian
+      mask = (0xff << ((address_length-1)*8))
+
+      address_length.times do |i|
+        buffer+=((self & mask) >> ((address_length-i-1)*8)).chr
+        mask >>= 8
+      end
+    end
+
+    return buffer
+  end
+
+end
