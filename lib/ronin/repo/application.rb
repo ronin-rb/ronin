@@ -107,7 +107,7 @@ module Ronin
 
         sub_app = application(name)
         unless sub_app
-          raise CategoryNotFound, "application '#{name}' not found within application '#{@name}'", caller
+          raise(CategoryNotFound,"application '#{name}' not found within application '#{@name}'",caller)
         end
 
         return sub_app.instance_eval(&block)
@@ -194,7 +194,7 @@ module Ronin
         # perform action
         return perform_action(sym,*args) if has_action?(name)
 
-        raise NoMethodError.new(name)
+        raise(NoMethodError,name)
       end
 
     end

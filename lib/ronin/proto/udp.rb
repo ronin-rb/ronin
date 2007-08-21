@@ -48,11 +48,11 @@ module Ronin
 
       def udp_connect(&block)
         unless rhost
-          raise MissingParam, "Missing '#{describe_param(:rhost)}' parameter", caller
+          raise(MissingParam,"Missing '#{describe_param(:rhost)}' parameter",caller)
         end
 
         unless rport
-          raise MissingParam, "Missing '#{describe_param(:rport)}' parameter", caller
+          raise(MissingParam,"Missing '#{describe_param(:rport)}' parameter",caller)
         end
 
         return UDPSocket.new(rhost,rport,&block)

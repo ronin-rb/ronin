@@ -87,7 +87,7 @@ module Ronin
           return new_context
         end
 
-        raise ContextNotFound, "context '#{path}' not found", caller
+        raise(ContextNotFound,"context '#{path}' not found",caller)
       end
 
       def dist(&block)
@@ -133,7 +133,7 @@ module Ronin
       def perform_action(name,*args)
         action = get_action(name)
         unless action
-          raise ActionNotFound, "cannot find action '#{name}' in context '#{self}'", caller
+          raise(ActionNotFound,"cannot find action '#{name}' in context '#{self}'",caller)
         end
 
         return action.call(*args)
@@ -327,7 +327,7 @@ module Ronin
         # perform action
         return perform_action(sym,*args) if has_action?(name)
 
-        raise NoMethodError.new(name)
+        raise(NoMethodError,name)
       end
 
     end

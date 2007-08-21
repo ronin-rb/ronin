@@ -52,7 +52,7 @@ module Ronin
 
       def Contextable.load_contexts(path)
         unless File.file?(path)
-          raise ContextNotFound, "context '#{path}' doest not exist", caller
+          raise(ContextNotFound,"context '#{path}' doest not exist",caller)
         end
 
         # push on the path to load

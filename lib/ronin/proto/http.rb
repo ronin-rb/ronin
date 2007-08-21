@@ -66,11 +66,11 @@ module Ronin
 
       def http_session(&block)
         unless rhost
-          raise MissingParam, "Missing '#{describe_param(:rhost)}' parameter", caller
+          raise(MissingParam,"Missing '#{describe_param(:rhost)}' parameter",caller)
         end
 
         unless rport
-          raise MissingParam, "Missing '#{describe_param(:port)}' parameter", caller
+          raise(MissingParam,"Missing '#{describe_param(:port)}' parameter",caller)
         end
 
         return proxify.start(rhost,rport,&block)

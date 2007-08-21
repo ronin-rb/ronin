@@ -69,7 +69,7 @@ module Ronin
 
         contexts.each do |id,block|
           unless ObjectContext.is_object_context?(id)
-            raise ObjectNotFound, "unknown object context '#{id}'", caller
+            raise(ObjectNotFound,"unknown object context '#{id}'",caller)
           end
 
           new_obj = ObjectContext.object_contexts[id].new
@@ -86,7 +86,7 @@ module Ronin
         type = type.to_sym
 
         unless ObjectContext.is_object_context?(type)
-          raise ObjectNotFound, "unknown object context '#{type}'", caller
+          raise(ObjectNotFound,"unknown object context '#{type}'",caller)
         end
 
         return ObjectContext.object_contexts[type].create_object(path)
@@ -95,8 +95,8 @@ module Ronin
       protected
 
       def Object.object_context(id)
-        unless ObjectContext.is_object_context?(id)
-m         raise ObjectContextRedefinition, "an object context of the name '#{id}' already is defined", caller
+        if ObjectContext.is_object_context?(id)
+m         raise(ObjectContextRedefinition,"an object context of the name '#{id}' already is defined",caller)
         end
 
         # contextify the class

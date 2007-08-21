@@ -55,7 +55,7 @@ module Ronin
 
       def data
         unless @type==DataType::POINTER
-          raise Dereference, "cannot dereference non-pointer data '#{@name}'", caller
+          raise(Dereference,"cannot dereference non-pointer data '#{@name}'",caller)
         end
 
         return Deref.new(self)

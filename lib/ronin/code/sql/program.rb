@@ -60,7 +60,7 @@ module Ronin
             return self
           end
 
-          raise NoMethodError, sym.id2name, caller
+          raise(NoMethodError,sym.id2name)
         end
 
       end

@@ -70,7 +70,7 @@ module Ronin
       def update
 	update_cmd = lambda do |cmd,*args|
 	  unless system(cmd,*args)
-	    raise "failed to update repository '#{self}'", caller
+	    raise("failed to update repository '#{self}'",caller)
 	  end
 	end
 
@@ -91,7 +91,7 @@ module Ronin
       def commit
 	commit_cmd = lambda do |cmd,*args|
 	  unless system(cmd,*args)
-	    raise "failed to commit changes for repository '#{self}'", caller
+	    raise("failed to commit changes for repository '#{self}'",caller)
 	  end
 	end
 

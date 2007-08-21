@@ -69,7 +69,7 @@ module Ronin
         return Arch.archs[name]
       end
 
-      raise NoMethodError, name, caller
+      raise(NoMethodError,name)
     end
 
   end

@@ -65,7 +65,7 @@ module Ronin
 
       def register_repository(repo)
         if has_repository?(repo.name)
-          raise RepositoryCached, "repository '#{repo}' already present in the cache '#{self}'", caller
+          raise(RepositoryCached,"repository '#{repo}' already present in the cache '#{self}'",caller)
         end
 
         @repositories[repo.name] = repo
@@ -78,7 +78,7 @@ module Ronin
 
       def unregister_repository(repo)
         unless has_repository?(repo.name)
-          raise RepositoryNotFound, "repository '#{repo}' is not present in the cache '#{self}'", caller
+          raise(RepositoryNotFound,"repository '#{repo}' is not present in the cache '#{self}'",caller)
         end
 
         @repository.delete_if { |key,value| key==repo.name }
@@ -95,7 +95,7 @@ module Ronin
 
       def get_repository(name)
         unless has_repository?(name)
-          raise RepositoryNotFound, "repository '#{name}' not listed in cache '#{self}'", caller
+          raise(RepositoryNotFound,"repository '#{name}' not listed in cache '#{self}'",caller)
         end
 
         return @repositories[name.to_s]
@@ -110,7 +110,7 @@ module Ronin
 
       def application(name,&block)
         unless has_application?(name)
-          raise ApplicationNotFound, "appliation '#{name}' does not exist", caller
+          raise(ApplicationNotFound,"appliation '#{name}' does not exist",caller)
         end
 
         return Application.create(name,&block)
@@ -118,7 +118,7 @@ module Ronin
 
       def install(metadata,install_path=File.join(Repository::REPOS_PATH,metadata.name))
         if has_repository?(metadata.name)
-          raise RepositoryCached, "repository '#{metadata}' already present in cache '#{self}'", caller
+          raise(RepositoryCached,"repository '#{metadata}' already present in cache '#{self}'",caller)
         end
 
         return metadata.download(install_path)

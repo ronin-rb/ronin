@@ -42,7 +42,7 @@ module Ronin
         return Repo.cache.application(name) if Repo.cache.has_application?(name)
       end
 
-      raise NoMethodError, name
+      raise(NoMethodError,name)
     end
 
   end

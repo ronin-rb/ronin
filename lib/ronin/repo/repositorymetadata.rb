@@ -105,7 +105,7 @@ module Ronin
           args = args.map { |arg| arg.to_s }
 
           unless system(cmd.to_s,*args)
-            raise "failed to download repository '#{self}'", caller
+            raise("failed to download repository '#{self}'",caller)
           end
         end
 

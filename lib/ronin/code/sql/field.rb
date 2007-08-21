@@ -65,7 +65,7 @@ module Ronin
             return field_cache[sym]
           end
 
-          raise NoMethodError, sym.id2name, caller
+          raise(NoMethodError,sym.id2name)
         end
 
         private

@@ -48,11 +48,11 @@ module Ronin
 
       def tcp_connect(&block)
         unless rhost
-          raise MissingParam, "Missing '#{describe_param(:rhost)}' parameter", caller
+          raise(MissingParam,"Missing '#{describe_param(:rhost)}' parameter",caller)
         end
 
         unless rport
-          raise MissingParam, "Missing '#{describe_param(:rport)}' parameter", caller
+          raise(MissingParam,"Missing '#{describe_param(:rport)}' parameter",caller)
         end
 
         return TCPSocket.new(rhost,rport,&block)

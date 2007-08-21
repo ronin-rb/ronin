@@ -87,7 +87,7 @@ module Ronin
           name = name.to_s
 
           unless Dialect.has_dialect?(name)
-            raise UnknownDialect, "unknown dialect '#{name}'", caller
+            raise(UnknownDialect,"unknown dialect '#{name}'",caller)
           end
 
           return Dialect.dialects[name].new
@@ -138,7 +138,7 @@ module Ronin
             return dialects[name]
           end
 
-          raise NoMethodError, name, caller
+          raise(NoMethodError,name)
         end
 
       end
