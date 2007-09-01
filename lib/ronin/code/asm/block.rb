@@ -19,174 +19,66 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/code/asm/platformtarget'
-require 'ronin/code/asm/type'
-require 'ronin/code/asm/reg'
+require 'ronin/code/asm/compiliable'
+require 'ronin/code/asm/style'
+require 'ronin/code/asm/comment'
+require 'ronin/code/asm/register'
 require 'ronin/code/asm/instruction'
-require 'ronin/code/asm/label'
-require 'ronin/code/asm/exceptions/redefinition'
 
 module Ronin
-  module Asm
-    class Block < Type
+  module Code
+    module ASM
+      class Block
 
-      # Target platform
-      attr_reader :target
+        include Compiliable
 
-      # Labels
-      attr_reader :labels
+        # Elements
+        attr_accessor :elements
 
-      # Functions
-      attr_reader :functions
+        def initialize(style,&block)
+          @style = style
+          @elements = []
 
-      # Sub-Blocks
-      attr_reader :blocks
+          extend(@style.dialect)
 
-      # Instructions
-      attr_reader :instructions
+          inline(&block)
+        end
 
-      def initialize(target,&block)
-	@target = target
-	@labels = {}
-	@functions = {}
+        def inline(&block)
+          instance_eval(&block)
+        end
 
-	@blocks = []
-	@instructions = []
+        def compile
+          @elements.map { |elem| elem.to_s }
+        end
 
-	inline(&block) if block
+        def ==(block)
+          @elements==block.elements
+        end
+
+        def +(obj)
+          new_block = self.clone
+
+          if obj.kind_of?(Block)
+            new_block.elements += obj.elements
+          else
+            new_block.elements << obj
+          end
+
+          return new_block
+        end
+
+        def <<(obj)
+          if obj.kind_of?(Array)
+            obj.each { |element| self << element }
+          else
+            @elements << obj
+          end
+
+          return self
+        end
+
       end
-
-      def emit(ins)
-	if ins.kind_of?(Block)
-	  link(ins)
-	elsif ins.kind_of?(Label)
-	  emit_label(ins)
-	else
-	  @instructions << ins
-	end
-      end
-
-      def link(block)
-	if block.kind_of?(Func)
-	  link_func(block)
-	elsif block.kind_of?(Block)
-	  @blocks << block
-	  @instructions << block
-	else
-	  raise "cannot link in non-block", caller
-	end
-      end
-
-      def emit_label(label)
-	if is_restricted?(label.name)
-	  raise Restricted, "cannot define label with name '#{label.name}'", caller
-	end
-
-	if @functions.has_key?(label.name)
-	  raise Redefinition, "cannot redefine function '#{label.name}' as label", caller
-	end
-
-	if @labels.has_key?(label.name)
-	 raise Redefinition, "cannot redefine label '#{label.name}'", caller
-	end
-
-	@labels << label
-	@instructions << label
-      end
-
-      def link_func(func)
-	if is_restricted?(func.name)
-	  raise Restricted, "cannot define function with name '#{func.name}'", caller
-	end
-
-	if @labels.has_key?(func.name)
-	  raise Redefinition, "cannot redefine label '#{func.name}' as function", caller
-	end
-
-	if @functions.has_key?(func.name)
-	 raise Redefinition, "cannot redefine function '#{func.name}'", caller
-	end
-
-	@functions << func
-	@instructions << func
-      end
-
-      def inline(&block)
-	instance_eval(&block)
-      end
-
-      def block(&block)
-	new_block = Block.new(@arch_target,&block)
-	link(new_block)
-	return new_block
-      end
-
-      def label(name)
-	new_label = Label.new(name)
-	emit_label(new_label)
-	return new_label
-      end
-
-      def func(name,&block)
-	new_func = Func.new(name,&block)
-	link_func(new_func)
-	return new_func
-      end
-
-      def resolve_sym(sym)
-	if sym.kind_of?(Symbol)
-	  new_sym = symbol(sym)
-
-	  unless new_sym
-	    raise Unresolved, "cannot resolve symbol '#{sym}'", caller
-	  end
-	  return new_sym
-	end
-	return sym
-      end
-
-      protected
-
-      def symbol(sym)
-	return @functions[sym] if @functions.has_key?(sym)
-	return @labels[sym] if @labels.has_key?(sym)
-
-	@blocks.each do |block|
-	  resolved = block.symbol(sym)
-	  return resolved if resolved
-	end
-	return nil
-      end
-
-      def is_restricted?(sym)
-	return true if @target.has_reg?(sym)
-	return true if @target.has_instruction?(sym)
-	return true if @target.has_syscall?(sym)
-	return false
-      end
-
-      def method_missing(sym,*args)
-	# resolve registers
-	return @target.reg if @target.has_reg?(sym)
-
-	# resolve instructions
-        if @target.has_instruction?(sym)
-	  new_instruction = @target.instruction(sym,*args)
-	  @instructions << new_instruction
-	  return new_instruction
-	end
-
-	# resolve syscalls
-	return @target.syscall(sym) if @target.has_syscall?(sym)
-
-	# early resolution of local functions and labels
-	return @functions[sym] if @functions.has_key?(sym)
-	return @labels[sym] if @labels.has_key?(sym)
-
-	# return unknown symbol for later resolution
-	return sym
-      end
-
     end
   end
 end
