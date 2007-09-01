@@ -24,39 +24,20 @@ require 'ronin/code/asm/compiliable'
 module Ronin
   module Code
     module ASM
-      class Instruction
+      class Comment
 
         include Compiliable
 
-        # The instruction name
-        attr_reader :name
+        # Contents of the comment
+        attr_reader :text
 
-        # The instruction suffix
-        attr_accessor :suffix
-
-        # The arguments associated with the instruction
-        attr_accessor :args
-
-        def initialize(style,name,opts={:suffix => nil, :args => *args})
+        def initialize(style,text)
           @style = style
-          @name = name.to_sym
-          @suffix = opts[:suffix]
-          @args = opts[:args]
-        end
-
-        def ==(ins)
-          return false unless @name==ins.name
-          return false unless @suffix==ins.suffix
-
-          return @args==ins.args
+          @text = text
         end
 
         def compile
-          unless @args.empty
-            return "#{@name}#{@suffix}\t#{@args.join(', ')}"
-          else
-            return @name.to_s
-          end
+          @text.split.map { |line| "# #{line}" }
         end
 
       end

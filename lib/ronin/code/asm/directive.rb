@@ -19,44 +19,35 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/code/asm/compiliable'
+require 'ronin/code/asm/labelblock'
 
 module Ronin
   module Code
     module ASM
-      class Instruction
+      class Directive < LabelBlock
 
-        include Compiliable
-
-        # The instruction name
+        # Name of the directive
         attr_reader :name
 
-        # The instruction suffix
-        attr_accessor :suffix
-
-        # The arguments associated with the instruction
+        # Arguments of the directive
         attr_accessor :args
 
-        def initialize(style,name,opts={:suffix => nil, :args => *args})
-          @style = style
+        def initialize(style,name,*args,&block)
           @name = name.to_sym
-          @suffix = opts[:suffix]
-          @args = opts[:args]
-        end
+          @args = args
 
-        def ==(ins)
-          return false unless @name==ins.name
-          return false unless @suffix==ins.suffix
-
-          return @args==ins.args
+          super(style,&block)
         end
 
         def compile
-          unless @args.empty
-            return "#{@name}#{@suffix}\t#{@args.join(', ')}"
-          else
-            return @name.to_s
-          end
+          ["#{@name} #{@args.join(', ')}"] + super
+        end
+
+        def ==(directive)
+          return false unless @name==directive.name
+          return false unless @args==directive.args
+
+          return super(directive)
         end
 
       end

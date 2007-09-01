@@ -19,46 +19,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/code/asm/compiliable'
-
 module Ronin
   module Code
-    module ASM
-      class Instruction
-
-        include Compiliable
-
-        # The instruction name
-        attr_reader :name
-
-        # The instruction suffix
-        attr_accessor :suffix
-
-        # The arguments associated with the instruction
-        attr_accessor :args
-
-        def initialize(style,name,opts={:suffix => nil, :args => *args})
-          @style = style
-          @name = name.to_sym
-          @suffix = opts[:suffix]
-          @args = opts[:args]
-        end
-
-        def ==(ins)
-          return false unless @name==ins.name
-          return false unless @suffix==ins.suffix
-
-          return @args==ins.args
-        end
-
-        def compile
-          unless @args.empty
-            return "#{@name}#{@suffix}\t#{@args.join(', ')}"
-          else
-            return @name.to_s
-          end
-        end
-
+    module Asm
+      class LabelRedefinition < RuntimeError
       end
     end
   end

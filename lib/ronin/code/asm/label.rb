@@ -19,23 +19,37 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/code/asm/instruction'
+require 'ronin/code/asm/block'
 
 module Ronin
-  module Asm
-    class Label < Type
+  module Code
+    module ASM
+      class Label < Block
 
-      # The name of the label
-      attr_reader :name
+        # The name of the label
+        attr_accessor :name
 
-      def initialize(name)
-        @name = name
+        def initialize(name,style,&block)
+          @name = name.to_sym
+
+          super(style,&block)
+        end
+
+        def compile
+          [@name.to_s] + @elements.map { |elem| "\t#{elem}" }
+        end
+
+        def ==(label)
+          return false unless @name==label.name
+
+          return super(label)
+        end
+
+        def to_s
+          @name.to_s
+        end
+
       end
-
-      def to_s
-        @name.id2name
-      end
-
     end
   end
 end

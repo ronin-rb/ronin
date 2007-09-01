@@ -8,7 +8,7 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-#
+
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -19,44 +19,26 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/code/asm/compiliable'
+require 'ronin/code/asm/labelblock'
 
 module Ronin
   module Code
     module ASM
-      class Instruction
+      class Section < LabelBlock
 
-        include Compiliable
-
-        # The instruction name
+        # Name of the section
         attr_reader :name
 
-        # The instruction suffix
-        attr_accessor :suffix
-
-        # The arguments associated with the instruction
-        attr_accessor :args
-
-        def initialize(style,name,opts={:suffix => nil, :args => *args})
-          @style = style
+        def initialize(dialect,name,*args,&block)
           @name = name.to_sym
-          @suffix = opts[:suffix]
-          @args = opts[:args]
+
+          super(dialect,*args,&block)
         end
 
-        def ==(ins)
-          return false unless @name==ins.name
-          return false unless @suffix==ins.suffix
+        def ==(section)
+          return false unless @name==section.name
 
-          return @args==ins.args
-        end
-
-        def compile
-          unless @args.empty
-            return "#{@name}#{@suffix}\t#{@args.join(', ')}"
-          else
-            return @name.to_s
-          end
+          return super(section)
         end
 
       end
