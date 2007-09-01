@@ -19,46 +19,55 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/code/asm/type'
-require 'ronin/code/asm/immed'
+require 'ronin/code/asm/compiliable'
+require 'ronin/code/asm/deref'
 
 module Ronin
-  module Asm
-    class Reg < Type
+  module Code
+    module ASM
+      class Register
 
-      # The register index
-      attr_reader :id
+        include Compiliable
 
-      def initialize(id)
-        @id = id
+        # The register index
+        attr_reader :name
+
+        def initialize(style,name)
+          @style = style
+          @name = name.to_sym
+        end
+
+        #
+        # reg + disp = disp(reg)
+        #
+        def +(disp)
+          Deref.new(self,disp)
+        end
+
+        #
+        # reg * scale = (reg,,scale)
+        #
+        def *(scale)
+          Deref.new(self,1,scale)
+        end
+
+        #
+        # reg[index] = (reg,index)
+        # reg[index,scale] = (reg,index,scale)
+        #
+        def [](index,scale=1)
+          Deref.new(self,index,scale)
+        end
+
+        def compile
+          if syntax==:att
+            return "%#{@name}"
+          elsif syntax==:intel
+            return @name.to_s
+          end
+        end
+
       end
-
-      #
-      # reg + disp = disp(reg)
-      #
-      def +(disp)
-        Immed.new(self,disp)
-      end
-
-      #
-      # reg * scale = (reg,,scale)
-      #
-      def *(scale)
-        Immed.new(self,1,scale)
-      end
-
-      #
-      # reg[index] = (reg,index)
-      # reg[index,scale] = (reg,index,scale)
-      #
-      def [](index,scale=1)
-        Immed.new(self,index,scale)
-      end
-
-      def to_s
-        @id.id2name
-      end
-
     end
   end
 end
