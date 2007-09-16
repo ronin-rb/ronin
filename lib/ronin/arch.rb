@@ -34,11 +34,17 @@ module Ronin
     attr_reader :address_length, Integer
 
     def initialize(arch,endian,address_length)
-      @arch = arch
+      @arch = arch.to_s
       @endian = endian.to_sym
-      @address_length = address_length
+      @address_length = address_length.to_i
 
       Arch.archs[@arch] = self
+    end
+
+    def ==(other)
+      return false unless @arch==other.arch
+      return false unless @endian==other.endian
+      return @address_length==other.address_length
     end
 
     def Arch.archs
@@ -46,20 +52,20 @@ module Ronin
     end
 
     def Arch.all(&block)
-      archs.each_value { |arch| block.call(arch) }
+      archs.each_value(&block)
     end
 
-    X86 = Arch.new("x86",:little_endian,4)
-    AMD64 = Arch.new("amd64",:little_endian,8)
-    IA64 = Arch.new("ia64",:little_endian,8)
-    PPC = Arch.new("ppc",:big_endian,4)
-    PPC64 = Arch.new("ppc64",:big_endian,8)
-    SPARC = Arch.new("sparc",:big_endian,4)
-    SPARC64 = Arch.new("sparc64",:big_endian,8)
-    MIPS_LITTLE = Arch.new("mips_little",:little_endian,4)
-    MIPS_BIG = Arch.new("mips_big",:big_endian,4)
-    ARM_LITTLE = Arch.new("arm_little",:little_endian,4)
-    ARM_BIG = Arch.new("arm_big",:big_endian,4)
+    X86 = Arch.new('x86',:little_endian,4)
+    AMD64 = Arch.new('amd64',:little_endian,8)
+    IA64 = Arch.new('ia64',:little_endian,8)
+    PPC = Arch.new('ppc',:big_endian,4)
+    PPC64 = Arch.new('ppc64',:big_endian,8)
+    SPARC = Arch.new('sparc',:big_endian,4)
+    SPARC64 = Arch.new('sparc64',:big_endian,8)
+    MIPS_LITTLE = Arch.new('mips_little',:little_endian,4)
+    MIPS_BIG = Arch.new('mips_big',:big_endian,4)
+    ARM_LITTLE = Arch.new('arm_little',:little_endian,4)
+    ARM_BIG = Arch.new('arm_big',:big_endian,4)
 
     protected
 

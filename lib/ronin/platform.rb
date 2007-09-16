@@ -20,7 +20,6 @@
 #
 
 require 'ronin/objectcache'
-require 'ronin/arch'
 
 module Ronin
   class Platform
@@ -31,30 +30,27 @@ module Ronin
     # Version of the Operating System
     attr_reader :version, String, :index => true
 
-    # Architecture of the Platform
-    has_one :arch
+    def initialize(os,version)
+      @os = os.to_s
+      @version = version.to_s
 
-    def initialize(os,version,arch)
-      @os = os
-      @version = version
-      @arch = arch
+      Platform.platforms[@os][@version] = self
+    end
 
-      Platform.platforms[os][version][arch.arch] = self
+    def ==(other)
+      return false unless @os==other.os
+      return @version==other.version
     end
 
     def Platform.platforms
-      @@platforms ||= Hash.new do |hash,platform|
-        hash[platform.os] = Hash.new do |hash,platform|
-          hash[platform.version] = {}
-        end
+      @@platforms ||= Hash.new do |hash,os|
+        hash[os] = {}
       end
     end
 
     def Platform.all(&block)
       Platform.platforms.each_value do |os|
-        os.each_value do |version|
-          version.each_value { |arch| block.call(arch) }
-        end
+        os.each_value(&block)
       end
     end
 
