@@ -19,7 +19,21 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/parameters/param'
-require 'ronin/parameters/classparam'
-require 'ronin/parameters/instanceparam'
-require 'ronin/parameters/parameters'
+module Ronin
+  module Parameters
+    class Param
+
+      # Name of parameter
+      attr_reader :name
+
+      # Description of parameter
+      attr_reader :description
+
+      def initialize(name,description="")
+        @name = name.to_sym
+        @description = description
+      end
+
+    end
+  end
+end

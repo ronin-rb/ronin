@@ -20,6 +20,20 @@
 #
 
 require 'ronin/parameters/param'
-require 'ronin/parameters/classparam'
-require 'ronin/parameters/instanceparam'
-require 'ronin/parameters/parameters'
+
+module Ronin
+  module Parameters
+    class ClassParam < Param
+
+      # Default value of the class parameter
+      attr_accessor :value
+
+      def initialize(name,opts={:value => nil, :description => ""})
+        super(name,opts[:description])
+
+        @value = opts[:value]
+      end
+
+    end
+  end
+end
