@@ -36,15 +36,22 @@ module Ronin
       # Version of the payload
       attr_accessor :version, String
 
+      # Additional comments
+      attr_accessor :comments, String
+
+      # Payload data
+      attr_accessor :data
+
       # Author(s) of the payload
       many_to_many :authors, Author
 
       schema_inheritance
 
-      def initialize(&block)
-        @name = ""
-        @version = ""
-        @data = ""
+      def initialize(name=nil,version=nil,&block)
+        super()
+
+        @name = name
+        @version = version
 
         block.call(self) if block
       end
@@ -53,8 +60,12 @@ module Ronin
         @build_block = block
       end
 
+      def is_built?
+        !(@data.nil? || @data.empty?)
+      end
+
       def build
-        @data = ""
+        @data = ''
 
         @build_block.call(self) if @build_block
       end
@@ -63,10 +74,14 @@ module Ronin
         @clean_block = block
       end
 
+      def is_clean?
+        @data.nil?
+      end
+
       def clean
         @clean_block.call(self) if @clean_block
 
-        @data = ""
+        @data = nil
       end
 
     end

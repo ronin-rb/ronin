@@ -20,6 +20,7 @@
 #
 
 require 'ronin/payloads/payload'
+require 'ronin/arch'
 require 'ronin/platform'
 
 require 'og'
@@ -31,8 +32,12 @@ module Ronin
       # Targeted platform
       has_one :platform, Platform
 
-      def initialize(platform,&block)
+      # Targeted architecture
+      has_one :arch, Arch
+
+      def initialize(platform=nil,arch=nil,&block)
         @platform = platform
+        @arch = arch
 
         super(&block)
       end
