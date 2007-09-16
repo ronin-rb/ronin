@@ -20,6 +20,7 @@
 #
 
 require 'ronin/parameters'
+require 'ronin/parameters/exceptions/paramnotfound'
 
 require 'socket'
 
@@ -28,34 +29,38 @@ module Ronin
     module UDP
       include Parameters
 
-      def self.included(klass)
-        klass.parameter :lhost, :desc => 'local host'
-        klass.parameter :lport, :desc => 'local port'
+      def self.included(base)
+        base.module_eval do
+          parameter :lhost, :description => 'local host'
+          parameter :lport, :description => 'local port'
 
-        klass.parameter :rhost, :desc => 'remote host'
-        klass.parameter :rport, :desc => 'remote port'
+          parameter :rhost, :description => 'remote host'
+          parameter :rport, :description => 'remote port'
+        end
       end
 
       def self.extended(obj)
-        obj.parameter :lhost, :desc => 'local host'
-        obj.parameter :lport, :desc => 'local port'
+        obj.instance_eval do
+          parameter :lhost, :description => 'local host'
+          parameter :lport, :description => 'local port'
 
-        obj.parameter :rhost, :desc => 'remote host'
-        obj.parameter :rport, :desc => 'remote port'
+          parameter :rhost, :description => 'remote host'
+          parameter :rport, :description => 'remote port'
+        end
       end
 
       protected
 
       def udp_connect(&block)
-        unless rhost
-          raise(MissingParam,"Missing '#{describe_param(:rhost)}' parameter",caller)
+        unless @rhost
+          raise(ParamNotFound,"Missing '#{describe_param(:rhost)}' parameter",caller)
         end
 
-        unless rport
-          raise(MissingParam,"Missing '#{describe_param(:rport)}' parameter",caller)
+        unless @rport
+          raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
         end
 
-        return UDPSocket.new(rhost,rport,&block)
+        return UDPSocket.new(@rhost,@rport,&block)
       end
 
       def udp_listen(&block)

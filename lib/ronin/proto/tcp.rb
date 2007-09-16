@@ -20,6 +20,7 @@
 #
 
 require 'ronin/parameters'
+require 'ronin/parameters/exceptions/paramnotfound'
 
 require 'socket'
 
@@ -29,33 +30,37 @@ module Ronin
       include Parameters
 
       def self.included(klass)
-        klass.parameter :lhost, :desc => 'local host'
-        klass.parameter :lport, :desc => 'local port'
+        klass.module_eval do
+          parameter :lhost, :description => 'local host'
+          parameter :lport, :description => 'local port'
 
-        klass.parameter :rhost, :desc => 'remote host'
-        klass.parameter :rport, :desc => 'remote port'
+          parameter :rhost, :description => 'remote host'
+          parameter :rport, :description => 'remote port'
+        end
       end
 
       def self.extended(obj)
-        obj.parameter :lhost, :desc => 'local host'
-        obj.parameter :lport, :desc => 'local port'
+        obj.instance_eval do
+          parameter :lhost, :description => 'local host'
+          parameter :lport, :description => 'local port'
 
-        obj.parameter :rhost, :desc => 'remote host'
-        obj.parameter :rport, :desc => 'remote port'
+          parameter :rhost, :description => 'remote host'
+          parameter :rport, :description => 'remote port'
+        end
       end
 
       protected
 
       def tcp_connect(&block)
-        unless rhost
-          raise(MissingParam,"Missing '#{describe_param(:rhost)}' parameter",caller)
+        unless @rhost
+          raise(ParamNotFound,"Missing '#{describe_param(:rhost)}' parameter",caller)
         end
 
-        unless rport
-          raise(MissingParam,"Missing '#{describe_param(:rport)}' parameter",caller)
+        unless @rport
+          raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
         end
 
-        return TCPSocket.new(rhost,rport,&block)
+        return TCPSocket.new(@rhost,@rport,&block)
       end
 
       def tcp_listen(&block)
