@@ -22,179 +22,172 @@
 require 'ronin/repo/context'
 require 'ronin/repo/exceptions/applicationnotfound'
 require 'ronin/repo/cache'
+require 'ronin/repo/objects'
 require 'ronin/objectcache'
 
 module Ronin
   module Repo
-    class Application < Context
+    class Application
 
-      # Name of the context to load
-      context :app
-
-      # Main action
-      attr_action :main
+      # Name of the application
+      attr_reader :name
 
       # Applications dependencies
       attr_reader :dependencies
 
-      def initialize(name=context_name,&block)
+      # Application Contexts
+      attr_reader :contexts
+
+      def initialize(name,&block)
+        @name = name
         @dependencies = {}
+        @contexts = []
+
         @cache_paths = []
 
-        super(name,&block)
-      end
-
-      def self.create(name,&block)
-        new_app = self.new(name)
-
-        # merge all similar applications together
+        # load all related application contexts
         Repo.cache.applications[name].each_value do |repo|
           app_dir = File.join(repo.path,name)
           if File.directory?(app_dir)
             $LOAD_PATH.unshift(repo.path) unless $LOAD_PATH.include?(repo.path)
 
-            new_app.merge!(File.join(app_dir,'app.rb'))
+            @contexts << AppContext.load_appontext(app_dir,self)
           end
         end
 
-        block.call(new_app) if block
-        return new_app
+        block.call(self) if block
       end
 
-      def depend(name,&block)
+      def depend(name)
         name = name.to_s
 
-        # return existing application
-        new_app = application(name)
-        return new_app if new_app
+        # return existing dependency
+        dep = dependency(name)
+        return dep if dep
 
-        # add new application
-        new_app = self.create(name,&block)
-        @dependencies[new_app.name] = new_app
-        return new_app
+        # add the new dependency
+        @dependencies[name] = Application.new(name)
+        return @dependencies[name]
       end
 
-      def has_application?(name)
+      def dependency(name)
         name = name.to_s
 
-        # self is the application
-        return true if name==@name
+        return self if @name==name
 
-        # search application dependencies for the application
-        @dependencies.each_value do |sub_app|
-          return true if sub_app.has_application?(name)
+        @dependencies.each do |app|
+          dep = app.dependency(name)
+          return dep if dep
         end
-        return false
-      end
 
-      def application(name)
-        name = name.to_s
-
-        # self is the application
-        return self if name==@name
-
-        # search application dependencies for the application
-        @dependencies.each_value do |sub_app|
-          if (dep = sub_app.application(name))
-            return dep
-          end
-        end
         return nil
       end
 
-      def application_eval(name=@name,&block)
-        name = name.to_s
-
-        sub_app = application(name)
-        unless sub_app
-          raise(CategoryNotFound,"application '#{name}' not found within application '#{@name}'",caller)
-        end
-
-        return sub_app.instance_eval(&block)
+      def depends_on?(name)
+        !(dependency(name).nil?)
       end
 
-      def dist(&block)
-        # distribute block over self and context dependencies
-        results = super(&block)
+      def contexts_with(&block)
+        matches = @contexts.select(&block)
 
-        # distribute block over application dependencies
-        results += @dependencies.values.map { |sub_app| sub_app.dist(&block) }
+        @dependencies.each_value do |app|
+          matches += app.contexts_with(&block)
+        end
+
+        return matches
+      end
+
+      def context_with(&block)
+        match = @context.select(&block)[0]
+        return match if match
+
+        @dependencies.each_value do |app|
+          match = app.context_with(&block)
+          return match if match
+        end
+
+        return nil
+      end
+
+      def distribute(&block)
+        results = @contexts.map(&block)
+
+        @dependencies.each_value do |app|
+          results += app.distribute(&block)
+        end
 
         return results
       end
 
-      def has_action?(name)
-        name = name.to_s
+      def distribute_call(sym,*args,&block)
+        name = sym.to_s
 
-        return true if super(name)
-
-        @dependencies.each_value do |sub_app|
-          return true if sub_app.has_action?(name)
+        # collect contexts
+        contexts = contexts_with do |context|
+          context.public_instance_methods(false).include?(name)
         end
-        return false
+
+        if contexts.empty?
+          raise(NoMethodError,name,caller)
+        end
+
+        sym = sym.to_sym
+
+        # return distributed return values
+        return contexts.map { |context| context.send(sym,*args,&block) }
       end
 
-      def get_action(name)
-        name = name.to_s
+      def distribute_once(sym,*args,&block)
+        name = sym.to_s
 
-        if (context_action = super(name))
-          return context_action
+        # find the first matching dependency
+        context = context_with do |context|
+          app.public_instance_methods(false).include?(name)
         end
 
-        @dependencies.each_value do |sub_app|
-          app_action = sub_app.get_action(name)
-          return app_action if app_action
+        unless context
+          raise(NoMethodError,name,caller)
         end
-        return nil
+
+        return context.send(sym.to_sym,*args,&block) if context
       end
-
-      def setup
-        @cache_paths.each do |path|
-          path = File.expand_path(path)
-
-          obj_file = ObjectFile.find_by_path(path)
-          if obj_file
-            obj_file.update
-          else
-            ObjectFile.timestamp(@name,path)
-          end
-        end
-
-        obj_files = ObjectFile.find_all_by_application(@name)
-        obj_files.each do |obj_file|
-          obj_file.expunge if obj_file.is_missing?
-        end
-
-        dist do
-          return unless has_action?(:setup)
-          return perform_action(:setup)
-        end
-      end
-
-      def main(args=[])
-        dist do
-          return unless has_action?(:main)
-          return perform_action(:main,args)
-        end
-      end
-
-      protected
 
       def cache(*paths)
         @cache_paths += paths
       end
 
-      def method_missing(sym,*args)
+      def main(args)
+        distribute_call(:main,args)
+        return self
+      end
+
+      def setup
+        distribute_call(:setup)
+        return self
+      end
+
+      def teardown
+        distribute_call(:teardown)
+        return self
+      end
+
+      protected
+
+      def method_missing(sym,*args,&block)
         name = sym.id2name
 
-        # resolve dependencies
-        sub_app = application(name)
-        return sub_app if sub_app
+        if args.length==0
+          # resolve dependencies
+          dep = dependency(name)
 
-        # perform action
-        return perform_action(sym,*args) if has_action?(name)
+          if dep
+            block.call(dep) if block
+            return dep
+          end
+        end
 
-        raise(NoMethodError,name)
+        # distribute the method
+        return distribute_once(sym,*args,&block)
       end
 
     end
