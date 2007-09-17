@@ -36,7 +36,7 @@ module Ronin
     def initialize(arch,endian,address_length)
       @arch = arch.to_s
       @endian = endian.to_sym
-      @address_length = address_length.to_i
+      @address_length = address_length
 
       Arch.archs[@arch] = self
     end
@@ -49,6 +49,10 @@ module Ronin
 
     def Arch.archs
       @@archs ||= {}
+    end
+
+    def Arch.exists?(name)
+      Arch.archs.has_key?(name.to_s)
     end
 
     def Arch.all(&block)
@@ -71,7 +75,7 @@ module Ronin
 
     def method_missing(sym,*args)
       name = sym.id2name
-      if (Arch.archs.has_key?(name) && args.length==0)
+      if (Arch.exists?(name) && args.length==0)
         return Arch.archs[name]
       end
 
