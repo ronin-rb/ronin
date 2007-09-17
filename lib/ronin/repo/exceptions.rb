@@ -19,10 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'repo/exceptions/actionnotfound'
-require 'repo/exceptions/actionunbound'
-require 'repo/exceptions/contextnotfound'
-require 'repo/exceptions/objectnotfound'
-require 'repo/exceptions/objectcontextredefinition'
-require 'repo/exceptions/applicationnotfound'
-require 'repo/exceptions/repositorynotfound'
+require 'ronin/repo/exceptions/contextnotfound'
+require 'ronin/repo/exceptions/objectnotfound'
+require 'ronin/repo/exceptions/objectcontextredefinition'
+require 'ronin/repo/exceptions/applicationnotfound'
+require 'ronin/repo/exceptions/repositorynotfound'
