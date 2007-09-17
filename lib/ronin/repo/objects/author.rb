@@ -1,7 +1,9 @@
 module Ronin
   class Author
 
-    object_context :author
+    include Repo::ObjectContext
+
+    object_contextify :author
 
   end
 end

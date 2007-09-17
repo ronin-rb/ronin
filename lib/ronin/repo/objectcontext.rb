@@ -20,7 +20,7 @@
 #
 
 require 'ronin/objectcache'
-require 'ronin/repo/contextable'
+require 'ronin/repo/context'
 require 'ronin/repo/objectfile'
 require 'ronin/repo/exceptions/objectcontextredefinition'
 
@@ -31,7 +31,7 @@ require 'rexml/document'
 module Ronin
   module Repo
     module ObjectContext
-      include Contextable
+      include Context
 
       def ObjectContext.object_contexts
         @@object_contexts ||= {}
@@ -41,30 +41,10 @@ module Ronin
         ObjectContext.object_contexts.has_key?(id.to_sym)
       end
 
-      def ObjectContext.object_contextify(*args)
-        setup = lambda { |klass,id|
-          klass.class_eval do
-            include Objectcontext
-
-            object_context(id)
-          end
-        }
-
-        if classes.kind_of?(Hash)
-          classes.each { |klass,id| setup.call(klass,id) }
-        elsif classes.kind_of?(Array)
-          classes.each do |klass|
-            setup.call(klass,ObjectContext.object_contextualize(klass))
-          end
-        elsif classes.kind_of?(Class)
-          setup.call(classes,ObjectContext.object_contextualize(klass))
-        end
-      end
-
       def ObjectContext.load_objects(path)
         path = File.expand_path(path)
 
-        contexts = Contextable.load_contexts(path)
+        contexts = Context.load_contexts(path)
         objects = []
 
         contexts.each do |id,block|
@@ -82,76 +62,62 @@ module Ronin
         return objects
       end
 
-      def ObjectContext.load_object(type,path)
+      def ObjectContext.load_object(type,path,*args)
         type = type.to_sym
 
         unless ObjectContext.is_object_context?(type)
           raise(ObjectNotFound,"unknown object context '#{type}'",caller)
         end
 
-        return ObjectContext.object_contexts[type].create_object(path)
+        return ObjectContext.object_contexts[type].create_object(path,*args)
       end
 
       protected
 
-      def Object.object_context(id)
+      def Object.object_contextify(id=object_contextify_name(self))
         if ObjectContext.is_object_context?(id)
-m         raise(ObjectContextRedefinition,"an object context of the name '#{id}' already is defined",caller)
+          raise(ObjectContextRedefinition,"an object context of the name '#{id}' already is defined",caller)
         end
 
         # contextify the class
         contextify(id)
 
-        class_eval do
-          # Make all object contexts taggable
-          include Taggable
+        # Make all object contexts taggable
+        include Taggable
 
-          # The object path from which this object context was loaded
-          attr_accessor :object_path, String
+        # The object path from which this object context was loaded
+        attr_accessor :object_path, String
 
-          before %{
-            path = res[res.fields.index('object_path')]
-            if path
-              load_object(path)
+        before %{
+          path = res[res.fields.index('object_path')]
+          if path
+            load_object(path)
 
-              @oid = res[res.fields.index('oid')]
-              return
-            end
-          }, :on => :og_read
-
-          def self.create_object(path,&block)
-            path = File.expand_path(path)
-
-            new_obj = self.new
-            new_obj.load_object(path,&block)
-
-            return new_obj
+            @oid = res[res.fields.index('oid')]
+            return
           end
+        }, :on => :og_read
 
-          def load_object(path,&block)
-            path = File.expand_path(path)
+        # Make sure the class is managed by Og
+        ObjectCache.cache.manage_class(self)
 
-            load_context(path)
-            @object_path = path
+        meta_def(:create_object) do |path,*args|
+          path = File.expand_path(path)
 
-            block.call(self) if block
-            return self
-          end
+          new_obj = self.new(*args)
+          new_obj.load_object(path)
+
+          return new_obj
         end
 
-        # define kernel-level context method
-        Kernel.module_eval %{
-          def ronin_#{id}(*args,&block)
-            if ronin_context_pending?
-              ronin_contexts[:#{id}] = block
-              return nil
-            else
-              new_obj = #{self}.new(*args)
-              new_obj.instance_eval(&block)
-              return new_obj
-            end
-          end
-        }
+        class_def(:load_object) do |path|
+          path = File.expand_path(path)
+
+          load_context(path)
+
+          @object_path = path
+          return self
+        end
 
         # define Repo-level object loader method
         Ronin.module_eval %{
@@ -168,9 +134,8 @@ m         raise(ObjectContextRedefinition,"an object context of the name '#{id}'
         ObjectContext.object_contexts[id] = self
       end
 
-      def ObjectContext.object_contextualize(klass)
-        # similar to the way Og tableizes Class names
-        return klass.to_s.downcase.gsub(/::/,'_').gsub(/^ronin_/,'')
+      def ObjectContext.object_contextify_name(base)
+        Context.contextify_name(base)
       end
     end
   end

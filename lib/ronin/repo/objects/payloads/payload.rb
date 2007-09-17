@@ -2,7 +2,9 @@ module Ronin
   module Payloads
     class Payload
 
-      object_context :payload
+      include Repo::ObjectContext
+
+      object_contextify :payload
 
     end
   end
