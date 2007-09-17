@@ -32,87 +32,104 @@ module Ronin
       # Path to repositories dir
       REPOS_PATH = File.join(Config::PATH,'repos')
 
+      # Filename of the repository metadata XML document
+      METADATA_FILE = 'ronin.xml'
+
       # Local path to the repository
       attr_reader :path
 
-      # Local path to the repository metadata
-      attr_reader :metadata_path
-
       def initialize(path)
-	@path = File.expand_path(path)
-	@metadata_path = File.join(@path,RepositoryMetadata::METADATA_FILE)
+        @path = File.expand_path(path)
 
-	super(@metadata_path)
+        super(File.join(@path,METADATA_FILE))
       end
 
-      def is_resolved?
-	@deps.each_key do |dep|
-	  return false unless cache.has_repository?(dep)
-	end
-	return true
+      def self.install(path)
+        self.new(path).install
       end
 
-      def resolve
-	@deps.each do |key,value|
-	  unless cache.has_repository?(key)
-	    cache.install(RespositoryMetadata.new(value))
-	  end
-	end
+      def dependencies_resolved?
+        @deps.each_key do |dep|
+          return false unless cache.has_repository?(dep)
+        end
+
+        return true
+      end
+
+      def resolve_dependencies
+        @deps.each do |key,value|
+          unless cache.has_repository?(key)
+            cache.install(RespositoryMetadata.new(value))
+          end
+        end
+
+        return self
       end
 
       def install
-	cache.register_repository(self) do
-	  resolve unless is_resolved?
-	  cache.dump
-	end
+        cache.add_repository(self) do
+          resolve_dependencies unless dependencies_resolved?
+          cache.save
+        end
       end
 
       def update
-	update_cmd = lambda do |cmd,*args|
-	  unless system(cmd,*args)
-	    raise("failed to update repository '#{self}'",caller)
-	  end
-	end
+        update_cmd = lambda do |cmd,*args|
+          unless system(cmd,*args)
+            raise("failed to update repository '#{self}'",caller)
+          end
+        end
 
-	cache_applications do
-	  case @type
-	  when 'svn' then
-	    update_cmd.call('svn','up',@path.to_s)
-	  when 'cvs' then
-	    update_cmd.call('cvs','update','-dP',@path.to_s)
-	  when 'rsync' then
-	    update_cmd.call('rsync','-av','--delete-after','--progress',@src.to_s,@path.to_s)
-	  end
-	end
+        case @type
+        when :svn then
+          update_cmd.call('svn','up',@path.to_s)
+        when :cvs then
+          update_cmd.call('cvs','update','-dP',@path.to_s)
+        when :rsync then
+          update_cmd.call('rsync','-av','--delete-after','--progress',@src.to_s,@path.to_s)
+        end
 
-	update_metadata(@metadata_path)
+        # reload repository metadata
+        load_metadata(@metadata_path)
+
+        return self
       end
 
       def commit
-	commit_cmd = lambda do |cmd,*args|
-	  unless system(cmd,*args)
-	    raise("failed to commit changes for repository '#{self}'",caller)
-	  end
-	end
+        commit_cmd = lambda do |cmd,*args|
+          unless system(cmd,*args)
+            raise("failed to commit changes for repository '#{self}'",caller)
+          end
+        end
 
-	cache_applications do
-	  case @type
-	  when 'svn' then
-	    commit_cmd.call('svn','commit',@path.to_s)
-	  when 'cvs' then
-	    commit_cmd.call('cvs','commit',@path.to_s)
-	  when 'rsync' then
-	    commit_cmd.call('rsync','-av','--delete-after','--progress',@path.to_s,@src.to_s)
-	  end
-	end
+        case @type
+        when :svn then
+          commit_cmd.call('svn','commit',@path.to_s)
+        when :cvs then
+          commit_cmd.call('cvs','commit',@path.to_s)
+        when :rsync then
+          commit_cmd.call('rsync','-av','--delete-after','--progress',@path.to_s,@src.to_s)
+        end
+
+        return self
+      end
+
+      def applications
+        Dir.new(@path).grep(/^[^.]/).select { |file| File.directory?(file) }
       end
 
       def has_application?(name)
-	@applications.include?(name.to_s)
+        unless valid_application?(name)
+          raise(ApplicationNotFound,"application '#{name}' does not have a valid application name",caller)
+        end
+
+        return File.directory?(File.join(@path,name))
       end
 
-      def to_s
-	@name
+      protected
+
+      def valid_application?(name)
+        return !(name.to_s[/(^.|..|\/)/])
       end
 
     end

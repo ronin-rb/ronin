@@ -41,14 +41,9 @@ module Ronin
       # Hash of loaded repositories
       attr_reader :repositories
 
-      # Hash of all applications, each element containing the hash of
-      # respositories that contain that application.
-      attr_reader :applications
-
       def initialize(path=CACHE_PATH)
         @path = path
         @repositories = {}
-        @applications = Hash.new { |hash,key| hash[key] = {} }
 
         if File.file?(@path)
           File.open(@path) do |file|
@@ -56,37 +51,32 @@ module Ronin
 
             if paths.kind_of?(Array)
               paths.each do |repo_path|
-                register_repository(Repository.new(repo_path))
+                add_repository(Repository.new(repo_path))
               end
             end
           end
         end
       end
 
-      def register_repository(repo)
+      def add_repository(repo,&block)
         if has_repository?(repo.name)
           raise(RepositoryCached,"repository '#{repo}' already present in the cache '#{self}'",caller)
         end
 
         @repositories[repo.name] = repo
-        repo.applications.each do |app|
-          @applications[app][repo.name] = repo
-        end
 
-        yield if block_given?
+        block.call(self) if block
+        return repo
       end
 
-      def unregister_repository(repo)
+      def remove_repository(repo,&block)
         unless has_repository?(repo.name)
           raise(RepositoryNotFound,"repository '#{repo}' is not present in the cache '#{self}'",caller)
         end
 
-        @repository.delete_if { |key,value| key==repo.name }
-        repo.applications.each do |app|
-          @applications[app].delete_if { |key,value| key==repo.name }
-        end
+        @repositories.delete_if { |key,value| key==repo.name }
 
-        yield if block_given?
+        block.call(self) if block
       end
 
       def has_repository?(name)
@@ -101,10 +91,15 @@ module Ronin
         return @repositories[name.to_s]
       end
 
+      def applications
+        @repositories.values.map { |repo| repo.applications }.flatten
+      end
+
       def has_application?(name)
         @repositories.each_value do |repo|
           return true if repo.has_application?(name)
         end
+
         return false
       end
 
@@ -124,8 +119,8 @@ module Ronin
         return metadata.download(install_path)
       end
 
-      def add(repo_path)
-        register_repository(Repository.new(repo_path))
+      def add(path)
+        add_repository(Repository.new(path))
       end
 
       def update
@@ -145,7 +140,7 @@ module Ronin
       end
 
       def to_s
-        @path
+        @path.to_s
       end
 
     end

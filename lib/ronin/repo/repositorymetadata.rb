@@ -29,7 +29,8 @@ module Ronin
   module Repo
     class RepositoryMetadata
 
-      METADATA_FILE = "ronin.xml"
+      # URI of the metadata XML document
+      attr_reader :uri
 
       # Name of the repository
       attr_reader :name
@@ -49,36 +50,34 @@ module Ronin
       # Description
       attr_reader :description
 
-      # Cateogires provided
-      attr_reader :applications
-
       # Metadata URIs of dependencies
       attr_reader :deps
 
       # Ruby-gems required by the repositories contents
       attr_reader :gems
 
-      def initialize(metadata_uri)
+      def initialize(uri)
+        @uri = uri
         @name = ""
-        @type = :local
         @src = ""
+        @type = :local
+        @authors = []
         @license = ""
         @description = ""
-        @applications = []
         @deps = {}
         @gems = []
 
-        update_metadata(metadata_uri)
+        load_metadata
       end
 
-      def update_metadata(uri)
-        metadata = REXML::Document.new(open(uri))
+      def load_metadata
+        metadata = REXML::Document.new(open(@uri))
 
-        @applications.clear
         @deps.clear
         @gems.clear
 
-        @authors = Author.parse(metadata,'/ronin/repository/authors/author')
+        @authors = Author.parse_xml(metadata,'/ronin/repository/contributors/author')
+
         metadata.elements.each('/ronin/repository') do |repo|
           @name = repo.attribute('name').to_s
 
@@ -88,8 +87,6 @@ module Ronin
           repo.each_element('license') { |license| @license = license.get_text.to_s }
           repo.each_element('description') { |desc| @description = desc.get_text.to_s }
 
-          repo.each_element('application') { |app| @applications << app.get_text.to_s }
-
           repo.each_element('dependency') do |dep|
             @deps[dep.attribute('name').to_s] = URI.parse(dep.get_text.to_s)
           end
@@ -98,16 +95,18 @@ module Ronin
             @gems << gem.get_text.to_s
           end
         end
+
+        return self
       end
 
       def download(path)
-        download_cmd = lambda do |cmd,*args|
+        download_cmd = lambda { |cmd,*args|
           args = args.map { |arg| arg.to_s }
 
           unless system(cmd.to_s,*args)
             raise("failed to download repository '#{self}'",caller)
           end
-        end
+        }
 
         case @type
         when :svn then
@@ -118,15 +117,11 @@ module Ronin
           download_cmd.call('rsync','-av','--progress',@src,path)
         end
 
-        return Repository.new(path).install
-      end
-
-      def has_application?(name)
-        @applications.include?(name.to_s)
+        return Repository.install(path)
       end
 
       def to_s
-        @name
+        @name.to_s
       end
 
     end
