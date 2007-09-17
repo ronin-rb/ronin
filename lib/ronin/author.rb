@@ -27,8 +27,13 @@ require 'uri'
 module Ronin
   class Author
 
+    ANONYMOUSE = 'anonymous'
+
     # Name of author
     attr_reader :name, String
+
+    # Author's associated group
+    attr_reader :organization, String
 
     # Author's
     attr_reader :address, String
@@ -45,33 +50,43 @@ module Ronin
     # Author's biography
     attr_reader :biography, String
 
-    def initialize(name,biography=nil,info={:address => nil, :phone => nil, :email => nil, :site => nil})
+    def initialize(name=ANONYMOUSE,info={:organization=> nil, :address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil})
       @name = name
+      @organization= info[:organization]
       @address = info[:address]
       @phone = info[:phone]
       @email = info[:email]
       @site = info[:site]
-      @biography = biography
+      @biography = info[:biography]
     end
 
-    def self.parse(doc,xpath='/ronin/author')
+    def self.parse_xml(doc,xpath='/ronin/contributors/author')
       authors = []
 
       doc.elements.each(xpath) do |element|
-        author_name = element.attribute('name').to_s
+        author_name = nil
+        author_info = {}
 
-        unless (author_name.empty? || author_name=NO_ONE.name)
-          author_info = {}
+        # name of the author
+        element.each_element('name') { |name| author_name = name.get_text.to_s }
 
-          element.each_element('contact/address') { |address| author_contract[:address] = address.get_text.to_s }
-          element.each_element('contact/phone') { |phone| author_contract[:phone] = phone.get_text.to_s }
-          element.each_element('contact/email') { |email| author_contract[:email] = URI.parse(email.get_text.to_s) }
-          element.each_element('contact/site') { |site| author_contract[:site] = URI.parse(site.get_text.to_s) }
-
-          element.each_element('biography') { |biography| author_biography = biography.get_text.to_s }
-
-          authors << Author.new(author_name,author_biography,author_contract)
+        # default the name to ANONYMOUSE
+        if (author_name.nil? || author_name.empty?)
+          author_name = ANONYMOUSE
         end
+
+        # associated group of the author
+        element.each_element('group') { |group| author_info[:group] = group.get_text.to_s }
+
+        element.each_element('contact/address') { |address| author_info[:address] = address.get_text.to_s }
+        element.each_element('contact/phone') { |phone| author_info[:phone] = phone.get_text.to_s }
+        element.each_element('contact/email') { |email| author_info[:email] = email.get_text.to_s }
+        element.each_element('contact/site') { |site| author_info[:site] = site.get_text.to_s }
+
+        # author's biography
+        element.each_element('biography') { |biography| author_info[:biography] = biography.get_text.to_s }
+
+        authors << Author.new(author_name,author_info)
       end
 
       return authors
