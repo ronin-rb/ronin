@@ -23,7 +23,6 @@ require 'ronin/repo/context'
 require 'ronin/repo/exceptions/applicationnotfound'
 require 'ronin/repo/cache'
 require 'ronin/repo/objects'
-require 'ronin/objectcache'
 
 module Ronin
   module Repo

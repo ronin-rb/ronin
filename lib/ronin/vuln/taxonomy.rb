@@ -20,7 +20,6 @@
 #
 
 require 'ronin/vuln/vulnerability'
-require 'ronin/objectcache'
 
 module Ronin
   module Vuln
