@@ -22,7 +22,6 @@
 require 'ronin/objectcache'
 require 'ronin/repo/context'
 require 'ronin/repo/objectfile'
-require 'ronin/repo/exceptions/objectcontextredefinition'
 
 require 'og'
 require 'glue/taggable'
@@ -75,10 +74,6 @@ module Ronin
       protected
 
       def Object.object_contextify(id=object_contextify_name(self))
-        if ObjectContext.is_object_context?(id)
-          raise(ObjectContextRedefinition,"an object context of the name '#{id}' already is defined",caller)
-        end
-
         # contextify the class
         contextify(id)
 

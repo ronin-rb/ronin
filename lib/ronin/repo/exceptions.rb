@@ -21,6 +21,5 @@
 
 require 'ronin/repo/exceptions/contextnotfound'
 require 'ronin/repo/exceptions/objectnotfound'
-require 'ronin/repo/exceptions/objectcontextredefinition'
 require 'ronin/repo/exceptions/applicationnotfound'
 require 'ronin/repo/exceptions/repositorynotfound'
