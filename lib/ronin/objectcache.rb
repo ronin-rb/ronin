@@ -36,7 +36,7 @@ module Ronin
 
     def initialize(path=STORE_PATH)
       @path = path
-      @store = Og.setup(:destroy => false, :evolve_schema => :full, :store => :sqlite, :name => @path)
+      @store = Og.setup(:destroy => false, :evolve_schema => true, :store => :sqlite, :name => @path)
     end
 
     def self.init(path=STORE_PATH)
@@ -51,14 +51,16 @@ module Ronin
       @@cache ||= self.load
     end
 
-    def sql(*sql)
-      @store.get_store.exec_statement(sql.join('; '))
+    def sql(sql)
+      @store.get_store.exec_statement(sql)
     end
 
     protected
 
-    def method_missing(sym,*args)
-      @store.send(sym,*args)
+    def method_missing(sym,*args,&block)
+      if @store.respond_to?(sym)
+        return @store.send(sym,*args,&block)
+      end
     end
 
   end
