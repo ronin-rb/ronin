@@ -21,8 +21,8 @@
 
 require 'ronin/commands/command'
 require 'ronin/commands/options'
+require 'ronin/repo/cache'
 require 'ronin/version'
-require 'ronin'
 
 require 'optparse'
 require 'ostruct'
@@ -43,7 +43,6 @@ module Ronin
         register_command('list','ls') { |argv| list(argv) }
         register_command('update','up') { |argv| update(argv) }
         register_command('uninstall') { |argv| uninstall(argv) }
-        register_command('actions') { |argv| actions(argv) }
         register_command('help') { |argv| help(argv) }
       end
 
@@ -93,21 +92,22 @@ module Ronin
           return cmd.run(args)
         end
 
+        # Initialize the object cache
         ObjectCache.init
 
         # Load the application
         app = Repo.cache.application(sub_command)
 
-        # Perform actions of the application
+        # Execute method of the application
         app.setup
 
         if (args.empty? || is_flag?(args[0]))
           app.main(args)
         else
-          action = args.shift
+          name = args.shift
 
-          if (action!='setup' && action!='teardown')
-            app.perform_action(action)
+          if (name!='setup' && name!='teardown')
+            app.distribute_call(name)
           end
         end
 
@@ -302,32 +302,6 @@ module Ronin
         end
 
         arguments = opts.parse(argv)
-      end
-
-      def actions(argv=[])
-        options = Options.sub_command("ronin","actions","NAME [NAME ...]") do |options|
-          options.specific do
-            options.option("-C","--cache","Specify alternant location of repository cache") do |cache|
-              Repo.load_cache(cache)
-            end
-
-            options.verbose_option
-            options.help_option
-          end
-
-          options.arguments do
-            arg("NAME","name of application to load")
-          end
-
-          options.summary("Displays the actions defined by the specified categories")
-        end
-
-        arguments = options.parse(argv)
-
-        arguments.each do |name|
-          app = Repo.cache.application(name)
-          app.actions.each { |action| puts "  #{action}" }
-        end
       end
 
       def help(argv=[])
