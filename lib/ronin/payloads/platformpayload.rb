@@ -33,11 +33,8 @@ module Ronin
       # Targeted architecture
       has_one :arch, Arch
 
-      def initialize(platform=nil,arch=nil,&block)
-        @platform = platform
-        @arch = arch
-
-        super(&block)
+      def initialize(name=nil,version=nil,&block)
+        super(name,version,&block)
       end
 
     end

@@ -37,8 +37,8 @@ module Ronin
       # Version of the payload
       attr_accessor :version, String
 
-      # Additional comments
-      attr_accessor :comments, String
+      # Description of the payload
+      attr_accessor :description, String
 
       # Payload data
       attr_accessor :data
