@@ -19,7 +19,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/objects'
-require 'ronin/repo/objects/author'
-require 'ronin/repo/objects/payloads'
-require 'ronin/repo/objects/exploits'
+require 'ronin/author'
+require 'ronin/license'
+require 'ronin/arch'
+require 'ronin/platform'
+require 'ronin/product'
+require 'ronin/advisories'
+require 'ronin/vuln'
+require 'ronin/payloads'
+require 'ronin/exploits'
