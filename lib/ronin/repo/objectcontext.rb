@@ -19,9 +19,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/objectcache'
 require 'ronin/repo/context'
 require 'ronin/repo/objectfile'
+require 'ronin/ronin'
 
 require 'og'
 require 'glue/taggable'
@@ -73,14 +73,13 @@ module Ronin
 
       protected
 
-      def Object.object_contextify(id=object_contextify_name(self))
+      def Object.object_contextify(id=ObjectContext.object_contextify_name(self))
         # contextify the class
         contextify(id)
 
-        # Make all object contexts taggable
         include Taggable
 
-        # The object path from which this object context was loaded
+        # the object path from which this object context was loaded
         attr_accessor :object_path, String
 
         before %{
@@ -93,8 +92,10 @@ module Ronin
           end
         }, :on => :og_read
 
-        # Make sure the class is managed by Og
-        ObjectCache.cache.manage_class(self)
+        if Ronin.object_cache_loaded?
+          # manage classes after the object cache has been setup
+          Ronin.object_cache.manage(self)
+        end
 
         meta_def(:create_object) do |path,*args|
           path = File.expand_path(path)
