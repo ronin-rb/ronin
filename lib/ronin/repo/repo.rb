@@ -21,16 +21,22 @@
 
 module Ronin
   module Repo
-    # Loads a new repository cache
+    # Load the specified repository cache
     def Repo.load_cache(path)
       @cache = Cache.new(path)
     end
 
-    # Repository cache
+    # Is the repository cache loaded?
+    def Repo.cache_loaded?
+      !(@cache.nil?)
+    end
+
+    # Load the default repository cache
     def Repo.cache
       @cache ||= Cache.new
     end
 
+    # Load the specified application
     def Repo.application(name)
       Repo.cache.application(name)
     end
