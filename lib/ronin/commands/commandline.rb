@@ -22,6 +22,7 @@
 require 'ronin/commands/command'
 require 'ronin/commands/options'
 require 'ronin/repo/cache'
+require 'ronin/ronin'
 require 'ronin/version'
 
 require 'optparse'
@@ -93,7 +94,7 @@ module Ronin
         end
 
         # Initialize the object cache
-        ObjectCache.init
+        Ronin.load_object_cache
 
         # Load the application
         app = Repo.cache.application(sub_command)
