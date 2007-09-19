@@ -21,6 +21,7 @@
 
 require 'ronin/parameters'
 require 'ronin/author'
+require 'ronin/license'
 
 require 'og'
 
@@ -43,7 +44,10 @@ module Ronin
       attr_accessor :data
 
       # Author(s) of the payload
-      many_to_many :authors, Author
+      has_many :authors, Author
+
+      # Content license
+      has_one :license, License
 
       schema_inheritance
 
@@ -53,11 +57,14 @@ module Ronin
         @name = name
         @version = version
 
-        block.call(self) if block
+        instance_eval(&block) if block
       end
 
-      def builder(&block)
-        @build_block = block
+      def author(name=ANONYMOUSE,info={:organization=> nil, :pgp_signature => nil, :address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil},&block)
+        @authors << Author.new(name,info,&block)
+      end
+
+      def builder
       end
 
       def is_built?
@@ -67,11 +74,10 @@ module Ronin
       def build
         @data = ''
 
-        @build_block.call(self) if @build_block
+        builder
       end
 
-      def cleaner(&block)
-        @clean_block = block
+      def cleaner
       end
 
       def is_clean?
@@ -79,9 +85,17 @@ module Ronin
       end
 
       def clean
-        @clean_block.call(self) if @clean_block
+        cleaner
 
         @data = nil
+      end
+
+      def to_s
+        if @version
+          return "#{@name}-#{@version}"
+        else
+          return @name.to_s
+        end
       end
 
     end
