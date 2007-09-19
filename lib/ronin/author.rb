@@ -32,25 +32,25 @@ module Ronin
     attr_reader :name, String
 
     # Author's associated group
-    attr_reader :organization, String
+    attr_accessor :organization, String
 
     # Author's PGP signature
-    attr_reader :pgp_signature, String
+    attr_accessor :pgp_signature, String
 
     # Author's
-    attr_reader :address, String
+    attr_accessor :address, String
 
     # Author's phone
-    attr_reader :phone, String
+    attr_accessor :phone, String
 
     # Author's email
-    attr_reader :email, String
+    attr_accessor :email, String
 
     # Author's site
-    attr_reader :site, String
+    attr_accessor :site, String
 
     # Author's biography
-    attr_reader :biography, String
+    attr_accessor :biography, String
 
     def initialize(name=ANONYMOUSE,info={:organization=> nil, :pgp_signature => nil, :address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil},&block)
       @name = name
