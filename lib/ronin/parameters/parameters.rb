@@ -109,14 +109,18 @@ module Ronin
       params[name] = InstanceParam.new(self,name,opts[:description])
 
       # define the reader method for the parameter
-      class_def(param.name) do
-        instance_variable_get("@#{param.name}")
-      end
+      instance_eval %{
+        def #{name}
+          instance_variable_get("@#{name}")
+        end
+      }
 
       # define the writer method for the parameter
-      class_def("#{param.name}=") do |value|
-        instance_variable_set("@#{param.name}",value)
-      end
+      instance_eval %{
+        def #{name}=(value)
+          instance_variable_set("@#{name}",value)
+        end
+      }
 
       return params[name]
     end
