@@ -29,8 +29,8 @@ module Ronin
     module TCP
       include Parameters
 
-      def self.included(klass)
-        klass.module_eval do
+      def self.included(base)
+        base.module_eval do
           parameter :lhost, :description => 'local host'
           parameter :lport, :description => 'local port'
 
