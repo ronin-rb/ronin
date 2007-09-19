@@ -39,18 +39,6 @@ module Ronin
       @store = Og.setup(:destroy => false, :evolve_schema => true, :store => :sqlite, :name => @path)
     end
 
-    def self.init(path=STORE_PATH)
-      @@cache ||= self.new(path)
-    end
-
-    def self.load(path=STORE_PATH)
-      @@cache = self.new(path)
-    end
-
-    def self.cache
-      @@cache ||= self.load
-    end
-
     def sql(sql)
       @store.get_store.exec_statement(sql)
     end

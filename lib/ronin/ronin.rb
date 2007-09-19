@@ -26,13 +26,18 @@ module Ronin
   # Ronin Environment constant
   RONIN_ENV = Environment.new
 
-  # Load a new object cache
+  # Load the specified object cache
   def Ronin.load_object_cache(path=ObjectCache::STORE_PATH)
-    ObjectCache.load(path)
+    @object_cache = ObjectCache.new(path)
   end
 
-  # Object cache
+  # Is the object cache loaded?
+  def Ronin.object_cache_loaded?
+    !(@object_cache.nil?)
+  end
+
+  # Load the default object cache
   def Ronin.object_cache
-    ObjectCache.cache
+    @object_cache = ObjectCache.new
   end
 end
