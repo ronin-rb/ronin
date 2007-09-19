@@ -19,6 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'og'
 require 'rexml/document'
 require 'uri'
 
@@ -32,6 +33,9 @@ module Ronin
 
     # Author's associated group
     attr_reader :organization, String
+
+    # Author's PGP signature
+    attr_reader :pgp_signature, String
 
     # Author's
     attr_reader :address, String
@@ -48,14 +52,17 @@ module Ronin
     # Author's biography
     attr_reader :biography, String
 
-    def initialize(name=ANONYMOUSE,info={:organization=> nil, :address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil})
+    def initialize(name=ANONYMOUSE,info={:organization=> nil, :pgp_signature => nil, :address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil},&block)
       @name = name
       @organization= info[:organization]
+      @pgp_signature = info[:pgp_signature]
       @address = info[:address]
       @phone = info[:phone]
       @email = info[:email]
       @site = info[:site]
       @biography = info[:biography]
+
+      block.call(self) if block
     end
 
     def self.parse_xml(doc,xpath='/ronin/contributors/author')
@@ -76,6 +83,10 @@ module Ronin
         # associated group of the author
         element.each_element('group') { |group| author_info[:group] = group.get_text.to_s }
 
+        # the authors PGP signature
+        element.each_element('pgp_signature') { |signature| author_info[:pgp_signature] = signature.get_text.to_s }
+
+        # author's contact information
         element.each_element('contact/address') { |address| author_info[:address] = address.get_text.to_s }
         element.each_element('contact/phone') { |phone| author_info[:phone] = phone.get_text.to_s }
         element.each_element('contact/email') { |email| author_info[:email] = email.get_text.to_s }
