@@ -27,7 +27,7 @@ module Ronin
 
     include Repo::ObjectContext
 
-    object_contextify :author
+    object_contextify
 
   end
 end
