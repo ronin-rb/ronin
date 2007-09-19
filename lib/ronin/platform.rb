@@ -30,7 +30,7 @@ module Ronin
     # Version of the Operating System
     attr_reader :version, String, :index => true
 
-    def initialize(os,version)
+    def initialize(os,version=nil)
       @os = os.to_s
       @version = version.to_s
 
@@ -40,6 +40,14 @@ module Ronin
     def ==(other)
       return false unless @os==other.os
       return @version==other.version
+    end
+
+    def to_s
+      unless @version=='all'
+        return "#{@os} #{@version}"
+      else
+        return @os.to_s
+      end
     end
 
     def Platform.platforms
