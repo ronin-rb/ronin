@@ -28,7 +28,7 @@ module Ronin
     module Context
       protected
 
-      def Object.contextify(id=contextify_name(self))
+      def Object.contextify(id=Context.contextify_name(self))
         id = id.to_sym
 
         # define context_name
