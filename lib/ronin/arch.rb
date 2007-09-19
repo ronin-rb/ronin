@@ -66,21 +66,10 @@ module Ronin
     PPC64 = Arch.new('ppc64',:big_endian,8)
     SPARC = Arch.new('sparc',:big_endian,4)
     SPARC64 = Arch.new('sparc64',:big_endian,8)
-    MIPS_LITTLE = Arch.new('mips_little',:little_endian,4)
-    MIPS_BIG = Arch.new('mips_big',:big_endian,4)
-    ARM_LITTLE = Arch.new('arm_little',:little_endian,4)
-    ARM_BIG = Arch.new('arm_big',:big_endian,4)
-
-    protected
-
-    def method_missing(sym,*args)
-      name = sym.id2name
-      if (Arch.exists?(name) && args.length==0)
-        return Arch.archs[name]
-      end
-
-      raise(NoMethodError,name)
-    end
+    MIPS_LITTLE = Arch.new('mips_le',:little_endian,4)
+    MIPS_BIG = Arch.new('mips_be',:big_endian,4)
+    ARM_LITTLE = Arch.new('arm_le',:little_endian,4)
+    ARM_BIG = Arch.new('arm_be',:big_endian,4)
 
   end
 end
