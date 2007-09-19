@@ -20,6 +20,7 @@
 #
 
 require 'rexml/document'
+require 'og'
 
 module Ronin
   class Product
@@ -39,7 +40,7 @@ module Ronin
       @vendor = vendor
     end
 
-    def Product.parse_xml(doc,xpath='/ronin/product')
+    def self.parse_xml(doc,xpath='/ronin/product')
       products = []
 
       doc.element.each(xpath) do |element|

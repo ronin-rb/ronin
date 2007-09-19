@@ -23,8 +23,6 @@ require 'ronin/payloads/payload'
 require 'ronin/arch'
 require 'ronin/platform'
 
-require 'og'
-
 module Ronin
   module Payloads
     class PlatformPayload < Payload
