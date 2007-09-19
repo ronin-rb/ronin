@@ -34,10 +34,24 @@ module Ronin
     # Venders
     attr_reader :vendor, String
 
-    def initialize(name,version,vendor)
-      @name = name
-      @version = version
-      @vendor = vendor
+    def initialize(name,version,vendor=name)
+      @name = name.to_s
+      @version = version.to_s
+      @vendor = vendor.to_s
+    end
+
+    def ==(other)
+      return false unless @name==other.name
+      return false unless @version==other.version
+      return @vendor==other.vendor
+    end
+
+    def to_s
+      unless @vendor==@name
+        return "#{@vendor} #{@name} #{@version}"
+      else
+        return "#{@name} #{@version}"
+      end
     end
 
     def self.parse_xml(doc,xpath='/ronin/product')
