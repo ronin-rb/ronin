@@ -26,14 +26,14 @@ class Integer
   def pack(arch,address_length=arch.address_length)
     buffer = ""
 
-    if arch.endian==:big_endian
+    if arch.endian==:little
       mask = 0xff
 
       address_length.times do |i|
         buffer+=((self & mask) >> (i*8)).chr
         mask <<= 8
       end
-    elsif arch.endian==:big_endian
+    elsif arch.endian==:big
       mask = (0xff << ((address_length-1)*8))
 
       address_length.times do |i|
