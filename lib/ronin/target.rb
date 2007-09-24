@@ -19,5 +19,28 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/payloads/payload'
-require 'ronin/payloads/targetedpayload'
+require 'ronin/platform'
+require 'ronin/arch'
+
+require 'og'
+
+module Ronin
+  class Target
+
+    include Og::Model
+
+    # Targeted platform
+    has_one :platform
+
+    # Targeted architecture
+    has_one :arch
+
+    schema_inheritance
+
+    def initialize(platform=nil,arch=nil)
+      self.platform = platform
+      self.arch = arch
+    end
+
+  end
+end

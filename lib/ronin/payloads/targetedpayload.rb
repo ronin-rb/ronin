@@ -20,4 +20,29 @@
 #
 
 require 'ronin/payloads/payload'
-require 'ronin/payloads/targetedpayload'
+require 'ronin/target'
+
+module Ronin
+  module Payloads
+    class PayloadTarget < Target
+
+      belongs_to :targeted_payload
+
+      def initialize(platform=nil,arch=nil)
+        super(platform,arch)
+      end
+
+    end
+
+    class TargetedPayload < Payload
+
+      # Target of the payload
+      has_one :target, PayloadTarget
+
+      def initialize(name=nil,version=nil,&block)
+        super(name,version,&block)
+      end
+
+    end
+  end
+end
