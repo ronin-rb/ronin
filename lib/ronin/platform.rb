@@ -25,16 +25,14 @@ module Ronin
   class Platform
 
     # Name of the Operating System
-    attr_reader :os, String, :index => true
+    attr_reader :os, String
 
     # Version of the Operating System
-    attr_reader :version, String, :index => true
+    attr_reader :version, String
 
     def initialize(os,version=nil)
       @os = os.to_s
       @version = version.to_s
-
-      Platform.platforms[@os][@version] = self
     end
 
     def ==(other)
@@ -47,18 +45,6 @@ module Ronin
         return "#{@os} #{@version}"
       else
         return @os.to_s
-      end
-    end
-
-    def Platform.platforms
-      @@platforms ||= Hash.new do |hash,os|
-        hash[os] = {}
-      end
-    end
-
-    def Platform.all(&block)
-      Platform.platforms.each_value do |os|
-        os.each_value(&block)
       end
     end
 
