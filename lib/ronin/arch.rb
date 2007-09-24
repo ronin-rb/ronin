@@ -55,7 +55,7 @@ module Ronin
 
     protected
 
-    def self.builtin
+    def Arch.builtin
       @@builtin ||= {}
     end
 

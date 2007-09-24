@@ -33,44 +33,42 @@ module Ronin
     # URL of the License document
     attr_reader :url, String
 
-    schema_inheritance
-
     def initialize(name,description=nil,url=nil)
-      @name = name.to_s
+      @name = name
       @description = description
       @url = url
-
-      License.licenses[@name] = self
-    end
-
-    def License.licenses
-      @@licenses ||= {}
-    end
-
-    def License.exists?(name)
-      License.licenses.has_key?(name.to_s)
-    end
-
-    def License.all(&block)
-      License.licenses.each_value(&block)
     end
 
     def to_s
       @name.to_s
     end
 
+    def self.define(name,opts={:description => nil, :url => nil})
+      license(name,opts)
+    end
+
+    protected
+
+    def License.builtin
+      @@builtin ||= {}
+    end
+
+    def Object.license(name,opts={:description => nil, :url => nil})
+      builtin[name.to_s] = License.new(name,opts[:description],opts[:url])
+    end
+
     # GNU Public Licenses
-    GPL2 = License.new('GPL-2','GNU Public License v2.0','http://www.gnu.org/licenses/gpl-2.0.txt')
-    GPL3 = License.new('GPL-3','GNU Public License v3.0','http://www.gnu.org/licenses/gpl-3.0.txt')
-    LGPL3 = License.new('LGPL-3','GNU Lesser General Public License v3.0','http://www.gnu.org/licenses/lgpl-3.0.txt')
+    license 'GPL-2', :description => 'GNU Public License v2.0', :url => 'http://www.gnu.org/licenses/gpl-2.0.txt'
+    license 'GPL-3', :description => 'GNU Public License v3.0', :url => 'http://www.gnu.org/licenses/gpl-3.0.txt'
+    license 'LGPL-3', :description => 'GNU Lesser General Public License v3.0', :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
 
     # Creative Commons Licenses
-    CC_by = License.new('CC by','Creative Commons Attribution v3.0 License','http://creativecommons.org/licenses/by/3.0/')
-    CC_by_sa = License.new('CC by-sa','Creative Commons Attribution-Share Alike v3.0 License','http://creativecommons.org/licenses/by-sa/3.0/')
-    CC_by_nd = License.new('CC by-nd','Creative Commons Attribution-No Derivative Works v3.0 License','http://creativecommons.org/licenses/by-nd/3.0/')
-    CC_by_nc = License.new('CC by-nc','Creative Commons Attribution-Noncommercial v3.0 License','http://creativecommons.org/licenses/by-nc/3.0/')
-    CC_by_nc_sa = License.new('CC by-nc-sa','Creative Commons Attribution-Noncommercial-Share Alike v3.0 License','http://creativecommons.org/licenses/by-nc-sa/3.0/')
-    CC_by_nc_nd = License.new('CC by-nc-nd','Creative Commons Attribution-Noncommercial-No Derivative Works v3.0 License','http://creativecommons.org/licenses/by-nc-nd/3.0/')
+    license 'CC by', :description => 'Creative Commons Attribution v3.0 License', :url => 'http://creativecommons.org/licenses/by/3.0/'
+    license 'CC by-sa', :description => 'Creative Commons Attribution-Share Alike v3.0 License', :url => 'http://creativecommons.org/licenses/by-sa/3.0/'
+    license 'CC by-nd', :description => 'Creative Commons Attribution-No Derivative Works v3.0 License', :url => 'http://creativecommons.org/licenses/by-nd/3.0/'
+    license 'CC by-nc', :description => 'Creative Commons Attribution-Noncommercial v3.0 License', :url => 'http://creativecommons.org/licenses/by-nc/3.0/'
+    license 'CC by-nc-sa', :description => 'Creative Commons Attribution-Noncommercial-Share Alike v3.0 License', :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/'
+    license 'CC by-nc-nd', :description => 'Creative Commons Attribution-Noncommercial-No Derivative Works v3.0 License', :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/'
 
   end
 end
