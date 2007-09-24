@@ -91,8 +91,18 @@ module Ronin
         return @repositories[name.to_s]
       end
 
-      def applications
-        @repositories.values.map { |repo| repo.applications }.flatten
+      def repositories_with_application(name,&block)
+        repos = @repositories.values.select { |repo| repo.has_application?(name) }
+
+        repos.each(&block) if block
+        return repos
+      end
+
+      def applications(&block)
+        apps = @repositories.values.map { |repo| repo.applications }.flatten.uniq
+
+        apps.each(&block) if block
+        return apps
       end
 
       def has_application?(name)

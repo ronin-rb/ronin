@@ -21,8 +21,7 @@
 
 require 'ronin/repo/context'
 require 'ronin/repo/exceptions/applicationnotfound'
-require 'ronin/repo/cache'
-require 'ronin/repo/objects'
+require 'ronin/repo/repo'
 
 module Ronin
   module Repo
@@ -45,13 +44,8 @@ module Ronin
         @cache_paths = []
 
         # load all related application contexts
-        Repo.cache.applications[name].each_value do |repo|
-          app_dir = File.join(repo.path,name)
-          if File.directory?(app_dir)
-            $LOAD_PATH.unshift(repo.path) unless $LOAD_PATH.include?(repo.path)
-
-            @contexts << AppContext.load_appontext(app_dir,self)
-          end
+        Repo.cache.repositories_with_application(name) do |repo|
+          @contexts << repo.appcontext(name,self)
         end
 
         block.call(self) if block
