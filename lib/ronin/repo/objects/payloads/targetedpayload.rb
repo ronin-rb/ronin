@@ -20,13 +20,13 @@
 #
 
 require 'ronin/repo/objects/payloads/payload'
-require 'ronin/payloads/platformpayload'
+require 'ronin/payloads/targetedpayload'
 
 module Ronin
   module Payloads
-    class PlatformPayload < Payload
+    class TargetedPayload < Payload
 
-      object_contextify :platformpayload
+      object_contextify :targetedpayload
 
     end
   end
