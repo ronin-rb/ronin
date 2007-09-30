@@ -53,14 +53,31 @@ module Ronin
 
       def tcp_connect(&block)
         unless @rhost
-          raise(ParamNotFound,"Missing '#{describe_param(:rhost)}' parameter",caller)
+          raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
         end
 
         unless @rport
-          raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
+          raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
         end
 
-        return TCPSocket.new(@rhost,@rport,&block)
+        sock = TCPSocket.new(@rhost,@rport,@lhost,@lport)
+        block.call(sock) if block
+
+        return sock
+      end
+
+      def tcp_connect_and_recv(&block)
+        tcp_connect do |sock|
+          block.call(sock.read) if block
+        end
+      end
+
+      def tcp_connect_and_send(str,&block)
+        tcp_connect do |sock|
+          sock.write(str)
+
+          block.call(sock) if block
+        end
       end
 
       def tcp_listen(&block)

@@ -60,7 +60,24 @@ module Ronin
           raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
         end
 
-        return UDPSocket.new(@rhost,@rport,&block)
+        sock = UDPSocket.new(@rhost,@rport,@lhost,@lport)
+        block.call(sock) if block
+
+        return sock
+      end
+
+      def udp_connect_and_recv(&block)
+        udp_connect do |sock|
+          block.call(sock.read) if block
+        end
+      end
+
+      def udp_connect_and_send(str,&block)
+        udp_connect do |sock|
+          sock.write(str)
+
+          block.call(sock) if block
+        end
       end
 
       def udp_listen(&block)
