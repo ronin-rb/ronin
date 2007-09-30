@@ -43,15 +43,15 @@ module Ronin
       @name.to_s
     end
 
+    def License.builtin
+      @@builtin ||= {}
+    end
+
     def self.define(name,opts={:description => nil, :url => nil})
       license(name,opts)
     end
 
     protected
-
-    def License.builtin
-      @@builtin ||= {}
-    end
 
     def Object.license(name,opts={:description => nil, :url => nil})
       builtin[name.to_s] = License.new(name,opts[:description],opts[:url])
