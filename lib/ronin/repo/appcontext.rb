@@ -49,6 +49,8 @@ module Ronin
         @name = File.basename(path)
         @path = path
         @application = application
+
+        $LOAD_PATH.unshift(@path) unless $LOAD_PATH.include?(@path)
       end
 
       def self.load_appcontext(path,application=nil)
@@ -66,6 +68,8 @@ module Ronin
         # load the context file if present
         appcontext_path = File.join(path,'app.rb')
         new_appcontext.load_context(appcontext_path) if File.file?(appcontext_path)
+
+        return new_appcontext
       end
 
       def distribute(&block)
