@@ -21,6 +21,8 @@
 
 require 'ronin/environment'
 require 'ronin/objectcache'
+require 'ronin/arch'
+require 'ronin/platform'
 require 'ronin/license'
 require 'ronin/product'
 
@@ -43,15 +45,19 @@ module Ronin
     @object_cache = ObjectCache.new
   end
 
-  def Ronin.Platform(os,version=nil)
-    Platform.find_with_properties(:os => os, :version => version) || Platform.new(os,version)
+  def Arch(name)
+    Arch.find_by_name(name) || Arch.builtin[name.to_s]
   end
 
-  def Ronin.License(name)
-    License.find_by_name(name) || License.licenses[name.to_s]
+  def Platform(os,version=nil)
+    Platform.find_with_attributes(:os => os, :version => version).first || Platform.new(os,version)
   end
 
-  def Ronin.Product(name,version,vendor=name)
-    Product.find_with_properties(:name => name, :version => version, :vendor => vendor) || Product.new(name,version,vendor)
+  def License(name)
+    License.find_by_name(name) || License.builtin[name.to_s]
+  end
+
+  def Product(name,version,vendor=name)
+    Product.find_with_attributes(:name => name, :version => version, :vendor => vendor).first || Product.new(name,version,vendor)
   end
 end
