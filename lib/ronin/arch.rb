@@ -49,15 +49,15 @@ module Ronin
       @name.to_s
     end
 
+    def Arch.builtin
+      @@builtin ||= {}
+    end
+
     def self.define(name,opts={:endian => :little, :address_length => 4})
       arch(name,opts)
     end
 
     protected
-
-    def Arch.builtin
-      @@builtin ||= {}
-    end
 
     def Object.arch(name,opts={:endian => :little, :address_length => 4})
       builtin[name.to_sym] = Arch.new(name,opts[:endian],opts[:address_length])
@@ -76,9 +76,14 @@ module Ronin
     arch :arm_be, :endian => :big, :address_length => 4
 
     def self.const_missing(name)
-      name = name.to_s.downcase
+      arch_name = name.to_s.downcase
 
-      return find_by_name(name) || builtin[name.to_sym]
+      arch = find_by_name(arch_name) || builtin[arch_name.to_sym]
+      unless arch
+        raise(NameError,"uninitialized constant #{name}")
+      end
+
+      return arch
     end
 
   end
