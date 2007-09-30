@@ -19,18 +19,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/payloads/payload'
-require 'ronin/payloads/payloadtarget'
+require 'ronin/target'
 
 module Ronin
   module Payloads
-    class TargetedPayload < Payload
+    class PayloadTarget < Target
 
-      # Target of the payload
-      has_one :target, PayloadTarget
+      belongs_to :targeted_payload
 
-      def initialize(name=nil,version=nil,&block)
-        super(name,version,&block)
+      def initialize(platform=nil,arch=nil)
+        super(platform,arch)
       end
 
     end

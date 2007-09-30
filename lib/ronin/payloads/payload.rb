@@ -19,8 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/payloads/payloadauthor'
 require 'ronin/parameters'
-require 'ronin/author'
 require 'ronin/license'
 
 require 'og'
@@ -32,7 +32,7 @@ module Ronin
       include Parameters
 
       # Name of the specific payload
-      attr_accessor :name, String, :index => true
+      attr_accessor :name, String
 
       # Version of the payload
       attr_accessor :version, String
@@ -44,7 +44,7 @@ module Ronin
       attr_accessor :data
 
       # Author(s) of the payload
-      has_many :authors, Author
+      has_many :authors, PayloadAuthor
 
       # Content license
       has_one :license, License
@@ -61,7 +61,10 @@ module Ronin
       end
 
       def author(name=ANONYMOUSE,info={:organization=> nil, :pgp_signature => nil, :address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil},&block)
-        @authors << Author.new(name,info,&block)
+        @authors << PayloadAuthor.new(name,info,&block)
+      end
+
+      def prepare(exploit)
       end
 
       def builder
