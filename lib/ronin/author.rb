@@ -52,6 +52,8 @@ module Ronin
     # Author's biography
     attr_accessor :biography, String
 
+    schema_inheritance
+
     def initialize(name=ANONYMOUSE,info={:organization=> nil, :pgp_signature => nil, :address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil},&block)
       @name = name
       @organization= info[:organization]
@@ -63,6 +65,10 @@ module Ronin
       @biography = info[:biography]
 
       block.call(self) if block
+    end
+
+    def to_s
+      @name.to_s
     end
 
     def self.parse_xml(doc,xpath='/ronin/contributors/author')
