@@ -31,8 +31,8 @@ module Ronin
     attr_reader :version, String
 
     def initialize(os,version=nil)
-      @os = os.to_s
-      @version = version.to_s
+      @os = os
+      @version = version
     end
 
     def ==(other)
@@ -41,12 +41,43 @@ module Ronin
     end
 
     def to_s
-      unless @version=='all'
+      if @version
         return "#{@os} #{@version}"
       else
         return @os.to_s
       end
     end
+
+    def Platform.define(name)
+      Object.platform(name)
+    end
+
+    protected
+
+    def self.platform_name(name)
+      name.to_s.split.map { |word| word.capitalize }.join
+    end
+
+    def Object.platform(name)
+      name = Platform.platform_name(name)
+
+      Ronin.module_eval %{
+        class #{name} < Platform
+
+          def initialize(version=nil)
+            super('#{name}',version)
+          end
+
+        end
+      }
+    end
+
+    platform 'FreeBSD'
+    platform 'Linux'
+    platform 'OpenBSD'
+    platform 'OSX'
+    platform 'NetBSD'
+    platform 'Windows'
 
   end
 end
