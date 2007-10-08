@@ -64,7 +64,7 @@ module Ronin
     end
 
     arch :x86, :endian => :little, :address_length => 4
-    arch :amd64, :endian => :little, :address_length => 8
+    arch :x86_64, :endian => :little, :address_length => 8
     arch :ia64, :endian => :little, :address_length => 8
     arch :ppc, :endian => :big, :address_length => 4
     arch :ppc64, :endian => :big, :address_length => 8
