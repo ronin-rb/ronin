@@ -24,7 +24,7 @@ require 'ronin/repo/objectfile'
 require 'ronin/ronin'
 
 require 'og'
-require 'glue/taggable'
+require 'og/model/taggable'
 require 'rexml/document'
 
 module Ronin

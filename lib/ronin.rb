@@ -22,8 +22,10 @@
 require 'ronin/version'
 require 'ronin/exceptions'
 require 'ronin/extensions'
+require 'ronin/config'
 require 'ronin/environment'
 require 'ronin/objectcache'
+require 'ronin/license'
 require 'ronin/author'
 require 'ronin/arch'
 require 'ronin/platform'
@@ -35,3 +37,5 @@ require 'ronin/vuln'
 require 'ronin/exploits'
 require 'ronin/repo'
 require 'ronin/ronin'
+
+Ronin.load_object_cache
