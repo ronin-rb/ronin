@@ -19,13 +19,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/repo/cache'
+require 'ronin/repo/repo'
 require 'ronin/repo/objectcontext'
-require 'ronin/repo/roninhandler'
 
 module Ronin
-  def Ronin.ronin
-    @ronin ||= RoninHandler.new
+  def Ronin.applications
+    Repo.cache.applications.keys
+  end
+
+  def Ronin.application(name)
+    Repo.cache.application(name.to_s)
   end
 
   def Ronin.ronin_require(category)
@@ -47,5 +50,18 @@ module Ronin
 
   def Ronin.ronin_load_object(type,path)
     Repo::ObjectContext.load_object(type,path)
+  end
+
+  protected
+
+  def Ronin.method_missing(sym,*args)
+    if args.length==0
+      name = sym.id2name
+
+      # return an application if present
+      return Repo.cache.application(name) if Repo.cache.has_application?(name)
+    end
+
+    raise(NoMethodError,name)
   end
 end

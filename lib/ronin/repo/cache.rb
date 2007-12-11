@@ -33,7 +33,7 @@ module Ronin
     class Cache
 
       # Path to cache file
-      CACHE_PATH = File.join(Config::PATH,'cache.yml')
+      CACHE_PATH = File.join(Config::PATH,'cache.yaml')
 
       # Path of cache file
       attr_reader :path
@@ -79,6 +79,14 @@ module Ronin
         block.call(self) if block
       end
 
+      def repositories_with_application(name)
+        @repositories.values.select { |repo| repo.has_application?(name) }
+      end
+
+      def each_repository(&block)
+        @repositories.each_values(&block)
+      end
+
       def has_repository?(name)
         @repositories.has_key?(name.to_s)
       end
@@ -91,18 +99,16 @@ module Ronin
         return @repositories[name.to_s]
       end
 
-      def repositories_with_application(name,&block)
-        repos = @repositories.values.select { |repo| repo.has_application?(name) }
-
-        repos.each(&block) if block
-        return repos
+      def repository_paths
+        @repositories.values.map { |repo| repo.path }
       end
 
-      def applications(&block)
-        apps = @repositories.values.map { |repo| repo.applications }.flatten.uniq
+      def applications
+        @repositories.values.map { |repo| repo.applications }.flatten.uniq
+      end
 
-        apps.each(&block) if block
-        return apps
+      def each_application(&block)
+        applications.each(&block)
       end
 
       def has_application?(name)
@@ -138,12 +144,14 @@ module Ronin
       end
 
       def save(cache_path=@path)
-        unless File.exists?(File.dirname(cache_path))
-          FileUtils.mkdir_p(File.dirname(cache_path))
+        parent_dir = File.dirname(cache_path)
+
+        unless File.directory?(parent_dir)
+          FileUtils.mkdir_p(parent_dir)
         end
 
         File.open(cache_path,'w') do |file|
-          YAML.dump(@repositories.values.map { |repo| repo.path }, file)
+          YAML.dump(repository_paths,file)
         end
 
         return self
