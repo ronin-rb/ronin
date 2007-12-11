@@ -19,19 +19,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'scanf'
+require 'uri'
 
 class String
 
   def url_encode
-    output = ''
-
-    self.each_byte { |c| output+=sprintf("%%%X",c) }
-    return output
+    URI.encode(self)
   end
 
   def url_decode
-    self.block_scanf('%%%X') { |c| input+=c[0].chr }.join
+    URI.decode(self)
   end
 
 end
