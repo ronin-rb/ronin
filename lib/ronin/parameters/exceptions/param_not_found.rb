@@ -20,6 +20,8 @@
 #
 
 module Ronin
-  class ParamNotFound < RuntimeError
+  module Parameters
+    class ParamNotFound < RuntimeError
+    end
   end
 end

@@ -19,8 +19,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/parameters/classparam'
-require 'ronin/parameters/instanceparam'
+require 'ronin/parameters/class_param'
+require 'ronin/parameters/instance_param'
 require 'ronin/parameters/exceptions'
 require 'ronin/extensions/meta'
 
