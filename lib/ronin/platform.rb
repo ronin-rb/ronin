@@ -49,7 +49,17 @@ module Ronin
     end
 
     def Platform.define(name)
-      Object.platform(name)
+      name = Platform.platform_name(name)
+
+      Ronin.module_eval %{
+        class #{name} < Platform
+
+          def initialize(version=nil)
+            super(#{name.dump},version)
+          end
+
+        end
+      }
     end
 
     protected
@@ -59,17 +69,7 @@ module Ronin
     end
 
     def Object.platform(name)
-      name = Platform.platform_name(name)
-
-      Ronin.module_eval %{
-        class #{name} < Platform
-
-          def initialize(version=nil)
-            super('#{name}',version)
-          end
-
-        end
-      }
+      Platform.define(name)
     end
 
     platform 'FreeBSD'

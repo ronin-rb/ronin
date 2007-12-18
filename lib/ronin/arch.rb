@@ -33,7 +33,7 @@ module Ronin
     # Address length of the architecture
     attr_reader :address_length, Integer
 
-    def initialize(name,endian,address_length)
+    def initialize(name,endian=:little,address_length=4)
       @name = name.to_s
       @endian = endian.to_s
       @address_length = address_length
@@ -53,38 +53,32 @@ module Ronin
       @@builtin ||= {}
     end
 
-    def self.define(name,opts={:endian => :little, :address_length => 4})
-      arch(name,opts)
+    def Arch.define(opts={})
+      name = opts[:name].to_sym
+
+      return Arch.builtin[name] = Arch.new(name,opts[:endian],opts[:address_length])
     end
 
     protected
 
-    def Object.arch(name,opts={:endian => :little, :address_length => 4})
-      builtin[name.to_sym] = Arch.new(name,opts[:endian],opts[:address_length])
+    def Object.arch(opts={})
+      Arch.arch(opts)
     end
 
-    arch :x86, :endian => :little, :address_length => 4
-    arch :x86_64, :endian => :little, :address_length => 8
-    arch :ia64, :endian => :little, :address_length => 8
-    arch :ppc, :endian => :big, :address_length => 4
-    arch :ppc64, :endian => :big, :address_length => 8
-    arch :sparc, :endian => :big, :address_length => 4
-    arch :sparc64, :endian => :big, :address_length => 8
-    arch :mips_le, :endian => :little, :address_length => 4
-    arch :mips_be, :endian => :big, :address_length => 4
-    arch :arm_le, :endian => :little, :address_length => 4
-    arch :arm_be, :endian => :big, :address_length => 4
-
-    def self.const_missing(name)
-      arch_name = name.to_s.downcase
-
-      arch = find_by_name(arch_name) || builtin[arch_name.to_sym]
-      unless arch
-        raise(NameError,"uninitialized constant #{name}")
-      end
-
-      return arch
-    end
+    arch :name => :i386, :endian => :little, :address_length => 4
+    arch :name => :i486, :endian => :little, :address_length => 4
+    arch :name => :i686, :endian => :little, :address_length => 4
+    arch :name => :i986, :endian => :little, :address_length => 4
+    arch :name => :x86_64, :endian => :little, :address_length => 8
+    arch :name => :ia64, :endian => :little, :address_length => 8
+    arch :name => :ppc, :endian => :big, :address_length => 4
+    arch :name => :ppc64, :endian => :big, :address_length => 8
+    arch :name => :sparc, :endian => :big, :address_length => 4
+    arch :name => :sparc64, :endian => :big, :address_length => 8
+    arch :name => :mips_le, :endian => :little, :address_length => 4
+    arch :name => :mips_be, :endian => :big, :address_length => 4
+    arch :name => :arm_le, :endian => :little, :address_length => 4
+    arch :name => :arm_be, :endian => :big, :address_length => 4
 
   end
 end
