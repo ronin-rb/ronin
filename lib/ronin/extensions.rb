@@ -20,3 +20,4 @@
 #
 
 require 'ronin/extensions/meta'
+require 'ronin/extensions/uri'
