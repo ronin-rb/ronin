@@ -19,7 +19,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/environment'
 require 'ronin/objectcache'
 require 'ronin/arch'
 require 'ronin/platform'
@@ -27,9 +26,6 @@ require 'ronin/license'
 require 'ronin/product'
 
 module Ronin
-  # Ronin Environment constant
-  RONIN_ENV = Environment.new
-
   # Load the specified object cache
   def Ronin.load_object_cache(path=ObjectCache::STORE_PATH)
     @object_cache = ObjectCache.new(path)
