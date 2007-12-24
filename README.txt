@@ -4,7 +4,7 @@ Ronin
 
 == DESCRIPTION:
 
-Ronin is a ruby development environment geared towards information security
+Ronin is a ruby development environment designed for information security
 and data exploration tasks. Ronin allows for the rapid development and
 distribution of code over most Source-Code-Management system.
 
