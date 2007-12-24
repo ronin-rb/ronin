@@ -19,7 +19,6 @@ lib/ronin/audit/web/webtest.rb
 lib/ronin/audit/web/webtestsuite.rb
 lib/ronin/author.rb
 lib/ronin/config.rb
-lib/ronin/environment.rb
 lib/ronin/exceptions.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
