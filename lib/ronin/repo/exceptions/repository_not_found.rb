@@ -1,8 +1,8 @@
 #
-# Ronin - A decentralized repository for the storage and sharing of computer
-# security advisories, exploits and payloads.
+# Ronin - A ruby development environment designed for information security
+# and data exploration tasks.
 #
-# Copyright (c) 2007 Hal Brodigan (postmodern at users.sourceforge.net)
+# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 
 module Ronin
   module Repo
-    class ObjectNotFound < RuntimeError
+    class RepositoryNotFound < RuntimeError
     end
   end
 end
