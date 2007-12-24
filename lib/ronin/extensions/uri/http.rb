@@ -1,6 +1,6 @@
 #
-# Ronin - A decentralized repository for the storage and sharing of computer
-# security advisories, exploits and payloads.
+# Ronin - A ruby development environment designed for information security
+# and data exploration tasks.
 #
 # Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
