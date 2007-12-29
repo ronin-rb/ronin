@@ -62,22 +62,18 @@ module Ronin
       }
     end
 
+    define 'FreeBSD'
+    define 'Linux'
+    define 'OpenBSD'
+    define 'OSX'
+    define 'NetBSD'
+    define 'Windows'
+
     protected
 
     def self.platform_name(name)
       name.to_s.split.map { |word| word.capitalize }.join
     end
-
-    def Object.platform(name)
-      Platform.define(name)
-    end
-
-    platform 'FreeBSD'
-    platform 'Linux'
-    platform 'OpenBSD'
-    platform 'OSX'
-    platform 'NetBSD'
-    platform 'Windows'
 
   end
 end
