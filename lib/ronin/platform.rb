@@ -48,8 +48,12 @@ module Ronin
       end
     end
 
+    def Platform.namify(name)
+      name.to_s.split.map { |word| word.capitalize }.join
+    end
+
     def Platform.define(name)
-      name = Platform.platform_name(name)
+      name = Platform.namify(name)
 
       Ronin.module_eval %{
         class #{name} < Platform
@@ -68,12 +72,6 @@ module Ronin
     define 'OSX'
     define 'NetBSD'
     define 'Windows'
-
-    protected
-
-    def self.platform_name(name)
-      name.to_s.split.map { |word| word.capitalize }.join
-    end
 
   end
 end
