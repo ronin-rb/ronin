@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/repo/exceptions/contextnotfound'
-require 'ronin/repo/exceptions/objectnotfound'
-require 'ronin/repo/exceptions/applicationnotfound'
-require 'ronin/repo/exceptions/repositorynotfound'
+require 'ronin/repo/exceptions/context_not_found'
+require 'ronin/repo/exceptions/object_not_found'
+require 'ronin/repo/exceptions/application_not_found'
+require 'ronin/repo/exceptions/repository_not_found'
