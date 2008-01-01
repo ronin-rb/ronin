@@ -24,7 +24,7 @@ module Kernel
   protected
 
   def ronin_pending_contexts
-    $ronin_pending_contexts ||= []
+    @@ronin_pending_contexts ||= []
   end
 
   def ronin_context_pending?
@@ -32,11 +32,11 @@ module Kernel
   end
 
   def ronin_contexts
-    $ronin_context_block ||= {}
+    @@ronin_context_block ||= {}
   end
 
   def ronin_pending_objects
-    $ronin_pending_objects ||= []
+    @@ronin_pending_objects ||= []
   end
 
   def ronin_object_pending?
@@ -44,7 +44,7 @@ module Kernel
   end
 
   def ronin_objects
-    $ronin_object_block ||= {}
+    @@ronin_object_block ||= {}
   end
 
 end
