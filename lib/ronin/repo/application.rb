@@ -20,7 +20,7 @@
 #
 
 require 'ronin/repo/context'
-require 'ronin/repo/exceptions/applicationnotfound'
+require 'ronin/repo/exceptions/application_not_found'
 require 'ronin/repo/repo'
 
 module Ronin
@@ -45,7 +45,7 @@ module Ronin
 
         # load all related application contexts
         Repo.cache.repositories_with_application(name) do |repo|
-          @contexts << repo.appcontext(name,self)
+          @contexts << repo.app_context(name,self)
         end
 
         block.call(self) if block
@@ -55,12 +55,12 @@ module Ronin
         name = name.to_s
 
         # return existing dependency
-        dep = dependency(name)
-        return dep if dep
+        if (dep = dependency(name))
+          return dep
+        end
 
         # add the new dependency
-        @dependencies[name] = Application.new(name)
-        return @dependencies[name]
+        return @dependencies[name] = Application.new(name)
       end
 
       def dependency(name)
@@ -91,12 +91,14 @@ module Ronin
       end
 
       def context_with(&block)
-        match = @context.select(&block)[0]
-        return match if match
+        if (match = @context.select(&block).first)
+          return match
+        end
 
         @dependencies.each_value do |app|
-          match = app.context_with(&block)
-          return match if match
+          if (match = app.context_with(&block))
+            return match
+          end
         end
 
         return nil
@@ -117,7 +119,7 @@ module Ronin
 
         # collect contexts
         contexts = contexts_with do |context|
-          context.public_instance_methods(false).include?(name)
+          context.provides_method?(name)
         end
 
         if contexts.empty?
@@ -135,7 +137,7 @@ module Ronin
 
         # find the first matching dependency
         context = context_with do |context|
-          app.public_instance_methods(false).include?(name)
+          app.provides_method?(name)
         end
 
         unless context

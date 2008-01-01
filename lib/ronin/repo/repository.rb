@@ -126,12 +126,12 @@ module Ronin
         return File.directory?(File.join(@path,name))
       end
 
-      def appcontext(name,application=nil)
+      def app_context(name,application=nil)
         unless has_application?(name)
           raise(ApplicationNotfound,"repository '#{@name}' does not contain the application '#{name}'",caller)
         end
 
-        AppContext.load_appcontext(File.join(@path,name))
+        AppContext.load_context_from(File.join(@path,name))
       end
 
       protected

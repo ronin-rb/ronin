@@ -19,8 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/repo/contextable'
-require 'ronin/repo/exceptions/actionnotfound'
+require 'ronin/repo/context'
 
 module Ronin
   module Repo
@@ -53,7 +52,7 @@ module Ronin
         $LOAD_PATH.unshift(@path) unless $LOAD_PATH.include?(@path)
       end
 
-      def self.load_appcontext(path,application=nil)
+      def self.load_context_from(path,application=nil)
         unless File.exists?(path)
           raise(AppContextNotFound,"application context '#{path}' does not exist",caller)
         end
@@ -70,6 +69,10 @@ module Ronin
         new_appcontext.load_context(appcontext_path) if File.file?(appcontext_path)
 
         return new_appcontext
+      end
+
+      def provides_method?(name)
+        public_methods.include?(name.to_s)
       end
 
       def distribute(&block)
