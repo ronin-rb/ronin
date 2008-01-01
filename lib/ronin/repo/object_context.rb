@@ -20,7 +20,7 @@
 #
 
 require 'ronin/repo/context'
-require 'ronin/repo/objectfile'
+require 'ronin/repo/object_file'
 require 'ronin/ronin'
 
 require 'og'
@@ -42,11 +42,9 @@ module Ronin
 
       def ObjectContext.load_objects(path)
         path = File.expand_path(path)
-
-        contexts = Context.load_contexts(path)
         objects = []
 
-        contexts.each do |id,block|
+        Context.load_contexts(path).each do |id,block|
           unless ObjectContext.is_object_context?(id)
             raise(ObjectNotFound,"unknown object context '#{id}'",caller)
           end
@@ -71,26 +69,33 @@ module Ronin
         return ObjectContext.object_contexts[type].create_object(path,*args)
       end
 
+      def ObjectContext.namify(base)
+        Context.namify(base)
+      end
+
       protected
 
-      def Object.object_contextify(id=ObjectContext.object_contextify_name(self))
-        # contextify the class
-        contextify(id)
+      def Object.object_contextify(id=ObjectContext.namify(self))
+        class_eval do
+          # contextify the class
+          contextify(id)
 
-        include Taggable
+          # make the class taggable
+          include Taggable
 
-        # the object path from which this object context was loaded
-        attr_accessor :object_path, String
+          # the path of the object context file
+          attr_accessor :object_path, String
 
-        before %{
-          path = res[res.fields.index('object_path')]
-          if path
-            load_object(path)
+          before %{
+            path = res[res.fields.index('object_path')]
+            if path
+              load_object(path)
 
-            @oid = res[res.fields.index('oid')]
-            return
-          end
-        }, :on => :og_read
+              @oid = res[res.fields.index('oid')]
+              return
+            end
+          }, :on => :og_read
+        end
 
         if Ronin.object_cache_loaded?
           # manage classes after the object cache has been setup
@@ -128,10 +133,6 @@ module Ronin
 
         # add the class to the global list of object contexts
         ObjectContext.object_contexts[id] = self
-      end
-
-      def ObjectContext.object_contextify_name(base)
-        Context.contextify_name(base)
       end
     end
   end
