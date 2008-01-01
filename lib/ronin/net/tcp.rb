@@ -19,62 +19,27 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/parameters'
-require 'ronin/parameters/exceptions/paramnotfound'
-
 require 'socket'
 
 module Ronin
-  module Proto
+  module Net
     module TCP
-      include Parameters
-
-      def self.included(base)
-        base.module_eval do
-          parameter :lhost, :description => 'local host'
-          parameter :lport, :description => 'local port'
-
-          parameter :rhost, :description => 'remote host'
-          parameter :rport, :description => 'remote port'
-        end
-      end
-
-      def self.extended(obj)
-        obj.instance_eval do
-          parameter :lhost, :description => 'local host'
-          parameter :lport, :description => 'local port'
-
-          parameter :rhost, :description => 'remote host'
-          parameter :rport, :description => 'remote port'
-        end
-      end
-
-      protected
-
-      def tcp_connect(&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
-        end
-
-        unless @rport
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
-        end
-
-        sock = TCPSocket.new(@rhost,@rport,@lhost,@lport)
+      def TCP.connect(rhost,rport,lhost=nil,lport=nil,&block)
+        sock = TCPSocket.new(rhost,rport,lhost,lport)
         block.call(sock) if block
 
         return sock
       end
 
-      def tcp_connect_and_recv(&block)
-        tcp_connect do |sock|
+      def TCP.connect_and_recv(rhost,rport,lhost=nil,lport=nil,&block)
+        TCP.connect(rhost,rport,lhost,lport) do |sock|
           block.call(sock.read) if block
         end
       end
 
-      def tcp_connect_and_send(str,&block)
-        tcp_connect do |sock|
-          sock.write(str)
+      def TCP.connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
+        TCP.tcp_connect(rhost,rport,lhost,lport) do |sock|
+          sock.write(data)
 
           block.call(sock) if block
         end

@@ -19,62 +19,27 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/parameters'
-require 'ronin/parameters/exceptions/paramnotfound'
-
 require 'socket'
 
 module Ronin
-  module Proto
+  module Net
     module UDP
-      include Parameters
-
-      def self.included(base)
-        base.module_eval do
-          parameter :lhost, :description => 'local host'
-          parameter :lport, :description => 'local port'
-
-          parameter :rhost, :description => 'remote host'
-          parameter :rport, :description => 'remote port'
-        end
-      end
-
-      def self.extended(obj)
-        obj.instance_eval do
-          parameter :lhost, :description => 'local host'
-          parameter :lport, :description => 'local port'
-
-          parameter :rhost, :description => 'remote host'
-          parameter :rport, :description => 'remote port'
-        end
-      end
-
-      protected
-
-      def udp_connect(&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing '#{describe_param(:rhost)}' parameter",caller)
-        end
-
-        unless @rport
-          raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
-        end
-
+      def UDP.connect(rhost,rport,lhost=nil,lport=nil,&block)
         sock = UDPSocket.new(@rhost,@rport,@lhost,@lport)
         block.call(sock) if block
 
         return sock
       end
 
-      def udp_connect_and_recv(&block)
-        udp_connect do |sock|
+      def UDP.connect_and_recv(rhost,rport,lhost=nil,lport=nil,&block)
+        UDP.connect(rhost,rport,lhost,lport) do |sock|
           block.call(sock.read) if block
         end
       end
 
-      def udp_connect_and_send(str,&block)
-        udp_connect do |sock|
-          sock.write(str)
+      def UDP.connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
+        UDP.connect(rhost,rport,lhost,lport) do |sock|
+          sock.write(data)
 
           block.call(sock) if block
         end
