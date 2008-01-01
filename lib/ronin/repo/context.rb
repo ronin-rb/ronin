@@ -20,28 +20,70 @@
 #
 
 require 'ronin/repo/extensions/kernel'
-require 'ronin/repo/exceptions/contextnotfound'
+require 'ronin/repo/exceptions/context_not_found'
 require 'ronin/extensions/meta'
 
 module Ronin
   module Repo
     module Context
+      def Context.contexts
+        @@contexts ||= {}
+      end
+
+      def Context.is_context?(id)
+        ObjectContext.contexts.has_key?(id.to_sym)
+      end
+
+      def Context.load_contexts(path)
+        path = File.expand_path(path)
+        contexts = []
+
+        Context.load_contexts(path).each do |id,block|
+          unless Context.is_context?(id)
+            raise(ContextNotFound,"unknown context '#{id}'",caller)
+          end
+
+          new_context = Context.contexts[id].new
+          new_context.instance_eval(&block)
+
+          contexts << new_context
+        end
+
+        return contexts
+      end
+
+      def Context.load_context(type,path,*args)
+        type = type.to_sym
+
+        unless Context.is_context?(type)
+          raise(ContextNotFound,"unknown context '#{type}'",caller)
+        end
+
+        return Context.contexts[type].load_context(path,*args)
+      end
+
+      def Context.namify(base)
+        # similar to the way Og tableizes Class names
+        return base.to_s.downcase.gsub(/::/,'_').gsub(/^ronin_/,'').to_sym
+      end
+
       protected
 
-      def Object.contextify(id=Context.contextify_name(self))
+      def Object.contextify(id=Context.namify(self))
         id = id.to_sym
 
         # define context_name
         meta_def(:context_name) { id }
         class_def(:context_name) { id }
 
-        # define load_context methods
+        # define self.load_context
         meta_def(:load_context) do |path,*args|
           new_obj = self.new(*args)
           new_obj.load_context(path)
           return new_obj
         end
 
+        # define load_context
         class_def(:load_context) do |path|
           context_block = Context.load_contexts(path)[context_name]
           ronin_contexts.clear
@@ -50,6 +92,7 @@ module Ronin
           return self
         end
 
+        # define top-level context wrappers
         Kernel.module_eval %{
           def ronin_#{id}(*args,&block)
             if (args.length==0 && ronin_context_pending?)
@@ -63,6 +106,7 @@ module Ronin
           end
         }
 
+        # define Ronin-level context loader
         Ronin.module_eval %{
           def ronin_load_#{id}(path,*args,&block)
             new_obj = #{self}.load_context(path,*args)
@@ -71,6 +115,8 @@ module Ronin
             return new_obj
           end
         }
+
+        Context.contexts[id] = self
       end
 
       def Context.load_contexts(path)
@@ -90,11 +136,6 @@ module Ronin
 
         # return the loaded contexts
         return ronin_contexts
-      end
-
-      def Context.contextify_name(base)
-        # similar to the way Og tableizes Class names
-        return base.to_s.downcase.gsub(/::/,'_').gsub(/^ronin_/,'').to_sym
       end
     end
   end
