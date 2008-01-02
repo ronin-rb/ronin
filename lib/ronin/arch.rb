@@ -55,26 +55,26 @@ module Ronin
       @@builtin ||= {}
     end
 
-    def Arch.define(opts={},&block)
-      name = opts[:name].to_sym
+    def Arch.define(name,opts={},&block)
+      name = name.to_sym
 
       return Arch.builtin[name] = Arch.new(name,opts[:endian],opts[:address_length],&block)
     end
 
-    define :name => :i386, :endian => :little, :address_length => 4
-    define :name => :i486, :endian => :little, :address_length => 4
-    define :name => :i686, :endian => :little, :address_length => 4
-    define :name => :i986, :endian => :little, :address_length => 4
-    define :name => :x86_64, :endian => :little, :address_length => 8
-    define :name => :ia64, :endian => :little, :address_length => 8
-    define :name => :ppc, :endian => :big, :address_length => 4
-    define :name => :ppc64, :endian => :big, :address_length => 8
-    define :name => :sparc, :endian => :big, :address_length => 4
-    define :name => :sparc64, :endian => :big, :address_length => 8
-    define :name => :mips_le, :endian => :little, :address_length => 4
-    define :name => :mips_be, :endian => :big, :address_length => 4
-    define :name => :arm_le, :endian => :little, :address_length => 4
-    define :name => :arm_be, :endian => :big, :address_length => 4
+    define :i386, :endian => :little, :address_length => 4
+    define :i486, :endian => :little, :address_length => 4
+    define :i686, :endian => :little, :address_length => 4
+    define :i986, :endian => :little, :address_length => 4
+    define :x86_64, :endian => :little, :address_length => 8
+    define :ia64, :endian => :little, :address_length => 8
+    define :ppc, :endian => :big, :address_length => 4
+    define :ppc64, :endian => :big, :address_length => 8
+    define :sparc, :endian => :big, :address_length => 4
+    define :sparc64, :endian => :big, :address_length => 8
+    define :mips_le, :endian => :little, :address_length => 4
+    define :mips_be, :endian => :big, :address_length => 4
+    define :arm_le, :endian => :little, :address_length => 4
+    define :arm_be, :endian => :big, :address_length => 4
 
   end
 end
