@@ -25,21 +25,38 @@ module Ronin
   class Platform
 
     # Name of the Operating System
-    attr_reader :os, String
+    attr_accessor :os, String
 
     # Version of the Operating System
-    attr_reader :version, String
+    attr_accessor :version, String
 
-    def initialize(os,version=nil)
+    #
+    # Creates a new Platform object with the specified _os_ and the given
+    # _version_. If _block_ is given, it will be passed the newly created
+    # Platform object.
+    #
+    def initialize(os,version=nil,&block)
       @os = os
       @version = version
+
+      block.call(self) if block
     end
 
+    #
+    # Returns true if the Platform has the same os and version as the
+    # _other_ platform, returns false otherwise.
+    #
     def ==(other)
       return false unless @os==other.os
       return @version==other.version
     end
 
+    #
+    # Returns the String form of the Platform.
+    #
+    #   platform = Platform.new("Linux","2.6.11")
+    #   platform.to_s # => "Linux 2.6.11"
+    #
     def to_s
       if @version
         return "#{@os} #{@version}"
@@ -52,6 +69,20 @@ module Ronin
       name.to_s.split.map { |word| word.capitalize }.join
     end
 
+    #
+    # Defines a new builtin Platform of the specified _name_, which will
+    # define a new class named _name_ that inherites Platform.
+    #
+    #   Platform.define('FreeBSD')
+    #
+    #   class FreeBSD < Platform
+    #
+    #     def initialize(version=nil)
+    #       super("FreeBSD",version)
+    #     end
+    #
+    #   end
+    #
     def Platform.define(name)
       name = Platform.namify(name)
 
