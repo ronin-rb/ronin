@@ -23,17 +23,32 @@ require 'scanf'
 
 class String
 
+  #
+  # Returns the HTML decimal encoded form of the string.
+  #
+  #   "hello".html_dec_encode # => "&#104;&#101;&#108;&#108;&#111;"
+  #
   def html_dec_encode
     output = ''
 
-    self.each_byte { |c| output+=sprintf("&#%d",c) }
+    self.each_byte { |c| output+=sprintf("&#%d;",c) }
     return output
   end
 
+  #
+  # Returns the HTML decimal decoded form of the string.
+  #
+  #   "&#99;&#111;&#102;&#102;&#101;&#101;" # => "coffee"
+  #
   def html_dec_decode
-    self.block_scanf('&#%d') { |c| input+=c[0].chr }.join
+    self.block_scanf('&#%d;') { |c| input+=c[0].chr }.join
   end
 
+  #
+  # Returns the HTML hexidecimal encoded form of the string.
+  #
+  #   "hello" # => "&#68;&#65;&#6C;&#6C;&#6F;"
+  #
   def html_hex_encode
     output = ''
 
@@ -41,6 +56,11 @@ class String
     return output
   end
 
+  #
+  # Returns the HTML hexidecimal decoded form of the string.
+  #
+  #   "&#72;&#75;&#62;&#79;" # => "ruby"
+  #
   def html_hex_decode
     self.block_scanf('&#%X;') { |c| input+=c[0].chr }.join
   end
