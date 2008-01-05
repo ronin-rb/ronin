@@ -25,14 +25,19 @@ module Ronin
   class License
 
     # License name
-    attr_reader :name, String, :unqiue => true
+    attr_accessor :name, String, :unqiue => true
 
     # Description of license
-    attr_reader :description, String
+    attr_accessor :description, String
 
     # URL of the License document
-    attr_reader :url, String
+    attr_accessor :url, String
 
+    #
+    # Creates a new License object with the specified _name_ and the given
+    # _description_ and _url_. If _block_ is given, it will be passed
+    # the newly created License object.
+    #
     def initialize(name,description=nil,url=nil,&block)
       @name = name
       @description = description
@@ -41,18 +46,33 @@ module Ronin
       block.call(self) if block
     end
 
+    #
+    # Returns the name of the license as a String.
+    #
     def to_s
       @name.to_s
     end
 
+    #
+    # Provides the builtin License objects.
+    #
     def License.builtin
       @@builtin ||= {}
     end
 
-    def License.define(name,opts={},&block)
+    #
+    # Defines a new builtin License object of the specified _name_ and the
+    # given _opts_. If block is given, it will be passed the newly created
+    # License object.
+    #
+    # _options_ may contain the following keys:
+    # <tt>:description</tt>:: The description of the license.
+    # <tt>:url</tt>:: The URL to the license.
+    #
+    def License.define(name,options={},&block)
       name = name.to_s
 
-      return License.builtin[name] = License.new(name,opts[:description],opts[:url],&block)
+      return License.builtin[name] = License.new(name,options[:description],options[:url],&block)
     end
 
     # GNU Public Licenses
