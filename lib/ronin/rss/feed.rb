@@ -23,39 +23,66 @@ require 'rss/parser'
 require 'open-uri'
 
 module Ronin
-  class RSSFeed
+  module RSS
+    class Feed
 
-    # URL of the feed
-    attr_reader :url
+      # URL of the feed
+      attr_reader :url
 
-    def initialize(url)
-      @url = URI.parse(url)
-      update
+      #
+      # Creates a new Feed object with the specified _url_.
+      #
+      def initialize(url)
+        @url = URI.parse(url)
+
+        update
+      end
+
+      #
+      # Returns the title of the feed.
+      #
+      def title
+        @rss.channel.title
+      end
+
+      #
+      # Returns the link to the feed.
+      #
+      def link
+        @rss.channel.link
+      end
+
+      #
+      # Returns the description for the feed.
+      #
+      def description
+        @rss.channel.description
+      end
+
+      #
+      # Returns the date the feed was published.
+      #
+      def published
+        @rss.channel.date
+      end
+
+      #
+      # Updates the feeds content.
+      #
+      def update(&block)
+        @rss = RSS::Parser.parse(open(@url),false)
+
+        block.call(self) if block
+        return self
+      end
+
+      #
+      # Returns the title of the feed.
+      #
+      def to_s
+        title.to_s
+      end
+
     end
-
-    def title
-      @rss.channel.title
-    end
-
-    def link
-      @rss.channel.link
-    end
-
-    def description
-      @rss.channel.description
-    end
-
-    def published
-      @rss.channel.date
-    end
-
-    def update
-      @rss = RSS::Parser.parse(open(@url),false)
-    end
-
-    def to_s
-      title.to_s
-    end
-
   end
 end
