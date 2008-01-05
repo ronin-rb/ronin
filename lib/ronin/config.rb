@@ -25,8 +25,5 @@ module Ronin
   module Config
     # Ronin home directory
     PATH = File.join(ENV['HOME'],'.ronin')
-
-    # Ronin gem directory
-    GEM_PATH = File.join(PATH,'gems')
   end
 end
