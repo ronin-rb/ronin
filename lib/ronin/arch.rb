@@ -25,15 +25,30 @@ module Ronin
   class Arch
 
     # Name of the architecture
-    attr_reader :name, String, :unique => true
+    attr_accessor :name, String, :unique => true
 
     # Endianness of the architecture
-    attr_reader :endian, String
+    attr_accessor :endian, String
 
     # Address length of the architecture
-    attr_reader :address_length, Integer
+    attr_accessor :address_length, Integer
 
-    def initialize(name,endian=:little,address_length=4,&block)
+    #
+    # Creates a new Arch object with the specified _name_ and the given
+    # _endian_ and _address_length_. _endian_ defaults to :little and
+    # _address_length_ defaults to 4. If _block_ is given, it will be
+    # passed the newly created Arch object.
+    #
+    #   Arch.new('i686')
+    #
+    #   Arch.new('amd64','little',8)
+    #
+    #   Arch.new('ppc64') do |arch|
+    #     arch.endian = 'big'
+    #     arch.address_length = 8
+    #   end
+    #
+    def initialize(name,endian='little',address_length=4,&block)
       @name = name.to_s
       @endian = endian.to_s
       @address_length = address_length
@@ -41,20 +56,35 @@ module Ronin
       block.call(self) if block
     end
 
+    #
+    # Returns true if the arch has the same _name_, _endian_ and
+    # _address_length_ as the _other_ arch, returns false otherwise.
+    #
     def ==(other)
       return false unless @name==other.name
       return false unless @endian==other.endian
       return @address_length==other.address_length
     end
 
+    #
+    # Returns the name of the arch as a String.
+    #
     def to_s
       @name.to_s
     end
 
+    #
+    # Provides the builtin Arch objects.
+    #
     def Arch.builtin
       @@builtin ||= {}
     end
 
+    #
+    # Defines a new builtin Arch with the specified _name_ and the given
+    # _opts_. If _block_ is given, it will be passed the newly created
+    # Arch.
+    #
     def Arch.define(name,opts={},&block)
       name = name.to_sym
 
