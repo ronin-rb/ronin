@@ -1,11 +1,8 @@
-== DESIGN:
+== REFACTORING:
 
- 3. lib/repo/config.rb:
-  * Add code to handle addition/deletion of repositories.
- 6. Add unit tests for top level ronin code.
+  1. Add Documentation
+  2. Simplify design.
+  3. Rewrite Ronin::Runner.
+  4. Migrate SVN repository to Rubyforge.
+  5. Continue development on Rubyforge.
 
-== IMPROVEMENTS:
-
- 1. Make code portable (Windows friendly).
- 2. Try to secure code as much as possible.
-  1. Prevent directory transversal in repo/ code.
