@@ -1,8 +1,9 @@
 #
-# Ronin - A ruby development environment designed for information security
+#--
+# Ronin - A ruby development platform designed for information security
 # and data exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
 #
 
 require 'ronin/repo/context'
@@ -25,7 +27,8 @@ module Ronin
   module Repo
     class AppContext
 
-      include Context
+      # AppContext file name
+      APP_FILE = 'app.rb'
 
       # Name of context
       attr_accessor :name
@@ -38,6 +41,10 @@ module Ronin
 
       contextify :application
 
+      #
+      # Creates a new AppContext with the specified _path_ and the given
+      # _application_ object.
+      #
       def initialize(path,application=nil)
         path = File.expand_path(path)
 
@@ -49,9 +56,17 @@ module Ronin
         @path = path
         @application = application
 
-        $LOAD_PATH.unshift(@path) unless $LOAD_PATH.include?(@path)
+        lib_dir = File.join(@path,'lib')
+
+        if File.directory?(lib_dir)
+          $LOAD_PATH.unshift(lib_dir) unless $LOAD_PATH.include?(lib_dir)
+        end
       end
 
+      #
+      # Loads an AppContext from within the specified _path_ and the given
+      # _application_ object.
+      #
       def self.load_context_from(path,application=nil)
         unless File.exists?(path)
           raise(AppContextNotFound,"application context '#{path}' does not exist",caller)
@@ -65,12 +80,18 @@ module Ronin
         new_appcontext = self.new(path,application)
 
         # load the context file if present
-        appcontext_path = File.join(path,'app.rb')
+        appcontext_path = File.join(path,APP_FILE)
         new_appcontext.load_context(appcontext_path) if File.file?(appcontext_path)
 
         return new_appcontext
       end
 
+      #
+      # Returns +true+ if the app context has a public instance method
+      # of the matching _name_, returns +false+ otherwise.
+      #
+      #   obj.provides_method?(:console) # => true
+      #
       def provides_method?(name)
         public_methods.include?(name.to_s)
       end
@@ -146,13 +167,16 @@ module Ronin
         return full_paths
       end
 
+      #
+      # Returns the name of the app context in string form.
+      #
       def to_s
         @name.to_s
       end
 
       protected
 
-      def Object.distribute(id,dist_id="#{id}s")
+      def AppContext.distribute(id,dist_id="#{id}s")
         class_eval %{
           def #{dist_id}(*args,&block)
             distribute_call(:#{id},*args,&block).compact

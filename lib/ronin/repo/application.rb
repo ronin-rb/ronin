@@ -1,8 +1,9 @@
 #
-# Ronin - A ruby development environment designed for information security
+#--
+# Ronin - A ruby development platform designed for information security
 # and data exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
 #
 
 require 'ronin/repo/context'
@@ -36,12 +38,15 @@ module Ronin
       # Application Contexts
       attr_reader :contexts
 
+      #
+      # Create a new Application object with the specified _name_. If
+      # _block_ is given, it will be passed the newly created Application
+      # object.
+      #
       def initialize(name,&block)
         @name = name
         @dependencies = {}
         @contexts = []
-
-        @cache_paths = []
 
         # load all related application contexts
         Repo.cache.repositories_with_application(name) do |repo|
@@ -63,6 +68,9 @@ module Ronin
         return @dependencies[name] = Application.new(name)
       end
 
+      #
+      # Returns the application dependency with the matching _name_.
+      #
       def dependency(name)
         name = name.to_s
 
@@ -76,6 +84,10 @@ module Ronin
         return nil
       end
 
+      #
+      # Returns true if the application depends on the application with
+      # the matching _name_, returns false otherwise.
+      #
       def depends_on?(name)
         !(dependency(name).nil?)
       end
@@ -144,20 +156,16 @@ module Ronin
           raise(NoMethodError,name,caller)
         end
 
-        return context.send(sym.to_sym,*args,&block) if context
-      end
-
-      def cache(*paths)
-        @cache_paths += paths
-      end
-
-      def main(args)
-        distribute_call(:main,args)
-        return self
+        return context.send(sym.to_sym,*args,&block)
       end
 
       def setup
         distribute_call(:setup)
+        return self
+      end
+
+      def command(args)
+        distribute_call(:command,args)
         return self
       end
 
