@@ -25,10 +25,10 @@ require 'ronin/repo/context'
 
 module Ronin
   module Repo
-    class AppContext
+    class ExtensionContext
 
-      # AppContext file name
-      APP_FILE = 'app.rb'
+      # ExtensionContext file name
+      APP_FILE = 'extension.rb'
 
       # Name of context
       attr_accessor :name
@@ -36,25 +36,25 @@ module Ronin
       # Path of context
       attr_accessor :path
 
-      # Parent Application
-      attr_accessor :application
+      # Parent Extension
+      attr_accessor :parent
 
-      contextify :application
+      contextify :extension
 
       #
-      # Creates a new AppContext with the specified _path_ and the given
-      # _application_ object.
+      # Creates a new ExtensionContext with the specified _path_ and the given
+      # _extension_ object.
       #
-      def initialize(path,application=nil)
+      def initialize(path,extension=nil)
         path = File.expand_path(path)
 
         unless File.exists?(path)
-          raise(AppContextNotFound,"application context '#{path}' does not exist",caller)
+          raise(ExtensionContextNotFound,"extension context '#{path}' does not exist",caller)
         end
 
         @name = File.basename(path)
         @path = path
-        @application = application
+        @parent = extension
 
         lib_dir = File.join(@path,'lib')
 
@@ -64,20 +64,20 @@ module Ronin
       end
 
       #
-      # Loads an AppContext from within the specified _path_ and the given
-      # _application_ object.
+      # Loads an ExtensionContext from within the specified _path_ and the given
+      # _extension_ object.
       #
-      def self.load_context_from(path,application=nil)
+      def self.load_context_from(path,extension=nil)
         unless File.exists?(path)
-          raise(AppContextNotFound,"application context '#{path}' does not exist",caller)
+          raise(ContextNotFound,"extension context '#{path}' does not exist",caller)
         end
 
         unless File.directory?(path)
-          raise(AppContextNotFound,"application context '#{path}' is not a directory",caller)
+          raise(ContextNotFound,"extension context '#{path}' is not a directory",caller)
         end
 
-        # create a new AppContext
-        new_appcontext = self.new(path,application)
+        # create a new ExtensionContext
+        new_appcontext = self.new(path,extension)
 
         # load the context file if present
         appcontext_path = File.join(path,APP_FILE)
@@ -97,8 +97,8 @@ module Ronin
       end
 
       def distribute(&block)
-        if @application
-          return @application.distribute(&block)
+        if @parent
+          return @parent.distribute(&block)
         else
           return []
         end
@@ -108,8 +108,8 @@ module Ronin
       end
 
       def distribute_once(sym,*args,&block)
-        if @application
-          @application.distribute_once(sym,*args,&block)
+        if @parent
+          @parent.distribute_once(sym,*args,&block)
         else
           raise(NoMethodError,sym.id2name,caller)
         end
@@ -176,7 +176,7 @@ module Ronin
 
       protected
 
-      def AppContext.distribute(id,dist_id="#{id}s")
+      def self.distribute(id,dist_id="#{id}s")
         class_eval %{
           def #{dist_id}(*args,&block)
             distribute_call(:#{id},*args,&block).compact
@@ -192,7 +192,7 @@ module Ronin
       distribute :glob_dirs, :glob_all_dirs
 
       def method_missing(sym,*args,&block)
-        @application.send(sym,*args,&block) if @application
+        @parent.send(sym,*args,&block) if @parent
       end
 
     end

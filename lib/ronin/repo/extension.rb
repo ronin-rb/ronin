@@ -22,25 +22,25 @@
 #
 
 require 'ronin/repo/context'
-require 'ronin/repo/exceptions/application_not_found'
+require 'ronin/repo/exceptions/extension_not_found'
 require 'ronin/repo/repo'
 
 module Ronin
   module Repo
-    class Application
+    class Extension
 
-      # Name of the application
+      # Name of the extension
       attr_reader :name
 
-      # Applications dependencies
+      # Extension dependencies
       attr_reader :dependencies
 
-      # Application Contexts
+      # Extension contexts
       attr_reader :contexts
 
       #
-      # Create a new Application object with the specified _name_. If
-      # _block_ is given, it will be passed the newly created Application
+      # Create a new Extension object with the specified _name_. If
+      # _block_ is given, it will be passed the newly created Extension
       # object.
       #
       def initialize(name,&block)
@@ -48,9 +48,9 @@ module Ronin
         @dependencies = {}
         @contexts = []
 
-        # load all related application contexts
-        Repo.cache.repositories_with_application(name) do |repo|
-          @contexts << repo.app_context(name,self)
+        # load all related extension contexts
+        Repo.cache.repositories_with_extension(name) do |repo|
+          @contexts << repo.extension_context(name,self)
         end
 
         block.call(self) if block
@@ -65,19 +65,19 @@ module Ronin
         end
 
         # add the new dependency
-        return @dependencies[name] = Application.new(name)
+        return @dependencies[name] = Extension.new(name)
       end
 
       #
-      # Returns the application dependency with the matching _name_.
+      # Returns the extension dependency with the matching _name_.
       #
       def dependency(name)
         name = name.to_s
 
         return self if @name==name
 
-        @dependencies.each do |app|
-          dep = app.dependency(name)
+        @dependencies.each do |ext|
+          dep = ext.dependency(name)
           return dep if dep
         end
 
@@ -85,7 +85,7 @@ module Ronin
       end
 
       #
-      # Returns true if the application depends on the application with
+      # Returns true if the extension depends on the extension with
       # the matching _name_, returns false otherwise.
       #
       def depends_on?(name)
@@ -95,8 +95,8 @@ module Ronin
       def contexts_with(&block)
         matches = @contexts.select(&block)
 
-        @dependencies.each_value do |app|
-          matches += app.contexts_with(&block)
+        @dependencies.each_value do |ext|
+          matches += ext.contexts_with(&block)
         end
 
         return matches
@@ -107,8 +107,8 @@ module Ronin
           return match
         end
 
-        @dependencies.each_value do |app|
-          if (match = app.context_with(&block))
+        @dependencies.each_value do |ext|
+          if (match = ext.context_with(&block))
             return match
           end
         end
@@ -119,8 +119,8 @@ module Ronin
       def distribute(&block)
         results = @contexts.map(&block)
 
-        @dependencies.each_value do |app|
-          results += app.distribute(&block)
+        @dependencies.each_value do |ext|
+          results += ext.distribute(&block)
         end
 
         return results
@@ -149,7 +149,7 @@ module Ronin
 
         # find the first matching dependency
         context = context_with do |context|
-          app.provides_method?(name)
+          ext.provides_method?(name)
         end
 
         unless context
