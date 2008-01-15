@@ -1,8 +1,9 @@
 #
-# Ronin - A ruby development environment designed for information security
+#--
+# Ronin - A ruby development platform designed for information security
 # and data exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,77 +18,103 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
 #
 
-require 'ronin/parameters'
+require 'ronin/extensions/uri/http'
 
-require 'uri'
 require 'net/http'
 
 module Ronin
-  module Proto
+  module Net
     module HTTP
-      def self.included(base)
-        base.class_eval {
-          parameter :lhost, :desc => 'local hostname'
-          parameter :lport, :desc => 'local port'
-          parameter :rhost, :desc => 'remote hostname'
-          parameter :rport, :value => 80, :desc => 'remote port'
 
-          parameter :proxy_host, :desc => 'Proxy hostname'
-          parameter :proxy_port, :value => 8080, :desc => 'Proxy port'
-          parameter :proxy_user, :desc => 'Proxy user id'
-          parameter :proxy_pass, :desc => 'Proxy user password'
-        }
+      include ::Net::HTTP
+
+      METHODS = {
+        :copy => Copy,
+        :delete => Delete,
+        :get => Get,
+        :head => Head,
+        :lock => Lock,
+        :mkcol => Mkcol,
+        :move => Move,
+        :options => Options,
+        :post => Post,
+        :put => Put,
+        :trace => Trace,
+        :unlock => Unlock
+      }
+
+      def HTTP.user_agent
+        @user_agent ||= nil
       end
 
-      def self.extended(base)
-        base.instance_eval {
-          parameter :lhost, :desc => 'local hostname'
-          parameter :lport, :desc => 'local port'
-          parameter :rhost, :desc => 'remote hostname'
-          parameter :rport, :value => 80, :desc => 'remote port'
-
-          parameter :proxy_host, :desc => 'Proxy hostname'
-          parameter :proxy_port, :value => 8080, :desc => 'Proxy port'
-          parameter :proxy_user, :desc => 'Proxy user id'
-          parameter :proxy_pass, :desc => 'Proxy user password'
-        }
+      def HTTP.user_agent=(agent)
+        @user_agent = agent
       end
 
-      def proxy(host,port=8080,user=nil,pass=nil)
-        self.proxy_host = host
-        self.port = port
-        self.user = user
-        self.pass = pass
-      end
+      def HTTP.session(opts={},&block)
+        rhost = opts[:host]
+        rport = opts[:port] || 80
 
-      protected
-
-      def http_session(&block)
-        unless rhost
-          raise(MissingParam,"Missing '#{describe_param(:rhost)}' parameter",caller)
+        if (proxy = opts[:proxy])
+          proxy_host = proxy[:host]
+          proxy_port = proxy[:port] || 8080
+          proxy_user = proxy[:user]
+          proxy_pass = proxy[:pass]
         end
 
-        unless rport
-          raise(MissingParam,"Missing '#{describe_param(:port)}' parameter",caller)
-        end
+        sess = Net::HTTP::Proxy(proxy_host,proxy_port,proxy_user,proxy_pass).start(host,port)
 
-        return proxify.start(rhost,rport,&block)
+        block.call(sess) if block
+        return sess
       end
 
-      def http_get(path,&block)
-        http_session do |http|
-          resp = http.get(path)
+      def HTTP.request(opts={},&block)
+        method = opts[:method].to_sym
+
+        unless METHODS.has_key?(method)
+          raise(UnknownHTTPMethod,"unknown HTTP method '#{method}'",caller)
+        end
+
+        if (url = opts[:url])
+          url = URI.parse(url)
+
+          opts[:host] = url.host
+          opts[:port] = url.port
+          opts[:path] = url.path_query
+        end
+
+        req = METHODS[method].new(opts[:path],opts[:header])
+
+        HTTP.session(opts) do |http|
+          resp = http.request(req)
 
           block.call(resp) if block
           return resp
         end
       end
 
-      def http_post(path,postdata={},&block)
-        http_session do |http|
-          resp = http.post(path,postdata)
+      def HTTP.get(opts={},&block)
+        opts[:method] = :get
+
+        return HTTP.request(opts,&block)
+      end
+
+      def HTTP.post(opts={},&block)
+        if (url = opts[:url])
+          url = URI.parse(url)
+
+          opts[:host] = url.host
+          opts[:port] = url.port
+          opts[:path] = url.path
+        end
+
+        req = Net::HTTP::Post.new(opts[:path],opts[:headers])
+
+        HTTP.session(opts) do |http|
+          resp = http.post_form(opts[:path],opts[:postdata])
 
           block.call(resp) if block
           return resp
