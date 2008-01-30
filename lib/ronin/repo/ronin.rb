@@ -1,8 +1,9 @@
 #
-# Ronin - A ruby development environment designed for information security
+#--
+# Ronin - A ruby development platform designed for information security
 # and data exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,31 +18,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
 #
 
 require 'ronin/repo/repo'
 require 'ronin/repo/objectcontext'
 
 module Ronin
-  def Ronin.applications
-    Repo.cache.applications.keys
+  def Ronin.extensions
+    Repo::Repository.cache.extensions.keys
   end
 
-  def Ronin.application(name)
-    Repo.cache.application(name.to_s)
-  end
-
-  def Ronin.ronin_require(category)
-    Repo.cache.applications[name].each_value do |repository|
-      app_dir = File.join(repository.path,name)
-      load_file = File.join(app_dir,name+'.rb')
-
-      if File.file?(load_file)
-        $LOAD_PATH.unshift(app_dir) unless $LOAD_PATH.include?(app_dir)
-
-        require load_file
-      end
-    end
+  def Ronin.extension(name)
+    Repo::Repository.cache.extension(name)
   end
 
   def Ronin.ronin_load_objects(path)
@@ -54,14 +43,19 @@ module Ronin
 
   protected
 
-  def Ronin.method_missing(sym,*args)
+  def Ronin.method_missing(sym,*args,&block)
     if args.length==0
       name = sym.id2name
 
-      # return an application if present
-      return Repo.cache.application(name) if Repo.cache.has_application?(name)
+      # return an extension if present
+      if Repo::Repository.cache.has_extension?(name)
+        ext = Repo::Repository.cache.extension(name)
+
+        block.call(ext) if block
+        return ext
+      end
     end
 
-    raise(NoMethodError,name)
+    return super(sym,*args,&block)
   end
 end

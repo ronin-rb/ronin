@@ -21,43 +21,40 @@
 #++
 #
 
-require 'ronin/config'
 require 'ronin/repo/repository'
 require 'ronin/repo/extension'
 require 'ronin/repo/exceptions/repository_cached'
 require 'ronin/repo/exceptions/extension_not_found'
+require 'ronin/repo/config'
 
 require 'yaml'
 
 module Ronin
   module Repo
-    class Cache
-
-      # Path to cache file
-      PATH = File.join(Config::PATH,'cache.yaml')
+    class Cache < Hash
 
       # Path of cache file
       attr_reader :path
 
-      # Hash of loaded repositories
-      attr_reader :repositories
-
       #
       # Create a new Cache object with the specified _path_. The _path_
-      # defaults to PATH. If a _block_ is given, it will be passed the
-      # newly created Cache object.
+      # defaults to <tt>Config::REPOS_CACHE_PATH</tt>. If a _block_ is
+      # given, it will be passed the newly created Cache object.
       #
-      def initialize(path=PATH,&block)
-        @path = path
-        @repositories = {}
+      def initialize(path=Config::REPOS_CACHE_PATH,&block)
+        super()
+
+        @path = File.expand_path(path)
 
         if File.file?(@path)
           File.open(@path) do |file|
-            paths = YAML.load(file)
+            descriptions = YAML.load(file)
 
-            if paths.kind_of?(Array)
-              paths.each do |repo_path|
-                add_repository(Repository.new(repo_path))
+            if descriptions.kind_of?(Array)
+              descriptions.each do |repo|
+                if repo.kind_of?(Hash)
+                  add(Repository.new(repo[:type],repo[:path],repo[:uri]))
+                end
               end
             end
           end
@@ -71,22 +68,20 @@ module Ronin
       # be passed the cache after the _repo_ is added. The _repo_
       # will be returned.
       #
-      #   cache.add_repository(repo) # => Repository
+      #   cache.add(repo) # => Repository
       #
-      #   cache.add_repository(repo) do |cache|
+      #   cache.add(repo) do |cache|
       #     puts "Repository #{repo} added"
       #   end
       #
-      def add_repository(repo,&block)
-        if has_repository?(repo.name)
+      def add(repo,&block)
+        if has_repo?(repo.path)
           raise(RepositoryCached,"repository '#{repo}' already present in the cache '#{self}'",caller)
         end
 
-        @repositories[repo.name] = repo
+        self << repo
 
         block.call(self) if block
-
-        save
         return self
       end
 
@@ -95,134 +90,96 @@ module Ronin
       # will be passed the cache. The cache will be returned, after the
       # _repo_ is removed.
       #
-      #   cache.remove_repository(repo) # => Cache
+      #   cache.remove(repo) # => Cache
       #
-      #   cache.remove_repository(repo) do |cache|
+      #   cache.remove(repo) do |cache|
       #     puts "Repository #{repo} removed"
       #   end
       #
-      def remove_repository(repo,&block)
-        unless has_repository?(repo.name)
-          raise(RepositoryNotFound,"repository '#{repo}' is not present in the cache '#{self}'",caller)
+      def remove(repo,&block)
+        unless has_repo?(repo.path)
+          raise(RepositoryNotFound,"repository #{repo.to_s.dump} is not present in the cache #{to_s.dump}",caller)
         end
 
-        @repositories.delete_if { |key,value| key==repo.name }
+        delete_if { |key,value| key==repo.path }
 
         block.call(self) if block
-
-        save
         return self
       end
 
       #
-      # Returns the repositories wich contain the extension with the
+      # Returns +true+ if the cache contains the Repository with the
+      # matching _path_, returns +false+ otherwise.
+      #
+      def has_repo?(path)
+        has_key?(path.to_s)
+      end
+
+      #
+      # Returns the Repository with the matching _path_.
+      #
+      def [](path)
+        path = path.to_s
+
+        unless has?(path)
+          raise(RepositoryNotFound,"repository #{path.dump} not listed in cache #{to_s.dump}",caller)
+        end
+
+        return super(path)
+      end
+
+      #
+      # Adds the specified _repo_ to the cache.
+      #
+      def <<(repo)
+        self[repo.path.to_s] = repo
+      end
+
+      #
+      # Returns the paths of the Repositories contained in the cache.
+      #
+      def paths
+        keys
+      end
+
+      #
+      # Returns the +Array+ of the cached Repositories.
+      #
+      def repos
+        values
+      end
+
+      #
+      # Returns the Repositories which match the specified _block_.
+      #
+      #   cache.repos_with do |repo|
+      #     repo.author == 'dude'
+      #   end
+      #
+      def repos_with(&block)
+        repos.select(&block)
+      end
+
+      #
+      # Returns the repositories which contain the extension with the
       # matching _name_.
       #
-      #   cache.repositories_with_extension('exploits') # => Array
+      #   cache.repos_with_extension('exploits') # => Array
       #
-      def repositories_with_extension(name)
-        @repositories.values.select { |repo| repo.has_extension?(name) }
-      end
-
-      #
-      # Iterates over the repositories of the cache, passing each
-      # to the specified _block_.
-      #
-      #   cache.each_repository do |repo|
-      #     puts repo.name
-      #   end
-      #
-      def each_repository(&block)
-        @repositories.each_values(&block)
-      end
-
-      #
-      # Returns +true+ if the cache contains a repository with the matching
-      # _name_, returns +false+ otherwise.
-      #
-      def has_repository?(name)
-        @repositories.has_key?(name.to_s)
-      end
-
-      #
-      # Returns the repository with the matching _name_.
-      #
-      def get_repository(name)
-        unless has_repository?(name)
-          raise(RepositoryNotFound,"repository '#{name}' not listed in cache '#{self}'",caller)
-        end
-
-        return @repositories[name.to_s]
-      end
-
-      #
-      # Returns the paths of the repositories contained in the cache.
-      #
-      def repository_paths
-        @repositories.values.map { |repo| repo.path }
-      end
-
-      #
-      # Installs a Repository from the repository _metadata_ into
-      # _install_path_. The _install_path_ defaults to the
-      # Repository::REPOS_PATH joined with the _metadata_ name. If a
-      # _block_ is given, it will be passed the cache after the Repository
-      # is installed.
-      #
-      #   cache.install(metadata) # => Cache
-      #
-      #   cache.install(metadata,'custom') do |cache|
-      #     puts cache.repositories_with_extension('exploits')
-      #   end
-      #
-      def install(metadata,install_path=File.join(Repository::REPOS_PATH,metadata.name),&block)
-        if has_repository?(metadata.name)
-          raise(RepositoryCached,"repository '#{metadata}' already present in cache '#{self}'",caller)
-        end
-
-        metadata.download(install_path)
-
-        block.call(self) if block
-        return self
-      end
-
-      def add(path,&block)
-        add_repository(Repository.new(path),&block)
-      end
-
-      def update(&block)
-        @repositories.each_value { |repo| repo.update }
-
-        block.call(self) if block
-        return self
-      end
-
-      def save(cache_path=@path,&block)
-        parent_dir = File.dirname(cache_path)
-
-        unless File.directory?(parent_dir)
-          FileUtils.mkdir_p(parent_dir)
-        end
-
-        block.call(self) if block
-
-        File.open(cache_path,'w') do |file|
-          YAML.dump(repository_paths,file)
-        end
-
-        return self
+      def repos_with_extension(name)
+        repos_with { |repo| repo.has_extension?(name) }
       end
 
       def extensions
-        @repositories.values.map { |repo| repo.extensions }.flatten.uniq
-      end
-
-      def extension_paths
-        @repositories.values.map { |repo| repo.extension_paths }.flatten.uniq
+        repos.map { |repo| repo.extensions }.flatten.uniq
       end
 
       def each_extension(&block)
         extensions.each(&block)
+      end
+
+      def extension_paths
+        repos.map { |repo| repo.extension_paths }.flatten.uniq
       end
 
       def each_extension_path(&block)
@@ -234,7 +191,7 @@ module Ronin
       # _name_, returns +false+ otherwise.
       #
       def has_extension?(name)
-        @repositories.each_value do |repo|
+        repos.each do |repo|
           return true if repo.has_extension?(name)
         end
 
@@ -242,13 +199,60 @@ module Ronin
       end
 
       def extension(name,&block)
+        name = name.to_s
+
         unless has_extension?(name)
-          raise(ExtensionNotFound,"extension '#{name}' does not exist",caller)
+          raise(ExtensionNotFound,"extension #{name.dump} does not exist",caller)
         end
 
         return Extension.create(name,&block)
       end
 
+      #
+      # Updates all the cached Repositories. If a _block_ is given it will
+      # be passed the cache.
+      #
+      #   update # => Cache
+      #
+      #   update do |cache|
+      #     puts "#{cache} is updated"
+      #   end
+      #
+      def update(&block)
+        repos.each { |repo| repo.update }
+
+        block.call(self) if block
+        return self
+      end
+
+      #
+      # Saves the cache to the given _output_path_, where _output_path_
+      # defaults to +@path+. If a _block_ is given, it will be passed
+      # the cache before the cache has been saved.
+      #
+      def save(output_path=@path,&block)
+        parent_dir = File.dirname(cache_path)
+
+        unless File.directory?(parent_dir)
+          FileUtils.mkdir_p(parent_dir)
+        end
+
+        block.call(self) if block
+
+        File.open(cache_path,'w') do |file|
+          descriptions = repos.map do |repo|
+            {:type => repo.type, :path => repo.path, :uri => repo.uri}
+          end
+
+          YAML.dump(descriptions,file)
+        end
+
+        return self
+      end
+
+      #
+      # Returns the +path+ of the cache.
+      #
       def to_s
         @path.to_s
       end
