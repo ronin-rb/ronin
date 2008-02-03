@@ -1,8 +1,9 @@
 #
-# Ronin - A ruby development environment designed for information security
+#--
+# Ronin - A ruby development platform designed for information security
 # and data exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
 #
 
 require 'ronin/repo/extensions/kernel'
@@ -26,14 +28,27 @@ require 'ronin/extensions/meta'
 module Ronin
   module Repo
     module Context
+      #
+      # Returns a Hash of all defined contexts.
+      #
       def Context.contexts
         @@contexts ||= {}
       end
 
-      def Context.is_context?(id)
-        ObjectContext.contexts.has_key?(id.to_sym)
+      #
+      # Returns +true+ if there is a context defined with the specified
+      # _name_, returns +false+ otherwise.
+      #
+      def Context.is_context?(name)
+        ObjectContext.contexts.has_key?(name.to_sym)
       end
 
+      #
+      # Load all contexts from the specified _path_, returning an Array of
+      # the loaded contexts.
+      #
+      #   Context.load_contexts('/path/to/my_context.rb') # => [...]
+      #
       def Context.load_contexts(path)
         path = File.expand_path(path)
         contexts = []
@@ -52,7 +67,14 @@ module Ronin
         return contexts
       end
 
-      def Context.load_context(type,path,*args)
+      #
+      # Loads the context of the specified _name_, from the sepcified
+      # _path_ with the given _args_. If no contexts were defined with the
+      # specified _name_, a ContextNotFound exception will be raised.
+      #
+      #   Context.load_context('notes','/path/to/my_notes.rb') # => [...]
+      #
+      def Context.load_context(name,path,*args)
         type = type.to_sym
 
         unless Context.is_context?(type)
@@ -62,15 +84,25 @@ module Ronin
         return Context.contexts[type].load_context(path,*args)
       end
 
+      #
+      # Converts the name of the _base_ class to a context name, in string
+      # form.
+      #
+      #   Context.namify(Ronin::Resources) # => "ronin_resources"
+      #
+      #   Context.namify(Analysis::Audio) # => "ronin_analysis_audio"
+      #
       def Context.namify(base)
         # similar to the way Og tableizes Class names
-        return base.to_s.downcase.gsub(/::/,'_').gsub(/^ronin_/,'').to_sym
+        base.to_s.downcase.gsub(/::/,'_').gsub(/^ronin_/,'').to_sym
       end
 
       protected
 
       def Object.contextify(id=Context.namify(self))
         id = id.to_sym
+
+        include Context
 
         # define context_name
         meta_def(:context_name) { id }
@@ -83,10 +115,17 @@ module Ronin
           return new_obj
         end
 
-        # define load_context
-        class_def(:load_context) do |path|
+        # define load_context_block
+        meta_def(:load_context_block) do |path|
           context_block = Context.load_contexts(path)[context_name]
           ronin_contexts.clear
+
+          return context_block
+        end
+
+        # define load_context
+        class_def(:load_context) do |path|
+          context_block = load_context_block(path)
 
           instance_eval(&context_block) if context_block
           return self
