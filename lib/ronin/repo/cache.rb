@@ -22,9 +22,7 @@
 #
 
 require 'ronin/repo/repository'
-require 'ronin/repo/extension'
 require 'ronin/repo/exceptions/repository_cached'
-require 'ronin/repo/exceptions/extension_not_found'
 require 'ronin/repo/config'
 
 require 'yaml'
@@ -53,7 +51,7 @@ module Ronin
             if descriptions.kind_of?(Array)
               descriptions.each do |repo|
                 if repo.kind_of?(Hash)
-                  add(Repository.new(repo[:type],repo[:path],repo[:uri]))
+                  add(Repository.new(repo[:path],repo[:media],repo[:uri]))
                 end
               end
             end
@@ -61,6 +59,39 @@ module Ronin
         end
 
         block.call(self) if block
+      end
+
+      #
+      # Returns the paths of the Repositories contained in the cache.
+      #
+      def paths
+        keys
+      end
+
+      #
+      # Returns the +Array+ of the cached Repositories.
+      #
+      def repositories
+        values
+      end
+
+      #
+      # Iterates over each repository in the repository cache, passing
+      # each to the given specified _block_.
+      #
+      def each_repository(&block)
+        each_value(&block)
+      end
+
+      #
+      # Returns the Repositories which match the specified _block_.
+      #
+      #   cache.repositories_with do |repo|
+      #     repo.author == 'dude'
+      #   end
+      #
+      def repositories_with(&block)
+        values.select(&block)
       end
 
       #
@@ -75,7 +106,7 @@ module Ronin
       #   end
       #
       def add(repo,&block)
-        if has_repo?(repo.path)
+        if has_repository?(repo.path)
           raise(RepositoryCached,"repository '#{repo}' already present in the cache '#{self}'",caller)
         end
 
@@ -97,7 +128,7 @@ module Ronin
       #   end
       #
       def remove(repo,&block)
-        unless has_repo?(repo.path)
+        unless has_repository?(repo.path)
           raise(RepositoryNotFound,"repository #{repo.to_s.dump} is not present in the cache #{to_s.dump}",caller)
         end
 
@@ -111,7 +142,7 @@ module Ronin
       # Returns +true+ if the cache contains the Repository with the
       # matching _path_, returns +false+ otherwise.
       #
-      def has_repo?(path)
+      def has_repository?(path)
         has_key?(path.to_s)
       end
 
@@ -133,79 +164,6 @@ module Ronin
       #
       def <<(repo)
         self[repo.path.to_s] = repo
-      end
-
-      #
-      # Returns the paths of the Repositories contained in the cache.
-      #
-      def paths
-        keys
-      end
-
-      #
-      # Returns the +Array+ of the cached Repositories.
-      #
-      def repos
-        values
-      end
-
-      #
-      # Returns the Repositories which match the specified _block_.
-      #
-      #   cache.repos_with do |repo|
-      #     repo.author == 'dude'
-      #   end
-      #
-      def repos_with(&block)
-        repos.select(&block)
-      end
-
-      #
-      # Returns the repositories which contain the extension with the
-      # matching _name_.
-      #
-      #   cache.repos_with_extension('exploits') # => Array
-      #
-      def repos_with_extension(name)
-        repos_with { |repo| repo.has_extension?(name) }
-      end
-
-      def extensions
-        repos.map { |repo| repo.extensions }.flatten.uniq
-      end
-
-      def each_extension(&block)
-        extensions.each(&block)
-      end
-
-      def extension_paths
-        repos.map { |repo| repo.extension_paths }.flatten.uniq
-      end
-
-      def each_extension_path(&block)
-        extension_paths.each(&block)
-      end
-
-      #
-      # Returns +true+ if the cache has the extension with the matching
-      # _name_, returns +false+ otherwise.
-      #
-      def has_extension?(name)
-        repos.each do |repo|
-          return true if repo.has_extension?(name)
-        end
-
-        return false
-      end
-
-      def extension(name,&block)
-        name = name.to_s
-
-        unless has_extension?(name)
-          raise(ExtensionNotFound,"extension #{name.dump} does not exist",caller)
-        end
-
-        return Extension.create(name,&block)
       end
 
       #
@@ -231,7 +189,7 @@ module Ronin
       # the cache before the cache has been saved.
       #
       def save(output_path=@path,&block)
-        parent_dir = File.dirname(cache_path)
+        parent_dir = File.dirname(output_path)
 
         unless File.directory?(parent_dir)
           FileUtils.mkdir_p(parent_dir)
@@ -239,12 +197,15 @@ module Ronin
 
         block.call(self) if block
 
-        File.open(cache_path,'w') do |file|
-          descriptions = repos.map do |repo|
-            {:type => repo.type, :path => repo.path, :uri => repo.uri}
+        File.open(output_path,'w') do |output|
+          descriptions = repositories.map do |repo|
+            {:media => repo.media, :path => repo.path, :uri => repo.uri}
           end
 
-          YAML.dump(descriptions,file)
+          require 'pp'
+          pp descriptions
+
+          YAML.dump(descriptions,output)
         end
 
         return self
