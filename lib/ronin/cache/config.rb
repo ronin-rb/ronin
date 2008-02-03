@@ -26,9 +26,9 @@ require 'ronin/config'
 module Ronin
   module Config
     # Path to repositories directory
-    REPOS_DIR = File.join(Config::PATH,'repos')
+    REPOSITORY_DIR = File.join(Config::PATH,'repos')
 
     # Path to cache file
-    REPOS_CACHE_PATH = File.join(Config::PATH,'cache.yaml')
+    REPOSITORY_CACHE_PATH = File.join(Config::PATH,'cache.yaml')
   end
 end

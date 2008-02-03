@@ -21,12 +21,12 @@
 #++
 #
 
-require 'ronin/repo/extensions/kernel'
-require 'ronin/repo/exceptions/context_not_found'
+require 'ronin/cache/extensions/kernel'
+require 'ronin/cache/exceptions/context_not_found'
 require 'ronin/extensions/meta'
 
 module Ronin
-  module Repo
+  module Cache
     module Context
       #
       # Returns a Hash of all defined contexts.

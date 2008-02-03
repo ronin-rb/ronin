@@ -21,11 +21,11 @@
 #++
 #
 
-require 'ronin/repo/context'
-require 'ronin/repo/repository'
+require 'ronin/cache/context'
+require 'ronin/cache/repository'
 
 module Ronin
-  module Repo
+  module Cache
     class Extension
 
       # ExtensionContext file name

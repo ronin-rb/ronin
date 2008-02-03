@@ -22,7 +22,7 @@
 #
 
 module Ronin
-  module Repo
+  module Cache
     class RepositoryNotFound < RuntimeError
     end
   end

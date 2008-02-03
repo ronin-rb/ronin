@@ -21,25 +21,25 @@
 #++
 #
 
-require 'ronin/repo/repository'
-require 'ronin/repo/exceptions/repository_cached'
-require 'ronin/repo/config'
+require 'ronin/cache/repository'
+require 'ronin/cache/exceptions/repository_cached'
+require 'ronin/cache/config'
 
 require 'yaml'
 
 module Ronin
-  module Repo
-    class Cache < Hash
+  module Cache
+    class RepositoryCache < Hash
 
       # Path of cache file
       attr_reader :path
 
       #
       # Create a new Cache object with the specified _path_. The _path_
-      # defaults to <tt>Config::REPOS_CACHE_PATH</tt>. If a _block_ is
+      # defaults to <tt>Config::REPOSITORY_CACHE_PATH</tt>. If a _block_ is
       # given, it will be passed the newly created Cache object.
       #
-      def initialize(path=Config::REPOS_CACHE_PATH,&block)
+      def initialize(path=Config::REPOSITORY_CACHE_PATH,&block)
         super()
 
         @path = File.expand_path(path)
@@ -87,7 +87,7 @@ module Ronin
       # Returns the Repositories which match the specified _block_.
       #
       #   cache.repositories_with do |repo|
-      #     repo.author == 'dude'
+      #     repo.author == 'the dude'
       #   end
       #
       def repositories_with(&block)

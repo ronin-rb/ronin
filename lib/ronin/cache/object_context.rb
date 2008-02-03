@@ -21,8 +21,8 @@
 #++
 #
 
-require 'ronin/repo/context'
-require 'ronin/repo/object_file'
+require 'ronin/cache/context'
+require 'ronin/cache/object_file'
 require 'ronin/ronin'
 
 require 'og'
@@ -30,7 +30,7 @@ require 'og/model/taggable'
 require 'rexml/document'
 
 module Ronin
-  module Repo
+  module Cache
     module ObjectContext
       #
       # Returns the Hash of all defined object-contexts.

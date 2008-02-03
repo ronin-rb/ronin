@@ -26,19 +26,19 @@ require 'ronin/repo/object_context'
 
 module Ronin
   def Ronin.extensions
-    Repo::Repository.extensions
+    Cache::Repository.extensions
   end
 
   def Ronin.extension(name,&block)
-    Repo::Repository.extension(name,&block)
+    Cache::Repository.extension(name,&block)
   end
 
   def Ronin.ronin_load_objects(path)
-    Repo::ObjectContext.load_objects(path)
+    Cache::ObjectContext.load_objects(path)
   end
 
   def Ronin.ronin_load_object(type,path)
-    Repo::ObjectContext.load_object(type,path)
+    Cache::ObjectContext.load_object(type,path)
   end
 
   protected
@@ -48,8 +48,8 @@ module Ronin
       name = sym.id2name
 
       # return an extension if present
-      if Repo::Repository.has_extension?(name)
-        return Repo::Repository.extension(name,&block)
+      if Cache::Repository.has_extension?(name)
+        return Cache::Repository.extension(name,&block)
       end
     end
 

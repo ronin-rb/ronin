@@ -21,16 +21,16 @@
 #++
 #
 
-require 'ronin/repo/extension'
-require 'ronin/repo/exceptions/extension_not_found'
-require 'ronin/repo/cache'
-require 'ronin/repo/config'
+require 'ronin/cache/extension'
+require 'ronin/cache/exceptions/extension_not_found'
+require 'ronin/cache/repository_cache'
+require 'ronin/cache/config'
 
 require 'repertoire'
 require 'rexml/document'
 
 module Ronin
-  module Repo
+  module Cache
     class Repository
 
       # Repository metadata XML file name
@@ -91,7 +91,7 @@ module Ronin
 
       #
       # Installs the Repository specified by _options_ into the
-      # <tt>Config::REPOS_DIR</tt>. If a _block_ is given, it will be
+      # <tt>Config::REPOSITORY_DIR</tt>. If a _block_ is given, it will be
       # passed the newly created Repository after it has been added to
       # the Repository cache.
       #
@@ -102,7 +102,7 @@ module Ronin
       # <tt>:media</tt>:: The media of the Repository.
       #
       def Repository.install(options={},&block)
-        Repertoire.checkout(:media => options[:media], :uri => options[:uri], :into => Config::REPOS_DIR) do |path,media,uri|
+        Repertoire.checkout(:media => options[:media], :uri => options[:uri], :into => Config::REPOSITORY_DIR) do |path,media,uri|
           return Repository.add(path,media,uri,&block)
         end
       end

@@ -24,7 +24,7 @@
 require 'og'
 
 module Ronin
-  module Repo
+  module Cache
     class ObjectFile
 
       # Path to an object-context file.

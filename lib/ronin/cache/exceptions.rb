@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/repo/exceptions/context_not_found'
-require 'ronin/repo/exceptions/object_not_found'
-require 'ronin/repo/exceptions/extension_not_found'
-require 'ronin/repo/exceptions/repository_not_found'
+require 'ronin/cache/exceptions/context_not_found'
+require 'ronin/cache/exceptions/object_not_found'
+require 'ronin/cache/exceptions/extension_not_found'
+require 'ronin/cache/exceptions/repository_not_found'
