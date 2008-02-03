@@ -29,6 +29,6 @@ module Ronin
     REPOS_DIR = File.join(Config::PATH,'repos')
 
     # Path to cache file
-    REPOS_CACHE_PATH = File.join(Config::PATH,'cache.yml')
+    REPOS_CACHE_PATH = File.join(Config::PATH,'cache.yaml')
   end
 end
