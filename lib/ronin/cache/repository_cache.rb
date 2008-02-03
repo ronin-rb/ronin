@@ -202,9 +202,6 @@ module Ronin
             {:media => repo.media, :path => repo.path, :uri => repo.uri}
           end
 
-          require 'pp'
-          pp descriptions
-
           YAML.dump(descriptions,output)
         end
 
