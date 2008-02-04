@@ -22,41 +22,47 @@
 #
 
 require 'ronin/extensions/meta'
-require 'ronin/runner/exceptions/command_not_implemented'
+require 'ronin/runner/program/exceptions/command_not_implemented'
 
 module Ronin
   module Runner
-    class Command
+    module Program
+      class Command
 
-      # Formal name of the command
-      attr_reader :name
+        # Formal name of the command
+        attr_reader :name
 
-      # Short-hand names of the command
-      attr_reader :short_names
+        # Short-hand names of the command
+        attr_reader :short_names
 
-      def initialize(name,*short_names,&block)
-        @name = name
-        @short_names = short_names
-
-        class_def(:run,&block) if block
-      end
-
-      def run(*argv)
-        raise(CommandNotImplemented,"the command #{self.to_s.dump} has not been implemented yet",caller)
-      end
-
-      def help
-        run('--help')
-      end
-
-      def to_s
-        unless @short_names.empty?
-          return "#{@name} #{@short_names.join(', ')}"
-        else
-          return @name.to_s
+        def initialize(name,*short_names,&block)
+          @name = name
+          @short_names = short_names
+          @run_block = block
         end
-      end
 
+        def run(*argv)
+          unless @run_block
+            raise(CommandNotImplemented,"the command #{self.to_s.dump} has not been implemented yet",caller)
+          end
+
+          @run_block.call(argv)
+          return self
+        end
+
+        def help
+          run('--help')
+        end
+
+        def to_s
+          unless @short_names.empty?
+            return "#{@name} #{@short_names.join(', ')}"
+          else
+            return @name.to_s
+          end
+        end
+
+      end
     end
   end
 end

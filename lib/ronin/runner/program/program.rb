@@ -21,6 +21,8 @@
 #++
 #
 
+require 'ronin/runner/program/command'
+require 'ronin/runner/program/options'
 require 'ronin/runner/program/exceptions/unknown_command'
 
 module Ronin

@@ -21,4 +21,12 @@
 #++
 #
 
-require 'ronin/runner/program'
+require 'ronin/runner/program/program'
+
+module Ronin
+  module Runner
+    def Runner.program(argv)
+      Program.run(*argv)
+    end
+  end
+end
