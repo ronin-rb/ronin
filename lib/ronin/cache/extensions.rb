@@ -21,4 +21,4 @@
 #++
 #
 
-require 'ronin/repo/extensions/kernel'
+require 'ronin/cache/extensions/kernel'

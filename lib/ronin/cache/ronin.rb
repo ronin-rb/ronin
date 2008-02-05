@@ -21,8 +21,8 @@
 #++
 #
 
-require 'ronin/repo/repository'
-require 'ronin/repo/object_context'
+require 'ronin/cache/repository'
+require 'ronin/cache/object_context'
 
 module Ronin
   def Ronin.extensions
