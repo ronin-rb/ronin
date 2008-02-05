@@ -70,15 +70,16 @@ module Ronin
       end
 
       #
-      # Load the Repository Cache from the given _path_. If a _block_ is
-      # given it will be passed the loaded Repository Cache.
+      # Load the Repository Cache from the given _path_. If _path is not
+      # given, it will default to <tt>Config::REPOSITORY_CACHE_PATH</tt>.
+      # If a _block_ is given it will be passed the loaded Repository Cache.
       #
       #   Repository.load_cache # => Cache
       #
       #   Repository.load_cache('/custom/cache') # => Cache
       #
-      def Repository.load_cache(path=Config::REPOS_CACHE_PATH,&block)
-        @@cache = Cache.new(path,&block)
+      def Repository.load_cache(path=Config::REPOSITORY_CACHE_PATH,&block)
+        @@cache = RepositoryCache.new(path,&block)
       end
 
       #
@@ -87,6 +88,22 @@ module Ronin
       #
       def Repository.cache
         @@cache ||= load_cache
+      end
+
+      def Repository.save_cache(&block)
+        Repository.cache.save(&block)
+      end
+
+      def Repository.[](name)
+        Repository.cache[name]
+      end
+
+      def Repository.exists?(name)
+        Repository.cache.has_repository?(name)
+      end
+
+      def Repository.get(name)
+        Repository.cache.get_repository(name)
       end
 
       #
@@ -116,34 +133,34 @@ module Ronin
         Repository.new(path,media,uri).add(&block)
       end
 
-      def Repository.update(path,&block)
-        path = File.expand_path(path)
-
-        unless Repository.cache.has_repository?(path)
-          raise(RepositoryMotFound,"repository #{path.dump} is not present in the cache #{Repository.cache.to_s.dump}",caller)
-        end
-
-        return Repository.cache[path].update(&block)
+      #
+      # Updates the repository with the specified _name_. If there is no
+      # repository with the specified _name_ in the repository cache
+      # a RepositoryNotFound exception will be raised. If a _block_ is
+      # given it will be passed the updated repository.
+      #
+      def Repository.update(name,&block)
+        Repository.get(name).update(&block)
       end
 
-      def Repository.remove(path,&block)
-        path = File.expand_path(path)
-
-        unless Repository.cache.has_repository?(path)
-          raise(RepositoryMotFound,"repository #{path.dump} is not present in the cache #{Repository.cache.to_s.dump}",caller)
-        end
-
-        return Repository.cache[path].remove(&block)
+      #
+      # Removes the repository with the specified _name_. If there is no
+      # repository with the specified _name_ in the repository cache
+      # a RepositoryNotFound exception will be raised. If a _block_ is
+      # given it will be passed the repository before removal.
+      #
+      def Repository.remove(name,&block)
+        Repository.get(name).remove(&block)
       end
 
-      def Repository.uninstall(path,&block)
-        path = File.expand_path(path)
-
-        unless Repository.cache.has_repository?(path)
-          raise(RepositoryMotFound,"repository #{path.dump} is not present in the cache #{Repository.cache.to_s.dump}",caller)
-        end
-
-        return Repository.cache[path].uninstall(&block)
+      #
+      # Uninstall the repository with the specified _name_. If there is no
+      # repository with the specified _name_ in the repository cache
+      # a RepositoryNotFound exception will be raised. If a _block_ is
+      # given it will be passed the repository before uninstalling it.
+      #
+      def Repository.uninstall(name,&block)
+        Repository.get(name).uninstall(&block)
       end
 
       #
@@ -295,10 +312,24 @@ module Ronin
       end
 
       #
+      # Passes each extension path to the specified _block_.
+      #
+      def each_extension_path(&block)
+        extension_paths.each(&block)
+      end
+
+      #
       # Returns the names of all extensions within the repository.
       #
       def extensions
         extension_paths.map { |dir| File.basename(dir) }
+      end
+
+      #
+      # Passes each extension name to the specified _block_.
+      #
+      def each_extension(&block)
+        extensions.each(&block)
       end
 
       #
@@ -350,13 +381,12 @@ module Ronin
         if File.file?(metadata_path)
           metadata = REXML::Document.new(open(metadata_path))
 
-          #@authors = Author.from_xml(metadata,'/ronin/repository/contributors/author')
+          #@authors = Author.from_xml(metadata,'/ronin-repository/contributors/author')
 
-          metadata.elements.each('/ronin/repository') do |repo|
-            @name = repo.attribute('name').to_s
-
-            repo.each_element('license') { |license| @license = license.get_text.to_s }
-            repo.each_element('description') { |desc| @description = desc.get_text.to_s }
+          metadata.elements.each('/ronin-repository') do |repo|
+            @name = repo.elements['name'].get_text.to_s
+            @license = repo.elements['license'].get_text.to_s
+            @description = repo.elements['description'].get_text.to_s
           end
         else
           @name = File.basename(@path)
