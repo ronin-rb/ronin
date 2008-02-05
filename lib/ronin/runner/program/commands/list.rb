@@ -22,10 +22,66 @@
 #
 
 require 'ronin/runner/program/program'
+require 'ronin/cache/repository'
 
 module Ronin
   module Runner
     module Program
+      Program.command(:list) do |argv|
+        options = Options.command('ronin','list','[NAME ...] [options]') do |options|
+          options.specific do
+            options.on_verbose
+          end
+
+          options.common do
+            options.on('-C','--cache','Specify alternant location of repository cache') do |cache|
+              Cache::Repository.load_cache(cache)
+            end
+
+            options.help_option
+          end
+
+          options.arguments do
+            options.arg('NAME','Repository to display')
+          end
+
+          options.summary('Display all or the specified repositories within the repository cache')
+        end
+
+        options.parse(argv) do |args|
+          if args.empty?
+            # list all repositories by name
+            Cache::Repository.each do |repo|
+              puts "  #{repo}"
+            end
+          else
+            # list specified repositories
+            args.each do |name|
+              repo = Cache::Repository.get(name)
+
+              puts "[ #{repo} ]\n\n"
+
+              puts "  path: #{repo.path}" if options.verbose
+              puts "  media: #{repo.media}"
+              puts "  uri: #{repo.uri}" if repo.uri
+
+              if repo.description
+                puts "  description:\n\n    #{repo.description}"
+              end
+
+              puts "\n"
+
+              if options.verbose
+                puts "  extensions:\n\n"
+
+                repo.each_extension do |ext|
+                  puts "    #{ext}"
+                end
+              end
+            end
+          end
+        end
+      end
     end
   end
 end

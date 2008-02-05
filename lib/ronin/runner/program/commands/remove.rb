@@ -27,10 +27,10 @@ require 'ronin/cache/repository'
 module Ronin
   module Runner
     module Program
-      Program.command(:update) do |argv|
-        options = Options.command('ronin','update','NAME [NAME ...] [options]') do |options|
+      Program.command(:remove) do |argv|
+        options = Options.command('ronin','remove','NAME [NAME ...] [options]') do |options|
           options.common do
-            options.on('-C','--cache','Specify an alternant location of repository cache') do |cache|
+            options.on('-C','--cache','Specify alternant location of repository cache') do |cache|
               Cache::Repository.load_cache(cache)
             end
 
@@ -38,17 +38,19 @@ module Ronin
           end
 
           options.arguments do
-            options.arg('NAME','The repository to update')
+            options.arg('NAME','The repository to remove')
           end
 
-          options.summary('Updates all or the specified repositories')
+          options.summary('Remove the specified repositories')
         end
 
         options.parse(argv) do |args|
-          if args.empty?
-            Cache::Repository.each { |repo| repo.update }
-          else
-            args.each { |name| Cache::Repository.update(name) }
+          args.each do |name|
+            Cache::Repository.save_cache do
+              Cache::Repository.remove(name) do |repo|
+                puts "Removing #{repo}..."
+              end
+            end
           end
         end
       end

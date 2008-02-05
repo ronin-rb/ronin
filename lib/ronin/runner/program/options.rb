@@ -21,6 +21,8 @@
 #++
 #
 
+require 'ronin/runner/program/program'
+
 require 'optparse'
 require 'ostruct'
 
@@ -34,7 +36,7 @@ module Ronin
         @parser = OptionParser.new do |opts|
           if banner
             opts.banner = "usage: #{prog} #{banner}"
-            opts.separator ""
+            opts.separator ''
           end
         end
 
@@ -51,19 +53,19 @@ module Ronin
       end
 
       def on_verbose(&block)
-        block ||= Proc.new { self.verbose = true }
+        unless block
+          self.verbose = false
 
-        on("-v","--verbose","produce excess output",&block)
+          block = Proc.new { self.verbose = true }
+        end
+
+        on('-v','--verbose','Produce excess output',&block)
         return self
       end
 
       def on_help(&block)
-        option("-h","--help","print this message") do |topic|
-          Runner.success do
-            puts @parser
-
-            block.call(topic) if block
-          end
+        on('-h','--help','Print this message') do |topic|
+          help(&block)
         end
 
         return self
@@ -71,9 +73,11 @@ module Ronin
 
       def specific(&block)
         if block
-          @parser.separator "  Options:"
+          @parser.separator '  Options:'
 
           block.call(self)
+
+          @parser.separator ''
         end
 
         return self
@@ -81,9 +85,11 @@ module Ronin
 
       def common(&block)
         if block
-          @parser.separator "  Common Options:"
+          @parser.separator '  Common Options:'
 
           block.call(self)
+
+          @parser.separator ''
         end
 
         return self
@@ -96,29 +102,51 @@ module Ronin
 
       def arguments(&block)
         if block
-          @parser.separator "  Arguments:"
+          @parser.separator '  Arguments:'
 
           block.call(self)
 
-          @parser.separator ""
+          @parser.separator ''
         end
 
         return self
       end
 
       def summary(*sum)
-        @parser.separator "  Summary:"
+        @parser.separator '  Summary:'
 
         sum.each do |line|
           @parser.separator "    #{line}"
         end
 
-        @parser.separator ""
+        @parser.separator ''
         return self
       end
 
-      def parse(argv)
-        @parser.parse(argv)
+      def defaults(*opts)
+        @parser.separator '  Defaults:'
+
+        opts.each do |opt|
+          @parser.separator "    #{opt}"
+        end
+
+        @parser.separator ''
+        return self
+      end
+
+      def help(&block)
+        Program.success do
+          puts @parser
+
+          block.call(self) if block
+        end
+      end
+
+      def parse(argv,&block)
+        args = @parser.parse(argv)
+
+        block.call(args) if block
+        return args
       end
 
     end

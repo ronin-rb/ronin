@@ -28,15 +28,11 @@ module Ronin
   module Runner
     module Program
       Program.command(:add) do |argv|
-        options = Options.command("ronin","add","PATH [options]") do |options|
+        options = Options.command('ronin','add','PATH [options]') do |options|
           options.media = :local
           options.uri = nil
 
           options.specific do
-            options.on('-C','--cache','Specify alternant location of repository cache') do |cache|
-              Cache::Repository.load_cache(cache)
-            end
-
             options.on('-m','--media','Spedify the media-type of the repository') do |media|
               options.media = media
             end
@@ -47,25 +43,33 @@ module Ronin
           end
 
           options.common do
+            options.on('-C','--cache','Specify alternant location of repository cache') do |cache|
+              Cache::Repository.load_cache(cache)
+            end
+
             options.help_option
           end
 
           options.arguments do
-            options.arg('PATH','add the repository located at the specified PATH')
+            options.arg('PATH','Add the repository located at the specified PATH')
           end
 
           options.summary('Add a local repository located at the specified PATH to the repository cache')
+
+          options.defaults('--media local')
         end
 
-        paths = options.parse(argv)
-        unless paths.length==1
-          $stderr << "ronin: add: only one repository path maybe specified\n"
-          exit -1
-        end
+        options.parse(argv) do |args|
+          unless args.length==1
+            Program.fail('add: only one repository path maybe specified')
+          end
 
-        Cache::Repository.cache.save do
-          Cache::Repository.add(paths.first,options.media,options.uri) do |repo|
-            puts "Repository #{repo} added."
+          path = args.first
+
+          Cache::Repository.save_cache do
+            Cache::Repository.add(path,options.media,options.uri) do |repo|
+              puts "Repository #{repo} added."
+            end
           end
         end
       end

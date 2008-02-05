@@ -21,34 +21,10 @@
 #++
 #
 
-require 'ronin/runner/program/program'
-
-module Ronin
-  module Runner
-    module Program
-      Program.command(:help) do |argv|
-        options = Options.command('ronin','help','[COMMAND]') do |options|
-          options.common do
-            options.help_option
-          end
-
-          options.arguments do
-            options.arg('COMMAND','The command to view')
-          end
-
-          options.summary('View a list of supported commands or information on a specific command')
-        end
-
-        options.parse(argv) do |args|
-          unless args.length<=1
-            Program.fail('help: only one command maybe specified')
-          end
-
-          Program.success do
-            Program.help(args.first)
-          end
-        end
-      end
-    end
-  end
-end
+require 'ronin/runner/program/commands/add'
+require 'ronin/runner/program/commands/install'
+require 'ronin/runner/program/commands/list'
+require 'ronin/runner/program/commands/update'
+require 'ronin/runner/program/commands/uninstall'
+require 'ronin/runner/program/commands/remove'
+require 'ronin/runner/program/commands/help'

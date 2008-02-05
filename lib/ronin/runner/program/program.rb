@@ -24,6 +24,7 @@
 require 'ronin/runner/program/command'
 require 'ronin/runner/program/options'
 require 'ronin/runner/program/exceptions/unknown_command'
+require 'ronin/version'
 
 module Ronin
   module Runner
@@ -64,6 +65,7 @@ module Ronin
 
       def Program.error(message)
         $stderr << "ronin: #{message}\n"
+        return false
       end
 
       def Program.success(&block)
@@ -97,6 +99,8 @@ module Ronin
             end
           end
         end
+
+        return true
       end
 
       def Program.default_command(*argv)
@@ -107,26 +111,42 @@ module Ronin
             end
 
             options.on('-V','--version','print version information and exit') do
-              puts "Ronin #{Ronin::VERSION}"
+              Program.success do
+                puts "Ronin #{Ronin::VERSION}"
+              end
             end
           end
 
-          options.summary('Ronin is a Ruby development platform designed for information security and data exploration tasks.')
+          options.summary('Ronin is a Ruby development platform designed for information security','and data exploration tasks.')
+        end
+
+        options.parse(argv) do |args|
+          options.help unless args.empty?
+
+          Program.success do
+            Program.help
+          end
         end
       end
 
       def Program.run(*argv)
-        if (argv.empty? || argv[0][0..0]=='-')
-          Program.default_command(*argv)
-        else
-          cmd = argv.first
+        begin
+          if (argv.empty? || argv[0][0..0]=='-')
+            Program.default_command(*argv)
+          else
+            cmd = argv.first
 
-          begin
-            Program.get_command(cmd)
-          rescue UnknownCommand => exp
-            Program.fail(exp)
+            begin
+              Program.get_command(cmd).run(*(argv[1..-1]))
+            rescue UnknownCommand => e
+              Program.fail(e)
+            end
           end
+        rescue OptionParser::InvalidOption => e
+          Program.fail(e)
         end
+
+        return true
       end
     end
   end

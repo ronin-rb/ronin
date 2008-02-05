@@ -22,10 +22,53 @@
 #
 
 require 'ronin/runner/program/program'
+require 'ronin/cache/repository'
 
 module Ronin
   module Runner
     module Program
+      Program.command(:install) do |argv|
+        options = Options.command('ronin','install','URI [options]') do |options|
+          options.media = :local
+          options.uri = nil
+
+          options.specific do
+            options.on('-m','--media','Spedify the media-type of the repository') do |media|
+              options.media = media
+            end
+
+            options.on('-U','--uri','Specify the source URI of the repository') do |uri|
+              options.uri = uri
+            end
+          end
+
+          options.common do
+            options.on('-C','--cache','Specify alternant location of repository cache') do |cache|
+              Cache::Repository.load_cache(cache)
+            end
+
+            options.help_option
+          end
+
+          options.arguments do
+            options.arg('URI','The URI of the repository to install')
+          end
+
+          options.summary('Installs the repository located at the specified URI')
+        end
+
+        options.parse(argv) do |args|
+          unless args.length==1
+            Program.fail('install: only one repository URI maybe specified')
+          end
+
+          Cache::Repository.save_cache do
+            Cache::Repository.install(:uri => args.first, :media => options.media) do |repo|
+              puts "Repository #{repo} has been installed."
+            end
+          end
+        end
+      end
     end
   end
 end
