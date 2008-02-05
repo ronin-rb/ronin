@@ -62,14 +62,14 @@ module Ronin
       end
 
       #
-      # Returns the paths of the Repositories contained in the cache.
+      # Returns the names of the Repositories contained in the cache.
       #
-      def paths
+      def names
         keys
       end
 
       #
-      # Returns the +Array+ of the cached Repositories.
+      # Returns an +Array+ of the cached Repositories.
       #
       def repositories
         values
@@ -95,6 +95,34 @@ module Ronin
       end
 
       #
+      # Returns +true+ if the cache contains the Repository with the
+      # matching _name_, returns +false+ otherwise.
+      #
+      def has_repository?(name)
+        has_key?(name.to_s)
+      end
+
+      #
+      # Returns the Repository with the matching _name_.
+      #
+      def get_repository(name)
+        name = name.to_s
+
+        unless has_repository?(name)
+          raise(RepositoryNotFound,"repository #{name.dump} is not present in cache #{self.to_s.dump}",caller)
+        end
+
+        return self[name]
+      end
+
+      #
+      # Returns the paths of the Repositories contained in the cache.
+      #
+      def paths
+        repositories.map { |repo| repo.path }
+      end
+
+      #
       # Adds the _repo_ to the cache. If a _block_ is given, it will
       # be passed the cache after the _repo_ is added. The _repo_
       # will be returned.
@@ -106,11 +134,11 @@ module Ronin
       #   end
       #
       def add(repo,&block)
-        if has_repository?(repo.path)
-          raise(RepositoryCached,"repository '#{repo}' already present in the cache '#{self}'",caller)
+        if has_repository?(repo.name)
+          raise(RepositoryCached,"repository #{repo.to_s.dump} already present in the cache #{self.to_s.dump}",caller)
         end
 
-        self << repo
+        self[repo.name.to_s] = repo
 
         block.call(self) if block
         return self
@@ -128,42 +156,14 @@ module Ronin
       #   end
       #
       def remove(repo,&block)
-        unless has_repository?(repo.path)
+        unless has_repository?(repo.name)
           raise(RepositoryNotFound,"repository #{repo.to_s.dump} is not present in the cache #{to_s.dump}",caller)
         end
 
-        delete_if { |key,value| key==repo.path }
+        delete_if { |key,value| key==repo.name }
 
         block.call(self) if block
         return self
-      end
-
-      #
-      # Returns +true+ if the cache contains the Repository with the
-      # matching _path_, returns +false+ otherwise.
-      #
-      def has_repository?(path)
-        has_key?(path.to_s)
-      end
-
-      #
-      # Returns the Repository with the matching _path_.
-      #
-      def [](path)
-        path = path.to_s
-
-        unless has?(path)
-          raise(RepositoryNotFound,"repository #{path.dump} not listed in cache #{to_s.dump}",caller)
-        end
-
-        return super(path)
-      end
-
-      #
-      # Adds the specified _repo_ to the cache.
-      #
-      def <<(repo)
-        self[repo.path.to_s] = repo
       end
 
       #
@@ -206,6 +206,13 @@ module Ronin
         end
 
         return self
+      end
+
+      #
+      # Adds the specified _repo_ to the cache.
+      #
+      def <<(repo)
+        self[repo.name.to_s] = repo
       end
 
       #
