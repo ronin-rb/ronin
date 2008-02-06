@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
 
-$DBG = true
+require 'ronin/runner/program'
 
-$LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__),'..','lib')))
-
-require 'ronin/commands'
-
-Ronin::Commands::CommandLine.new.run(ARGV)
+Ronin::Runner.program(ARGV)
