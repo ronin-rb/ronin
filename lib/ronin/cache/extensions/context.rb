@@ -21,6 +21,4 @@
 #++
 #
 
-require 'ronin/cache/extensions/kernel'
-require 'ronin/cache/extensions/context'
-require 'ronin/cache/extensions/object_context'
+require 'ronin/cache/extensions/context/object'

@@ -23,6 +23,7 @@
 
 require 'ronin/cache/extensions/kernel'
 require 'ronin/cache/exceptions/context_not_found'
+require 'ronin/cache/extensions/context'
 require 'ronin/extensions/meta'
 
 module Ronin
@@ -97,66 +98,6 @@ module Ronin
         base.to_s.downcase.gsub(/::/,'_').gsub(/^ronin_/,'').to_sym
       end
 
-      protected
-
-      def Object.contextify(id=Context.namify(self))
-        id = id.to_sym
-
-        include Context
-
-        # define context_name
-        meta_def(:context_name) { id }
-        class_def(:context_name) { id }
-
-        # define self.load_context
-        meta_def(:load_context) do |path,*args|
-          new_obj = self.new(*args)
-          new_obj.load_context(path)
-          return new_obj
-        end
-
-        # define load_context_block
-        meta_def(:load_context_block) do |path|
-          context_block = Context.load_contexts(path)[context_name]
-          ronin_contexts.clear
-
-          return context_block
-        end
-
-        # define load_context
-        class_def(:load_context) do |path|
-          context_block = load_context_block(path)
-
-          instance_eval(&context_block) if context_block
-          return self
-        end
-
-        # define top-level context wrappers
-        Kernel.module_eval %{
-          def ronin_#{id}(*args,&block)
-            if (args.length==0 && ronin_context_pending?)
-              ronin_contexts[:#{id}] = block
-              return nil
-            else
-              new_obj = #{self}.new(*args)
-              new_obj.instance_eval(&block) if block
-              return new_obj
-            end
-          end
-        }
-
-        # define Ronin-level context loader
-        Ronin.module_eval %{
-          def ronin_load_#{id}(path,*args,&block)
-            new_obj = #{self}.load_context(path,*args)
-
-            block.call(new_obj) if block
-            return new_obj
-          end
-        }
-
-        Context.contexts[id] = self
-      end
 
       def Context.load_contexts(path)
         path = File.expand_path(path)
