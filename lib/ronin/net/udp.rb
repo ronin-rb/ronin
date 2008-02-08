@@ -37,7 +37,7 @@ module Ronin
       #     puts sock.readlines
       #   end
       #
-      def udp_connect(rhost,rport,lhost=nil,lport=nil,&block)
+      def UDP.connect(rhost,rport,lhost=nil,lport=nil,&block)
         sock = UDPSocket.new(@rhost,@rport,@lhost,@lport)
         block.call(sock) if block
 
@@ -50,18 +50,27 @@ module Ronin
       # will be passed the first line received from the UDPSocket object.
       # The newly created UDPSocket object will be returned.
       #
-      def udp_connect_and_recv(rhost,rport,lhost=nil,lport=nil,&block)
-        udp_connect(rhost,rport,lhost,lport) do |sock|
+      def UDP.connect_and_recv(rhost,rport,lhost=nil,lport=nil,&block)
+        UDP.connect(rhost,rport,lhost,lport) do |sock|
           block.call(sock.read) if block
         end
       end
 
-      def udp_connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
-        udp_connect(rhost,rport,lhost,lport) do |sock|
+      def UDP.connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
+        UDP.connect(rhost,rport,lhost,lport) do |sock|
           sock.write(data)
 
           block.call(sock) if block
         end
+      end
+
+      def UDP.session(rhost,rport,lhost=nil,lport=nil,&block)
+        UDP.connect(rhost,rport,lhost,lport) do |sock|
+          block.call(sock) if block
+          sock.close
+        end
+
+        return nil
       end
     end
   end

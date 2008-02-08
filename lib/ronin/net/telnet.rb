@@ -27,12 +27,87 @@ require 'net/telnets'
 module Ronin
   module Net
     module Telnet
-      def telnet(options={},&block)
+      DEFAULT_PORT = 23 # Default telnet port
+
+      DEFAULT_PROMPT = /[$%#>] \z/n # The default prompt regular expression
+
+      DEFAULT_TIMEOUT = 10 # The default timeout
+
+      #
+      # Returns the Ronin Telnet proxy.
+      #
+      def Telnet.proxy
+        @@telnet_proxy ||= nil
+      end
+
+      #
+      # Sets the Ronin Telnet proxy to _new_proxy_.
+      #
+      def Telnet.proxy=(new_proxy)
+        @@telnet_proxy = new_proxy
+      end
+
+      #
+      # Creates a new Telnet object with the specified _host_, given port
+      # and the given _options_. If a _block_ is given, it will be passed
+      # the newly created Telnet object.
+      #
+      # _options_ may contain the following keys:
+      # <tt>:port</tt>:: The port to connect to. Defaults to +DEFAULT_PORT+,
+      #                  if not given.
+      # <tt>:binmode</tt>:: Indicates that newline substitution shall not
+      #                     be performed.
+      # <tt>:output_log</tt>:: The name of the file to write connection
+      #                        status messages and all received traffic to.
+      # <tt>:dump_log</tt>:: Similar to the <tt>:output_log</tt> option,
+      #                      but connection output is also written in
+      #                      hexdump format.
+      # <tt>:prompt</tt>:: A regular expression matching the host's
+      #                    command-line prompt sequence, used to determine
+      #                    when a command has finished. Defaults to
+      #                    +DEFAULT_PROMPT+, if not given.
+      # <tt>:telnet</tt>:: Indicates that the connection shall behave as a
+      #                    telnet connection. Defaults to +true+.
+      # <tt>:plain</tt>:: Indicates that the connection shall behave as a
+      #                   normal TCP connection.
+      # <tt>:timeout</tt>:: The number of seconds to wait before timing out
+      #                     both the initial attempt to connect to host,
+      #                     and all attempts to read data from the host.
+      #                     Defaults to +DEFAULT_TIMEOUT+, if not given.
+      # <tt>:wait_time</tt>:: The amount of time to wait after seeing what
+      #                       looks like a prompt.
+      # <tt>:proxy</tt>:: A proxy object to used instead of opening a
+      #                   direct connection to the host. Must be either
+      #                   another telnet object or an IO object.
+      #                   Defaults to Telnet.proxy, if not given.
+      # <tt>:user</tt>:: The user to login with.
+      # <tt>:password</tt>:: The password to login with.
+      # <tt>:ssl</tt>:: A +Hash+ of SSL information to use for a SSLed
+      #                 Telnet session. This hash must contain the following
+      #                 keys.
+      #                 <tt>:certfile</tt>:: The SSL Certfile to use.
+      #                 <tt>:keyfile</tt>:: The SSL Key file to use.
+      #                 <tt>:cafile</tt>:: The SSL CAFile to use.
+      #                 <tt>:capath</tt>:: The SSL CAPath to use.
+      #
+      #   Telnet.connect('towel.blinkenlights.nl') # => Telnet
+      #
+      def Telnet.connect(host,options={},&block)
         sess_opts = {}
-        sess_opts['Host'] = options[:host]
-        sess_opts['Port'] = (options[:port] || 23)
-        sess_opts['Timeout'] = (options[:timeout] || 10)
-        sess_opts['Prompt'] = (options[:prompt] || /[$%#>] \z/n)
+        sess_opts['Host'] = host
+        sess_opts['Port'] = (options[:port] || DEFAULT_PORT)
+        sess_opts['Binmode'] = options[:binmode]
+        sess_opts['Output_log'] = options[:output_log]
+        sess_opts['Dump_log'] = options[:dump_log]
+        sess_opts['Prompt'] = (options[:prompt] || DEFAULT_PROMPT)
+
+        if (options[:telnet] && !options[:plain])
+          sess_opts['Telnetmode'] = true
+        end
+
+        sess_opts['Timeout'] = (options[:timeout] || DEFAULT_TIMEOUT)
+        sess_opts['Waittime'] = options[:wait_time]
+        sess_opts['Proxy'] = (options[:proxy] || Telnet.proxy)
 
         user = options[:user]
         passwd = options[:passwd]
@@ -44,17 +119,30 @@ module Ronin
           sess_opts['CAPath'] = options[:ssl][:capath]
           sess_opts['VerifyMode'] = (options[:ssl][:verify] || SSL::VERIFY_PEER)
           sess_opts['VerifyCallback'] = options[:ssl][:verify_callback]
+          sess_opts['VerifyDepth'] = options[:ssl][:verify_depth]
         end
 
-        sess = Net::Telnet.new(sess_opts)
+        sess = ::Net::Telnet.new(sess_opts)
         sess.login(user,passwd) if user
 
         block.call(sess) if block
         return sess
       end
 
-      def telnet_session(options={},&block)
-        telnet(options) do |sess|
+      #
+      # Creates a new Telnet object with the specified _host, given port
+      # and the given _options_. See telnet for a complete listing the
+      # _options_. If a _block_ is given, it will be passed the newly
+      # created Telnet object. After the telnet connection has been
+      # established, and the given _block_ has completed, the connection
+      # is then closed.
+      #
+      #   Telnet.session('towel.blinkenlights.nl') do |movie|
+      #     movie.each_line { |line| puts line }
+      #   end
+      #
+      def Telnet.session(host,options={},&block)
+        Telnet.connect(host,options) do |sess|
           block.call(sess) if block
           sess.close
         end

@@ -37,7 +37,7 @@ module Ronin
       #     puts sock.readlines
       #   end
       #
-      def tcp_connect(rhost,rport,lhost=nil,lport=nil,&block)
+      def TCP.connect(rhost,rport,lhost=nil,lport=nil,&block)
         sock = TCPSocket.new(rhost,rport,lhost,lport)
         block.call(sock) if block
 
@@ -50,18 +50,27 @@ module Ronin
       # will be passed the first line received from the TCPSocket object.
       # The newly created TCPSocket object will be returned.
       #
-      def tcp_connect_and_recv(rhost,rport,lhost=nil,lport=nil,&block)
-        tcp_connect(rhost,rport,lhost,lport) do |sock|
+      def TCP.connect_and_recv(rhost,rport,lhost=nil,lport=nil,&block)
+        TCP.connect(rhost,rport,lhost,lport) do |sock|
           block.call(sock.read) if block
         end
       end
 
-      def tcp_connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
-        tcp_connect(rhost,rport,lhost,lport) do |sock|
+      def TCP.connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
+        TCP.connect(rhost,rport,lhost,lport) do |sock|
           sock.write(data)
 
           block.call(sock) if block
         end
+      end
+
+      def TCP.session(rhost,rport,lhost=nil,lport=nil,&block)
+        TCP.connect(rhost,rport,lhost,lport) do |sock|
+          block.call(sock) if block
+          sock.close
+        end
+
+        return nil
       end
     end
   end

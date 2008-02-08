@@ -21,30 +21,29 @@
 #++
 #
 
-require 'net/pop'
+require 'ronin/net/smtp'
 
 module Ronin
   module Net
-    module POP
-      DEFAULT_PORT = 110 # Default pop3 port
+    module ESMTP
+      include SMTP
 
-      def POP.connect(host,options={},&block)
-        port = (options[:port] || DEFAULT_PORT)
-        user = options[:user]
-        passwd = options[:passwd]
-
-        sess ::Net::POP3.start(host,port,user,passwd)
-        block.call(sess) if block
-        return sess
+      def ESMTP.message(options={},&block)
+        SMTP.message(options,&block)
       end
 
-      def POP.session(host,options={},&block)
-        POP.connect(host,options) do |sess|
-          block.call(sess) if block
-          sess.finish
+      def ESMTP.connect(host,options={},&block)
+        SMTP.connect(host,options) do |sess|
+          sess.esmtp = true
+          block.call(sess)
         end
+      end
 
-        return nil
+      def ESMTP.session(host,options={},&block)
+        SMTP.session(host,options) do |sess|
+          sess.esmtp = true
+          block.call(sess)
+        end
       end
     end
   end

@@ -28,9 +28,14 @@ require 'net/smtp'
 module Ronin
   module Net
     module SMTP
-      def smtp_agent(options={},&block)
-        host = options[:host]
-        port = (options[:port] || 25)
+      DEFAULT_PORT = 25 # Default smtp port
+
+      def SMTP.message(options={},&block)
+        Email.new(options,&block).to_s
+      end
+
+      def SMTP.connect(host,options={},&block)
+        port = (options[:port] || DEFAULT_PORT)
 
         hello = options[:hello]
 
@@ -38,11 +43,18 @@ module Ronin
         user = options[:user]
         passwd = options[:passwd]
 
-        return Net::SMTP.start(host,port,hello,user,passwd,login,&block)
+        sess = ::Net::SMTP.start(host,port,hello,user,passwd,login)
+        block.call(sess) if block
+        return sess
       end
 
-      def smtp_message(options={},&block)
-        Email.new(options,&block).to_s
+      def SMTP.session(host,options={},&block)
+        SMTP.connect(host,options) do |sess|
+          block.call(sess) if block
+          sess.close
+        end
+
+        return nil
       end
     end
   end
