@@ -1,11 +1,21 @@
 == REFACTORING:
 
 1. Finish Documenting code.
-2. Migrate SVN repository to Rubyforge.
-3. Create Ronin console using IRB.
-3. Update Cache::Extension:
-   1. Add command-line support to Cache::Extension.
-   2. Add console support to Cache::Extension.
-4. Test Og 0.50.
-5. Redesign ObjectCache/Cache::ObjectContext.
+2. Add command-line support to Cache::Extension.
+3. Test Og 0.50.
+4. Redesign ObjectCache/Cache::ObjectContext.
+
+== FEATURES:
+
+1. Create Ronin console using IRB.
+   1. Add console support to Cache::Extension.
+
+== PROJECT MANAGEMENT:
+
+1. Update History.txt.
+   1. Add code examples.
+2. Update README.txt.
+   1. Complete Ronin Manifesto.
+   2. Copy History feature-list.
+3. Migrate SVN repository to Rubyforge.
 
