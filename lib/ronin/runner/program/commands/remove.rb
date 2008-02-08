@@ -30,11 +30,7 @@ module Ronin
       Program.command(:remove) do |argv|
         options = Options.command('ronin','remove','NAME [NAME ...] [options]') do |options|
           options.common do
-            options.on('-C','--cache','Specify alternant location of repository cache') do |cache|
-              Cache::Repository.load_cache(cache)
-            end
-
-            options.help_option
+            options.on_help
           end
 
           options.arguments do

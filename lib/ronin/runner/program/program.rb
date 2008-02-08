@@ -135,11 +135,16 @@ module Ronin
             Program.default_command(*argv)
           else
             cmd = argv.first
+            argv = argv[1..-1]
 
-            begin
-              Program.get_command(cmd).run(*(argv[1..-1]))
-            rescue UnknownCommand => e
-              Program.fail(e)
+            if Program.has_command?(cmd)
+              Program.command_names[cmd].run(*argv)
+            elsif Cache::Repository.has_extension?(cmd)
+              Cache::Repository.extension(cmd).run do |ext|
+                puts "Running extension #{ext}"
+              end
+            else
+              Program.fail("unknown command #{cmd.dump}")
             end
           end
         rescue OptionParser::InvalidOption => e

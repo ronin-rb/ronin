@@ -27,18 +27,14 @@ require 'ronin/cache/repository'
 module Ronin
   module Runner
     module Program
-      Program.command(:list) do |argv|
+      Program.command(:list,:ls) do |argv|
         options = Options.command('ronin','list','[NAME ...] [options]') do |options|
           options.specific do
             options.on_verbose
           end
 
           options.common do
-            options.on('-C','--cache','Specify alternant location of repository cache') do |cache|
-              Cache::Repository.load_cache(cache)
-            end
-
-            options.help_option
+            options.on_help
           end
 
           options.arguments do

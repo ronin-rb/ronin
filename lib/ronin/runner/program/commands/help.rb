@@ -29,7 +29,7 @@ module Ronin
       Program.command(:help) do |argv|
         options = Options.command('ronin','help','[COMMAND]') do |options|
           options.common do
-            options.help_option
+            options.on_help
           end
 
           options.arguments do

@@ -35,12 +35,20 @@ module Ronin
         # Short-hand names of the command
         attr_reader :short_names
 
+        #
+        # Creates a new Command object with the specified _name_ and the
+        # given _short_names_. If a _block_ is specified, it will be
+        # passed command-line arguments when the command is ran.
+        #
         def initialize(name,*short_names,&block)
           @name = name
           @short_names = short_names
           @run_block = block
         end
 
+        #
+        # Runs the command with the given _argv_.
+        #
         def run(*argv)
           unless @run_block
             raise(CommandNotImplemented,"the command #{self.to_s.dump} has not been implemented yet",caller)
@@ -50,10 +58,22 @@ module Ronin
           return self
         end
 
+        #
+        # Runs the command with the <tt>--help</tt> option.
+        #
         def help
           run('--help')
         end
 
+        #
+        # Returns the String form of the command.
+        #
+        #   cmd = Command.new('add')
+        #   cmd.to_s # => "add"
+        #
+        #   cmd = Command.new('list','ls')
+        #   cmd.to_s # => "list ls"
+        #
         def to_s
           unless @short_names.empty?
             return "#{@name} #{@short_names.join(', ')}"

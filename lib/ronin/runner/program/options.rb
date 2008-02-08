@@ -30,12 +30,17 @@ module Ronin
   module Runner
     class Options < OpenStruct
 
-      def initialize(prog,banner=nil,&block)
+      #
+      # Creates a new Options object with the specified _program_ name
+      # and the given _banner_. If a _block_ is given, it will be passed
+      # the newly created Options object.
+      #
+      def initialize(program,banner=nil,&block)
         super()
 
         @parser = OptionParser.new do |opts|
           if banner
-            opts.banner = "usage: #{prog} #{banner}"
+            opts.banner = "usage: #{program} #{banner}"
             opts.separator ''
           end
         end
@@ -43,9 +48,14 @@ module Ronin
         block.call(self) if block
       end
 
-      def Options.command(prog,name,opts=nil,&block)
-        return Options.new(prog,"#{name} #{opts}",&block) if opts
-        return Options.new(prog,name,&block)
+      #
+      # Creates a new Options object for a Command with the specified
+      # _program_ name, command _name_ and the given _opts_. If a _block_
+      # is given, it will be passed the newly created Options object.
+      #
+      def Options.command(program,name,opts=nil,&block)
+        return Options.new(program,"#{name} #{opts}",&block) if opts
+        return Options.new(program,name,&block)
       end
 
       def on(*args,&block)
