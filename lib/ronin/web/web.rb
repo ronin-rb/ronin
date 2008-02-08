@@ -21,6 +21,7 @@
 #++
 #
 
+require 'uri/http'
 require 'mechanize'
 require 'open-uri'
 
@@ -30,10 +31,10 @@ module Ronin
     COMMON_PROXY_PORT = 8080
 
     #
-    # Returns the +Hash+ of proxy information.
+    # Returns the +Hash+ of the Ronin Web proxy information.
     #
     def Web.proxy
-      @@proxy ||= {:host => nil, :port => COMMON_PROXY_PORT, :user => nil, :pass => nil}
+      @@web_proxy ||= {:host => nil, :port => COMMON_PROXY_PORT, :user => nil, :pass => nil}
     end
 
     #
@@ -55,17 +56,17 @@ module Ronin
     end
 
     #
-    # Returns the Web User-Agent
+    # Returns the Ronin Web User-Agent
     #
     def Web.user_agent
-      @@user_agent ||= nil
+      @@web_user_agent ||= nil
     end
 
     #
-    # Sets the Web User-Agent to the specified _agent_.
+    # Sets the Ronin Web User-Agent to the specified _new_agent_.
     #
-    def Web.user_agent=(agent)
-      @@user_agent = agent
+    def Web.user_agent=(new_agent)
+      @@web_user_agent = new_agent
     end
 
     #
