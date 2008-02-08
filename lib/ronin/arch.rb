@@ -1,8 +1,9 @@
 #
-# Ronin - A ruby development environment designed for information security
+#--
+# Ronin - A ruby development platform designed for information security
 # and data exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,12 +18,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
 #
 
 require 'og'
 
 module Ronin
   class Arch
+
+    COMMON_ENDIAN = 'little' # Common architecture endian
+
+    COMMON_ADDRESS_LENGTH = 4 # Common architecture address length
 
     # Name of the architecture
     attr_accessor :name, String, :unique => true
@@ -48,7 +54,7 @@ module Ronin
     #     arch.address_length = 8
     #   end
     #
-    def initialize(name,endian='little',address_length=4,&block)
+    def initialize(name,endian=COMMON_ENDIAN,address_length=COMMON_ADDRESS_LENGTH,&block)
       @name = name.to_s
       @endian = endian.to_s
       @address_length = address_length
@@ -57,8 +63,8 @@ module Ronin
     end
 
     #
-    # Returns true if the arch has the same _name_, _endian_ and
-    # _address_length_ as the _other_ arch, returns false otherwise.
+    # Returns +true+ if the arch has the same name, endian and
+    # address_length as the _other_ arch, returns +false+ otherwise.
     #
     def ==(other)
       return false unless @name==other.name
