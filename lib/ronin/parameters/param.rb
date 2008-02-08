@@ -1,8 +1,9 @@
 #
-# Ronin - A ruby development environment designed for information security
+#--
+# Ronin - A ruby development platform designed for information security
 # and data exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
 #
 
 module Ronin
@@ -29,7 +31,11 @@ module Ronin
       # Description of parameter
       attr_reader :description
 
-      def initialize(name,description="")
+      #
+      # Creates a new Param object with the specified _name_ and the given
+      # _description_.
+      #
+      def initialize(name,description='')
         @name = name.to_sym
         @description = description
       end

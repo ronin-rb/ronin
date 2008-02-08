@@ -21,37 +21,42 @@
 #++
 #
 
-module Ronin
-  module Parameters
-    class InstanceParam < Param
+require 'ronin/parameters/parameters'
+require 'ronin/parameters/class_param'
+require 'ronin/extensions/meta'
 
-      # Owning object
-      attr_reader :object
+class Object
 
-      #
-      # Creates a new InstanceParam object with the specified _object_ and
-      # _name_, and the given _description_.
-      #
-      def initialize(object,name,description='')
-        super(name,description)
+  protected
 
-        @object = object
-      end
+  #
+  # Adds a new parameter with the specified _name_ and the given
+  # _options_ to the class.
+  #
+  #   parameter 'var'
+  #
+  #   parameter 'var', :value => 3, :description => 'my variable'
+  #
+  def Object.parameter(name,options={})
+    name = name.to_sym
 
-      #
-      # Returns the value of the instance param.
-      #
-      def value
-        @object.instance_variable_get("@#{@name}")
-      end
+    include Ronin::Parameters
 
-      #
-      # Sets the value of the instance param.
-      #
-      def value=(value)
-        @object.instance_variable_set("@#{@name}",value)
-      end
+    # add the parameter to the class params list
+    params[name] = Ronin::ClassParam.new(name,options[:description],options[:value])
 
+    # define the reader class method for the parameter
+    meta_def(name) do
+      params[name].value
     end
+
+    # define the writer class method for the parameter
+    meta_def("#{name}=") do |value|
+      params[name].value = value
+    end
+
+    # define the getter/setter instance methods for the parameter
+    attr_accessor(name)
   end
+
 end
