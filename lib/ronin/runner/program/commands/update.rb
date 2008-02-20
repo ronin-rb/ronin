@@ -27,20 +27,18 @@ require 'ronin/cache/repository'
 module Ronin
   module Runner
     module Program
-      Program.command(:update) do |argv|
-        options = Options.command('ronin','update','NAME [NAME ...] [options]') do |options|
-          options.common do
-            options.on_help
+      Program.command(:update) do
+        options('NAME [NAME ...] [options]') do |opts|
+          opts.options
+
+          opts.arguments do
+            opts.arg('NAME','The repository to update')
           end
 
-          options.arguments do
-            options.arg('NAME','The repository to update')
-          end
-
-          options.summary('Updates all or the specified repositories')
+          opts.summary('Updates all or the specified repositories')
         end
 
-        options.parse(argv) do |args|
+        arguments do |opts,args|
           if args.empty?
             Cache::Repository.each { |repo| repo.update }
           else

@@ -28,7 +28,10 @@ require 'ostruct'
 
 module Ronin
   module Runner
-    class Options < OpenStruct
+    class Options
+
+      # Settings used by the options
+      attr_reader :settings
 
       #
       # Creates a new Options object with the specified _program_ name
@@ -36,11 +39,18 @@ module Ronin
       # the newly created Options object.
       #
       def initialize(program,banner=nil,&block)
-        super()
+        @settings = OpenStruct.new
+        @settings.verbose = false
+
+        @help_block = proc { help }
+
+        @verbose_block = proc {
+          @settings.verbose = true
+        }
 
         @parser = OptionParser.new do |opts|
           if banner
-            opts.banner = "usage: #{program} #{banner}"
+            opts.banner = "Usage: #{program} #{banner}"
             opts.separator ''
           end
         end
@@ -50,55 +60,37 @@ module Ronin
 
       #
       # Creates a new Options object for a Command with the specified
-      # _program_ name, command _name_ and the given _opts_. If a _block_
+      # _program_ name, command _name_ and the given _banner_. If a _block_
       # is given, it will be passed the newly created Options object.
       #
-      def Options.command(program,name,opts=nil,&block)
-        return Options.new(program,"#{name} #{opts}",&block) if opts
+      def Options.command(program,name,banner=nil,&block)
+        return Options.new(program,"#{name} #{banner}",&block) if banner
         return Options.new(program,name,&block)
       end
 
       def on(*args,&block)
         @parser.on(*args,&block)
+        return self
       end
 
       def on_verbose(&block)
-        unless block
-          self.verbose = false
-
-          block = Proc.new { self.verbose = true }
-        end
-
-        on('-v','--verbose','Produce excess output',&block)
+        @verbose_block = block
         return self
       end
 
       def on_help(&block)
-        on('-h','--help','Print this message') do |topic|
-          help(&block)
-        end
-
+        @help_block = block
         return self
       end
 
-      def specific(&block)
+      def options(&block)
         if block
           @parser.separator '  Options:'
 
           block.call(self)
-
-          @parser.separator ''
-        end
-
-        return self
-      end
-
-      def common(&block)
-        if block
-          @parser.separator '  Common Options:'
-
-          block.call(self)
-
+          
+          @parser.on('-v','--verbose','Produce excess output',&(@verbose_block))
+          @parser.on('-h','--help','Print this message',&(@help_block))
           @parser.separator ''
         end
 
@@ -155,8 +147,12 @@ module Ronin
       def parse(argv,&block)
         args = @parser.parse(argv)
 
-        block.call(args) if block
+        block.call(self,args) if block
         return args
+      end
+
+      def to_s
+        @parser.to_s
       end
 
     end

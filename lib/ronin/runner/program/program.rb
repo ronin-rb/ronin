@@ -84,48 +84,42 @@ module Ronin
       end
 
       def Program.help(topic=nil)
-        success do
-          if topic
-            begin
-              get_command(topic).help
-            rescue UnknownCommand => exp
-              Program.fail(exp)
-            end
-          else
-            puts "Available commands:"
+        if topic
+          begin
+            get_command(topic).help
+          rescue UnknownCommand => exp
+            Program.fail(exp)
+          end
+        else
+          puts "Available commands:"
 
-            Program.commands.each do |cmd|
-              puts "  #{cmd}"
-            end
+          Program.commands.each do |cmd|
+            puts "  #{cmd}"
           end
         end
-
-        return true
       end
 
       def Program.default_command(*argv)
-        options = Options.new('ronin','<command> [options] [args]') do |options|
-          options.common do
-            options.on_help do
-              Program.help
-            end
-
-            options.on('-V','--version','print version information and exit') do
+        opts = Options.new('ronin','<command> [options] [args]') do |opts|
+          opts.options do |opts|
+            opts.on('-V','--version','print version information and exit') do
               Program.success do
                 puts "Ronin #{Ronin::VERSION}"
               end
             end
+
+            opts.on_help do
+              Program.success { Program.help }
+            end
           end
 
-          options.summary('Ronin is a Ruby development platform designed for information security','and data exploration tasks.')
+          opts.summary('Ronin is a Ruby development platform designed for information security','and data exploration tasks.')
         end
 
-        options.parse(argv) do |args|
-          options.help unless args.empty?
+        opts.parse(argv) do |opts,args|
+          opts.help unless args.empty?
 
-          Program.success do
-            Program.help
-          end
+          Program.success { Program.help }
         end
       end
 

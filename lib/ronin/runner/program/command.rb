@@ -43,26 +43,43 @@ module Ronin
         def initialize(name,*short_names,&block)
           @name = name
           @short_names = short_names
-          @run_block = block
+
+          @options = nil
+          @arguments_block = nil
+
+          instance_eval(&block)
+        end
+
+        def options(usage,&block)
+          @options = Options.command('ronin',@name,usage,&block)
+          return self
+        end
+
+        def arguments(&block)
+          @arguments_block = block
+          return self
         end
 
         #
         # Runs the command with the given _argv_.
         #
         def run(*argv)
-          unless @run_block
-            raise(CommandNotImplemented,"the command #{self.to_s.dump} has not been implemented yet",caller)
+          if @options
+            if @arguments_block
+              @options.parse(argv,&(@arguments_block))
+            else
+              @options.parse(argv)
+            end
           end
-
-          @run_block.call(argv)
           return self
         end
 
         #
-        # Runs the command with the <tt>--help</tt> option.
+        # Prints the help information for the command.
         #
         def help
-          run('--help')
+          @options.help if @options
+          return self
         end
 
         #

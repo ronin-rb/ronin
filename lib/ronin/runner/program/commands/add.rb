@@ -27,35 +27,31 @@ require 'ronin/cache/repository'
 module Ronin
   module Runner
     module Program
-      Program.command(:add) do |argv|
-        options = Options.command('ronin','add','PATH [options]') do |options|
-          options.media = :local
-          options.uri = nil
+      Program.command(:add) do
+        options('PATH [options]') do |opts|
+          opts.settings.media = :local
+          opts.settings.uri = nil
 
-          options.specific do
-            options.on('-m','--media','Spedify the media-type of the repository') do |media|
-              options.media = media
+          opts.options do
+            opts.on('-m','--media','Spedify the media-type of the repository') do |media|
+              opts.settings.media = media
             end
 
-            options.on('-U','--uri','Specify the source URI of the repository') do |uri|
-              options.uri = uri
+            opts.on('-U','--uri','Specify the source URI of the repository') do |uri|
+              opts.settings.uri = uri
             end
           end
 
-          options.common do
-            options.on_help
+          opts.arguments do
+            opts.arg('PATH','Add the repository located at the specified PATH')
           end
 
-          options.arguments do
-            options.arg('PATH','Add the repository located at the specified PATH')
-          end
+          opts.summary('Add a local repository located at the specified PATH to the repository cache')
 
-          options.summary('Add a local repository located at the specified PATH to the repository cache')
-
-          options.defaults('--media local')
+          opts.defaults('--media local')
         end
 
-        options.parse(argv) do |args|
+        arguments do |opts,args|
           unless args.length==1
             Program.fail('add: only one repository path maybe specified')
           end

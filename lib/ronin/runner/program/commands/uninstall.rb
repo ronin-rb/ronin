@@ -27,20 +27,18 @@ require 'ronin/cache/repository'
 module Ronin
   module Runner
     module Program
-      Program.command(:uninstall) do |argv|
-        options = Options.command('ronin','uninstall','NAME [NAME ...] [options]') do |options|
-          options.common do
-            options.on_help
+      Program.command(:uninstall) do
+        options('NAME [NAME ...] [options]') do |opts|
+          opts.options
+
+          opts.arguments do
+            opts.arg('NAME','The repository to uninstall')
           end
 
-          options.arguments do
-            options.arg('NAME','The repository to uninstall')
-          end
-
-          options.summary('Uninstall the specified repositories')
+          opts.summary('Uninstall the specified repositories')
         end
 
-        options.parse(argv) do |args|
+        arguments do |opts,args|
           args.each do |name|
             Cache::Repository.save_cache do
               Cache::Repository.uninstall(name) do |repo|

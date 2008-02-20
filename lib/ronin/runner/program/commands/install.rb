@@ -27,33 +27,29 @@ require 'ronin/cache/repository'
 module Ronin
   module Runner
     module Program
-      Program.command(:install) do |argv|
-        options = Options.command('ronin','install','URI [options]') do |options|
-          options.media = :local
-          options.uri = nil
+      Program.command(:install) do
+        options('URI [options]') do |opts|
+          opts.settings.media = :local
+          opts.settings.uri = nil
 
-          options.specific do
-            options.on('-m','--media','Spedify the media-type of the repository') do |media|
-              options.media = media
+          opts.options do
+            opts.on('-m','--media','Spedify the media-type of the repository') do |media|
+              options.settings.media = media
             end
 
-            options.on('-U','--uri','Specify the source URI of the repository') do |uri|
-              options.uri = uri
+            opts.on('-U','--uri','Specify the source URI of the repository') do |uri|
+              options.settings.uri = uri
             end
           end
 
-          options.common do
-            options.on_help
+          opts.arguments do
+            opts.arg('URI','The URI of the repository to install')
           end
 
-          options.arguments do
-            options.arg('URI','The URI of the repository to install')
-          end
-
-          options.summary('Installs the repository located at the specified URI')
+          opts.summary('Installs the repository located at the specified URI')
         end
 
-        options.parse(argv) do |args|
+        arguments do |opts,args|
           unless args.length==1
             Program.fail('install: only one repository URI maybe specified')
           end

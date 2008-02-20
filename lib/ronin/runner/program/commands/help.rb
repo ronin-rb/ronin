@@ -26,20 +26,16 @@ require 'ronin/runner/program/program'
 module Ronin
   module Runner
     module Program
-      Program.command(:help) do |argv|
-        options = Options.command('ronin','help','[COMMAND]') do |options|
-          options.common do
-            options.on_help
+      Program.command(:help) do
+        options('[COMMAND]') do |opts|
+          opts.arguments do
+            opts.arg('COMMAND','The command to view')
           end
 
-          options.arguments do
-            options.arg('COMMAND','The command to view')
-          end
-
-          options.summary('View a list of supported commands or information on a specific command')
+          opts.summary('View a list of supported commands or information on a specific command')
         end
 
-        options.parse(argv) do |args|
+        arguments do |opts,args|
           unless args.length<=1
             Program.fail('help: only one command maybe specified')
           end
