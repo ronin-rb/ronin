@@ -21,16 +21,18 @@
 #++
 #
 
-require 'ronin/version'
-require 'ronin/exceptions'
 require 'ronin/extensions'
 require 'ronin/config'
-require 'ronin/object_cache'
-require 'ronin/license'
-require 'ronin/author'
+require 'ronin/parameters'
+require 'ronin/formating'
+require 'ronin/net'
+require 'ronin/web'
+require 'ronin/sessions'
 require 'ronin/arch'
 require 'ronin/platform'
-require 'ronin/parameters'
-require 'ronin/product'
+require 'ronin/object_cache'
 require 'ronin/cache'
 require 'ronin/ronin'
+require 'ronin/version'
+
+Ronin::Config.load
