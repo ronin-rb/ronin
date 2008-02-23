@@ -24,6 +24,7 @@
 require 'ronin/runner/program/command'
 require 'ronin/runner/program/options'
 require 'ronin/runner/program/exceptions/unknown_command'
+require 'ronin/console'
 require 'ronin/version'
 
 module Ronin
@@ -91,7 +92,7 @@ module Ronin
             Program.fail(exp)
           end
         else
-          puts "Available commands:"
+          puts 'Available commands:'
 
           Program.commands.each do |cmd|
             puts "  #{cmd}"
@@ -100,16 +101,16 @@ module Ronin
       end
 
       def Program.default_command(*argv)
-        opts = Options.new('ronin','<command> [options] [args]') do |opts|
+        opts = Options.new('ronin','<command> [options]') do |opts|
           opts.options do |opts|
+            opts.on('-r','--require LIB','require the specified library or path') do |lib|
+              Console.auto_load << lib.to_s
+            end
+
             opts.on('-V','--version','print version information and exit') do
               Program.success do
                 puts "Ronin #{Ronin::VERSION}"
               end
-            end
-
-            opts.on_help do
-              Program.success { Program.help }
             end
           end
 
@@ -117,9 +118,7 @@ module Ronin
         end
 
         opts.parse(argv) do |opts,args|
-          opts.help unless args.empty?
-
-          Program.success { Program.help }
+          Console.start
         end
       end
 
@@ -133,15 +132,11 @@ module Ronin
 
             if Program.has_command?(cmd)
               Program.command_names[cmd].run(*argv)
-            elsif Cache::Repository.has_extension?(cmd)
-              Cache::Repository.extension(cmd).run do |ext|
-                puts "Running extension #{ext}"
-              end
             else
               Program.fail("unknown command #{cmd.dump}")
             end
           end
-        rescue OptionParser::InvalidOption => e
+        rescue OptionParser::MissingArgument, OptionParser::InvalidOption => e
           Program.fail(e)
         end
 
