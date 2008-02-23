@@ -83,16 +83,19 @@ module Ronin
         return self
       end
 
-      def options(&block)
-        if block
-          @parser.separator '  Options:'
+      def separator(text)
+        @parser.separator(text)
+        return self
+      end
 
-          block.call(self)
-          
-          @parser.on('-v','--verbose','Produce excess output',&(@verbose_block))
-          @parser.on('-h','--help','Print this message',&(@help_block))
-          @parser.separator ''
-        end
+      def options(&block)
+        @parser.separator '  Options:'
+
+        block.call(self) if block
+
+        @parser.on('-v','--verbose','produce excess output',&(@verbose_block))
+        @parser.on('-h','--help','print this message',&(@help_block))
+        @parser.separator ''
 
         return self
       end

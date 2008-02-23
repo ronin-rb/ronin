@@ -33,12 +33,8 @@ module Ronin
           opts.settings.uri = nil
 
           opts.options do
-            opts.on('-m','--media','Spedify the media-type of the repository') do |media|
+            opts.on('-m','--media [MEDIA]','Spedify the media-type of the repository') do |media|
               options.settings.media = media
-            end
-
-            opts.on('-U','--uri','Specify the source URI of the repository') do |uri|
-              options.settings.uri = uri
             end
           end
 
