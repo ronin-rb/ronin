@@ -42,10 +42,12 @@ module Ronin
     # _proxy_info_ hash defaults to Web.proxy, if not given.
     #
     def Web.proxy_uri(proxy_info=Web.proxy)
-      URI::HTTP.build(:host => Web.proxy[:host],
-                      :port => Web.proxy[:port],
-                      :userinfo => "#{Web.proxy[:user]}:#{Web.proxy[:pass]}",
-                      :path => '/')
+      if Web.proxy[:host]
+        return URI::HTTP.build(:host => Web.proxy[:host],
+                               :port => Web.proxy[:port],
+                               :userinfo => "#{Web.proxy[:user]}:#{Web.proxy[:pass]}",
+                               :path => '/')
+      end
     end
 
     #
@@ -175,7 +177,7 @@ module Ronin
     #   end
     #
     def Web.get_text(uri,options={},&block)
-      text = Web.get(uri,options).root.to_s
+      text = Web.get(uri,options).body
 
       block.call(text) if block
       return text
@@ -216,7 +218,7 @@ module Ronin
     #   end
     #
     def Web.post_text(uri,options={},&block)
-      text = Web.post(uri,options).root.to_s
+      text = Web.post(uri,options).body
 
       block.call(text) if block
       return text
