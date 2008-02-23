@@ -21,5 +21,37 @@
 #++
 #
 
-require 'ronin/formating/extensions/binary/integer'
-require 'ronin/formating/extensions/binary/string'
+require 'ronin/arch'
+
+class String
+
+  #
+  # Packs the integer using the specified _arch_ and the given
+  # _address_length_. The _address_length_ will default to the address
+  # length of the _arch_.
+  #
+  #   0x41.pack(Arch('i686')) # => "A\000\000\000"
+  #
+  #   0x41.pack(Arch('ppc'),2) # => "\000A"
+  #
+  def depack(arch,address_length=arch.address_length)
+    integer = 0x0
+
+    if arch.endian=='little'
+      address_length.times do |i|
+        if self[i]
+          integer = (integer | (self[i] << (i*8)))
+        end
+      end
+    elsif arch.endian=='big'
+      address_length.times do |i|
+        if self[i]
+          integer = (integer | (self[i] << ((address_length-i-1)*8)))
+        end
+      end
+    end
+
+    return integer
+  end
+
+end
