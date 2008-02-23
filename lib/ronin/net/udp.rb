@@ -72,6 +72,15 @@ module Ronin
 
         return nil
       end
+
+      def UDP.banner(rhost,rport,lhost=nil,lport=nil,&block)
+        UDP.session(rhost,rport,lhost,lport) do |sock|
+          banner = sock.readline
+        end
+
+        block.call(banner) if block
+        return banner
+      end
     end
   end
 end

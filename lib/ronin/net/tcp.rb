@@ -72,6 +72,17 @@ module Ronin
 
         return nil
       end
+
+      def TCP.banner(rhost,rport,lhost=nil,lport=nil,&block)
+        banner = nil
+
+        TCP.session(rhost,rport,lhost,lport) do |sock|
+          banner = sock.readline
+        end
+
+        block.call(banner) if block
+        return banner
+      end
     end
   end
 end
