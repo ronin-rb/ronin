@@ -161,26 +161,26 @@ module Ronin
     end
 
     #
-    # Gets the specified _uri_ with the given _options_, returning the text
+    # Gets the specified _uri_ with the given _options_, returning the body
     # of the requested page. If a _block_ is given, it will be passed the
-    # text of the retrieved page.
+    # body of the retrieved page.
     #
     # _options_ may contain the following keys:
     # <tt>:user_agent_alias</tt>:: The User-Agent Alias to use.
     # <tt>:user_agent</tt>:: The User-Agent string to use.
     # <tt>:proxy</tt>:: A +Hash+ of the proxy information to use.
     #
-    #   Web.get_text('http://www.rubyinside.com') # => String
+    #   Web.get_body('http://www.rubyinside.com') # => String
     #
-    #   Web.get_text('http://www.rubyinside.com') do |page|
-    #     puts page
+    #   Web.get_body('http://www.rubyinside.com') do |body|
+    #     puts body
     #   end
     #
-    def Web.get_text(uri,options={},&block)
-      text = Web.get(uri,options).body
+    def Web.get_body(uri,options={},&block)
+      body = Web.get(uri,options).body
 
-      block.call(text) if block
-      return text
+      block.call(body) if block
+      return body
     end
 
     #
@@ -202,26 +202,26 @@ module Ronin
     end
 
     #
-    # Poststhe specified _uri_ with the given _options_, returning the text
+    # Poststhe specified _uri_ with the given _options_, returning the body
     # of the posted page. If a _block_ is given, it will be passed the
-    # text of the posted page.
+    # body of the posted page.
     #
     # _options_ may contain the following keys:
     # <tt>:user_agent_alias</tt>:: The User-Agent Alias to use.
     # <tt>:user_agent</tt>:: The User-Agent string to use.
     # <tt>:proxy</tt>:: A +Hash+ of the proxy information to use.
     #
-    #   Web.post_text('http://www.rubyinside.com') # => String
+    #   Web.post_body('http://www.rubyinside.com') # => String
     #
-    #   Web.post_text('http://www.rubyinside.com') do |page|
-    #     puts page
+    #   Web.post_body('http://www.rubyinside.com') do |body|
+    #     puts body
     #   end
     #
-    def Web.post_text(uri,options={},&block)
-      text = Web.post(uri,options).body
+    def Web.post_body(uri,options={},&block)
+      body = Web.post(uri,options).body
 
-      block.call(text) if block
-      return text
+      block.call(body) if block
+      return body
     end
   end
 end
