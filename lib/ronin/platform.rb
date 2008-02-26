@@ -1,8 +1,9 @@
 #
-# Ronin - A ruby development environment designed for information security
+#--
+# Ronin - A ruby development platform designed for information security
 # and data exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
 #
 
 require 'og'
@@ -65,8 +67,16 @@ module Ronin
       end
     end
 
+    #
+    # Converts the specified _name_ to a Platform name, in +String+
+    # form.
+    #
+    #   Platform.namify('linux') # => "Linux"
+    #
+    #   Context.namify('sun solaris') # => "Sun Solaris"
+    #
     def Platform.namify(name)
-      name.to_s.split.map { |word| word.capitalize }.join
+      name.to_s.split.map { |word| word.capitalize }.join(' ')
     end
 
     #
@@ -74,6 +84,8 @@ module Ronin
     # define a new class named _name_ that inherites Platform.
     #
     #   Platform.define('FreeBSD')
+    #
+    # Whould define the following class:
     #
     #   class FreeBSD < Platform
     #

@@ -1,8 +1,9 @@
 #
-# Ronin - A ruby development environment designed for information security
+#--
+# Ronin - A ruby development platform designed for information security
 # and data exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
 #
 
 require 'og'
@@ -26,6 +28,7 @@ require 'uri'
 module Ronin
   class Author
 
+    # Anonymouse author name.
     ANONYMOUSE = 'anonymous'
 
     # Name of author
@@ -52,26 +55,41 @@ module Ronin
     # Author's biography
     attr_accessor :biography, String
 
-    schema_inheritance
-
-    def initialize(name=ANONYMOUSE,info={:organization=> nil, :pgp_signature => nil, :address => nil, :phone => nil, :email => nil, :site => nil, :biography => nil},&block)
+    #
+    # Creates a new Author object with the given _name_ and _info_. The
+    # _name_ defaults to ANONYMOUSE. If _block_ is given, it will be passed
+    # the newly created Author object.
+    #
+    # _info_ may contain the following keys:
+    # <tt>:organization</tt>:: The organization of the author.
+    # <tt>:pgp_signature</tt>:: The PGP signature of the author.
+    # <tt>:address</tt>:: The address of the author.
+    # <tt>:phone</tt>:: The phone number of the author.
+    # <tt>:email</tt>:: The email address of the author.
+    # <tt>:url</tt>:: The URL for the author.
+    # <tt>:biography</tt>:: The biography of the author.
+    #
+    def initialize(name=ANONYMOUSE,info={},&block)
       @name = name
       @organization= info[:organization]
       @pgp_signature = info[:pgp_signature]
       @address = info[:address]
       @phone = info[:phone]
       @email = info[:email]
-      @site = info[:site]
+      @url = info[:url]
       @biography = info[:biography]
 
       block.call(self) if block
     end
 
+    #
+    # Returns the name of the author.
+    #
     def to_s
       @name.to_s
     end
 
-    def self.parse_xml(doc,xpath='/ronin/contributors/author')
+    def self.from_xml(doc,xpath='/ronin/author')
       authors = []
 
       doc.elements.each(xpath) do |element|
@@ -105,10 +123,6 @@ module Ronin
       end
 
       return authors
-    end
-
-    def to_s
-      @name.to_s
     end
 
   end
