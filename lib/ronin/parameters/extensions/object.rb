@@ -43,7 +43,7 @@ class Object
     include Ronin::Parameters
 
     # add the parameter to the class params list
-    params[name] = Ronin::ClassParam.new(name,options[:description],options[:value])
+    params[name] = Ronin::Parameters::ClassParam.new(name,options[:description],options[:value])
 
     # define the reader class method for the parameter
     meta_def(name) do
