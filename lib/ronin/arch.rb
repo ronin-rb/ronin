@@ -21,6 +21,8 @@
 #++
 #
 
+require 'ronin/extensions/meta'
+
 require 'og'
 
 module Ronin
@@ -94,7 +96,13 @@ module Ronin
     def Arch.define(name,opts={},&block)
       name = name.to_sym
 
-      return Arch.builtin[name] = Arch.new(name,opts[:endian],opts[:address_length],&block)
+      Arch.builtin[name] = Arch.new(name,opts[:endian],opts[:address_length],&block)
+
+      meta_def(name) do
+        Arch.builtin[name]
+      end
+
+      return Arch.builtin[name]
     end
 
     define :i386, :endian => :little, :address_length => 4
