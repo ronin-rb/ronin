@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/cache/object_cache'
+require 'ronin/object_cache'
 require 'ronin/extensions/meta'
 
 require 'og'
