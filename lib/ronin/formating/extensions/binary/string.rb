@@ -23,6 +23,8 @@
 
 require 'ronin/arch'
 
+require 'base64'
+
 class String
 
   #
@@ -52,6 +54,20 @@ class String
     end
 
     return integer
+  end
+
+  #
+  # Returns the base64 encoded form of the string.
+  #
+  def base64_encode
+    Base64.encode64(self)
+  end
+
+  #
+  # Returns the base64 decoded form of the string.
+  #
+  def base64_decode
+    Base64.decode64(self)
   end
 
 end
