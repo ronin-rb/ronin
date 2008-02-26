@@ -21,8 +21,4 @@
 #++
 #
 
-require 'ronin/formating/extensions'
-require 'ronin/formating/binary'
-require 'ronin/formating/text'
-require 'ronin/formating/html'
-require 'ronin/formating/http'
+require 'ronin/formating/extensions/text/string'

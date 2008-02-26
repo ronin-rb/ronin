@@ -21,8 +21,16 @@
 #++
 #
 
-require 'ronin/formating/extensions'
-require 'ronin/formating/binary'
-require 'ronin/formating/text'
-require 'ronin/formating/html'
-require 'ronin/formating/http'
+class String
+
+  def rand_case(prob=0.5)
+    self.scan(/./m).map { |c|
+      if rand < prob
+        c.swapcase 
+      else
+        c
+      end
+    }.join
+  end
+
+end
