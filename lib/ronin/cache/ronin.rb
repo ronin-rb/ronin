@@ -25,24 +25,45 @@ require 'ronin/cache/repository'
 require 'ronin/cache/object_context'
 
 module Ronin
+  #
+  # See Cache::Repository.extensions.
+  #
   def Ronin.extensions
     Cache::Repository.extensions
   end
 
+  #
+  # See Cache::Repository.extension.
+  #
   def Ronin.extension(name,&block)
     Cache::Repository.extension(name,&block)
   end
 
+  #
+  # See Cache::ObjectContext.load_objects.
+  #
   def Ronin.ronin_load_objects(path)
     Cache::ObjectContext.load_objects(path)
   end
 
+  #
+  # See Cache::ObjectContext.load_object.
+  #
   def Ronin.ronin_load_object(type,path)
     Cache::ObjectContext.load_object(type,path)
   end
 
   protected
 
+  #
+  # Provides transparent access to extensions.
+  #
+  #   Ronin.shellcode # => Extension
+  #
+  #   Ronin.shellcode do |ext|
+  #     ...
+  #   end
+  #
   def Ronin.method_missing(sym,*args,&block)
     if args.length==0
       name = sym.id2name

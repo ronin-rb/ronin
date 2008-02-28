@@ -86,7 +86,7 @@ module Ronin
       end
 
       #
-      # Converts the name of the _base_ class to a context name, in string
+      # Converts the name of the _base_ class to a context name, in +string+
       # form.
       #
       #   Context.namify(Ronin::Resources) # => "ronin_resources"
@@ -98,7 +98,10 @@ module Ronin
         base.to_s.downcase.gsub(/::/,'_').gsub(/^ronin_/,'').to_sym
       end
 
-
+      #
+      # Loads all contexts from the specified _path_, returning the +Hash+
+      # of the context names and their blocks.
+      #
       def Context.load_contexts(path)
         path = File.expand_path(path)
 
