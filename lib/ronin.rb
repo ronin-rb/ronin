@@ -23,15 +23,12 @@
 
 require 'ronin/extensions'
 require 'ronin/config'
-require 'ronin/parameters'
 require 'ronin/formating'
+require 'ronin/text'
 require 'ronin/net'
 require 'ronin/web'
-require 'ronin/sessions'
 require 'ronin/arch'
-require 'ronin/platform'
 require 'ronin/object_cache'
-require 'ronin/cache'
 require 'ronin/ronin'
 require 'ronin/version'
 
