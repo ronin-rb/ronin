@@ -59,6 +59,7 @@ module Ronin
         @dependencies = {}
 
         @setup_blocks = []
+        @action_blocks = {}
         @teardown_blocks = []
 
         block.call(self) if block
@@ -144,20 +145,20 @@ module Ronin
           raise(ExtensionNotFound,"extension #{path.dump} is not a valid extension",caller)
         end
 
-        # add path to the $LOAD_PATH
-        lib_dir = File.join(path,'lib')
+        # add lib directory to the $LOAD_PATH
+        lib_dir = File.expand_path(File.join(path,'lib'))
         if File.directory?(lib_dir)
-          $LOAD_PATH.unshift(File.expand_path(File.join(path,'lib')))
+          $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
         end
 
         # add to the search paths
         @paths << path
 
         extension_file = File.join(path,EXTENSION_FILE)
-
-        # instance_eval the extension block
         if File.file?(extension_file)
+          # instance_eval the extension block
           context_block = Extension.load_context_block(extension_file)
+
           instance_eval(&context_block) if context_block
         end
 
@@ -250,7 +251,7 @@ module Ronin
       end
 
       #
-      # Calls the +setup+ blocks of the extension's dependencies and the
+      # Calls the setup blocks of the extension's dependencies and the
       # extension itself. If a _block_ is given, it will be passed the
       # extension after it has been setup.
       #
@@ -274,7 +275,7 @@ module Ronin
       end
 
       #
-      # Run the +teardown+ blocks of the extension and it's dependencies.
+      # Run the teardown blocks of the extension and it's dependencies.
       # If a _block_ is given, it will be passed the extension before it 
       # has been tore down.
       #
@@ -309,10 +310,40 @@ module Ronin
       def run(&block)
         perform_setup
 
-        block.call(self)
+        block.call(self) if block
 
         perform_teardown
         return self
+      end
+
+      #
+      # Returns an +Array+ of the names of all actions defined in the
+      # extension.
+      #
+      #   ext.actions # => [...]
+      #
+      def actions
+        @action_blocks.keys
+      end
+
+      #
+      # Returns +true+ if the extension has the action of the specified
+      # _name_, returns +false+ otherwise.
+      #
+      def has_action?(name)
+        @action_blocks.has_key?(name.to_sym)
+      end
+
+      def perform_action(name,*args)
+        name = name.to_s
+
+        unless has_action?(name)
+          raise(UnknownAction,"action #{name.dump} is not defined",caller)
+        end
+
+        return run do
+          @action_blocks[name.to_sym].call(*args)
+        end
       end
 
       #
@@ -454,6 +485,18 @@ module Ronin
       #
       def setup(&block)
         @setup_blocks << block if block
+        return self
+      end
+
+      def action(name,&block)
+        name = name.to_s
+
+        if has_action?(name)
+          raise(ActionRedefined,"action #{name.dump} previously defined",caller)
+        end
+
+        @action_blocks[name.to_sym] = block
+        return self
       end
 
       #
@@ -462,13 +505,31 @@ module Ronin
       #
       def teardown(&block)
         @teardown_blocks << block if block
+        return self
       end
 
+      #
+      # Provides transparent access to the performing of actions
+      # and extensions dependencies.
+      #
+      #   ext.scan('localhost') # => Extension
+      #
+      #   ext.shellcode # => Extension
+      #
+      #   ext.shellcode do |dep|
+      #     puts "#{ext} has the dependency #{dep}"
+      #   end
+      #
       def method_missing(sym,*args,&block)
-        if (args.length==0 && block.nil?)
-          name = name.to_s
+        if (args.length==0)
+          name = sym.to_s
+
+          if (has_action?(name) && block.nil?)
+            return perform_action(name,*args)
+          end
 
           if depends_on?(name)
+            block.call(@dependencies[name]) if block
             return @dependencies[name]
           end
         end
