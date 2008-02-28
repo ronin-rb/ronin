@@ -1,16 +1,16 @@
-== REFACTORING:
+== Ronin 0.0.9:
+
+=== REFACTORING:
 
 1. Finish Documenting code.
-2. Add command-line support to Cache::Extension.
-3. Test Og 0.50.
-4. Redesign ObjectCache/Cache::ObjectContext.
+2. Finish ronin/net/http.rb.
+3. Add accompanying ronin/session/ modules for ronin/net/ modules.
+4. Test Og 0.50.0.
+5. Redesign Cache::ObjectContext.
 
-== FEATURES:
+=== FEATURES:
 
-1. Create Ronin console using IRB.
-   1. Add console support to Cache::Extension.
-
-== PROJECT MANAGEMENT:
+=== PROJECT MANAGEMENT:
 
 1. Update History.txt.
    1. Add code examples.
