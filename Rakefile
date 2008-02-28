@@ -12,7 +12,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
   p.description = p.paragraphs_of('README.txt', 2..5).join("\n\n")
   p.url = p.paragraphs_of('README.txt', 0).first.split(/\n/)[1..-1]
   p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n")
-  p.extra_deps = ['sqlite3-ruby', ['og', '>=0.50'], 'hpricot', 'mechanize', ['net-ssh', '>=0.9'], ['repertoire', '>=0.1.1']]
+  p.extra_deps = [['repertoire', '>=0.1.2'], 'sqlite3-ruby', ['og', '>=0.50'], 'hpricot', 'mechanize']
 end
 
 # vim: syntax=Ruby
