@@ -28,8 +28,11 @@ module Ronin
   module Cache
     class Extension
 
-      # ExtensionContext file name
+      # Extension file name
       EXTENSION_FILE = 'extension.rb'
+
+      # Extension lib directory
+      LIB_DIR = 'lib'
 
       # Name of extension
       attr_reader :name
@@ -125,7 +128,7 @@ module Ronin
       # extension after the extensions of _name_ have been included.
       #
       def include(name,&block)
-        Repository.each_extension_path(name) do |path|
+        Repository.each_path_for_extension(name) do |path|
           include_path(path)
         end
 
@@ -146,7 +149,7 @@ module Ronin
         end
 
         # add lib directory to the $LOAD_PATH
-        lib_dir = File.expand_path(File.join(path,'lib'))
+        lib_dir = File.expand_path(File.join(path,LIB_DIR))
         if File.directory?(lib_dir)
           $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
         end

@@ -26,12 +26,12 @@ require 'ronin/cache/exceptions/extension_not_found'
 require 'ronin/cache/repository_cache'
 require 'ronin/cache/config'
 
-require 'repertoire'
+require 'repertoire/repository'
 require 'rexml/document'
 
 module Ronin
   module Cache
-    class Repository
+    class Repository < Repertoire::Repository
 
       # Repository metadata XML file name
       METADATA_FILE = 'ronin.xml'
@@ -63,8 +63,9 @@ module Ronin
       #
       def initialize(path,media=:local,uri=nil,&block)
         @path = File.expand_path(path)
-        @media = media
         @uri = uri
+
+        super(@path,Repertoire::Media.types[media])
 
         load_metadata(&block)
       end
@@ -90,18 +91,43 @@ module Ronin
         @@cache ||= load_cache
       end
 
+      #
+      # Saves the repository cache. If a _block_ is given, it will be passed
+      # the repository cache before being saved.
+      #
+      #   Repository.save_cache # => RepositoryCache
+      #
+      #   Repository.save_cahce do |cache|
+      #     puts "Saving cache #{cache}"
+      #   end
+      #
       def Repository.save_cache(&block)
         Repository.cache.save(&block)
       end
 
+      #
+      # Returns the repository with the specified _name_ from the repository
+      # cache. If no such repository exists, +nil+ is returned.
+      #
+      #   Repository['awesome']
+      #
       def Repository.[](name)
         Repository.cache[name]
       end
 
+      #
+      # Returns +true+ if there is a repository with the specified _name_
+      # in the repository cache, returns +false+ otherwise.
+      #
       def Repository.exists?(name)
         Repository.cache.has_repository?(name)
       end
 
+      #
+      # Returns the repository with the specified _name_ from the repository
+      # cache. If no such repository exists in the repository cache,
+      # a RepositoryNotFound exception will be raised.
+      #
       def Repository.get(name)
         Repository.cache.get_repository(name)
       end
@@ -219,10 +245,30 @@ module Ronin
       end
 
       #
+      # Returns the paths of all extensions within the repository cache.
+      #
+      def Repository.extension_paths
+        paths = []
+
+        Repository.each { |repo| paths += repo.extension_paths }
+
+        return paths
+      end
+
+      #
+      # Iterates over the paths of all extensions with the specified
+      # _name_ within the repository cache, passing each to the specified
+      # _block_.
+      #
+      def Repository.each_extension_path(&block)
+        Repository.extension_paths.each(&block)
+      end
+
+      #
       # Returns the paths of all extensions with the specified _name_
       # within the repository cache.
       #
-      def Repository.extension_paths(name)
+      def Repository.paths_for_extension(name)
         Repository.with_extension(name).map { |repo| File.join(repo.path,name) }
       end
 
@@ -231,8 +277,8 @@ module Ronin
       # _name_ within the repository cache, passing each to the specified
       # _block_.
       #
-      def Repository.each_extension_path(name,&block)
-        Repository.extension_paths(name).each(&block)
+      def Repository.each_path_for_extension(name,&block)
+        Repository.paths_for_extension(name).each(&block)
       end
 
       #
@@ -273,10 +319,9 @@ module Ronin
       # is given it will be called after the repository has been updated.
       #
       def update(&block)
-        unless @media==:local
-          Repertoire.update(:media => @media, :path => @path, :uri => @uri)
-        end
+        return self if @media==:local
 
+        Repertoire.update(:media => @media, :path => @path, :uri => @uri)
         return load_metadata(&block)
       end
 
@@ -306,9 +351,7 @@ module Ronin
       # Returns the paths of all extensions within the repository.
       #
       def extension_paths
-        Dir[File.join(@path,'*',File::SEPARATOR)].select do |dir|
-          !Repertoire::Media.recognizes_directory?(File.basename(dir))
-        end
+        directories
       end
 
       #
@@ -384,9 +427,9 @@ module Ronin
           #@authors = Author.from_xml(metadata,'/ronin-repository/contributors/author')
 
           metadata.elements.each('/ronin-repository') do |repo|
-            @name = repo.elements['name'].get_text.to_s
-            @license = repo.elements['license'].get_text.to_s
-            @description = repo.elements['description'].get_text.to_s
+            @name = repo.elements['name'].get_text.to_s.strip
+            @license = repo.elements['license'].get_text.to_s.strip
+            @description = repo.elements['description'].get_text.to_s.strip
           end
         else
           @name = File.basename(@path)
