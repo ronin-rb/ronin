@@ -21,7 +21,28 @@
 #++
 #
 
+require 'ronin/cache/repository'
+require 'ronin/cache/extension'
+
 module Kernel
+  def ronin_require(path)
+    if File.extname(path).empty?
+      path += '.rb'
+    end
+
+    paths = Ronin::Cache::Repository.extension_paths.map do |ext_path|
+      File.expand_path(File.join(ext_path,Ronin::Cache::Extension::LIB_DIR,path))
+    end
+
+    files = paths.select { |file| File.file?(file) }
+
+    if files.empty?
+      raise(LoadError,"no such file to load -- #{path}",caller)
+    end
+
+    was_loaded = files.map { |file| require file }
+    return was_loaded.include?(true)
+  end
 
   protected
 
@@ -48,5 +69,4 @@ module Kernel
   def ronin_objects
     @@ronin_object_block ||= {}
   end
-
 end
