@@ -21,19 +21,19 @@
 #++
 #
 
-require 'ronin/net/extensions/imap'
+require 'ronin/net/extensions/pop3'
 
 module Ronin
   module Net
-    module IMAP
-      DEFAULT_PORT = 143 # Default imap port
+    module POP3
+      DEFAULT_PORT = 110 # Default pop3 port
 
-      def IMAP.default_port
-        @@imap_default_port ||= DEFAULT_PORT
+      def POP3.default_port
+        @@pop3_default_port ||= DEFAULT_PORT
       end
 
-      def IMAP.default_port=(port)
-        @@imap_default_port = port
+      def POP3.default_port=(port)
+        @@pop3_default_port = port
       end
     end
   end

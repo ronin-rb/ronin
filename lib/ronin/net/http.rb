@@ -21,104 +21,87 @@
 #++
 #
 
-require 'ronin/extensions/uri/http'
-
-require 'net/http'
+require 'ronin/net/extensions/http'
 
 module Ronin
   module Net
     module HTTP
+      DEFAULT_PROXY_PORT = 8080
 
-      include ::Net::HTTP
+      def HTTP.default_proxy_port
+        @@http_default_proxy_port ||= COMMON_PROXY_PORT
+      end
 
-      METHODS = {
-        :copy => Copy,
-        :delete => Delete,
-        :get => Get,
-        :head => Head,
-        :lock => Lock,
-        :mkcol => Mkcol,
-        :move => Move,
-        :options => Options,
-        :post => Post,
-        :put => Put,
-        :trace => Trace,
-        :unlock => Unlock
-      }
+      def HTTP.default_proxy_port=(port)
+        @@http_default_proxy_port = port
+      end
+
+      def HTTP.proxy
+        @@http_proxy ||= {:host => nil, :port => HTTP.default_proxy_port, :user => nil, :pass => nil}
+      end
 
       def HTTP.user_agent
-        @user_agent ||= nil
+        @@http_user_agent ||= nil
       end
 
       def HTTP.user_agent=(agent)
-        @user_agent = agent
+        @@http_user_agent = agent
       end
 
-      def HTTP.session(opts={},&block)
-        rhost = opts[:host]
-        rport = opts[:port] || 80
+      def HTTP.headers(options={})
+        headers = {}
 
-        if (proxy = opts[:proxy])
-          proxy_host = proxy[:host]
-          proxy_port = proxy[:port] || 8080
-          proxy_user = proxy[:user]
-          proxy_pass = proxy[:pass]
+        if options[:accept]
+          headers['Accept'] = options[:accept].to_s
         end
 
-        sess = Net::HTTP::Proxy(proxy_host,proxy_port,proxy_user,proxy_pass).start(host,port)
-
-        block.call(sess) if block
-        return sess
-      end
-
-      def HTTP.request(opts={},&block)
-        method = opts[:method].to_sym
-
-        unless METHODS.has_key?(method)
-          raise(UnknownHTTPMethod,"unknown HTTP method '#{method}'",caller)
+        if options[:accept_charset]
+          headers['Accept-Charset'] = options[:accept_charset].to_s
         end
 
-        if (url = opts[:url])
-          url = URI.parse(url)
-
-          opts[:host] = url.host
-          opts[:port] = url.port
-          opts[:path] = url.path_query
+        if options[:accept_encoding]
+          headers['Accept-Encoding'] = options[:accept_encoding].to_s
         end
 
-        req = METHODS[method].new(opts[:path],opts[:header])
-
-        HTTP.session(opts) do |http|
-          resp = http.request(req)
-
-          block.call(resp) if block
-          return resp
-        end
-      end
-
-      def HTTP.get(opts={},&block)
-        opts[:method] = :get
-
-        return HTTP.request(opts,&block)
-      end
-
-      def HTTP.post(opts={},&block)
-        if (url = opts[:url])
-          url = URI.parse(url)
-
-          opts[:host] = url.host
-          opts[:port] = url.port
-          opts[:path] = url.path
+        if options[:accept_language]
+          headers['Accept-Language'] = options[:accept_language].to_s
         end
 
-        req = Net::HTTP::Post.new(opts[:path],opts[:headers])
-
-        HTTP.session(opts) do |http|
-          resp = http.post_form(opts[:path],opts[:postdata])
-
-          block.call(resp) if block
-          return resp
+        if options[:accept_range]
+          headers['Accept-Range'] = options[:accept_range].to_s
         end
+
+        if options[:authorization]
+          headers['Authorization'] = options[:authorization].to_s
+        end
+
+        if options[:connection]
+          headers['Connection'] = options[:connection].to_s
+        end
+
+        if options[:date]
+          headers['Date'] = options[:date].to_s
+        end
+
+        if options[:host]
+          options['Host'] = options[:host].to_s
+        end
+
+        if options[:if_modified_since]
+          options['If-Modified-Since'] = options[:if_modified_since].to_s
+        end
+
+        if options[:user_agent]
+          headers['User-Agent'] = options[:user_agent]
+        elsif HTTP.user_agent
+          headers['User-Agent'] = HTTP.user_agent
+        end
+
+        if options[:referer]
+          headers['Referer'] = options[:referer]
+        end
+
+        return headers
       end
     end
   end

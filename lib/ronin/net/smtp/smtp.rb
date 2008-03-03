@@ -21,40 +21,17 @@
 #++
 #
 
-require 'ronin/net/smtp/email'
-
-require 'net/smtp'
-
 module Ronin
   module Net
     module SMTP
       DEFAULT_PORT = 25 # Default smtp port
 
-      def SMTP.message(options={},&block)
-        Email.new(options,&block).to_s
+      def SMTP.default_port
+        @@smtp_default_port ||= DEFAULT_PORT
       end
 
-      def SMTP.connect(host,options={},&block)
-        port = (options[:port] || DEFAULT_PORT)
-
-        hello = options[:hello]
-
-        login = options[:login]
-        user = options[:user]
-        passwd = options[:passwd]
-
-        sess = ::Net::SMTP.start(host,port,hello,user,passwd,login)
-        block.call(sess) if block
-        return sess
-      end
-
-      def SMTP.session(host,options={},&block)
-        SMTP.connect(host,options) do |sess|
-          block.call(sess) if block
-          sess.close
-        end
-
-        return nil
+      def SMTP.default_port=(port)
+        @@smtp_default_port = port
       end
     end
   end

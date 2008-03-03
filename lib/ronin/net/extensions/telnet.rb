@@ -21,30 +21,4 @@
 #++
 #
 
-require 'ronin/net/smtp'
-
-module Ronin
-  module Net
-    module ESMTP
-      include SMTP
-
-      def ESMTP.message(options={},&block)
-        SMTP.message(options,&block)
-      end
-
-      def ESMTP.connect(host,options={},&block)
-        SMTP.connect(host,options) do |sess|
-          sess.esmtp = true
-          block.call(sess)
-        end
-      end
-
-      def ESMTP.session(host,options={},&block)
-        SMTP.session(host,options) do |sess|
-          sess.esmtp = true
-          block.call(sess)
-        end
-      end
-    end
-  end
-end
+require 'ronin/net/extensions/telnet/net'

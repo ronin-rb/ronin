@@ -21,20 +21,27 @@
 #++
 #
 
-require 'ronin/net/extensions/imap'
+require 'ronin/net/pop3'
 
-module Ronin
-  module Net
-    module IMAP
-      DEFAULT_PORT = 143 # Default imap port
+require 'net/pop'
 
-      def IMAP.default_port
-        @@imap_default_port ||= DEFAULT_PORT
-      end
+module Net
+  def Net.pop_connect(host,options={},&block)
+    port = (options[:port] || Ronin::Net::POP3.default_port)
+    user = options[:user]
+    passwd = options[:passwd]
 
-      def IMAP.default_port=(port)
-        @@imap_default_port = port
-      end
+    sess ::Net::POP3.start(host,port,user,passwd)
+    block.call(sess) if block
+    return sess
+  end
+
+  def Net.pop_session(host,options={},&block)
+    Net.pop_connect(host,options) do |sess|
+      block.call(sess) if block
+      sess.finish
     end
+
+    return nil
   end
 end

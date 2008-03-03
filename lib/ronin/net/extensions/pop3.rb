@@ -21,31 +21,4 @@
 #++
 #
 
-require 'net/pop'
-
-module Ronin
-  module Net
-    module POP
-      DEFAULT_PORT = 110 # Default pop3 port
-
-      def POP.connect(host,options={},&block)
-        port = (options[:port] || DEFAULT_PORT)
-        user = options[:user]
-        passwd = options[:passwd]
-
-        sess ::Net::POP3.start(host,port,user,passwd)
-        block.call(sess) if block
-        return sess
-      end
-
-      def POP.session(host,options={},&block)
-        POP.connect(host,options) do |sess|
-          block.call(sess) if block
-          sess.finish
-        end
-
-        return nil
-      end
-    end
-  end
-end
+require 'ronin/net/extensions/pop3/net'

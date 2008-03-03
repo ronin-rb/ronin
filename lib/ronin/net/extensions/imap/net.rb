@@ -21,20 +21,48 @@
 #++
 #
 
-require 'ronin/net/extensions/imap'
+require 'ronin/net/imap'
 
-module Ronin
-  module Net
-    module IMAP
-      DEFAULT_PORT = 143 # Default imap port
+require 'net/imap'
 
-      def IMAP.default_port
-        @@imap_default_port ||= DEFAULT_PORT
-      end
+module Net
+  def Net.imap_connect(host,options={},&block)
+    port = (options[:port] || Ronin::Net::IMAP.default_port)
+    certs = options[:certs]
+    auth = options[:auth]
+    user = options[:user]
+    passwd = options[:passwd]
 
-      def IMAP.default_port=(port)
-        @@imap_default_port = port
+    if options[:ssl]
+      ssl = true
+      ssl_certs = options[:ssl][:certs]
+      ssl_verify = options[:ssl][:verify]
+    else
+      ssl = false
+      ssl_verify = false
+    end
+
+    sess = Net::IMAP.new(host,port,ssl,ssl_certs,ssl_verify)
+
+    if user
+      if auth==:cram_md5
+        sess.authenticate('CRAM-MD5',user,passwd)
+      else
+        sess.authenticate('LOGIN',user,passwd)
       end
     end
+
+    block.call(sess) if block
+    return sess
+  end
+
+  def Net.imap_session(host,options={},&block)
+    Net.imap_connect(host,options) do |sess|
+      block.call(sess) if block
+      sess.close
+      sess.logout
+    end
+
+    return nil
   end
 end

@@ -21,20 +21,4 @@
 #++
 #
 
-require 'ronin/net/extensions/imap'
-
-module Ronin
-  module Net
-    module IMAP
-      DEFAULT_PORT = 143 # Default imap port
-
-      def IMAP.default_port
-        @@imap_default_port ||= DEFAULT_PORT
-      end
-
-      def IMAP.default_port=(port)
-        @@imap_default_port = port
-      end
-    end
-  end
-end
+require 'ronin/net/extensions/tcp/net'

@@ -23,3 +23,4 @@
 
 require 'ronin/net/smtp/email'
 require 'ronin/net/smtp/smtp'
+require 'ronin/net/extensions/smtp'

@@ -21,20 +21,36 @@
 #++
 #
 
-require 'ronin/net/extensions/imap'
+require 'ronin/net/smtp/email'
 
-module Ronin
-  module Net
-    module IMAP
-      DEFAULT_PORT = 143 # Default imap port
+require 'net/smtp'
 
-      def IMAP.default_port
-        @@imap_default_port ||= DEFAULT_PORT
-      end
+module Net
+  def Net.smtp_message(options={},&block)
+    Ronin::SMTP::Email.new(options,&block).to_s
+  end
 
-      def IMAP.default_port=(port)
-        @@imap_default_port = port
-      end
+  def Net.smtp_connect(host,options={},&block)
+    port = (options[:port] || Net::SMTP.default_port)
+
+    hello = options[:hello]
+
+    login = options[:login]
+    user = options[:user]
+    passwd = options[:passwd]
+
+    sess = Net::SMTP.start(host,port,hello,user,passwd,login)
+
+    block.call(sess) if block
+    return sess
+  end
+
+  def Net.smtp_session(host,options={},&block)
+    Net.smtp_connect(host,options) do |sess|
+      block.call(sess) if block
+      sess.close
     end
+
+    return nil
   end
 end

@@ -21,20 +21,24 @@
 #++
 #
 
-require 'ronin/net/extensions/imap'
+require 'ronin/net/extensions/smtp'
 
-module Ronin
-  module Net
-    module IMAP
-      DEFAULT_PORT = 143 # Default imap port
+module Net
+  def Net.esmtp_message(options={},&block)
+    Net.smtp_message(options,&block)
+  end
 
-      def IMAP.default_port
-        @@imap_default_port ||= DEFAULT_PORT
-      end
+  def Net.esmtp_connect(host,options={},&block)
+    Net.smtp_connect(host,options) do |sess|
+      sess.esmtp = true
+      block.call(sess)
+    end
+  end
 
-      def IMAP.default_port=(port)
-        @@imap_default_port = port
-      end
+  def Net.esmtp_session(host,options={},&block)
+    Net.smtp_session(host,options) do |sess|
+      sess.esmtp = true
+      block.call(sess)
     end
   end
 end
