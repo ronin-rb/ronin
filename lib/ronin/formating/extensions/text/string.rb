@@ -21,16 +21,47 @@
 #++
 #
 
+require 'ronin/text'
+
 class String
 
-  def rand_case(prob=0.5)
-    self.scan(/./m).map { |c|
+  def format_chars(options={},&block)
+    included = (options[:included] || Ronin::Text.all)
+    excluded = (options[:excluded] || [])
+
+    formatted = included - excluded
+
+    return self.scan(/./m).map { |c|
+      if formatted.include?(c)
+        block.call(c)
+      else
+        c
+      end
+    }.join
+  end
+
+  def format_bytes(options={},&block)
+    format_chars(options) do |c|
+      i = block.call(c[0])
+
+      if i.kind_of?(Integer)
+        i.chr
+      else
+        i.to_s
+      end
+    end
+  end
+
+  def rand_case(options={})
+    prob = (options[:probability] || 0.5)
+
+    format_chars(options) do |c|
       if rand < prob
         c.swapcase 
       else
         c
       end
-    }.join
+    end
   end
 
 end

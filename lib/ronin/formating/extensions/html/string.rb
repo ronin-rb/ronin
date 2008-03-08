@@ -21,50 +21,35 @@
 #++
 #
 
+require 'ronin/formating/extensions/text'
+
 require 'scanf'
+require 'cgi'
 
 class String
 
-  #
-  # Returns the HTML decimal encoded form of the string.
-  #
-  #   "hello".html_dec_encode # => "&#104;&#101;&#108;&#108;&#111;"
-  #
-  def html_dec_encode
-    output = ''
-
-    self.each_byte { |c| output+=sprintf("&#%d;",c) }
-    return output
+  def html_encode
+    CGI.escapeHTML(self)
   end
 
   #
   # Returns the HTML decimal decoded form of the string.
   #
-  #   "&#99;&#111;&#102;&#102;&#101;&#101;" # => "coffee"
+  #   "&lt;rock on&gt;".html_decode # => "<rock on>"
   #
-  def html_dec_decode
-    self.block_scanf('&#%d;') { |c| input+=c[0].chr }.join
+  #   "&#99;&#111;&#102;&#102;&#101;&#101;".html_decode # => "coffee"
+  #
+  def html_decode
+    CGI.unescapeHTML(self)
   end
 
   #
-  # Returns the HTML hexidecimal encoded form of the string.
+  # Returns the HTML decimal encoded form of the string.
   #
-  #   "hello" # => "&#68;&#65;&#6C;&#6C;&#6F;"
+  #   "hello".format_html # => "&#104;&#101;&#108;&#108;&#111;"
   #
-  def html_hex_encode
-    output = ''
-
-    self.each_byte { |c| output+=sprintf("&#%X;",c) }
-    return output
-  end
-
-  #
-  # Returns the HTML hexidecimal decoded form of the string.
-  #
-  #   "&#72;&#75;&#62;&#79;" # => "ruby"
-  #
-  def html_hex_decode
-    self.block_scanf('&#%X;') { |c| input+=c[0].chr }.join
+  def format_html(options={})
+    format_bytes(options) { |c| sprintf("&#%d;",c) }
   end
 
 end

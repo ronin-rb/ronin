@@ -22,6 +22,7 @@
 #
 
 require 'uri'
+require 'cgi'
 
 class String
 
@@ -41,6 +42,14 @@ class String
   #
   def uri_decode
     URI.decode(self)
+  end
+
+  def uri_escape
+    CGI.escape(self)
+  end
+
+  def uri_unescape
+    CGI.unescape(self)
   end
 
 end
