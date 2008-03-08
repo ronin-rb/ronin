@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/object_cache'
+require 'ronin/objects'
 require 'ronin/console'
 require 'ronin/arch'
 require 'ronin/platform'
@@ -30,29 +30,22 @@ require 'ronin/product'
 
 module Ronin
   #
-  # Load the object_cache from the given _path_.
+  # Load the objects from the given _path_.
   #
-  #   Ronin.load_object_cache # => ObjectCache
+  #   Ronin.load_objects # => Objects
   #
-  #   Ronin.load_object_cache("/path/to/cache") # => ObjectCache
+  #   Ronin.load_objects("/path/to/cache") # => Objects
   #
-  def Ronin.load_object_cache(path=ObjectCache::PATH)
-    @object_cache = ObjectCache.new(path)
+  def Ronin.load_objects(path=Objects::PATH)
+    Objects.load_cache(path)
   end
 
   #
-  # Returns true if object_cache is loaded, returns false otherwise.
-  #
-  def Ronin.object_cache_loaded?
-    !(@object_cache.nil?)
-  end
-
-  #
-  # Returns the current object-cache, or loads the default object-cache
+  # Returns the current object cache, or loads the default object cache
   # if not already loaded.
   #
-  def Ronin.object_cache
-    @object_cache = ObjectCache.new
+  def Ronin.objects
+    Objects.cache
   end
 
   #
@@ -61,45 +54,5 @@ module Ronin
   #
   def Ronin.console(script=nil,&block)
     Console.start(script,&block)
-  end
-
-  #
-  # Returns the Arch with the matching _name_.
-  #
-  #   Arch('i686') # => Arch
-  #
-  def Arch(name)
-    Arch.find_by_name(name) || Arch.builtin[name.to_s]
-  end
-
-  #
-  # Returns the Platform with the matching _os_ and the given _version_.
-  # If no platforms exist with the specified _os_ and given _version_, one
-  # will be created and returned.
-  #
-  #   Platform('Linux','2.6.22') # => Platform
-  #
-  def Platform(os,version=nil)
-    Platform.find_with_attributes(:os => os, :version => version).first || Platform.new(os,version)
-  end
-
-  #
-  # Returns the License with the matching _name_.
-  #
-  #   License('GPL-2') # => License
-  #
-  def License(name)
-    License.find_by_name(name) || License.builtin[name.to_s]
-  end
-
-  #
-  # Returns the Product with the matching _name_, _version_ and given
-  # _vendor_. If no products exist with the specified _name_, _version_
-  # and given _vendor_, one will be created and returned.
-  #
-  #   Product('vsftpd','2.0.5') # => Product
-  #
-  def Product(name,version,vendor=name)
-    Product.find_with_attributes(:name => name, :version => version, :vendor => vendor).first || Product.new(name,version,vendor)
   end
 end

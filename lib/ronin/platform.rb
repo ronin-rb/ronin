@@ -21,37 +21,18 @@
 #++
 #
 
-require 'og'
+require 'ronin/cacheable'
 
 module Ronin
   class Platform
 
+    include Cacheable
+
     # Name of the Operating System
-    attr_accessor :os, String
+    property :os, :string
 
     # Version of the Operating System
-    attr_accessor :version, String
-
-    #
-    # Creates a new Platform object with the specified _os_ and the given
-    # _version_. If _block_ is given, it will be passed the newly created
-    # Platform object.
-    #
-    def initialize(os,version=nil,&block)
-      @os = os
-      @version = version
-
-      block.call(self) if block
-    end
-
-    #
-    # Returns true if the Platform has the same os and version as the
-    # _other_ platform, returns false otherwise.
-    #
-    def ==(other)
-      return false unless @os==other.os
-      return @version==other.version
-    end
+    property :version, :string
 
     #
     # Returns the String form of the Platform.
@@ -73,7 +54,7 @@ module Ronin
     #
     #   Platform.namify('linux') # => "Linux"
     #
-    #   Context.namify('sun solaris') # => "Sun Solaris"
+    #   Platform.namify('sun solaris') # => "Sun Solaris"
     #
     def Platform.namify(name)
       name.to_s.split.map { |word| word.capitalize }.join(' ')

@@ -21,11 +21,9 @@
 #++
 #
 
-require 'ronin/object_cache'
+require 'ronin/cacheable'
 require 'ronin/extensions/meta'
 
-require 'og'
-require 'og/model/taggable'
 require 'rexml/document'
   
 class Object
@@ -36,36 +34,16 @@ class Object
     # contextify the class
     contextify(name)
 
+    include Ronin::Cacheable
     include Ronin::Cache::ObjectContext
 
-    # make the class taggable
-    include Taggable
-
     # the path of the object context file
-    attr_accessor :object_path, String
+    property :object_path, :string
 
-    before %{
-      path = res[res.fields.index('object_path')]
-      if path
-        load_object(path)
-
-        @oid = res[res.fields.index('oid')]
-        return
-      end
-    }, :on => :og_read
-
-    if Ronin.object_cache_loaded?
-      # manage classes after the object cache has been setup
-      Ronin.object_cache.manage(self)
-    end
-
-    meta_def(:create_object) do |path,*args|
+    meta_def(:create_object) do |path|
       path = File.expand_path(path)
 
-      new_obj = self.new(*args)
-      new_obj.load_object(path)
-
-      return new_obj
+      return self.new.load_object(path)
     end
 
     class_def(:load_object) do |path|

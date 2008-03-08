@@ -21,20 +21,22 @@
 #++
 #
 
-require 'og'
+require 'ronin/cacheable'
 
 module Ronin
   module Cache
     class ObjectFile
 
+      include Cacheable
+
       # Path to an object-context file.
-      attr_reader :path, String
+      property :path, :string
 
       # Modification time of the file
-      attr_reader :mtime, Time
+      property :mtime, :datetime
 
       # Object-contexts found within the file
-      attr_reader :contexts, Array
+      property :contexts, :array
 
       #
       # Creates a new ObjectFile object with the specified _path_ and the

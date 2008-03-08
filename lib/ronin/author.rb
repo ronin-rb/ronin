@@ -21,39 +21,42 @@
 #++
 #
 
-require 'og'
+require 'ronin/cacheable'
+
 require 'rexml/document'
 require 'uri'
 
 module Ronin
   class Author
 
+    include Cacheable
+
     # Anonymouse author name.
     ANONYMOUSE = 'anonymous'
 
     # Name of author
-    attr_reader :name, String
+    property :name, :string
 
     # Author's associated group
-    attr_accessor :organization, String
+    property :organization, :string
 
     # Author's PGP signature
-    attr_accessor :pgp_signature, String
+    property :pgp_signature, :string
 
     # Author's
-    attr_accessor :address, String
+    property :address, :string
 
     # Author's phone
-    attr_accessor :phone, String
+    property :phone, :string
 
     # Author's email
-    attr_accessor :email, String
+    property :email, :string
 
     # Author's site
-    attr_accessor :site, String
+    property :site, :string
 
     # Author's biography
-    attr_accessor :biography, String
+    property :biography, :text
 
     #
     # Creates a new Author object with the given _name_ and _info_. The

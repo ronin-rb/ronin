@@ -21,56 +21,27 @@
 #++
 #
 
-require 'og'
+require 'ronin/cacheable'
 
 module Ronin
   class License
 
+    include Cacheable
+
     # License name
-    attr_accessor :name, String, :unqiue => true
+    property :name, :string
 
     # Description of license
-    attr_accessor :description, String
+    property :description, :text
 
     # URL of the License document
-    attr_accessor :url, String
-
-    #
-    # Creates a new License object with the specified _name_ and the given
-    # _description_ and _url_. If _block_ is given, it will be passed
-    # the newly created License object.
-    #
-    def initialize(name,description=nil,url=nil,&block)
-      @name = name
-      @description = description
-      @url = url
-
-      block.call(self) if block
-    end
-
-    #
-    # Returns +true+ if the license has the same name, description,
-    # and url as the _other_ license, returns +false+ otherwise.
-    #
-    def ==(other)
-      return false unless @name==other.name
-      return false unless @description==other.description
-      return false unless @url==other.url
-      return true
-    end
+    property :url, :string
 
     #
     # Returns the name of the license as a String.
     #
     def to_s
       @name.to_s
-    end
-
-    #
-    # Provides the builtin License objects.
-    #
-    def License.builtin
-      @@builtin ||= {}
     end
 
     #
@@ -82,16 +53,15 @@ module Ronin
     # <tt>:description</tt>:: The description of the license.
     # <tt>:url</tt>:: The URL to the license.
     #
-    def License.define(name,options={},&block)
+    def License.define(name,options={})
       name = name.to_s
+      description = options[:description].to_s
+      url = options[:url].to_s
 
-      return License.builtin[name] = License.new(name,options[:description],options[:url],&block)
+      return License.find_or_create(:name => name,
+                                    :description => description,
+                                    :url => url)
     end
-
-    # GNU Public Licenses
-    define 'GPL-2', :description => 'GNU Public License v2.0', :url => 'http://www.gnu.org/licenses/gpl-2.0.txt'
-    define 'GPL-3', :description => 'GNU Public License v3.0', :url => 'http://www.gnu.org/licenses/gpl-3.0.txt'
-    define 'LGPL-3', :description => 'GNU Lesser General Public License v3.0', :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
 
     # Creative Commons Licenses
     define 'CC by', :description => 'Creative Commons Attribution v3.0 License', :url => 'http://creativecommons.org/licenses/by/3.0/'
@@ -100,6 +70,11 @@ module Ronin
     define 'CC by-nc', :description => 'Creative Commons Attribution-Noncommercial v3.0 License', :url => 'http://creativecommons.org/licenses/by-nc/3.0/'
     define 'CC by-nc-sa', :description => 'Creative Commons Attribution-Noncommercial-Share Alike v3.0 License', :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/'
     define 'CC by-nc-nd', :description => 'Creative Commons Attribution-Noncommercial-No Derivative Works v3.0 License', :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/'
+
+    # GNU Public Licenses
+    define 'GPL-2', :description => 'GNU Public License v2.0', :url => 'http://www.gnu.org/licenses/gpl-2.0.txt'
+    define 'GPL-3', :description => 'GNU Public License v3.0', :url => 'http://www.gnu.org/licenses/gpl-3.0.txt'
+    define 'LGPL-3', :description => 'GNU Lesser General Public License v3.0', :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
 
   end
 end

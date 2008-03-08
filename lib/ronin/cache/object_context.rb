@@ -26,8 +26,6 @@ require 'ronin/cache/object_file'
 require 'ronin/cache/extensions/object_context'
 require 'ronin/ronin'
 
-require 'og'
-require 'og/model/taggable'
 require 'rexml/document'
 
 module Ronin

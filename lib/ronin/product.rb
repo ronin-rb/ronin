@@ -21,44 +21,23 @@
 #++
 #
 
+require 'ronin/cacheable'
+
 require 'rexml/document'
-require 'og'
 
 module Ronin
   class Product
 
+    include Cacheable
+
     # Name
-    attr_accessor :name, String
+    property :name, :string
 
     # Version
-    attr_accessor :version, String
+    property :version, :string
 
     # Venders
-    attr_accessor :vendor, String
-
-    #
-    # Creates a new Product with the specified _name_ and _version_,
-    # and the given _vendor_. The _vendor_ defaults to the _name_.
-    # If _block_ is given, it will be passed the newly created Product
-    # object.
-    #
-    def initialize(name,version,vendor=name,&block)
-      @name = name.to_s
-      @version = version.to_s
-      @vendor = vendor.to_s
-
-      block.call(self) if block
-    end
-
-    #
-    # Returns true if the product has the same name, version and vendor
-    # of the _other_ product, returns false otherwise.
-    #
-    def ==(other)
-      return false unless @name==other.name
-      return false unless @version==other.version
-      return @vendor==other.vendor
-    end
+    property :vendor, :string
 
     #
     # Returns the String form of the product.
