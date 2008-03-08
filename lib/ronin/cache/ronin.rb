@@ -21,24 +21,10 @@
 #++
 #
 
-require 'ronin/cache/repository'
+require 'ronin/cache/cache'
 require 'ronin/cache/object_context'
 
 module Ronin
-  #
-  # See Cache::Repository.extensions.
-  #
-  def Ronin.extensions
-    Cache::Repository.extensions
-  end
-
-  #
-  # See Cache::Repository.extension.
-  #
-  def Ronin.extension(name,&block)
-    Cache::Repository.extension(name,&block)
-  end
-
   #
   # See Cache::ObjectContext.load_objects.
   #
@@ -56,9 +42,9 @@ module Ronin
   protected
 
   #
-  # Provides transparent access to extensions.
+  # Provides transparent access to Cache.extension.
   #
-  #   Ronin.shellcode # => Extension
+  #   Ronin.shellcode # => Cache::Extension
   #
   #   Ronin.shellcode do |ext|
   #     ...
@@ -68,9 +54,9 @@ module Ronin
     if args.length==0
       name = sym.id2name
 
-      # return an extension if present
-      if Cache::Repository.has_extension?(name)
-        return Cache::Repository.extension(name,&block)
+      # return an extension if available
+      if Cache.has_extension?(name)
+        return Cache.extension(name,&block)
       end
     end
 

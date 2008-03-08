@@ -22,6 +22,7 @@
 #
 
 require 'ronin/cache/context'
+require 'ronin/cache/extension_cache'
 require 'ronin/cache/repository'
 
 module Ronin
@@ -61,6 +62,9 @@ module Ronin
         @paths = []
         @dependencies = {}
 
+        @setup = false
+        @toredown = true
+
         @setup_blocks = []
         @action_blocks = {}
         @teardown_blocks = []
@@ -69,11 +73,107 @@ module Ronin
       end
 
       #
+      # Returns the names of all extensions within the repository cache.
+      #
+      def Extension.names
+        Repository.cache.repositories.map { |repo| repo.extensions }.flatten.uniq
+      end
+
+      #
+      # Returns +true+ if an extension exists with the specified _name_,
+      # returns +false+ otherwise.
+      #
+      def Extension.exists?(name)
+        Extension.names.include?(name.to_s)
+      end
+
+      #
+      # Iterates through the extension names passing each to the specified
+      # _block_.
+      #
+      #   Extension.each_name do |name|
+      #     puts name
+      #   end
+      #
+      def Extension.each_name(&block)
+        Extension.names.each(&block)
+      end
+
+      #
+      # Returns the paths of all extensions.
+      #
+      def Extension.paths
+        paths = []
+
+        Repository.each { |repo| paths += repo.extension_paths }
+
+        return paths
+      end
+
+      #
+      # Iterates over the paths of all extensions with the specified
+      # _name_, passing each to the specified _block_.
+      #
+      def Extension.each_path(&block)
+        Extension.paths.each(&block)
+      end
+
+      #
+      # Returns the paths of all extensions with the specified _name_.
+      #
+      def Extension.paths_for(name)
+        Repository.with_extension(name).map do |repo|
+          File.expand_path(File.join(repo.path,name))
+        end
+      end
+
+      #
+      # Iterates over the paths of all extensions with the specified
+      # _name_, passing each to the specified _block_.
+      #
+      def Extension.each_path_for(name,&block)
+        Extension.paths_for(name).each(&block)
+      end
+
+      #
+      # Adds the lib/ directory from within the specified _path_ to
+      # $LOAD_PATH, only if the lib/ directory exists within the
+      # specified _path_ and the directory has not already been
+      # added to $LOAD_PATH. If a _block_ is given, it will be called
+      # after $LOAD_PATH may or maynot have been modified.
+      #
+      def Extension.load_path(path,&block)
+        lib_dir = File.expand_path(File.join(path,LIB_DIR))
+
+        if File.directory?(lib_dir)
+          $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
+        end
+
+        block.call if block
+        return nil
+      end
+
+      #
+      # Similar to load_path, but adds the lib/ directories from the
+      # paths of all extensions with the specified _name_ to $LOAD_PATH.
+      # If a _block_ is given, it will be called after $LOAD_PATH may or
+      # maynot have been modified.
+      #
+      def Extension.load_paths(name,&block)
+        Extension.each_path_for(name) do |path|
+          Extension.load_path(path)
+        end
+
+        block.call if block
+        return nil
+      end
+
+      #
       # Loads an extension at the specified _path_ into a newly created
       # Extension object. If a _block_ is given, it will be passed the
       # newly created Extension object.
       #
-      def Extension.load_extension(path,&block)
+      def Extension.load_from(path,&block)
         Extension.new(File.basename(name)) do |ext|
           ext.include_path(path,&block)
         end
@@ -83,12 +183,12 @@ module Ronin
       # Loads an extension at the specified _path_ into a newly created
       # Extension object and then runs it with the specified _block_.
       #
-      #   Extension.run_extension('lab/exploits') do |ext|
+      #   Extension.run_from('lab/exploits') do |ext|
       #     puts ext.search('apache')
       #   end
       #
-      def Extension.run_extension(path,&block)
-        Extension.load_extension(path) do |ext|
+      def Extension.run_from(path,&block)
+        Extension.load_from(path) do |ext|
           ext.run(&block)
         end
       end
@@ -98,11 +198,11 @@ module Ronin
       # Extension object. If a _block_ is given, it will be passed the
       # newly created Extension object.
       #
-      #   Extension.load_extensions('shellcode') do |ext|
+      #   Extension.load('shellcode') do |ext|
       #     puts ext.search('moon_lander')
       #   end
       #
-      def Extension.load_extensions(name,&block)
+      def Extension.load(name,&block)
         Extension.new(name) do |ext|
           ext.include(name,&block)
         end
@@ -112,14 +212,38 @@ module Ronin
       # Loads all extensions with the specified _name_ into a newly created
       # Extension object and then runs it with the specified _block_.
       #
-      #   Extension.run_extensions('exploits') do |ext|
-      #     puts ext.search('apache')
+      #   Extension.run('exploits') do |ext|
+      #     puts ext.search(:product => 'Apache')
       #   end
       #
-      def Extension.run_extensions(name,&block)
-        Extension.load_extensions(name) do |ext|
+      def Extension.run(name,&block)
+        Extension.load(name) do |ext|
           ext.run(&block)
         end
+      end
+
+      #
+      # Returns the current ExtensionCache.
+      #
+      def Extension.cache
+        @@cache ||= ExtensionCache.new
+      end
+
+      #
+      # Returns the extension with the specified _name_ from the extension
+      # cache. If no extension exists with the specified _name_ an
+      # ExtensionNotFound exception will be raised.
+      #
+      def Extension.[](name)
+        Extension.cache[name]
+      end
+
+      #
+      # Returns +true+ if the extension with the specified _name_ has been
+      # loaded into the extension cache, returns +false+ otherwise.
+      #
+      def Extension.loaded?(name)
+        Extension.cache.has_extension?(name)
       end
 
       #
@@ -128,8 +252,10 @@ module Ronin
       # extension after the extensions of _name_ have been included.
       #
       def include(name,&block)
-        Repository.each_path_for_extension(name) do |path|
-          include_path(path)
+        Extension.load_paths(name) do
+          Extension.each_path_for(name) do |path|
+            include_path(path)
+          end
         end
 
         block.call(self) if block
@@ -148,21 +274,18 @@ module Ronin
           raise(ExtensionNotFound,"extension #{path.dump} is not a valid extension",caller)
         end
 
-        # add lib directory to the $LOAD_PATH
-        lib_dir = File.expand_path(File.join(path,LIB_DIR))
-        if File.directory?(lib_dir)
-          $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
-        end
-
         # add to the search paths
         @paths << path
 
-        extension_file = File.join(path,EXTENSION_FILE)
-        if File.file?(extension_file)
-          # instance_eval the extension block
-          context_block = Extension.load_context_block(extension_file)
+        Extension.load_path(path) do
+          extension_file = File.join(path,EXTENSION_FILE)
 
-          instance_eval(&context_block) if context_block
+          if File.file?(extension_file)
+            # instance_eval the extension block
+            context_block = Extension.load_context_block(extension_file)
+
+            instance_eval(&context_block) if context_block
+          end
         end
 
         block.call(self) if block
@@ -179,11 +302,11 @@ module Ronin
       def depend(name)
         name = name.to_s
 
-        unless Repository.has_extension?(name)
+        unless Extension.exists?(name)
           raise(ExtensionNotFound,"extension #{name.dump} is not in the repository cache",caller)
         end
 
-        @dependencies[name] ||= Repository.extension(name)
+        @dependencies[name] ||= Extension.load(name)
         return self
       end
 
@@ -265,16 +388,29 @@ module Ronin
       #   end
       #
       def perform_setup(&block)
-        distribute(:bottom_up => true) do |ext|
-          ext.instance_eval do
-            @setup_blocks.each do |setup_block|
-              setup_block.call(self) if setup_block
+        unless @setup
+          distribute(:bottom_up => true) do |ext|
+            ext.instance_eval do
+              @setup_blocks.each do |setup_block|
+                setup_block.call(self) if setup_block
+              end
             end
           end
+
+          @setup = true
+          @toredown = false
         end
 
         block.call(self) if block
         return self
+      end
+
+      #
+      # Returns +true+ if the extension has been setup, returns +false+
+      # otherwise.
+      #
+      def was_setup?
+        @setup
       end
 
       #
@@ -291,15 +427,28 @@ module Ronin
       def perform_teardown(&block)
         block.call(self) if block
 
-        distribute(:top_down => true) do |ext|
-          ext.instance_eval do
-            @teardown_blocks.each do |teardown_block|
-              teardown_block.call(self) if teardown_block
+        unless @toredown
+          distribute(:top_down => true) do |ext|
+            ext.instance_eval do
+              @teardown_blocks.each do |teardown_block|
+                teardown_block.call(self) if teardown_block
+              end
             end
           end
+
+          @toredown = true
+          @setup = false
         end
 
         return self
+      end
+
+      #
+      # Returns +true+ if the extension has been toredown, returns +false+
+      # otherwise.
+      #
+      def was_toredown?
+        @toredown
       end
 
       #
