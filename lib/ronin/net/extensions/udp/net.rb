@@ -21,6 +21,8 @@
 #++
 #
 
+require 'socket'
+
 module Net
   #
   # Creates a new UDPSocket object with the specified _rhost_, _rport_

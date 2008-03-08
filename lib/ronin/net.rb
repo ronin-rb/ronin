@@ -23,8 +23,9 @@
 
 require 'ronin/net/tcp'
 require 'ronin/net/udp'
-require 'ronin/net/telnet'
 require 'ronin/net/smtp'
 require 'ronin/net/esmtp'
-require 'ronin/net/pop'
+require 'ronin/net/pop3'
 require 'ronin/net/imap'
+require 'ronin/net/telnet'
+require 'ronin/net/http'

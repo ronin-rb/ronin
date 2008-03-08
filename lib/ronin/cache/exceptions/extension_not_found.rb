@@ -23,7 +23,7 @@
 
 module Ronin
   module Cache
-    class ApplicationNotFound < RuntimeError
+    class ExtensionNotFound < RuntimeError
     end
   end
 end

@@ -59,7 +59,7 @@ module Ronin
           path = args.first
 
           Cache::Repository.save_cache do
-            Cache::Repository.add(path,options.media,options.uri) do |repo|
+            Cache::Repository.add(path,opts.settings.media,opts.settings.uri) do |repo|
               puts "Repository #{repo} added."
             end
           end

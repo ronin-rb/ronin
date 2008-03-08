@@ -117,7 +117,7 @@ module Ronin
     #   Web.agent(:user_agent_alias => 'Linux Mozilla')
     #   Web.agent(:user_agent => 'wooden pants')
     #
-    def Web.agent(options={})
+    def Web.agent(options={},&block)
       agent = WWW::Mechanize.new
 
       if options[:user_agent_alias]
@@ -133,6 +133,7 @@ module Ronin
         agent.set_proxy(proxy[:host],proxy[:port],proxy[:user],proxy[:pass])
       end
 
+      block.call(agent) if block
       return agent
     end
 

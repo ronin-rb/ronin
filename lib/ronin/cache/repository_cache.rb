@@ -62,14 +62,14 @@ module Ronin
       end
 
       #
-      # Returns the names of the Repositories contained in the cache.
+      # Returns the names of the repositories within the cache.
       #
       def names
         keys
       end
 
       #
-      # Returns an +Array+ of the cached Repositories.
+      # Returns the repositories within the cache.
       #
       def repositories
         values

@@ -51,7 +51,7 @@ module Ronin
           end
 
           Cache::Repository.save_cache do
-            Cache::Repository.install(:uri => args.first, :media => options.media) do |repo|
+            Cache::Repository.install(:uri => args.first, :media => opts.settings.media) do |repo|
               puts "Repository #{repo} has been installed."
             end
           end
