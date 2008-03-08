@@ -84,7 +84,7 @@ module Ronin
       end
 
       #
-      # Returns the current Repository Cache, or loads the default Cache
+      # Returns the current RepositoryCache, or loads the default Cache
       # if not already loaded.
       #
       def Repository.cache
@@ -214,25 +214,6 @@ module Ronin
       end
 
       #
-      # Returns the names of all extensions within the repository cache.
-      #
-      def Repository.extensions
-        Repository.cache.repositories.map { |repo| repo.extensions }.flatten.uniq
-      end
-
-      #
-      # Iterates through the extension names within the repository cache,
-      # passing each to the specified _block_.
-      #
-      #   Repository.each_extension do |name|
-      #     puts name
-      #   end
-      #
-      def Repository.each_extension(&block)
-        Repository.extension.each(&block)
-      end
-
-      #
       # Returns +true+ if the cache has the extension with the matching
       # _name_, returns +false+ otherwise.
       #
@@ -242,64 +223,6 @@ module Ronin
         end
 
         return false
-      end
-
-      #
-      # Returns the paths of all extensions within the repository cache.
-      #
-      def Repository.extension_paths
-        paths = []
-
-        Repository.each { |repo| paths += repo.extension_paths }
-
-        return paths
-      end
-
-      #
-      # Iterates over the paths of all extensions with the specified
-      # _name_ within the repository cache, passing each to the specified
-      # _block_.
-      #
-      def Repository.each_extension_path(&block)
-        Repository.extension_paths.each(&block)
-      end
-
-      #
-      # Returns the paths of all extensions with the specified _name_
-      # within the repository cache.
-      #
-      def Repository.paths_for_extension(name)
-        Repository.with_extension(name).map { |repo| File.join(repo.path,name) }
-      end
-
-      #
-      # Iterates over the paths of all extensions with the specified
-      # _name_ within the repository cache, passing each to the specified
-      # _block_.
-      #
-      def Repository.each_path_for_extension(name,&block)
-        Repository.paths_for_extension(name).each(&block)
-      end
-
-      #
-      # Loads all similar extensions with the specified _name_ within the
-      # repository cache, into one single Extension object. If a _block_
-      # is given, it will be passed the newly created Extension object.
-      #
-      #   Repository.extension('shellcode') # => Extension
-      #
-      #   Repository.extension('shellcode') do |ext|
-      #     return ext.search('bindshell')
-      #   end
-      #
-      def Repository.extension(name,&block)
-        name = name.to_s
-
-        unless Repository.has_extension?(name)
-          raise(ExtensionNotFound,"extension #{name.dump} does not exist",caller)
-        end
-
-        return Extension.load_extensions(name,&block)
       end
 
       #
