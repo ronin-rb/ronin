@@ -37,6 +37,26 @@ module Ronin
           @params ||= {}
         end
 
+        def parameter(name,options={})
+          name = name.to_sym
+
+          # add the parameter to the class params list
+          params[name] = ClassParam.new(name,options[:description],options[:value])
+
+          # define the reader class method for the parameter
+          meta_def(name) do
+            params[name].value
+          end
+
+          # define the writer class method for the parameter
+          meta_def("#{name}=") do |value|
+            params[name].value = value
+          end
+
+          # define the getter/setter instance methods for the parameter
+          attr_accessor(name)
+        end
+
         #
         # Returns the class parameter with the specified _name_. If no
         # such class parameter exists, a ParamNotFound exception will be
