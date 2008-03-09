@@ -17,8 +17,6 @@ lib/ronin/parameters.rb
 lib/ronin/parameters/exceptions.rb
 lib/ronin/parameters/exceptions/missing_param.rb
 lib/ronin/parameters/exceptions/param_not_found.rb
-lib/ronin/parameters/extensions.rb
-lib/ronin/parameters/extensions/object.rb
 lib/ronin/parameters/class_param.rb
 lib/ronin/parameters/instance_param.rb
 lib/ronin/parameters/param.rb
