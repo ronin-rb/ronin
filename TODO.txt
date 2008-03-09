@@ -4,9 +4,7 @@
 
 1. Finish Documenting code.
 2. Finish ronin/net/http.rb.
-3. Add accompanying ronin/session/ modules for ronin/net/ modules.
-4. Test Og 0.50.0.
-5. Redesign Cache::ObjectContext.
+3. Redesign Cache::ObjectContext.
 
 === FEATURES:
 
