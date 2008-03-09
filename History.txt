@@ -1,4 +1,48 @@
-== 0.1.0 / 2007-12-23
+== 0.0.9 / 2008-02-05
 
- * Initial release.
+* Initial release.
+* Supports installing/updating/uninstalling of Repositories.
+  * Supports accessing various Repository types
+    (using the R'epertoire library):
+    * CVS
+    * Darcs
+    * Subversion (SVN)
+    * Rsync
+* Allows for the loading of Extensions from one or more Repositories.
+* Provides a variety of ways to access an Extension:
+  * Load an Extension as an object.
+
+      myext = Ronin::Cache::Repository['myext']
+      myext.something
+
+    Or more simply...
+
+      Ronin.myext do |myext|
+        myext.something
+      end
+
+  * Require code from within an Extension.
+
+      ronin_require 'just/like/before'
+
+* Provides a persistant Object Cache using Og (Object Graph).
+* Provides convievance methods for:
+  * Formating data:
+    * Binary
+    * HTTP
+    * URIs
+    * HTML
+  * Networking:
+    * TCP
+    * UDP
+    * SMTP
+    * POP
+    * Imap
+    * Telnet
+    * HTTP
+  * Web access (utilizing Mechanize and Hpricot).
+* Provides an IRB styled console with:
+  * Tab-completion enabled.
+  * Auto-indentation enabled.
+  * Pretty-Print loaded.
 
