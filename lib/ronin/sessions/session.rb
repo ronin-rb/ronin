@@ -21,12 +21,24 @@
 #++
 #
 
-require 'ronin/sessions/session'
-require 'ronin/sessions/tcp'
-require 'ronin/sessions/udp'
-require 'ronin/sessions/smtp'
-require 'ronin/sessions/esmtp'
-require 'ronin/sessions/pop3'
-require 'ronin/sessions/imap'
-require 'ronin/sessions/telnet'
-require 'ronin/sessions/web'
+require 'ronin/parameters'
+
+module Ronin
+  module Sessions
+    module Session
+      def Session.setup_class(base,&block)
+        base.class_eval { include Parameters }
+        base.class_eval(&block)
+
+        return base
+      end
+
+      def Session.setup_object(obj,&block)
+        obj.extend(Parameters)
+        obj.instance_eval(&block)
+
+        return obj
+      end
+    end
+  end
+end

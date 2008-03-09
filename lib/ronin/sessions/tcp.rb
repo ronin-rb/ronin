@@ -21,34 +21,28 @@
 #++
 #
 
-require 'ronin/net/tcp'
-require 'ronin/parameters'
-require 'ronin/parameters/exceptions/param_not_found'
+require 'ronin/sessions/session'
+require 'ronin/network/tcp'
 
 module Ronin
   module Sessions
     module TCP
-      include Net::TCP
-      include Parameters
+      include Session
+
+      TCP_SESSION = proc do
+        parameter :lhost, :description => 'TCP local host'
+        parameter :lport, :description => 'TCP local port'
+
+        parameter :rhost, :description => 'TCP remote host'
+        parameter :rport, :description => 'TCP remote port'
+      end
 
       def self.included(base)
-        base.module_eval do
-          parameter :lhost, :description => 'TCP local host'
-          parameter :lport, :description => 'TCP local port'
-
-          parameter :rhost, :description => 'TCP remote host'
-          parameter :rport, :description => 'TCP remote port'
-        end
+        Session.setup_class(base,&TCP_SESSION)
       end
 
       def self.extended(obj)
-        obj.instance_eval do
-          parameter :lhost, :description => 'TCP local host'
-          parameter :lport, :description => 'TCP local port'
-
-          parameter :rhost, :description => 'TCP remote host'
-          parameter :rport, :description => 'TCP remote port'
-        end
+        Session.setup_object(obj,&TCP_SESSION)
       end
 
       protected
@@ -62,7 +56,7 @@ module Ronin
           raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
         end
 
-        return TCP.connect(@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.tcp_connect(@rhost,@rport,@lhost,@lport,&block)
       end
 
       def tcp_connect_and_recv(&block)
@@ -74,7 +68,7 @@ module Ronin
           raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
         end
 
-        return TCP.connect_and_recv(@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.tcp_connect_and_recv(@rhost,@rport,@lhost,@lport,&block)
       end
 
       def tcp_connect_and_send(data,&block)
@@ -86,7 +80,7 @@ module Ronin
           raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
         end
 
-        return TCP.connect_and_send(data,@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.tcp_connect_and_send(data,@rhost,@rport,@lhost,@lport,&block)
       end
 
       def tcp_session(&block)
@@ -98,7 +92,19 @@ module Ronin
           raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
         end
 
-        return TCP.session(@rhost,@rport,@lhost,@lport,&block)
+        return Net.tcp_session(@rhost,@rport,@lhost,@lport,&block)
+      end
+
+      def tcp_banner(&block)
+        unless @rhost
+          raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
+        end
+
+        unless @rport
+          raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
+        end
+
+        return ::Net.tcp_banner(@rhost,@rport,@lhost,@lport,&block)
       end
     end
   end

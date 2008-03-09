@@ -21,34 +21,28 @@
 #++
 #
 
-require 'ronin/net/udp'
-require 'ronin/parameters'
-require 'ronin/parameters/exceptions/param_not_found'
+require 'ronin/sessions/session'
+require 'ronin/network/udp'
 
 module Ronin
   module Sessions
     module UDP
-      include Net::UDP
       include Parameters
 
-      def self.included(base)
-        base.module_eval do
-          parameter :lhost, :description => 'local host'
-          parameter :lport, :description => 'local port'
+      UDP_SESSION = proc do
+        parameter :lhost, :description => 'local host'
+        parameter :lport, :description => 'local port'
 
-          parameter :rhost, :description => 'remote host'
-          parameter :rport, :description => 'remote port'
-        end
+        parameter :rhost, :description => 'remote host'
+        parameter :rport, :description => 'remote port'
+      end
+
+      def self.included(base)
+        Session.setup_class(base,&UDP_SESSION)
       end
 
       def self.extended(obj)
-        obj.instance_eval do
-          parameter :lhost, :description => 'local host'
-          parameter :lport, :description => 'local port'
-
-          parameter :rhost, :description => 'remote host'
-          parameter :rport, :description => 'remote port'
-        end
+        Session.setup_object(obj,&UDP_SESSION)
       end
 
       protected
@@ -62,7 +56,7 @@ module Ronin
           raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
         end
 
-        return UDP.connect(@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.udp_connect(@rhost,@rport,@lhost,@lport,&block)
       end
 
       def udp_connect_and_recv(&block)
@@ -74,7 +68,7 @@ module Ronin
           raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
         end
 
-        return UDP.connect_and_recv(@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.udp_connect_and_recv(@rhost,@rport,@lhost,@lport,&block)
       end
 
       def udp_connect_and_send(data,&block)
@@ -86,7 +80,7 @@ module Ronin
           raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
         end
 
-        return UDP.connect_and_send(data,@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.udp_connect_and_send(data,@rhost,@rport,@lhost,@lport,&block)
       end
 
       def udp_session(&block)
@@ -98,7 +92,7 @@ module Ronin
           raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
         end
 
-        return UDP.session(@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.udp_session(@rhost,@rport,@lhost,@lport,&block)
       end
     end
   end

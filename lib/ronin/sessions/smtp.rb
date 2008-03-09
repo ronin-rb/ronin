@@ -22,61 +22,54 @@
 #
 
 require 'ronin/sessions/session'
-require 'ronin/web'
+require 'ronin/network/smtp'
 
 module Ronin
   module Sessions
-    module Web
+    module SMTP
       include Session
 
-      WEB_SESSION = proc do
-        parameter :web_proxy, :value => Ronin::Web.proxy, :description => 'Web Proxy'
-        parameter :web_user_agent, :value => Ronin::Web.user_agent, :description => 'Web User-Agent'
+      SMTP_SESSION = proc do
+        parameter :smtp_host, :description => 'SMTP host'
+        parameter :smtp_port, :description => 'SMTP port'
+
+        parameter :smtp_login, :description => 'SMTP login'
+        parameter :smtp_user, :description => 'SMTP user'
+        parameter :smtp_password, :description => 'SMTP password'
       end
 
       def self.included(base)
-        Session.setup_class(base,&WEB_SESSION)
+        Session.setup_class(base,&SMTP_SESSION)
       end
 
       def self.extended(obj)
-        Session.setup_object(obj,&WEB_SESSION)
+        Session.setup_object(obj,&SMTP_SESSION)
       end
 
       protected
 
-      def web_agent(options={},&block)
-        options[:proxy] ||= @web_proxy
-        options[:user_agent] ||= @web_user_agent
-
-        return Ronin::Web.agent(options,&block)
+      def smtp_message(options={},&block)
+        Network::SMTP.message(options,&block)
       end
 
-      def web_get(uri,options={},&block)
-        page = web_agent(options).get(uri)
+      def smtp_connect(options={},&block)
+        unless @smtp_host
+          raise(ParamNotFound,"Missing parameter #{describe_param(:smtp_host).dump}",caller)
+        end
 
-        block.call(page) if block
-        return page
+        options[:port] ||= @smtp_port
+        options[:login] ||= @smtp_login
+        options[:user] ||= @smtp_user
+        options[:password] ||= @smtp_password
+
+        return ::Net.smtp_connect(@smtp_host,options,&block)
       end
 
-      def web_get_body(uri,options={},&block)
-        body = web_agent(options).get(uri).body
-
-        block.call(body) if block
-        return body
-      end
-
-      def web_post(uri,options={},&block)
-        page = web_agent(options).post(uri)
-
-        block.call(page) if block
-        return page
-      end
-
-      def web_post_body(uri,options={},&block)
-        body = web_agent(options).post(uri).body
-
-        block.call(body) if block
-        return body
+      def smtp_session(options={},&block)
+        smtp_connect(options) do |sess|
+          block.call(sess) if block
+          sess.close
+        end
       end
     end
   end

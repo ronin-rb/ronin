@@ -22,61 +22,54 @@
 #
 
 require 'ronin/sessions/session'
-require 'ronin/web'
+require 'ronin/network/esmtp'
 
 module Ronin
   module Sessions
-    module Web
+    module SMTP
       include Session
 
-      WEB_SESSION = proc do
-        parameter :web_proxy, :value => Ronin::Web.proxy, :description => 'Web Proxy'
-        parameter :web_user_agent, :value => Ronin::Web.user_agent, :description => 'Web User-Agent'
+      ESMTP_SESSION = proc do
+        parameter :esmtp_host, :description => 'ESMTP host'
+        parameter :esmtp_port, :description => 'ESMTP port'
+
+        parameter :esmtp_login, :description => 'ESMTP login'
+        parameter :esmtp_user, :description => 'ESMTP user'
+        parameter :esmtp_password, :description => 'ESMTP password'
       end
 
       def self.included(base)
-        Session.setup_class(base,&WEB_SESSION)
+        Session.setup_class(base,&ESMTP_SESSION)
       end
 
       def self.extended(obj)
-        Session.setup_object(obj,&WEB_SESSION)
+        Session.setup_object(obj,&ESMTP_SESSION)
       end
 
       protected
 
-      def web_agent(options={},&block)
-        options[:proxy] ||= @web_proxy
-        options[:user_agent] ||= @web_user_agent
-
-        return Ronin::Web.agent(options,&block)
+      def esmtp_message(options={},&block)
+        Network::SMTP.message(options,&block)
       end
 
-      def web_get(uri,options={},&block)
-        page = web_agent(options).get(uri)
+      def esmtp_connect(options={},&block)
+        unless @esmtp_host
+          raise(ParamNotFound,"Missing parameter #{describe_param(:esmtp_host).dump}",caller)
+        end
 
-        block.call(page) if block
-        return page
+        options[:port] ||= @esmtp_port
+        options[:login] ||= @esmtp_login
+        options[:user] ||= @esmtp_user
+        options[:password] ||= @esmtp_password
+
+        return ::Net.esmtp_connect(@esmtp_host,options,&block)
       end
 
-      def web_get_body(uri,options={},&block)
-        body = web_agent(options).get(uri).body
-
-        block.call(body) if block
-        return body
-      end
-
-      def web_post(uri,options={},&block)
-        page = web_agent(options).post(uri)
-
-        block.call(page) if block
-        return page
-      end
-
-      def web_post_body(uri,options={},&block)
-        body = web_agent(options).post(uri).body
-
-        block.call(body) if block
-        return body
+      def esmtp_session(options={},&block)
+        esmtp_connect(options) do |sess|
+          block.call(sess) if block
+          sess.close
+        end
       end
     end
   end
