@@ -21,26 +21,36 @@
 #++
 #
 
-require 'ronin/cache/repository'
 require 'ronin/cache/extension'
 
 module Kernel
+  #
+  # Requires the specified _path_ from within the extensions which
+  # contain it.
+  #
   def ronin_require(path)
     if File.extname(path).empty?
       path += '.rb'
     end
 
-    paths = Ronin::Cache::Repository.extension_paths.map do |ext_path|
-      File.expand_path(File.join(ext_path,Ronin::Cache::Extension::LIB_DIR,path))
+    ext_paths = Ronin::Cache::Extension.paths.select do |ext_path|
+      File.file?(File.expand_path(File.join(ext_path,Ronin::Cache::Extension::LIB_DIR,path)))
     end
 
-    files = paths.select { |file| File.file?(file) }
+    ext_names = ext_paths.map { |ext_path| File.basename(ext_path) }.uniq
 
-    if files.empty?
+    if ext_names.empty?
       raise(LoadError,"no such file to load -- #{path}",caller)
     end
 
-    was_loaded = files.map { |file| require file }
+    ext_names.each do |name|
+      Ronin::Cache.extensions.load_extension(name)
+    end
+
+    was_loaded = ext_paths.map do |ext_path|
+      require File.expand_path(File.join(ext_path,Ronin::Cache::Extension::LIB_DIR,path))
+    end
+
     return was_loaded.include?(true)
   end
 
