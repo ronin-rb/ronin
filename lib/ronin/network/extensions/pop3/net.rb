@@ -26,18 +26,18 @@ require 'ronin/network/pop3'
 require 'net/pop'
 
 module Net
-  def Net.pop_connect(host,options={},&block)
+  def Net.pop3_connect(host,options={},&block)
     port = (options[:port] || Ronin::Network::POP3.default_port)
     user = options[:user]
-    passwd = options[:passwd]
+    password = options[:password]
 
-    sess Net::POP3.start(host,port,user,passwd)
+    sess Net::POP3.start(host,port,user,password)
     block.call(sess) if block
     return sess
   end
 
-  def Net.pop_session(host,options={},&block)
-    Net.pop_connect(host,options) do |sess|
+  def Net.pop3_session(host,options={},&block)
+    Net.pop3_connect(host,options) do |sess|
       block.call(sess) if block
       sess.finish
     end

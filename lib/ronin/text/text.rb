@@ -27,6 +27,8 @@ module Ronin
   module Text
     NUMERIC = CharSet.new('0'..'9')
 
+    OCTAL = CharSet.new('0'..'7')
+
     UPPERCASE_HEXADECIMAL = NUMERIC + ('A'..'F')
 
     LOWERCASE_HEXADECIMAL = NUMERIC + ('a'..'f')
@@ -69,6 +71,10 @@ module Ronin
 
     def Text.numeric
       NUMERIC
+    end
+
+    def Text.octal
+      OCTAL
     end
 
     def Text.uppercase_hexadecimal

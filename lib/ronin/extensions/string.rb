@@ -21,6 +21,17 @@
 #++
 #
 
-require 'ronin/extensions/meta'
-require 'ronin/extensions/uri'
-require 'ronin/extensions/string'
+class String
+
+  #
+  # Converts the +String+ into an appropriate method name.
+  #
+  #   'GPL 2'.to_method_name # => "gpl_2"
+  #
+  #   'Ronin::Arch' # => "ronin_arch"
+  #
+  def to_method_name
+    self.downcase.gsub(/(::|[ \-])/,'_')
+  end
+
+end

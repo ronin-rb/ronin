@@ -21,6 +21,8 @@
 #++
 #
 
+require 'ronin/network/smtp/email'
+
 module Ronin
   module Network
     module SMTP
@@ -32,6 +34,10 @@ module Ronin
 
       def SMTP.default_port=(port)
         @@smtp_default_port = port
+      end
+
+      def SMTP.message(options={},&block)
+        Email.new(options,&block).to_s
       end
     end
   end

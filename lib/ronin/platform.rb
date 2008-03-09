@@ -22,6 +22,7 @@
 #
 
 require 'ronin/cacheable'
+require 'ronin/extensions/meta'
 
 module Ronin
   class Platform
@@ -49,18 +50,6 @@ module Ronin
     end
 
     #
-    # Converts the specified _name_ to a Platform name, in +String+
-    # form.
-    #
-    #   Platform.namify('linux') # => "Linux"
-    #
-    #   Platform.namify('sun solaris') # => "Sun Solaris"
-    #
-    def Platform.namify(name)
-      name.to_s.split.map { |word| word.capitalize }.join(' ')
-    end
-
-    #
     # Defines a new builtin Platform of the specified _name_, which will
     # define a new class named _name_ that inherites Platform.
     #
@@ -77,25 +66,28 @@ module Ronin
     #   end
     #
     def Platform.define(name)
-      name = Platform.namify(name)
+      name = name.to_s
+      method_name = name.to_method_name
 
-      Ronin.module_eval %{
-        class #{name} < Platform
+      meta_def(method_name) do
+        return Platform.find_or_create(:os => name)
+      end
 
-          def initialize(version=nil)
-            super(#{name.dump},version)
-          end
+      meta_def("#{method_name}_version") do |version|
+        return Platform.find_or_create(:os => name, :version => version.to_s)
+      end
 
-        end
-      }
+      return nil
     end
 
-    define 'FreeBSD'
     define 'Linux'
+    define 'FreeBSD'
     define 'OpenBSD'
-    define 'OSX'
     define 'NetBSD'
+    define 'OSX'
+    define 'Solaris'
     define 'Windows'
+    define 'UNIX'
 
   end
 end

@@ -27,7 +27,7 @@ require 'net/smtp'
 
 module Net
   def Net.smtp_message(options={},&block)
-    Ronin::Network::SMTP::Email.new(options,&block).to_s
+    Ronin::Network::SMTP.message(options,&block)
   end
 
   def Net.smtp_connect(host,options={},&block)
@@ -37,9 +37,9 @@ module Net
 
     login = options[:login]
     user = options[:user]
-    passwd = options[:passwd]
+    password = options[:password]
 
-    sess = Net::SMTP.start(host,port,hello,user,passwd,login)
+    sess = Net::SMTP.start(host,port,hello,user,password,login)
 
     block.call(sess) if block
     return sess

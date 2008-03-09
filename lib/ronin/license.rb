@@ -22,6 +22,7 @@
 #
 
 require 'ronin/cacheable'
+require 'ronin/extensions/string'
 
 module Ronin
   class License
@@ -58,9 +59,13 @@ module Ronin
       description = options[:description].to_s
       url = options[:url].to_s
 
-      return License.find_or_create(:name => name,
-                                    :description => description,
-                                    :url => url)
+      meta_def(name.to_method_name) do
+        License.find_or_create(:name => name,
+                               :description => description,
+                               :url => url)
+      end
+
+      return nil
     end
 
     # Creative Commons Licenses

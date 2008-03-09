@@ -22,57 +22,22 @@
 #
 
 require 'ronin/extensions/meta'
-
-require 'og'
+require 'ronin/extensions/string'
+require 'ronin/cacheable'
 
 module Ronin
   class Arch
 
-    COMMON_ENDIAN = 'little' # Common architecture endian
-
-    COMMON_ADDRESS_LENGTH = 4 # Common architecture address length
+    include Cacheable
 
     # Name of the architecture
-    attr_accessor :name, String, :unique => true
+    property :name, :string
 
     # Endianness of the architecture
-    attr_accessor :endian, String
+    property :endian, :string
 
     # Address length of the architecture
-    attr_accessor :address_length, Integer
-
-    #
-    # Creates a new Arch object with the specified _name_ and the given
-    # _endian_ and _address_length_. _endian_ defaults to :little and
-    # _address_length_ defaults to 4. If _block_ is given, it will be
-    # passed the newly created Arch object.
-    #
-    #   Arch.new('i686')
-    #
-    #   Arch.new('amd64','little',8)
-    #
-    #   Arch.new('ppc64') do |arch|
-    #     arch.endian = 'big'
-    #     arch.address_length = 8
-    #   end
-    #
-    def initialize(name,endian=COMMON_ENDIAN,address_length=COMMON_ADDRESS_LENGTH,&block)
-      @name = name.to_s
-      @endian = endian.to_s
-      @address_length = address_length
-
-      block.call(self) if block
-    end
-
-    #
-    # Returns +true+ if the arch has the same name, endian and
-    # address_length as the _other_ arch, returns +false+ otherwise.
-    #
-    def ==(other)
-      return false unless @name==other.name
-      return false unless @endian==other.endian
-      return @address_length==other.address_length
-    end
+    property :address_length, :integer
 
     #
     # Returns the name of the arch as a String.
@@ -82,27 +47,22 @@ module Ronin
     end
 
     #
-    # Provides the builtin Arch objects.
-    #
-    def Arch.builtin
-      @@builtin ||= {}
-    end
-
-    #
     # Defines a new builtin Arch with the specified _name_ and the given
     # _opts_. If _block_ is given, it will be passed the newly created
     # Arch.
     #
-    def Arch.define(name,opts={},&block)
-      name = name.to_sym
+    def Arch.define(name,options={})
+      name = name.to_s
+      endian = options[:endian].to_s
+      address_length = options[:address_length].to_i
 
-      Arch.builtin[name] = Arch.new(name,opts[:endian],opts[:address_length],&block)
-
-      meta_def(name) do
-        Arch.builtin[name]
+      meta_def(name.to_method_name) do
+        arch = Arch.find_or_create(:name => name,
+                                   :endian => endian,
+                                   :address_length => address_length)
       end
 
-      return Arch.builtin[name]
+      return nil
     end
 
     define :i386, :endian => :little, :address_length => 4
