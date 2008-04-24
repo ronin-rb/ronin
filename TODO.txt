@@ -2,18 +2,14 @@
 
 === REFACTORING:
 
-1. Finish Documenting code.
-2. Finish ronin/net/http.rb.
-3. Redesign Cache::ObjectContext.
+1. Finish ronin/net/http.rb.
+2. Redesign Cache::ObjectFile.
 
 === FEATURES:
 
 === PROJECT MANAGEMENT:
 
-1. Update History.txt.
-   1. Add code examples.
-2. Update README.txt.
+1. Update README.txt.
    1. Complete Ronin Manifesto.
-   2. Copy History feature-list.
-3. Migrate SVN repository to Rubyforge.
+2. Migrate SVN repository to Rubyforge.
 
