@@ -44,21 +44,15 @@ module Ronin
         end
 
         def self.create(attributes)
-          lazy_migrate! do
-            super(attributes)
-          end
+          lazy_migrate! { super(attributes) }
         end
 
         def self.first(*args)
-          lazy_migrate! do
-            super(*args)
-          end
+          lazy_migrate! { super(*args) }
         end
 
         def self.all(options={})
-          lazy_migrate! do
-            super(options)
-          end
+          lazy_migrate! { super(options) }
         end
 
         def self.find_or_new(options={})
@@ -70,9 +64,7 @@ module Ronin
         end
 
         def self.save
-          lazy_migrate! do
-            super
-          end
+          lazy_migrate! { super() }
         end
       end
     end

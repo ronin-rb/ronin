@@ -34,7 +34,7 @@ module Ronin
     # Returns the +Hash+ of the Ronin Web proxy information.
     #
     def Web.proxy
-      @@web_proxy ||= {:host => nil, :port => COMMON_PROXY_PORT, :user => nil, :pass => nil}
+      @@web_proxy ||= {:host => nil, :port => COMMON_PROXY_PORT, :user => nil, :password => nil}
     end
 
     #
@@ -45,7 +45,7 @@ module Ronin
       if Web.proxy[:host]
         return URI::HTTP.build(:host => Web.proxy[:host],
                                :port => Web.proxy[:port],
-                               :userinfo => "#{Web.proxy[:user]}:#{Web.proxy[:pass]}",
+                               :userinfo => "#{Web.proxy[:user]}:#{Web.proxy[:password]}",
                                :path => '/')
       end
     end
@@ -90,7 +90,7 @@ module Ronin
       headers = {}
 
       if options[:user_agent_alias]
-        headers['User-Agent'] = WWW::Mechanize::AGENT_ALIASES[opts[:user_agent_alias]]
+        headers['User-Agent'] = WWW::Mechanize::AGENT_ALIASES[options[:user_agent_alias]]
       elsif options[:user_agent]
         headers['User-Agent'] = options[:user_agent]
       elsif Web.user_agent
@@ -130,7 +130,7 @@ module Ronin
 
       proxy = (options[:proxy] || Web.proxy)
       if proxy[:host]
-        agent.set_proxy(proxy[:host],proxy[:port],proxy[:user],proxy[:pass])
+        agent.set_proxy(proxy[:host],proxy[:port],proxy[:user],proxy[:password])
       end
 
       block.call(agent) if block
