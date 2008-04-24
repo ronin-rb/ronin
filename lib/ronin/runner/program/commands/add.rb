@@ -21,13 +21,16 @@
 #++
 #
 
-require 'ronin/runner/program/program'
+require 'ronin/runner/program/command'
 require 'ronin/cache/repository'
 
 module Ronin
   module Runner
     module Program
-      Program.command(:add) do
+      class AddCommand < Command
+
+        command :add
+
         options('PATH [options]') do |opts|
           opts.settings.media = :local
           opts.settings.uri = nil
@@ -51,19 +54,20 @@ module Ronin
           opts.defaults('--media local')
         end
 
-        arguments do |opts,args|
+        def arguments(*args)
           unless args.length==1
-            Program.fail('add: only one repository path maybe specified')
+            fail('add: only one repository path maybe specified')
           end
 
           path = args.first
 
           Cache::Repository.save_cache do
-            Cache::Repository.add(path,opts.settings.media,opts.settings.uri) do |repo|
+            Cache::Repository.add(path,options.settings.media,options.settings.uri) do |repo|
               puts "Repository #{repo} added."
             end
           end
         end
+
       end
     end
   end

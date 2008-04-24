@@ -21,12 +21,15 @@
 #++
 #
 
-require 'ronin/runner/program/program'
+require 'ronin/runner/program/command'
 
 module Ronin
   module Runner
     module Program
-      Program.command(:help) do
+      class HelpCommand < Command
+
+        command :help
+
         options('[COMMAND]') do |opts|
           opts.arguments do
             opts.arg('COMMAND','The command to view')
@@ -35,15 +38,14 @@ module Ronin
           opts.summary('View a list of supported commands or information on a specific command')
         end
 
-        arguments do |opts,args|
+        def arguments(*args)
           unless args.length<=1
-            Program.fail('help: only one command maybe specified')
+            fail('help: only one command maybe specified')
           end
 
-          Program.success do
-            Program.help(args.first)
-          end
+          success { Program.help(args.first) }
         end
+
       end
     end
   end

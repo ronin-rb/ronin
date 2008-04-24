@@ -21,13 +21,16 @@
 #++
 #
 
-require 'ronin/runner/program/program'
+require 'ronin/runner/program/command'
 require 'ronin/cache/repository'
 
 module Ronin
   module Runner
     module Program
-      Program.command(:uninstall) do
+      class UninstallCommand < Command
+
+        command :uninstall
+
         options('NAME [NAME ...] [options]') do |opts|
           opts.options
 
@@ -38,7 +41,7 @@ module Ronin
           opts.summary('Uninstall the specified repositories')
         end
 
-        arguments do |opts,args|
+        def arguments(*args)
           args.each do |name|
             Cache::Repository.save_cache do
               Cache::Repository.uninstall(name) do |repo|
@@ -47,6 +50,7 @@ module Ronin
             end
           end
         end
+
       end
     end
   end

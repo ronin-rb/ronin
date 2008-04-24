@@ -21,13 +21,16 @@
 #++
 #
 
-require 'ronin/runner/program/program'
+require 'ronin/runner/program/command'
 require 'ronin/cache/repository'
 
 module Ronin
   module Runner
     module Program
-      Program.command(:install) do
+      class InstallCommand < Command
+
+        command :install
+
         options('URI [options]') do |opts|
           opts.settings.media = :local
           opts.settings.uri = nil
@@ -45,13 +48,13 @@ module Ronin
           opts.summary('Installs the repository located at the specified URI')
         end
 
-        arguments do |opts,args|
+        def arguments(args)
           unless args.length==1
-            Program.fail('install: only one repository URI maybe specified')
+            fail('install: only one repository URI maybe specified')
           end
 
           Cache::Repository.save_cache do
-            Cache::Repository.install(:uri => args.first, :media => opts.settings.media) do |repo|
+            Cache::Repository.install(:uri => args.first, :media => options.settings.media) do |repo|
               puts "Repository #{repo} has been installed."
             end
           end

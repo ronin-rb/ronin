@@ -34,12 +34,12 @@ module Ronin
         @@commands ||= []
       end
 
-      def Program.command_names
-        @@command_names ||= {}
+      def Program.commands_by_name
+        @@commands_by_name ||= {}
       end
 
       def Program.has_command?(name)
-        Program.command_names.has_key?(name.to_s)
+        Program.commands_by_name.has_key?(name.to_s)
       end
 
       def Program.get_command(name)
@@ -49,23 +49,11 @@ module Ronin
           raise(UnknownCommand,"unknown command #{name.dump}",caller)
         end
 
-        return Program.command_names[name]
-      end
-
-      def Program.command(name,*short_names,&block)
-        new_command = Command.new(name,*short_names,&block)
-        Program.commands << new_command
-
-        Program.command_names[name.to_s] = new_command
-        short_names.each do |short_name|
-          Program.command_names[short_name.to_s] = new_command
-        end
-
-        return new_command
+        return Program.commands_by_name[name]
       end
 
       def Program.error(message)
-        $stderr << "ronin: #{message}\n"
+        $stderr.puts "ronin: #{message}"
         return false
       end
 
@@ -95,13 +83,13 @@ module Ronin
           puts 'Available commands:'
 
           Program.commands.each do |cmd|
-            puts "  #{cmd}"
+            puts "  #{cmd.command_names.join(', ')}"
           end
         end
       end
 
       def Program.default_command(*argv)
-        opts = Options.new('ronin','<command> [options]') do |opts|
+        Options.new('ronin','<command> [options]') { |opts|
           opts.options do |opts|
             opts.on('-r','--require LIB','require the specified library or path') do |lib|
               Console.auto_load << lib.to_s
@@ -115,11 +103,9 @@ module Ronin
           end
 
           opts.summary('Ronin is a Ruby development platform designed for information security','and data exploration tasks.')
-        end
-
-        opts.parse(argv) do |opts,args|
+        }.parse(argv) { |opts,args|
           Console.start
-        end
+        }
       end
 
       def Program.run(*argv)
@@ -131,7 +117,7 @@ module Ronin
             argv = argv[1..-1]
 
             if Program.has_command?(cmd)
-              Program.command_names[cmd].run(*argv)
+              Program.commands_by_name[cmd].run(*argv)
             else
               Program.fail("unknown command #{cmd.dump}")
             end

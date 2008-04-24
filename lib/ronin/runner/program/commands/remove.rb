@@ -21,13 +21,16 @@
 #++
 #
 
-require 'ronin/runner/program/program'
+require 'ronin/runner/program/command'
 require 'ronin/cache/repository'
 
 module Ronin
   module Runner
     module Program
-      Program.command(:remove) do
+      class RemoveCommand < Command
+
+        command :remove, :rm
+
         options('NAME [NAME ...] [options]') do |opts|
           opts.options
 
@@ -38,7 +41,7 @@ module Ronin
           opts.summary('Remove the specified repositories')
         end
 
-        arguments do |opts,args|
+        def arguments(*args)
           args.each do |name|
             Cache::Repository.save_cache do
               Cache::Repository.remove(name) do |repo|
@@ -47,6 +50,7 @@ module Ronin
             end
           end
         end
+
       end
     end
   end

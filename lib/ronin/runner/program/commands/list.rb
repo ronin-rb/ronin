@@ -21,13 +21,16 @@
 #++
 #
 
-require 'ronin/runner/program/program'
+require 'ronin/runner/program/command'
 require 'ronin/cache/repository'
 
 module Ronin
   module Runner
     module Program
-      Program.command(:list,:ls) do
+      class ListCommand < Command
+
+        command :list, :ls
+
         options('[NAME ...] [options]') do |opts|
           opts.options
 
@@ -38,7 +41,7 @@ module Ronin
           opts.summary('Display all or the specified repositories within the repository cache')
         end
 
-        arguments do |opts,args|
+        def arguments(*args)
           if args.empty?
             # list all repositories by name
             Cache::Repository.each do |repo|
@@ -51,7 +54,7 @@ module Ronin
 
               puts "[ #{repo} ]\n\n"
 
-              puts "  path: #{repo.path}" if opts.settings.verbose
+              puts "  path: #{repo.path}" if options.settings.verbose
               puts "  media: #{repo.media}"
               puts "  uri: #{repo.uri}" if repo.uri
 
@@ -61,7 +64,7 @@ module Ronin
 
               puts "\n"
 
-              if opts.settings.verbose
+              if options.settings.verbose
                 puts "  extensions:\n\n"
 
                 repo.each_extension do |ext|
@@ -71,6 +74,7 @@ module Ronin
             end
           end
         end
+
       end
     end
   end

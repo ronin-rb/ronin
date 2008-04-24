@@ -21,13 +21,16 @@
 #++
 #
 
-require 'ronin/runner/program/program'
+require 'ronin/runner/program/command'
 require 'ronin/cache/repository'
 
 module Ronin
   module Runner
     module Program
-      Program.command(:update) do
+      class UpdateCommand < Command
+
+        command :update, :up
+
         options('NAME [NAME ...] [options]') do |opts|
           opts.options
 
@@ -38,13 +41,14 @@ module Ronin
           opts.summary('Updates all or the specified repositories')
         end
 
-        arguments do |opts,args|
+        def arguments(*args)
           if args.empty?
             Cache::Repository.each { |repo| repo.update }
           else
             args.each { |name| Cache::Repository.update(name) }
           end
         end
+
       end
     end
   end
