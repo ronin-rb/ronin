@@ -21,10 +21,13 @@
 #++
 #
 
+require 'ronin/cache/overlay'
+require 'ronin/cache/extension'
+
 module Ronin
   module Cache
-    def Cache.repositories
-      Repository.cache
+    def Cache.overlays
+      Overlay.cache
     end
 
     #
@@ -35,10 +38,10 @@ module Ronin
     end
 
     #
-    # See Repository.has_extension?.
+    # See Overlay.has_extension?.
     #
     def Cache.has_extension?(name)
-      Repository.has_extension?(name)
+      Overlay.has_extension?(name)
     end
 
     #

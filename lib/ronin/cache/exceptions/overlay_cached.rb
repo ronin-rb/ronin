@@ -23,7 +23,7 @@
 
 module Ronin
   module Cache
-    class RepositoryCached < RuntimeError
+    class OverlayCached < RuntimeError
     end
   end
 end

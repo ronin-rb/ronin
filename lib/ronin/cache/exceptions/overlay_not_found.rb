@@ -23,7 +23,7 @@
 
 module Ronin
   module Cache
-    class RepositoryNotFound < RuntimeError
+    class OverlayNotFound < RuntimeError
     end
   end
 end

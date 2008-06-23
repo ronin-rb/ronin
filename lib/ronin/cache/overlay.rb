@@ -1,0 +1,370 @@
+#
+#--
+# Ronin - A ruby development platform designed for information security
+# and data exploration tasks.
+#
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#++
+#
+
+require 'ronin/cache/extension'
+require 'ronin/cache/exceptions/extension_not_found'
+require 'ronin/cache/overlay_cache'
+require 'ronin/cache/config'
+
+require 'repertoire/repository'
+require 'rexml/document'
+
+module Ronin
+  module Cache
+    class Overlay < Repertoire::Repository
+
+      # Overlay metadata XML file name
+      METADATA_FILE = 'ronin.xml'
+
+      # Local path to the overlay
+      attr_reader :path
+
+      # Media type
+      attr_reader :media
+
+      # Source URI of the overlay source
+      attr_reader :uri
+
+      # Name of the overlay
+      attr_reader :name
+
+      # Authors of the overlay
+      attr_reader :authors
+
+      # License that the overlay contents is under
+      attr_reader :license
+
+      # Description
+      attr_reader :description
+
+      #
+      # Creates a new Overlay object with the specified _path_, _media_
+      # and _uri_.
+      #
+      def initialize(path,media=:local,uri=nil,&block)
+        @path = File.expand_path(path)
+        @uri = uri
+
+        super(@path,Repertoire::Media.types[media])
+
+        load_metadata(&block)
+      end
+
+      #
+      # Load the Overlay Cache from the given _path_. If _path is not
+      # given, it will default to <tt>Config::REPOSITORY_CACHE_PATH</tt>.
+      # If a _block_ is given it will be passed the loaded Overlay Cache.
+      #
+      #   Overlay.load_cache # => Cache
+      #
+      #   Overlay.load_cache('/custom/cache') # => Cache
+      #
+      def Overlay.load_cache(path=Config::OVERLAY_CACHE_PATH,&block)
+        @@cache = OverlayCache.new(path,&block)
+      end
+
+      #
+      # Returns the current OverlayCache, or loads the default Cache
+      # if not already loaded.
+      #
+      def Overlay.cache
+        @@cache ||= load_cache
+      end
+
+      #
+      # Saves the overlay cache. If a _block_ is given, it will be passed
+      # the overlay cache before being saved.
+      #
+      #   Overlay.save_cache # => OverlayCache
+      #
+      #   Overlay.save_cahce do |cache|
+      #     puts "Saving cache #{cache}"
+      #   end
+      #
+      def Overlay.save_cache(&block)
+        Overlay.cache.save(&block)
+      end
+
+      #
+      # Returns the overlay with the specified _name_ from the overlay
+      # cache. If no such overlay exists, +nil+ is returned.
+      #
+      #   Overlay['awesome']
+      #
+      def Overlay.[](name)
+        Overlay.cache[name]
+      end
+
+      #
+      # Returns +true+ if there is a overlay with the specified _name_
+      # in the overlay cache, returns +false+ otherwise.
+      #
+      def Overlay.exists?(name)
+        Overlay.cache.has_overlay?(name)
+      end
+
+      #
+      # Returns the overlay with the specified _name_ from the overlay
+      # cache. If no such overlay exists in the overlay cache,
+      # a OverlayNotFound exception will be raised.
+      #
+      def Overlay.get(name)
+        Overlay.cache.get_overlay(name)
+      end
+
+      #
+      # Installs the Overlay specified by _options_ into the
+      # <tt>Config::REPOSITORY_DIR</tt>. If a _block_ is given, it will be
+      # passed the newly created Overlay after it has been added to
+      # the Overlay cache.
+      #
+      # _options_ must contain the following key:
+      # <tt>:uri</tt>:: The URI of the Overlay.
+      #
+      # _options_ may contain the following key:
+      # <tt>:media</tt>:: The media of the Overlay.
+      #
+      def Overlay.install(options={},&block)
+        Repertoire.checkout(:media => options[:media], :uri => options[:uri], :into => Config::REPOSITORY_DIR) do |path,media,uri|
+          return Overlay.add(path,media,uri,&block)
+        end
+      end
+
+      #
+      # Adds the Overlay specified by _media_, _path_ and _uri_ to the
+      # Overlay cache. If a _block is given, it will be passed the
+      # newly created Overlay after it has been added to the cache.
+      #
+      def Overlay.add(path,media=:local,uri=nil,&block)
+        Overlay.new(path,media,uri).add(&block)
+      end
+
+      #
+      # Updates the overlay with the specified _name_. If there is no
+      # overlay with the specified _name_ in the overlay cache
+      # a OverlayNotFound exception will be raised. If a _block_ is
+      # given it will be passed the updated overlay.
+      #
+      def Overlay.update(name,&block)
+        Overlay.get(name).update(&block)
+      end
+
+      #
+      # Removes the overlay with the specified _name_. If there is no
+      # overlay with the specified _name_ in the overlay cache
+      # a OverlayNotFound exception will be raised. If a _block_ is
+      # given it will be passed the overlay before removal.
+      #
+      def Overlay.remove(name,&block)
+        Overlay.get(name).remove(&block)
+      end
+
+      #
+      # Uninstall the overlay with the specified _name_. If there is no
+      # overlay with the specified _name_ in the overlay cache
+      # a OverlayNotFound exception will be raised. If a _block_ is
+      # given it will be passed the overlay before uninstalling it.
+      #
+      def Overlay.uninstall(name,&block)
+        Overlay.get(name).uninstall(&block)
+      end
+
+      #
+      # See OverlayCache#each_overlay.
+      #
+      def Overlay.each(&block)
+        Overlay.cache.each_overlay(&block)
+      end
+
+      #
+      # See OverlayCache#overlays_with?.
+      #
+      def Overlay.with(&block)
+        Overlay.cache.overlays_with(&block)
+      end
+
+      #
+      # Returns the overlays which contain the extension with the
+      # matching _name_.
+      #
+      #   Overlay.with_extension?('exploits') # => [...]
+      #
+      def Overlay.with_extension(name)
+        Overlay.with { |repo| repo.has_extension?(name) }
+      end
+
+      #
+      # Returns +true+ if the cache has the extension with the matching
+      # _name_, returns +false+ otherwise.
+      #
+      def Overlay.has_extension?(name)
+        Overlay.each do |repo|
+          return true if repo.has_extension?(name)
+        end
+
+        return false
+      end
+
+      #
+      # Adds the overlay to the overlay cache. If a _block is given,
+      # it will be passed the newly created Overlay after it has been
+      # added to the cache.
+      #
+      def add(&block)
+        Overlay.cache.add(self)
+
+        block.call(self) if block
+        return self
+      end
+
+      #
+      # Updates the overlay and reloads it's metadata. If a _block_
+      # is given it will be called after the overlay has been updated.
+      #
+      def update(&block)
+        return self if @media==:local
+
+        Repertoire.update(:media => @media, :path => @path, :uri => @uri)
+        return load_metadata(&block)
+      end
+
+      #
+      # Removes the overlay from the overlay cache. If a _block_ is
+      # given, it will be passed the overlay after it has been removed.
+      #
+      def remove(&block)
+        Overlay.cache.remove(self)
+
+        block.call(self) if block
+        return self
+      end
+
+      #
+      # Deletes the overlay then removes it from the overlay cache.
+      # If a _block_ is given, it will be passed the overlay after it
+      # has been uninstalled.
+      #
+      def uninstall(&block)
+        Repertoire.delete(@path) do
+          return remove(&block)
+        end
+      end
+
+      #
+      # Returns the paths of all extensions within the overlay.
+      #
+      def extension_paths
+        directories
+      end
+
+      #
+      # Passes each extension path to the specified _block_.
+      #
+      def each_extension_path(&block)
+        extension_paths.each(&block)
+      end
+
+      #
+      # Returns the names of all extensions within the overlay.
+      #
+      def extensions
+        extension_paths.map { |dir| File.basename(dir) }
+      end
+
+      #
+      # Passes each extension name to the specified _block_.
+      #
+      def each_extension(&block)
+        extensions.each(&block)
+      end
+
+      #
+      # Returns +true+ if the overlay contains the extension with the
+      # specified _name_, returns +false+ otherwise.
+      #
+      def has_extension?(name)
+        extensions.include?(name.to_s)
+      end
+
+      #
+      # Loads an extension with the specified _name_ from the overlay.
+      # If a _block_ is given, it will be passed the newly created
+      # extension.
+      #
+      #   repo.extension('awesome') # => Extension
+      #
+      #   repo.extension('shellcode') do |ext|
+      #     ...
+      #   end
+      #
+      def extension(name,&block)
+        name = name.to_s
+
+        unless has_extension?(name)
+          raise(ExtensionNotfound,"overlay #{name.dump} does not contain the extension #{name.dump}",caller)
+        end
+
+        return Extension.load_extension(File.join(@path,name),&block)
+      end
+
+      #
+      # Returns the +name+ of the Overlay.
+      #
+      def to_s
+        @name.to_s
+      end
+
+      protected
+
+      #
+      # Loads the overlay metadata from the METADATA_FILE within the
+      # overlay +path+. If a _block_ is given, it will be passed the
+      # overlay after the metadata has been loaded.
+      #
+      def load_metadata(&block)
+        metadata_path = File.join(@path,METADATA_FILE)
+
+        if File.file?(metadata_path)
+          metadata = REXML::Document.new(open(metadata_path))
+
+          #@authors = Author.from_xml(metadata,'/ronin-overlay/contributors/author')
+
+          metadata.elements.each('/ronin-overlay') do |repo|
+            @name = repo.elements['name'].get_text.to_s.strip
+            @license = repo.elements['license'].get_text.to_s.strip
+            @description = repo.elements['description'].get_text.to_s.strip
+          end
+        else
+          @name = File.basename(@path)
+          @authors = []
+          @license = nil
+          @description = ''
+        end
+
+        block.call(self) if block
+        return self
+      end
+
+    end
+  end
+end

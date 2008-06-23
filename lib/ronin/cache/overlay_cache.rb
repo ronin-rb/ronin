@@ -21,15 +21,15 @@
 #++
 #
 
-require 'ronin/cache/repository'
-require 'ronin/cache/exceptions/repository_cached'
+require 'ronin/cache/overlay'
+require 'ronin/cache/exceptions/overlay_cached'
 require 'ronin/cache/config'
 
 require 'yaml'
 
 module Ronin
   module Cache
-    class RepositoryCache < Hash
+    class OverlayCache < Hash
 
       # Path of cache file
       attr_reader :path
@@ -51,7 +51,7 @@ module Ronin
             if descriptions.kind_of?(Array)
               descriptions.each do |repo|
                 if repo.kind_of?(Hash)
-                  add(Repository.new(repo[:path],repo[:media],repo[:uri]))
+                  add(Overlay.new(repo[:path],repo[:media],repo[:uri]))
                 end
               end
             end
@@ -62,64 +62,64 @@ module Ronin
       end
 
       #
-      # Returns the names of the repositories within the cache.
+      # Returns the names of the overlays within the cache.
       #
       def names
         keys
       end
 
       #
-      # Returns the repositories within the cache.
+      # Returns the overlays within the cache.
       #
-      def repositories
+      def overlays
         values
       end
 
       #
-      # Iterates over each repository in the repository cache, passing
+      # Iterates over each overlay in the overlay cache, passing
       # each to the given specified _block_.
       #
-      def each_repository(&block)
+      def each_overlay(&block)
         each_value(&block)
       end
 
       #
-      # Returns the Repositories which match the specified _block_.
+      # Returns the Ovlerays which match the specified _block_.
       #
-      #   cache.repositories_with do |repo|
+      #   cache.overlays_with do |repo|
       #     repo.author == 'the dude'
       #   end
       #
-      def repositories_with(&block)
+      def overlays_with(&block)
         values.select(&block)
       end
 
       #
-      # Returns +true+ if the cache contains the Repository with the
+      # Returns +true+ if the cache contains the Overlay with the
       # matching _name_, returns +false+ otherwise.
       #
-      def has_repository?(name)
+      def has_overlay?(name)
         has_key?(name.to_s)
       end
 
       #
-      # Returns the Repository with the matching _name_.
+      # Returns the Overlay with the matching _name_.
       #
-      def get_repository(name)
+      def get_overlay(name)
         name = name.to_s
 
-        unless has_repository?(name)
-          raise(RepositoryNotFound,"repository #{name.dump} is not present in cache #{self.to_s.dump}",caller)
+        unless has_overlay?(name)
+          raise(OverlayNotFound,"overlay #{name.dump} is not present in cache #{self.to_s.dump}",caller)
         end
 
         return self[name]
       end
 
       #
-      # Returns the paths of the Repositories contained in the cache.
+      # Returns the paths of the Overlays contained in the cache.
       #
       def paths
-        repositories.map { |repo| repo.path }
+        overlays.map { |repo| repo.path }
       end
 
       #
@@ -127,15 +127,15 @@ module Ronin
       # be passed the cache after the _repo_ is added. The _repo_
       # will be returned.
       #
-      #   cache.add(repo) # => Repository
+      #   cache.add(repo) # => Overlay
       #
       #   cache.add(repo) do |cache|
-      #     puts "Repository #{repo} added"
+      #     puts "Overlay #{repo} added"
       #   end
       #
       def add(repo,&block)
-        if has_repository?(repo.name)
-          raise(RepositoryCached,"repository #{repo.to_s.dump} already present in the cache #{self.to_s.dump}",caller)
+        if has_overlay?(repo.name)
+          raise(OverlayCached,"overlay #{repo.to_s.dump} already present in the cache #{self.to_s.dump}",caller)
         end
 
         self[repo.name.to_s] = repo
@@ -152,12 +152,12 @@ module Ronin
       #   cache.remove(repo) # => Cache
       #
       #   cache.remove(repo) do |cache|
-      #     puts "Repository #{repo} removed"
+      #     puts "Overlay #{repo} removed"
       #   end
       #
       def remove(repo,&block)
-        unless has_repository?(repo.name)
-          raise(RepositoryNotFound,"repository #{repo.to_s.dump} is not present in the cache #{to_s.dump}",caller)
+        unless has_overlay?(repo.name)
+          raise(OverlayNotFound,"overlay #{repo.to_s.dump} is not present in the cache #{to_s.dump}",caller)
         end
 
         delete_if { |key,value| key==repo.name }
@@ -167,7 +167,7 @@ module Ronin
       end
 
       #
-      # Updates all the cached Repositories. If a _block_ is given it will
+      # Updates all the cached Overlays. If a _block_ is given it will
       # be passed the cache.
       #
       #   update # => Cache
@@ -198,7 +198,7 @@ module Ronin
         block.call(self) if block
 
         File.open(output_path,'w') do |output|
-          descriptions = repositories.map do |repo|
+          descriptions = overlays.map do |repo|
             {:media => repo.media, :path => repo.path, :uri => repo.uri}
           end
 

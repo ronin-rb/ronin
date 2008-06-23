@@ -25,10 +25,10 @@ require 'ronin/config'
 
 module Ronin
   module Config
-    # Path to repositories directory
-    REPOSITORY_DIR = File.join(Config::PATH,'repos')
+    # Path to overlays directory
+    OVERLAY_DIR = File.join(Config::PATH,'overlays')
 
-    # Path to cache file
-    REPOSITORY_CACHE_PATH = File.join(Config::PATH,'cache.yaml')
+    # Path to overlays cache file
+    OVERLAY_CACHE_PATH = File.join(Config::PATH,'overlays.yaml')
   end
 end
