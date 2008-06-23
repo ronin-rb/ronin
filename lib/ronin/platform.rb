@@ -21,19 +21,21 @@
 #++
 #
 
-require 'ronin/cacheable'
+require 'ronin/model'
 require 'ronin/extensions/meta'
 
 module Ronin
   class Platform
 
-    include Cacheable
+    include Model
+
+    property :id, Serial
 
     # Name of the Operating System
-    property :os, :string
+    property :os, String
 
     # Version of the Operating System
-    property :version, :string
+    property :version, String
 
     #
     # Returns the String form of the Platform.
@@ -70,11 +72,11 @@ module Ronin
       method_name = name.to_method_name
 
       meta_def(method_name) do
-        return Platform.find_or_create(:os => name)
+        Platform.find_or_new(:os => name)
       end
 
       meta_def("#{method_name}_version") do |version|
-        return Platform.find_or_create(:os => name, :version => version.to_s)
+        Platform.find_or_new(:os => name, :version => version.to_s)
       end
 
       return nil

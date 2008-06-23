@@ -1,9 +1,8 @@
 #
-#--
-# Ronin - A ruby development platform designed for information security
-# and data exploration tasks.
+# Ronin - A decentralized repository for the storage and sharing of computer
+# security advisories, exploits and payloads.
 #
-# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2007 Hal Brodigan (postmodern at users.sourceforge.net)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,39 +17,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-#++
 #
 
 require 'ronin/model'
-
-require 'rexml/document'
+require 'ronin/platform'
+require 'ronin/arch'
 
 module Ronin
-  class Product
+  class Target
 
     include Model
 
     property :id, Serial
 
-    # Name
-    property :name, String
+    # Targeted platform
+    belongs_to :platform, :class_name => 'Ronin::Platform'
 
-    # Version
-    property :version, String
-
-    # Venders
-    property :vendor, String
-
-    #
-    # Returns the String form of the product.
-    #
-    def to_s
-      unless @vendor==@name
-        return "#{@vendor} #{@name} #{@version}"
-      else
-        return "#{@name} #{@version}"
-      end
-    end
+    # Targeted architecture
+    belongs_to :arch, :class_name => 'Ronin::Arch'
 
   end
 end

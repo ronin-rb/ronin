@@ -23,21 +23,23 @@
 
 require 'ronin/extensions/meta'
 require 'ronin/extensions/string'
-require 'ronin/cacheable'
+require 'ronin/model'
 
 module Ronin
   class Arch
 
-    include Cacheable
+    include Model
+
+    property :id, Serial
 
     # Name of the architecture
-    property :name, :string
+    property :name, String
 
     # Endianness of the architecture
-    property :endian, :string
+    property :endian, String
 
     # Address length of the architecture
-    property :address_length, :integer
+    property :address_length, Integer
 
     #
     # Returns the name of the arch as a String.
@@ -57,9 +59,9 @@ module Ronin
       address_length = options[:address_length].to_i
 
       meta_def(name.to_method_name) do
-        arch = Arch.find_or_create(:name => name,
-                                   :endian => endian,
-                                   :address_length => address_length)
+        arch = Arch.find_or_new(:name => name,
+                                :endian => endian,
+                                :address_length => address_length)
       end
 
       return nil

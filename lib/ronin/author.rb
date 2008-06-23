@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/cacheable'
+require 'ronin/model'
 
 require 'rexml/document'
 require 'uri'
@@ -29,34 +29,30 @@ require 'uri'
 module Ronin
   class Author
 
-    include Cacheable
+    include Model
 
     # Anonymouse author name.
     ANONYMOUSE = 'anonymous'
 
+    property :id, Serial
+
     # Name of author
-    property :name, :string
+    property :name, String
 
     # Author's associated group
-    property :organization, :string
+    property :organization, String
 
     # Author's PGP signature
-    property :pgp_signature, :string
-
-    # Author's
-    property :address, :string
-
-    # Author's phone
-    property :phone, :string
+    property :pgp_signature, DataMapper::Types::Text
 
     # Author's email
-    property :email, :string
+    property :email, String
 
     # Author's site
-    property :site, :string
+    property :site, String
 
     # Author's biography
-    property :biography, :text
+    property :biography, DataMapper::Types::Text
 
     #
     # Creates a new Author object with the given _name_ and _info_. The
@@ -66,8 +62,6 @@ module Ronin
     # _info_ may contain the following keys:
     # <tt>:organization</tt>:: The organization of the author.
     # <tt>:pgp_signature</tt>:: The PGP signature of the author.
-    # <tt>:address</tt>:: The address of the author.
-    # <tt>:phone</tt>:: The phone number of the author.
     # <tt>:email</tt>:: The email address of the author.
     # <tt>:url</tt>:: The URL for the author.
     # <tt>:biography</tt>:: The biography of the author.
@@ -76,8 +70,6 @@ module Ronin
       @name = name
       @organization= info[:organization]
       @pgp_signature = info[:pgp_signature]
-      @address = info[:address]
-      @phone = info[:phone]
       @email = info[:email]
       @url = info[:url]
       @biography = info[:biography]
@@ -114,8 +106,6 @@ module Ronin
         element.each_element('pgp_signature') { |signature| author_info[:pgp_signature] = signature.get_text.to_s }
 
         # author's contact information
-        element.each_element('contact/address') { |address| author_info[:address] = address.get_text.to_s }
-        element.each_element('contact/phone') { |phone| author_info[:phone] = phone.get_text.to_s }
         element.each_element('contact/email') { |email| author_info[:email] = email.get_text.to_s }
         element.each_element('contact/site') { |site| author_info[:site] = site.get_text.to_s }
 

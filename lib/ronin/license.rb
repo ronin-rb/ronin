@@ -21,22 +21,24 @@
 #++
 #
 
-require 'ronin/cacheable'
+require 'ronin/model'
 require 'ronin/extensions/string'
 
 module Ronin
   class License
 
-    include Cacheable
+    include Model
+
+    property :id, Serial
 
     # License name
-    property :name, :string
+    property :name, String
 
     # Description of license
-    property :description, :text
+    property :description, DataMapper::Types::Text
 
     # URL of the License document
-    property :url, :string
+    property :url, String
 
     #
     # Returns the name of the license as a String.
@@ -60,9 +62,9 @@ module Ronin
       url = options[:url].to_s
 
       meta_def(name.to_method_name) do
-        License.find_or_create(:name => name,
-                               :description => description,
-                               :url => url)
+        License.find_or_new(:name => name,
+                            :description => description,
+                            :url => url)
       end
 
       return nil

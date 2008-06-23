@@ -21,36 +21,21 @@
 #++
 #
 
-require 'ronin/model'
+require 'ronin/extensions/meta'
 
-require 'rexml/document'
+require 'dm-core'
+require 'dm-types'
+require 'dm-serializer'
+require 'dm-aggregates'
+require 'dm-ar-finders'
 
 module Ronin
-  class Product
-
-    include Model
-
-    property :id, Serial
-
-    # Name
-    property :name, String
-
-    # Version
-    property :version, String
-
-    # Venders
-    property :vendor, String
-
-    #
-    # Returns the String form of the product.
-    #
-    def to_s
-      unless @vendor==@name
-        return "#{@vendor} #{@name} #{@version}"
-      else
-        return "#{@name} #{@version}"
+  module Model
+    def self.included(base)
+      base.module_eval do
+        include DataMapper::Resource
+        include DataMapper::AutoMigrations
       end
     end
-
   end
 end

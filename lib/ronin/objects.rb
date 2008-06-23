@@ -21,40 +21,8 @@
 #++
 #
 
-require 'ronin/config'
-
-require 'data_mapper'
-
-module Ronin
-  class Objects
-
-    # Default path for the object cache.
-    PATH = File.join(Config::PATH,'objects.db')
-
-    # Default DataMapper adapter
-    ADAPTER = 'sqlite3'
-
-    # Path to the object cache
-    attr_reader :path
-
-    # Database Adapter for the object cache
-    attr_reader :adapter
-
-    def initialize(path=PATH,&block)
-      @path = path
-      @adapter = DataMapper::Database.setup({:adapter => ADAPTER,
-                                             :database => path})
-
-      block.call(self) if block
-    end
-
-    def Objects.load_cache(path=PATH,&block)
-      @@cache = Objects.new(path,&block)
-    end
-
-    def Objects.cache
-      @@cache ||= Objects.new(PATH)
-    end
-
-  end
-end
+require 'ronin/arch'
+require 'ronin/platform'
+require 'ronin/author'
+require 'ronin/license'
+require 'ronin/product'
