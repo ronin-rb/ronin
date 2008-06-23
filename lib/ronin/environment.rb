@@ -21,11 +21,17 @@
 #++
 #
 
-require 'fileutils'
+require 'ronin/config'
 
 module Ronin
-  module Config
-    # Ronin home directory
-    PATH = FileUtils.mkdir_p(File.join(ENV['HOME'],'.ronin'))
+  module Environment
+    # Ronin environment file
+    ENVIRONMENT_FILE = File.join(Config::PATH,'environment.rb')
+
+    def Environment.load(path)
+      require path if File.file?(path)
+    end
+
+    Environment.load(ENVIRONMENT_FILE)
   end
 end
