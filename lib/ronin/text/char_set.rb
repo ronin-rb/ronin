@@ -25,8 +25,11 @@ module Ronin
   module Text
     class CharSet < Array
 
-      def initialize(*chars)
-        chars = chars.flatten.map do |char|
+      #
+      # Creates a new CharSet object with the given _characters_.
+      #
+      def initialize(*characters)
+        characters = characters.flatten.map do |char|
           if char.kind_of?(Range)
             char.to_a
           elsif char.kind_of?(Integer)
@@ -36,9 +39,13 @@ module Ronin
           end
         end
 
-        super(chars.flatten.uniq)
+        super(characters.flatten.uniq)
       end
 
+      #
+      # Create a new CharSet object containing the characters that match
+      # the given _block_.
+      #
       def select(&block)
         CharSet.new(super(&block))
       end
@@ -50,48 +57,58 @@ module Ronin
       #
       # Returns a random character from the character set.
       #
-      def rand_char
+      def random_char
         self[rand(self.length)]
       end
 
-      def each_rand_char(length,&block)
-        length.to_i.times { block.call(rand_char) }
+      #
+      # Pass a random character to the specified _block_, _n_ times.
+      #
+      def each_random_char(n,&block)
+        n.to_i.times { block.call(random_char) }
       end
 
       #
       # Returns an Array of the specified _length_ containing
       # random characters from the character set.
       #
-      def rand_array(length)
-        Array.new(length) { rand_char }
+      def random_array(length)
+        if length.kind_of?(Range)
+          return Array.new(length.sort_by { rand }.first) { random_char }
+        else
+          return Array.new(length.to_i) { random_char }
+        end
       end
 
       #
       # Returns a String of the specified _length_ containing
       # random characters from the character set.
       #
-      def rand_string(length)
-        rand_array(length).join
+      def random_string(length)
+        random_array(length).join
       end
 
-      def |(set)
-        CharSet.new(self,set)
+      #
+      # Return a new CharSet that is the union of the character set and the
+      # specified _other_set_.
+      #
+      def |(other_set)
+        CharSet.new(self,other_set)
       end
 
-      def +(set)
-        self | set.to_a
+      #
+      # See |.
+      #
+      def +(other_set)
+        self | other_set.to_a
       end
 
-      def -(set)
-        CharSet.new(super(set.to_a))
-      end
-
-      def with(*set)
-        self + set
-      end
-
-      def without(*set)
-        self - set
+      #
+      # Returns a new CharSet that is the intersection of the character set
+      # and the specified _other_set_.
+      #
+      def -(other_set)
+        CharSet.new(super(other_set.to_a))
       end
 
     end
