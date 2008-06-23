@@ -22,13 +22,13 @@
 #
 
 require 'ronin/extensions'
-require 'ronin/config'
+require 'ronin/environment'
 require 'ronin/formating'
 require 'ronin/text'
 require 'ronin/network'
 require 'ronin/web'
-require 'ronin/objects'
+require 'ronin/database'
 require 'ronin/ronin'
 require 'ronin/version'
 
-Ronin::Config.load
+Ronin::Environment.load

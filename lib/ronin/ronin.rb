@@ -21,33 +21,9 @@
 #++
 #
 
-require 'ronin/objects'
 require 'ronin/console'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/license'
-require 'ronin/product'
 
 module Ronin
-  #
-  # Load the objects from the given _path_.
-  #
-  #   Ronin.load_objects # => Objects
-  #
-  #   Ronin.load_objects("/path/to/cache") # => Objects
-  #
-  def Ronin.load_objects(path=Objects::PATH)
-    Objects.load_cache(path)
-  end
-
-  #
-  # Returns the current object cache, or loads the default object cache
-  # if not already loaded.
-  #
-  def Ronin.objects
-    Objects.cache
-  end
-
   #
   # Starts Ronin's console with the given _script_. If a _block_ is given
   # it will be ran within the console.

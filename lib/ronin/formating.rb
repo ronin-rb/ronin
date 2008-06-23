@@ -22,6 +22,7 @@
 #
 
 require 'ronin/formating/extensions'
+require 'ronin/formating/digest'
 require 'ronin/formating/binary'
 require 'ronin/formating/text'
 require 'ronin/formating/html'

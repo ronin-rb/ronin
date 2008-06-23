@@ -21,7 +21,9 @@
 #++
 #
 
+require 'ronin/cache/exceptions/unknown_context'
 require 'ronin/cache/exceptions/context_not_found'
-require 'ronin/cache/exceptions/object_not_found'
+require 'ronin/cache/exceptions/unknown_object_context'
+require 'ronin/cache/exceptions/object_context_not_found'
 require 'ronin/cache/exceptions/extension_not_found'
-require 'ronin/cache/exceptions/repository_not_found'
+require 'ronin/cache/exceptions/overlay_not_found'
