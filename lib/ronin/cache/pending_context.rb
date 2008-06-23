@@ -21,6 +21,21 @@
 #++
 #
 
-require 'ronin/cache/extensions/kernel'
-require 'ronin/cache/extensions/context'
-require 'ronin/cache/extensions/object_context'
+module Ronin
+  module Cache
+    class PendingContext
+
+      # The path being loaded
+      attr_reader :path
+
+      # The blocks to be loaded
+      attr_accessor :blocks
+
+      def initialize(path)
+        @path = File.expand_path(path)
+        @blocks = {}
+      end
+
+    end
+  end
+end

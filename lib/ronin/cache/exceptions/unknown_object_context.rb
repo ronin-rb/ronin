@@ -21,4 +21,9 @@
 #++
 #
 
-require 'ronin/cache/extensions/object_context/object'
+module Ronin
+  module Cache
+    class UnknownObject < RuntimeError
+    end
+  end
+end

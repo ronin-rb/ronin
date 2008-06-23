@@ -21,21 +21,70 @@
 #++
 #
 
+require 'ronin/cache/exceptions/unknown_object_context'
+require 'ronin/cache/exceptions/object_context_not_found'
 require 'ronin/cache/context'
-require 'ronin/cache/object_file'
-require 'ronin/cache/extensions/object_context'
-require 'ronin/ronin'
+require 'ronin/extensions/meta'
 
-require 'rexml/document'
+require 'dm-core'
+require 'dm-timestamps'
 
 module Ronin
   module Cache
     module ObjectContext
+      def self.included(base)
+        base.class_eval { include Context }
+
+        base.metaclass_eval do
+          def object_contextify(name)
+            ObjectContext.object_contexts[name] = self
+
+            include Model
+
+            contextify name
+
+            property :object_path, String, :key => true
+
+            property :created_at, DateTime
+
+            meta_def(:create_object) do |path,*args|
+              ObjectContext.load_object(context_name,path,*args)
+            end
+
+            meta_def(:search) do |*attribs|
+              all(*attribs).map { |obj| obj.load_object }
+            end
+
+            class_def(:load_object) do
+              create_object(object_path)
+            end
+
+            class_def(:stale?) do
+              if created_at
+                return FileUtils.mtime(object_path) > created_at
+              else
+                return false
+              end
+            end
+
+            # define Repo-level object loader method
+            Ronin.module_eval %{
+              def ronin_load_#{name}(path,*args,&block)
+                new_obj = #{self}.create_object(path,*args)
+          
+                block.call(new_obj) if block
+                return new_obj
+              end
+            }
+          end
+        end
+      end
+
       #
       # Returns the Hash of all defined object-contexts.
       #
       def ObjectContext.object_contexts
-        @@object_contexts ||= {}
+        @@ronin_object_contexts ||= {}
       end
 
       #
@@ -47,53 +96,49 @@ module Ronin
       end
 
       #
-      # Loads all object-contexts from the specified _path_, returning an 
-      # Array of the loaded objects.
+      # Loads the object context of the specified _name_ and from the
+      # specified _path_ with the given _args_. If no object contexts were
+      # defined with the specified _name_, an UnknownObjectContext
+      # exception will be raised.
       #
-      #   ObjectContext.load_objects('/path/to/obj.rb') # => [...]
-      #
-      def ObjectContext.load_objects(path)
-        path = File.expand_path(path)
-        objects = []
-
-        Context.load_contexts(path).each do |id,block|
-          unless ObjectContext.is_object_context?(id)
-            raise(ObjectNotFound,"unknown object context '#{id}'",caller)
-          end
-
-          new_obj = ObjectContext.object_contexts[id].new
-          new_obj.instance_eval(&block)
-          new_obj.object_path = path
-
-          objects << new_obj
-        end
-
-        return objects
-      end
-
-      #
-      # Load the object-context of the specified _name_, from the specified
-      # _path_ with the given _args_. If no object-contexts were defined
-      # with the specified _name_, an ObjectNotFound exception will be
-      # raised.
-      #
-      #   ObjectContext.load_object('payload','/path/to/custom_payload.rb')
-      #     # => Payload
+      #   ObjectContext.load_object(:note,'/path/to/my_notes.rb') # => Note
       #
       def ObjectContext.load_object(name,path,*args)
         name = name.to_sym
 
         unless ObjectContext.is_object_context?(name)
-          raise(ObjectNotFound,"unknown object context '#{name}'",caller)
+          raise(UnknownObjectContext,"unknown object context '#{name}'",caller)
         end
 
-        return ObjectContext.object_contexts[name].create_object(path,*args)
+        path = File.expand_path(path)
+
+        unless File.file?(path)
+          raise(ObjectContextNotFound,"object context #{path.dump} does not exist",caller)
+        end
+
+        new_obj = ObjectContext.load_context(name,path,*args)
+
+        return new_obj
       end
 
-      def ObjectContext.namify(base)
-        Context.namify(base)
-      end
+      #
+      # Loads all object contexts from the specified _path_ returning an
+      # +Array+ of loaded object contexts. If a _block_ is given, it will
+      # be passed each loaded object context.
+      #
+      #   Context.load_contexts('/path/to/misc_contexts.rb') # => [...]
+      #
+      def ObjectContext.load_objects(path,&block)
+        path = File.expand_path(path)
 
+        unless File.file?(path)
+          raise(ObjectContextNotFound,"object context #{path.dump} does not exist",caller)
+        end
+
+        return ObjectContext.load_contexts(path) do |new_obj|
+          block.call(new_obj) if block
+        end
+      end
     end
   end
 end

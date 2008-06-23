@@ -21,4 +21,9 @@
 #++
 #
 
-require 'ronin/cache/extensions/context/object'
+module Ronin
+  module Cache
+    class ObjectContextNotFound < RuntimeError
+    end
+  end
+end

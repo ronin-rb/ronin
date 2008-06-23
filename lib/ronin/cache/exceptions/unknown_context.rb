@@ -23,7 +23,7 @@
 
 module Ronin
   module Cache
-    class ObjectNotFound < RuntimeError
+    class UnknownContext < RuntimeError
     end
   end
 end

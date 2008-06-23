@@ -23,17 +23,21 @@
 
 require 'ronin/cache/context'
 require 'ronin/cache/extension_cache'
-require 'ronin/cache/repository'
+require 'ronin/cache/overlay'
 
 module Ronin
   module Cache
     class Extension
+
+      include Context
 
       # Extension file name
       EXTENSION_FILE = 'extension.rb'
 
       # Extension lib directory
       LIB_DIR = 'lib'
+
+      contextify :extension
 
       # Name of extension
       attr_reader :name
@@ -43,8 +47,6 @@ module Ronin
 
       # Dependency extensions
       attr_reader :dependencies
-
-      contextify :extension
 
       #
       # Creates a new Extension with the specified _name_. If a
@@ -73,10 +75,10 @@ module Ronin
       end
 
       #
-      # Returns the names of all extensions within the repository cache.
+      # Returns the names of all extensions within the overlay cache.
       #
       def Extension.names
-        Repository.cache.repositories.map { |repo| repo.extensions }.flatten.uniq
+        Overlay.cache.overlays.map { |overlay| overlay.extensions }.flatten.uniq
       end
 
       #
@@ -105,7 +107,7 @@ module Ronin
       def Extension.paths
         paths = []
 
-        Repository.each { |repo| paths += repo.extension_paths }
+        Overlay.each { |repo| paths += repo.extension_paths }
 
         return paths
       end
@@ -122,7 +124,7 @@ module Ronin
       # Returns the paths of all extensions with the specified _name_.
       #
       def Extension.paths_for(name)
-        Repository.with_extension(name).map do |repo|
+        Overlay.with_extension(name).map do |repo|
           File.expand_path(File.join(repo.path,name))
         end
       end
@@ -303,7 +305,7 @@ module Ronin
         name = name.to_s
 
         unless Extension.exists?(name)
-          raise(ExtensionNotFound,"extension #{name.dump} is not in the repository cache",caller)
+          raise(ExtensionNotFound,"extension #{name.dump} is not in the overlay cache",caller)
         end
 
         @dependencies[name] ||= Extension.load(name)

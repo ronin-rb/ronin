@@ -22,10 +22,9 @@
 #
 
 require 'ronin/cache/exceptions'
-require 'ronin/cache/extensions'
 require 'ronin/cache/context'
 require 'ronin/cache/extension'
 require 'ronin/cache/repository'
 require 'ronin/cache/object_context'
-require 'ronin/cache/object_file'
+require 'ronin/cache/object_presence'
 require 'ronin/cache/ronin'
