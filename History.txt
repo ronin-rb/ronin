@@ -1,14 +1,14 @@
 == 0.0.9 / 2008-06-23
 
 * Initial release.
-* Supports installing/updating/uninstalling of Repositories.
-  * Supports accessing various Repository types
-    (using the R'epertoire library):
+* Supports installing/updating/uninstalling of Overlays.
+  * Supports accessing various Overlay types
+    using the R'epertoire library:
     * CVS
     * Darcs
     * Subversion (SVN)
     * Rsync
-* Allows for the loading of Extensions from one or more Repositories.
+* Allows for the loading of Extensions from one or more Overlays.
 * Provides a variety of ways to access an Extension:
   * Load an Extension as an object.
 

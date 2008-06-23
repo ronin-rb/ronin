@@ -1,15 +1,7 @@
 == Ronin 0.0.9:
 
-=== REFACTORING:
-
-1. Finish ronin/net/http.rb.
-2. Redesign Cache::ObjectFile.
-
-=== FEATURES:
-
 === PROJECT MANAGEMENT:
 
 1. Update README.txt.
-   1. Complete Ronin Manifesto.
 2. Migrate SVN repository to Rubyforge.
 
