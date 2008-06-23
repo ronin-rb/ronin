@@ -1,4 +1,4 @@
-== 0.0.9 / 2008-02-05
+== 0.0.9 / 2008-06-23
 
 * Initial release.
 * Supports installing/updating/uninstalling of Repositories.
@@ -12,7 +12,7 @@
 * Provides a variety of ways to access an Extension:
   * Load an Extension as an object.
 
-      myext = Ronin::Cache::Repository['myext']
+      myext = Ronin::Cache::Overlay['myext']
       myext.something
 
     Or more simply...
@@ -21,11 +21,7 @@
         myext.something
       end
 
-  * Require code from within an Extension.
-
-      ronin_require 'just/like/before'
-
-* Provides a persistant Object Cache using Og (Object Graph).
+* Provides a persistant Database using DataMapper.
 * Provides convievance methods for:
   * Formating data:
     * Binary
