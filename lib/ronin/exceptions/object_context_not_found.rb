@@ -22,8 +22,6 @@
 #
 
 module Ronin
-  module Cache
-    class ObjectContextNotFound < RuntimeError
-    end
+  class ObjectContextNotFound < RuntimeError
   end
 end

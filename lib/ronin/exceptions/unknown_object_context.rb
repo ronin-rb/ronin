@@ -21,5 +21,7 @@
 #++
 #
 
-require 'ronin/cache/exceptions/extension_not_found'
-require 'ronin/cache/exceptions/overlay_not_found'
+module Ronin
+  class UnknownObject < RuntimeError
+  end
+end

@@ -22,8 +22,6 @@
 #
 
 module Ronin
-  module Cache
-    class UnknownObject < RuntimeError
-    end
+  class ContextNotFound < RuntimeError
   end
 end

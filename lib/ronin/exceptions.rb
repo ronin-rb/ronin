@@ -21,21 +21,7 @@
 #++
 #
 
-module Ronin
-  module Cache
-    class PendingContext
-
-      # The path being loaded
-      attr_reader :path
-
-      # The blocks to be loaded
-      attr_accessor :blocks
-
-      def initialize(path)
-        @path = File.expand_path(path)
-        @blocks = {}
-      end
-
-    end
-  end
-end
+require 'ronin/exceptions/unknown_context'
+require 'ronin/exceptions/context_not_found'
+require 'ronin/exceptions/unknown_object_context'
+require 'ronin/exceptions/object_context_not_found'

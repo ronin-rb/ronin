@@ -21,9 +21,9 @@
 #++
 #
 
-require 'ronin/cache/context'
 require 'ronin/cache/extension_cache'
 require 'ronin/cache/overlay'
+require 'ronin/context'
 
 module Ronin
   module Cache

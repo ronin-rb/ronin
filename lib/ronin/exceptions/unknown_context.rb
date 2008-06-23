@@ -22,8 +22,6 @@
 #
 
 module Ronin
-  module Cache
-    class UnknownContext < RuntimeError
-    end
+  class UnknownContext < RuntimeError
   end
 end

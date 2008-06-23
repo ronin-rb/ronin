@@ -22,23 +22,8 @@
 #
 
 require 'ronin/cache/cache'
-require 'ronin/cache/object_context'
 
 module Ronin
-  #
-  # See Cache::ObjectContext.load_objects.
-  #
-  def Ronin.ronin_load_objects(path)
-    Cache::ObjectContext.load_objects(path)
-  end
-
-  #
-  # See Cache::ObjectContext.load_object.
-  #
-  def Ronin.ronin_load_object(type,path)
-    Cache::ObjectContext.load_object(type,path)
-  end
-
   protected
 
   #

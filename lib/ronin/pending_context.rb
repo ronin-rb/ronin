@@ -22,8 +22,18 @@
 #
 
 module Ronin
-  module Cache
-    class ContextNotFound < RuntimeError
+  class PendingContext
+
+    # The path being loaded
+    attr_reader :path
+
+    # The blocks to be loaded
+    attr_accessor :blocks
+
+    def initialize(path)
+      @path = File.expand_path(path)
+      @blocks = {}
     end
+
   end
 end
