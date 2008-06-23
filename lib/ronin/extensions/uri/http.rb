@@ -21,81 +21,43 @@
 #++
 #
 
+require 'ronin/extensions/uri/query_params'
+
 require 'uri/http'
 
 module URI
   class HTTP < Generic
 
-    # Query parameters
-    attr_reader :query_params
+    include QueryParams
 
-    alias_method :old_initialize, :initialize
+    def explode_query_params(value,options={},&block)
+      included = (options[:included] || @query_params.keys)
+      excluded = (options[:excluded] || [])
+      selected_params = included - excluded
 
-    #
-    # Creates a new URI::HTTP object and initializes query_params as a
-    # new Hash.
-    #
-    def initialize(*args)
-      old_initialize(*args)
+      urls = {}
+      
+      selected_params.each do |key|
+        new_url = URI(to_s)
+        new_url.query_params[key] = value
 
-      @query_params = {}
-      parse_query_params
-    end
-
-    #
-    # Sets the query data and updates query_params.
-    #
-    def query=(query_str)
-      new_query = super(query_str)
-      parse_query_params
-      return new_query
-    end
-
-    protected
-
-    #
-    # Parses the query parameters from the query data, populating
-    # query_params with the parsed parameters.
-    #
-    def parse_query_params
-      @query_params.clear
-
-      if @query
-        @query.split('&').each do |param|
-          name, value = param.split('=')
-
-          if value
-            @query_params[name] = URI.decode(value)
-          else
-            @query_params[name] = nil
-          end
-        end
-      end
-    end
-
-    private
-
-    # :nodoc
-    def path_query
-      str = @path
-
-      unless @query_params.empty?
-        str += '?' + @query_params.to_a.map { |name,value|
-          if value==true
-            "#{name}=active"
-          elsif value
-            if value.kind_of?(Array)
-              "#{name}=#{URI.encode(value.join(' '))}"
-            else
-              "#{name}=#{URI.encode(value.to_s)}"
-            end
-          else
-            "#{name}="
-          end
-        }.join('&')
+        urls[key] = new_url
       end
 
-      return str
+      urls.each(&block) if block
+      return urls
+    end
+
+    def test_query_params(value,options={},&block)
+      results = {}
+
+      explode_query_params(value,options) do |param,url|
+        result = block.call(url)
+
+        results[param] = result if result
+      end
+
+      return results
     end
 
   end
