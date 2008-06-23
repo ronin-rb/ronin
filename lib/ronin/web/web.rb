@@ -21,20 +21,19 @@
 #++
 #
 
+require 'ronin/network/http'
+
 require 'uri/http'
 require 'mechanize'
 require 'open-uri'
 
 module Ronin
   module Web
-    # Common proxy port.
-    COMMON_PROXY_PORT = 8080
-
     #
     # Returns the +Hash+ of the Ronin Web proxy information.
     #
     def Web.proxy
-      @@web_proxy ||= {:host => nil, :port => COMMON_PROXY_PORT, :user => nil, :password => nil}
+      Network::HTTP.proxy
     end
 
     #
@@ -61,14 +60,22 @@ module Ronin
     # Returns the Ronin Web User-Agent
     #
     def Web.user_agent
-      @@web_user_agent ||= nil
+      Network::HTTP.user_agent
     end
 
     #
     # Sets the Ronin Web User-Agent to the specified _new_agent_.
     #
     def Web.user_agent=(new_agent)
-      @@web_user_agent = new_agent
+      Network::HTTP.user_agent = new_agent
+    end
+
+    #
+    # Sets the Ronin Web User-Agent to the specified user agent alias
+    # _name_.
+    #
+    def Web.user_agent_alias=(name)
+      Network::HTTP.user_agent = Web.user_agent_aliases[name.to_s]
     end
 
     #
@@ -90,7 +97,7 @@ module Ronin
       headers = {}
 
       if options[:user_agent_alias]
-        headers['User-Agent'] = WWW::Mechanize::AGENT_ALIASES[options[:user_agent_alias]]
+        headers['User-Agent'] = Web.user_agent_aliases[options[:user_agent_alias]]
       elsif options[:user_agent]
         headers['User-Agent'] = options[:user_agent]
       elsif Web.user_agent
