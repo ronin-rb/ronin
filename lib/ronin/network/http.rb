@@ -22,11 +22,12 @@
 #
 
 require 'ronin/network/extensions/http'
+require 'ronin/network/http/exceptions/unknown_request'
 
 module Ronin
   module Network
     module HTTP
-      DEFAULT_PROXY_PORT = 8080
+      COMMON_PROXY_PORT = 8080
 
       def HTTP.default_proxy_port
         @@http_default_proxy_port ||= COMMON_PROXY_PORT
@@ -51,57 +52,34 @@ module Ronin
       def HTTP.headers(options={})
         headers = {}
 
-        if options[:accept]
-          headers['Accept'] = options[:accept].to_s
-        end
-
-        if options[:accept_charset]
-          headers['Accept-Charset'] = options[:accept_charset].to_s
-        end
-
-        if options[:accept_encoding]
-          headers['Accept-Encoding'] = options[:accept_encoding].to_s
-        end
-
-        if options[:accept_language]
-          headers['Accept-Language'] = options[:accept_language].to_s
-        end
-
-        if options[:accept_range]
-          headers['Accept-Range'] = options[:accept_range].to_s
-        end
-
-        if options[:authorization]
-          headers['Authorization'] = options[:authorization].to_s
-        end
-
-        if options[:connection]
-          headers['Connection'] = options[:connection].to_s
-        end
-
-        if options[:date]
-          headers['Date'] = options[:date].to_s
-        end
-
-        if options[:host]
-          options['Host'] = options[:host].to_s
-        end
-
-        if options[:if_modified_since]
-          options['If-Modified-Since'] = options[:if_modified_since].to_s
-        end
-
-        if options[:user_agent]
-          headers['User-Agent'] = options[:user_agent]
-        elsif HTTP.user_agent
+        if HTTP.user_agent
           headers['User-Agent'] = HTTP.user_agent
         end
 
-        if options[:referer]
-          headers['Referer'] = options[:referer]
+        if options
+          options.each do |name,value|
+            headers[name.to_s.sub('_','-').capitalize] = value.to_s
+          end
         end
 
         return headers
+      end
+
+      def HTTP.request(type,options={})
+        name = type.to_s.capitalize
+
+        unless Net::HTTP.const_defined?(name)
+          raise(UnknownRequest,"unknown HTTP request type #{name.dump}",caller)
+        end
+
+        headers = HTTP.headers(options[:headers])
+        request = Net::HTTP.const_get(name).new(options[:path].to_s,headers)
+
+        if options[:user]
+          request.basic_auth(options[:user].to_s,options[:password].to_s)
+        end
+
+        return request
       end
     end
   end
