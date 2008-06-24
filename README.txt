@@ -11,15 +11,24 @@ of code over many of the common Source-Code-Management (SCM) systems.
 
 == FEATURES/PROBLEMS:
 
+* Free
+* Modular
+* Decentralized
+
 == REQUIREMENTS:
 
-* DataMapper
-* DataObjects
-* do_sqlite3
-* R'epertoire
-* reverserequire
 * Hpricot
 * Mechanize
+* DataMapper:
+ * dm-core
+ * data_objects
+ * do_sqlite3
+ * dm-types
+ * dm-serializer
+ * dm-aggregates
+ * dm-ar-finders
+* R'epertoire
+* reverserequire
 
 == INSTALL:
 
@@ -27,8 +36,8 @@ of code over many of the common Source-Code-Management (SCM) systems.
 
 == LICENSE:
 
-Ronin - A ruby development platform designed for information security
-and data exploration tasks.
+Ronin - A Ruby platform designed for information security and data
+exploration tasks.
 
 Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 

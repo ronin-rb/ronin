@@ -7,6 +7,7 @@
     * CVS
     * Darcs
     * Subversion (SVN)
+    * Git
     * Rsync
 * Allows for the loading of Extensions from one or more Overlays.
 * Provides a variety of ways to access an Extension:

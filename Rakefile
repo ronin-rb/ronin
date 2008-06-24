@@ -10,6 +10,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
   p.extra_deps = ['hpricot',
                   'mechanize',
                   ['dm-core', '>=0.9.2'],
+                  ['data_objects', '>=0.9.2'],
                   ['do_sqlite3', '>=0.9.2'],
                   ['dm-types', '>=0.9.2'],
                   ['dm-serializer', '>=0.9.2'],
