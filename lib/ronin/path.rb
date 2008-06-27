@@ -21,17 +21,38 @@
 #++
 #
 
+require 'pathname'
+
 module Ronin
   class Path < Pathname
 
+    #
+    # Creates a new Path object with _n_ number of <tt>..</tt> directories.
+    #
+    #   Path.up(7)
+    #   # => #<Ronin::Path:../../../../../../..>
+    #
     def self.up(n)
       self.new(File.join(['..'] * n))
     end
 
-    def join(*names)
+    #
+    # Joins the _args_ with the path, but does not resolve the resulting
+    # path.
+    #
+    #   Path.up(7).join('etc/passwd')
+    #   # => #<Ronin::Path:../../../../../../../etc/passwd>
+    #
+    def join(*args)
       self.class.new(File.join(self,*names))
     end
 
+    #
+    # Joins _name_ with the path, but does not resolve the resulting path.
+    #
+    #   Path.up(7) / 'etc' / 'passwd'
+    #   # => #<Ronin::Path:../../../../../../../etc/passwd>
+    #
     def /(name)
       join(name)
     end
