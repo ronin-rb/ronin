@@ -27,22 +27,37 @@ require 'digest/sha2'
 
 class String
 
+  #
+  # Returns the MD5 checksum of the String.
+  #
   def md5
     Digest::MD5.hexdigest(self)
   end
 
+  #
+  # Returns the SHA1 checksum of the String.
+  #
   def sha1
     Digest::SHA1.hexdigest(self)
   end
 
+  #
+  # Returns the SHA2 checksum of the String.
+  #
   def sha2
     Digest::SHA2.hexdigest(self)
   end
 
+  #
+  # Returns the SHA256 checksum of the String.
+  #
   def sha256
     Digest::SHA256.hexdigest(self)
   end
 
+  #
+  # Returns the SHA512 checksum of the String.
+  #
   def sha512
     Digest::SHA512.hexdigest(self)
   end

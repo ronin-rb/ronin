@@ -24,6 +24,10 @@
 require 'reverse_require'
 
 module Kernel
+  #
+  # Requires the specified _path_ from all RubyGems that both depends on
+  # Ronin and contains the specified _path_.
+  #
   def ronin_require(path)
     reverse_require(:ronin,path)
   end

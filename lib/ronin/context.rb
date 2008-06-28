@@ -96,6 +96,9 @@ module Ronin
       base.to_s.downcase.gsub(/::/,'_').gsub(/^ronin_/,'').to_sym
     end
 
+    #
+    # Returns the Array of contexts which are waiting to be loaded.
+    #
     def Context.waiting
       @@ronin_waiting_contexts ||= []
     end

@@ -29,25 +29,39 @@ class String
   #
   # Returns the URI encoded form of the string.
   #
-  #   "artful wall".uri_encode # => "artful%20wall"
+  #   "art is graffiti".uri_encode
+  #   # => "art%20is%20graffiti"
   #
   def uri_encode
     URI.encode(self)
   end
 
   #
-  # Returns the URI decoded form of the string.
+  # Returns the decoded URI form of the string.
   #
-  #   "genre%3f".uri_encode # => "genre?"
+  #   "genre%3f".uri_decode
+  #   # => "genre?"
   #
   def uri_decode
     URI.decode(self)
   end
 
+  #
+  # Returns the URI escaped form of the string.
+  #
+  #   "x > y".uri_escape
+  #   # => "x+%3E+y"
+  #
   def uri_escape
     CGI.escape(self)
   end
 
+  #
+  # Returns the unescaped URI form of the string.
+  #
+  #   "sweet+%26+sour".uri_unescape
+  #   # => "sweet & sour"
+  #
   def uri_unescape
     CGI.unescape(self)
   end

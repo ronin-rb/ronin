@@ -26,29 +26,51 @@ require 'ronin/network/smtp/email'
 require 'net/smtp'
 
 module Net
+  #
+  # See Ronin::Network::SMTP.message.
+  #
   def Net.smtp_message(options={},&block)
     Ronin::Network::SMTP.message(options,&block)
   end
 
+  #
+  # Connects to the specified _host_ with the given _options_. If a _block_
+  # is given it will be passed the newly created Net::SMTP object.
+  #
+  # _options_ may contain the following keys:
+  # <tt>:port</tt>:: The port to connect to, defaults to
+  #                  Ronin::Network::SMTP.default_port.
+  # <tt>:helo</tt>:: The HELO domain.
+  # <tt>:auth</tt>:: The type of authentication to use. Can be
+  #                  either <tt>:login</tt>, <tt>:plain</tt> or
+  #                  <tt>:cram_md5</tt>.
+  # <tt>:user</tt>:: The user name to authenticate with.
+  # <tt>:password</tt>:: The password to authenticate with.
+  #
   def Net.smtp_connect(host,options={},&block)
     port = (options[:port] || Ronin::Network::SMTP.default_port)
 
-    hello = options[:hello]
+    helo = options[:helo]
 
-    login = options[:login]
+    auth = options[:auth]
     user = options[:user]
     password = options[:password]
 
-    sess = Net::SMTP.start(host,port,hello,user,password,login)
+    sess = Net::SMTP.start(host,port,helo,user,password,auth)
 
     block.call(sess) if block
     return sess
   end
 
+  #
+  # Connects to the specified _host_ with the given _options_. If a _block_
+  # is given it will be passed the newly created Net::SMTP object. After the
+  # Net::SMTP object has been passed to the _block_ it will be closed.
+  #
   def Net.smtp_session(host,options={},&block)
     Net.smtp_connect(host,options) do |sess|
       block.call(sess) if block
-      sess.close
+      sess.finish
     end
 
     return nil

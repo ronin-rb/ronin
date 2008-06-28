@@ -32,7 +32,9 @@ module Net
   #   Net.tcp_connect('www.hackety.org',80) # => TCPSocket
   #
   #   Net.tcp_connect('www.wired.com',80) do |sock|
+  #     sock.write("GET /\n\n")
   #     puts sock.readlines
+  #     sock.close
   #   end
   #
   def Net.tcp_connect(rhost,rport,lhost=nil,lport=nil,&block)
@@ -44,16 +46,10 @@ module Net
 
   #
   # Creates a new TCPSocket object with the specified _rhost_ 
-  # _rport_, and the given _lhost_ and _lport_. The specified _block_
-  # will be passed the first line received from the TCPSocket object.
-  # The newly created TCPSocket object will be returned.
+  # _rport_, and the given _lhost_ and _lport_. The specified _data_ will
+  # then be written to the newly created TCPSocket. If a _block_ is given
+  # it will be passed the TCPSocket object.
   #
-  def Net.tcp_connect_and_recv(rhost,rport,lhost=nil,lport=nil,&block)
-    Net.tcp_connect(rhost,rport,lhost,lport) do |sock|
-      block.call(sock.read) if block
-    end
-  end
-
   def Net.tcp_connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
     Net.tcp_connect(rhost,rport,lhost,lport) do |sock|
       sock.write(data)
@@ -62,6 +58,12 @@ module Net
     end
   end
 
+  #
+  # Creates a new TCPSocket object with the specified _rhost_, _rport_
+  # and the given _lhost_ and _lport_. If _block_ is given, it will be
+  # passed the newly created TCPSocket object. After the TCPSocket object
+  # has been passed to the given _block_ it will be closed.
+  #
   def Net.tcp_session(rhost,rport,lhost=nil,lport=nil,&block)
     Net.tcp_connect(rhost,rport,lhost,lport) do |sock|
       block.call(sock) if block
@@ -71,11 +73,19 @@ module Net
     return nil
   end
 
+  #
+  # Connects to the specified _rhost_ and _rport_ with the given _lhost_
+  # and _lport_, reads the banner then closes the connection, returning the
+  # received banner. If a _block_ is given it will be passed the banner.
+  #
+  #   Net.tcp_banner('pop.gmail.com',25)
+  #   # => "220 mx.google.com ESMTP c20sm3096959rvf.1"
+  #
   def Net.tcp_banner(rhost,rport,lhost=nil,lport=nil,&block)
     banner = nil
 
     Net.tcp_session(rhost,rport,lhost,lport) do |sock|
-      banner = sock.readline
+      banner = sock.readline.strip
     end
 
     block.call(banner) if block

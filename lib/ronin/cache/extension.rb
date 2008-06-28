@@ -488,6 +488,11 @@ module Ronin
         @action_blocks.has_key?(name.to_sym)
       end
 
+      #
+      # Runs the action of the specified _name_ with the given _args_.
+      # If no action of the specified name exists, then an UnknownAction
+      # exception will be raised.
+      #
       def perform_action(name,*args)
         name = name.to_s
 
@@ -642,6 +647,11 @@ module Ronin
         return self
       end
 
+      #
+      # Defines a new action with the specified _name_ and the given
+      # _block_. If an action of the same _name_ has already been defined
+      # then an ActionRedefined exception will be raised.
+      #
       def action(name,&block)
         name = name.to_s
 

@@ -25,6 +25,15 @@ require 'ronin/text'
 
 class String
 
+  #
+  # Creates a new String by passing each character to the specified _block_
+  # using the given _options_.
+  #
+  # _options_ may include the following keys:
+  # <tt>:included</tt>:: The set of characters that will be formated,
+  #                      defaults to <tt>Ronin::Text.all</tt>.
+  # <tt>:excluded</tt>:: The characters not to format.
+  #
   def format_chars(options={},&block)
     included = (options[:included] || Ronin::Text.all)
     excluded = (options[:excluded] || [])
@@ -40,6 +49,15 @@ class String
     }.join
   end
 
+  #
+  # Creates a new String by passing each byte to the specified _block_
+  # using the given _options_.
+  #
+  # _options_ may include the following keys:
+  # <tt>:included</tt>:: The set of characters that will be formated,
+  #                      defaults to <tt>Ronin::Text.all</tt>.
+  # <tt>:excluded</tt>:: The characters not to format.
+  #
   def format_bytes(options={},&block)
     format_chars(options) do |c|
       i = block.call(c[0])
@@ -52,6 +70,17 @@ class String
     end
   end
 
+  #
+  # Creates a new String by randomizing the case of each character using
+  # the given _options_.
+  #
+  # _options_ may include the following keys:
+  # <tt>:probability</tt>:: The probability that a character will have it's
+  #                         case changed; defaults to 0.5.
+  #
+  # "get out your checkbook".rand_case
+  # # => "gEt Out YOur CHEckbook"
+  #
   def rand_case(options={})
     prob = (options[:probability] || 0.5)
 

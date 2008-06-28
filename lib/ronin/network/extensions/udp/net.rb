@@ -54,6 +54,12 @@ module Net
     end
   end
 
+  #
+  # Creates a new UDPSocket object with the specified _rhost_ 
+  # _rport_, and the given _lhost_ and _lport_. The specified _data_ will
+  # then be written to the newly created UDPSocket. If a _block_ is given
+  # it will be passed the UDPSocket object.
+  #
   def Net.udp_connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
     Net.udp_connect(rhost,rport,lhost,lport) do |sock|
       sock.write(data)
@@ -62,6 +68,12 @@ module Net
     end
   end
 
+  #
+  # Creates a new UDPSocket object with the specified _rhost_, _rport_
+  # and the given _lhost_ and _lport_. If _block_ is given, it will be
+  # passed the newly created UDPSocket object. After the UDPSocket object
+  # has been passed to the given _block_ it will be closed.
+  #
   def Net.udp_session(rhost,rport,lhost=nil,lport=nil,&block)
     Net.udp_connect(rhost,rport,lhost,lport) do |sock|
       block.call(sock) if block
@@ -71,6 +83,11 @@ module Net
     return nil
   end
 
+  #
+  # Connects to the specified _rhost_ and _rport_ with the given _lhost_
+  # and _lport_, reads the banner then closes the connection, returning the
+  # received banner. If a _block_ is given it will be passed the banner.
+  #
   def Net.udp_banner(rhost,rport,lhost=nil,lport=nil,&block)
     Net.udp_session(rhost,rport,lhost,lport) do |sock|
       banner = sock.readline

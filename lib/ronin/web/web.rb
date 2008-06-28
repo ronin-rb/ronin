@@ -91,6 +91,7 @@ module Ronin
     #
     #   Web.open('http://tenderlovemaking.com/',
     #     :user_agent_alias => 'Linux Mozilla')
+    #
     #   Web.open('http://www.wired.com/', :user_agent => 'the future')
     #
     def Web.open(uri,options={})
@@ -153,7 +154,7 @@ module Ronin
     # <tt>:user_agent</tt>:: The User-Agent string to use.
     # <tt>:proxy</tt>:: A +Hash+ of the proxy information to use.
     #
-    #   Web.get('http://www.rubyinside.com') # => WWW::Mechanize::Page
+    #   Web.get('http://www.0x000000.com') # => WWW::Mechanize::Page
     #
     #   Web.get('http://www.rubyinside.com') do |page|
     #     page.search('div.post/h2/a').each do |title|

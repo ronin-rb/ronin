@@ -28,6 +28,12 @@ require 'cgi'
 
 class String
 
+  #
+  # Returns the HTML decimal decoded form of the string.
+  #
+  #   "x > y".html_encode
+  #   # => "x &gt; y"
+  #
   def html_encode
     CGI.escapeHTML(self)
   end
@@ -35,9 +41,11 @@ class String
   #
   # Returns the HTML decimal decoded form of the string.
   #
-  #   "&lt;rock on&gt;".html_decode # => "<rock on>"
+  #   "&lt;rock on&gt;".html_decode
+  #   # => "<rock on>"
   #
-  #   "&#99;&#111;&#102;&#102;&#101;&#101;".html_decode # => "coffee"
+  #   "&#99;&#111;&#102;&#102;&#101;&#101;".html_decode
+  #   # => "coffee"
   #
   def html_decode
     CGI.unescapeHTML(self)
@@ -46,7 +54,8 @@ class String
   #
   # Returns the HTML decimal encoded form of the string.
   #
-  #   "hello".format_html # => "&#104;&#101;&#108;&#108;&#111;"
+  #   "hello".format_html
+  #   # => "&#104;&#101;&#108;&#108;&#111;"
   #
   def format_html(options={})
     format_bytes(options) { |c| sprintf("&#%d;",c) }

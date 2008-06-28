@@ -50,6 +50,10 @@ module Ronin
         CharSet.new(super(&block))
       end
 
+      #
+      # Creates a new CharSet object by passing each character to the
+      # specified _block_.
+      #
       def map(&block)
         CharSet.new(super(&block))
       end
