@@ -31,7 +31,7 @@ module Ronin
 
         command :update, :up
 
-        options('NAME [NAME ...] [options]') do |opts|
+        options('[NAME ...] [options]') do |opts|
           opts.options
 
           opts.arguments do
