@@ -6,6 +6,11 @@ class Object # :nodoc:
 
   # A class_eval version of meta_eval
   def metaclass_eval(&blk); metaclass.class_eval(&blk); end
+
+  # A class_def version of meta_def
+  def metaclass_def(name, &blk)
+    metaclass_eval { define_method(name, &blk) }
+  end
   
   # Adds methods to a metaclass
   def meta_def(name, &blk)

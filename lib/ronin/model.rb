@@ -35,6 +35,7 @@ module Ronin
       base.module_eval do
         include DataMapper::Resource
         include DataMapper::AutoMigrations
+        include DataMapper::Types
       end
     end
   end

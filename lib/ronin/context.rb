@@ -29,42 +29,40 @@ require 'ronin/extensions/meta'
 module Ronin
   module Context
     def self.included(base)
-      base.metaclass_eval do
-        def contextify(name)
-          Context.contexts[name.to_sym] = self
+      base.metaclass_def(:contextify) do |name|
+        Context.contexts[name.to_sym] = self
 
-          meta_def(:context_name) { name }
+        meta_def(:context_name) { name }
 
-          class_def(:context_name) { name }
+        class_def(:context_name) { name }
 
-          meta_def(:load_context) do |path,*args|
-            Context.load_context(path,self.context_name,*args)
-          end
+        meta_def(:load_context) do |path,*args|
+          Context.load_context(path,self.context_name,*args)
+        end
 
-          # define the top-level context wrappers
-          Kernel.module_eval %{
-            def ronin_#{name}(*args,&block)
-              if (args.empty? && Ronin::Context.is_pending?)
-                Ronin::Context.pending.blocks[:#{name}] = block
-                return nil
-              else
-                new_context = #{self}.new(*args)
-                new_context.instance_eval(&block) if block
-                return new_context
-              end
-            end
-          }
-
-          # define the Ronin-level context loader
-          Ronin.module_eval %{
-            def ronin_load_#{name}(path,*args,&block)
-              new_context = #{self}.load_context(path,*args)
-
-              block.call(new_context) if block
+        # define the top-level context wrappers
+        Kernel.module_eval %{
+          def ronin_#{name}(*args,&block)
+            if (args.empty? && Ronin::Context.is_pending?)
+              Ronin::Context.pending.blocks[:#{name}] = block
+              return nil
+            else
+              new_context = #{self}.new(*args)
+              new_context.instance_eval(&block) if block
               return new_context
             end
-          }
-        end
+          end
+        }
+
+        # define the Ronin-level context loader
+        Ronin.module_eval %{
+          def ronin_load_#{name}(path,*args,&block)
+            new_context = #{self}.load_context(path,*args)
+
+            block.call(new_context) if block
+            return new_context
+          end
+        }
       end
     end
 
@@ -150,12 +148,12 @@ module Ronin
       return Context.pending if Context.is_pending?
 
       # push on the new pending context
-      ronin_pending_contexts.unshift(PendingContext.new(path))
+      Context.waiting.unshift(PendingContext.new(path))
 
       load(path)
 
       # pop off and return the pending context
-      pending_context = ronin_pending_contexts.shift
+      pending_context = Context.waiting.shift
 
       block.call(pending_context) if block
       return pending_context
@@ -196,7 +194,7 @@ module Ronin
 
       new_context = Context.contexts[name].new(*args)
 
-      Context.load_block(path,name) do |context_block|
+      Context.load_block(name,path) do |context_block|
         new_context.instance_eval(&context_block) if context_block
       end
 

@@ -32,13 +32,13 @@ require 'dm-timestamps'
 module Ronin
   module ObjectContext
     def self.included(base)
-      base.class_eval { include Context }
+      base.class_eval do
+        include Model
 
-      base.metaclass_eval do
-        def object_contextify(name)
+        metaclass_def(:object_contextify) do |name|
           ObjectContext.object_contexts[name] = self
 
-          include Model
+          include Context
 
           contextify name
 
@@ -51,11 +51,11 @@ module Ronin
           end
 
           meta_def(:search) do |*attribs|
-            all(*attribs).map { |obj| obj.load_object }
+            all(*attribs).map { |obj| obj.object }
           end
 
-          class_def(:load_object) do
-            create_object(object_path)
+          class_def(:object) do
+            self.class.create_object(object_path)
           end
 
           class_def(:stale?) do
@@ -66,11 +66,25 @@ module Ronin
             end
           end
 
+          class_def(:cache) do
+            save
+          end
+
+          class_def(:sync) do
+            if (!(dirty?) && stale?)
+              destroy
+              cache
+              return true
+            end
+
+            return false
+          end
+
           # define Repo-level object loader method
           Ronin.module_eval %{
             def ronin_load_#{name}(path,*args,&block)
               new_obj = #{self}.create_object(path,*args)
-        
+      
               block.call(new_obj) if block
               return new_obj
             end
@@ -102,7 +116,7 @@ module Ronin
     #
     #   ObjectContext.load_object(:note,'/path/to/my_notes.rb') # => Note
     #
-    def ObjectContext.load_object(name,path,*args)
+    def ObjectContext.load_object(name,path,*args,&block)
       name = name.to_sym
 
       unless ObjectContext.is_object_context?(name)
@@ -115,8 +129,10 @@ module Ronin
         raise(ObjectContextNotFound,"object context #{path.dump} does not exist",caller)
       end
 
-      new_obj = ObjectContext.load_context(name,path,*args)
+      new_obj = Context.load_context(name,path,*args)
+      new_obj.object_path = path
 
+      block.call(new_obj) if block
       return new_obj
     end
 
@@ -135,6 +151,8 @@ module Ronin
       end
 
       return ObjectContext.load_contexts(path) do |new_obj|
+        new_obj.object_path = path
+
         block.call(new_obj) if block
       end
     end
