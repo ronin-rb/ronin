@@ -98,7 +98,7 @@ module Ronin
     end
 
     Database.setup do
-      ronin_require 'ronin/objects'
+      ronin_require 'ronin/models'
     end
   end
 end
