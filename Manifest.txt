@@ -95,8 +95,8 @@ lib/ronin/sessions/imap.rb
 lib/ronin/sessions/telnet.rb
 lib/ronin/sessions/web.rb
 lib/ronin/database.rb
-lib/ronin/objects.rb
 lib/ronin/model.rb
+lib/ronin/models.rb
 lib/ronin/author.rb
 lib/ronin/license.rb
 lib/ronin/arch.rb
