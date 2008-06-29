@@ -43,8 +43,8 @@ module Ronin
 
         def arguments(*args)
           args.each do |name|
-            Cache::Repository.save_cache do
-              Cache::Repository.remove(name) do |repo|
+            Cache::Overlay.save_cache do
+              Cache::Overlay.remove(name) do |repo|
                 puts "Removing #{repo}..."
               end
             end

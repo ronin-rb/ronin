@@ -43,8 +43,8 @@ module Ronin
 
         def arguments(*args)
           args.each do |name|
-            Cache::Repository.save_cache do
-              Cache::Repository.uninstall(name) do |repo|
+            Cache::Overlay.save_cache do
+              Cache::Overlay.uninstall(name) do |repo|
                 puts "Uninstalling #{repo}..."
               end
             end

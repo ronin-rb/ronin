@@ -44,13 +44,13 @@ module Ronin
         def arguments(*args)
           if args.empty?
             # list all repositories by name
-            Cache::Repository.each do |repo|
+            Cache::Overlay.each do |repo|
               puts "  #{repo}"
             end
           else
             # list specified repositories
             args.each do |name|
-              repo = Cache::Repository.get(name)
+              repo = Cache::Overlay.get(name)
 
               puts "[ #{repo} ]\n\n"
 

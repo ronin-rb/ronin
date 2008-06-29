@@ -43,9 +43,9 @@ module Ronin
 
         def arguments(*args)
           if args.empty?
-            Cache::Repository.each { |repo| repo.update }
+            Cache::Overlay.each { |repo| repo.update }
           else
-            args.each { |name| Cache::Repository.update(name) }
+            args.each { |name| Cache::Overlay.update(name) }
           end
         end
 

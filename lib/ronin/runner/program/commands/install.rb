@@ -53,8 +53,8 @@ module Ronin
             fail('install: only one repository URI maybe specified')
           end
 
-          Cache::Repository.save_cache do
-            Cache::Repository.install(:uri => args.first, :media => options.settings.media) do |repo|
+          Cache::Overlay.save_cache do
+            Cache::Overlay.install(:uri => args.first, :media => options.settings.media) do |repo|
               puts "Repository #{repo} has been installed."
             end
           end
