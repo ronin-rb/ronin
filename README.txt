@@ -37,10 +37,10 @@ of Ronin.
 * Supports installing/updating/uninstalling of Overlays.
   * Supports accessing Overlays from various media types:
     * CVS
-    * Darcs
     * Subversion (SVN)
     * Git
     * Rsync
+    * Darcs
 * Allows for the loading of Extensions from one or more Overlays.
 * Provides persistent storage using DataMapper.
 * Provides convenience methods for:
@@ -128,4 +128,3 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
