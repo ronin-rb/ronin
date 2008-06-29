@@ -84,39 +84,5 @@ module Ronin
       @name.to_s
     end
 
-    def self.from_xml(doc,xpath='/ronin/author')
-      authors = []
-
-      doc.elements.each(xpath) do |element|
-        author_name = nil
-        author_info = {}
-
-        # name of the author
-        element.each_element('name') { |name| author_name = name.get_text.to_s }
-
-        # default the name to ANONYMOUSE
-        if (author_name.nil? || author_name.empty?)
-          author_name = ANONYMOUSE
-        end
-
-        # associated group of the author
-        element.each_element('group') { |group| author_info[:group] = group.get_text.to_s }
-
-        # the authors PGP signature
-        element.each_element('pgp_signature') { |signature| author_info[:pgp_signature] = signature.get_text.to_s }
-
-        # author's contact information
-        element.each_element('contact/email') { |email| author_info[:email] = email.get_text.to_s }
-        element.each_element('contact/site') { |site| author_info[:site] = site.get_text.to_s }
-
-        # author's biography
-        element.each_element('biography') { |biography| author_info[:biography] = biography.get_text.to_s }
-
-        authors << Author.new(author_name,author_info)
-      end
-
-      return authors
-    end
-
   end
 end

@@ -76,7 +76,7 @@ module Ronin
       end
 
       meta_def("#{method_name}_version") do |version|
-        Platform.find_or_new(:os => name, :version => version.to_s)
+        Platform.first_or_create(:os => name, :version => version.to_s)
       end
 
       return nil

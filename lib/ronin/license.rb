@@ -62,9 +62,9 @@ module Ronin
       url = options[:url].to_s
 
       meta_def(name.to_method_name) do
-        License.find_or_new(:name => name,
-                            :description => description,
-                            :url => url)
+        License.first_or_create(:name => name,
+                                :description => description,
+                                :url => url)
       end
 
       return nil
