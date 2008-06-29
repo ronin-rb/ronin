@@ -21,4 +21,4 @@
 #++
 #
 
-require 'ronin/formating/extensions/text'
+require 'ronin/formatting/extensions/text'

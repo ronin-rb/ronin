@@ -21,4 +21,4 @@
 #++
 #
 
-require 'ronin/formating/extensions/http/string'
+require 'ronin/formatting/extensions/html'

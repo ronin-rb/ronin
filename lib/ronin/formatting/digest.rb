@@ -21,5 +21,4 @@
 #++
 #
 
-require 'ronin/formating/extensions/binary/integer'
-require 'ronin/formating/extensions/binary/string'
+require 'ronin/formatting/extensions/digest'

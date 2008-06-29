@@ -21,4 +21,4 @@
 #++
 #
 
-require 'ronin/formating/extensions/binary'
+require 'ronin/formatting/extensions/http/string'
