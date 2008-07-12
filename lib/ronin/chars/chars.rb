@@ -21,10 +21,10 @@
 #++
 #
 
-require 'ronin/text/char_set'
+require 'ronin/chars/char_set'
 
 module Ronin
-  module Text
+  module Chars
     # The numeric decimal character set
     NUMERIC = CharSet.new('0'..'9')
 

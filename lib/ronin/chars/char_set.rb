@@ -22,7 +22,7 @@
 #
 
 module Ronin
-  module Text
+  module Chars
     class CharSet < Array
 
       #
