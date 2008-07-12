@@ -21,5 +21,5 @@
 #++
 #
 
-require 'ronin/text/char_set'
-require 'ronin/text/text'
+require 'ronin/chars/char_set'
+require 'ronin/chars/text'
