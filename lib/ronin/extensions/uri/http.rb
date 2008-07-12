@@ -22,6 +22,7 @@
 #
 
 require 'ronin/extensions/uri/query_params'
+require 'ronin/extensions/hash'
 
 require 'uri/http'
 
@@ -31,20 +32,16 @@ module URI
     include QueryParams
 
     def explode_query_params(value,options={},&block)
-      included = (options[:included] || @query_params.keys)
-      excluded = (options[:excluded] || [])
-      selected_params = included - excluded
-
       urls = {}
-      
-      selected_params.each do |key|
-        new_url = URI(to_s)
-        new_url.query_params[key] = value
 
-        urls[key] = new_url
+      @query_params.explode(value,options).each do |param,params|
+        new_url = clone
+        new_url.query_params = params
+
+        block.call(param,new_url) if block
+        urls[param] = new_url
       end
 
-      urls.each(&block) if block
       return urls
     end
 

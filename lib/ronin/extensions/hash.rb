@@ -21,8 +21,24 @@
 #++
 #
 
-require 'ronin/extensions/meta'
-require 'ronin/extensions/hash'
-require 'ronin/extensions/uri'
-require 'ronin/extensions/string'
-require 'ronin/extensions/kernel'
+class Hash
+
+  def explode(value,options={},&block)
+    included = (options[:included] || keys)
+    excluded = (options[:excluded] || [])
+    selected_keys = included - excluded
+
+    hashes = {}
+
+    selected_keys.each do |key|
+      new_hash = clone
+      new_hash[key] = value
+
+      block.call(key,new_hash) if block
+      hashes[key] = new_hash
+    end
+
+    return hashes
+  end
+
+end

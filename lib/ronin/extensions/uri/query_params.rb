@@ -24,7 +24,7 @@
 module URI
   module QueryParams
     # Query parameters
-    attr_reader :query_params
+    attr_accessor :query_params
 
     #
     # Creates a new URI::HTTP object and initializes query_params as a
