@@ -24,6 +24,7 @@
 require 'ronin/exceptions/invalid_database_config'
 require 'ronin/extensions/kernel'
 require 'ronin/config'
+require 'ronin/models'
 
 require 'yaml'
 require 'dm-core'
@@ -97,8 +98,6 @@ module Ronin
       return nil
     end
 
-    Database.setup do
-      ronin_require 'ronin/models'
-    end
+    Database.setup
   end
 end
