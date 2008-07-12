@@ -26,28 +26,36 @@ require 'ronin/exceptions/object_context_not_found'
 require 'ronin/extensions/meta'
 require 'ronin/context'
 
-require 'dm-core'
-require 'dm-timestamps'
-
 module Ronin
   module ObjectContext
+    include DataMapper::Types
+
     def self.included(base)
       base.class_eval do
         include Model
+        include Context
 
         metaclass_def(:object_contextify) do |name|
           ObjectContext.object_contexts[name] = self
 
-          include Context
-
           contextify name
 
+          # The Path to the object context
           property :object_path, String, :key => true
 
-          property :created_at, DateTime
+          # The modification timestamp of the object context
+          property :object_timestamp, EpochTime
 
-          meta_def(:create_object) do |path,*args|
+          meta_def(:load_object) do |path,*args|
             ObjectContext.load_object(context_name,path,*args)
+          end
+
+          meta_def(:cache) do |path,*args|
+            load_object(path,*args).cache
+          end
+
+          meta_def(:sync) do |path|
+            first(:object_path => File.expand_path(path)).sync
           end
 
           meta_def(:search) do |*attribs|
@@ -55,26 +63,30 @@ module Ronin
           end
 
           class_def(:object) do
-            self.class.create_object(object_path)
+            self.class.load_object(self.object_path)
           end
 
           class_def(:stale?) do
-            if created_at
-              return FileUtils.mtime(object_path) > created_at
-            else
-              return false
+            if self.object_timestamp
+              return File.mtime(self.object_path) > self.object_timestamp
             end
+
+            return false
           end
 
           class_def(:cache) do
-            save
+            self.object_timestamp = File.mtime(self.object_path)
+            return save
           end
 
           class_def(:sync) do
-            if (!(dirty?) && stale?)
-              destroy
-              cache
-              return true
+            unless File.file?(self.object_path)
+              return destroy
+            else
+              if (!(dirty?) && stale?)
+                destroy
+                return object.cache
+              end
             end
 
             return false
@@ -83,8 +95,8 @@ module Ronin
           # define Repo-level object loader method
           Ronin.module_eval %{
             def ronin_load_#{name}(path,*args,&block)
-              new_obj = #{self}.create_object(path,*args)
-      
+              new_obj = #{self}.load_object(path,*args)
+              
               block.call(new_obj) if block
               return new_obj
             end
