@@ -22,7 +22,7 @@
 #
 
 require 'ronin/runner/program/command'
-require 'ronin/cache/repository'
+require 'ronin/cache/overlay'
 
 module Ronin
   module Runner

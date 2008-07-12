@@ -22,7 +22,7 @@
 #
 
 require 'ronin/runner/program/command'
-require 'ronin/cache/repository'
+require 'ronin/cache/overlay'
 
 module Ronin
   module Runner
@@ -55,7 +55,7 @@ module Ronin
 
           Cache::Overlay.save_cache do
             Cache::Overlay.install(:uri => args.first, :media => options.settings.media) do |repo|
-              puts "Repository #{repo} has been installed."
+              puts "Overlay #{repo} has been installed."
             end
           end
         end
