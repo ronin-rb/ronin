@@ -16,6 +16,7 @@ lib/ronin/exceptions/object_context_not_found.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
+lib/ronin/extensions/hash.rb
 lib/ronin/extensions/uri.rb
 lib/ronin/extensions/uri/query_params.rb
 lib/ronin/extensions/uri/http.rb
@@ -32,7 +33,7 @@ lib/ronin/parameters/parameters.rb
 lib/ronin/formatting.rb
 lib/ronin/formatting/digest.rb
 lib/ronin/formatting/binary.rb
-lib/ronin/formatting/text.rb
+lib/ronin/formatting/chars.rb
 lib/ronin/formatting/html.rb
 lib/ronin/formatting/http.rb
 lib/ronin/formatting/extensions.rb
@@ -47,7 +48,7 @@ lib/ronin/formatting/extensions/html.rb
 lib/ronin/formatting/extensions/html/string.rb
 lib/ronin/formatting/extensions/http.rb
 lib/ronin/formatting/extensions/http/string.rb
-lib/ronin/text.rb
+lib/ronin/chars.rb
 lib/ronin/text/char_set.rb
 lib/ronin/text/text.rb
 lib/ronin/target.rb
