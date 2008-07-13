@@ -33,7 +33,7 @@ lib/ronin/parameters/parameters.rb
 lib/ronin/formatting.rb
 lib/ronin/formatting/digest.rb
 lib/ronin/formatting/binary.rb
-lib/ronin/formatting/chars.rb
+lib/ronin/formatting/text.rb
 lib/ronin/formatting/html.rb
 lib/ronin/formatting/http.rb
 lib/ronin/formatting/extensions.rb
@@ -49,8 +49,8 @@ lib/ronin/formatting/extensions/html/string.rb
 lib/ronin/formatting/extensions/http.rb
 lib/ronin/formatting/extensions/http/string.rb
 lib/ronin/chars.rb
-lib/ronin/text/char_set.rb
-lib/ronin/text/text.rb
+lib/ronin/chars/char_set.rb
+lib/ronin/chars/chars.rb
 lib/ronin/target.rb
 lib/ronin/network.rb
 lib/ronin/network/extensions.rb
