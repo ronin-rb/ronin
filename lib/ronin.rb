@@ -24,7 +24,7 @@
 require 'ronin/extensions'
 require 'ronin/environment'
 require 'ronin/formatting'
-require 'ronin/text'
+require 'ronin/chars'
 require 'ronin/network'
 require 'ronin/web'
 require 'ronin/database'

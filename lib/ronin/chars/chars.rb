@@ -75,105 +75,105 @@ module Ronin
     #
     # The numeric decimal character set.
     #
-    def Text.numeric
+    def Chars.numeric
       NUMERIC
     end
 
     #
     # The octal character set.
     #
-    def Text.octal
+    def Chars.octal
       OCTAL
     end
 
     #
     # The upper-case hexadecimal character set.
     #
-    def Text.uppercase_hexadecimal
+    def Chars.uppercase_hexadecimal
       UPPERCASE_HEXADECIMAL
     end
 
     #
     # The lower-case hexadecimal character set.
     #
-    def Text.lowercase_hexadecimal
+    def Chars.lowercase_hexadecimal
       LOWERCASE_HEXADECIMAL
     end
 
     #
     # The hexadecimal character set.
     #
-    def Text.hexadecimal
+    def Chars.hexadecimal
       HEXADECIMAL
     end
 
     #
     # The upper-case alpha character set.
     #
-    def Text.uppercase_alpha
+    def Chars.uppercase_alpha
       UPPERCASE_ALPHA
     end
 
     #
     # The lower-case alpha character set.
     #
-    def Text.lowercase_alpha
+    def Chars.lowercase_alpha
       LOWERCASE_ALPHA
     end
 
     #
     # The alpha character set.
     #
-    def Text.alpha
+    def Chars.alpha
       ALPHA
     end
 
     #
     # The alpha-numeric character set.
     #
-    def Text.alpha_numeric
+    def Chars.alpha_numeric
       ALPHA_NUMERIC
     end
 
     #
     # The space character set.
     #
-    def Text.space
+    def Chars.space
       SPACE
     end
 
     #
     # The punctuation character set.
     #
-    def Text.puncation
+    def Chars.puncation
       PUNCTUATION
     end
 
     #
     # The symbolic character set.
     #
-    def Text.symbols
+    def Chars.symbols
       SYMBOLS
     end
 
     #
     # The control-char character set.
     #
-    def Text.control
+    def Chars.control
       CONTROL
     end
 
     #
     # The ASCII character set.
     #
-    def Text.ascii
+    def Chars.ascii
       ASCII
     end
 
     #
     # The full 8-bit character set.
     #
-    def Text.all
+    def Chars.all
       ALL
     end
   end

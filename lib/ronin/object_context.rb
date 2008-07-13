@@ -26,6 +26,8 @@ require 'ronin/exceptions/object_context_not_found'
 require 'ronin/extensions/meta'
 require 'ronin/context'
 
+require 'dm-core'
+
 module Ronin
   module ObjectContext
     include DataMapper::Types

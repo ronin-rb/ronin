@@ -22,4 +22,4 @@
 #
 
 require 'ronin/chars/char_set'
-require 'ronin/chars/text'
+require 'ronin/chars/chars'
