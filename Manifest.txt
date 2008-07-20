@@ -51,7 +51,7 @@ lib/ronin/formatting/extensions/http/string.rb
 lib/ronin/chars.rb
 lib/ronin/chars/char_set.rb
 lib/ronin/chars/chars.rb
-lib/ronin/target.rb
+lib/ronin/path.rb
 lib/ronin/network.rb
 lib/ronin/network/extensions.rb
 lib/ronin/network/extensions/tcp.rb
@@ -82,7 +82,13 @@ lib/ronin/network/telnet.rb
 lib/ronin/network/http.rb
 lib/ronin/network/http/exceptions.rb
 lib/ronin/network/http/exceptions/unknown_request.rb
-lib/ronin/path.rb
+lib/ronin/rpc.rb
+lib/ronin/rpc/exceptions.rb
+lib/ronin/rpc/exceptions/not_implemented.rb
+lib/ronin/rpc/exceptions/invalid_response.rb
+lib/ronin/rpc/exceptions/unknown_service.rb
+lib/ronin/rpc/call.rb
+lib/ronin/rpc/client.rb
 lib/ronin/web.rb
 lib/ronin/web/web.rb
 lib/ronin/sessions.rb
@@ -102,6 +108,7 @@ lib/ronin/author.rb
 lib/ronin/license.rb
 lib/ronin/arch.rb
 lib/ronin/platform.rb
+lib/ronin/target.rb
 lib/ronin/product.rb
 lib/ronin/pending_context.rb
 lib/ronin/context.rb
