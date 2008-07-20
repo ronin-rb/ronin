@@ -25,6 +25,7 @@ require 'ronin/formatting/extensions/text'
 
 require 'scanf'
 require 'cgi'
+require 'hpricot'
 
 class String
 
@@ -59,6 +60,16 @@ class String
   #
   def format_html(options={})
     format_bytes(options) { |c| sprintf("&#%d;",c) }
+  end
+
+  #
+  # Returns the inner text of the String.
+  #
+  #   "This page is <b>restricted</b>.".strip_html
+  #   # => "This page is restricted."
+  #
+  def strip_html
+    Hpricot(self).inner_text
   end
 
 end
