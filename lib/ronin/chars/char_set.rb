@@ -29,13 +29,19 @@ module Ronin
       # Creates a new CharSet object with the given _characters_.
       #
       def initialize(*characters)
-        characters = characters.flatten.map do |char|
-          if char.kind_of?(Range)
-            char.to_a
-          elsif char.kind_of?(Integer)
+        format_char = lambda { |char|
+          if char.kind_of?(Integer)
             char.chr
           else
             char.to_s
+          end
+        }
+
+        characters = characters.flatten.map do |char|
+          if char.kind_of?(Range)
+            char.to_a.map(&format_char)
+          else
+            format_char.call(char)
           end
         end
 
@@ -59,7 +65,7 @@ module Ronin
       end
 
       #
-      # Returns a random character from the character set.
+      # Returns a random char from the character set.
       #
       def random_char
         self[rand(self.length)]
