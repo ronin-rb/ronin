@@ -32,18 +32,25 @@ module Ronin
     #   Path.up(7)
     #   # => #<Ronin::Path:../../../../../../..>
     #
+    #   Path.up(1..3)
+    #   # => [#<Ronin::Path:..>, #<Ronin::Path:../..>, #<Ronin::Path:../../..>]
+    #
     def self.up(n)
-      self.new(File.join(['..'] * n))
+      if n.kind_of?(Integer)
+        return self.new(File.join(['..'] * n))
+      else
+        return n.map { |i| self.up(i) }
+      end
     end
 
     #
-    # Joins the _args_ with the path, but does not resolve the resulting
+    # Joins the _names_ with the path, but does not resolve the resulting
     # path.
     #
     #   Path.up(7).join('etc/passwd')
     #   # => #<Ronin::Path:../../../../../../../etc/passwd>
     #
-    def join(*args)
+    def join(*names)
       self.class.new(File.join(self,*names))
     end
 
