@@ -23,7 +23,7 @@
 
 module Ronin
   module RPC
-    class InvalidResponse < RuntimeError
+    class ResponseMissing < RuntimeError
     end
   end
 end

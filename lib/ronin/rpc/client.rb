@@ -22,7 +22,7 @@
 #
 
 require 'ronin/rpc/exceptions/not_implemented'
-require 'ronin/rpc/exceptions/unknown_service'
+require 'ronin/rpc/exceptions/response_missing'
 
 module Ronin
   module RPC
@@ -54,7 +54,7 @@ module Ronin
       end
 
       def method_missing(sym,*args)
-        call(func,*args)
+        call(sym,*args)
       end
 
     end

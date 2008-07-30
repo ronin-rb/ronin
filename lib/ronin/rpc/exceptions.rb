@@ -22,6 +22,4 @@
 #
 
 require 'ronin/rpc/exceptions/not_implemented'
-require 'ronin/rpc/exceptions/invalid_response'
-require 'ronin/rpc/exceptions/unknown_error_code'
-require 'ronin/rpc/exceptions/unknown_service'
+require 'ronin/rpc/exceptions/response_missing'
