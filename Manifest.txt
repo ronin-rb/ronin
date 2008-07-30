@@ -85,8 +85,7 @@ lib/ronin/network/http/exceptions/unknown_request.rb
 lib/ronin/rpc.rb
 lib/ronin/rpc/exceptions.rb
 lib/ronin/rpc/exceptions/not_implemented.rb
-lib/ronin/rpc/exceptions/invalid_response.rb
-lib/ronin/rpc/exceptions/unknown_service.rb
+lib/ronin/rpc/exceptions/response_missing.rb
 lib/ronin/rpc/call.rb
 lib/ronin/rpc/client.rb
 lib/ronin/web.rb
