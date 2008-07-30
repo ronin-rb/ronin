@@ -51,7 +51,7 @@ module Net
 
     if proxy
       proxy_host = proxy[:host]
-      proxy_port = (proxy[:port] || Ronin::Net::HTTP.default_proxy_port)
+      proxy_port = (proxy[:port] || Ronin::Network::HTTP.default_proxy_port)
       proxy_user = proxy[:user]
       proxy_pass = proxy[:password]
     end
@@ -143,8 +143,11 @@ module Net
 
   def Net.http_post(options={},&block)
     Net.http_session(options) do |http|
+      url = URI(options[:url].to_s)
+      post_data = (options[:post_data] || url.query_params)
+
       req = Ronin::Network::HTTP.request(:post,options)
-      req.set_form_data(options[:data]) if options[:data]
+      req.set_form_data(post_data)
 
       resp = http.request(req)
 

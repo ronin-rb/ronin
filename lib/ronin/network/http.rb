@@ -37,8 +37,16 @@ module Ronin
         @@http_default_proxy_port = port
       end
 
+      def HTTP.default_proxy
+        {:host => nil, :port => HTTP.default_proxy_port, :user => nil, :pass => nil}
+      end
+
       def HTTP.proxy
-        @@http_proxy ||= {:host => nil, :port => HTTP.default_proxy_port, :user => nil, :pass => nil}
+        @@http_proxy ||= default_proxy
+      end
+
+      def HTTP.disable_proxy
+        @@http_proxy = default_proxy
       end
 
       def HTTP.user_agent

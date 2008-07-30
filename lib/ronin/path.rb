@@ -51,7 +51,9 @@ module Ronin
     #   # => #<Ronin::Path:../../../../../../../etc/passwd>
     #
     def join(*names)
-      self.class.new(File.join(self,*names))
+      names = names.map { |name| name.to_s }
+
+      return self.class.new(File.join(self,*names))
     end
 
     #

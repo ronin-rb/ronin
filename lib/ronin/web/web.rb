@@ -42,9 +42,15 @@ module Ronin
     #
     def Web.proxy_url(proxy_info=Web.proxy)
       if Web.proxy[:host]
+        userinfo = nil
+
+        if (Web.proxy[:user] || Web.proxy[:password])
+          userinfo = "#{Web.proxy[:user]}:#{Web.proxy[:password]}"
+        end
+
         return URI::HTTP.build(:host => Web.proxy[:host],
                                :port => Web.proxy[:port],
-                               :userinfo => "#{Web.proxy[:user]}:#{Web.proxy[:password]}",
+                               :userinfo => userinfo,
                                :path => '/')
       end
     end
