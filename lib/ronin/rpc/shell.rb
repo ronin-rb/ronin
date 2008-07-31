@@ -21,43 +21,22 @@
 #++
 #
 
-require 'ronin/rpc/exceptions/not_implemented'
+require 'ronin/rpc/service'
 
 module Ronin
   module RPC
-    class Call
+    class Shell < Service
 
-      # Name of the function to call
-      attr_reader :name
-
-      # Arguments to call with the function
-      attr_reader :arguments
-
-      def initialize(name,*arguments)
-        @name = name
-        @arguments = arguments
+      def call(sym,*args)
+        @client.call(:exec,sym,*args)
       end
 
-      def encode
-        raise(NotImplemented,"the \"encode\" method is not implemented in #{self.class}",caller)
+      def exec(program,*args)
+        call(program,*args)
       end
 
-      def inspect
-        to_s
-      end
-
-      def to_s
-        args = @arguments.map { |arg|
-          if (arg.kind_of?(Hash) || arg.kind_of?(Array))
-            arg.inspect
-          elsif arg.kind_of?(String)
-            arg.dump
-          else
-            arg
-          end
-        }
-
-        "#{@name}(" + args.join(', ') + ')'
+      def system(program,*args)
+        puts(exec(program,*args))
       end
 
     end

@@ -24,3 +24,4 @@
 require 'ronin/rpc/exceptions'
 require 'ronin/rpc/call'
 require 'ronin/rpc/client'
+require 'ronin/rpc/service'

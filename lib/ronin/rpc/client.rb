@@ -22,24 +22,27 @@
 #
 
 require 'ronin/rpc/exceptions/not_implemented'
-require 'ronin/rpc/exceptions/response_missing'
+require 'ronin/rpc/exceptions/unknown_service'
+require 'ronin/rpc/service'
+require 'ronin/extensions/meta'
 
 module Ronin
   module RPC
     class Client
-
-      # The Service to interface with
-      attr_reader :service
-
-      def initialize(service)
-        @service = service
-      end
 
       def call(func,*args)
         return_value(send_call(create_call(func,*args)))
       end
 
       protected
+
+      def self.service(name,type)
+        name = name.to_sym
+
+        class_def(name) do
+          type.new(name,self)
+        end
+      end
 
       def create_call(func,*args)
         raise(NotImplemented,"the \"create_call\" method is not implemented in #{self.class}",caller)

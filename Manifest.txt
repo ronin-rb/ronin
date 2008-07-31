@@ -87,7 +87,11 @@ lib/ronin/rpc/exceptions.rb
 lib/ronin/rpc/exceptions/not_implemented.rb
 lib/ronin/rpc/exceptions/response_missing.rb
 lib/ronin/rpc/call.rb
+lib/ronin/rpc/response.rb
 lib/ronin/rpc/client.rb
+lib/ronin/rpc/service.rb
+lib/ronin/rpc/console.rb
+lib/ronin/rpc/shell.rb
 lib/ronin/web.rb
 lib/ronin/web/web.rb
 lib/ronin/sessions.rb

@@ -25,39 +25,21 @@ require 'ronin/rpc/exceptions/not_implemented'
 
 module Ronin
   module RPC
-    class Call
+    class Response
 
-      # Name of the function to call
-      attr_reader :name
+      # Contents of the response
+      attr_reader :contents
 
-      # Arguments to call with the function
-      attr_reader :arguments
-
-      def initialize(name,*arguments)
-        @name = name
-        @arguments = arguments
+      def initialize(contents)
+        @contents = contents
       end
 
-      def encode
-        raise(NotImplemented,"the \"encode\" method is not implemented in #{self.class}",caller)
-      end
-
-      def inspect
-        to_s
+      def decode
+        raise(NotImplemented,"the \"decode\" method is not implemented in #{self.class}",caller)
       end
 
       def to_s
-        args = @arguments.map { |arg|
-          if (arg.kind_of?(Hash) || arg.kind_of?(Array))
-            arg.inspect
-          elsif arg.kind_of?(String)
-            arg.dump
-          else
-            arg
-          end
-        }
-
-        "#{@name}(" + args.join(', ') + ')'
+        @contents.to_s
       end
 
     end
