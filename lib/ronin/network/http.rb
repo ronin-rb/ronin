@@ -66,7 +66,11 @@ module Ronin
 
         if options
           options.each do |name,value|
-            headers[name.to_s.sub('_','-').capitalize] = value.to_s
+            header_name = name.to_s.split('_').map { |word|
+              word.capitalize
+            }.join('-')
+
+            headers[header_name] = value.to_s
           end
         end
 
