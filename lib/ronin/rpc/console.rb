@@ -27,12 +27,18 @@ module Ronin
   module RPC
     class Console < Service
 
-      def call(sym,*args)
-        @client.call(:invoke,sym,args)
+      def invoke(sym,*args)
+        call(:invoke,sym,args)
       end
 
       def eval(string)
-        call(:eval,string)
+        invoke(:eval,string)
+      end
+
+      protected
+
+      def method_missing(sym,*args)
+        invoke(sym,*args)
       end
 
     end

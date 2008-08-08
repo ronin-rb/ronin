@@ -40,7 +40,7 @@ module Ronin
       end
 
       def call(sym,*args)
-        @client.call(sym,*args)
+        @client.call("#{@name}.#{sym}",*args)
       end
 
       #

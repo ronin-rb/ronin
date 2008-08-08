@@ -27,16 +27,18 @@ module Ronin
   module RPC
     class Shell < Service
 
-      def call(sym,*args)
-        @client.call(:exec,sym,*args)
-      end
-
       def exec(program,*args)
-        call(program,*args)
+        call(:exec,program,*args)
       end
 
       def system(program,*args)
         puts(exec(program,*args))
+      end
+
+      protected
+
+      def method_missing(sym,*args)
+        exec(sym,*args)
       end
 
     end
