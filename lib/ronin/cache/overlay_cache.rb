@@ -21,8 +21,9 @@
 #++
 #
 
-require 'ronin/cache/overlay'
 require 'ronin/cache/exceptions/overlay_cached'
+require 'ronin/cache/exceptions/overlay_not_found'
+require 'ronin/cache/overlay'
 require 'ronin/cache/config'
 
 require 'yaml'
@@ -199,7 +200,7 @@ module Ronin
 
         File.open(output_path,'w') do |output|
           descriptions = overlays.map do |repo|
-            {:media => repo.media, :path => repo.path, :uri => repo.uri}
+            {:media_type => repo.media_type, :path => repo.path, :uri => repo.uri}
           end
 
           YAML.dump(descriptions,output)

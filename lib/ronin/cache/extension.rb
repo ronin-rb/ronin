@@ -412,7 +412,7 @@ module Ronin
       # otherwise.
       #
       def was_setup?
-        @setup
+        @setup == true
       end
 
       #
@@ -450,7 +450,7 @@ module Ronin
       # otherwise.
       #
       def was_toredown?
-        @toredown
+        @toredown == true
       end
 
       #

@@ -56,8 +56,15 @@ module Ronin
             load_object(path,*args).cache
           end
 
-          meta_def(:sync) do |path|
-            first(:object_path => File.expand_path(path)).sync
+          meta_def(:mirror) do |path,*args|
+            path = File.expand_path(path)
+            existing_obj = first(:object_path => path)
+
+            if existing_obj
+              return existing_obj.mirror
+            else
+              return cache(path,*args)
+            end
           end
 
           meta_def(:search) do |*attribs|
@@ -66,6 +73,14 @@ module Ronin
 
           class_def(:object) do
             self.class.load_object(self.object_path)
+          end
+
+          class_def(:missing?) do
+            if self.object_path
+              return !(File.file?(self.object_path))
+            end
+
+            return false
           end
 
           class_def(:stale?) do
@@ -77,17 +92,23 @@ module Ronin
           end
 
           class_def(:cache) do
-            self.object_timestamp = File.mtime(self.object_path)
-            return save
+            if self.object_path
+              self.object_timestamp = File.mtime(self.object_path)
+              return save
+            end
+
+            return false
           end
 
-          class_def(:sync) do
-            unless File.file?(self.object_path)
-              return destroy
-            else
-              if (!(dirty?) && stale?)
-                destroy
-                return object.cache
+          class_def(:mirror) do
+            if self.object_path
+              unless File.file?(self.object_path)
+                return destroy
+              else
+                if (!(dirty?) && stale?)
+                  destroy
+                  return object.cache
+                end
               end
             end
 
@@ -164,11 +185,73 @@ module Ronin
         raise(ObjectContextNotFound,"object context #{path.dump} does not exist",caller)
       end
 
-      return ObjectContext.load_contexts(path) do |new_obj|
+      return Context.load_contexts(path) do |new_obj|
         new_obj.object_path = path
 
         block.call(new_obj) if block
       end
+    end
+
+    #
+    # Cache all objects loaded from the specified _path_.
+    #
+    def ObjectContext.cache_objects(path)
+      ObjectContext.load_objects(path).each do |obj|
+        obj.cache
+      end
+    end
+
+    #
+    # Cache all objects loaded from the paths within the specified
+    # _directory_.
+    #
+    def ObjectContext.cache_objects_in(directory)
+      directory = File.expand_path(directory)
+      paths = Dir[File.join(directory,'**','*.rb')]
+
+      paths.each do |path|
+        ObjectContext.load_objects(path).each do |obj|
+          obj.cache
+        end
+      end
+
+      return nil
+    end
+
+    #
+    # Mirror all objects that were previously cached from paths within
+    # the specified _directory_. Also cache objects which have yet to
+    # be cached.
+    #
+    def ObjectContext.mirror_objects_in(directory)
+      directory = File.expand_path(directory)
+      paths = Dir[File.join(directory,'**','*.rb')]
+
+      ObjectContext.object_contexts.each_value do |base|
+        objects = base.all(:object_path.like => "#{directory}%")
+        paths -= objects.map { |obj| obj.object_path }
+
+        objects.each { |obj| obj.mirror }
+      end
+
+      paths.each do |path|
+        ObjectContext.cache_objects(path)
+      end
+
+      return nil
+    end
+
+    #
+    # Deletes all cached objects that existed in the specified _directory_.
+    #
+    def ObjectContext.expunge_objects_from(directory)
+      directory = File.expand_path(directory)
+
+      ObjectContext.object_contexts.each_value do |base|
+        base.all(:object_path.like => "#{directory}%").destroy!
+      end
+
+      return nil
     end
   end
 end
