@@ -2,6 +2,7 @@
 
 require 'rubygems'
 require 'hoe'
+require './tasks/spec.rb'
 require './lib/ronin/version.rb'
 
 Hoe.new('ronin', Ronin::VERSION) do |p|
@@ -15,7 +16,6 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
                   ['dm-types', '>=0.9.3'],
                   ['dm-serializer', '>=0.9.3'],
                   ['dm-aggregates', '>=0.9.3'],
-                  ['dm-ar-finders', '>=0.9.3'],
                   ['reverserequire', '>=0.1.0'],
                   ['repertoire', '>=0.1.2']]
 end

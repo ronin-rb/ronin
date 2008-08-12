@@ -146,4 +146,6 @@ lib/ronin/runner/program/program.rb
 lib/ronin/runner/program/runner.rb
 lib/ronin/ronin.rb
 lib/ronin/version.rb
-test/test_ronin.rb
+tasks/spec.rb
+spec/helpers/
+spec/spec_helper.rb
