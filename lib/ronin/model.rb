@@ -27,7 +27,6 @@ require 'dm-core'
 require 'dm-types'
 require 'dm-serializer'
 require 'dm-aggregates'
-require 'dm-ar-finders'
 
 module Ronin
   module Model

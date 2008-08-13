@@ -24,7 +24,11 @@
 require 'ronin/exceptions/invalid_database_config'
 require 'ronin/extensions/kernel'
 require 'ronin/config'
-require 'ronin/models'
+require 'ronin/arch'
+require 'ronin/platform'
+require 'ronin/author'
+require 'ronin/license'
+require 'ronin/product'
 
 require 'yaml'
 require 'dm-core'
@@ -52,17 +56,28 @@ module Ronin
     # exist.
     #
     def Database.config
-      if File.file?(CONFIG_FILE)
-        conf = YAML.load(CONFIG_FILE)
+      unless @@ronin_database_config
+        @@ronin_database_config = DEFAULT_CONFIG
 
-        unless (conf.kind_of?(Hash) || conf.kind_of?(String))
-          raise(InvalidDatabaseConfig,"#{CONFIG_FILE} must contain either a Hash or a String",caller)
+        if File.file?(CONFIG_FILE)
+          conf = YAML.load(CONFIG_FILE)
+
+          unless (conf.kind_of?(Hash) || conf.kind_of?(String))
+            raise(InvalidDatabaseConfig,"#{CONFIG_FILE} must contain either a Hash or a String",caller)
+          end
+
+          @@ronin_database_config = conf
         end
-
-        return conf
       end
 
-      return DEFAULT_CONFIG
+      return @@ronin_database_config
+    end
+
+    #
+    # Sets the Database configuration to the specified _configuration_.
+    #
+    def Database.config=(configuration)
+      @@ronin_database_config = configuration
     end
 
     #
@@ -97,7 +112,5 @@ module Ronin
       DataMapper.auto_upgrade!
       return nil
     end
-
-    Database.setup
   end
 end
