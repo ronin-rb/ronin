@@ -106,12 +106,7 @@ module Ronin
         CharSet.new(self,other_set)
       end
 
-      #
-      # See |.
-      #
-      def +(other_set)
-        self | other_set.to_a
-      end
+      alias + |
 
       #
       # Returns a new CharSet that is the intersection of the character set

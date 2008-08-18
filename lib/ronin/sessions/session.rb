@@ -27,8 +27,8 @@ module Ronin
   module Sessions
     module Session
       def Session.setup_class(base,&block)
-        base.class_eval { include Parameters }
-        base.class_eval(&block)
+        base.module_eval { include Parameters }
+        base.module_eval(&block)
 
         return base
       end
