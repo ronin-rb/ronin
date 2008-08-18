@@ -30,32 +30,58 @@ module Ronin
   module RPC
     class Client
 
-      def call(func,*args)
-        return_value(send_call(create_call(func,*args)))
+      #
+      # Calls the specified _function_ hosted on the RPC Server with the
+      # given _arguments_. Returns the return-value of the RPC function call.
+      #
+      def call(function,*arguments)
+        return_value(send_call(create_call(function,*arguments)))
       end
 
       protected
 
-      def self.service(name,type)
+      #
+      # Defines a Service offered by the Client with the specified _name_
+      # and _class_type_.
+      #
+      def self.service(name,class_type)
         name = name.to_sym
 
         class_def(name) do
-          type.new(name,self)
+          class_type.new(name,self)
         end
       end
 
-      def create_call(func,*args)
+      #
+      # Default method which creates a Call object for the specified
+      # _function_ and the given _arguments_. By default create_call raises
+      # a NotImplemented exception.
+      #
+      def create_call(function,*arguments)
         raise(NotImplemented,"the \"create_call\" method is not implemented in #{self.class}",caller)
       end
 
-      def send_call(func,*args)
+      #
+      # Default method which sends the _call_object_ to the RPC Server and 
+      # returns the response of the Server. By default send_call raises
+      # a NotImplemented exception.
+      #
+      def send_call(call_object)
         raise(NotImplemented,"the \"send_call\" method is not implemented in #{self.class}",caller)
       end
 
+      #
+      # Default method which extracts the return-value and output generated
+      # by the RPC function call from the specified _response_ data. By
+      # default return_value raises a NotImplemented exception.
+      #
       def return_value(response)
         raise(NotImplemented,"the \"return_value\" method is not implemented in #{self.class}",caller)
       end
 
+      #
+      # Relays missing methods to call.
+      #
       def method_missing(sym,*args)
         call(sym,*args)
       end

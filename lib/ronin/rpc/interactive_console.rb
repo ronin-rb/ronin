@@ -21,44 +21,36 @@
 #++
 #
 
-require 'ronin/rpc/service'
-require 'ronin/rpc/interactive_shell'
+require 'ronin/rpc/interactive'
+require 'ronin/rpc/console'
 
 module Ronin
   module RPC
-    class Shell < Service
+    class InteractiveConsole < Interactive
 
       #
-      # Executes the specified _program_ with the given _arguments_. The
-      # output of the program will be returned as a String.
+      # Creates a new InteractiveConsole object with the specified _console_
+      # service. If a _block_ is given it will be
       #
-      def exec(program,*arguments)
-        call(:exec,program,*arguments)
+      def initialize(console,&block)
+        super(console,:prompt => '>>',&block)
       end
 
       #
-      # Executes the specified _program_ with the given _arguments_ and
-      # prints the output of the program.
+      # Starts a newly created InteractiveConsole object with the specified
+      # _service_. If a _block_ is given, it will be passed the newly
+      # created InteractiveShell object, before it is started.
       #
-      def system(program,*arguments)
-        puts(exec(program,*arguments))
+      def self.start(console,&block)
+        self.new(console,&block).start
       end
 
       #
-      # Starts an InteractiveShell that allows a user to execute commands
-      # and observe their output.
+      # Evaluates the specified _code_ through the Console service and
+      # prints the natively formated return-value.
       #
-      def interact
-        InteractiveShell.start(self)
-      end
-
-      protected
-
-      #
-      # Relays missing methods to exec.
-      #
-      def method_missing(sym,*args)
-        exec(sym,*args)
+      def process_command(code)
+        puts "=> #{@service.inspect(code)}"
       end
 
     end

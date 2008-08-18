@@ -92,6 +92,9 @@ lib/ronin/rpc/client.rb
 lib/ronin/rpc/service.rb
 lib/ronin/rpc/console.rb
 lib/ronin/rpc/shell.rb
+lib/ronin/rpc/interactive.rb
+lib/ronin/rpc/interactive_console.rb
+lib/ronin/rpc/interactive_shell.rb
 lib/ronin/web.rb
 lib/ronin/web/web.rb
 lib/ronin/sessions.rb
@@ -128,6 +131,7 @@ lib/ronin/cache/extension_cache.rb
 lib/ronin/cache/extension.rb
 lib/ronin/cache/ronin.rb
 lib/ronin/console.rb
+lib/ronin/shell.rb
 lib/ronin/runner.rb
 lib/ronin/runner/program.rb
 lib/ronin/runner/program/exceptions.rb

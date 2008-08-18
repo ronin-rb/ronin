@@ -21,44 +21,33 @@
 #++
 #
 
-require 'ronin/rpc/service'
-require 'ronin/rpc/interactive_shell'
+require 'ronin/shell'
 
 module Ronin
   module RPC
-    class Shell < Service
+    class Interactive < Ronin::Shell
+
+      # The service to interactive with
+      attr_reader :service
 
       #
-      # Executes the specified _program_ with the given _arguments_. The
-      # output of the program will be returned as a String.
+      # Creates a new Interactive object using the specified _service_ and
+      # the given _options_. If a _block_ is given it will be passed the
+      # newly created Interactive object.
       #
-      def exec(program,*arguments)
-        call(:exec,program,*arguments)
+      def initialize(service,options={},&block)
+        @service = service
+
+        super(options,&block)
       end
 
       #
-      # Executes the specified _program_ with the given _arguments_ and
-      # prints the output of the program.
+      # Starts a newly created Interactive object with the specified
+      # _service_ with the given _options_. If a _block_ is given, it will
+      # be passed the newly created Interactive object, before it is started.
       #
-      def system(program,*arguments)
-        puts(exec(program,*arguments))
-      end
-
-      #
-      # Starts an InteractiveShell that allows a user to execute commands
-      # and observe their output.
-      #
-      def interact
-        InteractiveShell.start(self)
-      end
-
-      protected
-
-      #
-      # Relays missing methods to exec.
-      #
-      def method_missing(sym,*args)
-        exec(sym,*args)
+      def Interactive.start(service,options={},&block)
+        Interactive.new(service,options,&block).start
       end
 
     end

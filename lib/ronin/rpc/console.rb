@@ -22,21 +22,54 @@
 #
 
 require 'ronin/rpc/service'
+require 'ronin/rpc/interactive_console'
 
 module Ronin
   module RPC
     class Console < Service
 
-      def invoke(sym,*args)
-        call(:invoke,sym,args)
+      #
+      # Invoke the the specified _method_ with the given _arguments_.
+      # Returns the result of the method call.
+      #
+      def invoke(method,*arguments)
+        call(:invoke,method,arguments)
       end
 
+      #
+      # Evaluates the specified _string_ of code. Returns the result of the
+      # evaluated code.
+      #
       def eval(string)
         invoke(:eval,string)
       end
 
+      #
+      # If _expression_ is given it will be evaluated and it's return value
+      # will be returned as a natively formatted String. If _expression_ is
+      # not given, the Object inspect method will be called.
+      #
+      def inspect(expression=nil)
+        if string
+          return call(:inspect,expression)
+        else
+          return super
+        end
+      end
+
+      #
+      # Starts an InteractiveConsole that allows a user to evaluate code
+      # and inspect the return-value.
+      #
+      def interact
+        InteractiveConsole.start(self)
+      end
+
       protected
 
+      #
+      # Relays missing methods to invoke.
+      #
       def method_missing(sym,*args)
         invoke(sym,*args)
       end

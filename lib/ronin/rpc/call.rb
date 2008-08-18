@@ -33,19 +33,27 @@ module Ronin
       # Arguments to call with the function
       attr_reader :arguments
 
+      #
+      # Creates a new Call object with the specified _name_ and the given
+      # _arguments_.
+      #
       def initialize(name,*arguments)
         @name = name
         @arguments = arguments
       end
 
+      #
+      # Default method which encodes the call object into a format parsable
+      # by the RPC Server. By default encode raises a NotImplemented
+      # exception.
+      #
       def encode
         raise(NotImplemented,"the \"encode\" method is not implemented in #{self.class}",caller)
       end
 
-      def inspect
-        to_s
-      end
-
+      #
+      # Returns the String form of the call object.
+      #
       def to_s
         args = @arguments.map { |arg|
           if (arg.kind_of?(Hash) || arg.kind_of?(Array))
@@ -59,6 +67,8 @@ module Ronin
 
         "#{@name}(" + args.join(', ') + ')'
       end
+
+      alias inspect to_s
 
     end
   end

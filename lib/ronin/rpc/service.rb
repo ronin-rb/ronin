@@ -39,8 +39,13 @@ module Ronin
         @client = client
       end
 
-      def call(sym,*args)
-        @client.call("#{@name}.#{sym}",*args)
+      #
+      # Calls the specified _function_ from the service on the RPC Server
+      # with the given _arguments_. Returns the return-value of the
+      # RPC function call.
+      #
+      def call(function,*arguments)
+        @client.call("#{@name}.#{function}",*arguments)
       end
 
       #
@@ -52,6 +57,9 @@ module Ronin
 
       protected
 
+      #
+      # Relays missing methods to call.
+      #
       def method_missing(sym,*args)
         call(sym,*args)
       end
