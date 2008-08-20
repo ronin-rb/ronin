@@ -42,13 +42,15 @@ of Ronin.
     * Rsync
     * Darcs
 * Allows for the loading of Extensions from one or more Overlays.
-* Provides persistent storage using DataMapper.
+* Provides persistent storage of objects using DataMapper.
+* Caches and mirrors objects stored in Overlays using DataMapper.
 * Provides convenience methods for:
   * Formatting data:
     * Binary
     * HTTP
     * URIs
     * HTML
+  * Generating random text.
   * Networking:
     * TCP
     * UDP
@@ -100,9 +102,8 @@ of Ronin.
   * dm-types
   * dm-serializer
   * dm-aggregates
-  * dm-ar-finders
-* R'epertoire
 * reverserequire
+* R'epertoire
 
 == INSTALL:
 

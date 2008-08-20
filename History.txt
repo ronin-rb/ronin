@@ -1,4 +1,4 @@
-== 0.0.9 / 2008-06-23
+== 0.0.9 / 2008-08-20
 
 * Initial release.
 * Supports installing/updating/uninstalling of Overlays.
@@ -10,12 +10,14 @@
     * Rsync
 * Allows for the loading of Extensions from one or more Overlays.
 * Provides a persistant Database using DataMapper.
+* Caches and mirrors objects stored in Overlays using DataMapper.
 * Provides convievance methods for:
   * Formating data:
     * Binary
     * HTTP
     * URIs
     * HTML
+  * Generating random text.
   * Networking:
     * TCP
     * UDP
