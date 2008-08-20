@@ -34,7 +34,7 @@ module Ronin
       # InteractiveShell object.
       #
       def initialize(shell,&block)
-        super(shell,:prompt => '>',&block)
+        super(shell,:prompt => '$',&block)
       end
 
       #

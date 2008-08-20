@@ -41,7 +41,7 @@ module Ronin
       # prints the output of the program.
       #
       def system(program,*arguments)
-        puts(exec(program,*arguments))
+        print(exec(program,*arguments))
       end
 
       #
