@@ -27,8 +27,8 @@ require 'ronin/cache/overlay_cache'
 require 'ronin/cache/config'
 require 'ronin/persistence'
 
-require 'repertoire/repository'
 require 'rexml/document'
+require 'repertoire'
 
 module Ronin
   module Cache
