@@ -30,6 +30,9 @@ module Ronin
     # The blocks to be loaded
     attr_accessor :blocks
 
+    #
+    # Creates a new PendingContext object with the specified _path_.
+    #
     def initialize(path)
       @path = File.expand_path(path)
       @blocks = {}

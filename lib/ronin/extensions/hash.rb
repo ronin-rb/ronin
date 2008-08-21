@@ -23,6 +23,24 @@
 
 class Hash
 
+  #
+  # Explodes the hash into a Hash of hashes using the given _options_, where
+  # each Hash has the value of one key replaced with the specified _value_.
+  # If a _block_ is given, it will be passed each key that was replaced and
+  # the resulting Hash.
+  #
+  # _options_ may contain the following keys:
+  # <tt>:included</tt>:: The keys whos values are to be replaced.
+  # <tt>:excluded</tt>:: The keys whos values will not be replaced.
+  #
+  #   hash = {:a => 1, :b => 2}
+  #   hash.explode('z')
+  #   # => {:a=>{:a=>"z", :b=>2}, :b=>{:a=>1, :b=>"z"}}
+  #
+  #   hash = {:a => 1, :b => 2, :c => 3}
+  #   hash.explode('z', :excluded => [:b])
+  #   # => {:c=>{:c=>"z", :a=>1, :b=>2}, :a=>{:c=>3, :a=>"z", :b=>2}}
+  #
   def explode(value,options={},&block)
     included = (options[:included] || keys)
     excluded = (options[:excluded] || [])

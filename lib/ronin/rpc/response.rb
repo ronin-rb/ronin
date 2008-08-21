@@ -30,14 +30,24 @@ module Ronin
       # Contents of the response
       attr_reader :contents
 
+      #
+      # Creates a new Response object with the specified _contents_.
+      #
       def initialize(contents)
         @contents = contents
       end
 
+      #
+      # Default method which decodes response data from the contes of the
+      # RPC response.
+      #
       def decode
         raise(NotImplemented,"the \"decode\" method is not implemented in #{self.class}",caller)
       end
 
+      #
+      # Returns the String form of the contents of the RPC response.
+      #
       def to_s
         @contents.to_s
       end

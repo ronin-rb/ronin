@@ -28,6 +28,10 @@ module Ronin
     # Ronin environment file
     ENVIRONMENT_FILE = File.join(Config::PATH,'environment.rb')
 
+    #
+    # Requires the environment configuration file at the given _path_.
+    # If _path_ is not given, it will default to <tt>ENVIRONMENT_FILE</tt>.
+    #
     def Environment.load(path=ENVIRONMENT_FILE)
       require path if File.file?(path)
     end

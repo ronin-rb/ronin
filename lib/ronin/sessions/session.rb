@@ -26,13 +26,21 @@ require 'ronin/parameters'
 module Ronin
   module Sessions
     module Session
-      def Session.setup_class(base,&block)
-        base.module_eval { include Parameters }
-        base.module_eval(&block)
+      #
+      # Includes Parameters and runs the _block_ in the specified
+      # _base_class_.
+      #
+      def Session.setup_class(base_class,&block)
+        base_class.module_eval { include Parameters }
+        base_class.module_eval(&block)
 
-        return base
+        return base_class
       end
 
+      #
+      # Extends Parameters and runs the specified _block_ in the specified
+      # _obj_.
+      #
       def Session.setup_object(obj,&block)
         obj.extend(Parameters)
         obj.instance_eval(&block)

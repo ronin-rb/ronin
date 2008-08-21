@@ -68,26 +68,42 @@ module Ronin
         return Options.new(program,name,&block)
       end
 
-      def on(*args,&block)
-        @parser.on(*args,&block)
+      #
+      # Call the specified _block_ when the given option _flags_ are parsed.
+      #
+      def on(*flags,&block)
+        @parser.on(*flags,&block)
         return self
       end
 
+      #
+      # Calls the specified _block_ when the verbose option flag is parsed.
+      #
       def on_verbose(&block)
         @verbose_block = block
         return self
       end
 
+      #
+      # Calls the specified _block_ when the help option-flag is parsed.
+      #
       def on_help(&block)
         @help_block = block
         return self
       end
 
+      #
+      # Adds a section separator with the specified _text_.
+      #
       def separator(text)
         @parser.separator(text)
         return self
       end
 
+      #
+      # Adds an options section to the help message. If a _block_ is given
+      # it will be called before any default options are added.
+      #
       def options(&block)
         @parser.separator '  Options:'
 
@@ -100,11 +116,19 @@ module Ronin
         return self
       end
 
-      def arg(name,desc)
-        @parser.separator "    #{name}\t#{desc}"
+      #
+      # Adds an the argument with the specified _name_ and _description_
+      # to the arguments section of the help message of these options.
+      #
+      def arg(name,description)
+        @parser.separator "    #{name}\t#{description}"
         return self
       end
 
+      #
+      # Creates an arguments section in the help message and calls the
+      # given _block_.
+      #
       def arguments(&block)
         if block
           @parser.separator '  Arguments:'
@@ -117,10 +141,13 @@ module Ronin
         return self
       end
 
-      def summary(*sum)
+      #
+      # Addes a summary section with the specified _lines_.
+      #
+      def summary(*lines)
         @parser.separator '  Summary:'
 
-        sum.each do |line|
+        lines.each do |line|
           @parser.separator "    #{line}"
         end
 
@@ -128,17 +155,25 @@ module Ronin
         return self
       end
 
-      def defaults(*opts)
+      #
+      # Adds a defaults section with the specified _flags_.
+      #
+      def defaults(*flags)
         @parser.separator '  Defaults:'
 
-        opts.each do |opt|
-          @parser.separator "    #{opt}"
+        flags.each do |flag|
+          @parser.separator "    #{flag}"
         end
 
         @parser.separator ''
         return self
       end
 
+      #
+      # Prints the help message and exits successfully. If a _block_ is
+      # given it will be called after the help message has been print
+      # and before the Program has exited.
+      #
       def help(&block)
         Program.success do
           puts @parser
@@ -147,6 +182,10 @@ module Ronin
         end
       end
 
+      #
+      # Parses the specified _argv_ Array. If a _block_ is given it will
+      # be passed the left-over arguments. Returns the left-over arguments.
+      #
       def parse(argv,&block)
         args = @parser.parse(argv)
 
@@ -154,6 +193,9 @@ module Ronin
         return args
       end
 
+      #
+      # Returns a String representation of the OptParse parser.
+      #
       def to_s
         @parser.to_s
       end

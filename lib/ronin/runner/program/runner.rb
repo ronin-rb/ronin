@@ -25,6 +25,9 @@ require 'ronin/runner/program/program'
 
 module Ronin
   module Runner
+    #
+    # See Program.run.
+    #
     def Runner.program(argv)
       Program.run(*argv)
     end

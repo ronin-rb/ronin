@@ -30,10 +30,31 @@ require 'open-uri'
 module Ronin
   module Web
     #
+    # Returns the default Ronin Web proxy port.
+    #
+    def Web.default_proxy_port
+      Network::HTTP.default_proxy_port
+    end
+
+    #
+    # Sets the default Ronin Web proxy port to the specified _port_.
+    #
+    def Web.default_proxy_port=(port)
+      Network::HTTP.default_proxy_port = port
+    end
+
+    #
     # Returns the +Hash+ of the Ronin Web proxy information.
     #
     def Web.proxy
       Network::HTTP.proxy
+    end
+
+    #
+    # Resets the Web proxy settings.
+    #
+    def Web.disable_proxy
+      Network::HTTP.disable_proxy
     end
 
     #

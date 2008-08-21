@@ -30,18 +30,33 @@ require 'ronin/version'
 module Ronin
   module Runner
     module Program
+      #
+      # Returns the commands registered with the Program.
+      #
       def Program.commands
         @@commands ||= []
       end
 
+      #
+      # Returns the Hash of the Command names and their Command objects
+      # registered with the Program.
+      #
       def Program.commands_by_name
         @@commands_by_name ||= {}
       end
 
+      #
+      # Returns +true+ if the a Command with the specified _name_ was
+      # registered with the Program.
+      #
       def Program.has_command?(name)
         Program.commands_by_name.has_key?(name.to_s)
       end
 
+      #
+      # Returns the Command registered with the Program with the specified
+      # _name_.
+      #
       def Program.get_command(name)
         name = name.to_s
 
@@ -52,16 +67,28 @@ module Ronin
         return Program.commands_by_name[name]
       end
 
+      #
+      # Prints the specified error _message_.
+      #
       def Program.error(message)
-        $stderr.puts "ronin: #{message}"
+        STDERR.puts "ronin: #{message}"
         return false
       end
 
+      #
+      # Exits successfully from the Program. If a _block_ is given, it will
+      # be called before the Program is exited.
+      #
       def Program.success(&block)
         block.call(self) if block
         exit
       end
 
+      #
+      # Prints the given error _messages_ and exits unseccessfully from the
+      # Program. If a _block_ is given, it will be called before any
+      # error _messages_ are printed.
+      #
       def Program.fail(*messages,&block)
         block.call(self) if block
 
@@ -72,6 +99,10 @@ module Ronin
         exit -1
       end
 
+      #
+      # If a _topic_ is given, the help message for that _topic_ will be
+      # printed, otherwise a list of available commands will be printed.
+      #
       def Program.help(topic=nil)
         if topic
           begin
@@ -88,6 +119,10 @@ module Ronin
         end
       end
 
+      #
+      # The default command to run with the given _argv_ Array when no
+      # sub-command is given.
+      #
       def Program.default_command(*argv)
         Options.new('ronin','<command> [options]') { |opts|
           opts.options do |opts|
@@ -108,6 +143,11 @@ module Ronin
         }
       end
 
+      #
+      # Runs the Program with the given _argv_ Array. If the first argument
+      # is a sub-command name, the Program will attempt to find and execute
+      # the Command with the same name.
+      #
       def Program.run(*argv)
         begin
           if (argv.empty? || argv[0][0..0]=='-')
