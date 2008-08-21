@@ -25,8 +25,7 @@ require 'ronin/cache/extension'
 require 'ronin/cache/exceptions/extension_not_found'
 require 'ronin/cache/overlay_cache'
 require 'ronin/cache/config'
-require 'ronin/object_context'
-require 'ronin/database'
+require 'ronin/persistence'
 
 require 'repertoire/repository'
 require 'rexml/document'
@@ -63,7 +62,7 @@ module Ronin
       # Creates a new Overlay object with the specified _path_, _media_type_
       # and _uri_.
       #
-      def initialize(path,media_type=:local,uri=nil,&block)
+      def initialize(path,media_type=:nil,uri=nil,&block)
         @path = File.expand_path(path)
         @uri = uri
 
@@ -153,11 +152,12 @@ module Ronin
       end
 
       #
-      # Adds the Overlay specified by _media_, _path_ and _uri_ to the
-      # Overlay cache. If a _block is given, it will be passed the
-      # newly created Overlay after it has been added to the cache.
+      # Adds the Overlay at the specified _path_, the given _uri_
+      # and given the _uri_ to the Overlay cache. If a _block is given, it
+      # will be passed the newly created Overlay after it has been added to
+      # the cache.
       #
-      def Overlay.add(path,media=:local,uri=nil,&block)
+      def Overlay.add(path,media=nil,uri=nil,&block)
         Overlay.new(path,media,uri).add(&block)
       end
 
@@ -234,7 +234,7 @@ module Ronin
         if @media
           return @media.name
         else
-          return :local
+          return nil
         end
       end
 
@@ -287,7 +287,7 @@ module Ronin
       def update(&block)
         mirror_objects
 
-        unless media_type == :local
+        if media_type
           Repertoire.update(:media => media_type, :path => @path, :uri => @uri)
         end
 
