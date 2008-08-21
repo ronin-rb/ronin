@@ -25,10 +25,18 @@ module Ronin
       block.call(self) if block
     end
 
+    #
+    # Creates and starts a new Shell object with the specified _options_.
+    # If a _block_ is given, it will be passed the newly created Shell
+    # object before it is started.
+    #
     def self.start(options={},&block)
       self.new(options,&block).start
     end
 
+    #
+    # Starts the shell.
+    #
     def start
       history_rollback = 0
 
