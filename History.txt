@@ -1,34 +1,23 @@
-== 0.0.9 / 2008-06-23
+== 0.0.9 / 2008-08-20
 
 * Initial release.
 * Supports installing/updating/uninstalling of Overlays.
-  * Supports accessing various Overlay types
-    using the R'epertoire library:
+  * Supports accessing Overlays from various media types:
     * CVS
     * Darcs
     * Subversion (SVN)
     * Git
     * Rsync
 * Allows for the loading of Extensions from one or more Overlays.
-* Provides a variety of ways to access an Extension:
-  * Load an Extension as an object.
-
-      myext = Ronin::Cache::Overlay['myext']
-      myext.something
-
-    Or more simply...
-
-      Ronin.myext do |myext|
-        myext.something
-      end
-
 * Provides a persistant Database using DataMapper.
+* Caches and mirrors objects stored in Overlays using DataMapper.
 * Provides convievance methods for:
   * Formating data:
     * Binary
     * HTTP
     * URIs
     * HTML
+  * Generating random text.
   * Networking:
     * TCP
     * UDP

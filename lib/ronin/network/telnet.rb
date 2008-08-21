@@ -26,32 +26,53 @@ require 'ronin/network/extensions/telnet'
 module Ronin
   module Network
     module Telnet
-      DEFAULT_PORT = 23 # Default telnet port
+      # Default telnet port
+      DEFAULT_PORT = 23
 
-      DEFAULT_PROMPT = /[$%#>] \z/n # The default prompt regular expression
+      # The default prompt regular expression
+      DEFAULT_PROMPT = /[$%#>] \z/n
 
-      DEFAULT_TIMEOUT = 10 # The default timeout
+      # The default timeout
+      DEFAULT_TIMEOUT = 10
 
+      #
+      # Returns the default Ronin Telnet port.
+      #
       def Telnet.default_port
         @@telnet_default_port ||= DEFAULT_PORT
       end
 
+      #
+      # Sets the default Ronin Telnet port to the specified _port_.
+      #
       def Telnet.default_port=(port)
         @@telnet_default_port = port
       end
 
+      #
+      # Returns the default Ronin Telnet prompt.
+      #
       def Telnet.default_prompt
         @@telnet_default_prompt ||= DEFAULT_PROMPT
       end
 
+      #
+      # Sets the default Ronin Telnet prompt to the specified _prompt_.
+      #
       def Telnet.default_prompt=(prompt)
         @@telnet_default_prompt = prompt
       end
 
+      #
+      # Returns the default Ronin Telnet timeout.
+      #
       def Telnet.default_timeout
         @@telnet_default_timeout ||= DEFAULT_TIMEOUT
       end
 
+      #
+      # Sets the default Ronin Telnet timeout to the specified _timeout_.
+      #
       def Telnet.default_timeout=(timeout)
         @@telnet_default_timeout = timeout
       end

@@ -30,6 +30,20 @@ require 'open-uri'
 module Ronin
   module Web
     #
+    # Returns the default Ronin Web proxy port.
+    #
+    def Web.default_proxy_port
+      Network::HTTP.default_proxy_port
+    end
+
+    #
+    # Sets the default Ronin Web proxy port to the specified _port_.
+    #
+    def Web.default_proxy_port=(port)
+      Network::HTTP.default_proxy_port = port
+    end
+
+    #
     # Returns the +Hash+ of the Ronin Web proxy information.
     #
     def Web.proxy
@@ -37,14 +51,27 @@ module Ronin
     end
 
     #
+    # Resets the Web proxy settings.
+    #
+    def Web.disable_proxy
+      Network::HTTP.disable_proxy
+    end
+
+    #
     # Creates a HTTP URI based from the given _proxy_info_ hash. The
     # _proxy_info_ hash defaults to Web.proxy, if not given.
     #
-    def Web.proxy_uri(proxy_info=Web.proxy)
+    def Web.proxy_url(proxy_info=Web.proxy)
       if Web.proxy[:host]
+        userinfo = nil
+
+        if (Web.proxy[:user] || Web.proxy[:password])
+          userinfo = "#{Web.proxy[:user]}:#{Web.proxy[:password]}"
+        end
+
         return URI::HTTP.build(:host => Web.proxy[:host],
                                :port => Web.proxy[:port],
-                               :userinfo => "#{Web.proxy[:user]}:#{Web.proxy[:password]}",
+                               :userinfo => userinfo,
                                :path => '/')
       end
     end
@@ -79,7 +106,7 @@ module Ronin
     end
 
     #
-    # Opens the _uri_ with the given _options_. The contents of the _uri_
+    # Opens the _url_ with the given _options_. The contents of the _url_
     # will be returned.
     #
     # _options_ may contain the following keys:
@@ -94,7 +121,7 @@ module Ronin
     #
     #   Web.open('http://www.wired.com/', :user_agent => 'the future')
     #
-    def Web.open(uri,options={})
+    def Web.open(url,options={})
       headers = {}
 
       if options[:user_agent_alias]
@@ -107,10 +134,10 @@ module Ronin
 
       proxy = (options[:proxy] || Web.proxy)
       if proxy[:host]
-        headers[:proxy] = Web.proxy_uri(proxy)
+        headers[:proxy] = Web.proxy_url(proxy)
       end
 
-      return Kernel.open(uri,headers)
+      return Kernel.open(url,headers)
     end
 
     #
@@ -146,7 +173,7 @@ module Ronin
     end
 
     #
-    # Gets the specified _uri_ with the given _options_. If a _block_ is
+    # Gets the specified _url_ with the given _options_. If a _block_ is
     # given, it will be passed the retrieved page.
     #
     # _options_ may contain the following keys:
@@ -162,15 +189,15 @@ module Ronin
     #     end
     #   end
     #
-    def Web.get(uri,options={},&block)
-      page = Web.agent(options).get(uri)
+    def Web.get(url,options={},&block)
+      page = Web.agent(options).get(url)
 
       block.call(page) if block
       return page
     end
 
     #
-    # Gets the specified _uri_ with the given _options_, returning the body
+    # Gets the specified _url_ with the given _options_, returning the body
     # of the requested page. If a _block_ is given, it will be passed the
     # body of the retrieved page.
     #
@@ -185,33 +212,35 @@ module Ronin
     #     puts body
     #   end
     #
-    def Web.get_body(uri,options={},&block)
-      body = Web.get(uri,options).body
+    def Web.get_body(url,options={},&block)
+      body = Web.get(url,options).body
 
       block.call(body) if block
       return body
     end
 
     #
-    # Posts the specified _uri_ with the given _options_. If a _block_ is
+    # Posts the specified _url_ with the given _options_. If a _block_ is
     # given, it will be passed the posted page.
     #
     # _options_ may contain the following keys:
+    # <tt>:query</tt>:: The query parameters to post to the specified _url_.
     # <tt>:user_agent_alias</tt>:: The User-Agent Alias to use.
     # <tt>:user_agent</tt>:: The User-Agent string to use.
     # <tt>:proxy</tt>:: A +Hash+ of the proxy information to use.
     #
     #   Web.post('http://www.rubyinside.com') # => WWW::Mechanize::Page
     #
-    def Web.post(uri,options={},&block)
-      page = Web.agent(options).post(uri)
+    def Web.post(url,options={},&block)
+      query = (options[:query] || {})
+      page = Web.agent(options).post(url,query)
 
       block.call(page) if block
       return page
     end
 
     #
-    # Poststhe specified _uri_ with the given _options_, returning the body
+    # Poststhe specified _url_ with the given _options_, returning the body
     # of the posted page. If a _block_ is given, it will be passed the
     # body of the posted page.
     #
@@ -226,8 +255,8 @@ module Ronin
     #     puts body
     #   end
     #
-    def Web.post_body(uri,options={},&block)
-      body = Web.post(uri,options).body
+    def Web.post_body(url,options={},&block)
+      body = Web.post(url,options).body
 
       block.call(body) if block
       return body

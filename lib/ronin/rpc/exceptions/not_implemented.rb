@@ -21,5 +21,9 @@
 #++
 #
 
-require 'ronin/text/char_set'
-require 'ronin/text/text'
+module Ronin
+  module RPC
+    class NotImplemented < RuntimeError
+    end
+  end
+end

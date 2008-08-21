@@ -27,15 +27,17 @@ require 'dm-core'
 require 'dm-types'
 require 'dm-serializer'
 require 'dm-aggregates'
-require 'dm-ar-finders'
 
 module Ronin
   module Model
+    include DataMapper::Types
+
     def self.included(base)
       base.module_eval do
         include DataMapper::Resource
         include DataMapper::AutoMigrations
-        include DataMapper::Types
+
+        property :type, Discriminator
       end
     end
   end

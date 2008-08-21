@@ -28,30 +28,53 @@ require 'irb/completion'
 
 module Ronin
   module Console
+    #
+    # Returns the default Console prompt style
+    #
     def Console.prompt
       @@console_prompt ||= :SIMPLE
     end
 
-    def Console.prompt=(value)
-      @@console_prompt = value
+    #
+    # Sets the default Console prompt style to the specified _style_.
+    #
+    def Console.prompt=(style)
+      @@console_prompt = style
     end
 
+    #
+    # Returns the default Console indent setting.
+    #
     def Console.indent
       @@console_indent ||= true
     end
 
+    #
+    # Sets the default Console indent setting.
+    #
     def Console.indent=(value)
       @@console_indent = value
     end
 
+    #
+    # Returns the Array of files to require when the Console starts.
+    #
     def Console.auto_load
       @@console_auto_load ||= []
     end
 
+    #
+    # Calls the specified _block_ from within the Console after it is
+    # started.
+    #
     def Console.setup(&block)
       Console.setup_blocks << block if block
     end
 
+    #
+    # Starts a Console with the given _script_. If a _block_ is given, it
+    # will be called from within the Console.
+    #
     def Console.start(script=nil,&block)
       IRB.setup(script)
 
@@ -93,6 +116,10 @@ module Ronin
 
     protected
 
+    #
+    # Returns the Array of setup_blocks to run within the Console after it
+    # is started.
+    #
     def Console.setup_blocks
       @@console_setup_blocks ||= []
     end

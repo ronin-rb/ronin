@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/text'
+require 'ronin/chars'
 
 class String
 
@@ -31,11 +31,11 @@ class String
   #
   # _options_ may include the following keys:
   # <tt>:included</tt>:: The set of characters that will be formated,
-  #                      defaults to <tt>Ronin::Text.all</tt>.
+  #                      defaults to <tt>Ronin::Chars.all</tt>.
   # <tt>:excluded</tt>:: The characters not to format.
   #
   def format_chars(options={},&block)
-    included = (options[:included] || Ronin::Text.all)
+    included = (options[:included] || Ronin::Chars.all)
     excluded = (options[:excluded] || [])
 
     formatted = included - excluded
@@ -55,7 +55,7 @@ class String
   #
   # _options_ may include the following keys:
   # <tt>:included</tt>:: The set of characters that will be formated,
-  #                      defaults to <tt>Ronin::Text.all</tt>.
+  #                      defaults to <tt>Ronin::Chars.all</tt>.
   # <tt>:excluded</tt>:: The characters not to format.
   #
   def format_bytes(options={},&block)

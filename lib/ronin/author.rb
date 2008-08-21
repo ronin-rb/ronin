@@ -43,7 +43,7 @@ module Ronin
     property :organization, String
 
     # Author's PGP signature
-    property :pgp_signature, DataMapper::Types::Text
+    property :pgp_signature, Text
 
     # Author's email
     property :email, String
@@ -52,7 +52,7 @@ module Ronin
     property :site, String
 
     # Author's biography
-    property :biography, DataMapper::Types::Text
+    property :biography, Text
 
     #
     # Creates a new Author object with the given _name_ and _info_. The

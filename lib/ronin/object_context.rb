@@ -27,27 +27,44 @@ require 'ronin/extensions/meta'
 require 'ronin/context'
 
 require 'dm-core'
-require 'dm-timestamps'
 
 module Ronin
   module ObjectContext
+    include DataMapper::Types
+
     def self.included(base)
       base.class_eval do
         include Model
+        include Context
 
         metaclass_def(:object_contextify) do |name|
           ObjectContext.object_contexts[name] = self
 
-          include Context
-
           contextify name
 
+          # The Path to the object context
           property :object_path, String, :key => true
 
-          property :created_at, DateTime
+          # The modification timestamp of the object context
+          property :object_timestamp, EpochTime
 
-          meta_def(:create_object) do |path,*args|
+          meta_def(:load_object) do |path,*args|
             ObjectContext.load_object(context_name,path,*args)
+          end
+
+          meta_def(:cache) do |path,*args|
+            load_object(path,*args).cache
+          end
+
+          meta_def(:mirror) do |path,*args|
+            path = File.expand_path(path)
+            existing_obj = first(:object_path => path)
+
+            if existing_obj
+              return existing_obj.mirror
+            else
+              return cache(path,*args)
+            end
           end
 
           meta_def(:search) do |*attribs|
@@ -55,26 +72,44 @@ module Ronin
           end
 
           class_def(:object) do
-            self.class.create_object(object_path)
+            self.class.load_object(self.object_path)
+          end
+
+          class_def(:missing?) do
+            if self.object_path
+              return !(File.file?(self.object_path))
+            end
+
+            return false
           end
 
           class_def(:stale?) do
-            if created_at
-              return FileUtils.mtime(object_path) > created_at
-            else
-              return false
+            if self.object_timestamp
+              return File.mtime(self.object_path) > self.object_timestamp
             end
+
+            return false
           end
 
           class_def(:cache) do
-            save
+            if self.object_path
+              self.object_timestamp = File.mtime(self.object_path)
+              return save
+            end
+
+            return false
           end
 
-          class_def(:sync) do
-            if (!(dirty?) && stale?)
-              destroy
-              cache
-              return true
+          class_def(:mirror) do
+            if self.object_path
+              unless File.file?(self.object_path)
+                return destroy
+              else
+                if (!(dirty?) && stale?)
+                  destroy
+                  return object.cache
+                end
+              end
             end
 
             return false
@@ -83,8 +118,8 @@ module Ronin
           # define Repo-level object loader method
           Ronin.module_eval %{
             def ronin_load_#{name}(path,*args,&block)
-              new_obj = #{self}.create_object(path,*args)
-      
+              new_obj = #{self}.load_object(path,*args)
+              
               block.call(new_obj) if block
               return new_obj
             end
@@ -150,11 +185,73 @@ module Ronin
         raise(ObjectContextNotFound,"object context #{path.dump} does not exist",caller)
       end
 
-      return ObjectContext.load_contexts(path) do |new_obj|
+      return Context.load_contexts(path) do |new_obj|
         new_obj.object_path = path
 
         block.call(new_obj) if block
       end
+    end
+
+    #
+    # Cache all objects loaded from the specified _path_.
+    #
+    def ObjectContext.cache_objects(path)
+      ObjectContext.load_objects(path).each do |obj|
+        obj.cache
+      end
+    end
+
+    #
+    # Cache all objects loaded from the paths within the specified
+    # _directory_.
+    #
+    def ObjectContext.cache_objects_in(directory)
+      directory = File.expand_path(directory)
+      paths = Dir[File.join(directory,'**','*.rb')]
+
+      paths.each do |path|
+        ObjectContext.load_objects(path).each do |obj|
+          obj.cache
+        end
+      end
+
+      return nil
+    end
+
+    #
+    # Mirror all objects that were previously cached from paths within
+    # the specified _directory_. Also cache objects which have yet to
+    # be cached.
+    #
+    def ObjectContext.mirror_objects_in(directory)
+      directory = File.expand_path(directory)
+      paths = Dir[File.join(directory,'**','*.rb')]
+
+      ObjectContext.object_contexts.each_value do |base|
+        objects = base.all(:object_path.like => "#{directory}%")
+        paths -= objects.map { |obj| obj.object_path }
+
+        objects.each { |obj| obj.mirror }
+      end
+
+      paths.each do |path|
+        ObjectContext.cache_objects(path)
+      end
+
+      return nil
+    end
+
+    #
+    # Deletes all cached objects that existed in the specified _directory_.
+    #
+    def ObjectContext.expunge_objects_from(directory)
+      directory = File.expand_path(directory)
+
+      ObjectContext.object_contexts.each_value do |base|
+        base.all(:object_path.like => "#{directory}%").destroy!
+      end
+
+      return nil
     end
   end
 end

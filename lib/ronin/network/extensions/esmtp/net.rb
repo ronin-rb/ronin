@@ -24,10 +24,28 @@
 require 'ronin/network/extensions/smtp'
 
 module Net
+  #
+  # See <tt>Ronin::Network::SMTP.message</tt>.
+  #
   def Net.esmtp_message(options={},&block)
     Net.smtp_message(options,&block)
   end
 
+  #
+  # Connects to the ESMTP server on the specified _host_ with the given
+  # _options_. If a _block_ is given it will be passed the newly created
+  # <tt>Net::SMTP</tt> object.
+  #
+  # _options_ may contain the following keys:
+  # <tt>:port</tt>:: The port to connect to, defaults to
+  #                  <tt>Ronin::Network::SMTP.default_port</tt>.
+  # <tt>:helo</tt>:: The HELO domain.
+  # <tt>:auth</tt>:: The type of authentication to use. Can be
+  #                  either <tt>:login</tt>, <tt>:plain</tt> or
+  #                  <tt>:cram_md5</tt>.
+  # <tt>:user</tt>:: The user name to authenticate with.
+  # <tt>:password</tt>:: The password to authenticate with.
+  #
   def Net.esmtp_connect(host,options={},&block)
     Net.smtp_connect(host,options) do |sess|
       sess.esmtp = true
@@ -35,6 +53,12 @@ module Net
     end
   end
 
+  #
+  # Connects to the ESMTP server on the specified _host_ with the given
+  # _options_. If a _block_ is given it will be passed the newly created
+  # <tt>Net::SMTP</tt> object. After the <tt>Net::SMTP</tt> object has been
+  # passed to the _block_ it will be closed.
+  #
   def Net.esmtp_session(host,options={},&block)
     Net.smtp_session(host,options) do |sess|
       sess.esmtp = true

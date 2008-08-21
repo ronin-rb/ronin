@@ -25,9 +25,10 @@ require 'ronin/cache/extension'
 require 'ronin/cache/exceptions/extension_not_found'
 require 'ronin/cache/overlay_cache'
 require 'ronin/cache/config'
+require 'ronin/persistence'
 
-require 'repertoire/repository'
 require 'rexml/document'
+require 'repertoire'
 
 module Ronin
   module Cache
@@ -36,11 +37,11 @@ module Ronin
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
 
+      # Overlay objects directory
+      OBJECTS_DIR = 'objects'
+
       # Local path to the overlay
       attr_reader :path
-
-      # Media type
-      attr_reader :media
 
       # Source URI of the overlay source
       attr_reader :uri
@@ -58,14 +59,14 @@ module Ronin
       attr_reader :description
 
       #
-      # Creates a new Overlay object with the specified _path_, _media_
+      # Creates a new Overlay object with the specified _path_, _media_type_
       # and _uri_.
       #
-      def initialize(path,media=:local,uri=nil,&block)
+      def initialize(path,media_type=:nil,uri=nil,&block)
         @path = File.expand_path(path)
         @uri = uri
 
-        super(@path,Repertoire::Media.types[media])
+        super(@path,Repertoire::Media.types[media_type])
 
         load_metadata(&block)
       end
@@ -151,11 +152,12 @@ module Ronin
       end
 
       #
-      # Adds the Overlay specified by _media_, _path_ and _uri_ to the
-      # Overlay cache. If a _block is given, it will be passed the
-      # newly created Overlay after it has been added to the cache.
+      # Adds the Overlay at the specified _path_, the given _uri_
+      # and given the _uri_ to the Overlay cache. If a _block is given, it
+      # will be passed the newly created Overlay after it has been added to
+      # the cache.
       #
-      def Overlay.add(path,media=:local,uri=nil,&block)
+      def Overlay.add(path,media=nil,uri=nil,&block)
         Overlay.new(path,media,uri).add(&block)
       end
 
@@ -226,12 +228,53 @@ module Ronin
       end
 
       #
+      # Media type of the overlay.
+      #
+      def media_type
+        if @media
+          return @media.name
+        else
+          return nil
+        end
+      end
+
+      #
+      # Returns the path to the objects directory of the overlay.
+      #
+      def objects_dir
+        File.expand_path(File.join(@path,OBJECTS_DIR))
+      end
+
+      #
+      # Caches the objects contained within overlay.
+      #
+      def cache_objects
+        ObjectContext.cache_objects_in(objects_dir)
+      end
+
+      #
+      # Mirror the objects contained within the overlay.
+      #
+      def mirror_objects
+        ObjectContext.mirror_objects_in(objects_dir)
+      end
+
+      #
+      # Delete all objects that existed within the overlay.
+      #
+      def expunge_objects
+        ObjectContext.expunge_objects_from(objects_dir)
+      end
+
+      #
       # Adds the overlay to the overlay cache. If a _block is given,
       # it will be passed the newly created Overlay after it has been
       # added to the cache.
       #
       def add(&block)
-        Overlay.cache.add(self)
+        Overlay.cache.add(self) do
+          cache_objects
+        end
 
         block.call(self) if block
         return self
@@ -242,9 +285,12 @@ module Ronin
       # is given it will be called after the overlay has been updated.
       #
       def update(&block)
-        return self if @media==:local
+        mirror_objects
 
-        Repertoire.update(:media => @media, :path => @path, :uri => @uri)
+        if media_type
+          Repertoire.update(:media => media_type, :path => @path, :uri => @uri)
+        end
+
         return load_metadata(&block)
       end
 
@@ -254,6 +300,8 @@ module Ronin
       #
       def remove(&block)
         Overlay.cache.remove(self)
+
+        expunge_objects
 
         block.call(self) if block
         return self

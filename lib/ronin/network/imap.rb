@@ -26,12 +26,19 @@ require 'ronin/network/extensions/imap'
 module Ronin
   module Network
     module IMAP
-      DEFAULT_PORT = 143 # Default imap port
+      # Default imap port
+      DEFAULT_PORT = 143
 
+      #
+      # Returns the default Ronin IMAP port.
+      #
       def IMAP.default_port
         @@imap_default_port ||= DEFAULT_PORT
       end
 
+      #
+      # Sets the default Ronin IMAP port to the specified _port_.
+      #
       def IMAP.default_port=(port)
         @@imap_default_port = port
       end

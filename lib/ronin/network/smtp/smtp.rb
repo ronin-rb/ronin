@@ -26,16 +26,27 @@ require 'ronin/network/smtp/email'
 module Ronin
   module Network
     module SMTP
-      DEFAULT_PORT = 25 # Default smtp port
+      # Default smtp port
+      DEFAULT_PORT = 25
 
+      #
+      # Returns the default Ronin SMTP port.
+      #
       def SMTP.default_port
         @@smtp_default_port ||= DEFAULT_PORT
       end
 
+      #
+      # Sets the default Ronin SMTP port.
+      #
       def SMTP.default_port=(port)
         @@smtp_default_port = port
       end
 
+      #
+      # Returns the String form of an Email object with the given _options_
+      # and _block_.
+      #
       def SMTP.message(options={},&block)
         Email.new(options,&block).to_s
       end

@@ -22,7 +22,7 @@
 #
 
 require 'ronin/runner/program/command'
-require 'ronin/cache/repository'
+require 'ronin/cache/overlay'
 
 module Ronin
   module Runner
@@ -32,7 +32,7 @@ module Ronin
         command :add
 
         options('PATH [options]') do |opts|
-          opts.settings.media = :local
+          opts.settings.media = nil
           opts.settings.uri = nil
 
           opts.options do
@@ -51,7 +51,6 @@ module Ronin
 
           opts.summary('Add a local repository located at the specified PATH to the repository cache')
 
-          opts.defaults('--media local')
         end
 
         def arguments(*args)
@@ -63,7 +62,7 @@ module Ronin
 
           Cache::Overlay.save_cache do
             Cache::Overlay.add(path,options.settings.media,options.settings.uri) do |repo|
-              puts "Repository #{repo} added."
+              puts "Overlay #{repo} added."
             end
           end
         end

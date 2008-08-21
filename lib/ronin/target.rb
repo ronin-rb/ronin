@@ -31,10 +31,10 @@ module Ronin
     property :id, Serial
 
     # Targeted platform
-    belongs_to :platform, :class_name => 'Ronin::Platform'
+    belongs_to :platform
 
     # Targeted architecture
-    belongs_to :arch, :class_name => 'Ronin::Arch'
+    belongs_to :arch
 
   end
 end

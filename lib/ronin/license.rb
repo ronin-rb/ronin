@@ -35,7 +35,7 @@ module Ronin
     property :name, String
 
     # Description of license
-    property :description, DataMapper::Types::Text
+    property :description, Text
 
     # URL of the License document
     property :url, String

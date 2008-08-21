@@ -42,7 +42,24 @@ module Ronin
         attr_accessor :message_id
 
         # Body of the email
+        attr_accessor :body
 
+        #
+        # Creates a new Email object with the given _options_. If a _block_
+        # is given, it will be passed the newly created Email object.
+        #
+        # _options_ must contain the following keys:
+        # <tt>:from</tt>:: The address the email is from.
+        # <tt>:to</tt>:: The address that the email should be sent to.
+        # <tt>:subject</tt>:: The subject of the email.
+        # <tt>:message_id</tt>:: 
+        #
+        # _options_ may contain the following keys:
+        # <tt>:date</tt>:: The date the email was sent on. Defaults to
+        #                  <tt>Time.now</tt>.
+        # <tt>:body</tt>:: The body of the email. Can be a String or an
+        #                  Array of Strings.
+        #
         def initialize(options={},&block)
           @from = options[:from]
           @to = options[:to]

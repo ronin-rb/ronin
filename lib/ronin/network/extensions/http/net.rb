@@ -27,6 +27,33 @@ require 'ronin/extensions/uri/http'
 require 'net/http'
 
 module Net
+  #
+  # Connects to the HTTP server using the given _options_. If a _block_
+  # is given it will be passed the newly created <tt>Net::HTTP</tt> object.
+  #
+  # _options_ may contain the following keys:
+  # <tt>:host</tt>:: The host the HTTP server is running on.
+  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
+  #                  <tt>Net::HTTP.default_port</tt>.
+  # <tt>:url</tt>:: The full URL to request.
+  # <tt>:user</tt>:: The user to authenticate with when connecting to the
+  #                  HTTP server.
+  # <tt>:password</tt>:: The password to authenticate with when connecting
+  #                      to the HTTP server.
+  # <tt>:path</tt>:: The path to request from the HTTP server.
+  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
+  #                   the HTTP server. Defaults to
+  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
+  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
+  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
+  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
+  #                   <tt>:user</tt>:: The user to authenticate with
+  #                                    when connecting to the HTTP proxy.
+  #                   <tt>:password</tt>:: The password to authenticate with
+  #                                        when connecting to the HTTP
+  #                                        proxy.
+  #
+  #
   def Net.http_session(options={},&block)
     host = options[:host]
     port = (options[:port] || ::Net::HTTP.default_port)
@@ -51,7 +78,7 @@ module Net
 
     if proxy
       proxy_host = proxy[:host]
-      proxy_port = (proxy[:port] || Ronin::Net::HTTP.default_proxy_port)
+      proxy_port = (proxy[:port] || Ronin::Network::HTTP.default_proxy_port)
       proxy_user = proxy[:user]
       proxy_pass = proxy[:password]
     end
@@ -62,6 +89,11 @@ module Net
     return sess
   end
 
+  #
+  # Performes an HTTP Copy request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_copy(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:copy,options))
@@ -71,6 +103,11 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Delete request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_delete(options={},&block)
     Net.http_session(options) do |http|
       req = Ronin::Network::HTTP.request(:delete,options)
@@ -83,6 +120,11 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Get request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_get(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:get,options))
@@ -92,10 +134,20 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Get request with the given _options_. If a _block_
+  # is given, it will be passed the response body from the HTTP server.
+  # Returns the response body from the HTTP server.
+  #
   def Net.http_get_body(options={},&block)
     Net.http_get(options,&block).body
   end
 
+  #
+  # Performes an HTTP Head request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_head(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:head,options))
@@ -105,6 +157,11 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Lock request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_lock(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:lock,options),options[:body])
@@ -114,6 +171,11 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Mkcol request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_mkcol(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:mkcol,options),options[:body])
@@ -123,6 +185,11 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Move request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_move(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:move,options))
@@ -132,6 +199,11 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Options request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_options(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:options,options))
@@ -141,10 +213,18 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Post request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_post(options={},&block)
     Net.http_session(options) do |http|
+      url = URI(options[:url].to_s)
+      post_data = (options[:post_data] || url.query_params)
+
       req = Ronin::Network::HTTP.request(:post,options)
-      req.set_form_data(options[:data]) if options[:data]
+      req.set_form_data(post_data)
 
       resp = http.request(req)
 
@@ -153,10 +233,20 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Post request with the given _options_. If a _block_
+  # is given, it will be passed the response body from the HTTP server.
+  # Returns the response body from the HTTP server.
+  #
   def Net.http_post_body(options={},&block)
     Net.http_post(options,&block).body
   end
 
+  #
+  # Performes an HTTP Propfind request with the given _options_. If a
+  # _block_ is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_prop_find(options={},&block)
     Net.http_session(options) do |http|
       req = Ronin::Network::HTTP.request(:propfind,options)
@@ -169,6 +259,11 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Proppath request with the given _options_. If a
+  # _block_ is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_prop_path(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:proppath,options),options[:body])
@@ -178,6 +273,11 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Trace request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_trace(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:trace,options))
@@ -187,6 +287,11 @@ module Net
     end
   end
 
+  #
+  # Performes an HTTP Unlock request with the given _options_. If a _block_
+  # is given, it will be passed the response from the HTTP server.
+  # Returns the response from the HTTP server.
+  #
   def Net.http_unlock(options={},&block)
     Net.http_session(options) do |http|
       resp = http.request(Ronin::Network::HTTP.request(:unlock,options),options[:body])

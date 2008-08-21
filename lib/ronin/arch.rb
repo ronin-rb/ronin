@@ -59,9 +59,9 @@ module Ronin
       address_length = options[:address_length].to_i
 
       meta_def(name.to_method_name) do
-        arch = Arch.first_or_create(:name => name,
-                                    :endian => endian,
-                                    :address_length => address_length)
+        Arch.first_or_create(:name => name,
+                             :endian => endian,
+                             :address_length => address_length)
       end
 
       return nil

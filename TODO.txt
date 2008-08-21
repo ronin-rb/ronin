@@ -1,7 +1,6 @@
-== Ronin 0.0.9:
+== Ronin 0.1.0:
 
-=== PROJECT MANAGEMENT:
-
-1. Update README.txt.
-2. Migrate SVN repository to Rubyforge.
+* Create an IO proxy class and RPC Service for proxying io.
+* Create a module for pivoting.
+* Process user-requests and bug-fixes
 

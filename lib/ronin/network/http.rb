@@ -27,28 +27,61 @@ require 'ronin/network/http/exceptions/unknown_request'
 module Ronin
   module Network
     module HTTP
+      # Common HTTP proxy port
       COMMON_PROXY_PORT = 8080
 
+      #
+      # Returns the default Ronin HTTP proxy port to use for HTTP proxies.
+      #
       def HTTP.default_proxy_port
         @@http_default_proxy_port ||= COMMON_PROXY_PORT
       end
 
+      #
+      # Sets the default Ronin HTTP proxy port to the specified _port_.
+      #
       def HTTP.default_proxy_port=(port)
         @@http_default_proxy_port = port
       end
 
-      def HTTP.proxy
-        @@http_proxy ||= {:host => nil, :port => HTTP.default_proxy_port, :user => nil, :pass => nil}
+      #
+      # Returns the default Ronin HTTP proxy hash.
+      #
+      def HTTP.default_proxy
+        {:host => nil, :port => HTTP.default_proxy_port, :user => nil, :pass => nil}
       end
 
+      #
+      # Returns the Ronin HTTP proxy hash.
+      #
+      def HTTP.proxy
+        @@http_proxy ||= default_proxy
+      end
+
+      #
+      # Resets the Ronin HTTP proxy setting.
+      #
+      def HTTP.disable_proxy
+        @@http_proxy = default_proxy
+      end
+
+      #
+      # Returns the default Ronin HTTP User-Agent.
+      #
       def HTTP.user_agent
         @@http_user_agent ||= nil
       end
 
+      #
+      # Sets the default Ronin HTTP User-Agent to the specified _agent_.
+      #
       def HTTP.user_agent=(agent)
         @@http_user_agent = agent
       end
 
+      #
+      # Returns Ronin HTTP headers created from the given _options_.
+      #
       def HTTP.headers(options={})
         headers = {}
 
@@ -58,13 +91,22 @@ module Ronin
 
         if options
           options.each do |name,value|
-            headers[name.to_s.sub('_','-').capitalize] = value.to_s
+            header_name = name.to_s.split('_').map { |word|
+              word.capitalize
+            }.join('-')
+
+            headers[header_name] = value.to_s
           end
         end
 
         return headers
       end
 
+      #
+      # Creates an HTTP request object with the specified _type_ and
+      # given _options_. If type does not represent the name of an Net:HTTP
+      # Request Class an UnknownRequest exception will be raised.
+      #
       def HTTP.request(type,options={})
         name = type.to_s.capitalize
 

@@ -26,12 +26,30 @@ require 'ronin/network/imap'
 require 'net/imap'
 
 module Net
+  #
+  # Connects to the IMAP server on the specified _host_ with the given
+  # _options_. If a _block_ is given, it will be passed the newly created
+  # Net::Imap object.
+  #
+  # _options_ may contain the following keys:
+  # <tt>:port</tt>:: The port the IMAP server is running on. Defaults to
+  #                  IMAP.default_port.
+  # <tt>:certs</tt>:: The path to the file containing CA certs of the server.
+  # <tt>:auth</tt>:: The type of authentication to perform when connecting
+  #                  to the server. May be either :login, or :cram_md5.
+  # <tt>:user</tt>:: The user to authenticate as when connecting to the
+  #                  server.
+  # <tt>:password</tt>:: The password to authenticate with when connecting
+  #                      to the server.
+  # <tt>:ssl</tt>:: Indicates wether or not to use SSL when connecting to
+  #                 the server.
+  #
   def Net.imap_connect(host,options={},&block)
     port = (options[:port] || Ronin::Net::IMAP.default_port)
     certs = options[:certs]
     auth = options[:auth]
     user = options[:user]
-    passwd = options[:passwd]
+    passwd = options[:password]
 
     if options[:ssl]
       ssl = true
@@ -56,11 +74,17 @@ module Net
     return sess
   end
 
+  #
+  # Starts an IMAP session with the IMAP server running on the specified
+  # _host_ with the given _options_. If a _block_ is given, it will be
+  # called before the session is closed.
+  #
   def Net.imap_session(host,options={},&block)
     Net.imap_connect(host,options) do |sess|
       block.call(sess) if block
+      sess.logout if options[:user]
       sess.close
-      sess.logout
+      sess.disconnect
     end
 
     return nil

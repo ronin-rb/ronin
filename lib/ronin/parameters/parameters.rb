@@ -37,6 +37,14 @@ module Ronin
           @params ||= {}
         end
 
+        #
+        # Adds a new parameters with the specified _name_ and the given
+        # _options_ to the Class.
+        #
+        #   parameter 'var'
+        #
+        #   parameter 'var', :value => 3, :description => 'my variable' 
+        #
         def parameter(name,options={})
           name = name.to_sym
 

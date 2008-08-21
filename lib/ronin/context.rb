@@ -120,9 +120,13 @@ module Ronin
     # Returns the first pending context with the specified _path_.
     #
     def Context.loading(path)
-      Context.waiting.select { |pending|
-        pending.path==path
-      }.first
+      Context.waiting.each do |pending|
+        if pending.path == path
+          return pending
+        end
+      end
+
+      return nil
     end
 
     #
@@ -145,12 +149,12 @@ module Ronin
       end
 
       # prevent circular loading of contexts
-      return Context.pending if Context.is_pending?
+      unless Context.is_pending?
+        # push on the new pending context
+        Context.waiting.unshift(PendingContext.new(path))
 
-      # push on the new pending context
-      Context.waiting.unshift(PendingContext.new(path))
-
-      load(path)
+        load(path)
+      end
 
       # pop off and return the pending context
       pending_context = Context.waiting.shift
@@ -212,10 +216,10 @@ module Ronin
       new_objs = []
 
       Context.load_blocks(path) do |pending|
-        pending.blocks.each do |name,block|
+        pending.blocks.each do |name,context_block|
           if Context.is_context?(name)
             new_obj = Context.contexts[name].new
-            new_obj.instance_eval(&block)
+            new_obj.instance_eval(&context_block)
 
             new_objs << new_obj
           end

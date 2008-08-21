@@ -26,6 +26,19 @@ require 'ronin/network/pop3'
 require 'net/pop'
 
 module Net
+  #
+  # Connects to the POP3 server on the specified _host_ using the given
+  # _options_. If a _block_ is given, it will be passed the newly created
+  # <tt>Net::POP3</tt> object.
+  #
+  # _options_ may contain the following keys:
+  # <tt>:port</tt>:: The port the POP3 server is running on. Defaults to
+  #                  <tt>Ronin::Network::POP3.default_port</tt>.
+  # <tt>:user</tt>:: The user to authenticate with when connecting to the
+  #                  POP3 server.
+  # <tt>:password</tt>:: The password to authenticate with when connecting
+  #                      to the POP3 server.
+  #
   def Net.pop3_connect(host,options={},&block)
     port = (options[:port] || Ronin::Network::POP3.default_port)
     user = options[:user]
@@ -36,6 +49,11 @@ module Net
     return sess
   end
 
+  #
+  # Starts a session with the POP3 server on the specified _host_ using the
+  # given _options_. If a _block_ is given, it will be passed the newly
+  # created <tt>Net::POP3</tt> object before the connection is closed.
+  #
   def Net.pop3_session(host,options={},&block)
     Net.pop3_connect(host,options) do |sess|
       block.call(sess) if block

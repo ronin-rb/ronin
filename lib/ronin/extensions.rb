@@ -22,6 +22,7 @@
 #
 
 require 'ronin/extensions/meta'
+require 'ronin/extensions/hash'
 require 'ronin/extensions/uri'
 require 'ronin/extensions/string'
 require 'ronin/extensions/kernel'

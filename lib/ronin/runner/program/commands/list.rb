@@ -22,7 +22,7 @@
 #
 
 require 'ronin/runner/program/command'
-require 'ronin/cache/repository'
+require 'ronin/cache/overlay'
 
 module Ronin
   module Runner
@@ -35,7 +35,7 @@ module Ronin
           opts.options
 
           opts.arguments do
-            opts.arg('NAME','Repository to display')
+            opts.arg('NAME','Overlay to display')
           end
 
           opts.summary('Display all or the specified repositories within the repository cache')

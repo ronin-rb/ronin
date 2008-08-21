@@ -26,12 +26,19 @@ require 'ronin/network/extensions/pop3'
 module Ronin
   module Network
     module POP3
-      DEFAULT_PORT = 110 # Default pop3 port
+      # Default pop3 port
+      DEFAULT_PORT = 110
 
+      #
+      # Returns the default Ronin POP3 port.
+      #
       def POP3.default_port
         @@pop3_default_port ||= DEFAULT_PORT
       end
 
+      #
+      # Sets the default Ronin POP3 port to the specified _port_.
+      #
       def POP3.default_port=(port)
         @@pop3_default_port = port
       end

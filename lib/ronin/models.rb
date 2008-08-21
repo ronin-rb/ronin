@@ -21,8 +21,14 @@
 #++
 #
 
+require 'ronin/extensions/kernel'
+require 'ronin/model'
 require 'ronin/arch'
 require 'ronin/platform'
 require 'ronin/author'
 require 'ronin/license'
 require 'ronin/product'
+
+module Ronin
+  ronin_require 'ronin/models'
+end
