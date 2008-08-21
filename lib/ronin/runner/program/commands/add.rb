@@ -32,7 +32,7 @@ module Ronin
         command :add
 
         options('PATH [options]') do |opts|
-          opts.settings.media = :local
+          opts.settings.media = nil
           opts.settings.uri = nil
 
           opts.options do
@@ -51,7 +51,6 @@ module Ronin
 
           opts.summary('Add a local repository located at the specified PATH to the repository cache')
 
-          opts.defaults('--media local')
         end
 
         def arguments(*args)

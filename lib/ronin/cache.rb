@@ -23,5 +23,5 @@
 
 require 'ronin/cache/exceptions'
 require 'ronin/cache/extension'
-require 'ronin/cache/repository'
+require 'ronin/cache/overlay'
 require 'ronin/cache/ronin'

@@ -32,7 +32,7 @@ module Ronin
         command :install
 
         options('URI [options]') do |opts|
-          opts.settings.media = :local
+          opts.settings.media = nil
           opts.settings.uri = nil
 
           opts.options do
