@@ -119,6 +119,8 @@ lib/ronin/product.rb
 lib/ronin/pending_context.rb
 lib/ronin/context.rb
 lib/ronin/object_context.rb
+lib/ronin/objects.rb
+lib/ronin/persistence.rb
 lib/ronin/cache.rb
 lib/ronin/cache/exceptions.rb
 lib/ronin/cache/exceptions/extension_not_found.rb

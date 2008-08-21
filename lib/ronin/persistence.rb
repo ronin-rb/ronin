@@ -22,13 +22,11 @@
 #
 
 require 'ronin/extensions/kernel'
-require 'ronin/model'
-require 'ronin/arch'
-require 'ronin/platform'
-require 'ronin/author'
-require 'ronin/license'
-require 'ronin/product'
+require 'ronin/database'
 
 module Ronin
-  ronin_require 'ronin/models'
+  Database.setup do
+    ronin_require 'ronin/models'
+    ronin_require 'ronin/objects'
+  end
 end
