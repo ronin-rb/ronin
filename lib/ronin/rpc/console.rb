@@ -50,10 +50,10 @@ module Ronin
       # not given, the Object inspect method will be called.
       #
       def inspect(expression=nil)
-        if string
+        if expression
           return call(:inspect,expression)
         else
-          return super
+          return super()
         end
       end
 
