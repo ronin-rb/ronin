@@ -24,6 +24,11 @@
 require 'ronin/exceptions/invalid_database_config'
 require 'ronin/extensions/kernel'
 require 'ronin/config'
+require 'ronin/arch'
+require 'ronin/platform'
+require 'ronin/author'
+require 'ronin/license'
+require 'ronin/product'
 
 require 'yaml'
 require 'dm-core'
