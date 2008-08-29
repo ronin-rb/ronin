@@ -145,7 +145,7 @@ module Ronin
     #
     # The punctuation character set.
     #
-    def Chars.puncation
+    def Chars.punctuation
       PUNCTUATION
     end
 

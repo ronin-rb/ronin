@@ -37,7 +37,7 @@ module Ronin
         class_def(:context_name) { name }
 
         meta_def(:load_context) do |path,*args|
-          Context.load_context(path,self.context_name,*args)
+          Context.load_context(self.context_name,path,*args)
         end
 
         # define the top-level context wrappers

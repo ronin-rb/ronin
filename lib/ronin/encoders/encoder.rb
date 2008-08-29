@@ -24,10 +24,18 @@
 module Ronin
   class Encoder
 
-    def self.encode(data,*args,&block)
-      self.new(*args).encode(data,&block)
+    #
+    # Encodes the specified _data_ with given _options_. If a _block_ is
+    # given it will be passed the encoded data.
+    #
+    def self.encode(data,options={},&block)
+      self.new(options).encode(data,&block)
     end
 
+    #
+    # The default encoding method which simply returns the specified _data_.
+    # If a _block_ is given, it will be passed the specified _data_.
+    #
     def encode(data,&block)
       block.call(data) if block
       return data
