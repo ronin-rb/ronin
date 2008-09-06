@@ -41,6 +41,9 @@ module Ronin
     # Venders
     property :vendor, String
 
+    # Validates
+    validates_present :name, :version
+
     #
     # Returns the String form of the product.
     #

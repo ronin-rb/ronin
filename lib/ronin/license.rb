@@ -40,6 +40,10 @@ module Ronin
     # URL of the License document
     property :url, String
 
+    # Validations
+    validates_present :name, :description
+    validates_is_unique :name
+
     #
     # Returns the name of the license as a String.
     #

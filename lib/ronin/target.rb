@@ -36,5 +36,8 @@ module Ronin
     # Targeted architecture
     belongs_to :arch
 
+    # Validates
+    validates_present :platform, :arch
+
   end
 end

@@ -41,6 +41,14 @@ module Ronin
     # Address length of the architecture
     property :address_length, Integer
 
+    # Validates
+    validates_present :name, :endian, :address_length
+    validates_is_unique :name
+    validates_format :endian, :with => lambda { |endian|
+      endian == 'big' || endian == 'little'
+    }
+    validates_is_number :address_length
+
     #
     # Returns the name of the arch as a String.
     #
@@ -50,8 +58,7 @@ module Ronin
 
     #
     # Defines a new builtin Arch with the specified _name_ and the given
-    # _opts_. If _block_ is given, it will be passed the newly created
-    # Arch.
+    # _options_.
     #
     def Arch.define(name,options={})
       name = name.to_s

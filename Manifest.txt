@@ -155,8 +155,8 @@ lib/ronin/version.rb
 tasks/spec.rb
 spec/helpers/
 spec/spec_helper.rb
-spec/path_spec.rb
-spec/ronin_spec.rb
+spec/arch_spec.rb
+spec/author_spec.rb
 spec/chars/chars_spec.rb
 spec/context/context_spec.rb
 spec/context/helpers/book_context.rb
@@ -168,3 +168,9 @@ spec/formatting/digest_spec.rb
 spec/formatting/html_spec.rb
 spec/formatting/http_spec.rb
 spec/formatting/text_spec.rb
+spec/license_spec.rb
+spec/path_spec.rb
+spec/platform_spec.rb
+spec/product_spec.rb
+spec/target_spec.rb
+spec/ronin_spec.rb

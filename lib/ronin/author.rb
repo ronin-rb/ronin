@@ -55,26 +55,25 @@ module Ronin
     property :biography, Text
 
     #
-    # Creates a new Author object with the given _name_ and _info_. The
-    # _name_ defaults to ANONYMOUSE. If _block_ is given, it will be passed
-    # the newly created Author object.
+    # Creates a new Author object with the given _options_. If _block_ is
+    # given, it will be passed the newly created Author object.
     #
     # _info_ may contain the following keys:
+    # <tt>:name</tt>:: The name of the author. Defaults to +ANONYMOUSE+.
     # <tt>:organization</tt>:: The organization of the author.
     # <tt>:pgp_signature</tt>:: The PGP signature of the author.
     # <tt>:email</tt>:: The email address of the author.
     # <tt>:url</tt>:: The URL for the author.
     # <tt>:biography</tt>:: The biography of the author.
     #
-    def initialize(name=ANONYMOUSE,info={},&block)
-      @name = name
-      @organization= info[:organization]
-      @pgp_signature = info[:pgp_signature]
-      @email = info[:email]
-      @url = info[:url]
-      @biography = info[:biography]
+    def initialize(options={},&block)
+      super(options)
 
       block.call(self) if block
+    end
+
+    def name
+      @name || ANONYMOUSE
     end
 
     #

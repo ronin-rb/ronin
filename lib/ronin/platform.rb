@@ -37,6 +37,9 @@ module Ronin
     # Version of the Operating System
     property :version, String
 
+    # Validates
+    validates_present :os, :version
+
     #
     # Returns the String form of the Platform.
     #
@@ -72,7 +75,7 @@ module Ronin
       method_name = name.to_method_name
 
       meta_def(method_name) do
-        Platform.find_or_new(:os => name)
+        Platform.new(:os => name)
       end
 
       meta_def("#{method_name}_version") do |version|
