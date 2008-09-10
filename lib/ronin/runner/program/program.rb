@@ -113,9 +113,11 @@ module Ronin
         else
           puts 'Available commands:'
 
-          Program.commands.each do |cmd|
+          Program.commands.sort_by { |cmd|
+            cmd.command_names.first
+          }.each { |cmd|
             puts "  #{cmd.command_names.join(', ')}"
-          end
+          }
         end
       end
 
