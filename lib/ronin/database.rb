@@ -47,7 +47,7 @@ module Ronin
     # Default configuration of the database
     DEFAULT_CONFIG = {
       :adapter => :sqlite3,
-      :database => File.join(Config::PATH,'ronin.db')
+      :database => File.join(Config::PATH,'database.sqlite3')
     }
 
     #
@@ -105,7 +105,7 @@ module Ronin
     #
     def Database.setup(configuration=Database.config,&block)
       Database.setup_log
-      DataMapper.setup(:default, configuration)
+      DataMapper.setup(Model::REPOSITORY_NAME, configuration)
 
       block.call if block
 
@@ -120,7 +120,7 @@ module Ronin
         model.relationships.each_value { |r| r.child_key if r.child_model == model }
       end
 
-      DataMapper.auto_upgrade!
+      DataMapper.auto_upgrade!(Model::REPOSITORY_NAME)
       return nil
     end
   end
