@@ -24,6 +24,4 @@
 require 'ronin/extensions/kernel'
 require 'ronin/object_context'
 
-module Ronin
-  ronin_require 'ronin/objects'
-end
+ronin_require 'ronin/objects'

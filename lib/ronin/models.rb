@@ -24,6 +24,4 @@
 require 'ronin/extensions/kernel'
 require 'ronin/model'
 
-module Ronin
-  ronin_require 'ronin/models'
-end
+ronin_require 'ronin/models'

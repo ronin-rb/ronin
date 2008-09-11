@@ -44,18 +44,6 @@ module Net
 
   #
   # Creates a new UDPSocket object with the specified _rhost_ 
-  # _rport_, and the given _lhost_ and _lport_. The specified _block_
-  # will be passed the first line received from the UDPSocket object.
-  # The newly created UDPSocket object will be returned.
-  #
-  def Net.udp_connect_and_recv(rhost,rport,lhost=nil,lport=nil,&block)
-    Net.udp_connect(rhost,rport,lhost,lport) do |sock|
-      block.call(sock.read) if block
-    end
-  end
-
-  #
-  # Creates a new UDPSocket object with the specified _rhost_ 
   # _rport_, and the given _lhost_ and _lport_. The specified _data_ will
   # then be written to the newly created UDPSocket. If a _block_ is given
   # it will be passed the UDPSocket object.
