@@ -43,13 +43,13 @@ module Ronin
         #
         #   parameter 'var'
         #
-        #   parameter 'var', :value => 3, :description => 'my variable' 
+        #   parameter 'var', :default => 3, :description => 'my variable' 
         #
         def parameter(name,options={})
           name = name.to_sym
 
           # add the parameter to the class params list
-          params[name] = ClassParam.new(name,options[:description],options[:value])
+          params[name] = ClassParam.new(name,options[:description],options[:default])
 
           # define the reader class method for the parameter
           meta_def(name) do
@@ -159,13 +159,13 @@ module Ronin
     #
     #   obj.parameter('var')
     #
-    #   obj.parameter('var',:value => 3, :description => 'my variable')
+    #   obj.parameter('var',:default => 3, :description => 'my variable')
     #
     def parameter(name,options={})
       name = name.to_sym
 
       # set the instance variable
-      instance_variable_set("@#{name}",options[:value])
+      instance_variable_set("@#{name}",options[:default])
 
       # add the new parameter
       params[name] = InstanceParam.new(self,name,options[:description])
