@@ -2,6 +2,7 @@ History.txt
 COPYING.txt
 Manifest.txt
 README.txt
+FAQ.txt
 TODO.txt
 Rakefile
 bin/ronin
@@ -173,4 +174,6 @@ spec/path_spec.rb
 spec/platform_spec.rb
 spec/product_spec.rb
 spec/target_spec.rb
+spec/parameters/parameters_spec.rb
+spec/sessions/session_spec.rb
 spec/ronin_spec.rb

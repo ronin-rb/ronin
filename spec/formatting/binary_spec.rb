@@ -1,6 +1,6 @@
-require 'spec_helper'
-
 require 'ronin/formatting/binary'
+
+require 'spec_helper'
 
 describe Integer do
   before(:all) do

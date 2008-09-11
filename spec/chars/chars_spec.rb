@@ -1,5 +1,7 @@
 require 'ronin/chars/chars'
 
+require 'spec_helper'
+
 describe Ronin do
   describe Chars do
     before(:all) do

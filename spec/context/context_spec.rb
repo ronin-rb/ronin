@@ -1,6 +1,6 @@
-require 'spec_helper'
-
 require 'ronin/context'
+
+require 'spec_helper'
 
 describe Ronin do
   describe Context do

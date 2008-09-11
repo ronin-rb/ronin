@@ -1,5 +1,7 @@
 require 'ronin/arch'
 
+require 'spec_helper'
+
 describe Arch do
   it "should require a name, endian and address_length attributes" do
     @arch = Arch.new

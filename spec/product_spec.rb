@@ -1,5 +1,7 @@
 require 'ronin/product'
 
+require 'spec_helper'
+
 describe Product do
   it "should require name and version attributes" do
     @product = Product.new
