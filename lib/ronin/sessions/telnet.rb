@@ -29,7 +29,7 @@ module Ronin
     module TELNET
       include Session
 
-      TELNET_SESSION = proc do
+      setup_session do
         parameter :telnet_host, :description => 'Telnet host'
         parameter :telnet_port, :value => Network::Telnet.default_port, :description => 'Telnet port'
 
@@ -38,14 +38,6 @@ module Ronin
 
         parameter :telnet_proxy, :description => 'Telnet proxy'
         parameter :telnet_ssl, :description => 'Telnet SSL options'
-      end
-
-      def self.included(base)
-        Session.setup_class(base,&TELNET_SESSION)
-      end
-
-      def self.extended(obj)
-        Session.setup_object(obj,&TELNET_SESSION)
       end
 
       protected

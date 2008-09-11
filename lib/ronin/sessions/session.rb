@@ -21,31 +21,32 @@
 #++
 #
 
+require 'ronin/extensions/meta'
 require 'ronin/parameters'
 
 module Ronin
   module Sessions
     module Session
-      #
-      # Includes Parameters and runs the _block_ in the specified
-      # _base_class_.
-      #
-      def Session.setup_class(base_class,&block)
-        base_class.module_eval { include Parameters }
-        base_class.module_eval(&block)
+      def self.included(base)
+        base.module_eval do
+          def self.setup_session(&block)
+            #
+            # Includes Parameters and runs the _block_.
+            #
+            metaclass_def(:included) do |base_class|
+              base_class.class_eval { include Parameters }
+              base_class.class_eval(&block)
+            end
 
-        return base_class
-      end
-
-      #
-      # Extends Parameters and runs the specified _block_ in the specified
-      # _obj_.
-      #
-      def Session.setup_object(obj,&block)
-        obj.extend(Parameters)
-        obj.instance_eval(&block)
-
-        return obj
+            #
+            # Extends Parameters and runs the specified _block_.
+            #
+            metaclass_def(:extended) do |base_obj|
+              base_obj.extend Parameters
+              base_obj.instance_eval(&block)
+            end
+          end
+        end
       end
     end
   end

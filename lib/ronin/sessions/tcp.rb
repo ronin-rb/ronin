@@ -29,20 +29,12 @@ module Ronin
     module TCP
       include Session
 
-      TCP_SESSION = proc do
+      setup_session do
         parameter :lhost, :description => 'TCP local host'
         parameter :lport, :description => 'TCP local port'
 
         parameter :rhost, :description => 'TCP remote host'
         parameter :rport, :description => 'TCP remote port'
-      end
-
-      def self.included(base)
-        Session.setup_class(base,&TCP_SESSION)
-      end
-
-      def self.extended(obj)
-        Session.setup_object(obj,&TCP_SESSION)
       end
 
       protected
@@ -57,18 +49,6 @@ module Ronin
         end
 
         return ::Net.tcp_connect(@rhost,@rport,@lhost,@lport,&block)
-      end
-
-      def tcp_connect_and_recv(&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
-        end
-
-        unless @rport
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
-        end
-
-        return ::Net.tcp_connect_and_recv(@rhost,@rport,@lhost,@lport,&block)
       end
 
       def tcp_connect_and_send(data,&block)

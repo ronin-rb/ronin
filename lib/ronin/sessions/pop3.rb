@@ -29,20 +29,12 @@ module Ronin
     module POP3
       include Session
 
-      POP3_SESSION = proc do
+      setup_session do
         parameter :pop3_host, :description => 'POP3 host'
         parameter :pop3_port, :description => 'POP3 port'
 
         parameter :pop3_user, :description => 'POP3 user'
         parameter :pop3_password, :description => 'POP3 password'
-      end
-
-      def self.included(base)
-        Session.setup_class(base,&POP3_SESSION)
-      end
-
-      def self.extended(obj)
-        Session.setup_object(obj,&POP3_SESSION)
       end
 
       protected
