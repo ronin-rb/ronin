@@ -1,5 +1,11 @@
-== Ronin 0.1.0:
+== TODO
 
+=== Ronin 0.1.0:
+
+* Add Parameters.set_params and Parameters#set_params.
+* Ensure that an ObjectContext can be loaded from a file and have all of
+  it's properties and associations loaded from the Database.
+* Create an Overlay Genetor for creating basic Overlays.
 * Create an IO proxy class and RPC Service for proxying io.
 * Create a module for pivoting.
 * Process user-requests and bug-fixes

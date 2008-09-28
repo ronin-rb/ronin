@@ -2,8 +2,8 @@
 
 Q:: Is Ronin a Framework?
 A:: Ronin is not a framework. Instead, we like to call it a Platform, since
-    Ronin was designed for developing code on top of it. Besides, "framework"
-    is totally the developer buzz-word of the 2000s.
+    Ronin was designed for developing code on top of it. Besides,
+    "framework" is totally the developer buzz-word of the 2000s.
 
 Q:: How well documented is Ronin?
 A:: Ronin has extensive RDoc documentation of it's API. Various Tutorials
@@ -12,27 +12,28 @@ A:: Ronin has extensive RDoc documentation of it's API. Various Tutorials
 Q:: How readable is Ronin's code-base?
 A:: Other projects have been criticized for having poor programming
     conventions or a lack of documentation. To avoid this, Ronin enforces a
-    set of source-code style guidelines to ensure that all source-code is
-    clean and readable. The style-guidelines can be reviewed here:
+    set of coding style guidelines to ensure that all source-code is clean
+    and readable. The coding style guidelines can be reviewed here:
     http://ronin.rubyforge.org/style.html
 
-Q:: Does Ronin have a test-suite so that I can ensure that Ronin is bug free?
+Q:: Does Ronin have a test-suite so that I can ensure that Ronin is bug
+    free?
 A:: Yes, Ronin comes with extensive RSpec specification tests.
 
 Q:: Ronin comes with code which can be used to scan for and exploit
     security vulnerabilities, aren't you making everyone less secure by
     doing so?
-A:: Yeah, so? There are plenty of similar projects which are freely available
-    on-line, that can be used to scan and exploit vulnerabilities.
+A:: Yeah, so? There are plenty of similar projects which are freely
+    available on-line, that can be used to scan and exploit vulnerabilities.
 
 Q:: By publishing a hacking tool, aren't you helping to support the
     TERRORISTS!!!1111oneoneone
 A:: Technically we're helping everyone, since Ronin is freely available
     for download. What people choose to do with Ronin is their own ethical
     responsibility. If you are scared of Hackers or TERRORISTS, we suggest
-    you help raise awareness of bad programming habits which helped to create
-    all those vulnerabilities in the first place. Perhaps you could stand
-    outside Computer Science departments holding up signs such as:
+    you help raise awareness of bad programming habits which helped to
+    create all those vulnerabilities in the first place. Perhaps you could
+    stand outside Computer Science departments holding up signs such as:
 
       "Parametrize your SQL data"
 
@@ -43,10 +44,30 @@ A:: Technically we're helping everyone, since Ronin is freely available
 Q:: Does Ronin ship with 0day?
 A:: Ronin was never intended to ship with any built-in exploits or
     payloads. Ronin's design allows user to checkout various
-    repositories of exploits, payloads and extensions. This design choice
-    allows for users to selectively choose which repositories they want to
+    overlays of exploits, payloads and extensions. This design choice
+    allows for users to selectively choose which overlay they want to
     use, update them when they like and possibly even create their own
-    repositories.
+    overlays.
+
+Q:: What exactly are overlays?
+A:: Overlays are directories which can contain objects (such as exploits or
+    payloads) or extensions which can be used by Ronin. An overlay also
+    contains a small XML file called <tt>ronin.xml</tt> which describes
+    the overlay, it's authors and it's licensing.
+
+Q:: How are overlays hosted?
+A:: An overlay can be hosed on any Subversion (SVN), CVS, Git or Rsync
+    server.
+
+Q:: How can I install an Overlay?
+A:: Simply pass the URL of the overlay to the +ronin+ +install+ sub-command.
+    
+      $ ronin install svn://www.example.com/overlay
+
+    If you have previously checked out an overlay, then simply pass the
+    path of the local overlay to the +ronin+ +add+ sub-command.
+
+      $ ronin add path/to/local/overlay
 
 Q:: Does Ronin have a GUI or Web-interface?
 A:: Not currently. The developers of Ronin are considering creating a GUI
@@ -77,6 +98,6 @@ A:: No, you cannot. Ronin is licensed under the GPL-2 license.
 
 Q:: But we are a struggling Information Security company, could we purchase
     the rights to Ronin?
-A:: Go struggle somewhere else. No one is selling Ronin, we don't want to see
-    it become another Nessus.
+A:: Go struggle somewhere else. No one is selling Ronin, we don't want to
+    see it become another Nessus.
 

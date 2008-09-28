@@ -164,6 +164,10 @@ spec/context/helpers/book_context.rb
 spec/context/helpers/book_review_context.rb
 spec/context/helpers/contexts/snow_crash.rb
 spec/context/helpers/contexts/neuromancer_review.rb
+spec/extensions/hash_spec.rb
+spec/extensions/string_spec.rb
+spec/extensions/uri/http_spec.rb
+spec/extensions/uri/query_params_spec.rb
 spec/formatting/binary_spec.rb
 spec/formatting/digest_spec.rb
 spec/formatting/html_spec.rb
