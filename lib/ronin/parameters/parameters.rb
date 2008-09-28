@@ -73,10 +73,10 @@ module Ronin
         def get_param(name)
           name = name.to_sym
 
-          ancestors.each do |superclass|
-            if superclass.include?(Parameters)
-              if superclass.params.has_key?(name)
-                return superclass.params[name]
+          ancestors.each do |ancestor|
+            if ancestor.include?(Parameters)
+              if ancestor.params.has_key?(name)
+                return ancestor.params[name]
               end
             end
           end
@@ -91,9 +91,9 @@ module Ronin
         def has_param?(name)
           name = name.to_sym
 
-          ancestors.each do |superclass|
-            if superclass.include?(Parameters)
-              return true if superclass.params.has_key?(name)
+          ancestors.each do |ancestor|
+            if ancestor.include?(Parameters)
+              return true if ancestor.params.has_key?(name)
             end
           end
 
@@ -105,9 +105,9 @@ module Ronin
         # specified _block_.
         #
         def each_param(&block)
-          ancestors.each do |superclass|
-            if superclass.include?(Parameters)
-              superclass.params.each_value(&block)
+          ancestors.each do |ancestor|
+            if ancestor.include?(Parameters)
+              ancestor.params.each_value(&block)
             end
           end
 
@@ -247,8 +247,19 @@ module Ronin
       get_param(name).value
     end
 
-    protected
+    #
+    # Sets the values of the parameters listed in the specified _values_.
+    #
+    #   obj.set_params(:rhost => 'www.example.com', :rport => 80)
+    #   # => {:rhost=>"www.example.com", :rport=>80}
+    #
+    def set_params(values={})
+      values.each do |name,value|
+        get_param(name).value = value
+      end
+    end
 
+    protected
 
     #
     # Initializes the specified class _param_.

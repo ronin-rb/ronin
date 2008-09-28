@@ -18,6 +18,7 @@ describe Parameters do
     class InheritedParameters < TestParameters
 
       parameter :child_var, :description => 'Child parameter'
+
     end
   end
 
@@ -26,13 +27,13 @@ describe Parameters do
       TestParameters.params.should_not be_empty
     end
 
+    it "can have default values for parameters" do
+      TestParameters.param_value(:var_with_default).should == 'thing'
+    end
+
     it "should provide class methods for paremters" do
       TestParameters.var = 1
       TestParameters.var.should == 1
-    end
-
-    it "can have default values for parameters" do
-      TestParameters.var_with_default.should == 'thing'
     end
 
     it "should inherite the super-classes parameters" do
@@ -63,7 +64,7 @@ describe Parameters do
     end
 
     it "can have default values for parameters" do
-      @test.var_with_default.should == 'thing'
+      @test.param_value(:var_with_default).should == 'thing'
     end
 
     it "should provide instance methods for parameters" do
@@ -90,8 +91,15 @@ describe Parameters do
       @param.name.should == :var
     end
 
-    it "raise a ParamNotFound exception when directly accessing non-existent parameter objects" do
+    it "should raise a ParamNotFound exception when directly accessing non-existent parameter objects" do
       lambda { @test.get_param(:unknown) }.should raise_error(Parameters::ParamNotFound)
+    end
+
+    it "should allow for setting parameters en-mass" do
+      @test.set_params(:var => 3, :var_with_default => 7)
+
+      @test.param_value(:var).should == 3
+      @test.param_value(:var_with_default).should == 7
     end
 
     it "should provide descriptions for parameters" do
