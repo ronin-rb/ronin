@@ -31,7 +31,7 @@ class String
   #   'Ronin::Arch' # => "ronin_arch"
   #
   def to_method_name
-    downcase.gsub(/(::|[ \-])/,'_')
+    downcase.gsub(/(::|[\s\-])/,'_')
   end
 
 end

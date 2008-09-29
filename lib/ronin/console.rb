@@ -32,35 +32,35 @@ module Ronin
     # Returns the default Console prompt style
     #
     def Console.prompt
-      @@console_prompt ||= :SIMPLE
+      @@ronin_console_prompt ||= :SIMPLE
     end
 
     #
     # Sets the default Console prompt style to the specified _style_.
     #
     def Console.prompt=(style)
-      @@console_prompt = style
+      @@ronin_console_prompt = style
     end
 
     #
     # Returns the default Console indent setting.
     #
     def Console.indent
-      @@console_indent ||= true
+      @@ronin_console_indent ||= true
     end
 
     #
     # Sets the default Console indent setting.
     #
     def Console.indent=(value)
-      @@console_indent = value
+      @@ronin_console_indent = value
     end
 
     #
     # Returns the Array of files to require when the Console starts.
     #
     def Console.auto_load
-      @@console_auto_load ||= []
+      @@ronin_console_auto_load ||= []
     end
 
     #

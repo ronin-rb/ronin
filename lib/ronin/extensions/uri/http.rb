@@ -65,7 +65,7 @@ module URI
     def test_query_params(value,options={},&block)
       results = {}
 
-      explode_query_params(value,options) do |url|
+      explode_query_params(value,options) do |param,url|
         result = block.call(param,url)
 
         results[param] = result if result

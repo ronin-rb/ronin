@@ -33,10 +33,17 @@ module Ronin
   module Model
     include DataMapper::Types
 
+    # Name of Ronin's DataMapper repository
+    REPOSITORY_NAME = :ronin
+
     def self.included(base)
       base.module_eval do
         include DataMapper::Resource
         include DataMapper::AutoMigrations
+
+        def self.default_repository_name
+          Model::REPOSITORY_NAME
+        end
 
         property :type, Discriminator
       end

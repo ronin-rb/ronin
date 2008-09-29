@@ -1,6 +1,6 @@
-require 'spec_helper'
-
 require 'ronin/formatting/digest'
+
+require 'spec_helper'
 
 describe String do
   before(:all) do

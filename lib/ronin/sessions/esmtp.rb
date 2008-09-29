@@ -26,24 +26,16 @@ require 'ronin/network/esmtp'
 
 module Ronin
   module Sessions
-    module SMTP
+    module ESMTP
       include Session
 
-      ESMTP_SESSION = proc do
+      setup_session do
         parameter :esmtp_host, :description => 'ESMTP host'
         parameter :esmtp_port, :description => 'ESMTP port'
 
         parameter :esmtp_login, :description => 'ESMTP login'
         parameter :esmtp_user, :description => 'ESMTP user'
         parameter :esmtp_password, :description => 'ESMTP password'
-      end
-
-      def self.included(base)
-        Session.setup_class(base,&ESMTP_SESSION)
-      end
-
-      def self.extended(obj)
-        Session.setup_object(obj,&ESMTP_SESSION)
       end
 
       protected

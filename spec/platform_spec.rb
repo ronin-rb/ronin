@@ -1,5 +1,7 @@
 require 'ronin/platform'
 
+require 'spec_helper'
+
 describe Platform do
   it "should require os and version attributes" do
     @platform = Platform.new

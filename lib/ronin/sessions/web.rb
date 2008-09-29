@@ -29,17 +29,9 @@ module Ronin
     module Web
       include Session
 
-      WEB_SESSION = proc do
+      setup_session do
         parameter :web_proxy, :value => Ronin::Web.proxy, :description => 'Web Proxy'
         parameter :web_user_agent, :value => Ronin::Web.user_agent, :description => 'Web User-Agent'
-      end
-
-      def self.included(base)
-        Session.setup_class(base,&WEB_SESSION)
-      end
-
-      def self.extended(obj)
-        Session.setup_object(obj,&WEB_SESSION)
       end
 
       protected

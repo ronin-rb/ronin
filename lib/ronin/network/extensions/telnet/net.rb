@@ -33,8 +33,9 @@ module Net
   # the newly created Telnet object.
   #
   # _options_ may contain the following keys:
-  # <tt>:port</tt>:: The port to connect to. Defaults to +DEFAULT_PORT+,
-  #                  if not given.
+  # <tt>:port</tt>:: The port to connect to. Defaults to
+  #                  <tt>Ronin::Network::Telnet.default_port</tt>, if not
+  #                  given.
   # <tt>:binmode</tt>:: Indicates that newline substitution shall not
   #                     be performed.
   # <tt>:output_log</tt>:: The name of the file to write connection
@@ -45,7 +46,8 @@ module Net
   # <tt>:prompt</tt>:: A regular expression matching the host's
   #                    command-line prompt sequence, used to determine
   #                    when a command has finished. Defaults to
-  #                    +DEFAULT_PROMPT+, if not given.
+  #                    <tt>Ronin::Network::Telnet.default_prompt</tt>, if
+  #                    not given.
   # <tt>:telnet</tt>:: Indicates that the connection shall behave as a
   #                    telnet connection. Defaults to +true+.
   # <tt>:plain</tt>:: Indicates that the connection shall behave as a
@@ -53,16 +55,19 @@ module Net
   # <tt>:timeout</tt>:: The number of seconds to wait before timing out
   #                     both the initial attempt to connect to host,
   #                     and all attempts to read data from the host.
-  #                     Defaults to +DEFAULT_TIMEOUT+, if not given.
+  #                     Defaults to
+  #                     <tt>Ronin::Network::Telnet.default_timeout</tt>,
+  #                     if not given.
   # <tt>:wait_time</tt>:: The amount of time to wait after seeing what
   #                       looks like a prompt.
   # <tt>:proxy</tt>:: A proxy object to used instead of opening a
   #                   direct connection to the host. Must be either
   #                   another telnet object or an IO object.
-  #                   Defaults to Telnet.proxy, if not given.
+  #                   Defaults to
+  #                   <tt>Ronin::Network::Telnet.proxy</tt>, if not given.
   # <tt>:user</tt>:: The user to login with.
   # <tt>:password</tt>:: The password to login with.
-  # <tt>:ssl</tt>:: A +Hash+ of SSL information to use for a SSLed
+  # <tt>:ssl</tt>:: A Hash of SSL information to use for a SSLed
   #                 Telnet session. This hash must contain the following
   #                 keys.
   #                 <tt>:certfile</tt>:: The SSL Certfile to use.

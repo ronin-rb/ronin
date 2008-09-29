@@ -8,6 +8,7 @@ require './lib/ronin/version.rb'
 Hoe.new('ronin', Ronin::VERSION) do |p|
   p.rubyforge_name = 'ronin'
   p.developer('Postmodern Modulus III','postmodern.mod3@gmail.com')
+  p.remote_rdoc_dir = 'docs/ronin'
   p.extra_deps = ['hpricot',
                   'mechanize',
                   ['dm-core', '>=0.9.3'],

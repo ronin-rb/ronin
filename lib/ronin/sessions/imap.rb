@@ -29,21 +29,13 @@ module Ronin
     module IMAP
       include Session
 
-      IMAP_SESSION = proc do
+      setup_session do
         parameter :imap_host, :description => 'IMAP host'
         parameter :imap_port, :description => 'IMAP port'
 
         parameter :imap_auth, :description => 'IMAP authentication mode'
         parameter :imap_user, :description => 'IMAP user'
         parameter :imap_password, :description => 'IMAP password'
-      end
-
-      def self.included(base)
-        Session.setup_class(base,&IMAP_SESSION)
-      end
-
-      def self.extended(obj)
-        Session.setup_object(obj,&IMAP_SESSION)
       end
 
       protected

@@ -29,20 +29,12 @@ module Ronin
     module UDP
       include Parameters
 
-      UDP_SESSION = proc do
+      setup_session do
         parameter :lhost, :description => 'local host'
         parameter :lport, :description => 'local port'
 
         parameter :rhost, :description => 'remote host'
         parameter :rport, :description => 'remote port'
-      end
-
-      def self.included(base)
-        Session.setup_class(base,&UDP_SESSION)
-      end
-
-      def self.extended(obj)
-        Session.setup_object(obj,&UDP_SESSION)
       end
 
       protected
@@ -57,18 +49,6 @@ module Ronin
         end
 
         return ::Net.udp_connect(@rhost,@rport,@lhost,@lport,&block)
-      end
-
-      def udp_connect_and_recv(&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing '#{describe_param(:rhost)}' parameter",caller)
-        end
-
-        unless @rport
-          raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
-        end
-
-        return ::Net.udp_connect_and_recv(@rhost,@rport,@lhost,@lport,&block)
       end
 
       def udp_connect_and_send(data,&block)

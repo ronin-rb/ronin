@@ -29,21 +29,13 @@ module Ronin
     module SMTP
       include Session
 
-      SMTP_SESSION = proc do
+      setup_session do
         parameter :smtp_host, :description => 'SMTP host'
         parameter :smtp_port, :description => 'SMTP port'
 
         parameter :smtp_login, :description => 'SMTP login'
         parameter :smtp_user, :description => 'SMTP user'
         parameter :smtp_password, :description => 'SMTP password'
-      end
-
-      def self.included(base)
-        Session.setup_class(base,&SMTP_SESSION)
-      end
-
-      def self.extended(obj)
-        Session.setup_object(obj,&SMTP_SESSION)
       end
 
       protected
