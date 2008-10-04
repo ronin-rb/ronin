@@ -146,7 +146,9 @@ module Ronin
       # <tt>:media</tt>:: The media of the Overlay.
       #
       def Overlay.install(options={},&block)
-        Repertoire.checkout(:media => options[:media], :uri => options[:uri], :into => Config::REPOSITORY_DIR) do |path,media,uri|
+        options = options.merge(:into => Config::REPOSITORY_DIR)
+
+        Repertoire.checkout(options) do |path,media,uri|
           return Overlay.add(path,media,uri,&block)
         end
       end
@@ -394,8 +396,6 @@ module Ronin
 
         if File.file?(metadata_path)
           metadata = REXML::Document.new(open(metadata_path))
-
-          #@authors = Author.from_xml(metadata,'/ronin-overlay/contributors/author')
 
           metadata.elements.each('/ronin-overlay') do |repo|
             @name = repo.elements['name'].get_text.to_s.strip

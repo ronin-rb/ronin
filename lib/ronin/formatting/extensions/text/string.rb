@@ -39,14 +39,19 @@ class String
     excluded = (options[:excluded] || [])
 
     formatted = included - excluded
+    formatted = ''
 
-    return self.scan(/./m).map { |c|
+    self.each_byte do |b|
+      c = b.chr
+
       if formatted.include?(c)
-        block.call(c)
+        formatted_chars << block.call(c)
       else
-        c
+        formatted_chars << c
       end
-    }.join
+    end
+
+    return formatted
   end
 
   #

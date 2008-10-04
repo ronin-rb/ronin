@@ -34,7 +34,7 @@ module Ronin
       # Returns the commands registered with the Program.
       #
       def Program.commands
-        @@commands ||= []
+        @@ronin_commands ||= []
       end
 
       #
@@ -42,7 +42,7 @@ module Ronin
       # registered with the Program.
       #
       def Program.commands_by_name
-        @@commands_by_name ||= {}
+        @@ronin_commands_by_name ||= {}
       end
 
       #

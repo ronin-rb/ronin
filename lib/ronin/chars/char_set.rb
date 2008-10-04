@@ -26,26 +26,20 @@ module Ronin
     class CharSet < Array
 
       #
-      # Creates a new CharSet object with the given _characters_.
+      # Creates a new CharSet object with the given _chars_.
       #
-      def initialize(*characters)
+      def initialize(*chars)
         format_char = lambda { |char|
-          if char.kind_of?(Integer)
+          if (char.kind_of?(Array) || char.kind_of?(Range))
+            char.map(&format_char)
+          elsif char.kind_of?(Integer)
             char.chr
           else
             char.to_s
           end
         }
 
-        characters = characters.flatten.map do |char|
-          if char.kind_of?(Range)
-            char.to_a.map(&format_char)
-          else
-            format_char.call(char)
-          end
-        end
-
-        super(characters.flatten.uniq)
+        super(chars.map(&format_char).flatten.uniq)
       end
 
       #
