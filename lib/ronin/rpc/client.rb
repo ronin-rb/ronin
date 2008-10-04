@@ -22,7 +22,7 @@
 #
 
 require 'ronin/rpc/exceptions/not_implemented'
-require 'ronin/rpc/exceptions/unknown_service'
+require 'ronin/rpc/exceptions/response_missing'
 require 'ronin/rpc/service'
 require 'ronin/extensions/meta'
 

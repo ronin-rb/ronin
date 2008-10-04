@@ -46,14 +46,12 @@ module Ronin
         @path = File.expand_path(path)
 
         if File.file?(@path)
-          File.open(@path) do |file|
-            descriptions = YAML.load(file)
+          descriptions = YAML.load(File.read(@path))
 
-            if descriptions.kind_of?(Array)
-              descriptions.each do |repo|
-                if repo.kind_of?(Hash)
-                  add(Overlay.new(repo[:path],repo[:media],repo[:uri]))
-                end
+          if descriptions.kind_of?(Array)
+            descriptions.each do |overlay|
+              if overlay.kind_of?(Hash)
+                add(Overlay.new(overlay[:path],overlay[:media],overlay[:uri]))
               end
             end
           end
@@ -135,11 +133,13 @@ module Ronin
       #   end
       #
       def add(repo,&block)
-        if has_overlay?(repo.name)
-          raise(OverlayCached,"overlay #{repo.to_s.dump} already present in the cache #{self.to_s.dump}",caller)
+        name = repo.name.to_s
+
+        if has_overlay?(name)
+          raise(OverlayCached,"overlay #{name.dump} already present in the cache #{self.to_s.dump}",caller)
         end
 
-        self[repo.name.to_s] = repo
+        self << repo
 
         block.call(self) if block
         return self
@@ -157,11 +157,13 @@ module Ronin
       #   end
       #
       def remove(repo,&block)
-        unless has_overlay?(repo.name)
-          raise(OverlayNotFound,"overlay #{repo.to_s.dump} is not present in the cache #{to_s.dump}",caller)
+        name = repo.name.to_s
+
+        unless has_overlay?(name)
+          raise(OverlayNotFound,"overlay #{name.dump} is not present in the cache #{self.to_s.dump}",caller)
         end
 
-        delete_if { |key,value| key==repo.name }
+        delete_if { |key,value| key == name }
 
         block.call(self) if block
         return self
@@ -200,7 +202,11 @@ module Ronin
 
         File.open(output_path,'w') do |output|
           descriptions = overlays.map do |repo|
-            {:media_type => repo.media_type, :path => repo.path, :uri => repo.uri}
+            {
+              :media_type => repo.media_type,
+              :path => repo.path,
+              :uri => repo.uri
+            }
           end
 
           YAML.dump(descriptions,output)
