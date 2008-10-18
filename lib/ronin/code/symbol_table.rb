@@ -28,7 +28,8 @@ module Ronin
     class SymbolTable
 
       #
-      # Creates a new SymbolTable object.
+      # Creates a new SymbolTable object with a given Hash of symbol names
+      # and their initial values.
       #
       def initialize(symbols={})
         @table = Hash.new do |hash,key|
