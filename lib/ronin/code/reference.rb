@@ -26,36 +26,36 @@ module Ronin
     class Reference
 
       # Object that is being referenced
-      attr_accessor :object
+      attr_accessor :value
 
       #
-      # Creates a new Reference object referencing the specified _object_.
+      # Creates a new Reference object referencing the specified _value_.
       #
-      def initialize(object=nil)
-        @object = object
+      def initialize(value=nil)
+        @value = value
       end
 
       def eval(code,&block)
-        @object.eval(code,&block)
+        @value.eval(code,&block)
       end
 
       def instance_eval(&block)
-        @object.instance_eval(&block)
+        @value.instance_eval(&block)
       end
 
       def to_s
-        @object.to_s
+        @value.to_s
       end
 
       def inspect
-        @object.inspect
+        @value.inspect
       end
 
       protected
 
       def method_missing(name,*arguments,&block)
-        if @object.public_instance_method(name)
-          return @object.send(name,*arguments,&block)
+        if @value.class.public_method_defined?(name)
+          return @value.send(name,*arguments,&block)
         end
 
         raise(NoMethodError,name.id2name)

@@ -30,9 +30,13 @@ module Ronin
       #
       # Creates a new SymbolTable object.
       #
-      def initialize
+      def initialize(symbols={})
         @table = Hash.new do |hash,key|
           hash[key] = Reference.new
+        end
+
+        symbols.each do |name,value|
+          self[name] = value
         end
       end
 
