@@ -1,0 +1,28 @@
+require 'ronin/code/symbol_table'
+
+require 'spec_helper'
+
+describe Code::SymbolTable do
+  before(:all) do
+    @one = [:a, :b, :c]
+    @two = {:one => 1, :two => 2}
+
+    @table = Code::SymbolTable.new(:one => @one, :two => @two)
+  end
+
+  it "should have symbols" do
+    @table.has_symbol?(:one).should == true
+    @table.has_symbol?(:two).should == true
+  end
+
+  it "should provide transparent access to the symbol values" do
+    @table[:one].should == [:a, :b, :c]
+
+    @table[:one] = [:d, :e]
+    @table[:one].should == [:d, :e]
+  end
+
+  it "should provide direct access to the symbols" do
+    @table.symbol(:two).value.should == {:one => 1, :two => 2}
+  end
+end
