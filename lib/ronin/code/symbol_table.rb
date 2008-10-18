@@ -69,8 +69,8 @@ module Ronin
       # Inspects the symbol table.
       #
       def inspect
-        '{' + @table.values.map { |symbol|
-          "#{symbol.name.inspect}=>#{symbol.inspect}"
+        '{' + @table.map { |name,symbol|
+          "#{name.inspect}=>#{symbol.inspect}"
         }.join(', ') + '}'
       end
 
