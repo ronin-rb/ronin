@@ -156,7 +156,7 @@ lib/ronin/runner/program/runner.rb
 lib/ronin/ronin.rb
 lib/ronin/version.rb
 tasks/spec.rb
-spec/helpers/
+spec/helpers.rb
 spec/spec_helper.rb
 spec/arch_spec.rb
 spec/author_spec.rb
