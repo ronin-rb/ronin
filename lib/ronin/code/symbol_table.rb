@@ -32,13 +32,9 @@ module Ronin
       # and their initial values.
       #
       def initialize(symbols={})
-        @table = Hash.new do |hash,key|
-          hash[key] = Reference.new
-        end
+        @table = Hash.new { |hash,key| hash[key] = Reference.new }
 
-        symbols.each do |name,value|
-          self[name] = value
-        end
+        symbols.each { |name,value| self[name] = value }
       end
 
       #
