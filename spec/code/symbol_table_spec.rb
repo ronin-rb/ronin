@@ -25,4 +25,11 @@ describe Code::SymbolTable do
   it "should provide direct access to the symbols" do
     @table.symbol(:two).value.should == {:one => 1, :two => 2}
   end
+
+  it "should be able to set symbols en-mass" do
+    @table.symbols = {:three => 3, :four => 4}
+
+    @table[:three].should == 3
+    @table[:four].should == 4
+  end
 end

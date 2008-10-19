@@ -34,7 +34,7 @@ module Ronin
       def initialize(symbols={})
         @table = Hash.new { |hash,key| hash[key] = Reference.new }
 
-        symbols.each { |name,value| self[name] = value }
+        self.symbols = symbols
       end
 
       #
@@ -50,6 +50,12 @@ module Ronin
       #
       def symbol(name)
         @table[name.to_s]
+      end
+
+      def symbols=(values)
+        values.each do |name,value|
+          self[name] = value
+        end
       end
 
       #
