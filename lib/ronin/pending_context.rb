@@ -38,5 +38,13 @@ module Ronin
       @blocks = {}
     end
 
+    #
+    # Iterates over each block in the pending context, passing their name
+    # and value to the given _block_.
+    #
+    def each_block(&block)
+      @blocks.each(&block)
+    end
+
   end
 end

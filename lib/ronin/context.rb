@@ -216,7 +216,7 @@ module Ronin
       new_objs = []
 
       Context.load_blocks(path) do |pending|
-        pending.blocks.each do |name,context_block|
+        pending.each_block do |name,context_block|
           if Context.is_context?(name)
             new_obj = Context.contexts[name].new
             new_obj.instance_eval(&context_block)

@@ -147,9 +147,7 @@ module Ronin
       def summary(*lines)
         @parser.separator '  Summary:'
 
-        lines.each do |line|
-          @parser.separator "    #{line}"
-        end
+        lines.each { |line| @parser.separator "    #{line}" }
 
         @parser.separator ''
         return self
@@ -161,9 +159,7 @@ module Ronin
       def defaults(*flags)
         @parser.separator '  Defaults:'
 
-        flags.each do |flag|
-          @parser.separator "    #{flag}"
-        end
+        flags.each { |flag| @parser.separator "    #{flag}" }
 
         @parser.separator ''
         return self

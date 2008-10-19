@@ -190,9 +190,7 @@ module Ronin
       #   end
       #
       def Extension.run_from(path,&block)
-        Extension.load_from(path) do |ext|
-          ext.run(&block)
-        end
+        Extension.load_from(path) { |ext| ext.run(&block) }
       end
 
       #
@@ -205,9 +203,7 @@ module Ronin
       #   end
       #
       def Extension.load(name,&block)
-        Extension.new(name) do |ext|
-          ext.include(name,&block)
-        end
+        Extension.new(name) { |ext| ext.include(name,&block) }
       end
 
       #
@@ -219,9 +215,7 @@ module Ronin
       #   end
       #
       def Extension.run(name,&block)
-        Extension.load(name) do |ext|
-          ext.run(&block)
-        end
+        Extension.load(name) { |ext| ext.run(&block) }
       end
 
       #
@@ -255,9 +249,7 @@ module Ronin
       #
       def include(name,&block)
         Extension.load_paths(name) do
-          Extension.each_path_for(name) do |path|
-            include_path(path)
-          end
+          Extension.each_path_for(name) { |path| include_path(path) }
         end
 
         block.call(self) if block

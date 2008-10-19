@@ -91,10 +91,7 @@ module Ronin
       #
       def Program.fail(*messages,&block)
         block.call(self) if block
-
-        messages.each do |mesg|
-          Program.error(mesg)
-        end
+        messages.each { |mesg| Program.error(mesg) }
 
         exit -1
       end

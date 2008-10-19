@@ -38,9 +38,7 @@ module Ronin
         end
 
         catch('EXIT') do
-          each_extension do |ext|
-            ext.perform_teardown
-          end
+          each_extension { |ext| ext.perform_teardown }
         end
 
         block.call(self) if block

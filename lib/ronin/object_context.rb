@@ -196,9 +196,7 @@ module Ronin
     # Cache all objects loaded from the specified _path_.
     #
     def ObjectContext.cache_objects(path)
-      ObjectContext.load_objects(path).each do |obj|
-        obj.cache
-      end
+      ObjectContext.load_objects(path).each { |obj| obj.cache }
     end
 
     #
@@ -210,9 +208,7 @@ module Ronin
       paths = Dir[File.join(directory,'**','*.rb')]
 
       paths.each do |path|
-        ObjectContext.load_objects(path).each do |obj|
-          obj.cache
-        end
+        ObjectContext.load_objects(path).each { |obj| obj.cache }
       end
 
       return nil
@@ -234,9 +230,7 @@ module Ronin
         objects.each { |obj| obj.mirror }
       end
 
-      paths.each do |path|
-        ObjectContext.cache_objects(path)
-      end
+      paths.each { |path| ObjectContext.cache_objects(path) }
 
       return nil
     end
