@@ -1,6 +1,8 @@
 doc
 pkg
+tmp/*
 .DS_Store
+*.db
 *.log
 *.swp
 *~
