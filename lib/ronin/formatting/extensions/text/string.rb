@@ -86,7 +86,7 @@ class String
   # "get out your checkbook".rand_case
   # # => "gEt Out YOur CHEckbook"
   #
-  def rand_case(options={})
+  def random_case(options={})
     prob = (options[:probability] || 0.5)
 
     format_chars(options) do |c|

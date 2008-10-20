@@ -15,7 +15,7 @@ describe String do
     @string.respond_to?('format_bytes').should == true
   end
 
-  it "should provide String#rand_case" do
-    @string.respond_to?('rand_case').should == true
+  it "should provide String#random_case" do
+    @string.respond_to?('random_case').should == true
   end
 end
