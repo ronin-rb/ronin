@@ -81,6 +81,13 @@ module Ronin
     end
 
     #
+    # Returns the current Database log.
+    #
+    def Database.log
+      @@ronin_database_log ||= nil
+    end
+
+    #
     # Setup the Database log with the given _options_.
     #
     # _options_ may contain the following keys:
@@ -94,8 +101,7 @@ module Ronin
       stream = (options[:stream] || File.new(path,'w+'))
       level = (options[:level] || DEFAULT_LOG_LEVEL)
 
-      DataMapper::Logger.new(stream,level)
-      return nil
+      return @@ronin_database_log = DataMapper::Logger.new(stream,level)
     end
 
     #
@@ -104,7 +110,10 @@ module Ronin
     # the Database.
     #
     def Database.setup(configuration=Database.config,&block)
-      Database.setup_log
+      # setup the database log
+      Database.setup_log unless Database.log
+
+      # setup the database repository
       DataMapper.setup(Model::REPOSITORY_NAME, configuration)
 
       block.call if block
