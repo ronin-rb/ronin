@@ -26,6 +26,14 @@ describe Code::Reference do
     @ref.value.should == @object
   end
 
+  it "should be a kind of Reference" do
+    @ref.kind_of?(Code::Reference).should == true
+  end
+
+  it "should be a kind of the referenced object type" do
+    @ref.kind_of?(Thing).should == true
+  end
+
   it "should relay method calls to the referenced object" do
     @ref.exposed.should == 1
   end

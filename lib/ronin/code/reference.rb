@@ -35,6 +35,10 @@ module Ronin
         @value = value
       end
 
+      def kind_of?(type)
+        @value.kind_of?(type) || super(type)
+      end
+
       def eval(code,&block)
         @value.eval(code,&block)
       end
