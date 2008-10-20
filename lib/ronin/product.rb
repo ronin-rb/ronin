@@ -33,10 +33,10 @@ module Ronin
     property :id, Serial
 
     # Name
-    property :name, String
+    property :name, String, :index => true
 
     # Version
-    property :version, String
+    property :version, String, :index => true
 
     # Venders
     property :vendor, String

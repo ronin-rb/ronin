@@ -32,10 +32,10 @@ module Ronin
     property :id, Serial
 
     # Name of the Operating System
-    property :os, String
+    property :os, String, :index => true
 
     # Version of the Operating System
-    property :version, String
+    property :version, String, :index => true
 
     # Validates
     validates_present :os, :version

@@ -37,7 +37,7 @@ module Ronin
     property :id, Serial
 
     # Name of author
-    property :name, String
+    property :name, String, :index =>  true
 
     # Author's associated group
     property :organization, String
