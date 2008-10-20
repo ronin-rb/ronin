@@ -39,6 +39,10 @@ module Ronin
         @value.kind_of?(type) || super(type)
       end
 
+      def respond_to?(name)
+        @value.respond_to?(name) || super(name)
+      end
+
       def eval(code,&block)
         @value.eval(code,&block)
       end

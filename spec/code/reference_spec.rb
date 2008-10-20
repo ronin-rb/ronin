@@ -34,6 +34,14 @@ describe Code::Reference do
     @ref.kind_of?(Thing).should == true
   end
 
+  it "should respond to Reference methods" do
+    @ref.respond_to?(:value).should == true
+  end
+
+  it "should respond to the methods of the referenced object" do
+    @ref.respond_to?(:exposed).should == true
+  end
+
   it "should relay method calls to the referenced object" do
     @ref.exposed.should == 1
   end
