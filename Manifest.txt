@@ -175,8 +175,8 @@ spec/formatting/digest_spec.rb
 spec/formatting/html_spec.rb
 spec/formatting/http_spec.rb
 spec/formatting/text_spec.rb
-spec/code/reference.rb
-spec/code/symbol_table.rb
+spec/code/reference_spec.rb
+spec/code/symbol_table_spec.rb
 spec/license_spec.rb
 spec/path_spec.rb
 spec/platform_spec.rb
