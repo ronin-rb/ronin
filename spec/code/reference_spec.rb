@@ -28,10 +28,30 @@ describe Code::Reference do
 
   it "should be a kind of Reference" do
     @ref.kind_of?(Code::Reference).should == true
+    @ref.is_a?(Code::Reference).should == true
+    @ref.instance_of?(Code::Reference).should == true
+  end
+
+  it "should have the class of the referenced object" do
+    @ref.class.should == Thing
   end
 
   it "should be a kind of the referenced object type" do
     @ref.kind_of?(Thing).should == true
+    @ref.is_a?(Thing).should == true
+    @ref.instance_of?(Thing).should == true
+  end
+
+  it "should be equal to itself" do
+    @ref.eql?(@ref).should == true
+    @ref.should == @ref
+    @ref.should === @ref
+  end
+
+  it "should be equal to the referenced object" do
+    @ref.eql?(@object).should == true
+    @ref.should == @object
+    @ref.should === @object
   end
 
   it "should respond to Reference methods" do

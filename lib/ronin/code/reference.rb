@@ -35,12 +35,29 @@ module Ronin
         @value = value
       end
 
-      def kind_of?(type)
-        @value.kind_of?(type) || super(type)
+      def class
+        @value.class
+      end
+
+      def is_a?(base)
+        @value.is_a?(base) || super(base)
+      end
+
+      def kind_of?(base)
+        @value.kind_of?(base) || super(base)
+      end
+
+      def instance_of?(base)
+        @value.instance_of?(base) || super(base)
       end
 
       def respond_to?(name)
         @value.respond_to?(name) || super(name)
+      end
+
+      def extend(base)
+        @value.extend(base) if @value
+        return self
       end
 
       def eval(code,&block)
@@ -49,6 +66,18 @@ module Ronin
 
       def instance_eval(&block)
         @value.instance_eval(&block)
+      end
+
+      def eql?(value)
+        @value.eql?(value) || super(value)
+      end
+
+      def ==(value)
+        @value == value || super(value)
+      end
+
+      def ===(value)
+        @value === value || super(value)
       end
 
       def to_s
