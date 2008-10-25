@@ -34,4 +34,60 @@ class String
     downcase.gsub(/(::|[\s\-])/,'_')
   end
 
+  #
+  # Returns the common prefix of the string and the specified _other_
+  # string. If no common prefix can be found an empty string will be
+  # returned.
+  #
+  def common_prefix(other)
+    min_length = [length, other.length].min
+
+    min_length.times do |i|
+      if self[i] != other[i]
+        return self[0...i]
+      end
+    end
+
+    return ''
+  end
+
+  #
+  # Returns the common postfix of the string and the specified _other_
+  # string. If no common postfix can be found an empty string will be
+  # returned.
+  #
+  def common_postfix(other)
+    min_length = [length, other.length].min
+
+    (min_length - 1).times do |i|
+      index = (length - i -1)
+      other_index = (other.length - i -1)
+
+      if self[index] != other[other_index]
+        return self[(index + 1)..-1]
+      end
+    end
+
+    return ''
+  end
+
+  #
+  # Returns the uncommon substring within the specified _other_ string,
+  # which does not occur within the string. If no uncommon substring can be
+  # found, an empty string will be returned.
+  #
+  def uncommon_substring(other)
+    prefix = common_prefix(other)
+    postfix = common_postfix(other)
+
+    if (prefix.length + postfix.length) > length
+      return ''
+    end
+
+    stop_index = ((length - postfix.length) - 1)
+    start_index = prefix.length
+
+    return self[start_index..stop_index]
+  end
+
 end
