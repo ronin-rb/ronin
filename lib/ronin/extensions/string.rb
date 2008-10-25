@@ -78,16 +78,9 @@ class String
   #
   def uncommon_substring(other)
     prefix = common_prefix(other)
-    postfix = common_postfix(other)
+    postfix = self[prefix.length..-1].common_postfix(other[prefix.length..-1])
 
-    if (prefix.length + postfix.length) > length
-      return ''
-    end
-
-    stop_index = ((length - postfix.length) - 1)
-    start_index = prefix.length
-
-    return self[start_index..stop_index]
+    return self[prefix.length...(length - postfix.length)]
   end
 
 end
