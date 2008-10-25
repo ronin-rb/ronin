@@ -71,8 +71,8 @@ describe String do
     end
 
     it "should find the uncommon substring between two Strings with a common prefix" do
-      one = 'You can I must fight for our rights'
-      two = 'You can I must fight to survive'
+      one = 'You and I must fight for our rights'
+      two = 'You and I must fight to survive'
       uncommon = 'for our rights'
 
       one.uncommon_substring(two).should == uncommon
