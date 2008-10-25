@@ -21,5 +21,26 @@
 #++
 #
 
-require 'ronin/web/html'
-require 'ronin/web/web'
+require 'hpricot'
+
+module Ronin
+  module Web
+    module HTML
+      #
+      # Compares the number of HTML children in the specified _page_ with
+      # the _other_page_.
+      #
+      def HTML.compare(page,other_page)
+        count_children = lambda { |html|
+          count = 0
+
+          Hpricot(html).each_child { |child| count += 1 }
+
+          count
+        }
+
+        return count_children.call(page) <=> count_children.call(other_page)
+      end
+    end
+  end
+end
