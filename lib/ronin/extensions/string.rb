@@ -48,7 +48,7 @@ class String
       end
     end
 
-    return ''
+    return self[0...min_length]
   end
 
   #

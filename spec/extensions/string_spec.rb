@@ -22,6 +22,14 @@ describe String do
       one.common_prefix(two).should == common
     end
 
+    it "should return the common prefix between two Strings with no uncommon postfix" do
+      one = "1234"
+      two = "12345"
+      common = "1234"
+
+      one.common_prefix(two).should == common
+    end
+
     it "should return an empty String if there is no common prefix" do
       one = 'Tell me people'
       two = 'Whats my name'
