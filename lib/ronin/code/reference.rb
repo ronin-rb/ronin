@@ -29,8 +29,8 @@ module Ronin
       attr_accessor :value
 
       #
-      # Creates a new Reference object referencing the specified _value_
-      # that will be referenced.
+      # Creates a new Reference object with the specified _value_ that will
+      # be referenced.
       #
       def initialize(value=nil)
         @value = value
