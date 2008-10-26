@@ -21,4 +21,4 @@
 #++
 #
 
-require 'ronin/runner/program'
+require 'ronin/program/exceptions/unknown_command'

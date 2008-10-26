@@ -21,32 +21,35 @@
 #++
 #
 
-require 'ronin/runner/program/command'
+require 'ronin/program/command'
+require 'ronin/cache/overlay'
 
 module Ronin
-  module Runner
-    module Program
-      class HelpCommand < Command
+  module Program
+    class UninstallCommand < Command
 
-        command :help
+      command :uninstall
 
-        options('[COMMAND]') do |opts|
-          opts.arguments do
-            opts.arg('COMMAND','The command to view')
-          end
+      options('NAME [NAME ...] [options]') do |opts|
+        opts.options
 
-          opts.summary('View a list of supported commands or information on a specific command')
+        opts.arguments do
+          opts.arg('NAME','The repository to uninstall')
         end
 
-        def arguments(*args)
-          unless args.length<=1
-            fail('help: only one command maybe specified')
-          end
-
-          success { Program.help(args.first) }
-        end
-
+        opts.summary('Uninstall the specified repositories')
       end
+
+      def arguments(*args)
+        args.each do |name|
+          Cache::Overlay.save_cache do
+            Cache::Overlay.uninstall(name) do |repo|
+              puts "Uninstalling #{repo}..."
+            end
+          end
+        end
+      end
+
     end
   end
 end

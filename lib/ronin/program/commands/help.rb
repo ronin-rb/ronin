@@ -21,13 +21,30 @@
 #++
 #
 
-require 'ronin/runner/program/commands/add'
-require 'ronin/runner/program/commands/install'
-require 'ronin/runner/program/commands/list'
-require 'ronin/runner/program/commands/update'
-require 'ronin/runner/program/commands/uninstall'
-require 'ronin/runner/program/commands/remove'
-require 'ronin/runner/program/commands/help'
-require 'ronin/extensions'
+require 'ronin/program/command'
 
-ronin_require 'ronin/runner/program/commands'
+module Ronin
+  module Program
+    class HelpCommand < Command
+
+      command :help
+
+      options('[COMMAND]') do |opts|
+        opts.arguments do
+          opts.arg('COMMAND','The command to view')
+        end
+
+        opts.summary('View a list of supported commands or information on a specific command')
+      end
+
+      def arguments(*args)
+        unless args.length<=1
+          fail('help: only one command maybe specified')
+        end
+
+        success { Program.help(args.first) }
+      end
+
+    end
+  end
+end

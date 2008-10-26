@@ -21,35 +21,13 @@
 #++
 #
 
-require 'ronin/runner/program/command'
-require 'ronin/cache/overlay'
+require 'ronin/program/commands/add'
+require 'ronin/program/commands/install'
+require 'ronin/program/commands/list'
+require 'ronin/program/commands/update'
+require 'ronin/program/commands/uninstall'
+require 'ronin/program/commands/remove'
+require 'ronin/program/commands/help'
+require 'ronin/extensions/kernel'
 
-module Ronin
-  module Runner
-    module Program
-      class UpdateCommand < Command
-
-        command :update, :up
-
-        options('[NAME ...] [options]') do |opts|
-          opts.options
-
-          opts.arguments do
-            opts.arg('NAME','The repository to update')
-          end
-
-          opts.summary('Updates all or the specified repositories')
-        end
-
-        def arguments(*args)
-          if args.empty?
-            Cache::Overlay.each { |repo| repo.update }
-          else
-            args.each { |name| Cache::Overlay.update(name) }
-          end
-        end
-
-      end
-    end
-  end
-end
+ronin_require 'ronin/program/commands'

@@ -21,45 +21,44 @@
 #++
 #
 
-require 'ronin/runner/program/command'
+require 'ronin/program/command'
 require 'ronin/cache/overlay'
 
 module Ronin
-  module Runner
-    module Program
-      class InstallCommand < Command
+  module Program
+    class InstallCommand < Command
 
-        command :install
+      command :install
 
-        options('URI [options]') do |opts|
-          opts.settings.media = nil
-          opts.settings.uri = nil
+      options('URI [options]') do |opts|
+        opts.settings.media = nil
+        opts.settings.uri = nil
 
-          opts.options do
-            opts.on('-m','--media [MEDIA]','Spedify the media-type of the repository') do |media|
-              options.settings.media = media
-            end
+        opts.options do
+          opts.on('-m','--media [MEDIA]','Spedify the media-type of the repository') do |media|
+            options.settings.media = media
           end
-
-          opts.arguments do
-            opts.arg('URI','The URI of the repository to install')
-          end
-
-          opts.summary('Installs the repository located at the specified URI')
         end
 
-        def arguments(args)
-          unless args.length==1
-            fail('install: only one repository URI maybe specified')
-          end
+        opts.arguments do
+          opts.arg('URI','The URI of the repository to install')
+        end
 
-          Cache::Overlay.save_cache do
-            Cache::Overlay.install(:uri => args.first, :media => options.settings.media) do |repo|
-              puts "Overlay #{repo} has been installed."
-            end
+        opts.summary('Installs the repository located at the specified URI')
+      end
+
+      def arguments(args)
+        unless args.length==1
+          fail('install: only one repository URI maybe specified')
+        end
+
+        Cache::Overlay.save_cache do
+          Cache::Overlay.install(:uri => args.first, :media => options.settings.media) do |repo|
+            puts "Overlay #{repo} has been installed."
           end
         end
       end
+
     end
   end
 end

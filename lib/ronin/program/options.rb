@@ -21,13 +21,13 @@
 #++
 #
 
-require 'ronin/runner/program/program'
+require 'ronin/program/program'
 
 require 'optparse'
 require 'ostruct'
 
 module Ronin
-  module Runner
+  module Program
     class Options
 
       # Settings used by the options
