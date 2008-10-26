@@ -7,6 +7,6 @@ unless $LOAD_PATH.include?(lib_dir)
   $LOAD_PATH << lib_dir
 end
 
-require 'ronin/runner/program'
+require 'ronin/program'
 
-Ronin::Runner.program(ARGV)
+Ronin::Program.run(*ARGV)

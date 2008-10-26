@@ -21,6 +21,5 @@
 #++
 #
 
-require 'ronin/runner/program/program'
-require 'ronin/runner/program/commands'
-require 'ronin/runner/program/runner'
+require 'ronin/program/program'
+require 'ronin/program/commands'
