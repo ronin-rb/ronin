@@ -53,10 +53,11 @@ module Ronin
       end
 
       #
-      # Sets the symbol values en-mass using the specified _values_ Hash.
+      # Sets the symbol values en-mass using the specified _hash_ of
+      # symbol names and their values.
       #
-      def symbols=(values)
-        values.each do |name,value|
+      def symbols=(hash)
+        hash.each do |name,value|
           self[name] = value
         end
       end
