@@ -29,67 +29,106 @@ module Ronin
       attr_accessor :value
 
       #
-      # Creates a new Reference object referencing the specified _value_.
+      # Creates a new Reference object referencing the specified _value_
+      # that will be referenced.
       #
       def initialize(value=nil)
         @value = value
       end
 
+      #
+      # Returns the class of the referenced object.
+      #
       def class
         @value.class
       end
 
+      #
+      # Returns +true+ if the referenced object is a kind of _base_ class,
+      # returns +false+ otherwise.
+      #
       def is_a?(base)
         @value.is_a?(base) || super(base)
       end
 
+      #
+      # Returns +true+ if the referenced object is a kind of _base_ class,
+      # returns +false+ otherwise.
+      #
       def kind_of?(base)
         @value.kind_of?(base) || super(base)
       end
 
+      #
+      # Returns +true+ if the referenced object is an instance of the
+      # specified _base_ class, returns +false+ otherwise.
+      #
       def instance_of?(base)
         @value.instance_of?(base) || super(base)
       end
 
+      #
+      # Returns +true+ if the referenced object responds to the specified
+      # method _name_, returns +false+ otherwise.
+      #
       def respond_to?(name)
         @value.respond_to?(name) || super(name)
       end
 
+      #
+      # Extends the referenced object with the specified _base_ module.
+      #
       def extend(base)
         @value.extend(base) if @value
         return self
       end
 
+      #
+      # Evaluates the given _code_ within the referenced object. If a
+      # _block_ is given, it will be evaluated within the referenced
+      # object.
+      #
       def eval(code,&block)
         @value.eval(code,&block)
       end
 
+      #
+      # Evaluates the given _block_ within the referenced object.
+      #
       def instance_eval(&block)
         @value.instance_eval(&block)
       end
 
+      #
+      # Returns +true+ if the referenced object equals the specified
+      # _value_, returns +false+ otherwise.
+      #
       def eql?(value)
         @value.eql?(value) || super(value)
       end
 
-      def ==(value)
-        @value == value || super(value)
-      end
+      alias == eql?
+      alias === eql?
 
-      def ===(value)
-        @value === value || super(value)
-      end
-
+      #
+      # Returns the String form of the referenced object.
+      #
       def to_s
         @value.to_s
       end
 
+      #
+      # Inspects the referenced object.
+      #
       def inspect
         @value.inspect
       end
 
       protected
 
+      #
+      # Relays method calls to the referenced object.
+      #
       def method_missing(name,*arguments,&block)
         if @value.class.public_method_defined?(name)
           return @value.send(name,*arguments,&block)
