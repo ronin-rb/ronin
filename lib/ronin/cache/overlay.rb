@@ -62,7 +62,7 @@ module Ronin
       # Creates a new Overlay object with the specified _path_, _media_type_
       # and _uri_.
       #
-      def initialize(path,media_type=:nil,uri=nil,&block)
+      def initialize(path,media_type=nil,uri=nil,&block)
         @path = File.expand_path(path)
         @uri = uri
 

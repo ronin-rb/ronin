@@ -3,7 +3,7 @@
 # Ronin - A Ruby platform designed for information security and data
 # exploration tasks.
 #
-# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,15 +21,33 @@
 #++
 #
 
-require 'ronin/runner/program/program'
+require 'ronin/program/command'
+require 'ronin/cache/overlay'
 
 module Ronin
-  module Runner
-    #
-    # See Program.run.
-    #
-    def Runner.program(argv)
-      Program.run(*argv)
+  module Program
+    class UpdateCommand < Command
+
+      command :update, :up
+
+      options('[NAME ...] [options]') do |opts|
+        opts.options
+
+        opts.arguments do
+          opts.arg('NAME','The repository to update')
+        end
+
+        opts.summary('Updates all or the specified repositories')
+      end
+
+      def arguments(*args)
+        if args.empty?
+          Cache::Overlay.each { |repo| repo.update }
+        else
+          args.each { |name| Cache::Overlay.update(name) }
+        end
+      end
+
     end
   end
 end

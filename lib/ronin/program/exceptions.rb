@@ -3,7 +3,7 @@
 # Ronin - A Ruby platform designed for information security and data
 # exploration tasks.
 #
-# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,32 +21,4 @@
 #++
 #
 
-require 'ronin/runner/program/command'
-
-module Ronin
-  module Runner
-    module Program
-      class HelpCommand < Command
-
-        command :help
-
-        options('[COMMAND]') do |opts|
-          opts.arguments do
-            opts.arg('COMMAND','The command to view')
-          end
-
-          opts.summary('View a list of supported commands or information on a specific command')
-        end
-
-        def arguments(*args)
-          unless args.length<=1
-            fail('help: only one command maybe specified')
-          end
-
-          success { Program.help(args.first) }
-        end
-
-      end
-    end
-  end
-end
+require 'ronin/program/exceptions/unknown_command'

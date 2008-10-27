@@ -3,7 +3,7 @@
 # Ronin - A Ruby platform designed for information security and data
 # exploration tasks.
 #
-# Copyright (c) 2006-2008 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2007 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +21,35 @@
 #++
 #
 
-require 'ronin/runner/program/program'
-require 'ronin/runner/program/commands'
-require 'ronin/runner/program/runner'
+require 'ronin/program/command'
+require 'ronin/cache/overlay'
+
+module Ronin
+  module Program
+    class RemoveCommand < Command
+
+      command :remove, :rm
+
+      options('NAME [NAME ...] [options]') do |opts|
+        opts.options
+
+        opts.arguments do
+          opts.arg('NAME','The repository to remove')
+        end
+
+        opts.summary('Remove the specified repositories')
+      end
+
+      def arguments(*args)
+        args.each do |name|
+          Cache::Overlay.save_cache do
+            Cache::Overlay.remove(name) do |repo|
+              puts "Removing #{repo}..."
+            end
+          end
+        end
+      end
+
+    end
+  end
+end

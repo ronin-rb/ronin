@@ -52,8 +52,12 @@ module Ronin
         @table[name.to_s]
       end
 
-      def symbols=(values)
-        values.each do |name,value|
+      #
+      # Sets the symbol values en-mass using the specified _hash_ of
+      # symbol names and their values.
+      #
+      def symbols=(hash)
+        hash.each do |name,value|
           self[name] = value
         end
       end
