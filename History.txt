@@ -1,3 +1,16 @@
+=== 0.1.1 / 2008-10-26
+
+* Depend on the newly renamed reverse-require (>= 0.1.2) gem.
+* Added Code::SymbolTable for DSLs to make use of.
+* Added String#common_prefix, String#common_postfix and
+  String#uncommon_substring, which will be useful when testing for
+  successful injections.
+* Added DataMapper column indexes to Author.name, Product.name, Platform.os
+  and Platform.version.
+* Renamed String#rand_case to String#random_case.
+* Removed the Runner namespace, renaming the Runner::Program namespace to
+  Ronin::Program.
+
 === 0.1.0 / 2008-09-28
 
 * Changed how Sessions are setup.
