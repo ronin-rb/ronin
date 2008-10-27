@@ -6,6 +6,7 @@
     <html>
       <head>
         <title>Ronin Overlay :: <xsl:value-of select="/ronin-overlay/name/." /></title>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
         <style type="text/css">
           body {
           }
