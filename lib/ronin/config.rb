@@ -27,5 +27,8 @@ module Ronin
   module Config
     # Ronin home directory
     PATH = FileUtils.mkdir_p(File.join(ENV['HOME'],'.ronin'))
+
+    # Path to static directory
+    STATIC_PATH = File.expand_path(File.join(File.dirname(__FILE__),'..','..','static'))
   end
 end
