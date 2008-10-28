@@ -53,6 +53,19 @@ module Ronin
       end
 
       #
+      # Returns a Hash of the symbol names and their values.
+      #
+      def symbols
+        hash = {}
+
+        @table.each do |name,symbol|
+          hash[name] = symbol.value
+        end
+
+        return hash
+      end
+
+      #
       # Sets the symbol values en-mass using the specified _hash_ of
       # symbol names and their values.
       #

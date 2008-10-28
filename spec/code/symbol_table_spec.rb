@@ -26,6 +26,12 @@ describe Code::SymbolTable do
     @table.symbol(:two).value.should == {:one => 1, :two => 2}
   end
 
+  it "should be able to retrieve symbols and actual values" do
+    @table.symbols.each do |name,value|
+      @table.symbol(name).value.should == value
+    end
+  end
+
   it "should be able to set symbols en-mass" do
     @table.symbols = {:three => 3, :four => 4}
 
