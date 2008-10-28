@@ -21,5 +21,5 @@
 #++
 #
 
-require 'ronin/web/html'
+require 'ronin/web/extensions'
 require 'ronin/web/web'

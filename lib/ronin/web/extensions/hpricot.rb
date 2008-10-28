@@ -1,0 +1,5 @@
+require 'ronin/web/extensions/hpricot/comment'
+require 'ronin/web/extensions/hpricot/tag'
+require 'ronin/web/extensions/hpricot/container'
+require 'ronin/web/extensions/hpricot/elem'
+require 'ronin/web/extensions/hpricot/doc'
