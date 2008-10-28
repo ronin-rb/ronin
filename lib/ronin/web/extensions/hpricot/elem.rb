@@ -1,7 +1,11 @@
 require 'ronin/web/extensions/hpricot/container'
 
+require 'hpricot'
+
 module Hpricot
   class Elem
+
+    include Comparable
 
     #
     # Returns +true+ if the element has the same starting-tag and
@@ -11,7 +15,9 @@ module Hpricot
       (stag == other.stag && etag == other.etag)
     end
 
-    alias == eql?
+    def ==(other)
+      self.eql?(other) && super(other)
+    end
 
   end
 end

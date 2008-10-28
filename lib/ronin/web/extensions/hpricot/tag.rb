@@ -1,5 +1,7 @@
+require 'hpricot'
+
 module Hpricot
-  class Tag
+  module Tag
 
     #
     # Returns +true+ if the tag has the same name as the _other_ tag,

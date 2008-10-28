@@ -7,6 +7,8 @@ require 'ronin/web/extensions/hpricot/elem'
 module Hpricot
   class Doc
 
+    include Comparable
+
     #
     # Returns +true+ if the documents children match the children of the
     # _other_ document.
