@@ -99,7 +99,14 @@ lib/ronin/rpc/interactive.rb
 lib/ronin/rpc/interactive_console.rb
 lib/ronin/rpc/interactive_shell.rb
 lib/ronin/web.rb
-lib/ronin/web/html.rb
+lib/ronin/web/extensions.rb
+lib/ronin/web/extensions/hpricot.rb
+lib/ronin/web/extensions/hpricot/tag.rb
+lib/ronin/web/extensions/hpricot/text.rb
+lib/ronin/web/extensions/hpricot/comment.rb
+lib/ronin/web/extensions/hpricot/elem.rb
+lib/ronin/web/extensions/hpricot/container.rb
+lib/ronin/web/extensions/hpricot/doc.rb
 lib/ronin/web/web.rb
 lib/ronin/sessions.rb
 lib/ronin/sessions/session.rb
