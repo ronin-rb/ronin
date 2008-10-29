@@ -46,6 +46,10 @@ module Ronin
         [self]
       end
 
+      def ==(other)
+        self.value == other.value
+      end
+
       def inspect
         "Token:#{@value.inspect}"
       end
