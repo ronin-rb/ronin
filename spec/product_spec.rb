@@ -1,6 +1,6 @@
 require 'ronin/product'
 
-require 'spec_helper'
+require 'helpers/database'
 
 describe Product do
   it "should require name and version attributes" do

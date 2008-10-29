@@ -1,6 +1,6 @@
 require 'ronin/target'
 
-require 'spec_helper'
+require 'helpers/database'
 
 describe Target do
   it "should require an arch and a platform" do

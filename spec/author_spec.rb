@@ -1,6 +1,6 @@
 require 'ronin/author'
 
-require 'spec_helper'
+require 'helpers/database'
 
 describe Author do
   it "should have a default name" do

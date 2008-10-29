@@ -1,6 +1,6 @@
 require 'ronin/platform'
 
-require 'spec_helper'
+require 'helpers/database'
 
 describe Platform do
   it "should require os and version attributes" do

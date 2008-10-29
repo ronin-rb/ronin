@@ -2,10 +2,8 @@ require 'rubygems'
 gem 'rspec', '>=1.1.3'
 require 'spec'
 
-require 'helpers'
-
-require 'ronin/database'
+require 'ronin/version'
 
 include Ronin
 
-Database.setup({ :adapter => 'sqlite3', :database => ':memory:' })
+require 'helpers'
