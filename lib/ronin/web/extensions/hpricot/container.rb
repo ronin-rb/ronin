@@ -13,6 +13,17 @@ module Hpricot
           child.every_child(&block)
         end
       end
+
+      return self
+    end
+
+    #
+    # Iterates over every text node, passing each to the specified _block_.
+    #
+    def all_text(&block)
+      every_child do |child|
+        block.call(child) if child.kind_of?(Text)
+      end
     end
 
     #
