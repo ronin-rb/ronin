@@ -24,6 +24,22 @@ describe Hpricot do
     (elem2 < elem1).should == true
   end
 
+  it "should be able to iterate over every child" do
+    children = []
+
+    @doc.every_child { |child| children << child }
+
+    children.length.should == 13
+  end
+
+  it "should be able to iterate over every text node" do
+    text = []
+
+    @doc.all_text { |node| text << node.content }
+
+    text.should == ['test', 'This is a test', ' html ', 'page', '.']
+  end
+
   it "should provide a count of all sub-children" do
     @doc.count_children.should == 13
   end
