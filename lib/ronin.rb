@@ -32,4 +32,4 @@ require 'ronin/persistence'
 require 'ronin/ronin'
 require 'ronin/version'
 
-Ronin::Environment.load
+Ronin::Config.load
