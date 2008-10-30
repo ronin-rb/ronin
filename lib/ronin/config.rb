@@ -21,6 +21,8 @@
 #++
 #
 
+require 'ronin/extensions/kernel'
+
 require 'fileutils'
 
 module Ronin
@@ -30,5 +32,32 @@ module Ronin
 
     # Path to static directory
     STATIC_PATH = File.expand_path(File.join(File.dirname(__FILE__),'..','..','static'))
+
+    # Main configuration file
+    CONFIG_PATH = File.expand_path(File.join(PATH,'config.rb'))
+
+    # Configuration files directory
+    CONFIG_DIR = File.expand_path(File.join(PATH,'config'))
+
+    #
+    # Require the Ronin configuration file with the given _name_ in the
+    # Ronin configuration files directory. If _name_ is not given, than the
+    # main Ronin configuration file will be loaded.
+    #
+    #   # Load the main config file at <tt>~/.ronin/config.rb</tt>
+    #   Config.load # => true
+    #
+    #   # Load a specific config file in <tt>~/.ronin/config/</tt>
+    #   Config.load 'sql' # => true
+    #
+    def Config.load(name=nil)
+      if name
+        path = File.expand_path(File.join(CONFIG_DIR,name))
+      else
+        path = CONFIG_PATH
+      end
+
+      require path if File.file?(path)
+    end
   end
 end

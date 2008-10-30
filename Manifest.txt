@@ -8,7 +8,6 @@ Rakefile
 bin/ronin
 lib/ronin.rb
 lib/ronin/config.rb
-lib/ronin/environment.rb
 lib/ronin/exceptions/invalid_database_config.rb
 lib/ronin/exceptions/unknown_context.rb
 lib/ronin/exceptions/context_not_found.rb
