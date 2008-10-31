@@ -109,6 +109,21 @@ of Ronin.
 
   $ sudo gem install ronin
 
+== RONIN LIBRARIES:
+
+ronin-exploits:: Ronin Exploits is a Ruby library for Ronin that provides
+                 exploitation and payload crafting functionality.
+ronin-asm:: Ronin ASM is a Ruby library for Ronin that provides dynamic
+            Assembly (ASM) generation of programs or shellcode.
+ronin-sql:: Ronin SQL is a Ruby library for Ronin that provids support for
+            SQL related security tasks, such as scanning for and exploiting
+	    SQL injections.
+ronin-php:: Ronin PHP is a Ruby library for Ronin that provides support for
+            PHP related security tasks, such as finding and exploiting
+            Local File Inclusion (LFI) and Remote File Inclusion (RFI).
+ronin-dorks:: Ronin Dorks is a Ruby library for Ronin that provides support
+              for various Google (tm) Dorks functionality.
+
 == LICENSE:
 
 Ronin - A Ruby platform designed for information security and data
