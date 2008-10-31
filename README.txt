@@ -65,6 +65,24 @@ of Ronin.
   * Auto-indentation enabled.
   * Pretty-Print loaded.
 
+== REQUIREMENTS:
+
+* Hpricot
+* WWW::Mechanize
+* DataMapper:
+  * dm-core >= 0.9.3
+  * data_objects >= 0.9.3
+  * do_sqlite3 >= 0.9.3
+  * dm-types >= 0.9.3
+  * dm-serializer >= 0.9.3
+  * dm-aggregates >= 0.9.3
+* reverse-require >= 0.1.0
+* R'epertoire >= 0.1.2
+
+== INSTALL:
+
+  $ sudo gem install ronin
+
 == SYNOPSIS:
 
 * List installed Overlays:
@@ -90,24 +108,6 @@ of Ronin.
 * Start the Ronin console:
 
     $ ronin
-
-== REQUIREMENTS:
-
-* Hpricot
-* WWW::Mechanize
-* DataMapper:
-  * dm-core >= 0.9.3
-  * data_objects >= 0.9.3
-  * do_sqlite3 >= 0.9.3
-  * dm-types >= 0.9.3
-  * dm-serializer >= 0.9.3
-  * dm-aggregates >= 0.9.3
-* reverse-require >= 0.1.0
-* R'epertoire >= 0.1.2
-
-== INSTALL:
-
-  $ sudo gem install ronin
 
 == RONIN LIBRARIES:
 
