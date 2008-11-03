@@ -76,7 +76,7 @@ of Ronin.
   * dm-types >= 0.9.3
   * dm-serializer >= 0.9.3
   * dm-aggregates >= 0.9.3
-* reverse-require >= 0.1.0
+* reverse-require >= 0.1.2
 * R'epertoire >= 0.1.2
 
 == INSTALL:
