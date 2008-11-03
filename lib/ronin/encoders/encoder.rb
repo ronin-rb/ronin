@@ -25,6 +25,14 @@ module Ronin
   class Encoder
 
     #
+    # Creates a new Encoder object with the given _options_. If a _block_
+    # is given, it will be passed the newly created Encoder object.
+    #
+    def initialize(options={},&block)
+      block.call(self) if block
+    end
+
+    #
     # Encodes the specified _data_ with given _options_. If a _block_ is
     # given it will be passed the encoded data.
     #
