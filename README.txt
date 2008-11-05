@@ -3,7 +3,7 @@
 * http://ronin.rubyforge.org/
 * https://github.com/postmodern/ronin/tree
 * irc.freenode.net ##ronin
-* Postmodern Modulus III
+* Postmodern (postmodern.mod3 at gmail.com)
 
 == DESCRIPTION:
 
