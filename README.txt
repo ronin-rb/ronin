@@ -1,7 +1,9 @@
 = Ronin
 
 * http://ronin.rubyforge.org/
-* Postmodern Modulus III
+* https://github.com/postmodern/ronin/tree
+* irc.freenode.net ##ronin
+* Postmodern (postmodern.mod3 at gmail.com)
 
 == DESCRIPTION:
 
@@ -19,9 +21,9 @@ commercial software.
 
 === Modular
 
-Ronin was not designed as one monolithic library but instead as a collection
-of libraries which can be individually installed. This allows users to pick
-and choose what functionality they want in Ronin.
+Ronin was not designed as one monolithic framework but instead as a
+collection of libraries which can be individually installed. This allows
+users to pick and choose what functionality they want in Ronin.
 
 === Decentralized
 
@@ -111,18 +113,54 @@ of Ronin.
 
 == RONIN LIBRARIES:
 
-ronin-exploits:: Ronin Exploits is a Ruby library for Ronin that provides
-                 exploitation and payload crafting functionality.
-ronin-asm:: Ronin ASM is a Ruby library for Ronin that provides dynamic
-            Assembly (ASM) generation of programs or shellcode.
-ronin-sql:: Ronin SQL is a Ruby library for Ronin that provids support for
-            SQL related security tasks, such as scanning for and exploiting
-            SQL injections.
-ronin-php:: Ronin PHP is a Ruby library for Ronin that provides support for
-            PHP related security tasks, such as finding and exploiting
-            Local File Inclusion (LFI) and Remote File Inclusion (RFI).
-ronin-dorks:: Ronin Dorks is a Ruby library for Ronin that provides support
-              for various Google (tm) Dorks functionality.
+=== RONIN ASM
+
+* http://ronin.rubyforge.org/libraries/asm.html
+* https://github.com/postmodern/ronin-asm/tree
+
+Ronin ASM is a Ruby library for Ronin that provides dynamic Assembly (ASM)
+generation of programs or shellcode.
+
+=== RONIN DORKS
+
+* http://ronin.rubyforge.org/libraries/dorks.html
+* https://github.com/postmodern/ronin-dorks/tree
+
+Ronin Dorks is a Ruby library for Ronin that provides support for various
+Google (tm) Dorks functionality.
+
+=== RONIN EXPLOITS
+
+* http://ronin.rubyforge.org/libraries/exploits.html
+* https://github.com/postmodern/ronin-exploits/tree
+
+Ronin Exploits is a Ruby library for Ronin that provides exploitation and
+payload crafting functionality.
+
+=== RONIN HTML
+
+* http://ronin.rubyforge.org/libraries/html.html
+* https://github.com/postmodern/ronin-html/tree
+
+Ronin HTML is a Ruby library for Ronin that provides support for generating
+complex HTML/JavaScript or crafting XSS/CSRF attacks.
+
+=== RONIN SQL
+
+* http://ronin.rubyforge.org/libraries/sql.html
+* https://github.com/postmodern/ronin-sql/tree
+
+Ronin SQL is a Ruby library for Ronin that provids support for SQL related
+security tasks, such as scanning for and exploiting SQL injections.
+
+=== RONIN PHP
+
+* http://ronin.rubyforge.org/libraries/php.html
+* https://github.com/postmodern/ronin-php/tree
+
+Ronin PHP is a Ruby library for Ronin that provides support for PHP related
+security tasks, such as finding and exploiting Local File Inclusion (LFI)
+and Remote File Inclusion (RFI).
 
 == LICENSE:
 
