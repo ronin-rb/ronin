@@ -168,6 +168,7 @@ spec/helpers.rb
 spec/spec_helper.rb
 spec/arch_spec.rb
 spec/author_spec.rb
+spec/chars/char_set_spec.rb
 spec/chars/chars_spec.rb
 spec/context/context_spec.rb
 spec/context/helpers/book_context.rb
