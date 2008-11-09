@@ -43,6 +43,19 @@ module Ronin
       end
 
       #
+      # Returns +true+ if the character set contains the specified _char_,
+      # returns +false+ otherwise. The specified _char_ can be either an
+      # Integer or a String.
+      #
+      def include?(char)
+        if char.kind_of?(Integer)
+          return super(char.chr)
+        else
+          return super(char)
+        end
+      end
+
+      #
       # Create a new CharSet object containing the characters that match
       # the given _block_.
       #
