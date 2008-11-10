@@ -31,7 +31,9 @@ module Ronin
 
       setup_session do
         parameter :telnet_host, :description => 'Telnet host'
-        parameter :telnet_port, :value => Network::Telnet.default_port, :description => 'Telnet port'
+        parameter :telnet_port,
+                  :value => Network::Telnet.default_port,
+                  :description => 'Telnet port'
 
         parameter :telnet_user, :description => 'Telnet user'
         parameter :telnet_password, :description => 'Telnet password'
