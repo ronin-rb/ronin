@@ -30,8 +30,13 @@ module Ronin
       include Session
 
       setup_session do
-        parameter :web_proxy, :value => Ronin::Web.proxy, :description => 'Web Proxy'
-        parameter :web_user_agent, :value => Ronin::Web.user_agent, :description => 'Web User-Agent'
+        parameter :web_proxy,
+                  :value => Ronin::Web.proxy,
+                  :description => 'Web Proxy'
+
+        parameter :web_user_agent,
+                  :value => Ronin::Web.user_agent,
+                  :description => 'Web User-Agent'
       end
 
       protected
