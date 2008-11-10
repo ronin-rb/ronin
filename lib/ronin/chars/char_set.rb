@@ -106,6 +106,14 @@ module Ronin
       end
 
       #
+      # Returns +true+ if the specified _other_set_ contains the same
+      # set of characters as the character set, returns +false+ otherwise.
+      #
+      def ==(other_set)
+        (self & other_set) == self
+      end
+
+      #
       # Return a new CharSet that is the union of the character set and the
       # specified _other_set_.
       #

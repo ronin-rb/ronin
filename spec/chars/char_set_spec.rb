@@ -102,6 +102,11 @@ describe Ronin do
       end
     end
 
+    it "should be able to be compared with another set of chars" do
+      (@char_set == ['A', 'B', 'C']).should == true
+      (@char_set == ['A', 'C', 'B']).should == true
+    end
+
     it "should be able to be unioned with another set of chars" do
       super_set = (@char_set | ['D'])
 
