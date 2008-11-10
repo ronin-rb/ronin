@@ -111,15 +111,14 @@ describe Ronin do
       super_set = (@char_set | ['D'])
 
       super_set.class.should == Chars::CharSet
-
-      (super_set & @char_set).should == @char_set
-      super_set.include?('D').should == true
+      super_set.should == ['A', 'B', 'C', 'D']
     end
 
     it "should be able to be removed from another set of chars" do
       sub_set = (@char_set - ['B'])
 
-      (sub_set & ['A', 'C']).should == sub_set
+      sub_set.class.should == Chars::CharSet
+      sub_set.should == ['A', 'C']
     end
   end
 end
