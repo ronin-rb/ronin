@@ -41,6 +41,10 @@ module Ronin
         # Adds a new parameters with the specified _name_ and the given
         # _options_ to the Class.
         #
+        # _options_ may contain the following keys:
+        # <tt>:description</tt>:: The description of the parameter.
+        # <tt>:default</tt>:: The default value the parameter will have.
+        #
         #   parameter 'var'
         #
         #   parameter 'var', :default => 3, :description => 'my variable' 
@@ -156,6 +160,10 @@ module Ronin
     #
     # Adds a new parameters with the specified _name_ and the given
     # _options_ to the object.
+    #
+    # _options_ may contain the following keys:
+    # <tt>:description</tt>:: The description of the parameter.
+    # <tt>:default</tt>:: The default value the parameter will have.
     #
     #   obj.parameter('var')
     #
