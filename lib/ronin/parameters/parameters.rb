@@ -49,7 +49,7 @@ module Ronin
           name = name.to_sym
 
           # add the parameter to the class params list
-          params[name] = ClassParam.new(name,options[:description],options[:default])
+          params[name] = Parameters::ClassParam.new(name,options[:description],options[:default])
 
           # define the reader class method for the parameter
           meta_def(name) do
