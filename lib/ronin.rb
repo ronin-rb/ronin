@@ -22,7 +22,7 @@
 #
 
 require 'ronin/extensions'
-require 'ronin/environment'
+require 'ronin/config'
 require 'ronin/formatting'
 require 'ronin/chars'
 require 'ronin/path'
