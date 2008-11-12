@@ -119,6 +119,7 @@ lib/ronin/sessions/esmtp.rb
 lib/ronin/sessions/pop3.rb
 lib/ronin/sessions/imap.rb
 lib/ronin/sessions/telnet.rb
+lib/ronin/sessions/http.rb
 lib/ronin/sessions/web.rb
 lib/ronin/database.rb
 lib/ronin/model.rb
