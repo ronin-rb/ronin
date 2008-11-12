@@ -26,6 +26,9 @@ require 'ronin/cache/extension'
 
 module Ronin
   module Cache
+    #
+    # See Overlay.cache.
+    #
     def Cache.overlays
       Overlay.cache
     end
