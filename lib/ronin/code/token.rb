@@ -51,7 +51,7 @@ module Ronin
       end
 
       def inspect
-        "Token:#{@value.inspect}"
+        "#<Token:#{@value.inspect}>"
       end
 
       #
