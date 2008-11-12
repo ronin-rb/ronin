@@ -34,13 +34,9 @@ module Ronin
         parameter :http_user, :description => 'HTTP user'
         parameter :http_password, :description => 'HTTP password'
 
-        parameter :http_proxy,
-                  :value => Ronin::Network::HTTP.proxy,
-                  :description => 'HTTP Proxy'
+        parameter :http_proxy, :description => 'HTTP Proxy'
 
-        parameter :http_user_agent,
-                  :value => Ronin::Network::HTTP.user_agent,
-                  :description => 'Web User-Agent'
+        parameter :http_user_agent, :description => 'Web User-Agent'
       end
 
       protected
@@ -69,11 +65,11 @@ module Ronin
       # <tt>:path</tt>:: The path to request from the HTTP server.
       #
       def http_session(options={},&block)
-        options[:user] ||= @http_user
-        options[:password] ||= @http_password
+        options[:user] ||= @http_user if @http_user
+        options[:password] ||= @http_password if @http_password
 
-        options[:proxy] ||= @http_proxy
-        options[:user_agent] ||= @http_user_agent
+        options[:proxy] ||= @http_proxy if @http_proxy
+        options[:user_agent] ||= @http_user_agent if @http_user_agent
 
         return Net.http_session(options,&block)
       end
