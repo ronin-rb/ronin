@@ -120,7 +120,7 @@ module Ronin
       # specified _other_set_.
       #
       def |(other_set)
-        CharSet.new(self | other_set)
+        CharSet.new(super(other_set.to_a))
       end
 
       alias + |
