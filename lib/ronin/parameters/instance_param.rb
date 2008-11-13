@@ -52,6 +52,13 @@ module Ronin
         @object.instance_variable_set("@#{@name}",value)
       end
 
+      #
+      # Inspects the instance params value.
+      #
+      def inspect
+        value.inspect
+      end
+
     end
   end
 end
