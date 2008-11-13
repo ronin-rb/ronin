@@ -27,9 +27,12 @@ class String
 
   #
   # Returns +true+ if all of the bytes within the string exist within the
-  # specified _alphabet_, returns +false+ otherwise.
+  # specified _alphabet_, returns +false+ otherwise. If the string is empty
+  # +false+ will also be returned.
   #
   def in_alphabet?(alphabet)
+    return false if empty?
+
     each_byte do |b|
       return false unless alphabet.include?(b)
     end
