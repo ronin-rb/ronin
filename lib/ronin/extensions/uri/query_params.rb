@@ -47,6 +47,14 @@ module URI
       return new_query
     end
 
+    #
+    # Iterates over every query parameter, passing each to the given
+    # _block_.
+    #
+    def each_query_param(&block)
+      @query_params.each(&block)
+    end
+
     protected
 
     #
