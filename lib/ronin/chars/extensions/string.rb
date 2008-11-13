@@ -21,11 +21,14 @@
 #++
 #
 
-require 'ronin/chars/char_set'
 require 'ronin/chars/chars'
 
 class String
 
+  #
+  # Returns +true+ if all of the bytes within the string exist within the
+  # specified _alphabet_, returns +false+ otherwise.
+  #
   def in_alphabet?(alphabet)
     each_byte do |b|
       return false unless alphabet.include?(b)
@@ -34,42 +37,77 @@ class String
     return true
   end
 
+  #
+  # Returns +true+ if the string is numeric, returns +false+ otherwise.
+  #
   def is_numeric?
     in_alphabet?(Ronin::Chars::NUMERIC)
   end
 
+  #
+  # Returns +true+ if the string is octal, returns +false+ otherwise.
+  #
   def is_octal?
     in_alphabet?(Ronin::Chars::OCTAL)
   end
 
+  #
+  # Returns +true+ if the string is hexadecimal, returns +false+ otherwise.
+  #
   def is_hexadecimal?
     in_alphabet?(Ronin::Chars::HEXADECIMAL)
   end
 
+  #
+  # Returns +true+ if the string is alpha, returns +false+ otherwise.
+  #
   def is_alpha?
     in_alphabet?(Ronin::Chars::ALPHA)
   end
 
+  #
+  # Returns +true+ if the string is alpha-numeric, returns +false+ otherwise.
+  #
   def is_alpha_numeric?
     in_alphabet?(Ronin::Chars::ALPHA_NUMERIC)
   end
 
+  #
+  # Returns +true+ if the string only contains space characters, returns
+  # +false+ otherwise.
+  #
   def is_space?
     in_alphabet?(Ronin::Chars::SPACE)
   end
 
+  #
+  # Returns +true+ if the string only contains punctuation characters,
+  # returns +false+ otherwise.
+  #
   def is_punctuation?
     in_alphabet?(Ronin::Chars::PUNCTUATION)
   end
 
+  #
+  # Returns +true+ if the string only contains symbolic characters,
+  # returns +false+ otherwise.
+  #
   def is_symbolic?
     in_alphabet?(Ronin::Chars::SYMBOLS)
   end
 
+  #
+  # Returns +true+ if the string only contains control characters,
+  # returns +false+ otherwise.
+  #
   def is_control?
     in_alphabet?(Ronin::Chars::CONTROL)
   end
 
+  #
+  # Returns +true+ if the string only contains ASCII characters,
+  # returns +false+ otherwise.
+  #
   def is_ascii?
     in_alphabet?(Ronin::Chars::ASCII)
   end
