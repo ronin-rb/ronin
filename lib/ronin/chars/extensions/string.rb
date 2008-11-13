@@ -62,7 +62,7 @@ class String
     in_alphabet?(Ronin::Chars::PUNCTUATION)
   end
 
-  def is_symbols?
+  def is_symbolic?
     in_alphabet?(Ronin::Chars::SYMBOLS)
   end
 
