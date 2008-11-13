@@ -34,7 +34,9 @@ class String
     return false if empty?
 
     each_byte do |b|
-      return false unless alphabet.include?(b)
+      unless (alphabet.include?(b) || alphabet.include?(b.chr))
+        return false
+      end
     end
 
     return true
