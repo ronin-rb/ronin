@@ -21,6 +21,8 @@
 #++
 #
 
+require 'set'
+
 module Ronin
   module Chars
     class CharSet < Array
@@ -110,7 +112,7 @@ module Ronin
       # set of characters as the character set, returns +false+ otherwise.
       #
       def ==(other_set)
-        (self & other_set) == self
+        self.to_set == other_set.to_set
       end
 
       #
@@ -118,7 +120,7 @@ module Ronin
       # specified _other_set_.
       #
       def |(other_set)
-        CharSet.new(self,other_set)
+        CharSet.new(self | other_set)
       end
 
       alias + |
