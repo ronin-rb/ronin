@@ -312,6 +312,10 @@ module Ronin
 
     protected
 
+    #
+    # Returns options for Spidr::Agent with default +proxy+ and +user_agent+
+    # options set.
+    #
     def Web.spider_options(options={})
       default_options = {
         :proxy => Web.proxy,
