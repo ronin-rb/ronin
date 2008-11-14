@@ -276,6 +276,7 @@ module Ronin
     # <tt>:referer</tt>:: The referer URL to send.
     # <tt>:delay</tt>:: Duration in seconds to pause between spidering each
     #                   link. Defaults to 0.
+    # <tt>:host</tt>:: The host-name to visit.
     # <tt>:hosts</tt>:: An +Array+ of host patterns to visit.
     # <tt>:ignore_hosts</tt>:: An +Array+ of host patterns to not visit.
     # <tt>:ports</tt>:: An +Array+ of port patterns to visit.
@@ -286,8 +287,10 @@ module Ronin
     # <tt>:ignore_exts</tt>:: An +Array+ of File extension patterns to not
     #                         visit.
     #
-    def Web.spider(options={},&block)
-      Spidr::Agent.new(spider_options(options),&block)
+    def Web.spider_agent(options={},&block)
+      options = Web.spider_default_options.merge(options)
+
+      return Spidr::Agent.new(options,&block)
     end
 
     #
@@ -297,7 +300,9 @@ module Ronin
     # agent begins spidering.
     #
     def Web.spider_host(name,options={},&block)
-      Spidr::Agent.host(name,spider_options(options),&block)
+      options = Web.spider_default_options.merge(options)
+
+      return Spidr::Agent.host(name,options,&block)
     end
 
     #
@@ -307,22 +312,18 @@ module Ronin
     # the agent begins spidering.
     #
     def Web.spider_site(url,options={},&block)
-      Spidr::Agent.site(url,spider_options(options),&block)
+      options = Web.spider_default_options.merge(options)
+
+      return Spidr::Agent.site(url,options,&block)
     end
 
     protected
 
     #
-    # Returns options for Spidr::Agent with the +proxy+ and +user_agent+
-    # options set to Web.proxy and Web.user_agent respectively.
+    # Returns the default options for Spidr::Agent.
     #
-    def Web.spider_options(options={})
-      default_options = {
-        :proxy => Web.proxy,
-        :user_agent => Web.user_agent
-      }
-
-      return default_options.merge(options)
+    def Web.spider_default_options
+      {:proxy => Web.proxy, :user_agent => Web.user_agent}
     end
   end
 end
