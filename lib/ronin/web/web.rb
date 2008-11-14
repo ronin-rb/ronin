@@ -313,8 +313,8 @@ module Ronin
     protected
 
     #
-    # Returns options for Spidr::Agent with default +proxy+ and +user_agent+
-    # options set.
+    # Returns options for Spidr::Agent with the +proxy+ and +user_agent+
+    # options set to Web.proxy and Web.user_agent respectively.
     #
     def Web.spider_options(options={})
       default_options = {
