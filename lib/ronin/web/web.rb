@@ -263,16 +263,51 @@ module Ronin
       return body
     end
 
+    #
+    # Creates a new Spidr::Agent object with the given _options_ and
+    # _block_. If a _block_ is given, it will be passed the newly created
+    # Spidr::Agent object.
+    #
+    # _options_ may contain the following keys:
+    # <tt>:proxy</tt>:: The proxy to use while spidering. Defaults to
+    #                   Web.proxy.
+    # <tt>:user_agent</tt>:: The User-Agent string to send. Defaults to
+    #                        Web.user_agent.
+    # <tt>:referer</tt>:: The referer URL to send.
+    # <tt>:delay</tt>:: Duration in seconds to pause between spidering each
+    #                   link. Defaults to 0.
+    # <tt>:hosts</tt>:: An +Array+ of host patterns to visit.
+    # <tt>:ignore_hosts</tt>:: An +Array+ of host patterns to not visit.
+    # <tt>:ports</tt>:: An +Array+ of port patterns to visit.
+    # <tt>:ignore_ports</tt>:: An +Array+ of port patterns to not visit.
+    # <tt>:links</tt>:: An +Array+ of link patterns to visit.
+    # <tt>:ignore_links</tt>:: An +Array+ of link patterns to not visit.
+    # <tt>:exts</tt>:: An +Array+ of File extension patterns to visit.
+    # <tt>:ignore_exts</tt>:: An +Array+ of File extension patterns to not
+    #                         visit.
+    #
     def Web.spider(options={},&block)
       Spidr::Agent.new(spider_options(options),&block)
     end
 
-    def Web.spider_host(host,options={},&block)
-      Spidr::Agent.host(spider_options(options),&block)
+    #
+    # Creates a new Spidr::Agent object with the given _options_ and will
+    # begin spidering the specified host _name_. If a _block_ is given it
+    # will be passed the newly created Spidr::Agent object, before the
+    # agent begins spidering.
+    #
+    def Web.spider_host(name,options={},&block)
+      Spidr::Agent.host(name,spider_options(options),&block)
     end
 
-    def Web.spider_site(site,options={},&block)
-      Spidr::Agent.site(spider_options(options),&block)
+    #
+    # Creates a new Spidr::Agent object with the given _options_ and will
+    # begin spidering the host of the specified _url_. If a _block_ is
+    # given it will be passed the newly created Spidr::Agent object, before
+    # the agent begins spidering.
+    #
+    def Web.spider_site(url,options={},&block)
+      Spidr::Agent.site(url,spider_options(options),&block)
     end
 
     protected
