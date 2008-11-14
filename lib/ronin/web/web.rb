@@ -26,6 +26,7 @@ require 'ronin/network/http'
 require 'uri/http'
 require 'mechanize'
 require 'open-uri'
+require 'spidr'
 
 module Ronin
   module Web
@@ -260,6 +261,29 @@ module Ronin
 
       block.call(body) if block
       return body
+    end
+
+    def Web.spider(options={},&block)
+      Spidr::Agent.new(spider_options(options),&block)
+    end
+
+    def Web.spider_host(host,options={},&block)
+      Spidr::Agent.host(spider_options(options),&block)
+    end
+
+    def Web.spider_site(site,options={},&block)
+      Spidr::Agent.site(spider_options(options),&block)
+    end
+
+    protected
+
+    def Web.spider_options(options={})
+      default_options = {
+        :proxy => Web.proxy,
+        :user_agent => Web.user_agent
+      }
+
+      return default_options.merge(options)
     end
   end
 end
