@@ -11,47 +11,42 @@ module Ronin
     attr_accessor :prompt
 
     #
-    # Creates a new Shell object with the given _options_. If a _block_ is
-    # given it will be passed the newly created Shell object.
+    # Creates a new Shell object with the given _options_.
     #
     # _options_ may contain the following keys:
     # <tt>:name</tt>:: The name of the shell.
     # <tt>:prompt</tt>::The prompt to use for the shell.
     #
-    def initialize(options={},&block)
+    def initialize(options={})
       @name = options[:name]
       @prompt = (options[:prompt] || DEFAULT_PROMPT)
-
-      block.call(self) if block
     end
 
     #
     # Creates and starts a new Shell object with the specified _options_.
-    # If a _block_ is given, it will be passed the newly created Shell
-    # object before it is started.
+    # If a _block_ is given, it will be passed every command.
     #
     def self.start(options={},&block)
-      self.new(options,&block).start
+      self.new(options).start(&block)
     end
 
     #
-    # Starts the shell.
+    # Starts the shell using the given _block_ to process commands.
     #
-    def start
+    def start(&block)
       history_rollback = 0
 
       loop do
         line = Readline.readline("#{@name}#{@prompt} ")
 
         if line =~ /^\s*exit\s*$/
-          exit_shell
           break
         else
           Readline::HISTORY << line
           history_rollback += 1
 
           begin
-            process_command(line)
+            block.call(self,line)
           rescue => e
             puts "#{e.class.name}: #{e.message}"
           end
@@ -63,18 +58,6 @@ module Ronin
       end
 
       return nil
-    end
-
-    #
-    # Default method that processes commands.
-    #
-    def process_command(command)
-    end
-
-    #
-    # Default method that will be called when the shell is exited.
-    #
-    def exit_shell
     end
 
   end
