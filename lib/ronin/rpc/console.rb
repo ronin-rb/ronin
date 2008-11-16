@@ -22,7 +22,7 @@
 #
 
 require 'ronin/rpc/service'
-require 'ronin/rpc/interactive_console'
+require 'ronin/shell'
 
 module Ronin
   module RPC
@@ -58,11 +58,13 @@ module Ronin
       end
 
       #
-      # Starts an InteractiveConsole that allows a user to evaluate code
-      # and inspect the return-value.
+      # Starts a Shell that allows a user to execute PHP expressions and
+      # observe their results.
       #
       def interact
-        InteractiveConsole.start(self)
+        Shell.start(:prompt => '>>') do |shell,line|
+          shell.puts "=> #{inspect(line)}"
+        end
       end
 
       protected

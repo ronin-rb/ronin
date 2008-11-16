@@ -22,7 +22,7 @@
 #
 
 require 'ronin/rpc/service'
-require 'ronin/rpc/interactive_shell'
+require 'ronin/shell'
 
 module Ronin
   module RPC
@@ -45,11 +45,11 @@ module Ronin
       end
 
       #
-      # Starts an InteractiveShell that allows a user to execute commands
-      # and observe their output.
+      # Starts a Shell that allows a user to execute commands and observe
+      # their output.
       #
       def interact
-        InteractiveShell.start(self)
+        Shell.start(:prompt => '$') { |shell,line| system(line) }
       end
 
       protected
