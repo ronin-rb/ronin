@@ -60,5 +60,35 @@ module Ronin
       return nil
     end
 
+    #
+    # Equivalent to <tt>STDOUT.putc(char)</tt>.
+    #
+    def putc(char)
+      STDOUT.putc(char)
+    end
+
+    #
+    # Equivalent to <tt>STDOUT.print(string)</tt>.
+    #
+    def print(string)
+      STDOUT.print(string)
+    end
+
+    #
+    # Equivalent to <tt>STDOUT.puts(string)</tt>.
+    #
+    def puts(string)
+      STDOUT.puts(string)
+    end
+
+    alias << puts
+
+    #
+    # Equivalent to <tt>STDOUT.printf(string,*objects)</tt>.
+    #
+    def printf(string,*objects)
+      STDOUT.printf(string,*objects)
+    end
+
   end
 end
