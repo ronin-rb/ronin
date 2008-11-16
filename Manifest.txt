@@ -99,9 +99,6 @@ lib/ronin/rpc/client.rb
 lib/ronin/rpc/service.rb
 lib/ronin/rpc/console.rb
 lib/ronin/rpc/shell.rb
-lib/ronin/rpc/interactive.rb
-lib/ronin/rpc/interactive_console.rb
-lib/ronin/rpc/interactive_shell.rb
 lib/ronin/web.rb
 lib/ronin/web/extensions.rb
 lib/ronin/web/extensions/hpricot.rb
