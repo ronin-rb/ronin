@@ -27,16 +27,16 @@ module Ronin
   module Vulns
     def self.included(base)
       base.metaclass_eval do
-        def vuln_tests
-          @vuln_tests ||= []
+        def vulns
+          @vulns ||= {}
         end
 
-        def has_vuln_test?(name)
+        def vulnerable_to?(name)
           name = name.to_sym
 
           self.ancestors.each do |ancestor|
             if ancestor.included?(Vulns)
-              return true if ancestor.vuln_tests.include?(name)
+              return true if ancestor.vulns.has_key?(name)
             end
           end
 
@@ -45,9 +45,9 @@ module Ronin
 
         protected
 
-        def vuln_test(name)
-          unless has_vuln_test?(name)
-            self.vuln_tests << name.to_sym
+        def vulnerable_to(name,method_name)
+          unless vulnerable_to?(name)
+            self.vulns[name.to_sym] = method_name.to_sym
           end
 
           return self
@@ -55,10 +55,10 @@ module Ronin
       end
     end
 
-    def each_vuln_test(&block)
+    def each_vuln(&block)
       self.class.ancestors.each do |ancestor|
         if ancestor.included?(Vulns)
-          ancestor.vuln_tests.each(&block)
+          ancestor.vulns.each(&block)
         end
       end
 
@@ -66,16 +66,16 @@ module Ronin
     end
 
     def vulns(options={},&block)
-      all_results = []
+      found_vulns = {}
 
-      each_vuln_test do |test_method|
+      each_vuln do |name,test_method|
         results = send(test_method,options)
 
         results.each(&block) if block
-        all_results += results
+        found_vulns[name] = results
       end
 
-      return all_results
+      return found_vulns
     end
   end
 end
