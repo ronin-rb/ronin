@@ -28,28 +28,37 @@ module Ronin
     def self.included(base)
       base.metaclass_eval do
         def vuln_tests
-          @vuln_tests ||= {}
+          @vuln_tests ||= []
+        end
+
+        def each_vuln_test(&block)
+          vuln_tests.each(&block)
+        end
+
+        protected
+
+        def vuln_test(name)
+          vuln_tests << name.to_sym
+          return self
         end
       end
     end
 
-    def vuln_tests
-      self.class.vuln_tests
-    end
+    def each_vuln_test(&block)
+      self.class.ancestors.each do |ancestor|
+        if ancestor.included?(Vulns)
+          ancestor.each_vuln_test(&block)
+        end
+      end
 
-    def vulns
-      vuln_tests.key
-    end
-
-    def vulns_for(name,options={})
-      self.send(vuln_tests[name],options)
+      return self
     end
 
     def vulns(options={},&block)
       all_results = []
 
-      tests.each_key do |name|
-        results = test_for(name,options)
+      each_vuln_test do |test_method|
+        results = send(test_method,options)
 
         results.each(&block) if block
         all_results += results
