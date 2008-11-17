@@ -35,7 +35,7 @@ module Ronin
           name = name.to_sym
 
           self.ancestors.each do |ancestor|
-            if ancestor.included?(Vulnerable)
+            if ancestor.include?(Vulnerable)
               return true if ancestor.vulns.has_key?(name)
             end
           end
@@ -70,7 +70,7 @@ module Ronin
     #
     def each_vuln(&block)
       self.class.ancestors.each do |ancestor|
-        if ancestor.included?(Vulnerable)
+        if ancestor.include?(Vulnerable)
           ancestor.vulns.each(&block)
         end
       end
