@@ -70,7 +70,7 @@ module Ronin
     #
     def each_vuln(&block)
       self.class.ancestors.each do |ancestor|
-        if ancestor.included?(Vulns)
+        if ancestor.included?(Vulnerable)
           ancestor.vulns.each(&block)
         end
       end
