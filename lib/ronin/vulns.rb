@@ -31,14 +31,25 @@ module Ronin
           @vuln_tests ||= []
         end
 
-        def each_vuln_test(&block)
-          vuln_tests.each(&block)
+        def has_vuln_test?(name)
+          name = name.to_sym
+
+          self.ancestors.each do |ancestor|
+            if ancestor.included?(Vulns)
+              return true if ancestor.vuln_tests.include?(name)
+            end
+          end
+
+          return false
         end
 
         protected
 
         def vuln_test(name)
-          vuln_tests << name.to_sym
+          unless has_vuln_test?(name)
+            self.vuln_tests << name.to_sym
+          end
+
           return self
         end
       end
@@ -47,7 +58,7 @@ module Ronin
     def each_vuln_test(&block)
       self.class.ancestors.each do |ancestor|
         if ancestor.included?(Vulns)
-          ancestor.each_vuln_test(&block)
+          ancestor.vuln_tests.each(&block)
         end
       end
 
