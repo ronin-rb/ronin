@@ -24,7 +24,7 @@
 require 'ronin/extensions/meta'
 
 module Ronin
-  module Vulns
+  module Vulnerable
     def self.included(base)
       base.metaclass_eval do
         def vulns
@@ -45,9 +45,17 @@ module Ronin
 
         protected
 
-        def vulnerable_to(name,method_name)
-          unless vulnerable_to?(name)
-            self.vulns[name.to_sym] = method_name.to_sym
+        #
+        # Registers new vulnerability tests using the specified _mapping_ of
+        # vulnerability names and the method names used to test for them.
+        # 
+        #   vulnerable_to :lfi => :test_lfi
+        #
+        def vulnerable_to(mapping={})
+          mapping.each do |name,method_name|
+            unless vulnerable_to?(name)
+              self.vulns[name.to_sym] = method_name.to_sym
+            end
           end
 
           return self
@@ -55,6 +63,11 @@ module Ronin
       end
     end
 
+    #
+    # Iterates over each vulnerability name and the method name used to
+    # test for the vulnerability, passing each name and method name to the
+    # given _block_.
+    #
     def each_vuln(&block)
       self.class.ancestors.each do |ancestor|
         if ancestor.included?(Vulns)
