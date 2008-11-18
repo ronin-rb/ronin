@@ -89,6 +89,7 @@ lib/ronin/code/token.rb
 lib/ronin/code/reference.rb
 lib/ronin/code/reference.rb
 lib/ronin/code/symbol_table.rb
+lib/ronin/code/erb_template.rb
 lib/ronin/rpc.rb
 lib/ronin/rpc/exceptions.rb
 lib/ronin/rpc/exceptions/not_implemented.rb
