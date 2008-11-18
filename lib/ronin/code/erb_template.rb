@@ -25,6 +25,10 @@ module Ronin
   module Code
     class ErbTemplate < ERB
 
+      def initialize(symbols={})
+        @symbols = SymbolTable.new(symbols)
+      end
+
       def self.file(path)
         self.new(File.read(path))
       end
@@ -42,6 +46,18 @@ module Ronin
       end
 
       alias to_s compile
+
+      protected
+
+      def method_missing(name,*arguments,&block)
+        if (arguments.empty? && block.nil?)
+          if @symbols.has_symbol?(name)
+            return @symbols[name]
+          end
+        end
+
+        super(name,*arguments,&block)
+      end
 
     end
   end
