@@ -34,6 +34,7 @@ module Ronin
         'image/gif' => ['gif'],
         'image/jpeg' => ['jpeg', 'jpg'],
         'image/png' => ['png'],
+        'image/x-icon' => ['ico'],
         'text/javascript' => ['js'],
         'text/xml' => ['xml'],
         'application/rss+xml' => ['rss'],
