@@ -56,6 +56,12 @@ module Ronin
         ]
       }
 
+      # Default interface to run the Web Server on
+      HOST = '0.0.0.0'
+
+      # Default port to run the Web Server on
+      PORT = 8080
+
       #
       # Creates a new Web Server using the given configuration _block_.
       #
@@ -66,7 +72,7 @@ module Ronin
       end
 
       def Server.default_host
-        @@default_host ||= 'localhost'
+        @@default_host ||= HOST
       end
 
       def Server.default_host=(host)
@@ -74,7 +80,7 @@ module Ronin
       end
 
       def Server.default_port
-        @@default_port ||= 8080
+        @@default_port ||= PORT
       end
 
       def Server.default_port=(port)
