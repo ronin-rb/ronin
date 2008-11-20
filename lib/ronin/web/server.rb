@@ -53,6 +53,22 @@ module Ronin
         instance_eval(&block) if block
       end
 
+      def Server.default_host
+        @@default_host ||= 'localhost'
+      end
+
+      def Server.default_host=(host)
+        @@default_host = host
+      end
+
+      def Server.default_port
+        @@default_port ||= 8080
+      end
+
+      def Server.default_port=(port)
+        @@default_port = port
+      end
+
       def self.start(&block)
         self.new(&block).start
       end
@@ -93,8 +109,12 @@ module Ronin
       #
       # Starts the server.
       #
-      def start
-        Rack::Handler::WEBrick.start(self)
+      def start(options={})
+        host = (options[:host] || Server.default_host)
+        port = (options[:port] || Server.default_port)
+
+        Rack::Handler::WEBrick.run(self, :Host => host, :Port => port)
+        return self
       end
 
       protected
