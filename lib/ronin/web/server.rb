@@ -195,7 +195,7 @@ module Ronin
       # Returns the HTTP 404 Not Found message for the requested path.
       #
       def not_found(env)
-        path = env['HTTP_PATH']
+        path = env['PATH_INFO']
 
         [404, {'Content-Type' => 'text/html'}, %{
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
