@@ -71,18 +71,32 @@ module Ronin
         super(&block)
       end
 
+      #
+      # Returns the default host that the Web Server will be run on.
+      #
       def Server.default_host
         @@default_host ||= HOST
       end
 
+      #
+      # Sets the default host that the Web Server will run on to the
+      # specified _host_.
+      #
       def Server.default_host=(host)
         @@default_host = host
       end
 
+      #
+      # Returns the default port that the Web Server will run on.
+      #
       def Server.default_port
         @@default_port ||= PORT
       end
 
+      #
+      # Sets the default port the Web Server will run on to the specified
+      # _port_.
+      #
       def Server.default_port=(port)
         @@default_port = port
       end
