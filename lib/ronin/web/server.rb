@@ -145,11 +145,7 @@ module Ronin
             sub_path = File.expand_path(env['PATH_INFO']).sub(path,'')
             absolute_path = File.join(dir,sub_path)
 
-            if File.file?(absolute_path)
-              return_file(absolute_path)
-            else
-              not_found(env)
-            end
+            return_file(absolute_path,env)
           }
         end
       end
@@ -187,8 +183,12 @@ module Ronin
       # Returns a HTTP 200 response with the contents of the specified
       # _file_.
       #
-      def return_file(file)
-        [200, {'Content-Type' => content_type_for(file)}, File.read(file)]
+      def return_file(file,env)
+        if File.file?(file)
+          return [200, {'Content-Type' => content_type_for(file)}, File.read(file)]
+        else
+          return not_found(env)
+        end
       end
 
       #
