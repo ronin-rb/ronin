@@ -68,6 +68,10 @@ module Ronin
       def initialize(&block)
         @router = method(:not_found)
 
+        @url_patterns = {}
+        @host_patterns = {}
+        @path_patterns = {}
+
         super(&block)
       end
 
@@ -121,6 +125,21 @@ module Ronin
         return self
       end
 
+      def urls_like(pattern,&block)
+        @url_patterns[pattern] = block
+        return self
+      end
+
+      def hosts_like(pattern,&block)
+        @host_patterns[pattern] = block
+        return self
+      end
+
+      def paths_like(pattern,&block)
+        @path_patterns[pattern] = block
+        return self
+      end
+
       #
       # Binds the contents of the specified _file_ to the specified URL
       # _path_, using the given _options_.
@@ -166,7 +185,31 @@ module Ronin
       end
 
       def call(env)
-        route(env)
+        test_pattern = lambda { |key,pattern,block|
+          if key.match(pattern)
+            return block.call(env)
+          end
+        }
+
+        if (url = env['REQUEST_URI'])
+          @url_patterns.each do |pattern,block|
+            test_pattern.call(url,pattern,block)
+          end
+        end
+
+        if (host = env['HTTP_HOST'])
+          @host_patterns.each do |pattern,block|
+            test_pattern.call(host,pattern,block)
+          end
+        end
+
+        if (path = env['PATH_INFO'])
+          @path_patterns.each do |pattern,block|
+            test_pattern.call(path,pattern,block)
+          end
+        end
+
+        return route(env)
       end
 
       protected
