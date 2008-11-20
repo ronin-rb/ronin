@@ -112,6 +112,10 @@ module Ronin
       #
       # Use the specified _block_ as the router for all requests.
       #
+      #   srv.router do |env|
+      #     [200, {'Content-Type' => 'text/html'}, 'lol train']
+      #   end
+      #
       def router(&block)
         @router = block
         return self
