@@ -40,7 +40,7 @@ module Ronin
         'application/rdf+xml' => ['rdf'],
         'application/pdf' => ['pdf'],
         'application/doc' => ['doc'],
-        'application/zip' => ['zip']
+        'application/zip' => ['zip'],
         'text/plain' => ['txt']
       }
 
