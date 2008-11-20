@@ -84,7 +84,7 @@ module Ronin
         content_type = (options[:content_type] || content_type_for(file))
 
         map(path) do |env|
-          ok_file(file)
+          return_file(file)
         end
       end
 
@@ -100,7 +100,7 @@ module Ronin
           absolute_path = File.join(dir,sub_path)
 
           if File.file?(absolute_path)
-            ok_file(absolute_path)
+            return_file(absolute_path)
           else
             not_found(env)
           end
@@ -140,7 +140,7 @@ module Ronin
       # Returns a HTTP 200 response with the contents of the specified
       # _file_.
       #
-      def ok_file(file)
+      def return_file(file)
         [200, {'Content-Type' => content_type_for(file)}, File.read(file)]
       end
 
