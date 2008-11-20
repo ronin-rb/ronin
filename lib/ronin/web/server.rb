@@ -42,7 +42,18 @@ module Ronin
         'application/pdf' => ['pdf'],
         'application/doc' => ['doc'],
         'application/zip' => ['zip'],
-        'text/plain' => ['txt']
+        'text/plain' => [
+          'txt',
+          'conf',
+          'rb',
+          'py',
+          'h',
+          'c',
+          'hh',
+          'cc',
+          'hpp',
+          'cpp'
+        ]
       }
 
       #
