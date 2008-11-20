@@ -95,15 +95,19 @@ module Ronin
       #   srv.mount '/download/', '/tmp/files/'
       #
       def mount(path,dir)
-        map(path) do |env|
-          sub_path = File.expand_path(env['HTTP_PATH']).sub(path,'')
-          absolute_path = File.join(dir,sub_path)
+        dir = File.expand_path(dir)
 
-          if File.file?(absolute_path)
-            return_file(absolute_path)
-          else
-            not_found(env)
-          end
+        map(path) do
+          run Proc.new { |env|
+            sub_path = File.expand_path(env['HTTP_PATH']).sub(path,'')
+            absolute_path = File.join(dir,sub_path)
+
+            if File.file?(absolute_path)
+              return_file(absolute_path)
+            else
+              not_found(env)
+            end
+          }
         end
       end
 
