@@ -74,6 +74,10 @@ module Ronin
         self.new(&block).start
       end
 
+      def router(&block)
+        run(block)
+      end
+
       #
       # Binds the contents of the specified _file_ to the specified URL
       # _path_, using the given _options_.
