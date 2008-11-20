@@ -53,6 +53,10 @@ module Ronin
         instance_eval(&block) if block
       end
 
+      def self.start(&block)
+        self.new(&block).start
+      end
+
       #
       # Binds the contents of the specified _file_ to the specified URL
       # _path_, using the given _options_.
