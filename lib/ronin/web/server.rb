@@ -81,10 +81,17 @@ module Ronin
         @@default_port = port
       end
 
-      def self.start(&block)
-        self.new(&block).start
+      #
+      # Creates a new Web Server object with the given _block_ and starts it
+      # using the given _options_.
+      #
+      def self.start(options={},&block)
+        self.new(&block).start(options)
       end
 
+      #
+      # Use the specified _block_ as the router for all requests.
+      #
       def router(&block)
         @router = block
         return self
