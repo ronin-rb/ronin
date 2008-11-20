@@ -49,9 +49,9 @@ module Ronin
       # Creates a new Web Server using the given configuration _block_.
       #
       def initialize(&block)
-        super { run(method(:route)) }
+        @router = method(:not_found)
 
-        instance_eval(&block) if block
+        super(&block)
       end
 
       def Server.default_host
@@ -75,7 +75,8 @@ module Ronin
       end
 
       def router(&block)
-        run(block)
+        @router = block
+        return self
       end
 
       #
@@ -87,8 +88,8 @@ module Ronin
       def bind(path,file,options={})
         content_type = (options[:content_type] || content_type_for(file))
 
-        map(path) do |env|
-          return_file(file)
+        map(path) do
+          run Proc.new { |env| return_file(file) }
         end
       end
 
@@ -103,7 +104,7 @@ module Ronin
 
         map(path) do
           run Proc.new { |env|
-            sub_path = File.expand_path(env['HTTP_PATH']).sub(path,'')
+            sub_path = File.expand_path(env['PATH_INFO']).sub(path,'')
             absolute_path = File.join(dir,sub_path)
 
             if File.file?(absolute_path)
@@ -175,7 +176,7 @@ module Ronin
       # The method which receives all requests.
       #
       def route(env)
-        not_found(env)
+        @router.call(env)
       end
 
     end
