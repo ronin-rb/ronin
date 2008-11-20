@@ -165,6 +165,10 @@ module Ronin
         return self
       end
 
+      def call(env)
+        route(env)
+      end
+
       protected
 
       #
