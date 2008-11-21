@@ -29,6 +29,9 @@ module Ronin
   module Program
     class Command
 
+      # The options for the command
+      attr_reader :options
+
       #
       # Creates a new Command object.
       #
@@ -62,11 +65,13 @@ module Ronin
       end
 
       #
-      # Creates a new command object and runs it with the
-      # given _args_.
+      # Creates a new command object and runs it with the given _args_.
       #
       def self.run(*args)
-        self.new.run(*args)
+        cmd = self.new
+
+        cmd.arguments(*(cmd.options.parse(args)))
+        return nil
       end
 
       #
@@ -95,14 +100,6 @@ module Ronin
       #
       def command_names
         self.class.command_names
-      end
-
-      #
-      # Runs the command with the given _args_.
-      #
-      def run(*args)
-        arguments(*(@options.parse(args)))
-        return self
       end
 
       #
