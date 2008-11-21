@@ -136,10 +136,10 @@ module Ronin
       end
 
       def parse(argv,&block)
-        super(argv)
+        args = super(argv)
 
-        block.call(self) if block
-        return self
+        block.call(args) if block
+        return args
       end
 
     end
