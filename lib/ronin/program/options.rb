@@ -135,6 +135,13 @@ module Ronin
         return self
       end
 
+      def parse(argv,&block)
+        super(argv)
+
+        block.call(self) if block
+        return self
+      end
+
     end
   end
 end
