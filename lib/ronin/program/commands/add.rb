@@ -30,37 +30,39 @@ module Ronin
 
       command :add
 
-      options('PATH [options]') do |opts|
-        opts.settings.media = nil
-        opts.settings.uri = nil
+      def define_options(opts)
+        opts.usage = 'PATH [options]'
 
         opts.options do
           opts.on('-m','--media MEDIA','Spedify the media-type of the repository') do |media|
-            opts.settings.media = media
+            @media = media
           end
 
           opts.on('-U','--uri URI','Specify the source URI of the repository') do |uri|
-            opts.settings.uri = uri
+            @uri = uri
+          end
+
+          opts.on('-L','--local','Similiar to: --media local') do
+            @media = :local
           end
         end
 
-        opts.arguments do
-          opts.arg('PATH','Add the repository located at the specified PATH')
-        end
+        opts.arguments {
+          'PATH' => 'Add the repository located at the specified PATH'
+        }
 
         opts.summary('Add a local repository located at the specified PATH to the repository cache')
-
       end
 
       def arguments(*args)
-        unless args.length==1
-          fail('add: only one repository path maybe specified')
+        unless args.length == 1
+          fail('only one repository path maybe specified')
         end
 
         path = args.first
 
         Cache::Overlay.save_cache do
-          Cache::Overlay.add(path,options.settings.media,options.settings.uri) do |repo|
+          Cache::Overlay.add(path,@media,@uri) do |repo|
             puts "Overlay #{repo} added."
           end
         end
