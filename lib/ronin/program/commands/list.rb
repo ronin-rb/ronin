@@ -30,12 +30,18 @@ module Ronin
 
       command :list, :ls
 
-      options('[NAME ...] [options]') do |opts|
-        opts.options
+      def define_options(opts)
+        opts.usage = '[NAME ...] [options]'
 
-        opts.arguments do
-          opts.arg('NAME','Overlay to display')
+        opts.options do |opts|
+          opts.on('-v','--verbose','Enable verbose output') do
+            @verbose = true
+          end
         end
+
+        opts.arguments {
+          'NAME' => 'Overlay to display'
+        }
 
         opts.summary('Display all or the specified repositories within the repository cache')
       end
@@ -43,33 +49,29 @@ module Ronin
       def arguments(*args)
         if args.empty?
           # list all repositories by name
-          Cache::Overlay.each do |repo|
-            puts "  #{repo}"
+          Cache::Overlay.each { |repo| puts "  #{repo}" }
+          return
+        end
+
+        # list specified repositories
+        args.each do |name|
+          repo = Cache::Overlay.get(name)
+
+          puts "[ #{repo} ]\n\n"
+
+          puts "  path: #{repo.path}" if @verbose
+          puts "  media: #{repo.media}"
+          puts "  uri: #{repo.uri}" if repo.uri
+
+          if repo.description
+            puts "  description:\n\n    #{repo.description}"
           end
-        else
-          # list specified repositories
-          args.each do |name|
-            repo = Cache::Overlay.get(name)
 
-            puts "[ #{repo} ]\n\n"
+          puts "\n"
 
-            puts "  path: #{repo.path}" if options.settings.verbose
-            puts "  media: #{repo.media}"
-            puts "  uri: #{repo.uri}" if repo.uri
-
-            if repo.description
-              puts "  description:\n\n    #{repo.description}"
-            end
-
-            puts "\n"
-
-            if options.settings.verbose
-              puts "  extensions:\n\n"
-
-              repo.each_extension do |ext|
-                puts "    #{ext}"
-              end
-            end
+          if @verbose
+            puts "  extensions:\n\n"
+            repo.each_extension { |ext| puts "    #{ext}" }
           end
         end
       end
