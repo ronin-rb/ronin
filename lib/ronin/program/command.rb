@@ -164,8 +164,8 @@ module Ronin
       #
       # See Program.fail.
       #
-      def fail(*messages,&block)
-        Program.fail(*messages,&block)
+      def fail(message,&block)
+        Program.fail("#{self.class.command_name}: #{message}",&block)
       end
 
       #
