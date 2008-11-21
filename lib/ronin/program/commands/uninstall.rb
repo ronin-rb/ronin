@@ -30,12 +30,18 @@ module Ronin
 
       command :uninstall
 
-      options('NAME [NAME ...] [options]') do |opts|
-        opts.options
+      def define_options(opts)
+        opts.usage = 'NAME [NAME ...] [options]'
 
-        opts.arguments do
-          opts.arg('NAME','The repository to uninstall')
+        opts.options do
+          opts.on('-v','--verbose','Enable verbose output') do
+            @verbose = true
+          end
         end
+
+        opts.arguments {
+          'NAME' => 'The repository to uninstall'
+        }
 
         opts.summary('Uninstall the specified repositories')
       end
