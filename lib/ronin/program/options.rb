@@ -74,8 +74,7 @@ module Ronin
 
         block.call(self) if block
 
-        self.on('-v','--verbose','produce excess output',&(@verbose_block))
-        self.on('-h','--help','print this message',&(@help_block))
+        self.on('-h','--help','print this message',&method(:help))
         self.separator ''
 
         return self
@@ -130,8 +129,7 @@ module Ronin
       # and before the Program has exited.
       #
       def help(&block)
-        puts self
-        return self
+        Program.success { puts self }
       end
 
       def parse(argv,&block)
