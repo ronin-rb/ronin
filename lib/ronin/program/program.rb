@@ -124,7 +124,7 @@ module Ronin
     def Program.default_command(*argv)
       opts = Options.new('ronin') do |opts|
         opts.usage = '<command> [options]'
-        opts.options do |opts|
+        opts.options do
           opts.on('-r','--require LIB','require the specified library or path') do |lib|
             Console.auto_load << lib.to_s
           end
