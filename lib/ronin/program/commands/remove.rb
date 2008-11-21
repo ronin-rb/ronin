@@ -30,12 +30,18 @@ module Ronin
 
       command :remove, :rm
 
-      options('NAME [NAME ...] [options]') do |opts|
-        opts.options
+      def define_options(opts)
+        opts.usage = 'NAME [...] [options]'
 
-        opts.arguments do
-          opts.arg('NAME','The repository to remove')
+        opts.options do |opts|
+          opts.on('-v','--verbose','Enable verbose output') do
+            @verbose = true
+          end
         end
+
+        opts.arguments {
+          'NAME' => 'The repository to remove'
+        }
 
         opts.summary('Remove the specified repositories')
       end
