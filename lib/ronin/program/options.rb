@@ -72,7 +72,7 @@ module Ronin
       def options(&block)
         self.separator '  Options:'
 
-        block.call(self) if block
+        block.call() if block
 
         self.on('-h','--help','print this message',&method(:help))
         self.separator ''
