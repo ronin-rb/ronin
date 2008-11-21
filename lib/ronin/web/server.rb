@@ -72,7 +72,9 @@ module Ronin
         @host_patterns = {}
         @path_patterns = {}
 
-        super(&block)
+        super { run(method(:route)) }
+
+        instance_eval(&block) if block
       end
 
       #
@@ -184,34 +186,6 @@ module Ronin
         return self
       end
 
-      def call(env)
-        test_pattern = lambda { |key,pattern,block|
-          if key.match(pattern)
-            return block.call(env)
-          end
-        }
-
-        if (url = env['REQUEST_URI'])
-          @url_patterns.each do |pattern,block|
-            test_pattern.call(url,pattern,block)
-          end
-        end
-
-        if (host = env['HTTP_HOST'])
-          @host_patterns.each do |pattern,block|
-            test_pattern.call(host,pattern,block)
-          end
-        end
-
-        if (path = env['PATH_INFO'])
-          @path_patterns.each do |pattern,block|
-            test_pattern.call(path,pattern,block)
-          end
-        end
-
-        return route(env)
-      end
-
       protected
 
       #
@@ -265,7 +239,31 @@ module Ronin
       # The method which receives all requests.
       #
       def route(env)
-        @router.call(env)
+        test_pattern = lambda { |key,pattern,block|
+          if key.match(pattern)
+            return block.call(env)
+          end
+        }
+
+        if (url = env['REQUEST_URI'])
+          @url_patterns.each do |pattern,block|
+            test_pattern.call(url,pattern,block)
+          end
+        end
+
+        if (host = env['HTTP_HOST'])
+          @host_patterns.each do |pattern,block|
+            test_pattern.call(host,pattern,block)
+          end
+        end
+
+        if (path = env['PATH_INFO'])
+          @path_patterns.each do |pattern,block|
+            test_pattern.call(path,pattern,block)
+          end
+        end
+
+        return @router.call(env)
       end
 
     end
