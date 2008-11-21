@@ -128,6 +128,7 @@ module Ronin
       #
       def help(&block)
         puts self
+        return self
       end
 
     end
