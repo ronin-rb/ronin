@@ -84,13 +84,13 @@ module Ronin
     end
 
     #
-    # Prints the given error _messages_ and exits unseccessfully from the
+    # Prints the given error _message_ and exits unseccessfully from the
     # Program. If a _block_ is given, it will be called before any
-    # error _messages_ are printed.
+    # error _message_ are printed.
     #
-    def Program.fail(*messages,&block)
+    def Program.fail(message,&block)
       block.call(self) if block
-      messages.each { |mesg| Program.error(mesg) }
+      Program.error(message)
 
       exit -1
     end
