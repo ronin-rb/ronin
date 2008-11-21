@@ -24,7 +24,6 @@
 require 'ronin/program/program'
 
 require 'optparse'
-require 'ostruct'
 
 module Ronin
   module Program
