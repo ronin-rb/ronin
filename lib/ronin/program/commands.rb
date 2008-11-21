@@ -28,6 +28,3 @@ require 'ronin/program/commands/update'
 require 'ronin/program/commands/uninstall'
 require 'ronin/program/commands/remove'
 require 'ronin/program/commands/help'
-require 'ronin/extensions/kernel'
-
-ronin_require 'ronin/program/commands'
