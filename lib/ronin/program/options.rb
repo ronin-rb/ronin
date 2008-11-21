@@ -68,7 +68,7 @@ module Ronin
 
         block.call() if block
 
-        self.on('-h','--help','print this message',&method(:help))
+        self.on('-h','--help','print this message') { help }
         self.separator ''
 
         return self
