@@ -28,10 +28,7 @@ require 'ostruct'
 
 module Ronin
   module Program
-    class Options
-
-      # Settings used by the options
-      attr_reader :settings
+    class Options < OptionParser
 
       #
       # Creates a new Options object with the specified _program_ name
@@ -39,20 +36,9 @@ module Ronin
       # the newly created Options object.
       #
       def initialize(program,banner=nil,&block)
-        @settings = OpenStruct.new
-        @settings.verbose = false
-
-        @help_block = proc { help }
-
-        @verbose_block = proc {
-          @settings.verbose = true
-        }
-
-        @parser = OptionParser.new do |opts|
-          if banner
-            opts.banner = "Usage: #{program} #{banner}"
-            opts.separator ''
-          end
+        if banner
+          self.banner = "Usage: #{program} #{banner}"
+          self.separator ''
         end
 
         block.call(self) if block
@@ -64,40 +50,11 @@ module Ronin
       # is given, it will be passed the newly created Options object.
       #
       def Options.command(program,name,banner=nil,&block)
-        return Options.new(program,"#{name} #{banner}",&block) if banner
-        return Options.new(program,name,&block)
-      end
-
-      #
-      # Call the specified _block_ when the given option _flags_ are parsed.
-      #
-      def on(*flags,&block)
-        @parser.on(*flags,&block)
-        return self
-      end
-
-      #
-      # Calls the specified _block_ when the verbose option flag is parsed.
-      #
-      def on_verbose(&block)
-        @verbose_block = block
-        return self
-      end
-
-      #
-      # Calls the specified _block_ when the help option-flag is parsed.
-      #
-      def on_help(&block)
-        @help_block = block
-        return self
-      end
-
-      #
-      # Adds a section separator with the specified _text_.
-      #
-      def separator(text)
-        @parser.separator(text)
-        return self
+        if banner
+          Options.new(program,"#{name} #{banner}",&block)
+        else
+          Options.new(program,name,&block)
+        end
       end
 
       #
@@ -105,13 +62,13 @@ module Ronin
       # it will be called before any default options are added.
       #
       def options(&block)
-        @parser.separator '  Options:'
+        self.separator '  Options:'
 
         block.call(self) if block
 
-        @parser.on('-v','--verbose','produce excess output',&(@verbose_block))
-        @parser.on('-h','--help','print this message',&(@help_block))
-        @parser.separator ''
+        self.on('-v','--verbose','produce excess output',&(@verbose_block))
+        self.on('-h','--help','print this message',&(@help_block))
+        self.separator ''
 
         return self
       end
@@ -121,7 +78,7 @@ module Ronin
       # to the arguments section of the help message of these options.
       #
       def arg(name,description)
-        @parser.separator "    #{name}\t#{description}"
+        self.separator "    #{name}\t#{description}"
         return self
       end
 
@@ -131,25 +88,25 @@ module Ronin
       #
       def arguments(&block)
         if block
-          @parser.separator '  Arguments:'
+          self.separator '  Arguments:'
 
           block.call(self)
 
-          @parser.separator ''
+          self.separator ''
         end
 
         return self
       end
 
       #
-      # Addes a summary section with the specified _lines_.
+      # Addes a summary section with the specified _text_.
       #
-      def summary(*lines)
-        @parser.separator '  Summary:'
+      def summary(text)
+        self.separator '  Summary:'
 
-        lines.each { |line| @parser.separator "    #{line}" }
+        text.each_line { |line| self.separator "    #{line}" }
 
-        @parser.separator ''
+        self.separator ''
         return self
       end
 
@@ -157,11 +114,11 @@ module Ronin
       # Adds a defaults section with the specified _flags_.
       #
       def defaults(*flags)
-        @parser.separator '  Defaults:'
+        self.separator '  Defaults:'
 
-        flags.each { |flag| @parser.separator "    #{flag}" }
+        flags.each { |flag| self.separator "    #{flag}" }
 
-        @parser.separator ''
+        self.separator ''
         return self
       end
 
@@ -172,28 +129,10 @@ module Ronin
       #
       def help(&block)
         Program.success do
-          puts @parser
+          puts self
 
           block.call(self) if block
         end
-      end
-
-      #
-      # Parses the specified _argv_ Array. If a _block_ is given it will
-      # be passed the left-over arguments. Returns the left-over arguments.
-      #
-      def parse(argv,&block)
-        args = @parser.parse(argv)
-
-        block.call(self,args) if block
-        return args
-      end
-
-      #
-      # Returns a String representation of the OptParse parser.
-      #
-      def to_s
-        @parser.to_s
       end
 
     end
