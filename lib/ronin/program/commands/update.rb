@@ -30,12 +30,18 @@ module Ronin
 
       command :update, :up
 
-      options('[NAME ...] [options]') do |opts|
-        opts.options
+      def define_options(opts)
+        opts.usage = '[NAME ...] [options]'
 
-        opts.arguments do
-          opts.arg('NAME','The repository to update')
+        opts.options do
+          opts.on('-v','--verbose','Enable verbose output') do
+            @verbose = true
+          end
         end
+
+        opts.arguments {
+          'NAME' => 'The repository to update'
+        }
 
         opts.summary('Updates all or the specified repositories')
       end
