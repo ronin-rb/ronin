@@ -33,7 +33,7 @@ module Ronin
       # Creates a new Command object.
       #
       def initialize
-        Options.command(:ronin,self.class.command_name,usage) do |opts|
+        Options.command(:ronin,self.class.command_name) do |opts|
           define_options(opts)
 
           @options = opts
