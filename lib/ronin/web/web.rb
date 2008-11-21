@@ -70,10 +70,12 @@ module Ronin
           userinfo = "#{Web.proxy[:user]}:#{Web.proxy[:password]}"
         end
 
-        return URI::HTTP.build(:host => Web.proxy[:host],
-                               :port => Web.proxy[:port],
-                               :userinfo => userinfo,
-                               :path => '/')
+        return URI::HTTP.build(
+          :host => Web.proxy[:host],
+          :port => Web.proxy[:port],
+          :userinfo => userinfo,
+          :path => '/'
+        )
       end
     end
 
