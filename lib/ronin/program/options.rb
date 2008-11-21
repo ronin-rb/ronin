@@ -103,7 +103,11 @@ module Ronin
       def summary(text)
         self.separator '  Summary:'
 
-        text.each_line { |line| self.separator "    #{line}" }
+        text.each_line do |line|
+          line = line.strip
+
+          self.separator "    #{line}" unless line.empty?
+        end
 
         self.separator ''
         return self
