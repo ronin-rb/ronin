@@ -33,7 +33,7 @@ module Ronin
       def define_options(opts)
         opts.usage = 'NAME [...] [options]'
 
-        opts.options do |opts|
+        opts.options do
           opts.on('-v','--verbose','Enable verbose output') do
             @verbose = true
           end
