@@ -32,9 +32,9 @@ module Ronin
       def define_options(opts)
         opts.usage = '[COMMAND]'
 
-        opts.arguments {
+        opts.arguments(
           'COMMAND' => 'The command to view'
-        }
+        )
 
         opts.summary('View a list of supported commands or information on a specific command')
       end

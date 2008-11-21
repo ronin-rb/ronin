@@ -47,9 +47,9 @@ module Ronin
           end
         end
 
-        opts.arguments {
+        opts.arguments(
           'PATH' => 'Add the repository located at the specified PATH'
-        }
+        )
 
         opts.summary('Add a local repository located at the specified PATH to the repository cache')
       end

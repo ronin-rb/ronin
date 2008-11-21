@@ -39,9 +39,9 @@ module Ronin
           end
         end
 
-        opts.arguments {
+        opts.arguments(
           'NAME' => 'The repository to uninstall'
-        }
+        )
 
         opts.summary('Uninstall the specified repositories')
       end

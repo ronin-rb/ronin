@@ -39,9 +39,9 @@ module Ronin
           end
         end
 
-        opts.arguments {
+        opts.arguments(
           'NAME' => 'The repository to update'
-        }
+        )
 
         opts.summary('Updates all or the specified repositories')
       end

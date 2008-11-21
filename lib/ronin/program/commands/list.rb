@@ -39,9 +39,9 @@ module Ronin
           end
         end
 
-        opts.arguments {
+        opts.arguments(
           'NAME' => 'Overlay to display'
-        }
+        )
 
         opts.summary('Display all or the specified repositories within the repository cache')
       end

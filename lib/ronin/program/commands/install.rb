@@ -39,9 +39,9 @@ module Ronin
           end
         end
 
-        opts.arguments {
+        opts.arguments(
           'URI' => 'The URI of the repository to install'
-        }
+        )
 
         opts.summary('Installs the repository located at the specified URI')
       end
