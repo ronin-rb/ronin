@@ -82,27 +82,6 @@ module Ronin
       end
 
       #
-      # Returns the name of the command.
-      #
-      def command_name
-        self.class.command_name
-      end
-
-      #
-      # Returns the short names of the command.
-      #
-      def command_short_names
-        self.class.command_short_names
-      end
-
-      #
-      # Returns all the names of the command.
-      #
-      def command_names
-        self.class.command_names
-      end
-
-      #
       # Prints the help information for the command.
       #
       def help
