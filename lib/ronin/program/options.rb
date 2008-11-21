@@ -127,11 +127,7 @@ module Ronin
       # and before the Program has exited.
       #
       def help(&block)
-        Program.success do
-          puts self
-
-          block.call(self) if block
-        end
+        puts self
       end
 
     end
