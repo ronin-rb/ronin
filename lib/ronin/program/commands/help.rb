@@ -29,17 +29,19 @@ module Ronin
 
       command :help
 
-      options('[COMMAND]') do |opts|
-        opts.arguments do
-          opts.arg('COMMAND','The command to view')
-        end
+      def define_options(opts)
+        opts.usage = '[COMMAND]'
+
+        opts.arguments {
+          'COMMAND' => 'The command to view'
+        }
 
         opts.summary('View a list of supported commands or information on a specific command')
       end
 
       def arguments(*args)
-        unless args.length<=1
-          fail('help: only one command maybe specified')
+        if args.length > 1
+          fail('only one command maybe specified')
         end
 
         success { Program.help(args.first) }
