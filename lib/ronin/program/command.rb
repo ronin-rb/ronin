@@ -30,26 +30,27 @@ module Ronin
     class Command
 
       #
-      # Creates a new Command object. If a _block_ is given,
-      # it will be passed newly created Command object.
+      # Creates a new Command object.
       #
-      def initialize(&block)
-        @options = nil
+      def initialize
+        Options.command(:ronin,self.class.command_name,usage) do |opts|
+          define_options(opts)
 
-        block.call(self) if block
+          @options = opts
+        end
       end
 
       #
       # Returns the name of the command.
       #
-      def Command.command_name
+      def self.command_name
         ''
       end
 
       #
       # Returns the short names of the command.
       #
-      def Command.command_short_names
+      def self.command_short_names
         []
       end
 
@@ -97,16 +98,10 @@ module Ronin
       end
 
       #
-      # Runs the command with the given _args_. If a _block_ is
-      # given, it will be called after the specified _args_ have
-      # been parsed and the command has run.
+      # Runs the command with the given _args_.
       #
-      def run(*args,&block)
-        arguments(*(options.parse(args)))
-
-        @options = nil
-
-        block.call if block
+      def run(*args)
+        arguments(*(@options.parse(args)))
         return self
       end
 
@@ -114,7 +109,7 @@ module Ronin
       # Prints the help information for the command.
       #
       def help
-        options.help
+        @options.help
         return self
       end
 
@@ -153,25 +148,6 @@ module Ronin
       end
 
       #
-      # Defines the options of the command with the specified _usage_ and
-      # _block_.
-      #
-      def self.options(usage=nil,&block)
-        class_def(:options) do
-          @options ||= Options.command(:ronin,self.command_name,usage,&block)
-        end
-
-        return self
-      end
-
-      #
-      # Returns the options of the command.
-      #
-      def options
-        @options ||= Options.command(:ronin,command_name)
-      end
-
-      #
       # See Program.error.
       #
       def error(message)
@@ -190,6 +166,12 @@ module Ronin
       #
       def fail(*messages,&block)
         Program.fail(*messages,&block)
+      end
+
+      #
+      # Define the command-line options for the command.
+      #
+      def define_options(opts)
       end
 
       #
