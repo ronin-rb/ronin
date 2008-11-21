@@ -82,27 +82,17 @@ module Ronin
       end
 
       #
-      # Adds an the argument with the specified _name_ and _description_
-      # to the arguments section of the help message of these options.
+      # Creates an arguments section in the help message using the given
+      # _args_.
       #
-      def arg(name,description)
-        self.separator "    #{name}\t#{description}"
-        return self
-      end
+      def arguments(args={})
+        self.separator '  Arguments:'
 
-      #
-      # Creates an arguments section in the help message and calls the
-      # given _block_.
-      #
-      def arguments(&block)
-        if block
-          self.separator '  Arguments:'
-
-          block.call(self)
-
-          self.separator ''
+        args.each do |name,description|
+          self.separator "    #{name}\t#{description}"
         end
 
+        self.separator ''
         return self
       end
 
