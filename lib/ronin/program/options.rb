@@ -34,9 +34,11 @@ module Ronin
       # and the given _banner_. If a _block_ is given, it will be passed
       # the newly created Options object.
       #
-      def initialize(program,banner=nil,&block)
-        if banner
-          self.banner = "Usage: #{program} #{banner}"
+      def initialize(program,usage=nil,&block)
+        @program = program
+
+        if usage
+          self.usage = usage
           self.separator ''
         end
 
@@ -45,15 +47,22 @@ module Ronin
 
       #
       # Creates a new Options object for a Command with the specified
-      # _program_ name, command _name_ and the given _banner_. If a _block_
+      # _program_ name, command _name_ and the given _usage_. If a _block_
       # is given, it will be passed the newly created Options object.
       #
-      def Options.command(program,name,banner=nil,&block)
-        if banner
-          Options.new(program,"#{name} #{banner}",&block)
+      def Options.command(program,name,usage=nil,&block)
+        if usage
+          Options.new(program,"#{name} #{usage}",&block)
         else
           Options.new(program,name,&block)
         end
+      end
+
+      #
+      # Sets the example usage for the options to the specified _example_.
+      #
+      def usage=(example)
+        self.banner = "Usage: #{@program} #{example}"
       end
 
       #
