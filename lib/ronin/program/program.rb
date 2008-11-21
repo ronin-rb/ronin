@@ -120,7 +120,7 @@ module Ronin
     # sub-command is given.
     #
     def Program.default_command(*argv)
-      opts = Options.new('ronin','<command> [options]') { |opts|
+      opts = Options.new('ronin','<command> [options]') do |opts|
         opts.options do |opts|
           opts.on('-r','--require LIB','require the specified library or path') do |lib|
             Console.auto_load << lib.to_s
@@ -133,10 +133,13 @@ module Ronin
           end
         end
 
-        opts.summary('Ronin is a Ruby development platform designed for information security','and data exploration tasks.')
-      }
-      
-      return opts.parse(argv) { |opts,args| Console.start }
+        opts.summary %{
+          Ronin is a Ruby development platform designed for information security
+          and data exploration tasks.
+        }
+      end
+
+      opts.parse(argv) { |args| Console.start }
     end
 
     #
