@@ -30,30 +30,31 @@ module Ronin
 
       command :install
 
-      options('URI [options]') do |opts|
-        opts.settings.media = nil
-        opts.settings.uri = nil
+      def define_options(opts)
+        opts.usage = 'URI [options]'
 
         opts.options do
           opts.on('-m','--media [MEDIA]','Spedify the media-type of the repository') do |media|
-            options.settings.media = media
+            @media = media
           end
         end
 
-        opts.arguments do
-          opts.arg('URI','The URI of the repository to install')
-        end
+        opts.arguments {
+          'URI' => 'The URI of the repository to install'
+        }
 
         opts.summary('Installs the repository located at the specified URI')
       end
 
       def arguments(args)
-        unless args.length==1
-          fail('install: only one repository URI maybe specified')
+        unless args.length == 1
+          fail('only one repository URI maybe specified')
         end
 
+        uri = args.first
+
         Cache::Overlay.save_cache do
-          Cache::Overlay.install(:uri => args.first, :media => options.settings.media) do |repo|
+          Cache::Overlay.install(:uri => uri, :media => @media) do |repo|
             puts "Overlay #{repo} has been installed."
           end
         end
