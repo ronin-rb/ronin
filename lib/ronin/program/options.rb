@@ -35,11 +35,9 @@ module Ronin
       # the newly created Options object.
       #
       def initialize(program,&block)
-        super()
-
         @program = program
 
-        block.call(self) if block
+        super(&block)
       end
 
       #
