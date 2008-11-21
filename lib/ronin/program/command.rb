@@ -151,7 +151,7 @@ module Ronin
       # See Program.error.
       #
       def error(message)
-        Program.error(message)
+        Program.error("#{self.class.command_name}: #{message}")
       end
 
       #
