@@ -147,8 +147,8 @@ lib/ronin/cache/config.rb
 lib/ronin/cache/extension_cache.rb
 lib/ronin/cache/extension.rb
 lib/ronin/cache/ronin.rb
-lib/ronin/console.rb
-lib/ronin/shell.rb
+lib/ronin/ui/console.rb
+lib/ronin/ui/shell.rb
 lib/ronin/program.rb
 lib/ronin/program/exceptions.rb
 lib/ronin/program/exceptions/unknown_command.rb
