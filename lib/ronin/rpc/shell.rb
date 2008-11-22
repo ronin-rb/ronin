@@ -22,7 +22,7 @@
 #
 
 require 'ronin/rpc/service'
-require 'ronin/shell'
+require 'ronin/ui/shell'
 
 module Ronin
   module RPC
@@ -49,7 +49,7 @@ module Ronin
       # their output.
       #
       def interact
-        Shell.start(:prompt => '$') { |shell,line| system(line) }
+        UI::Shell.start(:prompt => '$') { |shell,line| system(line) }
       end
 
       protected
