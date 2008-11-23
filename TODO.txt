@@ -1,10 +1,12 @@
 == TODO
 
-=== Ronin 0.1.0:
+=== Ronin 0.1.2:
 
-* Ensure that an ObjectContext can be loaded from a file and have all of
-  it's properties and associations loaded from the Database.
-* Create an Overlay Genetor for creating basic Overlays.
+* Continue refactoring UI::CommandLine.
+  * Create UI::CommandLine::Application, which is like
+    UI::CommandLine::Command.
+* Add the +overlay+ and +extension+ sub-commands for creating skeleton
+  Overlays and Extensions.
 
 === Ronin 0.2.0:
 
