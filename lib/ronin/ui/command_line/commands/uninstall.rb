@@ -25,37 +25,39 @@ require 'ronin/ui/command_line/command'
 require 'ronin/cache/overlay'
 
 module Ronin
-  module Program
-    class UninstallCommand < Command
+  module UI
+    module CommandLine
+      class UninstallCommand < Command
 
-      command :uninstall
+        command :uninstall
 
-      def define_options(opts)
-        opts.usage = 'NAME [NAME ...] [options]'
+        def define_options(opts)
+          opts.usage = 'NAME [NAME ...] [options]'
 
-        opts.options do
-          opts.on('-v','--verbose','Enable verbose output') do
-            @verbose = true
+          opts.options do
+            opts.on('-v','--verbose','Enable verbose output') do
+              @verbose = true
+            end
           end
+
+          opts.arguments(
+            'NAME' => 'The repository to uninstall'
+          )
+
+          opts.summary('Uninstall the specified repositories')
         end
 
-        opts.arguments(
-          'NAME' => 'The repository to uninstall'
-        )
-
-        opts.summary('Uninstall the specified repositories')
-      end
-
-      def arguments(*args)
-        args.each do |name|
-          Cache::Overlay.save_cache do
-            Cache::Overlay.uninstall(name) do |repo|
-              puts "Uninstalling #{repo}..."
+        def arguments(*args)
+          args.each do |name|
+            Cache::Overlay.save_cache do
+              Cache::Overlay.uninstall(name) do |repo|
+                puts "Uninstalling #{repo}..."
+              end
             end
           end
         end
-      end
 
+      end
     end
   end
 end

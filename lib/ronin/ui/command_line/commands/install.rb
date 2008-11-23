@@ -25,41 +25,43 @@ require 'ronin/ui/command_line/command'
 require 'ronin/cache/overlay'
 
 module Ronin
-  module Program
-    class InstallCommand < Command
+  module UI
+    module CommandLine
+      class InstallCommand < Command
 
-      command :install
+        command :install
 
-      def define_options(opts)
-        opts.usage = 'URI [options]'
+        def define_options(opts)
+          opts.usage = 'URI [options]'
 
-        opts.options do
-          opts.on('-m','--media [MEDIA]','Spedify the media-type of the repository') do |media|
-            @media = media
+          opts.options do
+            opts.on('-m','--media [MEDIA]','Spedify the media-type of the repository') do |media|
+              @media = media
+            end
+          end
+
+          opts.arguments(
+            'URI' => 'The URI of the repository to install'
+          )
+
+          opts.summary('Installs the repository located at the specified URI')
+        end
+
+        def arguments(args)
+          unless args.length == 1
+            fail('only one repository URI maybe specified')
+          end
+
+          uri = args.first
+
+          Cache::Overlay.save_cache do
+            Cache::Overlay.install(:uri => uri, :media => @media) do |repo|
+              puts "Overlay #{repo} has been installed."
+            end
           end
         end
 
-        opts.arguments(
-          'URI' => 'The URI of the repository to install'
-        )
-
-        opts.summary('Installs the repository located at the specified URI')
       end
-
-      def arguments(args)
-        unless args.length == 1
-          fail('only one repository URI maybe specified')
-        end
-
-        uri = args.first
-
-        Cache::Overlay.save_cache do
-          Cache::Overlay.install(:uri => uri, :media => @media) do |repo|
-            puts "Overlay #{repo} has been installed."
-          end
-        end
-      end
-
     end
   end
 end

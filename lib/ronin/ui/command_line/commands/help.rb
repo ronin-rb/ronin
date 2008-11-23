@@ -24,29 +24,31 @@
 require 'ronin/ui/command_line/command'
 
 module Ronin
-  module Program
-    class HelpCommand < Command
+  module UI
+    module CommandLine
+      class HelpCommand < Command
 
-      command :help
+        command :help
 
-      def define_options(opts)
-        opts.usage = '[COMMAND]'
+        def define_options(opts)
+          opts.usage = '[COMMAND]'
 
-        opts.arguments(
-          'COMMAND' => 'The command to view'
-        )
+          opts.arguments(
+            'COMMAND' => 'The command to view'
+          )
 
-        opts.summary('View a list of supported commands or information on a specific command')
-      end
-
-      def arguments(*args)
-        if args.length > 1
-          fail('only one command maybe specified')
+          opts.summary('View a list of supported commands or information on a specific command')
         end
 
-        success { Program.help(args.first) }
-      end
+        def arguments(*args)
+          if args.length > 1
+            fail('only one command maybe specified')
+          end
 
+          success { Program.help(args.first) }
+        end
+
+      end
     end
   end
 end

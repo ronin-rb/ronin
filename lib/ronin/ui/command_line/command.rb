@@ -26,136 +26,138 @@ require 'ronin/ui/command_line/command_line'
 require 'ronin/extensions/meta'
 
 module Ronin
-  module Program
-    class Command
+  module UI
+    module CommandLine
+      class Command
 
-      # The options for the command
-      attr_reader :options
+        # The options for the command
+        attr_reader :options
 
-      #
-      # Creates a new Command object.
-      #
-      def initialize
-        Options.command(:ronin,self.class.command_name) do |opts|
-          define_options(opts)
+        #
+        # Creates a new Command object.
+        #
+        def initialize
+          Options.command(:ronin,self.class.command_name) do |opts|
+            define_options(opts)
 
-          @options = opts
-        end
-      end
-
-      #
-      # Returns the name of the command.
-      #
-      def self.command_name
-        ''
-      end
-
-      #
-      # Returns the short names of the command.
-      #
-      def self.command_short_names
-        []
-      end
-
-      #
-      # Returns all the names of the command.
-      #
-      def self.command_names
-        [self.command_name] + self.command_short_names
-      end
-
-      #
-      # Creates a new command object and runs it with the given _args_.
-      #
-      def self.run(*args)
-        cmd = self.new
-
-        cmd.arguments(*(cmd.options.parse(args)))
-        return nil
-      end
-
-      #
-      # Prints the help information for the command.
-      #
-      def self.help
-        self.new.help
-      end
-
-      #
-      # Prints the help information for the command.
-      #
-      def help
-        @options.help
-        return self
-      end
-
-      #
-      # Returns the String form of the command.
-      #
-      def to_s
-        names.join(', ')
-      end
-
-      protected
-
-      #
-      # Registers the command with the specified _name_ and the given
-      # _short_names_.
-      #
-      def self.command(name,*short_names)
-        name = name.to_s
-        short_names = short_names.map { |short_name| short_name.to_s }
-
-        meta_def(:command_name) { name }
-        meta_def(:command_short_names) { short_names }
-
-        # register the command
-        Program.commands << self unless Program.commands.include?(self)
-
-        # register the command by name
-        Program.commands_by_name[name] = self
-
-        # register the command by it's short_names
-        short_names.each do |short_name|
-          Program.commands_by_name[short_name] = self
+            @options = opts
+          end
         end
 
-        return self
-      end
+        #
+        # Returns the name of the command.
+        #
+        def self.command_name
+          ''
+        end
 
-      #
-      # See Program.error.
-      #
-      def error(message)
-        Program.error("#{self.class.command_name}: #{message}")
-      end
+        #
+        # Returns the short names of the command.
+        #
+        def self.command_short_names
+          []
+        end
 
-      #
-      # See Program.success.
-      #
-      def success(&block)
-        Program.success(&block)
-      end
+        #
+        # Returns all the names of the command.
+        #
+        def self.command_names
+          [self.command_name] + self.command_short_names
+        end
 
-      #
-      # See Program.fail.
-      #
-      def fail(message,&block)
-        Program.fail("#{self.class.command_name}: #{message}",&block)
-      end
+        #
+        # Creates a new command object and runs it with the given _args_.
+        #
+        def self.run(*args)
+          cmd = self.new
 
-      #
-      # Define the command-line options for the command.
-      #
-      def define_options(opts)
-      end
+          cmd.arguments(*(cmd.options.parse(args)))
+          return nil
+        end
 
-      #
-      # Processes the additional arguments specified by _args_.
-      #
-      def arguments(*args)
-      end
+        #
+        # Prints the help information for the command.
+        #
+        def self.help
+          self.new.help
+        end
 
+        #
+        # Prints the help information for the command.
+        #
+        def help
+          @options.help
+          return self
+        end
+
+        #
+        # Returns the String form of the command.
+        #
+        def to_s
+          names.join(', ')
+        end
+
+        protected
+
+        #
+        # Registers the command with the specified _name_ and the given
+        # _short_names_.
+        #
+        def self.command(name,*short_names)
+          name = name.to_s
+          short_names = short_names.map { |short_name| short_name.to_s }
+
+          meta_def(:command_name) { name }
+          meta_def(:command_short_names) { short_names }
+
+          # register the command
+          Program.commands << self unless Program.commands.include?(self)
+
+          # register the command by name
+          Program.commands_by_name[name] = self
+
+          # register the command by it's short_names
+          short_names.each do |short_name|
+            Program.commands_by_name[short_name] = self
+          end
+
+          return self
+        end
+
+        #
+        # See Program.error.
+        #
+        def error(message)
+          Program.error("#{self.class.command_name}: #{message}")
+        end
+
+        #
+        # See Program.success.
+        #
+        def success(&block)
+          Program.success(&block)
+        end
+
+        #
+        # See Program.fail.
+        #
+        def fail(message,&block)
+          Program.fail("#{self.class.command_name}: #{message}",&block)
+        end
+
+        #
+        # Define the command-line options for the command.
+        #
+        def define_options(opts)
+        end
+
+        #
+        # Processes the additional arguments specified by _args_.
+        #
+        def arguments(*args)
+        end
+
+      end
     end
   end
 end

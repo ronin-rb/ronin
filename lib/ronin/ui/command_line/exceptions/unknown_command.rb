@@ -22,8 +22,10 @@
 #
 
 module Ronin
-  module Program
-    class UnknownCommand < RuntimeError
+  module UI
+    module CommandLine
+      class UnknownCommand < RuntimeError
+      end
     end
   end
 end

@@ -25,37 +25,39 @@ require 'ronin/ui/command_line/command'
 require 'ronin/cache/overlay'
 
 module Ronin
-  module Program
-    class RemoveCommand < Command
+  module UI
+    module CommandLine
+      class RemoveCommand < Command
 
-      command :remove, :rm
+        command :remove, :rm
 
-      def define_options(opts)
-        opts.usage = 'NAME [...] [options]'
+        def define_options(opts)
+          opts.usage = 'NAME [...] [options]'
 
-        opts.options do
-          opts.on('-v','--verbose','Enable verbose output') do
-            @verbose = true
+          opts.options do
+            opts.on('-v','--verbose','Enable verbose output') do
+              @verbose = true
+            end
           end
+
+          opts.arguments(
+            'NAME' => 'The repository to remove'
+          )
+
+          opts.summary('Remove the specified repositories')
         end
 
-        opts.arguments(
-          'NAME' => 'The repository to remove'
-        )
-
-        opts.summary('Remove the specified repositories')
-      end
-
-      def arguments(*args)
-        args.each do |name|
-          Cache::Overlay.save_cache do
-            Cache::Overlay.remove(name) do |repo|
-              puts "Removing #{repo}..."
+        def arguments(*args)
+          args.each do |name|
+            Cache::Overlay.save_cache do
+              Cache::Overlay.remove(name) do |repo|
+                puts "Removing #{repo}..."
+              end
             end
           end
         end
-      end
 
+      end
     end
   end
 end

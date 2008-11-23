@@ -25,57 +25,59 @@ require 'ronin/ui/command_line/command'
 require 'ronin/cache/overlay'
 
 module Ronin
-  module Program
-    class ListCommand < Command
+  module UI
+    module CommandLine
+      class ListCommand < Command
 
-      command :list, :ls
+        command :list, :ls
 
-      def define_options(opts)
-        opts.usage = '[NAME ...] [options]'
+        def define_options(opts)
+          opts.usage = '[NAME ...] [options]'
 
-        opts.options do
-          opts.on('-v','--verbose','Enable verbose output') do
-            @verbose = true
+          opts.options do
+            opts.on('-v','--verbose','Enable verbose output') do
+              @verbose = true
+            end
+          end
+
+          opts.arguments(
+            'NAME' => 'Overlay to display'
+          )
+
+          opts.summary('Display all or the specified repositories within the repository cache')
+        end
+
+        def arguments(*args)
+          if args.empty?
+            # list all repositories by name
+            Cache::Overlay.each { |repo| puts "  #{repo}" }
+            return
+          end
+
+          # list specified repositories
+          args.each do |name|
+            repo = Cache::Overlay.get(name)
+
+            puts "[ #{repo} ]\n\n"
+
+            puts "  path: #{repo.path}" if @verbose
+            puts "  media: #{repo.media}"
+            puts "  uri: #{repo.uri}" if repo.uri
+
+            if repo.description
+              puts "  description:\n\n    #{repo.description}"
+            end
+
+            puts "\n"
+
+            if @verbose
+              puts "  extensions:\n\n"
+              repo.each_extension { |ext| puts "    #{ext}" }
+            end
           end
         end
 
-        opts.arguments(
-          'NAME' => 'Overlay to display'
-        )
-
-        opts.summary('Display all or the specified repositories within the repository cache')
       end
-
-      def arguments(*args)
-        if args.empty?
-          # list all repositories by name
-          Cache::Overlay.each { |repo| puts "  #{repo}" }
-          return
-        end
-
-        # list specified repositories
-        args.each do |name|
-          repo = Cache::Overlay.get(name)
-
-          puts "[ #{repo} ]\n\n"
-
-          puts "  path: #{repo.path}" if @verbose
-          puts "  media: #{repo.media}"
-          puts "  uri: #{repo.uri}" if repo.uri
-
-          if repo.description
-            puts "  description:\n\n    #{repo.description}"
-          end
-
-          puts "\n"
-
-          if @verbose
-            puts "  extensions:\n\n"
-            repo.each_extension { |ext| puts "    #{ext}" }
-          end
-        end
-      end
-
     end
   end
 end

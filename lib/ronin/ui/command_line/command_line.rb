@@ -28,147 +28,149 @@ require 'ronin/ui/console'
 require 'ronin/version'
 
 module Ronin
-  module Program
-    #
-    # Returns the commands registered with the Program.
-    #
-    def Program.commands
-      @@ronin_commands ||= []
-    end
-
-    #
-    # Returns the Hash of the Command names and their Command objects
-    # registered with the Program.
-    #
-    def Program.commands_by_name
-      @@ronin_commands_by_name ||= {}
-    end
-
-    #
-    # Returns +true+ if the a Command with the specified _name_ was
-    # registered with the Program.
-    #
-    def Program.has_command?(name)
-      Program.commands_by_name.has_key?(name.to_s)
-    end
-
-    #
-    # Returns the Command registered with the Program with the specified
-    # _name_.
-    #
-    def Program.get_command(name)
-      name = name.to_s
-
-      unless Program.has_command?(name)
-        raise(UnknownCommand,"unknown command #{name.dump}",caller)
+  module UI
+    module CommandLine
+      #
+      # Returns the commands registered with the command-line utility.
+      #
+      def CommandLine.commands
+        @@ronin_commands ||= []
       end
 
-      return Program.commands_by_name[name]
-    end
+      #
+      # Returns the Hash of the Command names and their Command objects
+      # registered with the command-line utility.
+      #
+      def CommandLine.commands_by_name
+        @@ronin_commands_by_name ||= {}
+      end
 
-    #
-    # Prints the specified error _message_.
-    #
-    def Program.error(message)
-      STDERR.puts "ronin: #{message}"
-      return false
-    end
+      #
+      # Returns +true+ if the a Command with the specified _name_ was
+      # registered with the command-line utility.
+      #
+      def CommandLine.has_command?(name)
+        CommandLine.commands_by_name.has_key?(name.to_s)
+      end
 
-    #
-    # Exits successfully from the Program. If a _block_ is given, it will
-    # be called before the Program is exited.
-    #
-    def Program.success(&block)
-      block.call(self) if block
-      exit
-    end
+      #
+      # Returns the Command registered with the command-line utility
+      # with the specified _name_.
+      #
+      def CommandLine.get_command(name)
+        name = name.to_s
 
-    #
-    # Prints the given error _message_ and exits unseccessfully from the
-    # Program. If a _block_ is given, it will be called before any
-    # error _message_ are printed.
-    #
-    def Program.fail(message,&block)
-      block.call(self) if block
-      Program.error(message)
-
-      exit -1
-    end
-
-    #
-    # If a _topic_ is given, the help message for that _topic_ will be
-    # printed, otherwise a list of available commands will be printed.
-    #
-    def Program.help(topic=nil)
-      if topic
-        begin
-          get_command(topic).help
-        rescue UnknownCommand => exp
-          Program.fail(exp)
+        unless CommandLine.has_command?(name)
+          raise(UnknownCommand,"unknown command #{name.dump}",caller)
         end
-      else
-        puts 'Available commands:'
 
-        Program.commands.sort_by { |cmd|
-          cmd.command_names.first
-        }.each { |cmd|
-          puts "  #{cmd.command_names.join(', ')}"
-        }
+        return CommandLine.commands_by_name[name]
       end
-    end
 
-    #
-    # The default command to run with the given _argv_ Array when no
-    # sub-command is given.
-    #
-    def Program.default_command(*argv)
-      opts = Options.new('ronin') do |opts|
-        opts.usage = '<command> [options]'
-        opts.options do
-          opts.on('-r','--require LIB','require the specified library or path') do |lib|
-            Console.auto_load << lib.to_s
+      #
+      # Prints the specified error _message_.
+      #
+      def CommandLine.error(message)
+        STDERR.puts "ronin: #{message}"
+        return false
+      end
+
+      #
+      # Exits successfully from the Program. If a _block_ is given, it will
+      # be called before the command-line utility exits.
+      #
+      def CommandLine.success(&block)
+        block.call(self) if block
+        exit
+      end
+
+      #
+      # Prints the given error _message_ and exits unseccessfully from the
+      # command-line utility. If a _block_ is given, it will be called before
+      # any error _message_ are printed.
+      #
+      def CommandLine.fail(message,&block)
+        block.call(self) if block
+        CommandLine.error(message)
+
+        exit -1
+      end
+
+      #
+      # If a _topic_ is given, the help message for that _topic_ will be
+      # printed, otherwise a list of available commands will be printed.
+      #
+      def CommandLine.help(topic=nil)
+        if topic
+          begin
+            get_command(topic).help
+          rescue UnknownCommand => exp
+            CommandLine.fail(exp)
           end
+        else
+          puts 'Available commands:'
 
-          opts.on('-V','--version','print version information and exit') do
-            Program.success do
-              puts "Ronin #{Ronin::VERSION}"
+          CommandLine.commands.sort_by { |cmd|
+            cmd.command_names.first
+          }.each { |cmd|
+            puts "  #{cmd.command_names.join(', ')}"
+          }
+        end
+      end
+
+      #
+      # The default command to run with the given _argv_ Array when no
+      # sub-command is given.
+      #
+      def CommandLine.default_command(*argv)
+        opts = Options.new('ronin') do |opts|
+          opts.usage = '<command> [options]'
+          opts.options do
+            opts.on('-r','--require LIB','require the specified library or path') do |lib|
+              Console.auto_load << lib.to_s
+            end
+
+            opts.on('-V','--version','print version information and exit') do
+              CommandLine.success do
+                puts "Ronin #{Ronin::VERSION}"
+              end
             end
           end
+
+          opts.summary %{
+            Ronin is a Ruby development platform designed for information security
+            and data exploration tasks.
+          }
         end
 
-        opts.summary %{
-          Ronin is a Ruby development platform designed for information security
-          and data exploration tasks.
-        }
+        opts.parse(argv) { |args| Console.start }
       end
 
-      opts.parse(argv) { |args| Console.start }
-    end
-
-    #
-    # Runs the Program with the given _argv_ Array. If the first argument
-    # is a sub-command name, the Program will attempt to find and execute
-    # the Command with the same name.
-    #
-    def Program.run(*argv)
-      begin
-        if (argv.empty? || argv[0][0..0]=='-')
-          Program.default_command(*argv)
-        else
-          cmd = argv.first
-          argv = argv[1..-1]
-
-          if Program.has_command?(cmd)
-            Program.commands_by_name[cmd].run(*argv)
+      #
+      # Runs the Program with the given _argv_ Array. If the first argument
+      # is a sub-command name, the Program will attempt to find and execute
+      # the Command with the same name.
+      #
+      def CommandLine.run(*argv)
+        begin
+          if (argv.empty? || argv[0][0..0]=='-')
+            CommandLine.default_command(*argv)
           else
-            Program.fail("unknown command #{cmd.dump}")
-          end
-        end
-      rescue OptionParser::MissingArgument, OptionParser::InvalidOption => e
-        Program.fail(e)
-      end
+            cmd = argv.first
+            argv = argv[1..-1]
 
-      return true
+            if CommandLine.has_command?(cmd)
+              CommandLine.commands_by_name[cmd].run(*argv)
+            else
+              CommandLine.fail("unknown command #{cmd.dump}")
+            end
+          end
+        rescue OptionParser::MissingArgument, OptionParser::InvalidOption => e
+          CommandLine.fail(e)
+        end
+
+        return true
+      end
     end
   end
 end

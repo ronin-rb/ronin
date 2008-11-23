@@ -25,49 +25,51 @@ require 'ronin/ui/command_line/command'
 require 'ronin/cache/overlay'
 
 module Ronin
-  module Program
-    class AddCommand < Command
+  module UI
+    module CommandLine
+      class AddCommand < Command
 
-      command :add
+        command :add
 
-      def define_options(opts)
-        opts.usage = 'PATH [options]'
+        def define_options(opts)
+          opts.usage = 'PATH [options]'
 
-        opts.options do
-          opts.on('-m','--media MEDIA','Spedify the media-type of the repository') do |media|
-            @media = media
+          opts.options do
+            opts.on('-m','--media MEDIA','Spedify the media-type of the repository') do |media|
+              @media = media
+            end
+
+            opts.on('-U','--uri URI','Specify the source URI of the repository') do |uri|
+              @uri = uri
+            end
+
+            opts.on('-L','--local','Similiar to: --media local') do
+              @media = :local
+            end
           end
 
-          opts.on('-U','--uri URI','Specify the source URI of the repository') do |uri|
-            @uri = uri
+          opts.arguments(
+            'PATH' => 'Add the repository located at the specified PATH'
+          )
+
+          opts.summary('Add a local repository located at the specified PATH to the repository cache')
+        end
+
+        def arguments(*args)
+          unless args.length == 1
+            fail('only one repository path maybe specified')
           end
 
-          opts.on('-L','--local','Similiar to: --media local') do
-            @media = :local
+          path = args.first
+
+          Cache::Overlay.save_cache do
+            Cache::Overlay.add(path,@media,@uri) do |repo|
+              puts "Overlay #{repo} added."
+            end
           end
         end
 
-        opts.arguments(
-          'PATH' => 'Add the repository located at the specified PATH'
-        )
-
-        opts.summary('Add a local repository located at the specified PATH to the repository cache')
       end
-
-      def arguments(*args)
-        unless args.length == 1
-          fail('only one repository path maybe specified')
-        end
-
-        path = args.first
-
-        Cache::Overlay.save_cache do
-          Cache::Overlay.add(path,@media,@uri) do |repo|
-            puts "Overlay #{repo} added."
-          end
-        end
-      end
-
     end
   end
 end
