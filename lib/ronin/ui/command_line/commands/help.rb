@@ -45,7 +45,7 @@ module Ronin
             fail('only one command maybe specified')
           end
 
-          success { Program.help(args.first) }
+          success { CommandLine.help(args.first) }
         end
 
       end

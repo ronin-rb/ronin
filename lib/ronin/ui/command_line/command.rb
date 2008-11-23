@@ -110,39 +110,41 @@ module Ronin
           meta_def(:command_name) { name }
           meta_def(:command_short_names) { short_names }
 
-          # register the command
-          Program.commands << self unless Program.commands.include?(self)
+          unless CommandLine.commands.include?(self)
+            # register the command
+            CommandLine.commands << self
+          end
 
           # register the command by name
-          Program.commands_by_name[name] = self
+          CommandLine.commands_by_name[name] = self
 
           # register the command by it's short_names
           short_names.each do |short_name|
-            Program.commands_by_name[short_name] = self
+            CommandLine.commands_by_name[short_name] = self
           end
 
           return self
         end
 
         #
-        # See Program.error.
+        # See CommandLine.error.
         #
         def error(message)
-          Program.error("#{self.class.command_name}: #{message}")
+          CommandLine.error("#{self.class.command_name}: #{message}")
         end
 
         #
-        # See Program.success.
+        # See CommandLine.success.
         #
         def success(&block)
-          Program.success(&block)
+          CommandLine.success(&block)
         end
 
         #
-        # See Program.fail.
+        # See CommandLine.fail.
         #
         def fail(message,&block)
-          Program.fail("#{self.class.command_name}: #{message}",&block)
+          CommandLine.fail("#{self.class.command_name}: #{message}",&block)
         end
 
         #

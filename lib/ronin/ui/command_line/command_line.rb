@@ -76,8 +76,8 @@ module Ronin
       end
 
       #
-      # Exits successfully from the Program. If a _block_ is given, it will
-      # be called before the command-line utility exits.
+      # Exits successfully from the command-line utility. If a _block_ is
+      # given, it will be called before the command-line utility exits.
       #
       def CommandLine.success(&block)
         block.call(self) if block
@@ -147,9 +147,9 @@ module Ronin
       end
 
       #
-      # Runs the Program with the given _argv_ Array. If the first argument
-      # is a sub-command name, the Program will attempt to find and execute
-      # the Command with the same name.
+      # Runs the command-line utility with the given _argv_ Array. If the
+      # first argument is a sub-command name, the command-line utility will
+      # attempt to find and execute the Command with the same name.
       #
       def CommandLine.run(*argv)
         begin
