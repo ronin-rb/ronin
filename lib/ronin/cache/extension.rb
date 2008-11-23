@@ -185,11 +185,11 @@ module Ronin
       # Loads an extension at the specified _path_ into a newly created
       # Extension object and then runs it with the specified _block_.
       #
-      #   Extension.run_from('lab/exploits') do |ext|
+      #   Extension.run_in('lab/exploits') do |ext|
       #     puts ext.search('apache')
       #   end
       #
-      def Extension.run_from(path,&block)
+      def Extension.run_in(path,&block)
         Extension.load_from(path) { |ext| ext.run(&block) }
       end
 
