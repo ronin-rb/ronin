@@ -210,7 +210,7 @@ module Ronin
       #
       def return_file(file,env)
         if File.file?(file)
-          return [200, {'Content-Type' => content_type_for(file)}, File.read(file)]
+          return [200, {'Content-Type' => content_type_for(file)}, File.new(file)]
         else
           return not_found(env)
         end
