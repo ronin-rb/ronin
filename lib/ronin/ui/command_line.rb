@@ -21,5 +21,5 @@
 #++
 #
 
-require 'ronin/program/program'
-require 'ronin/program/commands'
+require 'ronin/ui/command_line/program'
+require 'ronin/ui/command_line/commands'
