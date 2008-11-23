@@ -7,6 +7,13 @@ unless $LOAD_PATH.include?(lib_dir)
   $LOAD_PATH << lib_dir
 end
 
-require 'ronin/program'
+require 'ronin/ui/command_line'
 
-Ronin::Program.run(*ARGV)
+alias old_require require
+
+def require(path)
+  puts path
+  old_require(path)
+end
+
+Ronin::UI::CommandLine.run(*ARGV)
