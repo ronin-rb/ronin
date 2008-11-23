@@ -9,11 +9,4 @@ end
 
 require 'ronin/ui/command_line'
 
-alias old_require require
-
-def require(path)
-  puts path
-  old_require(path)
-end
-
 Ronin::UI::CommandLine.run(*ARGV)
