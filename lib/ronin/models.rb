@@ -21,7 +21,8 @@
 #++
 #
 
-require 'ronin/extensions/kernel'
 require 'ronin/model'
 
-ronin_require 'ronin/models'
+require 'reverse_require'
+
+require_all 'ronin/models'

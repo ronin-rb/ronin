@@ -28,3 +28,7 @@ require 'ronin/ui/command_line/commands/update'
 require 'ronin/ui/command_line/commands/uninstall'
 require 'ronin/ui/command_line/commands/remove'
 require 'ronin/ui/command_line/commands/help'
+
+require 'reverse_require'
+
+require_all 'ronin/ui/command_line/commands'

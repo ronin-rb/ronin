@@ -21,7 +21,8 @@
 #++
 #
 
-require 'ronin/extensions/kernel'
 require 'ronin/object_context'
 
-ronin_require 'ronin/objects'
+require 'reverse_require'
+
+require_all 'ronin/objects'
