@@ -92,6 +92,8 @@ module Ronin
           end
 
           class_def(:cache) do
+            require 'ronin/persistence'
+
             if self.object_path
               self.object_timestamp = File.mtime(self.object_path)
               return save
@@ -101,6 +103,8 @@ module Ronin
           end
 
           class_def(:mirror) do
+            require 'ronin/persistence'
+
             if self.object_path
               unless File.file?(self.object_path)
                 return destroy
@@ -223,6 +227,8 @@ module Ronin
       directory = File.expand_path(directory)
       paths = Dir[File.join(directory,'**','*.rb')]
 
+      require 'ronin/persistence'
+
       ObjectContext.object_contexts.each_value do |base|
         objects = base.all(:object_path.like => "#{directory}%")
         paths -= objects.map { |obj| obj.object_path }
@@ -240,6 +246,8 @@ module Ronin
     #
     def ObjectContext.expunge_objects_from(directory)
       directory = File.expand_path(directory)
+
+      require 'ronin/persistence'
 
       ObjectContext.object_contexts.each_value do |base|
         base.all(:object_path.like => "#{directory}%").destroy!

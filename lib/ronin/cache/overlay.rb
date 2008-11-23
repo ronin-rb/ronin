@@ -25,7 +25,6 @@ require 'ronin/cache/extension'
 require 'ronin/cache/exceptions/extension_not_found'
 require 'ronin/cache/overlay_cache'
 require 'ronin/cache/config'
-require 'ronin/persistence'
 
 require 'rexml/document'
 require 'repertoire'
@@ -251,7 +250,9 @@ module Ronin
       # Caches the objects contained within overlay.
       #
       def cache_objects
-        ObjectContext.cache_objects_in(objects_dir)
+        require 'ronin/persistence'
+
+        return ObjectContext.cache_objects_in(objects_dir)
       end
 
       #
@@ -265,6 +266,8 @@ module Ronin
       # Delete all objects that existed within the overlay.
       #
       def expunge_objects
+        require 'ronin/persistence'
+
         ObjectContext.expunge_objects_from(objects_dir)
       end
 
