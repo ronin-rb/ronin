@@ -21,8 +21,8 @@
 #++
 #
 
-require 'ronin/program/options'
-require 'ronin/program/program'
+require 'ronin/ui/command_line/options'
+require 'ronin/ui/command_line/command_line'
 require 'ronin/extensions/meta'
 
 module Ronin

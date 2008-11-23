@@ -21,10 +21,10 @@
 #++
 #
 
-require 'ronin/program/command'
-require 'ronin/program/options'
-require 'ronin/program/exceptions/unknown_command'
-require 'ronin/console'
+require 'ronin/ui/command_line/command'
+require 'ronin/ui/command_line/options'
+require 'ronin/ui/command_line/exceptions/unknown_command'
+require 'ronin/ui/console'
 require 'ronin/version'
 
 module Ronin

@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/program/program'
+require 'ronin/ui/command_line/command_line'
 
 require 'optparse'
 

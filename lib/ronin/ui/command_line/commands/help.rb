@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/program/command'
+require 'ronin/ui/command_line/command'
 
 module Ronin
   module Program

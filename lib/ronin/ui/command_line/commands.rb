@@ -21,10 +21,10 @@
 #++
 #
 
-require 'ronin/program/commands/add'
-require 'ronin/program/commands/install'
-require 'ronin/program/commands/list'
-require 'ronin/program/commands/update'
-require 'ronin/program/commands/uninstall'
-require 'ronin/program/commands/remove'
-require 'ronin/program/commands/help'
+require 'ronin/ui/command_line/commands/add'
+require 'ronin/ui/command_line/commands/install'
+require 'ronin/ui/command_line/commands/list'
+require 'ronin/ui/command_line/commands/update'
+require 'ronin/ui/command_line/commands/uninstall'
+require 'ronin/ui/command_line/commands/remove'
+require 'ronin/ui/command_line/commands/help'
