@@ -291,9 +291,9 @@ module Ronin
       # newly created Extension object and adds it to the extensions
       # dependencies.
       #
-      #   depend 'shellcode'
+      #   uses 'shellcode'
       #
-      def depend(name)
+      def uses(name)
         name = name.to_s
 
         unless Extension.exists?(name)
@@ -308,7 +308,7 @@ module Ronin
       # Returns +true+ if the extension has the dependency of the specified
       # _name_, returns +false+ otherwise.
       #
-      def depends_on?(name)
+      def uses?(name)
         @dependencies.has_key?(name.to_s)
       end
 
@@ -684,7 +684,7 @@ module Ronin
             return perform_action(name,*args)
           end
 
-          if depends_on?(name)
+          if uses?(name)
             block.call(@dependencies[name]) if block
             return @dependencies[name]
           end
