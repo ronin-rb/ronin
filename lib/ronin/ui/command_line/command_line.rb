@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/ui/command_line/commands/default_command'
+require 'ronin/ui/command_line/commands/default'
 require 'ronin/ui/command_line/exceptions/unknown_command'
 require 'ronin/ui/console'
 require 'ronin/version'
