@@ -196,8 +196,6 @@ module Ronin
     # Cache all objects loaded from the specified _path_.
     #
     def ObjectContext.cache_objects(path)
-      require 'ronin/persistence'
-
       ObjectContext.load_objects(path).each do |obj|
         obj.cache
       end
@@ -226,8 +224,6 @@ module Ronin
       directory = File.expand_path(directory)
       paths = Dir[File.join(directory,'**','*.rb')]
 
-      require 'ronin/persistence'
-
       ObjectContext.object_contexts.each_value do |base|
         objects = base.all(:object_path.like => "#{directory}%")
         paths -= objects.map { |obj| obj.object_path }
@@ -236,7 +232,6 @@ module Ronin
       end
 
       paths.each { |path| ObjectContext.cache_objects(path) }
-
       return nil
     end
 
@@ -245,8 +240,6 @@ module Ronin
     #
     def ObjectContext.expunge_objects_from(directory)
       directory = File.expand_path(directory)
-
-      require 'ronin/persistence'
 
       ObjectContext.object_contexts.each_value do |base|
         base.all(:object_path.like => "#{directory}%").destroy!

@@ -259,7 +259,9 @@ module Ronin
       # Mirror the objects contained within the overlay.
       #
       def mirror_objects
-        ObjectContext.mirror_objects_in(objects_dir)
+        require 'ronin/persistence'
+
+        return ObjectContext.mirror_objects_in(objects_dir)
       end
 
       #
@@ -268,7 +270,7 @@ module Ronin
       def expunge_objects
         require 'ronin/persistence'
 
-        ObjectContext.expunge_objects_from(objects_dir)
+        return ObjectContext.expunge_objects_from(objects_dir)
       end
 
       #
@@ -290,12 +292,11 @@ module Ronin
       # is given it will be called after the overlay has been updated.
       #
       def update(&block)
-        mirror_objects
-
         if media_type
           Repertoire.update(:media => media_type, :path => @path, :uri => @uri)
         end
 
+        mirror_objects
         return load_metadata(&block)
       end
 
