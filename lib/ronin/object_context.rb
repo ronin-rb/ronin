@@ -178,16 +178,18 @@ module Ronin
     #
     def ObjectContext.mirror_objects_in(directory)
       directory = File.expand_path(directory)
-      paths = Dir[File.join(directory,'**','*.rb')]
+      new_paths = Dir[File.join(directory,'**','*.rb')]
 
       ObjectContext.object_contexts.each_value do |base|
         objects = base.all(:object_path.like => "#{directory}%")
-        paths -= objects.map { |obj| obj.object_path }
+        new_paths -= objects.map { |obj| obj.object_path }
 
+        # mirror existing objects
         objects.each { |obj| obj.mirror }
       end
 
-      paths.each { |path| ObjectContext.cache_objects(path) }
+      # cache the remaining new paths
+      new_paths.each { |path| ObjectContext.cache_objects(path) }
       return nil
     end
 
@@ -204,10 +206,18 @@ module Ronin
       return nil
     end
 
+    #
+    # Returns a new object loaded from the file pointed to by the
+    # +object_path+ property.
+    #
     def object
       self.class.load_object(self.object_path)
     end
 
+    #
+    # Returns +true+ if the file pointed to by the +object_path+
+    # property is missing, returns +false+ otherwise.
+    #
     def missing?
       if self.object_path
         return !(File.file?(self.object_path))
@@ -216,6 +226,11 @@ module Ronin
       return false
     end
 
+    #
+    # Returns +true+ if the +object_timestamp+ property is older than
+    # the modification time on the file pointed to by the +object_path+
+    # property, returns +false+ otherwise.
+    #
     def stale?
       if self.object_timestamp
         return File.mtime(self.object_path) > self.object_timestamp
@@ -224,6 +239,10 @@ module Ronin
       return false
     end
 
+    #
+    # Sets the +object_timestamp+ property to the modification time of the
+    # file pointed to by the +object_path+ property and saves the object.
+    #
     def cache
       if self.object_path
         self.object_timestamp = File.mtime(self.object_path)
@@ -233,6 +252,12 @@ module Ronin
       return false
     end
 
+    #
+    # If the file pointed to by the +object_path+ property is missing, the
+    # object will be destroyed. If the object has not been changed and
+    # is stale?, a newly loaded object from the file pointed to by the
+    # +object_path+ property will be cached.
+    #
     def mirror
       if self.object_path
         unless File.file?(self.object_path)
