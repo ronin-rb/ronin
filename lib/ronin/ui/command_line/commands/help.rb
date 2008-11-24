@@ -45,7 +45,25 @@ module Ronin
             fail('only one command maybe specified')
           end
 
-          success { CommandLine.help(args.first) }
+          topic = args.first
+
+          success do
+            if topic
+              begin
+                CommandLine.get_command(topic).help
+              rescue UnknownCommand => exp
+                CommandLine.fail(exp)
+              end
+            else
+              puts 'Available commands:'
+
+              CommandLine.commands.sort_by { |cmd|
+                cmd.command_names.first
+              }.each { |cmd|
+                puts "  #{cmd.command_names.join(', ')}"
+              }
+            end
+          end
         end
 
       end

@@ -97,28 +97,6 @@ module Ronin
       end
 
       #
-      # If a _topic_ is given, the help message for that _topic_ will be
-      # printed, otherwise a list of available commands will be printed.
-      #
-      def CommandLine.help(topic=nil)
-        if topic
-          begin
-            get_command(topic).help
-          rescue UnknownCommand => exp
-            CommandLine.fail(exp)
-          end
-        else
-          puts 'Available commands:'
-
-          CommandLine.commands.sort_by { |cmd|
-            cmd.command_names.first
-          }.each { |cmd|
-            puts "  #{cmd.command_names.join(', ')}"
-          }
-        end
-      end
-
-      #
       # Runs the command-line utility with the given _argv_ Array. If the
       # first argument is a sub-command name, the command-line utility will
       # attempt to find and execute the Command with the same name.
