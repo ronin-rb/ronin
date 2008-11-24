@@ -27,10 +27,19 @@ module Ronin
   module Vulnerable
     def self.included(base)
       base.metaclass_eval do
+        #
+        # Returns the Hash of the vulnerability names and the methods used
+        # to test for them.
+        #
         def vulns
           @vulns ||= {}
         end
 
+        #
+        # Returns +true+ if the class has a vulnerability test for the
+        # vulnerability with the specified _name_, returns +false+
+        # otherwise.
+        #
         def vulnerable_to?(name)
           name = name.to_sym
 
@@ -78,6 +87,12 @@ module Ronin
       return self
     end
 
+    #
+    # Returns a Hash of vulnerability names and the objects which represent
+    # the detected vulnerabilities. If a _block_ is given, each object
+    # that represents a detected vulnerability will be passed to the
+    # _block_.
+    #
     def vulns(options={},&block)
       found_vulns = {}
 
