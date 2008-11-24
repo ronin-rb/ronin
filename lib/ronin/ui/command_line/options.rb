@@ -21,8 +21,6 @@
 #++
 #
 
-require 'ronin/ui/command_line/command_line'
-
 require 'optparse'
 
 module Ronin
@@ -70,7 +68,11 @@ module Ronin
 
           block.call() if block
 
-          self.on('-h','--help','print this message') { help }
+          self.on('-h','--help','print this message') do
+            help
+            exit
+          end
+
           self.separator ''
 
           return self
@@ -125,7 +127,7 @@ module Ronin
         # and before the Program has exited.
         #
         def help(&block)
-          CommandLine.success { puts self }
+          puts self
         end
 
         def parse(argv,&block)

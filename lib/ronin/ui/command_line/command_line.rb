@@ -76,23 +76,14 @@ module Ronin
       end
 
       #
-      # Exits successfully from the command-line utility. If a _block_ is
-      # given, it will be called before the command-line utility exits.
-      #
-      def CommandLine.success(&block)
-        block.call(self) if block
-        exit
-      end
-
-      #
       # Prints the given error _message_ and exits unseccessfully from the
       # command-line utility. If a _block_ is given, it will be called before
       # any error _message_ are printed.
       #
       def CommandLine.fail(message,&block)
         block.call(self) if block
-        CommandLine.error(message)
 
+        CommandLine.error(message)
         exit -1
       end
 
