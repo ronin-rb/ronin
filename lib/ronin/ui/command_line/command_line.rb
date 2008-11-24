@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/ui/command_line/options'
+require 'ronin/ui/command_line/commands/default_command'
 require 'ronin/ui/command_line/exceptions/unknown_command'
 require 'ronin/ui/console'
 require 'ronin/version'
@@ -119,34 +119,6 @@ module Ronin
       end
 
       #
-      # The default command to run with the given _argv_ Array when no
-      # sub-command is given.
-      #
-      def CommandLine.default_command(*argv)
-        opts = Options.new('ronin') do |opts|
-          opts.usage = '<command> [options]'
-          opts.options do
-            opts.on('-r','--require LIB','require the specified library or path') do |lib|
-              Console.auto_load << lib.to_s
-            end
-
-            opts.on('-V','--version','print version information and exit') do
-              CommandLine.success do
-                puts "Ronin #{Ronin::VERSION}"
-              end
-            end
-          end
-
-          opts.summary %{
-            Ronin is a Ruby development platform designed for information security
-            and data exploration tasks.
-          }
-        end
-
-        opts.parse(argv) { |args| Console.start }
-      end
-
-      #
       # Runs the command-line utility with the given _argv_ Array. If the
       # first argument is a sub-command name, the command-line utility will
       # attempt to find and execute the Command with the same name.
@@ -154,7 +126,7 @@ module Ronin
       def CommandLine.run(*argv)
         begin
           if (argv.empty? || argv[0][0..0]=='-')
-            CommandLine.default_command(*argv)
+            DefaultCommand.run(*argv)
           else
             cmd = argv.first
             argv = argv[1..-1]
