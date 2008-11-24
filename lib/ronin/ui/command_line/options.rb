@@ -43,11 +43,14 @@ module Ronin
 
         #
         # Creates a new Options object for a Command with the specified
-        # _program_ name and command _name_. If a _block_ is given, it
-        # will be passed the newly created Options object.
+        # _program_ name and the given command _name_. If a _block_ is
+        # given, it will be passed the newly created Options object.
         #
-        def Options.command(program,name,&block)
-          Options.new("#{program} #{name}",&block)
+        def Options.command(program,name=nil,&block)
+          program = program.to_s
+          program << " #{name}" if name
+
+          return Options.new(program,&block)
         end
 
         #
