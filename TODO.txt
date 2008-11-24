@@ -2,9 +2,6 @@
 
 === Ronin 0.1.2:
 
-* Continue refactoring UI::CommandLine.
-  * Create UI::CommandLine::Application, which is like
-    UI::CommandLine::Command.
 * Add the +overlay+ and +extension+ sub-commands for creating skeleton
   Overlays and Extensions.
 
