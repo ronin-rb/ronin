@@ -203,49 +203,49 @@ module Ronin
 
       return nil
     end
-  end
 
-  def object
-    self.class.load_object(self.object_path)
-  end
-
-  def missing?
-    if self.object_path
-      return !(File.file?(self.object_path))
+    def object
+      self.class.load_object(self.object_path)
     end
 
-    return false
-  end
+    def missing?
+      if self.object_path
+        return !(File.file?(self.object_path))
+      end
 
-  def stale?
-    if self.object_timestamp
-      return File.mtime(self.object_path) > self.object_timestamp
+      return false
     end
 
-    return false
-  end
+    def stale?
+      if self.object_timestamp
+        return File.mtime(self.object_path) > self.object_timestamp
+      end
 
-  def cache
-    if self.object_path
-      self.object_timestamp = File.mtime(self.object_path)
-      return save
+      return false
     end
 
-    return false
-  end
+    def cache
+      if self.object_path
+        self.object_timestamp = File.mtime(self.object_path)
+        return save
+      end
 
-  def mirror
-    if self.object_path
-      unless File.file?(self.object_path)
-        return destroy
-      else
-        if (!(dirty?) && stale?)
-          destroy
-          return object.cache
+      return false
+    end
+
+    def mirror
+      if self.object_path
+        unless File.file?(self.object_path)
+          return destroy
+        else
+          if (!(dirty?) && stale?)
+            destroy
+            return object.cache
+          end
         end
       end
-    end
 
-    return false
+      return false
+    end
   end
 end
