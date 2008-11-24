@@ -48,7 +48,7 @@ module Ronin
         # Returns the name of the command.
         #
         def self.command_name
-          ''
+          nil
         end
 
         #
@@ -62,7 +62,7 @@ module Ronin
         # Returns all the names of the command.
         #
         def self.command_names
-          [self.command_name] + self.command_short_names
+          ([self.command_name] + self.command_short_names).compact
         end
 
         #
