@@ -94,7 +94,6 @@ module Ronin
     #   Context.namify(Analysis::Audio) # => "ronin_analysis_audio"
     #
     def Context.namify(base)
-      # similar to the way Og tableizes Class names
       base.to_s.downcase.gsub(/::/,'_').gsub(/^ronin_/,'').to_sym
     end
 
