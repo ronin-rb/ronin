@@ -221,12 +221,12 @@ module Ronin
             new_obj = Context.contexts[name].new
             new_obj.instance_eval(&context_block)
 
+            block.call(new_obj) if block
             new_objs << new_obj
           end
         end
       end
 
-      new_objs.each(&block) if block
       return new_objs
     end
   end
