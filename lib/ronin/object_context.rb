@@ -71,50 +71,6 @@ module Ronin
             all(*attribs).map { |obj| obj.object }
           end
 
-          class_def(:object) do
-            self.class.load_object(self.object_path)
-          end
-
-          class_def(:missing?) do
-            if self.object_path
-              return !(File.file?(self.object_path))
-            end
-
-            return false
-          end
-
-          class_def(:stale?) do
-            if self.object_timestamp
-              return File.mtime(self.object_path) > self.object_timestamp
-            end
-
-            return false
-          end
-
-          class_def(:cache) do
-            if self.object_path
-              self.object_timestamp = File.mtime(self.object_path)
-              return save
-            end
-
-            return false
-          end
-
-          class_def(:mirror) do
-            if self.object_path
-              unless File.file?(self.object_path)
-                return destroy
-              else
-                if (!(dirty?) && stale?)
-                  destroy
-                  return object.cache
-                end
-              end
-            end
-
-            return false
-          end
-
           # define Repo-level object loader method
           Ronin.module_eval %{
             def ronin_load_#{name}(path,*args,&block)
@@ -247,5 +203,49 @@ module Ronin
 
       return nil
     end
+  end
+
+  def object
+    self.class.load_object(self.object_path)
+  end
+
+  def missing?
+    if self.object_path
+      return !(File.file?(self.object_path))
+    end
+
+    return false
+  end
+
+  def stale?
+    if self.object_timestamp
+      return File.mtime(self.object_path) > self.object_timestamp
+    end
+
+    return false
+  end
+
+  def cache
+    if self.object_path
+      self.object_timestamp = File.mtime(self.object_path)
+      return save
+    end
+
+    return false
+  end
+
+  def mirror
+    if self.object_path
+      unless File.file?(self.object_path)
+        return destroy
+      else
+        if (!(dirty?) && stale?)
+          destroy
+          return object.cache
+        end
+      end
+    end
+
+    return false
   end
 end
