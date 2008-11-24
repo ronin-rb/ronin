@@ -41,10 +41,14 @@ module Ronin
         include DataMapper::Resource
         include DataMapper::AutoMigrations
 
+        #
+        # Returns the default repository name for the model.
+        #
         def self.default_repository_name
           Model::REPOSITORY_NAME
         end
 
+        # The class type property
         property :type, Discriminator
       end
     end
