@@ -29,40 +29,44 @@ require 'ronin/extensions/meta'
 module Ronin
   module Context
     def self.included(base)
-      base.metaclass_def(:contextify) do |name|
-        Context.contexts[name.to_sym] = self
+      base.module_eval do
+        def self.contextify(name)
+          name = name.to_sym
 
-        meta_def(:context_name) { name }
+          Context.contexts[name] = self
 
-        class_def(:context_name) { name }
+          meta_def(:context_name) { name }
 
-        meta_def(:load_context) do |path,*args|
-          Context.load_context(self.context_name,path,*args)
-        end
+          class_def(:context_name) { name }
 
-        # define the top-level context wrappers
-        Kernel.module_eval %{
-          def ronin_#{name}(*args,&block)
-            if (args.empty? && Ronin::Context.is_pending?)
-              Ronin::Context.pending.blocks[:#{name}] = block
-              return nil
-            else
-              new_context = #{self}.new(*args)
-              new_context.instance_eval(&block) if block
+          meta_def(:load_context) do |path,*args|
+            Context.load_context(self.context_name,path,*args)
+          end
+
+          # define the top-level context wrappers
+          Kernel.module_eval %{
+            def ronin_#{name}(*args,&block)
+              if (args.empty? && Ronin::Context.is_pending?)
+                Ronin::Context.pending.blocks[:#{name}] = block
+                return nil
+              else
+                new_context = #{self}.new(*args)
+                new_context.instance_eval(&block) if block
+                return new_context
+              end
+            end
+          }
+
+          # define the Ronin-level context loader
+          Ronin.module_eval %{
+            def ronin_load_#{name}(path,*args,&block)
+              new_context = #{self}.load_context(path,*args)
+
+              block.call(new_context) if block
               return new_context
             end
-          end
-        }
-
-        # define the Ronin-level context loader
-        Ronin.module_eval %{
-          def ronin_load_#{name}(path,*args,&block)
-            new_context = #{self}.load_context(path,*args)
-
-            block.call(new_context) if block
-            return new_context
-          end
-        }
+          }
+        end
       end
     end
 
