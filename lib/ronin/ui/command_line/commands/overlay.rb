@@ -77,6 +77,8 @@ module Ronin
 
           File.open(File.join(path,Cache::Overlay::METADATA_FILE),'w') do |file|
             doc = Document.new
+            doc.add(XMLDecl.new)
+
             root = Element.new('ronin-overlay')
             root.attributes['version'] = Ronin::VERSION
 
