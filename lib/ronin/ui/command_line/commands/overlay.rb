@@ -99,7 +99,7 @@ module Ronin
 
           path = File.expand_path(args.first)
 
-          @name ||= File.basename(path).gsub(/[_-\s]/,' ').capitalize
+          @name ||= File.basename(path).gsub(/[_\s]+/,' ').capitalize
           @source_browse ||= @source
           @website ||= @source_browse
 
