@@ -39,8 +39,8 @@ module Ronin
 
         def initialize
           @name = nil
-          @url = nil
-          @browse = nil
+          @source = nil
+          @source_browse = nil
           @website = nil
           @license = nil
           @description = nil
@@ -57,12 +57,12 @@ module Ronin
               @name = name
             end
 
-            opts.on('-U','--url URL','The URL where the Overlay will be hosted from') do |url|
-              @url = url
+            opts.on('-S','--source URL','The URL where the source of the Overlay will be hosted') do |url|
+              @source = url
             end
 
-            opts.on('-B','--browse-source URL','The URL for browsing the contents of the Overlay') do |url|
-              @browse = url
+            opts.on('-B','--source-browse URL','The URL for browsing the contents of the Overlay') do |url|
+              @source_browse = url
             end
 
             opts.on('-w','--website URL','The URL of the website of the Overlay') do |url|
@@ -97,8 +97,8 @@ module Ronin
           path = File.expand_path(args.first)
 
           @name ||= File.basename(path)
-          @browse ||= @url
-          @website ||= @browse
+          @source_browse ||= @source
+          @website ||= @source_browse
 
           FileUtils.mkdir_p(path)
           FileUtils.mkdir_p(File.join(path,'objects'))
@@ -120,16 +120,16 @@ module Ronin
               root.add_element(license_tag)
             end
 
-            if @url
-              url_tag = Element.new('url')
-              url_tag.text = @url
-              root.add_element(url_tag)
+            if @source
+              source_tag = Element.new('source')
+              source_tag.text = @source
+              root.add_element(source_tag)
             end
 
-            if @browse
-              url_tag = Element.new('browse-source')
-              url_tag.text = @browse
-              root.add_element(url_tag)
+            if @source_browse
+              source_browse_tag = Element.new('browse-source')
+              source_browse_tag.text = @source_browse
+              root.add_element(source_browse_tag)
             end
 
             if @website
