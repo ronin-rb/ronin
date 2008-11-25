@@ -38,10 +38,10 @@ module Ronin
         command :overlay
 
         def initialize
-          @name = ''
-          @license = ''
-          @url = ''
-          @description = ''
+          @name = nil
+          @license = nil
+          @url = nil
+          @description = nil
           @authors = []
 
           super
@@ -102,27 +102,35 @@ module Ronin
             name_tag.text = @name
             root.add_element(name_tag)
 
-            license_tag = Element.new('license')
-            license_tag.text = @license
-            root.add_element(license_tag)
-
-            url_tag = Element.new('url')
-            url_tag.text = @url
-            root.add_element(url_tag)
-
-            description_tag = Element.new('description')
-            description_tag.text = @description
-            root.add_element(description_tag)
-
-            authors_tag = Element.new('authors')
-
-            @authors.each do |author|
-              name_tag = Element.new('name')
-              name_tag.text = author
-              authors_tag.add_element(name_tag)
+            if @license
+              license_tag = Element.new('license')
+              license_tag.text = @license
+              root.add_element(license_tag)
             end
 
-            root.add_element(authors_tag)
+            if @url
+              url_tag = Element.new('url')
+              url_tag.text = @url
+              root.add_element(url_tag)
+            end
+
+            if @description
+              description_tag = Element.new('description')
+              description_tag.text = @description
+              root.add_element(description_tag)
+            end
+
+            unless @authors.empty?
+              authors_tag = Element.new('authors')
+
+              @authors.each do |author|
+                name_tag = Element.new('name')
+                name_tag.text = author
+                authors_tag.add_element(name_tag)
+              end
+
+              root.add_element(authors_tag)
+            end
 
             doc.add_element(root)
             doc.write(file,2)
