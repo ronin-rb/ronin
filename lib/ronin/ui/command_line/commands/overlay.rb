@@ -39,8 +39,10 @@ module Ronin
 
         def initialize
           @name = nil
-          @license = nil
           @url = nil
+          @browse = nil
+          @website = nil
+          @license = nil
           @description = nil
           @authors = []
 
@@ -55,20 +57,28 @@ module Ronin
               @name = name
             end
 
-            opts.on('-L','--license LICENSE','The license of the contents of the Overlay') do |license|
-              @license = license
-            end
-
             opts.on('-U','--url URL','The URL where the Overlay will be hosted from') do |url|
               @url = url
             end
 
-            opts.on('-D','--description TEXT','The description for the Overlay') do |text|
-              @description = text
+            opts.on('-B','--browse-source URL','The URL for browsing the contents of the Overlay') do |url|
+              @browse = url
+            end
+
+            opts.on('-w','--website URL','The URL of the website of the Overlay') do |url|
+              @website = url
+            end
+
+            opts.on('-L','--license LICENSE','The license of the contents of the Overlay') do |license|
+              @license = license
             end
 
             opts.on('-a','--author NAME','Name of a contributing author to the Overlay') do |name|
               @authors << name
+            end
+
+            opts.on('-D','--description TEXT','The description for the Overlay') do |text|
+              @description = text
             end
           end
 
@@ -111,6 +121,18 @@ module Ronin
             if @url
               url_tag = Element.new('url')
               url_tag.text = @url
+              root.add_element(url_tag)
+            end
+
+            if @browse
+              url_tag = Element.new('browse-source')
+              url_tag.text = @browse
+              root.add_element(url_tag)
+            end
+
+            if @website
+              url_tag = Element.new('website')
+              url_tag.text = @website
               root.add_element(url_tag)
             end
 
