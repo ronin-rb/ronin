@@ -43,6 +43,8 @@ module Ronin
           @url = ''
           @description = ''
           @authors = []
+
+          super
         end
 
         def define_options(opts)
