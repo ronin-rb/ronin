@@ -64,9 +64,29 @@
     </p>
   </xsl:template>
 
-  <xsl:template match="/ronin-overlay/url">
-    <p id="overlay-url">
-      <strong>URL:</strong>
+  <xsl:template match="/ronin-overlay/source">
+    <p id="overlay-source">
+      <strong>Source:</strong>
+      <a>
+        <xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute>
+        <xsl:value-of select=".">
+      </a>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="/ronin-overlay/source-browse">
+    <p id="overlay-source-browse">
+      <strong>Source Browser:</strong>
+      <a>
+        <xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute>
+        <xsl:value-of select=".">
+      </a>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="/ronin-overlay/website">
+    <p id="overlay-website">
+      <strong>Website:</strong>
       <a>
         <xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute>
         <xsl:value-of select=".">
