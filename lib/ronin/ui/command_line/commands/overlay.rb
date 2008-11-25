@@ -97,6 +97,8 @@ module Ronin
           path = File.expand_path(args.first)
 
           @name ||= File.basename(path)
+          @browse ||= @url
+          @website ||= @browse
 
           FileUtils.mkdir_p(path)
           FileUtils.mkdir_p(File.join(path,'objects'))
@@ -124,9 +126,9 @@ module Ronin
               root.add_element(url_tag)
             end
 
-            if (@browse || @url)
+            if @browse
               url_tag = Element.new('browse-source')
-              url_tag.text = (@browse || @url)
+              url_tag.text = @browse
               root.add_element(url_tag)
             end
 
