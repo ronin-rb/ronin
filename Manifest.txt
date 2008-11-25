@@ -201,4 +201,4 @@ spec/parameters/parameters_spec.rb
 spec/sessions/session_spec.rb
 spec/ronin_spec.rb
 static/overlay.xsl
-static/templates/extension/extension.rb
+static/templates/extension/extension.rb.erb
