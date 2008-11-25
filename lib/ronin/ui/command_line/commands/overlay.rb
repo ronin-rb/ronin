@@ -43,8 +43,8 @@ module Ronin
           @source_browse = nil
           @website = nil
           @license = nil
-          @description = nil
           @authors = []
+          @description = nil
 
           super
         end
@@ -117,12 +117,6 @@ module Ronin
             name_tag.text = @name
             root.add_element(name_tag)
 
-            if @license
-              license_tag = Element.new('license')
-              license_tag.text = @license
-              root.add_element(license_tag)
-            end
-
             if @source
               source_tag = Element.new('source')
               source_tag.text = @source
@@ -139,6 +133,12 @@ module Ronin
               url_tag = Element.new('website')
               url_tag.text = @website
               root.add_element(url_tag)
+            end
+
+            if @license
+              license_tag = Element.new('license')
+              license_tag.text = @license
+              root.add_element(license_tag)
             end
 
             unless @authors.empty?
