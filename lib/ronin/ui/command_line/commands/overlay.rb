@@ -37,6 +37,14 @@ module Ronin
 
         command :overlay
 
+        def initialize
+          @name = ''
+          @license = ''
+          @url = ''
+          @description = ''
+          @authors = []
+        end
+
         def define_options(opts)
           opts.usage = '[options] PATH'
 
@@ -55,6 +63,10 @@ module Ronin
 
             opts.on('-D','--description TEXT','The description for the Overlay') do |text|
               @description = text
+            end
+
+            opts.on('-a','--author NAME','Name of a contributing author to the Overlay') do |name|
+              @authors << name
             end
           end
 
@@ -97,6 +109,16 @@ module Ronin
             description_tag = Element.new('description')
             description_tag.text = @description
             root.add_element(description_tag)
+
+            authors_tag = Element.new('authors')
+
+            @authors.each do |author|
+              name_tag = Element.new('name')
+              name_tag.text = author
+              authors_tag.add_element(name_tag)
+            end
+
+            root.add_element(authors_tag)
 
             doc.add_element(root)
             doc.write(file,2)
