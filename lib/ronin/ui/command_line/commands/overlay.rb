@@ -144,19 +144,19 @@ module Ronin
             unless @authors.empty?
               authors_tag = Element.new('authors')
 
-              @authors.each do |name,email|
-                if (name || email)
+              @authors.each do |author|
+                if (author[:name] || author[:email])
                   author_tag = Element.new('author')
 
-                  if name
+                  if author[:name]
                     name_tag = Element.new('name')
-                    name_tag.text = name
+                    name_tag.text = author[:name]
                     author_tag.add_element(name_tag)
                   end
 
-                  if email
+                  if author[:email]
                     email_tag = Element.new('email')
-                    email_tag.text = email
+                    email_tag.text = author[:email]
                     author_tag.add_element(email_tag)
                   end
 
