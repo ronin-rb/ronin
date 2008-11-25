@@ -73,8 +73,11 @@ module Ronin
               @license = license
             end
 
-            opts.on('-a','--author NAME','Name of a contributing author to the Overlay') do |name|
-              @authors << name
+            opts.on('-a','--author NAME <EMAIL>','Name of a contributing author to the Overlay') do |text|
+              name = text.scan(/^[^\(\)\[\]<>]+\s*/).first
+              email = text.scan(/[\(\[<][^\)\]>]+[\)\]>]\s*$/).first
+
+              @authors << {:name => name, :email => email}
             end
 
             opts.on('-D','--description TEXT','The description for the Overlay') do |text|
@@ -138,22 +141,36 @@ module Ronin
               root.add_element(url_tag)
             end
 
+            unless @authors.empty?
+              authors_tag = Element.new('authors')
+
+              @authors.each do |name,email|
+                if (name || email)
+                  author_tag = Element.new('author')
+
+                  if name
+                    name_tag = Element.new('name')
+                    name_tag.text = name
+                    author_tag.add_element(name_tag)
+                  end
+
+                  if email
+                    email_tag = Element.new('email')
+                    email_tag.text = email
+                    author_tag.add_element(email_tag)
+                  end
+
+                  authors_tag.add_element(author_tag)
+                end
+              end
+
+              root.add_element(authors_tag)
+            end
+
             if @description
               description_tag = Element.new('description')
               description_tag.text = @description
               root.add_element(description_tag)
-            end
-
-            unless @authors.empty?
-              authors_tag = Element.new('authors')
-
-              @authors.each do |author|
-                name_tag = Element.new('name')
-                name_tag.text = author
-                authors_tag.add_element(name_tag)
-              end
-
-              root.add_element(authors_tag)
             end
 
             doc.add_element(root)
