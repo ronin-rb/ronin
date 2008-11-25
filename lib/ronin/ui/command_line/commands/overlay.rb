@@ -82,7 +82,9 @@ module Ronin
             fail('only one Overlay path maybe specified')
           end
 
-          path = args.first
+          path = File.expand_path(args.first)
+
+          @name ||= File.basename(path)
 
           FileUtils.mkdir_p(path)
           FileUtils.mkdir_p(File.join(path,'objects'))
