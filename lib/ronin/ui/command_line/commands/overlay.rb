@@ -124,9 +124,9 @@ module Ronin
               root.add_element(url_tag)
             end
 
-            if @browse
+            if (@browse || @url)
               url_tag = Element.new('browse-source')
-              url_tag.text = @browse
+              url_tag.text = (@browse || @url)
               root.add_element(url_tag)
             end
 
