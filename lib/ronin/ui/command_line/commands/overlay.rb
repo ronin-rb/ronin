@@ -23,6 +23,7 @@
 
 require 'ronin/ui/command_line/command'
 require 'ronin/cache/overlay'
+require 'ronin/version'
 
 require 'fileutils'
 require 'rexml/document'
@@ -77,6 +78,7 @@ module Ronin
           File.open(File.join(path,Cache::Overlay::METADATA_FILE),'w') do |file|
             doc = Document.new
             root = Element.new('ronin-overlay')
+            root.attributes['version'] = Ronin::VERSION
 
             name_tag = Element.new('name')
             name_tag.text = @name
