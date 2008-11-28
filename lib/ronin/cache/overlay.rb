@@ -398,19 +398,28 @@ module Ronin
       def load_metadata(&block)
         metadata_path = File.join(@path,METADATA_FILE)
 
+        # set to default values
+        @name = File.basename(@path)
+        @license = nil
+        @authors = []
+        @description = ''
+
         if File.file?(metadata_path)
           metadata = REXML::Document.new(open(metadata_path))
 
           metadata.elements.each('/ronin-overlay') do |repo|
             @name = repo.elements['name'].get_text.to_s.strip
             @license = repo.elements['license'].get_text.to_s.strip
+
+            repo.elements.each('authors/author') do |author|
+              name = author.elements['name'].get_text.to_s.strip
+              email = author.elements['email'].get_text.to_s.strip
+
+              @authors << {:name => name, :email => email}
+            end
+
             @description = repo.elements['description'].get_text.to_s.strip
           end
-        else
-          @name = File.basename(@path)
-          @authors = []
-          @license = nil
-          @description = ''
         end
 
         block.call(self) if block
