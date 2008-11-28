@@ -145,6 +145,7 @@ lib/ronin/cache/overlay.rb
 lib/ronin/cache/config.rb
 lib/ronin/cache/extension_cache.rb
 lib/ronin/cache/extension.rb
+lib/ronin/cache/cache.rb
 lib/ronin/cache/ronin.rb
 lib/ronin/ui/console.rb
 lib/ronin/ui/shell.rb

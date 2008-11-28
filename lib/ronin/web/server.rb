@@ -72,7 +72,11 @@ module Ronin
         @host_patterns = {}
         @path_patterns = {}
 
-        super { run(method(:route)) }
+        super do
+          map '/' do
+            run(method(:route))
+          end
+        end
 
         instance_eval(&block) if block
       end
