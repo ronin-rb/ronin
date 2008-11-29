@@ -1,5 +1,12 @@
 ronin_extensions do
-
+<%
+  unless @uses.empty?
+    @uses.each do |name| %>
+<%= "  uses #{name.dump}" %>
+<%
+    end
+  end
+%>
   setup do
   end
 
