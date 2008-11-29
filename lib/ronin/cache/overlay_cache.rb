@@ -60,27 +60,9 @@ module Ronin
         block.call(self) if block
       end
 
-      #
-      # Returns the names of the overlays within the cache.
-      #
-      def names
-        keys
-      end
-
-      #
-      # Returns the overlays within the cache.
-      #
-      def overlays
-        values
-      end
-
-      #
-      # Iterates over each overlay in the overlay cache, passing
-      # each to the given specified _block_.
-      #
-      def each_overlay(&block)
-        each_value(&block)
-      end
+      alias names keys
+      alias overlays values
+      alias each_overlay each_value
 
       #
       # Returns the Ovlerays which match the specified _block_.
