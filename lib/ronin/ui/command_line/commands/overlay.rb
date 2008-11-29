@@ -40,7 +40,7 @@ module Ronin
         def initialize
           @name = nil
           @source = nil
-          @source_browse = nil
+          @source_view = nil
           @website = nil
           @license = nil
           @maintainers = []
@@ -61,11 +61,11 @@ module Ronin
               @source = url
             end
 
-            opts.on('-B','--source-browse URL','The URL for browsing the contents of the Overlay') do |url|
-              @source_browse = url
+            opts.on('-V','--source-view URL','The URL for viewing the contents of the Overlay') do |url|
+              @source_view = url
             end
 
-            opts.on('-w','--website URL','The URL of the website of the Overlay') do |url|
+            opts.on('-U','--website URL','The URL of the website of the Overlay') do |url|
               @website = url
             end
 
@@ -102,8 +102,8 @@ module Ronin
           path = File.expand_path(args.first)
 
           @name ||= File.basename(path).gsub(/[_\s]+/,' ').capitalize
-          @source_browse ||= @source
-          @website ||= @source_browse
+          @source_view ||= @source
+          @website ||= @source_view
 
           FileUtils.mkdir_p(path)
           FileUtils.mkdir_p(File.join(path,'objects'))
@@ -125,10 +125,10 @@ module Ronin
               root.add_element(source_tag)
             end
 
-            if @source_browse
-              source_browse_tag = Element.new('browse-source')
-              source_browse_tag.text = @source_browse
-              root.add_element(source_browse_tag)
+            if @source_view
+              source_view_tag = Element.new('view-source')
+              source_view_tag.text = @source_view
+              root.add_element(source_view_tag)
             end
 
             if @website
