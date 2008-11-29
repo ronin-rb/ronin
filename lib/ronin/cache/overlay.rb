@@ -403,23 +403,34 @@ module Ronin
         @name = File.basename(@path)
         @license = nil
         @maintainers = []
-        @description = ''
+        @description = nil
 
         if File.file?(metadata_path)
-          metadata = REXML::Document.new(open(metadata_path))
+          doc = REXML::Document.new(open(metadata_path))
+          overlay = doc.elements['/ronin-overlay']
 
-          metadata.elements.each('/ronin-overlay') do |repo|
-            @name = repo.elements['name'].get_text.to_s.strip
-            @license = repo.elements['license'].get_text.to_s.strip
+          overlay.each_element('name[.]:first') do |name|
+            @name = name.text.strip
+          end
 
-            repo.elements.each('maintainers/maintainer') do |author|
-              name = author.elements['name'].get_text.to_s.strip
-              email = author.elements['email'].get_text.to_s.strip
+          overlay.each_element('license[.]:first') do |license|
+            @license = license.text.strip
+          end
 
-              @maintainers << Maintainer.new(name,email)
+          overlay.each_element('maintainers/maintainer') do |maintainer|
+            if (name = maintainer.text('name'))
+              name.strip!
             end
 
-            @description = repo.elements['description'].get_text.to_s.strip
+            if (email = maintainer.text('email'))
+              email.strip!
+            end
+
+            @maintainers << Maintainer.new(name,email)
+          end
+
+          overlay.each_element('description[.]:first') do |description|
+            @description = description.text.strip
           end
         end
 
