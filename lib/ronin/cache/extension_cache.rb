@@ -45,9 +45,7 @@ module Ronin
       end
 
       alias names keys
-
       alias extensions values
-
       alias each_extension each_value
 
       #
