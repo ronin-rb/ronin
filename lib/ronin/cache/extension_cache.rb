@@ -44,27 +44,11 @@ module Ronin
         block.call(self) if block
       end
 
-      #
-      # Returns the names of all extensions within the cache.
-      #
-      def names
-        keys
-      end
+      alias names keys
 
-      #
-      # Returns the extensions within the cache.
-      #
-      def extensions
-        values
-      end
+      alias extensions values
 
-      #
-      # Iterates over each extension within the cache, passing each to the
-      # specified _block_.
-      #
-      def each_extension(&block)
-        each_value(&block)
-      end
+      alias each_extension each_value
 
       #
       # Selects the extensions within the cache that match the specified
