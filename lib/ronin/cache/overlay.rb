@@ -43,17 +43,26 @@ module Ronin
       # Local path to the overlay
       attr_reader :path
 
-      # Source URI of the overlay source
+      # URI that the overlay was installed from
       attr_reader :uri
 
       # Name of the overlay
       attr_reader :name
 
-      # Maintainers of the overlay
-      attr_reader :maintainers
-
       # License that the overlay contents is under
       attr_reader :license
+
+      # Source URI of the overlay
+      attr_reader :source
+
+      # Source View URI of the overlay
+      attr_reader :source_view
+
+      # Website URI for the overlay
+      attr_reader :website
+
+      # Maintainers of the overlay
+      attr_reader :maintainers
 
       # Description
       attr_reader :description
@@ -402,6 +411,11 @@ module Ronin
         # set to default values
         @name = File.basename(@path)
         @license = nil
+
+        @source = @uri
+        @source_view = @source
+        @website = @source_view
+
         @maintainers = []
         @description = nil
 
@@ -415,6 +429,18 @@ module Ronin
 
           overlay.each_element('license[.]:first') do |license|
             @license = license.text.strip
+          end
+
+          overlay.each_element('source[.]:first') do |source|
+            @source = source.text.strip
+          end
+
+          overlay.each_element('source-view[.]:first') do |source_view|
+            @source_view = source_view.text.strip
+          end
+
+          overlay.each_element('website[.]:first') do |website|
+            @website = website.text.strip
           end
 
           overlay.each_element('maintainers/maintainer') do |maintainer|
