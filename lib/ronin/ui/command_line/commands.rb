@@ -22,6 +22,7 @@
 #
 
 require 'ronin/ui/command_line/commands/overlay'
+require 'ronin/ui/command_line/commands/extension'
 require 'ronin/ui/command_line/commands/add'
 require 'ronin/ui/command_line/commands/install'
 require 'ronin/ui/command_line/commands/list'
