@@ -21,6 +21,7 @@
 #++
 #
 
+require 'ronin/cache/maintainer'
 require 'ronin/cache/extension'
 require 'ronin/cache/exceptions/extension_not_found'
 require 'ronin/cache/overlay_cache'
@@ -48,8 +49,8 @@ module Ronin
       # Name of the overlay
       attr_reader :name
 
-      # Authors of the overlay
-      attr_reader :authors
+      # Maintainers of the overlay
+      attr_reader :maintainers
 
       # License that the overlay contents is under
       attr_reader :license
@@ -401,7 +402,7 @@ module Ronin
         # set to default values
         @name = File.basename(@path)
         @license = nil
-        @authors = []
+        @maintainers = []
         @description = ''
 
         if File.file?(metadata_path)
@@ -411,11 +412,11 @@ module Ronin
             @name = repo.elements['name'].get_text.to_s.strip
             @license = repo.elements['license'].get_text.to_s.strip
 
-            repo.elements.each('authors/author') do |author|
+            repo.elements.each('maintainers/maintainer') do |author|
               name = author.elements['name'].get_text.to_s.strip
               email = author.elements['email'].get_text.to_s.strip
 
-              @authors << {:name => name, :email => email}
+              @maintainers << Maintainer.new(name,email)
             end
 
             @description = repo.elements['description'].get_text.to_s.strip
