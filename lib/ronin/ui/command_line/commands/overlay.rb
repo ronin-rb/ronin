@@ -126,7 +126,7 @@ module Ronin
             end
 
             if @source_view
-              source_view_tag = Element.new('view-source')
+              source_view_tag = Element.new('source-view')
               source_view_tag.text = @source_view
               root.add_element(source_view_tag)
             end
