@@ -69,6 +69,7 @@ module Ronin
           FileUtils.mkdir_p(path)
           FileUtils.mkdir_p(lib_dir)
           FileUtils.touch(File.join(lib_dir,File.basename(path) + '.rb'))
+          FileUtils.mkdir_p(File.join(lib_dir,File.basename(path)))
 
           File.open(extension_path,'w') do |file|
             template_path = File.join(Config::STATIC_DIR,'extension.rb.erb')
