@@ -43,7 +43,7 @@ module Ronin
           @source_browse = nil
           @website = nil
           @license = nil
-          @authors = []
+          @maintainers = []
           @description = nil
 
           super
@@ -73,11 +73,13 @@ module Ronin
               @license = license
             end
 
-            opts.on('-a','--author NAME <EMAIL>','Name of a contributing author to the Overlay') do |text|
-              name = text.scan(/^[^\(\)\[\]<>]+\s*/).first
-              email = text.scan(/[\(\[<][^\)\]>]+[\)\]>]\s*$/).first
+            opts.on('-m','--maintainer "NAME <EMAIL>"','Name of a maintainer of the Overlay') do |text|
+              name = text.scan(/^[^<]+[^<\s]/).first
+              email = text.scan(/<([^<>]+)>\s*$/).first
 
-              @authors << {:name => name, :email => email}
+              email = email.first if email
+
+              @maintainers << {:name => name, :email => email}
             end
 
             opts.on('-D','--description TEXT','The description for the Overlay') do |text|
@@ -141,30 +143,30 @@ module Ronin
               root.add_element(license_tag)
             end
 
-            unless @authors.empty?
-              authors_tag = Element.new('authors')
+            unless @maintainers.empty?
+              maintainers_tag = Element.new('maintainers')
 
-              @authors.each do |author|
+              @maintainers.each do |author|
                 if (author[:name] || author[:email])
-                  author_tag = Element.new('author')
+                  maintainer_tag = Element.new('maintainer')
 
                   if author[:name]
                     name_tag = Element.new('name')
                     name_tag.text = author[:name]
-                    author_tag.add_element(name_tag)
+                    maintainer_tag.add_element(name_tag)
                   end
 
                   if author[:email]
                     email_tag = Element.new('email')
                     email_tag.text = author[:email]
-                    author_tag.add_element(email_tag)
+                    maintainer_tag.add_element(email_tag)
                   end
 
-                  authors_tag.add_element(author_tag)
+                  maintainers_tag.add_element(maintainer_tag)
                 end
               end
 
-              root.add_element(authors_tag)
+              root.add_element(maintainers_tag)
             end
 
             if @description
