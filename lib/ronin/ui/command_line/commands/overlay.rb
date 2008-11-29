@@ -111,6 +111,7 @@ module Ronin
           File.open(File.join(path,Cache::Overlay::METADATA_FILE),'w') do |file|
             doc = Document.new
             doc.add(XMLDecl.new)
+            doc.add(Instruction.new('xml-stylesheet','type="text/xsl" href="http://ronin.rubyforge.org/dist/overlay.xsl"'))
 
             root = Element.new('ronin-overlay')
             root.attributes['version'] = Ronin::VERSION
