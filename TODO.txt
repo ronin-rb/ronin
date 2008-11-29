@@ -2,9 +2,6 @@
 
 === Ronin 0.1.2:
 
-* Add the +overlay+ and +extension+ sub-commands for creating skeleton
-  Overlays and Extensions.
-
 === Ronin 0.2.0:
 
 * Create an IO proxy class and RPC Service for proxying io.
