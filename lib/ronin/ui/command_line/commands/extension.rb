@@ -63,12 +63,14 @@ module Ronin
           end
 
           path = File.expand_path(args.first)
+          extension_path = File.join(path,Cache::Extension::EXTENSION_FILE)
+          lib_dir = File.join(path,Cache::Extension::LIB_DIR)
 
           FileUtils.mkdir_p(path)
-          FileUtils.mkdir_p(File.join(path,'lib'))
-          FileUtils.touch(File.join(path,'lib',File.basename(path) + '.rb'))
+          FileUtils.mkdir_p(lib_dir)
+          FileUtils.touch(File.join(lib_dir,File.basename(path) + '.rb'))
 
-          File.open(File.join(path,Cache::Extension::EXTENSION_FILE),'w') do |file|
+          File.open(extension_path,'w') do |file|
             template_path = File.join(Config::STATIC_DIR,'extension.rb.erb')
             template = ERB.new(File.read(template_path))
 
