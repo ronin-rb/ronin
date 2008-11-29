@@ -56,23 +56,33 @@ module Ronin
 
           # list specified repositories
           args.each do |name|
-            repo = Cache::Overlay.get(name)
+            overlay = Cache::Overlay.get(name)
 
-            puts "[ #{repo} ]\n\n"
+            puts "[ #{overlay.name} ]\n\n"
 
-            puts "  path: #{repo.path}" if @verbose
-            puts "  media: #{repo.media}"
-            puts "  uri: #{repo.uri}" if repo.uri
-
-            if repo.description
-              puts "  description:\n\n    #{repo.description}"
-            end
-
-            puts "\n"
+            puts "  Path: #{overlay.path}"
+            puts "  Media: #{overlay.media}" if overlay.media
+            puts "  URI: #{overlay.uri}" if overlay.uri
 
             if @verbose
-              puts "  extensions:\n\n"
-              repo.each_extension { |ext| puts "    #{ext}" }
+              if overlay.source
+                puts "  Source URI: #{overlay.source}"
+              end
+
+              if overlay.source_view
+                puts "  Source View: #{overlay.source_view}"
+              end
+
+              if overlay.website
+                puts "  Website: #{overlay.website}"
+              end
+
+              if overlay.description
+                puts "  Description:\n\n    #{overlay.description}"
+              end
+
+              puts "  Extensions:\n\n"
+              overlay.each_extension { |ext| puts "    #{ext.name}" }
             end
           end
         end
