@@ -83,6 +83,7 @@ lib/ronin/network/telnet.rb
 lib/ronin/network/http.rb
 lib/ronin/network/http/exceptions.rb
 lib/ronin/network/http/exceptions/unknown_request.rb
+lib/ronin/translators/translator.rb
 lib/ronin/code/emittable.rb
 lib/ronin/code/token.rb
 lib/ronin/code/reference.rb
@@ -190,7 +191,7 @@ spec/formatting/digest_spec.rb
 spec/formatting/html_spec.rb
 spec/formatting/http_spec.rb
 spec/formatting/text_spec.rb
-spec/encoders/encoder_spec.rb
+spec/translators/translator_spec.rb
 spec/code/reference_spec.rb
 spec/code/symbol_table_spec.rb
 spec/web/extensions/hpricot_spec.rb
