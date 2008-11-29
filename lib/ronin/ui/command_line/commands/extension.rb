@@ -70,7 +70,7 @@ module Ronin
 
           File.open(File.join(path,Cache::Extension::EXTENSION_FILE),'w') do |file|
             template_path = File.join(Config::STATIC_DIR,'extension.rb.erb')
-            template = ERB.new(File.new(template_path))
+            template = ERB.new(File.read(template_path))
 
             file.write(template.result(binding))
           end
