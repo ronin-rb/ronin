@@ -68,7 +68,7 @@ module Ronin
 
         super(@path,Repertoire::Media.types[media_type])
 
-        load_metadata(&block)
+        initialize_metadata(&block)
       end
 
       #
@@ -396,7 +396,7 @@ module Ronin
       # overlay +path+. If a _block_ is given, it will be passed the
       # overlay after the metadata has been loaded.
       #
-      def load_metadata(&block)
+      def initialize_metadata(&block)
         metadata_path = File.join(@path,METADATA_FILE)
 
         # set to default values
