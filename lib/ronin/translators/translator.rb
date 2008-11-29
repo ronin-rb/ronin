@@ -46,8 +46,8 @@ module Ronin
       # Decodes the specified _data_ with given _options_. If a _block_ is
       # given it will be passed the decoded data.
       #
-      def self.encode(data,options={},&block)
-        self.new(options).encode(data,&block)
+      def self.decode(data,options={},&block)
+        self.new(options).decode(data,&block)
       end
 
       #
