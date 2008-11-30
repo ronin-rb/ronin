@@ -16,75 +16,123 @@ describe Ronin do
     it "may be created with String arguments" do
       @chars = Chars::CharSet.new(*@strings)
 
-      @chars.should == @strings
+      @strings.each do |s|
+        @chars.include_char?(s).should == true
+      end
     end
 
     it "may be created with an Array of Strings" do
       @chars = Chars::CharSet.new(@strings)
 
-      @chars.should == @strings
+      @strings.each do |s|
+        @chars.include_char?(s).should == true
+      end
     end
 
     it "may be created with a Range of Strings" do
       @chars = Chars::CharSet.new(@string_range)
 
-      @chars.should == @strings
+      @strings.each do |s|
+        @chars.include_char?(s).should == true
+      end
     end
 
     it "may be created with Integer arguments" do
       @chars = Chars::CharSet.new(*@integers)
 
-      @chars.should == @strings
+      @integers.each do |i|
+        @chars.include?(i).should == true
+      end
     end
 
     it "may be created with an Array of Integers" do
       @chars = Chars::CharSet.new(@integers)
 
-      @chars.should == @strings
+      @integers.each do |i|
+        @chars.include?(i).should == true
+      end
     end
 
     it "may be created with a Range of Integers" do
       @chars = Chars::CharSet.new(@integer_range)
 
-      @chars.should == @strings
+      @integers.each do |i|
+        @chars.include?(i).should == true
+      end
     end
 
     it "should include Strings" do
-      @char_set.include?('A').should == true
+      @char_set.include_char?('A').should == true
     end
 
     it "should include Integers" do
       @char_set.include?(0x41).should == true
     end
 
-    it "should be able to select a sub-charset" do
-      @sub_chars = @char_set.select { |c| c <= 'B' }
+    it "should be able to select bytes" do
+      @sub_chars = @char_set.select_bytes { |c| c <= 0x42 }
 
-      @sub_chars.class.should == Chars::CharSet
+      @sub_chars.should == [0x41, 0x42]
+    end
+
+    it "should be able to select chars" do
+      @sub_chars = @char_set.select_chars { |c| c <= 'B' }
+
       @sub_chars.should == ['A', 'B']
     end
 
+    it "should return a random byte" do
+      @char_set.include?(@char_set.random_byte).should == true
+    end
+
     it "should return a random char" do
-      @char_set.include?(@char_set.random_char).should == true
+      @char_set.include_char?(@char_set.random_char).should == true
+    end
+
+    it "should iterate over n random bytes" do
+      @char_set.each_random_byte(10) do |b|
+        @char_set.include?(b).should == true
+      end
     end
 
     it "should iterate over n random chars" do
       @char_set.each_random_char(10) do |c|
-        @char_set.include?(c).should == true
+        @char_set.include_char?(c).should == true
+      end
+    end
+
+    it "should return a random Array of bytes" do
+      bytes = @char_set.random_bytes(10)
+
+      bytes.each do |b|
+        @char_set.include?(b).should == true
       end
     end
 
     it "should return a random Array of chars" do
-      arr = @char_set.random_array(10)
-      
-      (@char_set | arr).should == @char_set
+      chars = @char_set.random_chars(10)
+
+      chars.each do |c|
+        @char_set.include_char?(c).should == true
+      end
+    end
+
+    it "should return a random Array of bytes with a varying length" do
+      bytes = @char_set.random_bytes(5..10)
+
+      bytes.length.between?(5, 10).should == true
+      bytes.each do |b|
+        @char_set.include?(b).should == true
+      end
     end
 
     it "should return a random Array of chars with a varying length" do
-      arr = @char_set.random_array(5..10)
+      chars = @char_set.random_chars(5..10)
 
-      arr.length.between?(5, 10).should == true
-      (@char_set | arr).should == @char_set
+      chars.length.between?(5, 10).should == true
+      chars.each do |c|
+        @char_set.include_char?(c).should == true
+      end
     end
 
     it "should return a random String of chars" do
@@ -103,22 +151,22 @@ describe Ronin do
     end
 
     it "should be able to be compared with another set of chars" do
-      (@char_set == ['A', 'B', 'C']).should == true
-      (@char_set == ['A', 'C', 'B']).should == true
+      (@char_set == Chars::CharSet['A', 'B', 'C']).should == true
+      (@char_set == Chars::CharSet['A', 'C', 'B']).should == true
     end
 
     it "should be able to be unioned with another set of chars" do
-      super_set = (@char_set | ['D'])
+      super_set = (@char_set | Chars::CharSet['D'])
 
       super_set.class.should == Chars::CharSet
-      super_set.should == ['A', 'B', 'C', 'D']
+      super_set.should == Chars::CharSet['A', 'B', 'C', 'D']
     end
 
     it "should be able to be removed from another set of chars" do
-      sub_set = (@char_set - ['B'])
+      sub_set = (@char_set - Chars::CharSet['B'])
 
       sub_set.class.should == Chars::CharSet
-      sub_set.should == ['A', 'C']
+      sub_set.subset?(@char_set).should == true
     end
   end
 end

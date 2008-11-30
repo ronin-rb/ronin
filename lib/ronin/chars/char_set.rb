@@ -25,78 +25,117 @@ require 'set'
 
 module Ronin
   module Chars
-    class CharSet < Array
+    class CharSet < SortedSet
 
       #
       # Creates a new CharSet object with the given _chars_.
       #
       def initialize(*chars)
-        format_char = lambda { |char|
-          if (char.kind_of?(Array) || char.kind_of?(Range))
-            char.map(&format_char)
-          elsif char.kind_of?(Integer)
-            char.chr
-          else
-            char.to_s
+        super()
+
+        merge_chars = lambda { |element|
+          if (element.kind_of?(Array) || element.kind_of?(Range))
+            element.each(&merge_chars)
+          elsif element.kind_of?(String)
+            element.each_byte(&merge_chars)
+          elsif element.kind_of?(Integer)
+            self << element
           end
         }
 
-        super(chars.map(&format_char).flatten.uniq)
+        merge_chars.call(chars)
       end
 
-      #
-      # Returns +true+ if the character set contains the specified _char_,
-      # returns +false+ otherwise. The specified _char_ can be either an
-      # Integer or a String.
-      #
-      def include?(char)
-        if char.kind_of?(Integer)
-          return super(char.chr)
-        else
-          return super(char)
+      alias include_byte? include?
+      alias bytes to_a
+      alias each_byte each
+      alias select_bytes select
+      alias map_bytes map
+
+      def include_char?(char)
+        char.each_byte do |b|
+          return include?(b)
         end
       end
 
       #
-      # Create a new CharSet object containing the characters that match
-      # the given _block_.
+      # Returns all the characters within the character set as Strings.
       #
-      def select(&block)
-        CharSet.new(super(&block))
+      def chars
+        map { |b| b.chr }
       end
 
       #
-      # Creates a new CharSet object by passing each character to the
-      # specified _block_.
+      # Iterates over every character within the character set, passing
+      # each to the given _block_.
       #
-      def map(&block)
-        CharSet.new(super(&block))
+      def each_char(&block)
+        each { |b| block.call(b.chr) } if block
+      end
+
+      #
+      # Selects an Array of characters from the character set that match
+      # the given _block_.
+      #
+      def select_chars(&block)
+        chars.select(&block)
+      end
+
+      #
+      # Maps the characters of the character set using the given _block_.
+      #
+      def map_chars(&block)
+        chars.map(&block)
+      end
+
+      #
+      # Returns a random byte from the character set.
+      #
+      def random_byte
+        self.entries[rand(self.length)]
       end
 
       #
       # Returns a random char from the character set.
       #
       def random_char
-        self[rand(self.length)]
+        random_byte.chr
+      end
+
+      #
+      # Pass a random byte to the specified _block_, _n_ times.
+      #
+      def each_random_byte(n,&block)
+        n.times { block.call(random_byte) }
       end
 
       #
       # Pass a random character to the specified _block_, _n_ times.
       #
       def each_random_char(n,&block)
-        n.to_i.times { block.call(random_char) }
+        each_random_byte(n) { |b| block.call(b.chr) }
       end
 
       #
       # Returns an Array of the specified _length_ containing
-      # random characters from the character set.
+      # random bytes from the character set. The specified _length_ may
+      # be an Integer, Array or a Range of lengths.
       #
-      def random_array(length)
-        if length.kind_of?(Range)
-          return Array.new(length.sort_by { rand }.first) { random_char }
+      def random_bytes(length)
+        if (length.kind_of?(Array) || length.kind_of?(Range))
+          return Array.new(length.sort_by { rand }.first) { random_byte }
         else
-          return Array.new(length.to_i) { random_char }
+          return Array.new(length) { random_byte }
         end
+      end
+
+      #
+      # Returns an Array of the specified _length_ containing
+      # random characters from the character set. The specified _length_
+      # may be an Integer, Array or a Range of lengths.
+      #
+      def random_chars(length)
+        random_bytes(length).map { |b| b.chr }
       end
 
       #
@@ -104,33 +143,25 @@ module Ronin
       # random characters from the character set.
       #
       def random_string(length)
-        random_array(length).join
+        random_chars(length).join
       end
 
       #
-      # Returns +true+ if the specified _other_set_ contains the same
-      # set of characters as the character set, returns +false+ otherwise.
+      # Inspects the character set.
       #
-      def ==(other_set)
-        self.to_set == other_set.to_set
-      end
-
-      #
-      # Return a new CharSet that is the union of the character set and the
-      # specified _other_set_.
-      #
-      def |(other_set)
-        CharSet.new(super(other_set.to_a))
-      end
-
-      alias + |
-
-      #
-      # Returns a new CharSet that is the intersection of the character set
-      # and the specified _other_set_.
-      #
-      def -(other_set)
-        CharSet.new(super(other_set.to_a))
+      def inspect
+        "#<#{self.class.name}: {" + map { |b|
+          case b
+          when (0x07..0x0d), (0x20..0x7e)
+            b.chr.dump
+          when 0x00
+            # sly hack to make char-sets more friendly
+            # to us C programmers
+            '"\0"'
+          else
+            "0x%02x" % b
+          end
+        }.join(', ') + "}>"
       end
 
     end
