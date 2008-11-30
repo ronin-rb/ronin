@@ -34,12 +34,12 @@ module Ronin
         super()
 
         merge_chars = lambda { |element|
-          if (element.kind_of?(Array) || element.kind_of?(Range))
-            element.each(&merge_chars)
-          elsif element.kind_of?(String)
+          if element.kind_of?(String)
             element.each_byte(&merge_chars)
           elsif element.kind_of?(Integer)
             self << element
+          elsif element.kind_of?(Enumerable)
+            element.each(&merge_chars)
           end
         }
 
