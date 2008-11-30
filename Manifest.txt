@@ -53,7 +53,6 @@ lib/ronin/chars/chars.rb
 lib/ronin/chars/extensions.rb
 lib/ronin/chars/extensions/string.rb
 lib/ronin/translators/translator.rb
-lib/ronin/translators/white_space.rb
 lib/ronin/path.rb
 lib/ronin/network.rb
 lib/ronin/network/extensions.rb
@@ -179,7 +178,6 @@ spec/chars/char_set_spec.rb
 spec/chars/chars_spec.rb
 spec/chars/string_spec.rb
 spec/translators/translator_spec.rb
-spec/translators/white_space_spec.rb
 spec/context/context_spec.rb
 spec/context/helpers/book_context.rb
 spec/context/helpers/book_review_context.rb
