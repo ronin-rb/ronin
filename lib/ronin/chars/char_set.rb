@@ -147,6 +147,16 @@ module Ronin
       end
 
       #
+      # Creates a new CharSet object containing the both the characters
+      # of the character set and the specified _other_set_.
+      #
+      def |(other_set)
+        super(CharSet.new(other_set))
+      end
+
+      alias + |
+
+      #
       # Inspects the character set.
       #
       def inspect
