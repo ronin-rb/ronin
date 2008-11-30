@@ -52,6 +52,8 @@ lib/ronin/chars/char_set.rb
 lib/ronin/chars/chars.rb
 lib/ronin/chars/extensions.rb
 lib/ronin/chars/extensions/string.rb
+lib/ronin/translators/translator.rb
+lib/ronin/translators/white_space.rb
 lib/ronin/path.rb
 lib/ronin/network.rb
 lib/ronin/network/extensions.rb
@@ -83,7 +85,6 @@ lib/ronin/network/telnet.rb
 lib/ronin/network/http.rb
 lib/ronin/network/http/exceptions.rb
 lib/ronin/network/http/exceptions/unknown_request.rb
-lib/ronin/translators/translator.rb
 lib/ronin/code/emittable.rb
 lib/ronin/code/token.rb
 lib/ronin/code/reference.rb
@@ -177,6 +178,8 @@ spec/author_spec.rb
 spec/chars/char_set_spec.rb
 spec/chars/chars_spec.rb
 spec/chars/string_spec.rb
+spec/translators/translator_spec.rb
+spec/translators/white_space_spec.rb
 spec/context/context_spec.rb
 spec/context/helpers/book_context.rb
 spec/context/helpers/book_review_context.rb
@@ -191,7 +194,6 @@ spec/formatting/digest_spec.rb
 spec/formatting/html_spec.rb
 spec/formatting/http_spec.rb
 spec/formatting/text_spec.rb
-spec/translators/translator_spec.rb
 spec/code/reference_spec.rb
 spec/code/symbol_table_spec.rb
 spec/web/extensions/hpricot_spec.rb
