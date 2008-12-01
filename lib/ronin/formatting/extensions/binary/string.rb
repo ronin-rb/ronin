@@ -70,4 +70,14 @@ class String
     Base64.decode64(self)
   end
 
+  #
+  # XOR encodes the string using the specified _key_.
+  #
+  def xor(key)
+    encoded = ''
+
+    each_byte { |b| encoded << (b ^ key).chr }
+    return encoded
+  end
+
 end
