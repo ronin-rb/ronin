@@ -25,8 +25,7 @@ require 'ronin/exceptions/unknown_object_context'
 require 'ronin/exceptions/object_context_not_found'
 require 'ronin/extensions/meta'
 require 'ronin/context'
-
-require 'dm-core'
+require 'ronin/model'
 
 module Ronin
   module ObjectContext
@@ -34,8 +33,8 @@ module Ronin
 
     def self.included(base)
       base.class_eval do
-        include Model
         include Context
+        include Model
 
         metaclass_def(:object_contextify) do |name|
           ObjectContext.object_contexts[name] = self
