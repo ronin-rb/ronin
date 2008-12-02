@@ -27,7 +27,7 @@ require 'ronin/network/udp'
 module Ronin
   module Sessions
     module UDP
-      include Parameters
+      include Session
 
       setup_session do
         parameter :lhost, :description => 'local host'
