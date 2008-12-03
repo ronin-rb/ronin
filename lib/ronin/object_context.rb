@@ -36,8 +36,8 @@ module Ronin
     def self.included(base)
       base.class_eval do
         include Context
-        include Model
         include Parameters
+        include Model
 
         metaclass_def(:object_contextify) do |name|
           ObjectContext.object_contexts[name] = self
