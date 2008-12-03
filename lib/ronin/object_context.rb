@@ -27,6 +27,8 @@ require 'ronin/extensions/meta'
 require 'ronin/context'
 require 'ronin/model'
 
+require 'parameters'
+
 module Ronin
   module ObjectContext
     include DataMapper::Types
@@ -35,6 +37,7 @@ module Ronin
       base.class_eval do
         include Context
         include Model
+        include Parameters
 
         metaclass_def(:object_contextify) do |name|
           ObjectContext.object_contexts[name] = self
