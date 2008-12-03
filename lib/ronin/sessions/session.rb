@@ -22,7 +22,8 @@
 #
 
 require 'ronin/extensions/meta'
-require 'ronin/parameters'
+
+require 'parameters'
 
 module Ronin
   module Sessions
