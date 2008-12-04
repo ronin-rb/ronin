@@ -209,15 +209,6 @@ module Ronin
     end
 
     #
-    # Initializes the object with the given _attributes_.
-    #
-    def initialize(attributes={})
-      super(attributes)
-
-      self.params = attributes
-    end
-
-    #
     # Returns a new object loaded from the file pointed to by the
     # +object_path+ property.
     #
