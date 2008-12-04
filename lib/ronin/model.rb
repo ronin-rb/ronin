@@ -21,8 +21,6 @@
 #++
 #
 
-require 'ronin/extensions/meta'
-
 require 'dm-core'
 require 'dm-types'
 require 'dm-serializer'
