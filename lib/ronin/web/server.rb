@@ -226,7 +226,7 @@ module Ronin
       def not_found(env)
         path = env['PATH_INFO']
 
-        [404, {'Content-Type' => 'text/html'}, %{
+        return [404, {'Content-Type' => 'text/html'}, %{
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html>
   <head>
