@@ -260,7 +260,7 @@ module Ronin
       # Caches the objects contained within overlay.
       #
       def cache_objects
-        require 'ronin/persistence'
+        require 'ronin/models'
 
         return ObjectContext.cache_objects_in(objects_dir)
       end
@@ -269,7 +269,7 @@ module Ronin
       # Mirror the objects contained within the overlay.
       #
       def mirror_objects
-        require 'ronin/persistence'
+        require 'ronin/models'
 
         return ObjectContext.mirror_objects_in(objects_dir)
       end
@@ -278,7 +278,7 @@ module Ronin
       # Delete all objects that existed within the overlay.
       #
       def expunge_objects
-        require 'ronin/persistence'
+        require 'ronin/models'
 
         return ObjectContext.expunge_objects_from(objects_dir)
       end

@@ -28,7 +28,7 @@ require 'ronin/chars'
 require 'ronin/path'
 require 'ronin/network'
 require 'ronin/web'
-require 'ronin/persistence'
+require 'ronin/models'
 require 'ronin/ronin'
 require 'ronin/version'
 

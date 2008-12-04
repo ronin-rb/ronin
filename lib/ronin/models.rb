@@ -21,8 +21,13 @@
 #++
 #
 
+require 'ronin/database'
 require 'ronin/model'
 
 require 'reverse_require'
 
-require_all 'ronin/models'
+module Ronin
+  Database.setup do
+    require_all 'ronin/models'
+  end
+end
