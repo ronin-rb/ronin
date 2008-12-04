@@ -39,16 +39,16 @@ module Ronin
         include Parameters
         include Model
 
+        # The Path to the object context
+        property :object_path, String, :key => true
+
+        # The modification timestamp of the object context
+        property :object_timestamp, EpochTime
+
         metaclass_def(:object_contextify) do |name|
           ObjectContext.object_contexts[name] = self
 
           contextify name
-
-          # The Path to the object context
-          property :object_path, String, :key => true
-
-          # The modification timestamp of the object context
-          property :object_timestamp, EpochTime
 
           meta_def(:load_object) do |path,*args|
             ObjectContext.load_object(context_name,path,*args)
@@ -206,6 +206,15 @@ module Ronin
       end
 
       return nil
+    end
+
+    #
+    # Initializes the object with the given _attributes_.
+    #
+    def initialize(attributes={})
+      super(attributes)
+
+      self.params = attributes
     end
 
     #
