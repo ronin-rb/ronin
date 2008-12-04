@@ -175,6 +175,7 @@ spec/context/helpers/book_context.rb
 spec/context/helpers/book_review_context.rb
 spec/context/helpers/contexts/snow_crash.rb
 spec/context/helpers/contexts/neuromancer_review.rb
+spec/object_context/object_context_spec.rb
 spec/extensions/hash_spec.rb
 spec/extensions/string_spec.rb
 spec/extensions/uri/http_spec.rb
