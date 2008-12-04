@@ -52,9 +52,6 @@ module Ronin
     # The alpha-numeric character set
     ALPHA_NUMERIC = ALPHA + NUMERIC
 
-    # The space character set
-    SPACE = CharSet.new(' ', "\f", "\n", "\r", "\t", "\v")
-
     # The punctuation character set
     PUNCTUATION = CharSet.new(' ', '\'', '"', '`', ',', ';', ':', '~', '-',
                               '(', ')', '[', ']', '{', '}', '.', '?', '!')
@@ -62,6 +59,12 @@ module Ronin
     # The symbolic character set
     SYMBOLS = PUNCTUATION + ['@', '#', '$', '%', '^', '&', '*', '_', '+',
                              '=', '|', '\\', '<', '>', '/']
+
+    # The space character set
+    SPACE = CharSet.new(' ', "\f", "\n", "\r", "\t", "\v")
+
+    # The set of printable characters (including spaces)
+    PRINTABLE = ALPHA_NUMERIC + PUNCTUATION + SYMBOLS + SPACE
 
     # The control-char character set
     CONTROL = CharSet.new(0..0x1f, 0x7f)
@@ -136,13 +139,6 @@ module Ronin
     end
 
     #
-    # The space character set.
-    #
-    def Chars.space
-      SPACE
-    end
-
-    #
     # The punctuation character set.
     #
     def Chars.punctuation
@@ -154,6 +150,20 @@ module Ronin
     #
     def Chars.symbols
       SYMBOLS
+    end
+
+    #
+    # The space character set.
+    #
+    def Chars.space
+      SPACE
+    end
+
+    #
+    # The set of printable characters, including spaces.
+    #
+    def Chars.printable
+      PRINTABLE
     end
 
     #
