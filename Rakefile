@@ -11,7 +11,6 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
   p.remote_rdoc_dir = 'docs/ronin'
   p.extra_deps = ['hpricot',
                   'mechanize',
-                  'parameters',
                   ['spidr', '>=0.1.3'],
                   ['dm-core', '>=0.9.3'],
                   ['data_objects', '>=0.9.9'],
@@ -20,6 +19,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
                   ['dm-serializer', '>=0.9.3'],
                   ['dm-aggregates', '>=0.9.3'],
                   ['dm-validations', '>=0.9.3'],
+                  ['parameters', '>=0.1.0'],
                   ['reverse-require', '>=0.2.0'],
                   ['repertoire', '>=0.1.2']]
 end
