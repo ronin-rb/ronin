@@ -21,14 +21,6 @@ lib/ronin/extensions/uri.rb
 lib/ronin/extensions/uri/query_params.rb
 lib/ronin/extensions/uri/http.rb
 lib/ronin/extensions/string.rb
-lib/ronin/parameters.rb
-lib/ronin/parameters/exceptions.rb
-lib/ronin/parameters/exceptions/missing_param.rb
-lib/ronin/parameters/exceptions/param_not_found.rb
-lib/ronin/parameters/class_param.rb
-lib/ronin/parameters/instance_param.rb
-lib/ronin/parameters/param.rb
-lib/ronin/parameters/parameters.rb
 lib/ronin/formatting.rb
 lib/ronin/formatting/digest.rb
 lib/ronin/formatting/binary.rb
@@ -200,7 +192,6 @@ spec/path_spec.rb
 spec/platform_spec.rb
 spec/product_spec.rb
 spec/target_spec.rb
-spec/parameters/parameters_spec.rb
 spec/sessions/session_spec.rb
 spec/ronin_spec.rb
 static/overlay.xsl
