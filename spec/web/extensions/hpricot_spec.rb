@@ -16,6 +16,13 @@ describe Hpricot do
     (elem1 == elem2).should == true
   end
 
+  it "should be able to test if two elements are not equal" do
+    elem1 = @doc.at('p').children.last
+    elem2 = @edited_doc.at('b')
+
+    (elem1 == elem2).should == false
+  end
+
   it "should be able to compare two elements" do
     elem1 = @doc.at('p')
     elem2 = @edited_doc.at('p')

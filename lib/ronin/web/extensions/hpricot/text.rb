@@ -8,7 +8,9 @@ module Hpricot
     # node, returns +false+ otherwise.
     #
     def eql?(other)
-      content == other.content
+      return false unless self.class == other.class
+
+      return content == other.content
     end
 
     alias == eql?

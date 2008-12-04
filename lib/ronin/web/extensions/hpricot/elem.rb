@@ -12,7 +12,9 @@ module Hpricot
     # ending-tag as the _other_ element, returns +false+ otherwise.
     #
     def eql?(other)
-      (stag == other.stag && etag == other.etag)
+      return false unless self.class == other.class
+
+      return (stag == other.stag && etag == other.etag)
     end
 
     def ==(other)
