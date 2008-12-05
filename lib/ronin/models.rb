@@ -28,6 +28,13 @@ require 'reverse_require'
 
 module Ronin
   Database.setup do
+    require 'ronin/arch'
+    require 'ronin/platform'
+    require 'ronin/author'
+    require 'ronin/license'
+    require 'ronin/product'
+    require 'ronin/vulnerability/behavior'
+
     require_all 'ronin/models'
   end
 end
