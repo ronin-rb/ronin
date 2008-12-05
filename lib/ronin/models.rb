@@ -33,7 +33,6 @@ module Ronin
     require 'ronin/author'
     require 'ronin/license'
     require 'ronin/product'
-    require 'ronin/vulnerability/behavior'
 
     require_all 'ronin/models'
   end
