@@ -45,7 +45,7 @@ module Ronin
         # The modification timestamp of the object context
         property :object_timestamp, EpochTime
 
-        metaclass_def(:object_contextify) do |name|
+        metaclass_def(:objectify) do |name|
           ObjectContext.object_contexts[name] = self
 
           contextify name
