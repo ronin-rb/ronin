@@ -39,6 +39,9 @@ module Ronin
     # Configuration files directory
     CONFIG_DIR = File.expand_path(File.join(PATH,'config'))
 
+    # Temporary file directory
+    TMP_DIR = FileUtils.mkdir_p(File.join(PATH,'tmp'))
+
     #
     # Require the Ronin configuration file with the given _name_ in the
     # Ronin configuration files directory. If _name_ is not given, than the
