@@ -87,13 +87,21 @@ of Ronin.
 
 == SYNOPSIS:
 
-* List installed Overlays:
+* Generate an Overlay:
 
-    $ ronin ls
+    $ ronin overlay path/to/overlay/name/
+
+* Generate an Extension within an Overlay:
+
+    $ ronin ext path/to/overlay/extension/
 
 * Install an Overlay:
 
     $ ronin install svn://example.com/var/svn/overlay
+
+* List installed Overlays:
+
+    $ ronin ls
 
 * Update all installed Overlays:
 
