@@ -21,8 +21,6 @@
 #++
 #
 
-require 'ronin/extensions/kernel'
-
 require 'fileutils'
 
 module Ronin

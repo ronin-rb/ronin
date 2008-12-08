@@ -22,7 +22,6 @@
 #
 
 require 'ronin/exceptions/invalid_database_config'
-require 'ronin/extensions/kernel'
 require 'ronin/config'
 
 require 'yaml'
