@@ -33,7 +33,7 @@ module Ronin
         STDOUT.printf(
           "%.8x  %s  |%s|\n",
           index,
-          hex_segment.join(' ').ljust(47),
+          hex_segment.join(' ').ljust(47).insert(23,' '),
           print_segment
         )
       }
@@ -41,7 +41,7 @@ module Ronin
       each_byte do |b|
         if offset == 0
           hex_segment = []
-          print_segment = [' '] * 16
+          print_segment = []
         end
 
         hex_segment << ("%.2x" % b)
