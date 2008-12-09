@@ -83,4 +83,45 @@ class String
     return self[prefix.length...(length - postfix.length)]
   end
 
+  #
+  # Inspects the string, returning a C style encoded version of the string.
+  #
+  #   "hello\x00\073\x90\r\n"
+  #   # => "hello\0;\x90\r\n"
+  #
+  def inspect
+    c_string = ''
+
+    each_byte do |b|
+      c_string << case b
+                  when 0x00
+                    "\\0"
+                  when 0x07
+                    "\\a"
+                  when 0x08
+                    "\\b"
+                  when 0x09
+                    "\\t"
+                  when 0x0a
+                    "\\n"
+                  when 0x0b
+                    "\\v"
+                  when 0x0c
+                    "\\f"
+                  when 0x0d
+                    "\\r"
+                  when 0x22
+                    "\\\""
+                  when 0x5c
+                    "\\\\"
+                  when (0x20..0x7e)
+                    b.chr
+                  else
+                    ("\\x%.2x" % b)
+                  end
+    end
+
+    return "\"#{c_string}\""
+  end
+
 end
