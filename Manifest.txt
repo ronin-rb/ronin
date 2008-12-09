@@ -39,6 +39,13 @@ lib/ronin/formatting/extensions/html.rb
 lib/ronin/formatting/extensions/html/string.rb
 lib/ronin/formatting/extensions/http.rb
 lib/ronin/formatting/extensions/http/string.rb
+lib/ronin/hexdump.rb
+lib/ronin/hexdump/hexdump.rb
+lib/ronin/hexdump/extensions.rb
+lib/ronin/hexdump/extensions/string.rb
+lib/ronin/hexdump/extensions/string_io.rb
+lib/ronin/hexdump/extensions/io.rb
+lib/ronin/hexdump/extensions/file.rb
 lib/ronin/chars.rb
 lib/ronin/chars/char_set.rb
 lib/ronin/chars/chars.rb
