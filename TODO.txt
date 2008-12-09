@@ -2,9 +2,6 @@
 
 === Ronin 0.1.2:
 
-* Add methods to the String class for formatting C-strings and doing
-  hexdumps.
-
 === Ronin 0.2.0:
 
 * Create an IO proxy class and RPC Service for proxying io.
