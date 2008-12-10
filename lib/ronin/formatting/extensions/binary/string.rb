@@ -57,6 +57,16 @@ class String
   end
 
   #
+  # XOR encodes the string using the specified _key_.
+  #
+  def xor(key)
+    encoded = ''
+
+    each_byte { |b| encoded << (b ^ key).chr }
+    return encoded
+  end
+
+  #
   # Returns the base64 encoded form of the string.
   #
   def base64_encode
@@ -68,16 +78,6 @@ class String
   #
   def base64_decode
     Base64.decode64(self)
-  end
-
-  #
-  # XOR encodes the string using the specified _key_.
-  #
-  def xor(key)
-    encoded = ''
-
-    each_byte { |b| encoded << (b ^ key).chr }
-    return encoded
   end
 
 end
