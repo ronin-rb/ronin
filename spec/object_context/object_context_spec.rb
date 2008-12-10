@@ -8,7 +8,7 @@ describe ObjectContext do
 
       include ObjectContext
 
-      object_contextify :test
+      objectify :test
 
       property :mesg, String
 
