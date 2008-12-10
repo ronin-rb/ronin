@@ -94,4 +94,16 @@ describe String do
       one.uncommon_substring(two).should == uncommon
     end
   end
+
+  it "should inspect printable strings" do
+    "hello".inspect.should == '"hello"'
+  end
+
+  it "should inspect strings containing control characters" do
+    "hello\n\b\a".inspect.should == '"hello\n\b\a"'
+  end
+
+  it "should inspect strings containing non-printable characters" do
+    "hello\x90\x05\xef".inspect.should == '"hello\x90\x05\xef"'
+  end
 end
