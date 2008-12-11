@@ -53,22 +53,3 @@ describe Integer do
     @integer.pack(Arch.ppc,8).should == @ppc_packed_quad
   end
 end
-
-describe "String" do
-  before(:all) do
-    @packed_integer = ""
-  end
-
-  it "should provide String#depack" do
-    @packed_integer.respond_to?('depack').should == true
-  end
-
-  it "should provide String#xor" do
-    string = "hello"
-    key = 0x50
-    xor_string = string.xor(key)
-    
-    xor_string.should_not == string
-    xor_string.xor(key).should == string
-  end
-end
