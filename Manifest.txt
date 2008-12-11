@@ -179,7 +179,8 @@ spec/extensions/hash_spec.rb
 spec/extensions/string_spec.rb
 spec/extensions/uri/http_spec.rb
 spec/extensions/uri/query_params_spec.rb
-spec/formatting/binary_spec.rb
+spec/formatting/binary/integer_spec.rb
+spec/formatting/binary/string_spec.rb
 spec/formatting/digest_spec.rb
 spec/formatting/html_spec.rb
 spec/formatting/http_spec.rb
@@ -193,6 +194,7 @@ spec/platform_spec.rb
 spec/product_spec.rb
 spec/target_spec.rb
 spec/sessions/session_spec.rb
+spec/ui/command_line/param_parser.rb
 spec/ronin_spec.rb
 static/overlay.xsl
 static/extension.rb.erb
