@@ -47,8 +47,6 @@ lib/ronin/hexdump/extensions/kernel.rb
 lib/ronin/chars.rb
 lib/ronin/chars/char_set.rb
 lib/ronin/chars/chars.rb
-lib/ronin/chars/extensions.rb
-lib/ronin/chars/extensions/string.rb
 lib/ronin/translators/translator.rb
 lib/ronin/path.rb
 lib/ronin/network.rb

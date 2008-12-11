@@ -23,4 +23,3 @@
 
 require 'ronin/chars/char_set'
 require 'ronin/chars/chars'
-require 'ronin/chars/extensions'
