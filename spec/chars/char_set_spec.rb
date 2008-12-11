@@ -168,5 +168,10 @@ describe Ronin do
       sub_set.class.should == Chars::CharSet
       sub_set.subset?(@char_set).should == true
     end
+
+    it "should determine if a String is made up of the characters from the char set" do
+      (@char_set =~ "AABCBAA").should == true
+      (@char_set =~ "AADDEE").should_not == true
+    end
   end
 end
