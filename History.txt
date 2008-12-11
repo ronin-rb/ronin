@@ -1,3 +1,42 @@
+=== 0.1.2 / 2008-12-10
+
+* Require do_sqlite3 >= 0.9.9, since version 0.9.8 was totally broken.
+* Require reverse-require >= 0.2.0, for improved performance.
+* Require Spidr >= 0.1.3.
+* Moved Ronin::Parameters into the parameters 0.1.0 RubyGem.
+* Added a Hexdump module:
+  * Provides Hexdump.dump and Kernel#hexdump, which can hexdump any object
+    that supports the #each_byte method.
+* Refactored Chars::CharSet:
+  * Now inherites the SortedSet class.
+  * Stores chars as bytes.
+  * Added a Chars::CharSet#=~ operator, for determining if a String exists
+    in the language over the alphabet represented by the character set.
+  * Added a Chars::CharSet#inspect method which prints C-like characters.
+* Added a String#inspect method which prints C-like strings.
+* Added a String#xor method (it might come in handy).
+* Renamed Encoders::Encoder to Translators::Translator.
+* Added URI::QueryParams#each_query_param.
+* Added extensions to Hpricot, for comparing two Hpricot Element trees.
+* Added the Web.spider_agent, Web.spider_host and Web.spider_site methods.
+* Added Code::SymbolTable#symbols.
+* Added a basic Code::Emittable module and a Code::Token class.
+* Renamed ObjectContext.object_contextify to ObjectContext.objectify.
+* Merged the Environment module into the Config module.
+* Refactored the Shell class.
+* Refactored the Runner::Program module.
+* Created the UI namespace, to contain all things User Interfacing:
+  * Moved Console and Shell into the UI namespace.
+  * Renamed Runner::Program to UI::CommandLine.
+* Added a Cache::Overlay::Maintainer class to define maintainers of an
+  Overlay and their contact information.
+* Refactored the parsing of Overlay XML files.
+* Added the sub-commands 'overlay' and 'extension' for generating skeleton
+  Overlays and Extensions.
+* Added a XSL file for generating pretty HTML from Overlay XML files.
+* Added even more specs.
+* More typo and documentation fixes.
+
 === 0.1.1 / 2008-10-26
 
 * Depend on the newly renamed reverse-require (>= 0.1.2) gem.
