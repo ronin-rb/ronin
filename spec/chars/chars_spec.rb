@@ -66,15 +66,8 @@ describe Chars do
   end
 
   it "should provide a symbols CharSet" do
-    #(@symbols_string =~ /[\@\#\$\%\^\&\*\_\+\=\|\\\<\>\/]{10}/).should_not be_nil
-  end
-
-  it "should provide a control CharSet" do
-  end
-
-  it "should provide an ascii CharSet" do
-  end
-
-  it "should provide an 'all' CharSet" do
+    pending "need to fix the testing regex" do
+      (@symbols_string =~ /[\@\#\$\%\^\&\*\_\+\=\|\\\<\>\/]{10}/).should_not be_nil
+    end
   end
 end
