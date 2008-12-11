@@ -46,10 +46,17 @@ module Ronin
         [self]
       end
 
+      #
+      # Returns +true+ if the token has the same value as the specified
+      # _other_ token, returns +false+ otherwise.
+      #
       def ==(other)
         self.value == other.value
       end
 
+      #
+      # Inspects the token.
+      #
       def inspect
         "#<Token:#{@value.inspect}>"
       end
