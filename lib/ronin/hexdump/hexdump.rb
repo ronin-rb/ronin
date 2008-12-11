@@ -23,14 +23,17 @@
 
 module Ronin
   module Hexdump
-    def hexdump
+    #
+    # Hexdumps the specified _object_ to the given _output_ stream.
+    #
+    def Hexdump.dump(object,output=STDOUT)
       index = 0
       offset = 0
       hex_segment = nil
       print_segment = nil
 
       segment = lambda {
-        STDOUT.printf(
+        output.printf(
           "%.8x  %s  |%s|\n",
           index,
           hex_segment.join(' ').ljust(47).insert(23,' '),
@@ -38,7 +41,7 @@ module Ronin
         )
       }
 
-      each_byte do |b|
+      object.each_byte do |b|
         if offset == 0
           hex_segment = []
           print_segment = []

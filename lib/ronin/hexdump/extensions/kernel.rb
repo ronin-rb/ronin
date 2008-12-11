@@ -23,8 +23,11 @@
 
 require 'ronin/hexdump/hexdump'
 
-class String
-
-  include Ronin::Hexdump
-
+module Kernel
+  #
+  # Hexdumps the specified _object_ to the given _output_ stream.
+  #
+  def hexdump(object,output=STDOUT)
+    Ronin::Hexdump.dump(object,output)
+  end
 end

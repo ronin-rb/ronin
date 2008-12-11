@@ -21,7 +21,5 @@
 #++
 #
 
-require 'ronin/hexdump/extensions/string'
-require 'ronin/hexdump/extensions/string_io'
-require 'ronin/hexdump/extensions/io'
 require 'ronin/hexdump/extensions/file'
+require 'ronin/hexdump/extensions/kernel'

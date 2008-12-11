@@ -21,12 +21,16 @@
 #++
 #
 
-require 'ronin/hexdump/extensions/io'
+require 'ronin/hexdump/hexdump'
 
 class File
 
-  def self.hexdump(path)
-    self.open(path).hexdump
+  #
+  # Hexdumps the contents of the File at the specified _path_
+  # to the given _output_ stream.
+  #
+  def self.hexdump(path,output=STDOUT)
+    Ronin::Hexdump.dump(self.open(path),output)
   end
 
 end
