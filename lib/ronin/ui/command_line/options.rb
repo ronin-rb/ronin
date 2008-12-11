@@ -130,8 +130,13 @@ module Ronin
           puts self
         end
 
-        def parse(argv,&block)
-          args = super(argv)
+        #
+        # Parses the specified _arguments_ and returns any remaining
+        # arguments. If a _block_ is given, it will be passed any
+        # remaining arguments.
+        #
+        def parse(arguments,&block)
+          args = super(arguments)
 
           block.call(args) if block
           return args
