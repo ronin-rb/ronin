@@ -31,9 +31,10 @@ module Ronin
 
     include Model
 
-    # Anonymouse author name.
+    # Anonymouse author name
     ANONYMOUSE = 'anonymous'
 
+    # Primary key of the author
     property :id, Serial
 
     # Name of author
