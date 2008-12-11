@@ -35,9 +35,6 @@ module Ronin
 
         command :extension, :ext
 
-        #
-        # Creates a new ExtensionCommand object.
-        #
         def initialize
           @uses = []
 
