@@ -157,6 +157,21 @@ module Ronin
       alias + |
 
       #
+      # Returns +true+ if all of the bytes within the specified _string_
+      # are included in the character set, returns +false+ otherwise.
+      #
+      #   Chars.alpha =~ "hello"
+      #   # => true
+      #
+      def =~(string)
+        string.each_byte do |b|
+          return false unless include?(b)
+        end
+
+        return true
+      end
+
+      #
       # Inspects the character set.
       #
       def inspect
