@@ -37,6 +37,9 @@ module Ronin
 
         command :overlay
 
+        #
+        # Creates a new OverlayCommand object.
+        #
         def initialize
           @name = nil
           @source = nil
