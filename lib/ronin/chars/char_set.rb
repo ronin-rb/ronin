@@ -52,6 +52,10 @@ module Ronin
       alias select_bytes select
       alias map_bytes map
 
+      #
+      # Returns +true+ if the character set includes the specified _char_,
+      # returns +false+ otherwise.
+      #
       def include_char?(char)
         char.each_byte do |b|
           return include?(b)
