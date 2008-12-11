@@ -17,9 +17,16 @@ describe UI::CommandLine::ParamParser do
     @command.params.should_not be_nil
   end
 
-  it "should parser params of the form 'name=value'" do
-    @command.parse_param('var=test')
-    @command.params[:var].should == 'test'
+  it "should parse params of the form 'name'" do
+    @command.parse_param('var')
+
+    @command.params.has_key?(:var).should == true
+    @command.params[:var].should be_nil
+  end
+
+  it "should parse params of the form 'name=value'" do
+    @command.parse_param('var1=test')
+    @command.params[:var1].should == 'test'
   end
 
   it "should parse params which have numeric values" do

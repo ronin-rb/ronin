@@ -56,10 +56,12 @@ module Ronin
         def parse_param(name_and_value)
           name, value = name_and_value.split('=',2)
 
-          FORMATS.each do |pattern,parser|
-            if value.match(pattern)
-              value = parser.call(value)
-              break
+          if value
+            FORMATS.each do |pattern,parser|
+              if value.match(pattern)
+                value = parser.call(value)
+                break
+              end
             end
           end
 
