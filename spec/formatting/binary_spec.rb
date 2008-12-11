@@ -62,4 +62,13 @@ describe "String" do
   it "should provide String#depack" do
     @packed_integer.respond_to?('depack').should == true
   end
+
+  it "should provide String#xor" do
+    string = "hello"
+    key = 0x50
+    xor_string = string.xor(key)
+    
+    xor_string.should_not == string
+    xor_string.xor(key).should == string
+  end
 end
