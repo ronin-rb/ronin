@@ -25,20 +25,23 @@ require 'fileutils'
 
 module Ronin
   module Config
+    # The users home directory
+    HOME = File.expand_path(ENV['HOME'] || ENV['HOMEPATH'])
+
     # Ronin home directory
-    PATH = FileUtils.mkdir_p(File.join(ENV['HOME'],'.ronin'))
+    PATH = FileUtils.mkdir_p(File.join(HOME,'.ronin'))
 
     # Path to static directory
     STATIC_DIR = File.expand_path(File.join(File.dirname(__FILE__),'..','..','static'))
 
     # Main configuration file
-    CONFIG_PATH = File.expand_path(File.join(PATH,'config.rb'))
+    CONFIG_PATH = File.join(PATH,'config.rb')
 
     # Configuration files directory
-    CONFIG_DIR = FileUtils.mkdir(File.expand_path(File.join(PATH,'config')))
+    CONFIG_DIR = FileUtils.mkdir_p(File.join(PATH,'config'))
 
     # Temporary file directory
-    TMP_DIR = FileUtils.mkdir(File.join(PATH,'tmp'))
+    TMP_DIR = FileUtils.mkdir_p(File.join(PATH,'tmp'))
 
     #
     # Require the Ronin configuration file with the given _name_ in the
