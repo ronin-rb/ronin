@@ -39,6 +39,12 @@ module Ronin
 
       protected
 
+      #
+      # Opens a UDP connection to the host and port specified by the
+      # +rhost+ and +rport+ parameters. If the +lhost+ and +lport+ parameters
+      # are set, they will be used for the local host and port of the UDP
+      # connection. A UDPSocket object will be returned.
+      #
       def udp_connect(&block)
         unless @rhost
           raise(ParamNotFound,"Missing '#{describe_param(:rhost)}' parameter",caller)
@@ -51,6 +57,11 @@ module Ronin
         return ::Net.udp_connect(@rhost,@rport,@lhost,@lport,&block)
       end
 
+      #
+      # Connects to the host and port specified by the +rhost+ and +rport+
+      # parameters, then sends the specified _data_. If a _block_ is given,
+      # it will be passed the newly created UDPSocket object.
+      #
       def udp_connect_and_send(data,&block)
         unless @rhost
           raise(ParamNotFound,"Missing '#{describe_param(:rhost)}' parameter",caller)
@@ -63,6 +74,12 @@ module Ronin
         return ::Net.udp_connect_and_send(data,@rhost,@rport,@lhost,@lport,&block)
       end
 
+      #
+      # Creates a UDP session to the host and port specified by the
+      # +rhost+ and +rport+ parameters. If a _block_ is given, it will be
+      # passed the temporary UDPSocket object. After the given _block_
+      # has returned, the UDPSocket object will be closed.
+      #
       def udp_session(&block)
         unless @rhost
           raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
