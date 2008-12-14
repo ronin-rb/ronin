@@ -29,6 +29,7 @@ module Ronin
 
     include Model
 
+    # Primary key
     property :id, Serial
 
     # License name
