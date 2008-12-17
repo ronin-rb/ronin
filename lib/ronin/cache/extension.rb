@@ -68,7 +68,6 @@ module Ronin
         @toredown = true
 
         @setup_blocks = []
-        @action_blocks = {}
         @teardown_blocks = []
 
         block.call(self) if block
@@ -463,41 +462,6 @@ module Ronin
       end
 
       #
-      # Returns an +Array+ of the names of all actions defined in the
-      # extension.
-      #
-      #   ext.actions # => [...]
-      #
-      def actions
-        @action_blocks.keys
-      end
-
-      #
-      # Returns +true+ if the extension has the action of the specified
-      # _name_, returns +false+ otherwise.
-      #
-      def has_action?(name)
-        @action_blocks.has_key?(name.to_sym)
-      end
-
-      #
-      # Runs the action of the specified _name_ with the given _args_.
-      # If no action of the specified name exists, then an UnknownAction
-      # exception will be raised.
-      #
-      def perform_action(name,*args)
-        name = name.to_s
-
-        unless has_action?(name)
-          raise(UnknownAction,"action #{name.dump} is not defined",caller)
-        end
-
-        return run do
-          @action_blocks[name.to_sym].call(*args)
-        end
-      end
-
-      #
       # Find the specified _path_ from within all similar extensions.
       # If a _block_ is given, it will be passed the full path if found.
       #
@@ -640,22 +604,6 @@ module Ronin
       end
 
       #
-      # Defines a new action with the specified _name_ and the given
-      # _block_. If an action of the same _name_ has already been defined
-      # then an ActionRedefined exception will be raised.
-      #
-      def action(name,&block)
-        name = name.to_s
-
-        if has_action?(name)
-          raise(ActionRedefined,"action #{name.dump} previously defined",caller)
-        end
-
-        @action_blocks[name.to_sym] = block
-        return self
-      end
-
-      #
       # Adds the specified _block_ to the list of blocks to run in order
       # to properly tear-down the extension.
       #
@@ -665,10 +613,7 @@ module Ronin
       end
 
       #
-      # Provides transparent access to the performing of actions
-      # and extensions dependencies.
-      #
-      #   ext.scan('localhost') # => Extension
+      # Provides transparent access to extensions dependencies.
       #
       #   ext.shellcode # => Extension
       #
@@ -679,10 +624,6 @@ module Ronin
       def method_missing(sym,*args,&block)
         if (args.length==0)
           name = sym.to_s
-
-          if (has_action?(name) && block.nil?)
-            return perform_action(name,*args)
-          end
 
           if uses?(name)
             block.call(@dependencies[name]) if block
