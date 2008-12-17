@@ -35,9 +35,9 @@ module Ronin
 
     def self.included(base)
       base.class_eval do
-        include Model
         include Context
         include Parameters
+        include Model
 
         # The Path to the object context
         property :object_path, String, :key => true
