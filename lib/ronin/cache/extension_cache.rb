@@ -37,7 +37,7 @@ module Ronin
           hash[name] = load_extension(key.to_s)
         end
 
-        catch('EXIT') do
+        at_exit do
           each_extension { |ext| ext.perform_teardown }
         end
 
