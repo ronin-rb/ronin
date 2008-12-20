@@ -22,7 +22,7 @@
 #
 
 require 'ronin/object_context'
-require 'ronin/console'
+require 'ronin/ui/console'
 
 module Ronin
   #
