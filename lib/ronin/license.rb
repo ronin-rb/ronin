@@ -65,7 +65,7 @@ module Ronin
     # <tt>:url</tt>:: The URL to the license.
     #
     def self.define(name,options={})
-      super(name,options.merge(:name => name))
+      super(name.to_method_name,options.merge(:name => name))
     end
 
     # Creative Commons Licenses
