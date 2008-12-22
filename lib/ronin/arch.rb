@@ -25,10 +25,13 @@ require 'ronin/extensions/meta'
 require 'ronin/extensions/string'
 require 'ronin/model'
 
+require 'dm-predefined'
+
 module Ronin
   class Arch
 
     include Model
+    include DataMapper::Predefined
 
     # Primary key
     property :id, Serial
@@ -61,20 +64,8 @@ module Ronin
     # Defines a new builtin Arch with the specified _name_ and the given
     # _options_.
     #
-    def Arch.define(name,options={})
-      name = name.to_s
-      endian = options[:endian].to_s
-      address_length = options[:address_length].to_i
-
-      meta_def(name.to_method_name) do
-        Arch.first_or_create(
-          :name => name,
-          :endian => endian,
-          :address_length => address_length
-        )
-      end
-
-      return nil
+    def self.define(name,options={})
+      super(name,options.merge(:name => name))
     end
 
     define :i386, :endian => :little, :address_length => 4

@@ -24,10 +24,13 @@
 require 'ronin/model'
 require 'ronin/extensions/string'
 
+require 'dm-predefined'
+
 module Ronin
   class License
 
     include Model
+    include DataMapper::Predefined
 
     # Primary key
     property :id, Serial
@@ -61,20 +64,8 @@ module Ronin
     # <tt>:description</tt>:: The description of the license.
     # <tt>:url</tt>:: The URL to the license.
     #
-    def License.define(name,options={})
-      name = name.to_s
-      description = options[:description].to_s
-      url = options[:url].to_s
-
-      meta_def(name.to_method_name) do
-        License.first_or_create(
-          :name => name,
-          :description => description,
-          :url => url
-        )
-      end
-
-      return nil
+    def self.define(name,options={})
+      super(name,options.merge(:name => name))
     end
 
     # Creative Commons Licenses
