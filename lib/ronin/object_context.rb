@@ -39,10 +39,13 @@ module Ronin
         include Parameters
         include Model
 
-        # The Path to the object context
-        property :object_path, String, :key => true
+        # Primary key of the object
+        property :id, Serial
 
-        # The modification timestamp of the object context
+        # Path to the object context
+        property :object_path, String
+
+        # Modification timestamp of the object context
         property :object_timestamp, EpochTime
 
         metaclass_def(:objectify) do |name|
@@ -213,7 +216,7 @@ module Ronin
     # +object_path+ property.
     #
     def object
-      self.class.load_object(self.object_path)
+      self.class.load_object(self.object_path, :id => self.id)
     end
 
     #
