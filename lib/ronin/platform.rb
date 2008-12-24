@@ -23,6 +23,7 @@
 
 require 'ronin/model'
 require 'ronin/extensions/meta'
+require 'ronin/extensions/string'
 
 module Ronin
   class Platform
