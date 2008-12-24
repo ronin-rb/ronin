@@ -118,6 +118,7 @@ lib/ronin/database.rb
 lib/ronin/model.rb
 lib/ronin/author.rb
 lib/ronin/license.rb
+lib/ronin/has_license.rb
 lib/ronin/arch.rb
 lib/ronin/platform.rb
 lib/ronin/target.rb
