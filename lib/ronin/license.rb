@@ -81,5 +81,8 @@ module Ronin
     define 'GPL-3', :description => 'GNU Public License v3.0', :url => 'http://www.gnu.org/licenses/gpl-3.0.txt'
     define 'LGPL-3', :description => 'GNU Lesser General Public License v3.0', :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
 
+    # The MIT Licence
+    define 'MIT', :description => 'The MIT Licence', :url => 'http://www.opensource.org/licenses/mit-license.php'
+
   end
 end
