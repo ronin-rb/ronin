@@ -49,6 +49,8 @@ module Ronin
         property :object_timestamp, EpochTime
 
         metaclass_def(:objectify) do |name|
+          name = name.to_s
+
           Objectify.object_contexts[name] = self
 
           self.contextify name
@@ -76,7 +78,7 @@ module Ronin
             all(*attribs).map { |obj| obj.object }
           end
 
-          # define Repo-level object loader method
+          # define Ronin-level object loader method
           Ronin.module_eval %{
             def ronin_load_#{name}(path,*args,&block)
               new_obj = #{self}.load_object(path,*args)
@@ -113,10 +115,10 @@ module Ronin
     #   Objectify.load_object(:note,'/path/to/my_notes.rb') # => Note
     #
     def Objectify.load_object(name,path,*args,&block)
-      name = name.to_sym
+      name = name.to_s
 
       unless Objectify.is_object_context?(name)
-        raise(UnknownObjectContext,"unknown object context '#{name}'",caller)
+        raise(UnknownObjectContext,"unknown object context #{name.dump}",caller)
       end
 
       path = File.expand_path(path)
