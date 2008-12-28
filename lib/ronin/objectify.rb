@@ -24,20 +24,20 @@
 require 'ronin/exceptions/unknown_object_context'
 require 'ronin/exceptions/object_context_not_found'
 require 'ronin/extensions/meta'
-require 'ronin/context'
 require 'ronin/model'
 
+require 'contextify'
 require 'parameters'
 
 module Ronin
-  module ObjectContext
+  module Objectify
     include DataMapper::Types
 
     def self.included(base)
       base.class_eval do
-        include Context
+        include Contextify
         include Parameters
-        include Model
+        include Ronin::Model
 
         # Primary key of the object
         property :id, Serial
@@ -49,12 +49,12 @@ module Ronin
         property :object_timestamp, EpochTime
 
         metaclass_def(:objectify) do |name|
-          ObjectContext.object_contexts[name] = self
+          Objectify.object_contexts[name] = self
 
-          contextify name
+          self.contextify name
 
           meta_def(:load_object) do |path,*args|
-            ObjectContext.load_object(context_name,path,*args)
+            Objectify.load_object(self.context_name,path,*args)
           end
 
           meta_def(:cache) do |path,*args|
@@ -92,7 +92,7 @@ module Ronin
     #
     # Returns the Hash of all defined object-contexts.
     #
-    def ObjectContext.object_contexts
+    def Objectify.object_contexts
       @@ronin_object_contexts ||= {}
     end
 
@@ -100,8 +100,8 @@ module Ronin
     # Returns +true+ if there is an object-context defined with the
     # specified _name_, returns +false+ otherwise.
     #
-    def ObjectContext.is_object_context?(name)
-      ObjectContext.object_contexts.has_key?(name.to_sym)
+    def Objectify.is_object_context?(name)
+      Objectify.object_contexts.has_key?(name.to_sym)
     end
 
     #
@@ -110,12 +110,12 @@ module Ronin
     # defined with the specified _name_, an UnknownObjectContext
     # exception will be raised.
     #
-    #   ObjectContext.load_object(:note,'/path/to/my_notes.rb') # => Note
+    #   Objectify.load_object(:note,'/path/to/my_notes.rb') # => Note
     #
-    def ObjectContext.load_object(name,path,*args,&block)
+    def Objectify.load_object(name,path,*args,&block)
       name = name.to_sym
 
-      unless ObjectContext.is_object_context?(name)
+      unless Objectify.is_object_context?(name)
         raise(UnknownObjectContext,"unknown object context '#{name}'",caller)
       end
 
@@ -125,7 +125,7 @@ module Ronin
         raise(ObjectContextNotFound,"object context #{path.dump} does not exist",caller)
       end
 
-      new_obj = Context.load_context(name,path,*args)
+      new_obj = Contextify.load_context(name,path,*args)
       new_obj.object_path = path
 
       block.call(new_obj) if block
@@ -137,16 +137,16 @@ module Ronin
     # +Array+ of loaded object contexts. If a _block_ is given, it will
     # be passed each loaded object context.
     #
-    #   Context.load_contexts('/path/to/misc_contexts.rb') # => [...]
+    #   Objectify.load_contexts('/path/to/misc_contexts.rb') # => [...]
     #
-    def ObjectContext.load_objects(path,&block)
+    def Objectify.load_objects(path,&block)
       path = File.expand_path(path)
 
       unless File.file?(path)
         raise(ObjectContextNotFound,"object context #{path.dump} does not exist",caller)
       end
 
-      return Context.load_contexts(path) do |new_obj|
+      return Contextify.load_contexts(path) do |new_obj|
         new_obj.object_path = path
 
         block.call(new_obj) if block
@@ -156,8 +156,8 @@ module Ronin
     #
     # Cache all objects loaded from the specified _path_.
     #
-    def ObjectContext.cache_objects(path)
-      ObjectContext.load_objects(path).each do |obj|
+    def Objectify.cache_objects(path)
+      Objectify.load_objects(path).each do |obj|
         obj.cache
       end
 
@@ -168,11 +168,11 @@ module Ronin
     # Cache all objects loaded from the paths within the specified
     # _directory_.
     #
-    def ObjectContext.cache_objects_in(directory)
+    def Objectify.cache_objects_in(directory)
       directory = File.expand_path(directory)
       paths = Dir[File.join(directory,'**','*.rb')]
 
-      paths.each { |path| ObjectContext.cache_objects(path) }
+      paths.each { |path| Objectify.cache_objects(path) }
       return nil
     end
 
@@ -181,11 +181,11 @@ module Ronin
     # the specified _directory_. Also cache objects which have yet to
     # be cached.
     #
-    def ObjectContext.mirror_objects_in(directory)
+    def Objectify.mirror_objects_in(directory)
       directory = File.expand_path(directory)
       new_paths = Dir[File.join(directory,'**','*.rb')]
 
-      ObjectContext.object_contexts.each_value do |base|
+      Objectify.object_contexts.each_value do |base|
         objects = base.all(:object_path.like => "#{directory}%")
         new_paths -= objects.map { |obj| obj.object_path }
 
@@ -194,17 +194,17 @@ module Ronin
       end
 
       # cache the remaining new paths
-      new_paths.each { |path| ObjectContext.cache_objects(path) }
+      new_paths.each { |path| Objectify.cache_objects(path) }
       return nil
     end
 
     #
     # Deletes all cached objects that existed in the specified _directory_.
     #
-    def ObjectContext.expunge_objects_from(directory)
+    def Objectify.expunge_objects_from(directory)
       directory = File.expand_path(directory)
 
-      ObjectContext.object_contexts.each_value do |base|
+      Objectify.object_contexts.each_value do |base|
         base.all(:object_path.like => "#{directory}%").destroy!
       end
 
