@@ -23,21 +23,22 @@
 
 require 'ronin/cache/extension_cache'
 require 'ronin/cache/overlay'
-require 'ronin/context'
+
+require 'contextify'
 
 module Ronin
   module Cache
     class Extension
 
-      include Context
+      include Contextify
+
+      contextify :ronin_extension
 
       # Extension file name
       EXTENSION_FILE = 'extension.rb'
 
       # Extension lib directory
       LIB_DIR = 'lib'
-
-      contextify :extension
 
       # Name of extension
       attr_reader :name
@@ -340,7 +341,7 @@ module Ronin
       end
 
       #
-      # Returns +true+ if the app context has a public instance method
+      # Returns +true+ if the extension context has a public instance method
       # of the matching _name_, returns +false+ otherwise.
       #
       #   ext.has_method?(:console) # => true
@@ -586,7 +587,7 @@ module Ronin
       end
 
       #
-      # Returns the name of the app context in string form.
+      # Returns the name of the extension context in string form.
       #
       def to_s
         @name.to_s
