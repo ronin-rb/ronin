@@ -8,8 +8,6 @@ bin/ronin
 lib/ronin.rb
 lib/ronin/config.rb
 lib/ronin/exceptions/invalid_database_config.rb
-lib/ronin/exceptions/unknown_object_context.rb
-lib/ronin/exceptions/object_context_not_found.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
@@ -170,7 +168,7 @@ spec/author_spec.rb
 spec/chars/char_set_spec.rb
 spec/chars/chars_spec.rb
 spec/translators/translator_spec.rb
-spec/objectify/objectify.rb
+spec/objectify/objectify_spec.rb
 spec/extensions/hash_spec.rb
 spec/extensions/string_spec.rb
 spec/extensions/uri/http_spec.rb
