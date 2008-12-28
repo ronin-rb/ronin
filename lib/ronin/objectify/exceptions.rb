@@ -20,3 +20,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #++
 #
+
+require 'ronin/exceptions/unknown_object_context'
+require 'ronin/exceptions/object_context_not_found'
