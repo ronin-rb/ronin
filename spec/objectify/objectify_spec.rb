@@ -1,12 +1,12 @@
-require 'ronin/object_context'
+require 'ronin/objectify'
 
 require 'spec_helper'
 
-describe ObjectContext do
+describe Objectify do
   before(:all) do
     class TestObject
 
-      include ObjectContext
+      include Objectify
 
       objectify :test
 
