@@ -21,7 +21,5 @@
 #++
 #
 
-require 'ronin/exceptions/unknown_context'
-require 'ronin/exceptions/context_not_found'
 require 'ronin/exceptions/unknown_object_context'
 require 'ronin/exceptions/object_context_not_found'

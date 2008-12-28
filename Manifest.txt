@@ -8,8 +8,6 @@ bin/ronin
 lib/ronin.rb
 lib/ronin/config.rb
 lib/ronin/exceptions/invalid_database_config.rb
-lib/ronin/exceptions/unknown_context.rb
-lib/ronin/exceptions/context_not_found.rb
 lib/ronin/exceptions/unknown_object_context.rb
 lib/ronin/exceptions/object_context_not_found.rb
 lib/ronin/extensions.rb
@@ -123,8 +121,6 @@ lib/ronin/arch.rb
 lib/ronin/platform.rb
 lib/ronin/target.rb
 lib/ronin/product.rb
-lib/ronin/pending_context.rb
-lib/ronin/context.rb
 lib/ronin/object_context.rb
 lib/ronin/models.rb
 lib/ronin/cache.rb
@@ -170,11 +166,6 @@ spec/author_spec.rb
 spec/chars/char_set_spec.rb
 spec/chars/chars_spec.rb
 spec/translators/translator_spec.rb
-spec/context/context_spec.rb
-spec/context/helpers/book_context.rb
-spec/context/helpers/book_review_context.rb
-spec/context/helpers/contexts/snow_crash.rb
-spec/context/helpers/contexts/neuromancer_review.rb
 spec/object_context/object_context_spec.rb
 spec/extensions/hash_spec.rb
 spec/extensions/string_spec.rb
