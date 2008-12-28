@@ -7,7 +7,6 @@ Rakefile
 bin/ronin
 lib/ronin.rb
 lib/ronin/config.rb
-lib/ronin/exceptions/invalid_database_config.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
@@ -111,6 +110,9 @@ lib/ronin/sessions/telnet.rb
 lib/ronin/sessions/http.rb
 lib/ronin/sessions/web.rb
 lib/ronin/database.rb
+lib/ronin/database/exceptions.rb
+lib/ronin/database/exceptions/invalid_config.rb
+lib/ronin/database/database.rb
 lib/ronin/model.rb
 lib/ronin/author.rb
 lib/ronin/license.rb

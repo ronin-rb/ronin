@@ -22,6 +22,8 @@
 #
 
 module Ronin
-  class InvalidDatabaseConfig < RuntimeError
+  module Database
+    class InvalidConfig < RuntimeError
+    end
   end
 end
