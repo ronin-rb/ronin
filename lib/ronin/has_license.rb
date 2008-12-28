@@ -45,16 +45,5 @@ module Ronin
         end
       end
     end
-
-    #
-    # Sets the license of the model to that of the predefined License
-    # with the specified _name_.
-    #
-    #   licensed_under :mit
-    #   # => #<Ronin::License: ...>
-    #
-    def licensed_under(name)
-      self.license = License[name]
-    end
   end
 end
