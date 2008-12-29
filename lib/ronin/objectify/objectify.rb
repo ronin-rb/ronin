@@ -75,7 +75,7 @@ module Ronin
           end
 
           meta_def(:search) do |*attribs|
-            all(*attribs).map { |obj| obj.object }
+            all(*attribs).map { |obj| obj.load_object }
           end
 
           # define Ronin-level object loader method
@@ -214,10 +214,10 @@ module Ronin
     end
 
     #
-    # Returns a new object loaded from the file pointed to by the
-    # +object_path+ property.
+    # Loads a new object from the file pointed to by the +object_path+
+    # property.
     #
-    def object
+    def load_object
       self.class.load_object(self.object_path, :id => self.id)
     end
 
@@ -272,7 +272,7 @@ module Ronin
         else
           if (!(dirty?) && stale?)
             destroy
-            return object.cache
+            return load_object.cache
           end
         end
       end
