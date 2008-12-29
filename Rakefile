@@ -20,7 +20,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
                   ['dm-aggregates', '>=0.9.3'],
                   ['dm-validations', '>=0.9.3'],
                   ['dm-predefined', '>=0.1.0'],
-                  ['parameters', '>=0.1.1'],
+                  ['parameters', '>=0.1.2'],
                   ['contextify', '>=0.1.0'],
                   ['reverse-require', '>=0.2.0'],
                   ['repertoire', '>=0.1.2']]
