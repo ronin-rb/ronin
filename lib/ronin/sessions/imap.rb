@@ -30,8 +30,8 @@ module Ronin
       include Session
 
       setup_session do
-        parameter :imap_host, :description => 'IMAP host'
-        parameter :imap_port, :description => 'IMAP port'
+        parameter :host, :description => 'IMAP host'
+        parameter :port, :description => 'IMAP port'
 
         parameter :imap_auth, :description => 'IMAP authentication mode'
         parameter :imap_user, :description => 'IMAP user'
@@ -41,16 +41,14 @@ module Ronin
       protected
 
       def imap_connect(options={},&block)
-        unless @imap_host
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:imap_host)}'",caller)
-        end
+        require_params :host
 
-        options[:port] ||= @imap_port
+        options[:port] ||= @port
         options[:auth] ||= @imap_auth
         options[:user] ||= @imap_user
         options[:password] ||= @imap_password
 
-        return ::Net.imap_connect(@imap_host,options,&block)
+        return ::Net.imap_connect(@host,options,&block)
       end
 
       def imap_session(options={},&block)

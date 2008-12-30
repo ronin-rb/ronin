@@ -30,8 +30,8 @@ module Ronin
       include Session
 
       setup_session do
-        parameter :pop3_host, :description => 'POP3 host'
-        parameter :pop3_port, :description => 'POP3 port'
+        parameter :host, :description => 'POP3 host'
+        parameter :port, :description => 'POP3 port'
 
         parameter :pop3_user, :description => 'POP3 user'
         parameter :pop3_password, :description => 'POP3 password'
@@ -40,15 +40,13 @@ module Ronin
       protected
 
       def pop3_connect(options={},&block)
-        unless @pop3_host
-          raise(ParamNotFound,"Missing parameter #{describe_param(:pop3_host).dump}",caller)
-        end
+        require_params :host
 
-        options[:port] ||= @pop3_port
+        options[:port] ||= @port
         options[:user] ||= @pop3_user
         options[:password] ||= @pop3_password
 
-        return ::Net.pop3_connect(@pop3_host,options,&block)
+        return ::Net.pop3_connect(@host,options,&block)
       end
 
       def pop3_session(options={},&block)

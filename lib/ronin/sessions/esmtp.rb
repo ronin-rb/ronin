@@ -30,8 +30,8 @@ module Ronin
       include Session
 
       setup_session do
-        parameter :esmtp_host, :description => 'ESMTP host'
-        parameter :esmtp_port, :description => 'ESMTP port'
+        parameter :host, :description => 'ESMTP host'
+        parameter :port, :description => 'ESMTP port'
 
         parameter :esmtp_login, :description => 'ESMTP login'
         parameter :esmtp_user, :description => 'ESMTP user'
@@ -45,16 +45,14 @@ module Ronin
       end
 
       def esmtp_connect(options={},&block)
-        unless @esmtp_host
-          raise(ParamNotFound,"Missing parameter #{describe_param(:esmtp_host).dump}",caller)
-        end
+        require_params :host
 
-        options[:port] ||= @esmtp_port
+        options[:port] ||= @port
         options[:login] ||= @esmtp_login
         options[:user] ||= @esmtp_user
         options[:password] ||= @esmtp_password
 
-        return ::Net.esmtp_connect(@esmtp_host,options,&block)
+        return ::Net.esmtp_connect(@host,options,&block)
       end
 
       def esmtp_session(options={},&block)

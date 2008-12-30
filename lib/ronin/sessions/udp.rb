@@ -30,66 +30,48 @@ module Ronin
       include Session
 
       setup_session do
-        parameter :lhost, :description => 'local host'
-        parameter :lport, :description => 'local port'
+        parameter :local_host, :description => 'local host'
+        parameter :local_port, :description => 'local port'
 
-        parameter :rhost, :description => 'remote host'
-        parameter :rport, :description => 'remote port'
+        parameter :host, :description => 'remote host'
+        parameter :port, :description => 'remote port'
       end
 
       protected
 
       #
       # Opens a UDP connection to the host and port specified by the
-      # +rhost+ and +rport+ parameters. If the +lhost+ and +lport+ parameters
-      # are set, they will be used for the local host and port of the UDP
-      # connection. A UDPSocket object will be returned.
+      # +host+ and +port+ parameters. If the +local_host+ and +local_port+
+      # parameters are set, they will be used for the local host and port
+      # of the UDP connection. A UDPSocket object will be returned.
       #
       def udp_connect(&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing '#{describe_param(:rhost)}' parameter",caller)
-        end
+        require_params :host, :port
 
-        unless @rport
-          raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
-        end
-
-        return ::Net.udp_connect(@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.udp_connect(@host,@port,@local_host,@local_port,&block)
       end
 
       #
-      # Connects to the host and port specified by the +rhost+ and +rport+
+      # Connects to the host and port specified by the +host+ and +port+
       # parameters, then sends the specified _data_. If a _block_ is given,
       # it will be passed the newly created UDPSocket object.
       #
       def udp_connect_and_send(data,&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing '#{describe_param(:rhost)}' parameter",caller)
-        end
+        require_params :host, :port
 
-        unless @rport
-          raise(ParamNotFound,"Missing '#{describe_param(:rport)}' parameter",caller)
-        end
-
-        return ::Net.udp_connect_and_send(data,@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.udp_connect_and_send(data,@host,@port,@local_host,@local_port,&block)
       end
 
       #
       # Creates a UDP session to the host and port specified by the
-      # +rhost+ and +rport+ parameters. If a _block_ is given, it will be
+      # +host+ and +port+ parameters. If a _block_ is given, it will be
       # passed the temporary UDPSocket object. After the given _block_
       # has returned, the UDPSocket object will be closed.
       #
       def udp_session(&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
-        end
+        require_params :host, :port
 
-        unless @rport
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
-        end
-
-        return ::Net.udp_session(@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.udp_session(@host,@port,@local_host,@local_port,&block)
       end
     end
   end

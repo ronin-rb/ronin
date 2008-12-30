@@ -30,8 +30,8 @@ module Ronin
       include Session
 
       setup_session do
-        parameter :smtp_host, :description => 'SMTP host'
-        parameter :smtp_port, :description => 'SMTP port'
+        parameter :host, :description => 'SMTP host'
+        parameter :port, :description => 'SMTP port'
 
         parameter :smtp_login, :description => 'SMTP login'
         parameter :smtp_user, :description => 'SMTP user'
@@ -45,16 +45,14 @@ module Ronin
       end
 
       def smtp_connect(options={},&block)
-        unless @smtp_host
-          raise(ParamNotFound,"Missing parameter #{describe_param(:smtp_host).dump}",caller)
-        end
+        require_params :host
 
-        options[:port] ||= @smtp_port
+        options[:port] ||= @port
         options[:login] ||= @smtp_login
         options[:user] ||= @smtp_user
         options[:password] ||= @smtp_password
 
-        return ::Net.smtp_connect(@smtp_host,options,&block)
+        return ::Net.smtp_connect(@host,options,&block)
       end
 
       def smtp_session(options={},&block)

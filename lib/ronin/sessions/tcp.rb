@@ -30,86 +30,62 @@ module Ronin
       include Session
 
       setup_session do
-        parameter :lhost, :description => 'TCP local host'
-        parameter :lport, :description => 'TCP local port'
+        parameter :local_host, :description => 'TCP local host'
+        parameter :local_port, :description => 'TCP local port'
 
-        parameter :rhost, :description => 'TCP remote host'
-        parameter :rport, :description => 'TCP remote port'
+        parameter :host, :description => 'TCP remote host'
+        parameter :port, :description => 'TCP remote port'
       end
 
       protected
 
       #
       # Opens a TCP connection to the host and port specified by the
-      # +rhost+ and +rport+ parameters. If the +lhost+ and +lport+
+      # +host+ and +port+ parameters. If the +local_host+ and +local_port+
       # parameters are set, they will be used for the local host and port
       # of the TCP connection. A TCPSocket object will be returned. If
       # a _block_ is given, it will be passed the newly created TCPSocket
       # object.
       #
       def tcp_connect(&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
-        end
+        require_params :host, :port
 
-        unless @rport
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
-        end
-
-        return ::Net.tcp_connect(@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.tcp_connect(@host,@port,@local_host,@local_port,&block)
       end
 
       #
-      # Connects to the host and port specified by the +rhost+ and +rport+
+      # Connects to the host and port specified by the +host+ and +port+
       # parameters, then sends the specified _data_. If a _block_ is given,
       # it will be passed the newly created TCPSocket object.
       #
       def tcp_connect_and_send(data,&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
-        end
+        require_params :host, :port
 
-        unless @rport
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
-        end
-
-        return ::Net.tcp_connect_and_send(data,@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.tcp_connect_and_send(data,@host,@port,@local_host,@local_port,&block)
       end
 
       #
       # Creates a TCP session to the host and port specified by the
-      # +rhost+ and +rport+ parameters. If a _block_ is given, it will be
+      # +host+ and +port+ parameters. If a _block_ is given, it will be
       # passed the temporary TCPSocket object. After the given _block_
       # has returned, the TCPSocket object will be closed.
       #
       def tcp_session(&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
-        end
+        require_params :host, :port
 
-        unless @rport
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
-        end
-
-        return Net.tcp_session(@rhost,@rport,@lhost,@lport,&block)
+        return Net.tcp_session(@host,@port,@local_host,@local_port,&block)
       end
 
       #
-      # Connects to the host and port specified by the +rhost+ and +rport+
+      # Connects to the host and port specified by the +host+ and +port+
       # parameters, reads the banner then closes the connection, returning
       # the banner String. If a _block_ is given, it will be passed the
       # banner String.
       #
       def tcp_banner(&block)
-        unless @rhost
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rhost)}'",caller)
-        end
+        require_params :host, :port
 
-        unless @rport
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:rport)}'",caller)
-        end
-
-        return ::Net.tcp_banner(@rhost,@rport,@lhost,@lport,&block)
+        return ::Net.tcp_banner(@host,@port,@local_host,@local_port,&block)
       end
     end
   end

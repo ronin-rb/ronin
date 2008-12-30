@@ -30,10 +30,9 @@ module Ronin
       include Session
 
       setup_session do
-        parameter :telnet_host, :description => 'Telnet host'
-        parameter :telnet_port,
-                  :value => Network::Telnet.default_port,
-                  :description => 'Telnet port'
+        parameter :host, :description => 'Telnet host'
+        parameter :port, :value => Network::Telnet.default_port,
+                         :description => 'Telnet port'
 
         parameter :telnet_user, :description => 'Telnet user'
         parameter :telnet_password, :description => 'Telnet password'
@@ -45,18 +44,16 @@ module Ronin
       protected
 
       def telnet_connect(options={},&block)
-        unless @telnet_host
-          raise(ParamNotFound,"Missing parameter '#{describe_param(:telnet_host)}'",caller)
-        end
+        require_params :host
 
-        options[:port] ||= @telnet_port
+        options[:port] ||= @port
         options[:user] ||= @telnet_user
         options[:password] ||= @telnet_password
 
         options[:proxy] ||= @telnet_proxy
         options[:ssl] ||= @telnet_ssl
 
-        return ::Net.telnet_connect(@telnet_host,options,&block)
+        return ::Net.telnet_connect(@host,options,&block)
       end
 
       def telnet_session(options={},&block)
