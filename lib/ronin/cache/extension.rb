@@ -24,30 +24,18 @@
 require 'ronin/cache/extension_cache'
 require 'ronin/cache/overlay'
 
-require 'contextify'
-
 module Ronin
   module Cache
     class Extension
 
-      include Contextify
-
-      contextify :ronin_extension
-
       # Extension file name
       EXTENSION_FILE = 'extension.rb'
-
-      # Extension lib directory
-      LIB_DIR = 'lib'
 
       # Name of extension
       attr_reader :name
 
       # Paths of similar extensions
       attr_reader :paths
-
-      # Dependency extensions
-      attr_reader :dependencies
 
       #
       # Creates a new Extension with the specified _name_. If a
@@ -63,7 +51,6 @@ module Ronin
       def initialize(name,&block)
         @name = name.to_s
         @paths = []
-        @dependencies = {}
 
         @setup = false
         @toredown = true
@@ -287,60 +274,6 @@ module Ronin
       end
 
       #
-      # Loads all similar extensions with the specified _name_ into a
-      # newly created Extension object and adds it to the extensions
-      # dependencies.
-      #
-      #   uses 'shellcode'
-      #
-      def uses(name)
-        name = name.to_s
-
-        unless Extension.exists?(name)
-          raise(ExtensionNotFound,"extension #{name.dump} is not in the overlay cache",caller)
-        end
-
-        @dependencies[name] ||= Extension.load(name)
-        return self
-      end
-
-      #
-      # Returns +true+ if the extension has the dependency of the specified
-      # _name_, returns +false+ otherwise.
-      #
-      def uses?(name)
-        @dependencies.has_key?(name.to_s)
-      end
-
-      #
-      # Passes all the extension's dependencies and the extension itself to
-      # the specified _block_ using the given _options_.
-      #
-      # _options_ may include the following keys:
-      # <tt>:top_down</tt>:: Indicates that distribute will recurse through
-      #                      the extensions and their elements in a
-      #                      top-down manner. This is distributes default
-      #                      behavior.
-      # <tt>:bottom_up</tt>:: Indictates that distribute will recurse
-      #                       through the extensions and their dependencies
-      #                       in a bottom-up manner. Mutually exclusive with
-      #                       the <tt>:top_down</tt> option.
-      #
-      def distribute(options={},&block)
-        distribute_deps = lambda {
-          @dependencies.map { |ext|
-            ext.distribute(options,&block)
-          }.flatten
-        }
-
-        if options[:bottom_up]
-          return distribute_deps.call + [block.call(self)]
-        else
-          return [block.call(self)] + distribute_deps.call
-        end
-      end
-
-      #
       # Returns +true+ if the extension context has a public instance method
       # of the matching _name_, returns +false+ otherwise.
       #
@@ -351,31 +284,11 @@ module Ronin
       end
 
       #
-      # Returns an +Array+ of extensions that have the specified _method_.
-      # If a _block_ is given, it will be passed each extension with the
-      # specified _method_.
+      # Calls the setup blocks of the extension. If a _block_ is given, it 
+      # will be passed the extension after it has been setup.
       #
-      #   ext.extensions_with_method(:console) # => [...]
-      #
-      #   ext.extensions_with_method(:console) do |ext|
-      #     ext.console(ARGV)
-      #   end
-      #
-      def extensions_with_method(method,&block)
-        extensions = distribute { |ext|
-          ext if ext.has_method?(method)
-        }.compact
-
-        extensions.each(&block) if block
-        return extensions
-      end
-
-      #
-      # Calls the setup blocks of the extension's dependencies and the
-      # extension itself. If a _block_ is given, it will be passed the
-      # extension after it has been setup.
-      #
-      #   ext.perform_setup # => Extension
+      #   ext.perform_setup
+      #   # => #<Ronin::Cache::Extension: ...>
       #
       #   ext.perform_setup do |ext|
       #     puts "Extension #{ext} has been setup..."
@@ -383,12 +296,8 @@ module Ronin
       #
       def perform_setup(&block)
         unless @setup
-          distribute(:bottom_up => true) do |ext|
-            ext.instance_eval do
-              @setup_blocks.each do |setup_block|
-                setup_block.call(self) if setup_block
-              end
-            end
+          @setup_blocks.each do |setup_block|
+            setup_block.call(self) if setup_block
           end
 
           @setup = true
@@ -408,11 +317,11 @@ module Ronin
       end
 
       #
-      # Run the teardown blocks of the extension and it's dependencies.
-      # If a _block_ is given, it will be passed the extension before it 
-      # has been tore down.
+      # Run the teardown blocks of the extension. If a _block_ is given,
+      # it will be passed the extension before it has been tore down.
       #
-      #   ext.perform_teardown # => Extension
+      #   ext.perform_teardown
+      #   # => #<Ronin::Cache::Extension: ...>
       #
       #   ext.perform_teardown do |ext|
       #     puts "Extension #{ext} is being tore down..."
@@ -422,12 +331,8 @@ module Ronin
         block.call(self) if block
 
         unless @toredown
-          distribute(:top_down => true) do |ext|
-            ext.instance_eval do
-              @teardown_blocks.each do |teardown_block|
-                teardown_block.call(self) if teardown_block
-              end
-            end
+          @teardown_blocks.each do |teardown_block|
+            teardown_block.call(self) if teardown_block
           end
 
           @toredown = true
@@ -611,28 +516,6 @@ module Ronin
       def teardown(&block)
         @teardown_blocks << block if block
         return self
-      end
-
-      #
-      # Provides transparent access to extensions dependencies.
-      #
-      #   ext.shellcode # => Extension
-      #
-      #   ext.shellcode do |dep|
-      #     puts "#{ext} has the dependency #{dep}"
-      #   end
-      #
-      def method_missing(sym,*args,&block)
-        if (args.length==0)
-          name = sym.to_s
-
-          if uses?(name)
-            block.call(@dependencies[name]) if block
-            return @dependencies[name]
-          end
-        end
-
-        return super(sym,*args,&block)
       end
 
     end
