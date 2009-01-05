@@ -42,13 +42,7 @@ module Ronin
         end
 
         def define_options(opts)
-          opts.usage = '[options] PATH'
-
-          opts.options do
-            opts.on('-u','--uses NAME','Name of an other extension to use') do |name|
-              @uses << name
-            end
-          end
+          opts.usage = 'PATH [...]'
 
           opts.arguments(
             'PATH' => 'The PATH of the Extension to be created'
@@ -58,24 +52,17 @@ module Ronin
         end
 
         def arguments(*args)
-          unless args.length == 1
-            fail('only one Extension path maybe specified')
-          end
+          args.each do |path|
+            path = File.expand_path(path)
+            extension_path = File.join(path,Cache::Extension::EXTENSION_FILE)
+            lib_dir = File.join(path,Cache::Extension::LIB_DIR)
+            template_path = File.join(Config::STATIC_DIR,'extension.rb')
 
-          path = File.expand_path(args.first)
-          extension_path = File.join(path,Cache::Extension::EXTENSION_FILE)
-          lib_dir = File.join(path,Cache::Extension::LIB_DIR)
-
-          FileUtils.mkdir_p(path)
-          FileUtils.mkdir_p(lib_dir)
-          FileUtils.touch(File.join(lib_dir,File.basename(path) + '.rb'))
-          FileUtils.mkdir_p(File.join(lib_dir,File.basename(path)))
-
-          File.open(extension_path,'w') do |file|
-            template_path = File.join(Config::STATIC_DIR,'extension.rb.erb')
-            template = ERB.new(File.read(template_path))
-
-            file.write(template.result(binding))
+            FileUtils.mkdir_p(path)
+            FileUtils.mkdir_p(lib_dir)
+            FileUtils.touch(File.join(lib_dir,File.basename(path) + '.rb'))
+            FileUtils.mkdir_p(File.join(lib_dir,File.basename(path)))
+            FileUtils.cp(template_path,extension_path)
           end
         end
 
