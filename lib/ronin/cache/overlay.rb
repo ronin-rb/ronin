@@ -375,9 +375,10 @@ module Ronin
       # If a _block_ is given, it will be passed the newly created
       # extension.
       #
-      #   repo.extension('awesome') # => Extension
+      #   overlay.extension('awesome')
+      #   # => #<Ronin::Cache::Extension: ...>
       #
-      #   repo.extension('shellcode') do |ext|
+      #   overlay.extension('shellcode') do |ext|
       #     ...
       #   end
       #
