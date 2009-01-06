@@ -262,7 +262,7 @@ module Ronin
       def cache_objects
         require 'ronin/models'
 
-        return ObjectContext.cache_objects_in(objects_dir)
+        return Objectify.cache_objects_in(objects_dir)
       end
 
       #
@@ -271,7 +271,7 @@ module Ronin
       def mirror_objects
         require 'ronin/models'
 
-        return ObjectContext.mirror_objects_in(objects_dir)
+        return Objectify.mirror_objects_in(objects_dir)
       end
 
       #
@@ -280,7 +280,7 @@ module Ronin
       def expunge_objects
         require 'ronin/models'
 
-        return ObjectContext.expunge_objects_from(objects_dir)
+        return Objectify.expunge_objects_from(objects_dir)
       end
 
       #
