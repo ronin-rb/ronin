@@ -28,10 +28,10 @@ module Ronin
   module HasLicense
     def self.included(base)
       base.module_eval do
-        include Model
+        include Ronin::Model
 
         # The license
-        belongs_to :license
+        belongs_to :license, :class_name => 'Ronin::License'
 
         #
         # Returns all models having the predefined license with the
@@ -41,7 +41,7 @@ module Ronin
         #   # => [#<Ronin::LicensedModel: ...>, ...]
         #
         def self.licensed_under(name)
-          self.all(:license => License[name])
+          self.all(:license => Ronin::License[name])
         end
       end
     end
