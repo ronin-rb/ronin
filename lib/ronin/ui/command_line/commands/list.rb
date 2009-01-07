@@ -78,11 +78,13 @@ module Ronin
               end
 
               if overlay.description
-                puts "  Description:\n\n    #{overlay.description}\n"
+                puts "  Description:\n\n    #{overlay.description}\n\n"
               end
 
-              puts "  Extensions:\n\n"
-              overlay.each_extension { |ext| puts "    #{ext}" }
+              unless overlay.extensions.empty?
+                puts "  Extensions:\n\n"
+                overlay.each_extension { |ext| puts "    #{ext}" }
+              end
             end
           end
         end
