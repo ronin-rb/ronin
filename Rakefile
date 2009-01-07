@@ -22,7 +22,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
                   ['dm-predefined', '>=0.1.0'],
                   ['parameters', '>=0.1.2'],
                   ['contextify', '>=0.1.0'],
-                  ['reverse-require', '>=0.2.0'],
+                  ['reverse-require', '>=0.3.0'],
                   ['repertoire', '>=0.1.2']]
 end
 

@@ -33,4 +33,4 @@ require 'ronin/ui/command_line/commands/help'
 
 require 'reverse_require'
 
-require_all 'ronin/ui/command_line/commands'
+require_for 'ronin', 'ronin/ui/command_line/commands'

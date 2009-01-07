@@ -28,6 +28,6 @@ require 'reverse_require'
 
 module Ronin
   Database.setup do
-    require_all 'ronin/models'
+    require_for 'ronin', 'ronin/models'
   end
 end
