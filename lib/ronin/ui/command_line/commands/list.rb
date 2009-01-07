@@ -78,7 +78,7 @@ module Ronin
               end
 
               if overlay.description
-                puts "  Description:\n\n    #{overlay.description}"
+                puts "  Description:\n\n    #{overlay.description}\n"
               end
 
               puts "  Extensions:\n\n"
