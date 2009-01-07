@@ -338,7 +338,7 @@ module Ronin
       # Returns the paths of all extensions within the overlay.
       #
       def extension_paths
-        directories
+        directories.reject { |dir| File.basename(dir) == 'objects' }
       end
 
       #
