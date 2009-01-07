@@ -41,7 +41,7 @@ module Ronin
           end
 
           opts.arguments(
-            'NAME' => 'The repository to uninstall'
+            'NAME' => 'The overlay to uninstall'
           )
 
           opts.summary('Uninstall the specified repositories')
@@ -50,8 +50,8 @@ module Ronin
         def arguments(*args)
           args.each do |name|
             Cache::Overlay.save_cache do
-              Cache::Overlay.uninstall(name) do |repo|
-                puts "Uninstalling #{repo}..."
+              Cache::Overlay.uninstall(name) do |overlay|
+                puts "Uninstalling #{overlay.name.dump} ..."
               end
             end
           end
