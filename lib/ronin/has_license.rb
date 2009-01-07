@@ -26,7 +26,7 @@ require 'ronin/license'
 
 module Ronin
   module HasLicense
-    def self.include(base)
+    def self.included(base)
       base.module_eval do
         include Model
 
