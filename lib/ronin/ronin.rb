@@ -28,14 +28,14 @@ module Ronin
   #
   # See Objectify.load_objects.
   #
-  def Ronin.ronin_load_objects(path)
+  def Ronin.load_objects(path)
     Objectify.load_objects(path)
   end
 
   #
   # See Objectify.load_object.
   #
-  def Ronin.ronin_load_object(type,path)
+  def Ronin.load_object(type,path)
     Objectify.load_object(type,path)
   end
 
