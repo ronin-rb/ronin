@@ -64,7 +64,7 @@ module Ronin
 
           Cache::Overlay.save_cache do
             Cache::Overlay.add(path,@media,@uri) do |repo|
-              puts "Overlay #{repo} added."
+              puts "Overlay #{repo.name.dump} added."
             end
           end
         end
