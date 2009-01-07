@@ -48,7 +48,7 @@ module Ronin
         end
 
         def arguments(*args)
-          unless @verbose
+          if args.empty?
             # list all repositories by name
             Cache::Overlay.each { |overlay| puts "  #{overlay}" }
             return
