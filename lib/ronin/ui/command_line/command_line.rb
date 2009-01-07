@@ -101,7 +101,12 @@ module Ronin
             argv = argv[1..-1]
 
             if CommandLine.has_command?(cmd)
-              CommandLine.commands_by_name[cmd].run(*argv)
+              begin
+                CommandLine.commands_by_name[cmd].run(*argv)
+              rescue => excp
+                STDERR.puts excp
+                exit -1
+              end
             else
               CommandLine.fail("unknown command #{cmd.dump}")
             end
