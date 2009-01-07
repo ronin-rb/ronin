@@ -60,7 +60,7 @@ module Ronin
     #
     def Config.load(name=nil)
       if name
-        path = File.expand_path(File.join(CONFIG_DIR,name))
+        path = File.expand_path(File.join(CONFIG_DIR,name.to_s))
       else
         path = CONFIG_PATH
       end
