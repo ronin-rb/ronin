@@ -44,13 +44,13 @@ module Ronin
             'NAME' => 'Overlay to display'
           )
 
-          opts.summary('Display all or the specified repositories within the repository cache')
+          opts.summary('Display all or the specified repositories within the Overlay cache')
         end
 
         def arguments(*args)
           if args.empty?
             # list all repositories by name
-            Cache::Overlay.each { |repo| puts "  #{repo}" }
+            Cache::Overlay.each { |overlay| puts "  #{overlay}" }
             return
           end
 
@@ -82,7 +82,7 @@ module Ronin
               end
 
               puts "  Extensions:\n\n"
-              overlay.each_extension { |ext| puts "    #{ext.name}" }
+              overlay.each_extension { |ext| puts "    #{ext}" }
             end
           end
         end

@@ -41,7 +41,7 @@ module Ronin
           end
 
           opts.arguments(
-            'NAME' => 'The repository to update'
+            'NAME' => 'The overlay to update'
           )
 
           opts.summary('Updates all or the specified repositories')
@@ -49,7 +49,7 @@ module Ronin
 
         def arguments(*args)
           if args.empty?
-            Cache::Overlay.each { |repo| repo.update }
+            Cache::Overlay.each { |overlay| overlay.update }
           else
             args.each { |name| Cache::Overlay.update(name) }
           end
