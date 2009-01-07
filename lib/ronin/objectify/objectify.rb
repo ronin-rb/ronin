@@ -34,13 +34,10 @@ module Ronin
     include DataMapper::Types
 
     def self.included(base)
-      base.class_eval do
+      base.module_eval do
         include Contextify
         include Parameters
         include Ronin::Model
-
-        # Primary key of the object
-        property :id, Serial
 
         # Path to the object context
         property :object_path, String
@@ -51,12 +48,12 @@ module Ronin
         metaclass_def(:objectify) do |name|
           name = name.to_s
 
-          Objectify.object_contexts[name] = self
-
           self.contextify name
 
-          meta_def(:load_object) do |path,*args|
-            Objectify.load_object(self.context_name,path,*args)
+          Objectify.object_contexts[name] = self
+
+          meta_def(:load_object) do |path,*attributes|
+            Objectify.load_object(self.context_name,path,*attributes)
           end
 
           meta_def(:cache) do |path,*args|
@@ -108,13 +105,14 @@ module Ronin
 
     #
     # Loads the object context of the specified _name_ and from the
-    # specified _path_ with the given _args_. If no object contexts were
-    # defined with the specified _name_, an UnknownObjectContext
+    # specified _path_ with the given _attributes_. If no object contexts
+    # were defined with the specified _name_, an UnknownObjectContext
     # exception will be raised.
     #
-    #   Objectify.load_object(:note,'/path/to/my_notes.rb') # => Note
+    #   Objectify.load_object(:note,'/path/to/my_notes.rb')
+    #   # => #<Note:...>
     #
-    def Objectify.load_object(name,path,*args,&block)
+    def Objectify.load_object(name,path,*attributes,&block)
       name = name.to_s
 
       unless Objectify.is_object_context?(name)
@@ -127,7 +125,7 @@ module Ronin
         raise(ObjectContextNotFound,"object context #{path.dump} does not exist",caller)
       end
 
-      new_obj = Contextify.load_context(name,path,*args)
+      new_obj = Contextify.load_context(name,path,*attributes)
       new_obj.object_path = path
 
       block.call(new_obj) if block
@@ -218,7 +216,13 @@ module Ronin
     # property.
     #
     def load_object
-      self.class.load_object(self.object_path, :id => self.id)
+      primary_keys = {}
+
+      key_properties.each do |prop|
+        primary_keys[prop.name] = attribute_get(prop.name)
+      end
+
+      new_obj = self.class.load_object(self.object_path,primary_keys)
     end
 
     #
