@@ -7,7 +7,7 @@
 * Require contextify >= 0.1.0.
 * Require reverse-require >= 0.3.0.
 * Renamed Ronin::ObjectContext to Ronin::Objectify.
-* Added an MIT license to the Ronin::License model, using dm-predefined.
+* Added the MIT license to the Ronin::License model, using dm-predefined.
 * Added Ronin::HasLicense mixin for adding licenses to a model.
 * Added Net.tcp_send and Ronin::Sessions::TCP#tcp_send for quickly sending
   data through a TCP connection then closing it.
