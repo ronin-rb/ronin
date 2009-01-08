@@ -87,6 +87,17 @@ module Ronin
 
         return ::Net.tcp_banner(@host,@port,@local_host,@local_port,&block)
       end
+
+      #
+      # Connects to the host and port specified by the +host+ and +port+
+      # parameters, sends the specified _data_ and then closes the
+      # connection. Returns +true+ if the data was successfully sent.
+      #
+      def tcp_send(data)
+        require_params :host, :port
+
+        return ::Net.tcp_send(data,@host,@port,@local_host,@local_port)
+      end
     end
   end
 end

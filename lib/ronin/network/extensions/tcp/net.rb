@@ -91,4 +91,20 @@ module Net
     block.call(banner) if block
     return banner
   end
+
+  #
+  # Connects to the specified _rhost_ and _rport_ with the given _lhost_
+  # and _lport_, sends the specified _data_ and then closes the connection.
+  # Returns +true+ if the _data_ was successfully sent.
+  #
+  #   buffer = "GET /" + ('A' * 4096) + "\n\r"
+  #   Net.tcp_send(buffer,'victim.com',80)
+  #
+  def Net.tcp_send(data,rhost,rport,lhost=nil,lport=nil)
+    Net.tcp_session(rhost,rport,lhost,lport) do |sock|
+      sock.write(data)
+    end
+
+    return true
+  end
 end
