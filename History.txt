@@ -1,6 +1,6 @@
 === 0.1.3 / 2008-01-08
 
-* Split Context out into the Contextify library.
+* Moved Context into the Contextify library.
 * Require dm-core >= 0.9.9.
 * Require dm-predefined >= 0.1.0.
 * Require parameters >= 0.1.2.
