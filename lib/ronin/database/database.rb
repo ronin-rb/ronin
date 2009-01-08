@@ -117,17 +117,6 @@ module Ronin
 
       block.call if block
 
-      # sourced from http://gist.github.com/3010
-      # in order to fix a has-many lazy-loading bug
-      # in dm-core <= 0.9.4
-      descendants = DataMapper::Resource.descendants.dup
-      descendants.each do |model|
-        descendants.merge(model.descendants) if model.respond_to?(:descendants)
-      end
-      descendants.each do |model|
-        model.relationships.each_value { |r| r.child_key if r.child_model == model }
-      end
-
       DataMapper.auto_upgrade!(Model::REPOSITORY_NAME)
       return nil
     end
