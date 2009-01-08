@@ -35,19 +35,21 @@ module Ronin
     REPOSITORY_NAME = :ronin
 
     def self.included(base)
-      base.module_eval do
-        include DataMapper::Resource
-        include DataMapper::AutoMigrations
+      unless base.ancestors.include?(DataMapper::Resource)
+        base.module_eval do
+          include DataMapper::Resource
+          include DataMapper::AutoMigrations
 
-        #
-        # Returns the default repository name for the model.
-        #
-        def self.default_repository_name
-          Model::REPOSITORY_NAME
+          #
+          # Returns the default repository name for the model.
+          #
+          def self.default_repository_name
+            Model::REPOSITORY_NAME
+          end
+
+          # The class type property
+          property :type, Discriminator
         end
-
-        # The class type property
-        property :type, Discriminator
       end
     end
   end
