@@ -1,3 +1,31 @@
+=== 0.1.3 / 2008-01-08
+
+* Split Context out into the Contextify library.
+* Require dm-core >= 0.9.9.
+* Require dm-predefined >= 0.1.0.
+* Require parameters >= 0.1.2.
+* Require contextify >= 0.1.0.
+* Require reverse-require >= 0.3.0.
+* Renamed Ronin::ObjectContext to Ronin::Objectify.
+* Added an MIT license to the Ronin::License model, using dm-predefined.
+* Added Ronin::HasLicense mixin for adding licenses to a model.
+* Added Net.tcp_send and Ronin::Sessions::TCP#tcp_send for quickly sending
+  data through a TCP connection then closing it.
+* Added Ronin::UI::CommandLine::ParamParser for parsing command-line
+  options into a Hash of parameters.
+* Automatically create the <tt>~/.ronin/config/</tt> directory.
+* Refactored Ronin::Objectify and how it uses primary keys.
+* All Ronin::Session mixins use standard naming conventions for defining
+  the 'host' and 'port' parameters.
+* Removed Ronin::Cache::Extension dependencies.
+* Filter out the 'objects' directory from Ronin::Cache::Overlay#extensions.
+* Improved tearing down of Extensions at exit.
+* Improved output formatting of the +list+ sub-command.
+* Ronin::UI::CommandLine.run now prints any exceptions and exits.
+* Cleaned up the specs.
+* Added more specs.
+* Added more documentation.
+
 === 0.1.2 / 2008-12-10
 
 * Require do_sqlite3 >= 0.9.9, since version 0.9.8 was totally broken.
