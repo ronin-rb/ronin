@@ -32,34 +32,39 @@
 * Require reverse-require >= 0.2.0, for improved performance.
 * Require Spidr >= 0.1.3.
 * Moved Ronin::Parameters into the parameters 0.1.0 RubyGem.
-* Added a Hexdump module:
-  * Provides Hexdump.dump and Kernel#hexdump, which can hexdump any object
-    that supports the #each_byte method.
-* Refactored Chars::CharSet:
+* Added a Ronin::Hexdump module:
+  * Provides Ronin::Hexdump.dump and Kernel#hexdump, which can hexdump any 
+    object that supports the #each_byte method.
+* Refactored Ronin::Chars::CharSet:
   * Now inherites the SortedSet class.
   * Stores chars as bytes.
-  * Added a Chars::CharSet#=~ operator, for determining if a String exists
-    in the language over the alphabet represented by the character set.
-  * Added a Chars::CharSet#inspect method which prints C-like characters.
+  * Added a Ronin::Chars::CharSet#=~ operator, for determining if a String
+    exists in the language over the alphabet represented by the character
+    set.
+  * Added a Ronin::Chars::CharSet#inspect method which prints C-like
+    characters.
 * Added a String#inspect method which prints C-like strings.
 * Added a String#xor method (it might come in handy).
-* Renamed Encoders::Encoder to Translators::Translator.
+* Renamed Ronin::Encoders::Encoder to Ronin::Translators::Translator.
 * Added URI::QueryParams#each_query_param.
 * Added extensions to Hpricot, for comparing two Hpricot Element trees.
-* Added the Web.spider_agent, Web.spider_host and Web.spider_site methods.
-* Added Code::SymbolTable#symbols.
-* Added a basic Code::Emittable module and a Code::Token class.
-* Renamed ObjectContext.object_contextify to ObjectContext.objectify.
-* Merged the Environment module into the Config module.
-* Refactored the Shell class.
-* Refactored the Runner::Program module.
-* Created the UI namespace, to contain all things User Interfacing:
-  * Moved Console and Shell into the UI namespace.
-  * Renamed Runner::Program to UI::CommandLine.
-* Added a Cache::Overlay::Maintainer class to define maintainers of an
-  Overlay and their contact information.
+* Added the Ronin::Web.spider_agent, Ronin::Web.spider_host and
+  Ronin::Web.spider_site methods.
+* Added Ronin::Code::SymbolTable#symbols.
+* Added a basic Ronin::Code::Emittable module and a Ronin::Code::Token
+  class.
+* Renamed Ronin::ObjectContext.object_contextify to
+  Ronin::ObjectContext.objectify.
+* Merged the Ronin::Environment module into the Ronin::Config module.
+* Refactored the Ronin::Shell class.
+* Refactored the Ronin::Runner::Program module.
+* Created the Ronin::UI namespace, to contain all things User Interfacing:
+  * Moved Ronin::Console and Ronin::Shell into the UI namespace.
+  * Renamed Ronin::Runner::Program to Ronin::UI::CommandLine.
+* Added a Ronin::Cache::Overlay::Maintainer class to define maintainers of
+  an Ronin::Cache::Overlay and their contact information.
 * Refactored the parsing of Overlay XML files.
-* Added the sub-commands 'overlay' and 'extension' for generating skeleton
+* Added the sub-commands +overlay+ and +extension+ for generating skeleton
   Overlays and Extensions.
 * Added a XSL file for generating pretty HTML from Overlay XML files.
 * Added even more specs.
@@ -68,22 +73,22 @@
 === 0.1.1 / 2008-10-26
 
 * Depend on the newly renamed reverse-require (>= 0.1.2) gem.
-* Added Code::SymbolTable for DSLs to make use of.
+* Added Ronin::Code::SymbolTable for DSLs to make use of.
 * Added String#common_prefix, String#common_postfix and
   String#uncommon_substring, which will be useful when testing for
   successful injections.
 * Added DataMapper column indexes to Author.name, Product.name, Platform.os
   and Platform.version.
 * Renamed String#rand_case to String#random_case.
-* Removed the Runner namespace, renaming the Runner::Program namespace to
-  Ronin::Program.
+* Removed the Ronin::Runner namespace, renaming the Ronin::Runner::Program
+  namespace to Ronin::Program.
 
 === 0.1.0 / 2008-09-28
 
 * Changed how Sessions are setup.
 * Have Ronin use it's own DataMapper Repository name-space to avoid
   conflicts with other DataMapper libraries.
-* Added the Parameters#set_params methods.
+* Added the Ronin::Parameters#set_params methods.
 * Added specs.
 * Fixed various trivial bugs.
 
