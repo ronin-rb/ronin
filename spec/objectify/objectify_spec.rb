@@ -10,6 +10,8 @@ describe Objectify do
 
       objectify :test
 
+      property :id, Serial
+
       property :mesg, String
 
       parameter :x
