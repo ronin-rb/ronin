@@ -71,7 +71,7 @@ of Ronin.
 
 * hpricot
 * mechanize
-* Spidr >= 0.1.3
+* spidr >= 0.1.3
 * DataMapper:
   * dm-core >= 0.9.9
   * data_objects >= 0.9.9
