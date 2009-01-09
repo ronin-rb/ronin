@@ -5,7 +5,7 @@
 * Require dm-predefined >= 0.1.0.
 * Require parameters >= 0.1.2.
 * Require contextify >= 0.1.0.
-* Require reverse-require >= 0.3.0.
+* Require reverse-require >= 0.3.1.
 * Renamed Ronin::ObjectContext to Ronin::Objectify.
 * Added the MIT license to the Ronin::License model, using dm-predefined.
 * Added Ronin::HasLicense mixin for adding licenses to a model.
