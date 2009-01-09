@@ -69,17 +69,22 @@ of Ronin.
 
 == REQUIREMENTS:
 
-* Hpricot
-* WWW::Mechanize
+* hpricot
+* mechanize
+* Spidr >= 0.1.3
 * DataMapper:
-  * dm-core >= 0.9.3
-  * data_objects >= 0.9.3
-  * do_sqlite3 >= 0.9.3
-  * dm-types >= 0.9.3
-  * dm-serializer >= 0.9.3
-  * dm-aggregates >= 0.9.3
-* reverse-require >= 0.1.2
-* R'epertoire >= 0.1.2
+  * dm-core >= 0.9.9
+  * data_objects >= 0.9.9
+  * do_sqlite3 >= 0.9.9
+  * dm-types >= 0.9.9
+  * dm-aggregates >= 0.9.9
+  * dm-validations >= 0.9.9
+  * dm-serializer >= 0.9.9
+* dm-prefined >= 0.1.0
+* parameters >= 0.1.2
+* contextify >= 0.1.0
+* reverse-require >= 0.3.1
+* repertoire >= 0.1.2
 
 == INSTALL:
 
