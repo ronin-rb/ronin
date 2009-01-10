@@ -1,11 +1,12 @@
 == TODO
 
-=== Ronin 0.1.3:
+=== Ronin 0.1.4:
 
 * Add diagonstic logging of this format:
   
     [*] Message
   
+* Test and integrate Ronin::Web::Server now that Rack 0.9 has been released.
 
 === Ronin 0.2.0:
 
