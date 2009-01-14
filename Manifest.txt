@@ -88,16 +88,6 @@ lib/ronin/rpc/client.rb
 lib/ronin/rpc/service.rb
 lib/ronin/rpc/console.rb
 lib/ronin/rpc/shell.rb
-lib/ronin/web.rb
-lib/ronin/web/extensions.rb
-lib/ronin/web/extensions/hpricot.rb
-lib/ronin/web/extensions/hpricot/tag.rb
-lib/ronin/web/extensions/hpricot/text.rb
-lib/ronin/web/extensions/hpricot/comment.rb
-lib/ronin/web/extensions/hpricot/elem.rb
-lib/ronin/web/extensions/hpricot/container.rb
-lib/ronin/web/extensions/hpricot/doc.rb
-lib/ronin/web/web.rb
 lib/ronin/sessions.rb
 lib/ronin/sessions/session.rb
 lib/ronin/sessions/tcp.rb
@@ -108,7 +98,6 @@ lib/ronin/sessions/pop3.rb
 lib/ronin/sessions/imap.rb
 lib/ronin/sessions/telnet.rb
 lib/ronin/sessions/http.rb
-lib/ronin/sessions/web.rb
 lib/ronin/database.rb
 lib/ronin/database/exceptions.rb
 lib/ronin/database/exceptions/invalid_config.rb
@@ -183,7 +172,6 @@ spec/formatting/http_spec.rb
 spec/formatting/text_spec.rb
 spec/code/reference_spec.rb
 spec/code/symbol_table_spec.rb
-spec/web/extensions/hpricot_spec.rb
 spec/license_spec.rb
 spec/path_spec.rb
 spec/platform_spec.rb
