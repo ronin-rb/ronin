@@ -61,7 +61,6 @@ of Ronin.
     * Imap
     * Telnet
     * HTTP
-  * Web access (utilizing Mechanize and Hpricot).
 * Provides an IRB styled console with:
   * Tab-completion enabled.
   * Auto-indentation enabled.
@@ -69,9 +68,6 @@ of Ronin.
 
 == REQUIREMENTS:
 
-* hpricot
-* mechanize
-* spidr >= 0.1.3
 * DataMapper:
   * dm-core >= 0.9.9
   * data_objects >= 0.9.9
