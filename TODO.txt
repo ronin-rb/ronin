@@ -10,6 +10,8 @@
 
 === Ronin 0.2.0:
 
+* Transition from Hpricot to Nokogiri:
+  * Nokogiri has better support for Ruby 1.9 and is actively developed.
 * Create an IO proxy class and RPC Service for proxying io.
 * Create a module for pivoting.
 
