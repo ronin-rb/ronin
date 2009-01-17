@@ -21,6 +21,8 @@
 #++
 #
 
+require 'ronin/formatting/extensions/text'
+
 require 'uri'
 require 'cgi'
 
@@ -64,6 +66,16 @@ class String
   #
   def uri_unescape
     CGI.unescape(self)
+  end
+
+  #
+  # Returns the HTTP hexidecimal encoded form of the string.
+  #
+  #   "hello".format_http
+  #   # => "&#104;&#101;&#108;&#108;&#111;"
+  #
+  def format_http(options={})
+    format_bytes(options) { |c| sprintf("%%%x",c) }
   end
 
 end
