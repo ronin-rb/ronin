@@ -38,13 +38,13 @@ class String
     included = (options[:included] || Ronin::Chars.all)
     excluded = (options[:excluded] || [])
 
-    formatted = included - excluded
+    targeted = included - excluded
     formatted = ''
 
     self.each_byte do |b|
       c = b.chr
 
-      if formatted.include?(c)
+      if targeted.include_byte?(b)
         formatted << block.call(c)
       else
         formatted << c
