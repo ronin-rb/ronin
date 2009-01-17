@@ -45,9 +45,9 @@ class String
       c = b.chr
 
       if formatted.include?(c)
-        formatted_chars << block.call(c)
+        formatted << block.call(c)
       else
-        formatted_chars << c
+        formatted << c
       end
     end
 
