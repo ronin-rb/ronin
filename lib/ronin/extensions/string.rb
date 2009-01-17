@@ -84,15 +84,6 @@ class String
   end
 
   #
-  # Saves the string to the specified _path_.
-  #
-  def save(path)
-    File.open(path,'w') do |file|
-      file.write(path)
-    end
-  end
-
-  #
   # Inspects the string, returning a C style encoded version of the string.
   #
   #   "hello\x00\073\x90\r\n"
