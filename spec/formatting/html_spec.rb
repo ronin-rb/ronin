@@ -6,6 +6,7 @@ describe String do
   before(:all) do
     @raw_text = "x > y && y != 0"
     @html_encoded_text = "x &gt; y &amp;&amp; y != 0"
+    @html_formatted_text = "&#120;&#32;&#62;&#32;&#121;&#32;&#38;&#38;&#32;&#121;&#32;&#33;&#61;&#32;&#48;"
 
     @raw_html = "<p>Hello <strong>dude</strong></p>"
     @stripped_text = "Hello dude"
@@ -33,5 +34,13 @@ describe String do
 
   it "String#strip_html should strip any HTML from itself" do
     @raw_html.strip_html.should == @stripped_text
+  end
+
+  it "should provide String#format_html" do
+    @raw_text.respond_to?('format_html').should == true
+  end
+
+  it "String#format_html should format each byte of the String" do
+    @raw_text.format_html.should == @html_formatted_text
   end
 end
