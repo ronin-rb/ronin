@@ -6,6 +6,7 @@ describe String do
   before(:all) do
     @uri_unencoded = "mod % 3"
     @uri_encoded = "mod%20%25%203"
+    @uri_http_encoded = "%6d%6f%64%20%25%20%33"
     @uri_unescaped = "x + y"
     @uri_escaped = "x+%2B+y"
   end
@@ -40,5 +41,13 @@ describe String do
 
   it "String#uri_unescape should URI unescape itself" do
     @uri_escaped.uri_unescape.should == @uri_unescaped
+  end
+
+  it "should provide String#format_http" do
+    @uri_unencoded.respond_to?('format_http').should == true
+  end
+
+  it "String#format_http should format each byte of the String" do
+    @uri_unencoded.format_http.should == @uri_http_encoded
   end
 end
