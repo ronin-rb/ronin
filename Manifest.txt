@@ -34,11 +34,6 @@ lib/ronin/formatting/extensions/html.rb
 lib/ronin/formatting/extensions/html/string.rb
 lib/ronin/formatting/extensions/http.rb
 lib/ronin/formatting/extensions/http/string.rb
-lib/ronin/hexdump.rb
-lib/ronin/hexdump/hexdump.rb
-lib/ronin/hexdump/extensions.rb
-lib/ronin/hexdump/extensions/file.rb
-lib/ronin/hexdump/extensions/kernel.rb
 lib/ronin/chars.rb
 lib/ronin/chars/char_set.rb
 lib/ronin/chars/chars.rb
@@ -130,6 +125,11 @@ lib/ronin/cache/extension_cache.rb
 lib/ronin/cache/extension.rb
 lib/ronin/cache/cache.rb
 lib/ronin/cache/ronin.rb
+lib/ronin/ui/hexdump.rb
+lib/ronin/ui/hexdump/hexdump.rb
+lib/ronin/ui/hexdump/extensions.rb
+lib/ronin/ui/hexdump/extensions/file.rb
+lib/ronin/ui/hexdump/extensions/kernel.rb
 lib/ronin/ui/console.rb
 lib/ronin/ui/shell.rb
 lib/ronin/ui/command_line.rb

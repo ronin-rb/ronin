@@ -21,5 +21,5 @@
 #++
 #
 
-require 'ronin/hexdump/extensions/file'
-require 'ronin/hexdump/extensions/kernel'
+require 'ronin/ui/hexdump/extensions/file'
+require 'ronin/ui/hexdump/extensions/kernel'

@@ -21,13 +21,5 @@
 #++
 #
 
-require 'ronin/hexdump/hexdump'
-
-module Kernel
-  #
-  # Hexdumps the specified _object_ to the given _output_ stream.
-  #
-  def hexdump(object,output=STDOUT)
-    Ronin::Hexdump.dump(object,output)
-  end
-end
+require 'ronin/ui/hexdump/hexdump'
+require 'ronin/ui/hexdump/extensions'

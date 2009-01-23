@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/hexdump/hexdump'
+require 'ronin/ui/hexdump/hexdump'
 
 class File
 
@@ -30,7 +30,7 @@ class File
   # to the given _output_ stream.
   #
   def self.hexdump(path,output=STDOUT)
-    Ronin::Hexdump.dump(self.open(path),output)
+    Ronin::UI::Hexdump.dump(self.open(path),output)
   end
 
 end
