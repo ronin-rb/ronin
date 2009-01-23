@@ -12,6 +12,7 @@
 * Added the File.write method.
 * Added specs for String#format_http and String#format_html.
 * Fixed a formatting bug in String#format_chars and String#format_bytes.
+* Fixed typos.
 * Automatically load 'ronin/ui/hexdump' when starting the
   Ronin::UI::Console.
 
