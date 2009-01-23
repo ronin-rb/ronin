@@ -1,3 +1,20 @@
+=== 0.1.4 / 2009-01-22
+
+* Moved Ronin::Web and Ronin::Sessions::Web into the ronin-web library.
+* Removed dependencies to hpricot, mechanize, spidr and rack.
+* Moved Hexdump into the Ronin::UI namespace.
+* Require parameters >= 0.1.3:
+  * Parameters 0.1.3 adds support for using lambdas as the default values
+    of parameters.
+* Temporarily added Ronin::Model.first_or_new:
+  * Will be removed once dkubb's version of first_or_new is merged into
+    dm-core.
+* Added the File.write method.
+* Added specs for String#format_http and String#format_html.
+* Fixed a formatting bug in String#format_chars and String#format_bytes.
+* Automatically load 'ronin/ui/hexdump' when starting the
+  Ronin::UI::Console.
+
 === 0.1.3 / 2009-01-08
 
 * Moved Context into the Contextify library.
