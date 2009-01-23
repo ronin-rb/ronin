@@ -22,6 +22,8 @@
 #
 
 module Ronin
-  class UnknownObject < RuntimeError
+  module Objectify
+    class UnknownObjectContext < RuntimeError
+    end
   end
 end

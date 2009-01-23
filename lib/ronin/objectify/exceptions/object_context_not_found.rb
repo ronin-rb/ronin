@@ -22,6 +22,8 @@
 #
 
 module Ronin
-  class ObjectContextNotFound < RuntimeError
+  module Objectify
+    class ObjectContextNotFound < RuntimeError
+    end
   end
 end
