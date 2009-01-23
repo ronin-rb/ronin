@@ -88,8 +88,6 @@ module Ronin
       # configure the irb workspace
       irb.context.main.instance_eval do
         require 'ronin'
-        require 'ronin/ui/hexdump'
-
         require 'pp'
 
         include Ronin
