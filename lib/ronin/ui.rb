@@ -21,15 +21,5 @@
 #++
 #
 
-require 'ronin/config'
-require 'ronin/extensions'
-require 'ronin/formatting'
-require 'ronin/chars'
-require 'ronin/path'
-require 'ronin/network'
-require 'ronin/models'
-require 'ronin/ui'
-require 'ronin/ronin'
-require 'ronin/version'
-
-Ronin::Config.load
+require 'ronin/ui/console'
+require 'ronin/ui/hexdump'
