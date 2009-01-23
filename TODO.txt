@@ -1,17 +1,13 @@
 == TODO
 
-=== Ronin 0.1.4:
+=== Ronin 0.1.5:
 
 * Add diagonstic logging of this format:
   
     [*] Message
   
-* Test and integrate Ronin::Web::Server now that Rack 0.9 has been released.
-
 === Ronin 0.2.0:
 
-* Transition from Hpricot to Nokogiri:
-  * Nokogiri has better support for Ruby 1.9 and is actively developed.
 * Create an IO proxy class and RPC Service for proxying io.
 * Create a module for pivoting.
 
