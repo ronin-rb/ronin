@@ -68,6 +68,7 @@ of Ronin.
 
 == REQUIREMENTS:
 
+* libsqlite3
 * DataMapper:
   * dm-core >= 0.9.9
   * data_objects >= 0.9.9
