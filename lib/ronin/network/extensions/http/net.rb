@@ -158,6 +158,14 @@ module Net
   end
 
   #
+  # Returns +true+ if a HTTP Head request with the given _options_ returns
+  # the HTTP status code of 200, returns +false+ otherwise.
+  #
+  def Net.http_ok?(options={})
+    Net.http_head(options).code == 200
+  end
+
+  #
   # Performes an HTTP Lock request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
