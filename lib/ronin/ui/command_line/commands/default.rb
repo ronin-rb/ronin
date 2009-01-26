@@ -34,7 +34,7 @@ module Ronin
           opts.usage = '<command> [options]'
           opts.options do
             opts.on('-d','--database URI','The URI for the Database') do |uri|
-              Database.config = uri
+              Database.config = uri.to_s
             end
 
             opts.on('-r','--require LIB','require the specified library or path') do |lib|
