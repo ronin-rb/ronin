@@ -125,7 +125,7 @@ of Ronin.
 
 === RONIN ASM
 
-* http://ronin.rubyforge.org/libraries/asm.html
+* http://ronin.rubyforge.org/asm/
 * http://github.com/postmodern/ronin-asm
 
 Ronin ASM is a Ruby library for Ronin that provides dynamic Assembly (ASM)
@@ -133,7 +133,7 @@ generation of programs or shellcode.
 
 === RONIN DORKS
 
-* http://ronin.rubyforge.org/libraries/dorks.html
+* http://ronin.rubyforge.org/dorks/
 * http://github.com/postmodern/ronin-dorks
 
 Ronin Dorks is a Ruby library for Ronin that provides support for various
@@ -141,7 +141,7 @@ Google (tm) Dorks functionality.
 
 === RONIN EXPLOITS
 
-* http://ronin.rubyforge.org/libraries/exploits.html
+* http://ronin.rubyforge.org/exploits/
 * http://github.com/postmodern/ronin-exploits
 
 Ronin Exploits is a Ruby library for Ronin that provides exploitation and
@@ -149,7 +149,7 @@ payload crafting functionality.
 
 === RONIN HTML
 
-* http://ronin.rubyforge.org/libraries/html.html
+* http://ronin.rubyforge.org/html/
 * http://github.com/postmodern/ronin-html
 
 Ronin HTML is a Ruby library for Ronin that provides support for generating
@@ -157,7 +157,7 @@ complex HTML/JavaScript or crafting XSS/CSRF attacks.
 
 === RONIN SQL
 
-* http://ronin.rubyforge.org/libraries/sql.html
+* http://ronin.rubyforge.org/sql/
 * http://github.com/postmodern/ronin-sql
 
 Ronin SQL is a Ruby library for Ronin that provids support for SQL related
@@ -165,7 +165,7 @@ security tasks, such as scanning for and exploiting SQL injections.
 
 === RONIN PHP
 
-* http://ronin.rubyforge.org/libraries/php.html
+* http://ronin.rubyforge.org/php/
 * http://github.com/postmodern/ronin-php
 
 Ronin PHP is a Ruby library for Ronin that provides support for PHP related
