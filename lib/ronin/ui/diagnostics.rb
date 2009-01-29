@@ -47,7 +47,7 @@ module Ronin
       #
       def print_info(*messages)
         if Diagnostics.enabled?
-          puts(*(messages.map { |mesg| "[-] #{mesg}" }))
+          STDERR.puts(*(messages.map { |mesg| "[-] #{mesg}" }))
         end
       end
 
@@ -56,7 +56,7 @@ module Ronin
       #
       def print_warning(*messages)
         if Diagnostics.enabled?
-          puts(*(messages.map { |mesg| "[*] #{mesg}" }))
+          STDERR.puts(*(messages.map { |mesg| "[*] #{mesg}" }))
         end
       end
 
@@ -65,7 +65,7 @@ module Ronin
       #
       def print_error(*messages)
         if Diagnostics.enabled?
-          puts(*(messages.map { |mesg| "[!] #{mesg}" }))
+          STDERR.puts(*(messages.map { |mesg| "[!] #{mesg}" }))
         end
       end
     end
