@@ -21,5 +21,6 @@
 #++
 #
 
-require 'ronin/ui/console'
+require 'ronin/ui/diagnostics'
 require 'ronin/ui/hexdump'
+require 'ronin/ui/console'

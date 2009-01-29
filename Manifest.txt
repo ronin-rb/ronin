@@ -127,6 +127,7 @@ lib/ronin/cache/extension.rb
 lib/ronin/cache/cache.rb
 lib/ronin/cache/ronin.rb
 lib/ronin/ui.rb
+lib/ronin/ui/diagnostics.rb
 lib/ronin/ui/hexdump.rb
 lib/ronin/ui/hexdump/hexdump.rb
 lib/ronin/ui/hexdump/extensions.rb
