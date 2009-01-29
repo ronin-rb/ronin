@@ -172,6 +172,14 @@ Ronin PHP is a Ruby library for Ronin that provides support for PHP related
 security tasks, such as finding and exploiting Local File Inclusion (LFI)
 and Remote File Inclusion (RFI).
 
+=== RONIN PHP
+
+* http://ronin.rubyforge.org/web/
+* http://github.com/postmodern/ronin-web
+
+Ronin Web is a Ruby library for Ronin that provides support for web
+scraping and spidering functionality.
+
 == LICENSE:
 
 Ronin - A Ruby platform designed for information security and data
