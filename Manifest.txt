@@ -182,6 +182,7 @@ spec/platform_spec.rb
 spec/product_spec.rb
 spec/target_spec.rb
 spec/sessions/session_spec.rb
+spec/ui/diagnostics_spec.rb
 spec/ui/command_line/param_parser_spec.rb
 spec/ronin_spec.rb
 static/overlay.xsl
