@@ -68,8 +68,8 @@ of Ronin.
 
 == REQUIREMENTS:
 
-* libsqlite3
-* DataMapper:
+* {libsqlite3}[http://sqlite.org/]
+* {DataMapper}[http://datamapper.org/]:
   * dm-core >= 0.9.9
   * data_objects >= 0.9.9
   * do_sqlite3 >= 0.9.9
@@ -77,11 +77,11 @@ of Ronin.
   * dm-aggregates >= 0.9.9
   * dm-validations >= 0.9.9
   * dm-serializer >= 0.9.9
-* dm-prefined >= 0.1.0
-* parameters >= 0.1.2
-* contextify >= 0.1.0
-* reverse-require >= 0.3.1
-* repertoire >= 0.1.2
+* {dm-prefined}[http://dm-predefined.rubyforge.org/] >= 0.1.0
+* {parameters}[http://parameters.rubyforge.org/] >= 0.1.2
+* {contextify}[http://contextify.rubyforge.org/] >= 0.1.0
+* {reverse-require}[http://reverserequire.rubyforge.org/] >= 0.3.1
+* {repertoire}[http://repertoire.rubyforge.org/] >= 0.1.2
 
 == INSTALL:
 
