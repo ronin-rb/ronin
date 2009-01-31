@@ -27,101 +27,103 @@ require 'irb'
 require 'irb/completion'
 
 module Ronin
-  module Console
-    #
-    # Returns the default Console prompt style
-    #
-    def Console.prompt
-      @@ronin_console_prompt ||= :SIMPLE
-    end
-
-    #
-    # Sets the default Console prompt style to the specified _style_.
-    #
-    def Console.prompt=(style)
-      @@ronin_console_prompt = style
-    end
-
-    #
-    # Returns the default Console indent setting.
-    #
-    def Console.indent
-      @@ronin_console_indent ||= true
-    end
-
-    #
-    # Sets the default Console indent setting.
-    #
-    def Console.indent=(value)
-      @@ronin_console_indent = value
-    end
-
-    #
-    # Returns the Array of files to require when the Console starts.
-    #
-    def Console.auto_load
-      @@ronin_console_auto_load ||= []
-    end
-
-    #
-    # Calls the specified _block_ from within the Console after it is
-    # started.
-    #
-    def Console.setup(&block)
-      Console.setup_blocks << block if block
-    end
-
-    #
-    # Starts a Console with the given _script_. If a _block_ is given, it
-    # will be called from within the Console.
-    #
-    def Console.start(script=nil,&block)
-      IRB.setup(script)
-
-      IRB.conf[:IRB_NAME] = 'ronin'
-      IRB.conf[:PROMPT_MODE] = Console.prompt
-      IRB.conf[:AUTO_INDENT] = Console.indent
-      IRB.conf[:LOAD_MODULES] = Console.auto_load
-
-      irb = IRB::Irb.new(nil,script)
-
-      # configure the irb workspace
-      irb.context.main.instance_eval do
-        require 'ronin'
-        require 'pp'
-
-        include Ronin
+  module UI
+    module Console
+      #
+      # Returns the default Console prompt style
+      #
+      def Console.prompt
+        @@ronin_console_prompt ||= :SIMPLE
       end
 
-      Console.setup_blocks.each do |setup_block|
-        irb.context.main.instance_eval(&setup_block)
+      #
+      # Sets the default Console prompt style to the specified _style_.
+      #
+      def Console.prompt=(style)
+        @@ronin_console_prompt = style
       end
 
-      # Load console configuration block is given
-      irb.context.main.instance_eval(&block) if block
-
-      IRB.conf[:MAIN_CONTEXT] = irb.context
-
-      trap('SIGINT') do
-        irb.signal_handle
+      #
+      # Returns the default Console indent setting.
+      #
+      def Console.indent
+        @@ronin_console_indent ||= true
       end
 
-      catch(:IRB_EXIT) do
-        irb.eval_input
+      #
+      # Sets the default Console indent setting.
+      #
+      def Console.indent=(value)
+        @@ronin_console_indent = value
       end
 
-      print "\n"
-      return nil
-    end
+      #
+      # Returns the Array of files to require when the Console starts.
+      #
+      def Console.auto_load
+        @@ronin_console_auto_load ||= []
+      end
 
-    protected
+      #
+      # Calls the specified _block_ from within the Console after it is
+      # started.
+      #
+      def Console.setup(&block)
+        Console.setup_blocks << block if block
+      end
 
-    #
-    # Returns the Array of setup_blocks to run within the Console after it
-    # is started.
-    #
-    def Console.setup_blocks
-      @@console_setup_blocks ||= []
+      #
+      # Starts a Console with the given _script_. If a _block_ is given, it
+      # will be called from within the Console.
+      #
+      def Console.start(script=nil,&block)
+        IRB.setup(script)
+
+        IRB.conf[:IRB_NAME] = 'ronin'
+        IRB.conf[:PROMPT_MODE] = Console.prompt
+        IRB.conf[:AUTO_INDENT] = Console.indent
+        IRB.conf[:LOAD_MODULES] = Console.auto_load
+
+        irb = IRB::Irb.new(nil,script)
+
+        # configure the irb workspace
+        irb.context.main.instance_eval do
+          require 'ronin'
+          require 'pp'
+
+          include Ronin
+        end
+
+        Console.setup_blocks.each do |setup_block|
+          irb.context.main.instance_eval(&setup_block)
+        end
+
+        # Load console configuration block is given
+        irb.context.main.instance_eval(&block) if block
+
+        IRB.conf[:MAIN_CONTEXT] = irb.context
+
+        trap('SIGINT') do
+          irb.signal_handle
+        end
+
+        catch(:IRB_EXIT) do
+          irb.eval_input
+        end
+
+        print "\n"
+        return nil
+      end
+
+      protected
+
+      #
+      # Returns the Array of setup_blocks to run within the Console after it
+      # is started.
+      #
+      def Console.setup_blocks
+        @@console_setup_blocks ||= []
+      end
     end
   end
 end
