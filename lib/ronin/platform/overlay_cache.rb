@@ -68,8 +68,8 @@ module Ronin
       #
       # Returns the Ovlerays which match the specified _block_.
       #
-      #   cache.overlays_with do |repo|
-      #     repo.author == 'the dude'
+      #   cache.overlays_with do |overlay|
+      #     overlay.author == 'the dude'
       #   end
       #
       def overlays_with(&block)
@@ -101,48 +101,48 @@ module Ronin
       # Returns the paths of the Overlays contained in the cache.
       #
       def paths
-        overlays.map { |repo| repo.path }
+        overlays.map { |overlay| overlay.path }
       end
 
       #
-      # Adds the _repo_ to the cache. If a _block_ is given, it will
-      # be passed the cache after the _repo_ is added. The _repo_
+      # Adds the _overlay_ to the cache. If a _block_ is given, it will
+      # be passed the cache after the _overlay_ is added. The _overlay_
       # will be returned.
       #
-      #   cache.add(repo)
+      #   cache.add(overlay)
       #   # => #<Ronin::Platform::Overlay: ...>
       #
-      #   cache.add(repo) do |cache|
-      #     puts "Overlay #{repo} added"
+      #   cache.add(overlay) do |cache|
+      #     puts "Overlay #{overlay} added"
       #   end
       #
-      def add(repo,&block)
-        name = repo.name.to_s
+      def add(overlay,&block)
+        name = overlay.name.to_s
 
         if has_overlay?(name)
           raise(OverlayCached,"overlay #{name.dump} already present in the cache #{self.to_s.dump}",caller)
         end
 
-        self << repo
+        self << overlay
 
         block.call(self) if block
         return self
       end
 
       #
-      # Removes the _repo_ from the cache. If a _block_ is given, it
+      # Removes the _overlay_ from the cache. If a _block_ is given, it
       # will be passed the cache. The cache will be returned, after the
-      # _repo_ is removed.
+      # _overlay_ is removed.
       #
-      #   cache.remove(repo)
+      #   cache.remove(overlay)
       #   # => #<Ronin::Platform::Overlay: ...>
       #
-      #   cache.remove(repo) do |cache|
-      #     puts "Overlay #{repo} removed"
+      #   cache.remove(overlay) do |cache|
+      #     puts "Overlay #{overlay} removed"
       #   end
       #
-      def remove(repo,&block)
-        name = repo.name.to_s
+      def remove(overlay,&block)
+        name = overlay.name.to_s
 
         unless has_overlay?(name)
           raise(OverlayNotFound,"overlay #{name.dump} is not present in the cache #{self.to_s.dump}",caller)
@@ -166,7 +166,7 @@ module Ronin
       #   end
       #
       def update(&block)
-        repos.each { |repo| repo.update }
+        overlays.each { |overlay| overlay.update }
 
         block.call(self) if block
         return self
@@ -187,11 +187,11 @@ module Ronin
         block.call(self) if block
 
         File.open(output_path,'w') do |output|
-          descriptions = overlays.map do |repo|
+          descriptions = overlays.map do |overlay|
             {
-              :media_type => repo.media_type,
-              :path => repo.path,
-              :uri => repo.uri
+              :media_type => overlay.media_type,
+              :path => overlay.path,
+              :uri => overlay.uri
             }
           end
 
@@ -205,7 +205,7 @@ module Ronin
       # Adds the specified _overlay_ to the cache.
       #
       def <<(overlay)
-        self[overlay.name.to_s] = repo
+        self[overlay.name.to_s] = overlay
       end
 
       #
