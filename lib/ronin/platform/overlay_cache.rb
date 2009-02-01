@@ -109,7 +109,8 @@ module Ronin
       # be passed the cache after the _repo_ is added. The _repo_
       # will be returned.
       #
-      #   cache.add(repo) # => Overlay
+      #   cache.add(repo)
+      #   # => #<Ronin::Platform::Overlay: ...>
       #
       #   cache.add(repo) do |cache|
       #     puts "Overlay #{repo} added"
@@ -133,7 +134,8 @@ module Ronin
       # will be passed the cache. The cache will be returned, after the
       # _repo_ is removed.
       #
-      #   cache.remove(repo) # => #<Ronin::Platform::Overlay: ...>
+      #   cache.remove(repo)
+      #   # => #<Ronin::Platform::Overlay: ...>
       #
       #   cache.remove(repo) do |cache|
       #     puts "Overlay #{repo} removed"
@@ -156,7 +158,8 @@ module Ronin
       # Updates all the cached Overlays. If a _block_ is given it will
       # be passed the cache.
       #
-      #   update # => #<Ronin::Platform::Overlay: ...>
+      #   update
+      #   # => #<Ronin::Platform::Overlay: ...>
       #
       #   update do |cache|
       #     puts "#{cache} is updated"
@@ -199,10 +202,10 @@ module Ronin
       end
 
       #
-      # Adds the specified _repo_ to the cache.
+      # Adds the specified _overlay_ to the cache.
       #
-      def <<(repo)
-        self[repo.name.to_s] = repo
+      def <<(overlay)
+        self[overlay.name.to_s] = repo
       end
 
       #
