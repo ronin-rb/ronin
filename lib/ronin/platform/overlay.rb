@@ -100,7 +100,7 @@ module Ronin
       # cache if not already loaded.
       #
       def Overlay.cache
-        @@cache ||= load_cache
+        (@@cache || load_cache)
       end
 
       #
