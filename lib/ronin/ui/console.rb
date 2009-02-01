@@ -82,7 +82,6 @@ module Ronin
         IRB.conf[:IRB_NAME] = 'ronin'
         IRB.conf[:PROMPT_MODE] = Console.prompt
         IRB.conf[:AUTO_INDENT] = Console.indent
-        IRB.conf[:LOAD_MODULES] = Console.auto_load
 
         irb = IRB::Irb.new(nil,script)
 
@@ -90,6 +89,10 @@ module Ronin
         irb.context.main.instance_eval do
           require 'ronin'
           require 'pp'
+
+          Ronin::UI::Console.auto_load.each do |path|
+            require path
+          end
 
           include Ronin
         end
@@ -111,7 +114,7 @@ module Ronin
           irb.eval_input
         end
 
-        print "\n"
+        putc "\n"
         return nil
       end
 
