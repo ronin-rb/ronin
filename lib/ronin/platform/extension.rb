@@ -21,11 +21,11 @@
 #++
 #
 
-require 'ronin/cache/extension_cache'
-require 'ronin/cache/overlay'
+require 'ronin/platform/extension_cache'
+require 'ronin/platform/overlay'
 
 module Ronin
-  module Cache
+  module Platform
     class Extension
 
       # Extension file name
@@ -288,7 +288,7 @@ module Ronin
       # will be passed the extension after it has been setup.
       #
       #   ext.perform_setup
-      #   # => #<Ronin::Cache::Extension: ...>
+      #   # => #<Ronin::Platform::Extension: ...>
       #
       #   ext.perform_setup do |ext|
       #     puts "Extension #{ext} has been setup..."
@@ -321,7 +321,7 @@ module Ronin
       # it will be passed the extension before it has been tore down.
       #
       #   ext.perform_teardown
-      #   # => #<Ronin::Cache::Extension: ...>
+      #   # => #<Ronin::Platform::Extension: ...>
       #
       #   ext.perform_teardown do |ext|
       #     puts "Extension #{ext} is being tore down..."

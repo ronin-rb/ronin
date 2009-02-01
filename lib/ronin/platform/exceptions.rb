@@ -21,5 +21,5 @@
 #++
 #
 
-require 'ronin/cache/exceptions/extension_not_found'
-require 'ronin/cache/exceptions/overlay_not_found'
+require 'ronin/platform/exceptions/extension_not_found'
+require 'ronin/platform/exceptions/overlay_not_found'

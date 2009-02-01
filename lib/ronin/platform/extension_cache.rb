@@ -21,11 +21,11 @@
 #++
 #
 
-require 'ronin/cache/extension'
-require 'ronin/cache/exceptions/extension_not_found'
+require 'ronin/platform/extension'
+require 'ronin/platform/exceptions/extension_not_found'
 
 module Ronin
-  module Cache
+  module Platform
     class ExtensionCache < Hash
 
       #

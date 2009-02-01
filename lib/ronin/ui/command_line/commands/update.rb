@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/cache/overlay'
+require 'ronin/platform/overlay'
 
 module Ronin
   module UI
@@ -49,9 +49,9 @@ module Ronin
 
         def arguments(*args)
           if args.empty?
-            Cache::Overlay.each { |overlay| overlay.update }
+            Platform::Overlay.each { |overlay| overlay.update }
           else
-            args.each { |name| Cache::Overlay.update(name) }
+            args.each { |name| Platform::Overlay.update(name) }
           end
         end
 

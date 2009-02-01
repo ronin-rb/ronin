@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/cache/overlay'
+require 'ronin/platform/overlay'
 
 module Ronin
   module UI
@@ -50,13 +50,13 @@ module Ronin
         def arguments(*args)
           if args.empty?
             # list all repositories by name
-            Cache::Overlay.each { |overlay| puts "  #{overlay}" }
+            Platform::Overlay.each { |overlay| puts "  #{overlay}" }
             return
           end
 
           # list specified repositories
           args.each do |name|
-            overlay = Cache::Overlay.get(name)
+            overlay = Platform::Overlay.get(name)
 
             puts "[ #{overlay.name} ]\n\n"
 

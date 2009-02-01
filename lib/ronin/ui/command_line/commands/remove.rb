@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/cache/overlay'
+require 'ronin/platform/overlay'
 
 module Ronin
   module UI
@@ -49,8 +49,8 @@ module Ronin
 
         def arguments(*args)
           args.each do |name|
-            Cache::Overlay.save_cache do
-              Cache::Overlay.remove(name) do |overlay|
+            Platform::Overlay.save_cache do
+              Platform::Overlay.remove(name) do |overlay|
                 puts "Removing #{overlay.name.dump} ..."
               end
             end

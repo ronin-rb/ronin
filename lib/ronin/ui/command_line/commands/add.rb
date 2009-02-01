@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/cache/overlay'
+require 'ronin/platform/overlay'
 
 module Ronin
   module UI
@@ -62,8 +62,8 @@ module Ronin
 
           path = args.first
 
-          Cache::Overlay.save_cache do
-            Cache::Overlay.add(path,@media,@uri) do |overlay|
+          Platform::Overlay.save_cache do
+            Platform::Overlay.add(path,@media,@uri) do |overlay|
               puts "Overlay #{overlay.name.dump} added."
             end
           end

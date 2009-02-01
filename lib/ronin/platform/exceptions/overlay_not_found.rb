@@ -22,8 +22,8 @@
 #
 
 module Ronin
-  module Cache
-    class ExtensionNotFound < RuntimeError
+  module Platform
+    class OverlayNotFound < RuntimeError
     end
   end
 end

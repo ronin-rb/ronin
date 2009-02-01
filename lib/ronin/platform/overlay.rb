@@ -21,17 +21,17 @@
 #++
 #
 
-require 'ronin/cache/maintainer'
-require 'ronin/cache/extension'
-require 'ronin/cache/exceptions/extension_not_found'
-require 'ronin/cache/overlay_cache'
-require 'ronin/cache/config'
+require 'ronin/platform/maintainer'
+require 'ronin/platform/extension'
+require 'ronin/platform/exceptions/extension_not_found'
+require 'ronin/platform/overlay_cache'
+require 'ronin/platform/config'
 
 require 'rexml/document'
 require 'repertoire'
 
 module Ronin
-  module Cache
+  module Platform
     class Overlay < Repertoire::Repository
 
       # Overlay metadata XML file name
@@ -85,17 +85,19 @@ module Ronin
       # given, it will default to <tt>Config::REPOSITORY_CACHE_PATH</tt>.
       # If a _block_ is given it will be passed the loaded Overlay Cache.
       #
-      #   Overlay.load_cache # => Cache
+      #   Overlay.load_cache
+      #   # => #<Ronin::Platform::Overlay: ...>
       #
-      #   Overlay.load_cache('/custom/cache') # => Cache
+      #   Overlay.load_cache('/custom/cache')
+      #   # => #<Ronin::Platform::Overlay: ...>
       #
       def Overlay.load_cache(path=Config::OVERLAY_CACHE_PATH,&block)
         @@cache = OverlayCache.new(path,&block)
       end
 
       #
-      # Returns the current OverlayCache, or loads the default Cache
-      # if not already loaded.
+      # Returns the current OverlayCache, or loads the default overlay
+      # cache if not already loaded.
       #
       def Overlay.cache
         @@cache ||= load_cache
@@ -105,7 +107,8 @@ module Ronin
       # Saves the overlay cache. If a _block_ is given, it will be passed
       # the overlay cache before being saved.
       #
-      #   Overlay.save_cache # => OverlayCache
+      #   Overlay.save_cache
+      #   # => #<Ronin::Platform::OverlayCache: ...>
       #
       #   Overlay.save_cahce do |cache|
       #     puts "Saving cache #{cache}"
@@ -376,7 +379,7 @@ module Ronin
       # extension.
       #
       #   overlay.extension('awesome')
-      #   # => #<Ronin::Cache::Extension: ...>
+      #   # => #<Ronin::Platform::Extension: ...>
       #
       #   overlay.extension('shellcode') do |ext|
       #     ...

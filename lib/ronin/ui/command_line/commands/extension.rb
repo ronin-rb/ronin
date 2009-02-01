@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/cache/extension'
+require 'ronin/platform/extension'
 require 'ronin/config'
 
 require 'fileutils'
@@ -54,8 +54,8 @@ module Ronin
         def arguments(*args)
           args.each do |path|
             path = File.expand_path(path)
-            extension_path = File.join(path,Cache::Extension::EXTENSION_FILE)
-            lib_dir = File.join(path,Cache::Extension::LIB_DIR)
+            extension_path = File.join(path,Platform::Extension::EXTENSION_FILE)
+            lib_dir = File.join(path,Platform::Extension::LIB_DIR)
             template_path = File.join(Config::STATIC_DIR,'extension.rb')
 
             FileUtils.mkdir_p(path)

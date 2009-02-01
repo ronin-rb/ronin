@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/cache/overlay'
+require 'ronin/platform/overlay'
 
 module Ronin
   module UI
@@ -54,8 +54,8 @@ module Ronin
 
           uri = args.first
 
-          Cache::Overlay.save_cache do
-            Cache::Overlay.install(:uri => uri, :media => @media) do |overlay|
+          Platform::Overlay.save_cache do
+            Platform::Overlay.install(:uri => uri, :media => @media) do |overlay|
               puts "Overlay #{overlay.name.dump} has been installed."
             end
           end

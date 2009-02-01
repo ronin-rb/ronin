@@ -21,42 +21,31 @@
 #++
 #
 
+require 'ronin/platform/platform'
+
 module Ronin
-  module Cache
-    class Maintainer
+  protected
 
-      # Name of the maintainer
-      attr_reader :name
+  #
+  # Provides transparent access to Platform.extension.
+  #
+  #   Ronin.shellcode
+  #   # => #<Ronin::Platform::Extension: ...>
+  #
+  #   Ronin.shellcode do |ext|
+  #     ...
+  #   end
+  #
+  def Ronin.method_missing(sym,*args,&block)
+    if args.length==0
+      name = sym.id2name
 
-      # Email of the maintainer
-      attr_reader :email
-
-      #
-      # Creates a new Maintainer object with the specified _name_ and the
-      # given _email_.
-      #
-      def initialize(name,email=nil)
-        @name = name
-        @email = email
+      # return an extension if available
+      if Platform.has_extension?(name)
+        return Platform.extension(name,&block)
       end
-
-      #
-      # Returns the String form of the maintainer object.
-      def to_s
-        if @email
-          return "#{@name} <#{@email}>"
-        else
-          return @name.to_s
-        end
-      end
-
-      #
-      # Inspects the maintainer object.
-      #
-      def inspect
-        "#<#{self.class.name}: #{self}"
-      end
-
     end
+
+    return super(sym,*args,&block)
   end
 end

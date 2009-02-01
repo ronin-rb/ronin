@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/cache/overlay'
+require 'ronin/platform/overlay'
 require 'ronin/version'
 
 require 'fileutils'
@@ -108,7 +108,7 @@ module Ronin
           FileUtils.mkdir_p(path)
           FileUtils.mkdir_p(File.join(path,'objects'))
 
-          File.open(File.join(path,Cache::Overlay::METADATA_FILE),'w') do |file|
+          File.open(File.join(path,Platform::Overlay::METADATA_FILE),'w') do |file|
             doc = Document.new
             doc.add(XMLDecl.new)
             doc.add(Instruction.new('xml-stylesheet','type="text/xsl" href="http://ronin.rubyforge.org/dist/overlay.xsl"'))

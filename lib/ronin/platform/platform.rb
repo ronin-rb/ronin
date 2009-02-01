@@ -21,29 +21,29 @@
 #++
 #
 
-require 'ronin/cache/overlay'
-require 'ronin/cache/extension'
+require 'ronin/platform/overlay'
+require 'ronin/platform/extension'
 
 module Ronin
-  module Cache
+  module Platform
     #
     # See Overlay.cache.
     #
-    def Cache.overlays
+    def Platform.overlays
       Overlay.cache
     end
 
     #
     # See Extension.names.
     #
-    def Cache.extension_names
+    def Platform.extension_names
       Extension.names
     end
 
     #
     # See Overlay.has_extension?.
     #
-    def Cache.has_extension?(name)
+    def Platform.has_extension?(name)
       Overlay.has_extension?(name)
     end
 
@@ -51,9 +51,9 @@ module Ronin
     # Returns a +Hash+ of all loaded extensions. Extensions can be loaded
     # on-the-fly by accessing the +Hash+.
     #
-    #   Cache.extensions['shellcode'] # => Cache::Extension
+    #   Platform.extensions['shellcode'] # => Platform::Extension
     #
-    def Cache.extensions
+    def Platform.extensions
       Extension.cache
     end
 
@@ -61,15 +61,15 @@ module Ronin
     # Returns +true+ if the extension with the specified _name_ has been
     # loaded, returns +false+ otherwise.
     #
-    def Cache.extension_loaded?(name)
+    def Platform.extension_loaded?(name)
       Extension.cache.has_extension?(name)
     end
 
     #
-    # See Cache.extensions.
+    # See Platform.extensions.
     #
-    def Cache.extension(name,&block)
-      ext = Cache.extensions[name]
+    def Platform.extension(name,&block)
+      ext = Platform.extensions[name]
 
       block.call(ext) if block
       return ext

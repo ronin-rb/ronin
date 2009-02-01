@@ -21,7 +21,9 @@
 #++
 #
 
-require 'ronin/cache/exceptions'
-require 'ronin/cache/extension'
-require 'ronin/cache/overlay'
-require 'ronin/cache/ronin'
+module Ronin
+  module Platform
+    class OverlayCached < RuntimeError
+    end
+  end
+end

@@ -21,16 +21,9 @@
 #++
 #
 
-require 'ronin/config'
-
 module Ronin
-  module Cache
-    module Config
-      # Path to overlays directory
-      OVERLAY_DIR = File.join(Config::PATH,'overlays')
-
-      # Path to overlays cache file
-      OVERLAY_CACHE_PATH = File.join(Config::PATH,'overlays.yaml')
+  module Platform
+    class ExtensionNotFound < RuntimeError
     end
   end
 end

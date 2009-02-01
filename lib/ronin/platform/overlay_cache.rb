@@ -21,24 +21,25 @@
 #++
 #
 
-require 'ronin/cache/exceptions/overlay_cached'
-require 'ronin/cache/exceptions/overlay_not_found'
-require 'ronin/cache/overlay'
-require 'ronin/cache/config'
+require 'ronin/platform/exceptions/overlay_cached'
+require 'ronin/platform/exceptions/overlay_not_found'
+require 'ronin/platform/overlay'
+require 'ronin/platform/config'
 
 require 'yaml'
 
 module Ronin
-  module Cache
+  module Platform
     class OverlayCache < Hash
 
       # Path of cache file
       attr_reader :path
 
       #
-      # Create a new Cache object with the specified _path_. The _path_
-      # defaults to <tt>Config::REPOSITORY_CACHE_PATH</tt>. If a _block_ is
-      # given, it will be passed the newly created Cache object.
+      # Create a new OverlayCache object with the specified _path_. The
+      # _path_ defaults to <tt>Config::REPOSITORY_CACHE_PATH</tt>. If a
+      # _block_ is given, it will be passed the newly created OverlayCache
+      # object.
       #
       def initialize(path=Config::REPOSITORY_CACHE_PATH,&block)
         super()
@@ -132,7 +133,7 @@ module Ronin
       # will be passed the cache. The cache will be returned, after the
       # _repo_ is removed.
       #
-      #   cache.remove(repo) # => Cache
+      #   cache.remove(repo) # => #<Ronin::Platform::Overlay: ...>
       #
       #   cache.remove(repo) do |cache|
       #     puts "Overlay #{repo} removed"
@@ -155,7 +156,7 @@ module Ronin
       # Updates all the cached Overlays. If a _block_ is given it will
       # be passed the cache.
       #
-      #   update # => Cache
+      #   update # => #<Ronin::Platform::Overlay: ...>
       #
       #   update do |cache|
       #     puts "#{cache} is updated"
