@@ -37,7 +37,7 @@ module Ronin
 
       #
       # Create a new OverlayCache object with the specified _path_. The
-      # _path_ defaults to <tt>Config::REPOSITORY_CACHE_PATH</tt>. If a
+      # _path_ defaults to <tt>Config::OVERLAY_CACHE_PATH</tt>. If a
       # _block_ is given, it will be passed the newly created OverlayCache
       # object.
       #
