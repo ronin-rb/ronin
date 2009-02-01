@@ -32,7 +32,7 @@ module Ronin
     property :id, Serial
 
     # Targeted OS
-    belongs_to :os
+    belongs_to :os, :class_name => 'OS'
 
     # Targeted architecture
     belongs_to :arch
