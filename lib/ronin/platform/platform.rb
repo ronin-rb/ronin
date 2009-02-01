@@ -51,22 +51,17 @@ module Ronin
     # Returns a +Hash+ of all loaded extensions. Extensions can be loaded
     # on-the-fly by accessing the +Hash+.
     #
-    #   Platform.extensions['shellcode'] # => Platform::Extension
+    #   Platform.extensions['shellcode']
+    #   # => #<Ronin::Platform::Extension: ...>
     #
     def Platform.extensions
-      Extension.cache
+      @@ronin_extension_cache ||= ExtensionCache.new
     end
 
     #
-    # Returns +true+ if the extension with the specified _name_ has been
-    # loaded, returns +false+ otherwise.
-    #
-    def Platform.extension_loaded?(name)
-      Extension.cache.has_extension?(name)
-    end
-
-    #
-    # See Platform.extensions.
+    # Loads the extension with the specified _name_. If a _block_ is given
+    # it will be passed the loaded extension. If the extension cannot be
+    # loaded, an ExtensionNotFound exception will be raised.
     #
     def Platform.extension(name,&block)
       ext = Platform.extensions[name]

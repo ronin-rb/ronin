@@ -206,30 +206,6 @@ module Ronin
       end
 
       #
-      # Returns the current ExtensionCache.
-      #
-      def Extension.cache
-        @@cache ||= ExtensionCache.new
-      end
-
-      #
-      # Returns the extension with the specified _name_ from the extension
-      # cache. If no extension exists with the specified _name_ an
-      # ExtensionNotFound exception will be raised.
-      #
-      def Extension.[](name)
-        Extension.cache[name]
-      end
-
-      #
-      # Returns +true+ if the extension with the specified _name_ has been
-      # loaded into the extension cache, returns +false+ otherwise.
-      #
-      def Extension.loaded?(name)
-        Extension.cache.has_extension?(name)
-      end
-
-      #
       # Includes all extensions of the specified _name_ into the extension.
       # If a _block_ is given, it will be passed the newly created
       # extension after the extensions of _name_ have been included.
