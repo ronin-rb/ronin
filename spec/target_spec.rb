@@ -10,7 +10,7 @@ describe Target do
     @target.arch = Arch.i386
     @target.should_not be_valid
 
-    @target.platform = Platform.linux('2.6.11')
+    @target.os = OS.linux_version('2.6.11')
     @target.should be_valid
   end
 end
