@@ -178,7 +178,7 @@ spec/code/reference_spec.rb
 spec/code/symbol_table_spec.rb
 spec/license_spec.rb
 spec/path_spec.rb
-spec/platform_spec.rb
+spec/os_spec.rb
 spec/product_spec.rb
 spec/target_spec.rb
 spec/sessions/session_spec.rb
