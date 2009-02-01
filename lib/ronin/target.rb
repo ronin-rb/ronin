@@ -31,14 +31,14 @@ module Ronin
     # Primary key
     property :id, Serial
 
-    # Targeted OS
-    belongs_to :os, :class_name => 'OS'
-
     # Targeted architecture
     belongs_to :arch
 
+    # Targeted OS
+    belongs_to :os, :class_name => 'OS'
+
     # Validates
-    validates_present :os, :arch
+    validates_present :arch, :os
 
   end
 end
