@@ -20,7 +20,7 @@
 #
 
 require 'ronin/model'
-require 'ronin/platform'
+require 'ronin/os'
 require 'ronin/arch'
 
 module Ronin
@@ -31,14 +31,14 @@ module Ronin
     # Primary key
     property :id, Serial
 
-    # Targeted platform
-    belongs_to :platform
+    # Targeted OS
+    belongs_to :os
 
     # Targeted architecture
     belongs_to :arch
 
     # Validates
-    validates_present :platform, :arch
+    validates_present :os, :arch
 
   end
 end

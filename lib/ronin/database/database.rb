@@ -23,7 +23,7 @@
 
 require 'ronin/database/exceptions/invalid_config'
 require 'ronin/arch'
-require 'ronin/platform'
+require 'ronin/os'
 require 'ronin/author'
 require 'ronin/license'
 require 'ronin/product'

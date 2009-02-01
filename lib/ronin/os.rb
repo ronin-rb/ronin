@@ -26,7 +26,7 @@ require 'ronin/extensions/meta'
 require 'ronin/extensions/string'
 
 module Ronin
-  class Platform
+  class OS
 
     include Model
 
@@ -34,7 +34,7 @@ module Ronin
     property :id, Serial
 
     # Name of the Operating System
-    property :os, String, :index => true
+    property :name, String, :index => true
 
     # Version of the Operating System
     property :version, String, :index => true
@@ -43,45 +43,34 @@ module Ronin
     validates_present :os, :version
 
     #
-    # Returns the String form of the Platform.
+    # Returns the String form of the os.
     #
-    #   platform = Platform.new("Linux","2.6.11")
-    #   platform.to_s # => "Linux 2.6.11"
+    #   os = OS.new(:name => 'Linux', :version => '2.6.11')
+    #   os.to_s # => "Linux 2.6.11"
     #
     def to_s
-      if @version
-        return "#{@os} #{@version}"
+      if self.version
+        return "#{self.name} #{self.version}"
       else
-        return @os.to_s
+        return self.name.to_s
       end
     end
 
     #
-    # Defines a new builtin Platform of the specified _name_, which will
-    # define a new class named _name_ that inherites Platform.
+    # Defines a new builtin OS of the specified _name_.
     #
-    #   Platform.define('FreeBSD')
+    #   OS.define('FreeBSD')
     #
-    # Whould define the following class:
-    #
-    #   class FreeBSD < Platform
-    #
-    #     def initialize(version=nil)
-    #       super("FreeBSD",version)
-    #     end
-    #
-    #   end
-    #
-    def Platform.define(name)
+    def OS.define(name)
       name = name.to_s
       method_name = name.to_method_name
 
       meta_def(method_name) do
-        Platform.new(:os => name)
+        OS.new(:name => name)
       end
 
       meta_def("#{method_name}_version") do |version|
-        Platform.first_or_create(:os => name, :version => version.to_s)
+        OS.first_or_create(:name => name, :version => version.to_s)
       end
 
       return nil
