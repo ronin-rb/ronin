@@ -41,7 +41,7 @@ module Ronin
       # _block_ is given, it will be passed the newly created OverlayCache
       # object.
       #
-      def initialize(path=Config::REPOSITORY_CACHE_PATH,&block)
+      def initialize(path=Config::OVERLAY_CACHE_PATH,&block)
         super()
 
         @path = File.expand_path(path)
