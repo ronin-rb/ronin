@@ -123,7 +123,7 @@ module Ronin
           raise(OverlayCached,"overlay #{name.dump} already present in the cache #{self.to_s.dump}",caller)
         end
 
-        self << overlay
+        self[overlay.name.to_s] = overlay
 
         block.call(self) if block
         return self
@@ -199,13 +199,6 @@ module Ronin
         end
 
         return self
-      end
-
-      #
-      # Adds the specified _overlay_ to the cache.
-      #
-      def <<(overlay)
-        self[overlay.name.to_s] = overlay
       end
 
       #
