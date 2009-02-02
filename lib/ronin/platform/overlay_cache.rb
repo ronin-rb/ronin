@@ -80,14 +80,14 @@ module Ronin
       # Returns +true+ if the cache contains the Overlay with the
       # matching _name_, returns +false+ otherwise.
       #
-      def has_overlay?(name)
+      def has?(name)
         has_key?(name.to_s)
       end
 
       #
       # Returns the Overlay with the matching _name_.
       #
-      def get_overlay(name)
+      def get(name)
         name = name.to_s
 
         unless has_overlay?(name)
