@@ -143,14 +143,14 @@ module Ronin
       # Calls the setup blocks of the extension. If a _block_ is given, it 
       # will be passed the extension after it has been setup.
       #
-      #   ext.perform_setup
+      #   ext.setup!
       #   # => #<Ronin::Platform::Extension: ...>
       #
-      #   ext.perform_setup do |ext|
+      #   ext.setup! do |ext|
       #     puts "Extension #{ext} has been setup..."
       #   end
       #
-      def perform_setup(&block)
+      def setup!(&block)
         unless @setup
           @setup_blocks.each do |setup_block|
             setup_block.call(self) if setup_block
@@ -176,14 +176,14 @@ module Ronin
       # Run the teardown blocks of the extension. If a _block_ is given,
       # it will be passed the extension before it has been tore down.
       #
-      #   ext.perform_teardown
+      #   ext.teardown!
       #   # => #<Ronin::Platform::Extension: ...>
       #
-      #   ext.perform_teardown do |ext|
+      #   ext.teardown! do |ext|
       #     puts "Extension #{ext} is being tore down..."
       #   end
       #
-      def perform_teardown(&block)
+      def teardown!(&block)
         block.call(self) if block
 
         unless @toredown
@@ -215,11 +215,11 @@ module Ronin
       #   end
       #
       def run(&block)
-        perform_setup
+        setup!
 
         block.call(self) if block
 
-        perform_teardown
+        teardown!
         return self
       end
 
