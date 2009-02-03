@@ -21,6 +21,7 @@
 #++
 #
 
+require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/extension_cache'
 require 'ronin/platform/platform'
 
