@@ -168,7 +168,7 @@ module Ronin
       # Returns +true+ if the extension has been setup, returns +false+
       # otherwise.
       #
-      def was_setup?
+      def setup?
         @setup == true
       end
 
@@ -202,7 +202,7 @@ module Ronin
       # Returns +true+ if the extension has been toredown, returns +false+
       # otherwise.
       #
-      def was_toredown?
+      def toredown?
         @toredown == true
       end
 
