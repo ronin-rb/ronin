@@ -21,10 +21,9 @@
 #++
 #
 
+require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
-require 'ronin/platform/exceptions/extension_not_found'
-require 'ronin/platform/overlay_cache'
 require 'ronin/platform/config'
 
 require 'rexml/document'
