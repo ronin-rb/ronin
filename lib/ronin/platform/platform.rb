@@ -21,9 +21,9 @@
 #++
 #
 
-require 'ronin/platform/overlay'
+require 'ronin/platform/overlay_cache'
 require 'ronin/platform/object_cache'
-require 'ronin/platform/extension'
+require 'ronin/platform/extension_cache'
 
 module Ronin
   module Platform
@@ -123,10 +123,18 @@ module Ronin
     end
 
     #
-    # See Extension.names.
+    # Returns the names of all extensions within the overlay cache.
     #
     def Platform.extension_names
-      Extension.names
+      names = []
+
+      Platform.overlays.each do |overlay|
+        overlay.extensions.each do |name|
+          names << name unless names.include?(name)
+        end
+      end
+
+      return names
     end
 
     #
