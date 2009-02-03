@@ -58,6 +58,8 @@ module Ronin
           end
         end
 
+        at_exit(&method(:save))
+
         block.call(self) if block
       end
 
@@ -207,14 +209,12 @@ module Ronin
       # defaults to path of the cache. If a _block_ is given, it will be
       # passed the cache before the cache has been saved.
       #
-      def save_after(output_path=@path,&block)
+      def save(output_path=@path)
         parent_dir = File.dirname(output_path)
 
         unless File.directory?(parent_dir)
           FileUtils.mkdir_p(parent_dir)
         end
-
-        block.call(self) if block
 
         File.open(output_path,'w') do |output|
           descriptions = overlays.map do |overlay|
