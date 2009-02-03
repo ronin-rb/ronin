@@ -72,7 +72,11 @@ module Ronin
       #   end
       #
       def Extension.load(name,&block)
-        Extension.new(name) { |ext| ext.include(name,&block) }
+        ext = Extension.new(name)
+        ext.include(name)
+
+        block.call(ext) if block
+        return ext
       end
 
       #
