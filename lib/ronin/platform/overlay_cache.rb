@@ -68,11 +68,11 @@ module Ronin
       #
       # Returns the Ovlerays which match the specified _block_.
       #
-      #   cache.overlays_with do |overlay|
+      #   cache.with do |overlay|
       #     overlay.author == 'the dude'
       #   end
       #
-      def overlays_with(&block)
+      def with(&block)
         values.select(&block)
       end
 
@@ -105,6 +105,36 @@ module Ronin
       end
 
       #
+      # Returns the names of all extensions within the overlay cache.
+      #
+      def extensions
+        ext_names = []
+
+        each_overlay do |overlay|
+          overlay.extensions.each do |name|
+            ext_names << name unless ext_names.include?(name)
+          end
+        end
+
+        return ext_names
+      end
+
+      #
+      # Returns the paths of all extensions with the specified _name_.
+      #
+      def extension_paths(name)
+        ext_paths = []
+
+        each_overlay do |overlay|
+          overlay.extension_paths.each do |path|
+            ext_paths << path if File.basename(path) == name
+          end
+        end
+
+        return ext_paths
+      end
+
+      #
       # Adds the _overlay_ to the cache. If a _block_ is given, it will
       # be passed the cache after the _overlay_ is added. The _overlay_
       # will be returned.
@@ -130,31 +160,6 @@ module Ronin
       end
 
       #
-      # Removes the _overlay_ from the cache. If a _block_ is given, it
-      # will be passed the cache. The cache will be returned, after the
-      # _overlay_ is removed.
-      #
-      #   cache.remove(overlay)
-      #   # => #<Ronin::Platform::Overlay: ...>
-      #
-      #   cache.remove(overlay) do |cache|
-      #     puts "Overlay #{overlay} removed"
-      #   end
-      #
-      def remove(overlay,&block)
-        name = overlay.name.to_s
-
-        unless has_overlay?(name)
-          raise(OverlayNotFound,"overlay #{name.dump} is not present in the cache #{self.to_s.dump}",caller)
-        end
-
-        delete_if { |key,value| key == name }
-
-        block.call(self) if block
-        return self
-      end
-
-      #
       # Updates all the cached Overlays. If a _block_ is given it will
       # be passed the cache.
       #
@@ -173,11 +178,36 @@ module Ronin
       end
 
       #
-      # Saves the cache to the given _output_path_, where _output_path_
-      # defaults to +@path+. If a _block_ is given, it will be passed
-      # the cache before the cache has been saved.
+      # Removes the overlay with the specified _name_ from the cache. If a
+      # _block_ is given, it will be passed the cache. The cache will be
+      # returned, after the overlay is removed.
       #
-      def save(output_path=@path,&block)
+      #   cache.remove('hello_word')
+      #   # => #<Ronin::Platform::Overlay: ...>
+      #
+      #   cache.remove('hello_word') do |cache|
+      #     puts "Overlay #{overlay} removed"
+      #   end
+      #
+      def remove(name,&block)
+        name = name.to_s
+
+        unless has_overlay?(name)
+          raise(OverlayNotFound,"overlay #{name.dump} is not present in the cache #{self.to_s.dump}",caller)
+        end
+
+        delete_if { |key,value| key == name }
+
+        block.call(self) if block
+        return self
+      end
+
+      #
+      # Saves the cache to the given _output_path_, where _output_path_
+      # defaults to path of the cache. If a _block_ is given, it will be
+      # passed the cache before the cache has been saved.
+      #
+      def save_after(output_path=@path,&block)
         parent_dir = File.dirname(output_path)
 
         unless File.directory?(parent_dir)
