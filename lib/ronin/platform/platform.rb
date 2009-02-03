@@ -142,7 +142,7 @@ module Ronin
     # _name_, returns +false+ otherwise.
     #
     def Platform.has_extension?(name)
-      Platform.overlay.each_overlay do |overlay|
+      Platform.overlays.each do |overlay|
         return true if overlay.has_extension?(name)
       end
 
