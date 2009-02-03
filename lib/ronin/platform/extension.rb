@@ -22,7 +22,7 @@
 #
 
 require 'ronin/platform/extension_cache'
-require 'ronin/platform/overlay'
+require 'ronin/platform/platform'
 
 module Ronin
   module Platform
@@ -62,125 +62,6 @@ module Ronin
       end
 
       #
-      # Returns the names of all extensions within the overlay cache.
-      #
-      def Extension.names
-        Overlay.cache.overlays.map { |overlay| overlay.extensions }.flatten.uniq
-      end
-
-      #
-      # Returns +true+ if an extension exists with the specified _name_,
-      # returns +false+ otherwise.
-      #
-      def Extension.exists?(name)
-        Extension.names.include?(name.to_s)
-      end
-
-      #
-      # Iterates through the extension names passing each to the specified
-      # _block_.
-      #
-      #   Extension.each_name do |name|
-      #     puts name
-      #   end
-      #
-      def Extension.each_name(&block)
-        Extension.names.each(&block)
-      end
-
-      #
-      # Returns the paths of all extensions.
-      #
-      def Extension.paths
-        paths = []
-
-        Overlay.each { |repo| paths += repo.extension_paths }
-
-        return paths
-      end
-
-      #
-      # Iterates over the paths of all extensions with the specified
-      # _name_, passing each to the specified _block_.
-      #
-      def Extension.each_path(&block)
-        Extension.paths.each(&block)
-      end
-
-      #
-      # Returns the paths of all extensions with the specified _name_.
-      #
-      def Extension.paths_for(name)
-        Overlay.with_extension(name).map do |repo|
-          File.expand_path(File.join(repo.path,name))
-        end
-      end
-
-      #
-      # Iterates over the paths of all extensions with the specified
-      # _name_, passing each to the specified _block_.
-      #
-      def Extension.each_path_for(name,&block)
-        Extension.paths_for(name).each(&block)
-      end
-
-      #
-      # Adds the lib/ directory from within the specified _path_ to
-      # $LOAD_PATH, only if the lib/ directory exists within the
-      # specified _path_ and the directory has not already been
-      # added to $LOAD_PATH. If a _block_ is given, it will be called
-      # after $LOAD_PATH may or maynot have been modified.
-      #
-      def Extension.load_path(path,&block)
-        lib_dir = File.expand_path(File.join(path,LIB_DIR))
-
-        if File.directory?(lib_dir)
-          $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
-        end
-
-        block.call if block
-        return nil
-      end
-
-      #
-      # Similar to load_path, but adds the lib/ directories from the
-      # paths of all extensions with the specified _name_ to $LOAD_PATH.
-      # If a _block_ is given, it will be called after $LOAD_PATH may or
-      # maynot have been modified.
-      #
-      def Extension.load_paths(name,&block)
-        Extension.each_path_for(name) do |path|
-          Extension.load_path(path)
-        end
-
-        block.call if block
-        return nil
-      end
-
-      #
-      # Loads an extension at the specified _path_ into a newly created
-      # Extension object. If a _block_ is given, it will be passed the
-      # newly created Extension object.
-      #
-      def Extension.load_from(path,&block)
-        Extension.new(File.basename(name)) do |ext|
-          ext.include_path(path,&block)
-        end
-      end
-
-      #
-      # Loads an extension at the specified _path_ into a newly created
-      # Extension object and then runs it with the specified _block_.
-      #
-      #   Extension.run_in('lab/exploits') do |ext|
-      #     puts ext.search('apache')
-      #   end
-      #
-      def Extension.run_in(path,&block)
-        Extension.load_from(path) { |ext| ext.run(&block) }
-      end
-
-      #
       # Loads all extensions with the specified _name_ into a newly created
       # Extension object. If a _block_ is given, it will be passed the
       # newly created Extension object.
@@ -211,8 +92,8 @@ module Ronin
       # extension after the extensions of _name_ have been included.
       #
       def include(name,&block)
-        Extension.load_paths(name) do
-          Extension.each_path_for(name) { |path| include_path(path) }
+        Platform.overlays.extension_paths(name) do |path|
+          include_path(path)
         end
 
         block.call(self) if block
@@ -234,15 +115,13 @@ module Ronin
         # add to the search paths
         @paths << path
 
-        Extension.load_path(path) do
-          extension_file = File.join(path,EXTENSION_FILE)
+        extension_file = File.join(path,EXTENSION_FILE)
 
-          if File.file?(extension_file)
-            # instance_eval the extension block
-            context_block = Extension.load_context_block(extension_file)
+        if File.file?(extension_file)
+          # instance_eval the extension block
+          context_block = Extension.load_context_block(extension_file)
 
-            instance_eval(&context_block) if context_block
-          end
+          instance_eval(&context_block) if context_block
         end
 
         block.call(self) if block
