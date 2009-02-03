@@ -59,7 +59,7 @@ module Ronin
         @setup_blocks = []
         @teardown_blocks = []
 
-        block.call(self) if block
+        instance_eval(&block) if block
       end
 
       #
