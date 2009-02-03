@@ -21,6 +21,8 @@
 #++
 #
 
+require 'ronin/objectify'
+
 module Ronin
   module Platform
     module ObjectCache
