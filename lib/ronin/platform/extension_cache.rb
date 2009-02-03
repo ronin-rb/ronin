@@ -72,7 +72,7 @@ module Ronin
       def load_extension(name,&block)
         name = name.to_s
 
-        unless Extension.exists?(name)
+        unless Platform.overlays.has_extension?(name)
           raise(ExtensionNotFound,"extension #{name.dump} does not eixst",caller)
         end
 

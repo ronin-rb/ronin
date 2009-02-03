@@ -107,6 +107,19 @@ module Ronin
       end
 
       #
+      # Returns +true+ if the extension with the specified _name_ exists
+      # within any of the overlays in the overlay cache, returns +false+
+      # otherwise.
+      #
+      def has_extension?(name)
+        each_overlay do |overlay|
+          return true if overlay.extensions.include?(name)
+        end
+
+        return false
+      end
+
+      #
       # Returns the names of all extensions within the overlay cache.
       #
       def extensions
