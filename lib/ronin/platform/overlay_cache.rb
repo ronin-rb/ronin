@@ -45,6 +45,7 @@ module Ronin
         super()
 
         @path = File.expand_path(path)
+        @dirty = false
 
         if File.file?(@path)
           descriptions = YAML.load(File.read(@path))
@@ -58,7 +59,17 @@ module Ronin
           end
         end
 
+        at_exit(&method(:save))
+
         block.call(self) if block
+      end
+
+      #
+      # Returns +true+ if the overlay cache has been modified, returns
+      # +false+ otherwise.
+      #
+      def dirty?
+        @dirty == true
       end
 
       alias names keys
@@ -148,6 +159,18 @@ module Ronin
       end
 
       #
+      # Adds the specified _overlay_ with the specified _name_ to the
+      # overlay cache.
+      #
+      def []=(name,overlay)
+        super(name.to_s,overlay)
+        dirty!
+
+        overlay.activate!
+        return overlay
+      end
+
+      #
       # Adds the _overlay_ to the cache. If a _block_ is given, it will
       # be passed the cache after the _overlay_ is added. The _overlay_
       # will be returned.
@@ -167,7 +190,6 @@ module Ronin
         end
 
         self[overlay.name.to_s] = overlay
-        overlay.activate!
 
         block.call(self) if block
         return self
@@ -213,6 +235,7 @@ module Ronin
         overlay.deactive!
 
         delete_if { |key,value| key == name }
+        dirty!
 
         block.call(overlay) if block
         return self
@@ -238,10 +261,11 @@ module Ronin
 
       #
       # Saves the cache to the given _output_path_, where _output_path_
-      # defaults to path of the overlay cache. If a _block_ is given,
-      # it will be called before the overlay cache is saved.
+      # defaults to path of the overlay cache.
       #
-      def save_after(output_path=@path,&block)
+      def save(output_path=@path)
+        return self unless dirty?
+
         parent_dir = File.dirname(output_path)
 
         unless File.directory?(parent_dir)
@@ -269,6 +293,15 @@ module Ronin
       #
       def to_s
         @path.to_s
+      end
+
+      protected
+
+      #
+      # Marks the overlay cache as dirty.
+      #
+      def dirty!
+        @dirty = true
       end
 
     end
