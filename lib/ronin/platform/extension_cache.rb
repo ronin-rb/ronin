@@ -38,7 +38,7 @@ module Ronin
         end
 
         at_exit do
-          each_extension { |ext| ext.perform_teardown }
+          each_extension { |ext| ext.teardown! }
         end
 
         block.call(self) if block
@@ -77,7 +77,7 @@ module Ronin
         end
 
         return Extension.load(name) do |ext|
-          ext.perform_setup
+          ext.setup!
 
           block.call(ext) if block
         end
