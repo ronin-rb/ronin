@@ -27,10 +27,98 @@ require 'ronin/platform/extension'
 module Ronin
   module Platform
     #
-    # See Overlay.cache.
+    # Load the overlay cache from the given _path_. If a _block_ is
+    # given it will be passed the current overlay cache.
+    #
+    #   Overlay.load_cache('/custom/cache')
+    #   # => #<Ronin::Platform::OverlayCache: ...>
+    #
+    def Platform.load_overlays(path)
+      @@ronin_overlay_cache = OverlayCache.new(path)
+    end
+
+    #
+    # Returns the current overlay cache, or loads the default overlay
+    # cache if not already loaded.
     #
     def Platform.overlays
-      Overlay.cache
+      @@ronin_overlay_cache ||= OverlayCache.new
+    end
+
+    #
+    # Adds a new Overlay with the given _options_. If a _block_ is given
+    # it will be passed the newly added overlay.
+    #
+    # _options_ must contain the following key:
+    # <tt>:path</tt>:: The path of the overlay.
+    #
+    # _options_ may contain the following key:
+    # <tt>:media</tt>:: The media of the overlay.
+    # <tt>:uri</tt>:: The URI of the overlay.
+    #
+    def Platform.add(options={},&block)
+      path = options[:path]
+
+      unless path
+        raise(ArgumentError,":path must be passed to Platform.add",caller)
+      end
+
+      media = options[:media]
+      uri = options[:uri]
+
+      overlay = Overlay.new(path,media,uri)
+
+      Platform.overlays.add(overlay) do
+        overlay.cache_objects
+      end
+
+      return overlay
+    end
+
+    #
+    # Installs an Overlay specified by _options_ into the
+    # <tt>Config::OVERLAY_DIR</tt>. If a _block_ is given, it will be
+    # passed the newly created overlay after it has been added to
+    # the overlay cache.
+    #
+    # _options_ must contain the following key:
+    # <tt>:uri</tt>:: The URI of the overlay.
+    #
+    # _options_ may contain the following key:
+    # <tt>:media</tt>:: The media of the overlay.
+    #
+    def Platform.install(options={},&block)
+      options = options.merge(:into => Config::OVERLAY_DIR)
+
+      Repertoire.checkout(options) do |path,media,uri|
+        return Platform.add(:path => path, :media => media, :uri => uri)
+      end
+    end
+
+    #
+    # Updates all previously installed overlays. If a _block_ is given
+    # it will be called after the overlays have been updated.
+    #
+    def Platform.update(&block)
+      Platform.overlays.update do |overlay|
+        overlay.mirror_objects
+      end
+
+      block.call if block
+    end
+
+    #
+    # Uninstalls the overlay with the specified _name_. If no overlay
+    # has the specified _name_, an OverlayNotFound exception will be
+    # raised. If a _block_ is given, it will be called after the overlay
+    # has been uninstalled.
+    #
+    def Platform.uninstall(name,&block)
+      Platform.uninstall(name) do |overlay|
+        overlay.expunge_objects
+      end
+
+      block.call if block
     end
 
     #
@@ -41,10 +129,15 @@ module Ronin
     end
 
     #
-    # See Overlay.has_extension?.
+    # Returns +true+ if the cache has the extension with the matching
+    # _name_, returns +false+ otherwise.
     #
     def Platform.has_extension?(name)
-      Overlay.has_extension?(name)
+      Platform.overlay.each_overlay do |overlay|
+        return true if overlay.has_extension?(name)
+      end
+
+      return false
     end
 
     #

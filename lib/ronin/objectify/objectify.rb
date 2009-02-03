@@ -165,53 +165,6 @@ module Ronin
     end
 
     #
-    # Cache all objects loaded from the paths within the specified
-    # _directory_.
-    #
-    def Objectify.cache_objects_in(directory)
-      directory = File.expand_path(directory)
-      paths = Dir[File.join(directory,'**','*.rb')]
-
-      paths.each { |path| Objectify.cache_objects(path) }
-      return nil
-    end
-
-    #
-    # Mirror all objects that were previously cached from paths within
-    # the specified _directory_. Also cache objects which have yet to
-    # be cached.
-    #
-    def Objectify.mirror_objects_in(directory)
-      directory = File.expand_path(directory)
-      new_paths = Dir[File.join(directory,'**','*.rb')]
-
-      Objectify.object_contexts.each_value do |base|
-        objects = base.all(:object_path.like => "#{directory}%")
-        new_paths -= objects.map { |obj| obj.object_path }
-
-        # mirror existing objects
-        objects.each { |obj| obj.mirror }
-      end
-
-      # cache the remaining new paths
-      new_paths.each { |path| Objectify.cache_objects(path) }
-      return nil
-    end
-
-    #
-    # Deletes all cached objects that existed in the specified _directory_.
-    #
-    def Objectify.expunge_objects_from(directory)
-      directory = File.expand_path(directory)
-
-      Objectify.object_contexts.each_value do |base|
-        base.all(:object_path.like => "#{directory}%").destroy!
-      end
-
-      return nil
-    end
-
-    #
     # Loads a new object from the file pointed to by the +object_path+
     # property.
     #

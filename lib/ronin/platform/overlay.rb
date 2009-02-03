@@ -37,6 +37,9 @@ module Ronin
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
 
+      # Overlay lib directory
+      LIB_DIR = 'lib'
+
       # Overlay objects directory
       OBJECTS_DIR = 'objects'
 
@@ -67,178 +70,21 @@ module Ronin
       # Description
       attr_reader :description
 
+      # The objects directory
+      attr_reader :objects_dir
+
       #
       # Creates a new Overlay object with the specified _path_, _media_type_
       # and _uri_.
       #
       def initialize(path,media_type=nil,uri=nil,&block)
         @path = File.expand_path(path)
+        @objects_dir = File.join(@path,OBJECTS_DIR)
         @uri = uri
 
         super(@path,Repertoire::Media.types[media_type])
 
         initialize_metadata(&block)
-      end
-
-      #
-      # Load the Overlay Cache from the given _path_. If _path is not
-      # given, it will default to <tt>Config::REPOSITORY_CACHE_PATH</tt>.
-      # If a _block_ is given it will be passed the loaded Overlay Cache.
-      #
-      #   Overlay.load_cache
-      #   # => #<Ronin::Platform::Overlay: ...>
-      #
-      #   Overlay.load_cache('/custom/cache')
-      #   # => #<Ronin::Platform::Overlay: ...>
-      #
-      def Overlay.load_cache(path=Config::OVERLAY_CACHE_PATH,&block)
-        @@cache = OverlayCache.new(path,&block)
-      end
-
-      #
-      # Returns the current OverlayCache, or loads the default overlay
-      # cache if not already loaded.
-      #
-      def Overlay.cache
-        (@@cache || load_cache)
-      end
-
-      #
-      # Saves the overlay cache. If a _block_ is given, it will be passed
-      # the overlay cache before being saved.
-      #
-      #   Overlay.save_cache
-      #   # => #<Ronin::Platform::OverlayCache: ...>
-      #
-      #   Overlay.save_cahce do |cache|
-      #     puts "Saving cache #{cache}"
-      #   end
-      #
-      def Overlay.save_cache(&block)
-        Overlay.cache.save(&block)
-      end
-
-      #
-      # Returns the overlay with the specified _name_ from the overlay
-      # cache. If no such overlay exists, +nil+ is returned.
-      #
-      #   Overlay['awesome']
-      #
-      def Overlay.[](name)
-        Overlay.cache[name]
-      end
-
-      #
-      # Returns +true+ if there is a overlay with the specified _name_
-      # in the overlay cache, returns +false+ otherwise.
-      #
-      def Overlay.exists?(name)
-        Overlay.cache.has_overlay?(name)
-      end
-
-      #
-      # Returns the overlay with the specified _name_ from the overlay
-      # cache. If no such overlay exists in the overlay cache,
-      # a OverlayNotFound exception will be raised.
-      #
-      def Overlay.get(name)
-        Overlay.cache.get_overlay(name)
-      end
-
-      #
-      # Installs the Overlay specified by _options_ into the
-      # <tt>Config::REPOSITORY_DIR</tt>. If a _block_ is given, it will be
-      # passed the newly created Overlay after it has been added to
-      # the Overlay cache.
-      #
-      # _options_ must contain the following key:
-      # <tt>:uri</tt>:: The URI of the Overlay.
-      #
-      # _options_ may contain the following key:
-      # <tt>:media</tt>:: The media of the Overlay.
-      #
-      def Overlay.install(options={},&block)
-        options = options.merge(:into => Config::REPOSITORY_DIR)
-
-        Repertoire.checkout(options) do |path,media,uri|
-          return Overlay.add(path,media,uri,&block)
-        end
-      end
-
-      #
-      # Adds the Overlay at the specified _path_, the given _uri_
-      # and given the _uri_ to the Overlay cache. If a _block is given, it
-      # will be passed the newly created Overlay after it has been added to
-      # the cache.
-      #
-      def Overlay.add(path,media=nil,uri=nil,&block)
-        Overlay.new(path,media,uri).add(&block)
-      end
-
-      #
-      # Updates the overlay with the specified _name_. If there is no
-      # overlay with the specified _name_ in the overlay cache
-      # a OverlayNotFound exception will be raised. If a _block_ is
-      # given it will be passed the updated overlay.
-      #
-      def Overlay.update(name,&block)
-        Overlay.get(name).update(&block)
-      end
-
-      #
-      # Removes the overlay with the specified _name_. If there is no
-      # overlay with the specified _name_ in the overlay cache
-      # a OverlayNotFound exception will be raised. If a _block_ is
-      # given it will be passed the overlay before removal.
-      #
-      def Overlay.remove(name,&block)
-        Overlay.get(name).remove(&block)
-      end
-
-      #
-      # Uninstall the overlay with the specified _name_. If there is no
-      # overlay with the specified _name_ in the overlay cache
-      # a OverlayNotFound exception will be raised. If a _block_ is
-      # given it will be passed the overlay before uninstalling it.
-      #
-      def Overlay.uninstall(name,&block)
-        Overlay.get(name).uninstall(&block)
-      end
-
-      #
-      # See OverlayCache#each_overlay.
-      #
-      def Overlay.each(&block)
-        Overlay.cache.each_overlay(&block)
-      end
-
-      #
-      # See OverlayCache#overlays_with?.
-      #
-      def Overlay.with(&block)
-        Overlay.cache.overlays_with(&block)
-      end
-
-      #
-      # Returns the overlays which contain the extension with the
-      # matching _name_.
-      #
-      #   Overlay.with_extension?('exploits') # => [...]
-      #
-      def Overlay.with_extension(name)
-        Overlay.with { |repo| repo.has_extension?(name) }
-      end
-
-      #
-      # Returns +true+ if the cache has the extension with the matching
-      # _name_, returns +false+ otherwise.
-      #
-      def Overlay.has_extension?(name)
-        Overlay.each do |repo|
-          return true if repo.has_extension?(name)
-        end
-
-        return false
       end
 
       #
@@ -253,51 +99,73 @@ module Ronin
       end
 
       #
-      # Returns the path to the objects directory of the overlay.
+      # Returns the paths of all extensions within the overlay.
       #
-      def objects_dir
-        File.expand_path(File.join(@path,OBJECTS_DIR))
+      def extension_paths
+        directories.reject do |dir|
+          File.basename(dir) == OBJECTS_DIR
+        end
       end
 
       #
-      # Caches the objects contained within overlay.
+      # Returns the names of all extensions within the overlay.
       #
-      def cache_objects
-        require 'ronin/models'
-
-        return Objectify.cache_objects_in(objects_dir)
+      def extensions
+        extension_paths.map { |dir| File.basename(dir) }
       end
 
       #
-      # Mirror the objects contained within the overlay.
+      # Returns +true+ if the overlay contains the extension with the
+      # specified _name_, returns +false+ otherwise.
       #
-      def mirror_objects
-        require 'ronin/models'
+      def has_extension?(name)
+        name = File.basename(name.to_s)
 
-        return Objectify.mirror_objects_in(objects_dir)
+        return false if name == OBJECTS_DIR
+        return File.directory?(File.join(@path,name))
       end
 
       #
-      # Delete all objects that existed within the overlay.
+      # Returns the <tt>lib/</tt> directories of the extensions within
+      # the overlay.
       #
-      def expunge_objects
-        require 'ronin/models'
+      def lib_dirs
+        dirs = []
 
-        return Objectify.expunge_objects_from(objects_dir)
-      end
+        find_directory = lambda { |path|
+          dirs << path if File.directory?(path)
+        }
 
-      #
-      # Adds the overlay to the overlay cache. If a _block is given,
-      # it will be passed the newly created Overlay after it has been
-      # added to the cache.
-      #
-      def add(&block)
-        Overlay.cache.add(self) do
-          cache_objects
+        find_directory.call(File.join(@path,LIB_DIR))
+
+        extension_paths.each do |path|
+          find_directory.call(File.join(path,Extension::LIB_DIR))
         end
 
-        block.call(self) if block
-        return self
+        return dirs
+      end
+
+      #
+      # Activates the overlay by adding the lib_dirs to the
+      # <tt>$LOAD_PATH</tt>.
+      #
+      def activate!
+        lib_dirs.each do |path|
+          $LOAD_PATH << path unless $LOAD_PATH.include?(path)
+        end
+
+        return true
+      end
+
+      #
+      # Deactivates the overlay by removing the lib_dirs to the
+      # <tt>$LOAD_PATH</tt>.
+      #
+      def deactive!
+        paths = lib_dirs
+
+        $LOAD_PATH.reject! { |path| paths.include?(path) }
+        return true
       end
 
       #
@@ -309,21 +177,7 @@ module Ronin
           Repertoire.update(:media => media_type, :path => @path, :uri => @uri)
         end
 
-        mirror_objects
-        return load_metadata(&block)
-      end
-
-      #
-      # Removes the overlay from the overlay cache. If a _block_ is
-      # given, it will be passed the overlay after it has been removed.
-      #
-      def remove(&block)
-        Overlay.cache.remove(self)
-
-        expunge_objects
-
-        block.call(self) if block
-        return self
+        return initialize_metadata(&block)
       end
 
       #
@@ -332,67 +186,56 @@ module Ronin
       # has been uninstalled.
       #
       def uninstall(&block)
-        Repertoire.delete(@path) do
-          return remove(&block)
-        end
+        Repertoire.delete(@path)
+
+        block.call(self) if block
+        return self
       end
 
       #
-      # Returns the paths of all extensions within the overlay.
+      # Returns the paths of all the object files within the objects_dir.
       #
-      def extension_paths
-        directories.reject { |dir| File.basename(dir) == 'objects' }
+      def object_paths
+        Dir[File.join(@objects_dir,'**','*.rb')]
       end
 
       #
-      # Passes each extension path to the specified _block_.
+      # Cache all objects loaded from the paths within the objects_dir.
       #
-      def each_extension_path(&block)
-        extension_paths.each(&block)
+      def cache_objects
+        object_paths.each { |path| Objectify.cache_objects(path) }
+        return nil
       end
 
       #
-      # Returns the names of all extensions within the overlay.
+      # Mirror all objects that were previously cached from paths within
+      # the objects_dir. Also cache objects which have yet to be cached.
       #
-      def extensions
-        extension_paths.map { |dir| File.basename(dir) }
-      end
+      def mirror_objects
+        new_paths = object_paths
 
-      #
-      # Passes each extension name to the specified _block_.
-      #
-      def each_extension(&block)
-        extensions.each(&block)
-      end
+        Objectify.object_contexts.each_value do |base|
+          objects = base.all(:object_path.like => "#{@objects_dir}%")
+          new_paths -= objects.map { |obj| obj.object_path }
 
-      #
-      # Returns +true+ if the overlay contains the extension with the
-      # specified _name_, returns +false+ otherwise.
-      #
-      def has_extension?(name)
-        extensions.include?(name.to_s)
-      end
-
-      #
-      # Loads an extension with the specified _name_ from the overlay.
-      # If a _block_ is given, it will be passed the newly created
-      # extension.
-      #
-      #   overlay.extension('awesome')
-      #   # => #<Ronin::Platform::Extension: ...>
-      #
-      #   overlay.extension('shellcode') do |ext|
-      #     ...
-      #   end
-      #
-      def extension(name,&block)
-        name = name.to_s
-
-        unless has_extension?(name)
-          raise(ExtensionNotfound,"overlay #{name.dump} does not contain the extension #{name.dump}",caller)
+          # mirror existing objects
+          objects.each { |obj| obj.mirror }
         end
 
-        return Extension.load_extension(File.join(@path,name),&block)
+        # cache the remaining new paths
+        new_paths.each { |path| Objectify.cache_objects(path) }
+        return nil
+      end
+
+      #
+      # Deletes all cached objects that existed in the objects_dir.
+      #
+      def expunge_objects
+        Objectify.object_contexts.each_value do |base|
+          base.all(:object_path.like => "#{@objects_dir}%").destroy!
+        end
+
+        return nil
       end
 
       #
