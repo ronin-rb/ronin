@@ -156,6 +156,7 @@ module Ronin
         end
 
         self[overlay.name.to_s] = overlay
+        overlay.activate!
 
         block.call(self) if block
         return self
@@ -163,51 +164,70 @@ module Ronin
 
       #
       # Updates all the cached Overlays. If a _block_ is given it will
-      # be passed the cache.
+      # be passed the overlays as they are updated.
       #
       #   update
-      #   # => #<Ronin::Platform::Overlay: ...>
+      #   # => #<Ronin::Platform::OverlayCache: ...>
       #
-      #   update do |cache|
-      #     puts "#{cache} is updated"
+      #   update do |overlay|
+      #     puts "#{overaly} is updated"
       #   end
       #
       def update(&block)
-        overlays.each { |overlay| overlay.update }
+        overlays.each do |overlay|
+          overlay.deactive!
+          overlay.update(&block)
+          overlay.active!
+        end
 
-        block.call(self) if block
         return self
       end
 
       #
       # Removes the overlay with the specified _name_ from the cache. If a
-      # _block_ is given, it will be passed the cache. The cache will be
-      # returned, after the overlay is removed.
+      # _block_ is given, it will be passed the removed overlay. The cache
+      # will be returned, after the overlay is removed.
       #
       #   cache.remove('hello_word')
       #   # => #<Ronin::Platform::Overlay: ...>
       #
-      #   cache.remove('hello_word') do |cache|
+      #   cache.remove('hello_word') do |overlay|
       #     puts "Overlay #{overlay} removed"
       #   end
       #
       def remove(name,&block)
         name = name.to_s
 
-        unless has_overlay?(name)
-          raise(OverlayNotFound,"overlay #{name.dump} is not present in the cache #{self.to_s.dump}",caller)
-        end
+        overlay = get(name)
+        overlay.deactive!
 
         delete_if { |key,value| key == name }
 
-        block.call(self) if block
+        block.call(overlay) if block
         return self
       end
 
       #
+      # Uninstalls the overlay with the specified _name_. If a _block_
+      # is given, it will be passed the uninstalled overlay. The cache
+      # will be returned, after the overlay is removed.
+      #
+      #   cache.uninstall('hello_word')
+      #   # => #<Ronin::Platform::Overlay: ...>
+      #
+      #   cache.uninstall('hello_word') do |overlay|
+      #     puts "Overlay #{overlay} uninstalled"
+      #   end
+      #
+      def uninstall(name,&block)
+        remove do |overlay|
+          overlay.uninstall(&block)
+        end
+      end
+
+      #
       # Saves the cache to the given _output_path_, where _output_path_
-      # defaults to path of the cache. If a _block_ is given, it will be
-      # passed the cache before the cache has been saved.
+      # defaults to path of the cache.
       #
       def save(output_path=@path)
         parent_dir = File.dirname(output_path)
