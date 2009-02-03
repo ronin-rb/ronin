@@ -22,6 +22,7 @@
 #
 
 require 'ronin/platform/overlay'
+require 'ronin/platform/object_cache'
 require 'ronin/platform/extension'
 
 module Ronin
@@ -69,7 +70,7 @@ module Ronin
       overlay = Overlay.new(path,media,uri)
 
       Platform.overlays.add(overlay) do
-        overlay.cache_objects
+        ObjectCache.cache(overlay.objects_dir)
       end
 
       return overlay
@@ -101,7 +102,7 @@ module Ronin
     #
     def Platform.update(&block)
       Platform.overlays.update do |overlay|
-        overlay.mirror_objects
+        ObjectCache.mirror(overlay.objects_dir)
       end
 
       block.call if block
@@ -115,7 +116,7 @@ module Ronin
     #
     def Platform.uninstall(name,&block)
       Platform.uninstall(name) do |overlay|
-        overlay.expunge_objects
+        ObjectCache.expunge(overlay.objects_dir)
       end
 
       block.call if block
