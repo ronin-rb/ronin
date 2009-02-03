@@ -193,52 +193,6 @@ module Ronin
       end
 
       #
-      # Returns the paths of all the object files within the objects_dir.
-      #
-      def object_paths
-        Dir[File.join(@objects_dir,'**','*.rb')]
-      end
-
-      #
-      # Cache all objects loaded from the paths within the objects_dir.
-      #
-      def cache_objects
-        object_paths.each { |path| Objectify.cache_objects(path) }
-        return nil
-      end
-
-      #
-      # Mirror all objects that were previously cached from paths within
-      # the objects_dir. Also cache objects which have yet to be cached.
-      #
-      def mirror_objects
-        new_paths = object_paths
-
-        Objectify.object_contexts.each_value do |base|
-          objects = base.all(:object_path.like => "#{@objects_dir}%")
-          new_paths -= objects.map { |obj| obj.object_path }
-
-          # mirror existing objects
-          objects.each { |obj| obj.mirror }
-        end
-
-        # cache the remaining new paths
-        new_paths.each { |path| Objectify.cache_objects(path) }
-        return nil
-      end
-
-      #
-      # Deletes all cached objects that existed in the objects_dir.
-      #
-      def expunge_objects
-        Objectify.object_contexts.each_value do |base|
-          base.all(:object_path.like => "#{@objects_dir}%").destroy!
-        end
-
-        return nil
-      end
-
-      #
       # Returns the +name+ of the Overlay.
       #
       def to_s
