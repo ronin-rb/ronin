@@ -49,10 +49,8 @@ module Ronin
 
         def arguments(*args)
           args.each do |name|
-            Platform::Overlay.save_cache do
-              Platform::Overlay.uninstall(name) do |overlay|
-                puts "Uninstalling #{overlay.name.dump} ..."
-              end
+            Platform.uninstall(name) do |overlay|
+              puts "Uninstalling #{overlay.name.dump} ..."
             end
           end
         end

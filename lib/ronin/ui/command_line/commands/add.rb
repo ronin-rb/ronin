@@ -62,10 +62,8 @@ module Ronin
 
           path = args.first
 
-          Platform::Overlay.save_cache do
-            Platform::Overlay.add(path,@media,@uri) do |overlay|
-              puts "Overlay #{overlay.name.dump} added."
-            end
+          Platform.add(path,@media,@uri) do |overlay|
+            puts "Overlay #{overlay.name.dump} added."
           end
         end
 

@@ -49,14 +49,17 @@ module Ronin
 
         def arguments(*args)
           if args.empty?
-            # list all repositories by name
-            Platform::Overlay.each { |overlay| puts "  #{overlay}" }
+            # list all overlays by name
+            Platform.overlays.each_overlay do |overlay|
+              puts "  #{overlay}"
+            end
+
             return
           end
 
-          # list specified repositories
+          # list specified overlays
           args.each do |name|
-            overlay = Platform::Overlay.get(name)
+            overlay = Platform.overlays.get(name)
 
             puts "[ #{overlay.name} ]\n\n"
 

@@ -54,10 +54,8 @@ module Ronin
 
           uri = args.first
 
-          Platform::Overlay.save_cache do
-            Platform::Overlay.install(:uri => uri, :media => @media) do |overlay|
-              puts "Overlay #{overlay.name.dump} has been installed."
-            end
+          Platform.install(:uri => uri, :media => @media) do |overlay|
+            puts "Overlay #{overlay.name.dump} has been installed."
           end
         end
 
