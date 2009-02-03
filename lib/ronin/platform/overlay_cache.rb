@@ -58,8 +58,6 @@ module Ronin
           end
         end
 
-        at_exit(&method(:save))
-
         block.call(self) if block
       end
 
@@ -240,9 +238,10 @@ module Ronin
 
       #
       # Saves the cache to the given _output_path_, where _output_path_
-      # defaults to path of the cache.
+      # defaults to path of the overlay cache. If a _block_ is given,
+      # it will be called before the overlay cache is saved.
       #
-      def save(output_path=@path)
+      def save_after(output_path=@path,&block)
         parent_dir = File.dirname(output_path)
 
         unless File.directory?(parent_dir)
@@ -261,6 +260,7 @@ module Ronin
           YAML.dump(descriptions,output)
         end
 
+        block.call if block
         return self
       end
 
