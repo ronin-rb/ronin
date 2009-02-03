@@ -53,7 +53,13 @@ module Ronin
           if descriptions.kind_of?(Array)
             descriptions.each do |overlay|
               if overlay.kind_of?(Hash)
-                add(Overlay.new(overlay[:path],overlay[:media],overlay[:uri]))
+                overlay = Overlay.new(
+                  overlay[:path],
+                  overlay[:media],
+                  overlay[:uri]
+                )
+
+                self[overlay.name] = overlay
               end
             end
           end
