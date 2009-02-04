@@ -266,19 +266,18 @@ module Ronin
       end
 
       #
-      # Saves the cache to the given _output_path_, where _output_path_
-      # defaults to path of the overlay cache.
+      # Saves the overlay cache.
       #
-      def save(output_path=@path)
+      def save
         return self unless dirty?
 
-        parent_dir = File.dirname(output_path)
+        parent_dir = File.dirname(@path)
 
         unless File.directory?(parent_dir)
           FileUtils.mkdir_p(parent_dir)
         end
 
-        File.open(output_path,'w') do |output|
+        File.open(@path,'w') do |output|
           descriptions = overlays.map do |overlay|
             {
               :media_type => overlay.media_type,
