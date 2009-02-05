@@ -179,7 +179,6 @@ module Ronin
       #
       def []=(name,overlay)
         super(name.to_s,overlay)
-        dirty!
 
         overlay.activate!
         return overlay
