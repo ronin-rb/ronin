@@ -106,6 +106,7 @@ module Ronin
           @website ||= @source_view
 
           FileUtils.mkdir_p(path)
+          FileUtils.mkdir_p(File.join(path,'lib'))
           FileUtils.mkdir_p(File.join(path,'objects'))
 
           File.open(File.join(path,Platform::Overlay::METADATA_FILE),'w') do |file|
