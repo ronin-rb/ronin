@@ -52,7 +52,7 @@ module Ronin
       def initialize(directory=CACHE_DIR,&block)
         super()
 
-        @directory = File.expand_path(dir)
+        @directory = File.expand_path(directory)
         @path = File.join(@directory,CACHE_FILE)
         @dirty = false
 
