@@ -56,4 +56,14 @@ class Integer
     return buffer
   end
 
+  #
+  # Returns the hex escaped form of the integer.
+  #
+  #   42.hex_escape
+  #   # => "\\x2a"
+  #
+  def hex_escape
+    "\\x%.2x" % self
+  end
+
 end
