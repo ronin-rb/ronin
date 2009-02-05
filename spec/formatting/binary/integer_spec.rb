@@ -7,6 +7,10 @@ describe Integer do
     Integer.instance_method('pack').should_not be_nil
   end
 
+  it "should provide Integer#hex_escape" do
+    Integer.instance_method('hex_escape').should_not be_nil
+  end
+
   describe "pack" do
     before(:all) do
       @integer = 0x1337
@@ -52,6 +56,12 @@ describe Integer do
 
     it "should pack itself as a quad for a big-endian architecture" do
       @integer.pack(Arch.ppc,8).should == @ppc_packed_quad
+    end
+  end
+
+  describe "hex_escape" do
+    it "should hex escape an Integer" do
+      42.hex_escape.should == "\\x2a"
     end
   end
 end
