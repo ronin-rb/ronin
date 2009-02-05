@@ -32,6 +32,9 @@ module Ronin
       # Extension file name
       EXTENSION_FILE = 'extension.rb'
 
+      # Extension lib/ directory
+      LIB_DIR = 'lib'
+
       # Name of extension
       attr_reader :name
 
