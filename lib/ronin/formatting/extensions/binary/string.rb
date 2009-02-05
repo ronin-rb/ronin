@@ -21,6 +21,7 @@
 #++
 #
 
+require 'ronin/formatting/extensions/text'
 require 'ronin/arch'
 
 require 'base64'
@@ -54,6 +55,16 @@ class String
     end
 
     return integer
+  end
+
+  #
+  # Returns the hex escaped form of the string.
+  #
+  #   "hello".hex_escape
+  #   # => "\\x68\\x65\\x6c\\x6c\\x6f"
+  #
+  def hex_escape(options={})
+    format_bytes(options) { |b| "\\x%.2x" % b }
   end
 
   #
