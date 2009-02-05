@@ -76,7 +76,12 @@ module Ronin
 
           Platform.load_overlays(@cache) if @cache
 
-          Platform.add(path,@media,@uri) do |overlay|
+          overlay_options = {:path => path}
+
+          overlay_options[:media] = @media if @media
+          overlay_options[:uri] = @uri if @uri
+
+          Platform.add(overlay_options) do |overlay|
             puts "Overlay #{overlay.name.dump} added."
           end
         end
