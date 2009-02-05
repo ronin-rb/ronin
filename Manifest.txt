@@ -189,6 +189,7 @@ spec/platform/helpers/overlays/test1/ronin.xml
 spec/platform/helpers/overlays/test2/ronin.xml
 spec/platform/extension_spec.rb
 spec/platform/overlay_cache_spec.rb
+spec/platform/extension_cache_spec.rb
 spec/platform/platform_spec.rb
 spec/ui/diagnostics_spec.rb
 spec/ui/command_line/param_parser_spec.rb
