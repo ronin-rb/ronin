@@ -25,9 +25,15 @@ require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/extension_cache'
 require 'ronin/platform/platform'
 
+require 'contextify'
+
 module Ronin
   module Platform
     class Extension
+
+      include Contextify
+
+      contextify :ronin_extension
 
       # Extension file name
       EXTENSION_FILE = 'extension.rb'
@@ -100,7 +106,7 @@ module Ronin
       # extension after the extensions of _name_ have been included.
       #
       def include(name,&block)
-        Platform.overlays.extension_paths(name) do |path|
+        Platform.overlays.extension_paths(name).each do |path|
           include_path(path)
         end
 
