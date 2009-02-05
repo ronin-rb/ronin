@@ -116,7 +116,7 @@ module Ronin
       def get(name)
         name = name.to_s
 
-        unless has_overlay?(name)
+        unless has?(name)
           raise(OverlayNotFound,"overlay #{name.dump} is not present in cache #{self.to_s.dump}",caller)
         end
 
@@ -200,7 +200,7 @@ module Ronin
       def add(overlay,&block)
         name = overlay.name.to_s
 
-        if has_overlay?(name)
+        if has?(name)
           raise(OverlayCached,"overlay #{name.dump} already present in the cache #{self.to_s.dump}",caller)
         end
 
