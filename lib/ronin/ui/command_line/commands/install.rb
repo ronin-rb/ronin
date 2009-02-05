@@ -34,6 +34,8 @@ module Ronin
         def initialize
           @cache = nil
           @media = nil
+
+          super
         end
 
         def define_options(opts)

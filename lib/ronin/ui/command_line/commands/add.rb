@@ -35,6 +35,8 @@ module Ronin
           @cache = nil
           @media = nil
           @uri = nil
+
+          super
         end
 
         def define_options(opts)
