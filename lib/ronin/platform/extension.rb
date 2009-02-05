@@ -273,9 +273,9 @@ module Ronin
       #   end
       #
       def find_path(path,&block)
-        find_paths(path) do |path|
-          block.call(path) if block
-          return path
+        find_paths(path) do |full_path|
+          block.call(full_path) if block
+          return full_path
         end
 
         return nil
