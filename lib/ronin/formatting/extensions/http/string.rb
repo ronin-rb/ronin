@@ -75,7 +75,7 @@ class String
   #   # => "&#104;&#101;&#108;&#108;&#111;"
   #
   def format_http(options={})
-    format_bytes(options) { |c| sprintf("%%%x",c) }
+    format_bytes(options) { |b| "%%%x" % b }
   end
 
 end
