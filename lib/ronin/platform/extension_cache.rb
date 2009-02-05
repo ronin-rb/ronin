@@ -34,7 +34,9 @@ module Ronin
       #
       def initialize(&block)
         super() do |hash,key|
-          hash[name] = load_extension(key.to_s)
+          name = key.to_s
+
+          hash[name] = load_extension(name)
         end
 
         at_exit do
