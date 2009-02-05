@@ -41,6 +41,22 @@ describe Platform::OverlayCache do
   it "should return the paths to all the overlays" do
     paths = @cache.paths
 
+    paths.length.should == 2
     paths.select { |path| path =~ /test[12]$/ }.should == paths
+  end
+
+  it "should have specific extensions" do
+    @cache.has_extension?('test').should == true
+  end
+
+  it "should have extensions" do
+    @cache.extensions.should == ['test']
+  end
+
+  it "should provide the paths to specific extensions" do
+    paths = @cache.extension_paths('test')
+
+    paths.length.should == 2
+    paths.select { |path| File.basename(path) == 'test' }.should == paths
   end
 end
