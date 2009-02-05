@@ -119,7 +119,6 @@ lib/ronin/platform/exceptions.rb
 lib/ronin/platform/exceptions/extension_not_found.rb
 lib/ronin/platform/exceptions/overlay_cached.rb
 lib/ronin/platform/exceptions/overlay_not_found.rb
-lib/ronin/platform/config.rb
 lib/ronin/platform/maintainer.rb
 lib/ronin/platform/overlay.rb
 lib/ronin/platform/overlay_cache.rb

@@ -24,7 +24,7 @@
 require 'ronin/platform/exceptions/overlay_cached'
 require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/overlay'
-require 'ronin/platform/config'
+require 'ronin/config'
 
 require 'yaml'
 
@@ -32,19 +32,28 @@ module Ronin
   module Platform
     class OverlayCache < Hash
 
+      # Default overlay cache directory
+      CACHE_DIR = File.join(Config::PATH,'overlays')
+
+      # Name of the overlay cache file
+      CACHE_FILE = 'cache.yaml'
+
+      # Directory containing the overlays
+      attr_reader :directory
+
       # Path of cache file
       attr_reader :path
 
       #
-      # Create a new OverlayCache object with the specified _path_. The
-      # _path_ defaults to <tt>Config::OVERLAY_CACHE_PATH</tt>. If a
-      # _block_ is given, it will be passed the newly created OverlayCache
-      # object.
+      # Create a new OverlayCache object with the specified _directory_. The
+      # _directory_ defaults to <tt>CACHE_DIR</tt>. If a _block_ is given,
+      # it will be passed the newly created OverlayCache object.
       #
-      def initialize(path=Config::OVERLAY_CACHE_PATH,&block)
+      def initialize(directory=CACHE_DIR,&block)
         super()
 
-        @path = File.expand_path(path)
+        @directory = File.expand_path(dir)
+        @path = File.join(@directory,CACHE_FILE)
         @dirty = false
 
         if File.file?(@path)
@@ -271,17 +280,15 @@ module Ronin
       def save
         return self unless dirty?
 
-        parent_dir = File.dirname(@path)
-
-        unless File.directory?(parent_dir)
-          FileUtils.mkdir_p(parent_dir)
+        unless File.directory?(@directory)
+          FileUtils.mkdir_p(@directory)
         end
 
         File.open(@path,'w') do |output|
           descriptions = overlays.map do |overlay|
             {
-              :media_type => overlay.media_type,
               :path => overlay.path,
+              :media => overlay.media_type,
               :uri => overlay.uri
             }
           end
