@@ -296,7 +296,6 @@ module Ronin
           YAML.dump(descriptions,output)
         end
 
-        block.call if block
         return self
       end
 
