@@ -31,10 +31,19 @@ module Ronin
 
         command :update, :up
 
+        def initialize
+          @cache = nil
+          @verbose = false
+        end
+
         def define_options(opts)
           opts.usage = '[NAME ...] [options]'
 
           opts.options do
+            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+              @cache = dir
+            end
+
             opts.on('-v','--verbose','Enable verbose output') do
               @verbose = true
             end
@@ -48,10 +57,12 @@ module Ronin
         end
 
         def arguments(*args)
+          Platform.load_overlays(@cache) if @cache
+
           if args.empty?
-            Platform::Overlay.each { |overlay| overlay.update }
+            Platform.overlays.each { |overlay| overlay.update }
           else
-            args.each { |name| Platform::Overlay.update(name) }
+            args.each { |name| Platform.overlays.update(name) }
           end
         end
 
