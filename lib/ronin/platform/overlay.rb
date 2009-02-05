@@ -106,7 +106,9 @@ module Ronin
       #
       def extension_paths
         directories.reject do |dir|
-          File.basename(dir) == OBJECTS_DIR
+          name = File.basename(dir)
+
+          (name == OBJECTS_DIR) || (name == LIB_DIR)
         end
       end
 
