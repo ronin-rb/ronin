@@ -45,11 +45,14 @@ module Ronin
       # Local path to the overlay
       attr_reader :path
 
+      # Name of the overlay
+      attr_reader :name
+
       # URI that the overlay was installed from
       attr_reader :uri
 
-      # Name of the overlay
-      attr_reader :name
+      # Title of the overlay
+      attr_reader :title
 
       # License that the overlay contents is under
       attr_reader :license
@@ -78,6 +81,7 @@ module Ronin
       #
       def initialize(path,media_type=nil,uri=nil,&block)
         @path = File.expand_path(path)
+        @name = File.basename(@path)
         @objects_dir = File.join(@path,OBJECTS_DIR)
         @uri = uri
 
@@ -195,7 +199,7 @@ module Ronin
       # Returns the +name+ of the Overlay.
       #
       def to_s
-        @name.to_s
+        @title.to_s
       end
 
       protected
@@ -209,7 +213,7 @@ module Ronin
         metadata_path = File.join(@path,METADATA_FILE)
 
         # set to default values
-        @name = File.basename(@path)
+        @title = @name
         @license = nil
 
         @source = @uri
@@ -223,8 +227,8 @@ module Ronin
           doc = REXML::Document.new(open(metadata_path))
           overlay = doc.elements['/ronin-overlay']
 
-          overlay.each_element('name[.]:first') do |name|
-            @name = name.text.strip
+          overlay.each_element('title[.]:first') do |title|
+            @title = title.text.strip
           end
 
           overlay.each_element('license[.]:first') do |license|

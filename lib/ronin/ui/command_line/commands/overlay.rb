@@ -38,7 +38,7 @@ module Ronin
         command :overlay
 
         def initialize
-          @name = nil
+          @title = nil
           @source = nil
           @source_view = nil
           @website = nil
@@ -53,8 +53,8 @@ module Ronin
           opts.usage = '[options] PATH'
 
           opts.options do
-            opts.on('-n','--name NAME','Name of the Overlay') do |name|
-              @name = name
+            opts.on('-T','--title NAME','Name of the Overlay') do |title|
+              @title = title
             end
 
             opts.on('-S','--source URL','The URL where the source of the Overlay will be hosted') do |url|
@@ -101,7 +101,7 @@ module Ronin
 
           path = File.expand_path(args.first)
 
-          @name ||= File.basename(path).gsub(/[_\s]+/,' ').capitalize
+          @title ||= File.basename(path).gsub(/[_\s]+/,' ').capitalize
           @source_view ||= @source
           @website ||= @source_view
 
@@ -116,9 +116,9 @@ module Ronin
             root = Element.new('ronin-overlay')
             root.attributes['version'] = Ronin::VERSION
 
-            name_tag = Element.new('name')
-            name_tag.text = @name
-            root.add_element(name_tag)
+            title_tag = Element.new('title')
+            title_tag.text = @title
+            root.add_element(title_tag)
 
             if @source
               source_tag = Element.new('source')
