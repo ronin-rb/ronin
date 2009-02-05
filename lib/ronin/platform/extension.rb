@@ -240,6 +240,32 @@ module Ronin
       # Find the specified _path_ from within all similar extensions.
       # If a _block_ is given, it will be passed the full path if found.
       #
+      #   ext.find_paths('data/test')
+      #   # => [...]
+      #
+      #   ext.find_paths('data/test') do |path|
+      #     puts Dir[File.join(path,'*')]
+      #   end
+      #
+      def find_paths(path,&block)
+        matched_paths = []
+
+        @paths.each do |ext_path|
+          full_path = File.expand_path(File.join(ext_path,path))
+
+          if File.exists?(full_path)
+            block.call(full_path) if block
+            matched_paths << full_path
+          end
+        end
+
+        return matched_paths
+      end
+
+      #
+      # Find the specified _path_ from within the first similar extensions.
+      # If a _block_ is given, it will be passed the full path if found.
+      #
       #   ext.find_path('data/test')
       #
       #   ext.find_path('data/test') do |path|
@@ -247,20 +273,16 @@ module Ronin
       #   end
       #
       def find_path(path,&block)
-        @paths.each do |ext_path|
-          full_path = File.expand_path(File.join(ext_path,path))
-
-          if File.exists?(full_path)
-            block.call(full_path) if block
-            return full_path
-          end
+        find_paths(path) do |path|
+          block.call(path) if block
+          return path
         end
 
         return nil
       end
 
       #
-      # Find the specified file _path_ from within all similar extensions.
+      # Find the specified file _path_ from within the first similar extensions.
       # If a _block_ is given, it will be passed the full file path if
       # found.
       #
@@ -272,7 +294,7 @@ module Ronin
       #   end
       #
       def find_file(path,&block)
-        find_path(path) do |full_path|
+        find_paths(path) do |full_path|
           if File.file?(full_path)
             block.call(full_path) if block
             return full_path
@@ -281,7 +303,7 @@ module Ronin
       end
 
       #
-      # Find the specified directory _path_ from within all similar
+      # Find the specified directory _path_ from within the first similar
       # extensions. If a _block_ is given, it will be passed the full
       # directory path if found.
       #
@@ -292,7 +314,7 @@ module Ronin
       #   end
       #
       def find_dir(path,&block)
-        find_path(path) do |full_path|
+        find_paths(path) do |full_path|
           if File.directory?(full_path)
             block.call(full_path) if block
             return full_path
