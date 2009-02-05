@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Integer do
   it "should provide Integer#pack" do
-    @integer.respond_to?('pack').should == true
+    Integer.instance_method('pack').should_not be_nil
   end
 
   describe "pack" do
