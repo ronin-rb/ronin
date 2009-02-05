@@ -33,7 +33,7 @@ module Ronin
     class OverlayCache < Hash
 
       # Default overlay cache directory
-      CACHE_DIR = File.join(Config::PATH,'overlays')
+      CACHE_DIR = File.join(Ronin::Config::PATH,'overlays')
 
       # Name of the overlay cache file
       CACHE_FILE = 'cache.yaml'
