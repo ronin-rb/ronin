@@ -53,7 +53,7 @@ module Ronin
           opts.usage = '[options] PATH'
 
           opts.options do
-            opts.on('-T','--title NAME','Name of the Overlay') do |title|
+            opts.on('-t','--title NAME','Name of the Overlay') do |title|
               @title = title
             end
 
