@@ -20,7 +20,6 @@ lib/ronin/formatting.rb
 lib/ronin/formatting/digest.rb
 lib/ronin/formatting/binary.rb
 lib/ronin/formatting/text.rb
-lib/ronin/formatting/html.rb
 lib/ronin/formatting/http.rb
 lib/ronin/formatting/extensions.rb
 lib/ronin/formatting/extensions/digest.rb
@@ -30,8 +29,6 @@ lib/ronin/formatting/extensions/binary/integer.rb
 lib/ronin/formatting/extensions/binary/string.rb
 lib/ronin/formatting/extensions/text.rb
 lib/ronin/formatting/extensions/text/string.rb
-lib/ronin/formatting/extensions/html.rb
-lib/ronin/formatting/extensions/html/string.rb
 lib/ronin/formatting/extensions/http.rb
 lib/ronin/formatting/extensions/http/string.rb
 lib/ronin/chars.rb
@@ -172,7 +169,6 @@ spec/extensions/uri/query_params_spec.rb
 spec/formatting/binary/integer_spec.rb
 spec/formatting/binary/string_spec.rb
 spec/formatting/digest_spec.rb
-spec/formatting/html_spec.rb
 spec/formatting/http_spec.rb
 spec/formatting/text_spec.rb
 spec/code/reference_spec.rb

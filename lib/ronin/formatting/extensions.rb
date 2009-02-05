@@ -23,4 +23,3 @@
 
 require 'ronin/formatting/extensions/binary'
 require 'ronin/formatting/extensions/http'
-require 'ronin/formatting/extensions/html'
