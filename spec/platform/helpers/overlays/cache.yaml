@@ -5,3 +5,6 @@
 - :media: 
   :uri: 
   :path: /underground/code/ronin/ronin/spec/platform/helpers/overlays/test1
+- :media: 
+  :uri: 
+  :path: /underground/code/ronin/ronin/spec/platform/helpers/overlays/hello
