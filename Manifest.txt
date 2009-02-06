@@ -186,11 +186,16 @@ spec/sessions/session_spec.rb
 spec/platform/helpers/overlays.rb
 spec/platform/helpers/overlays/cache.yaml
 spec/platform/helpers/overlays/test1/ronin.xml
+spec/platform/helpers/overlays/test1/test/extension.rb
 spec/platform/helpers/overlays/test2/ronin.xml
+spec/platform/helpers/overlays/test2/test/extension.rb
+spec/platform/helpers/overlays/hello/ronin.xml
+spec/platform/helpers/overlays/hello/hello/extension.rb
 spec/platform/extension_spec.rb
 spec/platform/overlay_cache_spec.rb
 spec/platform/extension_cache_spec.rb
 spec/platform/platform_spec.rb
+spec/platform/ronin_spec.rb
 spec/ui/diagnostics_spec.rb
 spec/ui/command_line/param_parser_spec.rb
 spec/ronin_spec.rb
