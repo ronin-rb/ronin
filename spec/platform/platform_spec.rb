@@ -1,6 +1,7 @@
 require 'ronin/platform/platform'
 
 require 'platform/helpers/overlays'
+require 'spec_helpers'
 
 describe Platform do
   before(:all) do
