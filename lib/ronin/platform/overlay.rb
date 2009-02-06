@@ -201,7 +201,7 @@ module Ronin
       # Returns the +name+ of the Overlay.
       #
       def to_s
-        @title.to_s
+        @name.to_s
       end
 
       protected
