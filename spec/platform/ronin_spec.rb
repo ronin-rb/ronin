@@ -9,7 +9,7 @@ describe Ronin do
   end
 
   it "should provide transparent access to extensions" do
-    ext = ::Ronin.hello
+    ext = Ronin.hello
 
     ext.should_not be_nil
     ext.name.should == 'hello'
