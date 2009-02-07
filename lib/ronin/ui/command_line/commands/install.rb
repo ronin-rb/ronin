@@ -31,10 +31,21 @@ module Ronin
 
         command :install
 
+        def initialize
+          @cache = nil
+          @media = nil
+
+          super
+        end
+
         def define_options(opts)
           opts.usage = 'URI [options]'
 
           opts.options do
+            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+              @cache = dir
+            end
+
             opts.on('-m','--media [MEDIA]','Spedify the media-type of the overlay') do |media|
               @media = media
             end
@@ -54,10 +65,10 @@ module Ronin
 
           uri = args.first
 
-          Platform::Overlay.save_cache do
-            Platform::Overlay.install(:uri => uri, :media => @media) do |overlay|
-              puts "Overlay #{overlay.name.dump} has been installed."
-            end
+          Platform.load_overlays(@cache) if @cache
+
+          Platform.install(:uri => uri, :media => @media) do |overlay|
+            puts "Overlay #{overlay.name.dump} has been installed."
           end
         end
 

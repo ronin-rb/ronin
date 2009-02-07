@@ -34,11 +34,13 @@ module Ronin
       #
       def initialize(&block)
         super() do |hash,key|
-          hash[name] = load_extension(key.to_s)
+          name = key.to_s
+
+          hash[name] = load_extension(name)
         end
 
         at_exit do
-          each_extension { |ext| ext.perform_teardown }
+          each_extension { |ext| ext.teardown! }
         end
 
         block.call(self) if block
@@ -72,12 +74,12 @@ module Ronin
       def load_extension(name,&block)
         name = name.to_s
 
-        unless Extension.exists?(name)
+        unless Platform.overlays.has_extension?(name)
           raise(ExtensionNotFound,"extension #{name.dump} does not eixst",caller)
         end
 
         return Extension.load(name) do |ext|
-          ext.perform_setup
+          ext.setup!
 
           block.call(ext) if block
         end

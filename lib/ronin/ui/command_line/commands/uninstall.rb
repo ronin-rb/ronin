@@ -31,10 +31,21 @@ module Ronin
 
         command :uninstall
 
+        def initialize
+          @cache = nil
+          @verbose = false
+
+          super
+        end
+
         def define_options(opts)
           opts.usage = 'NAME [NAME ...] [options]'
 
           opts.options do
+            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+              @cache = dir
+            end
+
             opts.on('-v','--verbose','Enable verbose output') do
               @verbose = true
             end
@@ -48,11 +59,11 @@ module Ronin
         end
 
         def arguments(*args)
+          Platform.load_overlays(@cache) if @cache
+
           args.each do |name|
-            Platform::Overlay.save_cache do
-              Platform::Overlay.uninstall(name) do |overlay|
-                puts "Uninstalling #{overlay.name.dump} ..."
-              end
+            Platform.uninstall(name) do |overlay|
+              puts "Uninstalling #{overlay.name.dump} ..."
             end
           end
         end

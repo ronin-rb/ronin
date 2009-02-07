@@ -31,10 +31,22 @@ module Ronin
 
         command :add
 
+        def initialize
+          @cache = nil
+          @media = nil
+          @uri = nil
+
+          super
+        end
+
         def define_options(opts)
           opts.usage = 'PATH [options]'
 
           opts.options do
+            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+              @cache = dir
+            end
+
             opts.on('-m','--media MEDIA','Spedify the media-type of the overlay') do |media|
               @media = media
             end
@@ -60,12 +72,15 @@ module Ronin
             fail('only one overlay path maybe specified')
           end
 
-          path = args.first
+          Platform.load_overlays(@cache) if @cache
 
-          Platform::Overlay.save_cache do
-            Platform::Overlay.add(path,@media,@uri) do |overlay|
-              puts "Overlay #{overlay.name.dump} added."
-            end
+          overlay_options = {:path => path.first}
+
+          overlay_options[:media] = @media if @media
+          overlay_options[:uri] = @uri if @uri
+
+          Platform.add(overlay_options) do |overlay|
+            puts "Overlay #{overlay.name.dump} added."
           end
         end
 

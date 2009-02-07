@@ -31,10 +31,21 @@ module Ronin
 
         command :list, :ls
 
+        def initialize
+          @cache = nil
+          @verbose = false
+
+          super
+        end
+
         def define_options(opts)
           opts.usage = '[NAME ...] [options]'
 
           opts.options do
+            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+              @cache = dir
+            end
+
             opts.on('-v','--verbose','Enable verbose output') do
               @verbose = true
             end
@@ -48,15 +59,20 @@ module Ronin
         end
 
         def arguments(*args)
+          Platform.load_overlays(@cache) if @cache
+
           if args.empty?
-            # list all repositories by name
-            Platform::Overlay.each { |overlay| puts "  #{overlay}" }
+            # list all overlays by name
+            Platform.overlays.each_overlay do |overlay|
+              puts "  #{overlay}"
+            end
+
             return
           end
 
-          # list specified repositories
+          # list specified overlays
           args.each do |name|
-            overlay = Platform::Overlay.get(name)
+            overlay = Platform.overlays.get(name)
 
             puts "[ #{overlay.name} ]\n\n"
 
@@ -65,6 +81,12 @@ module Ronin
             puts "  URI: #{overlay.uri}" if overlay.uri
 
             if @verbose
+              putc "\n"
+
+              if overlay.title
+                puts "  Title: #{overlay.title}"
+              end
+
               if overlay.source
                 puts "  Source URI: #{overlay.source}"
               end
@@ -79,16 +101,17 @@ module Ronin
 
               unless overlay.extensions.empty?
                 puts "  Extensions:\n\n"
-                overlay.each_extension { |ext| puts "    #{ext}" }
+                overlay.extensions.each { |ext| puts "    #{ext}" }
+                putc "\n"
               end
 
               if overlay.description
                 puts "  Description:\n\n    #{overlay.description}\n\n"
               else
-                puts "\n"
+                putc "\n"
               end
             else
-              puts "\n"
+              putc "\n"
             end
           end
         end

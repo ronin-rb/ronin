@@ -37,7 +37,7 @@ module Ronin
   #   end
   #
   def Ronin.method_missing(sym,*args,&block)
-    if args.length==0
+    if args.length == 0
       name = sym.id2name
 
       # return an extension if available

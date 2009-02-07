@@ -19,7 +19,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
     ['dm-validations', '>=0.9.9'],
     ['dm-predefined', '>=0.1.0'],
     ['parameters', '>=0.1.3'],
-    ['contextify', '>=0.1.0'],
+    ['contextify', '>=0.1.2'],
     ['reverse-require', '>=0.3.1'],
     ['repertoire', '>=0.1.2']
   ]
