@@ -109,13 +109,23 @@ module Ronin
     end
 
     #
+    # Removes the overlay with the specified _name_. If no overlay
+    # has the specified _name_, an OverlayNotFound exception will be
+    # raised. If a _block_ is given, it will be called after the overlay
+    # has been removed.
+    #
+    def Platform.remove(name,&block)
+      Platform.overlays.remove(name,&block)
+    end
+
+    #
     # Uninstalls the overlay with the specified _name_. If no overlay
     # has the specified _name_, an OverlayNotFound exception will be
     # raised. If a _block_ is given, it will be called after the overlay
     # has been uninstalled.
     #
     def Platform.uninstall(name,&block)
-      Platform.uninstall(name) do |overlay|
+      Platform.remove(name) do |overlay|
         ObjectCache.expunge(overlay.objects_dir)
       end
 
