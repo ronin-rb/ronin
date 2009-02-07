@@ -200,6 +200,7 @@ module Ronin
         end
 
         self[overlay.name.to_s] = overlay
+        dirty!
 
         block.call(self) if block
         return self
