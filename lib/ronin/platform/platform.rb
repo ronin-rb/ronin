@@ -78,7 +78,7 @@ module Ronin
 
     #
     # Installs an Overlay specified by _options_ into the
-    # Platform.overlays.directory. If a _block_ is given, it will be
+    # OverlayCache::CACHE_DIR. If a _block_ is given, it will be
     # passed the newly created overlay after it has been added to
     # the overlay cache.
     #
@@ -89,7 +89,7 @@ module Ronin
     # <tt>:media</tt>:: The media of the overlay.
     #
     def Platform.install(options={},&block)
-      options = options.merge(:into => Platform.overlays.directory)
+      options = options.merge(:into => OverlayCache::CACHE_DIR)
 
       Repertoire.checkout(options) do |path,media,uri|
         return Platform.add(:path => path, :media => media, :uri => uri)
