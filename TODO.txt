@@ -1,12 +1,6 @@
 == TODO
 
-=== Ronin 0.1.5:
-
-* Add diagonstic logging of this format:
-  
-    [*] Message
-  
-=== Ronin 0.2.0:
+=== Ronin 0.3.0:
 
 * Create an IO proxy class and RPC Service for proxying io.
 * Create a module for pivoting.
