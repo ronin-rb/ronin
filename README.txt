@@ -51,7 +51,6 @@ of Ronin.
     * Binary
     * HTTP
     * URIs
-    * HTML
   * Generating random text.
   * Networking:
     * TCP
