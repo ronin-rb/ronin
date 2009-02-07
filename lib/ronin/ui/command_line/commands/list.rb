@@ -81,6 +81,8 @@ module Ronin
             puts "  URI: #{overlay.uri}" if overlay.uri
 
             if @verbose
+              putc "\n"
+
               if overlay.title
                 puts "  Title: #{overlay.title}"
               end
@@ -100,15 +102,16 @@ module Ronin
               unless overlay.extensions.empty?
                 puts "  Extensions:\n\n"
                 overlay.extensions.each { |ext| puts "    #{ext}" }
+                putc "\n"
               end
 
               if overlay.description
                 puts "  Description:\n\n    #{overlay.description}\n\n"
               else
-                puts "\n"
+                putc "\n"
               end
             else
-              puts "\n"
+              putc "\n"
             end
           end
         end
