@@ -72,11 +72,9 @@ module Ronin
             fail('only one overlay path maybe specified')
           end
 
-          path = args.first
-
           Platform.load_overlays(@cache) if @cache
 
-          overlay_options = {:path => path}
+          overlay_options = {:path => path.first}
 
           overlay_options[:media] = @media if @media
           overlay_options[:uri] = @uri if @uri
