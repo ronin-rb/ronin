@@ -28,14 +28,14 @@ require 'ronin/platform/extension_cache'
 module Ronin
   module Platform
     #
-    # Load the overlay cache from the given _directory_. If a _block_ is
+    # Load the overlay cache from the given _path_. If a _block_ is
     # given it will be passed the current overlay cache.
     #
-    #   Overlay.load_cache('/custom/cache')
+    #   Overlay.load_overlays('/custom/overlays/cache.yaml')
     #   # => #<Ronin::Platform::OverlayCache: ...>
     #
-    def Platform.load_overlays(directory)
-      @@ronin_overlay_cache = OverlayCache.new(directory)
+    def Platform.load_overlays(path)
+      @@ronin_overlay_cache = OverlayCache.new(path)
     end
 
     #

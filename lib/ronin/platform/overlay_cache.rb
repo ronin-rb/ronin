@@ -36,24 +36,20 @@ module Ronin
       CACHE_DIR = File.join(Ronin::Config::PATH,'overlays')
 
       # Name of the overlay cache file
-      CACHE_FILE = 'cache.yaml'
-
-      # Directory containing the overlays
-      attr_reader :directory
+      CACHE_FILE = File.join(Ronin::Config::PATH,'overlays.yaml')
 
       # Path of cache file
       attr_reader :path
 
       #
-      # Create a new OverlayCache object with the specified _directory_. The
-      # _directory_ defaults to <tt>CACHE_DIR</tt>. If a _block_ is given,
+      # Create a new OverlayCache object with the specified _path_. The
+      # _path_ defaults to <tt>CACHE_FILE</tt>. If a _block_ is given,
       # it will be passed the newly created OverlayCache object.
       #
-      def initialize(directory=CACHE_DIR,&block)
+      def initialize(path=CACHE_FILE,&block)
         super()
 
-        @directory = File.expand_path(directory)
-        @path = File.join(@directory,CACHE_FILE)
+        @path = path
         @dirty = false
 
         if File.file?(@path)
@@ -279,8 +275,10 @@ module Ronin
       def save
         return self unless dirty?
 
-        unless File.directory?(@directory)
-          FileUtils.mkdir_p(@directory)
+        parent_directory = File.dirname(@path)
+
+        unless File.directory?(parent_directory)
+          FileUtils.mkdir_p(parent_directory)
         end
 
         File.open(@path,'w') do |output|
