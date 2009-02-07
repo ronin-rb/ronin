@@ -106,6 +106,7 @@ module Ronin
       end
 
       block.call if block
+      return nil
     end
 
     #
@@ -116,6 +117,7 @@ module Ronin
     #
     def Platform.remove(name,&block)
       Platform.overlays.remove(name,&block)
+      return nil
     end
 
     #
@@ -130,6 +132,7 @@ module Ronin
       end
 
       block.call if block
+      return nil
     end
 
     #
