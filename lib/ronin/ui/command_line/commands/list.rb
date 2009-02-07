@@ -81,6 +81,10 @@ module Ronin
             puts "  URI: #{overlay.uri}" if overlay.uri
 
             if @verbose
+              if overlay.title
+                puts "  Title: #{overlay.title}"
+              end
+
               if overlay.source
                 puts "  Source URI: #{overlay.source}"
               end
