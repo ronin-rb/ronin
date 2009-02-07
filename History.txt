@@ -1,3 +1,53 @@
+=== 0.2.0 / 2009-02-06
+
+* Moved the HTML formatting methods into the
+  {ronin-html}[http://ronin.rubyforge.org/html/] library.
+* Added 'ronin/environment' which loads the Ronin Environment.
+* Added the --database option to the DefaultCommand.
+* Added the -C option to the add, install, list, update, remove and
+  uninstall commands.
+* Added String#hex_escape.
+* Added Net.http_ok?.
+* Added UI::Diagnostics.
+* Require Contextify >= 0.1.2 for the self.load_context_block method.
+* Renamed Platform to Ronin::OS.
+* Renamed Cache to Ronin::Platform.
+* Refactored Ronin::Platform:
+  * Added Overlay#activate!.
+  * Added Overlay#deactivate!.
+  * Added a title attribute to Ronin::Platform::Overlay.
+  * Added a dirty flag to Ronin::Platform::OverlayCache to reduce
+    unnecessary writes.
+  * Added OverlayCache#has_extension?.
+  * Added Ronin::Platform::ObjectCache to handle the mass caching/mirroring
+    of object contexts.
+  * Added Platform.add.
+  * Added Platform.install.
+  * Added Platform.update.
+  * Added Platform.remove.
+  * Added Platform.uninstall.
+  * Added Platform::Extension#find_paths.
+  * Added specs for:
+    * Ronin::Platform.
+    * Ronin::Platform::Overlay.
+    * Ronin::Platform::OverlayCache.
+    * Ronin::Platform::Extension.
+    * Ronin::Platform::ExtensionCache.
+  * Shortened method names.
+    * Renamed OverlayCache#has_overlay? to OverlayCache#has?.
+    * Renamed OverlayCache#get_overlay to OverlayCache#get.
+    * Renamed OverlayCache#overlay_with to OverlayCache#with.
+    * Renamed Extension#was_setup? to Extension#setup?.
+    * Renamed Extension#was_toredown? to Extension#toredown?.
+    * Renamed Extension#perform_setup to Extension#setup!.
+    * Renamed Extension#perform_teardown to Extension#teardown!.
+  * Removed un-used or surpurfulous methods.
+  * Removed 'lib/ronin/platform/config.rb'.
+  * Allow Overlays to have their own <tt>lib/</tt> directories.
+  * Many bug fixes.
+* Updated the README.txt.
+* Fixed bug in UI::Console.auto_load and UI::Console.start.
+
 === 0.1.4 / 2009-01-22
 
 * Moved Ronin::Web and Ronin::Sessions::Web into the ronin-web library.
