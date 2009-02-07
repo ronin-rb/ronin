@@ -24,7 +24,6 @@
 require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
-require 'ronin/platform/config'
 
 require 'rexml/document'
 require 'repertoire'
