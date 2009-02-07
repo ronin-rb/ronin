@@ -5,7 +5,7 @@ require 'spec_helper'
 
 describe Ronin do
   before(:all) do
-    Platform.load_overlays(OVERLAY_CACHE)
+    Platform.load_overlays(overlay_cache_path)
   end
 
   it "should provide transparent access to extensions" do

@@ -184,7 +184,7 @@ spec/product_spec.rb
 spec/target_spec.rb
 spec/sessions/session_spec.rb
 spec/platform/helpers/overlays.rb
-spec/platform/helpers/overlays/cache.yaml
+spec/platform/helpers/overlays.yaml.erb
 spec/platform/helpers/overlays/test1/ronin.xml
 spec/platform/helpers/overlays/test1/test/extension.rb
 spec/platform/helpers/overlays/test2/ronin.xml

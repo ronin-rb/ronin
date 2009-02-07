@@ -5,7 +5,7 @@ require 'spec_helper'
 
 describe Platform do
   before(:all) do
-    Platform.load_overlays(OVERLAY_CACHE)
+    Platform.load_overlays(overlay_cache_path)
   end
 
   it "should be able to load custom overlay caches" do

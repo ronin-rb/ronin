@@ -5,7 +5,7 @@ require 'spec_helper'
 
 describe Platform::ExtensionCache do
   before(:all) do
-    Platform.load_overlays(OVERLAY_CACHE)
+    Platform.load_overlays(overlay_cache_path)
 
     @cache = Platform::ExtensionCache.new
   end

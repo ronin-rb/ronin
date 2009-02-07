@@ -5,7 +5,7 @@ require 'spec_helper'
 
 describe Platform::OverlayCache do
   before(:all) do
-    @cache = Platform::OverlayCache.new(OVERLAY_CACHE)
+    @cache = Platform::OverlayCache.new(overlay_cache_path)
   end
 
   it "should not be dirty by default" do
