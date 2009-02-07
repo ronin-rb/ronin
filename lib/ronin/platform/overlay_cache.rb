@@ -273,7 +273,7 @@ module Ronin
       # Saves the overlay cache.
       #
       def save
-        return self unless dirty?
+        return false unless dirty?
 
         parent_directory = File.dirname(@path)
 
@@ -293,7 +293,7 @@ module Ronin
           YAML.dump(descriptions,output)
         end
 
-        return self
+        return true
       end
 
       #
