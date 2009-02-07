@@ -21,6 +21,7 @@
 #++
 #
 
+require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/overlay_cache'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/extension_cache'
@@ -62,6 +63,12 @@ module Ronin
 
       unless path
         raise(ArgumentError,":path must be passed to Platform.add",caller)
+      end
+
+      path = path.to_s
+
+      unless File.directory?(path)
+        raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
       end
 
       media = options[:media]
