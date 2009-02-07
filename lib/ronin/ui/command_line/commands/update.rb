@@ -62,7 +62,7 @@ module Ronin
           Platform.load_overlays(@cache) if @cache
 
           if args.empty?
-            Platform.overlays.each { |overlay| overlay.update }
+            Platform.overlays.each_overlay { |overlay| overlay.update }
           else
             args.each { |name| Platform.overlays.update(name) }
           end
