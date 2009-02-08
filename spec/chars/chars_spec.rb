@@ -12,7 +12,7 @@ describe Chars do
     @uppercase_alpha_string = Chars.uppercase_alpha.random_string(10)
     @lowercase_alpha_string = Chars.lowercase_alpha.random_string(10)
     @alpha_string = Chars.alpha.random_string(10)
-    @alpha_numeric = Chars.alpha_numeric.random_string(10)
+    @alpha_numeric_string = Chars.alpha_numeric.random_string(10)
     @space_string = Chars.space.random_string(10)
     @punctuation_string = Chars.punctuation.random_string(10)
     @symbols_string = Chars.symbols.random_string(10)
@@ -22,50 +22,86 @@ describe Chars do
   end
 
   it "should provide a numeric CharSet" do
-    (@numeric_string =~ /[0-9]{10}/).should_not be_nil
+    @numeric_string.length.should == 10
+    @numeric_string.each_byte do |b|
+      Chars::NUMERIC.include?(b).should == true
+    end
   end
 
   it "should provide an octal CharSet" do
-    (@octal_string =~ /[0-7]{10}/).should_not be_nil
+    @octal_string.length.should == 10
+    @octal_string.each_byte do |b|
+      Chars::OCTAL.include?(b).should == true
+    end
   end
 
   it "should provide an upper-case hexadecimal CharSet" do
-    (@uppercase_hex_string =~ /[0-9A-F]{10}/).should_not be_nil
+    @uppercase_hex_string.length.should == 10
+    @uppercase_hex_string.each_byte do |b|
+      Chars::UPPERCASE_HEXADECIMAL.include?(b).should == true
+    end
   end
 
   it "should provide a lower-case hexadecimal CharSet" do
-    (@lowercase_hex_string =~ /[0-9a-f]{10}/).should_not be_nil
+    @lowercase_hex_string.length.should == 10
+    @lowercase_hex_string.each_byte do |b|
+      Chars::LOWERCASE_HEXADECIMAL.include?(b).should == true
+    end
   end
 
   it "should provide a hexadecimal CharSet" do
-    (@hex_string =~ /[0-9A-Fa-f]{10}/).should_not be_nil
+    @hex_string.length.should == 10
+    @hex_string.each_byte do |b|
+      Chars::HEXADECIMAL.include?(b).should == true
+    end
   end
 
   it "should provide an upper-case alpha CharSet" do
-    (@uppercase_alpha_string =~ /[A-Z]{10}/).should_not be_nil
+    @uppercase_alpha_string.length.should == 10
+    @uppercase_alpha_string.each_byte do |b|
+      Chars::UPPERCASE_ALPHA.include?(b).should == true
+    end
   end
 
   it "should provide a lower-case alpha CharSet" do
-    (@lowercase_alpha_string =~ /[a-z]{10}/).should_not be_nil
+    @lowercase_alpha_string.length.should == 10
+    @lowercase_alpha_string.each_byte do |b|
+      Chars::LOWERCASE_ALPHA.include?(b).should == true
+    end
   end
 
   it "should provide an alpha CharSet" do
-    (@alpha_string =~ /[A-Za-z]{10}/).should_not be_nil
+    @alpha_string.length.should == 10
+    @alpha_string.each_byte do |b|
+      Chars::ALPHA.include?(b).should == true
+    end
   end
 
   it "should provide an alpha-numeric CharSet" do
-    (@alpha_numeric_string =~ /[A-Za-z0-9]{10}/).should_not be_nil
+    @alpha_numeric_string.length.should == 10
+    @alpha_numeric_string.each_byte do |b|
+      Chars::ALPHA_NUMERIC.include?(b).should == true
+    end
   end
 
   it "should provide a space CharSet" do
-    (@space_string =~ /[ \f\n\r\t\v]{10}/).should_not be_nil
+    @space_string.length.should == 10
+    @space_string.each_byte do |b|
+      Chars::SPACE.include?(b).should == true
+    end
   end
 
   it "should provide a punctuation CharSet" do
-    (@punctuation_string =~ /[ \'\"\`\,\;\:\~\-\(\)\[\]\{\}\.\?\!]{10}/).should_not be_nil
+    @punctuation_string.length.should == 10
+    @punctuation_string.each_byte do |b|
+      Chars::PUNCTUATION.include?(b).should == true
+    end
   end
 
   it "should provide a symbols CharSet" do
-    (@symbols_string =~ /[\@\#\$\%\^\&\*\_\+\=\|\\\<\>\/]/).should_not be_nil
+    @symbols_string.length.should == 10
+    @symbols_string.each_byte do |b|
+      Chars::SYMBOLS.include?(b).should == true
+    end
   end
 end
