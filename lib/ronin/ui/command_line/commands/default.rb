@@ -38,15 +38,15 @@ module Ronin
               Database.config = uri.to_s
             end
 
-            opts.on('-r','--require LIB','require the specified library or path') do |lib|
+            opts.on('-r','--require LIB','Require the specified library or path') do |lib|
               Console.auto_load << lib.to_s
             end
 
-            opts.on('-v','--verbose','enables verbose output') do
+            opts.on('-v','--verbose','Enables verbose output') do
               UI::Verbose.enable!
             end
 
-            opts.on('-V','--version','print version information and exit') do
+            opts.on('-V','--version','Print version information and exit') do
               CommandLine.success do
                 puts "Ronin #{Ronin::VERSION}"
               end
