@@ -22,6 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
+require 'ronin/ui/verbose'
 require 'ronin/ui/console'
 require 'ronin/database'
 
@@ -39,6 +40,10 @@ module Ronin
 
             opts.on('-r','--require LIB','require the specified library or path') do |lib|
               Console.auto_load << lib.to_s
+            end
+
+            opts.on('-v','--verbose','enables verbose output') do
+              UI::Verbose.enable!
             end
 
             opts.on('-V','--version','print version information and exit') do
