@@ -21,38 +21,23 @@
 #++
 #
 
-require 'ronin/ui/verbose'
-
 module Ronin
   module UI
-    module Diagnostics
-      protected
-
-      #
-      # Prints the given _messages_ as info diagnostics.
-      #
-      def print_info(*messages)
-        if Verbose.enabled?
-          STDERR.puts(*(messages.map { |mesg| "[-] #{mesg}" }))
-        end
+    module Verbose
+      def Verbose.enable!
+        @@ronin_verbose = true
       end
 
-      #
-      # Prints the given _messages_ as warning diagnostics.
-      #
-      def print_warning(*messages)
-        if Verbose.enabled?
-          STDERR.puts(*(messages.map { |mesg| "[*] #{mesg}" }))
-        end
+      def Verbose.enabled?
+        (@@ronin_verbose ||= false) == true
       end
 
-      #
-      # Prints the given _messages_ as error diagnostics.
-      #
-      def print_error(*messages)
-        if Verbose.enabled?
-          STDERR.puts(*(messages.map { |mesg| "[!] #{mesg}" }))
-        end
+      def Verbose.disable!
+        @@ronin_verbose = false
+      end
+
+      def Verbose.disabled?
+        (@@ronin_verbose ||= false) == false
       end
     end
   end
