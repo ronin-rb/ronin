@@ -5,6 +5,7 @@ README.txt
 TODO.txt
 Rakefile
 bin/ronin
+bin/ronin-console
 lib/ronin.rb
 lib/ronin/config.rb
 lib/ronin/extensions.rb
@@ -140,7 +141,6 @@ lib/ronin/ui/command_line/exceptions/unknown_command.rb
 lib/ronin/ui/command_line/command.rb
 lib/ronin/ui/command_line/options.rb
 lib/ronin/ui/command_line/param_parser.rb
-lib/ronin/ui/command_line/commands.rb
 lib/ronin/ui/command_line/commands/default.rb
 lib/ronin/ui/command_line/commands/overlay.rb
 lib/ronin/ui/command_line/commands/extension.rb
