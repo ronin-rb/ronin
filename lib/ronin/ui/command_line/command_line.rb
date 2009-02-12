@@ -43,7 +43,7 @@ module Ronin
             next unless File.executable?(path)
             name = File.basename(path).gsub(/^ronin-/,'')
 
-            @@ronin_commands[name] = path
+            @@ronin_commands[name] ||= path
           end
         end
 
