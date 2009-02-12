@@ -35,7 +35,7 @@ module Ronin
         # Creates a new Command object.
         #
         def initialize(&block)
-          @name = $0
+          @name = File.basename($0)
 
           Options.new(@name) do |opts|
             define_options(opts)
