@@ -87,7 +87,7 @@ module Ronin
           begin
             exec(CommandLine.get_command(cmd),*argv)
           rescue UnknownCommand => e
-            STDERR.puts excp
+            STDERR.puts e
             exit -1
           end
         end
