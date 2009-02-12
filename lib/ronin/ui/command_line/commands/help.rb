@@ -22,6 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
+require 'ronin/ui/command_line/command_line'
 
 module Ronin
   module UI
