@@ -22,8 +22,6 @@
 #
 
 require 'ronin/ui/command_line/options'
-require 'ronin/ui/command_line/command_line'
-require 'ronin/extensions/meta'
 
 module Ronin
   module UI
@@ -36,33 +34,14 @@ module Ronin
         #
         # Creates a new Command object.
         #
-        def initialize
-          Options.command('ronin',self.class.command_name) do |opts|
+        def initialize(name)
+          @name = name.to_s
+
+          Options.command('ronin',@name) do |opts|
             define_options(opts)
 
             @options = opts
           end
-        end
-
-        #
-        # Returns the name of the command.
-        #
-        def self.command_name
-          nil
-        end
-
-        #
-        # Returns the short names of the command.
-        #
-        def self.command_short_names
-          []
-        end
-
-        #
-        # Returns all the names of the command.
-        #
-        def self.command_names
-          ([self.command_name] + self.command_short_names).compact
         end
 
         #
@@ -94,57 +73,37 @@ module Ronin
         # Returns the String form of the command.
         #
         def to_s
-          names.join(', ')
+          @name.to_s
         end
 
         protected
 
         #
-        # Registers the command with the specified _name_ and the given
-        # _short_names_.
-        #
-        def self.command(name,*short_names)
-          name = name.to_s
-          short_names = short_names.map { |short_name| short_name.to_s }
-
-          meta_def(:command_name) { name }
-          meta_def(:command_short_names) { short_names }
-
-          unless CommandLine.commands.include?(self)
-            # register the command
-            CommandLine.commands << self
-          end
-
-          # register the command by name
-          CommandLine.commands_by_name[name] = self
-
-          # register the command by it's short_names
-          short_names.each do |short_name|
-            CommandLine.commands_by_name[short_name] = self
-          end
-
-          return self
-        end
-
-        #
-        # See CommandLine.error.
+        # Prints the specified error _message_.
         #
         def error(message)
-          CommandLine.error("#{self.class.command_name}: #{message}")
+          STDERR.puts "ronin: #{@name}: #{message}"
+          return false
         end
 
         #
-        # See CommandLine.success.
+        # Calls the specified _block_, then exists with the status code of 0.
         #
         def success(&block)
-          CommandLine.success(&block)
+          block.call
+          exit 0
         end
 
         #
-        # See CommandLine.fail.
+        # Prints the given error _message_ and exits unseccessfully from the
+        # command-line utility. If a _block_ is given, it will be called before
+        # any error _message_ are printed.
         #
         def fail(message,&block)
-          CommandLine.fail("#{self.class.command_name}: #{message}",&block)
+          block.call() if block
+
+          error(message)
+          exit -1
         end
 
         #
