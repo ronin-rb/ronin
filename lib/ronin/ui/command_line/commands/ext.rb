@@ -31,39 +31,41 @@ require 'erb'
 module Ronin
   module UI
     module CommandLine
-      class ExtCommand < Command
+      module Commands
+        class Ext < Command
 
-        def initialize(name)
-          @uses = []
+          def initialize(name)
+            @uses = []
 
-          super(name)
-        end
-
-        def define_options(opts)
-          opts.usage = 'PATH [...]'
-
-          opts.arguments(
-            'PATH' => 'The PATH of the Extension to be created'
-          )
-
-          opts.summary('Create an empty Extension at the specified PATH')
-        end
-
-        def arguments(*args)
-          args.each do |path|
-            path = File.expand_path(path)
-            extension_path = File.join(path,Platform::Extension::EXTENSION_FILE)
-            lib_dir = File.join(path,Platform::Extension::LIB_DIR)
-            template_path = File.join(Config::STATIC_DIR,'extension.rb')
-
-            FileUtils.mkdir_p(path)
-            FileUtils.mkdir_p(lib_dir)
-            FileUtils.touch(File.join(lib_dir,File.basename(path) + '.rb'))
-            FileUtils.mkdir_p(File.join(lib_dir,File.basename(path)))
-            FileUtils.cp(template_path,extension_path)
+            super(name)
           end
-        end
 
+          def define_options(opts)
+            opts.usage = 'PATH [...]'
+
+            opts.arguments(
+              'PATH' => 'The PATH of the Extension to be created'
+            )
+
+            opts.summary('Create an empty Extension at the specified PATH')
+          end
+
+          def arguments(*args)
+            args.each do |path|
+              path = File.expand_path(path)
+              extension_path = File.join(path,Platform::Extension::EXTENSION_FILE)
+              lib_dir = File.join(path,Platform::Extension::LIB_DIR)
+              template_path = File.join(Config::STATIC_DIR,'extension.rb')
+
+              FileUtils.mkdir_p(path)
+              FileUtils.mkdir_p(lib_dir)
+              FileUtils.touch(File.join(lib_dir,File.basename(path) + '.rb'))
+              FileUtils.mkdir_p(File.join(lib_dir,File.basename(path)))
+              FileUtils.cp(template_path,extension_path)
+            end
+          end
+
+        end
       end
     end
   end

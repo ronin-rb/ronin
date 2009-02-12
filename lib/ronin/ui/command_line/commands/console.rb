@@ -29,40 +29,42 @@ require 'ronin/database'
 module Ronin
   module UI
     module CommandLine
-      class ConsoleCommand < Command
+      module Commands
+        class Console < Command
 
-        def define_options(opts)
-          opts.usage = '<command> [options]'
-          opts.options do
-            opts.on('-d','--database URI','The URI for the Database') do |uri|
-              Database.config = uri.to_s
-            end
+          def define_options(opts)
+            opts.usage = '<command> [options]'
+            opts.options do
+              opts.on('-d','--database URI','The URI for the Database') do |uri|
+                Database.config = uri.to_s
+              end
 
-            opts.on('-r','--require LIB','Require the specified library or path') do |lib|
-              Console.auto_load << lib.to_s
-            end
+              opts.on('-r','--require LIB','Require the specified library or path') do |lib|
+                UI::Console.auto_load << lib.to_s
+              end
 
-            opts.on('-v','--verbose','Enables verbose output') do
-              UI::Verbose.enable!
-            end
+              opts.on('-v','--verbose','Enables verbose output') do
+                UI::Verbose.enable!
+              end
 
-            opts.on('-V','--version','Print version information and exit') do
-              success do
-                puts "Ronin #{Ronin::VERSION}"
+              opts.on('-V','--version','Print version information and exit') do
+                success do
+                  puts "Ronin #{Ronin::VERSION}"
+                end
               end
             end
-          end
 
-          opts.summary %{
+            opts.summary %{
             Ronin is a Ruby development platform designed for information security
             and data exploration tasks.
-          }
-        end
+            }
+          end
 
-        def arguments(*args)
-          Console.start
-        end
+          def arguments(*args)
+            UI::Console.start
+          end
 
+        end
       end
     end
   end

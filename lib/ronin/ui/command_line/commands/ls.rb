@@ -27,93 +27,95 @@ require 'ronin/platform/overlay'
 module Ronin
   module UI
     module CommandLine
-      class ListCommand < Command
+      module Commands
+        class LS < Command
 
-        def initialize(name)
-          @cache = nil
-          @verbose = false
+          def initialize(name)
+            @cache = nil
+            @verbose = false
 
-          super(name)
-        end
-
-        def define_options(opts)
-          opts.usage = '[NAME ...] [options]'
-
-          opts.options do
-            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
-              @cache = dir
-            end
-
-            opts.on('-v','--verbose','Enable verbose output') do
-              @verbose = true
-            end
+            super(name)
           end
 
-          opts.arguments(
-            'NAME' => 'Overlay to display'
-          )
+          def define_options(opts)
+            opts.usage = '[NAME ...] [options]'
 
-          opts.summary('Display all or the specified repositories within the Overlay cache')
-        end
+            opts.options do
+              opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+                @cache = dir
+              end
 
-        def arguments(*args)
-          Platform.load_overlays(@cache) if @cache
-
-          if args.empty?
-            # list all overlays by name
-            Platform.overlays.each_overlay do |overlay|
-              puts "  #{overlay}"
+              opts.on('-v','--verbose','Enable verbose output') do
+                @verbose = true
+              end
             end
 
-            return
+            opts.arguments(
+              'NAME' => 'Overlay to display'
+            )
+
+            opts.summary('Display all or the specified repositories within the Overlay cache')
           end
 
-          # list specified overlays
-          args.each do |name|
-            overlay = Platform.overlays.get(name)
+          def arguments(*args)
+            Platform.load_overlays(@cache) if @cache
 
-            puts "[ #{overlay.name} ]\n\n"
-
-            puts "  Path: #{overlay.path}"
-            puts "  Media: #{overlay.media}" if overlay.media
-            puts "  URI: #{overlay.uri}" if overlay.uri
-
-            if @verbose
-              putc "\n"
-
-              if overlay.title
-                puts "  Title: #{overlay.title}"
+            if args.empty?
+              # list all overlays by name
+              Platform.overlays.each_overlay do |overlay|
+                puts "  #{overlay}"
               end
 
-              if overlay.source
-                puts "  Source URI: #{overlay.source}"
-              end
+              return
+            end
 
-              if overlay.source_view
-                puts "  Source View: #{overlay.source_view}"
-              end
+            # list specified overlays
+            args.each do |name|
+              overlay = Platform.overlays.get(name)
 
-              if overlay.website
-                puts "  Website: #{overlay.website}"
-              end
+              puts "[ #{overlay.name} ]\n\n"
 
-              unless overlay.extensions.empty?
-                puts "  Extensions:\n\n"
-                overlay.extensions.each { |ext| puts "    #{ext}" }
+              puts "  Path: #{overlay.path}"
+              puts "  Media: #{overlay.media}" if overlay.media
+              puts "  URI: #{overlay.uri}" if overlay.uri
+
+              if @verbose
                 putc "\n"
-              end
 
-              if overlay.description
-                puts "  Description:\n\n    #{overlay.description}\n\n"
+                if overlay.title
+                  puts "  Title: #{overlay.title}"
+                end
+
+                if overlay.source
+                  puts "  Source URI: #{overlay.source}"
+                end
+
+                if overlay.source_view
+                  puts "  Source View: #{overlay.source_view}"
+                end
+
+                if overlay.website
+                  puts "  Website: #{overlay.website}"
+                end
+
+                unless overlay.extensions.empty?
+                  puts "  Extensions:\n\n"
+                  overlay.extensions.each { |ext| puts "    #{ext}" }
+                  putc "\n"
+                end
+
+                if overlay.description
+                  puts "  Description:\n\n    #{overlay.description}\n\n"
+                else
+                  putc "\n"
+                end
               else
                 putc "\n"
               end
-            else
-              putc "\n"
             end
           end
-        end
 
+        end
       end
     end
   end

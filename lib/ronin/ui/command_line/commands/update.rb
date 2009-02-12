@@ -27,45 +27,47 @@ require 'ronin/platform/overlay'
 module Ronin
   module UI
     module CommandLine
-      class UpdateCommand < Command
+      module Commands
+        class Update < Command
 
-        def initialize(name)
-          @cache = nil
-          @verbose = false
+          def initialize(name)
+            @cache = nil
+            @verbose = false
 
-          super(name)
-        end
+            super(name)
+          end
 
-        def define_options(opts)
-          opts.usage = '[NAME ...] [options]'
+          def define_options(opts)
+            opts.usage = '[NAME ...] [options]'
 
-          opts.options do
-            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
-              @cache = dir
+            opts.options do
+              opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+                @cache = dir
+              end
+
+              opts.on('-v','--verbose','Enable verbose output') do
+                @verbose = true
+              end
             end
 
-            opts.on('-v','--verbose','Enable verbose output') do
-              @verbose = true
+            opts.arguments(
+              'NAME' => 'The overlay to update'
+            )
+
+            opts.summary('Updates all or the specified repositories')
+          end
+
+          def arguments(*args)
+            Platform.load_overlays(@cache) if @cache
+
+            if args.empty?
+              Platform.overlays.each_overlay { |overlay| overlay.update }
+            else
+              args.each { |name| Platform.overlays.update(name) }
             end
           end
 
-          opts.arguments(
-            'NAME' => 'The overlay to update'
-          )
-
-          opts.summary('Updates all or the specified repositories')
         end
-
-        def arguments(*args)
-          Platform.load_overlays(@cache) if @cache
-
-          if args.empty?
-            Platform.overlays.each_overlay { |overlay| overlay.update }
-          else
-            args.each { |name| Platform.overlays.update(name) }
-          end
-        end
-
       end
     end
   end

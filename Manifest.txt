@@ -14,6 +14,7 @@ bin/ronin-ls
 bin/ronin-overlay
 bin/ronin-rm
 bin/ronin-uninstall
+bin/ronin-update
 lib/ronin.rb
 lib/ronin/config.rb
 lib/ronin/extensions.rb
@@ -155,7 +156,7 @@ lib/ronin/ui/command_line/commands/ext.rb
 lib/ronin/ui/command_line/commands/add.rb
 lib/ronin/ui/command_line/commands/install.rb
 lib/ronin/ui/command_line/commands/ls.rb
-lib/ronin/ui/command_line/commands/up.rb
+lib/ronin/ui/command_line/commands/update.rb
 lib/ronin/ui/command_line/commands/rm.rb
 lib/ronin/ui/command_line/commands/uninstall.rb
 lib/ronin/ui/command_line/commands/help.rb

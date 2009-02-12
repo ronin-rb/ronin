@@ -27,49 +27,51 @@ require 'ronin/platform/overlay'
 module Ronin
   module UI
     module CommandLine
-      class InstallCommand < Command
+      module Commands
+        class Install < Command
 
-        def initialize(name)
-          @cache = nil
-          @media = nil
+          def initialize(name)
+            @cache = nil
+            @media = nil
 
-          super(name)
-        end
+            super(name)
+          end
 
-        def define_options(opts)
-          opts.usage = 'URI [options]'
+          def define_options(opts)
+            opts.usage = 'URI [options]'
 
-          opts.options do
-            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
-              @cache = dir
+            opts.options do
+              opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+                @cache = dir
+              end
+
+              opts.on('-m','--media [MEDIA]','Spedify the media-type of the overlay') do |media|
+                @media = media
+              end
             end
 
-            opts.on('-m','--media [MEDIA]','Spedify the media-type of the overlay') do |media|
-              @media = media
+            opts.arguments(
+              'URI' => 'The URI of the overlay to install'
+            )
+
+            opts.summary('Installs the overlay located at the specified URI')
+          end
+
+          def arguments(args)
+            unless args.length == 1
+              fail('only one overlay URI maybe specified')
+            end
+
+            uri = args.first
+
+            Platform.load_overlays(@cache) if @cache
+
+            Platform.install(:uri => uri, :media => @media) do |overlay|
+              puts "Overlay #{overlay.name.dump} has been installed."
             end
           end
 
-          opts.arguments(
-            'URI' => 'The URI of the overlay to install'
-          )
-
-          opts.summary('Installs the overlay located at the specified URI')
         end
-
-        def arguments(args)
-          unless args.length == 1
-            fail('only one overlay URI maybe specified')
-          end
-
-          uri = args.first
-
-          Platform.load_overlays(@cache) if @cache
-
-          Platform.install(:uri => uri, :media => @media) do |overlay|
-            puts "Overlay #{overlay.name.dump} has been installed."
-          end
-        end
-
       end
     end
   end

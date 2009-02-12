@@ -27,45 +27,47 @@ require 'ronin/platform/overlay'
 module Ronin
   module UI
     module CommandLine
-      class UninstallCommand < Command
+      module Commands
+        class Uninstall < Command
 
-        def initialize(name)
-          @cache = nil
-          @verbose = false
+          def initialize(name)
+            @cache = nil
+            @verbose = false
 
-          super(name)
-        end
+            super(name)
+          end
 
-        def define_options(opts)
-          opts.usage = 'NAME [NAME ...] [options]'
+          def define_options(opts)
+            opts.usage = 'NAME [NAME ...] [options]'
 
-          opts.options do
-            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
-              @cache = dir
+            opts.options do
+              opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+                @cache = dir
+              end
+
+              opts.on('-v','--verbose','Enable verbose output') do
+                @verbose = true
+              end
             end
 
-            opts.on('-v','--verbose','Enable verbose output') do
-              @verbose = true
+            opts.arguments(
+              'NAME' => 'The overlay to uninstall'
+            )
+
+            opts.summary('Uninstall the specified repositories')
+          end
+
+          def arguments(*args)
+            Platform.load_overlays(@cache) if @cache
+
+            args.each do |name|
+              Platform.uninstall(name) do |overlay|
+                puts "Uninstalling #{overlay.name.dump} ..."
+              end
             end
           end
 
-          opts.arguments(
-            'NAME' => 'The overlay to uninstall'
-          )
-
-          opts.summary('Uninstall the specified repositories')
         end
-
-        def arguments(*args)
-          Platform.load_overlays(@cache) if @cache
-
-          args.each do |name|
-            Platform.uninstall(name) do |overlay|
-              puts "Uninstalling #{overlay.name.dump} ..."
-            end
-          end
-        end
-
       end
     end
   end

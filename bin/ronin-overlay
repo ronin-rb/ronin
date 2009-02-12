@@ -9,4 +9,4 @@ end
 
 require 'ronin/ui/command_line/commands/overlay'
 
-Ronin::UI::CommandLine::OverlayCommand.run(*ARGV)
+Ronin::UI::CommandLine::Commands::Overlay.run(*ARGV)
