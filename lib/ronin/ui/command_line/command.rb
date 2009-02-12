@@ -28,6 +28,9 @@ module Ronin
     module CommandLine
       class Command
 
+        # The name of the command
+        attr_reader :name
+
         # The options for the command
         attr_reader :options
 
