@@ -37,8 +37,8 @@ module Ronin
         #
         # Creates a new Command object.
         #
-        def initialize(&block)
-          @name = File.basename($0)
+        def initialize(name,&block)
+          @name = name.to_s
 
           Options.new(@name) do |opts|
             define_options(opts)
@@ -53,7 +53,7 @@ module Ronin
         # Creates a new command object and runs it with the given _args_.
         #
         def self.run(*args)
-          cmd = self.new
+          cmd = self.new(File.basename($0))
 
           begin
             cmd.arguments(*(cmd.options.parse(args)))
