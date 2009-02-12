@@ -79,7 +79,7 @@ module Ronin
       #
       def CommandLine.run(*argv)
         if (argv.empty? || argv[0][0..0]=='-')
-          ConsoleCommand.run(*argv)
+          Commands::Console.run(*argv)
         else
           cmd = argv.first
           argv = argv[1..-1]
