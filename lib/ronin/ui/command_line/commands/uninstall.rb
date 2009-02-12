@@ -29,13 +29,11 @@ module Ronin
     module CommandLine
       class UninstallCommand < Command
 
-        command :uninstall
-
         def initialize
           @cache = nil
           @verbose = false
 
-          super
+          super()
         end
 
         def define_options(opts)

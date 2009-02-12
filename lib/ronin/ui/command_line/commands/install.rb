@@ -29,13 +29,11 @@ module Ronin
     module CommandLine
       class InstallCommand < Command
 
-        command :install
-
         def initialize
           @cache = nil
           @media = nil
 
-          super
+          super()
         end
 
         def define_options(opts)

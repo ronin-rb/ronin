@@ -27,19 +27,17 @@ require 'ronin/platform/overlay'
 module Ronin
   module UI
     module CommandLine
-      class RemoveCommand < Command
-
-        command :remove, :rm
+      class UpdateCommand < Command
 
         def initialize
           @cache = nil
           @verbose = false
 
-          super
+          super()
         end
 
         def define_options(opts)
-          opts.usage = 'NAME [...] [options]'
+          opts.usage = '[NAME ...] [options]'
 
           opts.options do
             opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
@@ -52,19 +50,19 @@ module Ronin
           end
 
           opts.arguments(
-            'NAME' => 'The overlay to remove'
+            'NAME' => 'The overlay to update'
           )
 
-          opts.summary('Remove the specified repositories')
+          opts.summary('Updates all or the specified repositories')
         end
 
         def arguments(*args)
           Platform.load_overlays(@cache) if @cache
 
-          args.each do |name|
-            Platform.remove(name) do |overlay|
-              puts "Removing #{overlay.name.dump} ..."
-            end
+          if args.empty?
+            Platform.overlays.each_overlay { |overlay| overlay.update }
+          else
+            args.each { |name| Platform.overlays.update(name) }
           end
         end
 

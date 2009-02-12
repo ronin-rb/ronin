@@ -22,49 +22,45 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/platform/overlay'
+require 'ronin/platform/extension'
+require 'ronin/config'
+
+require 'fileutils'
+require 'erb'
 
 module Ronin
   module UI
     module CommandLine
-      class UpdateCommand < Command
-
-        command :update, :up
+      class ExtCommand < Command
 
         def initialize
-          @cache = nil
-          @verbose = false
+          @uses = []
 
-          super
+          super()
         end
 
         def define_options(opts)
-          opts.usage = '[NAME ...] [options]'
-
-          opts.options do
-            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
-              @cache = dir
-            end
-
-            opts.on('-v','--verbose','Enable verbose output') do
-              @verbose = true
-            end
-          end
+          opts.usage = 'PATH [...]'
 
           opts.arguments(
-            'NAME' => 'The overlay to update'
+            'PATH' => 'The PATH of the Extension to be created'
           )
 
-          opts.summary('Updates all or the specified repositories')
+          opts.summary('Create an empty Extension at the specified PATH')
         end
 
         def arguments(*args)
-          Platform.load_overlays(@cache) if @cache
+          args.each do |path|
+            path = File.expand_path(path)
+            extension_path = File.join(path,Platform::Extension::EXTENSION_FILE)
+            lib_dir = File.join(path,Platform::Extension::LIB_DIR)
+            template_path = File.join(Config::STATIC_DIR,'extension.rb')
 
-          if args.empty?
-            Platform.overlays.each_overlay { |overlay| overlay.update }
-          else
-            args.each { |name| Platform.overlays.update(name) }
+            FileUtils.mkdir_p(path)
+            FileUtils.mkdir_p(lib_dir)
+            FileUtils.touch(File.join(lib_dir,File.basename(path) + '.rb'))
+            FileUtils.mkdir_p(File.join(lib_dir,File.basename(path)))
+            FileUtils.cp(template_path,extension_path)
           end
         end
 

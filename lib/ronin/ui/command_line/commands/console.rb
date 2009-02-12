@@ -29,7 +29,7 @@ require 'ronin/database'
 module Ronin
   module UI
     module CommandLine
-      class DefaultCommand < Command
+      class ConsoleCommand < Command
 
         def define_options(opts)
           opts.usage = '<command> [options]'
@@ -47,7 +47,7 @@ module Ronin
             end
 
             opts.on('-V','--version','Print version information and exit') do
-              CommandLine.success do
+              success do
                 puts "Ronin #{Ronin::VERSION}"
               end
             end

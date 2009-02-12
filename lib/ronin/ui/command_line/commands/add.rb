@@ -29,14 +29,12 @@ module Ronin
     module CommandLine
       class AddCommand < Command
 
-        command :add
-
         def initialize
           @cache = nil
           @media = nil
           @uri = nil
 
-          super
+          super()
         end
 
         def define_options(opts)

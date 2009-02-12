@@ -29,13 +29,11 @@ module Ronin
     module CommandLine
       class ListCommand < Command
 
-        command :list, :ls
-
         def initialize
           @cache = nil
           @verbose = false
 
-          super
+          super()
         end
 
         def define_options(opts)

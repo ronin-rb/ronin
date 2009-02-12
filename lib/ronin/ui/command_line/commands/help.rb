@@ -28,8 +28,6 @@ module Ronin
     module CommandLine
       class HelpCommand < Command
 
-        command :help
-
         def define_options(opts)
           opts.usage = '[COMMAND]'
 
@@ -48,19 +46,13 @@ module Ronin
           topic = args.first
 
           if topic
-            begin
-              CommandLine.get_command(topic).help
-            rescue UnknownCommand => exp
-              CommandLine.fail(exp)
-            end
+            CommandLine.run(topic,'--help')
           else
             puts 'Available commands:'
 
-            CommandLine.commands.sort_by { |cmd|
-              cmd.command_names.first
-            }.each { |cmd|
-              puts "  #{cmd.command_names.join(', ')}"
-            }
+            CommandLine.commands.keys.sort.each do |name|
+              puts "  #{name}"
+            end
           end
         end
 

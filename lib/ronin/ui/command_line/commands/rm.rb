@@ -22,47 +22,47 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/platform/extension'
-require 'ronin/config'
-
-require 'fileutils'
-require 'erb'
+require 'ronin/platform/overlay'
 
 module Ronin
   module UI
     module CommandLine
-      class ExtensionCommand < Command
-
-        command :extension, :ext
+      class RemoveCommand < Command
 
         def initialize
-          @uses = []
+          @cache = nil
+          @verbose = false
 
-          super
+          super()
         end
 
         def define_options(opts)
-          opts.usage = 'PATH [...]'
+          opts.usage = 'NAME [...] [options]'
+
+          opts.options do
+            opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
+              @cache = dir
+            end
+
+            opts.on('-v','--verbose','Enable verbose output') do
+              @verbose = true
+            end
+          end
 
           opts.arguments(
-            'PATH' => 'The PATH of the Extension to be created'
+            'NAME' => 'The overlay to remove'
           )
 
-          opts.summary('Create an empty Extension at the specified PATH')
+          opts.summary('Remove the specified repositories')
         end
 
         def arguments(*args)
-          args.each do |path|
-            path = File.expand_path(path)
-            extension_path = File.join(path,Platform::Extension::EXTENSION_FILE)
-            lib_dir = File.join(path,Platform::Extension::LIB_DIR)
-            template_path = File.join(Config::STATIC_DIR,'extension.rb')
+          Platform.load_overlays(@cache) if @cache
 
-            FileUtils.mkdir_p(path)
-            FileUtils.mkdir_p(lib_dir)
-            FileUtils.touch(File.join(lib_dir,File.basename(path) + '.rb'))
-            FileUtils.mkdir_p(File.join(lib_dir,File.basename(path)))
-            FileUtils.cp(template_path,extension_path)
+          args.each do |name|
+            Platform.remove(name) do |overlay|
+              puts "Removing #{overlay.name.dump} ..."
+            end
           end
         end
 
