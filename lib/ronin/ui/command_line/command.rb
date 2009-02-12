@@ -48,9 +48,14 @@ module Ronin
         # Creates a new command object and runs it with the given _args_.
         #
         def self.run(*args)
-          cmd = self.new
+          cmd = self.new.run
 
-          cmd.arguments(*(cmd.options.parse(args)))
+          begin
+            cmd.arguments(*(cmd.options.parse(args)))
+          rescue OptionParser::MissingArgument, OptionParser::InvalidOption => e
+            cmd.fail(e)
+          end
+
           return nil
         end
 
