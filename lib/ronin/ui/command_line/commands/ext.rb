@@ -33,10 +33,10 @@ module Ronin
     module CommandLine
       class ExtCommand < Command
 
-        def initialize
+        def initialize(name)
           @uses = []
 
-          super()
+          super(name)
         end
 
         def define_options(opts)

@@ -35,9 +35,7 @@ module Ronin
 
         include REXML
 
-        command :overlay
-
-        def initialize
+        def initialize(name)
           @title = nil
           @source = nil
           @source_view = nil
@@ -46,7 +44,7 @@ module Ronin
           @maintainers = []
           @description = nil
 
-          super
+          super(name)
         end
 
         def define_options(opts)

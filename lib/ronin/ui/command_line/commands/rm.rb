@@ -29,11 +29,11 @@ module Ronin
     module CommandLine
       class RemoveCommand < Command
 
-        def initialize
+        def initialize(name)
           @cache = nil
           @verbose = false
 
-          super()
+          super(name)
         end
 
         def define_options(opts)
