@@ -50,7 +50,7 @@ module Ronin
         # Creates a new command object and runs it with the given _args_.
         #
         def self.run(*args)
-          cmd = self.new.run
+          cmd = self.new
 
           begin
             cmd.arguments(*(cmd.options.parse(args)))
