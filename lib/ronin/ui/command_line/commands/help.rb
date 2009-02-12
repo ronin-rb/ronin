@@ -37,7 +37,10 @@ module Ronin
               'COMMAND' => 'The command to view'
             )
 
-            opts.summary('View a list of supported commands or information on a specific command')
+            opts.summary %{
+              View a list of supported commands or information on a
+              specific command
+            }
           end
 
           def arguments(*args)

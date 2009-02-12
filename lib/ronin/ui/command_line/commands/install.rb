@@ -54,7 +54,9 @@ module Ronin
               'URI' => 'The URI of the overlay to install'
             )
 
-            opts.summary('Installs the overlay located at the specified URI')
+            opts.summary %{
+              Installs the overlay located at the specified URI
+            }
           end
 
           def arguments(args)

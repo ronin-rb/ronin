@@ -55,8 +55,8 @@ module Ronin
             end
 
             opts.summary %{
-            Ronin is a Ruby development platform designed for information security
-            and data exploration tasks.
+              Ronin is a Ruby development platform designed for information
+              security and data exploration tasks.
             }
           end
 

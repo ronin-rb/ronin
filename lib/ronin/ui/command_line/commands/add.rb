@@ -63,7 +63,10 @@ module Ronin
               'PATH' => 'Add the overlay located at the specified PATH'
             )
 
-            opts.summary('Add a local overlay located at the specified PATH to the Overlay cache')
+            opts.summary %{
+              Add a local overlay located at the specified PATH to the
+              Overlay cache
+            }
           end
 
           def arguments(*args)

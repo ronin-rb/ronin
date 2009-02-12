@@ -54,7 +54,10 @@ module Ronin
               'NAME' => 'Overlay to display'
             )
 
-            opts.summary('Display all or the specified repositories within the Overlay cache')
+            opts.summary %{
+              Display all or the specified repositories within the Overlay
+              cache
+            }
           end
 
           def arguments(*args)
