@@ -21,10 +21,11 @@
 #++
 #
 
-require 'ronin/ui/command_line/commands/default'
 require 'ronin/ui/command_line/exceptions/unknown_command'
+require 'ronin/ui/command_line/commands/default'
 require 'ronin/ui/console'
-require 'ronin/version'
+
+require 'reverse_require'
 
 module Ronin
   module UI
@@ -33,15 +34,20 @@ module Ronin
       # Returns the commands registered with the command-line utility.
       #
       def CommandLine.commands
-        @@ronin_commands ||= []
-      end
+        unless class_variable_defined?('@@ronin_commands')
+          paths = Gem.find_resources_for('ronin','bin/ronin-*')
+          
+          @@ronin_commands = {}
+            
+          paths.each do |path|
+            next unless File.executable?(path)
+            name = File.basename(path).gsub(/^ronin-/,'')
 
-      #
-      # Returns the Hash of the Command names and their Command objects
-      # registered with the command-line utility.
-      #
-      def CommandLine.commands_by_name
-        @@ronin_commands_by_name ||= {}
+            @@ronin_commands[name] = path
+          end
+        end
+
+        return @@ronin_commands
       end
 
       #
@@ -49,7 +55,7 @@ module Ronin
       # registered with the command-line utility.
       #
       def CommandLine.has_command?(name)
-        CommandLine.commands_by_name.has_key?(name.to_s)
+        CommandLine.commands.has_key?(name.to_s)
       end
 
       #
@@ -63,7 +69,7 @@ module Ronin
           raise(UnknownCommand,"unknown command #{name.dump}",caller)
         end
 
-        return CommandLine.commands_by_name[name]
+        return CommandLine.commands[name]
       end
 
       #
@@ -92,26 +98,18 @@ module Ronin
       # attempt to find and execute the Command with the same name.
       #
       def CommandLine.run(*argv)
-        begin
-          if (argv.empty? || argv[0][0..0]=='-')
-            DefaultCommand.run(*argv)
-          else
-            cmd = argv.first
-            argv = argv[1..-1]
+        if (argv.empty? || argv[0][0..0]=='-')
+          DefaultCommand.run(*argv)
+        else
+          cmd = argv.first
+          argv = argv[1..-1]
 
-            if CommandLine.has_command?(cmd)
-              begin
-                CommandLine.commands_by_name[cmd].run(*argv)
-              rescue => excp
-                STDERR.puts excp
-                exit -1
-              end
-            else
-              CommandLine.fail("unknown command #{cmd.dump}")
-            end
+          begin
+            exec(CommandLine.get_command(cmd),*argv)
+          rescue UnknownCommand => e
+            STDERR.puts excp
+            exit -1
           end
-        rescue OptionParser::MissingArgument, OptionParser::InvalidOption => e
-          CommandLine.fail(e)
         end
 
         return true
