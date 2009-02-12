@@ -106,11 +106,11 @@ of Ronin.
 
 * Update all installed Overlays:
 
-    $ ronin up
+    $ ronin update
 
 * Update a specific Overlay:
 
-    $ ronin up overlay-name
+    $ ronin update overlay-name
 
 * Uninstall an Overlay:
 
