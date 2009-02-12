@@ -73,26 +73,6 @@ module Ronin
       end
 
       #
-      # Prints the specified error _message_.
-      #
-      def CommandLine.error(message)
-        STDERR.puts "ronin: #{message}"
-        return false
-      end
-
-      #
-      # Prints the given error _message_ and exits unseccessfully from the
-      # command-line utility. If a _block_ is given, it will be called before
-      # any error _message_ are printed.
-      #
-      def CommandLine.fail(message,&block)
-        block.call(self) if block
-
-        CommandLine.error(message)
-        exit -1
-      end
-
-      #
       # Runs the command-line utility with the given _argv_ Array. If the
       # first argument is a sub-command name, the command-line utility will
       # attempt to find and execute the Command with the same name.
