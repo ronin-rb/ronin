@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/exceptions/unknown_command'
-require 'ronin/ui/command_line/commands/default'
+require 'ronin/ui/command_line/commands/console'
 require 'ronin/ui/console'
 
 require 'reverse_require'
@@ -79,7 +79,7 @@ module Ronin
       #
       def CommandLine.run(*argv)
         if (argv.empty? || argv[0][0..0]=='-')
-          DefaultCommand.run(*argv)
+          ConsoleCommand.run(*argv)
         else
           cmd = argv.first
           argv = argv[1..-1]
