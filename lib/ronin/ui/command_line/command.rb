@@ -34,14 +34,16 @@ module Ronin
         #
         # Creates a new Command object.
         #
-        def initialize(name)
-          @name = name.to_s
+        def initialize(&block)
+          @name = $0
 
-          Options.command('ronin',@name) do |opts|
+          Options.new(@name) do |opts|
             define_options(opts)
 
             @options = opts
           end
+
+          block.call(self) if block
         end
 
         #
