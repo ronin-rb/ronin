@@ -6,6 +6,14 @@ TODO.txt
 Rakefile
 bin/ronin
 bin/ronin-add
+bin/ronin-console
+bin/ronin-ext
+bin/ronin-help
+bin/ronin-install
+bin/ronin-ls
+bin/ronin-overlay
+bin/ronin-rm
+bin/ronin-uninstall
 lib/ronin.rb
 lib/ronin/config.rb
 lib/ronin/extensions.rb
