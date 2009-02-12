@@ -56,7 +56,7 @@ module Ronin
             cmd.fail(e)
           end
 
-          return nil
+          return true
         end
 
         #
