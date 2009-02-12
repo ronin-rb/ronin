@@ -88,6 +88,7 @@ module Ronin
         # configure the irb workspace
         irb.context.main.instance_eval do
           require 'ronin/environment'
+          require 'ronin/platform'
 
           Ronin::UI::Console.auto_load.each do |path|
             require path
