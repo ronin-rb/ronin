@@ -40,18 +40,6 @@ module Ronin
         end
 
         #
-        # Creates a new Options object for a Command with the specified
-        # _program_ name and the given command _name_. If a _block_ is
-        # given, it will be passed the newly created Options object.
-        #
-        def Options.command(program,name=nil,&block)
-          program = program.to_s
-          program << " #{name}" if name
-
-          return Options.new(program,&block)
-        end
-
-        #
         # Sets the example usage for the options to the specified _example_.
         #
         def usage=(example)
