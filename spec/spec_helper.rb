@@ -9,4 +9,4 @@ include Ronin
 
 require 'helpers'
 
-Database.setup({ :adapter => 'sqlite3', :database => ':memory:' })
+Database.setup(:adapter => 'sqlite3', :database => ':memory:')
