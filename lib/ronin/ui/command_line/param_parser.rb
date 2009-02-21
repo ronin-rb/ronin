@@ -68,6 +68,14 @@ module Ronin
 
           @params[name.to_sym] = value
         end
+
+        #
+        # Returns a method reference to the parse_param method.
+        #
+        def param_parser
+          method(:parse_param)
+        end
+
       end
     end
   end
