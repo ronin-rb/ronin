@@ -76,7 +76,7 @@ module Ronin
 
             Platform.load_overlays(@cache) if @cache
 
-            overlay_options = {:path => path.first}
+            overlay_options = {:path => args.first}
 
             overlay_options[:media] = @media if @media
             overlay_options[:uri] = @uri if @uri
