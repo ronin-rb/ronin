@@ -27,16 +27,6 @@ module Ronin
   module UI
     module CommandLine
       module ParamParser
-        # Hash of format patterns and their parsers
-        FORMATS = {
-          /^0x[0-9a-fA-F]+$/ => lambda { |value| value.hex },
-          /^[0-9]+$/ => lambda { |value| value.to_i },
-          'true' => lambda { |value| true },
-          'false' => lambda { |value| false },
-          /^[a-zA-Z][a-zA-Z0-9]*:\/\// => lambda { |value| URI(value) },
-          /^.+$/ => lambda { |value| value }
-        }
-
         # The params Hash
         attr_reader :params
 
@@ -45,6 +35,33 @@ module Ronin
         #
         def initialize
           @params = {}
+        end
+
+        #
+        # The Array of parameter patterns and their parsers.
+        #
+        def ParamParser.formats
+          @@ronin_param_formats ||= []
+        end
+
+        #
+        # Itereates over each parameter pattern and parser, passing them to the
+        # specified _block_.
+        #
+        def ParamParser.each_format(&block)
+          ParamParser.formats.each do |format|
+            block.call(format[:pattern],format[:parser])
+          end
+        end
+
+        #
+        # Adds a new parameter _pattern_ using the specified _block_ as the parser.
+        #
+        def ParamParser.recognize(pattern,&block)
+          ParamParser.formats.unshift({
+            :pattern => pattern,
+            :parser => block
+          })
         end
 
         #
@@ -58,7 +75,7 @@ module Ronin
           name, value = name_and_value.split('=',2)
 
           if value
-            FORMATS.each do |pattern,parser|
+            ParamParser.each_format do |pattern,parser|
               if value.match(pattern)
                 value = parser.call(value)
                 break
@@ -75,6 +92,14 @@ module Ronin
         def param_parser
           method(:parse_param)
         end
+
+        protected
+
+        ParamParser.recognize(/^[a-zA-Z][a-zA-Z0-9]*:\/\//) { |value| URI(value) }
+        ParamParser.recognize('false') { |value| false }
+        ParamParser.recognize('true') { |value| true }
+        ParamParser.recognize(/^0x[0-9a-fA-F]+$/) { |value| value.hex }
+        ParamParser.recognize(/^[0-9]+$/) { |value| value.to_i }
 
       end
     end
