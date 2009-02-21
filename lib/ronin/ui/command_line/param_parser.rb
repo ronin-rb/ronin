@@ -29,11 +29,12 @@ module Ronin
       module ParamParser
         # Hash of format patterns and their parsers
         FORMATS = {
-          /^[0-9]+$/ => lambda { |value| value.to_i },
           /^0x[0-9a-fA-F]+$/ => lambda { |value| value.hex },
-          /^[a-zA-Z][a-zA-Z0-9]*:\/\// => lambda { |value| URI(value) },
+          /^[0-9]+$/ => lambda { |value| value.to_i },
           'true' => lambda { |value| true },
-          'false' => lambda { |value| false }
+          'false' => lambda { |value| false },
+          /^[a-zA-Z][a-zA-Z0-9]*:\/\// => lambda { |value| URI(value) },
+          /^.+$/ => lambda { |value| value }
         }
 
         # The params Hash
