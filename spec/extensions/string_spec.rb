@@ -95,15 +95,15 @@ describe String do
     end
   end
 
-  it "should inspect printable strings" do
-    "hello".inspect.should == '"hello"'
+  it "should dump printable strings" do
+    "hello".dump.should == '"hello"'
   end
 
-  it "should inspect strings containing control characters" do
-    "hello\n\b\a".inspect.should == '"hello\n\b\a"'
+  it "should dump strings containing control characters" do
+    "hello\n\b\a".dump.should == '"hello\n\b\a"'
   end
 
-  it "should inspect strings containing non-printable characters" do
-    "hello\x90\x05\xef".inspect.should == '"hello\x90\x05\xef"'
+  it "should dump strings containing non-printable characters" do
+    "hello\x90\x05\xef".dump.should == '"hello\x90\x05\xef"'
   end
 end
