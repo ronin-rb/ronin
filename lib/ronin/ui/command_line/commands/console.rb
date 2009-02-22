@@ -35,7 +35,7 @@ module Ronin
           def define_options(opts)
             opts.usage = '<command> [options]'
             opts.options do
-              opts.on('-d','--database URI','The URI for the Database') do |uri|
+              opts.on('-D','--database URI','The URI for the Database') do |uri|
                 Database.config = uri.to_s
               end
 
