@@ -60,7 +60,8 @@ module Ronin
 
           begin
             cmd.arguments(*(cmd.options.parse(args)))
-          rescue OptionParser::MissingArgument, OptionParser::InvalidOption => e
+          rescue OptionParser::MissingArgument,
+                 OptionParser::InvalidOption => e
             cmd.fail(e)
           end
 
