@@ -30,7 +30,7 @@ module Ronin
       module Commands
         class Add < Command
 
-          def setup
+          def defaults
             @cache = nil
             @media = nil
             @uri = nil

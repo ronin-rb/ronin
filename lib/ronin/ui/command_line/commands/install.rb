@@ -30,7 +30,7 @@ module Ronin
       module Commands
         class Install < Command
 
-          def setup
+          def defaults
             @cache = nil
             @media = nil
           end

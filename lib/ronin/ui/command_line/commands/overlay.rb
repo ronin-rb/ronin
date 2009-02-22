@@ -36,7 +36,7 @@ module Ronin
 
           include REXML
 
-          def setup
+          def defaults
             @title = nil
             @source = nil
             @source_view = nil

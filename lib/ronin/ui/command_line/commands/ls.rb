@@ -30,7 +30,7 @@ module Ronin
       module Commands
         class LS < Command
 
-          def setup
+          def defaults
             @cache = nil
             @verbose = false
           end

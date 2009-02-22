@@ -40,7 +40,7 @@ module Ronin
         def initialize(name,&block)
           @name = name.to_s
 
-          setup()
+          defaults()
 
           Options.new(@name) do |opts|
             define_options(opts)
@@ -124,9 +124,9 @@ module Ronin
         end
 
         #
-        # Setup the command values for the command.
+        # Setup the command default values.
         #
-        def setup
+        def defaults
         end
 
         #

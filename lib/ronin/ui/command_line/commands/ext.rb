@@ -34,7 +34,7 @@ module Ronin
       module Commands
         class Ext < Command
 
-          def setup
+          def defaults
             @uses = []
           end
 
