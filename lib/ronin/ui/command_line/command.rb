@@ -53,7 +53,10 @@ module Ronin
         # Creates a new command object and runs it with the given _args_.
         #
         def self.run(*args)
-          cmd = self.new(File.basename($0))
+          name = File.basename($0)
+          name.gsub!(/^ronin-/,'')
+
+          cmd = self.new(name)
 
           begin
             cmd.arguments(*(cmd.options.parse(args)))
