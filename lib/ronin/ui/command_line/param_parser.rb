@@ -31,13 +31,6 @@ module Ronin
         attr_reader :params
 
         #
-        # Creates an empty +params+ Hash.
-        #
-        def initialize
-          @params = {}
-        end
-
-        #
         # The Array of parameter patterns and their parsers.
         #
         def ParamParser.formats
@@ -64,6 +57,8 @@ module Ronin
           })
         end
 
+        protected
+
         #
         # Parses the specified _name_and_value_ string of the form
         # "name=value" and extracts both the _name_ and the _value_, saving
@@ -83,17 +78,8 @@ module Ronin
             end
           end
 
-          @params[name.to_sym] = value
+          return {name.to_sym => value}
         end
-
-        #
-        # Returns a method reference to the parse_param method.
-        #
-        def param_parser
-          method(:parse_param)
-        end
-
-        protected
 
         ParamParser.recognize(/^[a-zA-Z][a-zA-Z0-9]*:\/\//) { |value| URI(value) }
         ParamParser.recognize('false') { |value| false }
