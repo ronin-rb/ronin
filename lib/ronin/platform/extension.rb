@@ -230,7 +230,13 @@ module Ronin
       def run(&block)
         setup!
 
-        block.call(self) if block
+        if block
+          if block.arity == 1
+            block.call(self)
+          else
+            block.call()
+          end
+        end
 
         teardown!
         return self
