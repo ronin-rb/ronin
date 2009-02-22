@@ -228,7 +228,7 @@ module Ronin
       #   end
       #
       def run(&block)
-        setup!()
+        setup!
 
         if block
           if block.arity == 1
@@ -238,7 +238,7 @@ module Ronin
           end
         end
 
-        teardown!()
+        teardown!
         return self
       end
 
