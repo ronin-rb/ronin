@@ -40,6 +40,8 @@ module Ronin
         def initialize(name,&block)
           @name = name.to_s
 
+          setup()
+
           Options.new(@name) do |opts|
             define_options(opts)
 
@@ -119,6 +121,12 @@ module Ronin
 
           error(message)
           exit -1
+        end
+
+        #
+        # Setup the command values for the command.
+        #
+        def setup
         end
 
         #
