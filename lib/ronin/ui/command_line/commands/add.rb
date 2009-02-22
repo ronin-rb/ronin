@@ -30,12 +30,10 @@ module Ronin
       module Commands
         class Add < Command
 
-          def initialize(name)
+          def setup
             @cache = nil
             @media = nil
             @uri = nil
-
-            super(name)
           end
 
           def define_options(opts)

@@ -30,11 +30,9 @@ module Ronin
       module Commands
         class LS < Command
 
-          def initialize(name)
+          def setup
             @cache = nil
             @verbose = false
-
-            super(name)
           end
 
           def define_options(opts)

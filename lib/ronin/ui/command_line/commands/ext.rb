@@ -34,10 +34,8 @@ module Ronin
       module Commands
         class Ext < Command
 
-          def initialize(name)
+          def setup
             @uses = []
-
-            super(name)
           end
 
           def define_options(opts)

@@ -36,7 +36,7 @@ module Ronin
 
           include REXML
 
-          def initialize(name)
+          def setup
             @title = nil
             @source = nil
             @source_view = nil
@@ -44,8 +44,6 @@ module Ronin
             @license = nil
             @maintainers = []
             @description = nil
-
-            super(name)
           end
 
           def define_options(opts)
