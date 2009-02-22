@@ -84,12 +84,12 @@ class String
   end
 
   #
-  # Inspects the string, returning a C style encoded version of the string.
+  # Dumps the string, returning a C style encoded version of the string.
   #
-  #   "hello\x00\073\x90\r\n"
+  #   "hello\x00\073\x90\r\n".dump
   #   # => "hello\0;\x90\r\n"
   #
-  def inspect
+  def dump
     c_string = ''
 
     each_byte do |b|
@@ -123,5 +123,7 @@ class String
 
     return "\"#{c_string}\""
   end
+
+  alias inspect dump
 
 end
