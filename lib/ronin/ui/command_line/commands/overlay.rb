@@ -26,7 +26,7 @@ require 'ronin/platform/overlay'
 require 'ronin/version'
 
 require 'fileutils'
-require 'rexml/document'
+require 'nokogiri'
 
 module Ronin
   module UI
@@ -34,7 +34,7 @@ module Ronin
       module Commands
         class Overlay < Command
 
-          include REXML
+          include Nokogiri
 
           def defaults
             @title = nil
@@ -107,75 +107,78 @@ module Ronin
             FileUtils.mkdir_p(File.join(path,'objects'))
 
             File.open(File.join(path,Platform::Overlay::METADATA_FILE),'w') do |file|
-              doc = Document.new
-              doc.add(XMLDecl.new)
-              doc.add(Instruction.new('xml-stylesheet','type="text/xsl" href="http://ronin.rubyforge.org/dist/overlay.xsl"'))
+              doc = XML::Document.new
+              doc << XML::ProcessingInstruction.new(
+                doc,
+                'xml-stylesheet',
+                'type="text/xsl" href="http://ronin.rubyforge.org/dist/overlay.xsl"'
+              )
 
-              root = Element.new('ronin-overlay')
-              root.attributes['version'] = Ronin::VERSION
+              root = XML::Node.new('ronin-overlay',doc)
+              root['version'] = Ronin::VERSION
 
-              title_tag = Element.new('title')
-              title_tag.text = @title
-              root.add_element(title_tag)
+              title_tag = XML::Node.new('title',doc)
+              title_tag << XML::Text.new(@title,doc)
+              root << title_tag
 
               if @source
-                source_tag = Element.new('source')
-                source_tag.text = @source
-                root.add_element(source_tag)
+                source_tag = XML::Node.new('source',doc)
+                source_tag << XML::Text.new(@source,doc)
+                root << source_tag
               end
 
               if @source_view
-                source_view_tag = Element.new('source-view')
-                source_view_tag.text = @source_view
-                root.add_element(source_view_tag)
+                source_view_tag = XML::Node.new('source-view',doc)
+                source_view_tag << XML::Text.new(@source_view,doc)
+                root << source_view_tag
               end
 
               if @website
-                url_tag = Element.new('website')
-                url_tag.text = @website
-                root.add_element(url_tag)
+                url_tag = XML::Node.new('website',doc)
+                url_tag << XML::Text.new(@website,doc)
+                root << url_tag
               end
 
               if @license
-                license_tag = Element.new('license')
-                license_tag.text = @license
-                root.add_element(license_tag)
+                license_tag = XML::Node.new('license',doc)
+                license_tag << XML::Text.new(@license,doc)
+                root << license_tag
               end
 
               unless @maintainers.empty?
-                maintainers_tag = Element.new('maintainers')
+                maintainers_tag = XML::Node.new('maintainers',doc)
 
                 @maintainers.each do |author|
                   if (author[:name] || author[:email])
-                    maintainer_tag = Element.new('maintainer')
+                    maintainer_tag = XML::Node.new('maintainer',doc)
 
                     if author[:name]
-                      name_tag = Element.new('name')
-                      name_tag.text = author[:name]
-                      maintainer_tag.add_element(name_tag)
+                      name_tag = XML::Node.new('name',doc)
+                      name_tag << XML::Text.new(author[:name],doc)
+                      maintainer_tag << name_tag
                     end
 
                     if author[:email]
-                      email_tag = Element.new('email')
-                      email_tag.text = author[:email]
-                      maintainer_tag.add_element(email_tag)
+                      email_tag = XML::Node.new('email',doc)
+                      email_tag << XML::Text.new(author[:email],doc)
+                      maintainer_tag << email_tag
                     end
 
-                    maintainers_tag.add_element(maintainer_tag)
+                    maintainers_tag << maintainer_tag
                   end
                 end
 
-                root.add_element(maintainers_tag)
+                root << maintainers_tag
               end
 
               if @description
-                description_tag = Element.new('description')
-                description_tag.text = @description
-                root.add_element(description_tag)
+                description_tag = XML::Node.new('description',doc)
+                description_tag << XML::Text.new(@description,doc)
+                root << description_tag
               end
 
-              doc.add_element(root)
-              doc.write(file,2)
+              doc << root
+              doc.write_xml_to(file)
             end
           end
 
