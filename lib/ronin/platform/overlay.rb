@@ -25,8 +25,8 @@ require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
 
-require 'rexml/document'
 require 'repertoire'
+require 'nokogiri'
 
 module Ronin
   module Platform
@@ -225,44 +225,28 @@ module Ronin
         @description = nil
 
         if File.file?(metadata_path)
-          doc = REXML::Document.new(open(metadata_path))
-          overlay = doc.elements['/ronin-overlay']
+          doc = Nokogiri::XML(open(metadata_path))
+          overlay = doc.at('/ronin-overlay')
 
-          overlay.each_element('title[.]:first') do |title|
-            @title = title.text.strip
-          end
+          @title = overlay.at('title').inner_text.strip
+          @license = overlay.at('license').inner_text.strip
+          @source = overlay.at('source').inner_text.strip
+          @source_view = overlay.at('source-view').inner_text.strip
+          @website = overlay.at('website').inner_text.strip
 
-          overlay.each_element('license[.]:first') do |license|
-            @license = license.text.strip
-          end
-
-          overlay.each_element('source[.]:first') do |source|
-            @source = source.text.strip
-          end
-
-          overlay.each_element('source-view[.]:first') do |source_view|
-            @source_view = source_view.text.strip
-          end
-
-          overlay.each_element('website[.]:first') do |website|
-            @website = website.text.strip
-          end
-
-          overlay.each_element('maintainers/maintainer') do |maintainer|
-            if (name = maintainer.text('name'))
-              name.strip!
+          overlay.search('maintainers/maintainer').each do |maintainer|
+            if (name = maintainer.at('name'))
+              name = name.inner_text.strip
             end
 
-            if (email = maintainer.text('email'))
-              email.strip!
+            if (email = maintainer.at('email'))
+              email = email.inner_text.strip
             end
 
             @maintainers << Maintainer.new(name,email)
           end
 
-          overlay.each_element('description[.]:first') do |description|
-            @description = description.text.strip
-          end
+          @description = overlay.search('description').inner_text.strip
         end
 
         block.call(self) if block
