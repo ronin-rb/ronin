@@ -295,7 +295,7 @@ module Ronin
       #   ext.find_file('data/test/file.xml')
       #
       #   ext.find_file('data/test/file.xml') do |file|
-      #     REXML::Document.new(open(file))
+      #     Nokogiri::XML(open(file))
       #     ...
       #   end
       #
