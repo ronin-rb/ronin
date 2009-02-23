@@ -10,6 +10,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
   p.developer('Postmodern','postmodern.mod3@gmail.com')
   p.remote_rdoc_dir = 'docs/ronin'
   p.extra_deps = [
+    ['nokogiri', '>=1.2.0'],
     ['dm-core', '>=0.9.9'],
     ['data_objects', '>=0.9.9'],
     ['do_sqlite3', '>=0.9.9'],

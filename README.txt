@@ -68,6 +68,7 @@ of Ronin.
 == REQUIREMENTS:
 
 * {libsqlite3}[http://sqlite.org/]
+* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.2.0
 * {DataMapper}[http://datamapper.org/]:
   * dm-core >= 0.9.9
   * data_objects >= 0.9.9
