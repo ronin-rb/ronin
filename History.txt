@@ -1,3 +1,24 @@
+=== 0.2.1 / 2009-02-23
+
+* Added Ronin::UI::Verbose.
+* Require Nokogiri >= 1.2.0:
+  * Use Nokogiri::XML, instead of REXML, for XML parsing and building.
+* Renamed String#inspect to String#dump.
+  * Aliased String#inspect to String#dump.
+* Rewrote Ronin::UI::CommandLine.
+  * Removed Ronin::UI::CommandLine::Options.command.
+  * Refactored Ronin::UI::CommandLine::Command.
+    * Added Command#defaults method to give the command's variables
+      default values.
+    * Fixed a bug in Command.run.
+  * Renamed DefaultCommand to ConsoleCommand.
+  * Implement git style sub-commands.
+  * Use reverse-require to find sub-commands.
+* Refactored Ronin::UI::ParamParser.
+  * Control parameter formats and their parsers with ParamParser.recognize.
+* Rewrote the Ronin::Chars spec.
+* Updated the Ronin::UI::ParamParser spec.
+
 === 0.2.0 / 2009-02-06
 
 * Moved the HTML formatting methods into the
