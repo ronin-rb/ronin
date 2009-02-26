@@ -1,5 +1,5 @@
 <?xml version='1.0'?>
-<?xml-stylesheet type="text/xsl" href="http://ronin.rubyforge.org/dist/overlay.xsl"?>
+<?xml-stylesheet type="text/xsl" href="http://ronin.rubyforge.org/static/ronin/platform/overlay.xsl"?>
 <ronin-overlay version='0.1.5'>
   <title>
     Hello World
