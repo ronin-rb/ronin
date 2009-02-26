@@ -35,8 +35,11 @@ module Ronin
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
 
-      # Overlay lib directory
+      # Overlay lib/ directory
       LIB_DIR = 'lib'
+
+      # Overlay static/ directory
+      STATIC_DIR = 'static'
 
       # Overlay objects directory
       OBJECTS_DIR = 'objects'

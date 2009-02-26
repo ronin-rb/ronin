@@ -41,6 +41,9 @@ module Ronin
       # Extension lib/ directory
       LIB_DIR = 'lib'
 
+      # Extension static/ directory
+      STATIC_DIR = 'static'
+
       # Name of extension
       attr_reader :name
 
