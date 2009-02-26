@@ -122,6 +122,7 @@ lib/ronin/objectify/objectify.rb
 lib/ronin/models.rb
 lib/ronin/environment.rb
 lib/ronin/platform.rb
+lib/ronin/platform/tasks/spec.rb
 lib/ronin/platform/exceptions.rb
 lib/ronin/platform/exceptions/extension_not_found.rb
 lib/ronin/platform/exceptions/overlay_cached.rb
