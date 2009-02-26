@@ -7,16 +7,15 @@ Rakefile
 bin/ronin
 bin/ronin-add
 bin/ronin-console
-bin/ronin-ext
 bin/ronin-help
 bin/ronin-install
 bin/ronin-ls
-bin/ronin-overlay
 bin/ronin-rm
 bin/ronin-uninstall
 bin/ronin-update
 lib/ronin.rb
 lib/ronin/config.rb
+lib/ronin/static.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
@@ -152,8 +151,6 @@ lib/ronin/ui/command_line/command.rb
 lib/ronin/ui/command_line/options.rb
 lib/ronin/ui/command_line/param_parser.rb
 lib/ronin/ui/command_line/commands/console.rb
-lib/ronin/ui/command_line/commands/overlay.rb
-lib/ronin/ui/command_line/commands/ext.rb
 lib/ronin/ui/command_line/commands/add.rb
 lib/ronin/ui/command_line/commands/install.rb
 lib/ronin/ui/command_line/commands/ls.rb

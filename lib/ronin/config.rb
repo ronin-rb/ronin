@@ -31,9 +31,6 @@ module Ronin
     # Ronin home directory
     PATH = FileUtils.mkdir_p(File.join(HOME,'.ronin'))
 
-    # Path to static directory
-    STATIC_DIR = File.expand_path(File.join(File.dirname(__FILE__),'..','..','static'))
-
     # Main configuration file
     CONFIG_PATH = File.join(PATH,'config.rb')
 
