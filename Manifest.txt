@@ -204,4 +204,4 @@ spec/ui/verbose_spec.rb
 spec/ui/command_line/helpers/example_command.rb
 spec/ui/command_line/param_parser_spec.rb
 spec/ronin_spec.rb
-static/overlay.xsl
+static/ronin/platform/overlay.xsl
