@@ -228,11 +228,25 @@ module Ronin
           doc = Nokogiri::XML(open(metadata_path))
           overlay = doc.at('/ronin-overlay')
 
-          @title = overlay.at('title').inner_text.strip
-          @license = overlay.at('license').inner_text.strip
-          @source = overlay.at('source').inner_text.strip
-          @source_view = overlay.at('source-view').inner_text.strip
-          @website = overlay.at('website').inner_text.strip
+          if (title_tag = overlay.at('title'))
+            @title = title_tag.inner_text.strip
+          end
+
+          if (license_tag = overlay.at('license'))
+            @license = license_tag.inner_text.strip
+          end
+
+          if (source_tag = overlay.at('source'))
+            @source = source_tag.inner_text.strip
+          end
+
+          if (source_view_tag = @source_view = overlay.at('source-view'))
+            @source_view = source_view_tag.inner_text.strip
+          end
+
+          if (website_tag = @website = overlay.at('website'))
+            @website = website_tag.inner_text.strip
+          end
 
           overlay.search('maintainers/maintainer').each do |maintainer|
             if (name = maintainer.at('name'))
@@ -246,7 +260,9 @@ module Ronin
             @maintainers << Maintainer.new(name,email)
           end
 
-          @description = overlay.search('description').inner_text.strip
+          if (description_tag = overlay.at('description'))
+            @description = description_tag.inner_text.strip
+          end
         end
 
         block.call(self) if block
