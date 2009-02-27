@@ -164,6 +164,8 @@ lib/ronin/version.rb
 tasks/spec.rb
 spec/helpers.rb
 spec/spec_helper.rb
+spec/static/helpers/static.rb
+spec/static/static_spec.rb
 spec/arch_spec.rb
 spec/author_spec.rb
 spec/chars/char_set_spec.rb
