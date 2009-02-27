@@ -5,6 +5,8 @@ require 'static/helpers/static'
 
 describe Static do
   it "should list static directories" do
-    Static.static_dirs.include?(STATIC_DIR).should == true
+    STATIC_DIRS.each do |dir|
+      Static.static_dirs.include?(dir).should == true
+    end
   end
 end
