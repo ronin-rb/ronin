@@ -81,7 +81,9 @@ module Ronin
 
     def static_glob(pattern)
       static_paths(pattern) do |full_path|
-        return full_path if File.exists?(full_path)
+        paths = Dir[full_path]
+
+        return paths unless paths.empty?
       end
 
       return nil
@@ -121,7 +123,7 @@ module Ronin
       paths = []
 
       static_paths(pattern) do |full_path|
-        paths << full_path if File.exists?(full_path)
+        paths += Dir[full_path]
       end
 
       return paths
