@@ -164,7 +164,11 @@ lib/ronin/version.rb
 tasks/spec.rb
 spec/helpers.rb
 spec/spec_helper.rb
+spec/static/helpers/static1/one.txt
+spec/static/helpers/static1/dir/two.txt
+spec/static/helpers/static2/dir/two.txt
 spec/static/helpers/static.rb
+spec/static/helpers/static_class.rb
 spec/static/static_spec.rb
 spec/arch_spec.rb
 spec/author_spec.rb
