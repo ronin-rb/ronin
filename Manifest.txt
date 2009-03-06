@@ -16,6 +16,8 @@ bin/ronin-update
 lib/ronin.rb
 lib/ronin/config.rb
 lib/ronin/static.rb
+lib/ronin/static/static.rb
+lib/ronin/static/finders.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
@@ -169,6 +171,7 @@ spec/static/helpers/static1/dir/two.txt
 spec/static/helpers/static2/dir/two.txt
 spec/static/helpers/static.rb
 spec/static/helpers/static_class.rb
+spec/static/finders_spec.rb
 spec/static/static_spec.rb
 spec/arch_spec.rb
 spec/author_spec.rb

@@ -1,7 +1,7 @@
-require 'ronin/static'
+require 'ronin/static/finders'
 
 class StaticClass
 
-  include Static
+  include Static::Finders
 
 end

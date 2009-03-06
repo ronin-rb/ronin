@@ -21,5 +21,32 @@
 #++
 #
 
-require 'ronin/static/static'
-require 'ronin/static/finders'
+require 'set'
+
+module Ronin
+  module Static
+    #
+    # The Set of directories which contain static content.
+    #
+    def Static.static_dirs
+      @@ronin_static_dirs ||= Set[]
+    end
+
+    #
+    # Adds the specified _path_ to the Set of static directories.
+    #
+    def Static.directory(path)
+      path = File.expand_path(path)
+
+      unless Static.static_dirs.include?(path)
+        Static.static_dirs << path
+      end
+
+      return path
+    end
+
+    protected
+
+    Static.directory(File.join(File.dirname(__FILE__),'..','..','static'))
+  end
+end
