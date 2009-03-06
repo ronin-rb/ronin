@@ -44,6 +44,9 @@ module Ronin
       # Overlay objects directory
       OBJECTS_DIR = 'objects'
 
+      # Reserved directories
+      RESERVED_DIRS = [LIB_DIR, STATIC_DIR, OBJECTS_DIR]
+
       # Local path to the overlay
       attr_reader :path
 
@@ -110,7 +113,7 @@ module Ronin
         directories.reject do |dir|
           name = File.basename(dir)
 
-          (name == OBJECTS_DIR) || (name == LIB_DIR)
+          RESERVED_DIRS.include?(name)
         end
       end
 
