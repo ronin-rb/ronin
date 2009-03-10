@@ -48,6 +48,6 @@ module Ronin
 
     protected
 
-    Static.directory(File.join(File.dirname(__FILE__),'..','..','static'))
+    Static.directory(File.join(File.dirname(__FILE__),'..','..','..','static'))
   end
 end
