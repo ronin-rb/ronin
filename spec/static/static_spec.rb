@@ -9,4 +9,10 @@ describe Static do
       Static.static_dirs.include?(dir).should == true
     end
   end
+
+  it "should prevent the addition of non-directories" do
+    lambda {
+      Static.directory(__FILE__)
+    }.should raise_error(RuntimeError)
+  end
 end
