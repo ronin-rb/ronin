@@ -38,6 +38,10 @@ module Ronin
     def Static.directory(path)
       path = File.expand_path(path)
 
+      unless File.directory?(path)
+        raise("#{path.dump} must be a directory")
+      end
+
       Static.static_dirs << path
       return path
     end
