@@ -24,6 +24,7 @@
 require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/extension_cache'
 require 'ronin/platform/platform'
+require 'ronin/static/finders'
 
 require 'contextify'
 
@@ -32,6 +33,7 @@ module Ronin
     class Extension
 
       include Contextify
+      include Static::Finders
 
       contextify :ronin_extension
 
@@ -245,150 +247,15 @@ module Ronin
         return self
       end
 
-      #
-      # Find the specified _path_ from within all similar extensions.
-      # If a _block_ is given, it will be passed the full path if found.
-      #
-      #   ext.find_paths('data/test')
-      #   # => [...]
-      #
-      #   ext.find_paths('data/test') do |path|
-      #     puts Dir[File.join(path,'*')]
-      #   end
-      #
-      def find_paths(path,&block)
-        matched_paths = []
+      def static_paths(path,&block)
+        @paths.each do |dir|
+          static_dir = File.join(dir,STATIC_DIR)
+          next unless File.directory?(static_dir)
 
-        @paths.each do |ext_path|
-          full_path = File.expand_path(File.join(ext_path,path))
-
-          if File.exists?(full_path)
-            block.call(full_path) if block
-            matched_paths << full_path
-          end
+          block.call(File.join(static_dir,path))
         end
 
-        return matched_paths
-      end
-
-      #
-      # Find the specified _path_ from within the first similar extensions.
-      # If a _block_ is given, it will be passed the full path if found.
-      #
-      #   ext.find_path('data/test')
-      #
-      #   ext.find_path('data/test') do |path|
-      #     puts Dir[File.join(path,'*')]
-      #   end
-      #
-      def find_path(path,&block)
-        find_paths(path) do |full_path|
-          block.call(full_path) if block
-          return full_path
-        end
-
-        return nil
-      end
-
-      #
-      # Find the specified file _path_ from within the first similar extensions.
-      # If a _block_ is given, it will be passed the full file path if
-      # found.
-      #
-      #   ext.find_file('data/test/file.xml')
-      #
-      #   ext.find_file('data/test/file.xml') do |file|
-      #     Nokogiri::XML(open(file))
-      #     ...
-      #   end
-      #
-      def find_file(path,&block)
-        find_paths(path) do |full_path|
-          if File.file?(full_path)
-            block.call(full_path) if block
-            return full_path
-          end
-        end
-      end
-
-      #
-      # Find the specified directory _path_ from within the first similar
-      # extensions. If a _block_ is given, it will be passed the full
-      # directory path if found.
-      #
-      #   ext.find_directory('data/test')
-      #
-      #   ext.find_directory('data/test') do |dir|
-      #     puts Dir[File.join(dir,'*')]
-      #   end
-      #
-      def find_dir(path,&block)
-        find_paths(path) do |full_path|
-          if File.directory?(full_path)
-            block.call(full_path) if block
-            return full_path
-          end
-        end
-      end
-
-      #
-      # Find the paths that match the given pattern from within all similar
-      # extensions. If a _block_ is given, it will be passed each matching
-      # full path.
-      #
-      #   ext.glob_paths('data/*') # => [...]
-      #
-      #   ext.glob_paths('data/*') do |path|
-      #     puts path
-      #   end
-      #
-      def glob_paths(pattern,&block)
-        full_paths = @paths.inject([]) do |paths,ext_path|
-          paths + Dir[File.join(ext_path,pattern)]
-        end
-
-        full_paths.each(&block) if block
-        return full_paths
-      end
-
-      #
-      # Find the file paths that match the given pattern from within all
-      # similar extensions. If a _block_ is given, it will be passed each
-      # matching full file path.
-      #
-      #   ext.glob_files('data/*.xml') # => [...]
-      #
-      #   ext.glob_files('data/*.xml') do |file|
-      #     puts file
-      #   end
-      #
-      def glob_files(pattern,&block)
-        full_paths = glob_paths(pattern).select do |path|
-          File.file?(path)
-        end
-
-        full_paths.each(&block) if block
-        return full_paths
-      end
-
-      #
-      # Find the directory paths that match the given pattern from within
-      # all similar extensions. If a _block_ is given, it will be passed
-      # each matching full directory path.
-      #
-      #   ext.glob_dirs('builds/*') # => [...]
-      #
-      #   ext.glob_dirs('builds/*') do |dir|
-      #     puts dir
-      #   end
-      #
-      def glob_dirs(pattern,&block)
-        full_paths = glob_paths(pattern).select do |path|
-          File.directory?(path)
-        end
-
-        full_paths.each(&block) if block
-        return full_paths
+        super(path,&block)
       end
 
       #
