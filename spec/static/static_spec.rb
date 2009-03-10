@@ -10,6 +10,12 @@ describe Static do
     end
   end
 
+  it "should prevent the addition of non-existant directories" do
+    lambda {
+      Static.directory('lol')
+    }.should raise_error(RuntimeError)
+  end
+
   it "should prevent the addition of non-directories" do
     lambda {
       Static.directory(__FILE__)
