@@ -91,4 +91,61 @@ class String
     Base64.decode64(self)
   end
 
+  #
+  # Converts a multitude of hexdump formats back into their original
+  # binary form using the given _options_.
+  #
+  # _options_ may contain the following keys:
+  # <tt>:segment</tt>:: The length in bytes of each segment in the hexdump.
+  #                    Defaults to 16, if not specified.
+  # <tt>:encoding</tt>: Denotes the encoding uses for the bytes within the
+  #                     hexdump. Must be either <tt>:dec</tt>,
+  #                     <tt>:hex</tt> or <tt>:octal</tt>, defaults to
+  #                     <tt>:hex</tt> if unspecified.
+  #
+  def unhexdump(options={})
+    encoding = (options[:encoding] || :hex)
+    current_addr = last_addr = 0
+    repeated = false
+
+    segment_length = (options[:segment] || 16)
+    segment = []
+    bytes = []
+
+    each_line do |line|
+      words = line.split
+
+      if words.first == '*'
+        repeated = true
+      elsif words.length > 0
+        current_addr = words.first.hex
+
+        if repeated
+          (current_addr - last_addr).times { bytes += segment }
+          repeated = false
+        end
+
+        segment = []
+
+        words[1..-1].each do |word|
+          break unless word =~ /^[0-9-a-fA-F]+$/
+
+          case encoding
+          when :dec
+            segment << word.to_i
+          when :hex
+            segment << word.hex
+          when :octal
+            segment << word.oct
+          end
+        end
+
+        bytes += segment
+        last_addr = current_addr
+      end
+    end
+
+    return bytes
+  end
+
 end
