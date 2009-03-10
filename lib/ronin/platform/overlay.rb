@@ -24,6 +24,7 @@
 require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
+require 'ronin/static/static'
 
 require 'repertoire'
 require 'nokogiri'
@@ -77,6 +78,9 @@ module Ronin
       # Description
       attr_reader :description
 
+      # The static directory
+      attr_reader :static_dir
+
       # The objects directory
       attr_reader :objects_dir
 
@@ -87,6 +91,7 @@ module Ronin
       def initialize(path,media_type=nil,uri=nil,&block)
         @path = File.expand_path(path)
         @name = File.basename(@path)
+        @static_dir = File.join(@path,STATIC_DIR)
         @objects_dir = File.join(@path,OBJECTS_DIR)
         @uri = uri
 
@@ -160,10 +165,13 @@ module Ronin
       # <tt>$LOAD_PATH</tt>.
       #
       def activate!
+        # add the lib/ directories
         lib_dirs.each do |path|
           $LOAD_PATH << path unless $LOAD_PATH.include?(path)
         end
 
+        # add the static/ directory
+        Static.directory(@static_dir) if File.directory?(@static_dir)
         return true
       end
 
@@ -172,8 +180,9 @@ module Ronin
       # <tt>$LOAD_PATH</tt>.
       #
       def deactive!
-        paths = lib_dirs
+        Static.static_dirs.reject! { |dir| dir == @static_dir }
 
+        paths = lib_dirs
         $LOAD_PATH.reject! { |path| paths.include?(path) }
         return true
       end
