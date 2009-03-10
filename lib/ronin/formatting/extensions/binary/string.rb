@@ -121,7 +121,10 @@ class String
         current_addr = words.first.hex
 
         if repeated
-          (current_addr - last_addr).times { bytes += segment }
+          ((current_addr - last_addr) / segment.length).times do
+            bytes += segment
+          end
+
           repeated = false
         end
 
