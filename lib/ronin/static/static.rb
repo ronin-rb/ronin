@@ -38,10 +38,7 @@ module Ronin
     def Static.directory(path)
       path = File.expand_path(path)
 
-      unless Static.static_dirs.include?(path)
-        Static.static_dirs << path
-      end
-
+      Static.static_dirs << path
       return path
     end
 
