@@ -166,8 +166,6 @@ class String
 
         segment = []
 
-        puts words.inspect
-
         words.each do |word|
           if encoding == :chars
           else
