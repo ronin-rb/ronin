@@ -142,7 +142,7 @@ class String
 
     segment_length = (options[:segment] || 16)
     segment = []
-    bytes = []
+    buffer = []
 
     each_line do |line|
       words = line.split
@@ -155,7 +155,7 @@ class String
 
         if repeated
           ((current_addr - last_addr) / segment.length).times do
-            bytes += segment
+            buffer += segment
           end
 
           repeated = false
@@ -170,12 +170,12 @@ class String
           end
         end
 
-        bytes += segment
+        buffer += segment
         last_addr = current_addr
       end
     end
 
-    return bytes[0...(last_addr - first_addr)]
+    return buffer[0...(last_addr - first_addr)]
   end
 
 end
