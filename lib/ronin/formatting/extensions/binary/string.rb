@@ -151,10 +151,7 @@ class String
         repeated = true
       elsif words.length > 0
         current_addr = words.shift.hex
-
-        unless first_addr
-          first_addr = current_addr
-        end
+        first_addr ||= current_addr
 
         if repeated
           ((current_addr - last_addr) / segment.length).times do
