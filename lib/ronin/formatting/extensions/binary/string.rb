@@ -164,7 +164,7 @@ class String
           repeated = false
         end
 
-        segment = []
+        segment.clear
 
         words.each do |word|
           if encoding == :chars
