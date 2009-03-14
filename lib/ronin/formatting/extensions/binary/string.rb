@@ -234,21 +234,21 @@ class String
           end
 
           repeated = false
-        else
-          segment.clear
-
-          words.each do |word|
-            if word =~ /^(\\[0abtnvfr\\]|.)$/
-              word.hex_unescape.each_byte { |b| segment << b }
-            else
-              segment += word.to_i(base).bytes(word_size)
-            end
-          end
-
-          segment = segment[0...segment_length]
-          buffer += segment
-          last_addr = current_addr
         end
+
+        segment.clear
+
+        words.each do |word|
+          if word =~ /^(\\[0abtnvfr\\]|.)$/
+            word.hex_unescape.each_byte { |b| segment << b }
+          else
+            segment += word.to_i(base).bytes(word_size)
+          end
+        end
+
+        segment = segment[0...segment_length]
+        buffer += segment
+        last_addr = current_addr
       end
     end
 
