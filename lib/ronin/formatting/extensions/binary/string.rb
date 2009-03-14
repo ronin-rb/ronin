@@ -213,7 +213,10 @@ class String
     buffer = []
 
     each_line do |line|
-      line.gsub!(/\s+\|.+\|\s+$/,'') if format == :hexdump
+      if format == :hexdump
+        line = line.gsub(/\s+\|.+\|\s+$/,'')
+      end
+
       words = line.split
 
       if words.first == '*'
