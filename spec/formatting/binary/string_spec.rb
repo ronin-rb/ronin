@@ -151,7 +151,7 @@ describe String do
       end
 
       it "should unhexdump octal-int hexdump output" do
-        hexdump = load_hexdump('gnu_hexdump_octal_ints')
+        hexdump = load_hexdump('gnu_hexdump_octal_shorts')
 
         hexdump.unhexdump(:type => :octal_shorts).should == @simple
       end
