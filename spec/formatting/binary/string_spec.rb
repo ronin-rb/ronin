@@ -15,7 +15,7 @@ describe String do
     String.instance_method('xor').should_not be_nil
   end
 
-  describe "pack" do
+  describe "depack" do
     before(:all) do
       @integer = 0x1337
 
@@ -30,35 +30,35 @@ describe String do
       @ppc_packed_quad = "\000\000\000\000\000\000\0237"
     end
 
-    it "should pack itself for a little-endian architecture" do
+    it "should depack itself for a little-endian architecture" do
       @i386_packed_int.depack(Arch.i386).should == @integer
     end
 
-    it "should pack itself as a short for a little-endian architecture" do
+    it "should depack itself as a short for a little-endian architecture" do
       @i386_packed_short.depack(Arch.i386,2).should == @integer
     end
 
-    it "Integer#pack should pack itself as a long for a little-endian architecture" do
+    it "should depack itself as a long for a little-endian architecture" do
       @i386_packed_long.depack(Arch.i386,4).should == @integer
     end
 
-    it "should pack itself as a quad for a little-endian architecture" do
+    it "should depack itself as a quad for a little-endian architecture" do
       @i386_packed_quad.depack(Arch.i386,8).should == @integer
     end
 
-    it "should pack itself for a big-endian architecture" do
+    it "should depack itself for a big-endian architecture" do
       @ppc_packed_int.depack(Arch.ppc).should == @integer
     end
 
-    it "should pack itself as a short for a big-endian architecture" do
+    it "should depack itself as a short for a big-endian architecture" do
       @ppc_packed_short.depack(Arch.ppc,2).should == @integer
     end
 
-    it "should pack itself as a long for a big-endian architecture" do
+    it "should depack itself as a long for a big-endian architecture" do
       @ppc_packed_long.depack(Arch.ppc,4).should == @integer
     end
 
-    it "should pack itself as a quad for a big-endian architecture" do
+    it "should depack itself as a quad for a big-endian architecture" do
       @ppc_packed_quad.depack(Arch.ppc,8).should == @integer
     end
   end
