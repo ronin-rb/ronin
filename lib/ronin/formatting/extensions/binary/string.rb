@@ -217,7 +217,7 @@ class String
 
     each_line do |line|
       if format == :hexdump
-        line = line.gsub(/\s+\|.+\|\s+$/,'')
+        line = line.gsub(/\s+\|.+\|\s*$/,'')
       end
 
       words = line.split
