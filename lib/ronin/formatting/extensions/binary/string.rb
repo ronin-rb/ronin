@@ -241,7 +241,7 @@ class String
         segment.clear
 
         words.each do |word|
-          if word =~ /^(\\[0abtnvfr\\]|.)$/
+          if (base != 10 && word =~ /^(\\[0abtnvfr\\]|.)$/)
             word.hex_unescape.each_byte { |b| segment << b }
           else
             segment += word.to_i(base).bytes(word_size)
