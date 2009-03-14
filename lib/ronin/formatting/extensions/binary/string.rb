@@ -186,7 +186,7 @@ class String
       base = 8
     when :decimal, :decimal_shorts, :decimal_ints, :decimal_longs
       base = 10
-    when :hex, :hex_shorts, :hex_ints, :hex_longs
+    when :hex, :hex_shorts, :hex_ints, :hex_longs, :chars
       base = 16
     end
 
@@ -203,7 +203,7 @@ class String
       if words.first == '*'
         repeated = true
       elsif words.length > 0
-        current_addr = words.shift.hex
+        current_addr = words.shift.to_i(base)
         first_addr ||= current_addr
 
         if repeated
