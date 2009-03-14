@@ -1,6 +1,7 @@
 require 'ronin/formatting/binary'
 
 require 'spec_helper'
+require 'formatting/binary/helpers/hexdumps'
 
 describe String do
   it "should provide String#depack" do
@@ -17,6 +18,10 @@ describe String do
 
   it "should provide String#xor" do
     String.instance_method('xor').should_not be_nil
+  end
+
+  it "should provide String#unhexdump" do
+    String.instance_method('unhexdump').should_not be_nil
   end
 
   describe "pack" do
@@ -111,6 +116,18 @@ describe String do
 
     it "should be able to be decoded with another xor" do
       @string.xor(@key).xor(@key).should == @string
+    end
+  end
+
+  describe "unhexdump" do
+    before(:all) do
+      @simple = load_binary_data('simple')
+    end
+
+    it "should unhexdump GNU hexdump output" do
+      gnu_hexdump = load_hexdump('gnu_hexdump')
+
+      gnu_hexdump.unhexdump(:type => :hex_shorts).should == @simple
     end
   end
 end
