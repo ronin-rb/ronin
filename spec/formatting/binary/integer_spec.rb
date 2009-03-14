@@ -34,7 +34,7 @@ describe Integer do
       @integer.pack(Arch.i386,2).should == @i386_packed_short
     end
 
-    it "Integer#pack should pack itself as a long for a little-endian architecture" do
+    it "should pack itself as a long for a little-endian architecture" do
       @integer.pack(Arch.i386,4).should == @i386_packed_long
     end
 
