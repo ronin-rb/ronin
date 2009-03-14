@@ -229,16 +229,15 @@ class String
         first_addr ||= current_addr
 
         if repeated
-          ((current_addr - last_addr) / segment.length).times do
+          (((current_addr - last_addr) / segment.length) - 1).times do
             buffer += segment
           end
 
           repeated = false
-          segment.clear
         else
           segment.clear
 
-          words.each do |word,index|
+          words.each do |word|
             if word =~ /^(\\[0abtnvfr\\]|.)$/
               word.hex_unescape.each_byte { |b| segment << b }
             else
@@ -246,7 +245,8 @@ class String
             end
           end
 
-          buffer += segment[0...segment_length]
+          segment = segment[0...segment_length]
+          buffer += segment
           last_addr = current_addr
         end
       end
