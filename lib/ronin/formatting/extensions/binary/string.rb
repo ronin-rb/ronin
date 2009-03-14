@@ -151,6 +151,7 @@ class String
   # _options_ may contain the following keys:
   # <tt>:type</tt>:: Denotes the encoding uses for the bytes within the
   #                  hexdump. Must be one of the following:
+  #                  <tt>:binary</tt>::
   #                  <tt>:octal</tt>::
   #                  <tt>:octal_shorts</tt>::
   #                  <tt>:octal_ints</tt>::
@@ -182,6 +183,8 @@ class String
     end
 
     case encoding
+    when :binary
+      base = 2
     when :octal, :octal_shorts, :octal_ints, :octal_longs
       base = 8
     when :decimal, :decimal_shorts, :decimal_ints, :decimal_longs
@@ -212,20 +215,21 @@ class String
           end
 
           repeated = false
-        end
+          segment.clear
+        else
+          segment.clear
 
-        segment.clear
-
-        words.each do |word|
-          if encoding == :chars
-            word.hex_unescape.each_byte { |b| segment << b }
-          else
-            segment += word.to_i(base).bytes(address_length)
+          words.each do |word|
+            if encoding == :chars
+              word.hex_unescape.each_byte { |b| segment << b }
+            else
+              segment += word.to_i(base).bytes(address_length)
+            end
           end
-        end
 
-        buffer += segment
-        last_addr = current_addr
+          buffer += segment
+          last_addr = current_addr
+        end
       end
     end
 
