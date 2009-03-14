@@ -169,6 +169,78 @@ describe String do
         @repeated = load_binary_data('repeated')
       end
 
+      it "should unhexdump octal-byte hexdump output" do
+        hexdump = load_hexdump('od_octal_bytes')
+
+        hexdump.unhexdump(:format => :od, :encoding => :octal_bytes).should == @ascii
+      end
+
+      it "should unhexdump octal-shorts hexdump output" do
+        hexdump = load_hexdump('od_octal_shorts')
+
+        hexdump.unhexdump(:format => :od, :encoding => :octal_shorts).should == @ascii
+      end
+
+      it "should unhexdump octal-ints hexdump output" do
+        hexdump = load_hexdump('od_octal_ints')
+
+        hexdump.unhexdump(:format => :od, :encoding => :octal_ints).should == @ascii
+      end
+
+      it "should unhexdump octal-quads hexdump output" do
+        hexdump = load_hexdump('od_octal_quads')
+
+        hexdump.unhexdump(:format => :od, :encoding => :octal_quads).should == @ascii
+      end
+
+      it "should unhexdump decimal-byte hexdump output" do
+        hexdump = load_hexdump('od_decimal_bytes')
+
+        hexdump.unhexdump(:format => :od, :encoding => :decimal_bytes).should == @ascii
+      end
+
+      it "should unhexdump decimal-shorts hexdump output" do
+        hexdump = load_hexdump('od_decimal_shorts')
+
+        hexdump.unhexdump(:format => :od, :encoding => :decimal_shorts).should == @ascii
+      end
+
+      it "should unhexdump decimal-ints hexdump output" do
+        hexdump = load_hexdump('od_decimal_ints')
+
+        hexdump.unhexdump(:format => :od, :encoding => :decimal_ints).should == @ascii
+      end
+
+      it "should unhexdump decimal-quads hexdump output" do
+        hexdump = load_hexdump('od_decimal_quads')
+
+        hexdump.unhexdump(:format => :od, :encoding => :decimal_quads).should == @ascii
+      end
+
+      it "should unhexdump hex-byte hexdump output" do
+        hexdump = load_hexdump('od_hex_bytes')
+
+        hexdump.unhexdump(:format => :od, :encoding => :hex_bytes).should == @ascii
+      end
+
+      it "should unhexdump hex-shorts hexdump output" do
+        hexdump = load_hexdump('od_hex_shorts')
+
+        hexdump.unhexdump(:format => :od, :encoding => :hex_shorts).should == @ascii
+      end
+
+      it "should unhexdump hex-ints hexdump output" do
+        hexdump = load_hexdump('od_hex_ints')
+
+        hexdump.unhexdump(:format => :od, :encoding => :hex_ints).should == @ascii
+      end
+
+      it "should unhexdump hex-quads hexdump output" do
+        hexdump = load_hexdump('od_hex_quads')
+
+        hexdump.unhexdump(:format => :od, :encoding => :hex_quads).should == @ascii
+      end
+
       it "should unhexdump repeated hexdump output" do
         hexdump = load_hexdump('od_repeated')
 
