@@ -159,14 +159,17 @@ class String
   #                      <tt>:octal_bytes</tt>::
   #                      <tt>:octal_shorts</tt>::
   #                      <tt>:octal_ints</tt>::
+  #                      <tt>:octal_quads</tt>::
   #                      <tt>:decimal</tt>::
   #                      <tt>:decimal_bytes</tt>::
   #                      <tt>:decimal_shorts</tt>::
   #                      <tt>:decimal_ints</tt>::
+  #                      <tt>:decimal_quads</tt>::
   #                      <tt>:hex</tt>::
   #                      <tt>:hex_bytes</tt>::
   #                      <tt>:hex_shorts</tt>::
   #                      <tt>:hex_ints</tt>::
+  #                      <tt>:hex_quads</tt>::
   # <tt>:segment</tt>:: The length in bytes of each segment in the hexdump.
   #                    Defaults to 16, if not specified.
   #
