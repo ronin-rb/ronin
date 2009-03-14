@@ -218,6 +218,7 @@ class String
 
         words.each do |word|
           if encoding == :chars
+            word.hex_unescape.each_byte { |b| segment << b }
           else
             segment += word.to_i(base).bytes(address_length)
           end
