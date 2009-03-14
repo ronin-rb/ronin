@@ -21,6 +21,7 @@
 #++
 #
 
+require 'ronin/formatting/extensions/binary/integer'
 require 'ronin/formatting/extensions/text'
 require 'ronin/arch'
 
