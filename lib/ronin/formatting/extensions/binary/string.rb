@@ -165,7 +165,7 @@ class String
   #                    Defaults to 16, if not specified.
   #
   def unhexdump(options={})
-    case options[:format]
+    case (format = options[:format])
     when :od
       address_base = base = 8
       word_size = 2
@@ -200,6 +200,7 @@ class String
     buffer = []
 
     each_line do |line|
+      line.gsub!(/\s+\|.+\|\s+$/,'') if format == :hexdump
       words = line.split
 
       if words.first == '*'
@@ -218,12 +219,14 @@ class String
         else
           segment.clear
 
-          words.each do |word|
-            if word =~ /^\\?.\s+/
+          words.each do |word,index|
+            if word =~ /^(\\[0abtnvfr\\]|.)$/
               word.hex_unescape.each_byte { |b| segment << b }
             else
-              segment += word.to_i(base).bytes(word_size,:big)
+              segment += word.to_i(base).bytes(word_size)
             end
+
+            break if segment.length >= segment_length
           end
 
           buffer += segment
