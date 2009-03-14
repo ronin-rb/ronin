@@ -156,11 +156,17 @@ class String
   #                      hexdump. Must be one of the following:
   #                      <tt>:binary</tt>::
   #                      <tt>:octal</tt>::
+  #                      <tt>:octal_bytes</tt>::
+  #                      <tt>:octal_shorts</tt>::
+  #                      <tt>:octal_ints</tt>::
   #                      <tt>:decimal</tt>::
+  #                      <tt>:decimal_bytes</tt>::
+  #                      <tt>:decimal_shorts</tt>::
+  #                      <tt>:decimal_ints</tt>::
   #                      <tt>:hex</tt>::
-  # <tt>:word_size<tt>:: The word size to use while decoding the values
-  #                      within each segment. Defaults to 2, if not
-  #                      specified.
+  #                      <tt>:hex_bytes</tt>::
+  #                      <tt>:hex_shorts</tt>::
+  #                      <tt>:hex_ints</tt>::
   # <tt>:segment</tt>:: The length in bytes of each segment in the hexdump.
   #                    Defaults to 16, if not specified.
   #
@@ -177,19 +183,26 @@ class String
       word_size = 1
     end
 
-    if options[:word_size]
-      word_size = options[:word_size]
-    end
-
     case options[:encoding]
     when :binary
       base = 2
-    when :octal
+    when :octal, :octal_bytes, :octal_shorts, :octal_ints, :octal_quads
       base = 8
-    when :decimal, :decimal_shorts, :decimal_ints, :decimal_longs
+    when :decimal, :decimal_bytes, :decimal_shorts, :decimal_ints, :decimal_quads
       base = 10
-    else
+    when :hex, :hex_bytes, :hex_shorts, :hex_ints, :hex_quads
       base = 16
+    end
+
+    case options[:encoding]
+    when :binary, :octal_bytes, :decimal_bytes, :hex_bytes
+      word_size = 1
+    when :octal_shorts, :decimal_shorts, :hex_shorts
+      word_size = 2
+    when :octal_ints, :decimal_ints, :hex_ints
+      word_size = 4
+    when :octal_quads, :decimal_quads, :hex_quads
+      word_size = 8
     end
 
     current_addr = last_addr = first_addr = nil
