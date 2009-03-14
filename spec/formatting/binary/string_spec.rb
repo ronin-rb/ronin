@@ -153,7 +153,7 @@ describe String do
       it "should unhexdump octal-int hexdump output" do
         hexdump = load_hexdump('gnu_hexdump_octal_ints')
 
-        hexdump.unhexdump(:type => :octal_ints).should == @simple
+        hexdump.unhexdump(:type => :octal_shorts).should == @simple
       end
 
       it "should unhexdump hex-short hexdump output" do
@@ -172,6 +172,13 @@ describe String do
     describe "od" do
       before(:all) do
         @simple = load_binary_data('simple')
+        @repeated = load_binary_data('repeated')
+      end
+
+      it "should unhexdump repeated hexdump output" do
+        hexdump = load_hexdump('od_repeated')
+
+        hexdump.unhexdump(:type => :octal_shorts).should == @repeated
       end
     end
   end
