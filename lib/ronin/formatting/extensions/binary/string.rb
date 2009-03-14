@@ -225,11 +225,9 @@ class String
             else
               segment += word.to_i(base).bytes(word_size)
             end
-
-            break if segment.length >= segment_length
           end
 
-          buffer += segment
+          buffer += segment[0...segment_length]
           last_addr = current_addr
         end
       end
