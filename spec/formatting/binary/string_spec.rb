@@ -120,14 +120,59 @@ describe String do
   end
 
   describe "unhexdump" do
-    before(:all) do
-      @simple = load_binary_data('simple')
+    describe "GNU hexdump" do
+      before(:all) do
+        @simple = load_binary_data('simple')
+        @repeated = load_binary_data('repeated')
+      end
+
+      it "should unhexdump octal-byte hexdump output" do
+        hexdump = load_hexdump('gnu_hexdump_octal_bytes')
+
+        hexdump.unhexdump(:type => :octal).should == @simple
+      end
+
+      it "should unhexdump escaped-char hexdump output" do
+        hexdump = load_hexdump('gnu_hexdump_chars')
+
+        hexdump.unhexdump(:type => :chars).should == @simple
+      end
+
+      it "should unhexdump hex-byte hexdump output" do
+        hexdump = load_hexdump('gnu_hexdump_hex_bytes')
+
+        hexdump.unhexdump(:type => :hex).should == @simple
+      end
+
+      it "should unhexdump decimal-short hexdump output" do
+        hexdump = load_hexdump('gnu_hexdump_decimal_shorts')
+
+        hexdump.unhexdump(:type => :decimal_shorts).should == @simple
+      end
+
+      it "should unhexdump octal-int hexdump output" do
+        hexdump = load_hexdump('gnu_hexdump_octal_ints')
+
+        hexdump.unhexdump(:type => :octal_ints).should == @simple
+      end
+
+      it "should unhexdump hex-short hexdump output" do
+        hexdump = load_hexdump('gnu_hexdump_hex_shorts')
+
+        hexdump.unhexdump(:type => :hex_shorts).should == @simple
+      end
+
+      it "should unhexdump repeated hexdump output" do
+        hexdump = load_hexdump('gnu_hexdump_repeated')
+
+        hexdump.unhexdump(:type => :hex).should == @repeated
+      end
     end
 
-    it "should unhexdump GNU hexdump output" do
-      gnu_hexdump = load_hexdump('gnu_hexdump')
-
-      gnu_hexdump.unhexdump(:type => :hex_shorts).should == @simple
+    describe "od" do
+      before(:all) do
+        @simple = load_binary_data('simple')
+      end
     end
   end
 end

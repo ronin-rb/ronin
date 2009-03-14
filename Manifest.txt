@@ -185,7 +185,14 @@ spec/extensions/uri/http_spec.rb
 spec/extensions/uri/query_params_spec.rb
 spec/formatting/binary/helpers/hexdumps.rb
 spec/formatting/binary/helpers/hexdumps/simple.bin
-spec/formatting/binary/helpers/hexdumps/gnu_hexdump.txt
+spec/formatting/binary/helpers/hexdumps/repeated.bin
+spec/formatting/binary/helpers/hexdumps/gnu_hexdump_chars.txt
+spec/formatting/binary/helpers/hexdumps/gnu_hexdump_decimal_shorts.txt
+spec/formatting/binary/helpers/hexdumps/gnu_hexdump_hex_bytes.txt
+spec/formatting/binary/helpers/hexdumps/gnu_hexdump_hex_shorts.txt
+spec/formatting/binary/helpers/hexdumps/gnu_hexdump_octal_bytes.txt
+spec/formatting/binary/helpers/hexdumps/gnu_hexdump_octal_ints.txt
+spec/formatting/binary/helpers/hexdumps/gnu_hexdump_repeated.txt
 spec/formatting/binary/integer_spec.rb
 spec/formatting/binary/string_spec.rb
 spec/formatting/digest_spec.rb
