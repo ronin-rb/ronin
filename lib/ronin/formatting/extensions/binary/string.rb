@@ -219,10 +219,10 @@ class String
           segment.clear
 
           words.each do |word|
-            if word =~ /\\?./
+            if word =~ /^\\?.\s+/
               word.hex_unescape.each_byte { |b| segment << b }
             else
-              segment += word.to_i(base).bytes(word_size,endian)
+              segment += word.to_i(base).bytes(word_size,:big)
             end
           end
 
