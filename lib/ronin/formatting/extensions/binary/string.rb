@@ -94,6 +94,8 @@ class String
         escaped_char = hex_substring[1..1]
 
         buffer << case escaped_char
+                  when '0'
+                    "\0"
                   when 'a'
                     "\a"
                   when 'b'
