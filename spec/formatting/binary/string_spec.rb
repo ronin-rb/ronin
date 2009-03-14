@@ -11,6 +11,10 @@ describe String do
     String.instance_method('hex_escape').should_not be_nil
   end
 
+  it "should provide String#hex_unescape" do
+    String.instance_method('hex_unescape').should_not be_nil
+  end
+
   it "should provide String#xor" do
     String.instance_method('xor').should_not be_nil
   end
@@ -70,6 +74,24 @@ describe String do
 
     it "should hex escape a String" do
       @binary_string.hex_escape.should == "\\x68\\x65\\x6c\\x6c\\x6f\\x4e"
+    end
+  end
+
+  describe "hex_unescape" do
+    it "should unescape a normal String" do
+      "hello".hex_unescape.should == "hello"
+    end
+
+    it "should unescape a hex String" do
+      "\\x68\\x65\\x6c\\x6c\\x6f\\x4e".hex_unescape.should == "hello\x4e"
+    end
+
+    it "should unescape an octal String" do
+      "hello\012".hex_unescape.should == "hello\n"
+    end
+
+    it "should unescape control characters" do
+      "hello\\n".hex_unescape.should == "hello\n"
     end
   end
 

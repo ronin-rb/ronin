@@ -68,6 +68,59 @@ class String
   end
 
   #
+  # Returns an unescaped version of the hex escaped string.
+  #
+  #   '\x68\x65\x6c\x6c\x6f'.hex_unescape
+  #   # => "hello"
+  #
+  def hex_unescape
+    buffer = ''
+    hex_index = 0
+    hex_length = length
+
+    while (hex_index < hex_length)
+      hex_substring = self[hex_index..-1]
+
+      if hex_substring =~ /^\\[0-7]{3}/
+        buffer << hex_substring[0..3].to_i(8)
+        hex_index += 3
+      elsif hex_substring =~ /^\\x[0-9a-fA-F]{1,2}/
+        hex_substring[2..-1].scan(/^[0-9a-fA-F]{1,2}/) do |hex_byte|
+          buffer << hex_byte.to_i(16)
+          hex_index += (2 + hex_byte.length)
+        end
+      elsif hex_substring =~ /^\\./
+        escaped_char = hex_substring[1..1]
+
+        buffer << case escaped_char
+                  when 'a'
+                    "\a"
+                  when 'b'
+                    "\b"
+                  when 't'
+                    "\t"
+                  when 'n'
+                    "\n"
+                  when 'v'
+                    "\v"
+                  when 'f'
+                    "\f"
+                  when 'r'
+                    "\r"
+                  else
+                    escaped_char
+                  end
+        hex_index += 2
+      else
+        buffer << hex_substring[0]
+        hex_index += 1
+      end
+    end
+
+    return buffer
+  end
+
+  #
   # XOR encodes the string using the specified _key_.
   #
   def xor(key)
