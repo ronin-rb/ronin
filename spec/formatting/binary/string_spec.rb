@@ -127,37 +127,37 @@ describe String do
       end
 
       it "should unhexdump octal-byte hexdump output" do
-        hexdump = load_hexdump('gnu_hexdump_octal_bytes')
+        hexdump = load_hexdump('hexdump_octal_bytes')
 
         hexdump.unhexdump(:format => :hexdump, :encoding => :octal_bytes).should == @ascii
       end
 
       it "should unhexdump hex-byte hexdump output" do
-        hexdump = load_hexdump('gnu_hexdump_hex_bytes')
+        hexdump = load_hexdump('hexdump_hex_bytes')
 
         hexdump.unhexdump(:format => :hexdump, :encoding => :hex_bytes).should == @ascii
       end
 
       it "should unhexdump decimal-short hexdump output" do
-        hexdump = load_hexdump('gnu_hexdump_decimal_shorts')
+        hexdump = load_hexdump('hexdump_decimal_shorts')
 
         hexdump.unhexdump(:format => :hexdump, :encoding => :decimal_shorts).should == @ascii
       end
 
       it "should unhexdump octal-short hexdump output" do
-        hexdump = load_hexdump('gnu_hexdump_octal_shorts')
+        hexdump = load_hexdump('hexdump_octal_shorts')
 
         hexdump.unhexdump(:format => :hexdump, :encoding => :octal_shorts).should == @ascii
       end
 
       it "should unhexdump hex-short hexdump output" do
-        hexdump = load_hexdump('gnu_hexdump_hex_shorts')
+        hexdump = load_hexdump('hexdump_hex_shorts')
 
         hexdump.unhexdump(:format => :hexdump, :encoding => :hex_shorts).should == @ascii
       end
 
       it "should unhexdump repeated hexdump output" do
-        hexdump = load_hexdump('gnu_hexdump_repeated')
+        hexdump = load_hexdump('hexdump_repeated')
 
         hexdump.unhexdump(:format => :hexdump, :encoding => :hex_bytes).should == @repeated
       end
