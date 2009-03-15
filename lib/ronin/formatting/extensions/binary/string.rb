@@ -71,7 +71,7 @@ class String
   #
   # Returns an unescaped version of the hex escaped string.
   #
-  #   '\x68\x65\x6c\x6c\x6f'.hex_unescape
+  #   "\\x68\\x65\\x6c\\x6c\\x6f".hex_unescape
   #   # => "hello"
   #
   def hex_unescape
