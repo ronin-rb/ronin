@@ -3,12 +3,72 @@ require 'ronin/formatting/binary'
 require 'spec_helper'
 
 describe Integer do
+  it "should provide Integer#bytes" do
+    Integer.instance_method('bytes').should_not be_nil
+  end
+
   it "should provide Integer#pack" do
     Integer.instance_method('pack').should_not be_nil
   end
 
   it "should provide Integer#hex_escape" do
     Integer.instance_method('hex_escape').should_not be_nil
+  end
+
+  describe "bytes" do
+    before(:all) do
+      @integer = 0x1337
+
+      @little_endian_char = [0x37]
+      @little_endian_short = [0x37, 0x13]
+      @little_endian_long = [0x37, 0x13, 0x0, 0x0]
+      @little_endian_quad = [0x37, 0x13, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0]
+
+      @big_endian_char = [0x37]
+      @big_endian_short = [0x13, 0x37]
+      @big_endian_long = [0, 0, 0x13, 0x37]
+      @big_endian_quad = [0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x13, 0x37]
+    end
+
+    it "should return the bytes in little endian ordering" do
+      @integer.bytes(4).should == @little_endian_long
+    end
+
+    it "should return the bytes for a char in little endian ordering" do
+      @integer.bytes(1).should == @little_endian_char
+    end
+
+    it "should return the bytes for a short in little endian ordering" do
+      @integer.bytes(2).should == @little_endian_short
+    end
+
+    it "should return the bytes for a long in little endian ordering" do
+      @integer.bytes(4).should == @little_endian_long
+    end
+
+    it "should return the bytes for a quad in little endian ordering" do
+      @integer.bytes(8).should == @little_endian_quad
+    end
+
+    it "should return the bytes in big endian ordering" do
+      @integer.bytes(4, :big).should == @big_endian_long
+    end
+
+    it "should return the bytes for a char in big endian ordering" do
+      @integer.bytes(1, :big).should == @big_endian_char
+    end
+
+    it "should return the bytes for a short in big endian ordering" do
+      @integer.bytes(2, :big).should == @big_endian_short
+    end
+
+    it "should return the bytes for a long in big endian ordering" do
+      @integer.bytes(4, :big).should == @big_endian_long
+    end
+
+    it "should return the bytes for a quad in big endian ordering" do
+      @integer.bytes(8, :big).should == @big_endian_quad
+    end
   end
 
   describe "pack" do

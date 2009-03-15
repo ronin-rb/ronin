@@ -26,6 +26,36 @@ require 'ronin/arch'
 class Integer
 
   #
+  # Returns and Array of bytes which represent the integer, using the
+  # specified _address_length_ and given _endian_.
+  #
+  # _endian_ must be either <tt>:little</tt>, <tt>:big</tt> or
+  # <tt>:net</tt>.
+  #
+  def bytes(address_length,endian=:little)
+    endian = endian.to_s
+    buffer = []
+
+    if (endian == 'little' || endian == 'net')
+      mask = 0xff
+
+      address_length.times do |i|
+        buffer << ((self & mask) >> (i*8))
+        mask <<= 8
+      end
+    elsif endian == 'big'
+      mask = (0xff << ((address_length-1)*8))
+
+      address_length.times do |i|
+        buffer << ((self & mask) >> ((address_length-i-1)*8))
+        mask >>= 8
+      end
+    end
+
+    return buffer
+  end
+
+  #
   # Packs the integer using the specified _arch_ and the given
   # _address_length_. The _address_length_ will default to the address
   # length of the _arch_.
@@ -35,25 +65,7 @@ class Integer
   #   0x41.pack(Arch.ppc,2) # => "\000A"
   #
   def pack(arch,address_length=arch.address_length)
-    buffer = ""
-
-    if arch.endian=='little'
-      mask = 0xff
-
-      address_length.times do |i|
-        buffer+=((self & mask) >> (i*8)).chr
-        mask <<= 8
-      end
-    elsif arch.endian=='big'
-      mask = (0xff << ((address_length-1)*8))
-
-      address_length.times do |i|
-        buffer+=((self & mask) >> ((address_length-i-1)*8)).chr
-        mask >>= 8
-      end
-    end
-
-    return buffer
+    bytes(address_length,arch.endian).map { |b| b.chr }.join
   end
 
   #
