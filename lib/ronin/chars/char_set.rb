@@ -197,6 +197,8 @@ module Ronin
             index += 1
           end
         end
+
+        return found
       end
 
       #
