@@ -181,9 +181,11 @@ module Ronin
           }
         end
 
+        return found if data.length < min_length
+
         index = 0
 
-        while index < (data.length - min_length)
+        while index <= (data.length - min_length)
           if self =~ data[index...(index + min_length)]
             sub_index = (index + min_length) + 1
 
