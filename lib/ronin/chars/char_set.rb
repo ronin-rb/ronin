@@ -57,7 +57,7 @@ module Ronin
       # returns +false+ otherwise.
       #
       def include_char?(char)
-        return false unless char.kind_of?(String)
+        return false unless char.respond_to?(:each_byte)
 
         char.each_byte do |b|
           return include?(b)
@@ -219,6 +219,8 @@ module Ronin
       #   # => true
       #
       def =~(string)
+        return false unless string.respond_to?(:each_byte)
+
         string.each_byte do |b|
           return false unless include?(b)
         end
