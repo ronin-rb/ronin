@@ -187,13 +187,13 @@ module Ronin
 
         while index <= (data.length - min_length)
           if self =~ data[index...(index + min_length)]
-            sub_index = (index + min_length) + 1
+            sub_index = (index + min_length)
 
             while self.include_char?(data[sub_index..sub_index])
               sub_index += 1
             end
 
-            found_substring.call(index,data[index..sub_index])
+            found_substring.call(index,data[index...sub_index])
             index = sub_index
           else
             index += 1
