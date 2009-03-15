@@ -168,6 +168,17 @@ describe Chars::CharSet do
     sub_set.subset?(@char_set).should == true
   end
 
+  it "should find one sub-string from a String belonging to the char set" do
+    @char_set.strings_in("AAAA").should == ["AAAA"]
+  end
+
+  it "should find sub-strings from a String belonging to the char set" do
+    @char_set.strings_in("AAAAXBXCCCCCC").should == [
+      "AAAA",
+      "CCCCCC"
+    ]
+  end
+
   it "should determine if a String is made up of the characters from the char set" do
     (@char_set =~ "AABCBAA").should == true
     (@char_set =~ "AADDEE").should_not == true
