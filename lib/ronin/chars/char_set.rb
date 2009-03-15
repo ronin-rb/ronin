@@ -151,6 +151,53 @@ module Ronin
       end
 
       #
+      # Finds sub-strings within the specified _data_ that are part of the
+      # character set, using the given _options_.
+      #
+      # _options_ may contain the following keys:
+      # <tt>:length</tt>:: The minimum length of matching sub-strings
+      #                    within the _data_. Defaults to 4, if not
+      #                    specified.
+      # <tt>:offsets</tt>:: Specifies wether to return a Hash of the
+      #                     offsets within the _data_ and the matched
+      #                     sub-strings. If not specified a simple
+      #                     Array will be returned of the matched
+      #                     sub-strings.
+      #
+      def strings_in(data,options={})
+        min_length = (options[:length] || 4)
+
+        if options[:offsets]
+          found = {}
+          found_substring = lambda { |offset,substring|
+            found[offset] = substring
+          }
+        else
+          found = []
+          found_substring = lambda { |offset,substring|
+            found << substring
+          }
+        end
+
+        index = 0
+
+        while index < (data.length - min_length)
+          if self =~ data[index...(index + min_length)]
+            sub_index = (index + min_length) + 1
+
+            while self.include_char?(data[sub_index..sub_index])
+              sub_index += 1
+            end
+
+            found_substring.call(index,data[index..sub_index])
+            index = sub_index
+          else
+            index += 1
+          end
+        end
+      end
+
+      #
       # Creates a new CharSet object containing the both the characters
       # of the character set and the specified _other_set_.
       #
