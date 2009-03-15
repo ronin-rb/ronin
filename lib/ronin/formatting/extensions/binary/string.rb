@@ -154,26 +154,26 @@ class String
   # _options_ may contain the following keys:
   # <tt>:format</tt>:: The expected format of the hexdump. Must be either
   #                    <tt>:od</tt> or <tt>:hexdump</tt>.
-  # <tt>:encoding</tt>:: Denotes the encoding uses for the bytes within the
+  # <tt>:encoding</tt>:: Denotes the encoding used for the bytes within the
   #                      hexdump. Must be one of the following:
-  #                      <tt>:binary</tt>::
-  #                      <tt>:octal</tt>::
-  #                      <tt>:octal_bytes</tt>::
-  #                      <tt>:octal_shorts</tt>::
-  #                      <tt>:octal_ints</tt>::
-  #                      <tt>:octal_quads</tt>::
-  #                      <tt>:decimal</tt>::
-  #                      <tt>:decimal_bytes</tt>::
-  #                      <tt>:decimal_shorts</tt>::
-  #                      <tt>:decimal_ints</tt>::
-  #                      <tt>:decimal_quads</tt>::
-  #                      <tt>:hex</tt>::
-  #                      <tt>:hex_bytes</tt>::
-  #                      <tt>:hex_shorts</tt>::
-  #                      <tt>:hex_ints</tt>::
-  #                      <tt>:hex_quads</tt>::
+  #                      <tt>:binary</tt>:: Binary encoded bytes.
+  #                      <tt>:octal</tt>:: Octal encoding.
+  #                      <tt>:octal_bytes</tt>:: Octal encoded bytes.
+  #                      <tt>:octal_shorts</tt>:: Octal encoded shorts.
+  #                      <tt>:octal_ints</tt>:: Octal encoded integers.
+  #                      <tt>:octal_quads</tt>:: Octal encoded quads.
+  #                      <tt>:decimal</tt>:: Unsigned decimal encoding.
+  #                      <tt>:decimal_bytes</tt>:: Unsigned decimal bytes.
+  #                      <tt>:decimal_shorts</tt>:: Unsigned decimal shorts.
+  #                      <tt>:decimal_ints</tt>:: Unsigned decimal ints.
+  #                      <tt>:decimal_quads</tt>:: Unsigned decimal quads.
+  #                      <tt>:hex</tt>:: Hexadecimal encoding.
+  #                      <tt>:hex_bytes</tt>:: Hexadecimal bytes.
+  #                      <tt>:hex_shorts</tt>:: Hexadecimal shorts.
+  #                      <tt>:hex_ints</tt>:: Hexadecimal ints.
+  #                      <tt>:hex_quads</tt>:: Hexadecimal quads.
   # <tt>:segment</tt>:: The length in bytes of each segment in the hexdump.
-  #                    Defaults to 16, if not specified.
+  #                     Defaults to 16, if not specified.
   #
   def unhexdump(options={})
     case (format = options[:format])
