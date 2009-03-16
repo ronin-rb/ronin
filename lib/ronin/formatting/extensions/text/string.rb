@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/chars'
+require 'chars'
 
 class String
 

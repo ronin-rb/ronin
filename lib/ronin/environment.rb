@@ -24,13 +24,13 @@
 require 'ronin/config'
 require 'ronin/extensions'
 require 'ronin/formatting'
-require 'ronin/chars'
 require 'ronin/path'
 require 'ronin/network'
 require 'ronin/models'
 require 'ronin/ui'
 require 'ronin/ronin'
 
+require 'chars'
 require 'pp'
 
 Ronin::Config.load
