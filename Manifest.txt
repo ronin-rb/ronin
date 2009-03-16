@@ -42,9 +42,6 @@ lib/ronin/formatting/extensions/text.rb
 lib/ronin/formatting/extensions/text/string.rb
 lib/ronin/formatting/extensions/http.rb
 lib/ronin/formatting/extensions/http/string.rb
-lib/ronin/chars.rb
-lib/ronin/chars/char_set.rb
-lib/ronin/chars/chars.rb
 lib/ronin/translators.rb
 lib/ronin/translators/translator.rb
 lib/ronin/path.rb
@@ -175,8 +172,6 @@ spec/static/finders_spec.rb
 spec/static/static_spec.rb
 spec/arch_spec.rb
 spec/author_spec.rb
-spec/chars/char_set_spec.rb
-spec/chars/chars_spec.rb
 spec/translators/translator_spec.rb
 spec/objectify/objectify_spec.rb
 spec/extensions/hash_spec.rb
