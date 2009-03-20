@@ -24,17 +24,6 @@
 class String
 
   #
-  # Converts the +String+ into an appropriate method name.
-  #
-  #   'GPL 2'.to_method_name # => "gpl_2"
-  #
-  #   'Ronin::Arch' # => "ronin_arch"
-  #
-  def to_method_name
-    downcase.gsub(/(::|[\s\-])/,'_')
-  end
-
-  #
   # Returns the common prefix of the string and the specified _other_
   # string. If no common prefix can be found an empty string will be
   # returned.

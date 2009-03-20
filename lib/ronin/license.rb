@@ -22,7 +22,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/extensions/string'
 
 require 'dm-predefined'
 
@@ -65,7 +64,7 @@ module Ronin
     # <tt>:url</tt>:: The URL to the license.
     #
     def self.define(name,options={})
-      super(name.to_method_name,options.merge(:name => name))
+      super(name.downcase.gsub(/[\s_\-]+/,'_'),options.merge(:name => name))
     end
 
     # Creative Commons Licenses

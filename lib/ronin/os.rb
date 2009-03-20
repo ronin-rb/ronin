@@ -23,7 +23,8 @@
 
 require 'ronin/model'
 require 'ronin/extensions/meta'
-require 'ronin/extensions/string'
+
+require 'extlib'
 
 module Ronin
   class OS
@@ -63,7 +64,7 @@ module Ronin
     #
     def OS.define(name)
       name = name.to_s
-      method_name = name.to_method_name
+      method_name = name.snake_case
 
       meta_def(method_name) do
         OS.new(:name => name)
