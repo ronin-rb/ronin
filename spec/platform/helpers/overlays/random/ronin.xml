@@ -1,0 +1,26 @@
+<?xml version='1.0'?>
+<?xml-stylesheet type="text/xsl" href="http://ronin.rubyforge.org/static/ronin/platform/overlay.xsl"?>
+<ronin-overlay version='0.1.5'>
+  <title>
+    Random
+  </title>
+  <website>
+    http://ronin.rubyforge.org/
+  </website>
+  <license>
+    GPL-2
+  </license>
+  <maintainers>
+    <maintainer>
+      <name>
+        Postmodern
+      </name>
+      <email>
+        postmodern.mod3@gmail.com
+      </email>
+    </maintainer>
+  </maintainers>
+  <description>
+    This is a test overlay used in Ronin&apos;s specs.
+  </description>
+</ronin-overlay>

@@ -39,4 +39,12 @@ describe Platform::ExtensionCache do
     paths.length.should == 2
     paths.select { |path| path =~ /test$/ }.should == paths
   end
+
+  it "should reload previously loaded extensions" do
+    random_number = lambda { @cache['random'].number }
+    previous_number = random_number.call
+
+    @cache.reload!
+    random_number.call.should_not == previous_number
+  end
 end

@@ -220,6 +220,8 @@ spec/platform/helpers/overlays/test2/ronin.xml
 spec/platform/helpers/overlays/test2/test/extension.rb
 spec/platform/helpers/overlays/hello/ronin.xml
 spec/platform/helpers/overlays/hello/hello/extension.rb
+spec/platform/helpers/overlays/random/ronin.xml
+spec/platform/helpers/overlays/random/random/extension.rb
 spec/platform/extension_spec.rb
 spec/platform/overlay_spec.rb
 spec/platform/overlay_cache_spec.rb
