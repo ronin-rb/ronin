@@ -85,6 +85,17 @@ module Ronin
         end
       end
 
+      #
+      # Reloads the extensions within the extension cache.
+      #
+      def reload!
+        each do |name,ext|
+          ext.teardown!
+
+          self[name] = load_extension(name)
+        end
+      end
+
     end
   end
 end
