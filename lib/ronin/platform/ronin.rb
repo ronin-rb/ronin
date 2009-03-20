@@ -23,6 +23,8 @@
 
 require 'ronin/platform/platform'
 
+require 'extlib'
+
 module Ronin
   protected
 
@@ -34,7 +36,7 @@ module Ronin
   #
   def Ronin.const_missing(name)
     name = name.to_s
-    ext_name = name.downcase
+    ext_name = name.snake_case
 
     if Platform.has_extension?(ext_name)
       return Platform.extension(ext_name)
