@@ -27,7 +27,24 @@ module Ronin
   protected
 
   #
-  # Provides transparent access to Platform.extension.
+  # Provides transparent access to Platform.extension via constants.
+  #
+  #   Ronin::Shellcode
+  #   # => #<Ronin::Platform::Extension: ...>
+  #
+  def Ronin.const_missing(name)
+    name = name.to_s
+    ext_name = name.downcase
+
+    if Platform.has_extension?(ext_name)
+      return Platform.extension(ext_name)
+    end
+
+    return super(name)
+  end
+
+  #
+  # Provides transparent access to Platform.extension via methods.
   #
   #   Ronin.shellcode
   #   # => #<Ronin::Platform::Extension: ...>
