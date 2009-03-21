@@ -26,6 +26,8 @@ require 'ronin/platform/overlay_cache'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/extension_cache'
 
+require 'fileutils'
+
 module Ronin
   module Platform
     #
@@ -96,7 +98,16 @@ module Ronin
     # <tt>:media</tt>:: The media of the overlay.
     #
     def Platform.install(options={},&block)
-      options = options.merge(:into => OverlayCache::CACHE_DIR)
+      unless options[:uri]
+        raise(ArgumentError,":uri must be passed to Platform.install",caller)
+      end
+
+      uri = options[:uri].to_s
+      host = (URI(uri).host || 'localhost')
+      host_dir = File.join(OverlayCache::CACHE_DIR,host)
+      options = options.merge(:into => host_dir)
+
+      FileUtils.mkdir_p(host_dir)
 
       Repertoire.checkout(options) do |path,media,uri|
         return Platform.add(:path => path, :media => media, :uri => uri)
