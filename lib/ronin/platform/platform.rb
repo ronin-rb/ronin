@@ -26,8 +26,6 @@ require 'ronin/platform/overlay_cache'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/extension_cache'
 
-require 'fileutils'
-
 module Ronin
   module Platform
     #
@@ -106,8 +104,6 @@ module Ronin
       host = (URI(uri).host || 'localhost')
       host_dir = File.join(OverlayCache::CACHE_DIR,host)
       options = options.merge(:into => host_dir)
-
-      FileUtils.mkdir_p(host_dir)
 
       Repertoire.checkout(options) do |path,media,uri|
         return Platform.add(:path => path, :media => media, :uri => uri)
