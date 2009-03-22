@@ -57,7 +57,9 @@ module Ronin
             }
           end
 
-          def arguments(args)
+          def arguments(*args)
+            puts args.inspect
+
             unless args.length == 1
               fail('only one overlay URI maybe specified')
             end
