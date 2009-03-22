@@ -31,7 +31,9 @@ require 'nokogiri'
 
 module Ronin
   module Platform
-    class Overlay < Repertoire::Repository
+    class Overlay
+
+      include Repertoire
 
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
@@ -84,18 +86,21 @@ module Ronin
       # The objects directory
       attr_reader :objects_dir
 
+      # Repository of the overlay
+      attr_reader :repository
+
       #
-      # Creates a new Overlay object with the specified _path_, _media_type_
+      # Creates a new Overlay object with the specified _path_, _media_
       # and _uri_.
       #
-      def initialize(path,media_type=nil,uri=nil,&block)
+      def initialize(path,media=nil,uri=nil,&block)
         @path = File.expand_path(path)
         @name = File.basename(@path)
         @static_dir = File.join(@path,STATIC_DIR)
         @objects_dir = File.join(@path,OBJECTS_DIR)
         @uri = uri
 
-        super(@path,Repertoire::Media.types[media_type])
+        @repository = Repository.new(@path,Media.types[media])
 
         initialize_metadata(&block)
       end
@@ -103,19 +108,16 @@ module Ronin
       #
       # Media type of the overlay.
       #
-      def media_type
-        if @media
-          return @media.name
-        else
-          return nil
-        end
+      def media
+        return @repository.media.name if @repository.media
+        return nil
       end
 
       #
       # Returns the paths of all extensions within the overlay.
       #
       def extension_paths
-        directories.reject do |dir|
+        @repository.directories.reject do |dir|
           name = File.basename(dir)
 
           RESERVED_DIRS.include?(name)
@@ -192,8 +194,8 @@ module Ronin
       # is given it will be called after the overlay has been updated.
       #
       def update(&block)
-        if media_type
-          Repertoire.update(:media => media_type, :path => @path, :uri => @uri)
+        if media
+          Repertoire.update(:media => media, :path => @path, :uri => @uri)
         end
 
         return initialize_metadata(&block)
