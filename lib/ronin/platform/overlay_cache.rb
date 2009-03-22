@@ -286,7 +286,7 @@ module Ronin
           descriptions = overlays.map do |overlay|
             {
               :path => overlay.path,
-              :media => overlay.media_type,
+              :media => overlay.media,
               :uri => overlay.uri
             }
           end
