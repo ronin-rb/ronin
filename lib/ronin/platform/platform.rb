@@ -105,8 +105,12 @@ module Ronin
       host_dir = File.join(OverlayCache::CACHE_DIR,host)
       options = options.merge(:into => host_dir)
 
-      Repertoire.checkout(options) do |path,media,uri|
-        return Platform.add(:path => path, :media => media, :uri => uri)
+      Repertoire.checkout(options) do |repo|
+        return Platform.add(
+          :path => repo.path,
+          :media => repo.media_name,
+          :uri => uri
+        )
       end
     end
 
