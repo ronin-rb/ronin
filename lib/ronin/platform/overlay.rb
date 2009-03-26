@@ -99,7 +99,6 @@ module Ronin
         @static_dir = File.join(@path,STATIC_DIR)
         @objects_dir = File.join(@path,OBJECTS_DIR)
         @uri = uri
-
         @repository = Repository.new(@path,Media.types[media])
 
         initialize_metadata(&block)
@@ -109,8 +108,7 @@ module Ronin
       # Media type of the overlay.
       #
       def media
-        return @repository.media.name if @repository.media
-        return nil
+        @repository.media_name
       end
 
       #
@@ -194,11 +192,11 @@ module Ronin
       # is given it will be called after the overlay has been updated.
       #
       def update(&block)
-        if media
-          Repertoire.update(:media => media, :path => @path, :uri => @uri)
+        if @repository.update(@uri)
+          initialize_metadata(&block)
         end
 
-        return initialize_metadata(&block)
+        return self
       end
 
       #
@@ -207,7 +205,7 @@ module Ronin
       # has been uninstalled.
       #
       def uninstall(&block)
-        Repertoire.delete(@path)
+        @repository.delete(@path)
 
         block.call(self) if block
         return self
