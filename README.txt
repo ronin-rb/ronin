@@ -146,13 +146,12 @@ Google (tm) Dorks functionality.
 Ronin Exploits is a Ruby library for Ronin that provides exploitation and
 payload crafting functionality.
 
-=== Ronin HTML
+=== Ronin Gen
 
-* http://ronin.rubyforge.org/html/
-* http://github.com/postmodern/ronin-html
+* http://ronin.rubyforge.org/gen/
+* http://github.com/postmodern/ronin-gen
 
-Ronin HTML is a Ruby library for Ronin that provides support for generating
-complex HTML/JavaScript or crafting XSS/CSRF attacks.
+Ronin Gen is a Ruby library for Ronin that provides various generators.
 
 === Ronin SQL
 
