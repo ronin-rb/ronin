@@ -29,7 +29,7 @@ users to pick and choose what functionality they want in Ronin.
 
 Ronin does not have a central repository of exploits and payloads which
 all developers contribute to. Instead Ronin has Overlays, repositories of
-code that can be hosted on any CVS/SVN/Git/Rsync server. Users can then use
+code that can be hosted on any SVN/Hg/Git/Rsync server. Users can then use
 Ronin to quickly install or update Overlays. This allows developers and
 users to form their own communities, independent of the main developers
 of Ronin.
@@ -38,11 +38,10 @@ of Ronin.
 
 * Supports installing/updating/uninstalling of Overlays.
   * Supports accessing Overlays from various media types:
-    * CVS
     * Subversion (SVN)
+    * Mercurial (Hg)
     * Git
     * Rsync
-    * Darcs
 * Allows for the loading of Extensions from one or more Overlays.
 * Provides persistent storage of objects using DataMapper.
 * Caches and mirrors objects stored in Overlays using DataMapper.
