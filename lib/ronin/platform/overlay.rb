@@ -205,7 +205,7 @@ module Ronin
       # has been uninstalled.
       #
       def uninstall(&block)
-        @repository.delete(@path)
+        @repository.delete
 
         block.call(self) if block
         return self
