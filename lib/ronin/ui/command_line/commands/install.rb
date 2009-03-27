@@ -43,7 +43,7 @@ module Ronin
                 @cache = dir
               end
 
-              opts.on('-m','--media [MEDIA]','Spedify the media-type of the overlay') do |media|
+              opts.on('-m','--media MEDIA','Spedify the media-type of the overlay') do |media|
                 @media = media.to_sym
               end
 
