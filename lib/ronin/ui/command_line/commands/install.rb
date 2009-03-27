@@ -44,7 +44,7 @@ module Ronin
               end
 
               opts.on('-m','--media [MEDIA]','Spedify the media-type of the overlay') do |media|
-                @media = media
+                @media = media.to_sym
               end
 
               opts.on('--rsync','Alias for -m rsync') do
