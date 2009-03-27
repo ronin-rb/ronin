@@ -75,8 +75,8 @@ module Ronin
 
       #
       # Returns the first set of matching static paths for the specified
-      # _pattern_. If no matching static paths can be found, +nil+ will be
-      # returned.
+      # _pattern_. If no matching static paths can be found, an empty
+      # Array will be returned.
       #
       def static_glob(pattern)
         static_paths(pattern) do |full_path|
@@ -85,7 +85,7 @@ module Ronin
           return paths unless paths.empty?
         end
 
-        return nil
+        return []
       end
 
       #
