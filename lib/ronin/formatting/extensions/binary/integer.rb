@@ -26,7 +26,7 @@ require 'ronin/arch'
 class Integer
 
   #
-  # Returns and Array of bytes which represent the integer, using the
+  # Returns an Array of bytes which represent the integer, using the
   # specified _address_length_ and given _endian_.
   #
   # _endian_ must be either <tt>:little</tt>, <tt>:big</tt> or

@@ -148,8 +148,8 @@ class String
   end
 
   #
-  # Converts a multitude of hexdump formats back into their original
-  # binary form using the given _options_.
+  # Converts a multitude of hexdump formats back into the original
+  # raw-data using the given _options_.
   #
   # _options_ may contain the following keys:
   # <tt>:format</tt>:: The expected format of the hexdump. Must be either
