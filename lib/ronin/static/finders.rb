@@ -26,12 +26,19 @@ require 'ronin/static/static'
 module Ronin
   module Static
     module Finders
+      #
+      # Passes all possible matching paths of the specified _path_
+      # within the static directories to the specified _block_.
+      #
       def static_paths(path,&block)
         Static.static_dirs.each do |dir|
           block.call(File.join(dir,path))
         end
       end
 
+      #
+      # Returns the first matching static path for the specified _path_.
+      #
       def static_find(path)
         static_paths(path) do |full_path|
           return full_path if File.exists?(full_path)
@@ -40,6 +47,10 @@ module Ronin
         return nil
       end
 
+      #
+      # Returns the first matching static file for the specified _path_.
+      # If no matching static file can be found, +nil+ will be returned.
+      #
       def find_static_file(path)
         static_paths(path) do |full_path|
           return full_path if File.file?(full_path)
@@ -48,6 +59,11 @@ module Ronin
         return nil
       end
 
+      #
+      # Returns the first matching static directory for the specified
+      # _path_. If no matching static directory can be found, +nil+ will be
+      # returned.
+      #
       def find_static_dir(path)
         static_paths(path) do |full_path|
           return full_path if File.directory?(full_path)
@@ -56,6 +72,10 @@ module Ronin
         return nil
       end
 
+      #
+      # Returns the first matching static paths for the specified _pattern_.
+      # If no matching static paths can be found, +nil+ will be returned.
+      #
       def static_glob(pattern)
         static_paths(pattern) do |full_path|
           paths = Dir[full_path]
@@ -66,6 +86,9 @@ module Ronin
         return nil
       end
 
+      #
+      # Returns all matching static paths for the specified _path_.
+      #
       def static_find_all(path)
         paths = []
 
@@ -76,6 +99,9 @@ module Ronin
         return paths
       end
 
+      #
+      # Returns all matching static files forthe specified _path_.
+      #
       def find_static_files(path)
         paths = []
 
@@ -86,6 +112,9 @@ module Ronin
         return paths
       end
 
+      #
+      # Returns all matching static directories for the specified _path_.
+      #
       def find_static_dirs(path)
         paths = []
 
@@ -96,6 +125,9 @@ module Ronin
         return paths
       end
 
+      #
+      # Returns all matching static paths for the specified _pattern_.
+      #
       def static_glob_all(pattern)
         paths = []
 
