@@ -1,3 +1,28 @@
+=== 0.2.2 / 2009-03-26
+
+* Split out Ronin::Chars into the Chars library.
+* Split out ronin-overlay and ronin-ext sub-commands into the Ronin Gen
+  library.
+* Require chars >= 0.1.0.
+* Require repertoire >= 0.2.1.
+* Removed String#to_method_name, use Extlib instead.
+* Refactored Ronin::Platform::Overlay.
+  * Renamed Overlay#media_type to Overlay#media.
+  * Fixed parsing bugs in Overlay#initialize_metadata.
+* Allow Extensions to be accessed via constants.
+* Added the Creative Commons Zero license to Ronin::License.
+* Added the Integer#bytes method.
+* Added the String#hex_unescape method.
+* Added the String#unhexdump method.
+* Added Ronin::Static for managing static resources.
+* Added Ronin::Static::Finders for searching for static files.
+* Added static directories to Overlays and Extensions.
+* Added ronin/platform/tasks:
+  * Added ronin/platform/tasks/spec task for running RSpec tests in an
+    Overlay.
+* Added the ExtensionCache#reload! method.
+* Added more specs.
+
 === 0.2.1 / 2009-02-23
 
 * Added Ronin::UI::Verbose.
