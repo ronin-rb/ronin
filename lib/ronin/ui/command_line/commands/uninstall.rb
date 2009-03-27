@@ -60,7 +60,7 @@ module Ronin
 
             args.each do |name|
               Platform.uninstall(name) do |overlay|
-                puts "Uninstalling #{overlay.name.dump} ..."
+                puts "Uninstalling Overlay #{overlay.name.dump} ..."
               end
             end
           end
