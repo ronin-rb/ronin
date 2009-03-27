@@ -58,10 +58,17 @@ module Ronin
           def arguments(*args)
             Platform.load_overlays(@cache) if @cache
 
+            update = lambda { |overlay|
+              puts "Updating Overlay #{overlay.name.dump} ..."
+              overlay.update
+            }
+
             if args.empty?
-              Platform.overlays.each_overlay { |overlay| overlay.update }
+              Platform.overlays.each_overlay(&update)
             else
-              args.each { |name| Platform.overlays.update(name) }
+              args.each do |name|
+                update.call(Platform.overlays.update(name))
+              end
             end
           end
 
