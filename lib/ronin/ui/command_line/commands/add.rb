@@ -45,15 +45,31 @@ module Ronin
               end
 
               opts.on('-m','--media MEDIA','Spedify the media-type of the overlay') do |media|
-                @media = media
+                @media = media.to_sym
+              end
+
+              opts.on('-L','--local','Similiar to: -m local') do
+                @media = :local
+              end
+
+              opts.on('--rsync','Alias for -m rsync') do
+                @media = :rsync
+              end
+
+              opts.on('--svn','Alias for -m svn') do
+                @media = :svn
+              end
+
+              opts.on('--hg','Alias for -m hg') do
+                @media = :hg
+              end
+
+              opts.on('--git','Alias for -m git') do
+                @media = :git
               end
 
               opts.on('-U','--uri URI','Specify the source URI of the overlay') do |uri|
                 @uri = uri
-              end
-
-              opts.on('-L','--local','Similiar to: --media local') do
-                @media = :local
               end
             end
 
