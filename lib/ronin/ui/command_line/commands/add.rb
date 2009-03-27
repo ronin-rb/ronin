@@ -49,7 +49,7 @@ module Ronin
               end
 
               opts.on('-L','--local','Similiar to: -m local') do
-                @media = :local
+                @media = nil
               end
 
               opts.on('--rsync','Alias for -m rsync') do
