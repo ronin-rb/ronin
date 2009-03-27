@@ -23,7 +23,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
     ['parameters', '>=0.1.3'],
     ['contextify', '>=0.1.2'],
     ['reverse-require', '>=0.3.1'],
-    ['repertoire', '>=0.2.0']
+    ['repertoire', '>=0.2.1']
   ]
 end
 
