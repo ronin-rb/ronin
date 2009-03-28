@@ -78,7 +78,7 @@ module Ronin
       # attempt to find and execute the Command with the same name.
       #
       def CommandLine.run(*argv)
-        if (argv.empty? || argv[0][0..0]=='-')
+        if (argv.empty? || argv.first[0..0]=='-')
           Commands::Console.run(*argv)
         else
           cmd = argv.first
