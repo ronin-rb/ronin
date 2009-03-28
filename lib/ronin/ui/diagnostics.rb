@@ -36,6 +36,15 @@ module Ronin
       end
 
       #
+      # Prints the given _messages_ as debugging diagnostics.
+      #
+      def print_debug(*messages)
+        if Verbose.enabled?
+          STDERR.puts(*(messages.map { |mesg| "[+] #{mesg}" }))
+        end
+      end
+
+      #
       # Prints the given _messages_ as warning diagnostics.
       #
       def print_warning(*messages)
