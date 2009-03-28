@@ -32,9 +32,7 @@ module Ronin
       # Prints the given _messages_ as info diagnostics.
       #
       def print_info(*messages)
-        if Verbose.enabled?
-          STDERR.puts(*(messages.map { |mesg| "[-] #{mesg}" }))
-        end
+        STDERR.puts(*(messages.map { |mesg| "[-] #{mesg}" }))
       end
 
       #
@@ -50,9 +48,7 @@ module Ronin
       # Prints the given _messages_ as error diagnostics.
       #
       def print_error(*messages)
-        if Verbose.enabled?
-          STDERR.puts(*(messages.map { |mesg| "[!] #{mesg}" }))
-        end
+        STDERR.puts(*(messages.map { |mesg| "[!] #{mesg}" }))
       end
     end
   end
