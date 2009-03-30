@@ -53,7 +53,7 @@ module Ronin
         @dirty = false
 
         if File.file?(@path)
-          descriptions = YAML.load(File.read(@path))
+          descriptions = YAML.load_file(@path)
 
           if descriptions.kind_of?(Array)
             descriptions.each do |overlay|
