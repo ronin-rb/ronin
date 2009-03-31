@@ -46,7 +46,13 @@ module Ronin
         block.call(self) if block
       end
 
-      alias names keys
+      #
+      # Returns the sorted names of the extensions within the cache.
+      #
+      def names
+        keys.sort
+      end
+
       alias extensions values
       alias each_extension each_value
 

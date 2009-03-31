@@ -83,7 +83,13 @@ module Ronin
         @dirty == true
       end
 
-      alias names keys
+      #
+      # Returns the sorted names of the overlays within the cache.
+      #
+      def names
+        keys.sort
+      end
+
       alias overlays values
       alias each_overlay each_value
 
