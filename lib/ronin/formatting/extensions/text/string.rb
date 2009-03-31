@@ -26,35 +26,6 @@ require 'chars'
 class String
 
   #
-  # Creates a new String by passing each character to the specified _block_
-  # using the given _options_.
-  #
-  # _options_ may include the following keys:
-  # <tt>:included</tt>:: The set of characters that will be formated,
-  #                      defaults to <tt>Chars.all</tt>.
-  # <tt>:excluded</tt>:: The characters not to format.
-  #
-  def format_chars(options={},&block)
-    included = (options[:included] || Chars.all)
-    excluded = (options[:excluded] || [])
-
-    targeted = included - excluded
-    formatted = ''
-
-    self.each_byte do |b|
-      c = b.chr
-
-      if targeted.include_byte?(b)
-        formatted << block.call(c)
-      else
-        formatted << c
-      end
-    end
-
-    return formatted
-  end
-
-  #
   # Creates a new String by passing each byte to the specified _block_
   # using the given _options_.
   #
@@ -64,14 +35,35 @@ class String
   # <tt>:excluded</tt>:: The characters not to format.
   #
   def format_bytes(options={},&block)
-    format_chars(options) do |c|
-      i = block.call(c[0])
+    included = (options[:included] || Chars.all)
+    excluded = (options[:excluded] || [])
 
-      if i.kind_of?(Integer)
-        i.chr
+    targeted = included - excluded
+    formatted = ''
+
+    self.each_byte do |b|
+      if targeted.include_byte?(b)
+        formatted << block.call(b)
       else
-        i.to_s
+        formatted << b
       end
+    end
+
+    return formatted
+  end
+
+  #
+  # Creates a new String by passing each character to the specified _block_
+  # using the given _options_.
+  #
+  # _options_ may include the following keys:
+  # <tt>:included</tt>:: The set of characters that will be formated,
+  #                      defaults to <tt>Chars.all</tt>.
+  # <tt>:excluded</tt>:: The characters not to format.
+  #
+  def format_chars(options={},&block)
+    format_bytes(options) do |b|
+      block.call(b.chr)
     end
   end
 
