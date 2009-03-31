@@ -40,19 +40,21 @@ class String
   #
   def depack(arch,address_length=arch.address_length)
     integer = 0x0
+    byte_index = 0
 
-    if arch.endian=='little'
-      address_length.times do |i|
-        if self[i]
-          integer = (integer | (self[i] << (i*8)))
-        end
-      end
-    elsif arch.endian=='big'
-      address_length.times do |i|
-        if self[i]
-          integer = (integer | (self[i] << ((address_length-i-1)*8)))
-        end
-      end
+    if arch.endian == 'little'
+      mask = lambda { |b| b << (byte_index * 8) }
+    elsif arch.endian == 'big'
+      mask = lambda { |b|
+        b << ((address_length - byte_index - 1) * 8)
+      }
+    end
+
+    self.each_byte do |b|
+      break if byte_index >= address_length
+
+      integer |= mask.call(b)
+      byte_index += 1
     end
 
     return integer
