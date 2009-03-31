@@ -12,13 +12,20 @@ describe Sessions::Session do
   end
 
   it "should add self.setup_session to a Module" do
-    TestSession.methods.include?('setup_session').should == true
+    lambda {
+      TestSession.method(:setup_session)
+    }.should_not raise_error(NameError)
   end
 
   describe "setup_session" do
     it "should add self.included and self.extended methods once setup_session is called" do
-      TestSession.methods.include?('included').should == true
-      TestSession.methods.include?('extended').should == true
+      lambda {
+        TestSession.method(:included)
+      }.should_not raise_error(NameError)
+
+      lambda {
+        TestSession.method(:extended)
+      }.should_not raise_error(NameError)
     end
 
     it "should run the setup_session proc once included" do
