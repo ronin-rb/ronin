@@ -148,13 +148,21 @@ module Ronin
       end
 
       #
+      # Returns the list of methods exposed by the extension.
+      #
+      def exposed_methods
+        methods(false).map { |name| name.to_sym }
+      end
+
+      #
       # Returns +true+ if the extension context has a public instance method
       # of the matching _name_, returns +false+ otherwise.
       #
-      #   ext.has_method?(:console) # => true
+      #   ext.has_method?(:console)
+      #   # => true
       #
       def has_method?(name)
-        public_methods.include?(name.to_s)
+        exposed_methods.include?(name.to_sym)
       end
 
       #
