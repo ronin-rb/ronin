@@ -107,7 +107,7 @@ describe String do
     end
 
     it "should not contain the key used in the xor" do
-      @string.include?(@key).should_not == true
+      @string.include?(@key.chr).should_not == true
     end
 
     it "should not equal the original string" do
