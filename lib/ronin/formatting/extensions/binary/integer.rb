@@ -32,6 +32,12 @@ class Integer
   # _endian_ must be either <tt>:little</tt>, <tt>:big</tt> or
   # <tt>:net</tt>.
   #
+  #   0xff41.bytes(2)
+  #   # => [65, 255]
+  #
+  #   0xff41.bytes(4, :big)
+  #   # => [0, 0, 255, 65]
+  #
   def bytes(address_length,endian=:little)
     endian = endian.to_s
     buffer = []
