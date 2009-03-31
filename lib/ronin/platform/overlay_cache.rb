@@ -151,7 +151,7 @@ module Ronin
           end
         end
 
-        return ext_names
+        return ext_names.sort
       end
 
       #
