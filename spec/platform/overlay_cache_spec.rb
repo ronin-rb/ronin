@@ -53,7 +53,7 @@ describe Platform::OverlayCache do
   end
 
   it "should have extensions" do
-    @cache.extensions.should == ['test', 'hello', 'random']
+    @cache.extensions.should == ['hello', 'random', 'test']
   end
 
   it "should provide the paths to specific extensions" do
