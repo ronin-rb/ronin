@@ -1,23 +1,10 @@
 require 'ronin/code/reference'
 
 require 'spec_helper'
+require 'code/helpers/thing'
 
 describe Code::Reference do
   before(:all) do
-    class Thing
-
-      def exposed
-        1
-      end
-
-      protected
-
-      def not_exposed
-        2
-      end
-
-    end
-
     @object = Thing.new
     @ref = Code::Reference.new(@object)
   end
