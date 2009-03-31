@@ -173,6 +173,7 @@ spec/static/static_spec.rb
 spec/arch_spec.rb
 spec/author_spec.rb
 spec/translators/translator_spec.rb
+spec/objectify/helpers/test_object.rb
 spec/objectify/objectify_spec.rb
 spec/extensions/hash_spec.rb
 spec/extensions/string_spec.rb

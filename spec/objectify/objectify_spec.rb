@@ -1,26 +1,9 @@
 require 'ronin/objectify'
 
 require 'spec_helper'
+require 'objectify/helpers/test_object'
 
 describe Objectify do
-  before(:all) do
-    class TestObject
-
-      include Objectify
-
-      objectify :test
-
-      property :id, Serial
-
-      property :mesg, String
-
-      parameter :x
-
-      parameter :y
-
-    end
-  end
-
   it "should create an object with a Hash of attributes and params" do
     test = TestObject.new(:mesg => 'hello', :x => 3, :y => 9)
 
