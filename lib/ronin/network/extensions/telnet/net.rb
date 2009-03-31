@@ -24,7 +24,6 @@
 require 'ronin/network/telnet'
 
 require 'net/telnet'
-require 'net/telnets'
 
 module Net
   #
@@ -67,13 +66,6 @@ module Net
   #                   <tt>Ronin::Network::Telnet.proxy</tt>, if not given.
   # <tt>:user</tt>:: The user to login with.
   # <tt>:password</tt>:: The password to login with.
-  # <tt>:ssl</tt>:: A Hash of SSL information to use for a SSLed
-  #                 Telnet session. This hash must contain the following
-  #                 keys.
-  #                 <tt>:certfile</tt>:: The SSL Certfile to use.
-  #                 <tt>:keyfile</tt>:: The SSL Key file to use.
-  #                 <tt>:cafile</tt>:: The SSL CAFile to use.
-  #                 <tt>:capath</tt>:: The SSL CAPath to use.
   #
   #   Telnet.connect('towel.blinkenlights.nl') # => Telnet
   #
@@ -96,16 +88,6 @@ module Net
 
     user = options[:user]
     passwd = options[:passwd]
-
-    if options[:ssl]
-      sess_opts['CertFile'] = options[:ssl][:certfile]
-      sess_opts['KeyFile'] = options[:ssl][:keyfile]
-      sess_opts['CAFile'] = options[:ssl][:cafile]
-      sess_opts['CAPath'] = options[:ssl][:capath]
-      sess_opts['VerifyMode'] = (options[:ssl][:verify] || SSL::VERIFY_PEER)
-      sess_opts['VerifyCallback'] = options[:ssl][:verify_callback]
-      sess_opts['VerifyDepth'] = options[:ssl][:verify_depth]
-    end
 
     sess = Net::Telnet.new(sess_opts)
     sess.login(user,passwd) if user
