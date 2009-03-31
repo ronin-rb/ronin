@@ -1,0 +1,3 @@
+class TestSessionObject
+
+end

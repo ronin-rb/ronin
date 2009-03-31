@@ -1,28 +1,12 @@
 require 'ronin/sessions/session'
 
 require 'spec_helper'
+require 'sessions/helpers/test_session'
+require 'sessions/helpers/test_session_class'
+require 'sessions/helpers/test_session_object'
 
 describe Sessions::Session do
   before(:all) do
-    module TestSession
-      include Sessions::Session
-
-      setup_session do
-        parameter :var, :default => :stuff, :description => 'Test parameter'
-      end
-
-      def test_one
-        'this_is_a_test'
-      end
-    end
-
-    class TestSessionClass
-      include TestSession
-    end
-
-    class TestSessionObject
-    end
-
     @session_obj = TestSessionObject.new
     @session_obj.extend TestSession
   end
