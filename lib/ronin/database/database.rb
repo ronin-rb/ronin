@@ -120,7 +120,7 @@ module Ronin
     #
     def Database.setup!(configuration=Database.config,&block)
       # setup the database log
-      Database.setup_log unless Database.log
+      Database.setup_log! unless Database.log
 
       # setup the database repository
       DataMapper.setup(Model::REPOSITORY_NAME, configuration)
