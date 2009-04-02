@@ -102,6 +102,14 @@ module Ronin
       end
 
       #
+      # Passes all matching static paths for the specified _path_ to the
+      # given _block_.
+      #
+      def each_static_path(path,&block)
+        static_find_all(path).each(&block)
+      end
+
+      #
       # Returns all matching static files for the specified _path_.
       #
       def find_static_files(path)
@@ -115,6 +123,14 @@ module Ronin
       end
 
       #
+      # Passes each matching static file for the specified _path_ to the
+      # given _block_.
+      #
+      def each_static_file(path,&block)
+        find_static_files(path).each(&block)
+      end
+
+      #
       # Returns all matching static directories for the specified _path_.
       #
       def find_static_dirs(path)
@@ -125,6 +141,14 @@ module Ronin
         end
 
         return paths
+      end
+
+      #
+      # Passes each matching static directory for the specified _path_ to
+      # the given _block_.
+      #
+      def each_static_dir(path,&block)
+        find_static_dirs(path).each(&block)
       end
 
       #
