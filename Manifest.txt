@@ -116,7 +116,6 @@ lib/ronin/objectify/exceptions.rb
 lib/ronin/objectify/exceptions/object_context_not_found.rb
 lib/ronin/objectify/exceptions/unknown_object_context.rb
 lib/ronin/objectify/objectify.rb
-lib/ronin/models.rb
 lib/ronin/environment.rb
 lib/ronin/platform.rb
 lib/ronin/platform/tasks/spec.rb
