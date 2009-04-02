@@ -31,6 +31,9 @@ module Ronin
       include Session
 
       setup_session do
+        parameter :host, :description => 'HTTP host'
+        parameter :port, :description => 'HTTP port'
+
         parameter :http_user, :description => 'HTTP user'
         parameter :http_password, :description => 'HTTP password'
 
@@ -131,6 +134,9 @@ module Ronin
       private
 
       def http_merge_options(options={})
+        options[:host] ||= @http_host if @http_host
+        options[:port] ||= @http_port if @http_port
+
         options[:user] ||= @http_user if @http_user
         options[:password] ||= @http_password if @http_password
 
