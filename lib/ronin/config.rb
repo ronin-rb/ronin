@@ -47,15 +47,15 @@ module Ronin
     #
     # Load the main config file at <tt>~/.ronin/config.rb</tt>
     #
-    #   Config.load
+    #   Config.load!
     #   # => true
     #
     # Load a specific config file in <tt>~/.ronin/config/</tt>
     #
-    #   Config.load :sql
+    #   Config.load! :sql
     #   # => true
     #
-    def Config.load(name=nil)
+    def Config.load!(name=nil)
       if name
         path = File.expand_path(File.join(CONFIG_DIR,name.to_s))
       else
