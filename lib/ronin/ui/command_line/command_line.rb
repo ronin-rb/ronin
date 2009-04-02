@@ -35,7 +35,7 @@ module Ronin
       #
       def CommandLine.commands
         unless class_variable_defined?('@@ronin_commands')
-          paths = Gem.find_resources('bin/ronin-*')
+          paths = Gem.find_resources_for('ronin','bin/ronin-*')
           
           @@ronin_commands = {}
             
