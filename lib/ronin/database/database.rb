@@ -104,6 +104,16 @@ module Ronin
     end
 
     #
+    # Call the given _block_ then update the Database.
+    #
+    def Database.update(&block)
+      block.call if block
+
+      DataMapper.auto_upgrade!(Model::REPOSITORY_NAME)
+      return nil
+    end
+
+    #
     # Sets up the Database with the given _configuration_. If
     # _configuration is not given, +DEFAULT_CONFIG+ will be used to setup
     # the Database.
@@ -115,9 +125,7 @@ module Ronin
       # setup the database repository
       DataMapper.setup(Model::REPOSITORY_NAME, configuration)
 
-      block.call if block
-
-      DataMapper.auto_upgrade!(Model::REPOSITORY_NAME)
+      Database.update(&block)
       return nil
     end
   end
