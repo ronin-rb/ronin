@@ -58,6 +58,14 @@ module Ronin
       end
 
       #
+      # Returns +true+ if a command exists with the specified _name_,
+      # returns +false+ otherwise.
+      #
+      def CommandLine.has_command?(name)
+        CommandLine.commands.include?(name.to_s)
+      end
+
+      #
       # Returns the Command registered with the command-line utility
       # with the specified _name_.
       #
