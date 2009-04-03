@@ -21,11 +21,14 @@
 #++
 #
 
+require 'ronin/sessions/session'
 require 'ronin/network/tcp'
 
 module Ronin
   module Sessions
     module TCP
+      include Session
+
       protected
 
       #
@@ -37,11 +40,8 @@ module Ronin
       # object.
       #
       def tcp_connect(&block)
-        unless @host
-        end
-        
-        unless @port
-        end
+        require_variable :host
+        require_variable :port
 
         return ::Net.tcp_connect(@host,@port,@local_host,@local_port,&block)
       end
@@ -52,11 +52,8 @@ module Ronin
       # it will be passed the newly created TCPSocket object.
       #
       def tcp_connect_and_send(data,&block)
-        unless @host
-        end
-        
-        unless @port
-        end
+        require_variable :host
+        require_variable :port
 
         return ::Net.tcp_connect_and_send(data,@host,@port,@local_host,@local_port,&block)
       end
@@ -68,11 +65,8 @@ module Ronin
       # has returned, the TCPSocket object will be closed.
       #
       def tcp_session(&block)
-        unless @host
-        end
-        
-        unless @port
-        end
+        require_variable :host
+        require_variable :port
 
         return Net.tcp_session(@host,@port,@local_host,@local_port,&block)
       end
@@ -84,11 +78,8 @@ module Ronin
       # banner String.
       #
       def tcp_banner(&block)
-        unless @host
-        end
-        
-        unless @port
-        end
+        require_variable :host
+        require_variable :port
 
         return ::Net.tcp_banner(@host,@port,@local_host,@local_port,&block)
       end
@@ -99,11 +90,8 @@ module Ronin
       # connection. Returns +true+ if the data was successfully sent.
       #
       def tcp_send(data)
-        unless @host
-        end
-        
-        unless @port
-        end
+        require_variable :host
+        require_variable :port
 
         return ::Net.tcp_send(data,@host,@port,@local_host,@local_port)
       end

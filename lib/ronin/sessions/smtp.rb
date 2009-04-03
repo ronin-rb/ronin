@@ -21,11 +21,14 @@
 #++
 #
 
+require 'ronin/sessions/session'
 require 'ronin/network/smtp'
 
 module Ronin
   module Sessions
     module SMTP
+      include Session
+
       protected
 
       def smtp_message(options={},&block)
@@ -33,8 +36,7 @@ module Ronin
       end
 
       def smtp_connect(options={},&block)
-        unless @host
-        end
+        require_variable :host
 
         options[:port] ||= @port
         options[:login] ||= @smtp_login

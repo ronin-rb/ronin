@@ -21,34 +21,9 @@
 #++
 #
 
-require 'ronin/sessions/session'
-require 'ronin/network/imap'
-
 module Ronin
   module Sessions
-    module IMAP
-      include Session
-
-      protected
-
-      def imap_connect(options={},&block)
-        require_variable :host
-
-        options[:port] ||= @port
-        options[:auth] ||= @imap_auth
-        options[:user] ||= @imap_user
-        options[:password] ||= @imap_password
-
-        return ::Net.imap_connect(@host,options,&block)
-      end
-
-      def imap_session(options={},&block)
-        imap_connect(options) do |sess|
-          block.call(sess) if block
-          sess.close
-          sess.logout
-        end
-      end
+    class VariableMissing < RuntimeError
     end
   end
 end

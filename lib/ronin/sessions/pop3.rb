@@ -21,16 +21,18 @@
 #++
 #
 
+require 'ronin/sessions/session'
 require 'ronin/network/pop3'
 
 module Ronin
   module Sessions
     module POP3
+      include Session
+
       protected
 
       def pop3_connect(options={},&block)
-        unless @host
-        end
+        require_variable :host
 
         options[:port] ||= @port
         options[:user] ||= @pop3_user

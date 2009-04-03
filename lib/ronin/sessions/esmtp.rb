@@ -21,11 +21,14 @@
 #++
 #
 
+require 'ronin/sessions/session'
 require 'ronin/network/esmtp'
 
 module Ronin
   module Sessions
     module ESMTP
+      include Session
+
       protected
 
       def esmtp_message(options={},&block)
@@ -33,8 +36,7 @@ module Ronin
       end
 
       def esmtp_connect(options={},&block)
-        unless @host
-        end
+        require_variable :host
 
         options[:port] ||= @port
         options[:login] ||= @esmtp_login

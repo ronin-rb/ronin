@@ -21,16 +21,18 @@
 #++
 #
 
+require 'ronin/sessions/session'
 require 'ronin/network/telnet'
 
 module Ronin
   module Sessions
     module Telnet
+      include Session
+
       protected
 
       def telnet_connect(options={},&block)
-        unless @host
-        end
+        require_variable :host
 
         options[:port] ||= @port
         options[:user] ||= @telnet_user

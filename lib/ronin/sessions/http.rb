@@ -21,12 +21,15 @@
 #++
 #
 
+require 'ronin/sessions/session'
 require 'ronin/network/http'
 require 'ronin/network/extensions/http'
 
 module Ronin
   module Sessions
     module HTTP
+      include Session
+
       protected
 
       #
