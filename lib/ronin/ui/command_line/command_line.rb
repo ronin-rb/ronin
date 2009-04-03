@@ -26,36 +26,35 @@ require 'ronin/ui/command_line/commands/console'
 require 'ronin/ui/console'
 
 require 'reverse_require'
+require 'extlib'
 
 module Ronin
   module UI
     module CommandLine
+      # Directory which stores the commands
+      COMMANDS_DIR = File.join('ronin','ui','command_line','commands')
+
+      # Name of the default to run
+      DEFAULT_COMMAND = 'console'
+
       #
       # Returns the commands registered with the command-line utility.
       #
       def CommandLine.commands
         unless class_variable_defined?('@@ronin_commands')
-          paths = Gem.find_resources('bin/ronin-*')
+          pattern = File.join('lib',COMMANDS_DIR,'*.rb')
+          paths = Gem.find_resources(pattern)
           
           @@ronin_commands = {}
             
           paths.each do |path|
-            next unless File.executable?(path)
-            name = File.basename(path).gsub(/^ronin-/,'')
+            name = File.basename(path).gsub(/\.rb$/,'')
 
-            @@ronin_commands[name] ||= path
+            @@ronin_commands[name] = File.join(COMMANDS_DIR,name)
           end
         end
 
         return @@ronin_commands
-      end
-
-      #
-      # Returns +true+ if the a Command with the specified _name_ was
-      # registered with the command-line utility.
-      #
-      def CommandLine.has_command?(name)
-        CommandLine.commands.has_key?(name.to_s)
       end
 
       #
@@ -65,11 +64,19 @@ module Ronin
       def CommandLine.get_command(name)
         name = name.to_s
 
-        unless CommandLine.has_command?(name)
+        begin
+          require File.join(COMMANDS_DIR,name)
+        rescue LoadError
+          raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
+        end
+
+        class_name = name.to_const_string
+
+        unless Commands.const_defined?(class_name)
           raise(UnknownCommand,"unknown command #{name.dump}",caller)
         end
 
-        return CommandLine.commands[name]
+        return Commands.const_get(class_name)
       end
 
       #
@@ -79,17 +86,18 @@ module Ronin
       #
       def CommandLine.run(*argv)
         if (argv.empty? || argv.first[0..0]=='-')
-          Commands::Console.run(*argv)
+          name = DEFAULT_COMMAND
+          argv = ARGV
         else
-          cmd = argv.first
+          name = argv.first
           argv = argv[1..-1]
+        end
 
-          begin
-            exec(CommandLine.get_command(cmd),*argv)
-          rescue UnknownCommand => e
-            STDERR.puts e
-            exit -1
-          end
+        begin
+          CommandLine.get_command(name).run(*argv)
+        rescue UnknownCommand => e
+          STDERR.puts e
+          exit -1
         end
 
         return true
