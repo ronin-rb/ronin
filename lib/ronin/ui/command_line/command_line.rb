@@ -45,12 +45,12 @@ module Ronin
           pattern = File.join('lib',COMMANDS_DIR,'*.rb')
           paths = Gem.find_resources(pattern)
           
-          @@ronin_commands = {}
+          @@ronin_commands = []
             
           paths.each do |path|
             name = File.basename(path).gsub(/\.rb$/,'')
 
-            @@ronin_commands[name] = File.join(COMMANDS_DIR,name)
+            @@ronin_commands << name
           end
         end
 
