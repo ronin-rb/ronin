@@ -21,22 +21,11 @@
 #++
 #
 
-require 'ronin/sessions/session'
 require 'ronin/network/udp'
 
 module Ronin
   module Sessions
     module UDP
-      include Session
-
-      setup_session do
-        parameter :local_host, :description => 'local host'
-        parameter :local_port, :description => 'local port'
-
-        parameter :host, :description => 'remote host'
-        parameter :port, :description => 'remote port'
-      end
-
       protected
 
       #
