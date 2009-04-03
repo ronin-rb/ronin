@@ -84,7 +84,13 @@ module Ronin
           raise(UnknownCommand,"unknown command #{name.dump}",caller)
         end
 
-        return Commands.const_get(class_name)
+        command = Commands.const_get(class_name)
+
+        unless command.respond_to?(:run)
+          raise(UnknownCommand,"command #{name.dump} must provide a 'run' method",caller)
+        end
+
+        return command
       end
 
       #
