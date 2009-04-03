@@ -159,7 +159,6 @@ lib/ronin/ui/command_line/command_line.rb
 lib/ronin/ronin.rb
 lib/ronin/version.rb
 tasks/spec.rb
-spec/helpers.rb
 spec/spec_helper.rb
 spec/static/helpers/static1/one.txt
 spec/static/helpers/static1/dir/two.txt
