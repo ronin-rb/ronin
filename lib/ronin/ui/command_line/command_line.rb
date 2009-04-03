@@ -50,7 +50,7 @@ module Ronin
           paths.each do |path|
             name = File.basename(path).gsub(/\.rb$/,'')
 
-            @@ronin_commands << name
+            @@ronin_commands << name unless @@ronin_commands.include?(name)
           end
         end
 
