@@ -46,7 +46,11 @@ module Ronin
       # of the UDP connection. A UDPSocket object will be returned.
       #
       def udp_connect(&block)
-        require_params :host, :port
+        unless @host
+        end
+        
+        unless @port
+        end
 
         return ::Net.udp_connect(@host,@port,@local_host,@local_port,&block)
       end
@@ -57,7 +61,11 @@ module Ronin
       # it will be passed the newly created UDPSocket object.
       #
       def udp_connect_and_send(data,&block)
-        require_params :host, :port
+        unless @host
+        end
+        
+        unless @port
+        end
 
         return ::Net.udp_connect_and_send(data,@host,@port,@local_host,@local_port,&block)
       end
@@ -69,7 +77,11 @@ module Ronin
       # has returned, the UDPSocket object will be closed.
       #
       def udp_session(&block)
-        require_params :host, :port
+        unless @host
+        end
+        
+        unless @port
+        end
 
         return ::Net.udp_session(@host,@port,@local_host,@local_port,&block)
       end

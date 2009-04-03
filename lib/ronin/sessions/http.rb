@@ -21,27 +21,12 @@
 #++
 #
 
-require 'ronin/sessions/session'
 require 'ronin/network/http'
 require 'ronin/network/extensions/http'
 
 module Ronin
   module Sessions
     module HTTP
-      include Session
-
-      setup_session do
-        parameter :host, :description => 'HTTP host'
-        parameter :port, :description => 'HTTP port'
-
-        parameter :http_user, :description => 'HTTP user'
-        parameter :http_password, :description => 'HTTP password'
-
-        parameter :http_proxy, :description => 'HTTP Proxy'
-
-        parameter :http_user_agent, :description => 'Web User-Agent'
-      end
-
       protected
 
       #

@@ -21,33 +21,16 @@
 #++
 #
 
-require 'ronin/sessions/session'
 require 'ronin/network/telnet'
 
 module Ronin
   module Sessions
-    module TELNET
-      include Session
-
-      setup_session do
-        parameter :host, :description => 'Telnet host'
-        parameter :port,
-                  :default => lambda {
-                    Ronin::Network::Telnet.default_port
-                  },
-                  :description => 'Telnet port'
-
-        parameter :telnet_user, :description => 'Telnet user'
-        parameter :telnet_password, :description => 'Telnet password'
-
-        parameter :telnet_proxy, :description => 'Telnet proxy'
-        parameter :telnet_ssl, :description => 'Telnet SSL options'
-      end
-
+    module Telnet
       protected
 
       def telnet_connect(options={},&block)
-        require_params :host
+        unless @host
+        end
 
         options[:port] ||= @port
         options[:user] ||= @telnet_user

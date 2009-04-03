@@ -21,23 +21,11 @@
 #++
 #
 
-require 'ronin/sessions/session'
 require 'ronin/network/esmtp'
 
 module Ronin
   module Sessions
     module ESMTP
-      include Session
-
-      setup_session do
-        parameter :host, :description => 'ESMTP host'
-        parameter :port, :description => 'ESMTP port'
-
-        parameter :esmtp_login, :description => 'ESMTP login'
-        parameter :esmtp_user, :description => 'ESMTP user'
-        parameter :esmtp_password, :description => 'ESMTP password'
-      end
-
       protected
 
       def esmtp_message(options={},&block)
@@ -45,7 +33,8 @@ module Ronin
       end
 
       def esmtp_connect(options={},&block)
-        require_params :host
+        unless @host
+        end
 
         options[:port] ||= @port
         options[:login] ||= @esmtp_login

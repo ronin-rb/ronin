@@ -21,27 +21,16 @@
 #++
 #
 
-require 'ronin/sessions/session'
 require 'ronin/network/imap'
 
 module Ronin
   module Sessions
     module IMAP
-      include Session
-
-      setup_session do
-        parameter :host, :description => 'IMAP host'
-        parameter :port, :description => 'IMAP port'
-
-        parameter :imap_auth, :description => 'IMAP authentication mode'
-        parameter :imap_user, :description => 'IMAP user'
-        parameter :imap_password, :description => 'IMAP password'
-      end
-
       protected
 
       def imap_connect(options={},&block)
-        require_params :host
+        unless @host
+        end
 
         options[:port] ||= @port
         options[:auth] ||= @imap_auth

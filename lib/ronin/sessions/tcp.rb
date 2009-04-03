@@ -21,22 +21,11 @@
 #++
 #
 
-require 'ronin/sessions/session'
 require 'ronin/network/tcp'
 
 module Ronin
   module Sessions
     module TCP
-      include Session
-
-      setup_session do
-        parameter :local_host, :description => 'TCP local host'
-        parameter :local_port, :description => 'TCP local port'
-
-        parameter :host, :description => 'TCP remote host'
-        parameter :port, :description => 'TCP remote port'
-      end
-
       protected
 
       #
@@ -48,7 +37,11 @@ module Ronin
       # object.
       #
       def tcp_connect(&block)
-        require_params :host, :port
+        unless @host
+        end
+        
+        unless @port
+        end
 
         return ::Net.tcp_connect(@host,@port,@local_host,@local_port,&block)
       end
@@ -59,7 +52,11 @@ module Ronin
       # it will be passed the newly created TCPSocket object.
       #
       def tcp_connect_and_send(data,&block)
-        require_params :host, :port
+        unless @host
+        end
+        
+        unless @port
+        end
 
         return ::Net.tcp_connect_and_send(data,@host,@port,@local_host,@local_port,&block)
       end
@@ -71,7 +68,11 @@ module Ronin
       # has returned, the TCPSocket object will be closed.
       #
       def tcp_session(&block)
-        require_params :host, :port
+        unless @host
+        end
+        
+        unless @port
+        end
 
         return Net.tcp_session(@host,@port,@local_host,@local_port,&block)
       end
@@ -83,7 +84,11 @@ module Ronin
       # banner String.
       #
       def tcp_banner(&block)
-        require_params :host, :port
+        unless @host
+        end
+        
+        unless @port
+        end
 
         return ::Net.tcp_banner(@host,@port,@local_host,@local_port,&block)
       end
@@ -94,7 +99,11 @@ module Ronin
       # connection. Returns +true+ if the data was successfully sent.
       #
       def tcp_send(data)
-        require_params :host, :port
+        unless @host
+        end
+        
+        unless @port
+        end
 
         return ::Net.tcp_send(data,@host,@port,@local_host,@local_port)
       end
