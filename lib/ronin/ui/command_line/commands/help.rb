@@ -51,11 +51,15 @@ module Ronin
             topic = args.first
 
             if topic
-              CommandLine.run(topic,'--help')
+              begin
+                CommandLine.get_command(topic).run('--help')
+              rescue UnknownCommand
+                fail("unknown sub-command #{topic.dump}")
+              end
             else
-              puts 'Available commands:'
+              puts 'Available sub-commands:'
 
-              CommandLine.commands.keys.sort.each do |name|
+              CommandLine.commands.sort.each do |name|
                 puts "  #{name}"
               end
             end
