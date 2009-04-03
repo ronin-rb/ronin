@@ -140,7 +140,14 @@ module Ronin
           # instance_eval the extension block
           context_block = Extension.load_context_block(extension_file)
 
-          instance_eval(&context_block) if context_block
+          if context_block
+            begin
+              instance_eval(&context_block)
+            rescue => e
+              STDERR.puts e
+              e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
+            end
+          end
         end
 
         block.call(self) if block
