@@ -29,7 +29,7 @@ module Ronin
       protected
 
       def require_variable(name)
-        unless instance_variable_get("@#{name}")
+        if instance_variable_get("@#{name}").nil?
           raise(VariableMissing,"the session variable #{name} is not set",caller)
         end
 
