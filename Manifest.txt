@@ -212,6 +212,9 @@ spec/path_spec.rb
 spec/os_spec.rb
 spec/product_spec.rb
 spec/target_spec.rb
+spec/sessions/helpers/test_session.rb
+spec/sessions/helpers/uses_test_session.rb
+spec/sessions/session_spec.rb
 spec/platform/helpers/overlays.rb
 spec/platform/helpers/overlays.yaml.erb
 spec/platform/helpers/overlays/test1/ronin.xml
