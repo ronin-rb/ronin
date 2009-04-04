@@ -34,6 +34,6 @@ require 'chars'
 require 'pp'
 
 module Ronin
-  Config.load!
+  Config.load
   Database.setup
 end
