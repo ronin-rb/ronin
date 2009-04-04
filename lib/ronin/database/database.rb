@@ -96,7 +96,7 @@ module Ronin
     # <tt>:stream</tt>:: The stream to use for the log.
     # <tt>:level</tt>:: The level of messages to log.
     #
-    def Database.setup_log!(options={})
+    def Database.setup_log(options={})
       path = (options[:path] || DEFAULT_LOG_PATH)
       stream = (options[:stream] || File.new(path,'w+'))
       level = (options[:level] || DEFAULT_LOG_LEVEL)
@@ -119,9 +119,9 @@ module Ronin
     # _configuration is not given, +DEFAULT_CONFIG+ will be used to setup
     # the Database.
     #
-    def Database.setup!(configuration=Database.config,&block)
+    def Database.setup(configuration=Database.config,&block)
       # setup the database log
-      Database.setup_log! unless Database.log
+      Database.setup_log unless Database.log
 
       # setup the database repository
       DataMapper.setup(Model::REPOSITORY_NAME, configuration)
