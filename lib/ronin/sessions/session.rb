@@ -32,6 +32,8 @@ module Ronin
         unless instance_variable_get("@#{name}")
           raise(VariableMissing,"the session variable #{name} is not set",caller)
         end
+
+        return true
       end
     end
   end
