@@ -30,7 +30,9 @@ class File
   # to the given _output_ stream.
   #
   def self.hexdump(path,output=STDOUT)
-    Ronin::UI::Hexdump.dump(self.open(path),output)
+    self.open(path) do |file|
+      Ronin::UI::Hexdump.dump(file,output)
+    end
   end
 
 end
