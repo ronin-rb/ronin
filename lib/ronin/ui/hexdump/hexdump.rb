@@ -39,7 +39,7 @@ module Ronin
             index,
             hex_segment.join(' ').ljust(47).insert(23,' '),
             print_segment
-        )
+          )
         }
 
         object.each_byte do |b|
