@@ -21,9 +21,27 @@
 #++
 #
 
-require 'ronin/extensions/meta'
-require 'ronin/extensions/hash'
-require 'ronin/extensions/uri'
-require 'ronin/extensions/string'
-require 'ronin/extensions/file'
-require 'ronin/extensions/ip_addr'
+require 'ipaddr'
+
+class IPAddr
+
+  include Enumerable
+
+  #
+  # Iterates over each IP address that is included in the addresses mask,
+  # passing each to the given _block_.
+  #
+  def each(&block)
+    case @family
+    when Socket::AF_INET
+      mask_mask = IN4MASK
+    when Socket::AF_INET6
+      mask_mask = IN6MASK
+    end
+
+    ((~@mask_addr) & mask_mask).times do |i|
+      block.call(_to_string(@addr | i)) if block
+    end
+  end
+
+end
