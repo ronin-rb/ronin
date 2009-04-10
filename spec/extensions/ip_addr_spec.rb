@@ -1,5 +1,7 @@
 require 'ronin/extensions/ip_addr'
 
+require 'spec_helper'
+
 describe IPAddr do
   describe "CIDR addresses" do
     before(:all) do
