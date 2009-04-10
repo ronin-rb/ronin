@@ -34,13 +34,13 @@ class IPAddr
   def each(&block)
     case @family
     when Socket::AF_INET
-      mask_mask = IN4MASK
+      family_mask = IN4MASK
     when Socket::AF_INET6
-      mask_mask = IN6MASK
+      family_mask = IN6MASK
     end
 
     if block
-      (0..((~@mask_addr) & mask_mask)).each do |i|
+      (0..((~@mask_addr) & family_mask)).each do |i|
         block.call(_to_string(@addr | i))
       end
     end
