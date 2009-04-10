@@ -177,6 +177,7 @@ spec/objectify/helpers/test_object.rb
 spec/objectify/objectify_spec.rb
 spec/extensions/hash_spec.rb
 spec/extensions/string_spec.rb
+spec/extensions/ip_addr_spec.rb
 spec/extensions/uri/http_spec.rb
 spec/extensions/uri/query_params_spec.rb
 spec/formatting/binary/helpers/hexdumps.rb
