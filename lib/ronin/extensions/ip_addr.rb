@@ -28,29 +28,60 @@ class IPAddr
   include Enumerable
 
   def IPAddr.each(cidr_or_range,&block)
-    if cidr_or_range =~ /::/
+    unless (cidr_or_range.include?('*') || cidr_or_range.include?('-'))
+      IPAddr.new(cidr_or_range).each(&block)
+      return nil
+    end
+
+    if cidr_or_range.include?('::')
+      prefix = if cidr_or_range =~ /^::/
+                 '::'
+               else
+                 ''
+               end
+
       separator = '::'
       base = 16
+
+      format = lambda { |address|
+        prefix + address.map { |i| '%.2x' % i }.join('::')
+      }
     else
       separator = '.'
       base = 10
+
+      format = lambda { |address| address.join('.') }
     end
 
-    if (cidr_or_range.include?('*') || cidr_or_range.include?('-'))
-      ranges = cidr_or_range.split(separator).map do |segment|
-        if segment == '*'
-          (1..254)
-        elsif segment.include?('-')
-          start, stop = segment.split('-',2).map { |i| i.to_i(base) }
+    ranges = cidr_or_range.split(separator).map { |segment|
+      if segment == '*'
+        (1..254)
+      elsif segment.include?('-')
+        start, stop = segment.split('-',2).map { |i| i.to_i(base) }
 
-          (start..stop)
-        elsif segment.empty?
-          segment.to_i(base)
+        (start..stop)
+      elsif !(segment.empty?)
+        segment.to_i(base)
+      end
+    }.compact
+
+    expand_range = lambda { |address,remaining|
+      if remaining.empty?
+        block.call(format.call(address))
+      else
+        n = remaining.first
+        remaining = remaining[1..-1]
+
+        if n.kind_of?(Range)
+          n.each { |i| expand_range.call(address + [i], remaining) }
+        else
+          expand_range.call(address + [n], remaining)
         end
       end
-    else
-      return IPAddr.new(cidr_or_range).each(&block)
-    end
+    }
+
+    expand_range.call([], ranges)
+    return nil
   end
 
   #
