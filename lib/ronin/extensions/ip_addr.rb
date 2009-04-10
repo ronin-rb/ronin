@@ -27,6 +27,23 @@ class IPAddr
 
   include Enumerable
 
+  #
+  # Iterates over the CIDR or NMap style address range, passing each
+  # address in the range to the specified _block_. Supports both
+  # IPv4 and IPv6 address ranges.
+  #
+  #   IPAddr.each('10.1.1-5.1') do |ip|
+  #     ...
+  #   end
+  #
+  #   IPAddr.each('10.1.*.2-128') do |ip|
+  #     ...
+  #   end
+  #
+  #   IPAddr.each('::ff::02-0a::c3') do |ip|
+  #     ...
+  #   end
+  #
   def IPAddr.each(cidr_or_range,&block)
     unless (cidr_or_range.include?('*') || cidr_or_range.include?('-'))
       IPAddr.new(cidr_or_range).each(&block)
