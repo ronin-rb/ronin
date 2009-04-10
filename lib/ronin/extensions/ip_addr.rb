@@ -27,6 +27,32 @@ class IPAddr
 
   include Enumerable
 
+  def IPAddr.each(cidr_or_range,&block)
+    if cidr_or_range =~ /::/
+      separator = '::'
+      base = 16
+    else
+      separator = '.'
+      base = 10
+    end
+
+    if (cidr_or_range.include?('*') || cidr_or_range.include?('-'))
+      ranges = cidr_or_range.split(separator).map do |n|
+        if n == '*'
+          (1..254)
+        elsif n.include?('-')
+          start, stop = n.split('-',2).map { |i| i.to_i(base) }
+
+          (start..stop)
+        else
+          n.to_i(base)
+        end
+      end
+    else
+      return IPAddr.new(cidr_or_range).each(&block)
+    end
+  end
+
   #
   # Iterates over each IP address that is included in the addresses mask,
   # passing each to the given _block_.
