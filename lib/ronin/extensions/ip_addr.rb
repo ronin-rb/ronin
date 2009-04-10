@@ -37,15 +37,15 @@ class IPAddr
     end
 
     if (cidr_or_range.include?('*') || cidr_or_range.include?('-'))
-      ranges = cidr_or_range.split(separator).map do |n|
-        if n == '*'
+      ranges = cidr_or_range.split(separator).map do |segment|
+        if segment == '*'
           (1..254)
-        elsif n.include?('-')
-          start, stop = n.split('-',2).map { |i| i.to_i(base) }
+        elsif segment.include?('-')
+          start, stop = segment.split('-',2).map { |i| i.to_i(base) }
 
           (start..stop)
-        else
-          n.to_i(base)
+        elsif segment.empty?
+          segment.to_i(base)
         end
       end
     else
