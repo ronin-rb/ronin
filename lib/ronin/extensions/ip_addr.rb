@@ -39,8 +39,10 @@ class IPAddr
       mask_mask = IN6MASK
     end
 
-    (0..((~@mask_addr) & mask_mask)).each do |i|
-      block.call(_to_string(@addr | i)) if block
+    if block
+      (0..((~@mask_addr) & mask_mask)).each do |i|
+        block.call(_to_string(@addr | i))
+      end
     end
 
     return self
