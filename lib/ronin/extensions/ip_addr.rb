@@ -39,7 +39,7 @@ class IPAddr
       mask_mask = IN6MASK
     end
 
-    ((~@mask_addr) & mask_mask).times do |i|
+    (0..((~@mask_addr) & mask_mask)).each do |i|
       block.call(_to_string(@addr | i)) if block
     end
   end
