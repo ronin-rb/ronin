@@ -42,6 +42,8 @@ class IPAddr
     (0..((~@mask_addr) & mask_mask)).each do |i|
       block.call(_to_string(@addr | i)) if block
     end
+
+    return self
   end
 
 end
