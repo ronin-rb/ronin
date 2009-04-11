@@ -23,7 +23,7 @@ describe IPAddr do
     end
   end
 
-  describe "NMap style addresses" do
+  describe "globbed addresses" do
     before(:all) do
       @ipv4_range = '10.1.1-5.1'
       @ipv6_range = '::ff::02-0a::c3'

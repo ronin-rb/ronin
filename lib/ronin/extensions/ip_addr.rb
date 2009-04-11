@@ -28,7 +28,7 @@ class IPAddr
   include Enumerable
 
   #
-  # Iterates over the CIDR or NMap style address range, passing each
+  # Iterates over the CIDR or globbed address range, passing each
   # address in the range to the specified _block_. Supports both
   # IPv4 and IPv6 address ranges.
   #
@@ -44,14 +44,14 @@ class IPAddr
   #     ...
   #   end
   #
-  def IPAddr.each(cidr_or_range,&block)
-    unless (cidr_or_range.include?('*') || cidr_or_range.include?('-'))
-      IPAddr.new(cidr_or_range).each(&block)
+  def IPAddr.each(cidr_or_glob,&block)
+    unless (cidr_or_glob.include?('*') || cidr_or_glob.include?('-'))
+      IPAddr.new(cidr_or_glob).each(&block)
       return nil
     end
 
-    if cidr_or_range.include?('::')
-      prefix = if cidr_or_range =~ /^::/
+    if cidr_or_glob.include?('::')
+      prefix = if cidr_or_glob =~ /^::/
                  '::'
                else
                  ''
@@ -70,7 +70,7 @@ class IPAddr
       format = lambda { |address| address.join('.') }
     end
 
-    ranges = cidr_or_range.split(separator).map { |segment|
+    ranges = cidr_or_glob.split(separator).map { |segment|
       if segment == '*'
         (1..254)
       elsif segment.include?('-')
