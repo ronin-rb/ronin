@@ -105,6 +105,15 @@ module Ronin
     end
 
     #
+    # Returns +true+ if the Database is setup, returns +false+ otherwise.
+    #
+    def Database.setup?
+      repository = DataMapper.repository(Model::REPOSITORY_NAME)
+
+      return repository.class.adapters.has_key?(repository.name)
+    end
+
+    #
     # Call the given _block_ then update the Database.
     #
     def Database.update!(&block)
