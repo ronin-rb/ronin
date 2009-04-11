@@ -119,7 +119,7 @@ module Ronin
     def Database.update!(&block)
       block.call if block
 
-      DataMapper.auto_upgrade!(Model::REPOSITORY_NAME)
+      DataMapper.auto_upgrade!(Model::REPOSITORY_NAME) if Database.setup?
       return nil
     end
 
