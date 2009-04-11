@@ -103,7 +103,7 @@ class IPAddr
 
   #
   # Iterates over each IP address that is included in the addresses mask,
-  # passing each to the given _block_.
+  # passing each to the specified _block_.
   #
   def each(&block)
     case @family
@@ -113,10 +113,8 @@ class IPAddr
       family_mask = IN6MASK
     end
 
-    if block
-      (0..((~@mask_addr) & family_mask)).each do |i|
-        block.call(_to_string(@addr | i))
-      end
+    (0..((~@mask_addr) & family_mask)).each do |i|
+      block.call(_to_string(@addr | i))
     end
 
     return self
