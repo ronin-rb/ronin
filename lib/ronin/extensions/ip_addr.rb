@@ -32,11 +32,11 @@ class IPAddr
   # address in the range to the specified _block_. Supports both
   # IPv4 and IPv6 address ranges.
   #
-  #   IPAddr.each('10.1.1-5.1') do |ip|
+  #   IPAddr.each('10.1.1.1/24') do |ip|
   #     ...
   #   end
   #
-  #   IPAddr.each('10.1.*.2-128') do |ip|
+  #   IPAddr.each('10.1.1-5.*') do |ip|
   #     ...
   #   end
   #
