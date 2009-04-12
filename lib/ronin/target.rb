@@ -40,5 +40,13 @@ module Ronin
     # Validates
     validates_present :arch, :os
 
+    #
+    # Packs the specified _integer_ using the targets arch and the given
+    # _address_length_.
+    #
+    def pack(integer,address_length=self.arch.address_length)
+      integer.pack(self.arch,address_length)
+    end
+
   end
 end
