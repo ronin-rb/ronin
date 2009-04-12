@@ -90,4 +90,30 @@ class String
     end
   end
 
+  #
+  # Pads the string using the specified _padding_ out to the given
+  # _max_length_. _max_length_ will default to the strings own length,
+  # if not given.
+  #
+  #   "hello".pad('A',50)
+  #   # => => "helloAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  #
+  def pad(padding,max_length=self.length)
+    padding = padding.to_s
+
+    if max_length >= self.length
+      max_length -= self.length
+    else
+      max_length = 0
+    end
+
+    padded = self + (padding * (max_length / padding.length))
+
+    unless (remaining = max_length % padding.length) == 0
+      padded += padding[0...remaining]
+    end
+
+    return padded
+  end
+
 end
