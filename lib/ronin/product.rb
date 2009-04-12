@@ -56,5 +56,12 @@ module Ronin
       end
     end
 
+    #
+    # Returns the vendor name or the name of the product.
+    #
+    def vendor
+      super || self.name
+    end
+
   end
 end
