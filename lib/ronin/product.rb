@@ -46,6 +46,23 @@ module Ronin
     validates_present :name, :version
 
     #
+    # Creates a new Product object with the given _attributes_.
+    #
+    # _attributes_ must contain the following keys:
+    # <tt>:name</tt>:: The name of the product.
+    # <tt>:vendor</tt>:: The vendor of the product. Will default to the
+    #                    product name, if not given.
+    #
+    # _attributes_ may contain the following keys:
+    # <tt>:version</tt>:: The version of the product.
+    #
+    def initialize(attributes={})
+      attributes[:vendor] ||= attributes[:name]
+
+      super(attributes)
+    end
+
+    #
     # Returns the String form of the product.
     #
     def to_s
@@ -54,13 +71,6 @@ module Ronin
       else
         return "#{@name} #{@version}"
       end
-    end
-
-    #
-    # Returns the vendor name or the name of the product.
-    #
-    def vendor
-      super || self.name
     end
 
   end
