@@ -37,7 +37,7 @@ module Ronin
     # Targeted OS
     belongs_to :os,
                :child_key => [:os_id],
-               :class_name => 'OS'
+               :class_name => 'Ronin::OS'
 
     # Validates
     validates_present :arch, :os
