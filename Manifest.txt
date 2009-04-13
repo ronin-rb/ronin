@@ -2,6 +2,7 @@ History.txt
 COPYING.txt
 Manifest.txt
 README.txt
+BUGS.txt
 TODO.txt
 Rakefile
 bin/ronin
