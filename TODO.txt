@@ -1,7 +1,8 @@
-== TODO
+== TODO:
 
-=== Ronin 0.3.0:
-
-* Create an IO proxy class and RPC Service for proxying io.
-* Create a module for pivoting.
+* Look into using Ronin over Tor/i2p.
+* Further test and verify that Ronin works with DataMapper 0.9.11.
+* Refactor Objectify and ObjectCache.
+* Discuss ideas for a Web UI:
+  * Sinatra would be a worthy candidate.
 
