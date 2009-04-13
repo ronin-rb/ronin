@@ -66,10 +66,10 @@ module Ronin
     # Returns the String form of the product.
     #
     def to_s
-      unless @vendor==@name
-        return "#{@vendor} #{@name} #{@version}"
+      unless self.vendor == self.name
+        return "#{self.vendor} #{self.name} #{self.version}"
       else
-        return "#{@name} #{@version}"
+        return "#{self.name} #{self.version}"
       end
     end
 
