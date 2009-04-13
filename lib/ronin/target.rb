@@ -32,10 +32,12 @@ module Ronin
     property :id, Serial
 
     # Targeted architecture
-    has 1, :arch
+    belongs_to :arch
 
     # Targeted OS
-    has 1, :os, :class_name => 'OS'
+    belongs_to :os,
+               :child_key => [:os_id],
+               :class_name => 'OS'
 
     # Validates
     validates_present :arch, :os
