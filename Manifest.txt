@@ -113,7 +113,6 @@ lib/ronin/license.rb
 lib/ronin/has_license.rb
 lib/ronin/arch.rb
 lib/ronin/os.rb
-lib/ronin/target.rb
 lib/ronin/product.rb
 lib/ronin/objectify.rb
 lib/ronin/objectify/exceptions.rb
@@ -214,7 +213,6 @@ spec/license_spec.rb
 spec/path_spec.rb
 spec/os_spec.rb
 spec/product_spec.rb
-spec/target_spec.rb
 spec/sessions/helpers/test_session.rb
 spec/sessions/helpers/uses_test_session.rb
 spec/sessions/session_spec.rb
