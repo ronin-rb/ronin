@@ -268,13 +268,13 @@ module Net
   end
 
   #
-  # Performes an HTTP Proppath request with the given _options_. If a
+  # Performes an HTTP Proppatch request with the given _options_. If a
   # _block_ is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  def Net.http_prop_path(options={},&block)
+  def Net.http_prop_patch(options={},&block)
     Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:proppath,options),options[:body])
+      resp = http.request(Ronin::Network::HTTP.request(:proppatch,options),options[:body])
 
       block.call(resp) if block
       return resp
