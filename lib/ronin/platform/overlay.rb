@@ -177,7 +177,7 @@ module Ronin
         end
 
         # load the lib/init.rb file
-        init_path = File.join(@path,LIB_DIR,INIT_FLE)
+        init_path = File.join(@path,LIB_DIR,INIT_FILE)
         load init_path if File.file?(init_path)
 
         return true
