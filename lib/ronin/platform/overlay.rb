@@ -187,7 +187,7 @@ module Ronin
       # Deactivates the overlay by removing the lib_dirs to the
       # <tt>$LOAD_PATH</tt>.
       #
-      def deactive!
+      def deactivate!
         Static.static_dirs.reject! { |dir| dir == @static_dir }
 
         paths = lib_dirs

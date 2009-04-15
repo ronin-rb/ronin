@@ -225,7 +225,7 @@ module Ronin
       #
       def update(&block)
         overlays.each do |overlay|
-          overlay.deactive!
+          overlay.deactivate!
           overlay.update(&block)
           overlay.active!
         end
@@ -249,7 +249,7 @@ module Ronin
         name = name.to_s
 
         overlay = get(name)
-        overlay.deactive!
+        overlay.deactivate!
 
         delete_if { |key,value| key == name }
         dirty!

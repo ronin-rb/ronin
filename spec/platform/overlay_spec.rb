@@ -32,4 +32,19 @@ describe Platform::Overlay do
       @overlay.description.should == %{This is a test overlay used in Ronin's specs.}
     end
   end
+
+  describe "lib directory" do
+    before(:all) do
+      @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
+      @overlay.activate!
+    end
+
+    it "should load the init.rb file if present" do
+      @@hello_overlay_loaded.should == true
+    end
+
+    it "should make the lib directory accessible to Kernel#require" do
+      require('stuff/another_test').should == true
+    end
+  end
 end
