@@ -41,6 +41,9 @@ module Ronin
       # Overlay lib/ directory
       LIB_DIR = 'lib'
 
+      # The init.rb file to load from the LIB_DIR
+      INIT_FILE = 'init.rb'
+
       # Overlay static/ directory
       STATIC_DIR = 'static'
 
@@ -165,13 +168,18 @@ module Ronin
       # <tt>$LOAD_PATH</tt>.
       #
       def activate!
+        # add the static/ directory
+        Static.directory(@static_dir) if File.directory?(@static_dir)
+
         # add the lib/ directories
         lib_dirs.each do |path|
           $LOAD_PATH << path unless $LOAD_PATH.include?(path)
         end
 
-        # add the static/ directory
-        Static.directory(@static_dir) if File.directory?(@static_dir)
+        # load the lib/init.rb file
+        init_path = File.join(@path,LIB_DIR,INIT_FLE)
+        load init_path if File.file?(init_path)
+
         return true
       end
 
