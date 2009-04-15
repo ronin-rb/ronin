@@ -33,7 +33,7 @@ describe Platform::Overlay do
     end
   end
 
-  describe "lib directory" do
+  describe "activate!" do
     before(:all) do
       @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
       @overlay.activate!
@@ -44,7 +44,20 @@ describe Platform::Overlay do
     end
 
     it "should make the lib directory accessible to Kernel#require" do
-      require('stuff/another_test').should == true
+      require('stuff/test').should == true
+    end
+  end
+
+  describe "deactive!" do
+    before(:all) do
+      @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
+      @overlay.deactivate!
+    end
+
+    it "should make the lib directory unaccessible to Kernel#require" do
+      lambda {
+        require 'stuff/another_test'
+      }.should raise_error(LoadError)
     end
   end
 end
