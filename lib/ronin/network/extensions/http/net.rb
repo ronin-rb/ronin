@@ -168,12 +168,19 @@ module Net
   #
   # Returns the HTTP Server header for the given _options_.
   #
+  #   Net.http_server(:url => 'http://www.darkc0de.com/)
+  #   # => "Apache/2.2.11 (Unix) PHP/4.4.9 mod_ssl/2.2.11 OpenSSL/0.9.8c
+  #    mod_fastcgi/2.4.6 Phusion_Passenger/2.1.2 DAV/2 SVN/1.4.2"
+  #
   def Net.http_server(options={})
     Net.http_head(options)['server']
   end
 
   #
   # Returns the HTTP X-Powered-By header for the given _options_.
+  #
+  #   Net.http_powered_by(:url => 'http://www.stalkdaily.com/')
+  #   # => "PHP/5.2.9"
   #
   def Net.http_powered_by(options={})
     resp = Net.http_head(options)
