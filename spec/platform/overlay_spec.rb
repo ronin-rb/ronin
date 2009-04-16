@@ -40,7 +40,7 @@ describe Platform::Overlay do
     end
 
     it "should load the init.rb file if present" do
-      @@hello_overlay_loaded.should == true
+      $hello_overlay_loaded.should == true
     end
 
     it "should make the lib directory accessible to Kernel#require" do
@@ -48,7 +48,7 @@ describe Platform::Overlay do
     end
   end
 
-  describe "deactive!" do
+  describe "deactivate!" do
     before(:all) do
       @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
       @overlay.deactivate!
