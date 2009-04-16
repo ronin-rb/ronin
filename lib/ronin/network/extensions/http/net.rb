@@ -166,6 +166,26 @@ module Net
   end
 
   #
+  # Returns the HTTP Server header for the given _options_.
+  #
+  def Net.http_server(options={})
+    Net.http_head(options)['server']
+  end
+
+  #
+  # Returns the HTTP X-Powered-By header for the given _options_.
+  #
+  def Net.http_powered_by(options={})
+    resp = Net.http_head(options)
+
+    if resp.code != 200
+      resp = Net.http_get(options)
+    end
+
+    return resp['x-powered-by']
+  end
+
+  #
   # Performes an HTTP Lock request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
