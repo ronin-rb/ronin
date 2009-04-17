@@ -43,7 +43,7 @@ module Ronin
         #   # => [#<Ronin::LicensedModel: ...>, ...]
         #
         def self.licensed_under(name)
-          self.all(:license => Ronin::License[name])
+          self.all(:license_id => Ronin::License[name].id)
         end
       end
     end
