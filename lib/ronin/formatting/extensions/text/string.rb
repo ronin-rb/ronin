@@ -75,7 +75,7 @@ class String
   # <tt>:probability</tt>:: The probability that a character will have it's
   #                         case changed; defaults to 0.5.
   #
-  # "get out your checkbook".rand_case
+  # "get out your checkbook".random_case
   # # => "gEt Out YOur CHEckbook"
   #
   def random_case(options={})
