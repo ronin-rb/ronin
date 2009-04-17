@@ -202,9 +202,9 @@ spec/formatting/binary/helpers/hexdumps/od_hex_quads.txt
 spec/formatting/binary/helpers/hexdumps/od_repeated.txt
 spec/formatting/binary/integer_spec.rb
 spec/formatting/binary/string_spec.rb
-spec/formatting/digest_spec.rb
-spec/formatting/http_spec.rb
-spec/formatting/text_spec.rb
+spec/formatting/digest/string_spec.rb
+spec/formatting/http/string_spec.rb
+spec/formatting/text/string_spec.rb
 spec/code/helpers/thing.rb
 spec/code/reference_spec.rb
 spec/code/symbol_table_spec.rb
