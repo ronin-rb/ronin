@@ -175,6 +175,7 @@ spec/author_spec.rb
 spec/translators/translator_spec.rb
 spec/objectify/helpers/test_object.rb
 spec/objectify/objectify_spec.rb
+spec/extensions/kernel_spec.rb
 spec/extensions/hash_spec.rb
 spec/extensions/string_spec.rb
 spec/extensions/ip_addr_spec.rb
