@@ -21,6 +21,7 @@ lib/ronin/static/finders.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
+lib/ronin/extensions/kernel.rb
 lib/ronin/extensions/hash.rb
 lib/ronin/extensions/uri.rb
 lib/ronin/extensions/uri/query_params.rb
