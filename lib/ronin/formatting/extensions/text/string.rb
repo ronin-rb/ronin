@@ -82,7 +82,7 @@ class String
     prob = (options[:probability] || 0.5)
 
     format_chars(options) do |c|
-      if rand < prob
+      if rand <= prob
         c.swapcase 
       else
         c
