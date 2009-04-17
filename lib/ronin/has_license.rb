@@ -31,7 +31,9 @@ module Ronin
         include Ronin::Model
 
         # The license
-        has 1, :license, :class_name => 'Ronin::License'
+        belongs_to :license,
+                   :child_key => [:license_id],
+                   :class_name => 'Ronin::License'
 
         #
         # Returns all models having the predefined license with the
