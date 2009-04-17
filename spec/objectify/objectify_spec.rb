@@ -1,7 +1,7 @@
 require 'ronin/objectify'
 
 require 'spec_helper'
-require 'objectify/helpers/test_object'
+require 'objectify/classes/test_object'
 
 describe Objectify do
   it "should create an object with a Hash of attributes and params" do

@@ -1,4 +1,4 @@
-require 'sessions/helpers/test_session'
+require 'sessions/classes/test_session'
 
 class UsesTestSession
 

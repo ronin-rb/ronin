@@ -1,7 +1,7 @@
 require 'ronin/code/reference'
 
 require 'spec_helper'
-require 'code/helpers/thing'
+require 'code/classes/thing'
 
 describe Code::Reference do
   before(:all) do

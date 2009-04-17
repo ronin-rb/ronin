@@ -1,8 +1,8 @@
 require 'ronin/sessions/session'
 
 require 'spec_helper'
-require 'sessions/helpers/test_session'
-require 'sessions/helpers/uses_test_session'
+require 'sessions/classes/test_session'
+require 'sessions/classes/uses_test_session'
 
 describe Sessions::Session do
   describe "require_variable" do

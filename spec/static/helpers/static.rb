@@ -1,5 +1,4 @@
 require 'ronin/static'
-require 'static/helpers/static_class'
 
 STATIC_DIRS = [
   File.expand_path(File.join(File.dirname(__FILE__),'static1')),

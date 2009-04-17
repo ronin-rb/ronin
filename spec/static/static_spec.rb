@@ -2,6 +2,7 @@ require 'ronin/static/static'
 
 require 'spec_helper'
 require 'static/helpers/static'
+require 'static/classes/static_class'
 
 describe Static do
   it "should list static directories" do

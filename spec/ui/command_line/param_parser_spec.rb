@@ -1,7 +1,7 @@
 require 'ronin/ui/command_line/param_parser'
 
 require 'spec_helper'
-require 'ui/command_line/helpers/example_command'
+require 'ui/command_line/classes/example_command'
 
 describe UI::CommandLine::ParamParser do
   before(:all) do
