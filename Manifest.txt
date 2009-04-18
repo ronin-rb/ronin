@@ -114,6 +114,7 @@ lib/ronin/has_license.rb
 lib/ronin/arch.rb
 lib/ronin/os.rb
 lib/ronin/product.rb
+lib/ronin/cacheable.rb
 lib/ronin/objectify.rb
 lib/ronin/objectify/exceptions.rb
 lib/ronin/objectify/exceptions/object_context_not_found.rb
