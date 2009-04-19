@@ -76,10 +76,13 @@ module Ronin
           if File.mtime(self.cached_path) > self.cached_timestamp
             self.class.cache(self.cached_path)
           else
+            return false
           end
         else
-          self.destroy!
+          self.destroy
         end
+
+        return true
       end
 
       return false
