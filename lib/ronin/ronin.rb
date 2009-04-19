@@ -21,24 +21,9 @@
 #++
 #
 
-require 'ronin/objectify'
 require 'ronin/ui/console'
 
 module Ronin
-  #
-  # See Objectify.load_objects.
-  #
-  def Ronin.load_objects(path)
-    Objectify.load_objects(path)
-  end
-
-  #
-  # See Objectify.load_object.
-  #
-  def Ronin.load_object(type,path)
-    Objectify.load_object(type,path)
-  end
-
   #
   # Starts Ronin's console with the given _script_. If a _block_ is given
   # it will be ran within the console.

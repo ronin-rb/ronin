@@ -115,11 +115,6 @@ lib/ronin/arch.rb
 lib/ronin/os.rb
 lib/ronin/product.rb
 lib/ronin/cacheable.rb
-lib/ronin/objectify.rb
-lib/ronin/objectify/exceptions.rb
-lib/ronin/objectify/exceptions/object_context_not_found.rb
-lib/ronin/objectify/exceptions/unknown_object_context.rb
-lib/ronin/objectify/objectify.rb
 lib/ronin/environment.rb
 lib/ronin/platform.rb
 lib/ronin/platform/tasks/spec.rb
@@ -179,8 +174,6 @@ spec/static/static_spec.rb
 spec/arch_spec.rb
 spec/author_spec.rb
 spec/translators/translator_spec.rb
-spec/objectify/classes/test_object.rb
-spec/objectify/objectify_spec.rb
 spec/extensions/kernel_spec.rb
 spec/extensions/hash_spec.rb
 spec/extensions/string_spec.rb
