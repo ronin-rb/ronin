@@ -45,6 +45,7 @@ module Ronin
           path = File.expand_path(path)
           obj = self.load_context(path)
 
+          obj.instance_variable_set('@original_loaded',true)
           obj.cached_path = path
           obj.cached_timestamp = File.mtime(path)
           obj.prepare_cache
@@ -83,6 +84,7 @@ module Ronin
 
       return Contextify.load_contexts(path).select do |obj|
         if obj.class.include?(Cacheable)
+          obj.instance_variable_set('@original_loaded',true)
           obj.cached_path = path
           obj.cached_timestamp = File.mtime(path)
           obj.prepare_cache
@@ -103,12 +105,15 @@ module Ronin
       end
     end
 
-    def load_file!
-      if (self.cached_path && !(@context_loaded))
+    #
+    # Load the code from the cached file for the object.
+    #
+    def load_original!
+      if (self.cached_path && !(@original_loaded))
         block = self.class.load_context_block(self.cached_path)
 
         instance_eval(&block) if block
-        @context_loaded = true
+        @original_loaded = true
       end
 
       return self
@@ -181,8 +186,8 @@ module Ronin
     # method again.
     #
     def method_missing(name,*arguments,&block)
-      unless @context_loaded
-        load_file!
+      unless @original_loaded
+        load_original!
         return self.send(name,*arguments,&block)
       else
         return super(name,*arguments,&block)
