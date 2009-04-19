@@ -38,23 +38,18 @@ module Ronin
 
         def self.load_from(path)
           path = File.expand_path(path)
-
           obj = self.load_context(path)
+
           obj.cached_path = path
           obj.cached_timestamp = File.mtime(path)
-
           obj.prepare_cache
           return obj
         end
 
         def self.cache(path)
-          path = File.expand_path(path)
+          obj = self.load_from(File.expand_path(path))
 
-          # delete any existing objects
-          self.all(:cached_path => path).destroy!
-
-          obj = self.load_from(path)
-          obj.save!
+          obj.cache!
           return obj
         end
       end
@@ -68,6 +63,28 @@ module Ronin
       @@ronin_cacheable_models ||= []
     end
 
+    def Cacheable.load_all_from(path,&block)
+      path = File.expand_path(path)
+
+      return Contextify.load_contexts(path) do |obj|
+        if obj.include?(Cacheable)
+          obj.cached_path = path
+          obj.cached_timestamp = File.mtime(path)
+          obj.prepare_cache
+
+          block.call(obj) if block
+        end
+      end
+    end
+
+    def Cacheable.cache_all(path)
+      path = File.expand_path(path)
+
+      Cacheable.load_all_from(path) do |obj|
+        obj.cache! if obj.include?(Cacheable)
+      end
+    end
+
     def load_file!
       if self.cached_path
         block = self.class.load_context_block(self.cached_path)
@@ -76,6 +93,18 @@ module Ronin
       end
 
       return self
+    end
+
+    def cache!
+      if self.cached_path
+        # delete any existing objects
+        self.class.all(:cached_path => self.cached_path).destroy!
+
+        self.cached_timestamp = File.mtime(self.cached_path)
+        return save!
+      end
+
+      return false
     end
 
     def sync!
