@@ -81,7 +81,7 @@ module Ronin
       path = File.expand_path(path)
 
       Cacheable.load_all_from(path) do |obj|
-        obj.cache! if obj.class.include?(Cacheable)
+        obj.cache!
       end
     end
 
