@@ -91,17 +91,20 @@ module Ronin
     #
     def Cacheable.load_all_from(path,&block)
       path = File.expand_path(path)
-
-      return Contextify.load_contexts(path).select do |obj|
-        if obj.class.include?(Cacheable)
-          obj.instance_variable_set('@original_loaded',true)
-          obj.cached_path = path
-          obj.cached_timestamp = File.mtime(path)
-          obj.prepare_cache
-
-          block.call(obj) if block
-        end
+      objs = Contextify.load_contexts(path).select do |obj|
+        obj.class.include?(Cacheable)
       end
+      
+      objs.each do |obj|
+        obj.instance_variable_set('@original_loaded',true)
+        obj.cached_path = path
+        obj.cached_timestamp = File.mtime(path)
+        obj.prepare_cache
+
+        block.call(obj) if block
+      end
+
+      return objs
     end
 
     #
