@@ -58,6 +58,14 @@ module Ronin
           return obj
         end
       end
+
+      unless Cacheable.models.include?(base)
+        Cacheable.models << base
+      end
+    end
+
+    def Cacheable.models
+      @@ronin_cacheable_models ||= []
     end
 
     def load_file!
