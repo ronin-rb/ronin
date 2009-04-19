@@ -41,6 +41,8 @@ module Ronin
 
           obj = self.load_context(path)
           obj.cached_path = path
+          obj.cached_timestamp = File.mtime(path)
+
           obj.prepare_cache
           return obj
         end
@@ -49,10 +51,7 @@ module Ronin
           path = File.expand_path(path)
 
           self.all(:cached_path => path).destroy!
-
-          obj = self.load_context(path)
-          obj.cached_path = path
-          return obj.cache!
+          return self.load(path).save!
         end
       end
     end
@@ -65,17 +64,6 @@ module Ronin
       end
 
       return self
-    end
-
-    def cache!
-      if self.cached_path
-        self.cached_timestamp = File.mtime(self.cached_path)
-
-        prepare_cache
-        return save!
-      end
-
-      return false
     end
 
     def sync!
