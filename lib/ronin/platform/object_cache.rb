@@ -21,7 +21,7 @@
 #++
 #
 
-require 'ronin/objectify'
+require 'ronin/cacheable'
 
 module Ronin
   module Platform
@@ -31,7 +31,7 @@ module Ronin
       # to object files.
       #
       def ObjectCache.paths(directory)
-        Dir[File.join(directory,'**','*.rb')]
+        Dir[File.join(File.expand_path(directory),'**','*.rb')]
       end
 
       #
@@ -41,10 +41,10 @@ module Ronin
         attributes = {}
 
         if directory
-          attributes.merge!(:object_path.like => File.join(directory,'%'))
+          attributes.merge!(:cached_path.like => File.join(directory,'%'))
         end
 
-        Objectify.object_contexts.each_value do |base|
+        Cacheable.models.each do |base|
           base.all(attributes).each(&block)
         end
 
@@ -57,7 +57,7 @@ module Ronin
       #
       def ObjectCache.cache(directory)
         ObjectCache.paths(directory).each do |path|
-          Objectify.cache_objects(path)
+          Cacheable.cache(path)
         end
 
         return true
@@ -68,24 +68,24 @@ module Ronin
       # the specified _directory_. Also cache objects which have yet to
       # be cached.
       #
-      def ObjectCache.mirror(directory)
+      def ObjectCache.sync(directory)
         new_paths = ObjectCache.paths(directory)
 
         ObjectCache.each(directory) do |obj|
-          new_paths.delete(obj.object_path)
+          new_paths.delete(obj.cached_path)
 
-          obj.mirror
+          obj.sync!
         end
 
         # cache the remaining new paths
-        new_paths.each { |path| Objectify.cache_objects(path) }
+        new_paths.each { |path| Cacheable.cache(path) }
         return true
       end
 
       #
       # Deletes all cached objects that existed in the specified _directory_.
       #
-      def ObjectCache.expunge(directory)
+      def ObjectCache.clean(directory)
         ObjectCache.each(directory) { |obj| obj.destroy }
         return true
       end
