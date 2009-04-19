@@ -6,22 +6,35 @@ require 'helpers/cacheable'
 
 describe Cacheable do
   before(:all) do
-    CacheableModel.auto_migrate!
-
     @path = File.join(Dir.tmpdir,File.basename(CACHED_PATH))
   end
 
   describe "new files" do
     before(:all) do
+      CacheableModel.auto_migrate!
       FileUtils.cp CACHED_PATH, @path
     end
 
     it "should be able to cache new files" do
-      CacheableModel.cache(@path).should == true
+      obj = CacheableModel.cache(@path)
+
+      obj.should_not be_dirty
+      obj.id.should == 1
+    end
+
+    it "should call the cache method before saving the new object" do
+      model = CacheableModel.first
+
+      model.content.should == 'this is a test'
     end
   end
 
   describe "unmodified files" do
+    before(:all) do
+      CacheableModel.auto_migrate!
+      CacheableModel.cache(@path)
+    end
+
     it "should not re-cache unmodified files" do
       model = CacheableModel.first
 
@@ -31,6 +44,10 @@ describe Cacheable do
 
   describe "modified files" do
     before(:all) do
+      CacheableModel.auto_migrate!
+      CacheableModel.cache(@path)
+
+      sleep 1
       FileUtils.touch @path
     end
 
@@ -43,6 +60,9 @@ describe Cacheable do
 
   describe "missing files" do
     before(:all) do
+      CacheableModel.auto_migrate!
+      CacheableModel.cache(@path)
+
       FileUtils.rm @path
     end
 
