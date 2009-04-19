@@ -127,7 +127,7 @@ module Ronin
 
     def prepare_cache
       unless @cache_prepared
-        cache
+        instance_eval(&(@cache_block)) if @cache_block
         @cache_prepared = true
       end
     end
@@ -135,9 +135,10 @@ module Ronin
     protected
 
     #
-    # Default cache method.
+    # Will run the specified _block_ when the object is about to be cached.
     #
-    def cache
+    def cache(&block)
+      @cache_block = block
     end
   end
 end
