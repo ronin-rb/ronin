@@ -6,4 +6,8 @@ ronin_cacheable_model do
     self.content = 'this is a test'
   end
 
+  def greeting
+    'hello'
+  end
+
 end
