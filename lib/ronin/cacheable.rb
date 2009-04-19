@@ -59,10 +59,17 @@ module Ronin
       end
     end
 
+    #
+    # List of cacheable models.
+    #
     def Cacheable.models
       @@ronin_cacheable_models ||= []
     end
 
+    #
+    # Loads all cacheable objects from the specified _path_. If a _block_
+    # is given, it will be passed each loaded object.
+    #
     def Cacheable.load_all_from(path,&block)
       path = File.expand_path(path)
 
@@ -77,6 +84,9 @@ module Ronin
       end
     end
 
+    #
+    # Cache all objects defined in the file at the specified _path_.
+    #
     def Cacheable.cache_all(path)
       path = File.expand_path(path)
 
@@ -95,6 +105,11 @@ module Ronin
       return self
     end
 
+    #
+    # Deletes any previously cached copies of the object and caches it into
+    # the database. Returns +true+ if the object was successfully cached,
+    # returns +false+ otherwise.
+    #
     def cache!
       if self.cached_path
         # delete any existing objects
@@ -107,6 +122,14 @@ module Ronin
       return false
     end
 
+    #
+    # Deletes any previous cached copies of the object and caches it into
+    # the database, only if the file where the object was originally cached 
+    # from was modified. The object will also be destroyed if the file
+    # where the object was originally cached from is missing. Returns
+    # +true+ if the object was successfully synced, returns +false+
+    # otherwise.
+    #
     def sync!
       if (self.cached_path && self.cached_timestamp)
         if File.file?(self.cached_path)
@@ -125,6 +148,9 @@ module Ronin
       return false
     end
 
+    #
+    # Prepares the object for caching.
+    #
     def prepare_cache
       unless @cache_prepared
         instance_eval(&(@cache_block)) if @cache_block
