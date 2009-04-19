@@ -32,21 +32,18 @@ module Ronin
         include Contextify
         include Ronin::Model
 
-        property :cached_path, FilePath
+        property :cached_path, DataMapper::Types::FilePath
 
-        property :cached_timestamp, EpochTime
+        property :cached_timestamp, DataMapper::Types::EpochTime
 
         def self.cache(path)
           path = File.expand_path(path)
 
-          self.all(:cached_path => path).destroy
+          self.all(:cached_path => path).destroy!
 
           obj = self.load_context(path)
           obj.cached_path = path
           return obj.cache!
-        end
-
-        def self.clean(path)
         end
       end
     end
@@ -63,7 +60,7 @@ module Ronin
 
     def cache!
       if self.cached_path
-        self.cached_timestamp = File.mtime(self.cached_timestamp)
+        self.cached_timestamp = File.mtime(self.cached_path)
 
         cache
         return save!
@@ -78,7 +75,7 @@ module Ronin
           if File.mtime(self.cached_path) > self.cached_timestamp
             self.destroy!
 
-            reload!
+            obj = self.class.load_context(self.cached_path)
             return cache!
           else
           end
