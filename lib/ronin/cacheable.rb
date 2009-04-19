@@ -36,7 +36,7 @@ module Ronin
 
         property :cached_timestamp, DataMapper::Types::EpochTime
 
-        def self.load(path)
+        def self.load_from(path)
           path = File.expand_path(path)
 
           obj = self.load_context(path)
@@ -51,7 +51,7 @@ module Ronin
           path = File.expand_path(path)
 
           self.all(:cached_path => path).destroy!
-          return self.load(path).save!
+          return self.load_from(path).save!
         end
       end
     end
