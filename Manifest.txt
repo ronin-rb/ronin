@@ -165,7 +165,10 @@ lib/ronin/version.rb
 tasks/spec.rb
 spec/spec_helper.rb
 spec/classes/licensed_model.rb
+spec/classes/cacheable_model.rb
 spec/helpers/database.rb
+spec/helpers/cacheable.rb
+spec/helpers/contexts/ronin_cacheable_model.rb
 spec/static/classes/static_class.rb
 spec/static/helpers/static1/one.txt
 spec/static/helpers/static1/dir/two.txt
@@ -218,6 +221,7 @@ spec/has_license_spec.rb
 spec/path_spec.rb
 spec/os_spec.rb
 spec/product_spec.rb
+spec/cacheable_spec.rb
 spec/sessions/classes/test_session.rb
 spec/sessions/classes/uses_test_session.rb
 spec/sessions/session_spec.rb
