@@ -32,10 +32,15 @@ module Ronin
         include Contextify
         include Ronin::Model
 
+        # The path to the file where the object was defined in
         property :cached_path, DataMapper::Types::FilePath
 
+        # The timestamp of the cached file
         property :cached_timestamp, DataMapper::Types::EpochTime
 
+        #
+        # Loads an object from the file at the specified _path_.
+        #
         def self.load_from(path)
           path = File.expand_path(path)
           obj = self.load_context(path)
@@ -46,6 +51,9 @@ module Ronin
           return obj
         end
 
+        #
+        # Caches an object from the file at the specified _path_.
+        #
         def self.cache(path)
           obj = self.load_from(File.expand_path(path))
 
