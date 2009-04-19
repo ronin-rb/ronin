@@ -14,14 +14,14 @@ describe Cacheable do
   end
 
   it "should be able to load arbitrary objects from a file" do
-    objs = Cacheable.load_all_from(CACHED_FILE)
+    objs = Cacheable.load_all_from(CACHEABLE_FILE)
 
     objs.length.should == 1
     objs.first.content.should == 'this is a test'
   end
 
   it "should be able to cache arbitrary objects from a file" do
-    objs = Cacheable.cache_all(CACHED_FILE)
+    objs = Cacheable.cache_all(CACHEABLE_FILE)
 
     objs.length.should == 1
     objs.first.content.should == 'this is a test'
@@ -31,15 +31,15 @@ describe Cacheable do
     before(:all) do
       CacheableModel.auto_migrate!
 
-      @obj = CacheableModel.load_from(CACHED_FILE)
+      @obj = CacheableModel.load_from(CACHEABLE_FILE)
     end
 
     it "should set the cached_path property" do
-      @obj.cached_path.should == Pathname.new(CACHED_FILE)
+      @obj.cached_path.should == Pathname.new(CACHEABLE_FILE)
     end
 
     it "should set the cached_timestamp property" do
-      @obj.cached_timestamp.should == File.mtime(CACHED_FILE).to_i
+      @obj.cached_timestamp.should == File.mtime(CACHEABLE_FILE).to_i
     end
 
     it "should prepare the object to be cached" do
@@ -58,11 +58,11 @@ describe Cacheable do
   describe "new files" do
     before(:all) do
       CacheableModel.auto_migrate!
-      FileUtils.cp CACHED_FILE, CACHED_PATH
+      FileUtils.cp CACHEABLE_FILE, CACHEABLE_PATH
     end
 
     it "should be able to cache new files" do
-      obj = CacheableModel.cache(CACHED_PATH)
+      obj = CacheableModel.cache(CACHEABLE_PATH)
 
       obj.should_not be_dirty
       obj.id.should == 1
@@ -78,7 +78,7 @@ describe Cacheable do
   describe "unmodified files" do
     before(:all) do
       CacheableModel.auto_migrate!
-      CacheableModel.cache(CACHED_PATH)
+      CacheableModel.cache(CACHEABLE_PATH)
     end
 
     it "should not re-cache unmodified files" do
@@ -92,7 +92,7 @@ describe Cacheable do
     before(:all) do
       CacheableModel.auto_migrate!
 
-      model = CacheableModel.cache(CACHED_PATH)
+      model = CacheableModel.cache(CACHEABLE_PATH)
       model.cached_timestamp -= 10
       model.save!
     end
@@ -107,15 +107,15 @@ describe Cacheable do
   describe "missing files" do
     before(:all) do
       CacheableModel.auto_migrate!
-      CacheableModel.cache(CACHED_PATH)
+      CacheableModel.cache(CACHEABLE_PATH)
 
-      FileUtils.rm CACHED_PATH
+      FileUtils.rm CACHEABLE_PATH
     end
 
     it "should be able to expunge cached objects for missing files" do
       CacheableModel.first.sync!
 
-      CacheableModel.all(:cached_path => CACHED_PATH).should be_empty
+      CacheableModel.all(:cached_path => CACHEABLE_PATH).should be_empty
     end
   end
 end
