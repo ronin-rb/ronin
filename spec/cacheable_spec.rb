@@ -5,6 +5,28 @@ require 'classes/cacheable_model'
 require 'helpers/cacheable'
 
 describe Cacheable do
+  before(:all) do
+    CacheableModel.auto_migrate!
+  end
+
+  it "should maintain a list of models which are cacheable" do
+    Cacheable.models.include?(CacheableModel).should == true
+  end
+
+  it "should be able to load arbitrary objects from a file" do
+    objs = Cacheable.load_all_from(CACHED_FILE)
+
+    objs.length.should == 1
+    objs.first.content.should == 'this is a test'
+  end
+
+  it "should be able to cache arbitrary objects from a file" do
+    objs = Cacheable.cache_all(CACHED_FILE)
+
+    objs.length.should == 1
+    objs.first.content.should == 'this is a test'
+  end
+
   describe "load_from" do
     before(:all) do
       CacheableModel.auto_migrate!
