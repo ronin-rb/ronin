@@ -104,10 +104,11 @@ module Ronin
     end
 
     def load_file!
-      if self.cached_path
+      if (self.cached_path && !(@context_loaded))
         block = self.class.load_context_block(self.cached_path)
 
         instance_eval(&block) if block
+        @context_loaded = true
       end
 
       return self
@@ -173,6 +174,19 @@ module Ronin
     #
     def cache(&block)
       @cache_block = block
+    end
+
+    #
+    # Will load the context from the cached file and attempt to call the
+    # method again.
+    #
+    def method_missing(name,*arguments,&block)
+      unless @context_loaded
+        load_file!
+        return self.send(name,*arguments,&block)
+      else
+        return super(name,*arguments,&block)
+      end
     end
   end
 end
