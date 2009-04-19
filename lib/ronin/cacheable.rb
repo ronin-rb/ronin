@@ -50,13 +50,17 @@ module Ronin
         def self.cache(path)
           path = File.expand_path(path)
 
+          # delete any existing objects
           self.all(:cached_path => path).destroy!
-          return self.load_from(path).save!
+
+          obj = self.load_from(path)
+          obj.save!
+          return obj
         end
       end
     end
 
-    def reload!
+    def load_file!
       if self.cached_path
         block = self.class.load_context_block(self.cached_path)
 
