@@ -121,6 +121,16 @@ describe Cacheable do
       model = CacheableModel.first
       model.greeting.should == 'hello'
     end
+
+    it "should only load the original object once" do
+      model = CacheableModel.first
+      model.load_original!
+
+      model.config = false
+      model.load_original!
+
+      model.config.should == false
+    end
   end
 
   describe "missing files" do
