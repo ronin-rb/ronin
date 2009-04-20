@@ -104,6 +104,25 @@ describe Cacheable do
     end
   end
 
+  describe "cached files" do
+    before(:all) do
+      CacheableModel.auto_migrate!
+      CacheableModel.cache(CACHEABLE_FILE)
+    end
+
+    it "should be able to load the original object" do
+      model = CacheableModel.first
+
+      model.load_original!
+      model.greeting.should == 'hello'
+    end
+
+    it "should load the original object on demand" do
+      model = CacheableModel.first
+      model.greeting.should == 'hello'
+    end
+  end
+
   describe "missing files" do
     before(:all) do
       CacheableModel.auto_migrate!
