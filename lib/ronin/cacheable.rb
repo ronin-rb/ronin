@@ -71,6 +71,20 @@ module Ronin
           obj.cache!
           return obj
         end
+
+        #
+        # Loads all objects with the matching _attributes_.
+        #
+        def self.load_all(attributes={})
+          self.all(attributes).map { |obj| obj.load_original }
+        end
+
+        #
+        # Loads the first object with the matching _attributes_.
+        #
+        def self.load_first(attributes={})
+          self.first(attributes).load_original!
+        end
       end
 
       unless Cacheable.models.include?(base)
