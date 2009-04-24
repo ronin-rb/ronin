@@ -114,7 +114,7 @@ module Ronin
     end
 
     #
-    # Call the given _block_ then update the Database.
+    # Call the given _block_ then run auto-upgrades on the Database.
     #
     def Database.update!(&block)
       block.call if block
