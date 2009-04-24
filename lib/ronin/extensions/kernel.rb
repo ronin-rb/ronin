@@ -27,7 +27,7 @@ module Kernel
   # If an exception is raised, +nil+ will be returned.
   #
   #   try do
-  #     Resolv.getaddress('might.dont.exist.com')
+  #     Resolv.getaddress('might.not.exist.com')
   #   end
   #
   def try(&block)
