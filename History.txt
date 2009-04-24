@@ -12,14 +12,14 @@
 * Added String#pad.
 * Added IPAddr#each for iterating over CIDR address ranges.
 * Added IPAddr.each for iterating over CIDR and globbed address ranges.
-* Added Net.http_powered_by.
-* Added Net.http_server.
+* Added Net.http_powered_by that returns the HTTP X-Powered-By header.
+* Added Net.http_server that returns the HTTP Server header.
 * Added Database.setup?.
 * Added Database.update!.
 * Added Extension#exposed_methods.
 * Added ExtensionCache#names.
 * Added OverlayCache#names.
-* Added UI::Diagnostics#print_debug.
+* Added Diagnostics#print_debug.
 * Added more specs.
 * Properly escape URI::HTTP#query_params.
 * Fixed a bug in File.hexdump where the file was not being closed.
@@ -41,9 +41,9 @@
   * Added CommandLine.get_command which loads command classes on-demand.
   * CommandLine.commands now stores all the available command names.
   * Renamed Ronin::UI::CommandLine::Commands::LS to
-    Ronin::CommandLine::Commands::Ls.
+    Ronin::UI::CommandLine::Commands::Ls.
   * Renamed Ronin::UI::CommandLine::Commands::RM to
-    Ronin::CommandLine::Commands::Rm.
+    Ronin::UI::CommandLine::Commands::Rm.
 * Refactored specs to run on Ruby 1.9.1-p0.
 * All specs now pass on Ruby 1.9.1-p0.
 
