@@ -24,7 +24,6 @@
 require 'dm-core'
 require 'dm-types'
 require 'dm-serializer'
-require 'dm-aggregates'
 require 'dm-validations'
 
 module Ronin

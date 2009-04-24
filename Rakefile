@@ -16,7 +16,6 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
     ['do_sqlite3', '>=0.9.11'],
     ['dm-types', '>=0.9.11'],
     ['dm-serializer', '>=0.9.11'],
-    ['dm-aggregates', '>=0.9.11'],
     ['dm-validations', '>=0.9.11'],
     ['dm-predefined', '>=0.1.0'],
     ['chars', '>=0.1.1'],
