@@ -105,6 +105,10 @@ class IPAddr
   # Iterates over each IP address that is included in the addresses mask,
   # passing each address to the specified _block_.
   #
+  #   IPAddr.new('10.1.1.1/24').each do |ip|
+  #     puts ip
+  #   end
+  #
   def each(&block)
     case @family
     when Socket::AF_INET
