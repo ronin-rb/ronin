@@ -36,7 +36,8 @@ module Ronin
       end
 
       #
-      # Prints the given _messages_ as debugging diagnostics.
+      # Prints the given _messages_ as debugging diagnostics,
+      # if Ronin::UI::Verbose was enabled.
       #
       def print_debug(*messages)
         if Verbose.enabled?
@@ -45,7 +46,8 @@ module Ronin
       end
 
       #
-      # Prints the given _messages_ as warning diagnostics.
+      # Prints the given _messages_ as warning diagnostics,
+      # if Ronin::UI::Verbose was enabled.
       #
       def print_warning(*messages)
         if Verbose.enabled?
