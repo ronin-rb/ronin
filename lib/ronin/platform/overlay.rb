@@ -165,7 +165,7 @@ module Ronin
 
       #
       # Activates the overlay by adding the lib_dirs to the
-      # <tt>$LOAD_PATH</tt>.
+      # <tt>$LOAD_PATH</tt> global variable.
       #
       def activate!
         # add the static/ directory
@@ -184,8 +184,8 @@ module Ronin
       end
 
       #
-      # Deactivates the overlay by removing the lib_dirs to the
-      # <tt>$LOAD_PATH</tt>.
+      # Deactivates the overlay by removing the lib_dirs from the
+      # <tt>$LOAD_PATH</tt> global variable.
       #
       def deactivate!
         Static.static_dirs.reject! { |dir| dir == @static_dir }
