@@ -1,3 +1,52 @@
+=== 0.2.3 / 2009-04-23
+
+* Require chars >= 0.1.1.
+* Require dm-core >= 0.9.11.
+* Require data_objects >= 0.9.11.
+* Require do_sqlite3 >= 0.9.11.
+* Require dm-types >= 0.9.11.
+* Require dm-serializer >= 0.9.11.
+* Require dm-validations >= 0.9.11.
+* No longer require dm-aggregates.
+* Added Kernel#try.
+* Added String#pad.
+* Added IPAddr#each for iterating over CIDR address ranges.
+* Added IPAddr.each for iterating over CIDR and globbed address ranges.
+* Added Net.http_powered_by.
+* Added Net.http_server.
+* Added Database.setup?.
+* Added Database.update!.
+* Added Extension#exposed_methods.
+* Added ExtensionCache#names.
+* Added OverlayCache#names.
+* Added UI::Diagnostics#print_debug.
+* Added more specs.
+* Properly escape URI::HTTP#query_params.
+* Fixed a bug in File.hexdump where the file was not being closed.
+* Fixed a bug in HasLicense#licensed_under.
+* Fixed a bug in Product#to_s.
+* Moved Ronin::Target to the ronin-exploits library.
+* Renamed Net.http_prop_path to Net.http_prop_patch.
+* Removed the Parameters code from Ronin::Sessions.
+* Replaced Ronin::Objectify with Ronin::Cacheable.
+* Removed 'ronin/models'.
+* Catch exceptions when loading Extensions and carry on.
+* Renamed Overlay#deactive! to Overlay#deactivate!.
+* Allow Overlays to automatically load the 'lib/init.rb' file when
+  activated.
+* Rewrote Ronin::Platform::ObjectCache to use the new Ronin::Cacheable
+  module.
+* Enable Diagnostic#print_info and Diagnostic#print_error by default.
+* Refactored Ronin::UI::CommandLine:
+  * Added CommandLine.get_command which loads command classes on-demand.
+  * CommandLine.commands now stores all the available command names.
+  * Renamed Ronin::UI::CommandLine::Commands::LS to
+    Ronin::CommandLine::Commands::Ls.
+  * Renamed Ronin::UI::CommandLine::Commands::RM to
+    Ronin::CommandLine::Commands::Rm.
+* Refactored specs to run on Ruby 1.9.1-p0.
+* All specs now pass on Ruby 1.9.1-p0.
+
 === 0.2.2 / 2009-03-26
 
 * Split out Ronin::Chars into the Chars library.
