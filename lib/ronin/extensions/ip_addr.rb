@@ -103,7 +103,7 @@ class IPAddr
 
   #
   # Iterates over each IP address that is included in the addresses mask,
-  # passing each to the specified _block_.
+  # passing each address to the specified _block_.
   #
   def each(&block)
     case @family
