@@ -22,8 +22,6 @@
 #
 
 require 'ronin/ui/command_line/exceptions/unknown_command'
-require 'ronin/ui/command_line/commands/console'
-require 'ronin/ui/console'
 
 require 'reverse_require'
 require 'extlib'
