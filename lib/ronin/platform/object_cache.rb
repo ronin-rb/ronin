@@ -64,7 +64,7 @@ module Ronin
       end
 
       #
-      # Mirror all objects that were previously cached from paths within
+      # Syncs all objects that were previously cached from paths within
       # the specified _directory_. Also cache objects which have yet to
       # be cached.
       #
@@ -83,7 +83,8 @@ module Ronin
       end
 
       #
-      # Deletes all cached objects that existed in the specified _directory_.
+      # Deletes all cached objects that existed in the specified
+      # _directory_.
       #
       def ObjectCache.clean(directory)
         ObjectCache.each(directory) { |obj| obj.destroy }
