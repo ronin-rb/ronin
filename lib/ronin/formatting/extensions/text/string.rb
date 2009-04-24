@@ -96,7 +96,7 @@ class String
   # if not given.
   #
   #   "hello".pad('A',50)
-  #   # => => "helloAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  #   # => "helloAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
   #
   def pad(padding,max_length=self.length)
     padding = padding.to_s
