@@ -24,18 +24,32 @@
 module Ronin
   module UI
     module Verbose
+      #
+      # Enables verbose mode.
+      #
       def Verbose.enable!
         @@ronin_verbose = true
       end
 
+      #
+      # Returns +true+ if verbose mode is enabled, returns +false+
+      # otherwise.
+      #
       def Verbose.enabled?
         (@@ronin_verbose ||= false) == true
       end
 
+      #
+      # Disables verbose mode.
+      #
       def Verbose.disable!
         @@ronin_verbose = false
       end
 
+      #
+      # Returns +true+ if verbose mode is disabled, returns +false+
+      # otherwise.
+      #
       def Verbose.disabled?
         (@@ronin_verbose ||= false) == false
       end
