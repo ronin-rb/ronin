@@ -176,6 +176,7 @@ spec/arch_spec.rb
 spec/author_spec.rb
 spec/translators/translator_spec.rb
 spec/extensions/kernel_spec.rb
+spec/extensions/array_spec.rb
 spec/extensions/hash_spec.rb
 spec/extensions/string_spec.rb
 spec/extensions/ip_addr_spec.rb
