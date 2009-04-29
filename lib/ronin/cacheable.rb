@@ -48,6 +48,20 @@ module Ronin
           super(*arguments,&block)
         end
 
+        def self.first(*arguments)
+          if (obj = super(*arguments))
+            obj.instance_variable_set('@cache_prepared',true)
+          end
+
+          return obj
+        end
+
+        def self.all(*arguments)
+          super(*arguments).map do |obj|
+            obj.instance_variable_set('@cache_prepared',true)
+          end
+        end
+
         #
         # Loads an object from the file at the specified _path_.
         #
