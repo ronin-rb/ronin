@@ -48,6 +48,10 @@ module Ronin
           super(*arguments,&block)
         end
 
+        #
+        # Returns the first instance of the model that matches the given
+        # query _arguments_.
+        #
         def self.first(*arguments)
           if (obj = super(*arguments))
             obj.instance_variable_set('@cache_prepared',true)
@@ -56,6 +60,10 @@ module Ronin
           return obj
         end
 
+        #
+        # Returns all instances of the model that matches the given query
+        # _arguments_.
+        #
         def self.all(*arguments)
           super(*arguments).each do |obj|
             obj.instance_variable_set('@cache_prepared',true)
