@@ -57,7 +57,7 @@ module Ronin
         end
 
         def self.all(*arguments)
-          super(*arguments).map do |obj|
+          super(*arguments).each do |obj|
             obj.instance_variable_set('@cache_prepared',true)
           end
         end
