@@ -23,7 +23,7 @@
 
 module Ronin
   module Database
-    class InvalidConfig < RuntimeError
+    class InvalidConfig < StandardError
     end
   end
 end

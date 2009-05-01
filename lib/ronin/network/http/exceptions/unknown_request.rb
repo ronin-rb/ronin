@@ -24,7 +24,7 @@
 module Ronin
   module Network
     module HTTP
-      class UnknownRequest < RuntimeError
+      class UnknownRequest < StandardError
       end
     end
   end

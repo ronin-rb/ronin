@@ -24,7 +24,7 @@
 module Ronin
   module UI
     module CommandLine
-      class UnknownCommand < RuntimeError
+      class UnknownCommand < StandardError
       end
     end
   end

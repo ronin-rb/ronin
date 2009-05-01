@@ -23,7 +23,7 @@
 
 module Ronin
   module Platform
-    class OverlayCached < RuntimeError
+    class OverlayCached < StandardError
     end
   end
 end

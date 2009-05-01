@@ -23,7 +23,7 @@
 
 module Ronin
   module Platform
-    class OverlayNotFound < RuntimeError
+    class OverlayNotFound < StandardError
     end
   end
 end

@@ -23,7 +23,7 @@
 
 module Ronin
   module Platform
-    class ExtensionNotFound < RuntimeError
+    class ExtensionNotFound < StandardError
     end
   end
 end
