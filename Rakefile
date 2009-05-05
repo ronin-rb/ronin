@@ -11,6 +11,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
   p.remote_rdoc_dir = 'docs/ronin'
   p.extra_deps = [
     ['nokogiri', '>=1.2.0'],
+    ['extlib', '>=0.9.12'],
     ['dm-core', '>=0.9.11'],
     ['data_objects', '>=0.9.11'],
     ['do_sqlite3', '>=0.9.11'],
