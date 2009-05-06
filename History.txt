@@ -1,6 +1,7 @@
 === 0.2.3 / 2009-04-23
 
 * Require chars >= 0.1.1.
+* Require extlib >= 0.9.12.
 * Require dm-core >= 0.9.11.
 * Require data_objects >= 0.9.11.
 * Require do_sqlite3 >= 0.9.11.
@@ -10,6 +11,7 @@
 * No longer require dm-aggregates.
 * Added Kernel#try.
 * Added String#pad.
+* Added Array#power_set.
 * Added IPAddr#each for iterating over CIDR address ranges.
 * Added IPAddr.each for iterating over CIDR and globbed address ranges.
 * Added Net.http_powered_by that returns the HTTP X-Powered-By header.
@@ -44,6 +46,7 @@
     Ronin::UI::CommandLine::Commands::Ls.
   * Renamed Ronin::UI::CommandLine::Commands::RM to
     Ronin::UI::CommandLine::Commands::Rm.
+  * Moved Ronin::UI::CommandLine::ParamParser into the Parameters library.
 * Refactored specs to run on Ruby 1.9.1-p0.
 * All specs now pass on Ruby 1.9.1-p0.
 
