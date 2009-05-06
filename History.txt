@@ -8,6 +8,7 @@
 * Require dm-types >= 0.9.11.
 * Require dm-serializer >= 0.9.11.
 * Require dm-validations >= 0.9.11.
+* Require parameters >= 0.1.5.
 * No longer require dm-aggregates.
 * Added Kernel#try.
 * Added String#pad.
