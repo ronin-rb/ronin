@@ -48,6 +48,7 @@ of Ronin.
 * Provides convenience methods for:
   * Formatting data:
     * Binary
+    * Text
     * HTTP
     * URIs
   * Generating random text.
@@ -58,7 +59,7 @@ of Ronin.
     * POP
     * Imap
     * Telnet
-    * HTTP
+    * HTTP / HTTPS
 * Provides an IRB styled console with:
   * Tab-completion enabled.
   * Auto-indentation enabled.
@@ -69,32 +70,24 @@ of Ronin.
 * {libsqlite3}[http://sqlite.org/]
 * {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.2.0
 * {DataMapper}[http://datamapper.org/]:
-  * dm-core >= 0.9.9
-  * data_objects >= 0.9.9
-  * do_sqlite3 >= 0.9.9
-  * dm-types >= 0.9.9
-  * dm-aggregates >= 0.9.9
-  * dm-validations >= 0.9.9
-  * dm-serializer >= 0.9.9
+  * extlib >= 0.9.12
+  * dm-core >= 0.9.11
+  * data_objects >= 0.9.11
+  * do_sqlite3 >= 0.9.11
+  * dm-types >= 0.9.11
+  * dm-serializer >= 0.9.11
+  * dm-validations >= 0.9.11
 * {dm-prefined}[http://dm-predefined.rubyforge.org/] >= 0.1.0
-* {parameters}[http://parameters.rubyforge.org/] >= 0.1.2
-* {contextify}[http://contextify.rubyforge.org/] >= 0.1.0
+* {parameters}[http://parameters.rubyforge.org/] >= 0.1.5
+* {contextify}[http://contextify.rubyforge.org/] >= 0.1.2
 * {reverse-require}[http://reverserequire.rubyforge.org/] >= 0.3.1
-* {repertoire}[http://repertoire.rubyforge.org/] >= 0.1.2
+* {repertoire}[http://repertoire.rubyforge.org/] >= 0.2.1
 
 == INSTALL:
 
   $ sudo gem install ronin
 
 == SYNOPSIS:
-
-* Generate an Overlay:
-
-    $ ronin overlay path/to/overlay/name/
-
-* Generate an Extension within an Overlay:
-
-    $ ronin ext path/to/overlay/extension/
 
 * Install an Overlay:
 
