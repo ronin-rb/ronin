@@ -143,7 +143,7 @@ module Ronin
           if context_block
             begin
               instance_eval(&context_block)
-            rescue => e
+            rescue SyntaxError, RuntimeError, StandardError => e
               STDERR.puts e
               e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
             end
