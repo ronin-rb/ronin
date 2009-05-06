@@ -1,6 +1,5 @@
-=== 0.2.3 / 2009-04-23
+=== 0.2.3 / 2009-05-06
 
-* Require chars >= 0.1.1.
 * Require extlib >= 0.9.12.
 * Require dm-core >= 0.9.11.
 * Require data_objects >= 0.9.11.
@@ -8,6 +7,7 @@
 * Require dm-types >= 0.9.11.
 * Require dm-serializer >= 0.9.11.
 * Require dm-validations >= 0.9.11.
+* Require chars >= 0.1.1.
 * Require parameters >= 0.1.5.
 * No longer require dm-aggregates.
 * Added Kernel#try.
