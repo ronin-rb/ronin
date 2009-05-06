@@ -1,7 +1,7 @@
 == TODO:
 
 * Look into using Ronin over Tor/i2p.
-* Further test and verify that Ronin works with DataMapper 0.9.11.
 * Discuss ideas for a Web UI:
+  * Configurable menu-bar / side-bar.
   * Sinatra would be a worthy candidate.
 
