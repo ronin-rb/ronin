@@ -1,9 +1,9 @@
-require 'ronin/has_license'
+require 'ronin/model/has_license'
 
 require 'spec_helper'
-require 'classes/licensed_model'
+require 'model/classes/licensed_model'
 
-describe HasLicense do
+describe Model::HasLicense do
   before(:all) do
     LicensedModel.auto_migrate!
   end

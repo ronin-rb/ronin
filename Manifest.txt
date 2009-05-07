@@ -109,9 +109,9 @@ lib/ronin/database/exceptions.rb
 lib/ronin/database/exceptions/invalid_config.rb
 lib/ronin/database/database.rb
 lib/ronin/model.rb
+lib/ronin/model/has_license.rb
 lib/ronin/author.rb
 lib/ronin/license.rb
-lib/ronin/has_license.rb
 lib/ronin/arch.rb
 lib/ronin/os.rb
 lib/ronin/product.rb
@@ -159,7 +159,6 @@ lib/ronin/ronin.rb
 lib/ronin/version.rb
 tasks/spec.rb
 spec/spec_helper.rb
-spec/classes/licensed_model.rb
 spec/classes/cacheable_model.rb
 spec/helpers/database.rb
 spec/helpers/cacheable.rb
@@ -210,8 +209,9 @@ spec/formatting/text/string_spec.rb
 spec/code/classes/thing.rb
 spec/code/reference_spec.rb
 spec/code/symbol_table_spec.rb
+spec/model/classes/licensed_model.rb
+spec/model/has_license_spec.rb
 spec/license_spec.rb
-spec/has_license_spec.rb
 spec/path_spec.rb
 spec/os_spec.rb
 spec/product_spec.rb

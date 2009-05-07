@@ -25,25 +25,27 @@ require 'ronin/model'
 require 'ronin/license'
 
 module Ronin
-  module HasLicense
-    def self.included(base)
-      base.module_eval do
-        include Ronin::Model
+  module Model
+    module HasLicense
+      def self.included(base)
+        base.module_eval do
+          include Ronin::Model
 
-        # The license
-        belongs_to :license,
-                   :child_key => [:license_id],
-                   :class_name => 'Ronin::License'
+          # The license
+          belongs_to :license,
+                     :child_key => [:license_id],
+                     :class_name => 'Ronin::License'
 
-        #
-        # Returns all models having the predefined license with the
-        # predefined _name_.
-        #
-        #   LicensedModel.licensed_under(:cc_by_nc)
-        #   # => [#<Ronin::LicensedModel: ...>, ...]
-        #
-        def self.licensed_under(name)
-          self.all(:license_id => Ronin::License[name].id)
+          #
+          # Returns all models having the predefined license with the
+          # predefined _name_.
+          #
+          #   LicensedModel.licensed_under(:cc_by_nc)
+          #   # => [#<Ronin::LicensedModel: ...>, ...]
+          #
+          def self.licensed_under(name)
+            self.all(:license_id => Ronin::License[name].id)
+          end
         end
       end
     end
