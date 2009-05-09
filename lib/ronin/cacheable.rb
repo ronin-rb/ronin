@@ -155,6 +155,14 @@ module Ronin
     end
 
     #
+    # Returns +true+ if the original code has been loaded, returns +false+
+    # otherwise.
+    #
+    def original_loaded?
+      @original_loaded == true
+    end
+
+    #
     # Load the code from the cached file for the object.
     #
     def load_original!
@@ -209,6 +217,14 @@ module Ronin
       end
 
       return false
+    end
+
+    #
+    # Returns +true+ if the object has been prepared to be cached,
+    # returns +false+ otherwise.
+    #
+    def cache_prepared?
+      @cache_prepared == true
     end
 
     #
