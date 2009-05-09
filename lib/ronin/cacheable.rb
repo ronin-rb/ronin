@@ -251,8 +251,9 @@ module Ronin
     # method again.
     #
     def method_missing(name,*arguments,&block)
-      unless @original_loaded
+      if (self.cached_path && !(@original_loaded))
         load_original!
+
         return self.send(name,*arguments,&block)
       else
         return super(name,*arguments,&block)
