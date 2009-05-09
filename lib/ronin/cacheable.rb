@@ -223,7 +223,7 @@ module Ronin
     # Returns +true+ if the object has been prepared to be cached,
     # returns +false+ otherwise.
     #
-    def cache_prepared?
+    def prepared_for_cache?
       @cache_prepared == true
     end
 
