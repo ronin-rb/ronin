@@ -41,7 +41,7 @@ module Ronin
     property :version, String, :index => true
 
     # Validates
-    validates_present :name, :version
+    validates_present :name
 
     #
     # Returns the String form of the os.
