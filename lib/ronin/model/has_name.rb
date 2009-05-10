@@ -31,7 +31,7 @@ module Ronin
           include Ronin::Model
 
           # The name of the model
-          property :name, String
+          property :name, String, :index => true
 
           # Validations
           validates_present :name
