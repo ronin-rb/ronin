@@ -111,6 +111,7 @@ lib/ronin/database/database.rb
 lib/ronin/model.rb
 lib/ronin/model/has_name.rb
 lib/ronin/model/has_description.rb
+lib/ronin/model/has_version.rb
 lib/ronin/model/has_license.rb
 lib/ronin/author.rb
 lib/ronin/license.rb
