@@ -94,7 +94,12 @@ module Ronin
           new_options[:user] = url.user if url.user
           new_options[:password] = url.password if url.password
 
-          new_options[:path] = url.path
+          unless url.path.empty?
+            new_options[:path] = url.path
+          else
+            new_options[:path] = '/'
+          end
+
           new_options[:path] << "?#{url.query}" if url.query
         else
           new_options[:port] ||= ::Net::HTTP.default_port
