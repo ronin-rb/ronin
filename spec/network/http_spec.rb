@@ -30,5 +30,12 @@ describe Network::HTTP do
       expanded_options[:password].should == 'secret'
       expanded_options[:path].should == '/bla?var'
     end
+
+    it "should add a default :path option for :url options" do
+      options = {:url => 'http://example.com'}
+      expanded_options = Network::HTTP.expand_options(options)
+
+      expanded_options[:path].should == '/'
+    end
   end
 end
