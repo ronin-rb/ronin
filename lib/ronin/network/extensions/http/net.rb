@@ -53,40 +53,77 @@ module Net
   #                                        when connecting to the HTTP
   #                                        proxy.
   #
-  #
   def Net.http_session(options={},&block)
+    options = Ronin::Network::HTTP.expand_options(options)
+
     host = options[:host]
-    port = (options[:port] || ::Net::HTTP.default_port)
+    port = options[:port]
+    proxy = options[:proxy]
 
-    if options[:url]
-      url = URI(options[:url].to_s)
+    sess = Net::HTTP::Proxy(proxy[:host],proxy[:port],proxy[:user],proxy[:pass]).start(host,port)
 
-      host = url.host
-      port = url.port
-
-      options[:user] = url.user if url.user
-      options[:password] = url.password if url.password
-
-      if url.query
-        options[:path] = "#{url.path}?#{url.query}"
+    if block
+      if block.arity == 2
+        block.call(sess,expanded_options)
       else
-        options[:path] = url.path
+        block.call(sess)
       end
     end
 
-    proxy = (options[:proxy] || Ronin::Network::HTTP.proxy)
+    return sess
+  end
 
-    if proxy
-      proxy_host = proxy[:host]
-      proxy_port = (proxy[:port] || Ronin::Network::HTTP.default_proxy_port)
-      proxy_user = proxy[:user]
-      proxy_pass = proxy[:password]
+  #
+  # Connects to the HTTP server using the given _options_. If a _block_
+  # is given it will be passed the newly created <tt>Net::HTTP</tt> object.
+  #
+  # _options_ may contain the following keys:
+  # <tt>:method</tt>:: The HTTP method to use for the request.
+  # <tt>:host</tt>:: The host the HTTP server is running on.
+  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
+  #                  <tt>Net::HTTP.default_port</tt>.
+  # <tt>:url</tt>:: The full URL to request.
+  # <tt>:user</tt>:: The user to authenticate with when connecting to the
+  #                  HTTP server.
+  # <tt>:password</tt>:: The password to authenticate with when connecting
+  #                      to the HTTP server.
+  # <tt>:path</tt>:: The path to request from the HTTP server.
+  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
+  #                   the HTTP server. Defaults to
+  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
+  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
+  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
+  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
+  #                   <tt>:user</tt>:: The user to authenticate with
+  #                                    when connecting to the HTTP proxy.
+  #                   <tt>:password</tt>:: The password to authenticate with
+  #                                        when connecting to the HTTP
+  #                                        proxy.
+  #
+  def Net.http_request(options={},&block)
+    resp = nil
+
+    Net.http_session(options) do |http,expanded_options|
+     http_method = expanded_options.delete(:method),
+     http_body = expanded_options.delete(:body)
+
+      req = Ronin::Network::HTTP.request(
+        http_method,
+        expanded_options
+      )
+
+      if block
+        if block.arity == 2
+          block.call(req,expanded_options)
+        else
+          block.call(req)
+        end
+      end
+
+      resp = http.request(req,http_body)
     end
 
-    sess = Net::HTTP::Proxy(proxy_host,proxy_port,proxy_user,proxy_pass).start(host,port)
-
-    block.call(sess) if block
-    return sess
+    return resp
   end
 
   #
@@ -95,12 +132,10 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_copy(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:copy,options))
+    resp = Net.http_request(options.merge(:method => :copy))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -109,15 +144,13 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_delete(options={},&block)
-    Net.http_session(options) do |http|
-      req = Ronin::Network::HTTP.request(:delete,options)
-      req['Depth'] = (options[:depth].to_s || 'Infinity')
+    # set the HTTP Depth header
+    options = {:depth => 'Infinity'}.merge(options)
 
-      resp = http.request(req)
+    resp = Net.http_request(options.merge(:method => :delete))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -126,12 +159,10 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_get(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:get,options))
+    resp = Net.http_request(options.merge(:method => :get))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -149,12 +180,10 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_head(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:head,options))
+    resp = Net.http_request(options.merge(:method => :head))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -198,12 +227,10 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_lock(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:lock,options),options[:body])
+    resp = Net.http_request(options.merge(:method => :lock))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -212,12 +239,10 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_mkcol(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:mkcol,options),options[:body])
+    resp = Net.http_request(options.merge(:method => :mkcol))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -226,12 +251,10 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_move(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:move,options))
+    resp = Net.http_request(options.merge(:method => :move))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -240,12 +263,10 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_options(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:options,options))
+    resp = Net.http_request(options.merge(:method => :options))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -254,18 +275,20 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_post(options={},&block)
-    Net.http_session(options) do |http|
+    options = options.merge(:method => :post)
+    post_data = options.delete(:post_data)
+
+    if options[:url]
       url = URI(options[:url].to_s)
-      post_data = (options[:post_data] || url.query_params)
-
-      req = Ronin::Network::HTTP.request(:post,options)
-      req.set_form_data(post_data)
-
-      resp = http.request(req)
-
-      block.call(resp) if block
-      return resp
+      post_data ||= url.query_params
     end
+
+    resp = Net.http_request(options) do |req,expanded_options|
+      req.set_form_data(post_data) if post_data
+    end
+
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -283,15 +306,13 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_prop_find(options={},&block)
-    Net.http_session(options) do |http|
-      req = Ronin::Network::HTTP.request(:propfind,options)
-      req['Depth'] = (options[:depth] || '0')
+    # set the HTTP Depth header
+    options = {:depth => '0'}.merge(options)
 
-      resp = http.request(req,options[:body])
+    resp = Net.http_request(options.merge(:method => :propfind))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -300,12 +321,10 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_prop_patch(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:proppatch,options),options[:body])
+    resp = Net.http_request(options.merge(:method => :proppatch))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -314,12 +333,10 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_trace(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:trace,options))
+    resp = Net.http_request(options.merge(:method => :trace))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 
   #
@@ -328,11 +345,9 @@ module Net
   # Returns the response from the HTTP server.
   #
   def Net.http_unlock(options={},&block)
-    Net.http_session(options) do |http|
-      resp = http.request(Ronin::Network::HTTP.request(:unlock,options),options[:body])
+    resp = Net.http_request(options.merge(:method => :unlock))
 
-      block.call(resp) if block
-      return resp
-    end
+    block.call(resp) if block
+    return resp
   end
 end
