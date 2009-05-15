@@ -80,6 +80,37 @@ module Ronin
       end
 
       #
+      # Expands the given HTTP _options_.
+      #
+      def HTTP.expand_options(options={})
+        new_options = options.dup
+
+        if new_options[:url]
+          url = URI(new_options.delete(:url).to_s)
+
+          new_options[:host] = url.host
+          new_options[:port] = url.port
+
+          new_options[:user] = url.user if url.user
+          new_options[:password] = url.password if url.password
+
+          new_options[:path] = url.path
+          new_options[:path] << "?#{url.query}" if url.query
+        else
+          new_options[:port] ||= ::Net::HTTP.default_port
+          new_options[:path] ||= '/'
+        end
+
+        if (proxy = new_options[:proxy])
+          proxy[:port] ||= Ronin::Network::HTTP.default_proxy_port
+        else
+          new_options[:proxy] = Ronin::Network::HTTP.proxy
+        end
+
+        return new_options
+      end
+
+      #
       # Returns Ronin HTTP headers created from the given _options_.
       #
       def HTTP.headers(options={})
