@@ -3,14 +3,11 @@ require 'ronin/os'
 require 'helpers/database'
 
 describe OS do
-  it "should require os and version attributes" do
+  it "should require a name" do
     @os = OS.new
     @os.should_not be_valid
 
     @os.name = 'test'
-    @os.should_not be_valid
-
-    @os.version = '0.0.1'
     @os.should be_valid
   end
 
