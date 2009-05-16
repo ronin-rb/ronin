@@ -64,7 +64,7 @@ module Net
 
     if block
       if block.arity == 2
-        block.call(sess,expanded_options)
+        block.call(sess,options)
       else
         block.call(sess)
       end
