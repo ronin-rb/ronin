@@ -26,6 +26,8 @@ require 'ronin/model'
 module Ronin
   module Model
     module HasDescription
+      include DataMapper::Types
+
       def self.included(base)
         base.module_eval do
           include Ronin::Model
