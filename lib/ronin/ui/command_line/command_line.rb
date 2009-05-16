@@ -72,8 +72,12 @@ module Ronin
 
         begin
           require File.join(COMMANDS_DIR,name)
-        rescue LoadError
-          raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
+        rescue LoadError => e
+          if e.class == ::LoadError
+            raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
+          else
+            raise(e)
+          end
         end
 
         class_name = name.to_const_string
@@ -107,7 +111,7 @@ module Ronin
 
         begin
           CommandLine.get_command(name).run(*argv)
-        rescue UnknownCommand => e
+        rescue LoadError, UnknownCommand => e
           STDERR.puts e
           exit -1
         end
