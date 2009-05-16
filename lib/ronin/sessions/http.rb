@@ -58,6 +58,10 @@ module Ronin
         Net.http_session(http_merge_options(options),&block)
       end
 
+      def http_request(options={},&block)
+        Net.http_request(options,&block)
+      end
+
       def http_copy(options={},&block)
         Net.http_copy(http_merge_options(options),&block)
       end
