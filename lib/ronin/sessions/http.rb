@@ -125,8 +125,8 @@ module Ronin
       private
 
       def http_merge_options(options={})
-        options[:host] ||= @http_host if @http_host
-        options[:port] ||= @http_port if @http_port
+        options[:host] ||= @host if @host
+        options[:port] ||= @port if @port
 
         options[:user] ||= @http_user if @http_user
         options[:password] ||= @http_password if @http_password
