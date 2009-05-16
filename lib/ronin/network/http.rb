@@ -127,7 +127,7 @@ module Ronin
 
         if options
           options.each do |name,value|
-            header_name = name.to_s.split('_').map { |word|
+            header_name = name.to_s.split(/[\s+_-]/).map { |word|
               word.capitalize
             }.join('-')
 

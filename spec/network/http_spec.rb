@@ -39,6 +39,36 @@ describe Network::HTTP do
     end
   end
 
+  describe "HTTP.headers" do
+    it "should convert Symbol options to HTTP Headers" do
+      options = {:user_agent => 'bla', :location => 'test'}
+
+      Network::HTTP.headers(options).should == {
+        'User-Agent' => 'bla',
+        'Location' => 'test'
+      }
+    end
+
+    it "should convert String options to HTTP Headers" do
+      options = {'user_agent' => 'bla', 'x-powered-by' => 'PHP'}
+
+      Network::HTTP.headers(options).should == {
+        'User-Agent' => 'bla',
+        'X-Powered-By' => 'PHP'
+      }
+    end
+
+    it "should convert all values to Strings" do
+      mtime = Time.now.to_i
+      options = {:modified_by => mtime, :x_accept => :gzip}
+
+      Network::HTTP.headers(options).should == {
+        'Modified-By' => mtime.to_s,
+        'X-Accept' => 'gzip'
+      }
+    end
+  end
+
   describe "HTTP.request" do
     it "should handle Symbol names" do
       Network::HTTP.request(
