@@ -151,10 +151,18 @@ module Ronin
         end
 
         headers = HTTP.headers(options[:headers])
-        request = Net::HTTP.const_get(name).new(options[:path].to_s,headers)
+        path = (options[:path] || '/').to_s
 
-        if options[:user]
-          request.basic_auth(options[:user].to_s,options[:password].to_s)
+        request = Net::HTTP.const_get(name).new(path,headers)
+
+        if (user = options.delete(:user))
+          user = user.to_s
+
+          if (password = options.delete(:password))
+            password = password.to_s
+          end
+
+          request.basic_auth(user,password)
         end
 
         return request

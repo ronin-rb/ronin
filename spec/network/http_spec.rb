@@ -38,4 +38,42 @@ describe Network::HTTP do
       expanded_options[:path].should == '/'
     end
   end
+
+  describe "HTTP.request" do
+    it "should handle Symbol names" do
+      Network::HTTP.request(
+        :get, :path => '/'
+      ).class.should == Net::HTTP::Get
+    end
+
+    it "should handle String names" do
+      Network::HTTP.request(
+        'GET', :path => '/'
+      ).class.should == Net::HTTP::Get
+    end
+
+    it "should raise an UnknownRequest exception for invalid names" do
+      lambda {
+        Network::HTTP.request(:bla)
+      }.should raise_error(Network::HTTP::UnknownRequest)
+    end
+
+    it "should use a default path" do
+      lambda {
+        Network::HTTP.request(:get)
+      }.should_not raise_error(ArgumentError)
+    end
+
+    it "should accept the :user option for Basic-Auth" do
+      req = Network::HTTP.request(:get, :user => 'joe')
+
+      req['authorization'].should == "Basic am9lOg=="
+    end
+
+    it "should accept the :user and :password options for Basic-Auth" do
+      req = Network::HTTP.request(:get, :user => 'joe', :password => 'secret')
+
+      req['authorization'].should == "Basic am9lOnNlY3JldA=="
+    end
+  end
 end
