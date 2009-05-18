@@ -576,8 +576,8 @@ module Ronin
       #                     Proppatch request. May use Strings or Symbols
       #                     for the keys of the Hash.
       #
-      def http_prop_path(options={},&block)
-        Net.http_prop_path(http_merge_options(options),&block)
+      def http_prop_patch(options={},&block)
+        Net.http_prop_patch(http_merge_options(options),&block)
       end
 
       #
