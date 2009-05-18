@@ -128,6 +128,11 @@ module Ronin
         options[:host] ||= @host if @host
         options[:port] ||= @port if @port
 
+        options[:headers] ||= {}
+        headers = options[:headers]
+
+        headers[:host] ||= @http_vhost if @http_vhost
+
         options[:user] ||= @http_user if @http_user
         options[:password] ||= @http_password if @http_password
 
