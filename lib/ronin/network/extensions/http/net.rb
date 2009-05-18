@@ -198,8 +198,14 @@ module Net
   #                     keys of the Hash.
   #
   def Net.http_delete(options={},&block)
+    original_headers = options[:headers]
+
     # set the HTTP Depth header
-    options = {:depth => 'Infinity'}.merge(options)
+    options[:headers] = {:depth => 'Infinity'}
+
+    if original_headers
+      options[:header].merge!(original_headers)
+    end
 
     resp = Net.http_request(options.merge(:method => :delete))
 
@@ -689,8 +695,14 @@ module Net
   #                     the keys of the Hash.
   #
   def Net.http_prop_find(options={},&block)
+    original_headers = options[:headers]
+
     # set the HTTP Depth header
-    options = {:depth => '0'}.merge(options)
+    options[:headers] = {:depth => '0'}
+
+    if original_headers
+      options[:header].merge!(original_headers)
+    end
 
     resp = Net.http_request(options.merge(:method => :propfind))
 
