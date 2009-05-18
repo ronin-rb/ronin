@@ -105,5 +105,83 @@ describe Network::HTTP do
 
       req['authorization'].should == "Basic am9lOnNlY3JldA=="
     end
+
+    it "should create HTTP Copy requests" do
+      req = Network::HTTP.request(:copy)
+
+      req.class.should == Net::HTTP::Copy
+    end
+
+    it "should create HTTP Delete requests" do
+      req = Network::HTTP.request(:delete)
+
+      req.class.should == Net::HTTP::Delete
+    end
+
+    it "should create HTTP Get requests" do
+      req = Network::HTTP.request(:get)
+
+      req.class.should == Net::HTTP::Get
+    end
+
+    it "should create HTTP Head requests" do
+      req = Network::HTTP.request(:head)
+
+      req.class.should == Net::HTTP::Head
+    end
+
+    it "should create HTTP Lock requests" do
+      req = Network::HTTP.request(:lock)
+
+      req.class.should == Net::HTTP::Lock
+    end
+
+    it "should create HTTP Mkcol requests" do
+      req = Network::HTTP.request(:mkcol)
+
+      req.class.should == Net::HTTP::Mkcol
+    end
+
+    it "should create HTTP Move requests" do
+      req = Network::HTTP.request(:move)
+
+      req.class.should == Net::HTTP::Move
+    end
+
+    it "should create HTTP Options requests" do
+      req = Network::HTTP.request(:options)
+
+      req.class.should == Net::HTTP::Options
+    end
+
+    it "should create HTTP Post requests" do
+      req = Network::HTTP.request(:post)
+
+      req.class.should == Net::HTTP::Post
+    end
+
+    it "should create HTTP Propfind requests" do
+      req = Network::HTTP.request(:propfind)
+
+      req.class.should == Net::HTTP::Propfind
+    end
+
+    it "should create HTTP Proppatch requests" do
+      req = Network::HTTP.request(:proppatch)
+
+      req.class.should == Net::HTTP::Proppatch
+    end
+
+    it "should create HTTP Trace requests" do
+      req = Network::HTTP.request(:trace)
+
+      req.class.should == Net::HTTP::Trace
+    end
+
+    it "should create HTTP Unlock requests" do
+      req = Network::HTTP.request(:unlock)
+
+      req.class.should == Net::HTTP::Unlock
+    end
   end
 end
