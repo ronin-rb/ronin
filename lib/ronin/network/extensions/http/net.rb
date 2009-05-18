@@ -32,6 +32,7 @@ module Net
   # is given it will be passed the newly created <tt>Net::HTTP</tt> object.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -40,7 +41,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -81,6 +81,7 @@ module Net
   #
   # _options_ may contain the following keys:
   # <tt>:method</tt>:: The HTTP method to use for the request.
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -89,7 +90,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -136,6 +136,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -144,7 +145,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -173,6 +173,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -181,7 +182,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -219,6 +219,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -227,7 +228,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -256,6 +256,7 @@ module Net
   # Returns the response body from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -264,7 +265,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -290,6 +290,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -298,7 +299,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -326,6 +326,7 @@ module Net
   # the HTTP status code of 200, returns +false+ otherwise.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -334,7 +335,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -360,6 +360,7 @@ module Net
   # HTTP Server header.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -368,7 +369,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -397,6 +397,7 @@ module Net
   # HTTP X-Powered-By header.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -405,7 +406,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -440,6 +440,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -448,7 +449,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -477,6 +477,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -485,7 +486,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -514,6 +514,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -522,7 +523,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -551,6 +551,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -559,7 +560,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -588,6 +588,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -596,7 +597,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -636,6 +636,7 @@ module Net
   # Returns the response body from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -644,7 +645,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -670,6 +670,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -678,7 +679,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -716,6 +716,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -724,7 +725,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -753,6 +753,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -761,7 +762,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
@@ -790,6 +790,7 @@ module Net
   # Returns the response from the HTTP server.
   #
   # _options_ may contain the following keys:
+  # <tt>:url</tt>:: The full URL to request.
   # <tt>:user</tt>:: The user to authenticate with when connecting to the
   #                  HTTP server.
   # <tt>:password</tt>:: The password to authenticate with when connecting
@@ -798,7 +799,6 @@ module Net
   # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
   #                  <tt>Net::HTTP.default_port</tt>.
   # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:url</tt>:: The full URL to request.
   # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
   #                   the HTTP server. Defaults to
   #                   <tt>Ronin::Network::HTTP.proxy</tt>.
