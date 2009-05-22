@@ -56,6 +56,8 @@ module Ronin
       # _directory_.
       #
       def ObjectCache.cache(directory)
+        Database.setup unless Database.setup?
+
         ObjectCache.paths(directory).each do |path|
           Cacheable.cache_all(path)
         end
@@ -70,6 +72,8 @@ module Ronin
       #
       def ObjectCache.sync(directory)
         new_paths = ObjectCache.paths(directory)
+
+        Database.setup unless Database.setup?
 
         ObjectCache.each(directory) do |obj|
           new_paths.delete(obj.cached_path)
@@ -87,6 +91,8 @@ module Ronin
       # _directory_.
       #
       def ObjectCache.clean(directory)
+        Database.setup unless Database.setup?
+
         ObjectCache.each(directory) { |obj| obj.destroy }
         return true
       end
