@@ -26,6 +26,8 @@ require 'ronin/platform/overlay_cache'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/extension_cache'
 
+require 'uri'
+
 module Ronin
   module Platform
     #
