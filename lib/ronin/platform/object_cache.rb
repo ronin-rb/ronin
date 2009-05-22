@@ -21,6 +21,7 @@
 #++
 #
 
+require 'ronin/database'
 require 'ronin/cacheable'
 
 module Ronin
