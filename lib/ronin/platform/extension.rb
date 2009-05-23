@@ -24,6 +24,7 @@
 require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/extension_cache'
 require 'ronin/platform/platform'
+require 'ronin/extensions/kernel'
 require 'ronin/static/finders'
 
 require 'contextify'
@@ -141,12 +142,7 @@ module Ronin
           context_block = Extension.load_context_block(extension_file)
 
           if context_block
-            begin
-              instance_eval(&context_block)
-            rescue SyntaxError, RuntimeError, StandardError => e
-              STDERR.puts "#{e.class}: #{e}"
-              e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
-            end
+            catch_all { instance_eval(&context_block) }
           end
         end
 
