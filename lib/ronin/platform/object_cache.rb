@@ -60,7 +60,12 @@ module Ronin
         Database.setup unless Database.setup?
 
         ObjectCache.paths(directory).each do |path|
-          Cacheable.cache_all(path)
+          begin
+            Cacheable.cache_all(path)
+          rescue SyntaxError, RuntimeError, StandardError => e
+            STDERR.puts "#{e.class}: #{e}"
+            e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
+          end
         end
 
         return true
@@ -79,7 +84,12 @@ module Ronin
         ObjectCache.each(directory) do |obj|
           new_paths.delete(obj.cached_path)
 
-          obj.sync!
+          begin
+            obj.sync!
+          rescue SyntaxError, RuntimeError, StandardError => e
+            STDERR.puts "#{e.class}: #{e}"
+            e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
+          end
         end
 
         # cache the remaining new paths
