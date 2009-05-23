@@ -48,14 +48,14 @@ module Ronin
   #
   # Provides transparent access to Platform.extension via methods.
   #
-  #   Ronin.shellcode
+  #   shellcode
   #   # => #<Ronin::Platform::Extension: ...>
   #
-  #   Ronin.shellcode do |ext|
+  #   shellcode do |ext|
   #     ...
   #   end
   #
-  def Ronin.method_missing(sym,*args,&block)
+  def method_missing(sym,*args,&block)
     if args.length == 0
       name = sym.id2name
 
