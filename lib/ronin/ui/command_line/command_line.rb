@@ -67,8 +67,15 @@ module Ronin
       # Returns the Command registered with the command-line utility
       # with the specified _name_.
       #
+      #   CommandLine.get_command('gen_overlay')
+      #   # => Ronin::UI::CommandLine::Commands::GenOverlay
+      #
       def CommandLine.get_command(name)
         name = name.to_s
+
+        #eventually someone is going to use a space or - which is going mess things up
+        #we will take care of this ahead of time here
+        name.gsub!(/[\s-]/, '_')
 
         begin
           require File.join(COMMANDS_DIR,name)
