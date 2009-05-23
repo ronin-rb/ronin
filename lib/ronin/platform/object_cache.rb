@@ -57,7 +57,7 @@ module Ronin
       #
       def ObjectCache.cache(directory)
         ObjectCache.paths(directory).each do |path|
-          Cacheable.cache(path)
+          Cacheable.cache_all(path)
         end
 
         return true
