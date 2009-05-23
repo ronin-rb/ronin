@@ -94,7 +94,7 @@ describe Cacheable do
 
       model = CacheableModel.cache(CACHEABLE_PATH)
       model.cached_timestamp -= 10
-      model.save!
+      model.save
     end
 
     it "should re-cache modified files" do

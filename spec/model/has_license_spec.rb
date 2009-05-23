@@ -11,7 +11,7 @@ describe Model::HasLicense do
   it "should have a license" do
     model = LicensedModel.new(:content => 'bla')
     model.license = License.gpl_2
-    model.save!
+    model.save
 
     model.license.should == License.gpl_2
   end
@@ -19,7 +19,7 @@ describe Model::HasLicense do
   it "should provide helper methods for querying licensed models" do
     model = LicensedModel.new(:content => 'stuff here')
     model.license = License.gpl_2
-    model.save!
+    model.save
     model.reload
 
     LicensedModel.all(
