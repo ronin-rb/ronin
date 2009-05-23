@@ -16,4 +16,32 @@ describe Kernel do
       try { 2 + 'a' }.should be_nil
     end
   end
+
+  describe "catch_all" do
+    it "should run a block" do
+      var = 1
+
+      catch_all { var += 1 }
+
+      var.should == 2
+    end
+
+    it "should catch SyntaxError exceptions" do
+      lambda {
+        catch_all(false) { raise(SyntaxError,"horrible code",caller) }
+      }.should_not raise_error(SyntaxError)
+    end
+
+    it "should catch RuntimeError exceptions" do
+      lambda {
+        catch_all(false) { raise(RuntimeError,"something happened",caller) }
+      }.should_not raise_error(RuntimeError)
+    end
+
+    it "should catch StandardError exceptions" do
+      lambda {
+        catch_all(false) { raise(StandardError,"not allowed to do that",caller) }
+      }.should_not raise_error(StandardError)
+    end
+  end
 end

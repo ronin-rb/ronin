@@ -37,4 +37,26 @@ module Kernel
       return nil
     end
   end
+
+  #
+  # Attempts to run the given _block_ and catches any SyntaxError,
+  # RuntimeError or StandardError exceptions. If any exceptions are
+  # caught, they will be printed out and +nil+ will be returned.
+  #
+  #   catch_all do
+  #     load 'suspicious.rb'
+  #   end
+  #
+  def catch_all(verbose=true,&block)
+    begin
+      block.call if block
+    rescue SyntaxError, RuntimeError, StandardError => e
+      if verbose
+        STDERR.puts "#{e.class}: #{e}"
+        e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
+      end
+
+      return nil
+    end
+  end
 end
