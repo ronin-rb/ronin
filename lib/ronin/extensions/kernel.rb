@@ -33,7 +33,7 @@ module Kernel
   def try(&block)
     begin
       block.call if block
-    rescue
+    rescue RuntimeError, StandardError
       return nil
     end
   end
