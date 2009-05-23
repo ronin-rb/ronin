@@ -187,7 +187,7 @@ module Ronin
         self.class.all(:cached_path => self.cached_path).destroy!
 
         self.cached_timestamp = File.mtime(self.cached_path)
-        return save!
+        return save
       end
 
       return false
