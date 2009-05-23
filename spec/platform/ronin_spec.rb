@@ -21,7 +21,7 @@ describe Ronin do
   end
 
   it "should provide transparent access to extensions via methods" do
-    ext = Ronin.hello
+    ext = hello
 
     ext.should_not be_nil
     ext.name.should == 'hello'
@@ -29,6 +29,6 @@ describe Ronin do
   end
 
   it "should raise NoMethodError when accessing missing extensions" do
-    lambda { Ronin.nothing }.should raise_error(NoMethodError)
+    lambda { self.nothing }.should raise_error(NoMethodError)
   end
 end
