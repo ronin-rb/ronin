@@ -23,6 +23,7 @@
 
 require 'ronin/database'
 require 'ronin/cacheable'
+require 'ronin/extensions/kernel'
 
 module Ronin
   module Platform
@@ -60,12 +61,7 @@ module Ronin
         Database.setup unless Database.setup?
 
         ObjectCache.paths(directory).each do |path|
-          begin
-            Cacheable.cache_all(path)
-          rescue SyntaxError, RuntimeError, StandardError => e
-            STDERR.puts "#{e.class}: #{e}"
-            e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
-          end
+          catch_all { Cacheable.cache_all(path) }
         end
 
         return true
@@ -84,12 +80,7 @@ module Ronin
         ObjectCache.each(directory) do |obj|
           new_paths.delete(obj.cached_path)
 
-          begin
-            obj.sync!
-          rescue SyntaxError, RuntimeError, StandardError => e
-            STDERR.puts "#{e.class}: #{e}"
-            e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
-          end
+          catch_all { obj.sync! }
         end
 
         # cache the remaining new paths
