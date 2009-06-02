@@ -46,7 +46,7 @@ module Ronin
 
     # Default configuration of the database
     DEFAULT_CONFIG = {
-      :adapter => :sqlite3,
+      :adapter => 'sqlite3',
       :database => File.join(Config::PATH,'database.sqlite3')
     }
 
