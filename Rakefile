@@ -14,7 +14,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
     ['nokogiri', '>=1.2.0'],
     ['extlib', '>=0.9.13'],
     ['dm-core', '>=0.10.0'],
-    ['data_objects', '>=0.10.0'],
+    ['data_objects', '>=0.9.13'],
     ['do_sqlite3', '>=0.10.0'],
     ['dm-types', '>=0.10.0'],
     ['dm-serializer', '>=0.10.0'],
