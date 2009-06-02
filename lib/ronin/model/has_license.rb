@@ -33,8 +33,7 @@ module Ronin
 
           # The license
           belongs_to :license,
-                     :child_key => [:license_id],
-                     :class_name => 'Ronin::License'
+                     :child_key => [:license_id]
 
           #
           # Returns all models having the predefined license with the
