@@ -15,7 +15,7 @@ Hoe.new('ronin', Ronin::VERSION) do |p|
     ['extlib', '>=0.9.13'],
     ['dm-core', '>=0.10.0'],
     ['data_objects', '>=0.9.13'],
-    ['do_sqlite3', '>=0.10.0'],
+    ['do_sqlite3', '>=0.9.13'],
     ['dm-types', '>=0.10.0'],
     ['dm-serializer', '>=0.10.0'],
     ['dm-validations', '>=0.10.0'],
