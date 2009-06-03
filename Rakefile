@@ -2,10 +2,11 @@
 
 require 'rubygems'
 require 'hoe'
+require 'hoe/signing'
 require './tasks/spec.rb'
 require './lib/ronin/version.rb'
 
-Hoe.new('ronin', Ronin::VERSION) do |p|
+Hoe.spec('ronin') do |p|
   p.rubyforge_name = 'ronin'
   p.developer('Postmodern','postmodern.mod3@gmail.com')
   p.remote_rdoc_dir = 'docs/ronin'
