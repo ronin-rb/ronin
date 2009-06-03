@@ -21,43 +21,4 @@
 #++
 #
 
-require 'dm-core'
-require 'dm-types'
-require 'dm-serializer'
-require 'dm-validations'
-
-module Ronin
-  module Model
-    include DataMapper::Types
-
-    # Name of Ronin's DataMapper repository
-    REPOSITORY_NAME = :ronin
-
-    def self.included(base)
-      unless base.ancestors.include?(DataMapper::Resource)
-        base.module_eval do
-          include DataMapper::Resource
-          include DataMapper::Migrations
-
-          #
-          # Returns the default repository name for the model.
-          #
-          def self.default_repository_name
-            Model::REPOSITORY_NAME
-          end
-
-          # The class type property
-          property :type, Discriminator
-
-          #
-          # Finds the first resource by conditions, or initializes a new
-          # resource with the attributes if none found.
-          #
-          def self.first_or_new(query,attributes={})
-            first(query) || new(query.merge(attributes))
-          end
-        end
-      end
-    end
-  end
-end
+require 'ronin/model/model'

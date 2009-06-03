@@ -109,6 +109,7 @@ lib/ronin/database/exceptions.rb
 lib/ronin/database/exceptions/invalid_config.rb
 lib/ronin/database/database.rb
 lib/ronin/model.rb
+lib/ronin/model/model.rb
 lib/ronin/model/has_name.rb
 lib/ronin/model/has_description.rb
 lib/ronin/model/has_version.rb
