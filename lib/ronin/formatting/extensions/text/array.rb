@@ -39,6 +39,8 @@ class Array
       else
         elem.to_s.each_byte { |b| accum << b }
       end
+
+      accum
     end
   end
 
