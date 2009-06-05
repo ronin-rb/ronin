@@ -43,6 +43,7 @@ lib/ronin/formatting/extensions/binary/integer.rb
 lib/ronin/formatting/extensions/binary/string.rb
 lib/ronin/formatting/extensions/text.rb
 lib/ronin/formatting/extensions/text/string.rb
+lib/ronin/formatting/extensions/text/array.rb
 lib/ronin/formatting/extensions/http.rb
 lib/ronin/formatting/extensions/http/string.rb
 lib/ronin/translators.rb

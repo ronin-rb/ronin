@@ -21,5 +21,26 @@
 #++
 #
 
-require 'ronin/formatting/extensions/text/string'
-require 'ronin/formatting/extensions/text/array'
+class Array
+
+  #
+  # Returns the Array of characters generated from the array.
+  #
+  #   [0x41, 0x41, 0x20].chars
+  #   # => ["A", "A", " "]
+  #
+  def chars
+    self.map { |b| b.to_i.chr }
+  end
+
+  #
+  # Returns the String created from the characters within the array.
+  #
+  #   [0x41, 0x41, 0x20].char_string
+  #   # => "AA "
+  #
+  def char_string
+    chars.join
+  end
+
+end
