@@ -29,11 +29,20 @@ require 'irb/completion'
 module Ronin
   module UI
     module Console
+      # Default prompt style.
+      PROMPT = :SIMPLE
+
+      # Default indentation mode.
+      INDENT = true
+
+      # Default backtrace depth.
+      BACKTRACE_LIMIT = 5
+
       #
-      # Returns the default Console prompt style, defaults to +:SIMPLE+.
+      # Returns the default Console prompt style, defaults to +PROMPT+.
       #
       def Console.prompt
-        @@ronin_console_prompt ||= :SIMPLE
+        @@ronin_console_prompt ||= PROMPT
       end
 
       #
@@ -44,10 +53,10 @@ module Ronin
       end
 
       #
-      # Returns the default Console indent setting, defaults to +true+.
+      # Returns the default Console indent setting, defaults to +INDENT+.
       #
       def Console.indent
-        @@ronin_console_indent ||= true
+        @@ronin_console_indent ||= INDENT
       end
 
       #
@@ -61,10 +70,10 @@ module Ronin
       end
 
       #
-      # Returns the default Console back trace limit, defaults to +5+.
+      # Returns the default Console back trace limit, defaults to +BACKTRACE_LIMIT+.
       #
       def Console.backtrace_limit
-        @@ronin_console_backtrace_limit ||= 5
+        @@ronin_console_backtrace_limit ||= BACKTRACE_LIMIT
       end
 
       #
