@@ -35,7 +35,7 @@ module Ronin
       INDENT = true
 
       # Default backtrace depth.
-      BACKTRACE_LIMIT = 5
+      BACKTRACE_DEPTH = 5
 
       # Default completion mode.
       COMPLETION = true
@@ -72,17 +72,18 @@ module Ronin
       end
 
       #
-      # Returns the default Console back trace limit, defaults to +BACKTRACE_LIMIT+.
+      # Returns the default Console back trace limit, defaults to
+      # +BACKTRACE_DEPTH+.
       #
-      def Console.backtrace_limit
-        @@ronin_console_backtrace_limit ||= BACKTRACE_LIMIT
+      def Console.backtrace_depth
+        @@ronin_console_backtrace_depth ||= BACKTRACE_DEPTH
       end
 
       #
-      # Sets the default Console back trace limit to the specified _level_.
+      # Sets the default Console back trace depth to the specified _depth_.
       #
-      def Console.backtrace_limit=(level)
-        @@ronin_console_backtrace_limit = level
+      def Console.backtrace_depth=(depth)
+        @@ronin_console_backtrace_depth = depth
       end
 
       #
@@ -129,7 +130,7 @@ module Ronin
         IRB.conf[:IRB_NAME] = 'ronin'
         IRB.conf[:PROMPT_MODE] = Console.prompt
         IRB.conf[:AUTO_INDENT] = Console.indent
-        IRB.conf[:BACK_TRACE_LIMIT] = Console.backtrace_limit
+        IRB.conf[:BACK_TRACE_LIMIT] = Console.backtrace_depth
 
         irb = IRB::Irb.new(nil,script)
 
