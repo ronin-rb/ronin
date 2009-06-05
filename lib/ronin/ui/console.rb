@@ -58,6 +58,20 @@ module Ronin
       end
 
       #
+      # Returns the default Console back trace limit.
+      #
+      def Console.backtrace_limit
+        @@ronin_console_backtrace_limit ||= 5
+      end
+
+      #
+      # Sets the default Console back trace limit to the specified _level_.
+      #
+      def Console.backtrace_limit=(level)
+        @@ronin_console_backtrace_limit = level
+      end
+
+      #
       # Returns the Array of files to require when the Console starts.
       #
       def Console.auto_load
@@ -82,6 +96,7 @@ module Ronin
         IRB.conf[:IRB_NAME] = 'ronin'
         IRB.conf[:PROMPT_MODE] = Console.prompt
         IRB.conf[:AUTO_INDENT] = Console.indent
+        IRB.cons[:BACK_TRACE_LIMIT] = Console.backtrace_limit
 
         irb = IRB::Irb.new(nil,script)
 
