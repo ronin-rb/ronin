@@ -142,6 +142,7 @@ module Ronin
 
           require 'irb/completion' if Ronin::UI::Console.completion
 
+          # require any of the auto-load paths
           Ronin::UI::Console.auto_load.each do |path|
             require path
           end
@@ -154,7 +155,7 @@ module Ronin
           irb.context.main.instance_eval(&setup_block)
         end
 
-        # load console configuration block is given
+        # run the supplied configuration block is given
         irb.context.main.instance_eval(&block) if block
 
         IRB.conf[:MAIN_CONTEXT] = irb.context
