@@ -211,6 +211,7 @@ spec/formatting/binary/string_spec.rb
 spec/formatting/digest/string_spec.rb
 spec/formatting/http/string_spec.rb
 spec/formatting/text/string_spec.rb
+spec/formatting/text/array_spec.rb
 spec/network/http_spec.rb
 spec/code/classes/thing.rb
 spec/code/reference_spec.rb
