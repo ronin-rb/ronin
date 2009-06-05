@@ -24,13 +24,32 @@
 class Array
 
   #
+  # Returns the bytes contained in the array.
+  #
+  #   [0x41, 0x41, 0x20].bytes
+  #   # => [0x41, 0x41, 0x20]
+  #
+  #   ['A', 'BB', 0x90].bytes
+  #   # => [0x41, 0x42, 0x42, 0x90]
+  #
+  def bytes
+    self.inject([]) do |accum,elem|
+      if elem.kind_of?(Integer)
+        accum << elem
+      else
+        elem.to_s.each_byte { |b| accum << b }
+      end
+    end
+  end
+
+  #
   # Returns the Array of characters generated from the array.
   #
   #   [0x41, 0x41, 0x20].chars
   #   # => ["A", "A", " "]
   #
   def chars
-    self.map { |b| b.to_i.chr }
+    self.bytes.map { |b| b.chr }
   end
 
   #
