@@ -24,16 +24,27 @@
 require 'ronin/config'
 
 require 'irb'
-require 'irb/completion'
 
 module Ronin
   module UI
     module Console
+      # Default prompt style.
+      PROMPT = :SIMPLE
+
+      # Default indentation mode.
+      INDENT = true
+
+      # Default backtrace depth.
+      BACKTRACE_DEPTH = 5
+
+      # Default completion mode.
+      COMPLETION = true
+
       #
-      # Returns the default Console prompt style
+      # Returns the default Console prompt style, defaults to +PROMPT+.
       #
       def Console.prompt
-        @@ronin_console_prompt ||= :SIMPLE
+        @@ronin_console_prompt ||= PROMPT
       end
 
       #
@@ -44,17 +55,54 @@ module Ronin
       end
 
       #
-      # Returns the default Console indent setting.
+      # Returns the default Console indent setting, defaults to +INDENT+.
       #
       def Console.indent
-        @@ronin_console_indent ||= true
+        @@ronin_console_indent ||= INDENT
       end
 
       #
-      # Sets the default Console indent setting.
+      # Sets the default Console indent setting to the specified _mode_.
       #
-      def Console.indent=(value)
-        @@ronin_console_indent = value
+      #   Console.indent = false
+      #   # => false
+      #
+      def Console.indent=(mode)
+        @@ronin_console_indent = mode
+      end
+
+      #
+      # Returns the default Console back trace limit, defaults to
+      # +BACKTRACE_DEPTH+.
+      #
+      def Console.backtrace_depth
+        @@ronin_console_backtrace_depth ||= BACKTRACE_DEPTH
+      end
+
+      #
+      # Sets the default Console back trace depth to the specified _depth_.
+      #
+      def Console.backtrace_depth=(depth)
+        @@ronin_console_backtrace_depth = depth
+      end
+
+      #
+      # Returns the default Console tab-completion mode, defaults to
+      # +COMPLETION+.
+      #
+      def Console.completion
+        @@ronin_console_completion ||= COMPLETION
+      end
+
+      #
+      # Sets the default Console tab-completion mode to the specified
+      # _mode_.
+      #
+      #   Console.completion = false
+      #   # => false
+      #
+      def Console.completion=(mode)
+        @@ronin_console_completion = mode
       end
 
       #
@@ -79,17 +127,22 @@ module Ronin
       def Console.start(script=nil,&block)
         IRB.setup(script)
 
+        # configure IRB
         IRB.conf[:IRB_NAME] = 'ronin'
         IRB.conf[:PROMPT_MODE] = Console.prompt
         IRB.conf[:AUTO_INDENT] = Console.indent
+        IRB.conf[:BACK_TRACE_LIMIT] = Console.backtrace_depth
 
         irb = IRB::Irb.new(nil,script)
 
-        # configure the irb workspace
+        # configure the IRB context
         irb.context.main.instance_eval do
           require 'ronin/environment'
           require 'ronin/platform'
 
+          require 'irb/completion' if Ronin::UI::Console.completion
+
+          # require any of the auto-load paths
           Ronin::UI::Console.auto_load.each do |path|
             require path
           end
@@ -97,22 +150,18 @@ module Ronin
           include Ronin
         end
 
+        # run any setup-blocks
         Console.setup_blocks.each do |setup_block|
           irb.context.main.instance_eval(&setup_block)
         end
 
-        # Load console configuration block is given
+        # run the supplied configuration block is given
         irb.context.main.instance_eval(&block) if block
 
         IRB.conf[:MAIN_CONTEXT] = irb.context
 
-        trap('SIGINT') do
-          irb.signal_handle
-        end
-
-        catch(:IRB_EXIT) do
-          irb.eval_input
-        end
+        trap('SIGINT') { irb.signal_handle }
+        catch(:IRB_EXIT) { irb.eval_input }
 
         putc "\n"
         return nil

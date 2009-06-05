@@ -37,7 +37,7 @@ module Ronin
       unless base.ancestors.include?(DataMapper::Resource)
         base.module_eval do
           include DataMapper::Resource
-          include DataMapper::AutoMigrations
+          include DataMapper::Migrations
 
           #
           # Returns the default repository name for the model.
