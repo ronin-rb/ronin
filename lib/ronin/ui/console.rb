@@ -129,7 +129,7 @@ module Ronin
         IRB.conf[:IRB_NAME] = 'ronin'
         IRB.conf[:PROMPT_MODE] = Console.prompt
         IRB.conf[:AUTO_INDENT] = Console.indent
-        IRB.cons[:BACK_TRACE_LIMIT] = Console.backtrace_limit
+        IRB.conf[:BACK_TRACE_LIMIT] = Console.backtrace_limit
 
         irb = IRB::Irb.new(nil,script)
 
