@@ -127,6 +127,7 @@ module Ronin
       def Console.start(script=nil,&block)
         IRB.setup(script)
 
+        # configure IRB
         IRB.conf[:IRB_NAME] = 'ronin'
         IRB.conf[:PROMPT_MODE] = Console.prompt
         IRB.conf[:AUTO_INDENT] = Console.indent
@@ -134,7 +135,7 @@ module Ronin
 
         irb = IRB::Irb.new(nil,script)
 
-        # configure the irb workspace
+        # configure the IRB context
         irb.context.main.instance_eval do
           require 'ronin/environment'
           require 'ronin/platform'
@@ -148,22 +149,18 @@ module Ronin
           include Ronin
         end
 
+        # run any setup-blocks
         Console.setup_blocks.each do |setup_block|
           irb.context.main.instance_eval(&setup_block)
         end
 
-        # Load console configuration block is given
+        # load console configuration block is given
         irb.context.main.instance_eval(&block) if block
 
         IRB.conf[:MAIN_CONTEXT] = irb.context
 
-        trap('SIGINT') do
-          irb.signal_handle
-        end
-
-        catch(:IRB_EXIT) do
-          irb.eval_input
-        end
+        trap('SIGINT') { irb.signal_handle }
+        catch(:IRB_EXIT) { irb.eval_input }
 
         putc "\n"
         return nil
