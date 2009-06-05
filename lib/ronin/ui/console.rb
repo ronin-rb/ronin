@@ -30,7 +30,7 @@ module Ronin
   module UI
     module Console
       #
-      # Returns the default Console prompt style
+      # Returns the default Console prompt style, defaults to +:SIMPLE+.
       #
       def Console.prompt
         @@ronin_console_prompt ||= :SIMPLE
@@ -44,21 +44,24 @@ module Ronin
       end
 
       #
-      # Returns the default Console indent setting.
+      # Returns the default Console indent setting, defaults to +true+.
       #
       def Console.indent
         @@ronin_console_indent ||= true
       end
 
       #
-      # Sets the default Console indent setting.
+      # Sets the default Console indent setting to the specified _mode_.
       #
-      def Console.indent=(value)
-        @@ronin_console_indent = value
+      #   Console.indent = false
+      #   # => false
+      #
+      def Console.indent=(mode)
+        @@ronin_console_indent = mode
       end
 
       #
-      # Returns the default Console back trace limit.
+      # Returns the default Console back trace limit, defaults to +5+.
       #
       def Console.backtrace_limit
         @@ronin_console_backtrace_limit ||= 5
