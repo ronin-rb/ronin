@@ -24,7 +24,6 @@
 require 'ronin/config'
 
 require 'irb'
-require 'irb/completion'
 
 module Ronin
   module UI
@@ -37,6 +36,9 @@ module Ronin
 
       # Default backtrace depth.
       BACKTRACE_LIMIT = 5
+
+      # Default completion mode.
+      COMPLETION = true
 
       #
       # Returns the default Console prompt style, defaults to +PROMPT+.
@@ -84,6 +86,25 @@ module Ronin
       end
 
       #
+      # Returns the default Console tab-completion mode, defaults to
+      # +COMPLETION+.
+      #
+      def Console.completion
+        @@ronin_console_completion ||= COMPLETION
+      end
+
+      #
+      # Sets the default Console tab-completion mode to the specified
+      # _mode_.
+      #
+      #   Console.completion = false
+      #   # => false
+      #
+      def Console.completion=(mode)
+        @@ronin_console_completion = mode
+      end
+
+      #
       # Returns the Array of files to require when the Console starts.
       #
       def Console.auto_load
@@ -116,6 +137,8 @@ module Ronin
         irb.context.main.instance_eval do
           require 'ronin/environment'
           require 'ronin/platform'
+
+          require 'irb/completion' if Ronin::UI::Console.completion
 
           Ronin::UI::Console.auto_load.each do |path|
             require path
