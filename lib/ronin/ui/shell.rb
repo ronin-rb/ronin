@@ -86,8 +86,6 @@ module Ronin
       STDOUT.puts(string)
     end
 
-    alias << puts
-
     #
     # Equivalent to <tt>STDOUT.printf(string,*objects)</tt>.
     #
