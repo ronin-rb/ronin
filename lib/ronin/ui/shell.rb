@@ -22,45 +22,30 @@
 #
 
 module Ronin
-  class Shell
+  module Shell
 
     # Default shell prompt
     DEFAULT_PROMPT = '>'
-
-    # Shell name to use
-    attr_accessor :name
-
-    # Shell prompt
-    attr_accessor :prompt
-
-    #
-    # Creates a new Shell object with the given _options_.
-    #
-    # _options_ may contain the following keys:
-    # <tt>:name</tt>:: The name of the shell.
-    # <tt>:prompt</tt>::The prompt to use for the shell.
-    #
-    def initialize(options={})
-      @name = options[:name]
-      @prompt = (options[:prompt] || DEFAULT_PROMPT)
-    end
 
     #
     # Creates and starts a new Shell object with the specified _options_.
     # If a _block_ is given, it will be passed every command.
     #
-    def self.start(options={},&block)
-      self.new(options).start(&block)
-    end
+    # _options_ may contain the following keys:
+    # <tt>:name</tt>:: Name of the shell.
+    # <tt>:prompt</tt>:: Prompt to use for the shell, defaults to
+    #                    +DEFAULT_PROMPT+.
+    #
+    #   Shell.start(:prompt => '$') { |shell,line| system(line) }
+    #
+    def Shell.start(options={},&block)
+      name = (options[:name] || '')
+      prompt = (options[:prompt] || DEFAULT_PROMPT)
 
-    #
-    # Starts the shell using the given _block_ to process commands.
-    #
-    def start(&block)
       history_rollback = 0
 
       loop do
-        line = Readline.readline("#{@name}#{@prompt} ")
+        line = Readline.readline("#{name}#{prompt} ")
 
         if line =~ /^\s*exit\s*$/
           break
@@ -76,31 +61,28 @@ module Ronin
         end
       end
 
-      history_rollback.times do
-        Readline::HISTORY.pop
-      end
-
+      history_rollback.times { Readline::HISTORY.pop }
       return nil
     end
 
     #
     # Equivalent to <tt>STDOUT.putc(char)</tt>.
     #
-    def putc(char)
+    def Shell.putc(char)
       STDOUT.putc(char)
     end
 
     #
     # Equivalent to <tt>STDOUT.print(string)</tt>.
     #
-    def print(string)
+    def Shell.print(string)
       STDOUT.print(string)
     end
 
     #
     # Equivalent to <tt>STDOUT.puts(string)</tt>.
     #
-    def puts(string)
+    def Shell.puts(string)
       STDOUT.puts(string)
     end
 
@@ -109,7 +91,7 @@ module Ronin
     #
     # Equivalent to <tt>STDOUT.printf(string,*objects)</tt>.
     #
-    def printf(string,*objects)
+    def Shell.printf(string,*objects)
       STDOUT.printf(string,*objects)
     end
 
