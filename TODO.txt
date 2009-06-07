@@ -4,6 +4,10 @@
 
 * Use DataMapper 0.10.0.
 
+=== Ronin 0.2.5:
+
+* Move Ronin::RPC code into ronin-exploits.
+
 === Longterm:
 
 * Look into using Ronin over Tor/i2p.
