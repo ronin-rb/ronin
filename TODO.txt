@@ -1,5 +1,11 @@
 == TODO:
 
+=== Ronin 0.2.4:
+
+* Use DataMapper 0.10.0.
+
+=== Longterm:
+
 * Look into using Ronin over Tor/i2p.
 * Discuss ideas for a Web UI:
   * Configurable menu-bar / side-bar.
