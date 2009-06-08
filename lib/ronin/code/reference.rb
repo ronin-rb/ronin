@@ -84,15 +84,6 @@ module Ronin
       end
 
       #
-      # Evaluates the given _code_ within the referenced object. If a
-      # _block_ is given, it will be evaluated within the referenced
-      # object.
-      #
-      def eval(code,&block)
-        @value.eval(code,&block)
-      end
-
-      #
       # Evaluates the given _block_ within the referenced object.
       #
       def instance_eval(&block)
