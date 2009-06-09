@@ -36,6 +36,11 @@
           #overlay-url {
           }
 
+          #overlay-maintainers {
+            margin: 0 1em 0 1em;
+            padding: 0;
+          }
+
           #overlay-description {
           }
 
@@ -101,6 +106,30 @@
         <xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute>
         <xsl:value-of select="." />
       </a>
+    </p>
+  </xsl:template>
+
+  <xsl:template match="/ronin-overlay/maintainers">
+    <p><strong>Maintainers:</strong></p>
+    <div id="overlay-maintainers">
+      <xsl:apply-templates />
+    </div>
+  </xsl:template>
+
+  <xsl:template match="/ronin-overlay/maintainers/maintainer">
+    <p>
+      <xsl:choose>
+        <xsl:when test="email">
+          <a>
+            <xsl:attribute name="href">mailto:<xsl:value-of select="email/." /></xsl:attribute>
+            <xsl:value-of select="name/." />
+          </a>
+        </xsl:when>
+
+        <xsl:otherwise>
+          <strong><xsl:value-of select="name/." /></strong>
+        </xsl:otherwise>
+      </xsl:choose>
     </p>
   </xsl:template>
 
