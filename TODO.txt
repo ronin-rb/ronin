@@ -10,6 +10,8 @@
 
 === Longterm:
 
+* Move to YARD for API documentation.
+* Develop a custom YARD Template for Ronin libraries.
 * Look into using Ronin over Tor/i2p.
 * Discuss ideas for a Web UI:
   * Configurable menu-bar / side-bar.
