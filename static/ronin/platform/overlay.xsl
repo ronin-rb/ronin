@@ -9,11 +9,12 @@
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
         <style type="text/css">
           body {
+            font-family: sans-serif;
           }
 
           #overlay {
-            margin: 0.5em;
-            padding: 0.2em;
+            margin: 1em;
+            padding: 1em;
             border: 20px solid black;
           }
 
