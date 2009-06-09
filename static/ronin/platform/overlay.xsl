@@ -18,6 +18,15 @@
             border: 20px solid black;
           }
 
+          #overlay p {
+            margin: 0.5em;
+            padding: 0;
+          }
+
+          #overlay p strong {
+            margin-right: 0.5em;
+          }
+
           #overlay-title {
           }
 
