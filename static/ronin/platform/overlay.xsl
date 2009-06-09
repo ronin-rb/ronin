@@ -75,9 +75,9 @@
     </p>
   </xsl:template>
 
-  <xsl:template match="/ronin-overlay/source-browse">
-    <p id="overlay-source-browse">
-      <strong>Source Browser:</strong>
+  <xsl:template match="/ronin-overlay/source-view">
+    <p id="overlay-source-view">
+      <strong>View Source:</strong>
       <a>
         <xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute>
         <xsl:value-of select="." />
