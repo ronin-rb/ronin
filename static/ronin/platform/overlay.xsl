@@ -5,7 +5,7 @@
   <xsl:template match="/ronin-overlay">
     <html>
       <head>
-        <title>Ronin Overlay :: <xsl:value-of select="/ronin-overlay/name/." /></title>
+        <title>Ronin Overlay :: <xsl:value-of select="/ronin-overlay/title/." /></title>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
         <style type="text/css">
           body {
@@ -17,7 +17,7 @@
             border: 20px solid black;
           }
 
-          #overlay-name {
+          #overlay-title {
           }
 
           #overlay-license {
@@ -52,9 +52,9 @@
     </html>
   </xsl:template>
 
-  <xsl:template match="/ronin-overlay/name">
-    <p id="overlay-name">
-      <strong>Name:</strong> <xsl:value-of select="." />
+  <xsl:template match="/ronin-overlay/title">
+    <p id="overlay-title">
+      <strong>Title:</strong> <xsl:value-of select="." />
     </p>
   </xsl:template>
 
