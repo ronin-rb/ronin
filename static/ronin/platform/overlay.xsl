@@ -69,7 +69,7 @@
       <strong>Source:</strong>
       <a>
         <xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute>
-        <xsl:value-of select=".">
+        <xsl:value-of select="." />
       </a>
     </p>
   </xsl:template>
@@ -79,7 +79,7 @@
       <strong>Source Browser:</strong>
       <a>
         <xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute>
-        <xsl:value-of select=".">
+        <xsl:value-of select="." />
       </a>
     </p>
   </xsl:template>
@@ -89,7 +89,7 @@
       <strong>Website:</strong>
       <a>
         <xsl:attribute name="href"><xsl:value-of select="." /></xsl:attribute>
-        <xsl:value-of select=".">
+        <xsl:value-of select="." />
       </a>
     </p>
   </xsl:template>
