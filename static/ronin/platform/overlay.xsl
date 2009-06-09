@@ -7,7 +7,6 @@
       <head>
         <title>Ronin Overlay :: <xsl:value-of select="/ronin-overlay/title/." /></title>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
-        <meta http-equiv="Cache-Control" content="private" />
         <style type="text/css">
           body {
             font-family: sans-serif;
@@ -25,7 +24,7 @@
           }
 
           #overlay p strong {
-            margin-right: 0.5em;
+            margin-right: 1em;
           }
 
           #overlay a {
@@ -58,16 +57,6 @@
           #overlay-description blockquote {
           }
         </style>
-        <script type="text/javascript" src="http://ronin.rubyforge.org/scripts/jquery.min.js"></script>
-        <script type="text/javascript" src="http://ronin.rubyforge.org/scripts/jquery.expander.js"></script>
-        <script type="text/javascript">
-          $(document).ready(function() {
-            $("#overlay-description/blockquote").expander({
-              expandText: '[ more ]',
-              userCollapseText: '[ less ]'
-            });
-          });
-        </script>
       </head>
 
       <body>
