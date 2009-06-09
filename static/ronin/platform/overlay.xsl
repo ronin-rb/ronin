@@ -28,6 +28,16 @@
             margin-right: 0.5em;
           }
 
+          #overlay a {
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+          }
+
+          #overlay a:hover {
+            color: #BD0000;
+          }
+
           #overlay-title {
           }
 
