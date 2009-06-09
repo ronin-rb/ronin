@@ -10,6 +10,7 @@
         <style type="text/css">
           body {
             font-family: sans-serif;
+            font-size: 0.9em;
             margin: 0;
             padding: 0;
           }
@@ -49,6 +50,15 @@
           }
 
           #overlay-description {
+          }
+        </style>
+        <style type="text/css" media="print">
+          #overlay {
+            border: none;
+          }
+
+          #overlay a {
+            font-weight: normal;
           }
         </style>
       </head>
