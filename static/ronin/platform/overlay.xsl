@@ -7,6 +7,7 @@
       <head>
         <title>Ronin Overlay :: <xsl:value-of select="/ronin-overlay/title/." /></title>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+        <meta http-equiv="Cache-Control" content="private" />
         <style type="text/css">
           body {
             font-family: sans-serif;
