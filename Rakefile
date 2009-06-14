@@ -6,11 +6,11 @@ require 'hoe/signing'
 require './tasks/spec.rb'
 require './lib/ronin/version.rb'
 
-Hoe.spec('ronin') do |p|
-  p.rubyforge_name = 'ronin'
-  p.developer('Postmodern','postmodern.mod3@gmail.com')
-  p.remote_rdoc_dir = 'docs/ronin'
-  p.extra_deps = [
+Hoe.spec('ronin') do
+  self.rubyforge_name = 'ronin'
+  self.developer('Postmodern','postmodern.mod3@gmail.com')
+  self.remote_rdoc_dir = 'docs/ronin'
+  self.extra_deps = [
     'hoe',
     ['nokogiri', '>=1.2.0'],
     ['extlib', '>=0.9.13'],
