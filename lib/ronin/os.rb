@@ -66,12 +66,12 @@ module Ronin
       name = name.to_s
       method_name = name.snake_case
 
-      meta_def(method_name) do
-        OS.new(:name => name)
-      end
-
-      meta_def("#{method_name}_version") do |version|
-        OS.first_or_create(:name => name, :version => version.to_s)
+      meta_def(method_name) do |*arguments|
+        if (version = arguments.first)
+          OS.first_or_create(:name => name, :version => version.to_s)
+        else
+          OS.new(:name => name)
+        end
       end
 
       return nil

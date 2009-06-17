@@ -16,6 +16,6 @@ describe OS do
   end
 
   it "should provide methods for creating OSes with versions" do
-    OS.linux_version('2.6.11').should be_valid
+    OS.linux('2.6.11').should be_valid
   end
 end
