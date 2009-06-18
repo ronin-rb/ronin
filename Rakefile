@@ -18,7 +18,6 @@ Hoe.spec('ronin') do
     ['data_objects', '>=0.9.13'],
     ['do_sqlite3', '>=0.9.13'],
     ['dm-types', '>=0.10.0'],
-    ['dm-serializer', '>=0.10.0'],
     ['dm-validations', '>=0.10.0'],
     ['dm-predefined', '>=0.1.2'],
     ['chars', '>=0.1.1'],
