@@ -42,14 +42,14 @@ module Ronin
       # _name_, returns +false+ otherwise.
       #
       def has_symbol?(name)
-        @table.has_key?(name.to_s)
+        @table.has_key?(name.to_sym)
       end
 
       #
       # Returns the symbol with the specified _name_.
       #
       def symbol(name)
-        @table[name.to_s]
+        @table[name.to_sym]
       end
 
       #
@@ -71,7 +71,7 @@ module Ronin
       #
       def symbols=(hash)
         hash.each do |name,value|
-          self[name] = value
+          self[name.to_sym] = value
         end
       end
 
@@ -79,14 +79,14 @@ module Ronin
       # Returns the value of the symbol with the specified _name_.
       #
       def [](name)
-        @table[name.to_s].value
+        @table[name.to_sym].value
       end
 
       #
       # Sets the _value_ of the symbol with the specified _name_.
       #
       def []=(name,value)
-        @table[name.to_s].value = value
+        @table[name.to_sym].value = value
       end
 
       #
