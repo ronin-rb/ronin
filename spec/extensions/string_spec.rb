@@ -96,4 +96,8 @@ describe String do
   it "should dump strings containing non-printable characters" do
     "hello\x90\x05\xef".dump.should == '"hello\x90\x05\xef"'
   end
+
+  it "should dump the string when calling the inspect method" do
+    "hello\x90\x05\xef".inspect.should == '"hello\x90\x05\xef"'
+  end
 end
