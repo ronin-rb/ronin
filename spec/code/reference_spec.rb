@@ -56,4 +56,8 @@ describe Code::Reference do
   it "should raise a NoMethodError when trying to call a protected or private method" do
     lambda { @ref.not_exposed }.should raise_error(NoMethodError)
   end
+
+  it "should inspect the referenced object when inspect is called" do
+    @ref.inspect.should == '#<Thing: stuff>'
+  end
 end

@@ -4,6 +4,10 @@ class Thing
     1
   end
 
+  def inspect
+    "#<Thing: stuff>"
+  end
+
   protected
 
   def not_exposed
