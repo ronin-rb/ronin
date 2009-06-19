@@ -54,7 +54,7 @@ module Ronin
       # Inspects the maintainer object.
       #
       def inspect
-        "#<#{self.class.name}: #{self}"
+        "#<#{self.class.name}: #{self}>"
       end
 
     end
