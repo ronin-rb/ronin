@@ -3,7 +3,7 @@ require 'ronin/code/symbol_table'
 require 'spec_helper'
 
 describe Code::SymbolTable do
-  before(:all) do
+  before(:each) do
     @one = [:a, :b, :c]
     @two = {:one => 1, :two => 2}
 
