@@ -12,4 +12,8 @@ describe Code::Token do
   it "should emit itself" do
     @token.emit.should == [@token]
   end
+
+  it "should display the value when inspected" do
+    @token.inspect.should == '#<Ronin::Code::Token: "test">'
+  end
 end
