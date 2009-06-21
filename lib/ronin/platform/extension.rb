@@ -26,6 +26,7 @@ require 'ronin/platform/extension_cache'
 require 'ronin/platform/platform'
 require 'ronin/extensions/kernel'
 require 'ronin/static/finders'
+require 'ronin/ui/diagnostics'
 
 require 'contextify'
 
@@ -35,6 +36,7 @@ module Ronin
 
       include Contextify
       include Static::Finders
+      include UI::Diagnostics
 
       contextify :ronin_extension
 
