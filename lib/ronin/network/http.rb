@@ -144,6 +144,10 @@ module Ronin
       # Request Class an UnknownRequest exception will be raised.
       #
       def HTTP.request(options={})
+        unless options[:method]
+          raise(ArgumentError,"the :method option must be specified",caller)
+        end
+
         name = options[:method].to_s.capitalize
 
         unless Net::HTTP.const_defined?(name)

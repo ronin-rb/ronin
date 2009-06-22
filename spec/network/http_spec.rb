@@ -187,5 +187,11 @@ describe Network::HTTP do
 
       req.class.should == Net::HTTP::Unlock
     end
+
+    it "should raise an ArgumentError when :method is not specified" do
+      lambda {
+        Network::HTTP.request()
+      }.should raise_error(ArgumentError)
+    end
   end
 end
