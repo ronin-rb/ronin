@@ -143,8 +143,8 @@ module Ronin
       # given _options_. If type does not represent the name of an Net:HTTP
       # Request Class an UnknownRequest exception will be raised.
       #
-      def HTTP.request(type,options={})
-        name = type.to_s.capitalize
+      def HTTP.request(options={})
+        name = options[:method].to_s.capitalize
 
         unless Net::HTTP.const_defined?(name)
           raise(UnknownRequest,"unknown HTTP request type #{name.dump}",caller)

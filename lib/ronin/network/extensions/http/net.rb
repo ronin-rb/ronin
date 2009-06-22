@@ -108,13 +108,9 @@ module Net
     resp = nil
 
     Net.http_session(options) do |http,expanded_options|
-     http_method = expanded_options.delete(:method),
-     http_body = expanded_options.delete(:body)
+      http_body = expanded_options.delete(:body)
 
-      req = Ronin::Network::HTTP.request(
-        http_method,
-        expanded_options
-      )
+      req = Ronin::Network::HTTP.request(expanded_options)
 
       if block
         if block.arity == 2

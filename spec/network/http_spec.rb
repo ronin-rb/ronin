@@ -72,114 +72,118 @@ describe Network::HTTP do
   describe "HTTP.request" do
     it "should handle Symbol names" do
       Network::HTTP.request(
-        :get, :path => '/'
+        :method => :get, :path => '/'
       ).class.should == Net::HTTP::Get
     end
 
     it "should handle String names" do
       Network::HTTP.request(
-        'GET', :path => '/'
+        :method => 'GET', :path => '/'
       ).class.should == Net::HTTP::Get
     end
 
     it "should raise an UnknownRequest exception for invalid names" do
       lambda {
-        Network::HTTP.request(:bla)
+        Network::HTTP.request(:method => :bla)
       }.should raise_error(Network::HTTP::UnknownRequest)
     end
 
     it "should use a default path" do
       lambda {
-        Network::HTTP.request(:get)
+        Network::HTTP.request(:method => :get)
       }.should_not raise_error(ArgumentError)
     end
 
     it "should accept the :user option for Basic-Auth" do
-      req = Network::HTTP.request(:get, :user => 'joe')
+      req = Network::HTTP.request(:method => :get, :user => 'joe')
 
       req['authorization'].should == "Basic am9lOg=="
     end
 
     it "should accept the :user and :password options for Basic-Auth" do
-      req = Network::HTTP.request(:get, :user => 'joe', :password => 'secret')
+      req = Network::HTTP.request(
+        :method => :get,
+        :user => 'joe',
+        :password => 'secret'
+      )
 
       req['authorization'].should == "Basic am9lOnNlY3JldA=="
     end
 
     it "should create HTTP Copy requests" do
-      req = Network::HTTP.request(:copy)
+      req = Network::HTTP.request(:method => :copy)
 
       req.class.should == Net::HTTP::Copy
     end
 
     it "should create HTTP Delete requests" do
-      req = Network::HTTP.request(:delete)
+      req = Network::HTTP.request(:method => :delete)
 
       req.class.should == Net::HTTP::Delete
     end
 
     it "should create HTTP Get requests" do
-      req = Network::HTTP.request(:get)
+      req = Network::HTTP.request(:method => :get)
 
       req.class.should == Net::HTTP::Get
     end
 
     it "should create HTTP Head requests" do
-      req = Network::HTTP.request(:head)
+      req = Network::HTTP.request(:method => :head)
 
       req.class.should == Net::HTTP::Head
     end
 
     it "should create HTTP Lock requests" do
-      req = Network::HTTP.request(:lock)
+      req = Network::HTTP.request(:method => :lock)
 
       req.class.should == Net::HTTP::Lock
     end
 
     it "should create HTTP Mkcol requests" do
-      req = Network::HTTP.request(:mkcol)
+      req = Network::HTTP.request(:method => :mkcol)
 
       req.class.should == Net::HTTP::Mkcol
     end
 
     it "should create HTTP Move requests" do
-      req = Network::HTTP.request(:move)
+      req = Network::HTTP.request(:method => :move)
 
       req.class.should == Net::HTTP::Move
     end
 
     it "should create HTTP Options requests" do
-      req = Network::HTTP.request(:options)
+      req = Network::HTTP.request(:method => :options)
 
       req.class.should == Net::HTTP::Options
     end
 
     it "should create HTTP Post requests" do
-      req = Network::HTTP.request(:post)
+      req = Network::HTTP.request(:method => :post)
 
       req.class.should == Net::HTTP::Post
     end
 
     it "should create HTTP Propfind requests" do
-      req = Network::HTTP.request(:propfind)
+      req = Network::HTTP.request(:method => :propfind)
 
       req.class.should == Net::HTTP::Propfind
     end
 
     it "should create HTTP Proppatch requests" do
-      req = Network::HTTP.request(:proppatch)
+      req = Network::HTTP.request(:method => :proppatch)
 
       req.class.should == Net::HTTP::Proppatch
     end
 
     it "should create HTTP Trace requests" do
-      req = Network::HTTP.request(:trace)
+      req = Network::HTTP.request(:method => :trace)
 
       req.class.should == Net::HTTP::Trace
     end
 
     it "should create HTTP Unlock requests" do
-      req = Network::HTTP.request(:unlock)
+      req = Network::HTTP.request(:method => :unlock)
 
       req.class.should == Net::HTTP::Unlock
     end
