@@ -89,7 +89,7 @@ module Ronin
         #
         #   scan_target(:lfi,url)
         #
-        def scan_target(name,*target)
+        def scan_target(name,target)
           name = name.to_sym
           results = []
 
@@ -97,7 +97,7 @@ module Ronin
             if ancestor.kind_of?(Ronin::Scanner)
               if ancestor.scanners.has_key?(name)
                 ancestor.scanners[name].each do |block|
-                  block.call(results,*target)
+                  block.call(results,target)
                 end
               end
             end
@@ -115,10 +115,10 @@ module Ronin
         results[name.to_sym] = [] if mode
       end
 
-      each_target do |*target|
+      each_target do |target|
         tests.each do |name,mode|
           if mode
-            results[name] += self.class.scan_target(name,*target)
+            results[name] += self.class.scan_target(name,target)
           end
         end
       end
