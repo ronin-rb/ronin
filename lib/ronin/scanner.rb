@@ -79,7 +79,15 @@ module Ronin
         # the _block_.
         #
         def scanner(name,&block)
-          scanners[name.to_sym] << block
+          name = name.to_sym
+
+          scanners[name] << block
+
+          class_def("#{name}_scan") do
+            scan(name => true)
+          end
+
+          return true
         end
 
         #
