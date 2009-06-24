@@ -52,8 +52,8 @@ module Ronin
         end
 
         #
-        # Returns +true+ if there is a scanner with the specified _name_
-        # was defined, returns +false+ otherwise.
+        # Returns +true+ if there is a scanner with the specified category
+        # _name_ was defined, returns +false+ otherwise.
         #
         def scans_for?(name)
           name = name.to_sym
@@ -68,7 +68,7 @@ module Ronin
         end
 
         #
-        # Defines a scanner with the specified _name_ and _block_.
+        # Defines a scanner with the specified category _name_ and _block_.
         #
         #   scanner(:lfi) do |results,url|
         #     ...
@@ -91,9 +91,9 @@ module Ronin
         end
 
         #
-        # Enumerates over all scanners with the specified _name_, passing
-        # each scanner block the _target_ object. An +Array+ of result
-        # objects will be returned.
+        # Enumerates over all scanners with the specified category _name_,
+        # passing each scanner block the _target_ object. An +Array+ of
+        # result objects will be returned.
         #
         #   scan_target(:lfi,url)
         #
