@@ -29,10 +29,16 @@ module Ronin
   module Scanner
     def self.included(base)
       base.metaclass_eval do
+        #
+        # Returns the +Hash+ of scanners defined for the class.
+        #
         def scanners
           @scanners ||= Hash.new { |hash,key| hash[key] = [] }
         end
 
+        #
+        # Returns the names of all defined scanners.
+        #
         def scans_for
           names = Set[]
 
@@ -45,6 +51,10 @@ module Ronin
           return names
         end
 
+        #
+        # Returns +true+ if there is a scanner with the specified _name_
+        # was defined, returns +false+ otherwise.
+        #
         def scans_for?(name)
           name = name.to_sym
 
@@ -57,10 +67,28 @@ module Ronin
           return false
         end
 
+        #
+        # Defines a scanner with the specified _name_ and _block_.
+        #
+        #   scanner(:lfi) do |results,url|
+        #     ...
+        #   end
+        #
+        # When scanning against a target, an +Array+ of results collected
+        # thus far and the target object to be scanned will be passed to
+        # the _block_.
+        #
         def scanner(name,&block)
           scanners[name.to_sym] << block
         end
 
+        #
+        # Enumerates over all scanners with the specified _name_, passing
+        # each scanner block the _target_ object. An +Array+ of result
+        # objects will be returned.
+        #
+        #   scan_target(:lfi,url)
+        #
         def scan_target(name,*target)
           name = name.to_sym
           results = []
@@ -75,7 +103,7 @@ module Ronin
             end
           end
 
-          return results
+          return results.compact
         end
       end
     end
@@ -100,7 +128,13 @@ module Ronin
 
     protected
 
+    #
+    # A place holder method which will call the specified _block_ with each
+    # target object to be scanned. By default, the method will call the
+    # specified _block_ once, simply passing it the +self+ object.
+    #
     def each_target(&block)
+      block.call(self)
     end
   end
 end
