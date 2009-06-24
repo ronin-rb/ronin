@@ -37,7 +37,7 @@ module Ronin
         end
 
         #
-        # Returns the names of all defined scanners.
+        # Returns the category names of all defined scanners.
         #
         def scans_for
           names = Set[]
