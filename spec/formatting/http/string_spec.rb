@@ -3,10 +3,6 @@ require 'ronin/formatting/http'
 require 'spec_helper'
 
 describe String do
-  before(:all) do
-    @string = "mod % 3"
-  end
-
   it "should provide String#uri_encode" do
     String.method_defined?(:uri_encode).should == true
   end
