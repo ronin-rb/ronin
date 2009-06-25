@@ -37,10 +37,8 @@ describe Scanner do
   end
 
   it "should scan the targets and return the discovered results" do
-    @example_scanner.scan.should == {
-      :test1 => [1],
-      :test2 => [2, 2]
-    }
+    @example_scanner.scan.should == {:test1 => [1], :test2 => [2, 2]}
+
     @another_scanner.scan.should == {
       :test1 => [1, 1],
       :test2 => [2, 2],
@@ -49,9 +47,7 @@ describe Scanner do
   end
 
   it "should allow for the scanning for specific categories" do
-    @example_scanner.scan(:test1).should == {
-      :test1 => [1]
-    }
+    @example_scanner.scan(:test1).should == {:test1 => [1]}
 
     @another_scanner.scan(:test1, :test3).should == {
       :test1 => [1, 1],
