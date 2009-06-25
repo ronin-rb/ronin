@@ -116,18 +116,17 @@ module Ronin
       end
     end
 
-    def scan(tests={},&block)
+    def scan(*tests,&block)
+      tests = self.class.scans_for if tests.empty?
       results = {}
 
-      tests.each do |name,mode|
-        results[name.to_sym] = [] if mode
+      tests.each do |name|
+        results[name.to_sym] = []
       end
 
       each_target do |target|
-        tests.each do |name,mode|
-          if mode
-            results[name] += self.class.scan_target(name,target)
-          end
+        tests.each do |name|
+          results[name.to_sym] += self.class.scan_target(name,target)
         end
       end
 
