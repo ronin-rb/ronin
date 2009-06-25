@@ -2,11 +2,11 @@ require 'classes/example_scanner'
 
 class AnotherScanner < ExampleScanner
 
-  scanner(:test1) do |results,target|
+  scanner(:test1) do |target,results|
     results << 1
   end
 
-  scanner(:test3) do |results,target|
+  scanner(:test3) do |target,results|
     results << 3
   end
 
