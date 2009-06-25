@@ -14,7 +14,7 @@ describe Scanner do
     ExampleScanner.scanners.should_not be_empty
   end
 
-  it "should group scanner tests into categories by name" do
+  it "should group multiple scanner tests into categories by name" do
     ExampleScanner.scanners[:test2].length.should == 2
   end
 
