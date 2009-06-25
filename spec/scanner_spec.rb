@@ -58,4 +58,8 @@ describe Scanner do
       :test3 => [3]
     }
   end
+
+  it "should define convenience methods for scanning a category" do
+    @example_scanner.test1_scan.should == [1]
+  end
 end
