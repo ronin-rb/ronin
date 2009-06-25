@@ -83,10 +83,7 @@ module Ronin
 
           (scanners[name] ||= []) << block
 
-          class_def("#{name}_scan") do
-            scan(name)[name]
-          end
-
+          class_def("#{name}_scan") { scan(name) }
           return true
         end
 
