@@ -3,10 +3,6 @@ require 'ronin/formatting/digest'
 require 'spec_helper'
 
 describe String do
-  before(:all) do
-    @string = "test"
-  end
-
   it "should provide String#md5" do
     String.method_defined?(:md5).should == true
   end
