@@ -91,6 +91,7 @@ lib/ronin/rpc/client.rb
 lib/ronin/rpc/service.rb
 lib/ronin/rpc/console.rb
 lib/ronin/rpc/shell.rb
+lib/ronin/scanner.rb
 lib/ronin/sessions.rb
 lib/ronin/sessions/exceptions.rb
 lib/ronin/sessions/exceptions/variable_missing.rb
