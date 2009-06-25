@@ -70,7 +70,7 @@ module Ronin
         #
         # Defines a scanner with the specified category _name_ and _block_.
         #
-        #   scanner(:lfi) do |results,url|
+        #   scanner(:lfi) do |url,results|
         #     ...
         #   end
         #
@@ -105,7 +105,7 @@ module Ronin
             if ancestor.kind_of?(Ronin::Scanner)
               if ancestor.scanners.has_key?(name)
                 ancestor.scanners[name].each do |block|
-                  block.call(results,target)
+                  block.call(target,results)
                 end
               end
             end
