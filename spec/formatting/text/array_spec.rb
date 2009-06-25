@@ -9,15 +9,15 @@ describe Array do
   end
 
   it "should provide Array#bytes" do
-    @byte_array.respond_to?('bytes').should == true
+    Array.method_defined?(:bytes).should == true
   end
 
   it "should provide Array#chars" do
-    @byte_array.respond_to?('chars').should == true
+    Array.method_defined?(:chars).should == true
   end
 
   it "should provide Array#char_string" do
-    @byte_array.respond_to?('char_string').should == true
+    Array.method_defined?(:char_string).should == true
   end
 
   describe "bytes" do

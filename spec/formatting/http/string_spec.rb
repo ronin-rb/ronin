@@ -8,23 +8,23 @@ describe String do
   end
 
   it "should provide String#uri_encode" do
-    @string.respond_to?('uri_encode').should == true
+    String.method_defined?(:uri_encode).should == true
   end
 
   it "should provide String#uri_decode" do
-    @string.respond_to?('uri_decode').should == true
+    String.method_defined?(:uri_decode).should == true
   end
 
   it "should provide String#uri_escape" do
-    @string.respond_to?('uri_escape').should == true
+    String.method_defined?(:uri_escape).should == true
   end
 
   it "should provide String#uri_unescape" do
-    @string.respond_to?('uri_unescape').should == true
+    String.method_defined?(:uri_unescape).should == true
   end
 
   it "should provide String#format_http" do
-    @string.respond_to?('format_http').should == true
+    String.method_defined?(:format_http).should == true
   end
 
   describe "uri_encode" do

@@ -4,15 +4,15 @@ require 'spec_helper'
 
 describe Integer do
   it "should provide Integer#bytes" do
-    Integer.instance_method('bytes').should_not be_nil
+    Integer.method_defined?(:bytes).should == true
   end
 
   it "should provide Integer#pack" do
-    Integer.instance_method('pack').should_not be_nil
+    Integer.method_defined?(:pack).should == true
   end
 
   it "should provide Integer#hex_escape" do
-    Integer.instance_method('hex_escape').should_not be_nil
+    Integer.method_defined?(:hex_escape).should == true
   end
 
   describe "bytes" do
