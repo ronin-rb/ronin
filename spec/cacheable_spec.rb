@@ -39,7 +39,7 @@ describe Cacheable do
     end
 
     it "should set the cached_timestamp property" do
-      @obj.cached_timestamp.should == File.mtime(CACHEABLE_FILE)
+      @obj.cached_timestamp.should == File.mtime(CACHEABLE_FILE).to_i
     end
 
     it "should prepare the object to be cached" do
