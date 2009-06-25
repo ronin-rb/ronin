@@ -35,4 +35,20 @@ describe Scanner do
     ExampleScanner.scans_for.should == Set[:test1, :test2]
     AnotherScanner.scans_for.should == Set[:test1, :test2, :test3]
   end
+
+  it "should scan the targets and return the discovered results" do
+    @example_scanner.scan.should == [1, 2, 2]
+    @another_scanner.scan.should == [1, 2, 2, 1, 3]
+  end
+
+  it "should allow for the scanning for specific categories" do
+    @example_scanner.scan(:test1 => true, :test3 => true).should == {
+      :test1 => [1],
+      :test3 => []
+    }
+    @another_scanner.scan(:test1 => true, :test3 => true).should == {
+      :test1 => [1, 1],
+      :test3 => [3]
+    }
+  end
 end
