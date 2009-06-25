@@ -60,6 +60,10 @@ describe Scanner do
   end
 
   it "should define convenience methods for scanning a category" do
+    ExampleScanner.method_defined?(:test1_scan).should == true
+  end
+
+  it "should return a singleton Hash when calling convenience methods" do
     @example_scanner.test1_scan.should == {:test1 => [1]}
   end
 end
