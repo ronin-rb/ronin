@@ -43,7 +43,7 @@ module Ronin
           names = Set[]
 
           ancestors.each do |ancestor|
-            if ancestor.kind_of?(Ronin::Scanner)
+            if ancestor.include?(Ronin::Scanner)
               names += ancestor.scanners.keys
             end
           end
@@ -59,7 +59,7 @@ module Ronin
           name = name.to_sym
 
           ancestors.each do |ancestor|
-            if ancestor.kind_of?(Ronin::Scanner)
+            if ancestor.include?(Ronin::Scanner)
               return true if ancestor.scanners.has_key?(name)
             end
           end
@@ -102,7 +102,7 @@ module Ronin
           results = []
 
           ancestors.each do |ancestor|
-            if ancestor.kind_of?(Ronin::Scanner)
+            if ancestor.include?(Ronin::Scanner)
               if ancestor.scanners.has_key?(name)
                 ancestor.scanners[name].each do |block|
                   block.call(target,results)
