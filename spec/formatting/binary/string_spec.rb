@@ -5,23 +5,23 @@ require 'formatting/binary/helpers/hexdumps'
 
 describe String do
   it "should provide String#depack" do
-    String.instance_method('depack').should_not be_nil
+    String.method_defined?(:depack).should == true
   end
 
   it "should provide String#hex_escape" do
-    String.instance_method('hex_escape').should_not be_nil
+    String.method_defined?(:hex_escape).should == true
   end
 
   it "should provide String#hex_unescape" do
-    String.instance_method('hex_unescape').should_not be_nil
+    String.method_defined?(:hex_unescape).should == true
   end
 
   it "should provide String#xor" do
-    String.instance_method('xor').should_not be_nil
+    String.method_defined?(:xor).should == true
   end
 
   it "should provide String#unhexdump" do
-    String.instance_method('unhexdump').should_not be_nil
+    String.method_defined?(:unhexdump).should == true
   end
 
   describe "depack" do

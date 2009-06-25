@@ -8,23 +8,23 @@ describe String do
   end
 
   it "should provide String#md5" do
-    @string.respond_to?('md5').should == true
+    String.method_defined?(:md5).should == true
   end
 
   it "should provide String#sha1" do
-    @string.respond_to?('sha1').should == true
+    String.method_defined?(:sha1).should == true
   end
 
   it "should provide String#sha2" do
-    @string.respond_to?('sha2').should == true
+    String.method_defined?(:sha2).should == true
   end
 
   it "should provide String#sha256" do
-    @string.respond_to?('sha256').should == true
+    String.method_defined?(:sha256).should == true
   end
 
   it "should provide String#sha512" do
-    @string.respond_to?('sha512').should == true
+    String.method_defined?(:sha512).should == true
   end
 
   describe "md5" do

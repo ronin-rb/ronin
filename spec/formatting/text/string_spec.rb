@@ -8,15 +8,15 @@ describe String do
   end
 
   it "should provide String#format_chars" do
-    @string.respond_to?('format_chars').should == true
+    String.method_defined?(:format_chars).should == true
   end
 
   it "should provide String#format_bytes" do
-    @string.respond_to?('format_bytes').should == true
+    String.method_defined?(:format_bytes).should == true
   end
 
   it "should provide String#random_case" do
-    @string.respond_to?('random_case').should == true
+    String.method_defined?(:random_case).should == true
   end
 
   describe "format_chars" do
