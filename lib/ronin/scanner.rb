@@ -33,7 +33,7 @@ module Ronin
         # Returns the +Hash+ of scanners defined for the class.
         #
         def scanners
-          @scanners ||= Hash.new { |hash,key| hash[key] = [] }
+          @scanners ||= {}
         end
 
         #
@@ -81,7 +81,7 @@ module Ronin
         def scanner(name,&block)
           name = name.to_sym
 
-          scanners[name] << block
+          (scanners[name] ||= []) << block
 
           class_def("#{name}_scan") do
             scan(name => true)
