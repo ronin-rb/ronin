@@ -20,7 +20,7 @@ describe Scanner do
 
   it "should separate scanner tests between inherited classes" do
     ExampleScanner.scanners[:test1].length.should == 1
-    ExampleScanner.scanners[:test3].length.should == 0
+    ExampleScanner.scanners[:test3].should be_nil
 
     AnotherScanner.scanners[:test1].length.should == 1
     AnotherScanner.scanners[:test3].length.should == 1
