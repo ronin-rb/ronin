@@ -18,6 +18,7 @@ lib/ronin/config.rb
 lib/ronin/static.rb
 lib/ronin/static/static.rb
 lib/ronin/static/finders.rb
+lib/ronin/templates.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
@@ -162,6 +163,7 @@ lib/ronin/ronin.rb
 lib/ronin/version.rb
 tasks/spec.rb
 spec/spec_helper.rb
+spec/classes/uses_templates.rb
 spec/classes/cacheable_model.rb
 spec/helpers/database.rb
 spec/helpers/cacheable.rb
@@ -173,6 +175,7 @@ spec/static/helpers/static2/dir/two.txt
 spec/static/helpers/static.rb
 spec/static/finders_spec.rb
 spec/static/static_spec.rb
+spec/templates_spec.rb
 spec/arch_spec.rb
 spec/author_spec.rb
 spec/extensions/kernel_spec.rb
