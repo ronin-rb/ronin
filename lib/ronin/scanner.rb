@@ -37,6 +37,24 @@ module Ronin
         end
 
         #
+        # Returns all scanner tests in the specified _category_.
+        #
+        def scanners_for(name)
+          name = name.to_sym
+          tests = []
+
+          ancestors.each do |ancestor|
+            if ancestor.include?(Ronin::Scanner)
+              if ancestor.scanners.has_key?(name)
+                tests += ancestor.scanners[name]
+              end
+            end
+          end
+
+          return tests
+        end
+
+        #
         # Returns the category names of all defined scanners.
         #
         def scans_for

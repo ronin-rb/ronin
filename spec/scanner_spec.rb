@@ -31,6 +31,13 @@ describe Scanner do
     AnotherScanner.scans_for?(:test2).should == true
   end
 
+  it "should return all scanner tests within a category" do
+    tests = ExampleScanner.scanners_for(:test2)
+
+    tests.length.should == 2
+    tests.all? { |test| test.kind_of?(Proc) }.should == true
+  end
+
   it "should specify the category names of all tests" do
     ExampleScanner.scans_for.should == Set[:test1, :test2]
     AnotherScanner.scans_for.should == Set[:test1, :test2, :test3]
