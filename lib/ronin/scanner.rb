@@ -123,10 +123,15 @@ module Ronin
       end
     end
 
-    def scan(categories={},&block)
+    def scan(categories=nil,&block)
       tests = {}
       options = {}
       results = {}
+
+      unless categories
+        categories = {}
+        self.class.scans_for.each { |name| categories[name] = true }
+      end
 
       categories.each do |name,opts|
         name = name.to_sym
