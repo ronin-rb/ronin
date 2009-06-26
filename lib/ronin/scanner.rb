@@ -123,13 +123,12 @@ module Ronin
       end
     end
 
-    def scan(categories=nil,&block)
+    def scan(categories={},&block)
       tests = {}
       options = {}
       results = {}
 
-      unless categories
-        categories = {}
+      if categories.empty?
         self.class.scans_for.each { |name| categories[name] = true }
       end
 
