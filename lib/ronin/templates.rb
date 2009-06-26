@@ -38,10 +38,8 @@ module Ronin
     #   # => "\nUSER: lolcats\nPASSWORD: staclol\n"
     #
     def erb(template)
-      template = ERB.new(template)
-      return template.result(binding)
+      ERB.new(template).result(binding)
     end
-
 
     #
     # Renders the ERB template at the specified _path_ in the scope of the
