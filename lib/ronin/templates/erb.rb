@@ -21,4 +21,36 @@
 #++
 #
 
-require 'ronin/templates/erb'
+require 'erb'
+
+module Ronin
+  module Templates
+    module Erb
+      #
+      # Renders the specified inline ERB _template_ in the scope of the
+      # object, returning the resulting +String+.
+      #
+      #   @user = 'lolcats'
+      #
+      #   erb %{
+      #   USER: <%= @user %>
+      #   PASSWORD: <%= @user.reverse %>
+      #   }
+      #   # => "\nUSER: lolcats\nPASSWORD: staclol\n"
+      #
+      def erb(template)
+        ERB.new(template).result(binding)
+      end
+
+      #
+      # Renders the ERB template at the specified _path_ in the scope of the
+      # object, returning the resulting +String+.
+      #
+      #   erb_file 'path/to/template.erb'
+      #
+      def erb_file(path)
+        erb(File.read(path))
+      end
+    end
+  end
+end
