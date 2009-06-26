@@ -88,13 +88,20 @@ module Ronin
         #
         # Defines a scanner with the specified category _name_ and _block_.
         #
+        # When scanning against a target, an +Array+ of results collected
+        # thus far and the target object to be scanned will be passed to
+        # the _block_.
+        #
         #   scanner(:lfi) do |url,results|
         #     ...
         #   end
         #
-        # When scanning against a target, an +Array+ of results collected
-        # thus far and the target object to be scanned will be passed to
-        # the _block_.
+        # If the scanner accepts a 3rd argument, it will be passed a +Hash+
+        # of configuration options when the scanner is called.
+        #
+        #   scanner(:sqli) do |url,results,options|
+        #     ...
+        #   end
         #
         def scanner(name,&block)
           name = name.to_sym
@@ -104,44 +111,39 @@ module Ronin
           class_def("#{name}_scan") { scan(name) }
           return true
         end
-
-        #
-        # Enumerates over all scanners with the specified category _name_,
-        # passing each scanner block the _target_ object. An +Array+ of
-        # result objects will be returned.
-        #
-        #   scan_target(:lfi,url)
-        #
-        def scan_target(name,target)
-          name = name.to_sym
-          results = []
-
-          ancestors.each do |ancestor|
-            if ancestor.include?(Ronin::Scanner)
-              if ancestor.scanners.has_key?(name)
-                ancestor.scanners[name].each do |block|
-                  block.call(target,results)
-                end
-              end
-            end
-          end
-
-          return results.compact
-        end
       end
     end
 
-    def scan(*tests,&block)
-      tests = self.class.scans_for if tests.empty?
+    def scan(categories={},&block)
+      tests = {}
+      options = {}
       results = {}
 
-      tests.each do |name|
-        results[name.to_sym] = []
+      categories.each do |name,opts|
+        name = name.to_sym
+
+        if opts
+          tests[name] = self.class.scanners_for(name)
+
+          if opts.kind_of?(Hash)
+            options[name] = opts
+          else
+            options[name] = {}
+          end
+
+          results[name] = []
+        end
       end
 
       each_target do |target|
-        tests.each do |name|
-          results[name.to_sym] += self.class.scan_target(name,target)
+        tests.each do |name,scanners|
+          scanners.each do |scanner|
+            if scanner.arity == 3
+              scanner.call(target,results[name],options[name])
+            else
+              scanner.call(target,results[name])
+            end
+          end
         end
       end
 
