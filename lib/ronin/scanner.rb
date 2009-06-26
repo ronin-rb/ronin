@@ -108,7 +108,16 @@ module Ronin
 
           (scanners[name] ||= []) << block
 
-          class_def("#{name}_scan") { scan(name) }
+          class_def("#{name}_scan") do |*arguments|
+            options = if arguments.first
+              arguments.first
+            else
+              true
+            end
+
+            scan(name => options)
+          end
+
           return true
         end
       end
