@@ -117,6 +117,23 @@ module Ronin
 
             (scanners[name] ||= []) << block
 
+            class_def("get_#{name}") do |*arguments|
+              options = case arguments.length
+                        when 1
+                          arguments.first
+                        when 0
+                          true
+                        else
+                          raise(ArgumentError,"wrong number of arguments (#{arguments.length} for 1)",caller)
+                        end
+
+              scan(name => options) do |category,result|
+                return result
+              end
+
+              return nil
+            end
+
             name = name.to_s
 
             module_eval %{
