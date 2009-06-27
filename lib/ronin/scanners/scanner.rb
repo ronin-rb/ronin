@@ -160,10 +160,10 @@ module Ronin
           if opts
             tests[name] = self.class.scanners_in(name)
 
-            if opts.kind_of?(Hash)
-              options[name] = opts
+            options[name] = if opts.kind_of?(Hash)
+              opts
             else
-              options[name] = {}
+              {}
             end
 
             results[name] = []
