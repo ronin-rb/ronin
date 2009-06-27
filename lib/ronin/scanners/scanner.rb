@@ -141,9 +141,16 @@ module Ronin
       # against each_target. Returns a +Hash+ of results grouped by
       # scanner category.
       #
+      # If a _block_ is given, it will be passed each result and the
+      # category the result belongs to.
+      #
       #   url.scan(:rfi => true)
       #
       #   url.scan(:lfi => true, :sqli => {:params => ['id', 'catid']})
+      #
+      #   url.scan(:lfi => true, :rfi => true) do |category,result|
+      #     puts "[#{category}] #{result.inspect}"
+      #   end
       #
       def scan(categories={},&block)
         tests = {}
