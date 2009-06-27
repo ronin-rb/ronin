@@ -43,7 +43,7 @@ describe Scanners::Scanner do
     AnotherScanner.scans_for.should == Set[:test1, :test2, :test3]
   end
 
-  it "should scan the targets and return the discovered results" do
+  it "should scan each target and return the discovered results" do
     @example_scanner.scan.should == {:test1 => [1], :test2 => [2, 2]}
 
     @another_scanner.scan.should == {
@@ -51,6 +51,15 @@ describe Scanners::Scanner do
       :test2 => [2, 2],
       :test3 => [3]
     }
+  end
+
+  it "should scan each target and pass back results" do
+    results = {:test1 => [1], :test2 => [2, 2]}
+
+    @example_scanner.scan do |category,result|
+      results.has_key?(category).should == true
+      results[category].include?(result).should == true
+    end
   end
 
   it "should allow for the scanning for specific categories" do
