@@ -92,4 +92,11 @@ describe Scanners::Scanner do
   it "should return a singleton Hash when calling convenience methods" do
     @example_scanner.test1_scan.should == {:test1 => [1]}
   end
+
+  it "should pass back results from convenience methods" do
+    @example_scanner.test1_scan do |category,result|
+      category.should == :test1
+      result.should == 1
+    end
+  end
 end
