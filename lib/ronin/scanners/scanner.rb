@@ -117,9 +117,15 @@ module Ronin
 
             (scanners[name] ||= []) << block
 
+            name = name.to_s
+
             module_eval %{
               def #{name}_scan(options=true,&block)
-                scan(:#{name} => options,&block)
+                results = scan(:#{name.dump} => options) do |category,result|
+                  block.call(result) if block
+                end
+
+                return results[:#{name.dump}]
               end
             }
 
