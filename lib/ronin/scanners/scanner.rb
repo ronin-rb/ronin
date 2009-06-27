@@ -32,7 +32,8 @@ module Ronin
       def self.included(base)
         base.metaclass_eval do
           #
-          # Returns the +Hash+ of scanners defined for the class.
+          # Returns the +Hash+ of the categories and the scanners defined
+          # for the class.
           #
           def scanners
             @scanners ||= {}
@@ -72,7 +73,7 @@ module Ronin
           #
           # Returns all scanner tests in the specified _category_.
           #
-          def scanners_for(name)
+          def scanners_in(name)
             name = name.to_sym
 
             unless scans_for?(name)
@@ -147,7 +148,7 @@ module Ronin
           name = name.to_sym
 
           if opts
-            tests[name] = self.class.scanners_for(name)
+            tests[name] = self.class.scanners_in(name)
 
             if opts.kind_of?(Hash)
               options[name] = opts
