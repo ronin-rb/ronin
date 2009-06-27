@@ -21,5 +21,9 @@
 #++
 #
 
-require 'ronin/scanners/exceptions'
-require 'ronin/scanners/scanner'
+module Ronin
+  module Scanners
+    class UnknownCategory < StandardError
+    end
+  end
+end

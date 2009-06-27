@@ -70,8 +70,10 @@ describe Scanners::Scanner do
     @example_scanner.scan(:test1 => nil).should be_empty
   end
 
-  it "should return an empty Array for unknown scan categories" do
-    @example_scanner.scan(:test3 => true).should == {:test3 => []}
+  it "should raise an UnknownCategory for unknown scan categories" do
+    lambda {
+      @example_scanner.scan(:test3 => true)
+    }.should raise_error(Scanners::UnknownCategory)
   end
 
   it "should define convenience methods for scanning a category" do

@@ -21,6 +21,7 @@
 #++
 #
 
+require 'ronin/scanners/exceptions/unknown_category'
 require 'ronin/extensions/meta'
 
 require 'set'
@@ -73,6 +74,11 @@ module Ronin
           #
           def scanners_for(name)
             name = name.to_sym
+
+            unless scans_for?(name)
+              raise(Ronin::Scanners::UnknownCategory,"unknown scanner category #{name}",caller)
+            end
+
             tests = []
 
             ancestors.each do |ancestor|

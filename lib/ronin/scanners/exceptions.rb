@@ -21,5 +21,4 @@
 #++
 #
 
-require 'ronin/scanners/exceptions'
-require 'ronin/scanners/scanner'
+require 'ronin/scanners/exceptions/unknown_category'
