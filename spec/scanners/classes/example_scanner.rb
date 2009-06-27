@@ -1,8 +1,8 @@
-require 'ronin/scanner'
+require 'ronin/scanners/scanner'
 
 class ExampleScanner
 
-  include Ronin::Scanner
+  include Ronin::Scanners::Scanner
 
   scanner(:test1) do |target,results|
     results << 1

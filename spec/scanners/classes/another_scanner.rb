@@ -1,4 +1,4 @@
-require 'classes/example_scanner'
+require 'scanners/classes/example_scanner'
 
 class AnotherScanner < ExampleScanner
 

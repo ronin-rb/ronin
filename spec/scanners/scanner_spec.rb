@@ -1,10 +1,10 @@
-require 'ronin/scanner'
+require 'ronin/scanners/scanner'
 
 require 'spec_helper'
-require 'classes/example_scanner'
-require 'classes/another_scanner'
+require 'scanners/classes/example_scanner'
+require 'scanners/classes/another_scanner'
 
-describe Scanner do
+describe Scanners::Scanner do
   before(:all) do
     @example_scanner = ExampleScanner.new
     @another_scanner = AnotherScanner.new
