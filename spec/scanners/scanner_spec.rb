@@ -44,11 +44,11 @@ describe Scanners::Scanner do
   end
 
   it "should scan each target and return the discovered results" do
-    @example_scanner.scan.should == {:test1 => [1], :test2 => [2, 2]}
+    @example_scanner.scan.should == {:test1 => [1], :test2 => [2, 4]}
 
     @another_scanner.scan.should == {
       :test1 => [1, 1],
-      :test2 => [2, 2],
+      :test2 => [2, 4],
       :test3 => [3]
     }
   end
@@ -85,7 +85,7 @@ describe Scanners::Scanner do
     }.should raise_error(Scanners::UnknownCategory)
   end
 
-  it "should define convenience methods for scanning a category" do
+  it "should define a convenience method for only scanning a category" do
     ExampleScanner.method_defined?(:test1_scan).should == true
   end
 
@@ -97,5 +97,9 @@ describe Scanners::Scanner do
     @example_scanner.test1_scan do |result|
       result.should == 1
     end
+  end
+
+  it "should define a convenience method for returning the first result" do
+    @example_scanner.get_test2.should == 2
   end
 end
