@@ -135,6 +135,16 @@ module Ronin
         end
       end
 
+      #
+      # Runs the scanners in the given _categories_ against each_target.
+      # If _categories_ is not specified, all categories will be ran
+      # against each_target. Returns a +Hash+ of results grouped by
+      # scanner category.
+      #
+      #   url.scan(:rfi => true)
+      #
+      #   url.scan(:lfi => true, :sqli => {:params => ['id', 'catid']})
+      #
       def scan(categories={},&block)
         tests = {}
         options = {}
