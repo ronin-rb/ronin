@@ -127,11 +127,14 @@ module Ronin
                           raise(ArgumentError,"wrong number of arguments (#{arguments.length} for 1)",caller)
                         end
 
+              first_result = nil
+
               scan(name => options) do |category,result|
-                return result
+                first_result = result
+                break
               end
 
-              return nil
+              return first_result
             end
 
             name = name.to_s
