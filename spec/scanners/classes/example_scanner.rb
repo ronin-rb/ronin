@@ -13,7 +13,7 @@ class ExampleScanner
   end
 
   scanner(:test2) do |target,results|
-    results.call(2)
+    results.call(4)
   end
 
 end
