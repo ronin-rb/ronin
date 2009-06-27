@@ -62,6 +62,14 @@ describe Scanner do
     }
   end
 
+  it "should not scan a category if the category information is false" do
+    @example_scanner.scan(:test1 => false).should be_empty
+  end
+
+  it "should not scan a category if the category information is nil" do
+    @example_scanner.scan(:test1 => nil).should be_empty
+  end
+
   it "should return an empty Array for unknown scan categories" do
     @example_scanner.scan(:test3 => true).should == {:test3 => []}
   end
