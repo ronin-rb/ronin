@@ -97,9 +97,9 @@ module Ronin
           # Defines a scanner with the specified category _name_ and
           # _block_.
           #
-          # When scanning against a target, an +Array+ of results collected
-          # thus far and the target object to be scanned will be passed to
-          # the _block_.
+          # When scanning against a target, a callback for saving results
+          # and the target object to be scanned will be passed to the
+          # _block_.
           #
           #   scanner(:lfi) do |url,results|
           #     ...
@@ -170,13 +170,21 @@ module Ronin
           end
         end
 
+        current_category = nil
+        result_callback = lambda { |result|
+          results[current_category] << result
+          block.call(current_category,result) if block
+        }
+
         each_target do |target|
           tests.each do |name,scanners|
+            current_category = name
+
             scanners.each do |scanner|
               if scanner.arity == 3
-                scanner.call(target,results[name],options[name])
+                scanner.call(target,result_callback,options[name])
               else
-                scanner.call(target,results[name])
+                scanner.call(target,result_callback)
               end
             end
           end

@@ -5,15 +5,15 @@ class ExampleScanner
   include Ronin::Scanners::Scanner
 
   scanner(:test1) do |target,results|
-    results << 1
+    results.call(1)
   end
 
   scanner(:test2) do |target,results|
-    results << 2
+    results.call(2)
   end
 
   scanner(:test2) do |target,results|
-    results << 2
+    results.call(2)
   end
 
 end
