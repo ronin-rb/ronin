@@ -94,6 +94,8 @@ lib/ronin/rpc/service.rb
 lib/ronin/rpc/console.rb
 lib/ronin/rpc/shell.rb
 lib/ronin/scanners.rb
+lib/ronin/scanners/exceptions.rb
+lib/ronin/scanners/exceptions/unknown_category.rb
 lib/ronin/scanners/scanner.rb
 lib/ronin/sessions.rb
 lib/ronin/sessions/exceptions.rb
