@@ -93,6 +93,8 @@ lib/ronin/rpc/client.rb
 lib/ronin/rpc/service.rb
 lib/ronin/rpc/console.rb
 lib/ronin/rpc/shell.rb
+lib/ronin/scanners.rb
+lib/ronin/scanners/scanner.rb
 lib/ronin/sessions.rb
 lib/ronin/sessions/exceptions.rb
 lib/ronin/sessions/exceptions/variable_missing.rb
@@ -224,6 +226,9 @@ spec/path_spec.rb
 spec/os_spec.rb
 spec/product_spec.rb
 spec/cacheable_spec.rb
+spec/scanners/classes/example_scanner.rb
+spec/scanners/classes/another_scanner.rb
+spec/scanners/scanner_spec.rb
 spec/sessions/classes/test_session.rb
 spec/sessions/classes/uses_test_session.rb
 spec/sessions/session_spec.rb
