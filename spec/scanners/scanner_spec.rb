@@ -32,7 +32,7 @@ describe Scanners::Scanner do
   end
 
   it "should return all scanner tests within a category" do
-    tests = ExampleScanner.scanners_for(:test2)
+    tests = ExampleScanner.scanners_in(:test2)
 
     tests.length.should == 2
     tests.all? { |test| test.kind_of?(Proc) }.should == true
