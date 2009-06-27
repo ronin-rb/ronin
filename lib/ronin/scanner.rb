@@ -109,10 +109,13 @@ module Ronin
           (scanners[name] ||= []) << block
 
           class_def("#{name}_scan") do |*arguments|
-            options = if arguments.first
+            options = case arguments.length
+            when 1
               arguments.first
-            else
+            when 0
               true
+            else
+              raise(ArgumentError,"wrong number of arguments (#{arguments.length} for 1)",caller)
             end
 
             scan(name => options)
