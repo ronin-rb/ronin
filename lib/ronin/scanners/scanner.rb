@@ -142,9 +142,10 @@ module Ronin
             end
 
             name = name.to_s
+            method_name = name.downcase.gsub(/[\s\._-]+/,'_')
 
             module_eval %{
-              def #{name}_scan(options=true,&block)
+              def #{method_name}_scan(options=true,&block)
                 results = scan(:#{name.dump} => options) do |category,result|
                   block.call(result) if block
                 end
