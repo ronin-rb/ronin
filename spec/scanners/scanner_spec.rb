@@ -61,7 +61,7 @@ describe Scanners::Scanner do
   end
 
   it "should scan each target and pass back results" do
-    results = {:test1 => [1], :test2 => [2, 4], :fail => []}
+    results = {:test1 => [1], :test2 => [2, 4]}
 
     @example_scanner.scan do |category,result|
       results.has_key?(category).should == true
