@@ -96,37 +96,45 @@ describe Scanners::Scanner do
     }.should raise_error(Scanners::UnknownCategory)
   end
 
-  it "should define a convenience method for only scanning a category" do
-    ExampleScanner.method_defined?(:test1_scan).should == true
-  end
+  describe "convenience methods" do
+    describe "category scan" do
+      it "should define the convenience method" do
+        ExampleScanner.method_defined?(:test1_scan).should == true
+      end
 
-  it "should return an Array when calling convenience methods" do
-    @example_scanner.test1_scan.should == [1]
-  end
+      it "should return an Array of results" do
+        @example_scanner.test1_scan.should == [1]
+      end
 
-  it "should pass back results from convenience methods" do
-    @example_scanner.test1_scan do |result|
-      result.should == 1
+      it "should pass back results if a block is given" do
+        @example_scanner.test1_scan do |result|
+          result.should == 1
+        end
+      end
+
+      it "should return an empty Array for failed scans" do
+        @example_scanner.fail_scan.should == []
+      end
     end
-  end
 
-  it "should return an empty Array for failed convenience scans" do
-    @example_scanner.fail_scan.should == []
-  end
+    describe "first result" do
+      it "should define the convenience method" do
+        @example_scanner.get_test2.should == 2
+      end
 
-  it "should define a convenience method for returning the first result" do
-    @example_scanner.get_test2.should == 2
-  end
+      it "should return nil when there is no first result" do
+        @example_scanner.get_fail.should be_nil
+      end
+    end
 
-  it "should return nil when there is no first result to return" do
-    @example_scanner.get_fail.should be_nil
-  end
+    describe "has results" do
+      it "should return true if there was a first result" do
+        @example_scanner.has_test1?.should == true
+      end
 
-  it "should define a convenience method for whether a scan has results" do
-    @example_scanner.has_test1?.should == true
-  end
-
-  it "should return false if a scan has no results" do
-    @example_scanner.has_fail?.should == false
+      it "should return false if a scan has no results" do
+        @example_scanner.has_fail?.should == false
+      end
+    end
   end
 end
