@@ -113,11 +113,12 @@ module Ronin
           #   end
           #
           def scanner(name,&block)
+            method_name = name.to_s.downcase.gsub(/[\s\._-]+/,'_')
             name = name.to_sym
 
             (scanners[name] ||= []) << block
 
-            class_def("first_#{name}") do |*arguments|
+            class_def("first_#{method_name}") do |*arguments|
               options = case arguments.length
                         when 1
                           arguments.first
@@ -137,12 +138,11 @@ module Ronin
               return first_result
             end
 
-            class_def("has_#{name}?") do |*arguments|
-              !(self.send("first_#{name}",*arguments).nil?)
+            class_def("has_#{method_name}?") do |*arguments|
+              !(self.send("first_#{method_name}",*arguments).nil?)
             end
 
             name = name.to_s
-            method_name = name.downcase.gsub(/[\s\._-]+/,'_')
 
             module_eval %{
               def #{method_name}_scan(options=true,&block)
