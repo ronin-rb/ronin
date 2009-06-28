@@ -119,6 +119,10 @@ describe Scanners::Scanner do
 
     describe "first result" do
       it "should define the convenience method" do
+        ExampleScanner.method_defined?(:get_test1).should == true
+      end
+
+      it "should define the convenience method" do
         @example_scanner.get_test2.should == 2
       end
 
@@ -128,6 +132,10 @@ describe Scanners::Scanner do
     end
 
     describe "has results" do
+      it "should define the convenience method" do
+        ExampleScanner.method_defined?(:has_test1?).should == true
+      end
+
       it "should return true if there was a first result" do
         @example_scanner.has_test1?.should == true
       end
