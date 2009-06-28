@@ -119,15 +119,15 @@ describe Scanners::Scanner do
 
     describe "first result" do
       it "should define the convenience method" do
-        ExampleScanner.method_defined?(:get_test1).should == true
+        ExampleScanner.method_defined?(:first_test1).should == true
       end
 
       it "should define the convenience method" do
-        @example_scanner.get_test2.should == 2
+        @example_scanner.first_test2.should == 2
       end
 
       it "should return nil when there is no first result" do
-        @example_scanner.get_fail.should be_nil
+        @example_scanner.first_fail.should be_nil
       end
     end
 

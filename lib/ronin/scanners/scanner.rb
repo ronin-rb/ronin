@@ -117,7 +117,7 @@ module Ronin
 
             (scanners[name] ||= []) << block
 
-            class_def("get_#{name}") do |*arguments|
+            class_def("first_#{name}") do |*arguments|
               options = case arguments.length
                         when 1
                           arguments.first
@@ -138,7 +138,7 @@ module Ronin
             end
 
             class_def("has_#{name}?") do |*arguments|
-              !(self.send("get_#{name}",*arguments).nil?)
+              !(self.send("first_#{name}",*arguments).nil?)
             end
 
             name = name.to_s
