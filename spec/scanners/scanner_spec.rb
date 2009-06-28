@@ -121,4 +121,12 @@ describe Scanners::Scanner do
   it "should return nil when there is no first result to return" do
     @example_scanner.get_fail.should be_nil
   end
+
+  it "should define a convenience method for whether a scan has results" do
+    @example_scanner.has_test1?.should == true
+  end
+
+  it "should return false if a scan has no results" do
+    @example_scanner.has_fail?.should == false
+  end
 end
