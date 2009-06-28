@@ -16,4 +16,7 @@ class ExampleScanner
     results.call(4)
   end
 
+  scanner(:fail) do |target,results|
+  end
+
 end

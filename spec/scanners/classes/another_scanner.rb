@@ -10,4 +10,7 @@ class AnotherScanner < ExampleScanner
     results.call(3)
   end
 
+  scanner(:fail) do |target,results|
+  end
+
 end
