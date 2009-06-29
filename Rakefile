@@ -13,7 +13,7 @@ Hoe.spec('ronin') do
     ['hoe', '>=2.0.0'],
     ['nokogiri', '>=1.2.0'],
     ['addressable', '=2.0.2'],
-    ['extlib', '>=0.9.13'],
+    ['extlib', '>=0.9.12'],
     ['data_objects', '>=0.9.12'],
     ['do_sqlite3', '>=0.9.12'],
     ['dm-core', '>=0.9.11'],
