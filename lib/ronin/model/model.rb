@@ -21,6 +21,8 @@
 #++
 #
 
+gem 'addressable', '2.0.2'
+
 require 'dm-core'
 require 'dm-types'
 require 'dm-validations'

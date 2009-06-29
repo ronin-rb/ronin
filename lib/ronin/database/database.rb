@@ -21,6 +21,8 @@
 #++
 #
 
+gem 'addressable', '2.0.2'
+
 require 'ronin/database/exceptions/invalid_config'
 require 'ronin/model'
 require 'ronin/arch'
