@@ -59,7 +59,7 @@ module Ronin
             Platform.load_overlays(@cache) if @cache
 
             args.each do |name|
-              Platform.uninstall(name) do |overlay|
+              Platform.uninstall(name) do
                 puts "Uninstalling Overlay #{name.dump} ..."
               end
             end
