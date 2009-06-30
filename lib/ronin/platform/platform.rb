@@ -151,7 +151,7 @@ module Ronin
         ObjectCache.clean(overlay.objects_dir)
       end
 
-      block.call if block
+      block.call() if block
       return nil
     end
 
