@@ -50,7 +50,7 @@ module Kernel
   def catch_all(verbose=true,&block)
     begin
       block.call if block
-    rescue SyntaxError, RuntimeError, StandardError => e
+    rescue Exception => e
       if verbose
         STDERR.puts "#{e.class}: #{e}"
         e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
