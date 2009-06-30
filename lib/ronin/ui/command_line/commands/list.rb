@@ -28,7 +28,7 @@ module Ronin
   module UI
     module CommandLine
       module Commands
-        class Ls < Command
+        class List < Command
 
           def defaults
             @cache = nil

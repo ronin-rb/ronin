@@ -9,8 +9,8 @@ bin/ronin-add
 bin/ronin-console
 bin/ronin-help
 bin/ronin-install
-bin/ronin-ls
-bin/ronin-rm
+bin/ronin-list
+bin/ronin-remove
 bin/ronin-uninstall
 bin/ronin-update
 lib/ronin.rb
@@ -158,9 +158,9 @@ lib/ronin/ui/command_line/options.rb
 lib/ronin/ui/command_line/commands/console.rb
 lib/ronin/ui/command_line/commands/add.rb
 lib/ronin/ui/command_line/commands/install.rb
-lib/ronin/ui/command_line/commands/ls.rb
+lib/ronin/ui/command_line/commands/list.rb
 lib/ronin/ui/command_line/commands/update.rb
-lib/ronin/ui/command_line/commands/rm.rb
+lib/ronin/ui/command_line/commands/remove.rb
 lib/ronin/ui/command_line/commands/uninstall.rb
 lib/ronin/ui/command_line/commands/help.rb
 lib/ronin/ui/command_line/command_line.rb

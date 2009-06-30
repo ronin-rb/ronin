@@ -7,6 +7,6 @@ unless $LOAD_PATH.include?(lib_dir)
   $LOAD_PATH << lib_dir
 end
 
-require 'ronin/ui/command_line/commands/ls'
+require 'ronin/ui/command_line/commands/list'
 
-Ronin::UI::CommandLine::Commands::LS.run(*ARGV)
+Ronin::UI::CommandLine::Commands::List.run(*ARGV)
