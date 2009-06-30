@@ -53,7 +53,7 @@ module Kernel
     rescue Exception => e
       if verbose
         STDERR.puts "#{e.class}: #{e}"
-        e.backtrace.each { |trace| STDERR.puts "\t#{trace}" }
+        e.backtrace[0,5].each { |trace| STDERR.puts "\t#{trace}" }
       end
 
       return nil
