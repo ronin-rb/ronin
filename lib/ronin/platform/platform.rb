@@ -148,7 +148,7 @@ module Ronin
     #
     def Platform.uninstall(name,&block)
       Platform.remove(name) do |overlay|
-        ObjectCache.expunge(overlay.objects_dir)
+        ObjectCache.clean(overlay.objects_dir)
       end
 
       block.call if block
