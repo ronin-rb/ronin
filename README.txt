@@ -95,7 +95,7 @@ of Ronin.
 
 * List installed Overlays:
 
-    $ ronin ls
+    $ ronin list
 
 * Update all installed Overlays:
 
