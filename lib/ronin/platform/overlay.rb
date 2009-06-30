@@ -215,7 +215,7 @@ module Ronin
       def uninstall(&block)
         @repository.delete
 
-        block.call(self) if block
+        block.call() if block
         return self
       end
 
