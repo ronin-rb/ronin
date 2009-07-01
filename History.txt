@@ -22,13 +22,12 @@
 * Added Ronin::UI::Console.backtrace_depth=.
 * Moved Ronin::HasLicense into Ronin::Model.
 * Renamed Kernel#try to Kernel#attempt.
-* Renamed Net.http_prop_path to Net.http_prop_patch.
 * Renamed Ronin.method_missing to Ronin#method_missing.
 * Renamed Ronin::UI::CommandLine::Commands::Ls to
   Ronin::UI::CommandLine::Commands::List.
 * Renamed Ronin::UI::CommandLine::Commands::Rm to
   Ronin::UI::CommandLine::Commands::Remove.
-* Refactored Ronin::OS.define.
+* Refactored OS.define.
 * Refactored Ronin::Shell to be a module.
 * Removed Ronin::Translators.
 * Fixed a bug where if an object failed to be cached,
