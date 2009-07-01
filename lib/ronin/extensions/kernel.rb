@@ -26,11 +26,11 @@ module Kernel
   # Calls the given _block_ and ignores any raised exceptions.
   # If an exception is raised, +nil+ will be returned.
   #
-  #   try do
+  #   attempt do
   #     Resolv.getaddress('might.not.exist.com')
   #   end
   #
-  def try(&block)
+  def attempt(&block)
     begin
       block.call if block
     rescue Exception

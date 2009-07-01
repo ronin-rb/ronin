@@ -3,7 +3,6 @@
 * Require Hoe >= 2.0.0
 * Require Parameters >= 0.1.6.
 * Dropped dependency for dm-serializer.
-* Added Kernel#try.
 * Added Kernel#catch_all.
 * Added Array#bytes.
 * Added Array#chars.
@@ -22,6 +21,7 @@
 * Added Ronin::UI::Console.backtrace_depth.
 * Added Ronin::UI::Console.backtrace_depth=.
 * Moved Ronin::HasLicense into Ronin::Model.
+* Renamed Kernel#try to Kernel#attempt.
 * Renamed Net.http_prop_path to Net.http_prop_patch.
 * Renamed Ronin.method_missing to Ronin#method_missing.
 * Renamed Ronin::UI::CommandLine::Commands::Ls to
