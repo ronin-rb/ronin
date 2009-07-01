@@ -147,7 +147,7 @@ module Ronin
     # has been uninstalled.
     #
     def Platform.uninstall(name,&block)
-      Platform.overlays.uninstall do
+      Platform.overlays.uninstall do |overlay|
         ObjectCache.clean(overlay.objects_dir)
       end
 
