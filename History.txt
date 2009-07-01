@@ -28,7 +28,7 @@
 * Renamed Ronin::UI::CommandLine::Commands::Rm to
   Ronin::UI::CommandLine::Commands::Remove.
 * Refactored OS.define.
-* Refactored Ronin::Shell to be a module.
+* Refactored Ronin::Shell as a module.
 * Removed Ronin::Translators.
 * Fixed a bug where if an object failed to be cached,
   it would prevent an Overlay from being added to the
@@ -38,7 +38,7 @@
 * Fixed a typo in Maintainer#inspect.
 * Updated the Overlay XSL file.
   * Cleaned up CSS.
-  * Removed jQuery expander plugin.
+  * Removed the jQuery expander plugin.
 
 === 0.2.3 / 2009-05-06
 
