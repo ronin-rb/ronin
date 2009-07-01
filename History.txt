@@ -1,3 +1,46 @@
+=== 0.2.4 / 2009-07-02
+
+* Require Hoe >= 2.0.0
+* Require Parameters >= 0.1.6.
+* Dropped dependency for dm-serializer.
+* Added Kernel#try.
+* Added Kernel#catch_all.
+* Added Array#bytes.
+* Added Array#chars.
+* Added Array#char_string.
+* Added File.unhexdump.
+* Added Ronin::Templates::Erb.
+* Added Ronin::Model::HasName.
+* Added Ronin::Model::HasDescription.
+* Added Ronin::Model::HasVersion.
+* Added Cacheable#prepared_for_cache?.
+* Added Cacheable#original_loaded?.
+* Added Network::HTTP.expand_options.
+* Added Net.http_request.
+* Added Sessions::HTTP#http_request.
+* Added Ronin::Scanners::Scanner.
+* Added Ronin::UI::Console.backtrace_depth.
+* Added Ronin::UI::Console.backtrace_depth=.
+* Moved Ronin::HasLicense into Ronin::Model.
+* Renamed Net.http_prop_path to Net.http_prop_patch.
+* Renamed Ronin.method_missing to Ronin#method_missing.
+* Renamed Ronin::UI::CommandLine::Commands::Ls to
+  Ronin::UI::CommandLine::Commands::List.
+* Renamed Ronin::UI::CommandLine::Commands::Rm to
+  Ronin::UI::CommandLine::Commands::Remove.
+* Refactored Ronin::OS.define.
+* Refactored Ronin::Shell to be a module.
+* Removed Ronin::Translators.
+* Fixed a bug where if an object failed to be cached,
+  it would prevent an Overlay from being added to the
+  OverlayCache.
+* Fixed a bug where Gem::LoadError was being rescued,
+  when only ::LoadError should be rescued.
+* Fixed a typo in Maintainer#inspect.
+* Updated the Overlay XSL file.
+  * Cleaned up CSS.
+  * Removed jQuery expander plugin.
+
 === 0.2.3 / 2009-05-06
 
 * Require extlib >= 0.9.12.
