@@ -67,6 +67,7 @@ of Ronin.
 
 == REQUIREMENTS:
 
+* {libxml2}[http://xmlsoft.org/]
 * {libsqlite3}[http://sqlite.org/]
 * {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.2.0
 * {DataMapper}[http://datamapper.org/]:
