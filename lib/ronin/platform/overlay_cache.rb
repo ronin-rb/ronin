@@ -271,7 +271,7 @@ module Ronin
       #   end
       #
       def uninstall(name,&block)
-        remove do |overlay|
+        remove(name) do |overlay|
           overlay.uninstall(&block)
         end
       end
