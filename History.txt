@@ -91,6 +91,7 @@
     Ronin::UI::CommandLine::Commands::Rm.
   * Moved Ronin::UI::CommandLine::ParamParser into the Parameters library.
 * Refactored specs to run on Ruby 1.9.1-p0.
+* Added more specs.
 * All specs now pass on Ruby 1.9.1-p0.
 
 === 0.2.2 / 2009-03-26
