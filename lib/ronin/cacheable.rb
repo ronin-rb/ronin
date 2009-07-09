@@ -105,7 +105,11 @@ module Ronin
         # Loads the first object with the matching _attributes_.
         #
         def self.load_first(attributes={})
-          self.first(attributes).load_original!
+          if (obj = self.first(attributes))
+            obj.load_original!
+          end
+
+          return obj
         end
       end
 
