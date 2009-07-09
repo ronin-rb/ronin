@@ -48,9 +48,7 @@ module Ronin
               end
 
               opts.on('-V','--version','Print version information and exit') do
-                success do
-                  puts "Ronin #{Ronin::VERSION}"
-                end
+                success { puts "Ronin #{Ronin::VERSION}" }
               end
             end
 
