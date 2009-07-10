@@ -22,7 +22,6 @@
 #
 
 require 'ronin/extensions/uri/query_params'
-require 'ronin/extensions/hash'
 
 require 'uri/http'
 
@@ -30,49 +29,6 @@ module URI
   class HTTP < Generic
 
     include QueryParams
-
-    #
-    # Explodes the HTTP URI query_params into a Hash of HTTP URIs using the
-    # given _options_, where each HTTP URI has the value of one of the
-    # query_params replaced with the specified _value_. If a _block_ is
-    # given, it will be passed each query_param and the resulting HTTP URI.
-    #
-    #   url = URI('http://search.dhgate.com/search.do?dkp=1&searchkey=yarn&catalog=')
-    #   url.explode_query_params("'")
-    #   # => {"searchkey"=>#<URI::HTTP:0xfdb915e82 URL:http://search.dhgate.com/search.do?searchkey='&catalog=&dkp=1>, 
-    #   # "catalog"=>#<URI::HTTP:0xfdb915e6e URL:http://search.dhgate.com/search.do?searchkey=yarn&catalog='&dkp=1>,
-    #   # "dkp"=>#<URI::HTTP:0xfdb915e5a URL:http://search.dhgate.com/search.do?searchkey=yarn&catalog=&dkp='>}
-    #
-    def explode_query_params(value,options={},&block)
-      urls = {}
-
-      @query_params.explode(value,options).each do |param,params|
-        new_url = clone
-        new_url.query_params = params
-
-        block.call(param,new_url) if block
-        urls[param] = new_url
-      end
-
-      return urls
-    end
-
-    #
-    # Explodes the HTTP URI's query_params using the given _options_ and
-    # builds a Hash of return-values generated from calling the specified
-    # _block_ with each exploded HTTP URI.
-    #
-    def test_query_params(value,options={},&block)
-      results = {}
-
-      explode_query_params(value,options) do |param,url|
-        result = block.call(param,url)
-
-        results[param] = result if result
-      end
-
-      return results
-    end
 
   end
 end
