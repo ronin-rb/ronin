@@ -92,6 +92,16 @@ module Ronin
       end
 
       #
+      # Reloads the extension with the specified _name_.
+      #
+      def reload(name)
+        self[name].teardown! if has_extension?(name)
+
+        self[name] = load_extension(name)
+        return true
+      end
+
+      #
       # Reloads the extensions within the extension cache.
       #
       def reload!
@@ -100,6 +110,8 @@ module Ronin
 
           self[name] = load_extension(name)
         end
+
+        return true
       end
 
     end
