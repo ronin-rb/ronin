@@ -280,6 +280,37 @@ module Ronin
 
       protected
 
+      def attr_reader(*names)
+        names.each do |name|
+          name = name.to_sym
+          ivar_name = "@#{name}"
+
+          instance_eval %{
+            def #{name}
+              instance_variable_get(#{ivar_name.dump})
+            end
+          }
+        end
+      end
+
+      def attr_writer(*names)
+        names.each do |name|
+          name = name.to_sym
+          ivar_name = "@#{name}"
+
+          instance_eval %{
+            def #{name}=(value)
+              instance_variable_set(#{ivar_name.dump},value)
+            end
+          }
+        end
+      end
+
+      def attr_accessor(*names)
+        attr_reader(*names)
+        attr_writer(*names)
+      end
+
       #
       # Adds the specified _block_ to the list of blocks to run in order
       # to properly setup the extension.

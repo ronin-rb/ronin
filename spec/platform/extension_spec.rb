@@ -5,6 +5,9 @@ require 'spec_helper'
 describe Platform::Extension do
   before(:each) do
     @ext = Platform::Extension.new('test') do
+      attr_reader :var
+      attr_writer :var
+
       setup do
         @var = :setup
       end
@@ -57,6 +60,14 @@ describe Platform::Extension do
   it "should be able to be ran" do
     @ext.run do |ext|
       ext.run_method.should == :running
+    end
+  end
+
+  it "should allow the definition of reader and writer methods" do
+    @ext.run do |ext|
+      ext.var.should == :setup
+      ext.var = :random
+      ext.var.should == :random
     end
   end
 end
