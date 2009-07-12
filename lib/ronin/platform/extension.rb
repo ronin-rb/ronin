@@ -280,6 +280,15 @@ module Ronin
 
       protected
 
+      #
+      # Defines instance methods for the specified _names_,
+      # which will return the instance variable with the similar _name_.
+      #
+      #   attr_reader :var1, :var2
+      #
+      #   self.var1
+      #   # => nil
+      #
       def attr_reader(*names)
         names.each do |name|
           name = name.to_sym
@@ -293,6 +302,16 @@ module Ronin
         end
       end
 
+      #
+      # Defines instance methods for the specified _names_,
+      # which will set the instance variable with the similar _name_
+      # to a specified _value_.
+      #
+      #   attr_writer :var1, :var2
+      #   
+      #   self.var1 = :foo
+      #   self.var2 = :bar
+      #
       def attr_writer(*names)
         names.each do |name|
           name = name.to_sym
@@ -306,6 +325,16 @@ module Ronin
         end
       end
 
+      #
+      # Defines attr_reader and attr_writer methods for the specified
+      # _names_.
+      #
+      #   attr_accessor :var1, :var2
+      #
+      #   self.var1 = :foo
+      #   self.var1
+      #   # => :foo
+      #
       def attr_accessor(*names)
         attr_reader(*names)
         attr_writer(*names)
