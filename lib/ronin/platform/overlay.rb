@@ -164,7 +164,7 @@ module Ronin
       end
 
       #
-      # Activates the overlay by adding the lib_dirs to the
+      # Activates the overlay by adding all of the lib_dirs to the
       # <tt>$LOAD_PATH</tt> global variable.
       #
       def activate!
