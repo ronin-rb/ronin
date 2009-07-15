@@ -24,6 +24,12 @@ describe Platform::OverlayCache do
     @cache.get('test1').name.should == 'test1'
   end
 
+  it "should select overlays with specific attributes" do
+    test1 = @cache.get('test1')
+
+    @cache.with { |overlay| overlay.name == 'test1' }.should == [test1]
+  end
+
   it "should raise an OverlayNotFound exception when requesting missing overlays" do
     lambda {
       @cache.get('nothing')
