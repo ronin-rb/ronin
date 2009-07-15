@@ -159,15 +159,7 @@ module Ronin
     # Returns the names of all extensions within the overlay cache.
     #
     def Platform.extension_names
-      names = []
-
-      Platform.overlays.each_overlay do |overlay|
-        overlay.extensions.each do |name|
-          names << name unless names.include?(name)
-        end
-      end
-
-      return names
+      Platform.overlays.extensions
     end
 
     #
@@ -175,11 +167,7 @@ module Ronin
     # _name_, returns +false+ otherwise.
     #
     def Platform.has_extension?(name)
-      Platform.overlays.each_overlay do |overlay|
-        return true if overlay.has_extension?(name)
-      end
-
-      return false
+      Platform.overlays.has_extension?(name)
     end
 
     #
