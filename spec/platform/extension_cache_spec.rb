@@ -6,7 +6,9 @@ require 'spec_helper'
 describe Platform::ExtensionCache do
   before(:all) do
     Platform.load_overlays(overlay_cache_path)
+  end
 
+  before(:each) do
     @cache = Platform::ExtensionCache.new
   end
 
@@ -15,6 +17,18 @@ describe Platform::ExtensionCache do
 
     ext.should_not be_nil
     ext.name.should == 'test'
+  end
+
+  it "should determine if an extension was loaded" do
+    @cache['test']
+    @cache.has?('test').should == true
+  end
+
+  it "should select extensions with specific attributes" do
+    test = @cache['test']
+    random = @cache['random']
+
+    @cache.with { |ext| ext.name == 'test' }.should == [test]
   end
 
   it "should provide transparent caching of extensions" do
