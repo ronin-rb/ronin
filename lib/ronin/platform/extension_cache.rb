@@ -60,7 +60,7 @@ module Ronin
       # Selects the extensions within the cache that match the specified
       # _block_.
       #
-      def extensions_with(&block)
+      def with(&block)
         values.select(&block)
       end
 
@@ -68,7 +68,7 @@ module Ronin
       # Returns +true+ if the cache contains the extension with the
       # specified _name_, returns +false+ otherwise.
       #
-      def has_extension?(name)
+      def has?(name)
         has_key?(name.to_s)
       end
 
@@ -97,7 +97,7 @@ module Ronin
       #
       def reload!(name=nil)
         reloader = lambda { |ext_name|
-          self[ext_name].teardown! if has_extension?(ext_name)
+          self[ext_name].teardown! if has?(ext_name)
 
           self[ext_name] = load_extension(ext_name)
         }
