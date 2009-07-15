@@ -92,23 +92,20 @@ module Ronin
       end
 
       #
-      # Reloads the extension with the specified _name_.
+      # Reloads the extensions within the extension cache. If _name_ is
+      # given, the extension with the specified name will be reloaded.
       #
-      def reload(name)
-        self[name].teardown! if has_extension?(name)
+      def reload!(name=nil)
+        reloader = lambda { |ext_name|
+          self[ext_name].teardown! if has_extension?(ext_name)
 
-        self[name] = load_extension(name)
-        return true
-      end
+          self[ext_name] = load_extension(ext_name)
+        }
 
-      #
-      # Reloads the extensions within the extension cache.
-      #
-      def reload!
-        each do |name,ext|
-          ext.teardown!
-
-          self[name] = load_extension(name)
+        if name
+          reloader.call(name)
+        else
+          each_key(&reloader)
         end
 
         return true
