@@ -19,7 +19,7 @@ Hoe.spec('ronin') do
     ['dm-types', '>=0.10.0'],
     ['dm-validations', '>=0.10.0'],
     ['dm-predefined', '>=0.1.2'],
-    ['chars', '>=0.1.1'],
+    ['chars', '>=0.1.2'],
     ['parameters', '>=0.1.7'],
     ['contextify', '>=0.1.2'],
     ['reverse-require', '>=0.3.1'],

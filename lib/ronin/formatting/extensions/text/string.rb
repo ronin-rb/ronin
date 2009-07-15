@@ -31,11 +31,11 @@ class String
   #
   # _options_ may include the following keys:
   # <tt>:included</tt>:: The set of characters that will be formated,
-  #                      defaults to <tt>Chars.all</tt>.
+  #                      defaults to <tt>Chars.ascii</tt>.
   # <tt>:excluded</tt>:: The characters not to format.
   #
   def format_bytes(options={},&block)
-    included = (options[:included] || Chars.all)
+    included = (options[:included] || Chars.ascii)
     excluded = (options[:excluded] || [])
 
     targeted = included - excluded
@@ -58,7 +58,7 @@ class String
   #
   # _options_ may include the following keys:
   # <tt>:included</tt>:: The set of characters that will be formated,
-  #                      defaults to <tt>Chars.all</tt>.
+  #                      defaults to <tt>Chars.ascii</tt>.
   # <tt>:excluded</tt>:: The characters not to format.
   #
   def format_chars(options={},&block)
