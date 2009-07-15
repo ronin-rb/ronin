@@ -137,8 +137,7 @@ module Ronin
 
         # configure the IRB context
         irb.context.main.instance_eval do
-          require 'ronin/environment'
-          require 'ronin/platform'
+          require 'ronin'
 
           require 'irb/completion' if Ronin::UI::Console.completion
 
