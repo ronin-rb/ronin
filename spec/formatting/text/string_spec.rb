@@ -62,13 +62,13 @@ describe String do
       }.should == 'HeLLo'
     end
 
-    it "should format ranges of bytes in a String" do
+    it "should format ranges of chars in a String" do
       @string.format_chars(:included => ('h'..'l')) { |c|
         c.upcase
       }.should == 'HeLLo'
     end
 
-    it "should not format ranges of bytes in a String" do
+    it "should not format ranges of chars in a String" do
       @string.format_chars(:excluded => ('h'..'l')) { |c|
         c.upcase
       }.should == 'hEllO'
@@ -118,13 +118,13 @@ describe String do
       }.should == 'HeLLo'
     end
 
-    it "should format ranges of bytes in a String" do
+    it "should format ranges of chars in a String" do
       @string.format_bytes(:included => ('h'..'l')) { |b|
         b - 32
       }.should == 'HeLLo'
     end
 
-    it "should not format ranges of bytes in a String" do
+    it "should not format ranges of chars in a String" do
       @string.format_bytes(:excluded => ('h'..'l')) { |b|
         b - 32
       }.should == 'hEllO'
