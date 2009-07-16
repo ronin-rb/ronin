@@ -38,11 +38,13 @@ class String
     included = (options[:included] || (0x00..0xff))
     excluded = (options[:excluded] || [])
 
-    targeted = included - excluded
     formatted = ''
 
     self.each_byte do |b|
-      if targeted.include_byte?(b)
+      c = b.chr
+
+      if ((included.include?(b) || included.include?(c)) \
+          && !(excluded.include?(b) || excluded.include?(c)))
         formatted << block.call(b)
       else
         formatted << b
