@@ -34,10 +34,13 @@ module Ronin
     # Load the overlay cache from the given _path_. If a _block_ is
     # given it will be passed the current overlay cache.
     #
+    #   Overlay.load_overlays
+    #   # => #<Ronin::Platform::OverlayCache: ...>
+    #
     #   Overlay.load_overlays('/custom/overlays/cache.yaml')
     #   # => #<Ronin::Platform::OverlayCache: ...>
     #
-    def Platform.load_overlays(path)
+    def Platform.load_overlays(path=OverlayCache::CACHE_FILE)
       @@ronin_overlay_cache = OverlayCache.new(path)
     end
 
