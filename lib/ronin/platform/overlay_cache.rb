@@ -274,6 +274,8 @@ module Ronin
         remove(name) do |overlay|
           overlay.uninstall(&block)
         end
+
+        return nil
       end
 
       #
