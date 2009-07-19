@@ -81,10 +81,11 @@ module Ronin
 
       overlay = Overlay.new(path,media,uri)
 
-      Platform.overlays.add(overlay) do
+      Platform.overlays.add(overlay) do |overlay|
         ObjectCache.cache(overlay.objects_dir)
       end
 
+      block.call(overlay) if block
       return overlay
     end
 
@@ -114,7 +115,8 @@ module Ronin
         return Platform.add(
           :path => repo.path,
           :media => repo.media_name,
-          :uri => uri
+          :uri => uri,
+          &block
         )
       end
     end
