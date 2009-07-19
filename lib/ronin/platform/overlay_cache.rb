@@ -208,8 +208,8 @@ module Ronin
         self[overlay.name.to_s] = overlay
         dirty!
 
-        block.call(self) if block
-        return self
+        block.call(overlay) if block
+        return overlay
       end
 
       #
@@ -255,7 +255,7 @@ module Ronin
         dirty!
 
         block.call(overlay) if block
-        return self
+        return overlay
       end
 
       #
