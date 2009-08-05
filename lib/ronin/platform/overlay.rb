@@ -94,7 +94,8 @@ module Ronin
 
       #
       # Creates a new Overlay object with the specified _path_, _media_
-      # and _uri_.
+      # and _uri_. If a _block_ is given it will be passed the newly
+      # created Overlay object.
       #
       def initialize(path,media=nil,uri=nil,&block)
         @path = File.expand_path(path)
@@ -104,7 +105,9 @@ module Ronin
         @uri = uri
         @repository = Repository.new(@path,Media.types[media])
 
-        initialize_metadata(&block)
+        initialize_metadata()
+
+        block.call(self) if block
       end
 
       #
@@ -201,9 +204,10 @@ module Ronin
       #
       def update(&block)
         if @repository.update(@uri)
-          initialize_metadata(&block)
+          initialize_metadata()
         end
 
+        block.call(self) if block
         return self
       end
 
@@ -233,7 +237,7 @@ module Ronin
       # overlay +path+. If a _block_ is given, it will be passed the
       # overlay after the metadata has been loaded.
       #
-      def initialize_metadata(&block)
+      def initialize_metadata()
         metadata_path = File.join(@path,METADATA_FILE)
 
         # set to default values
@@ -288,7 +292,6 @@ module Ronin
           end
         end
 
-        block.call(self) if block
         return self
       end
 
