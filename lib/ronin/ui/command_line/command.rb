@@ -32,6 +32,7 @@ module Ronin
     module CommandLine
       class Command < Thor
 
+        include Thor::Actions
         include Diagnostics
 
         default_task :default
