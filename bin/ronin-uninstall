@@ -9,4 +9,4 @@ end
 
 require 'ronin/ui/command_line/commands/uninstall'
 
-Ronin::UI::CommandLine::Commands::Uninstall.run(*ARGV)
+Ronin::UI::CommandLine::Commands::Uninstall.start
