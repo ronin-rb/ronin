@@ -30,34 +30,17 @@ module Ronin
       module Commands
         class Help < Command
 
-          def define_options(opts)
-            opts.usage = '[COMMAND]'
+          desc "help [COMMAND]", "Displays the list of available commands or prints information on a specific command"
 
-            opts.arguments(
-              'COMMAND' => 'The command to view'
-            )
-
-            opts.summary %{
-              View a list of supported commands or information on a
-              specific command
-            }
-          end
-
-          def arguments(*args)
-            if args.length > 1
-              fail('only one command maybe specified')
-            end
-
-            topic = args.first
-
-            if topic
+          def default(command=nil)
+            if command
               begin
-                CommandLine.get_command(topic).run('--help')
+                CommandLine.get_command(command).start(['--help'])
               rescue UnknownCommand
-                fail("unknown sub-command #{topic.dump}")
+                say "unknown command #{command.dump}", :red
               end
             else
-              puts 'Available sub-commands:'
+              puts 'Available commands:'
 
               CommandLine.commands.sort.each do |name|
                 puts "  #{name}"
