@@ -41,13 +41,13 @@ module Ronin
 
             UI::Verbose.enable! if options.verbose?
 
-            if args.empty?
+            unless name
               # list all overlays by name
               Platform.overlays.each_overlay do |overlay|
                 puts "  #{overlay}"
               end
 
-              return
+              exit
             end
 
             # list a specific overlay
