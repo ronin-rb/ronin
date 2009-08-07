@@ -30,73 +30,43 @@ module Ronin
       module Commands
         class Add < Command
 
-          def defaults
-            @cache = nil
-            @media = nil
-            @uri = nil
-          end
+          desc "add PATH", "Add a local overlay to the Overlay cache"
+          method_option :cache, :type => :string, :aliases => '-C'
+          method_option :media, :type => :string, :aliases => '-m'
+          method_option :local, :type => :boolean, :aliases => '-L'
+          method_option :rsync, :type => :boolean
+          method_option :svn, :type => :boolean
+          method_option :hg, :type => :boolean
+          method_option :git, :type => :boolean
+          method_option :uri, :type => :string, :aliaes => '-U'
 
-          def define_options(opts)
-            opts.usage = 'PATH [options]'
-
-            opts.options do
-              opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
-                @cache = dir
-              end
-
-              opts.on('-m','--media MEDIA','Spedify the media-type of the overlay') do |media|
-                @media = media.to_sym
-              end
-
-              opts.on('-L','--local','Similiar to: -m local') do
-                @media = nil
-              end
-
-              opts.on('--rsync','Alias for -m rsync') do
-                @media = :rsync
-              end
-
-              opts.on('--svn','Alias for -m svn') do
-                @media = :svn
-              end
-
-              opts.on('--hg','Alias for -m hg') do
-                @media = :hg
-              end
-
-              opts.on('--git','Alias for -m git') do
-                @media = :git
-              end
-
-              opts.on('-U','--uri URI','Specify the source URI of the overlay') do |uri|
-                @uri = uri
-              end
+          def default(path)
+            if options[:cache]
+              Platform.load_overlays(options[:cache])
             end
 
-            opts.arguments(
-              'PATH' => 'Add the overlay located at the specified PATH'
-            )
+            overlay_options = {:path => path}
 
-            opts.summary %{
-              Add a local overlay located at the specified PATH to the
-              Overlay cache
-            }
-          end
+            overlay_options[:media] = if options[:media]
+                                        options[:media].to_sym
+                                      elsif options.local?
+                                        nil
+                                      elsif options.rsync?
+                                        :rsync
+                                      elsif options.svn?
+                                        :svn
+                                      elsif options.hg?
+                                        :hg
+                                      elsif options.git?
+                                        :git
+                                      end
 
-          def arguments(*args)
-            unless args.length == 1
-              fail('only one overlay path maybe specified')
+            if options[:uri]
+              overlay_options[:uri] = options[:uri]
             end
-
-            Platform.load_overlays(@cache) if @cache
-
-            overlay_options = {:path => args.first}
-
-            overlay_options[:media] = @media if @media
-            overlay_options[:uri] = @uri if @uri
 
             Platform.add(overlay_options) do |overlay|
-              puts "Overlay #{overlay.name.dump} added."
+              say "Overlay #{overlay.name.dump} added."
             end
           end
 
