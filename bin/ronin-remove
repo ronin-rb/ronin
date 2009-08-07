@@ -9,4 +9,4 @@ end
 
 require 'ronin/ui/command_line/commands/remove'
 
-Ronin::UI::CommandLine::Commands::Remove.run(*ARGV)
+Ronin::UI::CommandLine::Commands::Remove.start
