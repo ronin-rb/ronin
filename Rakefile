@@ -24,7 +24,7 @@ Hoe.spec('ronin') do
     ['contextify', '>=0.1.2'],
     ['reverse-require', '>=0.3.1'],
     ['repertoire', '>=0.2.1'],
-    ['thor']
+    ['thor', '>=0.11.5']
   ]
 end
 
