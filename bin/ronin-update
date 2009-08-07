@@ -9,4 +9,4 @@ end
 
 require 'ronin/ui/command_line/commands/update'
 
-Ronin::UI::CommandLine::Commands::Update.run(*ARGV)
+Ronin::UI::CommandLine::Commands::Update.start
