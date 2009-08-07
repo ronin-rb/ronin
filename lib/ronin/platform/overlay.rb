@@ -77,6 +77,9 @@ module Ronin
       # Website URI for the overlay
       attr_reader :website
 
+      # Ruby Gems required by the overlay
+      attr_reader :gems
+
       # Maintainers of the overlay
       attr_reader :maintainers
 
@@ -248,6 +251,8 @@ module Ronin
         @source_view = @source
         @website = @source_view
 
+        @gems = []
+
         @maintainers = []
         @description = nil
 
@@ -273,6 +278,10 @@ module Ronin
 
           if (website_tag = @website = overlay.at('website'))
             @website = website_tag.inner_text.strip
+          end
+
+          overlay.search('dependencies/gem').each do |gem|
+            @gems << gem.inner_text.strip
           end
 
           overlay.search('maintainers/maintainer').each do |maintainer|
