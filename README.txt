@@ -83,6 +83,7 @@ of Ronin.
 * {contextify}[http://contextify.rubyforge.org/] >= 0.1.2
 * {reverse-require}[http://reverserequire.rubyforge.org/] >= 0.3.1
 * {repertoire}[http://repertoire.rubyforge.org/] >= 0.2.1
+* thor
 
 == INSTALL:
 
