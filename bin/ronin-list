@@ -9,4 +9,4 @@ end
 
 require 'ronin/ui/command_line/commands/list'
 
-Ronin::UI::CommandLine::Commands::List.run(*ARGV)
+Ronin::UI::CommandLine::Commands::List.start
