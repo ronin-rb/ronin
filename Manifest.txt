@@ -252,5 +252,7 @@ spec/platform/extension_cache_spec.rb
 spec/platform/platform_spec.rb
 spec/platform/ronin_spec.rb
 spec/ui/verbose_spec.rb
+spec/ui/command_line/classes/test_command.rb
+spec/ui/command_line/command_spec.rb
 spec/ronin_spec.rb
 static/ronin/platform/overlay.xsl
