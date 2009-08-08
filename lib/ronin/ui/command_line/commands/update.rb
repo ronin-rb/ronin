@@ -30,45 +30,23 @@ module Ronin
       module Commands
         class Update < Command
 
-          def defaults
-            @cache = nil
-            @verbose = false
-          end
+          desc "update [NAME]", "Update all Overlays or just a specified Overlay"
+          method_option :cache, :type => :string, :aliases => '-C'
 
-          def define_options(opts)
-            opts.usage = '[NAME ...] [options]'
-
-            opts.options do
-              opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
-                @cache = dir
-              end
-
-              opts.on('-v','--verbose','Enable verbose output') do
-                @verbose = true
-              end
+          def default(name=nil)
+            if options[:cache]
+              Platform.load_overlays(options[:cache])
             end
 
-            opts.arguments(
-              'NAME' => 'The overlay to update'
-            )
-
-            opts.summary('Updates all or the specified repositories')
-          end
-
-          def arguments(*args)
-            Platform.load_overlays(@cache) if @cache
-
             update = lambda { |overlay|
-              puts "Updating Overlay #{overlay.name.dump} ..."
+              say "Updating Overlay #{overlay.name.dump} ..."
               overlay.update
             }
 
-            if args.empty?
-              Platform.overlays.each_overlay(&update)
+            if name
+              update.call(Platform.overlays.update(name))
             else
-              args.each do |name|
-                update.call(Platform.overlays.update(name))
-              end
+              Platform.overlays.each_overlay(&update)
             end
           end
 

@@ -93,8 +93,8 @@ module Ronin
 
         command = Commands.const_get(class_name)
 
-        unless command.respond_to?(:run)
-          raise(UnknownCommand,"command #{name.dump} must provide a 'run' method",caller)
+        unless command.respond_to?(:start)
+          raise(UnknownCommand,"command #{name.dump} must provide a 'start' method",caller)
         end
 
         return command
@@ -105,17 +105,21 @@ module Ronin
       # first argument is a sub-command name, the command-line utility will
       # attempt to find and execute the Command with the same name.
       #
-      def CommandLine.run(*argv)
+      def CommandLine.start(argv=ARGV)
         if (argv.empty? || argv.first[0..0]=='-')
           name = DEFAULT_COMMAND
-          argv = ARGV
         else
           name = argv.first
           argv = argv[1..-1]
+
+          if name.include?(':')
+            name, method_name = name.split(':',2)
+            argv = [method_name] + argv
+          end
         end
 
         begin
-          CommandLine.get_command(name).run(*argv)
+          CommandLine.get_command(name).start(argv)
         rescue UnknownCommand => e
           STDERR.puts e
           exit -1

@@ -22,7 +22,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/platform/overlay'
+require 'ronin/platform'
 
 module Ronin
   module UI
@@ -30,89 +30,67 @@ module Ronin
       module Commands
         class List < Command
 
-          def defaults
-            @cache = nil
-            @verbose = false
-          end
+          desc "list [NAME]", "List all Overlays or a specific one"
+          method_option :cache, :type => :string, :aliases => '-C'
+          method_option :verbose, :type => :boolean, :aliaes => '-v'
 
-          def define_options(opts)
-            opts.usage = '[NAME ...] [options]'
-
-            opts.options do
-              opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
-                @cache = dir
-              end
-
-              opts.on('-v','--verbose','Enable verbose output') do
-                @verbose = true
-              end
+          def default(name=nil)
+            if options[:cache]
+              Platform.load_overlays(options[:cache])
             end
 
-            opts.arguments(
-              'NAME' => 'Overlay to display'
-            )
+            UI::Verbose.enable! if options.verbose?
 
-            opts.summary %{
-              Display all or the specified repositories within the Overlay
-              cache
-            }
-          end
-
-          def arguments(*args)
-            Platform.load_overlays(@cache) if @cache
-
-            if args.empty?
+            unless name
               # list all overlays by name
               Platform.overlays.each_overlay do |overlay|
                 puts "  #{overlay}"
               end
 
-              return
+              exit
             end
 
-            # list specified overlays
-            args.each do |name|
-              overlay = Platform.overlays.get(name)
+            # list a specific overlay
+            overlay = Platform.overlays.get(name)
 
-              puts "[ #{overlay.name} ]\n\n"
+            puts "[ #{overlay.name} ]\n\n"
 
-              puts "  Path: #{overlay.path}"
-              puts "  Media: #{overlay.media}" if overlay.media
-              puts "  URI: #{overlay.uri}" if overlay.uri
+            puts "  Path: #{overlay.path}"
+            puts "  Media: #{overlay.media}" if overlay.media
+            puts "  URI: #{overlay.uri}" if overlay.uri
 
-              if @verbose
+            if UI::Verbose.enabled?
+              putc "\n"
+
+              if overlay.title
+                puts "  Title: #{overlay.title}"
+              end
+
+              if overlay.source
+                puts "  Source URI: #{overlay.source}"
+              end
+
+              if overlay.source_view
+                puts "  Source View: #{overlay.source_view}"
+              end
+
+              if overlay.website
+                puts "  Website: #{overlay.website}"
+              end
+
+              unless overlay.extensions.empty?
+                puts "  Extensions:\n\n"
+                overlay.extensions.each { |ext| puts "    #{ext}" }
                 putc "\n"
+              end
 
-                if overlay.title
-                  puts "  Title: #{overlay.title}"
-                end
-
-                if overlay.source
-                  puts "  Source URI: #{overlay.source}"
-                end
-
-                if overlay.source_view
-                  puts "  Source View: #{overlay.source_view}"
-                end
-
-                if overlay.website
-                  puts "  Website: #{overlay.website}"
-                end
-
-                unless overlay.extensions.empty?
-                  puts "  Extensions:\n\n"
-                  overlay.extensions.each { |ext| puts "    #{ext}" }
-                  putc "\n"
-                end
-
-                if overlay.description
-                  puts "  Description:\n\n    #{overlay.description}\n\n"
-                else
-                  putc "\n"
-                end
+              if overlay.description
+                puts "  Description:\n\n    #{overlay.description}\n\n"
               else
                 putc "\n"
               end
+            else
+              putc "\n"
             end
           end
 

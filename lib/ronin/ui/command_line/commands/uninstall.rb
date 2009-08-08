@@ -30,38 +30,16 @@ module Ronin
       module Commands
         class Uninstall < Command
 
-          def defaults
-            @cache = nil
-            @verbose = false
-          end
+          desc "uninstall NAME", "Uninstall the specified Overlay"
+          method_option :cache, :type => :string, :aliases => '-C'
 
-          def define_options(opts)
-            opts.usage = 'NAME [NAME ...] [options]'
-
-            opts.options do
-              opts.on('-C','--cache DIR','Specify an alternate overlay cache') do |dir|
-                @cache = dir
-              end
-
-              opts.on('-v','--verbose','Enable verbose output') do
-                @verbose = true
-              end
+          def default(name)
+            if options[:cache]
+              Platform.load_overlays(options[:cache])
             end
 
-            opts.arguments(
-              'NAME' => 'The overlay to uninstall'
-            )
-
-            opts.summary('Uninstall the specified repositories')
-          end
-
-          def arguments(*args)
-            Platform.load_overlays(@cache) if @cache
-
-            args.each do |name|
-              Platform.uninstall(name) do
-                puts "Uninstalling Overlay #{name.dump} ..."
-              end
+            Platform.uninstall(name) do
+              say "Uninstalling Overlay #{name.dump} ..."
             end
           end
 

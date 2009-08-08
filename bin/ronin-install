@@ -9,4 +9,4 @@ end
 
 require 'ronin/ui/command_line/commands/install'
 
-Ronin::UI::CommandLine::Commands::Install.run(*ARGV)
+Ronin::UI::CommandLine::Commands::Install.start

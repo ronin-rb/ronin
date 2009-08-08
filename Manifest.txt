@@ -153,7 +153,6 @@ lib/ronin/ui/command_line.rb
 lib/ronin/ui/command_line/exceptions.rb
 lib/ronin/ui/command_line/exceptions/unknown_command.rb
 lib/ronin/ui/command_line/command.rb
-lib/ronin/ui/command_line/options.rb
 lib/ronin/ui/command_line/commands/console.rb
 lib/ronin/ui/command_line/commands/add.rb
 lib/ronin/ui/command_line/commands/install.rb
@@ -253,5 +252,7 @@ spec/platform/extension_cache_spec.rb
 spec/platform/platform_spec.rb
 spec/platform/ronin_spec.rb
 spec/ui/verbose_spec.rb
+spec/ui/command_line/classes/test_command.rb
+spec/ui/command_line/command_spec.rb
 spec/ronin_spec.rb
 static/ronin/platform/overlay.xsl

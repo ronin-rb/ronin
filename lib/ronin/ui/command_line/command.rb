@@ -21,124 +21,65 @@
 #++
 #
 
-require 'ronin/ui/command_line/options'
+require 'ronin/ui/diagnostics'
+require 'ronin/version'
+
+require 'thor'
+require 'extlib'
 
 module Ronin
   module UI
     module CommandLine
-      class Command
+      class Command < Thor
 
-        # The name of the command
-        attr_reader :name
+        include Thor::Actions
+        include Diagnostics
 
-        # The options for the command
-        attr_reader :options
+        default_task :default
+        map '-h' => :help
+        map '-V' => :version
+
+        desc "command [ARGS...]", "default task to run"
 
         #
-        # Creates a new Command object.
+        # Default method to call after the options have been parsed.
         #
-        def initialize(name,&block)
-          @name = name.to_s
-
-          defaults()
-
-          Options.new(@name) do |opts|
-            define_options(opts)
-
-            @options = opts
-          end
-
-          block.call(self) if block
+        def default(*arguments)
         end
 
+        desc "version", "displays the version"
+
         #
-        # Creates a new command object and runs it with the given _args_.
+        # Prints the version information and exists.
         #
-        def self.run(*args)
-          name = File.basename($0)
-          name.gsub!(/^ronin-/,'')
-
-          cmd = self.new(name)
-
-          begin
-            cmd.arguments(*(cmd.options.parse(args)))
-          rescue OptionParser::MissingArgument,
-                 OptionParser::InvalidOption => e
-            STDERR.puts e
-            exit -1
-          end
-
-          return true
+        def version
+          puts "Ronin #{Ronin::VERSION}"
+          exit
         end
 
-        #
-        # Prints the help information for the command.
-        #
-        def self.help
-          self.new.help
-        end
+        desc "help", "displays the help for the command"
 
         #
-        # Prints the help information for the command.
+        # Prints the help information for the command and exists.
         #
         def help
-          @options.help
-          return self
-        end
-
-        #
-        # Returns the String form of the command.
-        #
-        def to_s
-          @name.to_s
+          self.class.help(shell, :short => false, :ident => 2, :namespace => false)
         end
 
         protected
 
         #
-        # Prints the specified error _message_.
+        # Returns the name of the command.
         #
-        def error(message)
-          STDERR.puts "ronin: #{@name}: #{message}"
-          return false
+        def name
+          self.class.name.split('::').last.snake_case
         end
 
         #
-        # Calls the specified _block_, then exists with the status code of 0.
+        # If the task method cannot be found, default to calling run.
         #
-        def success(&block)
-          block.call
-          exit 0
-        end
-
-        #
-        # Prints the given error _message_ and exits unseccessfully from the
-        # command-line utility. If a _block_ is given, it will be called before
-        # any error _message_ are printed.
-        #
-        def fail(message,&block)
-          block.call() if block
-
-          error(message)
-          exit -1
-        end
-
-        #
-        # Setup the command default values.
-        #
-        def defaults
-        end
-
-        #
-        # Define the command-line options for the command.
-        #
-        def define_options(opts)
-        end
-
-        #
-        # Processes the additional arguments specified by _args_.
-        #
-        def arguments(*args)
+        def method_missing(name,*arguments)
+          default(*arguments)
         end
 
       end

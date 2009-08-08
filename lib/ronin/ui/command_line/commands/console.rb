@@ -32,33 +32,24 @@ module Ronin
       module Commands
         class Console < Command
 
-          def define_options(opts)
-            opts.usage = '<command> [options]'
-            opts.options do
-              opts.on('-D','--database URI','The URI for the Database') do |uri|
-                Database.config = uri.to_s
-              end
+          desc "console", "start the Ronin Console"
+          method_option :database, :type => :string, :aliases => '-D'
+          method_option :require, :type => :array, :aliases => '-r'
+          method_option :verbose, :type => :boolean, :aliases => '-v'
 
-              opts.on('-r','--require LIB','Require the specified library or path') do |lib|
-                UI::Console.auto_load << lib.to_s
-              end
+          def default
+            UI::Verbose.enable! if options.verbose?
 
-              opts.on('-v','--verbose','Enables verbose output') do
-                UI::Verbose.enable!
-              end
-
-              opts.on('-V','--version','Print version information and exit') do
-                success { puts "Ronin #{Ronin::VERSION}" }
+            if options[:require]
+              options[:require].each do |path|
+                UI::Console.auto_load << path
               end
             end
 
-            opts.summary %{
-              Ronin is a Ruby development platform designed for information
-              security and data exploration tasks.
-            }
-          end
+            if options[:database]
+              Database.config = options[:database]
+            end
 
-          def arguments(*args)
             UI::Console.start
           end
 
