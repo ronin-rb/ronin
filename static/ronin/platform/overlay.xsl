@@ -5,7 +5,7 @@
   <xsl:template match="/ronin-overlay">
     <html>
       <head>
-        <title>Ronin Overlay :: <xsl:value-of select="/ronin-overlay/title/." /></title>
+        <title>Ronin Overlay :: <xsl:value-of select="title/." /></title>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
         <style type="text/css">
           body {
