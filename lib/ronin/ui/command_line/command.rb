@@ -63,7 +63,7 @@ module Ronin
         # Prints the help information for the command and exists.
         #
         def help
-          self.class.help(shell, :short => false, :ident => 2, :namespace => false)
+          self.class.help(shell, :short => true, :ident => 2, :namespace => false)
         end
 
         protected
