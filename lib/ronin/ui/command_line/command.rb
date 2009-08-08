@@ -39,6 +39,11 @@ module Ronin
         map '-h' => :help
         map '-V' => :version
 
+        def self.inherited(super_class)
+          class_name = super_class.name.split('::').last.snake_case
+          super_class.namespace("ronin:#{class_name}")
+        end
+
         desc "command [ARGS...]", "default task to run"
 
         #
@@ -66,9 +71,9 @@ module Ronin
           self.class.help(
             shell, 
             task, 
-            :short => true,
+            :short => false,
             :ident => 2,
-            :namespace => "ronin:#{self.name}"
+            :namespace => true
           )
         end
 
