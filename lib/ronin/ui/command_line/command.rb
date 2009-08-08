@@ -57,13 +57,19 @@ module Ronin
           exit
         end
 
-        desc "help", "displays the help for the command"
+        desc "help [TASK]", "displays the help for the command"
 
         #
         # Prints the help information for the command and exists.
         #
-        def help
-          self.class.help(shell, :short => true, :ident => 2, :namespace => false)
+        def help(task=nil)
+          self.class.help(
+            shell, 
+            task, 
+            :short => true,
+            :ident => 2,
+            :namespace => "ronin:#{self.name}"
+          )
         end
 
         protected
