@@ -73,16 +73,7 @@
 
           <div id="content">
             <h2><xsl:value-of select="title/." /></h2>
-            <p><xsl:value-of select="description/." /></p>
-
-            <xsl:if test="description[@href]">
-            <p>
-              <a>
-                <xsl:attribute name="href"><xsl:value-of select="description/@href" /></xsl:attribute>
-                [ Continued ]
-              </a>
-            </p>
-            </xsl:if>
+            <xsl:apply-templates select="description" />
 
             <xsl:apply-templates select="dependencies" />
 
@@ -95,6 +86,19 @@
         </div>
       </body>
     </html>
+  </xsl:template>
+
+  <xsl:template match="/ronin-overlay/description">
+    <p><xsl:value-of select="." /></p>
+
+    <xsl:if test="@href">
+      <p>
+        <a>
+          <xsl:attribute name="href"><xsl:value-of select="@href" /></xsl:attribute>
+          [ Continued ]
+        </a>
+      </p>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="/ronin-overlay/dependencies">
