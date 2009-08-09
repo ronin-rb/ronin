@@ -84,48 +84,44 @@
             </p>
             </xsl:if>
 
-            <xsl:if test="dependencies"><xsl:call-template name="dependencies_section" /></xsl:if>
+            <xsl:apply-templates select="dependencies" />
 
-            <xsl:if test="source"><xsl:call-template name="install_section" /></xsl:if>
+            <xsl:apply-templates select="source" />
 
-            <xsl:if test="maintainers"><xsl:call-template name="maintainers_section" /></xsl:if>
+            <xsl:apply-templates select="maintainers" />
 
-            <xsl:if test="license"><xsl:call-template name="license_section" /></xsl:if>
+            <xsl:apply-templates select="license" />
           </div>
         </div>
       </body>
     </html>
   </xsl:template>
 
-  <xsl:template name="dependencies_section">
+  <xsl:template match="/ronin-overlay/dependencies">
     <h2>Dependencies</h2>
+
     <p>Before installing this Overlay you will need to install some other things first.</p>
-    <xsl:if test="dependencies/gem">
+    <xsl:if test="gem">
       <pre>$ <xsl:for-each select="gem"> <xsl:value-of select="." /></xsl:for-each></pre>
     </xsl:if>
   </xsl:template>
 
-  <xsl:template name="install_section">
+  <xsl:template match="/ronin-overlay/source">
     <h2>Install</h2>
+
     <p>To install this Overlay, simply run the following command:</p>
-    <pre>$ ronin install <xsl:value-of select="source/." /></pre>
+    <pre>$ ronin install <xsl:value-of select="." /></pre>
   </xsl:template>
 
-  <xsl:template name="license_section">
-    <h2>License</h2>
-
-    <p>This Overlay is licensed under the <xsl:apply-templates select="license" />.</p>
-  </xsl:template>
-
-  <xsl:template name="maintainers_section">
+  <xsl:template match="/ronin-overlay/maintainers">
     <h2>Maintainers</h2>
 
     <ul>
-      <xsl:apply-templates select="maintainers/maintainer" />
+      <xsl:apply-templates select="maintainer" />
     </ul>
   </xsl:template>
 
-  <xsl:template match="maintainers/maintainer">
+  <xsl:template match="/ronin-overlay/maintainers/maintainer">
     <li>
       <xsl:choose>
         <xsl:when test="email">
@@ -142,57 +138,62 @@
     </li>
   </xsl:template>
 
-  <xsl:template match="license">
-    <a>
-      <xsl:attribute name="target">blank</xsl:attribute>
+  <xsl:template match="/ronin-overlay/license">
+    <h2>License</h2>
 
-      <xsl:choose>
-        <xsl:when test="@href">
-          <xsl:attribute name="href"><xsl:value-of select="@href" /></xsl:attribute>
-        </xsl:when>
+    <p>
+      This Overlay is licensed under the 
+      <a>
+        <xsl:attribute name="target">blank</xsl:attribute>
 
-        <xsl:when test=". = 'GPL-2'">
-          <xsl:attribute name="href">http://www.gnu.org/licenses/gpl-2.0.html</xsl:attribute>
-        </xsl:when>
+        <xsl:choose>
+          <xsl:when test="@href">
+            <xsl:attribute name="href"><xsl:value-of select="@href" /></xsl:attribute>
+          </xsl:when>
 
-        <xsl:when test=". = 'GPL-3'">
-          <xsl:attribute name="href">http://www.gnu.org/licenses/gpl-3.0.html</xsl:attribute>
-        </xsl:when>
+          <xsl:when test=". = 'GPL-2'">
+            <xsl:attribute name="href">http://www.gnu.org/licenses/gpl-2.0.html</xsl:attribute>
+          </xsl:when>
 
-        <xsl:when test=". = 'BSD'">
-          <xsl:attribute name="href">http://www.opensource.org/licenses/bsd-license.php</xsl:attribute>
-        </xsl:when>
+          <xsl:when test=". = 'GPL-3'">
+            <xsl:attribute name="href">http://www.gnu.org/licenses/gpl-3.0.html</xsl:attribute>
+          </xsl:when>
 
-        <xsl:when test=". = 'MIT'">
-          <xsl:attribute name="href">http://www.opensource.org/licenses/mit-license.html</xsl:attribute>
-        </xsl:when>
+          <xsl:when test=". = 'BSD'">
+            <xsl:attribute name="href">http://www.opensource.org/licenses/bsd-license.php</xsl:attribute>
+          </xsl:when>
 
-        <xsl:when test=". = 'CC-by'">
-          <xsl:attribute name="href">http://creativecommons.org/licenses/by/3.0/</xsl:attribute>
-        </xsl:when>
+          <xsl:when test=". = 'MIT'">
+            <xsl:attribute name="href">http://www.opensource.org/licenses/mit-license.html</xsl:attribute>
+          </xsl:when>
 
-        <xsl:when test=". = 'CC-by-nd'">
-          <xsl:attribute name="href">http://creativecommons.org/licenses/by-nd/3.0/</xsl:attribute>
-        </xsl:when>
+          <xsl:when test=". = 'CC-by'">
+            <xsl:attribute name="href">http://creativecommons.org/licenses/by/3.0/</xsl:attribute>
+          </xsl:when>
 
-        <xsl:when test=". = 'CC-by-nc-nd'">
-          <xsl:attribute name="href">http://creativecommons.org/licenses/by-nc-nd/3.0/</xsl:attribute>
-        </xsl:when>
+          <xsl:when test=". = 'CC-by-nd'">
+            <xsl:attribute name="href">http://creativecommons.org/licenses/by-nd/3.0/</xsl:attribute>
+          </xsl:when>
 
-        <xsl:when test=". = 'CC-by-nc'">
-          <xsl:attribute name="href">http://creativecommons.org/licenses/by-nc/3.0/</xsl:attribute>
-        </xsl:when>
+          <xsl:when test=". = 'CC-by-nc-nd'">
+            <xsl:attribute name="href">http://creativecommons.org/licenses/by-nc-nd/3.0/</xsl:attribute>
+          </xsl:when>
 
-        <xsl:when test=". = 'CC-by-nc-sa'">
-          <xsl:attribute name="href">http://creativecommons.org/licenses/by-nc-sa/3.0/</xsl:attribute>
-        </xsl:when>
+          <xsl:when test=". = 'CC-by-nc'">
+            <xsl:attribute name="href">http://creativecommons.org/licenses/by-nc/3.0/</xsl:attribute>
+          </xsl:when>
 
-        <xsl:when test=". = 'CC-sa'">
-          <xsl:attribute name="href">http://creativecommons.org/licenses/sa/3.0/</xsl:attribute>
-        </xsl:when>
-      </xsl:choose>
+          <xsl:when test=". = 'CC-by-nc-sa'">
+            <xsl:attribute name="href">http://creativecommons.org/licenses/by-nc-sa/3.0/</xsl:attribute>
+          </xsl:when>
 
-      <xsl:value-of select="." />
-    </a>
+          <xsl:when test=". = 'CC-sa'">
+            <xsl:attribute name="href">http://creativecommons.org/licenses/sa/3.0/</xsl:attribute>
+          </xsl:when>
+        </xsl:choose>
+
+        <xsl:value-of select="." />
+      </a>.
+    </p>
   </xsl:template>
 </xsl:stylesheet>
