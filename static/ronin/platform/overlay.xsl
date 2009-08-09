@@ -22,6 +22,10 @@
             over-flow: auto;
           }
 
+          img {
+            border: none;
+          }
+
           #content {
             margin: 1em 10em 1em 10em;
             padding: 1em 1em 1em 1em;
@@ -62,7 +66,9 @@
       <body>
         <div id="page">
           <div id="banner">
-            <img id="logo" src="http://ronin.rubyforge.org/images/logo.png" />
+            <a href="http://ronin.rubyforge.org/">
+              <img id="logo" src="http://ronin.rubyforge.org/images/logo.png" />
+            </a>
           </div>
 
           <div id="content">
