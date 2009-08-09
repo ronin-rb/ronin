@@ -108,6 +108,8 @@
 
   <xsl:template match="license">
     <a>
+      <xsl:attribute name="target">blank</xsl:attribute>
+
       <xsl:choose>
         <xsl:when test=". = 'GPL-2'">
           <xsl:attribute name="href">http://www.gnu.org/licenses/gpl-2.0.html</xsl:attribute>
