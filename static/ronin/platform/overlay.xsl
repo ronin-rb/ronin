@@ -193,7 +193,7 @@
         </xsl:choose>
 
         <xsl:value-of select="." />
-      </a>.
+      </a> license.
     </p>
   </xsl:template>
 </xsl:stylesheet>
