@@ -88,6 +88,8 @@
 
             <xsl:if test="source"><xsl:call-template name="install_section" /></xsl:if>
 
+            <xsl:if test="maintainers"><xsl:call-template name="maintainers_section" /></xsl:if>
+
             <xsl:if test="license"><xsl:call-template name="license_section" /></xsl:if>
           </div>
         </div>
@@ -113,6 +115,31 @@
     <h2>License</h2>
 
     <p>This Overlay is licensed under the <xsl:apply-templates select="license" />.</p>
+  </xsl:template>
+
+  <xsl:template name="maintainers_section">
+    <h2>Maintainers</h2>
+
+    <ul>
+      <xsl:apply-templates select="maintainers/maintainer" />
+    </ul>
+  </xsl:template>
+
+  <xsl:template match="maintainers/maintainer">
+    <li>
+      <xsl:choose>
+        <xsl:when test="email">
+          <a>
+            <xsl:attribute name="href">mailto:<xsl:value-of select="email/." /></xsl:attribute>
+            <xsl:value-of select="name/." />
+          </a>
+        </xsl:when>
+
+        <xsl:otherwise>
+          <xsl:value-of select="name/." />
+        </xsl:otherwise>
+      </xsl:choose>
+    </li>
   </xsl:template>
 
   <xsl:template match="license">
