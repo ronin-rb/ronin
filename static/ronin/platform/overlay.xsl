@@ -39,7 +39,7 @@
             text-decoration: none;
           }
 
-          #content pre {
+          #content pre.shell {
             margin: 0.5em 0 0.5em 0;
             padding: 0.5em;
             color: white;
@@ -106,7 +106,7 @@
 
     <p>Before installing this Overlay you will need to install some other things first.</p>
     <xsl:if test="gem">
-      <pre>$ <xsl:for-each select="gem"> <xsl:value-of select="." /></xsl:for-each></pre>
+      <pre class="shell">$ <xsl:for-each select="gem"> <xsl:value-of select="." /></xsl:for-each></pre>
     </xsl:if>
   </xsl:template>
 
@@ -114,7 +114,7 @@
     <h2>Install</h2>
 
     <p>To install this Overlay, simply run the following command:</p>
-    <pre>$ ronin install <xsl:value-of select="." /></pre>
+    <pre class="shell">$ ronin install <xsl:value-of select="." /></pre>
   </xsl:template>
 
   <xsl:template match="/ronin-overlay/maintainers">
