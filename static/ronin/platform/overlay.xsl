@@ -75,6 +75,15 @@
             <h2><xsl:value-of select="title/." /></h2>
             <p><xsl:value-of select="description/." /></p>
 
+            <xsl:if test="description[@href]">
+            <p>
+              <a>
+                <xsl:attribute name="href"><xsl:value-of select="description/@href" /></xsl:attribute>
+                [ Continued ]
+              </a>
+            </p>
+            </xsl:if>
+
             <xsl:if test="dependencies"><xsl:call-template name="dependencies_section" /></xsl:if>
 
             <xsl:if test="source"><xsl:call-template name="install_section" /></xsl:if>
