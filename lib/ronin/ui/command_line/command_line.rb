@@ -73,8 +73,8 @@ module Ronin
       def CommandLine.get_command(name)
         name = name.to_s
 
-        #eventually someone is going to use a space or - which is going mess things up
-        #we will take care of this ahead of time here
+        # eventually someone is going to use a space or - which is going
+        # mess things up we will take care of this ahead of time here
         name.gsub!(/[\s-]/, '_')
 
         begin
