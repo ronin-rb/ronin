@@ -9,3 +9,5 @@ YARD::Rake::YardocTask.new do |t|
     '--quiet'
   ]
 end
+
+task :docs => :yardoc
