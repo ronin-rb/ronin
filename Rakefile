@@ -4,6 +4,7 @@ require 'rubygems'
 require 'hoe'
 require 'hoe/signing'
 require './tasks/spec.rb'
+require './tasks/yard.rb'
 
 Hoe.spec('ronin') do
   self.rubyforge_name = 'ronin'
