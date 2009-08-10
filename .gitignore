@@ -2,6 +2,7 @@ doc
 pkg
 tmp/*
 .DS_Store
+.yardoc
 *.db
 *.log
 *.swp
