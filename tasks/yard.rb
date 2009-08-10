@@ -1,10 +1,10 @@
 require 'yard'
 
 YARD::Rake::YardocTask.new do |t|
-  t.files   = ['lib/**/*.rb', 'History.txt']
+  t.files   = ['lib/**/*.rb']
   t.options = [
     '--protected',
-    '--files', 'COPYING.txt',
+    '--files', 'History.txt',
     '--title', 'Ronin',
     '--quiet'
   ]
