@@ -5,6 +5,8 @@ unless $LOAD_PATH.include?(lib_dir)
   $LOAD_PATH << lib_dir
 end
 
+require 'contextify/yard/handlers'
+require 'parameters/yard/handlers'
 require 'ronin/yard/handlers'
 
 YARD::Rake::YardocTask.new do |t|
@@ -12,8 +14,7 @@ YARD::Rake::YardocTask.new do |t|
   t.options = [
     '--protected',
     '--files', 'History.txt',
-    '--title', 'Ronin',
-    '--quiet'
+    '--title', 'Ronin'
   ]
 end
 
