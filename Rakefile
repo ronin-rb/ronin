@@ -20,7 +20,7 @@ Hoe.spec('ronin') do
     ['dm-core', '>=0.10.0'],
     ['dm-types', '>=0.10.0'],
     ['dm-validations', '>=0.10.0'],
-    ['dm-predefined', '>=0.1.2'],
+    ['dm-predefined', '>=0.1.3'],
     ['chars', '>=0.1.2'],
     ['parameters', '>=0.1.8'],
     ['contextify', '>=0.1.3'],
@@ -28,6 +28,8 @@ Hoe.spec('ronin') do
     ['repertoire', '>=0.2.1'],
     ['thor', '>=0.11.5']
   ]
+
+  self.spec_extras = {:has_rdoc => 'yard'}
 end
 
 # vim: syntax=Ruby
