@@ -92,7 +92,7 @@ module Ronin
               :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/'
 
     # Creative Commons Zero License
-    predefine :cc0
+    predefine :cc0,
               :name => 'CC0',
               :description => 'Creative Commons Zero License',
               :url => 'http://creativecommons.org/licenses/zero/1.0/'
@@ -110,7 +110,7 @@ module Ronin
               :url => 'http://www.gnu.org/licenses/gpl-3.0.txt'
 
     # Lesser General Public License, version 3
-    predefine :lgpl3
+    predefine :lgpl3,
               :name => 'LGPL-3',
               :description => 'GNU Lesser General Public License v3.0',
               :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
