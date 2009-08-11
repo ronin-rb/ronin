@@ -162,6 +162,13 @@ lib/ronin/ui/command_line/commands/remove.rb
 lib/ronin/ui/command_line/commands/uninstall.rb
 lib/ronin/ui/command_line/commands/help.rb
 lib/ronin/ui/command_line/command_line.rb
+lib/ronin/yard.rb
+lib/ronin/yard/handlers.rb
+lib/ronin/yard/handlers/ruby.rb
+lib/ronin/yard/handlers/ruby/eval_block_handler.rb
+lib/ronin/yard/handlers/ruby/scanner_handler.rb
+lib/ronin/yard/handlers/ruby/legacy.rb
+lib/ronin/yard/handlers/ruby/legacy/eval_block_handler.rb
 lib/ronin/ronin.rb
 lib/ronin/version.rb
 tasks/spec.rb
