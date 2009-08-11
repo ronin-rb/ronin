@@ -49,8 +49,8 @@ class String
     min_length = [length, other.length].min
 
     (min_length - 1).times do |i|
-      index = (length - i -1)
-      other_index = (other.length - i -1)
+      index = (length - i - 1)
+      other_index = (other.length - i - 1)
 
       if self[index] != other[other_index]
         return self[(index + 1)..-1]
