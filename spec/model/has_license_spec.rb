@@ -10,20 +10,20 @@ describe Model::HasLicense do
 
   it "should have a license" do
     model = LicensedModel.new(:content => 'bla')
-    model.license = License.gpl_2
+    model.license = License.gpl2
     model.save
 
-    model.license.should == License.gpl_2
+    model.license.should == License.gpl2
   end
 
   it "should provide helper methods for querying licensed models" do
     model = LicensedModel.new(:content => 'stuff here')
-    model.license = License.gpl_2
+    model.license = License.gpl2
     model.save
     model.reload
 
     LicensedModel.all(
       :content.like => '%stuff%'
-    ).licensed_under(:gpl_2).first.should == model
+    ).licensed_under(:gpl2).first.should == model
   end
 end
