@@ -63,56 +63,56 @@ module Ronin
     # <tt>:description</tt>:: The description of the license.
     # <tt>:url</tt>:: The URL to the license.
     #
-    def self.define(name,options={})
+    def self.predefine(name,options={})
       super(name.downcase.gsub(/[\s_\-]+/,'_'),options.merge(:name => name))
     end
 
     # Creative Commons Licenses
-    define 'CC by',
-           :description => 'Creative Commons Attribution v3.0 License',
-           :url => 'http://creativecommons.org/licenses/by/3.0/'
+    predefine 'CC by',
+              :description => 'Creative Commons Attribution v3.0 License',
+              :url => 'http://creativecommons.org/licenses/by/3.0/'
 
-    define 'CC by-sa',
-           :description => 'Creative Commons Attribution-Share Alike v3.0 License',
-           :url => 'http://creativecommons.org/licenses/by-sa/3.0/'
+    predefine 'CC by-sa',
+              :description => 'Creative Commons Attribution-Share Alike v3.0 License',
+              :url => 'http://creativecommons.org/licenses/by-sa/3.0/'
 
-    define 'CC by-nd',
-           :description => 'Creative Commons Attribution-No Derivative Works v3.0 License',
-           :url => 'http://creativecommons.org/licenses/by-nd/3.0/'
+    predefine 'CC by-nd',
+              :description => 'Creative Commons Attribution-No Derivative Works v3.0 License',
+              :url => 'http://creativecommons.org/licenses/by-nd/3.0/'
 
-    define 'CC by-nc',
-           :description => 'Creative Commons Attribution-Noncommercial v3.0 License',
-           :url => 'http://creativecommons.org/licenses/by-nc/3.0/'
+    predefine 'CC by-nc',
+              :description => 'Creative Commons Attribution-Noncommercial v3.0 License',
+              :url => 'http://creativecommons.org/licenses/by-nc/3.0/'
 
-    define 'CC by-nc-sa',
-           :description => 'Creative Commons Attribution-Noncommercial-Share Alike v3.0 License',
-           :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/'
+    predefine 'CC by-nc-sa',
+              :description => 'Creative Commons Attribution-Noncommercial-Share Alike v3.0 License',
+              :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/'
 
-    define 'CC by-nc-nd',
-           :description => 'Creative Commons Attribution-Noncommercial-No Derivative Works v3.0 License',
-           :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/'
+    predefine 'CC by-nc-nd',
+              :description => 'Creative Commons Attribution-Noncommercial-No Derivative Works v3.0 License',
+              :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/'
 
-    define 'CC0',
-           :description => 'Creative Commons Zero License',
-           :url => 'http://creativecommons.org/licenses/zero/1.0/'
+    predefine 'CC0',
+              :description => 'Creative Commons Zero License',
+              :url => 'http://creativecommons.org/licenses/zero/1.0/'
 
     # GNU Public Licenses
-    define 'GPL-2',
-           :description => 'GNU Public License v2.0',
-           :url => 'http://www.gnu.org/licenses/gpl-2.0.txt'
+    predefine 'GPL-2',
+              :description => 'GNU Public License v2.0',
+              :url => 'http://www.gnu.org/licenses/gpl-2.0.txt'
 
-    define 'GPL-3',
-           :description => 'GNU Public License v3.0',
-           :url => 'http://www.gnu.org/licenses/gpl-3.0.txt'
+    predefine 'GPL-3',
+              :description => 'GNU Public License v3.0',
+              :url => 'http://www.gnu.org/licenses/gpl-3.0.txt'
 
-    define 'LGPL-3',
-           :description => 'GNU Lesser General Public License v3.0',
-           :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
+    predefine 'LGPL-3',
+              :description => 'GNU Lesser General Public License v3.0',
+              :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
 
     # The MIT Licence
-    define 'MIT',
-           :description => 'The MIT Licence',
-           :url => 'http://www.opensource.org/licenses/mit-license.php'
+    predefine 'MIT',
+              :description => 'The MIT Licence',
+              :url => 'http://www.opensource.org/licenses/mit-license.php'
 
   end
 end

@@ -64,24 +64,24 @@ module Ronin
     # Defines a new builtin Arch with the specified _name_ and the given
     # _options_.
     #
-    def self.define(name,options={})
+    def self.predefine(name,options={})
       super(name,options.merge(:name => name))
     end
 
-    define :i386, :endian => :little, :address_length => 4
-    define :i486, :endian => :little, :address_length => 4
-    define :i686, :endian => :little, :address_length => 4
-    define :i986, :endian => :little, :address_length => 4
-    define :x86_64, :endian => :little, :address_length => 8
-    define :ia64, :endian => :little, :address_length => 8
-    define :ppc, :endian => :big, :address_length => 4
-    define :ppc64, :endian => :big, :address_length => 8
-    define :sparc, :endian => :big, :address_length => 4
-    define :sparc64, :endian => :big, :address_length => 8
-    define :mips_le, :endian => :little, :address_length => 4
-    define :mips_be, :endian => :big, :address_length => 4
-    define :arm_le, :endian => :little, :address_length => 4
-    define :arm_be, :endian => :big, :address_length => 4
+    predefine :i386, :endian => :little, :address_length => 4
+    predefine :i486, :endian => :little, :address_length => 4
+    predefine :i686, :endian => :little, :address_length => 4
+    predefine :i986, :endian => :little, :address_length => 4
+    predefine :x86_64, :endian => :little, :address_length => 8
+    predefine :ia64, :endian => :little, :address_length => 8
+    predefine :ppc, :endian => :big, :address_length => 4
+    predefine :ppc64, :endian => :big, :address_length => 8
+    predefine :sparc, :endian => :big, :address_length => 4
+    predefine :sparc64, :endian => :big, :address_length => 8
+    predefine :mips_le, :endian => :little, :address_length => 4
+    predefine :mips_be, :endian => :big, :address_length => 4
+    predefine :arm_le, :endian => :little, :address_length => 4
+    predefine :arm_be, :endian => :big, :address_length => 4
 
   end
 end
