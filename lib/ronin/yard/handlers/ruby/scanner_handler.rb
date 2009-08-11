@@ -3,7 +3,7 @@ require 'yard/handlers/ruby/base'
 module YARD
   module Handlers
     module Ruby
-      class Scanner < Base
+      class ScannerHandler < Base
 
         handles :scanner, method_call(:scanner)
 
