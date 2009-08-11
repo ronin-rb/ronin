@@ -60,9 +60,9 @@ module Ronin
     #
     # Defines a new builtin OS of the specified _name_.
     #
-    #   OS.define('FreeBSD')
+    #   OS.predefine('FreeBSD')
     #
-    def OS.define(name)
+    def OS.predefine(name)
       name = name.to_s
       method_name = name.snake_case
 
@@ -77,14 +77,14 @@ module Ronin
       return nil
     end
 
-    define 'Linux'
-    define 'FreeBSD'
-    define 'OpenBSD'
-    define 'NetBSD'
-    define 'OSX'
-    define 'Solaris'
-    define 'Windows'
-    define 'UNIX'
+    predefine 'Linux'
+    predefine 'FreeBSD'
+    predefine 'OpenBSD'
+    predefine 'NetBSD'
+    predefine 'OSX'
+    predefine 'Solaris'
+    predefine 'Windows'
+    predefine 'UNIX'
 
   end
 end
