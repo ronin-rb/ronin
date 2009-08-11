@@ -22,8 +22,8 @@ Hoe.spec('ronin') do
     ['dm-validations', '>=0.10.0'],
     ['dm-predefined', '>=0.1.2'],
     ['chars', '>=0.1.2'],
-    ['parameters', '>=0.1.7'],
-    ['contextify', '>=0.1.2'],
+    ['parameters', '>=0.1.8'],
+    ['contextify', '>=0.1.3'],
     ['reverse-require', '>=0.3.1'],
     ['repertoire', '>=0.2.1'],
     ['thor', '>=0.11.5']
