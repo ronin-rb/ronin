@@ -4,7 +4,7 @@ module YARD
   module Handlers
     module Ruby
       module Legacy
-        class EvalBlock < Base
+        class EvalBlockHandler < Base
 
           handles /(\A|\.)(module|class|instance)_eval(\s+|\()/
 
