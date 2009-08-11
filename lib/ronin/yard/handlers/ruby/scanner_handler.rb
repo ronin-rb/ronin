@@ -46,7 +46,6 @@ module YARD
                    end
                  end
 
-
           register MethodObject.new(nobj, "first_#{name}", mscope) do |o|
             o.visibility = :public
             o.source = statement.source
