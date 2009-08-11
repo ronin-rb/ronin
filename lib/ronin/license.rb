@@ -54,63 +54,70 @@ module Ronin
       @name.to_s
     end
 
-    #
-    # Defines a new builtin License object of the specified _name_ and the
-    # given _opts_. If block is given, it will be passed the newly created
-    # License object.
-    #
-    # _options_ may contain the following keys:
-    # <tt>:description</tt>:: The description of the license.
-    # <tt>:url</tt>:: The URL to the license.
-    #
-    def self.predefine(name,options={})
-      super(name.downcase.gsub(/[\s_\-]+/,'_'),options.merge(:name => name))
-    end
-
-    # Creative Commons Licenses
-    predefine 'CC by',
+    # Creative Commons By-Attribution License
+    predefine :cc_by,
+              :name => 'CC by',
               :description => 'Creative Commons Attribution v3.0 License',
               :url => 'http://creativecommons.org/licenses/by/3.0/'
 
-    predefine 'CC by-sa',
+    # Creative Commons By-Attribution Share-Alike License
+    predefine :cc_by_sa,
+              :name => 'CC by-sa',
               :description => 'Creative Commons Attribution-Share Alike v3.0 License',
               :url => 'http://creativecommons.org/licenses/by-sa/3.0/'
 
-    predefine 'CC by-nd',
+    # Creative Commons By-Attribution No-Derivative Works License
+    predefine :cc_by_nd,
+              :name => 'CC by-nd',
               :description => 'Creative Commons Attribution-No Derivative Works v3.0 License',
               :url => 'http://creativecommons.org/licenses/by-nd/3.0/'
 
-    predefine 'CC by-nc',
+    # Creative Commons By-Attribution Non-Commercial License
+    predefine :cc_by_nc,
+              :name => 'CC by-nc',
               :description => 'Creative Commons Attribution-Noncommercial v3.0 License',
               :url => 'http://creativecommons.org/licenses/by-nc/3.0/'
 
-    predefine 'CC by-nc-sa',
+    # Creative Commons By-Attribution Non-Commercial Share-Alike License
+    predefine :cc_by_nc_sa,
+              :name => 'CC by-nc-sa',
               :description => 'Creative Commons Attribution-Noncommercial-Share Alike v3.0 License',
               :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/'
 
-    predefine 'CC by-nc-nd',
+    # Creative Commons By-Attribution Non-Commercial No-Derivative Works
+    # License
+    predefine :cc_by_nc_nd,
+              :name => 'CC by-nc-nd',
               :description => 'Creative Commons Attribution-Noncommercial-No Derivative Works v3.0 License',
               :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/'
 
-    predefine 'CC0',
+    # Creative Commons Zero License
+    predefine :cc0
+              :name => 'CC0',
               :description => 'Creative Commons Zero License',
               :url => 'http://creativecommons.org/licenses/zero/1.0/'
 
-    # GNU Public Licenses
-    predefine 'GPL-2',
+    # General Public License, version 2
+    predefine :gpl_2,
+              :name => 'GPL-2',
               :description => 'GNU Public License v2.0',
               :url => 'http://www.gnu.org/licenses/gpl-2.0.txt'
 
-    predefine 'GPL-3',
+    # General Public License, version 3
+    predefine :gpl_3,
+              :name => 'GPL-3',
               :description => 'GNU Public License v3.0',
               :url => 'http://www.gnu.org/licenses/gpl-3.0.txt'
 
-    predefine 'LGPL-3',
+    # Lesser General Public License, version 3
+    predefine :lgpl_3
+              :name => 'LGPL-3',
               :description => 'GNU Lesser General Public License v3.0',
               :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
 
-    # The MIT Licence
-    predefine 'MIT',
+    # The MIT "as-is" Licence
+    predefine :mit,
+              :name => 'MIT',
               :description => 'The MIT Licence',
               :url => 'http://www.opensource.org/licenses/mit-license.php'
 
