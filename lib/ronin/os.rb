@@ -76,13 +76,28 @@ module Ronin
       return nil
     end
 
+    # The Linux OS
     predefine :linux, 'Linux'
+
+    # The FreeBSD OS
     predefine :freebsd, 'FreeBSD'
+
+    # The OpenBSD OS
     predefine :openbsd, 'OpenBSD'
+
+    # The NetBSD OS
     predefine :netbsd, 'NetBSD'
+
+    # OSX
     predefine :osx, 'OSX'
+
+    # The Solaris OS
     predefine :solaris, 'Solaris'
+
+    # The Windows OS
     predefine :windows, 'Windows'
+
+    # The family UNIX OSes
     predefine :unix, 'UNIX'
 
   end
