@@ -68,19 +68,46 @@ module Ronin
       super(name,options.merge(:name => name))
     end
 
+    # The i386 Architecture
     predefine :i386, :endian => :little, :address_length => 4
+
+    # The i486 Architecture
     predefine :i486, :endian => :little, :address_length => 4
+
+    # The i686 Architecture
     predefine :i686, :endian => :little, :address_length => 4
+
+    # The i986 Architecture
     predefine :i986, :endian => :little, :address_length => 4
+
+    # The x86_64 Architecture
     predefine :x86_64, :endian => :little, :address_length => 8
+
+    # The ia64 Architecture
     predefine :ia64, :endian => :little, :address_length => 8
+
+    # The 32-bit PowerPC Architecture
     predefine :ppc, :endian => :big, :address_length => 4
+
+    # The 64-bit PowerPC Architecture
     predefine :ppc64, :endian => :big, :address_length => 8
+
+    # The 32-bit SPARC Architecture
     predefine :sparc, :endian => :big, :address_length => 4
+
+    # The 64-bit SPARC Architecture
     predefine :sparc64, :endian => :big, :address_length => 8
+
+    # The MIPS (little-endian) Architecture
     predefine :mips_le, :endian => :little, :address_length => 4
+
+    # The MIPS (big-endian) Architecture
     predefine :mips_be, :endian => :big, :address_length => 4
+
+    # The ARM (little-endian) Architecture
     predefine :arm_le, :endian => :little, :address_length => 4
+
+    # The ARM (big-endian) Architecture
     predefine :arm_be, :endian => :big, :address_length => 4
 
   end
