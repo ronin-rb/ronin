@@ -23,5 +23,4 @@
 
 require 'ronin/yard/handlers/ruby/eval_block_handler'
 require 'ronin/yard/handlers/ruby/scanner_handler'
-require 'ronin/yard/handlers/ruby/legacy/eval_block_handler'
-
+require 'ronin/yard/handlers/ruby/legacy'
