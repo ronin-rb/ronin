@@ -5,6 +5,7 @@ unless $LOAD_PATH.include?(lib_dir)
   $LOAD_PATH << lib_dir
 end
 
+require 'dm-core/yard/handlers'
 require 'dm-predefined/yard/handlers'
 require 'contextify/yard/handlers'
 require 'parameters/yard/handlers'
