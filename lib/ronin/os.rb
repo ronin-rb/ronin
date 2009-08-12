@@ -58,33 +58,32 @@ module Ronin
     end
 
     #
-    # Defines a new builtin OS of the specified _name_.
+    # Defines a new builtin OS of the specified _name_ and _os_name_.
     #
-    #   OS.predefine('FreeBSD')
+    #   OS.predefine :freebsd, 'FreeBSD'
     #
-    def OS.predefine(name)
-      name = name.to_s
-      method_name = name.snake_case
+    def OS.predefine(name,os_name)
+      os_name = os_name.to_s
 
-      meta_def(method_name) do |*arguments|
+      meta_def(name) do |*arguments|
         if (version = arguments.first)
-          OS.first_or_create(:name => name, :version => version.to_s)
+          OS.first_or_create(:name => os_name, :version => version.to_s)
         else
-          OS.new(:name => name)
+          OS.new(:name => os_name)
         end
       end
 
       return nil
     end
 
-    predefine 'Linux'
-    predefine 'FreeBSD'
-    predefine 'OpenBSD'
-    predefine 'NetBSD'
-    predefine 'OSX'
-    predefine 'Solaris'
-    predefine 'Windows'
-    predefine 'UNIX'
+    predefine :linux, 'Linux'
+    predefine :freebsd, 'FreeBSD'
+    predefine :openbsd, 'OpenBSD'
+    predefine :netbsd, 'NetBSD'
+    predefine :osx, 'OSX'
+    predefine :solaris, 'Solaris'
+    predefine :windows, 'Windows'
+    predefine :unix, 'UNIX'
 
   end
 end
