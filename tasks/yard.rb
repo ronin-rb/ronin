@@ -3,7 +3,6 @@ unless $LOAD_PATH.include?(lib_dir)
   $LOAD_PATH.unshift(lib_dir)
 end
 
-require 'yard'
 require 'ronin/yard/handlers'
 
 YARD::Rake::YardocTask.new do |t|
