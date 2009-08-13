@@ -56,4 +56,21 @@ describe Kernel do
       }.should_not raise_error(StandardError)
     end
   end
+
+  describe "require_within" do
+    it "should require paths from within a directory" do
+      Kernel.const_defined?('SomeClass').should_not == true
+
+      require_within 'extensions/classes', 'some_class'
+
+      Kernel.const_defined?('SomeClass').should == true
+    end
+
+    it "should prevent directory traversal" do
+      lambda {
+        require_within 'extensions/classes',
+                       File.join('..','classes','some_class')
+      }.should raise_error(LoadError)
+    end
+  end
 end
