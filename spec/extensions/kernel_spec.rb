@@ -59,11 +59,11 @@ describe Kernel do
 
   describe "require_within" do
     it "should require paths from within a directory" do
-      Kernel.const_defined?('SomeClass').should_not == true
+      Object.const_defined?('SomeClass').should_not == true
 
       require_within 'extensions/classes', 'some_class'
 
-      Kernel.const_defined?('SomeClass').should == true
+      Object.const_defined?('SomeClass').should == true
     end
 
     it "should prevent directory traversal" do
