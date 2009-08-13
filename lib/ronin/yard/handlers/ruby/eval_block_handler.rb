@@ -1,4 +1,4 @@
-require 'yard/handlers/ruby/base'
+require 'yard'
 
 module YARD
   module Handlers
