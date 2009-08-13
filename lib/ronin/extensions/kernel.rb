@@ -59,4 +59,15 @@ module Kernel
       return nil
     end
   end
+
+  #
+  # Safely requires the specified _sub_path_ from within the specified
+  # _directory_.
+  #
+  #   require_within 'ronin/exploits/helpers', helper_name
+  #
+  def require_within(directory,sub_path)
+    path = File.expand_path(File.join('',sub_path))
+    require File.join(directory,path)
+  end
 end
