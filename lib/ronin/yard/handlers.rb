@@ -21,4 +21,8 @@
 #++
 #
 
+require 'dm-core/yard/handlers'
+require 'dm-predefined/yard/handlers'
+require 'contextify/yard/handlers'
+require 'parameters/yard/handlers'
 require 'ronin/yard/handlers/ruby'
