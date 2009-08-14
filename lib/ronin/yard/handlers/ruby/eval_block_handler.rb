@@ -8,7 +8,7 @@ module YARD
         handles method_call(:module_eval), method_call(:class_eval), method_call(:instance_eval)
 
         def process
-          if (block = statement.jump(:do_block).last)
+          if (block = statement.jump(:brace_block, :do_block).last)
             parse_block(block)
           end
         end
