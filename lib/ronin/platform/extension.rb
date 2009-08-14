@@ -36,6 +36,14 @@ module Ronin
       include Static::Finders
       include UI::Diagnostics
 
+      #
+      # Creates a new Ronin::Platform::Extension object using the given
+      # _block_.
+      #
+      #   ronin_extension do
+      #     ...
+      #   end
+      #
       contextify :ronin_extension
 
       # Extension file name
