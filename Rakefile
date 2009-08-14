@@ -28,7 +28,6 @@ Hoe.spec('ronin') do
     ['repertoire', '>=0.2.1'],
     ['thor', '>=0.11.5']
   ]
-
   self.spec_extras = {:has_rdoc => 'yard'}
 end
 
