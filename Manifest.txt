@@ -173,6 +173,7 @@ lib/ronin/yard/handlers/ruby/legacy/scanner_handler.rb
 lib/ronin/ronin.rb
 lib/ronin/version.rb
 tasks/spec.rb
+tasks/yard.rb
 spec/spec_helper.rb
 spec/classes/cacheable_model.rb
 spec/helpers/database.rb
