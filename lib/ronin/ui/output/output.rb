@@ -54,10 +54,17 @@ module Ronin
         @@ronin_verbose = false
       end
 
+      #
+      # Returns the current Output handler. Defaults to
+      # Ronin::UI::Output::Handler.
+      #
       def Output.handler
         @@ronin_output ||= Handler
       end
 
+      #
+      # Sets the current Output handler to the specified _new_handler_.
+      #
       def Output.handler=(new_handler)
         @@ronin_output = new_handler
       end
