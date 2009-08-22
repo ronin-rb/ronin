@@ -20,3 +20,4 @@
 #
 
 require 'ronin/ui/output/output'
+require 'ronin/ui/output/helpers'

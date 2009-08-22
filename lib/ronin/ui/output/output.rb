@@ -68,49 +68,6 @@ module Ronin
       def Output.handler=(new_handler)
         @@ronin_output = new_handler
       end
-
-      protected
-
-      #
-      # Prints the given _messages_.
-      #
-      def puts(*messages)
-        Output.handler.puts(*messages)
-      end
-
-      #
-      # Prints the given _messages_ as info diagnostics.
-      #
-      def print_info(*messages)
-        Output.handler.print_info(*messages)
-      end
-
-      #
-      # Prints the given _messages_ as debugging diagnostics,
-      # if verbose output was enabled.
-      #
-      def print_debug(*messages)
-        if Output.verbose?
-          Output.handler.print_debug(*messages)
-        end
-      end
-
-      #
-      # Prints the given _messages_ as warning diagnostics,
-      # if verbose output was enabled.
-      #
-      def print_warning(*messages)
-        if Output.verbose?
-          Output.handler.print_warning(*messages)
-        end
-      end
-
-      #
-      # Prints the given _messages_ as error diagnostics.
-      #
-      def print_error(*messages)
-        Output.handler.print_error(*messages)
-      end
     end
   end
 end
