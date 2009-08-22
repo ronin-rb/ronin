@@ -53,6 +53,9 @@ module Ronin
     # +CONFIG_FILE+. Defaults to +DEFAULT_CONFIG+ if +CONFIG_FILE+ does not
     # exist.
     #
+    # @raise [InvalidConfig] The config file did not contain a YAML Hash or
+    #                        String.
+    #
     def Database.config
       unless (class_variable_defined?('@@ronin_database_config'))
         @@ronin_database_config = DEFAULT_CONFIG

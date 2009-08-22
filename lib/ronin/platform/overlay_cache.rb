@@ -113,6 +113,9 @@ module Ronin
       #
       # Returns the Overlay with the matching _name_.
       #
+      # @raise [OverlayNotFound] No overlay with the matching _name_ could
+      #                          be found in the overlay cache.
+      #
       def get(name)
         name = name.to_s
 
@@ -195,6 +198,9 @@ module Ronin
       #   cache.add(overlay) do |cache|
       #     puts "Overlay #{overlay} added"
       #   end
+      #
+      # @raise [OverlayCache] The specified _overlay_ has already been
+      #                       cached.
       #
       def add(overlay,&block)
         name = overlay.name.to_s

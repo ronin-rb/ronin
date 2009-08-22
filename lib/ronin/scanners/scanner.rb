@@ -72,6 +72,8 @@ module Ronin
           # Returns all scanner tests in the category with the specified
           # _name_.
           #
+          # @raise [UnknownCategory] No category has the matching _name_.
+          #
           def scanners_in(name)
             name = name.to_sym
 

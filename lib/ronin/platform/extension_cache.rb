@@ -75,6 +75,10 @@ module Ronin
       # exists an ExtensionNotFound exception will be raised. If a _block_
       # is given, it will be passed the loaded extension.
       #
+      # @raise [ExtensionNotFound] The extension with the specified _name_
+      #                            could not be found in the extension
+      #                            cache.
+      #
       def load_extension(name,&block)
         name = name.to_s
 

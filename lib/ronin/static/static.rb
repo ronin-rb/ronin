@@ -33,6 +33,8 @@ module Ronin
     #
     # Adds the specified _path_ to the Set of static directories.
     #
+    # @raise [RuntimeError] The specified _path_ is not a directory.
+    #
     def Static.directory(path)
       path = File.expand_path(path)
 

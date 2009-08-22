@@ -68,6 +68,9 @@ module Ronin
       #   CommandLine.get_command('gen_overlay')
       #   # => Ronin::UI::CommandLine::Commands::GenOverlay
       #
+      # @raise [UnknownCommand] No valid command could be found or loaded
+      #                         with the matching _name_.
+      #
       def CommandLine.get_command(name)
         name = name.to_s
 

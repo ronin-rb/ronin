@@ -61,6 +61,10 @@ module Ronin
     # <tt>:media</tt>:: The media of the overlay.
     # <tt>:uri</tt>:: The URI of the overlay.
     #
+    # @raise [ArgumentError] The +:path+ option must be specified.
+    # @raise [OverlayNotFound] The +:path+ option does not represent a
+    #                          valid directory.
+    #
     def Platform.add(options={},&block)
       path = options[:path]
 
@@ -98,6 +102,8 @@ module Ronin
     #
     # _options_ may contain the following key:
     # <tt>:media</tt>:: The media of the overlay.
+    #
+    # @raise [ArgumentError] The +:uri+ option must be specified.
     #
     def Platform.install(options={},&block)
       unless options[:uri]
@@ -138,6 +144,9 @@ module Ronin
     # raised. If a _block_ is given, it will be called after the overlay
     # has been removed.
     #
+    # @raise [OverlayNotFound] The overlay with the specified _name_ could
+    #                          not be found in the overlay cache.
+    #
     def Platform.remove(name,&block)
       Platform.overlays.remove(name,&block)
       return nil
@@ -148,6 +157,9 @@ module Ronin
     # has the specified _name_, an OverlayNotFound exception will be
     # raised. If a _block_ is given, it will be called after the overlay
     # has been uninstalled.
+    #
+    # @raise [OverlayNotFound] The overlay with the specified _name_ could
+    #                          not be found in the overlay cache.
     #
     def Platform.uninstall(name,&block)
       Platform.overlays.uninstall(name) do |overlay|
@@ -188,6 +200,9 @@ module Ronin
     # Loads the extension with the specified _name_. If a _block_ is given
     # it will be passed the loaded extension. If the extension cannot be
     # loaded, an ExtensionNotFound exception will be raised.
+    #
+    # @raise [ExtensionNotFound] The extension with the specified _name_
+    #                            could not be found in the extension cache.
     #
     def Platform.extension(name,&block)
       ext = Platform.extensions[name]

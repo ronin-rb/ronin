@@ -30,6 +30,9 @@ module Ronin
       # Raises a VariableMissing exception if the instance variable with
       # the specified _name_ is not defined, returns +true+ otherwise.
       #
+      # @raise [VariableMissing] The session variable with the specified
+      #                          _name_ was not set.
+      #
       def require_variable(name)
         if instance_variable_get("@#{name}").nil?
           raise(VariableMissing,"the session variable @#{name} was not set",caller)

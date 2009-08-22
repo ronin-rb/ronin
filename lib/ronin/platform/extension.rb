@@ -133,6 +133,9 @@ module Ronin
       # If a _block_ is given, it will be passed the newly created
       # extension.
       #
+      # @raise [ExtensionNotFound] The specified _path_ was not a valid
+      #                            directory.
+      #
       def include_path(path,&block)
         path = File.expand_path(path)
 

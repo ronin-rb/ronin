@@ -141,6 +141,10 @@ module Ronin
       # given _options_. If type does not represent the name of an Net:HTTP
       # Request Class an UnknownRequest exception will be raised.
       #
+      # @raise [ArgumentError] The +:method+ option must be specified.
+      # @raise [UnknownRequest] The +:method+ option did not match a known
+      #                         Net::HTTP request class.
+      #
       def HTTP.request(options={})
         unless options[:method]
           raise(ArgumentError,"the :method option must be specified",caller)
