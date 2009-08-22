@@ -49,8 +49,13 @@ module Ronin
               exit
             end
 
-            # list a specific overlay
-            overlay = Platform.overlays.get(name)
+            begin
+              # list a specific overlay
+              overlay = Platform.overlays.get(name)
+            rescue Platform::OverlayNotFound => e
+              print_error e.message
+              exit -1
+            end
 
             puts "[ #{overlay.name} ]\n\n"
 

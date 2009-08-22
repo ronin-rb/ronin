@@ -53,8 +53,13 @@ module Ronin
                       :git
                     end
 
-            Platform.install(:uri => uri, :media => media) do |overlay|
-              say "Overlay #{overlay.name.dump} has been installed."
+            begin
+              Platform.install(:uri => uri, :media => media) do |overlay|
+                print_info "Overlay #{overlay.name.dump} has been installed."
+              end
+            rescue Platform::OverlayCached => e
+              print_error => e.message
+              exit -1
             end
           end
 

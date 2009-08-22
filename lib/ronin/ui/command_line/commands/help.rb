@@ -35,7 +35,8 @@ module Ronin
               begin
                 CommandLine.get_command(command).start(['--help'])
               rescue UnknownCommand
-                say "unknown command #{command.dump}", :red
+                print_error "unknown command #{command.dump}"
+                exit -1
               end
             else
               puts 'Available commands:'

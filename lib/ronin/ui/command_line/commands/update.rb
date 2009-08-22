@@ -37,12 +37,17 @@ module Ronin
             end
 
             update = lambda { |overlay|
-              say "Updating Overlay #{overlay.name.dump} ..."
+              print_info "Updating Overlay #{overlay.name.dump} ..."
               overlay.update
             }
 
             if name
-              update.call(Platform.overlays.get(name))
+              begin
+                update.call(Platform.overlays.get(name))
+              rescue Platform::OverlayNotFound => e
+                print_error e.message
+                exit -1
+              end
             else
               Platform.overlays.each_overlay(&update)
             end

@@ -36,8 +36,13 @@ module Ronin
               Platform.load_overlays(options[:cache])
             end
 
-            Platform.remove(name) do |overlay|
-              say "Removing Overlay #{overlay.name.dump} ..."
+            begin
+              Platform.remove(name) do |overlay|
+                print_info "Removing Overlay #{overlay.name.dump} ..."
+              end
+            rescue Platform::OverlayNotFound => e
+              print_error e.message
+              exit -1
             end
           end
 
