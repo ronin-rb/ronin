@@ -25,7 +25,7 @@ require 'net/smtp'
 
 module Net
   #
-  # See <tt>Ronin::Network::SMTP.message</tt>.
+  # @see Ronin::Network::SMTP.message
   #
   def Net.smtp_message(options={},&block)
     Ronin::Network::SMTP.message(options,&block)

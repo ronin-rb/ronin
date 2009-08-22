@@ -23,7 +23,7 @@ require 'ronin/network/extensions/smtp'
 
 module Net
   #
-  # See <tt>Ronin::Network::SMTP.message</tt>.
+  # @see Ronin::Network::SMTP.message
   #
   def Net.esmtp_message(options={},&block)
     Net.smtp_message(options,&block)
