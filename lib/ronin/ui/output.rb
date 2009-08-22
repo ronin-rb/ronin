@@ -65,7 +65,7 @@ module Ronin
 
       #
       # Prints the given _messages_ as debugging diagnostics,
-      # if Ronin::UI::Verbose was enabled.
+      # if verbose output was enabled.
       #
       def print_debug(*messages)
         if Output.verbose?
@@ -75,7 +75,7 @@ module Ronin
 
       #
       # Prints the given _messages_ as warning diagnostics,
-      # if Ronin::UI::Verbose was enabled.
+      # if verbose output was enabled.
       #
       def print_warning(*messages)
         if Output.verbose?
