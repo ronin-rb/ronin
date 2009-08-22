@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/diagnostics'
+require 'ronin/ui/output/helpers'
 require 'ronin/version'
 
 require 'thor'
@@ -31,7 +31,7 @@ module Ronin
       class Command < Thor
 
         include Thor::Actions
-        include Diagnostics
+        include Output::Helpers
 
         default_task :default
         map '-h' => :help

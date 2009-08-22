@@ -24,7 +24,7 @@ require 'ronin/platform/extension_cache'
 require 'ronin/platform/platform'
 require 'ronin/extensions/kernel'
 require 'ronin/static/finders'
-require 'ronin/ui/diagnostics'
+require 'ronin/ui/output/helpers'
 
 require 'contextify'
 
@@ -34,7 +34,7 @@ module Ronin
 
       include Contextify
       include Static::Finders
-      include UI::Diagnostics
+      include UI::Output::Helpers
 
       #
       # Creates a new Ronin::Platform::Extension object using the given
