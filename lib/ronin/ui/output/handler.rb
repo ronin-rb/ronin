@@ -19,46 +19,73 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'thor/shell/basic'
+require 'thor/shell/color'
+
 module Ronin
   module UI
     module Output
       module Handler
         #
-        # Prints the given _messages_ to STDOUT.
+        # The shell to use for output.
+        #
+        def self.shell
+          @@ronin_output_shell ||= Thor::Shell::Basic.new
+        end
+
+        #
+        # Enables color output.
+        #
+        def Handler.color!
+          @@ronin_output_shell = Thor::Shell::Color.new
+          return true
+        end
+
+        #
+        # Disables color output.
+        #
+        def Handler.no_color!
+          @@ronin_output_shell = Thor::Shell::Basic.new
+          return false
+        end
+
+        #
+        # Prints the given _messages_.
         #
         def self.puts(*messages)
-          STDOUT.puts(*messages)
+          shell.say messages.join($\)
         end
 
         #
-        # Prints the given _messages_ as info diagnostics to STDERR.
+        # Prints the given _messages_ as info diagnostics.
         #
         def self.print_info(*messages)
-          STDERR.puts(*(messages.map { |mesg| "[-] #{mesg}" }))
+          shell.say messages.map { |mesg| "[-] #{mesg}" }.join($\), :green
         end
 
         #
-        # Prints the given _messages_ as debugging diagnostics to STDERR,
+        # Prints the given _messages_ as debugging diagnostics,
         # if verbose output was enabled.
         #
         def self.print_debug(*messages)
-          STDERR.puts(*(messages.map { |mesg| "[+] #{mesg}" }))
+          shell.say messages.map { |mesg| "[+] #{mesg}" }.join($\)
         end
 
         #
-        # Prints the given _messages_ as warning diagnostics to STDERR,
+        # Prints the given _messages_ as warning diagnostics,
         # if verbose output was enabled.
         #
         def self.print_warning(*messages)
-          STDERR.puts(*(messages.map { |mesg| "[*] #{mesg}" }))
+          shell.say messages.map { |mesg| "[*] #{mesg}" }.join($\), :yellow
         end
 
         #
-        # Prints the given _messages_ as error diagnostics to STDERR.
+        # Prints the given _messages_ as error diagnostics.
         #
         def self.print_error(*messages)
-          STDERR.puts(*(messages.map { |mesg| "[!] #{mesg}" }))
+          shell.say messages.map { |mesg| "[!] #{mesg}" }.join($\), :red
         end
+
       end
     end
   end
