@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/output/default'
+require 'ronin/ui/output/handler'
 
 module Ronin
   module UI
@@ -55,7 +55,7 @@ module Ronin
       end
 
       def Output.handler
-        @@ronin_output ||= Default
+        @@ronin_output ||= Handler
       end
 
       def Output.handler=(new_handler)
