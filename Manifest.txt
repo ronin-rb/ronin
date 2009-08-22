@@ -141,6 +141,8 @@ lib/ronin/platform/platform.rb
 lib/ronin/platform/ronin.rb
 lib/ronin/ui.rb
 lib/ronin/ui/output.rb
+lib/ronin/ui/output/output.rb
+lib/ronin/ui/output/handler.rb
 lib/ronin/ui/hexdump.rb
 lib/ronin/ui/hexdump/hexdump.rb
 lib/ronin/ui/hexdump/extensions.rb
