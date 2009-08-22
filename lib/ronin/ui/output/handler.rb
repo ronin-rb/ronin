@@ -30,7 +30,7 @@ module Ronin
         # The shell to use for output.
         #
         def self.shell
-          @@ronin_output_shell ||= Thor::Shell::Basic.new
+          @@ronin_output_shell ||= Thor::Shell::Color.new
         end
 
         #
