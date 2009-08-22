@@ -42,7 +42,7 @@ module Ronin
             }
 
             if name
-              update.call(Platform.overlays.update(name))
+              update.call(Platform.overlays.get(name))
             else
               Platform.overlays.each_overlay(&update)
             end
