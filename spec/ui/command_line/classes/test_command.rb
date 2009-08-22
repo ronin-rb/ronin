@@ -10,8 +10,8 @@ class TestCommand < Ronin::UI::CommandLine::Command
     end
   end
 
-  desc 'default', 'Tests the default task'
-  def default
+  desc 'default [ARGS]', 'Tests the default task'
+  def default(*arguments)
     'default task'
   end
 
