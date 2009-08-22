@@ -20,7 +20,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/ui/verbose'
+require 'ronin/ui/output'
 require 'ronin/ui/console'
 require 'ronin/database'
 
@@ -36,7 +36,7 @@ module Ronin
           method_option :verbose, :type => :boolean, :aliases => '-v'
 
           def default
-            UI::Verbose.enable! if options.verbose?
+            UI::Output.verbose! if options.verbose?
 
             if options[:require]
               options[:require].each do |path|

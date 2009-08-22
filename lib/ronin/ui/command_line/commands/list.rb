@@ -20,6 +20,7 @@
 #
 
 require 'ronin/ui/command_line/command'
+require 'ronin/ui/output'
 require 'ronin/platform'
 
 module Ronin
@@ -37,7 +38,7 @@ module Ronin
               Platform.load_overlays(options[:cache])
             end
 
-            UI::Verbose.enable! if options.verbose?
+            UI::Output.enable! if options.verbose?
 
             unless name
               # list all overlays by name
@@ -57,7 +58,7 @@ module Ronin
             puts "  Media: #{overlay.media}" if overlay.media
             puts "  URI: #{overlay.uri}" if overlay.uri
 
-            if UI::Verbose.enabled?
+            if UI::Output.verbose?
               putc "\n"
 
               if overlay.title
