@@ -27,8 +27,10 @@ module Net
   # and the given _lhost_ and _lport_. If _block_ is given, it will be
   # passed the newly created UDPSocket object.
   #
+  # @example
   #   Net.udp_connect('www.hackety.org',80) # => UDPSocket
   #
+  # @example
   #   Net.udp_connect('www.wired.com',80) do |sock|
   #     puts sock.readlines
   #   end

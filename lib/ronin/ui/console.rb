@@ -62,6 +62,7 @@ module Ronin
       #
       # Sets the default Console indent setting to the specified _mode_.
       #
+      # @example
       #   Console.indent = false
       #   # => false
       #
@@ -96,6 +97,7 @@ module Ronin
       # Sets the default Console tab-completion mode to the specified
       # _mode_.
       #
+      # @example
       #   Console.completion = false
       #   # => false
       #

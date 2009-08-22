@@ -62,6 +62,9 @@ module Ronin
     # Defines a new builtin Arch with the specified _name_ and the given
     # _options_.
     #
+    # @example
+    #   Arch.predefine :alpha, :endian => :big, :address_length => 8
+    #
     def self.predefine(name,options={})
       super(name,options.merge(:name => name))
     end

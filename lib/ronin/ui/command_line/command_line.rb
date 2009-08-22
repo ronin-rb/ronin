@@ -65,6 +65,7 @@ module Ronin
       # Returns the Command registered with the command-line utility
       # with the specified _name_.
       #
+      # @example
       #   CommandLine.get_command('gen_overlay')
       #   # => Ronin::UI::CommandLine::Commands::GenOverlay
       #

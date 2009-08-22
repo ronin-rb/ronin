@@ -1,16 +1,16 @@
-#
-# Ronin - A Ruby platform designed for information security and data
-# exploration tasks.
-#
-# Copyright (c) 2006-2009 Hal Brodigan (postmodern.mod3 at gmail.com)
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+  #
+  # Ronin - A Ruby platform designed for information security and data
+  # exploration tasks.
+  #
+  # Copyright (c) 2006-2009 Hal Brodigan (postmodern.mod3 at gmail.com)
+  #
+  # This program is free software; you can redistribute it and/or modify
+  # it under the terms of the GNU General Public License as published by
+  # the Free Software Foundation; either version 2 of the License, or
+  # (at your option) any later version.
+  #
+  # This program is distributed in the hope that it will be useful,
+  # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
@@ -30,14 +30,17 @@ class IPAddr
   # address in the range to the specified _block_. Supports both
   # IPv4 and IPv6 address ranges.
   #
+  # @example Enumerate through a CIDR range
   #   IPAddr.each('10.1.1.1/24') do |ip|
   #     ...
   #   end
   #
+  # @example Enumerate through a globbed IP range
   #   IPAddr.each('10.1.1-5.*') do |ip|
   #     ...
   #   end
   #
+  # @example Enumerate through a globbed IPv6 range
   #   IPAddr.each('::ff::02-0a::c3') do |ip|
   #     ...
   #   end
@@ -103,6 +106,7 @@ class IPAddr
   # Iterates over each IP address that is included in the addresses mask,
   # passing each address to the specified _block_.
   #
+  # @example
   #   IPAddr.new('10.1.1.1/24').each do |ip|
   #     puts ip
   #   end

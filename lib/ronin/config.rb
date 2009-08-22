@@ -43,13 +43,11 @@ module Ronin
     # Ronin configuration files directory. If _name_ is not given, than the
     # main Ronin configuration file will be loaded.
     #
-    # Load the main config file at <tt>~/.ronin/config.rb</tt>
-    #
+    # @example Load the main config file at <tt>~/.ronin/config.rb</tt>
     #   Config.load
     #   # => true
     #
-    # Load a specific config file in <tt>~/.ronin/config/</tt>
-    #
+    # @example Load a specific config file in <tt>~/.ronin/config/</tt>
     #   Config.load :sql
     #   # => true
     #

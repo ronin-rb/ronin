@@ -30,12 +30,18 @@ module Ronin
         #
         # Prints the given _messages_.
         #
+        # @example
+        #   puts 'some data'
+        #
         def puts(*messages)
           Output.handler.puts(*messages)
         end
 
         #
         # Prints the given _messages_ as info diagnostics.
+        #
+        # @example
+        #   print_info 'Connecting ...'
         #
         def print_info(*messages)
           Output.handler.print_info(*messages)
@@ -44,6 +50,9 @@ module Ronin
         #
         # Prints the given _messages_ as debugging diagnostics,
         # if verbose output was enabled.
+        #
+        # @example
+        #   print_debug "var1: #{var1.inspect}"
         #
         def print_debug(*messages)
           if Output.verbose?
@@ -55,6 +64,9 @@ module Ronin
         # Prints the given _messages_ as warning diagnostics,
         # if verbose output was enabled.
         #
+        # @example
+        #   print_warning 'Detecting a restricted character in the buffer'
+        #
         def print_warning(*messages)
           if Output.verbose?
             Output.handler.print_warning(*messages)
@@ -63,6 +75,9 @@ module Ronin
 
         #
         # Prints the given _messages_ as error diagnostics.
+        #
+        # @example
+        #   print_error 'Could not connect!'
         #
         def print_error(*messages)
           Output.handler.print_error(*messages)

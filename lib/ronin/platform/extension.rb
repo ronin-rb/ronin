@@ -66,8 +66,10 @@ module Ronin
       # _block_ is given, it will be passed the newly created
       # Extension.
       #
+      # @example
       #   Extension.new('exploits')
       #
+      # @example
       #   Extension.new('awesome') do |ext|
       #     ...
       #   end
@@ -90,6 +92,7 @@ module Ronin
       # Extension object. If a _block_ is given, it will be passed the
       # newly created Extension object.
       #
+      # @example
       #   Extension.load('shellcode') do |ext|
       #     puts ext.search('moon_lander')
       #   end
@@ -106,6 +109,7 @@ module Ronin
       # Loads all extensions with the specified _name_ into a newly created
       # Extension object and then runs it with the specified _block_.
       #
+      # @example
       #   Extension.run('exploits') do |ext|
       #     puts ext.search(:product => 'Apache')
       #   end
@@ -172,6 +176,7 @@ module Ronin
       # Returns +true+ if the extension context has a public instance method
       # of the matching _name_, returns +false+ otherwise.
       #
+      # @example
       #   ext.has_method?(:console)
       #   # => true
       #
@@ -183,9 +188,11 @@ module Ronin
       # Calls the setup blocks of the extension. If a _block_ is given, it 
       # will be passed the extension after it has been setup.
       #
+      # @example
       #   ext.setup!
       #   # => #<Ronin::Platform::Extension: ...>
       #
+      # @example
       #   ext.setup! do |ext|
       #     puts "Extension #{ext} has been setup..."
       #   end
@@ -216,9 +223,11 @@ module Ronin
       # Run the teardown blocks of the extension. If a _block_ is given,
       # it will be passed the extension before it has been tore down.
       #
+      # @example
       #   ext.teardown!
       #   # => #<Ronin::Platform::Extension: ...>
       #
+      # @example
       #   ext.teardown! do |ext|
       #     puts "Extension #{ext} is being tore down..."
       #   end
@@ -250,6 +259,7 @@ module Ronin
       # Sets up the extension, passes the extension to the specified
       # _block_ and then tears down the extension.
       #
+      # @example
       #   ext.run do |ext|
       #     ext.console(ARGV)
       #   end
@@ -293,6 +303,7 @@ module Ronin
       # Defines instance methods for the specified _names_,
       # which will return the instance variable with the similar _name_.
       #
+      # @example
       #   attr_reader :var1, :var2
       #
       #   self.var1
@@ -316,6 +327,7 @@ module Ronin
       # which will set the instance variable with the similar _name_
       # to a specified _value_.
       #
+      # @example
       #   attr_writer :var1, :var2
       #   
       #   self.var1 = :foo
@@ -338,6 +350,7 @@ module Ronin
       # Defines attr_reader and attr_writer methods for the specified
       # _names_.
       #
+      # @example
       #   attr_accessor :var1, :var2
       #
       #   self.var1 = :foo

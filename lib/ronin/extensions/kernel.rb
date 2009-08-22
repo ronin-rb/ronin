@@ -24,6 +24,7 @@ module Kernel
   # Calls the given _block_ and ignores any raised exceptions.
   # If an exception is raised, +nil+ will be returned.
   #
+  # @example
   #   attempt do
   #     Resolv.getaddress('might.not.exist.com')
   #   end
@@ -41,6 +42,7 @@ module Kernel
   # RuntimeError or StandardError exceptions. If any exceptions are
   # caught, they will be printed out and +nil+ will be returned.
   #
+  # @example
   #   catch_all do
   #     load 'suspicious.rb'
   #   end
@@ -62,6 +64,7 @@ module Kernel
   # Safely requires the specified _sub_path_ from within the specified
   # _directory_.
   #
+  # @example
   #   require_within 'ronin/exploits/helpers', helper_name
   #
   def require_within(directory,sub_path)

@@ -28,6 +28,7 @@ module Ronin
       # Renders the specified inline ERB _template_ in the scope of the
       # object, returning the resulting +String+.
       #
+      # @example
       #   @user = 'lolcats'
       #
       #   erb %{
@@ -44,6 +45,7 @@ module Ronin
       # Renders the ERB template at the specified _path_ in the scope of the
       # object, returning the resulting +String+.
       #
+      # @example
       #   erb_file 'path/to/template.erb'
       #
       def erb_file(path)

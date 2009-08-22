@@ -34,6 +34,7 @@ module Ronin
     # <tt>:prompt</tt>:: Prompt to use for the shell, defaults to
     #                    +DEFAULT_PROMPT+.
     #
+    # @example
     #   Shell.start(:prompt => '$') { |shell,line| system(line) }
     #
     def Shell.start(options={},&block)

@@ -24,9 +24,11 @@ class Array
   #
   # Returns the bytes contained in the array.
   #
+  # @example
   #   [0x41, 0x41, 0x20].bytes
   #   # => [0x41, 0x41, 0x20]
   #
+  # @example
   #   ['A', 'BB', 0x90].bytes
   #   # => [0x41, 0x42, 0x42, 0x90]
   #
@@ -45,6 +47,7 @@ class Array
   #
   # Returns the Array of characters generated from the array.
   #
+  # @example
   #   [0x41, 0x41, 0x20].chars
   #   # => ["A", "A", " "]
   #
@@ -55,6 +58,7 @@ class Array
   #
   # Returns the String created from the characters within the array.
   #
+  # @example
   #   [0x41, 0x41, 0x20].char_string
   #   # => "AA "
   #

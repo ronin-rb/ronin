@@ -32,8 +32,10 @@ class String
   # _address_length_. The _address_length_ will default to the address
   # length of the _arch_.
   #
+  # @example
   #   0x41.pack(Arch('i686')) # => "A\000\000\000"
   #
+  # @example
   #   0x41.pack(Arch('ppc'),2) # => "\000A"
   #
   def depack(arch,address_length=arch.address_length)
@@ -61,6 +63,7 @@ class String
   #
   # Returns the hex escaped form of the string.
   #
+  # @example
   #   "hello".hex_escape
   #   # => "\\x68\\x65\\x6c\\x6c\\x6f"
   #
@@ -71,6 +74,7 @@ class String
   #
   # Returns an unescaped version of the hex escaped string.
   #
+  # @example
   #   "\\x68\\x65\\x6c\\x6c\\x6f".hex_unescape
   #   # => "hello"
   #

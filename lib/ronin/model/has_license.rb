@@ -36,6 +36,7 @@ module Ronin
           # Returns all models having the predefined license with the
           # predefined _name_.
           #
+          # @example
           #   LicensedModel.licensed_under(:cc_by_nc)
           #   # => [#<Ronin::LicensedModel: ...>, ...]
           #

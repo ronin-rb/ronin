@@ -32,9 +32,11 @@ module Ronin
     # Load the overlay cache from the given _path_. If a _block_ is
     # given it will be passed the current overlay cache.
     #
+    # @example
     #   Overlay.load_overlays
     #   # => #<Ronin::Platform::OverlayCache: ...>
     #
+    # @example
     #   Overlay.load_overlays('/custom/overlays/cache.yaml')
     #   # => #<Ronin::Platform::OverlayCache: ...>
     #
@@ -189,6 +191,7 @@ module Ronin
     # Returns a +Hash+ of all loaded extensions. Extensions can be loaded
     # on-the-fly by accessing the +Hash+.
     #
+    # @example
     #   Platform.extensions['shellcode']
     #   # => #<Ronin::Platform::Extension: ...>
     #

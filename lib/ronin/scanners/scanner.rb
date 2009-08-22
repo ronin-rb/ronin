@@ -169,10 +169,13 @@ module Ronin
       # If a _block_ is given, it will be passed each result and the
       # category the result belongs to.
       #
+      # @example
       #   url.scan(:rfi => true)
       #
+      # @example
       #   url.scan(:lfi => true, :sqli => {:params => ['id', 'catid']})
       #
+      # @example
       #   url.scan(:lfi => true, :rfi => true) do |category,result|
       #     puts "[#{category}] #{result.inspect}"
       #   end

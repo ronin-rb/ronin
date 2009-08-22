@@ -30,9 +30,11 @@ class Integer
   # _endian_ must be either <tt>:little</tt>, <tt>:big</tt> or
   # <tt>:net</tt>.
   #
+  # @example
   #   0xff41.bytes(2)
   #   # => [65, 255]
   #
+  # @example
   #   0xff41.bytes(4, :big)
   #   # => [0, 0, 255, 65]
   #
@@ -64,8 +66,10 @@ class Integer
   # _address_length_. The _address_length_ will default to the address
   # length of the _arch_.
   #
+  # @example
   #   0x41.pack(Arch.i686) # => "A\000\000\000"
   #
+  # @example
   #   0x41.pack(Arch.ppc,2) # => "\000A"
   #
   def pack(arch,address_length=arch.address_length)
@@ -75,6 +79,7 @@ class Integer
   #
   # Returns the hex escaped form of the integer.
   #
+  # @example
   #   42.hex_escape
   #   # => "\\x2a"
   #

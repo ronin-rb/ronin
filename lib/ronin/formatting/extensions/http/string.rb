@@ -29,6 +29,7 @@ class String
   #
   # Returns the URI encoded form of the string.
   #
+  # @example
   #   "art is graffiti".uri_encode
   #   # => "art%20is%20graffiti"
   #
@@ -39,6 +40,7 @@ class String
   #
   # Returns the decoded URI form of the string.
   #
+  # @example
   #   "genre%3f".uri_decode
   #   # => "genre?"
   #
@@ -49,6 +51,7 @@ class String
   #
   # Returns the URI escaped form of the string.
   #
+  # @example
   #   "x > y".uri_escape
   #   # => "x+%3E+y"
   #
@@ -59,6 +62,7 @@ class String
   #
   # Returns the unescaped URI form of the string.
   #
+  # @example
   #   "sweet+%26+sour".uri_unescape
   #   # => "sweet & sour"
   #
@@ -69,6 +73,7 @@ class String
   #
   # Returns the HTTP hexidecimal encoded form of the string.
   #
+  # @example
   #   "hello".format_http
   #   # => "&#104;&#101;&#108;&#108;&#111;"
   #

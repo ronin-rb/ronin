@@ -94,6 +94,7 @@ module Ronin
       #
       # Returns the Ovlerays which match the specified _block_.
       #
+      # @example
       #   cache.with do |overlay|
       #     overlay.author == 'the dude'
       #   end
@@ -192,9 +193,11 @@ module Ronin
       # be passed the cache after the _overlay_ is added. The _overlay_
       # will be returned.
       #
+      # @example
       #   cache.add(overlay)
       #   # => #<Ronin::Platform::Overlay: ...>
       #
+      # @example
       #   cache.add(overlay) do |cache|
       #     puts "Overlay #{overlay} added"
       #   end
@@ -220,9 +223,11 @@ module Ronin
       # Updates all the cached Overlays. If a _block_ is given it will
       # be passed the overlays as they are updated.
       #
+      # @example
       #   update
       #   # => #<Ronin::Platform::OverlayCache: ...>
       #
+      # @example
       #   update do |overlay|
       #     puts "#{overaly} is updated"
       #   end
@@ -242,9 +247,11 @@ module Ronin
       # _block_ is given, it will be passed the removed overlay. The cache
       # will be returned, after the overlay is removed.
       #
+      # @example
       #   cache.remove('hello_word')
       #   # => #<Ronin::Platform::Overlay: ...>
       #
+      # @example
       #   cache.remove('hello_word') do |overlay|
       #     puts "Overlay #{overlay} removed"
       #   end
@@ -267,9 +274,11 @@ module Ronin
       # is given, it will be passed the uninstalled overlay. The cache
       # will be returned, after the overlay is removed.
       #
+      # @example
       #   cache.uninstall('hello_word')
       #   # => #<Ronin::Platform::Overlay: ...>
       #
+      # @example
       #   cache.uninstall('hello_word') do |overlay|
       #     puts "Overlay #{overlay} uninstalled"
       #   end

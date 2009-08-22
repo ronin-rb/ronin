@@ -73,6 +73,7 @@ class String
   #
   # Dumps the string, returning a C style encoded version of the string.
   #
+  # @example
   #   "hello\x00\073\x90\r\n".dump
   #   # => "hello\0;\x90\r\n"
   #

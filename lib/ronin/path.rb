@@ -27,11 +27,14 @@ module Ronin
     #
     # Creates a new Path object with _n_ number of <tt>..</tt> directories.
     #
+    # @example Generate a relative path that goes up 7 directories.
     #   Path.up(7)
     #   # => #<Ronin::Path:../../../../../../..>
     #
+    # @example Generate multiple relative paths, going up 1 to 3 directories.
     #   Path.up(1..3)
-    #   # => [#<Ronin::Path:..>, #<Ronin::Path:../..>, #<Ronin::Path:../../..>]
+    #   # => [#<Ronin::Path:..>, #<Ronin::Path:../..>,
+    #   #<Ronin::Path:../../..>]
     #
     def self.up(n)
       if n.kind_of?(Integer)
@@ -45,6 +48,7 @@ module Ronin
     # Joins the _names_ with the path, but does not resolve the resulting
     # path.
     #
+    # @example
     #   Path.up(7).join('etc/passwd')
     #   # => #<Ronin::Path:../../../../../../../etc/passwd>
     #
@@ -57,6 +61,7 @@ module Ronin
     #
     # Joins _name_ with the path, but does not resolve the resulting path.
     #
+    # @example
     #   Path.up(7) / 'etc' / 'passwd'
     #   # => #<Ronin::Path:../../../../../../../etc/passwd>
     #

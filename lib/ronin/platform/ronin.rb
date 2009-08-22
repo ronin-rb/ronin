@@ -29,6 +29,7 @@ module Ronin
   #
   # Provides transparent access to Platform.extension via constants.
   #
+  # @example
   #   Ronin::Shellcode
   #   # => #<Ronin::Platform::Extension: ...>
   #
@@ -46,9 +47,11 @@ module Ronin
   #
   # Provides transparent access to Platform.extension via methods.
   #
+  # @example
   #   shellcode
   #   # => #<Ronin::Platform::Extension: ...>
   #
+  # @example
   #   shellcode do |ext|
   #     ...
   #   end
