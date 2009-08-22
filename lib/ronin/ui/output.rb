@@ -24,6 +24,36 @@ require 'ronin/ui/verbose'
 module Ronin
   module UI
     module Output
+      #
+      # Returns +true+ if verbose output is enabled, returns +false+
+      # otherwise.
+      #
+      def Output.verbose?
+        (@@ronin_verbose ||= false) == true
+      end
+
+      #
+      # Returns +true+ if verbose output is disabled, returns +false+
+      # otherwise.
+      #
+      def Output.quiet?
+        (@@ronin_verbose ||= false) == false
+      end
+
+      #
+      # Enables verbose output.
+      #
+      def Output.verbose!
+        @@ronin_verbose = true
+      end
+
+      #
+      # Disables verbose output.
+      #
+      def Output.quiet!
+        @@ronin_verbose = false
+      end
+
       protected
 
       #
@@ -38,7 +68,7 @@ module Ronin
       # if Ronin::UI::Verbose was enabled.
       #
       def print_debug(*messages)
-        if Verbose.enabled?
+        if Output.verbose?
           STDERR.puts(*(messages.map { |mesg| "[+] #{mesg}" }))
         end
       end
@@ -48,7 +78,7 @@ module Ronin
       # if Ronin::UI::Verbose was enabled.
       #
       def print_warning(*messages)
-        if Verbose.enabled?
+        if Output.verbose?
           STDERR.puts(*(messages.map { |mesg| "[*] #{mesg}" }))
         end
       end

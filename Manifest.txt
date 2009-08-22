@@ -140,7 +140,6 @@ lib/ronin/platform/extension.rb
 lib/ronin/platform/platform.rb
 lib/ronin/platform/ronin.rb
 lib/ronin/ui.rb
-lib/ronin/ui/verbose.rb
 lib/ronin/ui/output.rb
 lib/ronin/ui/hexdump.rb
 lib/ronin/ui/hexdump/hexdump.rb
@@ -261,7 +260,7 @@ spec/platform/overlay_cache_spec.rb
 spec/platform/extension_cache_spec.rb
 spec/platform/platform_spec.rb
 spec/platform/ronin_spec.rb
-spec/ui/verbose_spec.rb
+spec/ui/output_spec.rb
 spec/ui/command_line/classes/test_command.rb
 spec/ui/command_line/command_spec.rb
 spec/ronin_spec.rb
