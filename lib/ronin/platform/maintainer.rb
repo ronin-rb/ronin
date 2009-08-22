@@ -40,6 +40,7 @@ module Ronin
 
       #
       # Returns the String form of the maintainer object.
+      #
       def to_s
         if @email
           return "#{@name} <#{@email}>"
