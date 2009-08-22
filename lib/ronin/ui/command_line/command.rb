@@ -33,9 +33,6 @@ module Ronin
         include Thor::Actions
         include Diagnostics
 
-        # default task to run
-        DEFAULT_TASK = 'default'
-
         default_task :default
         map '-h' => :help
         map '-V' => :version
@@ -45,8 +42,12 @@ module Ronin
           super_class.namespace("ronin:#{class_name}")
         end
 
-        def self.normalize_task_name(name)
-          (map[name.to_s] || DEFAULT_TASK)
+        def self.start(arguments=ARGV,config={})
+          unless map[arguments.first.to_s]
+            arguments = [default_task] + arguments
+          end
+
+          super(arguments,config)
         end
 
         desc "command [ARGS...]", "default task to run"
@@ -89,13 +90,6 @@ module Ronin
         #
         def name
           self.class.name.split('::').last.snake_case
-        end
-
-        #
-        # If the task method cannot be found, default to calling run.
-        #
-        def method_missing(name,*arguments)
-          default(name,*arguments)
         end
 
       end
