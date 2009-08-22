@@ -24,6 +24,13 @@ module Ronin
     module Output
       module Handler
         #
+        # Prints the given _messages_.
+        #
+        def self.puts(*messages)
+          STDOUT.puts(*messages)
+        end
+
+        #
         # Prints the given _messages_ as info diagnostics.
         #
         def self.print_info(*messages)

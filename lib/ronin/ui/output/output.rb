@@ -72,6 +72,13 @@ module Ronin
       protected
 
       #
+      # Prints the given _messages_.
+      #
+      def puts(*messages)
+        Output.handler.puts(*messages)
+      end
+
+      #
       # Prints the given _messages_ as info diagnostics.
       #
       def print_info(*messages)
