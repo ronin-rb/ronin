@@ -37,7 +37,7 @@ module Ronin
       path = File.expand_path(path)
 
       unless File.directory?(path)
-        raise("#{path.dump} must be a directory")
+        raise(RuntimeError,"#{path.dump} must be a directory")
       end
 
       Static.static_dirs << path
