@@ -200,7 +200,7 @@ module Ronin
         name = overlay.name.to_s
 
         if has?(name)
-          raise(OverlayCached,"overlay #{name.dump} already present in the cache #{self.to_s.dump}",caller)
+          raise(OverlayCached,"overlay #{name.dump} is already present in the cache #{self.to_s.dump}",caller)
         end
 
         self[overlay.name.to_s] = overlay
