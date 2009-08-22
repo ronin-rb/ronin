@@ -109,11 +109,6 @@ module Ronin
         else
           name = argv.first
           argv = argv[1..-1]
-
-          if name.include?(':')
-            name, method_name = name.split(':',2)
-            argv = [method_name] + argv
-          end
         end
 
         begin

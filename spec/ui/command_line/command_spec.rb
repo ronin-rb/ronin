@@ -13,7 +13,7 @@ describe UI::CommandLine::Command do
   end
 
   it "should have a name" do
-    TestCommand.start(['test_name']).should == 'test_command'
+    TestCommand.new.test_name.should == 'test_command'
   end
 
   it "should have a default task" do
@@ -22,5 +22,9 @@ describe UI::CommandLine::Command do
 
   it "should call the default task for missing tasks" do
     TestCommand.start(['missing']).should == 'default task'
+  end
+
+  it "should still respond to option mappings" do
+    TestCommand.start(['-m']).should == 'mapped task'
   end
 end
