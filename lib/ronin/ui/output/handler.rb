@@ -22,7 +22,7 @@
 module Ronin
   module UI
     module Output
-      module Default
+      module Handler
         #
         # Prints the given _messages_ as info diagnostics.
         #
