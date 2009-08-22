@@ -123,7 +123,7 @@ module Ronin
           return @value.send(name,*arguments,&block)
         end
 
-        raise(NoMethodError,name.id2name)
+        super(name,*arguments,&block)
       end
 
     end
