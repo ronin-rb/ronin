@@ -136,7 +136,12 @@ module Ronin
         # configure the IRB context
         irb.context.main.instance_eval do
           require 'ronin'
+          require 'ronin/ui/output'
 
+          # include the output helpers
+          include Ronin::UI::Output::Helpers
+
+          # setup irb completion
           require 'irb/completion' if Ronin::UI::Console.completion
 
           # require any of the auto-load paths
