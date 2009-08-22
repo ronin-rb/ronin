@@ -58,7 +58,7 @@ module Ronin
                 print_info "Overlay #{overlay.name.dump} has been installed."
               end
             rescue Platform::OverlayCached => e
-              print_error => e.message
+              print_error e.message
               exit -1
             end
           end
