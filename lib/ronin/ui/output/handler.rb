@@ -24,21 +24,21 @@ module Ronin
     module Output
       module Handler
         #
-        # Prints the given _messages_.
+        # Prints the given _messages_ to STDOUT.
         #
         def self.puts(*messages)
           STDOUT.puts(*messages)
         end
 
         #
-        # Prints the given _messages_ as info diagnostics.
+        # Prints the given _messages_ as info diagnostics to STDERR.
         #
         def self.print_info(*messages)
           STDERR.puts(*(messages.map { |mesg| "[-] #{mesg}" }))
         end
 
         #
-        # Prints the given _messages_ as debugging diagnostics,
+        # Prints the given _messages_ as debugging diagnostics to STDERR,
         # if verbose output was enabled.
         #
         def self.print_debug(*messages)
@@ -46,7 +46,7 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as warning diagnostics,
+        # Prints the given _messages_ as warning diagnostics to STDERR,
         # if verbose output was enabled.
         #
         def self.print_warning(*messages)
@@ -54,7 +54,7 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as error diagnostics.
+        # Prints the given _messages_ as error diagnostics to STDERR.
         #
         def self.print_error(*messages)
           STDERR.puts(*(messages.map { |mesg| "[!] #{mesg}" }))
