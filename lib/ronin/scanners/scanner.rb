@@ -69,7 +69,8 @@ module Ronin
           end
 
           #
-          # Returns all scanner tests in the specified _category_.
+          # Returns all scanner tests in the category with the specified
+          # _name_.
           #
           def scanners_in(name)
             name = name.to_sym
