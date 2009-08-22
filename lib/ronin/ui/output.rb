@@ -23,7 +23,7 @@ require 'ronin/ui/verbose'
 
 module Ronin
   module UI
-    module Diagnostics
+    module Output
       protected
 
       #
