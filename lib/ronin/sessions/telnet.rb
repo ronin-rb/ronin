@@ -39,6 +39,12 @@ module Ronin
         options[:proxy] ||= @telnet_proxy
         options[:ssl] ||= @telnet_ssl
 
+        if @port
+          print_info "Connecting to #{@host}:#{@port} ..."
+        else
+          print_info "Connecting to #{@host} ..."
+        end
+
         return ::Net.telnet_connect(@host,options,&block)
       end
 
