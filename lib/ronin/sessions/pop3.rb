@@ -49,6 +49,12 @@ module Ronin
         pop3_connect(options) do |sess|
           block.call(sess) if block
           sess.finish
+
+          if @port
+            print_info "Disconnecting to #{@host}:#{@port}"
+          else
+            print_info "Disconnecting to #{@host}"
+          end
         end
       end
     end

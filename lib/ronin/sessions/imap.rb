@@ -49,8 +49,17 @@ module Ronin
       def imap_session(options={},&block)
         imap_connect(options) do |sess|
           block.call(sess) if block
+
+          print_info "Logging out ..."
+
           sess.close
           sess.logout
+
+          if @port
+            print_info "Disconnecting from #{@host}:#{@port}"
+          else
+            print_info "Disconnecting from #{@host}"
+          end
         end
       end
     end

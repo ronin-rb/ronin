@@ -53,7 +53,14 @@ module Ronin
       def esmtp_session(options={},&block)
         esmtp_connect(options) do |sess|
           block.call(sess) if block
+
           sess.close
+
+          if @port
+            print_info "Disconnecting from #{@host}:#{@port}"
+          else
+            print_info "Disconnecting from #{@host}"
+          end
         end
       end
     end

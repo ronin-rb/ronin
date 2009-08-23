@@ -54,6 +54,12 @@ module Ronin
         smtp_connect(options) do |sess|
           block.call(sess) if block
           sess.close
+
+          if @port
+            print_info "Disconnecting to #{@host}:#{@port}"
+          else
+            print_info "Disconnecting to #{@host}"
+          end
         end
       end
     end
