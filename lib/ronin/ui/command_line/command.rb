@@ -63,12 +63,12 @@ module Ronin
           exit
         end
 
-        desc "help [TASK]", "displays the help for the command"
+        desc "help", "displays the help for the command"
 
         #
         # Prints the help information for the command and exists.
         #
-        def help(task=nil)
+        def help
           self.class.help(
             shell, 
             self.class.default_task,
