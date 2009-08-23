@@ -71,8 +71,8 @@ module Ronin
         def help(task=nil)
           self.class.help(
             shell, 
-            task, 
-            :short => true,
+            self.class.default_task,
+            :short => false,
             :ident => 2,
             :namespace => false
           )
