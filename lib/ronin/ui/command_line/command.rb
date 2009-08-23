@@ -37,11 +37,6 @@ module Ronin
         map '-h' => :help
         map '-V' => :version
 
-        def self.inherited(super_class)
-          class_name = super_class.name.split('::').last.snake_case
-          super_class.namespace("ronin:#{class_name}")
-        end
-
         def self.start(arguments=ARGV,config={})
           unless map[arguments.first.to_s]
             arguments = [default_task] + arguments
@@ -77,9 +72,9 @@ module Ronin
           self.class.help(
             shell, 
             task, 
-            :short => false,
+            :short => true,
             :ident => 2,
-            :namespace => true
+            :namespace => false
           )
         end
 
