@@ -41,6 +41,8 @@ module Ronin
         require_variable :host
         require_variable :port
 
+        print_info "Connecting to #{@host}:#{@port} ..."
+
         return ::Net.tcp_connect(@host,@port,@local_host,@local_port,&block)
       end
 
@@ -52,6 +54,9 @@ module Ronin
       def tcp_connect_and_send(data,&block)
         require_variable :host
         require_variable :port
+
+        print_info "Connecting to #{@host}:#{@port} ..."
+        print_debug "Sending data: #{data.inspect}"
 
         return ::Net.tcp_connect_and_send(data,@host,@port,@local_host,@local_port,&block)
       end
@@ -66,7 +71,12 @@ module Ronin
         require_variable :host
         require_variable :port
 
-        return Net.tcp_session(@host,@port,@local_host,@local_port,&block)
+        print_info "Connecting to #{@host}:#{@port} ..."
+
+        Net.tcp_session(@host,@port,@local_host,@local_port,&block)
+
+        print_info "Disconnecting from #{@host}:#{@port}"
+        return nil
       end
 
       #
@@ -78,6 +88,8 @@ module Ronin
       def tcp_banner(&block)
         require_variable :host
         require_variable :port
+
+        print_debug "Grabbing banner from #{@host}:#{@port}"
 
         return ::Net.tcp_banner(@host,@port,@local_host,@local_port,&block)
       end
@@ -91,7 +103,13 @@ module Ronin
         require_variable :host
         require_variable :port
 
-        return ::Net.tcp_send(data,@host,@port,@local_host,@local_port)
+        print_info "Connecting to #{@host}:#{@port} ..."
+        print_debug "Sending data: #{data.inspect}"
+
+        ::Net.tcp_send(data,@host,@port,@local_host,@local_port)
+
+        print_info "Disconnecting from #{@host}:#{@port}"
+        return true
       end
     end
   end
