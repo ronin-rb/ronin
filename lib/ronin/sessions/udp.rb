@@ -39,6 +39,8 @@ module Ronin
         require_variable :host
         require_variable :port
 
+        print_info "Connecting to #{@host}:#{@port} ..."
+
         return ::Net.udp_connect(@host,@port,@local_host,@local_port,&block)
       end
 
@@ -50,6 +52,9 @@ module Ronin
       def udp_connect_and_send(data,&block)
         require_variable :host
         require_variable :port
+
+        print_info "Connecting to #{@host}:#{@port} ..."
+        print_debug "Sending data: #{data.inspect}"
 
         return ::Net.udp_connect_and_send(data,@host,@port,@local_host,@local_port,&block)
       end
@@ -64,7 +69,12 @@ module Ronin
         require_variable :host
         require_variable :port
 
-        return ::Net.udp_session(@host,@port,@local_host,@local_port,&block)
+        print_info "Connecting to #{@host}:#{@port} ..."
+
+        ::Net.udp_session(@host,@port,@local_host,@local_port,&block)
+
+        print_info "Disconnecting from #{@host}:#{@port}"
+        return nil
       end
     end
   end
