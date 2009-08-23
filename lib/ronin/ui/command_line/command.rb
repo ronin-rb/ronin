@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/output/helpers'
+require 'ronin/ui/output'
 require 'ronin/version'
 
 require 'thor'
@@ -45,7 +45,25 @@ module Ronin
           super(arguments,config)
         end
 
+        no_tasks do
+          def invoke(task,arguments)
+            if (options.verbose? && !(options.quiet?))
+              UI::Output.verbose!
+            end
+
+            if (options.color? && !(options.nocolor?))
+              UI::Output::Handler.no_color!
+            end
+
+            super(task,arguments)
+          end
+        end
+
         desc "command [ARGS...]", "default task to run"
+        method_option :verbose, :type => :boolean, :default => false, :aliases => '-v'
+        method_option :quiet, :type => :boolean, :default => true, :aliases => '-q'
+        method_option :color, :type => :boolean, :default => true
+        method_option :nocolor, :type => :boolean, :default => false
 
         #
         # Default method to call after the options have been parsed.
