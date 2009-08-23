@@ -20,10 +20,13 @@
 #
 
 require 'ronin/sessions/exceptions/variable_missing'
+require 'ronin/ui/output/helpers'
 
 module Ronin
   module Sessions
     module Session
+      include UI::Output::Helpers
+
       protected
 
       #
