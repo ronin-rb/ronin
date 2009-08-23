@@ -37,6 +37,12 @@ module Ronin
         options[:user] ||= @imap_user
         options[:password] ||= @imap_password
 
+        if @port
+          print_info "Connecting to #{@host}:#{@port} ..."
+        else
+          print_info "Connecting to #{@host} ..."
+        end
+
         return ::Net.imap_connect(@host,options,&block)
       end
 
