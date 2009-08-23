@@ -41,6 +41,12 @@ module Ronin
         options[:user] ||= @esmtp_user
         options[:password] ||= @esmtp_password
 
+        if @port
+          print_info "Connecting to #{@host}:#{@port} ..."
+        else
+          print_info "Connecting to #{@host} ..."
+        end
+
         return ::Net.esmtp_connect(@host,options,&block)
       end
 
