@@ -36,6 +36,12 @@ module Ronin
         options[:user] ||= @pop3_user
         options[:password] ||= @pop3_password
 
+        if @port
+          print_info "Connecting to #{@host}:#{@port} ..."
+        else
+          print_info "Connecting to #{@host} ..."
+        end
+
         return ::Net.pop3_connect(@host,options,&block)
       end
 
