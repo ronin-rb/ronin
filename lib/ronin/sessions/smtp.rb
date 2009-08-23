@@ -41,6 +41,12 @@ module Ronin
         options[:user] ||= @smtp_user
         options[:password] ||= @smtp_password
 
+        if @port
+          print_info "Connecting to #{@host}:#{@port} ..."
+        else
+          print_info "Connecting to #{@host} ..."
+        end
+
         return ::Net.smtp_connect(@host,options,&block)
       end
 
