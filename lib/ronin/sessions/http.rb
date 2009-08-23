@@ -43,8 +43,8 @@ module Ronin
       #
       # _options_ may contain the following keys:
       # <tt>:url</tt>:: The full URL to request.
-      # <tt>:user</tt>:: The user to authenticate with when connecting to the
-      #                  HTTP server.
+      # <tt>:user</tt>:: The user to authenticate with when connecting to
+      #                  the HTTP server.
       # <tt>:password</tt>:: The password to authenticate with when
       #                      connecting to the HTTP server.
       # <tt>:host</tt>:: The host the HTTP server is running on.
