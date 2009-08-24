@@ -68,7 +68,7 @@ module Ronin
         # if verbose output was enabled.
         #
         def self.print_debug(*messages)
-          shell.say messages.map { |mesg| "[+] #{mesg}" }.join($\)
+          shell.say messages.map { |mesg| "[+] #{mesg}" }.join($\), :cyan
         end
 
         #
