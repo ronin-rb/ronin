@@ -140,6 +140,17 @@ module Net
   # @yieldparam [TCPServer] server The newly created TCP server.
   # @return [nil]
   #
+  # @example
+  #   Net.tcp_server_session(1337) do |server|
+  #     client1 = server.accept
+  #     client2 = server.accept
+  #
+  #     client2.write(server.read_line)
+  #
+  #     client1.close
+  #     client2.close
+  #   end
+  #
   def Net.tcp_server_session(port,host='0.0.0.0',&block)
     server = Net.tcp_server(port,host,&block)
     server.close()
@@ -157,6 +168,11 @@ module Net
   #                 and the server will be closed.
   # @yieldparam [TCPSocket] client The newly connected client.
   # @return [nil]
+  #
+  # @example
+  #   Net.tcp_single_server(1337) do |client|
+  #     client.puts 'lol'
+  #   end
   #
   def Net.tcp_single_server(port,host='0.0.0.0',&block)
     server = TCPServer.new(host,port)
