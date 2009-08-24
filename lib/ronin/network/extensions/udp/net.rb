@@ -84,4 +84,44 @@ module Net
     block.call(banner) if block
     return banner
   end
+
+  #
+  # Creates a new UDPServer listening on the specified _host_ and _port_.
+  #
+  # @param [Integer] port The local port to listen on.
+  # @param [String] host The host to bind to.
+  # @return [UDPServer] The new UDP server.
+  #
+  # @example
+  #   Net.udp_server(1337)
+  #
+  def Net.udp_server(port,host='0.0.0.0',&block)
+    server = UDPServer.new(host,port)
+
+    block.call(server) if block
+    return server
+  end
+
+  #
+  # Creates a new UDPServer listening on the specified _host_ and _port_,
+  # passing it to the given _block_ and then closing the server.
+  #
+  # @param [Integer] port The local port to bind to.
+  # @param [String] host The host to bind to.
+  # @yield [server] The block which will be called after the _server_ has
+  #                 been created. After the block has finished, the
+  #                 _server_ will be closed.
+  # @yieldparam [UDPServer] server The newly created UDP server.
+  # @return [nil]
+  #
+  # @example
+  #   Net.udp_server_session(1337) do |server|
+  #     data, sender = server.recvfrom(1024)
+  #   end
+  #
+  def Net.udp_server_session(port,host='0.0.0.0',&block)
+    server = Net.udp_server(port,host,&block)
+    server.close()
+    return nil
+  end
 end
