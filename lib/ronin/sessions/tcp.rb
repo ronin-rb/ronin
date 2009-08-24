@@ -75,7 +75,7 @@ module Ronin
 
         Net.tcp_session(@host,@port,@local_host,@local_port,&block)
 
-        print_info "Disconnecting from #{@host}:#{@port}"
+        print_info "Disconnected from #{@host}:#{@port}"
         return nil
       end
 
@@ -108,7 +108,7 @@ module Ronin
 
         ::Net.tcp_send(data,@host,@port,@local_host,@local_port)
 
-        print_info "Disconnecting from #{@host}:#{@port}"
+        print_info "Disconnected from #{@host}:#{@port}"
         return true
       end
 
@@ -167,14 +167,12 @@ module Ronin
           print_info "Listening on #{@server_port} ..."
         end
 
-        ::Net.tcp_server_session do |server|
-          block.call(server) if block
+        ::Net.tcp_server_session(&block)
 
-          if @server_host
-            print_info "Closing #{@server_host}:#{@server_port}"
-          else
-            print_info "Closing #{@server_port}"
-          end
+        if @server_host
+          print_info "Closed #{@server_host}:#{@server_port}"
+        else
+          print_info "Closed #{@server_port}"
         end
 
         return nil
@@ -218,9 +216,9 @@ module Ronin
         end
 
         if @server_host
-          print_info "Closing #{@server_host}:#{@server_port}"
+          print_info "Closed #{@server_host}:#{@server_port}"
         else
-          print_info "Closing #{@server_port}"
+          print_info "Closed #{@server_port}"
         end
 
         return nil
