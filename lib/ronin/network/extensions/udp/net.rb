@@ -23,9 +23,9 @@ require 'socket'
 
 module Net
   #
-  # Creates a new UDPSocket object with the specified _rhost_, _rport_
-  # and the given _lhost_ and _lport_. If _block_ is given, it will be
-  # passed the newly created UDPSocket object.
+  # Creates a new UDPSocket object with the specified _host_, _port_
+  # and the given _local_host_ and _local_port_. If _block_ is given, it
+  # will be passed the newly created UDPSocket object.
   #
   # @example
   #   Net.udp_connect('www.hackety.org',80) # => UDPSocket
@@ -35,21 +35,21 @@ module Net
   #     puts sock.readlines
   #   end
   #
-  def Net.udp_connect(rhost,rport,lhost=nil,lport=nil,&block)
-    sock = UDPSocket.new(rhost,rport,lhost,lport)
+  def Net.udp_connect(host,port,local_host=nil,local_port=nil,&block)
+    sock = UDPSocket.new(host,port,local_host,local_port)
     block.call(sock) if block
 
     return sock
   end
 
   #
-  # Creates a new UDPSocket object with the specified _rhost_ 
-  # _rport_, and the given _lhost_ and _lport_. The specified _data_ will
+  # Creates a new UDPSocket object with the specified _host_, _port_, and
+  # the given _local_host_ and _local_port_. The specified _data_ will
   # then be written to the newly created UDPSocket. If a _block_ is given
   # it will be passed the UDPSocket object.
   #
-  def Net.udp_connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
-    Net.udp_connect(rhost,rport,lhost,lport) do |sock|
+  def Net.udp_connect_and_send(data,host,port,local_host=nil,local_port=nil,&block)
+    Net.udp_connect(host,port,local_host,local_port) do |sock|
       sock.write(data)
 
       block.call(sock) if block
@@ -57,13 +57,13 @@ module Net
   end
 
   #
-  # Creates a new UDPSocket object with the specified _rhost_, _rport_
-  # and the given _lhost_ and _lport_. If _block_ is given, it will be
-  # passed the newly created UDPSocket object. After the UDPSocket object
-  # has been passed to the given _block_ it will be closed.
+  # Creates a new UDPSocket object with the specified _host_, _port_
+  # and the given _local_host_ and _local_port_. If _block_ is given, it
+  # will be passed the newly created UDPSocket object. After the UDPSocket
+  # object has been passed to the given _block_ it will be closed.
   #
-  def Net.udp_session(rhost,rport,lhost=nil,lport=nil,&block)
-    Net.udp_connect(rhost,rport,lhost,lport) do |sock|
+  def Net.udp_session(host,port,local_host=nil,local_port=nil,&block)
+    Net.udp_connect(host,port,local_host,local_port) do |sock|
       block.call(sock) if block
       sock.close
     end
@@ -72,12 +72,13 @@ module Net
   end
 
   #
-  # Connects to the specified _rhost_ and _rport_ with the given _lhost_
-  # and _lport_, reads the banner then closes the connection, returning the
-  # received banner. If a _block_ is given it will be passed the banner.
+  # Connects to the specified _host_ and _port_ with the given _local_host_
+  # and _local_port_, reads the banner then closes the connection,
+  # returning the received banner. If a _block_ is given it will be passed
+  # the banner.
   #
-  def Net.udp_banner(rhost,rport,lhost=nil,lport=nil,&block)
-    Net.udp_session(rhost,rport,lhost,lport) do |sock|
+  def Net.udp_banner(host,port,local_host=nil,local_port=nil,&block)
+    Net.udp_session(host,port,local_host,local_port) do |sock|
       banner = sock.readline
     end
 

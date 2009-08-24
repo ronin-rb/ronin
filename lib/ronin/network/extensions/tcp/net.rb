@@ -23,9 +23,9 @@ require 'socket'
 
 module Net
   #
-  # Creates a new TCPSocket object with the specified _rhost_, _rport_
-  # and the given _lhost_ and _lport_. If _block_ is given, it will be
-  # passed the newly created TCPSocket object.
+  # Creates a new TCPSocket object with the specified _host_, _port_
+  # and the given _local_host_ and _local_port_. If _block_ is given, it
+  # will be passed the newly created TCPSocket object.
   #
   # @example
   #   Net.tcp_connect('www.hackety.org',80) # => TCPSocket
@@ -37,21 +37,21 @@ module Net
   #     sock.close
   #   end
   #
-  def Net.tcp_connect(rhost,rport,lhost=nil,lport=nil,&block)
-    sock = TCPSocket.new(rhost,rport,lhost,lport)
+  def Net.tcp_connect(host,port,local_host=nil,local_port=nil,&block)
+    sock = TCPSocket.new(host,port,local_host,local_port)
     block.call(sock) if block
 
     return sock
   end
 
   #
-  # Creates a new TCPSocket object with the specified _rhost_ 
-  # _rport_, and the given _lhost_ and _lport_. The specified _data_ will
+  # Creates a new TCPSocket object with the specified _host_, _port_, and
+  # the given _local_host_ and _local_port_. The specified _data_ will
   # then be written to the newly created TCPSocket. If a _block_ is given
   # it will be passed the TCPSocket object.
   #
-  def Net.tcp_connect_and_send(data,rhost,rport,lhost=nil,lport=nil,&block)
-    Net.tcp_connect(rhost,rport,lhost,lport) do |sock|
+  def Net.tcp_connect_and_send(data,host,port,local_host=nil,local_port=nil,&block)
+    Net.tcp_connect(host,port,local_host,local_port) do |sock|
       sock.write(data)
 
       block.call(sock) if block
@@ -59,13 +59,13 @@ module Net
   end
 
   #
-  # Creates a new TCPSocket object with the specified _rhost_, _rport_
-  # and the given _lhost_ and _lport_. If _block_ is given, it will be
-  # passed the newly created TCPSocket object. After the TCPSocket object
-  # has been passed to the given _block_ it will be closed.
+  # Creates a new TCPSocket object with the specified _host_, _port_
+  # and the given _local_host_ and _local_port_. If _block_ is given, it
+  # will be passed the newly created TCPSocket object. After the TCPSocket
+  # object has been passed to the given _block_ it will be closed.
   #
-  def Net.tcp_session(rhost,rport,lhost=nil,lport=nil,&block)
-    Net.tcp_connect(rhost,rport,lhost,lport) do |sock|
+  def Net.tcp_session(host,port,local_host=nil,local_port=nil,&block)
+    Net.tcp_connect(host,port,local_host,local_port) do |sock|
       block.call(sock) if block
       sock.close
     end
@@ -74,18 +74,19 @@ module Net
   end
 
   #
-  # Connects to the specified _rhost_ and _rport_ with the given _lhost_
-  # and _lport_, reads the banner then closes the connection, returning the
-  # received banner. If a _block_ is given it will be passed the banner.
+  # Connects to the specified _host_ and _port_ with the given
+  # _local_host_ and _local_port_, reads the banner then closes the
+  # connection, returning the received banner. If a _block_ is given it
+  # will be passed the banner.
   #
   # @example
   #   Net.tcp_banner('pop.gmail.com',25)
   #   # => "220 mx.google.com ESMTP c20sm3096959rvf.1"
   #
-  def Net.tcp_banner(rhost,rport,lhost=nil,lport=nil,&block)
+  def Net.tcp_banner(host,port,local_host=nil,local_port=nil,&block)
     banner = nil
 
-    Net.tcp_session(rhost,rport,lhost,lport) do |sock|
+    Net.tcp_session(host,port,local_host,local_port) do |sock|
       banner = sock.readline.strip
     end
 
@@ -94,16 +95,16 @@ module Net
   end
 
   #
-  # Connects to the specified _rhost_ and _rport_ with the given _lhost_
-  # and _lport_, sends the specified _data_ and then closes the connection.
-  # Returns +true+ if the _data_ was successfully sent.
+  # Connects to the specified _host_ and _port_ with the given _local_host_
+  # and _local_port_, sends the specified _data_ and then closes the
+  # connection. Returns +true+ if the _data_ was successfully sent.
   #
   # @example
   #   buffer = "GET /" + ('A' * 4096) + "\n\r"
   #   Net.tcp_send(buffer,'victim.com',80)
   #
-  def Net.tcp_send(data,rhost,rport,lhost=nil,lport=nil)
-    Net.tcp_session(rhost,rport,lhost,lport) do |sock|
+  def Net.tcp_send(data,host,port,local_host=nil,local_port=nil)
+    Net.tcp_session(host,port,local_host,local_port) do |sock|
       sock.write(data)
     end
 
