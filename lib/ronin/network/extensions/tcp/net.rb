@@ -121,7 +121,7 @@ module Net
   #   Net.tcp_server(1337)
   #
   def Net.tcp_server(port,host='0.0.0.0',&block)
-    server = TCPServer.open(port,host)
+    server = TCPServer.new(host,port)
     server.listen(3)
 
     block.call(server) if block
@@ -159,7 +159,7 @@ module Net
   # @return [nil]
   #
   def Net.tcp_single_server(port,host='0.0.0.0',&block)
-    server = TCPServer.new(port,host)
+    server = TCPServer.new(host,port)
     server.listen(1)
 
     client = server.accept
