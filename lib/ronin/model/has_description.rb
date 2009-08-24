@@ -40,6 +40,26 @@ module Ronin
           def self.describing(description)
             self.all(:description.like => "%#{description}%")
           end
+
+          #
+          # Strips leading and trailing white-space from each line, then sets
+          # the description property.
+          #
+          # @param [String] new_text The new description to use.
+          #
+          # @example
+          #   self.description = %{
+          #   }
+          #
+          def description=(new_text)
+            sanitized_lines = []
+
+            new_text.to_s.each_line do |line|
+              sanitized_lines << line.strip
+            end
+
+            attribute_set(:description,sanitized_lines.join("\n").strip)
+          end
         end
       end
     end
