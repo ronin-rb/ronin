@@ -120,8 +120,8 @@ module Net
   # @example
   #   Net.tcp_server(1337)
   #
-  def Net.tcp_server(port,lhost='0.0.0.0',&block)
-    server = TCPServer.open(lport,lhost)
+  def Net.tcp_server(port,host='0.0.0.0',&block)
+    server = TCPServer.open(port,host)
     server.listen(3)
 
     block.call(server) if block
