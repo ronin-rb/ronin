@@ -109,4 +109,65 @@ module Net
 
     return true
   end
+
+  #
+  # Creates a new TCPServer listening on the specified _host_ and _port_.
+  #
+  # @param [Integer] port The local port to listen on.
+  # @param [String] host The host to bind to.
+  # @return [TCPServer] The new TCP server.
+  #
+  # @example
+  #   Net.tcp_server(1337)
+  #
+  def Net.tcp_server(port,lhost='0.0.0.0',&block)
+    server = TCPServer.new(lport,lhost)
+    server.listen(3)
+
+    block.call(server) if block
+    return server
+  end
+
+  #
+  # Creates a new TCPServer listening on the specified _host_ and _port_,
+  # passing it to the given _block_ and then closing the server.
+  #
+  # @param [Integer] port The local port to bind to.
+  # @param [String] host The host to bind to.
+  # @yield [server] The block which will be called after the _server_ has
+  #                 been created. After the block has finished, the
+  #                 _server_ will be closed.
+  # @yieldparam [TCPServer] server The newly created TCP server.
+  # @return [nil]
+  #
+  def Net.tcp_server_session(port,host='0.0.0.0',&block)
+    server = Net.tcp_server(port,host,&block)
+    server.close()
+    return nil
+  end
+
+  #
+  # Creates a new TCPServer listening on the specified _host_ and _port_,
+  # then accepts only one client.
+  #
+  # @param [Integer] port The local port to listen on.
+  # @param [String] host The host to bind to.
+  # @yield [client] The block which will be passed the newly connected
+  #                 _client_. After the block has finished, the _client_
+  #                 and the server will be closed.
+  # @yieldparam [TCPSocket] client The newly connected client.
+  # @return [nil]
+  #
+  def Net.tcp_single_server(lport,lhost='0.0.0.0',&block)
+    server = TCPServer.new(lport,lhost)
+    server.listen(1)
+
+    client = server.accept
+
+    block.call(client) if block
+
+    client.close
+    server.close
+    return nil
+  end
 end
