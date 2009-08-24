@@ -36,7 +36,7 @@ module Net
   #   end
   #
   def Net.udp_connect(rhost,rport,lhost=nil,lport=nil,&block)
-    sock = UDPSocket.new(@rhost,@rport,@lhost,@lport)
+    sock = UDPSocket.new(rhost,rport,lhost,lport)
     block.call(sock) if block
 
     return sock
