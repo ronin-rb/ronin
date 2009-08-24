@@ -111,6 +111,120 @@ module Ronin
         print_info "Disconnecting from #{@host}:#{@port}"
         return true
       end
+
+      #
+      # Creates a new TCPServer object listening on +server_host+ and
+      # +server_port+.
+      #
+      # @yield [server] The given block will be passed the newly created
+      #                 server.
+      # @yieldparam [TCPServer] server The newly created server.
+      # @return [TCPServer] The newly created server.
+      #
+      # @example
+      #   tcp_server
+      #
+      def tcp_server(&block)
+        require_variable :server_port
+
+        if @server_host
+          print_info "Listening on #{@server_host}:#{@server_port} ..."
+        else
+          print_info "Listening on #{@server_port} ..."
+        end
+
+        return ::Net.tcp_server(@server_port,@server_host,&block)
+      end
+
+      #
+      # Creates a new TCPServer object listening on +server_host+ and
+      # +server_port+, passing it to the given _block then closing the
+      # server.
+      #
+      # @yield [server] The given block will be passed the newly created
+      #                 server. When the block has finished, the server
+      #                 will be closed.
+      # @yieldparam [TCPServer] server The newly created server.
+      # @return [nil]
+      #
+      # @example
+      #   tcp_server_session do |server|
+      #     client1 = server.accept
+      #     client2 = server.accept
+      #
+      #     client2.write(server.read_line)
+      #
+      #     client1.close
+      #     client2.close
+      #   end
+      #
+      def tcp_server_session(&block)
+        require_variable :server_port
+
+        if @server_host
+          print_info "Listening on #{@server_host}:#{@server_port} ..."
+        else
+          print_info "Listening on #{@server_port} ..."
+        end
+
+        ::Net.tcp_server_session do |server|
+          block.call(server) if block
+
+          if @server_host
+            print_info "Closing #{@server_host}:#{@server_port}"
+          else
+            print_info "Closing #{@server_port}"
+          end
+        end
+
+        return nil
+      end
+
+      #
+      # Creates a new TCPServer object listening on +server_host+ and
+      # +server_port+, accepts one client passing it to the given _block_,
+      # then closes both the newly connected client and the server.
+      #
+      # @yield [client] The given block will be passed the newly connected
+      #                 client. When the block has finished, the newly
+      #                 connected client and the server will be closed.
+      # @yieldparam [TCPSocket] client The newly connected client.
+      # @return [nil]
+      #
+      # @example
+      #   tcp_single_server do |client|
+      #     client.puts 'lol'
+      #   end
+      #
+      def tcp_single_server(&block)
+        require_variable :server_port
+
+        if @server_host
+          print_info "Listening on #{@server_host}:#{@server_port} ..."
+        else
+          print_info "Listening on #{@server_port} ..."
+        end
+
+        ::Net.tcp_single_server do |client|
+          client_addr = client.peeraddr
+          client_host = (client_addr[2] || client_addr[3])
+          client_port = client_addr[1]
+
+          print_info "Client connected #{client_host}:#{client_port}"
+
+          block.call(client) if block
+
+          print_info "Disconnecting client #{client_host}:#{client_port}"
+        end
+
+        if @server_host
+          print_info "Closing #{@server_host}:#{@server_port}"
+        else
+          print_info "Closing #{@server_port}"
+        end
+
+        return nil
+      end
     end
   end
 end

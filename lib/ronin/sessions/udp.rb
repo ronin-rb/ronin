@@ -76,6 +76,68 @@ module Ronin
         print_info "Disconnecting from #{@host}:#{@port}"
         return nil
       end
+
+      #
+      # Creates a new UDPServer object listening on +server_host+ and
+      # +server_port+.
+      #
+      # @yield [server] The given block will be passed the newly created
+      #                 server.
+      # @yieldparam [UDPServer] server The newly created server.
+      # @return [UDPServer] The newly created server.
+      #
+      # @example
+      #   udp_server
+      #
+      def udp_server(&block)
+        require_variable :server_port
+
+        if @server_host
+          print_info "Listening on #{@server_host}:#{@server_port} ..."
+        else
+          print_info "Listening on #{@server_port} ..."
+        end
+
+        return ::Net.udp_server(@server_port,@server_host,&block)
+      end
+
+      #
+      # Creates a new UDPServer object listening on +server_host+ and
+      # +server_port+, passing it to the given _block then closing the
+      # server.
+      #
+      # @yield [server] The given block will be passed the newly created
+      #                 server. When the block has finished, the server
+      #                 will be closed.
+      # @yieldparam [UDPServer] server The newly created server.
+      # @return [nil]
+      #
+      # @example
+      #   udp_server_session do |server|
+      #     data, sender = server.recvfrom(1024)
+      #   end
+      #
+      def udp_server_session(&block)
+        require_variable :server_port
+
+        if @server_host
+          print_info "Listening on #{@server_host}:#{@server_port} ..."
+        else
+          print_info "Listening on #{@server_port} ..."
+        end
+
+        ::Net.udp_server_session do |server|
+          block.call(server) if block
+
+          if @server_host
+            print_info "Closing #{@server_host}:#{@server_port}"
+          else
+            print_info "Closing #{@server_port}"
+          end
+        end
+
+        return nil
+      end
     end
   end
 end
