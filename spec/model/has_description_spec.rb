@@ -30,7 +30,7 @@ test two
     @model.description.should == "test\nthree"
   end
 
-  it "should preserve non leading or trailing empty lines" do
+  it "should preserve non-bordering empty lines" do
     @model.description = %{
       test
 
