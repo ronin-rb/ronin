@@ -29,12 +29,16 @@ module Ronin
         #
         # The shell to use for output.
         #
+        # @since 0.3.0
+        #
         def self.shell
           @@ronin_output_shell ||= Thor::Shell::Color.new
         end
 
         #
         # Enables color output.
+        #
+        # @since 0.3.0
         #
         def Handler.color!
           @@ronin_output_shell = Thor::Shell::Color.new
@@ -44,6 +48,8 @@ module Ronin
         #
         # Disables color output.
         #
+        # @since 0.3.0
+        #
         def Handler.no_color!
           @@ronin_output_shell = Thor::Shell::Basic.new
           return false
@@ -52,12 +58,16 @@ module Ronin
         #
         # Prints the given _messages_.
         #
+        # @since 0.3.0
+        #
         def self.puts(*messages)
           shell.say messages.join($\)
         end
 
         #
         # Prints the given _messages_ as info diagnostics.
+        #
+        # @since 0.3.0
         #
         def self.print_info(*messages)
           shell.say messages.map { |mesg| "[-] #{mesg}" }.join($\), :green
@@ -67,6 +77,8 @@ module Ronin
         # Prints the given _messages_ as debugging diagnostics,
         # if verbose output was enabled.
         #
+        # @since 0.3.0
+        #
         def self.print_debug(*messages)
           shell.say messages.map { |mesg| "[+] #{mesg}" }.join($\), :cyan
         end
@@ -75,12 +87,16 @@ module Ronin
         # Prints the given _messages_ as warning diagnostics,
         # if verbose output was enabled.
         #
+        # @since 0.3.0
+        #
         def self.print_warning(*messages)
           shell.say messages.map { |mesg| "[*] #{mesg}" }.join($\), :yellow
         end
 
         #
         # Prints the given _messages_ as error diagnostics.
+        #
+        # @since 0.3.0
         #
         def self.print_error(*messages)
           shell.say messages.map { |mesg| "[!] #{mesg}" }.join($\), :red

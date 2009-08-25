@@ -28,6 +28,8 @@ module Ronin
       # Returns +true+ if verbose output is enabled, returns +false+
       # otherwise.
       #
+      # @since 0.3.0
+      #
       def Output.verbose?
         (@@ronin_verbose ||= false) == true
       end
@@ -36,6 +38,8 @@ module Ronin
       # Returns +true+ if verbose output is disabled, returns +false+
       # otherwise.
       #
+      # @since 0.3.0
+      #
       def Output.quiet?
         (@@ronin_verbose ||= false) == false
       end
@@ -43,12 +47,16 @@ module Ronin
       #
       # Enables verbose output.
       #
+      # @since 0.3.0
+      #
       def Output.verbose!
         @@ronin_verbose = true
       end
 
       #
       # Disables verbose output.
+      #
+      # @since 0.3.0
       #
       def Output.quiet!
         @@ronin_verbose = false
@@ -58,12 +66,16 @@ module Ronin
       # Returns the current Output handler. Defaults to
       # Ronin::UI::Output::Handler.
       #
+      # @since 0.3.0
+      #
       def Output.handler
         @@ronin_output ||= Handler
       end
 
       #
       # Sets the current Output handler to the specified _new_handler_.
+      #
+      # @since 0.3.0
       #
       def Output.handler=(new_handler)
         @@ronin_output = new_handler

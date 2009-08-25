@@ -33,6 +33,8 @@ module Ronin
         # @example
         #   puts 'some data'
         #
+        # @since 0.3.0
+        #
         def puts(*messages)
           Output.handler.puts(*messages)
         end
@@ -42,6 +44,8 @@ module Ronin
         #
         # @example
         #   print_info 'Connecting ...'
+        #
+        # @since 0.3.0
         #
         def print_info(*messages)
           Output.handler.print_info(*messages)
@@ -53,6 +57,8 @@ module Ronin
         #
         # @example
         #   print_debug "var1: #{var1.inspect}"
+        #
+        # @since 0.3.0
         #
         def print_debug(*messages)
           if Output.verbose?
@@ -67,6 +73,8 @@ module Ronin
         # @example
         #   print_warning 'Detecting a restricted character in the buffer'
         #
+        # @since 0.3.0
+        #
         def print_warning(*messages)
           if Output.verbose?
             Output.handler.print_warning(*messages)
@@ -78,6 +86,8 @@ module Ronin
         #
         # @example
         #   print_error 'Could not connect!'
+        #
+        # @since 0.3.0
         #
         def print_error(*messages)
           Output.handler.print_error(*messages)
