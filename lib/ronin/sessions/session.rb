@@ -19,7 +19,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/sessions/exceptions/variable_missing'
 require 'ronin/ui/output/helpers'
 
 module Ronin
@@ -30,15 +29,15 @@ module Ronin
       protected
 
       #
-      # Raises a VariableMissing exception if the instance variable with
-      # the specified _name_ is not defined, returns +true+ otherwise.
+      # Tests wether the instance variable with the specified _name_ has been
+      # set.
       #
-      # @raise [VariableMissing] The session variable with the specified
-      #                          _name_ was not set.
+      # @return [true] The instance variable has been set.
+      # @raise [RuntimeError] The instance variable was not set.
       #
       def require_variable(name)
         if instance_variable_get("@#{name}").nil?
-          raise(VariableMissing,"the session variable @#{name} was not set",caller)
+          raise(RuntimeError,"the instance variable @#{name} was not set",caller)
         end
 
         return true

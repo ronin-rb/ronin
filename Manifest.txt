@@ -97,8 +97,6 @@ lib/ronin/scanners/exceptions.rb
 lib/ronin/scanners/exceptions/unknown_category.rb
 lib/ronin/scanners/scanner.rb
 lib/ronin/sessions.rb
-lib/ronin/sessions/exceptions.rb
-lib/ronin/sessions/exceptions/variable_missing.rb
 lib/ronin/sessions/session.rb
 lib/ronin/sessions/tcp.rb
 lib/ronin/sessions/udp.rb
