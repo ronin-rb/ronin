@@ -28,6 +28,7 @@ Hoe.spec('ronin') do
     ['repertoire', '>=0.2.1'],
     ['thor', '>=0.11.5']
   ]
+
   self.extra_dev_deps = [
     ['rspec', '>=1.1.12']
   ]
