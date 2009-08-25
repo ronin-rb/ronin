@@ -89,6 +89,8 @@ module Ronin
       # @example
       #   udp_server
       #
+      # @since 0.3.0
+      #
       def udp_server(&block)
         require_variable :server_port
 
@@ -116,6 +118,8 @@ module Ronin
       #   udp_server_session do |server|
       #     data, sender = server.recvfrom(1024)
       #   end
+      #
+      # @since 0.3.0
       #
       def udp_server_session(&block)
         require_variable :server_port

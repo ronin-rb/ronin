@@ -121,6 +121,8 @@ module Net
   # @example
   #   Net.tcp_server(1337)
   #
+  # @since 0.3.0
+  #
   def Net.tcp_server(port,host='0.0.0.0',&block)
     server = TCPServer.new(host,port)
     server.listen(3)
@@ -152,6 +154,8 @@ module Net
   #     client2.close
   #   end
   #
+  # @since 0.3.0
+  #
   def Net.tcp_server_session(port,host='0.0.0.0',&block)
     server = Net.tcp_server(port,host,&block)
     server.close()
@@ -174,6 +178,8 @@ module Net
   #   Net.tcp_single_server(1337) do |client|
   #     client.puts 'lol'
   #   end
+  #
+  # @since 0.3.0
   #
   def Net.tcp_single_server(port,host='0.0.0.0',&block)
     server = TCPServer.new(host,port)

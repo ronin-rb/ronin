@@ -124,6 +124,8 @@ module Ronin
       # @example
       #   tcp_server
       #
+      # @since 0.3.0
+      #
       def tcp_server(&block)
         require_variable :server_port
 
@@ -157,6 +159,8 @@ module Ronin
       #     client1.close
       #     client2.close
       #   end
+      #
+      # @since 0.3.0
       #
       def tcp_server_session(&block)
         require_variable :server_port
@@ -193,6 +197,8 @@ module Ronin
       #   tcp_single_server do |client|
       #     client.puts 'lol'
       #   end
+      #
+      # @since 0.3.0
       #
       def tcp_single_server(&block)
         require_variable :server_port

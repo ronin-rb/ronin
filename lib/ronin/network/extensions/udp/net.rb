@@ -96,6 +96,8 @@ module Net
   # @example
   #   Net.udp_server(1337)
   #
+  # @since 0.3.0
+  #
   def Net.udp_server(port,host='0.0.0.0',&block)
     server = UDPServer.new(host,port)
 
@@ -119,6 +121,8 @@ module Net
   #   Net.udp_server_session(1337) do |server|
   #     data, sender = server.recvfrom(1024)
   #   end
+  #
+  # @since 0.3.0
   #
   def Net.udp_server_session(port,host='0.0.0.0',&block)
     server = Net.udp_server(port,host,&block)
