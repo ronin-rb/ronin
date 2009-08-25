@@ -51,6 +51,8 @@ module Ronin
           #   self.description = %{
           #   }
           #
+          # @since 0.3.0
+          #
           def description=(new_text)
             sanitized_lines = []
 
