@@ -11,11 +11,11 @@ describe Sessions::Session do
       @obj.host = 'www.example.com'
     end
 
-    it "should raise a VariableMissing exception if a variable is nil" do
+    it "should raise a RuntimeError exception if a variable is nil" do
       lambda {
         @obj.host = nil
         @obj.connect
-      }.should raise_error(Sessions::VariableMissing)
+      }.should raise_error(RuntimeError)
     end
 
     it "should do nothing if the variable is not nil" do
