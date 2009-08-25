@@ -49,6 +49,9 @@ module Ronin
           #
           # @example
           #   self.description = %{
+          #     Some text here.
+          #
+          #     More text.
           #   }
           #
           # @since 0.3.0
