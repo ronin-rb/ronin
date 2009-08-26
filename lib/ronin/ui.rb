@@ -19,8 +19,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/verbose'
-require 'ronin/ui/diagnostics'
+require 'ronin/ui/output'
 require 'ronin/ui/hexdump'
 require 'ronin/ui/console'
 require 'ronin/ui/shell'
