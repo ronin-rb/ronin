@@ -18,6 +18,7 @@ lib/ronin/static.rb
 lib/ronin/static/static.rb
 lib/ronin/static/finders.rb
 lib/ronin/templates.rb
+lib/ronin/templates/template.rb
 lib/ronin/templates/erb.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
