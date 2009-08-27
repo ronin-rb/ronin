@@ -1,13 +1,13 @@
-require 'ronin/sessions/session'
+require 'ronin/network/helpers/helper'
 
 require 'spec_helper'
-require 'sessions/classes/test_session'
-require 'sessions/classes/uses_test_session'
+require 'network/helpers/classes/test_helper'
+require 'network/helpers/classes/uses_test_helper'
 
-describe Sessions::Session do
+describe Network::Helpers::Helper do
   describe "require_variable" do
     before(:each) do
-      @obj = UsesTestSession.new
+      @obj = UsesTestHelper.new
       @obj.host = 'www.example.com'
     end
 

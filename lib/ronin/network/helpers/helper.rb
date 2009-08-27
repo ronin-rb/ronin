@@ -19,47 +19,28 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/sessions/session'
-require 'ronin/network/imap'
+require 'ronin/ui/output/helpers'
 
 module Ronin
-  module Sessions
-    module IMAP
-      include Session
+  module Network
+    module Helpers
+      module Helper
+        include UI::Output::Helpers
 
-      protected
+        protected
 
-      def imap_connect(options={},&block)
-        require_variable :host
-
-        options[:port] ||= @port
-        options[:auth] ||= @imap_auth
-        options[:user] ||= @imap_user
-        options[:password] ||= @imap_password
-
-        if @port
-          print_info "Connecting to #{@host}:#{@port} ..."
-        else
-          print_info "Connecting to #{@host} ..."
-        end
-
-        return ::Net.imap_connect(@host,options,&block)
-      end
-
-      def imap_session(options={},&block)
-        imap_connect(options) do |sess|
-          block.call(sess) if block
-
-          print_info "Logging out ..."
-
-          sess.close
-          sess.logout
-
-          if @port
-            print_info "Disconnecting from #{@host}:#{@port}"
-          else
-            print_info "Disconnecting from #{@host}"
+        #
+        # Tests wether an instance variable has been set.
+        #
+        # @return [true] The instance variable has been set.
+        # @raise [RuntimeError] The instance variable was not set.
+        #
+        def require_variable(name)
+          if instance_variable_get("@#{name}").nil?
+            raise(RuntimeError,"the instance variable @#{name} was not set",caller)
           end
+
+          return true
         end
       end
     end

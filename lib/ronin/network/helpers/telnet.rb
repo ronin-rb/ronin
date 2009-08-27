@@ -19,47 +19,46 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/sessions/session'
-require 'ronin/network/esmtp'
+require 'ronin/network/helpers/helper'
+require 'ronin/network/telnet'
 
 module Ronin
-  module Sessions
-    module ESMTP
-      include Session
+  module Network
+    module Helpers
+      module Telnet
+        include Helper
 
-      protected
+        protected
 
-      def esmtp_message(options={},&block)
-        Network::SMTP.message(options,&block)
-      end
+        def telnet_connect(options={},&block)
+          require_variable :host
 
-      def esmtp_connect(options={},&block)
-        require_variable :host
+          options[:port] ||= @port
+          options[:user] ||= @telnet_user
+          options[:password] ||= @telnet_password
 
-        options[:port] ||= @port
-        options[:login] ||= @esmtp_login
-        options[:user] ||= @esmtp_user
-        options[:password] ||= @esmtp_password
-
-        if @port
-          print_info "Connecting to #{@host}:#{@port} ..."
-        else
-          print_info "Connecting to #{@host} ..."
-        end
-
-        return ::Net.esmtp_connect(@host,options,&block)
-      end
-
-      def esmtp_session(options={},&block)
-        esmtp_connect(options) do |sess|
-          block.call(sess) if block
-
-          sess.close
+          options[:proxy] ||= @telnet_proxy
+          options[:ssl] ||= @telnet_ssl
 
           if @port
-            print_info "Disconnecting from #{@host}:#{@port}"
+            print_info "Connecting to #{@host}:#{@port} ..."
           else
-            print_info "Disconnecting from #{@host}"
+            print_info "Connecting to #{@host} ..."
+          end
+
+          return ::Net.telnet_connect(@host,options,&block)
+        end
+
+        def telnet_session(options={},&block)
+          return telnet_connect(options) do |sess|
+            block.call(sess) if block
+            sess.close
+
+            if @port
+              print_info "Disconnecting to #{@host}:#{@port}"
+            else
+              print_info "Disconnecting to #{@host}"
+            end
           end
         end
       end

@@ -19,46 +19,48 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/sessions/session'
+require 'ronin/network/helpers/helper'
 require 'ronin/network/smtp'
 
 module Ronin
-  module Sessions
-    module SMTP
-      include Session
+  module Network
+    module Helpers
+      module SMTP
+        include Helper
 
-      protected
+        protected
 
-      def smtp_message(options={},&block)
-        Network::SMTP.message(options,&block)
-      end
-
-      def smtp_connect(options={},&block)
-        require_variable :host
-
-        options[:port] ||= @port
-        options[:login] ||= @smtp_login
-        options[:user] ||= @smtp_user
-        options[:password] ||= @smtp_password
-
-        if @port
-          print_info "Connecting to #{@host}:#{@port} ..."
-        else
-          print_info "Connecting to #{@host} ..."
+        def smtp_message(options={},&block)
+          Network::SMTP.message(options,&block)
         end
 
-        return ::Net.smtp_connect(@host,options,&block)
-      end
+        def smtp_connect(options={},&block)
+          require_variable :host
 
-      def smtp_session(options={},&block)
-        smtp_connect(options) do |sess|
-          block.call(sess) if block
-          sess.close
+          options[:port] ||= @port
+          options[:login] ||= @smtp_login
+          options[:user] ||= @smtp_user
+          options[:password] ||= @smtp_password
 
           if @port
-            print_info "Disconnecting to #{@host}:#{@port}"
+            print_info "Connecting to #{@host}:#{@port} ..."
           else
-            print_info "Disconnecting to #{@host}"
+            print_info "Connecting to #{@host} ..."
+          end
+
+          return ::Net.smtp_connect(@host,options,&block)
+        end
+
+        def smtp_session(options={},&block)
+          smtp_connect(options) do |sess|
+            block.call(sess) if block
+            sess.close
+
+            if @port
+              print_info "Disconnecting to #{@host}:#{@port}"
+            else
+              print_info "Disconnecting to #{@host}"
+            end
           end
         end
       end

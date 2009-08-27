@@ -19,28 +19,45 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/output/helpers'
+require 'ronin/network/helpers/helper'
+require 'ronin/network/pop3'
 
 module Ronin
-  module Sessions
-    module Session
-      include UI::Output::Helpers
+  module Network
+    module Helpers
+      module POP3
+        include Helper
 
-      protected
+        protected
 
-      #
-      # Tests wether the instance variable with the specified _name_ has been
-      # set.
-      #
-      # @return [true] The instance variable has been set.
-      # @raise [RuntimeError] The instance variable was not set.
-      #
-      def require_variable(name)
-        if instance_variable_get("@#{name}").nil?
-          raise(RuntimeError,"the instance variable @#{name} was not set",caller)
+        def pop3_connect(options={},&block)
+          require_variable :host
+
+          options[:port] ||= @port
+          options[:user] ||= @pop3_user
+          options[:password] ||= @pop3_password
+
+          if @port
+            print_info "Connecting to #{@host}:#{@port} ..."
+          else
+            print_info "Connecting to #{@host} ..."
+          end
+
+          return ::Net.pop3_connect(@host,options,&block)
         end
 
-        return true
+        def pop3_session(options={},&block)
+          pop3_connect(options) do |sess|
+            block.call(sess) if block
+            sess.finish
+
+            if @port
+              print_info "Disconnecting to #{@host}:#{@port}"
+            else
+              print_info "Disconnecting to #{@host}"
+            end
+          end
+        end
       end
     end
   end
