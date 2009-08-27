@@ -73,7 +73,7 @@ module Net
   # @return [Net::Telnet] The Telnet session
   #
   # @example
-  #   Telnet.connect('towel.blinkenlights.nl')
+  #   Net.telnet_connect('towel.blinkenlights.nl')
   #   # => Net::Telnet
   #
   def Net.telnet_connect(host,options={},&block)
