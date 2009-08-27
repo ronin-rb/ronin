@@ -75,7 +75,7 @@ module Net
   #                  session will be closed.
   # @yieldparam [Net::SMTP] session The SMTP session.
   #
-  # @see Net.smtp_connect.
+  # @see Net.smtp_connect
   #
   def Net.smtp_session(host,options={},&block)
     Net.smtp_connect(host,options) do |sess|

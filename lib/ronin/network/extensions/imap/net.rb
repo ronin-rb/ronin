@@ -89,7 +89,7 @@ module Net
   #                  the session will be closed.
   # @yieldparam [Net::IMAP] session The newly created IMAP session object.
   #
-  # @see Net.imap_connect.
+  # @see Net.imap_connect
   #
   def Net.imap_session(host,options={},&block)
     Net.imap_connect(host,options) do |sess|
