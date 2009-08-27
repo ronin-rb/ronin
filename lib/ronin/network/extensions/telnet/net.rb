@@ -29,7 +29,6 @@ module Net
   # and the given _options_. If a _block_ is given, it will be passed
   # the newly created Telnet object.
   #
-  #
   # @param [String] host The host to connect to.
   # @param [Hash] options Additional options.
   # @option options [Integer] :port (Ronin::Network::Telnet.default_port)
