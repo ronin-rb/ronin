@@ -102,10 +102,10 @@ module Ronin
         sub_path = sub_path.to_s
 
         unless (path = find_template(sub_path))
-          raise(RuntimeError,"could not find template #{sub_path.dump}",caller)
+          raise(RuntimeError,"could not find template #{sub_path.dump} in #{template_dir.dump}",caller)
         end
 
-        template_dirs.unshift(File.basename(path))
+        template_dirs.unshift(File.dirname(path))
 
         result = block.call(path)
 
