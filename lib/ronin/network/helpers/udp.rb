@@ -32,9 +32,25 @@ module Ronin
 
         #
         # Opens a UDP connection to the host and port specified by the
-        # +host+ and +port+ parameters. If the +local_host+ and +local_port+
-        # parameters are set, they will be used for the local host and port
-        # of the UDP connection. A UDPSocket object will be returned.
+        # +@host+ and +@port+ instance variables. If the +@local_host+ and
+        # +@local_port+ instance variables are set, they will be used for
+        # the local host and port of the UDP connection.
+        #
+        # @yield [socket] If a block is given, it will be passed the newly
+        #                 created socket.
+        # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
+        # @return [UDPSocket] The newly created UDPSocket object.
+        #
+        # @example
+        #   udp_connect
+        #   # => UDPSocket
+        #
+        # @example
+        #   udp_connect do |sock|
+        #     puts sock.readlines
+        #   end
+        #
+        # @since 0.3.0
         #
         def udp_connect(&block)
           require_variable :host
@@ -46,9 +62,19 @@ module Ronin
         end
 
         #
-        # Connects to the host and port specified by the +host+ and +port+
-        # parameters, then sends the specified _data_. If a _block_ is given,
-        # it will be passed the newly created UDPSocket object.
+        # Connects to the host and port specified by the +@host+ and +@port+
+        # instance variables, then sends the specified _data_. If the
+        # +@local_host+ and +@local_port+ instance variables are set, they
+        # will be used for the local host and port of the UDP connection.
+        #
+        # @param [String] data The data to send through the connection.
+        #
+        # @yield [socket] If a block is given, it will be passed the newly
+        #                 created socket.
+        # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
+        # @return [UDPSocket] The newly created UDPSocket object.
+        #
+        # @since 0.3.0
         #
         def udp_connect_and_send(data,&block)
           require_variable :host
@@ -62,9 +88,16 @@ module Ronin
 
         #
         # Creates a UDP session to the host and port specified by the
-        # +host+ and +port+ parameters. If a _block_ is given, it will be
-        # passed the temporary UDPSocket object. After the given _block_
-        # has returned, the UDPSocket object will be closed.
+        # +@host+ and +@port+ instance variables. If the +@local_host+ and
+        # +@local_port+ instance variables are set, they will be used for
+        # the local host and port of the UDP connection.
+        #
+        # @yield [socket] If a block is given, it will be passed the newly
+        #                 created socket. After the block has returned, the
+        #                 socket will then be closed.
+        # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
+        #
+        # @since 0.3.0
         #
         def udp_session(&block)
           require_variable :host

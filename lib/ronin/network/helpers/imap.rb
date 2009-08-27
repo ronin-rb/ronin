@@ -30,6 +30,31 @@ module Ronin
 
         protected
 
+        #
+        # Connects to the IMAP server with the given _options_. The +@host+,
+        # +@port+, +@imap_auth+, +@imap_user+ and +@imap_password instance
+        # variables will also be used to make the connection.
+        #
+        # @param [Hash] options Additional options.
+        # @option options [Integer] :port (IMAP.default_port)
+        #                                 The port the IMAP server is running
+        #                                 on.
+        # @option options [String] :certs The path to the file containing CA
+        #                                 certs of the server.
+        # @option options [Symbol] :auth The type of authentication to
+        #                                perform when connecting to the
+        #                                server. May be either +:login+ or
+        #                                +:cram_md5+.
+        # @option options [String] :user The user to authenticate as when
+        #                                connecting to the server.
+        # @option options [String] :password The password to authenticate
+        #                                    with when connecting to the
+        #                                    server.
+        # @option options [true, false] Indicates wether or not to use SSL
+        #                               when connecting to the server.
+        #
+        # @since 0.3.0
+        #
         def imap_connect(options={},&block)
           require_variable :host
 
@@ -47,6 +72,20 @@ module Ronin
           return ::Net.imap_connect(@host,options,&block)
         end
 
+        #
+        # Connects to the IMAP server with the given _options_. The +@host+,
+        # +@port+, +@imap_auth+, +@imap_user+ and +@imap_password instance
+        # variables will also be used to make the connection.
+        #
+        # @yield [session] If a _block_ is given, it will be passed the
+        #                  newly created IMAP session. After the _block_
+        #                  has returned, the session will be closed.
+        # @yieldparam [Net::IMAP] session The newly created IMAP session
+        #                                 object.
+        #
+        # @see imap_connect
+        # @since 0.3.0
+        #
         def imap_session(options={},&block)
           imap_connect(options) do |sess|
             block.call(sess) if block

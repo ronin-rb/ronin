@@ -30,10 +30,38 @@ module Ronin
 
         protected
 
+        #
+        # @see Ronin::Network::SMTP.message
+        #
+        # @since 0.3.0
+        #
         def smtp_message(options={},&block)
           Network::SMTP.message(options,&block)
         end
 
+        #
+        # Connects to the SMTP server using the given _options_. The
+        # +@host+, +@port+, +@smtp_login+, +@smtp_user+ and +@smtp_password+
+        # instance variables will also be used to connect to the server.
+        #
+        # @param [Hash] options Additional options.
+        # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
+        #                                 The port to connect to.
+        # @option options [String] :helo The HELO domain.
+        # @option options [Symbol] :auth The type of authentication to use.
+        #                                Can be either +:login+, +:plain+,
+        #                                or +:cram_md5+.
+        # @option options [String] :user The user-name to authenticate with.
+        # @option options [String] :password The password to authenticate
+        #                                    with.
+        #
+        # @yield [session] If a block is given, it will be passed an SMTP
+        #                  session object.
+        # @yieldparam [Net::SMTP] session The SMTP session.
+        # @return [Net::SMTP] the SMTP session.
+        #
+        # @since 0.3.0
+        #
         def smtp_connect(options={},&block)
           require_variable :host
 
@@ -51,6 +79,19 @@ module Ronin
           return ::Net.smtp_connect(@host,options,&block)
         end
 
+        #
+        # Connects to the SMTP server using the given _options_. The
+        # +@host+, +@port+, +@smtp_login+, +@smtp_user+ and +@smtp_password+
+        # instance variables will also be used to connect to the server.
+        #
+        # @yield [session] If a block is given, it will be passed an SMTP
+        #                  session object. After the block has returned, the
+        #                  session will be closed.
+        # @yieldparam [Net::SMTP] session The SMTP session.
+        #
+        # @see smtp_connect
+        # @since 0.3.0
+        #
         def smtp_session(options={},&block)
           smtp_connect(options) do |sess|
             block.call(sess) if block

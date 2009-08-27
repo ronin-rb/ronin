@@ -32,11 +32,26 @@ module Ronin
 
         #
         # Opens a TCP connection to the host and port specified by the
-        # +host+ and +port+ parameters. If the +local_host+ and +local_port+
-        # parameters are set, they will be used for the local host and port
-        # of the TCP connection. A TCPSocket object will be returned. If
-        # a _block_ is given, it will be passed the newly created TCPSocket
-        # object.
+        # +@host+ and +@port+ instance variables. If the +@local_host+ and
+        # +@local_port+ instance variables are set, they will be used for
+        # the local host and port of the TCP connection.
+        #
+        # @yield [socket] If a block is given, it will be passed the newly
+        #                 created socket.
+        # @yieldparam [TCPsocket] socket The newly created TCPSocket object.
+        # @return [TCPSocket] The newly created TCPSocket object.
+        #
+        # @example
+        #   tcp_connect # => TCPSocket
+        #
+        # @example
+        #   tcp_connect do |sock|
+        #     sock.write("GET /\n\n")
+        #     puts sock.readlines
+        #     sock.close
+        #   end
+        #
+        # @since 0.3.0
         #
         def tcp_connect(&block)
           require_variable :host
@@ -48,9 +63,17 @@ module Ronin
         end
 
         #
-        # Connects to the host and port specified by the +host+ and +port+
-        # parameters, then sends the specified _data_. If a _block_ is given,
-        # it will be passed the newly created TCPSocket object.
+        # Connects to the host and port specified by the +@host+ and +@port+
+        # instance variables, then sends the specified _data_.
+        #
+        # @param [String] data The data to send through the connection.
+        #
+        # @yield [socket] If a block is given, it will be passed the newly
+        #                 created socket.
+        # @yieldparam [TCPsocket] socket The newly created TCPSocket object.
+        # @return [TCPSocket] The newly created TCPSocket object.
+        #
+        # @since 0.3.0
         #
         def tcp_connect_and_send(data,&block)
           require_variable :host
@@ -64,9 +87,14 @@ module Ronin
 
         #
         # Creates a TCP session to the host and port specified by the
-        # +host+ and +port+ parameters. If a _block_ is given, it will be
-        # passed the temporary TCPSocket object. After the given _block_
-        # has returned, the TCPSocket object will be closed.
+        # +@host+ and +@port+ instance variables.
+        #
+        # @yield [socket] If a block is given, it will be passed the newly
+        #                 created socket. After the block has returned,
+        #                 the socket will be closed.
+        # @yieldparam [TCPsocket] socket The newly created TCPSocket object.
+        #
+        # @since 0.3.0
         #
         def tcp_session(&block)
           require_variable :host
@@ -81,10 +109,19 @@ module Ronin
         end
 
         #
-        # Connects to the host and port specified by the +host+ and +port+
-        # parameters, reads the banner then closes the connection, returning
-        # the banner String. If a _block_ is given, it will be passed the
-        # banner String.
+        # Connects to the host and port specified by the +@host+ and +@port+
+        # instance variables, reads the banner then closes the connection.
+        #
+        # @yield [banner] If a block is given, it will be passed the grabbed
+        #                 banner.
+        # @yieldparam [String] banner The grabbed banner.
+        # @return [String] The grabbed banner.
+        #
+        # @example
+        #   tcp_banner
+        #   # => "220 mx.google.com ESMTP c20sm3096959rvf.1"
+        #
+        # @since 0.3.0
         #
         def tcp_banner(&block)
           require_variable :host
@@ -96,9 +133,18 @@ module Ronin
         end
 
         #
-        # Connects to the host and port specified by the +host+ and +port+
-        # parameters, sends the specified _data_ and then closes the
-        # connection. Returns +true+ if the data was successfully sent.
+        # Connects to the host and port specified by the +@host+ and +@port+
+        # instance variables, sends the specified _data_ and then closes the
+        # connection.
+        #
+        # @return [true] The data was successfully sent.
+        #
+        # @example
+        #   buffer = "GET /" + ('A' * 4096) + "\n\r"
+        #   Net.tcp_send(buffer)
+        #   # => true
+        #
+        # @since 0.3.0
         #
         def tcp_send(data)
           require_variable :host
@@ -114,8 +160,8 @@ module Ronin
         end
 
         #
-        # Creates a new TCPServer object listening on +server_host+ and
-        # +server_port+.
+        # Creates a new TCPServer object listening on the +@server_host+
+        # and +@server_port+ instance variables.
         #
         # @yield [server] The given block will be passed the newly created
         #                 server.
@@ -140,9 +186,9 @@ module Ronin
         end
 
         #
-        # Creates a new TCPServer object listening on +server_host+ and
-        # +server_port+, passing it to the given _block then closing the
-        # server.
+        # Creates a new TCPServer object listening on the +@server_host+
+        # and +@server_port+ instance variables, passing it to the given
+        # _block_ then closing the server.
         #
         # @yield [server] The given block will be passed the newly created
         #                 server. When the block has finished, the server
@@ -184,9 +230,10 @@ module Ronin
         end
 
         #
-        # Creates a new TCPServer object listening on +server_host+ and
-        # +server_port+, accepts one client passing it to the given _block_,
-        # then closes both the newly connected client and the server.
+        # Creates a new TCPServer object listening on +@server_host+
+        # and +@server_port+ instance variables, accepts one client passing
+        # it to the given _block_, then closes both the newly connected
+        # client and the server.
         #
         # @yield [client] The given block will be passed the newly connected
         #                 client. When the block has finished, the newly

@@ -35,6 +35,8 @@ module Ronin
         # @return [true] The instance variable has been set.
         # @raise [RuntimeError] The instance variable was not set.
         #
+        # @since 0.3.0
+        #
         def require_variable(name)
           if instance_variable_get("@#{name}").nil?
             raise(RuntimeError,"the instance variable @#{name} was not set",caller)

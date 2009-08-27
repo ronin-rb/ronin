@@ -31,12 +31,35 @@ module Ronin
         protected
 
         #
+        # @see Ronin::Network::SMTP.message.
+        #
         # @since 0.3.0
         #
         def esmtp_message(options={},&block)
           Network::SMTP.message(options,&block)
         end
 
+        #
+        # Connects to the ESMTP server using the given _options_.
+        # The +@host+, +@port+, +@esmtp_login+, +@esmtp_user+ and
+        # +@esmtp_password+ instance variables will also be used to
+        # connect to the ESMTP server.
+        #
+        # @param [Hash] options Additional options.
+        # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
+        #                                 The port to connect to.
+        # @option options [String] :helo The HELO domain.
+        # @option options [Symbol] :auth The type of authentication to use.
+        #                                Can be either +:login+, +:plain+,
+        #                                or +:cram_md5+.
+        # @option options [String] :user The user-name to authenticate with.
+        # @option options [String] :password The password to authenticate
+        #                                    with.
+        #
+        # @yield [session] If a block is given, it will be passed an ESMTP
+        #                  enabled session object.
+        # @yieldparam [Net::SMTP] session The ESMTP session.
+        # @return [Net::SMTP] the ESMTP enabled session.
         #
         # @since 0.3.0
         #
@@ -58,6 +81,28 @@ module Ronin
         end
 
         #
+        # Connects to the ESMTP server using the given _options_.
+        # The +@host+, +@port+, +@esmtp_login+, +@esmtp_user+ and
+        # +@esmtp_password+ instance variables will also be used to
+        # connect to the ESMTP server.
+        #
+        # @param [Hash] options Additional options.
+        # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
+        #                                 The port to connect to.
+        # @option options [String] :helo The HELO domain.
+        # @option options [Symbol] :auth The type of authentication to use.
+        #                                Can be either +:login+, +:plain+,
+        #                                or +:cram_md5+.
+        # @option options [String] :user The user-name to authenticate with.
+        # @option options [String] :password The password to authenticate
+        #                                    with.
+        #
+        # @yield [session] If a block is given, it will be passed an ESMTP
+        #                  enabled session object. After the block has
+        #                  returned, the session will be closed.
+        # @yieldparam [Net::SMTP] session The ESMTP session.
+        #
+        # @see esmtp_session
         # @since 0.3.0
         #
         def esmtp_session(options={},&block)

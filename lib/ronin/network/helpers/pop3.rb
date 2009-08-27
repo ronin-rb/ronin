@@ -30,6 +30,27 @@ module Ronin
 
         protected
 
+        #
+        # Connects to the POP3 server using the given _options_. The +@host+,
+        # +@port+, +@pop3_user and +@pop3_password+ instance variables will
+        # also be used to connect to the server.
+        #
+        # @param [Hash] options Additional options.
+        # @option options [Integer] :port (Ronin::Network::POP3.default_port)
+        #                                 The port the POP3 server is running
+        #                                 on.
+        # @option options [String] :user The user to authenticate with when
+        #                                connecting to the POP3 server.
+        # @option options [String] :password The password to authenticate
+        #                                    with when connecting to the
+        #                                    POP3 server.
+        # @yield [session] If a _block_ is given, it will be passed the newly
+        #                  created POP3 session.
+        # @yieldparam [Net::POP3] session The newly created POP3 session.
+        # @return [Net::POP3] The newly created POP3 session.
+        #
+        # @since 0.3.0
+        #
         def pop3_connect(options={},&block)
           require_variable :host
 
@@ -46,6 +67,19 @@ module Ronin
           return ::Net.pop3_connect(@host,options,&block)
         end
 
+        #
+        # Connects to the POP3 server using the given _options_. The +@host+,
+        # +@port+, +@pop3_user and +@pop3_password+ instance variables will
+        # also be used to connect to the server.
+        #
+        # @yield [session] If a _block_ is given, it will be passed the
+        #                  newly created POP3 session. After the _block_ has
+        #                  returned, the session will be closed.
+        # @yieldparam [Net::POP3] session The newly created POP3 session.
+        #
+        # @see pop3_connect
+        # @since 0.3.0
+        #
         def pop3_session(options={},&block)
           pop3_connect(options) do |sess|
             block.call(sess) if block
