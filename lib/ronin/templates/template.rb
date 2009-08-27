@@ -69,7 +69,9 @@ module Ronin
         sub_path = sub_path.to_s
 
         if template_dir
-          return File.expand_path(File.join(template_dir,sub_path))
+          path = File.expand_path(File.join(template_dir,sub_path))
+
+          return path if File.file?(path)
         end
 
         return find_static_file(sub_path)
