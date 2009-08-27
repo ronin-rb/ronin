@@ -43,10 +43,7 @@ module Ronin
     DEFAULT_LOG_LEVEL = :info
 
     # Default configuration of the database
-    DEFAULT_CONFIG = {
-      :adapter => 'sqlite3',
-      :database => File.join(Config::PATH,'database.sqlite3')
-    }
+    DEFAULT_CONFIG = "sqlite3://" + File.join(Config::PATH,'database.sqlite3')
 
     #
     # Returns the Database configuration that is stored in the
