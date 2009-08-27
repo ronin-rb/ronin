@@ -26,30 +26,29 @@ require 'net/http'
 
 module Net
   #
-  # Connects to the HTTP server using the given _options_. If a _block_
-  # is given it will be passed the newly created <tt>Net::HTTP</tt> object.
+  # Connects to the HTTP server using the given _options_.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
+  # @param [Hash] options Additional options
+  # @option options [String, URI::HTTP] :url The full URL to request.
+  # @option options [String] :user The user to authenticate with when
+  #                                connecting to the HTTP server.
+  # @option options [String] :password The password to authenticate
+  #                                    with when connecting to the
+  #                                    HTTP server.
+  # @option options [String] :host The host the HTTP server is running on.
+  # @option options [Integer] :port (Net::HTTP.default_port)
+  #                                 The port the HTTP server is
+  #                                 listening on.
+  # @option options [String] :path The path to request from the HTTP
+  #                                server.
+  # @option options [Hash] :proxy (Ronin::Network::HTTP.proxy)
+  #                               A Hash of proxy settings to use when
+  #                               connecting to the HTTP server.
+  #
+  # @yield [session] If a block is given, it will be passed the newly
+  #                  created HTTP session object.
+  # @yieldparam [Net::HTTP] session The newly created HTTP session.
+  # @return [Net::HTTP] The HTTP session object.
   #
   def Net.http_session(options={},&block)
     options = Ronin::Network::HTTP.expand_options(options)
@@ -77,30 +76,24 @@ module Net
   # HTTP Request object. Returns the <tt>Net::HTTP::Response</tt> that
   # was returned.
   #
-  # _options_ may contain the following keys:
-  # <tt>:method</tt>:: The HTTP method to use for the request.
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the request.
-  #                     May use Strings or Symbols for the keys of the Hash.
+  # @param [Hash] options Additional options.
+  # @option options [Symbol, String] :method The HTTP method to use in
+  #                                          the request.
+  # @option options [Hash] :headers The Hash of the HTTP headers to send
+  #                                 with the request. May contain either
+  #                                 Strings or Symbols, lower-case or
+  #                                 camel-case keys.
+  #
+  # @yield [request, (options)] If a block is given, it will be passed the
+  #                             HTTP request object. If the block has an
+  #                             arity of 2, it will also be passed the
+  #                             expanded version of the given _options_.
+  # @yieldparam [Net::HTTP::Request] request The HTTP request object to
+  #                                          use in the request.
+  # @yieldparam [Hash] options The expanded version of the given _options_.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_session
   #
   def Net.http_request(options={},&block)
     resp = nil
@@ -129,30 +122,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Copy request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_copy(options={},&block)
     resp = Net.http_request(options.merge(:method => :copy))
@@ -166,30 +141,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Delete request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_delete(options={},&block)
     original_headers = options[:headers]
@@ -212,30 +169,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Get request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_get(options={},&block)
     resp = Net.http_request(options.merge(:method => :get))
@@ -249,30 +188,12 @@ module Net
   # is given, it will be passed the response body from the HTTP server.
   # Returns the response body from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Get request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [String] The body of the HTTP response.
+  #
+  # @see http_request
   #
   def Net.http_get_body(options={},&block)
     Net.http_get(options,&block).body
@@ -283,30 +204,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Head request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_head(options={},&block)
     resp = Net.http_request(options.merge(:method => :head))
@@ -319,31 +222,10 @@ module Net
   # Returns +true+ if a HTTP Head request with the given _options_ returns
   # the HTTP status code of 200, returns +false+ otherwise.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Head request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @return [true, false] Specifies wether the response had an HTTP OK
+  #                       status code or not.
   #
+  # @see http_request
   #
   def Net.http_ok?(options={})
     Net.http_head(options).code == 200
@@ -353,34 +235,9 @@ module Net
   # Sends a HTTP Head request using the given _options_ and returns the
   # HTTP Server header.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Head request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @return [String] The HTTP +Server+ header.
   #
-  #   Net.http_server(:url => 'http://www.darkc0de.com/)
-  #   # => "Apache/2.2.11 (Unix) PHP/4.4.9 mod_ssl/2.2.11 OpenSSL/0.9.8c
-  #    mod_fastcgi/2.4.6 Phusion_Passenger/2.1.2 DAV/2 SVN/1.4.2"
+  # @see http_request
   #
   def Net.http_server(options={})
     Net.http_head(options)['server']
@@ -390,33 +247,9 @@ module Net
   # Sends an HTTP Head request using the given _options_ and returns the
   # HTTP X-Powered-By header.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Head request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @return [String] The HTTP +X-Powered-By+ header.
   #
-  #   Net.http_powered_by(:url => 'http://www.stalkdaily.com/')
-  #   # => "PHP/5.2.9"
+  # @see http_request
   #
   def Net.http_powered_by(options={})
     resp = Net.http_head(options)
@@ -433,30 +266,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Lock request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_lock(options={},&block)
     resp = Net.http_request(options.merge(:method => :lock))
@@ -470,30 +285,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Mkcol request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_mkcol(options={},&block)
     resp = Net.http_request(options.merge(:method => :mkcol))
@@ -507,30 +304,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Move request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_move(options={},&block)
     resp = Net.http_request(options.merge(:method => :move))
@@ -544,30 +323,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Options request. May use Strings or Symbols for
-  #                     the keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_options(options={},&block)
     resp = Net.http_request(options.merge(:method => :options))
@@ -581,31 +342,16 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:post_data</tt>:: The POSTDATA to send with the HTTP Post request.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Post request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @param [Hash] options Additional options.
+  # @option options [String] :post_data The +POSTDATA+ to send with the
+  #                                     HTTP Post request.
+  #
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_post(options={},&block)
     options = options.merge(:method => :post)
@@ -629,30 +375,16 @@ module Net
   # is given, it will be passed the response body from the HTTP server.
   # Returns the response body from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Post request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @param [Hash] options Additional options.
+  # @option options [String] :post_data The +POSTDATA+ to send with the
+  #                                     HTTP Post request.
+  #
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [String] The body of the HTTP response.
+  #
+  # @see http_request
   #
   def Net.http_post_body(options={},&block)
     Net.http_post(options,&block).body
@@ -663,30 +395,12 @@ module Net
   # _block_ is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Propfind request. May use Strings or Symbols for
-  #                     the keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_prop_find(options={},&block)
     original_headers = options[:headers]
@@ -709,30 +423,12 @@ module Net
   # _block_ is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Proppatch request. May use Strings or Symbols for
-  #                     the keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_prop_patch(options={},&block)
     resp = Net.http_request(options.merge(:method => :proppatch))
@@ -746,30 +442,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Trace request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_trace(options={},&block)
     resp = Net.http_request(options.merge(:method => :trace))
@@ -783,30 +461,12 @@ module Net
   # is given, it will be passed the response from the HTTP server.
   # Returns the response from the HTTP server.
   #
-  # _options_ may contain the following keys:
-  # <tt>:url</tt>:: The full URL to request.
-  # <tt>:user</tt>:: The user to authenticate with when connecting to the
-  #                  HTTP server.
-  # <tt>:password</tt>:: The password to authenticate with when connecting
-  #                      to the HTTP server.
-  # <tt>:host</tt>:: The host the HTTP server is running on.
-  # <tt>:port</tt>:: The port the HTTP server is running on. Defaults to
-  #                  <tt>Net::HTTP.default_port</tt>.
-  # <tt>:path</tt>:: The path to request from the HTTP server.
-  # <tt>:proxy</tt>:: A Hash of proxy settings to use when connecting to
-  #                   the HTTP server. Defaults to
-  #                   <tt>Ronin::Network::HTTP.proxy</tt>.
-  #                   <tt>:host</tt>:: The HTTP proxy host to connect to.
-  #                   <tt>:port</tt>:: The HTTP proxy port to connect to.
-  #                                    Defaults to <tt>Ronin::Network::HTTP.default_proxy_port</tt>.
-  #                   <tt>:user</tt>:: The user to authenticate with
-  #                                    when connecting to the HTTP proxy.
-  #                   <tt>:password</tt>:: The password to authenticate with
-  #                                        when connecting to the HTTP
-  #                                        proxy.
-  # <tt>:headers</tt>:: A Hash of the HTTP Headers to send with the HTTP
-  #                     Unlock request. May use Strings or Symbols for the
-  #                     keys of the Hash.
+  # @yield [response] If a block is given, it will be passed the response
+  #                   received from the request.
+  # @yieldparam [Net::HTTP::Response] response The HTTP response object.
+  # @return [Net::HTTP::Response] The response of the HTTP request.
+  #
+  # @see http_request
   #
   def Net.http_unlock(options={},&block)
     resp = Net.http_request(options.merge(:method => :unlock))
