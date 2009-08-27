@@ -24,8 +24,17 @@ require 'socket'
 module Net
   #
   # Creates a new UDPSocket object with the specified _host_, _port_
-  # and the given _local_host_ and _local_port_. If _block_ is given, it
-  # will be passed the newly created UDPSocket object.
+  # and the given _local_host_ and _local_port_.
+  #
+  # @param [String] host The host to connect to.
+  # @param [Integer] port The port to connect to.
+  # @param [String] local_host The local host to bind to.
+  # @param [Integer] local_port The local port to bind to.
+  #
+  # @yield [socket] If a block is given, it will be passed the newly
+  #                 created socket.
+  # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
+  # @return [UDPSocket] The newly created UDPSocket object.
   #
   # @example
   #   Net.udp_connect('www.hackety.org',80) # => UDPSocket
@@ -45,8 +54,17 @@ module Net
   #
   # Creates a new UDPSocket object with the specified _host_, _port_, and
   # the given _local_host_ and _local_port_. The specified _data_ will
-  # then be written to the newly created UDPSocket. If a _block_ is given
-  # it will be passed the UDPSocket object.
+  # then be written to the newly created UDPSocket.
+  #
+  # @param [String] data The data to send through the connection.
+  # @param [String] host The host to connect to.
+  # @param [Integer] port The port to connect to.
+  # @param [String] local_host The local host to bind to.
+  # @param [Integer] local_port The local port to bind to.
+  #
+  # @yield [socket] If a block is given, it will be passed the newly
+  #                 created socket.
+  # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
   #
   def Net.udp_connect_and_send(data,host,port,local_host=nil,local_port=nil,&block)
     Net.udp_connect(host,port,local_host,local_port) do |sock|
@@ -58,9 +76,17 @@ module Net
 
   #
   # Creates a new UDPSocket object with the specified _host_, _port_
-  # and the given _local_host_ and _local_port_. If _block_ is given, it
-  # will be passed the newly created UDPSocket object. After the UDPSocket
-  # object has been passed to the given _block_ it will be closed.
+  # and the given _local_host_ and _local_port_.
+  #
+  # @param [String] host The host to connect to.
+  # @param [Integer] port The port to connect to.
+  # @param [String] local_host The local host to bind to.
+  # @param [Integer] local_port The local port to bind to.
+  #
+  # @yield [socket] If a block is given, it will be passed the newly
+  #                 created socket. After the block has returned, the
+  #                 socket will then be closed.
+  # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
   #
   def Net.udp_session(host,port,local_host=nil,local_port=nil,&block)
     Net.udp_connect(host,port,local_host,local_port) do |sock|
@@ -74,8 +100,17 @@ module Net
   #
   # Connects to the specified _host_ and _port_ with the given _local_host_
   # and _local_port_, reads the banner then closes the connection,
-  # returning the received banner. If a _block_ is given it will be passed
-  # the banner.
+  # returning the received banner.
+  #
+  # @param [String] host The host to connect to.
+  # @param [Integer] port The port to connect to.
+  # @param [String] local_host The local host to bind to.
+  # @param [Integer] local_port The local port to bind to.
+  #
+  # @yield [banner] If a block is given, it will be passed the grabbed
+  #                 banner.
+  # @yieldparam [String] banner The grabbed banner.
+  # @return [String] The grabbed banner.
   #
   def Net.udp_banner(host,port,local_host=nil,local_port=nil,&block)
     Net.udp_session(host,port,local_host,local_port) do |sock|
