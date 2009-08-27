@@ -147,6 +147,7 @@ module Net
   # @example
   #   buffer = "GET /" + ('A' * 4096) + "\n\r"
   #   Net.tcp_send(buffer,'victim.com',80)
+  #   # => true
   #
   def Net.tcp_send(data,host,port,local_host=nil,local_port=nil)
     Net.tcp_session(host,port,local_host,local_port) do |sock|
