@@ -73,8 +73,7 @@ module Net
   #
   # Connects to the HTTP server and sends an HTTP Request using the given
   # _options_. If a _block_ is given it will be passed the newly created
-  # HTTP Request object. Returns the <tt>Net::HTTP::Response</tt> that
-  # was returned.
+  # HTTP Request object.
   #
   # @param [Hash] options Additional options.
   # @option options [Symbol, String] :method The HTTP method to use in
@@ -120,7 +119,6 @@ module Net
   #
   # Performes an HTTP Copy request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -139,7 +137,6 @@ module Net
   #
   # Performes an HTTP Delete request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -167,7 +164,6 @@ module Net
   #
   # Performes an HTTP Get request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -186,7 +182,6 @@ module Net
   #
   # Performes an HTTP Get request with the given _options_. If a _block_
   # is given, it will be passed the response body from the HTTP server.
-  # Returns the response body from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -202,7 +197,6 @@ module Net
   #
   # Performes an HTTP Head request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -219,8 +213,7 @@ module Net
   end
 
   #
-  # Returns +true+ if a HTTP Head request with the given _options_ returns
-  # the HTTP status code of 200, returns +false+ otherwise.
+  # Checks if the response has an HTTP OK status code.
   #
   # @return [true, false] Specifies wether the response had an HTTP OK
   #                       status code or not.
@@ -264,7 +257,6 @@ module Net
   #
   # Performes an HTTP Lock request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -283,7 +275,6 @@ module Net
   #
   # Performes an HTTP Mkcol request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -302,7 +293,6 @@ module Net
   #
   # Performes an HTTP Move request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -321,7 +311,6 @@ module Net
   #
   # Performes an HTTP Options request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -340,7 +329,6 @@ module Net
   #
   # Performes an HTTP Post request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @param [Hash] options Additional options.
   # @option options [String] :post_data The +POSTDATA+ to send with the
@@ -373,7 +361,6 @@ module Net
   #
   # Performes an HTTP Post request with the given _options_. If a _block_
   # is given, it will be passed the response body from the HTTP server.
-  # Returns the response body from the HTTP server.
   #
   # @param [Hash] options Additional options.
   # @option options [String] :post_data The +POSTDATA+ to send with the
@@ -393,7 +380,6 @@ module Net
   #
   # Performes an HTTP Propfind request with the given _options_. If a
   # _block_ is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -421,7 +407,6 @@ module Net
   #
   # Performes an HTTP Proppatch request with the given _options_. If a
   # _block_ is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -440,7 +425,6 @@ module Net
   #
   # Performes an HTTP Trace request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -459,7 +443,6 @@ module Net
   #
   # Performes an HTTP Unlock request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
-  # Returns the response from the HTTP server.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
