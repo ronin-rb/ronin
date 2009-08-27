@@ -6,8 +6,8 @@ require 'templates/helpers/static'
 
 describe Templates::Template do
   before(:all) do
-    @example_template = File.join(STATIC_TEMPLATE_DIR,'example_template.txt')
-    @relative_template = File.join(STATIC_TEMPLATE_DIR,'_relative_template.txt')
+    @example_template = File.join(STATIC_TEMPLATE_DIR,'templates','example.erb')
+    @relative_template = File.join(STATIC_TEMPLATE_DIR,'templates','_relative.erb')
   end
 
   before(:each) do
