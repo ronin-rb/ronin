@@ -33,18 +33,23 @@ module Net
 
   #
   # Connects to the SMTP server on the specified _host_ with the given
-  # _options_. If a _block_ is given it will be passed the newly created
-  # <tt>Net::SMTP</tt> object.
+  # _options_.
   #
-  # _options_ may contain the following keys:
-  # <tt>:port</tt>:: The port to connect to, defaults to
-  #                  <tt>Ronin::Network::SMTP.default_port</tt>.
-  # <tt>:helo</tt>:: The HELO domain.
-  # <tt>:auth</tt>:: The type of authentication to use. Can be
-  #                  either <tt>:login</tt>, <tt>:plain</tt> or
-  #                  <tt>:cram_md5</tt>.
-  # <tt>:user</tt>:: The user name to authenticate with.
-  # <tt>:password</tt>:: The password to authenticate with.
+  # @param [String] host The host to connect to.
+  # @param [Hash] options Additional options.
+  # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
+  #                                 The port to connect to.
+  # @option options [String] :helo The HELO domain.
+  # @option options [Symbol] :auth The type of authentication to use.
+  #                                Can be either +:login+, +:plain+, or
+  #                                +:cram_md5+.
+  # @option options [String] :user The user-name to authenticate with.
+  # @option options [String] :password The password to authenticate with.
+  #
+  # @yield [session] If a block is given, it will be passed an SMTP
+  #                  session object.
+  # @yieldparam [Net::SMTP] session The SMTP session.
+  # @return [Net::SMTP] the SMTP session.
   #
   def Net.smtp_connect(host,options={},&block)
     port = (options[:port] || Ronin::Network::SMTP.default_port)
@@ -63,9 +68,14 @@ module Net
 
   #
   # Connects to the SMTP server on the specified _host_ with the given
-  # _options_. If a _block_ is given it will be passed the newly created
-  # <tt>Net::SMTP</tt> object. After the <tt>Net::SMTP</tt> object has been
-  # passed to the _block_ it will be closed.
+  # _options_.
+  #
+  # @yield [session] If a block is given, it will be passed an SMTP
+  #                  session object. After the block has returned, the
+  #                  session will be closed.
+  # @yieldparam [Net::SMTP] session The SMTP session.
+  #
+  # @see Net.smtp_connect.
   #
   def Net.smtp_session(host,options={},&block)
     Net.smtp_connect(host,options) do |sess|
