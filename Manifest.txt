@@ -187,7 +187,7 @@ spec/static/helpers/static2/dir/two.txt
 spec/static/helpers/static.rb
 spec/static/finders_spec.rb
 spec/static/static_spec.rb
-spec/templates/classes/uses_erb.rb
+spec/templates/classes/example_erb.rb
 spec/templates/erb_spec.rb
 spec/arch_spec.rb
 spec/author_spec.rb

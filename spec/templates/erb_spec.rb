@@ -1,11 +1,11 @@
 require 'ronin/templates/erb'
 
 require 'spec_helper'
-require 'templates/classes/uses_erb'
+require 'templates/classes/example_erb'
 
 describe Templates::Erb do
   before(:all) do
-    @uses_erb= UsesErb.new
+    @uses_erb= ExampleErb.new
     @uses_erb.x = 2
     @uses_erb.y = 3
   end
