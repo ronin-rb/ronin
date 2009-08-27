@@ -37,7 +37,8 @@ module Net
   # @return [UDPSocket] The newly created UDPSocket object.
   #
   # @example
-  #   Net.udp_connect('www.hackety.org',80) # => UDPSocket
+  #   Net.udp_connect('www.hackety.org',80)
+  #   # => UDPSocket
   #
   # @example
   #   Net.udp_connect('www.wired.com',80) do |sock|
@@ -65,6 +66,7 @@ module Net
   # @yield [socket] If a block is given, it will be passed the newly
   #                 created socket.
   # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
+  # @return [UDPSocket] The newly created UDPSocket object.
   #
   def Net.udp_connect_and_send(data,host,port,local_host=nil,local_port=nil,&block)
     Net.udp_connect(host,port,local_host,local_port) do |sock|
