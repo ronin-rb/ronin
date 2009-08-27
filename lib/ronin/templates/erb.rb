@@ -19,14 +19,19 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/templates/template'
+
 require 'erb'
 
 module Ronin
   module Templates
     module Erb
+      include Template
       #
-      # Renders the specified inline ERB _template_ in the scope of the
-      # object, returning the resulting +String+.
+      # Renders the inline ERB template in the scope of the object.
+      #
+      # @param [String] Source of the ERB template.
+      # @return [String] Result of the rendered template.
       #
       # @example
       #   @user = 'lolcats'
@@ -42,14 +47,18 @@ module Ronin
       end
 
       #
-      # Renders the ERB template at the specified _path_ in the scope of the
-      # object, returning the resulting +String+.
+      # Renders an ERB template file in the scope of the object.
+      #
+      # @param [String] template_path The relative path of the ERB template.
+      # @return [String] Result of the rendered template.
       #
       # @example
       #   erb_file 'path/to/template.erb'
       #
-      def erb_file(path)
-        erb(File.read(path))
+      def erb_file(template_path)
+        enter_template(template_path) do |path|
+          erb(File.read(path))
+        end
       end
     end
   end
