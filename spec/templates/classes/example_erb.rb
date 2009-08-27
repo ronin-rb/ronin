@@ -1,6 +1,6 @@
 require 'ronin/templates/erb'
 
-class UsesErb
+class ExampleErb
 
   include Ronin::Templates::Erb
 
