@@ -46,7 +46,7 @@ module Ronin
     validates_is_unique :name
 
     #
-    # Returns the name of the license as a String.
+    # @return [String] The name of the license as a String.
     #
     def to_s
       @name.to_s
