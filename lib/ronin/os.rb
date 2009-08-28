@@ -42,7 +42,7 @@ module Ronin
     validates_present :name
 
     #
-    # Returns the String form of the os.
+    # @return [String] The OS name and version.
     #
     # @example
     #   os = OS.new(:name => 'Linux', :version => '2.6.11')
@@ -57,7 +57,11 @@ module Ronin
     end
 
     #
-    # Defines a new builtin OS of the specified _name_ and _os_name_.
+    # Defines a new predefined OS.
+    #
+    # @param [Symbol, String] name The method name to define for the
+    #                              builtin OS.
+    # @param [String] os_name The name of the OS.
     #
     # @example
     #   OS.predefine :freebsd, 'FreeBSD'
