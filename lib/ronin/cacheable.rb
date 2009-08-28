@@ -117,15 +117,23 @@ module Ronin
     end
 
     #
-    # List of cacheable models.
+    # @return [Array] List of cacheable models.
     #
     def Cacheable.models
       @@ronin_cacheable_models ||= []
     end
 
     #
-    # Loads all cacheable objects from the specified _path_. If a _block_
-    # is given, it will be passed each loaded object.
+    # Loads all cacheable objects from the specified _path_.
+    #
+    # @param [String] path The path to load the objects from.
+    #
+    # @yield [obj] If a block is given, it will be passed each loaded
+    #              object.
+    # @yieldparam [Cacheable] obj An object loaded from the specified
+    #                             _path_.
+    #
+    # @return [Array] All objects loaded from the specified _path_.
     #
     def Cacheable.load_all_from(path,&block)
       path = File.expand_path(path)
@@ -146,7 +154,9 @@ module Ronin
     end
 
     #
-    # Cache all objects defined in the file at the specified _path_.
+    # Cache all objects defined in a file.
+    #
+    # @param [String] path The path to cache all objects from.
     #
     def Cacheable.cache_all(path)
       path = File.expand_path(path)
@@ -157,15 +167,16 @@ module Ronin
     end
 
     #
-    # Returns +true+ if the original code has been loaded, returns +false+
-    # otherwise.
+    # @return [true, false] Specifies whether the original code has been
+    #                       loaded into the object.
     #
     def original_loaded?
       @original_loaded == true
     end
 
     #
-    # Load the code from the cached file for the object.
+    # Loads the code from the cached file for the object, and instance evals
+    # it into the object.
     #
     def load_original!
       if (self.cached_path && !(@original_loaded))
@@ -180,8 +191,10 @@ module Ronin
 
     #
     # Deletes any previously cached copies of the object and caches it into
-    # the database. Returns +true+ if the object was successfully cached,
-    # returns +false+ otherwise.
+    # the database.
+    #
+    # @return [true, false] Specifies whether the object was successfully
+    #                       cached,
     #
     def cache!
       if self.cached_path
@@ -199,9 +212,10 @@ module Ronin
     # Deletes any previous cached copies of the object and caches it into
     # the database, only if the file where the object was originally cached 
     # from was modified. The object will also be destroyed if the file
-    # where the object was originally cached from is missing. Returns
-    # +true+ if the object was successfully synced, returns +false+
-    # otherwise.
+    # where the object was originally cached from is missing.
+    #
+    # @return [true, false] Specifies whether the object was successfully
+    #                       synced.
     #
     def sync!
       if (self.cached_path && self.cached_timestamp)
@@ -222,8 +236,8 @@ module Ronin
     end
 
     #
-    # Returns +true+ if the object has been prepared to be cached,
-    # returns +false+ otherwise.
+    # @return [true, false] Specifies whether the object has been prepared
+    #                       to be cached,
     #
     def prepared_for_cache?
       @cache_prepared == true
@@ -243,6 +257,9 @@ module Ronin
 
     #
     # Will run the specified _block_ when the object is about to be cached.
+    #
+    # @yield [] The block will be ran inside the object when the object is
+    #           to be prepared for caching.
     #
     def cache(&block)
       @cache_block = block
