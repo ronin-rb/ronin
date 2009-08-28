@@ -284,7 +284,8 @@ module Ronin
       end
 
       #
-      # Removes an overlay from the overlay cache.
+      # Removes an overlay from the overlay cache, but leaves the contents
+      # of the overlay intact.
       #
       # @param [String] name The name of the overlay to remove.
       #
