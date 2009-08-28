@@ -31,8 +31,8 @@ module Ronin
       #
       # @yield [cache] If a block is given, it will be passed the newly
       #                created extension cache.
-      # @yieldparam [Ronin::Platform::ExtensionCache] cache The newly
-      #                                                     created cache.
+      # @yieldparam [ExtensionCache] cache The newly created extension
+      #                                    cache.
       #
       def initialize(&block)
         super() do |hash,key|
@@ -65,8 +65,7 @@ module Ronin
       # @yield [ext] The block will be passed each extension, and the
       #              extension will be selected based on the return value
       #              of the block.
-      # @yieldparam [Ronin::Platform::Extension] ext An extension from the
-      #                                              cache.
+      # @yieldparam [Extension] ext An extension from the cache.
       #
       # @return [Array] The selected extensions.
       #
@@ -92,7 +91,7 @@ module Ronin
       #
       # @yield [ext] If a block is given, it will be passed the loaded
       #              extension.
-      # @yieldparam [Ronin::Platform::Extension] ext The loaded extension.
+      # @yieldparam [Extension] ext The loaded extension.
       #
       # @raise [ExtensionNotFound] The extension with the specified _name_
       #                            could not be found in the extension

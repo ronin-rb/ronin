@@ -101,7 +101,7 @@ module Ronin
       # @yieldparam [Ronin::Platform::Extension] ext The newly created
       #                                              extension.
       #
-      # @return [Ronin::Platform::Extension] The newly created extension.
+      # @return [Extension] The newly created extension.
       #
       # @example
       #   Extension.load('shellcode') do |ext|
@@ -124,17 +124,16 @@ module Ronin
       #
       # @yield [(ext)] The block that will be called, after the extension
       #                has been setup, and before it has been torendown.
-      # @yieldparam [Ronin::Platform::Extension] ext The newly created
-      #                                              extension.
+      # @yieldparam [Extension] ext The newly created extension.
       #
-      # @return [Ronin::Platform::Extension] The newly created extension.
+      # @return [Extension] The newly created extension.
       #
       # @example
       #   Extension.run('exploits') do |ext|
       #     puts ext.search(:product => 'Apache')
       #   end
       #
-      # @see Ronin::UI::Platform::Extension#run.
+      # @see Extension#run.
       #
       def Extension.run(name,&block)
         Extension.load(name) { |ext| ext.run(&block) }
@@ -147,8 +146,8 @@ module Ronin
       #
       # @yield [ext] If a block is given, it will be passed the extension,
       #              after the other extensions have been included into it.
-      # @yieldparam [Ronin::Platform::Extension] The extension.
-      # @return [Ronin::Platform::Extension] The extension.
+      # @yieldparam [Extension] The extension.
+      # @return [Extension] The extension.
       #
       def include(name,&block)
         Platform.overlays.extension_paths(name).each do |path|
@@ -166,9 +165,9 @@ module Ronin
       #                      from.
       #
       # @yield [ext] If a block is given, it will be passed the extension.
-      # @yieldparam [Ronin::Platform::Extension] ext The extension.
+      # @yieldparam [Extension] ext The extension.
       #
-      # @return [Ronin::Platform::Extension] The extension.
+      # @return [Extension] The extension.
       # @raise [ExtensionNotFound] The specified _path_ was not a valid
       #                            directory.
       #
@@ -225,8 +224,8 @@ module Ronin
       #
       # @yield [ext] If a block is given, it will be passed the extension,
       #              once it has been setup.
-      # @yieldparam [Ronin::Platform::Extension] ext The extension.
-      # @return [Ronin::Platform::Extension] The extension.
+      # @yieldparam [Extension] ext The extension.
+      # @return [Extension] The extension.
       #
       # @example
       #   ext.setup!
@@ -264,8 +263,8 @@ module Ronin
       #
       # @yield [ext] If a block is given, it will be passed the extension,
       #              before it has been toredown.
-      # @yieldparam [Ronin::Platform::Extension] ext The extension.
-      # @return [Ronin::Platform::Extension] The extension.
+      # @yieldparam [Extension] ext The extension.
+      # @return [Extension] The extension.
       #
       # @example
       #   ext.teardown!
@@ -306,8 +305,8 @@ module Ronin
       # @yield [(ext)] If a block is given, it will be called after the
       #                extension has been setup. When the block has
       #                finished, the extension will be toredown.
-      # @yieldparam [Ronin::Platform::Extension] ext The extension.
-      # @return [Ronin::Platform::Extension] The extension.
+      # @yieldparam [Extension] ext The extension.
+      # @return [Extension] The extension.
       #
       # @example
       #   ext.run do |ext|
