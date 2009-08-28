@@ -30,15 +30,15 @@ module Ronin
       def self.included(base)
         base.metaclass_eval do
           #
-          # Returns the +Hash+ of the categories and the scanners defined
-          # for the class.
+          # @return [Hash] The categories and the scanners defined
+          #                for the them within the class.
           #
           def scanners
             @scanners ||= {}
           end
 
           #
-          # Returns the category names of all defined scanners.
+          # @return [Set] The category names of all defined scanners.
           #
           def scans_for
             names = Set[]
@@ -53,8 +53,14 @@ module Ronin
           end
 
           #
-          # Returns +true+ if there is a scanner with the specified category
-          # _name_ was defined, returns +false+ otherwise.
+          # Specifies whether or not there are scanners defined for the
+          # specified category.
+          #
+          # @param [Symbol, String] The name of the category to search for
+          #                         scanners within.
+          #
+          # @return [true, false] Specifies whether there is a scanner
+          #                       defined for the specified category.
           #
           def scans_for?(name)
             name = name.to_sym
@@ -69,10 +75,14 @@ module Ronin
           end
 
           #
-          # Returns all scanner tests in the category with the specified
-          # _name_.
+          # Collects all scanners in the specified category.
           #
-          # @raise [UnknownCategory] No category has the matching _name_.
+          # @param [Symbol, String] The category name to return all
+          #                         scanners for.
+          #
+          # @return [Array] All scanners in the specified category.
+          #
+          # @raise [UnknownCategory] No category has the specified name.
           #
           def scanners_in(name)
             name = name.to_sym
@@ -95,22 +105,28 @@ module Ronin
           end
 
           #
-          # Defines a scanner with the specified category _name_ and
-          # _block_.
+          # Defines a scanner for the category.
           #
-          # When scanning against a target, a callback for saving results
-          # and the target object to be scanned will be passed to the
-          # _block_.
+          # @param [Symbol, String] name The name of the category to define
+          #                              the scanner for.
+          # @yield [target, results, (options)] The block that will be
+          #                                     called when the scanner
+          #                                     is ran.
+          # @yieldparam [Object] target The target object to scan.
+          # @yieldparam [Proc] results A callback for enqueuing results from
+          #                            the scanner in real-time.
+          # @yieldparam [Hash] options Additional scanner-options that can
+          #                            be used to configure the scanning.
           #
+          # @example Defining a scanner for the +:lfi+ category.
           #   scanner(:lfi) do |url,results|
-          #     ...
+          #     # ...
           #   end
           #
-          # If the scanner accepts a 3rd argument, it will be passed a
-          # +Hash+ of configuration options when the scanner is called.
-          #
+          # @example Defining a scanner for the +:sqli+ category, that
+          #          accepts additional scanner-options.
           #   scanner(:sqli) do |url,results,options|
-          #     ...
+          #     # ...
           #   end
           #
           def scanner(name,&block)
@@ -161,21 +177,30 @@ module Ronin
       end
 
       #
-      # Runs the scanners in the given _categories_ against each_target.
-      # If _categories_ is not specified, all categories will be ran
-      # against each_target. Returns a +Hash+ of results grouped by
-      # scanner category.
+      # Runs all scanners in the given categories against each_target.
+      # If no categories are specified, all categories will be ran
+      # against each_target.
       #
-      # If a _block_ is given, it will be passed each result and the
-      # category the result belongs to.
+      # @param [Hash] The categories to scan for, with additional
+      #               per-category scanner-options.
       #
-      # @example
+      # @return [Hash] The results grouped by scanner category.
+      #
+      # @yield [category, result] The block that may receive the scanner
+      #                           results for categories in real-time.
+      # @yieldparam [Symbol] category The category the result belongs to.
+      # @yieldparam [Object] result The result object enqueued by the
+      #                             scanner.
+      #
+      # @example Scanning a specific category.
       #   url.scan(:rfi => true)
+      #   # => {:rfi => [...]}
       #
-      # @example
+      # @example Scanning multiple categories, with scanner-options.
       #   url.scan(:lfi => true, :sqli => {:params => ['id', 'catid']})
+      #   # => {:lfi => [...], :sqli => [...]}
       #
-      # @example
+      # @example Receiving scanner results from categories in real-time.
       #   url.scan(:lfi => true, :rfi => true) do |category,result|
       #     puts "[#{category}] #{result.inspect}"
       #   end
@@ -234,6 +259,10 @@ module Ronin
       # A place holder method which will call the specified _block_ with
       # each target object to be scanned. By default, the method will call
       # the specified _block_ once, simply passing it the +self+ object.
+      #
+      # @yield [target] The block that will be passed each target object
+      #                 to be scanned.
+      # @yieldparam [Object] target The target object to be scanned.
       #
       def each_target(&block)
         block.call(self)
