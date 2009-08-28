@@ -23,7 +23,9 @@ require 'ronin/ui/hexdump/hexdump'
 
 module Kernel
   #
-  # Hexdumps the specified _object_ to the given _output_ stream.
+  # Hexdumps an object.
+  #
+  # @see Ronin::UI::Hexdump.dump
   #
   def hexdump(object,output=STDOUT)
     Ronin::UI::Hexdump.dump(object,output)

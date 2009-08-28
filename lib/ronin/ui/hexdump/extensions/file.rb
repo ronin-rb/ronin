@@ -24,8 +24,10 @@ require 'ronin/ui/hexdump/hexdump'
 class File
 
   #
-  # Hexdumps the contents of the File at the specified _path_
-  # to the given _output_ stream.
+  # Hexdumps the contents of the File.
+  #
+  # @param [String] path The path to the File to hexdump.
+  # @param [IO] output The output stream to print the hexdump to.
   #
   def self.hexdump(path,output=STDOUT)
     self.open(path) do |file|
