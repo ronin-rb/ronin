@@ -52,7 +52,7 @@ module Ronin
     validates_is_number :address_length
 
     #
-    # Returns the name of the arch as a String.
+    # @return [String] The name of the architecture.
     #
     def to_s
       @name.to_s
@@ -61,6 +61,13 @@ module Ronin
     #
     # Defines a new builtin Arch with the specified _name_ and the given
     # _options_.
+    #
+    # @param [Symbol, String] name The name of the architecture.
+    # @param [Hash] options Additional options.
+    # @option options [Symbol, String] :endian The endianness of the
+    #                                          architecture.
+    # @option options [Integer] :address_length The address-length of the
+    #                                           architecture.
     #
     # @example
     #   Arch.predefine :alpha, :endian => :big, :address_length => 8
