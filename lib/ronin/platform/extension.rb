@@ -98,8 +98,7 @@ module Ronin
       #
       # @yield [ext] If a block is given, it will be passed the newly
       #              created extension.
-      # @yieldparam [Ronin::Platform::Extension] ext The newly created
-      #                                              extension.
+      # @yieldparam [Extension] ext The newly created extension.
       #
       # @return [Extension] The newly created extension.
       #
