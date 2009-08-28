@@ -22,12 +22,15 @@
 class Array
 
   #
-  # Returns the power set of the array. Shamelessly borrowed from
-  # http://johncarrino.net/blog/2006/08/11/powerset-in-ruby/.
+  # Calculates the power-set of the Array.
+  #
+  # @return [Array] The power set of the array.
   #
   # @example
   #   [1,2,3].power_set
   #   # => [[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]]
+  #
+  # @see http://johncarrino.net/blog/2006/08/11/powerset-in-ruby/
   #
   def power_set
     inject([[]]) do |power_set,element|
