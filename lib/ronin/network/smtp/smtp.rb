@@ -28,7 +28,7 @@ module Ronin
       DEFAULT_PORT = 25
 
       #
-      # Returns the default Ronin SMTP port.
+      # @return [Integer] The default Ronin SMTP port.
       #
       def SMTP.default_port
         @@smtp_default_port ||= DEFAULT_PORT
@@ -37,13 +37,22 @@ module Ronin
       #
       # Sets the default Ronin SMTP port.
       #
+      # @param [Integer] port the new default Ronin SMTP port.
+      #
       def SMTP.default_port=(port)
         @@smtp_default_port = port
       end
 
       #
-      # Returns the String form of an Email object with the given _options_
-      # and _block_.
+      # Creates a properly formatted email.
+      #
+      # @yield [email] If a block is given, it will be passed the newly
+      #                created Email object.
+      # @yieldparam [Ronin::Network::Email::SMTP] The new Email object.
+      #
+      # @return [String] Formatted SMTP email.
+      #
+      # @see Ronin::Network::SMTP::Email
       #
       def SMTP.message(options={},&block)
         Email.new(options,&block).to_s

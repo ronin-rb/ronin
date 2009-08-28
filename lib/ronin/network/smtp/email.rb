@@ -46,17 +46,21 @@ module Ronin
         # Creates a new Email object with the given _options_. If a _block_
         # is given, it will be passed the newly created Email object.
         #
-        # _options_ must contain the following keys:
-        # <tt>:from</tt>:: The address the email is from.
-        # <tt>:to</tt>:: The address that the email should be sent to.
-        # <tt>:subject</tt>:: The subject of the email.
-        # <tt>:message_id</tt>:: 
+        # @param [Hash] options Additional options.
+        # @option options [String] :from The address the email is from.
+        # @option options [String] :to The address that the email should
+        #                              be sent to.
+        # @option options [String] :subject The subject of the email.
+        # @option options [String] :message_id Message-ID.
+        # @option options [String, Time] :date (Time.now)
+        #                                      The date the email was
+        #                                      sent on.
+        # @option options [String, Array<String>] :body The body of the
+        #                                               email.
         #
-        # _options_ may contain the following keys:
-        # <tt>:date</tt>:: The date the email was sent on. Defaults to
-        #                  <tt>Time.now</tt>.
-        # <tt>:body</tt>:: The body of the email. Can be a String or an
-        #                  Array of Strings.
+        # @yield [email] If a block is given, it will be passed the newly
+        #                created email object.
+        # @yieldparam [Email] email The newly created email object.
         #
         def initialize(options={},&block)
           @from = options[:from]
@@ -76,8 +80,11 @@ module Ronin
         end
 
         #
-        # Formats the email into a SMTP message as described in
-        # http://www.ruby-doc.org/stdlib/libdoc/net/smtp/rdoc/classes/Net/SMTP.html
+        # Formats the email into a SMTP message.
+        #
+        # @return [String] Properly formatted SMTP message.
+        #
+        # @see http://www.ruby-doc.org/stdlib/libdoc/net/smtp/rdoc/classes/Net/SMTP.html
         #
         def to_s
           address = lambda { |info|
