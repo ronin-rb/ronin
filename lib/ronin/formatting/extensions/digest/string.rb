@@ -26,7 +26,7 @@ require 'digest/sha2'
 class String
 
   #
-  # Returns the MD5 checksum of the String.
+  # @return [String] The MD5 checksum of the String.
   #
   # @example
   #   "hello".md5
@@ -37,7 +37,7 @@ class String
   end
 
   #
-  # Returns the SHA1 checksum of the String.
+  # @return [String] The SHA1 checksum of the String.
   #
   # @example
   #   "hello".sha1
@@ -48,7 +48,7 @@ class String
   end
 
   #
-  # Returns the SHA2 checksum of the String.
+  # @return [String] The SHA2 checksum of the String.
   #
   # @example
   #   "hello".sha2
@@ -59,7 +59,7 @@ class String
   end
 
   #
-  # Returns the SHA256 checksum of the String.
+  # @return [String] The SHA256 checksum of the String.
   #
   # @example
   #   "hello".sha256
@@ -70,7 +70,7 @@ class String
   end
 
   #
-  # Returns the SHA512 checksum of the String.
+  # @return [String] The SHA512 checksum of the String.
   #
   # @example
   #   "hello".sha512
