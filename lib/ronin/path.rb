@@ -25,7 +25,11 @@ module Ronin
   class Path < Pathname
 
     #
-    # Creates a new Path object with _n_ number of <tt>..</tt> directories.
+    # Creates a new path object for upward directory traversal.
+    #
+    # @param [Integer, Array, Range] n The number of directories to go up.
+    #
+    # @return [Path] The new path object.
     #
     # @example Generate a relative path that goes up 7 directories.
     #   Path.up(7)
@@ -45,8 +49,12 @@ module Ronin
     end
 
     #
-    # Joins the _names_ with the path, but does not resolve the resulting
-    # path.
+    # Joins directory names together with the path, but does not resolve
+    # the resulting path.
+    #
+    # @param [Array] names The names to join together.
+    #
+    # @return [Path] The joined path.
     #
     # @example
     #   Path.up(7).join('etc/passwd')
@@ -59,11 +67,16 @@ module Ronin
     end
 
     #
-    # Joins _name_ with the path, but does not resolve the resulting path.
+    # Joins a directory name to the path, but does not resolve the resulting
+    # path.
+    #
+    # @param [String] name A directory name.
     #
     # @example
     #   Path.up(7) / 'etc' / 'passwd'
     #   # => #<Ronin::Path:../../../../../../../etc/passwd>
+    #
+    # @see join
     #
     def /(name)
       join(name)
