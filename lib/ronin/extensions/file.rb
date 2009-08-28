@@ -24,6 +24,11 @@ class File
   #
   # Writes the specified _data_ to the specified _path_.
   #
+  # @param [String] path The path of the file to write to.
+  # @param [String] data The data to write to the file.
+  #
+  # @return [nil]
+  #
   def File.write(path,data)
     File.open(path,'w') { |file| file.write(data) }
   end
