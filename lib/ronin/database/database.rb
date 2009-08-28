@@ -72,27 +72,34 @@ module Ronin
     end
 
     #
-    # Sets the Database configuration to the specified _configuration_.
+    # Sets the Database configuration.
+    #
+    # @param [String, Hash] configuration The DataMapper configuration to
+    #                                     set the Ronin::Database with.
     #
     def Database.config=(configuration)
       @@ronin_database_config = configuration
     end
 
     #
-    # Returns the current Database log.
+    # @return [DataMapper::Logger, nil] The current Database log.
     #
     def Database.log
       @@ronin_database_log ||= nil
     end
 
     #
-    # Setup the Database log with the given _options_.
+    # Setup the Database log.
     #
-    # _options_ may contain the following keys:
-    # <tt>:path</tt>:: The path of the log file. Defaults to
-    #                  +DEFAULT_LOG_PATH+.
-    # <tt>:stream</tt>:: The stream to use for the log.
-    # <tt>:level</tt>:: The level of messages to log.
+    # @param [Hash] options Additional options.
+    # @option options [String] :path (DEFAULT_LOG_PATH)
+    #                                The path of the log file.
+    # @option options [IO] :stream The stream to use for the log.
+    # @option options [Symbol] :level The level of messages to log.
+    #                                 May be either +:fatal+, +:error+,
+    #                                 +:warn+, +:info+ or +:debug+.
+    #
+    # @return [DataMapper::Logger] The new Database log.
     #
     def Database.setup_log(options={})
       path = (options[:path] || DEFAULT_LOG_PATH)
@@ -103,7 +110,7 @@ module Ronin
     end
 
     #
-    # Returns +true+ if the Database is setup, returns +false+ otherwise.
+    # @return [true, false] Specifies wether or not the Database is setup.
     #
     def Database.setup?
       repository = DataMapper.repository(Model::REPOSITORY_NAME)
@@ -112,7 +119,10 @@ module Ronin
     end
 
     #
-    # Call the given _block_ then run auto-upgrades on the Database.
+    # Updates the Database, by running auto-upgrades, but only if the
+    # Database is already setup.
+    #
+    # @yield [] The block to call before the Database is updated.
     #
     def Database.update!(&block)
       block.call if block
@@ -122,9 +132,13 @@ module Ronin
     end
 
     #
-    # Sets up the Database with the given _configuration_. If
-    # _configuration is not given, +DEFAULT_CONFIG+ will be used to setup
-    # the Database.
+    # Sets up the Database.
+    #
+    # @param [String, Hash] configuration The DataMapper configuration to
+    #                                     use to setup the Database.
+    # 
+    # @yield [] The block to call after the Database has been setup, but
+    #           before it is updated.
     #
     def Database.setup(configuration=Database.config,&block)
       # setup the database log
