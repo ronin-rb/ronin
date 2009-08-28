@@ -57,6 +57,7 @@ module Ronin
       # to search through all +static/+ directories for the template.
       #
       # @param [String] sub_path The relative path of the template to find.
+      #
       # @return [String, nil] Returns the absolute path to the template,
       #                       or +nil+ if the template could not be found.
       #
@@ -83,11 +84,13 @@ module Ronin
       # directory off of template_dirs.
       #
       # @param [String] sub_path The relative path of the template to find.
+      #
       # @yield [path] The block to be called after the directory of the
       #               template has been pushed onto template_dirs. After
       #               the block has returned, the directory will be popped
       #               off of template_dirs.
       # @yieldparam [String] path The absolute path of the template.
+      #
       # @return [Object] Result of the given block.
       # @raise [RuntimeError] The template was not found.
       #
