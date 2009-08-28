@@ -34,56 +34,64 @@ module Ronin
       DEFAULT_TIMEOUT = 10
 
       #
-      # Returns the default Ronin Telnet port.
+      # @return [Integer] The default Ronin Telnet port.
       #
       def Telnet.default_port
         @@telnet_default_port ||= DEFAULT_PORT
       end
 
       #
-      # Sets the default Ronin Telnet port to the specified _port_.
+      # Sets the default Ronin Telnet port.
+      #
+      # @param [Integer] port The new default Ronin Telnet port.
       #
       def Telnet.default_port=(port)
         @@telnet_default_port = port
       end
 
       #
-      # Returns the default Ronin Telnet prompt.
+      # @return [Regexp] The default Ronin Telnet prompt pattern.
       #
       def Telnet.default_prompt
         @@telnet_default_prompt ||= DEFAULT_PROMPT
       end
 
       #
-      # Sets the default Ronin Telnet prompt to the specified _prompt_.
+      # Sets the default Ronin Telnet prompt pattern.
+      #
+      # @param [Regexp] prompt The new default Ronin Telnet prompt pattern.
       #
       def Telnet.default_prompt=(prompt)
         @@telnet_default_prompt = prompt
       end
 
       #
-      # Returns the default Ronin Telnet timeout.
+      # @return [Integer] The default Ronin Telnet timeout.
       #
       def Telnet.default_timeout
         @@telnet_default_timeout ||= DEFAULT_TIMEOUT
       end
 
       #
-      # Sets the default Ronin Telnet timeout to the specified _timeout_.
+      # Sets the default Ronin Telnet timeout.
+      #
+      # @param [Integer] timeout The new default Ronin Telnet timeout.
       #
       def Telnet.default_timeout=(timeout)
         @@telnet_default_timeout = timeout
       end
 
       #
-      # Returns the Ronin Telnet proxy.
+      # @return [Telnet, IO, nil] The Ronin Telnet proxy.
       #
       def Telnet.proxy
         @@telnet_proxy ||= nil
       end
 
       #
-      # Sets the Ronin Telnet proxy to _new_proxy_.
+      # Sets the Ronin Telnet proxy.
+      #
+      # @param [Telnet, IO, nil] new_proxy The new Ronin Telnet proxy.
       #
       def Telnet.proxy=(new_proxy)
         @@telnet_proxy = new_proxy
