@@ -27,15 +27,26 @@ module Ronin
   module Platform
     module ObjectCache
       #
-      # Returns all paths within the specified _directory_ pointing
-      # to object files.
+      # Searches for object files within the specified _directory_.
+      #
+      # @param [String] directory The directory to search for object
+      #                           files within.
+      #
+      # @return [Array] All paths within the specified _directory_
+      #                 pointing to object files.
       #
       def ObjectCache.paths(directory)
         Dir[File.join(File.expand_path(directory),'**','*.rb')]
       end
 
       #
-      # Finds all cached objects, passing each to the given _block_.
+      # Finds all cached objects.
+      #
+      # @param [String] directroy Optional directory to search within
+      #                           for cached objects.
+      #
+      # @yield [obj] The block that will receive all cached object.
+      # @yieldparam [Cacheable] obj The cached object.
       #
       def ObjectCache.each(directory=nil,&block)
         attributes = {}
@@ -55,6 +66,8 @@ module Ronin
       # Cache all objects loaded from the paths within the specified
       # _directory_.
       #
+      # @param [String] directory The directory to cache all objects from.
+      #
       def ObjectCache.cache(directory)
         Database.setup unless Database.setup?
 
@@ -68,7 +81,9 @@ module Ronin
       #
       # Syncs all objects that were previously cached from paths within
       # the specified _directory_. Also cache objects which have yet to
-      # be cached.
+      # be cached from the _directory_.
+      #
+      # @param [String] directory The directory to sync all objects with.
       #
       def ObjectCache.sync(directory)
         new_paths = ObjectCache.paths(directory)
@@ -89,6 +104,9 @@ module Ronin
       #
       # Deletes all cached objects that existed in the specified
       # _directory_.
+      #
+      # @param [String] directory Deletes all cached objects from the
+      #                           specified _directory_.
       #
       def ObjectCache.clean(directory)
         Database.setup unless Database.setup?
