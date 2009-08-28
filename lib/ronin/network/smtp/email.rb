@@ -43,8 +43,7 @@ module Ronin
         attr_accessor :body
 
         #
-        # Creates a new Email object with the given _options_. If a _block_
-        # is given, it will be passed the newly created Email object.
+        # Creates a new Email object.
         #
         # @param [Hash] options Additional options.
         # @option options [String] :from The address the email is from.
