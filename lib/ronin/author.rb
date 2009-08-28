@@ -73,15 +73,11 @@ module Ronin
       block.call(self) if block
     end
 
-    def name
-      @name || ANONYMOUSE
-    end
-
     #
     # @return [String] The name of the author.
     #
     def to_s
-      @name.to_s
+      self.name.to_s
     end
 
   end
