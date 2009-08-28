@@ -38,7 +38,7 @@ module Ronin
     #
     # @yield [shell, line] The block that will be passed every command
     #                      entered.
-    # @yieldparam [Ronin::Shell] shell The shell to use for output.
+    # @yieldparam [Shell] shell The shell to use for output.
     # @yieldparam [String] line The command entered into the shell.
     #
     # @example
