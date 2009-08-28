@@ -24,13 +24,18 @@ require 'chars'
 class String
 
   #
-  # Creates a new String by passing each byte to the specified _block_
-  # using the given _options_.
+  # Creates a new String by formatting each byte.
   #
-  # _options_ may include the following keys:
-  # <tt>:included</tt>:: The set of characters that will be formated,
-  #                      defaults to <tt>(0x00..0xff)</tt>.
-  # <tt>:excluded</tt>:: The characters not to format.
+  # @param [Hash] options Additional options.
+  # @option options [Array, Range] :included (0x00..0xff)
+  #                                          The bytes to format.
+  # @option options [Array, Range] :excluded The bytes not to format.
+  #
+  # @yield [byte] The block which will return the formatted version
+  #               of each byte within the String.
+  # @yieldparam [Integer] byte The byte to format.
+  #
+  # @return [String] The formatted version of the String.
   #
   def format_bytes(options={},&block)
     included = (options[:included] || (0x00..0xff))
@@ -53,13 +58,18 @@ class String
   end
 
   #
-  # Creates a new String by passing each character to the specified _block_
-  # using the given _options_.
+  # Creates a new String by formatting each character.
   #
-  # _options_ may include the following keys:
-  # <tt>:included</tt>:: The set of characters that will be formated,
-  #                      defaults to <tt>(0x00..0xff)</tt>.
-  # <tt>:excluded</tt>:: The characters not to format.
+  # @param [Hash] options Additional options.
+  # @option options [Array, Range] :included (0x00..0xff)
+  #                                          The bytes to format.
+  # @option options [Array, Range] :excluded The bytes not to format.
+  #
+  # @yield [char] The block which will return the formatted version
+  #               of each character within the String.
+  # @yieldparam [String] char The character to format.
+  #
+  # @return [String] The formatted version of the String.
   #
   def format_chars(options={},&block)
     format_bytes(options) do |b|
@@ -68,13 +78,18 @@ class String
   end
 
   #
-  # Creates a new String by randomizing the case of each character using
-  # the given _options_.
+  # Creates a new String by randomizing the case of each character in the
+  # String.
   #
-  # _options_ may include the following keys:
-  # <tt>:probability</tt>:: The probability that a character will have it's
-  #                         case changed; defaults to 0.5.
+  # @param [Hash] options Additional options.
+  # @option options [Array, Range] :included (0x00..0xff)
+  #                                          The bytes to format.
+  # @option options [Array, Range] :excluded The bytes not to format.
+  # @option options [Float] :probability (0.5)
+  #                                      The probability that a character
+  #                                      will have it's case changed.
   #
+  # @example
   #   "get out your checkbook".random_case
   #   # => "gEt Out YOur CHEckbook"
   #
@@ -91,10 +106,16 @@ class String
   end
 
   #
-  # Pads the string using the specified _padding_ out to the given
-  # _max_length_. _max_length_ will default to the strings own length,
-  # if not given.
+  # Creates a new String by padding the String with repeating text,
+  # out to a specified length.
   #
+  # @param [String] padding The text to pad the new String with.
+  # @param [String] max_length The maximum length to pad the new String
+  #                            out to.
+  #
+  # @return [String] The padded version of the String.
+  #
+  # @example
   #   "hello".pad('A',50)
   #   # => "helloAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
   #
