@@ -39,28 +39,32 @@ module Ronin
       COMPLETION = true
 
       #
-      # Returns the default Console prompt style, defaults to +PROMPT+.
+      # @return [String] The default Console prompt style.
       #
       def Console.prompt
         @@ronin_console_prompt ||= PROMPT
       end
 
       #
-      # Sets the default Console prompt style to the specified _style_.
+      # Sets the default Console prompt style.
+      #
+      # @param [String] style The new Console prompt style to use.
       #
       def Console.prompt=(style)
         @@ronin_console_prompt = style
       end
 
       #
-      # Returns the default Console indent setting, defaults to +INDENT+.
+      # @return [true, false] The default Console indent setting.
       #
       def Console.indent
         @@ronin_console_indent ||= INDENT
       end
 
       #
-      # Sets the default Console indent setting to the specified _mode_.
+      # Sets the default Console indent setting.
+      #
+      # @param [true, false] mode The new default Console indent setting.
       #
       # @example
       #   Console.indent = false
@@ -71,31 +75,33 @@ module Ronin
       end
 
       #
-      # Returns the default Console back trace limit, defaults to
-      # +BACKTRACE_DEPTH+.
+      # @return [Integer] The default Console back-trace depth.
       #
       def Console.backtrace_depth
         @@ronin_console_backtrace_depth ||= BACKTRACE_DEPTH
       end
 
       #
-      # Sets the default Console back trace depth to the specified _depth_.
+      # Sets the default Console back-trace depth.
+      #
+      # @param [Integer] depth The new default Console back-trace depth.
       #
       def Console.backtrace_depth=(depth)
         @@ronin_console_backtrace_depth = depth
       end
 
       #
-      # Returns the default Console tab-completion mode, defaults to
-      # +COMPLETION+.
+      # @return [true, false] The default Console tab-completion setting.
       #
       def Console.completion
         @@ronin_console_completion ||= COMPLETION
       end
 
       #
-      # Sets the default Console tab-completion mode to the specified
-      # _mode_.
+      # Sets the default Console tab-completion setting.
+      #
+      # @param [true, false] mode The new default Console tab-completion
+      #                           setting.
       #
       # @example
       #   Console.completion = false
@@ -106,23 +112,36 @@ module Ronin
       end
 
       #
-      # Returns the Array of files to require when the Console starts.
+      # @return [Array] The files to require when the Console starts.
       #
       def Console.auto_load
         @@ronin_console_auto_load ||= []
       end
 
       #
-      # Calls the specified _block_ from within the Console after it is
+      # Adds a block to be ran from within the Console after it is
       # started.
+      #
+      # @yield [] The block to be ran from within the Console.
       #
       def Console.setup(&block)
         Console.setup_blocks << block if block
       end
 
       #
-      # Starts a Console with the given _script_. If a _block_ is given, it
-      # will be called from within the Console.
+      # Starts a Console.
+      #
+      # @param [String] script The path to a script to run within the
+      #                        Console.
+      #
+      # @yield [] The block to be ran within the Console, after it has been
+      #           setup.
+      #
+      # @example
+      #   Console.start
+      #
+      # @example
+      #   console.start { @var = 'hello' }
       #
       def Console.start(script=nil,&block)
         IRB.setup(script)
@@ -174,8 +193,8 @@ module Ronin
       protected
 
       #
-      # Returns the Array of setup_blocks to run within the Console after it
-      # is started.
+      # @return [Array] The blocks to be ran from within the Console after
+      #                 it is started.
       #
       def Console.setup_blocks
         @@console_setup_blocks ||= []
