@@ -35,10 +35,16 @@ module Ronin
           validates_present :name
 
           #
-          # Finds models with names like the specified _name_.
+          # Finds models with names containing the specified _fragment_.
           #
-          def self.named(name)
-            self.all(:name.like => "%#{name}%")
+          # @param [String] fragment The fragment of text to search for
+          #                          within the names of models.
+          #
+          # @example
+          #   Exploit.named 'ProFTP'
+          #
+          def self.named(fragment)
+            self.all(:name.like => "%#{fragment}%")
           end
         end
       end

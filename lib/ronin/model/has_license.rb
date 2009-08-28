@@ -34,7 +34,10 @@ module Ronin
 
           #
           # Returns all models having the predefined license with the
-          # predefined _name_.
+          # specified _name_.
+          #
+          # @param [Symbol, String] name The name of the license which models
+          #                              are associated with.
           #
           # @example
           #   LicensedModel.licensed_under(:cc_by_nc)

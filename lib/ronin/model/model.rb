@@ -37,7 +37,7 @@ module Ronin
           include DataMapper::Migrations
 
           #
-          # Returns the default repository name for the model.
+          # @return [Symbol] The default repository name used for the model.
           #
           def self.default_repository_name
             Model::REPOSITORY_NAME

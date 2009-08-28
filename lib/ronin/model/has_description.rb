@@ -34,11 +34,17 @@ module Ronin
           property :description, Text
 
           #
-          # Finds models with descriptions similar to the specified
-          # _description_.
+          # Finds models with descriptions containing the specified
+          # _fragment_.
           #
-          def self.describing(description)
-            self.all(:description.like => "%#{description}%")
+          # @param [String] fragment The fragment of text to match
+          #                          descriptions with.
+          #
+          # @example
+          #   Exploit.describing 'bypass'
+          #
+          def self.describing(fragment)
+            self.all(:description.like => "%#{fragment}%")
           end
 
           #
