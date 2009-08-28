@@ -45,14 +45,6 @@ module Ronin
 
           # The class type property
           property :type, Discriminator
-
-          #
-          # Finds the first resource by conditions, or initializes a new
-          # resource with the attributes if none found.
-          #
-          def self.first_or_new(query,attributes={})
-            first(query) || new(query.merge(attributes))
-          end
         end
       end
     end
