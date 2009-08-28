@@ -49,7 +49,7 @@ module Ronin
     # @return [String] The name of the license as a String.
     #
     def to_s
-      @name.to_s
+      self.name.to_s
     end
 
     # Creative Commons By-Attribution License
