@@ -39,9 +39,11 @@ module Ronin
     TMP_DIR = FileUtils.mkdir_p(File.join(PATH,'tmp'))
 
     #
-    # Require the Ronin configuration file with the given _name_ in the
-    # Ronin configuration files directory. If _name_ is not given, than the
-    # main Ronin configuration file will be loaded.
+    # Loads the Ronin configuration file.
+    #
+    # @param [String, nil] name The optional name of the file to load within
+    #                           +CONFIG_DIR+. If no name is given,
+    #                           +CONFIG_PATH+ will simply be loaded.
     #
     # @example Load the main config file at <tt>~/.ronin/config.rb</tt>
     #   Config.load
