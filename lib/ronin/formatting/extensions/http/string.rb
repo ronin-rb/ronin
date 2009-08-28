@@ -27,7 +27,7 @@ require 'cgi'
 class String
 
   #
-  # Returns the URI encoded form of the string.
+  # @return [String] The URI encoded form of the String.
   #
   # @example
   #   "art is graffiti".uri_encode
@@ -38,7 +38,7 @@ class String
   end
 
   #
-  # Returns the decoded URI form of the string.
+  # @return [String] The decoded URI form of the String.
   #
   # @example
   #   "genre%3f".uri_decode
@@ -49,7 +49,7 @@ class String
   end
 
   #
-  # Returns the URI escaped form of the string.
+  # @return [String] The URI escaped form of the String.
   #
   # @example
   #   "x > y".uri_escape
@@ -60,7 +60,7 @@ class String
   end
 
   #
-  # Returns the unescaped URI form of the string.
+  # @return [String] The unescaped URI form of the String.
   #
   # @example
   #   "sweet+%26+sour".uri_unescape
@@ -71,7 +71,7 @@ class String
   end
 
   #
-  # Returns the HTTP hexidecimal encoded form of the string.
+  # @return [String] The HTTP hexidecimal encoded form of the String.
   #
   # @example
   #   "hello".format_http
