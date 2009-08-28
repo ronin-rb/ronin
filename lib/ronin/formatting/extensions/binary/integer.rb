@@ -24,11 +24,15 @@ require 'ronin/arch'
 class Integer
 
   #
-  # Returns an Array of bytes which represent the integer, using the
-  # specified _address_length_ and given _endian_.
+  # Extracts a sequence of bytes which represent the Integer.
   #
-  # _endian_ must be either <tt>:little</tt>, <tt>:big</tt> or
-  # <tt>:net</tt>.
+  # @param [Integer] address_length The number of bytes to decode from
+  #                                 the Integer.
+  # @param [Symbol] endian The endianness to use while decoding the bytes
+  #                        of the Integer. May be either +:big+, +:little+
+  #                        or +:net+.
+  #
+  # @return [Array] The bytes decoded from the Integer.
   #
   # @example
   #   0xff41.bytes(2)
@@ -62,9 +66,13 @@ class Integer
   end
 
   #
-  # Packs the integer using the specified _arch_ and the given
-  # _address_length_. The _address_length_ will default to the address
-  # length of the _arch_.
+  # Packs the Integer into a String, for a specific architecture and
+  # address-length.
+  #
+  # @param [Ronin::Arch] The architecture to pack the Integer for.
+  # @param [Integer] address_length the number of bytes to pack.
+  #
+  # @return [String] The packed Integer.
   #
   # @example
   #   0x41.pack(Arch.i686) # => "A\000\000\000"
@@ -77,7 +85,7 @@ class Integer
   end
 
   #
-  # Returns the hex escaped form of the integer.
+  # @return [String] The hex escaped version of the Integer.
   #
   # @example
   #   42.hex_escape

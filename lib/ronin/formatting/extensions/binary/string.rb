@@ -28,9 +28,14 @@ require 'base64'
 class String
 
   #
-  # Packs the integer using the specified _arch_ and the given
-  # _address_length_. The _address_length_ will default to the address
-  # length of the _arch_.
+  # Packs an Integer from a String, which was originally packed for
+  # a specific architecture and address-length.
+  #
+  # @param [Ronin::Arch] The architecture that the Integer was originally
+  #                      packed with.
+  # @param [Integer] address_length The number of bytes to depack.
+  #
+  # @return [Integer] The depacked Integer.
   #
   # @example
   #   0x41.pack(Arch('i686')) # => "A\000\000\000"
@@ -61,7 +66,7 @@ class String
   end
 
   #
-  # Returns the hex escaped form of the string.
+  # @return [String] The hex escaped version of the String.
   #
   # @example
   #   "hello".hex_escape
@@ -72,7 +77,7 @@ class String
   end
 
   #
-  # Returns an unescaped version of the hex escaped string.
+  # @return [String] The unescaped version of the hex escaped String.
   #
   # @example
   #   "\\x68\\x65\\x6c\\x6c\\x6f".hex_unescape
