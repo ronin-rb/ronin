@@ -62,16 +62,20 @@ module Ronin
       attr_reader :paths
 
       #
-      # Creates a new Extension with the specified _name_. If a
-      # _block_ is given, it will be passed the newly created
-      # Extension.
+      # Creates a new Extension object.
+      #
+      # @param [String] name The name to give the newly created Extension
+      #                      object.
+      #
+      # @yield [] The block that will be instance-evaled inside the newly
+      #           created Extension object.
       #
       # @example
       #   Extension.new('exploits')
       #
       # @example
       #   Extension.new('awesome') do |ext|
-      #     ...
+      #     # ...
       #   end
       #
       def initialize(name,&block)
@@ -88,9 +92,16 @@ module Ronin
       end
 
       #
-      # Loads all extensions with the specified _name_ into a newly created
-      # Extension object. If a _block_ is given, it will be passed the
-      # newly created Extension object.
+      # Loads all extensions with the matching _name_, into a new extension.
+      #
+      # @param [String] name The name of the extensions to load.
+      #
+      # @yield [ext] If a block is given, it will be passed the newly
+      #              created extension.
+      # @yieldparam [Ronin::Platform::Extension] ext The newly created
+      #                                              extension.
+      #
+      # @return [Ronin::Platform::Extension] The newly created extension.
       #
       # @example
       #   Extension.load('shellcode') do |ext|
@@ -106,22 +117,38 @@ module Ronin
       end
 
       #
-      # Loads all extensions with the specified _name_ into a newly created
-      # Extension object and then runs it with the specified _block_.
+      # Loads all extensions with the matching _name_ into a new extension,
+      # and then runs the extension.
+      #
+      # @param [String] name The name of the extensions to load and run.
+      #
+      # @yield [(ext)] The block that will be called, after the extension
+      #                has been setup, and before it has been torendown.
+      # @yieldparam [Ronin::Platform::Extension] ext The newly created
+      #                                              extension.
+      #
+      # @return [Ronin::Platform::Extension] The newly created extension.
       #
       # @example
       #   Extension.run('exploits') do |ext|
       #     puts ext.search(:product => 'Apache')
       #   end
       #
+      # @see Ronin::UI::Platform::Extension#run.
+      #
       def Extension.run(name,&block)
         Extension.load(name) { |ext| ext.run(&block) }
       end
 
       #
-      # Includes all extensions of the specified _name_ into the extension.
-      # If a _block_ is given, it will be passed the newly created
-      # extension after the extensions of _name_ have been included.
+      # Includes all extensions with the matching _name_ into the extension.
+      #
+      # @param [String] name The name of the extensions to include.
+      #
+      # @yield [ext] If a block is given, it will be passed the extension,
+      #              after the other extensions have been included into it.
+      # @yieldparam [Ronin::Platform::Extension] The extension.
+      # @return [Ronin::Platform::Extension] The extension.
       #
       def include(name,&block)
         Platform.overlays.extension_paths(name).each do |path|
@@ -134,9 +161,14 @@ module Ronin
 
       #
       # Includes the extension at the specified _path_ into the extension.
-      # If a _block_ is given, it will be passed the newly created
-      # extension.
       #
+      # @param [String] path The path of the extension directory to include
+      #                      from.
+      #
+      # @yield [ext] If a block is given, it will be passed the extension.
+      # @yieldparam [Ronin::Platform::Extension] ext The extension.
+      #
+      # @return [Ronin::Platform::Extension] The extension.
       # @raise [ExtensionNotFound] The specified _path_ was not a valid
       #                            directory.
       #
@@ -166,15 +198,19 @@ module Ronin
       end
 
       #
-      # Returns the list of methods exposed by the extension.
+      # @return [Array] The list of public methods exposed by the extension.
       #
       def exposed_methods
         methods(false).map { |name| name.to_sym }
       end
 
       #
-      # Returns +true+ if the extension context has a public instance method
-      # of the matching _name_, returns +false+ otherwise.
+      # Searches for a public method with the specified _name_.
+      #
+      # @param [Symbol, String] name The method name to search for.
+      #
+      # @return [true, false] Specifies whether there is a public method
+      #                       with the specified _name_.
       #
       # @example
       #   ext.has_method?(:console)
@@ -185,8 +221,12 @@ module Ronin
       end
 
       #
-      # Calls the setup blocks of the extension. If a _block_ is given, it 
-      # will be passed the extension after it has been setup.
+      # Calls the setup blocks of the extension.
+      #
+      # @yield [ext] If a block is given, it will be passed the extension,
+      #              once it has been setup.
+      # @yieldparam [Ronin::Platform::Extension] ext The extension.
+      # @return [Ronin::Platform::Extension] The extension.
       #
       # @example
       #   ext.setup!
@@ -212,16 +252,20 @@ module Ronin
       end
 
       #
-      # Returns +true+ if the extension has been setup, returns +false+
-      # otherwise.
+      # @return [true, false] Specifies whether the extension has been
+      #                       setup.
       #
       def setup?
         @setup == true
       end
 
       #
-      # Run the teardown blocks of the extension. If a _block_ is given,
-      # it will be passed the extension before it has been tore down.
+      # Run the teardown blocks of the extension.
+      #
+      # @yield [ext] If a block is given, it will be passed the extension,
+      #              before it has been toredown.
+      # @yieldparam [Ronin::Platform::Extension] ext The extension.
+      # @return [Ronin::Platform::Extension] The extension.
       #
       # @example
       #   ext.teardown!
@@ -248,8 +292,8 @@ module Ronin
       end
 
       #
-      # Returns +true+ if the extension has been toredown, returns +false+
-      # otherwise.
+      # @return [true, false] Specifies whether the extension has been
+      #                       toredown.
       #
       def toredown?
         @toredown == true
@@ -258,6 +302,12 @@ module Ronin
       #
       # Sets up the extension, passes the extension to the specified
       # _block_ and then tears down the extension.
+      #
+      # @yield [(ext)] If a block is given, it will be called after the
+      #                extension has been setup. When the block has
+      #                finished, the extension will be toredown.
+      # @yieldparam [Ronin::Platform::Extension] ext The extension.
+      # @return [Ronin::Platform::Extension] The extension.
       #
       # @example
       #   ext.run do |ext|
@@ -291,7 +341,7 @@ module Ronin
       end
 
       #
-      # Returns the name of the extension context in string form.
+      # @return [String] The name of the extension.
       #
       def to_s
         @name.to_s
@@ -300,8 +350,11 @@ module Ronin
       protected
 
       #
-      # Defines instance methods for the specified _names_,
-      # which will return the instance variable with the similar _name_.
+      # Defines reader methods for the listed instance variables.
+      #
+      # @param [Array<Symbol, String>] names The names of instance
+      #                                      variables to add reader
+      #                                      methods for.
       #
       # @example
       #   attr_reader :var1, :var2
@@ -323,9 +376,11 @@ module Ronin
       end
 
       #
-      # Defines instance methods for the specified _names_,
-      # which will set the instance variable with the similar _name_
-      # to a specified _value_.
+      # Defines writer methods for the listed instance variables.
+      #
+      # @param [Array<Symbol, String>] names The names of the instance
+      #                                      variables to define writer
+      #                                      methods for.
       #
       # @example
       #   attr_writer :var1, :var2
@@ -347,8 +402,11 @@ module Ronin
       end
 
       #
-      # Defines attr_reader and attr_writer methods for the specified
-      # _names_.
+      # Defines reader and writer methods for the listed instance variables.
+      #
+      # @param [Array<Symbol, String>] names The names of the instance
+      #                                      variables to define reader
+      #                                      and writer methods for.
       #
       # @example
       #   attr_accessor :var1, :var2
@@ -356,6 +414,9 @@ module Ronin
       #   self.var1 = :foo
       #   self.var1
       #   # => :foo
+      #
+      # @see attr_reader
+      # @see attr_writer
       #
       def attr_accessor(*names)
         attr_reader(*names)
@@ -366,6 +427,11 @@ module Ronin
       # Adds the specified _block_ to the list of blocks to run in order
       # to properly setup the extension.
       #
+      # @example
+      #   setup do
+      #     @var = 'hello'
+      #   end
+      #
       def setup(&block)
         @setup_blocks << block if block
         return self
@@ -374,6 +440,11 @@ module Ronin
       #
       # Adds the specified _block_ to the list of blocks to run in order
       # to properly tear-down the extension.
+      #
+      # @example
+      #   teardown do
+      #     @file.close
+      #   end
       #
       def teardown(&block)
         @teardown_blocks << block if block
