@@ -74,7 +74,7 @@ module Net
   #
   # @example
   #   Net.telnet_connect('towel.blinkenlights.nl')
-  #   # => Net::Telnet
+  #   # => #<Net::Telnet: ...>
   #
   def Net.telnet_connect(host,options={},&block)
     sess_opts = {}
