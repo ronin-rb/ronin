@@ -71,7 +71,9 @@ class String
   end
 
   #
-  # Dumps the string, returning a C style encoded version of the string.
+  # Dumps the string as a C-style string.
+  #
+  # @return [String] The C-style encoded version of the String.
   #
   # @example
   #   "hello\x00\073\x90\r\n".dump

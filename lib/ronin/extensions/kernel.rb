@@ -22,7 +22,10 @@
 module Kernel
   #
   # Calls the given _block_ and ignores any raised exceptions.
-  # If an exception is raised, +nil+ will be returned.
+  #
+  # @yield [] The block to be called.
+  #
+  # @return [nil] An exception was ignored, or the block returned nil.
   #
   # @example
   #   attempt do
@@ -31,7 +34,7 @@ module Kernel
   #
   def attempt(&block)
     begin
-      block.call if block
+      block.call() if block
     rescue Exception
       return nil
     end
@@ -39,8 +42,14 @@ module Kernel
 
   #
   # Attempts to run the given _block_ and catches any SyntaxError,
-  # RuntimeError or StandardError exceptions. If any exceptions are
-  # caught, they will be printed out and +nil+ will be returned.
+  # RuntimeError or StandardError exceptions.
+  #
+  # @param [true, false] verbose Specifies wether a backtrace will be
+  #                              printed when an exception has been raised.
+  #
+  # @yield [] The block to be called.
+  #
+  # @return [nil] An exception was ignored, or the block returned nil.
   #
   # @example
   #   catch_all do
@@ -49,7 +58,7 @@ module Kernel
   #
   def catch_all(verbose=true,&block)
     begin
-      block.call if block
+      block.call() if block
     rescue Exception => e
       if verbose
         STDERR.puts "#{e.class}: #{e}"
@@ -63,6 +72,13 @@ module Kernel
   #
   # Safely requires the specified _sub_path_ from within the specified
   # _directory_.
+  #
+  # @param [String] directory The directory to require the _sub_path_ within.
+  # @param [String] sub_path The relative path to require, specifically
+  #                          within the specified _directory_.
+  #
+  # @return [true, false] Specifies wether or not the _sub_path_ has not been
+  #                       loaded before.
   #
   # @example
   #   require_within 'ronin/exploits/helpers', helper_name

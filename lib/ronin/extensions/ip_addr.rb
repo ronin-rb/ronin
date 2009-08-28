@@ -26,9 +26,16 @@ class IPAddr
   include Enumerable
 
   #
-  # Iterates over the CIDR or globbed address range, passing each
-  # address in the range to the specified _block_. Supports both
-  # IPv4 and IPv6 address ranges.
+  # Iterates over each IP address within the IP Address range. Supports
+  # both IPv4 and IPv6 address ranges.
+  #
+  # @param [String] cidr_or_glob The IP address range to iterate over.
+  #                              May be in standard CIDR notation or
+  #                              globbed format.
+  #
+  # @yield [ip] The block which will be passed each IP address contained
+  #             within the IP address range.
+  # @yieldparam [String] ip An IP address within the IP address range.
   #
   # @example Enumerate through a CIDR range
   #   IPAddr.each('10.1.1.1/24') do |ip|
@@ -103,11 +110,17 @@ class IPAddr
   end
 
   #
-  # Iterates over each IP address that is included in the addresses mask,
-  # passing each address to the specified _block_.
+  # Iterates over each IP address that is included in the addresses netmask.
+  # Supports both IPv4 and IPv6 addresses.
+  #
+  # @yield [ip] The block which will be passed every IP address covered
+  #             be the netmask of the IPAddr object.
+  # @yieldparam [String] ip An IP address.
   #
   # @example
-  #   IPAddr.new('10.1.1.1/24').each do |ip|
+  #   netblock = IPAddr.new('10.1.1.1/24')
+  #
+  #   netblock.each do |ip|
   #     puts ip
   #   end
   #
