@@ -29,9 +29,17 @@ module Ronin
   #
   # Provides transparent access to Platform.extension via constants.
   #
+  # @param [String] name The constant name to map to an extension
+  #                      in the extension cache.
+  #
+  # @return [Extension] The extension that maps to the constant _name_.
+  #
+  # @raise [NameError] No extension could be found in the extension cache,
+  #                    that maps to the constant _name_.
+  #
   # @example
   #   Ronin::Shellcode
-  #   # => #<Ronin::Platform::Extension: ...>
+  #   # => #<Ronin::Platform::Extension: @name="shellcode" ...>
   #
   def Ronin.const_missing(name)
     name = name.to_s
@@ -47,6 +55,18 @@ module Ronin
   #
   # Provides transparent access to Platform.extension via methods.
   #
+  # @param [Symbol, String] name The name of the extension to search for
+  #                              within the extension cache.
+  #
+  # @yield [ext] If a block is given, it will be passed the extension
+  #              which has the matching _name_.
+  # @yieldparam [Extension] ext The matching extension.
+  #
+  # @return [Extension] The matching extension.
+  #
+  # @raise [NoMethodError] No extension could be found in the extension
+  #                        cache with the matching _name_.
+  #
   # @example
   #   shellcode
   #   # => #<Ronin::Platform::Extension: ...>
@@ -56,9 +76,9 @@ module Ronin
   #     ...
   #   end
   #
-  def method_missing(sym,*args,&block)
+  def method_missing(name,*args,&block)
     if args.length == 0
-      name = sym.id2name
+      name = name.id2name
 
       # return an extension if available
       if Platform.has_extension?(name)
@@ -66,6 +86,6 @@ module Ronin
       end
     end
 
-    return super(sym,*args,&block)
+    return super(name,*args,&block)
   end
 end
