@@ -34,7 +34,8 @@ module Ronin
       DEFAULT_COMMAND = 'console'
 
       #
-      # Returns the commands registered with the command-line utility.
+      # @return [Array] The commands registered with the command-line
+      #                 utility.
       #
       def CommandLine.commands
         unless class_variable_defined?('@@ronin_commands')
@@ -54,23 +55,38 @@ module Ronin
       end
 
       #
-      # Returns +true+ if a command exists with the specified _name_,
-      # returns +false+ otherwise.
+      # Searches for the command with the matching _name_.
+      #
+      # @param [String, Symbol] name The name of the command to search for.
+      #
+      # @return [true, false] Specifies whether a command exists with the
+      #                       matching _name_.
       #
       def CommandLine.has_command?(name)
         CommandLine.commands.include?(name.to_s)
       end
 
       #
-      # Returns the Command registered with the command-line utility
-      # with the specified _name_.
+      # Searches for a Command class with the matching command-line
+      # _name_.
+      #
+      # @param [String, Symbol] The command-line name of the command to
+      #                         search for.
+      #
+      # @return [Ronin::UI::Command] The Command registered with the
+      #                              command-line utility with the
+      #                              matching command-line _name_.
+      #
+      # @raise [UnknownCommand] No valid command could be found or loaded
+      #                         with the matching command-line _name_.
       #
       # @example
       #   CommandLine.get_command('gen_overlay')
       #   # => Ronin::UI::CommandLine::Commands::GenOverlay
       #
-      # @raise [UnknownCommand] No valid command could be found or loaded
-      #                         with the matching _name_.
+      # @example
+      #   CommandLine.get_command('gen-overlay')
+      #   # => Ronin::UI::CommandLine::Commands::GenOverlay
       #
       def CommandLine.get_command(name)
         name = name.to_s
@@ -103,9 +119,15 @@ module Ronin
       end
 
       #
-      # Runs the command-line utility with the given _argv_ Array. If the
-      # first argument is a sub-command name, the command-line utility will
-      # attempt to find and execute the Command with the same name.
+      # Runs the CommandLine utility. If the first argument is a Command
+      # name, the CommandLine utility will attempt to find and run
+      # the Command with the matching command-line name. If the first
+      # argument is an option, or there are no arguments, the
+      # +DEFAULT_COMMAND+ will be ran.
+      #
+      # @param [Array] argv Command-line arguments which are used to
+      #                     select the Command to run, and which will be
+      #                     passed to the Command.
       #
       def CommandLine.start(argv=ARGV)
         if (argv.empty? || argv.first[0..0]=='-')
