@@ -234,10 +234,10 @@ module Ronin
       end
 
       #
-      # Deletes the files of the overlay.
+      # Deletes the contents of the overlay.
       #
       # @yield [overlay] If a block is given, it will be passed the overlay
-      #                  after it's files have been deleted.
+      #                  after it's contents have been deleted.
       # @yieldparam [Overlay] overlay The deleted overlay.
       #
       # @return [Overlay] The deleted overlay.
