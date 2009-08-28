@@ -29,28 +29,31 @@ module Ronin
       COMMON_PROXY_PORT = 8080
 
       #
-      # Returns the default Ronin HTTP proxy port to use for HTTP proxies.
+      # @return [Integer] The default Ronin HTTP proxy port to use for
+      #                   HTTP proxies.
       #
       def HTTP.default_proxy_port
         @@http_default_proxy_port ||= COMMON_PROXY_PORT
       end
 
       #
-      # Sets the default Ronin HTTP proxy port to the specified _port_.
+      # Sets the default Ronin HTTP proxy port.
+      #
+      # @param [Integer] port The new proxy port to use.
       #
       def HTTP.default_proxy_port=(port)
         @@http_default_proxy_port = port
       end
 
       #
-      # Returns the default Ronin HTTP proxy hash.
+      # @return [Hash] The default Ronin HTTP proxy hash.
       #
       def HTTP.default_proxy
         {:host => nil, :port => HTTP.default_proxy_port, :user => nil, :pass => nil}
       end
 
       #
-      # Returns the Ronin HTTP proxy hash.
+      # @return [Hash] The Ronin HTTP proxy hash.
       #
       def HTTP.proxy
         @@http_proxy ||= default_proxy
@@ -64,14 +67,16 @@ module Ronin
       end
 
       #
-      # Returns the default Ronin HTTP User-Agent.
+      # @return [String, nil] The default Ronin HTTP User-Agent.
       #
       def HTTP.user_agent
         @@http_user_agent ||= nil
       end
 
       #
-      # Sets the default Ronin HTTP User-Agent to the specified _agent_.
+      # Sets the default Ronin HTTP User-Agent.
+      #
+      # @param [String] agent The new User-Agent string to use.
       #
       def HTTP.user_agent=(agent)
         @@http_user_agent = agent
@@ -79,6 +84,21 @@ module Ronin
 
       #
       # Expands the given HTTP _options_.
+      #
+      # @param [Hash] options HTTP options.
+      # @option options [String, URI::HTTP, URI::HTTPS] :url The URL to
+      #                                                      request.
+      # @option options [String] :host The host to connect to.
+      # @option options [String] :port (Ronin::Network::HTTP.default_proxy_port)
+      #                                The port to connect to.
+      # @option options [String] :user The user to authenticate as.
+      # @option options [String] :password The password to authenticate
+      #                                    with.
+      # @option options [String] :path ('/') The path to request.
+      # @option options [Hash] :proxy (Ronin::Network::HTTP.proxy) 
+      #                                 The Proxy information.
+      #
+      # @return [Hash] The expanded version of _options_.
       #
       def HTTP.expand_options(options={})
         new_options = options.dup
@@ -114,7 +134,13 @@ module Ronin
       end
 
       #
-      # Returns Ronin HTTP headers created from the given _options_.
+      # Converts underscored, dashed, lowercase and uppercase HTTP headers
+      # to standard camel-cased HTTP headers.
+      #
+      # @param [Hash{Symbol,String => String}] options Ronin HTTP headers.
+      #
+      # @return [Hash] The camel-cased HTTP headers created from the given
+      #                _options_.
       #
       def HTTP.headers(options={})
         headers = {}
@@ -141,9 +167,25 @@ module Ronin
       # given _options_. If type does not represent the name of an Net:HTTP
       # Request Class an UnknownRequest exception will be raised.
       #
+      # @param [Hash] options The HTTP options for the request.
+      # @option options [Symbol, String] :method The HTTP method to use for
+      #                                          the request.
+      # @option options [String] :path ('/') The path to request.
+      # @option options [String] :user The user to authenticate as.
+      # @option options [String] :password The password to authenticate
+      #                                    with.
+      # @option options [Hash{Symbol,String => String}] :headers
+      #                                                  Additional HTTP
+      #                                                  headers to use
+      #                                                  for the request.
+      #
+      # @return [HTTP::Request] The new HTTP Request object.
+      #
       # @raise [ArgumentError] The +:method+ option must be specified.
       # @raise [UnknownRequest] The +:method+ option did not match a known
       #                         Net::HTTP request class.
+      #
+      # @see HTTP.expand_options
       #
       def HTTP.request(options={})
         unless options[:method]
