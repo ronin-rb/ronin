@@ -32,7 +32,7 @@ module Ronin
 
         #
         # Connects to the POP3 server using the given _options_. The +@host+,
-        # +@port+, +@pop3_user and +@pop3_password+ instance variables will
+        # +@port+, +@pop3_user+ and +@pop3_password+ instance variables will
         # also be used to connect to the server.
         #
         # @param [Hash] options Additional options.
@@ -69,7 +69,7 @@ module Ronin
 
         #
         # Connects to the POP3 server using the given _options_. The +@host+,
-        # +@port+, +@pop3_user and +@pop3_password+ instance variables will
+        # +@port+, +@pop3_user+ and +@pop3_password+ instance variables will
         # also be used to connect to the server.
         #
         # @yield [session] If a _block_ is given, it will be passed the
