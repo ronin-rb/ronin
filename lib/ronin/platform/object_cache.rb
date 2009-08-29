@@ -42,7 +42,7 @@ module Ronin
       #
       # Finds all cached objects.
       #
-      # @param [String] directroy Optional directory to search within
+      # @param [String] directory Optional directory to search within
       #                           for cached objects.
       #
       # @yield [obj] The block that will receive all cached object.
