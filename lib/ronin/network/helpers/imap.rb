@@ -32,7 +32,7 @@ module Ronin
 
         #
         # Connects to the IMAP server with the given _options_. The +@host+,
-        # +@port+, +@imap_auth+, +@imap_user+ and +@imap_password instance
+        # +@port+, +@imap_auth+, +@imap_user+ and +@imap_password+ instance
         # variables will also be used to make the connection.
         #
         # @param [Hash] options Additional options.
@@ -74,7 +74,7 @@ module Ronin
 
         #
         # Connects to the IMAP server with the given _options_. The +@host+,
-        # +@port+, +@imap_auth+, +@imap_user+ and +@imap_password instance
+        # +@port+, +@imap_auth+, +@imap_user+ and +@imap_password+ instance
         # variables will also be used to make the connection.
         #
         # @yield [session] If a _block_ is given, it will be passed the
