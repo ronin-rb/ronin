@@ -39,17 +39,17 @@ class IPAddr
   #
   # @example Enumerate through a CIDR range
   #   IPAddr.each('10.1.1.1/24') do |ip|
-  #     ...
+  #     puts ip
   #   end
   #
   # @example Enumerate through a globbed IP range
   #   IPAddr.each('10.1.1-5.*') do |ip|
-  #     ...
+  #     puts ip
   #   end
   #
   # @example Enumerate through a globbed IPv6 range
   #   IPAddr.each('::ff::02-0a::c3') do |ip|
-  #     ...
+  #     puts ip
   #   end
   #
   def IPAddr.each(cidr_or_glob,&block)

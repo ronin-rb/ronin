@@ -73,7 +73,7 @@ module Ronin
   #
   # @example
   #   shellcode do |ext|
-  #     ...
+  #     puts ext.exposed_methods
   #   end
   #
   def method_missing(name,*args,&block)
