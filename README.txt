@@ -78,7 +78,7 @@ of Ronin.
   * dm-types >= 0.9.11
   * dm-serializer >= 0.9.11
   * dm-validations >= 0.9.11
-* {dm-prefined}[http://dm-predefined.rubyforge.org/] >= 0.1.0
+* {dm-predefined}[http://dm-predefined.rubyforge.org/] >= 0.1.0
 * {parameters}[http://parameters.rubyforge.org/] >= 0.1.5
 * {contextify}[http://contextify.rubyforge.org/] >= 0.1.2
 * {reverse-require}[http://reverserequire.rubyforge.org/] >= 0.3.1
