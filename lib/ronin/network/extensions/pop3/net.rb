@@ -25,9 +25,7 @@ require 'net/pop'
 
 module Net
   #
-  # Connects to the POP3 server on the specified _host_ using the given
-  # _options_. If a _block_ is given, it will be passed the newly created
-  # <tt>Net::POP3</tt> object.
+  # Creates a connection to the POP3 server.
   #
   # @param [String] host The host to connect to.
   # @param [Hash] options Additional options.
@@ -53,8 +51,10 @@ module Net
   end
 
   #
-  # Starts a session with the POP3 server on the specified _host_ using the
-  # given _options_.
+  # Starts a session with the POP3 server.
+  #
+  # @param [String] host The host to connect to.
+  # @param [Hash] options Additional options.
   #
   # @yield [session] If a _block_ is given, it will be passed the newly
   #                  created POP3 session. After the _block_ has returned,

@@ -133,7 +133,9 @@ class String
   end
 
   #
-  # XOR encodes the string using the specified _key_.
+  # XOR encodes the String.
+  #
+  # @param [Integer] key The byte to XOR against each byte in the String.
   #
   def xor(key)
     encoded = ''

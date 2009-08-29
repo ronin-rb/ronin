@@ -25,9 +25,7 @@ require 'net/imap'
 
 module Net
   #
-  # Connects to the IMAP server on the specified _host_ with the given
-  # _options_. If a _block_ is given, it will be passed the newly created
-  # Net::Imap object.
+  # Creates a connection to the IMAP server.
   #
   # @param [String] host The host to connect to.
   # @param [Hash] options Additional options.
@@ -81,8 +79,10 @@ module Net
   end
 
   #
-  # Starts an IMAP session with the IMAP server running on the specified
-  # _host_ with the given _options_.
+  # Starts an IMAP session with the IMAP server.
+  #
+  # @param [String] host The host to connect to.
+  # @param [Hash] options Additional options.
   #
   # @yield [session] If a _block_ is given, it will be passed the newly
   #                  created IMAP session. After the _block_ has returned,

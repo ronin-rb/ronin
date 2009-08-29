@@ -40,9 +40,9 @@ module Ronin
         end
 
         #
-        # Connects to the SMTP server using the given _options_. The
-        # +@host+, +@port+, +@smtp_login+, +@smtp_user+ and +@smtp_password+
-        # instance variables will also be used to connect to the server.
+        # Creates a connection to the SMTP server. The +@host+, +@port+,
+        # +@smtp_login+, +@smtp_user+ and +@smtp_password+ instance
+        # variables will also be used to connect to the server.
         #
         # @param [Hash] options Additional options.
         # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
@@ -80,9 +80,9 @@ module Ronin
         end
 
         #
-        # Connects to the SMTP server using the given _options_. The
-        # +@host+, +@port+, +@smtp_login+, +@smtp_user+ and +@smtp_password+
-        # instance variables will also be used to connect to the server.
+        # Starts a session with the SMTP server. The +@host+, +@port+,
+        # +@smtp_login+, +@smtp_user+ and +@smtp_password+ instance
+        # variables will also be used to connect to the server.
         #
         # @yield [session] If a block is given, it will be passed an SMTP
         #                  session object. After the block has returned, the

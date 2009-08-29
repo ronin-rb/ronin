@@ -120,6 +120,8 @@ module Net
   # Performes an HTTP Copy request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
   #
+  # @param [Hash] options Additional options.
+  #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
   # @yieldparam [Net::HTTP::Response] response The HTTP response object.
@@ -137,6 +139,8 @@ module Net
   #
   # Performes an HTTP Delete request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
+  #
+  # @param [Hash] options Additional options.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -165,6 +169,8 @@ module Net
   # Performes an HTTP Get request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
   #
+  # @param [Hash] options Additional options.
+  #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
   # @yieldparam [Net::HTTP::Response] response The HTTP response object.
@@ -183,6 +189,8 @@ module Net
   # Performes an HTTP Get request with the given _options_. If a _block_
   # is given, it will be passed the response body from the HTTP server.
   #
+  # @param [Hash] options Additional options.
+  #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
   # @yieldparam [Net::HTTP::Response] response The HTTP response object.
@@ -197,6 +205,8 @@ module Net
   #
   # Performes an HTTP Head request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
+  #
+  # @param [Hash] options Additional options.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -215,6 +225,8 @@ module Net
   #
   # Checks if the response has an HTTP OK status code.
   #
+  # @param [Hash] options Additional options.
+  #
   # @return [true, false] Specifies wether the response had an HTTP OK
   #                       status code or not.
   #
@@ -228,6 +240,8 @@ module Net
   # Sends a HTTP Head request using the given _options_ and returns the
   # HTTP Server header.
   #
+  # @param [Hash] options Additional options.
+  #
   # @return [String] The HTTP +Server+ header.
   #
   # @see http_request
@@ -239,6 +253,8 @@ module Net
   #
   # Sends an HTTP Head request using the given _options_ and returns the
   # HTTP X-Powered-By header.
+  #
+  # @param [Hash] options Additional options.
   #
   # @return [String] The HTTP +X-Powered-By+ header.
   #
@@ -258,6 +274,8 @@ module Net
   # Performes an HTTP Lock request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
   #
+  # @param [Hash] options Additional options.
+  #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
   # @yieldparam [Net::HTTP::Response] response The HTTP response object.
@@ -275,6 +293,8 @@ module Net
   #
   # Performes an HTTP Mkcol request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
+  #
+  # @param [Hash] options Additional options.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -294,6 +314,8 @@ module Net
   # Performes an HTTP Move request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
   #
+  # @param [Hash] options Additional options.
+  #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
   # @yieldparam [Net::HTTP::Response] response The HTTP response object.
@@ -311,6 +333,8 @@ module Net
   #
   # Performes an HTTP Options request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
+  #
+  # @param [Hash] options Additional options.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -333,6 +357,8 @@ module Net
   # @param [Hash] options Additional options.
   # @option options [String] :postdata The +POSTDATA+ to send with the
   #                                    HTTP Post request.
+  #
+  # @param [Hash] options Additional options.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
@@ -381,6 +407,8 @@ module Net
   # Performes an HTTP Propfind request with the given _options_. If a
   # _block_ is given, it will be passed the response from the HTTP server.
   #
+  # @param [Hash] options Additional options.
+  #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
   # @yieldparam [Net::HTTP::Response] response The HTTP response object.
@@ -408,6 +436,8 @@ module Net
   # Performes an HTTP Proppatch request with the given _options_. If a
   # _block_ is given, it will be passed the response from the HTTP server.
   #
+  # @param [Hash] options Additional options.
+  #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
   # @yieldparam [Net::HTTP::Response] response The HTTP response object.
@@ -426,6 +456,8 @@ module Net
   # Performes an HTTP Trace request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
   #
+  # @param [Hash] options Additional options.
+  #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.
   # @yieldparam [Net::HTTP::Response] response The HTTP response object.
@@ -443,6 +475,8 @@ module Net
   #
   # Performes an HTTP Unlock request with the given _options_. If a _block_
   # is given, it will be passed the response from the HTTP server.
+  #
+  # @param [Hash] options Additional options.
   #
   # @yield [response] If a block is given, it will be passed the response
   #                   received from the request.

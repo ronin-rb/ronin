@@ -30,6 +30,8 @@ module Ronin
       def self.included(base)
         base.metaclass_eval do
           #
+          # The defined categories and their scanners for the class.
+          #
           # @return [Hash] The categories and the scanners defined
           #                for the them within the class.
           #
@@ -37,6 +39,9 @@ module Ronin
             @scanners ||= {}
           end
 
+          #
+          # Collects all categories that the class and ancestors scan
+          # for.
           #
           # @return [Set] The category names of all defined scanners.
           #
@@ -56,8 +61,8 @@ module Ronin
           # Specifies whether or not there are scanners defined for the
           # specified category.
           #
-          # @param [Symbol, String] The name of the category to search for
-          #                         scanners within.
+          # @param [Symbol, String] name The name of the category to search
+          #                              for scanners within.
           #
           # @return [true, false] Specifies whether there is a scanner
           #                       defined for the specified category.
@@ -77,8 +82,8 @@ module Ronin
           #
           # Collects all scanners in the specified category.
           #
-          # @param [Symbol, String] The category name to return all
-          #                         scanners for.
+          # @param [Symbol, String] name The category name to return all
+          #                              scanners for.
           #
           # @return [Array] All scanners in the specified category.
           #
@@ -105,7 +110,7 @@ module Ronin
           end
 
           #
-          # Defines a scanner for the category.
+          # Defines a scanner in the category for the class.
           #
           # @param [Symbol, String] name The name of the category to define
           #                              the scanner for.
@@ -177,9 +182,9 @@ module Ronin
       end
 
       #
-      # Runs all scanners in the given categories against each_target.
+      # Runs all scanners in the given categories against +each_target+.
       # If no categories are specified, all categories will be ran
-      # against each_target.
+      # against +each_target+.
       #
       # @param [Hash{Symbol => true,Hash}] categories
       #                                    The categories to scan for,

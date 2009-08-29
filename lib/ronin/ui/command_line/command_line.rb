@@ -34,8 +34,10 @@ module Ronin
       DEFAULT_COMMAND = 'console'
 
       #
-      # @return [Array] The commands registered with the command-line
-      #                 utility.
+      # All command-line names of Commands available to the CommandLine.
+      #
+      # @return [Array] The command-line names of available Command
+      #                 classes.
       #
       def CommandLine.commands
         unless class_variable_defined?('@@ronin_commands')
@@ -70,8 +72,8 @@ module Ronin
       # Searches for a Command class with the matching command-line
       # _name_.
       #
-      # @param [String, Symbol] The command-line name of the command to
-      #                         search for.
+      # @param [String, Symbol] name The command-line name of the command
+      #                              to search for.
       #
       # @return [Ronin::UI::Command] The Command registered with the
       #                              command-line utility with the

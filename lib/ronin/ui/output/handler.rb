@@ -56,7 +56,9 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_.
+        # Prints one or more messages.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @since 0.3.0
         #
@@ -65,7 +67,9 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as info diagnostics.
+        # Prints one or more messages as +info+ messages.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @since 0.3.0
         #
@@ -74,8 +78,9 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as debugging diagnostics,
-        # if verbose output was enabled.
+        # Prints one or more messages as +debug+ mssages.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @since 0.3.0
         #
@@ -84,8 +89,9 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as warning diagnostics,
-        # if verbose output was enabled.
+        # Prints one or more messages as +warning+ mssages.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @since 0.3.0
         #
@@ -94,7 +100,9 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as error diagnostics.
+        # Prints one or more messages as +error+ mssages.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @since 0.3.0
         #

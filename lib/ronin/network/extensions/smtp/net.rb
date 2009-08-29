@@ -32,8 +32,7 @@ module Net
   end
 
   #
-  # Connects to the SMTP server on the specified _host_ with the given
-  # _options_.
+  # Creates a connection to the SMTP server.
   #
   # @param [String] host The host to connect to.
   # @param [Hash] options Additional options.
@@ -67,8 +66,10 @@ module Net
   end
 
   #
-  # Connects to the SMTP server on the specified _host_ with the given
-  # _options_.
+  # Starts a session with the SMTP server.
+  #
+  # @param [String] host The host to connect to.
+  # @param [Hash] options Additional options.
   #
   # @yield [session] If a block is given, it will be passed an SMTP
   #                  session object. After the block has returned, the

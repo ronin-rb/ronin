@@ -31,9 +31,9 @@ module Ronin
         protected
 
         #
-        # Connect to a Telnet server using the given _options_. The +@host+,
-        # +@port+, +@telnet_user+, +@telnet_password+, +@telnet_proxy+
-        # and +@telnet_ssl+ instance variables will also be used to connect
+        # Creates a connection to a Telnet server. The +@host+, +@port+,
+        # +@telnet_user+, +@telnet_password+, +@telnet_proxy+ and
+        # +@telnet_ssl+ instance variables will also be used to connect
         # to the Telnet server.
         #
         # @param [Hash] options Additional options.
@@ -108,9 +108,9 @@ module Ronin
         end
 
         #
-        # Connect to a Telnet server using the given _options_. The +@host+,
-        # +@port+, +@telnet_user+, +@telnet_password+, +@telnet_proxy+
-        # and +@telnet_ssl+ instance variables will also be used to connect
+        # Starts a session with a Telnet server. The +@host+, +@port+,
+        # +@telnet_user+, +@telnet_password+, +@telnet_proxy+ and
+        # +@telnet_ssl+ instance variables will also be used to connect
         # to the Telnet server.
         #
         # @yield [session] If a block is given, it will be passed the newly

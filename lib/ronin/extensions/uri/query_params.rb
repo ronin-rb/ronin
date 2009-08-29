@@ -41,7 +41,7 @@ module URI
     #
     # Sets the query string and updates query_params.
     #
-    # @param [String] The new URI query string to use.
+    # @param [String] query_str The new URI query string to use.
     #
     # @return [String] The new URI query string.
     #

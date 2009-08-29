@@ -30,9 +30,7 @@ module Net
   end
 
   #
-  # Connects to the ESMTP server on the specified _host_ with the given
-  # _options_. If a _block_ is given it will be passed the newly created
-  # <tt>Net::SMTP</tt> object.
+  # Creates a connection to the ESMTP server.
   #
   # @param [String] host The host to connect to.
   # @param [Hash] options Additional options.
@@ -58,8 +56,10 @@ module Net
   end
 
   #
-  # Connects to the ESMTP server on the specified _host_ with the given
-  # _options_.
+  # Starts an ESMTP session with the ESMTP enabled server.
+  #
+  # @param [String] host The host to connect to.
+  # @param [Hash] options Additional options.
   #
   # @yield [session] If a block is given, it will be passed an ESMTP enabled
   #                  session object. After the block has returned, the

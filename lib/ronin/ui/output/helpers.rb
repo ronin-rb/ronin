@@ -28,7 +28,9 @@ module Ronin
         protected
 
         #
-        # Prints the given _messages_.
+        # Prints one or more messages.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @example
         #   puts 'some data'
@@ -40,7 +42,9 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as info diagnostics.
+        # Prints one or more messages as +info+ output.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @example
         #   print_info 'Connecting ...'
@@ -52,8 +56,9 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as debugging diagnostics,
-        # if verbose output was enabled.
+        # Prints one or more messages as +debug+ output.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @example
         #   print_debug "var1: #{var1.inspect}"
@@ -67,8 +72,9 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as warning diagnostics,
-        # if verbose output was enabled.
+        # Prints one or more messages as +warning+ output.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @example
         #   print_warning 'Detecting a restricted character in the buffer'
@@ -82,7 +88,9 @@ module Ronin
         end
 
         #
-        # Prints the given _messages_ as error diagnostics.
+        # Prints one or more messages as +error+ output.
+        #
+        # @param [Array] messages The messages to print.
         #
         # @example
         #   print_error 'Could not connect!'

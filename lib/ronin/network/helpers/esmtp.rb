@@ -40,10 +40,9 @@ module Ronin
         end
 
         #
-        # Connects to the ESMTP server using the given _options_.
-        # The +@host+, +@port+, +@esmtp_login+, +@esmtp_user+ and
-        # +@esmtp_password+ instance variables will also be used to
-        # connect to the ESMTP server.
+        # Creates a connection to the ESMTP server. The +@host+, +@port+,
+        # +@esmtp_login+, +@esmtp_user+ and +@esmtp_password+ instance
+        # variables will also be used to connect to the ESMTP server.
         #
         # @param [Hash] options Additional options.
         # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
@@ -81,10 +80,9 @@ module Ronin
         end
 
         #
-        # Connects to the ESMTP server using the given _options_.
-        # The +@host+, +@port+, +@esmtp_login+, +@esmtp_user+ and
-        # +@esmtp_password+ instance variables will also be used to
-        # connect to the ESMTP server.
+        # Starts a session with the ESMTP server. The +@host+, +@port+,
+        # +@esmtp_login+, +@esmtp_user+ and +@esmtp_password+ instance
+        # variables will also be used to connect to the ESMTP server.
         #
         # @param [Hash] options Additional options.
         #

@@ -25,9 +25,7 @@ require 'net/telnet'
 
 module Net
   #
-  # Creates a new Telnet object with the specified _host_, given port
-  # and the given _options_. If a _block_ is given, it will be passed
-  # the newly created Telnet object.
+  # Creates a new Telnet connection.
   #
   # @param [String] host The host to connect to.
   # @param [Hash] options Additional options.
@@ -104,8 +102,10 @@ module Net
   end
 
   #
-  # Creates a new Telnet object with the specified _host, given port
-  # and the given _options_.
+  # Starts a new Telnet session.
+  #
+  # @param [String] host The host to connect to.
+  # @param [Hash] options Additional options.
   #
   # @yield [session] If a block is given, it will be passed the newly
   #                  created Telnet session. After the block has returned,
