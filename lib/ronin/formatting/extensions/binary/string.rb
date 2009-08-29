@@ -137,6 +137,12 @@ class String
   #
   # @param [Integer] key The byte to XOR against each byte in the String.
   #
+  # @return [String] The XOR encoded String.
+  #
+  # @example
+  #   "hello".xor(0x41)
+  #   # => ")$--."
+  #
   def xor(key)
     encoded = ''
 
