@@ -78,11 +78,11 @@ module Ronin
   #
   def method_missing(name,*args,&block)
     if args.length == 0
-      name = name.id2name
+      ext_name = name.id2name
 
       # return an extension if available
-      if Platform.has_extension?(name)
-        return Platform.extension(name,&block)
+      if Platform.has_extension?(ext_name)
+        return Platform.extension(ext_name,&block)
       end
     end
 
