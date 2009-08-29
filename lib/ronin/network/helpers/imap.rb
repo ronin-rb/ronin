@@ -37,8 +37,8 @@ module Ronin
         #
         # @param [Hash] options Additional options.
         # @option options [Integer] :port (IMAP.default_port)
-        #                                 The port the IMAP server is running
-        #                                 on.
+        #                                 The port the IMAP server is
+        #                                 running on.
         # @option options [String] :certs The path to the file containing CA
         #                                 certs of the server.
         # @option options [Symbol] :auth The type of authentication to
