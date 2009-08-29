@@ -74,6 +74,8 @@ module Ronin
     end
 
     #
+    # Converts the author to a String.
+    #
     # @return [String] The name of the author.
     #
     def to_s

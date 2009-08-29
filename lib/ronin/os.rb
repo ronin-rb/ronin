@@ -42,6 +42,8 @@ module Ronin
     validates_present :name
 
     #
+    # Converts the os to a String.
+    #
     # @return [String] The OS name and version.
     #
     # @example

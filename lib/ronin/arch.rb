@@ -52,6 +52,8 @@ module Ronin
     validates_is_number :address_length
 
     #
+    # Converts the architecture to a String.
+    #
     # @return [String] The name of the architecture.
     #
     def to_s

@@ -58,6 +58,8 @@ module Ronin
     end
 
     #
+    # Converts the product to a String.
+    #
     # @return [String] The product vendor, name and version.
     #
     def to_s
