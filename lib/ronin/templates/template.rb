@@ -40,7 +40,7 @@ module Ronin
       end
 
       #
-      # The first path in template_dirs, that will be used to search for
+      # The first path in +template_dirs+, that will be used to search for
       # other templates in.
       #
       # @return [String, nil] Returns the first path in template_dirs, or
@@ -53,8 +53,9 @@ module Ronin
       end
 
       #
-      # Finds the template within template_dir or uses find_static_file
-      # to search through all +static/+ directories for the template.
+      # Finds the template within the +template_dir+ or uses
+      # Static::Finders#find_static_file to search through all
+      # +static+ directories for the template.
       #
       # @param [String] sub_path The relative path of the template to find.
       #
@@ -80,15 +81,15 @@ module Ronin
 
       #
       # Finds the template, pushing the directory that the template resides
-      # within to template_dirs, calls the given _block_ and then pops the
-      # directory off of template_dirs.
+      # within to +template_dirs+, calls the given _block_ and then pops
+      # the directory off of +template_dirs+.
       #
       # @param [String] sub_path The relative path of the template to find.
       #
       # @yield [path] The block to be called after the directory of the
-      #               template has been pushed onto template_dirs. After
+      #               template has been pushed onto +template_dirs+. After
       #               the block has returned, the directory will be popped
-      #               off of template_dirs.
+      #               off of +template_dirs+.
       # @yieldparam [String] path The absolute path of the template.
       #
       # @return [Object] Result of the given block.
