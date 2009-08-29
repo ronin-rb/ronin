@@ -30,7 +30,7 @@ module Ronin
       #
       # Renders the inline ERB template in the scope of the object.
       #
-      # @param [String] Source of the ERB template.
+      # @param [String] template Source of the ERB template.
       # @return [String] Result of the rendered template.
       #
       # @example
