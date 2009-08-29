@@ -33,7 +33,7 @@ module Ronin
     #
     # Adds the path to the Set of static directories.
     #
-    # @param [String] path The path to add to Static.static_dirs.
+    # @param [String] path The path to add to +static_dirs+.
     #
     # @return [String] The fully qualified form of the specified _path_.
     #
