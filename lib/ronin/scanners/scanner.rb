@@ -181,8 +181,10 @@ module Ronin
       # If no categories are specified, all categories will be ran
       # against each_target.
       #
-      # @param [Hash] The categories to scan for, with additional
-      #               per-category scanner-options.
+      # @param [Hash{Symbol => true,Hash}] categories
+      #                                    The categories to scan for,
+      #                                    with additional per-category
+      #                                    scanner-options.
       #
       # @return [Hash] The results grouped by scanner category.
       #
