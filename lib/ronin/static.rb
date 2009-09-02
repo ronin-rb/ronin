@@ -1,6 +1,5 @@
 #
-# Ronin - A Ruby platform designed for information security and data
-# exploration tasks.
+# Ronin - A Ruby platform for exploit development and security research.
 #
 # Copyright (c) 2006-2009 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
