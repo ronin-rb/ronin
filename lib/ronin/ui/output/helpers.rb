@@ -37,7 +37,7 @@ module Ronin
         # @since 0.3.0
         #
         def puts(*messages)
-          Output.handler.puts(*messages)
+          Output.handler.puts(*messages) unless Output.silent?
         end
 
         #
@@ -51,7 +51,7 @@ module Ronin
         # @since 0.3.0
         #
         def print_info(*messages)
-          Output.handler.print_info(*messages)
+          Output.handler.print_info(*messages) unless Output.silent?
         end
 
         #
@@ -65,7 +65,7 @@ module Ronin
         # @since 0.3.0
         #
         def print_debug(*messages)
-          if Output.verbose?
+          if (Output.verbose? && !(Output.silent?))
             Output.handler.print_debug(*messages)
           end
         end
@@ -81,7 +81,7 @@ module Ronin
         # @since 0.3.0
         #
         def print_warning(*messages)
-          if Output.verbose?
+          if (Output.verbose? && !(Output.silent?))
             Output.handler.print_warning(*messages)
           end
         end
@@ -97,7 +97,7 @@ module Ronin
         # @since 0.3.0
         #
         def print_error(*messages)
-          Output.handler.print_error(*messages)
+          Output.handler.print_error(*messages) unless Output.silent?
         end
       end
     end
