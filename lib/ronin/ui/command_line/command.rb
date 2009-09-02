@@ -48,6 +48,7 @@ module Ronin
           def invoke(task,arguments)
             UI::Output.verbose == output.verbose?
             UI::Output.quiet == output.quiet?
+            UI::Output.silent == output.silent?
             UI::Output::Handler.color = (options.color? && !(options.nocolor?))
 
             super(task,arguments)
@@ -57,6 +58,7 @@ module Ronin
         desc "command [ARGS...]", "default task to run"
         method_option :verbose, :type => :boolean, :default => false, :aliases => '-v'
         method_option :quiet, :type => :boolean, :default => true, :aliases => '-q'
+        method_option :silent, :type => :boolean, :default => true, :aliases => '-Q'
         method_option :color, :type => :boolean, :default => true
         method_option :nocolor, :type => :boolean, :default => false
 
