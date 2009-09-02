@@ -42,6 +42,15 @@ module Ronin
       end
 
       #
+      # @return [true, false] Specifies whether silent output is enabled.
+      #
+      # @since 0.3.0
+      #
+      def Output.silent?
+        (@@ronin_verbose ||= :quiet) == :silent
+      end
+
+      #
       # Changes the verbose mode.
       #
       # @param [true, false] mode The new verbose mode.
@@ -78,8 +87,25 @@ module Ronin
       end
 
       #
-      # Returns the current Output handler. Defaults to
-      # Ronin::UI::Output::Handler.
+      # Changes verbose output.
+      #
+      # @param [true, false] mode The new quiet mode.
+      # @return [true, false] The new quiet mode.
+      #
+      # @since 0.3.0
+      #
+      def Output.silent=(mode)
+        if mode
+          @@ronin_verbose = :silent
+        else
+          @@ronin_verbose = :quiet
+        end
+
+        return mode
+      end
+
+      #
+      # @return [Ronin::UI::Output::Handler] The current Output handler.
       #
       # @since 0.3.0
       #
