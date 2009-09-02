@@ -58,6 +58,9 @@ install or update Overlays.
     * Imap
     * Telnet
     * HTTP / HTTPS
+  * Enumerating IP ranges:
+    * IPv4 / IPv6 addresses.
+    * CIDR / globbed ranges.
 * Provides an IRB styled console with:
   * Tab-completion enabled.
   * Auto-indentation enabled.
