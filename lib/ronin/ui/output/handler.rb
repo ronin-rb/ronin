@@ -37,21 +37,19 @@ module Ronin
         #
         # Enables color output.
         #
+        # @param [true, false] mode The new color mode.
+        # @return [true, false] The new color mode.
+        #
         # @since 0.3.0
         #
-        def Handler.color!
-          @@ronin_output_shell = Thor::Shell::Color.new
-          return true
-        end
+        def Handler.color=(mode)
+          if mode
+            @@ronin_output_shell = Thor::Shell::Color.new
+          else
+            @@ronin_output_shell = Thor::Shell::Basic.new
+          end
 
-        #
-        # Disables color output.
-        #
-        # @since 0.3.0
-        #
-        def Handler.no_color!
-          @@ronin_output_shell = Thor::Shell::Basic.new
-          return false
+          return mode
         end
 
         #
