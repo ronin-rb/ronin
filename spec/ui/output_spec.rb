@@ -16,4 +16,14 @@ describe UI::Output do
     UI::Output.should be_quiet
     UI::Output.should_not be_verbose
   end
+
+  it "may become silent or quiet" do
+    UI::Output.silent = false
+    UI::Output.should be_quiet
+    UI::Output.should_not be_silent
+
+    UI::Output.silent = true
+    UI::Output.should be_silent
+    UI::Output.should_not be_quiet
+  end
 end
