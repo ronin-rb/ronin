@@ -46,9 +46,9 @@ module Ronin
 
         no_tasks do
           def invoke(task,arguments)
-            UI::Output.verbose = output.verbose?
-            UI::Output.quiet = output.quiet?
-            UI::Output.silent = output.silent?
+            UI::Output.verbose = options.verbose?
+            UI::Output.quiet = options.quiet?
+            UI::Output.silent = options.silent?
             UI::Output::Handler.color = (options.color? && !(options.nocolor?))
 
             super(task,arguments)
