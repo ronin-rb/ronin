@@ -35,7 +35,7 @@ module Ronin
         end
 
         #
-        # Enables color output.
+        # Changes color output.
         #
         # @param [true, false] mode The new color mode.
         # @return [true, false] The new color mode.
