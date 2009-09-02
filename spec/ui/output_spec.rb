@@ -3,15 +3,17 @@ require 'ronin/ui/output'
 require 'spec_helper'
 
 describe UI::Output do
-  it "should be disabled by default" do
+  it "should be quiet by default" do
     UI::Output.should be_quiet
   end
 
-  it "may be enabled and disabled" do
-    UI::Output.verbose!
+  it "may become verbose or quiet" do
+    UI::Output.verbose = true
     UI::Output.should be_verbose
+    UI::Output.should_not be_quiet
 
-    UI::Output.quiet!
+    UI::Output.quiet = true
     UI::Output.should be_quiet
+    UI::Output.should_not be_verbose
   end
 end

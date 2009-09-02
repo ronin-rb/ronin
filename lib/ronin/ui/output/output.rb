@@ -30,7 +30,7 @@ module Ronin
       # @since 0.3.0
       #
       def Output.verbose?
-        (@@ronin_verbose ||= false) == true
+        (@@ronin_verbose ||= :quiet) == :verbose
       end
 
       #
@@ -40,25 +40,40 @@ module Ronin
       # @since 0.3.0
       #
       def Output.quiet?
-        (@@ronin_verbose ||= false) == false
+        (@@ronin_verbose ||= :quiet) == :quiet
       end
 
       #
-      # Enables verbose output.
+      # Changes the verbose mode.
+      #
+      # @param [true, false] mode The new verbose mode.
+      # @return [true, false] The new verbose mode.
       #
       # @since 0.3.0
       #
-      def Output.verbose!
-        @@ronin_verbose = true
+      def Output.verbose=(mode)
+        if mode
+          @@ronin_verbose = :verbose
+        else
+          @@ronin_verbose = :quiet
+        end
+
+        return mode
       end
 
       #
-      # Disables verbose output.
+      # Changes verbose output.
       #
       # @since 0.3.0
       #
-      def Output.quiet!
-        @@ronin_verbose = false
+      def Output.quiet=(mode)
+        if mode
+          @@ronin_verbose = :quiet
+        else
+          @@ronin_verbose = :verbose
+        end
+
+        return mode
       end
 
       #
