@@ -12,7 +12,7 @@ describe UI::Output do
     UI::Output.should be_verbose
     UI::Output.should_not be_quiet
 
-    UI::Output.quiet = true
+    UI::Output.verbose = false
     UI::Output.should be_quiet
     UI::Output.should_not be_verbose
   end
