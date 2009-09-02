@@ -53,8 +53,8 @@ install or update Overlays.
   * Networking:
     * TCP
     * UDP
-    * SMTP
-    * POP
+    * SMTP / ESMTP
+    * POP3
     * Imap
     * Telnet
     * HTTP / HTTPS
