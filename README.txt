@@ -112,13 +112,13 @@ install or update Overlays.
 
     $ ronin uninstall overlay-name
 
-* View available commands:
-
-    $ ronin help
-
 * Start the Ronin console:
 
     $ ronin
+
+* View available commands:
+
+    $ ronin help
 
 == RONIN LIBRARIES:
 
