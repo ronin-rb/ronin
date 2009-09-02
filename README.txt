@@ -61,7 +61,7 @@ install or update Overlays.
   * Enumerating IP ranges:
     * IPv4 / IPv6 addresses.
     * CIDR / globbed ranges.
-* Provides an IRB styled console with:
+* Provides a customized Ruby Console with:
   * Tab-completion enabled.
   * Auto-indentation enabled.
   * Pretty-Print loaded.
