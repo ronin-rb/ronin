@@ -128,7 +128,7 @@ module Ronin
         # @return [String] The host-name of the proxy.
         #
         def to_s
-          self.host.to_s
+          self[:host].to_s
         end
 
         def inspect
