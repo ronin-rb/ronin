@@ -149,6 +149,11 @@ module Ronin
           self[:host].to_s
         end
 
+        #
+        # Inspects the proxy object.
+        #
+        # @return [String] The inspection of the proxy object.
+        #
         def inspect
           unless (self[:host] || self[:port])
             str = 'disabled'
