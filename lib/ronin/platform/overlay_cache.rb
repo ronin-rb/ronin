@@ -53,27 +53,45 @@ module Ronin
         @path = path
         @dirty = false
 
-        if File.file?(@path)
-          descriptions = YAML.load_file(@path)
-
-          if descriptions.kind_of?(Array)
-            descriptions.each do |overlay|
-              if overlay.kind_of?(Hash)
-                overlay = Overlay.new(
-                  overlay[:path],
-                  overlay[:media],
-                  overlay[:uri]
-                )
-
-                self[overlay.name] = overlay
-              end
-            end
-          end
-        end
+        load!()
 
         at_exit(&method(:save))
 
         block.call(self) if block
+      end
+
+      #
+      # Loads the overlays from the cache-file at the +path+.
+      #
+      def load!
+        return false unless File.file?(@path)
+
+        descriptions = YAML.load_file(@path)
+
+        return false unless descriptions.kind_of?(Array)
+
+        descriptions.each do |overlay|
+          if overlay.kind_of?(Hash)
+            overlay = Overlay.new(
+              overlay[:path],
+              overlay[:media],
+              overlay[:uri]
+            )
+
+            self[overlay.name] = overlay
+          end
+        end
+
+        return true
+      end
+
+      #
+      # Clears the overlay cache, and reloads it's contents from the same
+      # cache-file.
+      #
+      def reload!
+        clear
+        load!
       end
 
       #
