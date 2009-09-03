@@ -252,5 +252,15 @@ module Ronin
       block.call(ext) if block
       return ext
     end
+
+    #
+    # Reloads the overlay cache and the extension cache.
+    #
+    # @return [true, false] Specifies whether the reload was successful
+    #                       or not.
+    #
+    def Platform.reload!
+      Platform.overlays.reload! && Platform.extensions.reload!
+    end
   end
 end
