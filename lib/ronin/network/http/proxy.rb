@@ -30,12 +30,9 @@ module Ronin
         # Creates a new Proxy object that represents a proxy to connect to.
         #
         def initialize
-          super(
-            :host => nil,
-            :port => DEFAULT_PORT,
-            :user => nil,
-            :password => nil
-          )
+          super()
+
+          self[:port] = DEFAULT_PORT
         end
 
         #
@@ -46,6 +43,7 @@ module Ronin
           self[:port] = DEFAULT_PORT
           self[:user] = nil
           self[:password] = nil
+
           return self
         end
 
