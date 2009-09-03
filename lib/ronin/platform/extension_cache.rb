@@ -115,6 +115,8 @@ module Ronin
       #
       # @param [String, Symbol] name The specific extension to reload.
       #
+      # @return [true] Specifies the reload was successful.
+      #
       def reload!(name=nil)
         reloader = lambda { |ext_name|
           self[ext_name].teardown! if has?(ext_name)
