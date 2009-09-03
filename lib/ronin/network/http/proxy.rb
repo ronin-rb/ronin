@@ -23,11 +23,19 @@ module Ronin
     module HTTP
       class Proxy < Hash
 
+        # The default port of proxies
+        DEFAULT_PORT = 8080
+
         #
         # Creates a new Proxy object that represents a proxy to connect to.
         #
         def initialize
-          super(:host => nil, :port => 8080, :user => nil, :password => nil)
+          super(
+            :host => nil,
+            :port => DEFAULT_PORT,
+            :user => nil,
+            :password => nil
+          )
         end
 
         #
@@ -35,7 +43,7 @@ module Ronin
         #
         def disable!
           self[:host] = nil
-          self[:port] = 8080
+          self[:port] = DEFAULT_PORT
           self[:user] = nil
           self[:password] = nil
           return self
