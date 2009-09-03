@@ -33,13 +33,6 @@ module Ronin
       end
 
       #
-      # Resets the Ronin HTTP proxy setting.
-      #
-      def HTTP.disable_proxy!
-        HTTP.proxy.reset!
-      end
-
-      #
       # @return [String, nil] The default Ronin HTTP User-Agent.
       #
       def HTTP.user_agent
