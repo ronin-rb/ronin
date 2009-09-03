@@ -30,13 +30,13 @@ module Ronin
         # Creates a new Proxy object that represents a proxy to connect to.
         #
         # @param [Hash] options Additional options for the proxy.
-        # @option options [String] host The host-name of the proxy.
-        # @option options [Integer] port (DEFAULT_PORT)
-        #                                The port that the proxy is
-        #                                running on.
-        # @option options [String] user The user-name to authenticate as.
-        # @option options [String] password The password to authenticate
-        #                                   with.
+        # @option options [String] :host The host-name of the proxy.
+        # @option options [Integer] :port (DEFAULT_PORT)
+        #                                 The port that the proxy is
+        #                                 running on.
+        # @option options [String] :user The user-name to authenticate as.
+        # @option options [String] :password The password to authenticate
+        #                                    with.
         #
         def initialize(options={})
           super()
