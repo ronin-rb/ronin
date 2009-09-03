@@ -237,6 +237,7 @@ spec/formatting/text/array_spec.rb
 spec/network/helpers/classes/test_helper.rb
 spec/network/helpers/classes/uses_test_helper.rb
 spec/network/helpers/helper_spec.rb
+spec/network/http/proxy_spec.rb
 spec/network/http/http_spec.rb
 spec/code/classes/thing.rb
 spec/code/reference_spec.rb
