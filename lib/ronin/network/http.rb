@@ -18,51 +18,25 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/network/extensions/http'
 require 'ronin/network/http/exceptions/unknown_request'
+require 'ronin/network/http/proxy'
+require 'ronin/network/extensions/http'
 
 module Ronin
   module Network
     module HTTP
-      # Common HTTP proxy port
-      COMMON_PROXY_PORT = 8080
-
       #
-      # @return [Integer] The default Ronin HTTP proxy port to use for
-      #                   HTTP proxies.
-      #
-      def HTTP.default_proxy_port
-        @@http_default_proxy_port ||= COMMON_PROXY_PORT
-      end
-
-      #
-      # Sets the default Ronin HTTP proxy port.
-      #
-      # @param [Integer] port The new proxy port to use.
-      #
-      def HTTP.default_proxy_port=(port)
-        @@http_default_proxy_port = port
-      end
-
-      #
-      # @return [Hash] The default Ronin HTTP proxy hash.
-      #
-      def HTTP.default_proxy
-        {:host => nil, :port => HTTP.default_proxy_port, :user => nil, :pass => nil}
-      end
-
-      #
-      # @return [Hash] The Ronin HTTP proxy hash.
+      # @return [Proxy] The Ronin HTTP proxy hash.
       #
       def HTTP.proxy
-        @@http_proxy ||= default_proxy
+        @@http_proxy ||= Proxy.new
       end
 
       #
       # Resets the Ronin HTTP proxy setting.
       #
-      def HTTP.disable_proxy
-        @@http_proxy = default_proxy
+      def HTTP.disable_proxy!
+        HTTP.proxy.reset!
       end
 
       #

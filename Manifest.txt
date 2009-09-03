@@ -89,6 +89,7 @@ lib/ronin/network/telnet.rb
 lib/ronin/network/http.rb
 lib/ronin/network/http/exceptions.rb
 lib/ronin/network/http/exceptions/unknown_request.rb
+lib/ronin/network/http/proxy.rb
 lib/ronin/code/emittable.rb
 lib/ronin/code/token.rb
 lib/ronin/code/reference.rb
