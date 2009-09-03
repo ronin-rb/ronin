@@ -49,7 +49,10 @@ module Ronin
             UI::Output.verbose = options.verbose?
             UI::Output.quiet = options.quiet?
             UI::Output.silent = options.silent?
-            UI::Output::Handler.color = (options.color? && !(options.nocolor?))
+
+            if options.nocolor?
+              UI::Output::Handler.color = false
+            end
 
             super(task,arguments)
           end
