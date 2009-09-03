@@ -31,14 +31,24 @@ module Ronin
         end
 
         #
-        # Resets the Proxy object.
+        # Disables the Proxy object.
         #
-        def reset!
+        def disable!
           self[:host] = nil
           self[:port] = 8080
           self[:user] = nil
           self[:password] = nil
           return self
+        end
+
+        #
+        # Specifies whether the proxy object is usable.
+        #
+        # @return [true, false] Specifies whether the proxy object is
+        #                       usable by Net::HTTP::Proxy.
+        #
+        def enabled?
+          !(self[:host].nil? || self[:port].nil?)
         end
 
         #
