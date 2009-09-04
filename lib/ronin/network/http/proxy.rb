@@ -141,6 +141,27 @@ module Ronin
         end
 
         #
+        # Builds a HTTP URI from the proxy information.
+        #
+        # @return [URI::HTTP] The HTTP URI representing the proxy.
+        #
+        def url
+          userinfo = if self[:user]
+                       if self[:password]
+                         "#{self[:user]}:#{self[:password]}"
+                       else
+                         self[:user]
+                       end
+                     end
+          
+          return URI::HTTP.build({
+            :userinfo => userinfo,
+            :host => self[:host],
+            :port => self[:port]
+          })
+        end
+
+        #
         # Converts the proxy object to a String.
         #
         # @return [String] The host-name of the proxy.

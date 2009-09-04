@@ -48,6 +48,20 @@ describe Network::HTTP::Proxy do
     @proxy.port.should == 8001
   end
 
+  it "should return a URI::HTTP representing the proxy" do
+    @proxy[:host] = 'example.com'
+    @proxy[:port] = 9001
+    @proxy[:user] = 'joe'
+    @proxy[:password] = 'lol'
+
+    url = @proxy.url
+
+    url.host.should == 'example.com'
+    url.port.should == 9001
+    url.user.should == 'joe'
+    url.password.should == 'lol'
+  end
+
   it "should return the host-name when converted to a String" do
     @proxy[:host] = 'example.com'
     @proxy.to_s.should == 'example.com'
