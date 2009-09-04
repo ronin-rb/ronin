@@ -143,9 +143,13 @@ module Ronin
         #
         # Builds a HTTP URI from the proxy information.
         #
-        # @return [URI::HTTP] The HTTP URI representing the proxy.
+        # @return [URI::HTTP, nil] The HTTP URI representing the proxy.
+        #                          If the proxy is disabled, then
+        #                          +nil+ will be returned.
         #
         def url
+          return nil unless enabled?
+
           userinfo = if self[:user]
                        if self[:password]
                          "#{self[:user]}:#{self[:password]}"

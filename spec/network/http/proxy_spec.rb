@@ -62,6 +62,10 @@ describe Network::HTTP::Proxy do
     url.password.should == 'lol'
   end
 
+  it "should return nil when converting a disabled proxy to a URL" do
+    @proxy.url.should be_nil
+  end
+
   it "should return the host-name when converted to a String" do
     @proxy[:host] = 'example.com'
     @proxy.to_s.should == 'example.com'
