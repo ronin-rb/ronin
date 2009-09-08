@@ -39,8 +39,6 @@ module Net
   #                                connecting to the server.
   # @option options [String] :password The password to authenticate with
   #                                    when connecting to the server.
-  # @option options [true, false] Indicates wether or not to use SSL when
-  #                               connecting to the server.
   #
   # @yield [session] If a _block_ is given, it will be passed the newly
   #                  created IMAP session.
