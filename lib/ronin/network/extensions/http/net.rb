@@ -226,8 +226,8 @@ module Net
   #
   # @param [Hash] options Additional options.
   #
-  # @return [true, false] Specifies wether the response had an HTTP OK
-  #                       status code or not.
+  # @return [Boolean] Specifies wether the response had an HTTP OK
+  #                   status code or not.
   #
   # @see http_request
   #

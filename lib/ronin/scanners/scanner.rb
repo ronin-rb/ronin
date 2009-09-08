@@ -63,8 +63,8 @@ module Ronin
           # @param [Symbol, String] name The name of the category to search
           #                              for scanners within.
           #
-          # @return [true, false] Specifies whether there is a scanner
-          #                       defined for the specified category.
+          # @return [Boolean] Specifies whether there is a scanner defined
+          #                   for the specified category.
           #
           def scans_for?(name)
             name = name.to_sym

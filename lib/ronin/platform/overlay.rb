@@ -152,8 +152,8 @@ module Ronin
       # @param [String, Symbol] name The name of the extension to search
       #                              for.
       #
-      # @return [true, false] Specifies whether the overlay contains the
-      #                       extension with the specified _name_.
+      # @return [Boolean] Specifies whether the overlay contains the
+      #                   extension with the specified _name_.
       #
       def has_extension?(name)
         name = File.basename(name.to_s)

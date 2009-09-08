@@ -206,8 +206,8 @@ module Ronin
       #
       # @param [Symbol, String] name The method name to search for.
       #
-      # @return [true, false] Specifies whether there is a public method
-      #                       with the specified _name_.
+      # @return [Boolean] Specifies whether there is a public method
+      #                   with the specified _name_.
       #
       # @example
       #   ext.has_method?(:console)
@@ -249,8 +249,7 @@ module Ronin
       end
 
       #
-      # @return [true, false] Specifies whether the extension has been
-      #                       setup.
+      # @return [Boolean] Specifies whether the extension has been setup.
       #
       def setup?
         @setup == true
@@ -289,8 +288,7 @@ module Ronin
       end
 
       #
-      # @return [true, false] Specifies whether the extension has been
-      #                       toredown.
+      # @return [Boolean] Specifies whether the extension has been toredown.
       #
       def toredown?
         @toredown == true

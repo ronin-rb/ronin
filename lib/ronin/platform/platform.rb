@@ -209,8 +209,8 @@ module Ronin
     #
     # @param [String] name The name of the extension to search for.
     #
-    # @return [true, false] Specifies whether the overlay cache contains
-    #                       the extension with the matching _name_.
+    # @return [Boolean] Specifies whether the overlay cache contains the
+    #                   extension with the matching _name_.
     #
     def Platform.has_extension?(name)
       Platform.overlays.has_extension?(name)
@@ -256,8 +256,7 @@ module Ronin
     #
     # Reloads the overlay cache and the extension cache.
     #
-    # @return [true, false] Specifies whether the reload was successful
-    #                       or not.
+    # @return [Boolean] Specifies whether the reload was successful or not.
     #
     def Platform.reload!
       Platform.overlays.reload! && Platform.extensions.reload!

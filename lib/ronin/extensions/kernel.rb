@@ -43,8 +43,8 @@ module Kernel
   # Attempts to run the given _block_ and catches any SyntaxError,
   # RuntimeError or StandardError exceptions.
   #
-  # @param [true, false] verbose Specifies wether a backtrace will be
-  #                              printed when an exception has been raised.
+  # @param [Boolean] verbose Specifies wether a backtrace will be
+  #                          printed when an exception has been raised.
   #
   # @yield [] The block to be called.
   #
@@ -76,8 +76,8 @@ module Kernel
   # @param [String] sub_path The relative path to require, specifically
   #                          within the specified _directory_.
   #
-  # @return [true, false] Specifies wether or not the _sub_path_ has not been
-  #                       loaded before.
+  # @return [Boolean] Specifies wether or not the _sub_path_ has not been
+  #                   loaded before.
   #
   # @example
   #   require_within 'ronin/exploits/helpers', helper_name

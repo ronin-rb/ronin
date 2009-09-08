@@ -109,7 +109,7 @@ module Ronin
     end
 
     #
-    # @return [true, false] Specifies wether or not the Database is setup.
+    # @return [Boolean] Specifies wether or not the Database is setup.
     #
     def Database.setup?
       repository = DataMapper.repository(Model::REPOSITORY_NAME)

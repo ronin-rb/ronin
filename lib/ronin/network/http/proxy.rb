@@ -62,8 +62,8 @@ module Ronin
         #
         # Specifies whether the proxy object is usable.
         #
-        # @return [true, false] Specifies whether the proxy object is
-        #                       usable by Net::HTTP::Proxy.
+        # @return [Boolean] Specifies whether the proxy object is
+        #                   usable by Net::HTTP::Proxy.
         #
         def enabled?
           !(self[:host].nil? || self[:port].nil?)

@@ -30,9 +30,9 @@ module Net
   # @param [Hash] options Additional options.
   # @option options [Integer] :port (Ronin::Network::Telnet.default_port)
   #                                 The port to connect to.
-  # @option options [true, false] :binmode Indicates that newline
-  #                                        substitution shall not be
-  #                                        performed.
+  # @option options [Boolean] :binmode Indicates that newline
+  #                                    substitution shall not be
+  #                                    performed.
   # @option options [String] :output_log The name of the file to write
   #                                      connection status messages and all
   #                                      received traffic to.
@@ -44,13 +44,13 @@ module Net
   #                                  host command-line prompt sequence,
   #                                  used to determine when a command has
   #                                  finished.
-  # @option options [true, false] :telnet (true)
-  #                                       Indicates that the connection
-  #                                       shall behave as a telnet
-  #                                       connection.
-  # @option options [true, false] :plain Indicates that the connection
-  #                                      shall behave as a normal TCP
-  #                                      connection.
+  # @option options [Boolean] :telnet (true)
+  #                                   Indicates that the connection
+  #                                   shall behave as a telnet
+  #                                   connection.
+  # @option options [Boolean] :plain Indicates that the connection
+  #                                  shall behave as a normal TCP
+  #                                  connection.
   # @option options [Integer] :timeout (Ronin::Network::Telnet.default_timeout)
   #                                    The number of seconds to wait before
   #                                    timing out both the initial attempt

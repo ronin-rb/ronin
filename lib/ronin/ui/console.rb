@@ -54,7 +54,7 @@ module Ronin
       end
 
       #
-      # @return [true, false] The default Console indent setting.
+      # @return [Boolean] The default Console indent setting.
       #
       def Console.indent
         @@ronin_console_indent ||= INDENT
@@ -63,7 +63,7 @@ module Ronin
       #
       # Sets the default Console indent setting.
       #
-      # @param [true, false] mode The new default Console indent setting.
+      # @param [Boolean] mode The new default Console indent setting.
       #
       # @example
       #   Console.indent = false
@@ -90,7 +90,7 @@ module Ronin
       end
 
       #
-      # @return [true, false] The default Console tab-completion setting.
+      # @return [Boolean] The default Console tab-completion setting.
       #
       def Console.completion
         @@ronin_console_completion ||= COMPLETION
@@ -99,8 +99,8 @@ module Ronin
       #
       # Sets the default Console tab-completion setting.
       #
-      # @param [true, false] mode The new default Console tab-completion
-      #                           setting.
+      # @param [Boolean] mode The new default Console tab-completion
+      #                       setting.
       #
       # @example
       #   Console.completion = false

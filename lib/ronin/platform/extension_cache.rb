@@ -76,8 +76,8 @@ module Ronin
       # Searches within the cache for the extension with the specified
       # _name_.
       #
-      # @return [true, false] Specifies whether the cache contains the
-      #                       extension with the specified _name_.
+      # @return [Boolean] Specifies whether the cache contains the
+      #                   extension with the specified _name_.
       #
       def has?(name)
         has_key?(name.to_s)

@@ -95,8 +95,8 @@ module Ronin
       end
 
       #
-      # @return [true, false] Specifies whether the overlay cache has been
-      #                       modified.
+      # @return [Boolean] Specifies whether the overlay cache has been
+      #                   modified.
       #
       def dirty?
         @dirty == true
@@ -136,8 +136,8 @@ module Ronin
       #
       # @param [String] name The name of the overlay to search for.
       #
-      # @return [true, false] Specifies whether the cache contains the
-      #                       Overlay with the matching _name_.
+      # @return [Boolean] Specifies whether the cache contains the Overlay
+      #                   with the matching _name_.
       #
       def has?(name)
         has_key?(name.to_s)
@@ -174,9 +174,9 @@ module Ronin
       #
       # @param [String] name The name of the extension to search for.
       #
-      # @return [true, false] Specifies whether the extension with the
-      #                       specified _name_ exists within any of the
-      #                       overlays in the overlay cache.
+      # @return [Boolean] Specifies whether the extension with the
+      #                   specified _name_ exists within any of the
+      #                   overlays in the overlay cache.
       #
       def has_extension?(name)
         each_overlay do |overlay|

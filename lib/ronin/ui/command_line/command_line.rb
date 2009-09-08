@@ -60,8 +60,8 @@ module Ronin
       #
       # @param [String, Symbol] name The name of the command to search for.
       #
-      # @return [true, false] Specifies whether a command exists with the
-      #                       matching _name_.
+      # @return [Boolean] Specifies whether a command exists with the
+      #                   matching _name_.
       #
       def CommandLine.has_command?(name)
         CommandLine.commands.include?(name.to_s)

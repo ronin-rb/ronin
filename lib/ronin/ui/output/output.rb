@@ -24,7 +24,7 @@ module Ronin
   module UI
     module Output
       #
-      # @return [true, false] Specifies whether verbose output is enabled.
+      # @return [Boolean] Specifies whether verbose output is enabled.
       #
       # @since 0.3.0
       #
@@ -33,7 +33,7 @@ module Ronin
       end
 
       #
-      # @return [true, false] Specifies whether quiet output is enabled.
+      # @return [Boolean] Specifies whether quiet output is enabled.
       #
       # @since 0.3.0
       #
@@ -42,7 +42,7 @@ module Ronin
       end
 
       #
-      # @return [true, false] Specifies whether silent output is enabled.
+      # @return [Boolean] Specifies whether silent output is enabled.
       #
       # @since 0.3.0
       #
@@ -53,8 +53,8 @@ module Ronin
       #
       # Changes the verbose mode.
       #
-      # @param [true, false] mode The new verbose mode.
-      # @return [true, false] The new verbose mode.
+      # @param [Boolean] mode The new verbose mode.
+      # @return [Boolean] The new verbose mode.
       #
       # @since 0.3.0
       #
@@ -71,8 +71,8 @@ module Ronin
       #
       # Changes verbose output.
       #
-      # @param [true, false] mode The new quiet mode.
-      # @return [true, false] The new quiet mode.
+      # @param [Boolean] mode The new quiet mode.
+      # @return [Boolean] The new quiet mode.
       #
       # @since 0.3.0
       #
@@ -89,8 +89,8 @@ module Ronin
       #
       # Changes verbose output.
       #
-      # @param [true, false] mode The new quiet mode.
-      # @return [true, false] The new quiet mode.
+      # @param [Boolean] mode The new quiet mode.
+      # @return [Boolean] The new quiet mode.
       #
       # @since 0.3.0
       #

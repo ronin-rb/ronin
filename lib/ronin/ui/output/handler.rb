@@ -37,8 +37,8 @@ module Ronin
         #
         # Changes color output.
         #
-        # @param [true, false] mode The new color mode.
-        # @return [true, false] The new color mode.
+        # @param [Boolean] mode The new color mode.
+        # @return [Boolean] The new color mode.
         #
         # @since 0.3.0
         #

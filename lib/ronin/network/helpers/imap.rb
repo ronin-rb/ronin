@@ -49,8 +49,8 @@ module Ronin
         # @option options [String] :password The password to authenticate
         #                                    with when connecting to the
         #                                    server.
-        # @option options [true, false] Indicates wether or not to use SSL
-        #                               when connecting to the server.
+        # @option options [Boolean] Indicates wether or not to use SSL
+        #                           when connecting to the server.
         #
         # @since 0.3.0
         #
