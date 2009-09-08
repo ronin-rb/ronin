@@ -60,7 +60,7 @@ module Ronin
         # @since 0.3.0
         #
         def self.puts(*messages)
-          shell.say messages.join($\)
+          shell.say messages.join($/)
         end
 
         #
@@ -71,7 +71,7 @@ module Ronin
         # @since 0.3.0
         #
         def self.print_info(*messages)
-          shell.say messages.map { |mesg| "[-] #{mesg}" }.join($\), :green
+          shell.say messages.map { |mesg| "[-] #{mesg}" }.join($/), :green
         end
 
         #
@@ -82,7 +82,7 @@ module Ronin
         # @since 0.3.0
         #
         def self.print_debug(*messages)
-          shell.say messages.map { |mesg| "[+] #{mesg}" }.join($\), :cyan
+          shell.say messages.map { |mesg| "[+] #{mesg}" }.join($/), :cyan
         end
 
         #
@@ -93,7 +93,7 @@ module Ronin
         # @since 0.3.0
         #
         def self.print_warning(*messages)
-          shell.say messages.map { |mesg| "[*] #{mesg}" }.join($\), :yellow
+          shell.say messages.map { |mesg| "[*] #{mesg}" }.join($/), :yellow
         end
 
         #
@@ -104,7 +104,7 @@ module Ronin
         # @since 0.3.0
         #
         def self.print_error(*messages)
-          shell.say messages.map { |mesg| "[!] #{mesg}" }.join($\), :red
+          shell.say messages.map { |mesg| "[!] #{mesg}" }.join($/), :red
         end
 
       end
