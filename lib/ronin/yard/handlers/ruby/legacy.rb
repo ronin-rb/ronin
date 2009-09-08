@@ -20,4 +20,7 @@
 
 require 'ronin/yard/handlers/ruby/legacy/eval_block_handler'
 require 'ronin/yard/handlers/ruby/legacy/metaclass_eval_handler'
+require 'ronin/yard/handlers/ruby/legacy/property_handler'
+require 'ronin/yard/handlers/ruby/legacy/has_handler'
+require 'ronin/yard/handlers/ruby/legacy/belongs_to_handler'
 require 'ronin/yard/handlers/ruby/legacy/scanner_handler'

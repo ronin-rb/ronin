@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'dm-core/yard/handlers'
 require 'dm-predefined/yard/handlers'
 require 'contextify/yard/handlers'
 require 'parameters/yard/handlers'

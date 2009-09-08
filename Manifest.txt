@@ -170,10 +170,16 @@ lib/ronin/yard/handlers.rb
 lib/ronin/yard/handlers/ruby.rb
 lib/ronin/yard/handlers/ruby/eval_block_handler.rb
 lib/ronin/yard/handlers/ruby/metaclass_eval_handler.rb
+lib/ronin/yard/handlers/ruby/property_handler.rb
+lib/ronin/yard/handlers/ruby/belongs_to_handler.rb
+lib/ronin/yard/handlers/ruby/has_handler.rb
 lib/ronin/yard/handlers/ruby/scanner_handler.rb
 lib/ronin/yard/handlers/ruby/legacy.rb
 lib/ronin/yard/handlers/ruby/legacy/eval_block_handler.rb
 lib/ronin/yard/handlers/ruby/legacy/metaclass_eval_handler.rb
+lib/ronin/yard/handlers/ruby/legacy/property_handler.rb
+lib/ronin/yard/handlers/ruby/legacy/belongs_to_handler.rb
+lib/ronin/yard/handlers/ruby/legacy/has_handler.rb
 lib/ronin/yard/handlers/ruby/legacy/scanner_handler.rb
 lib/ronin/ronin.rb
 lib/ronin/version.rb
