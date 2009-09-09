@@ -30,8 +30,8 @@ class String
   # Packs an Integer from a String, which was originally packed for
   # a specific architecture and address-length.
   #
-  # @param [Ronin::Arch] The architecture that the Integer was originally
-  #                      packed with.
+  # @param [Ronin::Arch] arch The architecture that the Integer was
+  #                           originally packed with.
   # @param [Integer] address_length The number of bytes to depack.
   #
   # @return [Integer] The depacked Integer.
