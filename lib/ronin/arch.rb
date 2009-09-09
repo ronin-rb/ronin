@@ -56,7 +56,7 @@ module Ronin
     # @return [String] The name of the architecture.
     #
     def to_s
-      @name.to_s
+      self.name.to_s
     end
 
     #
