@@ -68,8 +68,8 @@ class Integer
   # Packs the Integer into a String, for a specific architecture and
   # address-length.
   #
-  # @param [Ronin::Arch] The architecture to pack the Integer for.
-  # @param [Integer] address_length the number of bytes to pack.
+  # @param [Ronin::Arch] arch The architecture to pack the Integer for.
+  # @param [Integer] address_length The number of bytes to pack.
   #
   # @return [String] The packed Integer.
   #
