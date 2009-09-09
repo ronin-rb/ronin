@@ -1,4 +1,7 @@
+require 'hoe'
 require 'spec/rake/spectask'
+
+Hoe.plugins.delete(:test)
 
 desc "Run all specifications"
 Spec::Rake::SpecTask.new(:spec) do |t|
