@@ -157,14 +157,20 @@ class String
   end
 
   #
-  # Returns the base64 encoded form of the string.
+  # Base64 encodes a string.
+  #
+  # @return [String]
+  #   The base64 encoded form of the string.
   #
   def base64_encode
     Base64.encode64(self)
   end
 
   #
-  # Returns the base64 decoded form of the string.
+  # Base64 decodes a string.
+  #
+  # @return [String]
+  #   The base64 decoded form of the string.
   #
   def base64_decode
     Base64.decode64(self)
@@ -172,31 +178,27 @@ class String
 
   #
   # Converts a multitude of hexdump formats back into the original
-  # raw-data using the given _options_.
+  # raw-data.
   #
-  # _options_ may contain the following keys:
-  # <tt>:format</tt>:: The expected format of the hexdump. Must be either
-  #                    <tt>:od</tt> or <tt>:hexdump</tt>.
-  # <tt>:encoding</tt>:: Denotes the encoding used for the bytes within the
-  #                      hexdump. Must be one of the following:
-  #                      <tt>:binary</tt>:: Binary encoded bytes.
-  #                      <tt>:octal</tt>:: Octal encoding.
-  #                      <tt>:octal_bytes</tt>:: Octal encoded bytes.
-  #                      <tt>:octal_shorts</tt>:: Octal encoded shorts.
-  #                      <tt>:octal_ints</tt>:: Octal encoded integers.
-  #                      <tt>:octal_quads</tt>:: Octal encoded quads.
-  #                      <tt>:decimal</tt>:: Unsigned decimal encoding.
-  #                      <tt>:decimal_bytes</tt>:: Unsigned decimal bytes.
-  #                      <tt>:decimal_shorts</tt>:: Unsigned decimal shorts.
-  #                      <tt>:decimal_ints</tt>:: Unsigned decimal ints.
-  #                      <tt>:decimal_quads</tt>:: Unsigned decimal quads.
-  #                      <tt>:hex</tt>:: Hexadecimal encoding.
-  #                      <tt>:hex_bytes</tt>:: Hexadecimal bytes.
-  #                      <tt>:hex_shorts</tt>:: Hexadecimal shorts.
-  #                      <tt>:hex_ints</tt>:: Hexadecimal ints.
-  #                      <tt>:hex_quads</tt>:: Hexadecimal quads.
-  # <tt>:segment</tt>:: The length in bytes of each segment in the hexdump.
-  #                     Defaults to 16, if not specified.
+  # @param [Hash] options
+  #   Additional options.
+  #
+  # @option options [Symbol] :format
+  #   The expected format of the hexdump. Must be either +:od+ or
+  #   +:hexdump+.
+  #
+  # @option options [Symbol] :encoding
+  #   Denotes the encoding used for the bytes within the hexdump.
+  #   Must be one of the following: +:binary+, +:octal+, +:octal_bytes+
+  #   +:octal_shorts+, +:octal_ints+, :octal_quads+, +:decimal+,
+  #   +:decimal_bytes+, +:decimal_shorts+, +:decimal_ints+,
+  #   +:decimal_quads+, +:hex+ +:hex_bytes+, +:hex_shorts+, +:hex_ints+ or
+  #   +:hex_quads+.
+  #
+  # @option options [Integer] :segment (16)
+  #   The length in bytes of each segment in the hexdump.
+  #
+  # @return [String] The raw-data from the hexdump.
   #
   def unhexdump(options={})
     case (format = options[:format])
