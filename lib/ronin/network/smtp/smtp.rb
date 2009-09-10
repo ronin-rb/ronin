@@ -51,7 +51,7 @@ module Ronin
       #   If a block is given, it will be passed the newly created Email
       #   object.
       #
-      # @yieldparam [Ronin::Network::Email::SMTP]
+      # @yieldparam [Ronin::Network::Email::SMTP] email
       #   The new Email object.
       #
       # @return [String]

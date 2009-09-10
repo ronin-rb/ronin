@@ -69,8 +69,8 @@ module Ronin
         #   If a block is given, it will be passed the newly created email
         #   object.
         #
-        # @yieldparam [Email]
-        #   email The newly created email object.
+        # @yieldparam [Email] email
+        #   The newly created email object.
         #
         def initialize(options={},&block)
           @from = options[:from]

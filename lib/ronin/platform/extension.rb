@@ -158,7 +158,7 @@ module Ronin
       #   If a block is given, it will be passed the extension, after the
       #   other extensions have been included into it.
       #
-      # @yieldparam [Extension]
+      # @yieldparam [Extension] ext
       #   The extension.
       #
       # @return [Extension]

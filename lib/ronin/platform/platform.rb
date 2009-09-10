@@ -274,7 +274,7 @@ module Ronin
     #   If a block is given, it will be passed the extension with the
     #   matching _name_.
     #
-    # @yieldparam [Extension]
+    # @yieldparam [Extension] ext
     #   The desired extension.
     #
     # @return [Extension]
