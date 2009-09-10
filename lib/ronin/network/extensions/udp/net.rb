@@ -25,15 +25,26 @@ module Net
   # Creates a new UDPSocket object with the specified _host_, _port_
   # and the given _local_host_ and _local_port_.
   #
-  # @param [String] host The host to connect to.
-  # @param [Integer] port The port to connect to.
-  # @param [String] local_host The local host to bind to.
-  # @param [Integer] local_port The local port to bind to.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [socket] If a block is given, it will be passed the newly
-  #                 created socket.
-  # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
-  # @return [UDPSocket] The newly created UDPSocket object.
+  # @param [Integer] port
+  #   The port to connect to.
+  #
+  # @param [String] local_host
+  #   The local host to bind to.
+  #
+  # @param [Integer] local_port
+  #   The local port to bind to.
+  #
+  # @yield [socket]
+  #   If a block is given, it will be passed the newly created socket.
+  #
+  # @yieldparam [UDPsocket] socket
+  #   The newly created UDPSocket object.
+  #
+  # @return [UDPSocket]
+  #   The newly created UDPSocket object.
   #
   # @example
   #   Net.udp_connect('www.hackety.org',80)
@@ -56,16 +67,29 @@ module Net
   # the given _local_host_ and _local_port_. The specified _data_ will
   # then be written to the newly created UDPSocket.
   #
-  # @param [String] data The data to send through the connection.
-  # @param [String] host The host to connect to.
-  # @param [Integer] port The port to connect to.
-  # @param [String] local_host The local host to bind to.
-  # @param [Integer] local_port The local port to bind to.
+  # @param [String] data
+  #   The data to send through the connection.
   #
-  # @yield [socket] If a block is given, it will be passed the newly
-  #                 created socket.
-  # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
-  # @return [UDPSocket] The newly created UDPSocket object.
+  # @param [String] host
+  #   The host to connect to.
+  #
+  # @param [Integer] port
+  #   The port to connect to.
+  #
+  # @param [String] local_host
+  #   The local host to bind to.
+  #
+  # @param [Integer] local_port
+  #   The local port to bind to.
+  #
+  # @yield [socket]
+  #   If a block is given, it will be passed the newly created socket.
+  #
+  # @yieldparam [UDPsocket] socket
+  #   The newly created UDPSocket object.
+  #
+  # @return [UDPSocket]
+  #   The newly created UDPSocket object.
   #
   def Net.udp_connect_and_send(data,host,port,local_host=nil,local_port=nil,&block)
     Net.udp_connect(host,port,local_host,local_port) do |sock|
@@ -79,15 +103,24 @@ module Net
   # Creates a new UDPSocket object with the specified _host_, _port_
   # and the given _local_host_ and _local_port_.
   #
-  # @param [String] host The host to connect to.
-  # @param [Integer] port The port to connect to.
-  # @param [String] local_host The local host to bind to.
-  # @param [Integer] local_port The local port to bind to.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [socket] If a block is given, it will be passed the newly
-  #                 created socket. After the block has returned, the
-  #                 socket will then be closed.
-  # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
+  # @param [Integer] port
+  #   The port to connect to.
+  #
+  # @param [String] local_host
+  #   The local host to bind to.
+  #
+  # @param [Integer] local_port
+  #   The local port to bind to.
+  #
+  # @yield [socket]
+  #   If a block is given, it will be passed the newly created socket.
+  #   After the block has returned, the socket will then be closed.
+  #
+  # @yieldparam [UDPsocket] socket
+  #   The newly created UDPSocket object.
   #
   def Net.udp_session(host,port,local_host=nil,local_port=nil,&block)
     Net.udp_connect(host,port,local_host,local_port) do |sock|
@@ -103,15 +136,26 @@ module Net
   # and _local_port_, reads the banner then closes the connection,
   # returning the received banner.
   #
-  # @param [String] host The host to connect to.
-  # @param [Integer] port The port to connect to.
-  # @param [String] local_host The local host to bind to.
-  # @param [Integer] local_port The local port to bind to.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [banner] If a block is given, it will be passed the grabbed
-  #                 banner.
-  # @yieldparam [String] banner The grabbed banner.
-  # @return [String] The grabbed banner.
+  # @param [Integer] port
+  #   The port to connect to.
+  #
+  # @param [String] local_host
+  #   The local host to bind to.
+  #
+  # @param [Integer] local_port
+  #   The local port to bind to.
+  #
+  # @yield [banner]
+  #   If a block is given, it will be passed the grabbed banner.
+  #
+  # @yieldparam [String] banner
+  #   The grabbed banner.
+  #
+  # @return [String]
+  #   The grabbed banner.
   #
   def Net.udp_banner(host,port,local_host=nil,local_port=nil,&block)
     Net.udp_session(host,port,local_host,local_port) do |sock|
@@ -125,9 +169,14 @@ module Net
   #
   # Creates a new UDPServer listening on the specified _host_ and _port_.
   #
-  # @param [Integer] port The local port to listen on.
-  # @param [String] host The host to bind to.
-  # @return [UDPServer] The new UDP server.
+  # @param [Integer] port
+  #   The local port to listen on.
+  #
+  # @param [String] host
+  #   The host to bind to.
+  #
+  # @return [UDPServer]
+  #   The new UDP server.
   #
   # @example
   #   Net.udp_server(1337)
@@ -145,12 +194,19 @@ module Net
   # Creates a new UDPServer listening on the specified _host_ and _port_,
   # passing it to the given _block_ and then closing the server.
   #
-  # @param [Integer] port The local port to bind to.
-  # @param [String] host The host to bind to.
-  # @yield [server] The block which will be called after the _server_ has
-  #                 been created. After the block has finished, the
-  #                 _server_ will be closed.
-  # @yieldparam [UDPServer] server The newly created UDP server.
+  # @param [Integer] port
+  #   The local port to bind to.
+  #
+  # @param [String] host
+  #   The host to bind to.
+  #
+  # @yield [server]
+  #   The block which will be called after the _server_ has been created.
+  #   After the block has finished, the _server_ will be closed.
+  #
+  # @yieldparam [UDPServer] server
+  #   The newly created UDP server.
+  #
   # @return [nil]
   #
   # @example

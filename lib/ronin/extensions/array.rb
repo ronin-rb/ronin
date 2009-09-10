@@ -23,7 +23,8 @@ class Array
   #
   # Calculates the power-set of the Array.
   #
-  # @return [Array] The power set of the array.
+  # @return [Array]
+  #   The power set of the array.
   #
   # @example
   #   [1,2,3].power_set

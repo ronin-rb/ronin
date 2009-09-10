@@ -36,8 +36,8 @@ module Ronin
           #
           # Finds models with names containing the specified _fragment_.
           #
-          # @param [String] fragment The fragment of text to search for
-          #                          within the names of models.
+          # @param [String] fragment
+          #   The fragment of text to search for within the names of models.
           #
           # @example
           #   Exploit.named 'ProFTP'

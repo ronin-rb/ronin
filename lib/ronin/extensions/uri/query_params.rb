@@ -40,9 +40,11 @@ module URI
     #
     # Sets the query string and updates query_params.
     #
-    # @param [String] query_str The new URI query string to use.
+    # @param [String] query_str
+    #   The new URI query string to use.
     #
-    # @return [String] The new URI query string.
+    # @return [String]
+    #   The new URI query string.
     #
     # @example
     #   url.query = 'a=1&b=2'
@@ -57,9 +59,14 @@ module URI
     #
     # Iterates over every query parameter.
     #
-    # @yield [name, value] The block to pass each query parameter to.
-    # @yieldparam [String] name The name of the query parameter.
-    # @yieldparam [String] value The value of the query parameter.
+    # @yield [name, value]
+    #   The block to pass each query parameter to.
+    #
+    # @yieldparam [String] name
+    #   The name of the query parameter.
+    #
+    # @yieldparam [String] value
+    #   The value of the query parameter.
     #
     # @example
     #   url.each_query_param do |name,value|

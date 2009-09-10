@@ -31,8 +31,11 @@ module Ronin
       #
       # Creates a new Maintainer object.
       #
-      # @param [String] name The name of the maintainer.
-      # @param [String] email The optional email of the maintainer.
+      # @param [String] name
+      #   The name of the maintainer.
+      #
+      # @param [String] email
+      #   The optional email of the maintainer.
       #
       def initialize(name,email=nil)
         @name = name
@@ -40,7 +43,8 @@ module Ronin
       end
 
       #
-      # @return [String] The String representation of the maintainer object.
+      # @return [String]
+      #   The String representation of the maintainer object.
       #
       def to_s
         if @email
@@ -51,7 +55,8 @@ module Ronin
       end
 
       #
-      # @return [String] Inspects the maintainer object.
+      # @return [String]
+      #   Inspects the maintainer object.
       #
       # @see Maintainer#to_s
       #

@@ -22,9 +22,11 @@ module Kernel
   #
   # Calls the given _block_ and ignores any raised exceptions.
   #
-  # @yield [] The block to be called.
+  # @yield []
+  #   The block to be called.
   #
-  # @return [nil] An exception was ignored, or the block returned nil.
+  # @return [nil]
+  #   An exception was ignored, or the block returned nil.
   #
   # @example
   #   attempt do
@@ -43,12 +45,15 @@ module Kernel
   # Attempts to run the given _block_ and catches any SyntaxError,
   # RuntimeError or StandardError exceptions.
   #
-  # @param [Boolean] verbose Specifies wether a backtrace will be
-  #                          printed when an exception has been raised.
+  # @param [Boolean] verbose
+  #   Specifies wether a backtrace will be printed when an exception
+  #   has been raised.
   #
-  # @yield [] The block to be called.
+  # @yield []
+  #   The block to be called.
   #
-  # @return [nil] An exception was ignored, or the block returned nil.
+  # @return [nil]
+  #   An exception was ignored, or the block returned nil.
   #
   # @example
   #   catch_all do
@@ -72,12 +77,15 @@ module Kernel
   # Safely requires the specified _sub_path_ from within the specified
   # _directory_.
   #
-  # @param [String] directory The directory to require the _sub_path_ within.
-  # @param [String] sub_path The relative path to require, specifically
-  #                          within the specified _directory_.
+  # @param [String] directory
+  #   The directory to require the _sub_path_ within.
   #
-  # @return [Boolean] Specifies wether or not the _sub_path_ has not been
-  #                   loaded before.
+  # @param [String] sub_path
+  #   The relative path to require, specifically within the specified
+  #   _directory_.
+  #
+  # @return [Boolean]
+  #   Specifies wether or not the _sub_path_ has not been loaded before.
   #
   # @example
   #   require_within 'ronin/exploits/helpers', helper_name

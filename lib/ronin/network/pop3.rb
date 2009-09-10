@@ -27,7 +27,8 @@ module Ronin
       DEFAULT_PORT = 110
 
       #
-      # @return [Integer] The default Ronin POP3 port.
+      # @return [Integer]
+      #   The default Ronin POP3 port.
       #
       def POP3.default_port
         @@pop3_default_port ||= DEFAULT_PORT
@@ -36,7 +37,8 @@ module Ronin
       #
       # Sets the default Ronin POP3 port.
       #
-      # @param [Integer] port The new default Ronin POP3 port.
+      # @param [Integer] port
+      #   The new default Ronin POP3 port.
       #
       def POP3.default_port=(port)
         @@pop3_default_port = port

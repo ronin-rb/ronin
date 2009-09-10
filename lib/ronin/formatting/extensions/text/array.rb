@@ -24,7 +24,8 @@ class Array
   # Decodes the bytes contained within the Array. The Array may contain
   # both Integer and String objects.
   #
-  # @return [Array] The bytes contained in the Array.
+  # @return [Array]
+  #   The bytes contained in the Array.
   #
   # @example
   #   [0x41, 0x41, 0x20].bytes
@@ -50,7 +51,8 @@ class Array
   # Decodes the characters contained within the Array. The Array may contain
   # either Integer or String objects.
   #
-  # @return [Array] The characters generated from the array.
+  # @return [Array]
+  #   The characters generated from the array.
   #
   # @example
   #   [0x41, 0x41, 0x20].chars
@@ -61,7 +63,8 @@ class Array
   end
 
   #
-  # @return [String] The String created from the characters within the Array.
+  # @return [String]
+  #   The String created from the characters within the Array.
   #
   # @example
   #   [0x41, 0x41, 0x20].char_string

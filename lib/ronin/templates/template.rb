@@ -30,7 +30,8 @@ module Ronin
       #
       # A stack of directories to search for other templates within.
       #
-      # @return [Array] The stack of directory paths.
+      # @return [Array]
+      #   The stack of directory paths.
       #
       # @since 0.3.0
       #
@@ -42,8 +43,9 @@ module Ronin
       # The first path in +template_dirs+, that will be used to search for
       # other templates in.
       #
-      # @return [String, nil] Returns the first path in template_dirs, or
-      #                       +nil+ if template_dirs is empty.
+      # @return [String, nil]
+      #   Returns the first path in template_dirs, or +nil+ if
+      #   template_dirs is empty.
       #
       # @since 0.3.0
       #
@@ -56,10 +58,12 @@ module Ronin
       # Static::Finders#find_static_file to search through all
       # +static+ directories for the template.
       #
-      # @param [String] sub_path The relative path of the template to find.
+      # @param [String] sub_path
+      #   The relative path of the template to find.
       #
-      # @return [String, nil] Returns the absolute path to the template,
-      #                       or +nil+ if the template could not be found.
+      # @return [String, nil]
+      #   Returns the absolute path to the template, or +nil+ if the
+      #   template could not be found.
       #
       # @example
       #   find_template 'sub/path/template.erb'
@@ -83,16 +87,22 @@ module Ronin
       # within to +template_dirs+, calls the given _block_ and then pops
       # the directory off of +template_dirs+.
       #
-      # @param [String] sub_path The relative path of the template to find.
+      # @param [String] sub_path
+      #   The relative path of the template to find.
       #
-      # @yield [path] The block to be called after the directory of the
-      #               template has been pushed onto +template_dirs+. After
-      #               the block has returned, the directory will be popped
-      #               off of +template_dirs+.
-      # @yieldparam [String] path The absolute path of the template.
+      # @yield [path]
+      #   The block to be called after the directory of the template has
+      #   been pushed onto +template_dirs+. After the block has returned,
+      #   the directory will be popped off of +template_dirs+.
       #
-      # @return [Object] Result of the given block.
-      # @raise [RuntimeError] The template was not found.
+      # @yieldparam [String] path
+      #   The absolute path of the template.
+      #
+      # @return [Object]
+      #   Result of the given block.
+      #
+      # @raise [RuntimeError]
+      #   The template was not found.
       #
       # @example
       #   enter_template('sub/path/template.erb') do |path|

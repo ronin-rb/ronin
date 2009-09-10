@@ -23,7 +23,8 @@ require 'set'
 module Ronin
   module Static
     #
-    # @return [Set] The directories which contain static content.
+    # @return [Set]
+    #   The directories which contain static content.
     #
     def Static.static_dirs
       @@ronin_static_dirs ||= Set[]
@@ -32,9 +33,11 @@ module Ronin
     #
     # Adds the path to the Set of static directories.
     #
-    # @param [String] path The path to add to +static_dirs+.
+    # @param [String] path
+    #   The path to add to +static_dirs+.
     #
-    # @return [String] The fully qualified form of the specified _path_.
+    # @return [String]
+    #   The fully qualified form of the specified _path_.
     #
     # @example
     #   Static.directory(File.join(File.dirname(__FILE__),'..','..','..','static'))

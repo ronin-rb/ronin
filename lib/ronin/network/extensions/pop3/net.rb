@@ -26,18 +26,30 @@ module Net
   #
   # Creates a connection to the POP3 server.
   #
-  # @param [String] host The host to connect to.
-  # @param [Hash] options Additional options.
+  # @param [String] host
+  #   The host to connect to.
+  #
+  # @param [Hash] options
+  #   Additional options.
+  #
   # @option options [Integer] :port (Ronin::Network::POP3.default_port)
-  #                                 The port the POP3 server is running on.
-  # @option options [String] :user The user to authenticate with when
-  #                                connecting to the POP3 server.
-  # @option options [String] :password The password to authenticate with
-  #                                    when connecting to the POP3 server.
-  # @yield [session] If a _block_ is given, it will be passed the newly
-  #                  created POP3 session.
-  # @yieldparam [Net::POP3] session The newly created POP3 session.
-  # @return [Net::POP3] The newly created POP3 session.
+  #   The port the POP3 server is running on.
+  #
+  # @option options [String] :user
+  #   The user to authenticate with when connecting to the POP3 server.
+  #
+  # @option options [String] :password
+  #   The password to authenticate with when connecting to the POP3 server.
+  #
+  # @yield [session]
+  #   If a _block_ is given, it will be passed the newly created POP3
+  #   session.
+  #
+  # @yieldparam [Net::POP3] session
+  #   The newly created POP3 session.
+  #
+  # @return [Net::POP3]
+  #   The newly created POP3 session.
   #
   def Net.pop3_connect(host,options={},&block)
     port = (options[:port] || Ronin::Network::POP3.default_port)
@@ -52,13 +64,18 @@ module Net
   #
   # Starts a session with the POP3 server.
   #
-  # @param [String] host The host to connect to.
-  # @param [Hash] options Additional options.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [session] If a _block_ is given, it will be passed the newly
-  #                  created POP3 session. After the _block_ has returned,
-  #                  the session will be closed.
-  # @yieldparam [Net::POP3] session The newly created POP3 session.
+  # @param [Hash] options
+  #   Additional options.
+  #
+  # @yield [session]
+  #   If a _block_ is given, it will be passed the newly created POP3
+  #   session. After the _block_ has returned, the session will be closed.
+  #
+  # @yieldparam [Net::POP3] session
+  #   The newly created POP3 session.
   #
   def Net.pop3_session(host,options={},&block)
     Net.pop3_connect(host,options) do |sess|

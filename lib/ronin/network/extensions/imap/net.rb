@@ -26,24 +26,37 @@ module Net
   #
   # Creates a connection to the IMAP server.
   #
-  # @param [String] host The host to connect to.
-  # @param [Hash] options Additional options.
-  # @option options [Integer] :port (IMAP.default_port)
-  #                                 The port the IMAP server is running on.
-  # @option options [String] :certs The path to the file containing CA certs
-  #                                 of the server.
-  # @option options [Symbol] :auth The type of authentication to perform
-  #                                when connecting to the server. May be
-  #                                either +:login+ or +:cram_md5+.
-  # @option options [String] :user The user to authenticate as when
-  #                                connecting to the server.
-  # @option options [String] :password The password to authenticate with
-  #                                    when connecting to the server.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [session] If a _block_ is given, it will be passed the newly
-  #                  created IMAP session.
-  # @yieldparam [Net::IMAP] session The newly created IMAP session object.
-  # @return [Net::IMAP] The newly created IMAP session object.
+  # @param [Hash] options
+  #   Additional options.
+  #
+  # @option options [Integer] :port (IMAP.default_port)
+  #   The port the IMAP server is running on.
+  #
+  # @option options [String] :certs
+  #   The path to the file containing CA certs of the server.
+  #
+  # @option options [Symbol] :auth
+  #   The type of authentication to perform when connecting to the server.
+  #   May be either +:login+ or +:cram_md5+.
+  #
+  # @option options [String] :user
+  #   The user to authenticate as when connecting to the server.
+  #
+  # @option options [String] :password
+  #   The password to authenticate with when connecting to the server.
+  #
+  # @yield [session]
+  #   If a _block_ is given, it will be passed the newly created IMAP
+  #   session.
+  #
+  # @yieldparam [Net::IMAP] session
+  #   The newly created IMAP session object.
+  #
+  # @return [Net::IMAP]
+  #   The newly created IMAP session object.
   #
   def Net.imap_connect(host,options={},&block)
     port = (options[:port] || Ronin::Net::IMAP.default_port)
@@ -78,13 +91,18 @@ module Net
   #
   # Starts an IMAP session with the IMAP server.
   #
-  # @param [String] host The host to connect to.
-  # @param [Hash] options Additional options.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [session] If a _block_ is given, it will be passed the newly
-  #                  created IMAP session. After the _block_ has returned,
-  #                  the session will be closed.
-  # @yieldparam [Net::IMAP] session The newly created IMAP session object.
+  # @param [Hash] options
+  #   Additional options.
+  #
+  # @yield [session]
+  #   If a _block_ is given, it will be passed the newly created IMAP
+  #   session. After the _block_ has returned, the session will be closed.
+  #
+  # @yieldparam [Net::IMAP] session
+  #   The newly created IMAP session object.
   #
   # @see Net.imap_connect
   #

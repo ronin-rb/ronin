@@ -36,8 +36,8 @@ module Ronin
           # Finds models with descriptions containing the specified
           # _fragment_.
           #
-          # @param [String] fragment The fragment of text to match
-          #                          descriptions with.
+          # @param [String] fragment
+          #   The fragment of text to match descriptions with.
           #
           # @example
           #   Exploit.describing 'bypass'
@@ -50,7 +50,8 @@ module Ronin
           # Strips leading and trailing white-space from each line, then sets
           # the description property.
           #
-          # @param [String] new_text The new description to use.
+          # @param [String] new_text
+          #   The new description to use.
           #
           # @example
           #   self.description = %{

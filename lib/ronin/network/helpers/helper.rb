@@ -31,8 +31,11 @@ module Ronin
         #
         # Tests wether an instance variable has been set.
         #
-        # @return [true] The instance variable has been set.
-        # @raise [RuntimeError] The instance variable was not set.
+        # @return [true]
+        #   The instance variable has been set.
+        #
+        # @raise [RuntimeError]
+        #   The instance variable was not set.
         #
         # @since 0.3.0
         #

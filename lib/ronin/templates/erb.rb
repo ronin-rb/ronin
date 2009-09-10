@@ -29,8 +29,11 @@ module Ronin
       #
       # Renders the inline ERB template in the scope of the object.
       #
-      # @param [String] template Source of the ERB template.
-      # @return [String] Result of the rendered template.
+      # @param [String] template
+      #   Source of the ERB template.
+      #
+      # @return [String]
+      #   Result of the rendered template.
       #
       # @example
       #   @user = 'lolcats'
@@ -48,8 +51,11 @@ module Ronin
       #
       # Renders an ERB template file in the scope of the object.
       #
-      # @param [String] template_path The relative path of the ERB template.
-      # @return [String] Result of the rendered template.
+      # @param [String] template_path
+      #   The relative path of the ERB template.
+      #
+      # @return [String]
+      #   Result of the rendered template.
       #
       # @example
       #   erb_file 'path/to/template.erb'

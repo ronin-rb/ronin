@@ -29,7 +29,8 @@ module Ronin
         #
         # Prints one or more messages.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @example
         #   puts 'some data'
@@ -43,7 +44,8 @@ module Ronin
         #
         # Prints one or more messages as +info+ output.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @example
         #   print_info 'Connecting ...'
@@ -57,7 +59,8 @@ module Ronin
         #
         # Prints one or more messages as +debug+ output.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @example
         #   print_debug "var1: #{var1.inspect}"
@@ -73,7 +76,8 @@ module Ronin
         #
         # Prints one or more messages as +warning+ output.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @example
         #   print_warning 'Detecting a restricted character in the buffer'
@@ -89,7 +93,8 @@ module Ronin
         #
         # Prints one or more messages as +error+ output.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @example
         #   print_error 'Could not connect!'

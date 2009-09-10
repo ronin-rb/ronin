@@ -41,11 +41,15 @@ module Ronin
       #
       # Create a new OverlayCache object.
       #
-      # @param [String] path The path of the overlay cache file.
+      # @param [String] path
+      #   The path of the overlay cache file.
       #
-      # @yield [cache] If a block is given, it will be passed the newly
-      #                created overlay cache.
-      # @yieldparam [OverlayCache] cache The newly created overly cache.
+      # @yield [cache]
+      #   If a block is given, it will be passed the newly created overlay
+      #   cache.
+      #
+      # @yieldparam [OverlayCache] cache
+      #   The newly created overly cache.
       #
       def initialize(path=CACHE_FILE,&block)
         super()
@@ -95,15 +99,16 @@ module Ronin
       end
 
       #
-      # @return [Boolean] Specifies whether the overlay cache has been
-      #                   modified.
+      # @return [Boolean]
+      #   Specifies whether the overlay cache has been modified.
       #
       def dirty?
         @dirty == true
       end
 
       #
-      # @return [Array] The sorted names of the overlays within the cache.
+      # @return [Array]
+      #   The sorted names of the overlays within the cache.
       #
       def names
         keys.sort
@@ -115,12 +120,15 @@ module Ronin
       #
       # Selects overlays from the overlay cache.
       #
-      # @yield [overlay] The block that will be passed each overlay.
-      #                  Overlays will be selected based on the return
-      #                  value of the block.
-      # @yieldparam [Overlay] overlay An overlay from the cache.
+      # @yield [overlay]
+      #   The block that will be passed each overlay. Overlays will be
+      #   selected based on the return value of the block.
       #
-      # @return [Array] The selected overlay.
+      # @yieldparam [Overlay] overlay
+      #   An overlay from the cache.
+      #
+      # @return [Array]
+      #   The selected overlay.
       #
       # @example
       #   cache.with do |overlay|
@@ -134,10 +142,12 @@ module Ronin
       #
       # Searches for the overlay with the specified _name_.
       #
-      # @param [String] name The name of the overlay to search for.
+      # @param [String] name
+      #   The name of the overlay to search for.
       #
-      # @return [Boolean] Specifies whether the cache contains the Overlay
-      #                   with the matching _name_.
+      # @return [Boolean]
+      #   Specifies whether the cache contains the Overlay with the
+      #   matching _name_.
       #
       def has?(name)
         has_key?(name.to_s)
@@ -146,11 +156,15 @@ module Ronin
       #
       # Searches for the overlay with the specified _name_.
       #
-      # @param [String] name The name of the overlay to search for.
+      # @param [String] name
+      #   The name of the overlay to search for.
       #
-      # @return [Overlay] The overlay with the matching _name_.
-      # @raise [OverlayNotFound] No overlay with the matching _name_ could
-      #                          be found in the overlay cache.
+      # @return [Overlay]
+      #   The overlay with the matching _name_.
+      #
+      # @raise [OverlayNotFound]
+      #   No overlay with the matching _name_ could be found in the
+      #   overlay cache.
       #
       def get(name)
         name = name.to_s
@@ -163,7 +177,8 @@ module Ronin
       end
 
       #
-      # @return [Array] The paths of the overlays contained in the cache.
+      # @return [Array]
+      #   The paths of the overlays contained in the cache.
       #
       def paths
         overlays.map { |overlay| overlay.path }
@@ -172,11 +187,12 @@ module Ronin
       #
       # Searches for an extension within all overlays in the overlay cache.
       #
-      # @param [String] name The name of the extension to search for.
+      # @param [String] name
+      #   The name of the extension to search for.
       #
-      # @return [Boolean] Specifies whether the extension with the
-      #                   specified _name_ exists within any of the
-      #                   overlays in the overlay cache.
+      # @return [Boolean]
+      #   Specifies whether the extension with the specified _name_ exists
+      #   within any of the overlays in the overlay cache.
       #
       def has_extension?(name)
         each_overlay do |overlay|
@@ -187,8 +203,8 @@ module Ronin
       end
 
       #
-      # @return [Array] The names of all extensions within the overlay
-      #                 cache.
+      # @return [Array]
+      #   The names of all extensions within the overlay cache.
       #
       def extensions
         ext_names = []
@@ -206,10 +222,11 @@ module Ronin
       # Selects the paths of extensions that have the specified _name_, in
       # all overlays in the overlay cache.
       #
-      # @param [String] name The name of the extension to gather paths for.
+      # @param [String] name
+      #   The name of the extension to gather paths for.
       #
-      # @return [Array] The paths of all extensions with the matching
-      #                 _name_.
+      # @return [Array]
+      #   The paths of all extensions with the matching _name_.
       #
       def extension_paths(name)
         ext_paths = []
@@ -226,10 +243,14 @@ module Ronin
       #
       # Adds an overlay with the specified _name_ to the overlay cache.
       #
-      # @param [String] name The name of the overlay.
-      # @param [Overlay] overlay The new overlay.
+      # @param [String] name
+      #   The name of the overlay.
       #
-      # @return [Overlay] overlay The new overlay.
+      # @param [Overlay] overlay
+      #   The new overlay.
+      #
+      # @return [Overlay]
+      #   The new overlay.
       #
       def []=(name,overlay)
         super(name.to_s,overlay)
@@ -241,12 +262,18 @@ module Ronin
       #
       # Adds an overlay to the cache.
       #
-      # @param [Overlay] overlay The overlay to add.
+      # @param [Overlay] overlay
+      #   The overlay to add.
       #
-      # @yield [overlay] If a block is given, it will be passed the overlay
-      #                  after it has been added to the cache.
-      # @yieldparam [Overlay] overlay The newly added overlay.
-      # @return [Overlay] The newly added overlay.
+      # @yield [overlay]
+      #   If a block is given, it will be passed the overlay after it has
+      #   been added to the cache.
+      #
+      # @yieldparam [Overlay] overlay
+      #   The newly added overlay.
+      #
+      # @return [Overlay]
+      #   The newly added overlay.
       #
       # @example
       #   cache.add(overlay)
@@ -257,8 +284,8 @@ module Ronin
       #     puts "Overlay #{overlay} added"
       #   end
       #
-      # @raise [OverlayCache] The specified _overlay_ has already been
-      #                       cached.
+      # @raise [OverlayCache]
+      #   The specified _overlay_ has already been cached.
       #
       def add(overlay,&block)
         name = overlay.name.to_s
@@ -277,9 +304,12 @@ module Ronin
       #
       # Updates all overlays in the cache.
       #
-      # @yield [overlay] If a block is given, it will be passed each
-      #                  overlay after it has been updated.
-      # @yieldparam [Overlay] overlay Each updated overlay in the cache.
+      # @yield [overlay]
+      #   If a block is given, it will be passed each overlay after it has
+      #   been updated.
+      #
+      # @yieldparam [Overlay] overlay
+      #   Each updated overlay in the cache.
       #
       # @example
       #   update
@@ -304,12 +334,17 @@ module Ronin
       # Removes an overlay from the overlay cache, but leaves the contents
       # of the overlay intact.
       #
-      # @param [String] name The name of the overlay to remove.
+      # @param [String] name
+      #   The name of the overlay to remove.
       #
-      # @yield [overlay] If a block is given, it will be passed the removed
-      #                  overlay.
-      # @yieldparam [Overlay] overlay The removed overlay.
-      # @return [Overlay] The removed overlay.
+      # @yield [overlay]
+      #   If a block is given, it will be passed the removed overlay.
+      #
+      # @yieldparam [Overlay] overlay
+      #   The removed overlay.
+      #
+      # @return [Overlay]
+      #   The removed overlay.
       #
       # @example
       #   cache.remove('hello_word')
@@ -336,11 +371,15 @@ module Ronin
       #
       # Uninstalls an overlay and its contents from the overlay cache.
       #
-      # @param [String] name The name of the overlay to uninstall.
+      # @param [String] name
+      #   The name of the overlay to uninstall.
       # 
-      # @yield [overlay] If a block is given, it will be passed the
-      #                  overlay, after it has been uninstalled.
-      # @yieldparam [Overlay] overlay The uninstalled overlay.
+      # @yield [overlay]
+      #   If a block is given, it will be passed the overlay, after it has
+      #   been uninstalled.
+      #
+      # @yieldparam [Overlay] overlay
+      #   The uninstalled overlay.
       #
       # @example
       #   cache.uninstall('hello_word')
@@ -387,7 +426,8 @@ module Ronin
       end
 
       #
-      # @return [String] The path of the cache.
+      # @return [String]
+      #   The path of the cache.
       #
       def to_s
         @path.to_s

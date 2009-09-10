@@ -28,17 +28,23 @@ module Ronin
     # Creates and starts a new Shell object with the specified _options_.
     # If a _block_ is given, it will be passed every command.
     #
-    # @param [Hash] options Additional options.
-    # @option options [String] :name ('')
-    #                                The shell-name to use before the
-    #                                prompt.
-    # @option options [String] :prompt (DEFAULT_PROMPT)
-    #                                  The prompt to use for the shell.
+    # @param [Hash] options
+    #   Additional options.
     #
-    # @yield [shell, line] The block that will be passed every command
-    #                      entered.
-    # @yieldparam [Shell] shell The shell to use for output.
-    # @yieldparam [String] line The command entered into the shell.
+    # @option options [String] :name ('')
+    #   The shell-name to use before the prompt.
+    #
+    # @option options [String] :prompt (DEFAULT_PROMPT)
+    #   The prompt to use for the shell.
+    #
+    # @yield [shell, line]
+    #   The block that will be passed every command entered.
+    #
+    # @yieldparam [Shell] shell
+    #   The shell to use for output.
+    #
+    # @yieldparam [String] line
+    #   The command entered into the shell.
     #
     # @example
     #   Shell.start(:prompt => '$') { |shell,line| system(line) }
@@ -73,7 +79,8 @@ module Ronin
     #
     # Print a character to the shell.
     #
-    # @param [String] char The character to print.
+    # @param [String] char
+    #   The character to print.
     #
     def Shell.putc(char)
       STDOUT.putc(char)
@@ -82,7 +89,8 @@ module Ronin
     #
     # Print a String to the shell.
     #
-    # @param [String] string The String to print.
+    # @param [String] string
+    #   The String to print.
     #
     def Shell.print(string)
       STDOUT.print(string)
@@ -91,7 +99,8 @@ module Ronin
     #
     # Print a String and a new-line character to the shell.
     #
-    # @param [String] string The String to print.
+    # @param [String] string
+    #   The String to print.
     #
     def Shell.puts(string)
       STDOUT.puts(string)
@@ -100,8 +109,11 @@ module Ronin
     #
     # Render the format-string and print the result to the shell.
     #
-    # @param [String] string The format-string to render.
-    # @param [Array] objects Additional objects to use in the format-string.
+    # @param [String] string
+    #   The format-string to render.
+    #
+    # @param [Array] objects
+    #   Additional objects to use in the format-string.
     #
     def Shell.printf(string,*objects)
       STDOUT.printf(string,*objects)

@@ -25,15 +25,26 @@ module Net
   # Creates a new TCPSocket object with the specified _host_, _port_
   # and the given _local_host_ and _local_port_.
   #
-  # @param [String] host The host to connect to.
-  # @param [Integer] port The port to connect to.
-  # @param [String] local_host The local host to bind to.
-  # @param [Integer] local_port The local port to bind to.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [socket] If a block is given, it will be passed the newly
-  #                 created socket.
-  # @yieldparam [TCPsocket] socket The newly created TCPSocket object.
-  # @return [TCPSocket] The newly created TCPSocket object.
+  # @param [Integer] port
+  #   The port to connect to.
+  #
+  # @param [String] local_host
+  #   The local host to bind to.
+  #
+  # @param [Integer] local_port
+  #   The local port to bind to.
+  #
+  # @yield [socket]
+  #   If a block is given, it will be passed the newly created socket.
+  #
+  # @yieldparam [TCPsocket] socket
+  #   The newly created TCPSocket object.
+  #
+  # @return [TCPSocket]
+  #   The newly created TCPSocket object.
   #
   # @example
   #   Net.tcp_connect('www.hackety.org',80) # => TCPSocket
@@ -57,15 +68,26 @@ module Net
   # the given _local_host_ and _local_port_. The specified _data_ will
   # then be written to the newly created TCPSocket.
   #
-  # @param [String] data The data to send through the connection.
-  # @param [String] host The host to connect to.
-  # @param [Integer] port The port to connect to.
-  # @param [String] local_host The local host to bind to.
-  # @param [Integer] local_port The local port to bind to.
+  # @param [String] data
+  #   The data to send through the connection.
   #
-  # @yield [socket] If a block is given, it will be passed the newly
-  #                 created socket.
-  # @yieldparam [TCPsocket] socket The newly created TCPSocket object.
+  # @param [String] host
+  #   The host to connect to.
+  #
+  # @param [Integer] port
+  #   The port to connect to.
+  #
+  # @param [String] local_host
+  #   The local host to bind to.
+  #
+  # @param [Integer] local_port
+  #   The local port to bind to.
+  #
+  # @yield [socket]
+  #   If a block is given, it will be passed the newly created socket.
+  #
+  # @yieldparam [TCPsocket] socket
+  #   The newly created TCPSocket object.
   #
   def Net.tcp_connect_and_send(data,host,port,local_host=nil,local_port=nil,&block)
     Net.tcp_connect(host,port,local_host,local_port) do |sock|
@@ -81,15 +103,24 @@ module Net
   # will be passed the newly created TCPSocket object. After the TCPSocket
   # object has been passed to the given _block_ it will be closed.
   #
-  # @param [String] host The host to connect to.
-  # @param [Integer] port The port to connect to.
-  # @param [String] local_host The local host to bind to.
-  # @param [Integer] local_port The local port to bind to.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [socket] If a block is given, it will be passed the newly
-  #                 created socket. After the block has returned, the
-  #                 socket will then be closed.
-  # @yieldparam [TCPsocket] socket The newly created TCPSocket object.
+  # @param [Integer] port
+  #   The port to connect to.
+  #
+  # @param [String] local_host
+  #   The local host to bind to.
+  #
+  # @param [Integer] local_port
+  #   The local port to bind to.
+  #
+  # @yield [socket]
+  #   If a block is given, it will be passed the newly created socket.
+  #   After the block has returned, the socket will then be closed.
+  #
+  # @yieldparam [TCPsocket] socket
+  #   The newly created TCPSocket object.
   #
   def Net.tcp_session(host,port,local_host=nil,local_port=nil,&block)
     Net.tcp_connect(host,port,local_host,local_port) do |sock|
@@ -105,15 +136,26 @@ module Net
   # _local_host_ and _local_port_, reads the banner then closes the
   # connection.
   #
-  # @param [String] host The host to connect to.
-  # @param [Integer] port The port to connect to.
-  # @param [String] local_host The local host to bind to.
-  # @param [Integer] local_port The local port to bind to.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [banner] If a block is given, it will be passed the grabbed
-  #                 banner.
-  # @yieldparam [String] banner The grabbed banner.
-  # @return [String] The grabbed banner.
+  # @param [Integer] port
+  #   The port to connect to.
+  #
+  # @param [String] local_host
+  #   The local host to bind to.
+  #
+  # @param [Integer] local_port
+  #   The local port to bind to.
+  #
+  # @yield [banner]
+  #   If a block is given, it will be passed the grabbed banner.
+  #
+  # @yieldparam [String] banner
+  #   The grabbed banner.
+  #
+  # @return [String]
+  #   The grabbed banner.
   #
   # @example
   #   Net.tcp_banner('pop.gmail.com',25)
@@ -135,13 +177,23 @@ module Net
   # and _local_port_, sends the specified _data_ and then closes the
   # connection.
   #
-  # @param [String] data The data to send through the connection.
-  # @param [String] host The host to connect to.
-  # @param [Integer] port The port to connect to.
-  # @param [String] local_host The local host to bind to.
-  # @param [Integer] local_port The local port to bind to.
+  # @param [String] data
+  #   The data to send through the connection.
   #
-  # @return [true] The data was successfully sent.
+  # @param [String] host
+  #   The host to connect to.
+  #
+  # @param [Integer] port
+  #   The port to connect to.
+  #
+  # @param [String] local_host
+  #   The local host to bind to.
+  #
+  # @param [Integer] local_port
+  #   The local port to bind to.
+  #
+  # @return [true]
+  #   The data was successfully sent.
   #
   # @example
   #   buffer = "GET /" + ('A' * 4096) + "\n\r"
@@ -159,9 +211,14 @@ module Net
   #
   # Creates a new TCPServer listening on the specified _host_ and _port_.
   #
-  # @param [Integer] port The local port to listen on.
-  # @param [String] host The host to bind to.
-  # @return [TCPServer] The new TCP server.
+  # @param [Integer] port
+  #   The local port to listen on.
+  #
+  # @param [String] host
+  #   The host to bind to.
+  #
+  # @return [TCPServer]
+  #   The new TCP server.
   #
   # @example
   #   Net.tcp_server(1337)
@@ -180,12 +237,19 @@ module Net
   # Creates a new TCPServer listening on the specified _host_ and _port_,
   # passing it to the given _block_ and then closing the server.
   #
-  # @param [Integer] port The local port to bind to.
-  # @param [String] host The host to bind to.
-  # @yield [server] The block which will be called after the _server_ has
-  #                 been created. After the block has finished, the
-  #                 _server_ will be closed.
-  # @yieldparam [TCPServer] server The newly created TCP server.
+  # @param [Integer] port
+  #   The local port to bind to.
+  #
+  # @param [String] host
+  #   The host to bind to.
+  #
+  # @yield [server]
+  #   The block which will be called after the _server_ has been created.
+  #   After the block has finished, the _server_ will be closed.
+  #
+  # @yieldparam [TCPServer] server
+  #   The newly created TCP server.
+  #
   # @return [nil]
   #
   # @example
@@ -211,12 +275,20 @@ module Net
   # Creates a new TCPServer listening on the specified _host_ and _port_,
   # then accepts only one client.
   #
-  # @param [Integer] port The local port to listen on.
-  # @param [String] host The host to bind to.
-  # @yield [client] The block which will be passed the newly connected
-  #                 _client_. After the block has finished, the _client_
-  #                 and the server will be closed.
-  # @yieldparam [TCPSocket] client The newly connected client.
+  # @param [Integer] port
+  #   The local port to listen on.
+  #
+  # @param [String] host
+  #   The host to bind to.
+  #
+  # @yield [client]
+  #   The block which will be passed the newly connected _client_.
+  #   After the block has finished, the _client_ and the server will be
+  #   closed.
+  #
+  # @yieldparam [TCPSocket] client
+  #   The newly connected client.
+  #
   # @return [nil]
   #
   # @example

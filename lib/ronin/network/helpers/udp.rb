@@ -35,10 +35,14 @@ module Ronin
         # +@local_port+ instance variables are set, they will be used for
         # the local host and port of the UDP connection.
         #
-        # @yield [socket] If a block is given, it will be passed the newly
-        #                 created socket.
-        # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
-        # @return [UDPSocket] The newly created UDPSocket object.
+        # @yield [socket]
+        #   If a block is given, it will be passed the newly created socket.
+        #
+        # @yieldparam [UDPsocket] socket
+        #   The newly created UDPSocket object.
+        #
+        # @return [UDPSocket]
+        #   The newly created UDPSocket object.
         #
         # @example
         #   udp_connect
@@ -66,12 +70,17 @@ module Ronin
         # +@local_host+ and +@local_port+ instance variables are set, they
         # will be used for the local host and port of the UDP connection.
         #
-        # @param [String] data The data to send through the connection.
+        # @param [String] data
+        #   The data to send through the connection.
         #
-        # @yield [socket] If a block is given, it will be passed the newly
-        #                 created socket.
-        # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
-        # @return [UDPSocket] The newly created UDPSocket object.
+        # @yield [socket]
+        #   If a block is given, it will be passed the newly created socket.
+        #
+        # @yieldparam [UDPsocket] socket
+        #   The newly created UDPSocket object.
+        #
+        # @return [UDPSocket]
+        #   The newly created UDPSocket object.
         #
         # @since 0.3.0
         #
@@ -91,10 +100,12 @@ module Ronin
         # +@local_port+ instance variables are set, they will be used for
         # the local host and port of the UDP connection.
         #
-        # @yield [socket] If a block is given, it will be passed the newly
-        #                 created socket. After the block has returned, the
-        #                 socket will then be closed.
-        # @yieldparam [UDPsocket] socket The newly created UDPSocket object.
+        # @yield [socket]
+        #   If a block is given, it will be passed the newly created socket.
+        #   After the block has returned, the socket will then be closed.
+        #
+        # @yieldparam [UDPsocket] socket
+        #   The newly created UDPSocket object.
         #
         # @since 0.3.0
         #
@@ -114,10 +125,14 @@ module Ronin
         # Creates a new UDPServer object listening on +server_host+ and
         # +server_port+.
         #
-        # @yield [server] The given block will be passed the newly created
-        #                 server.
-        # @yieldparam [UDPServer] server The newly created server.
-        # @return [UDPServer] The newly created server.
+        # @yield [server]
+        #   The given block will be passed the newly created server.
+        #
+        # @yieldparam [UDPServer] server
+        #   The newly created server.
+        #
+        # @return [UDPServer]
+        #   The newly created server.
         #
         # @example
         #   udp_server
@@ -141,10 +156,13 @@ module Ronin
         # +server_port+, passing it to the given _block then closing the
         # server.
         #
-        # @yield [server] The given block will be passed the newly created
-        #                 server. When the block has finished, the server
-        #                 will be closed.
-        # @yieldparam [UDPServer] server The newly created server.
+        # @yield [server]
+        #   The given block will be passed the newly created server.
+        #   When the block has finished, the server will be closed.
+        #
+        # @yieldparam [UDPServer] server
+        #   The newly created server.
+        #
         # @return [nil]
         #
         # @example

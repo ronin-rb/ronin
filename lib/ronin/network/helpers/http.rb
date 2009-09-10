@@ -41,25 +41,38 @@ module Ronin
         #
         # Connects to the HTTP server.
         #
-        # @param [Hash] options Additional options
-        # @option options [String, URI::HTTP] :url The full URL to request.
-        # @option options [String] :user The user to authenticate with
-        #                                when connecting to the HTTP server.
-        # @option options [String] :password The password to authenticate
-        #                                    with when connecting to the
-        #                                    HTTP server.
-        # @option options [String] :host The host the HTTP server is running
-        #                                on.
-        # @option options [Integer] :port (Net::HTTP.default_port)
-        #                                 The port the HTTP server is
-        #                                 listening on.
-        # @option options [String] :path The path to request from the HTTP
-        #                                server.
+        # @param [Hash] options
+        #   Additional options
         #
-        # @yield [session] If a block is given, it will be passes the new
-        #                  HTTP session object.
-        # @yieldparam [Net::HTTP] session The newly created HTTP session.
-        # @return [Net::HTTP] The HTTP session object.
+        # @option options [String, URI::HTTP] :url
+        #   The full URL to request.
+        #
+        # @option options [String] :user
+        #   The user to authenticate with when connecting to the HTTP
+        #   server.
+        #
+        # @option options [String] :password
+        #   The password to authenticate with when connecting to the HTTP
+        #   server.
+        #
+        # @option options [String] :host
+        #   The host the HTTP server is running on.
+        #
+        # @option options [Integer] :port (Net::HTTP.default_port)
+        #   The port the HTTP server is listening on.
+        #
+        # @option options [String] :path
+        #   The path to request from the HTTP server.
+        #
+        # @yield [session]
+        #   If a block is given, it will be passes the new HTTP session
+        #   object.
+        #
+        # @yieldparam [Net::HTTP] session
+        #   The newly created HTTP session.
+        #
+        # @return [Net::HTTP]
+        #   The HTTP session object.
         #
         # @since 0.3.0
         #
@@ -71,22 +84,27 @@ module Ronin
         # Connects to the HTTP server and sends an HTTP Request using the
         # given _options_.
         #
-        # @param [Hash] options Additional options.
-        # @option options [Hash] :headers The Hash of the HTTP headers to
-        #                                 send with the request. May contain
-        #                                 either Strings or Symbols,
-        #                                 lower-case or camel-case keys.
+        # @param [Hash] options
+        #   Additional options.
         #
-        # @yield [request, (options)] If a block is given, it will be
-        #                             passed the HTTP request object. If
-        #                             the block has an arity of 2, it will
-        #                             also be passed the expanded version
-        #                             of the given _options_.
-        # @yieldparam [Net::HTTP::Request] request The HTTP request object
-        #                                  to use in the request.
-        # @yieldparam [Hash] options The expanded version of the given
-        #                            _options_.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @option options [Hash{String,Symbol => Object}] :headers
+        #   The Hash of the HTTP headers to send with the request.
+        #   May contain either Strings or Symbols, lower-case or
+        #   camel-case keys.
+        #
+        # @yield [request, (options)]
+        #   If a block is given, it will be passed the HTTP request object.
+        #   If the block has an arity of 2, it will also be passed the
+        #   expanded version of the given _options_.
+        #
+        # @yieldparam [Net::HTTP::Request] request
+        #   The HTTP request object to use in the request.
+        #
+        # @yieldparam [Hash] options
+        #   The expanded version of the given _options_.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_session
         # @since 0.3.0
@@ -98,11 +116,15 @@ module Ronin
         #
         # Performes an HTTP Copy request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -114,11 +136,15 @@ module Ronin
         #
         # Performes an HTTP Delete request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -130,11 +156,15 @@ module Ronin
         #
         # Performes an HTTP Get request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -146,11 +176,15 @@ module Ronin
         #
         # Performes an HTTP Get request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [String] The body of the HTTP Get request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [String]
+        #   The body of the HTTP Get request.
         #
         # @see http_get
         # @since 0.3.0
@@ -162,11 +196,15 @@ module Ronin
         #
         # Performes an HTTP Head request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -178,11 +216,15 @@ module Ronin
         #
         # Performes an HTTP Lock request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -194,11 +236,15 @@ module Ronin
         #
         # Performes an HTTP Mkcol request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -210,11 +256,15 @@ module Ronin
         #
         # Performes an HTTP Move request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -226,11 +276,15 @@ module Ronin
         #
         # Performes an HTTP Options request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -242,15 +296,21 @@ module Ronin
         #
         # Performes an HTTP Post request with the given _options_.
         #
-        # @param [Hash] options Additional options.
-        # @option options [String] :post_data The +POSTDATA+ to send with
-        #                                     the HTTP Post request.
+        # @param [Hash] options
+        #   Additional options.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @option options [String] :post_data
+        #   The +POSTDATA+ to send with the HTTP Post request.
+        #
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -262,11 +322,15 @@ module Ronin
         #
         # Performes an HTTP Post request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [String] The body of the Post request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [String]
+        #   The body of the Post request.
         #
         # @see http_post
         # @since 0.3.0
@@ -278,11 +342,15 @@ module Ronin
         #
         # Performes an HTTP Propfind request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -294,11 +362,15 @@ module Ronin
         #
         # Performes an HTTP Proppatch request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -310,11 +382,15 @@ module Ronin
         #
         # Performes an HTTP Trace request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0
@@ -326,11 +402,15 @@ module Ronin
         #
         # Performes an HTTP Unlock request with the given _options_.
         #
-        # @yield [response] If a block is given, it will be passed the
-        #                   response received from the request.
-        # @yieldparam [Net::HTTP::Response] response The HTTP response
-        #                                            object.
-        # @return [Net::HTTP::Response] The response of the HTTP request.
+        # @yield [response]
+        #   If a block is given, it will be passed the response received
+        #   from the request.
+        #
+        # @yieldparam [Net::HTTP::Response] response
+        #   The HTTP response object.
+        #
+        # @return [Net::HTTP::Response]
+        #   The response of the HTTP request.
         #
         # @see http_request
         # @since 0.3.0

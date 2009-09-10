@@ -49,8 +49,8 @@ module Ronin
     # +CONFIG_FILE+. Defaults to +DEFAULT_CONFIG+ if +CONFIG_FILE+ does not
     # exist.
     #
-    # @raise [InvalidConfig] The config file did not contain a YAML Hash or
-    #                        String.
+    # @raise [InvalidConfig]
+    #   The config file did not contain a YAML Hash or String.
     #
     def Database.config
       unless (class_variable_defined?('@@ronin_database_config'))
@@ -73,15 +73,16 @@ module Ronin
     #
     # Sets the Database configuration.
     #
-    # @param [String, Hash] configuration The DataMapper configuration to
-    #                                     set the Ronin::Database with.
+    # @param [String, Hash] configuration
+    #   The DataMapper configuration to set the Ronin::Database with.
     #
     def Database.config=(configuration)
       @@ronin_database_config = configuration
     end
 
     #
-    # @return [DataMapper::Logger, nil] The current Database log.
+    # @return [DataMapper::Logger, nil]
+    #   The current Database log.
     #
     def Database.log
       @@ronin_database_log ||= nil
@@ -90,15 +91,21 @@ module Ronin
     #
     # Setup the Database log.
     #
-    # @param [Hash] options Additional options.
-    # @option options [String] :path (DEFAULT_LOG_PATH)
-    #                                The path of the log file.
-    # @option options [IO] :stream The stream to use for the log.
-    # @option options [Symbol] :level The level of messages to log.
-    #                                 May be either +:fatal+, +:error+,
-    #                                 +:warn+, +:info+ or +:debug+.
+    # @param [Hash] options
+    #   Additional options.
     #
-    # @return [DataMapper::Logger] The new Database log.
+    # @option options [String] :path (DEFAULT_LOG_PATH)
+    #   The path of the log file.
+    #
+    # @option options [IO] :stream
+    #   The stream to use for the log.
+    #
+    # @option options [Symbol] :level
+    #   The level of messages to log.
+    #   May be either +:fatal+, +:error+, +:warn+, +:info+ or +:debug+.
+    #
+    # @return [DataMapper::Logger]
+    #   The new Database log.
     #
     def Database.setup_log(options={})
       path = (options[:path] || DEFAULT_LOG_PATH)
@@ -109,7 +116,8 @@ module Ronin
     end
 
     #
-    # @return [Boolean] Specifies wether or not the Database is setup.
+    # @return [Boolean]
+    #   Specifies wether or not the Database is setup.
     #
     def Database.setup?
       repository = DataMapper.repository(Model::REPOSITORY_NAME)
@@ -121,7 +129,8 @@ module Ronin
     # Updates the Database, by running auto-upgrades, but only if the
     # Database is already setup.
     #
-    # @yield [] The block to call before the Database is updated.
+    # @yield []
+    #   The block to call before the Database is updated.
     #
     def Database.update!(&block)
       block.call if block
@@ -133,11 +142,12 @@ module Ronin
     #
     # Sets up the Database.
     #
-    # @param [String, Hash] configuration The DataMapper configuration to
-    #                                     use to setup the Database.
+    # @param [String, Hash] configuration
+    #   The DataMapper configuration to use to setup the Database.
     # 
-    # @yield [] The block to call after the Database has been setup, but
-    #           before it is updated.
+    # @yield []
+    #   The block to call after the Database has been setup, but before
+    #   it is updated.
     #
     def Database.setup(configuration=Database.config,&block)
       # setup the database log

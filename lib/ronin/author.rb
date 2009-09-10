@@ -56,15 +56,26 @@ module Ronin
     # Creates a new Author object with the given _options_. If _block_ is
     # given, it will be passed the newly created Author object.
     #
-    # @param [Hash] options Additional options.
-    # @option options [String] :name (ANONYMOUSE) The name of the author.
-    # @option options [String] :organization The organization the author
-    #                                        belongs to.
-    # @option options [String] :pgp_signature The PGP fingerprint of the
-    #                                         author.
-    # @option options [String] :email The email to contact the author.
-    # @option options [String] :url The URL of the author.
-    # @option options [String] :biography The biography of the author.
+    # @param [Hash] options
+    #   Additional options.
+    #
+    # @option options [String] :name (ANONYMOUSE)
+    #   The name of the author.
+    #
+    # @option options [String] :organization
+    #   The organization the author belongs to.
+    #
+    # @option options [String] :pgp_signature
+    #   The PGP fingerprint of the author.
+    #
+    # @option options [String] :email
+    #   The email to contact the author.
+    #
+    # @option options [String] :url
+    #   The URL of the author.
+    #
+    # @option options [String] :biography
+    #   The biography of the author.
     #
     def initialize(options={},&block)
       super(options)
@@ -75,7 +86,8 @@ module Ronin
     #
     # Converts the author to a String.
     #
-    # @return [String] The name of the author.
+    # @return [String]
+    #   The name of the author.
     #
     def to_s
       self.name.to_s

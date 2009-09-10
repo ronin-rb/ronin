@@ -30,9 +30,11 @@ module Ronin
     #
     # Load the overlay cache.
     #
-    # @param [String] path The optional path to the overlay cache file.
+    # @param [String] path
+    #   The optional path to the overlay cache file.
     #
-    # @return [OverlayCache] The newly loaded overlay cache.
+    # @return [OverlayCache]
+    #   The newly loaded overlay cache.
     #
     # @example
     #   Overlay.load_overlays
@@ -47,9 +49,9 @@ module Ronin
     end
 
     #
-    # @return [OverlayCache] The current overlay cache. If no overlay
-    #                        cache is present, the default overlay will be
-    #                        loaded.
+    # @return [OverlayCache]
+    #   The current overlay cache. If no overlay cache is present, the
+    #   default overlay will be loaded.
     #
     def Platform.overlays
       @@ronin_overlay_cache ||= OverlayCache.new
@@ -58,23 +60,34 @@ module Ronin
     #
     # Adds a new overlay to the overlay cache.
     #
-    # @param [Hash] options Additional options.
-    # @option options [String] :path A pre-existing path to the overlay.
-    # @option options [Symbol] :media The media type of the overlay, may
-    #                                 be either +:git+, +:hg+, +:svn+ or
-    #                                 +:rsync+.
-    # @option options [String, URI::HTTP, URI::HTTPS] uri The URI of the
-    #                                                     overlay.
+    # @param [Hash] options
+    #   Additional options.
     #
-    # @yield [overlay] If a block is given, it will be passed the
-    #                  overlay after it has been added to the cache.
-    # @yieldparam [Overlay] overlay The newly added overlay.
+    # @option options [String] :path
+    #   A pre-existing path to the overlay.
     #
-    # @return [Overlay] The newly added overlay.
+    # @option options [Symbol] :media
+    #   The media type of the overlay, may be either +:git+, +:hg+,
+    #   +:svn+ or +:rsync+.
     #
-    # @raise [ArgumentError] The +:path+ option was not specified.
-    # @raise [OverlayNotFound] The +:path+ option did not represent a
-    #                          valid directory.
+    # @option options [String, URI::HTTP, URI::HTTPS] uri
+    #   The URI of the overlay.
+    #
+    # @yield [overlay]
+    #   If a block is given, it will be passed the overlay after it has
+    #   been added to the cache.
+    #
+    # @yieldparam [Overlay] overlay
+    #   The newly added overlay.
+    #
+    # @return [Overlay]
+    #   The newly added overlay.
+    #
+    # @raise [ArgumentError]
+    #   The +:path+ option was not specified.
+    #
+    # @raise [OverlayNotFound]
+    #   The +:path+ option did not represent a valid directory.
     #
     def Platform.add(options={},&block)
       path = options[:path]
@@ -106,20 +119,28 @@ module Ronin
     # Installs an overlay into the OverlayCache::CACHE_DIR and adds it
     # to the overlay cache.
     #
-    # @param [Hash] options Additional options.
-    # @option options [String, URI::HTTP, URI::HTTPS] :uri The URI to the
-    #                                                      overlay.
-    # @option options [Symbol] :media The media type of the overlay, may
-    #                                 be either +:git+, +:hg+, +:svn+ or
-    #                                 +:rsync+.
+    # @param [Hash] options
+    #   Additional options.
     #
-    # @yield [overlay] If a block is given, it will be passed the overlay,
-    #                  after it has been installed.
-    # @yieldparam [Overlay] overlay The newly installed overlay.
+    # @option options [String, URI::HTTP, URI::HTTPS] :uri
+    #   The URI to the overlay.
     #
-    # @return [Overlay] The newly installed overlay.
+    # @option options [Symbol] :media
+    #   The media type of the overlay, may be either +:git+, +:hg+,
+    #   +:svn+ or +:rsync+.
     #
-    # @raise [ArgumentError] The +:uri+ option must be specified.
+    # @yield [overlay]
+    #   If a block is given, it will be passed the overlay, after it has
+    #   been installed.
+    #
+    # @yieldparam [Overlay] overlay
+    #   The newly installed overlay.
+    #
+    # @return [Overlay]
+    #   The newly installed overlay.
+    #
+    # @raise [ArgumentError]
+    #   The +:uri+ option must be specified.
     #
     def Platform.install(options={},&block)
       unless options[:uri]
@@ -144,8 +165,9 @@ module Ronin
     #
     # Updates all previously installed overlays within the overlay cache.
     #
-    # @yield [] If a block is given, it will be called after all overlays
-    #           have been updated within the cache.
+    # @yield []
+    #   If a block is given, it will be called after all overlays have been
+    #   updated within the cache.
     #
     def Platform.update(&block)
       Platform.overlays.update do |overlay|
@@ -160,14 +182,19 @@ module Ronin
     # Removes an overlay from the overlay cache, but leaves the contents
     # of the overlay intact.
     #
-    # @param [String] name The name of the overlay to remove.
+    # @param [String] name
+    #   The name of the overlay to remove.
     #
-    # @yield [overlay] If a block is given, it will be passed the overlay
-    #                  after it has been removed.
-    # @yieldparam [Overlay] overlay The removed overlay.
+    # @yield [overlay]
+    #   If a block is given, it will be passed the overlay after it has
+    #   been removed.
     #
-    # @raise [OverlayNotFound] The overlay with the specified _name_ could
-    #                          not be found in the overlay cache.
+    # @yieldparam [Overlay] overlay
+    #   The removed overlay.
+    #
+    # @raise [OverlayNotFound]
+    #   The overlay with the specified _name_ could not be found in the
+    #   overlay cache.
     #
     def Platform.remove(name,&block)
       Platform.overlays.remove(name,&block)
@@ -178,13 +205,16 @@ module Ronin
     # Uninstalls an overlay from the overlay cache, and deletes the
     # contents of the overlay.
     #
-    # @param [String] name The name of the overlay to uninstall.
+    # @param [String] name
+    #   The name of the overlay to uninstall.
     #
-    # @yield [] If a block is given, it will be called after the overlay
-    #           has been uninstalled.
+    # @yield []
+    #   If a block is given, it will be called after the overlay has been
+    #   uninstalled.
     #
-    # @raise [OverlayNotFound] The overlay with the specified _name_ could
-    #                          not be found in the overlay cache.
+    # @raise [OverlayNotFound]
+    #   The overlay with the specified _name_ could not be found in the
+    #   overlay cache.
     #
     def Platform.uninstall(name,&block)
       Platform.overlays.uninstall(name) do |overlay|
@@ -196,8 +226,9 @@ module Ronin
     end
 
     #
-    # @return [Array] The names of all extensions within the overlays in
-    #                 the overlay cache.
+    # @return [Array]
+    #   The names of all extensions within the overlays in the overlay
+    #   cache.
     #
     def Platform.extension_names
       Platform.overlays.extensions
@@ -207,10 +238,12 @@ module Ronin
     # Searches for the extension with the specified _name_, in all
     # overlays within the overlay cache.
     #
-    # @param [String] name The name of the extension to search for.
+    # @param [String] name
+    #   The name of the extension to search for.
     #
-    # @return [Boolean] Specifies whether the overlay cache contains the
-    #                   extension with the matching _name_.
+    # @return [Boolean]
+    #   Specifies whether the overlay cache contains the extension with
+    #   the matching _name_.
     #
     def Platform.has_extension?(name)
       Platform.overlays.has_extension?(name)
@@ -219,8 +252,8 @@ module Ronin
     #
     # The extension cache.
     #
-    # @return [ExtensionCache] The extension cache of all currently loaded
-    #                          extensions.
+    # @return [ExtensionCache]
+    #   The extension cache of all currently loaded extensions.
     #
     # @example
     #   Platform.extensions['shellcode']
@@ -234,17 +267,22 @@ module Ronin
     # Loads an extension into the extension cache, if it has yet to be
     # loaded.
     #
-    # @param [String] name The name of the desired extension.
+    # @param [String] name
+    #   The name of the desired extension.
     #
-    # @yield [ext] If a block is given, it will be passed the extension
-    #              with the matching _name_.
-    # @yieldparam [Extension] The desired extension.
+    # @yield [ext]
+    #   If a block is given, it will be passed the extension with the
+    #   matching _name_.
     #
-    # @return [Extension] The desired extension.
+    # @yieldparam [Extension]
+    #   The desired extension.
     #
-    # @raise [ExtensionNotFound] The extension with the specified _name_
-    #                            could not be found in any of the overlays
-    #                            or in the extension cache.
+    # @return [Extension]
+    #   The desired extension.
+    #
+    # @raise [ExtensionNotFound]
+    #   The extension with the specified _name_ could not be found in any
+    #   of the overlays or in the extension cache.
     #
     def Platform.extension(name,&block)
       ext = Platform.extensions[name]
@@ -256,7 +294,8 @@ module Ronin
     #
     # Reloads the overlay cache and the extension cache.
     #
-    # @return [Boolean] Specifies whether the reload was successful or not.
+    # @return [Boolean]
+    #   Specifies whether the reload was successful or not.
     #
     def Platform.reload!
       Platform.overlays.reload! && Platform.extensions.reload!

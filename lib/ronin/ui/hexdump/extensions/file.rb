@@ -25,8 +25,11 @@ class File
   #
   # Hexdumps the contents of the File.
   #
-  # @param [String] path The path to the File to hexdump.
-  # @param [IO] output The output stream to print the hexdump to.
+  # @param [String] path
+  #   The path to the File to hexdump.
+  #
+  # @param [IO] output
+  #   The output stream to print the hexdump to.
   #
   def self.hexdump(path,output=STDOUT)
     self.open(path) do |file|

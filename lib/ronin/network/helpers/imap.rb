@@ -34,23 +34,29 @@ module Ronin
         # +@imap_auth+, +@imap_user+ and +@imap_password+ instance
         # variables will also be used to make the connection.
         #
-        # @param [Hash] options Additional options.
+        # @param [Hash] options
+        #   Additional options.
+        #
         # @option options [Integer] :port (IMAP.default_port)
-        #                                 The port the IMAP server is
-        #                                 running on.
-        # @option options [String] :certs The path to the file containing CA
-        #                                 certs of the server.
-        # @option options [Symbol] :auth The type of authentication to
-        #                                perform when connecting to the
-        #                                server. May be either +:login+ or
-        #                                +:cram_md5+.
-        # @option options [String] :user The user to authenticate as when
-        #                                connecting to the server.
-        # @option options [String] :password The password to authenticate
-        #                                    with when connecting to the
-        #                                    server.
-        # @option options [Boolean] Indicates wether or not to use SSL
-        #                           when connecting to the server.
+        #   The port the IMAP server is running on.
+        #
+        # @option options [String] :certs
+        #   The path to the file containing CA certs of the server.
+        #
+        # @option options [Symbol] :auth
+        #   The type of authentication to perform when connecting to the
+        #   server. May be either +:login+ or +:cram_md5+.
+        #
+        # @option options [String] :user
+        #   The user to authenticate as when connecting to the server.
+        #
+        # @option options [String] :password
+        #   The password to authenticate with when connecting to the
+        #   server.
+        #
+        # @option options [Boolean]
+        #   Indicates wether or not to use SSL when connecting to the
+        #   server.
         #
         # @since 0.3.0
         #
@@ -76,11 +82,13 @@ module Ronin
         # +@imap_auth+, +@imap_user+ and +@imap_password+ instance
         # variables will also be used to make the connection.
         #
-        # @yield [session] If a _block_ is given, it will be passed the
-        #                  newly created IMAP session. After the _block_
-        #                  has returned, the session will be closed.
-        # @yieldparam [Net::IMAP] session The newly created IMAP session
-        #                                 object.
+        # @yield [session]
+        #   If a _block_ is given, it will be passed the newly created
+        #   IMAP session. After the _block_ has returned, the session will
+        #   be closed.
+        #
+        # @yieldparam [Net::IMAP] session
+        #   The newly created IMAP session object.
         #
         # @see imap_connect
         # @since 0.3.0

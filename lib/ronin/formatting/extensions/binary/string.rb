@@ -30,11 +30,14 @@ class String
   # Packs an Integer from a String, which was originally packed for
   # a specific architecture and address-length.
   #
-  # @param [Ronin::Arch] arch The architecture that the Integer was
-  #                           originally packed with.
-  # @param [Integer] address_length The number of bytes to depack.
+  # @param [Ronin::Arch] arch
+  #   The architecture that the Integer was originally packed with.
   #
-  # @return [Integer] The depacked Integer.
+  # @param [Integer] address_length
+  #   The number of bytes to depack.
+  #
+  # @return [Integer]
+  #   The depacked Integer.
   #
   # @example
   #   0x41.pack(Arch('i686')) # => "A\000\000\000"
@@ -65,7 +68,8 @@ class String
   end
 
   #
-  # @return [String] The hex escaped version of the String.
+  # @return [String]
+  #   The hex escaped version of the String.
   #
   # @example
   #   "hello".hex_escape
@@ -76,7 +80,8 @@ class String
   end
 
   #
-  # @return [String] The unescaped version of the hex escaped String.
+  # @return [String]
+  #   The unescaped version of the hex escaped String.
   #
   # @example
   #   "\\x68\\x65\\x6c\\x6c\\x6f".hex_unescape
@@ -134,9 +139,11 @@ class String
   #
   # XOR encodes the String.
   #
-  # @param [Integer] key The byte to XOR against each byte in the String.
+  # @param [Integer] key
+  #   The byte to XOR against each byte in the String.
   #
-  # @return [String] The XOR encoded String.
+  # @return [String]
+  #   The XOR encoded String.
   #
   # @example
   #   "hello".xor(0x41)

@@ -43,7 +43,8 @@ module Ronin
     #
     # Converts the os to a String.
     #
-    # @return [String] The OS name and version.
+    # @return [String]
+    #   The OS name and version.
     #
     # @example
     #   os = OS.new(:name => 'Linux', :version => '2.6.11')
@@ -60,9 +61,11 @@ module Ronin
     #
     # Defines a new predefined OS.
     #
-    # @param [Symbol, String] name The method name to define for the
-    #                              builtin OS.
-    # @param [String] os_name The name of the OS.
+    # @param [Symbol, String] name
+    #   The method name to define for the builtin OS.
+    #
+    # @param [String] os_name
+    #   The name of the OS.
     #
     # @example
     #   OS.predefine :freebsd, 'FreeBSD'

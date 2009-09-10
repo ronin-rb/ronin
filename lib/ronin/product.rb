@@ -45,10 +45,17 @@ module Ronin
     #
     # Creates a new Product object.
     #
-    # @param [Hash] attributes Attributes of the product.
-    # @option attributes [String] :name The name of the product.
-    # @option attributes [String] :vendor The vendor of the product.
-    # @option attributes [String] :version The vesion of the product.
+    # @param [Hash] attributes
+    #   Attributes of the product.
+    #
+    # @option attributes [String] :name
+    #   The name of the product.
+    #
+    # @option attributes [String] :vendor
+    #   The vendor of the product.
+    #
+    # @option attributes [String] :version
+    #   The vesion of the product.
     #
     def initialize(attributes={})
       attributes[:vendor] ||= attributes[:name]
@@ -59,7 +66,8 @@ module Ronin
     #
     # Converts the product to a String.
     #
-    # @return [String] The product vendor, name and version.
+    # @return [String]
+    #   The product vendor, name and version.
     #
     def to_s
       unless self.vendor == self.name

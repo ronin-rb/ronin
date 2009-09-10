@@ -97,15 +97,21 @@ module Ronin
       # and _uri_. If a _block_ is given it will be passed the newly
       # created Overlay object.
       #
-      # @param [String] path The path to the overlay.
-      # @param [Symbol] media The media of the overlay. Can be either
-      #                       +:git+, +:hg+, +:snv+ or +:rsync+.
-      # @param [String, URI::HTTP, URI::HTTPS] uri The URI the overlay
-      #                                            resides at.
+      # @param [String] path
+      #   The path to the overlay.
       #
-      # @yield [overlay] If a block is given, the overlay will be passed
-      #                  to it.
-      # @yieldparam [Overlay] overlay The newly created overlay.
+      # @param [Symbol] media
+      #   The media of the overlay. Can be either +:git+, +:hg+, +:snv+ or
+      #   +:rsync+.
+      #
+      # @param [String, URI::HTTP, URI::HTTPS] uri
+      #   The URI the overlay resides at.
+      #
+      # @yield [overlay]
+      #   If a block is given, the overlay will be passed to it.
+      #
+      # @yieldparam [Overlay] overlay
+      #   The newly created overlay.
       #
       def initialize(path,media=nil,uri=nil,&block)
         @path = File.expand_path(path)
@@ -121,14 +127,16 @@ module Ronin
       end
 
       #
-      # @return [Symbol] The media type of the overlay.
+      # @return [Symbol]
+      #   The media type of the overlay.
       #
       def media
         @repository.media_name
       end
 
       #
-      # @return [Array] The paths of all extensions within the overlay.
+      # @return [Array]
+      #   The paths of all extensions within the overlay.
       #
       def extension_paths
         @repository.directories.reject do |dir|
@@ -139,7 +147,8 @@ module Ronin
       end
 
       #
-      # @return [Array] The names of all extensions within the overlay.
+      # @return [Array]
+      #   The names of all extensions within the overlay.
       #
       def extensions
         extension_paths.map { |dir| File.basename(dir) }
@@ -149,11 +158,12 @@ module Ronin
       # Searches for the extension with the specified _name_ within the
       # overlay.
       #
-      # @param [String, Symbol] name The name of the extension to search
-      #                              for.
+      # @param [String, Symbol] name
+      #   The name of the extension to search for.
       #
-      # @return [Boolean] Specifies whether the overlay contains the
-      #                   extension with the specified _name_.
+      # @return [Boolean]
+      #   Specifies whether the overlay contains the extension with the
+      #   specified _name_.
       #
       def has_extension?(name)
         name = File.basename(name.to_s)
@@ -163,8 +173,9 @@ module Ronin
       end
 
       #
-      # @return [Array] The +lib+ directories of the overlay and the
-      #                 extensions within the overlay.
+      # @return [Array]
+      #   The +lib+ directories of the overlay and the extensions within
+      #   the overlay.
       #
       def lib_dirs
         dirs = []
@@ -217,11 +228,15 @@ module Ronin
       #
       # Updates the overlay and reloads it's metadata.
       #
-      # @yield [overlay] If a block is given, it will be passed after
-      #                  the overlay has been updated.
-      # @yieldparam [Overlay] overlay The updated overlay.
+      # @yield [overlay]
+      #   If a block is given, it will be passed after the overlay has
+      #   been updated.
       #
-      # @return [Overlay] The updated overlay.
+      # @yieldparam [Overlay] overlay
+      #   The updated overlay.
+      #
+      # @return [Overlay]
+      #   The updated overlay.
       #
       def update(&block)
         if @repository.update(@uri)
@@ -235,11 +250,15 @@ module Ronin
       #
       # Deletes the contents of the overlay.
       #
-      # @yield [overlay] If a block is given, it will be passed the overlay
-      #                  after it's contents have been deleted.
-      # @yieldparam [Overlay] overlay The deleted overlay.
+      # @yield [overlay]
+      #   If a block is given, it will be passed the overlay after it's
+      #   contents have been deleted.
       #
-      # @return [Overlay] The deleted overlay.
+      # @yieldparam [Overlay] overlay
+      #   The deleted overlay.
+      #
+      # @return [Overlay]
+      #   The deleted overlay.
       #
       def uninstall(&block)
         @repository.delete
@@ -249,7 +268,8 @@ module Ronin
       end
 
       #
-      # @return [String] The name of the overlay.
+      # @return [String]
+      #   The name of the overlay.
       #
       def to_s
         @name.to_s

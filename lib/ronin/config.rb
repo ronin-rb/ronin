@@ -40,9 +40,9 @@ module Ronin
     #
     # Loads the Ronin configuration file.
     #
-    # @param [String, nil] name The optional name of the file to load within
-    #                           +CONFIG_DIR+. If no name is given,
-    #                           +CONFIG_PATH+ will simply be loaded.
+    # @param [String, nil] name
+    #   The optional name of the file to load within +CONFIG_DIR+.
+    #   If no name is given, +CONFIG_PATH+ will simply be loaded.
     #
     # @example Load the main config file at <tt>~/.ronin/config.rb</tt>
     #   Config.load

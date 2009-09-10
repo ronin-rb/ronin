@@ -43,21 +43,33 @@ module Ronin
         # +@smtp_login+, +@smtp_user+ and +@smtp_password+ instance
         # variables will also be used to connect to the server.
         #
-        # @param [Hash] options Additional options.
-        # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
-        #                                 The port to connect to.
-        # @option options [String] :helo The HELO domain.
-        # @option options [Symbol] :auth The type of authentication to use.
-        #                                Can be either +:login+, +:plain+,
-        #                                or +:cram_md5+.
-        # @option options [String] :user The user-name to authenticate with.
-        # @option options [String] :password The password to authenticate
-        #                                    with.
+        # @param [Hash] options
+        #   Additional options.
         #
-        # @yield [session] If a block is given, it will be passed an SMTP
-        #                  session object.
-        # @yieldparam [Net::SMTP] session The SMTP session.
-        # @return [Net::SMTP] the SMTP session.
+        # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
+        #   The port to connect to.
+        #
+        # @option options [String] :helo
+        #   The HELO domain.
+        #
+        # @option options [Symbol] :auth
+        #   The type of authentication to use. Can be either +:login+,
+        #   +:plain+ or +:cram_md5+.
+        #
+        # @option options [String] :user
+        #   The user-name to authenticate with.
+        #
+        # @option options [String] :password
+        #   The password to authenticate with.
+        #
+        # @yield [session]
+        #   If a block is given, it will be passed an SMTP session object.
+        #
+        # @yieldparam [Net::SMTP] session
+        #   The SMTP session.
+        #
+        # @return [Net::SMTP]
+        #   The SMTP session.
         #
         # @since 0.3.0
         #
@@ -83,10 +95,12 @@ module Ronin
         # +@smtp_login+, +@smtp_user+ and +@smtp_password+ instance
         # variables will also be used to connect to the server.
         #
-        # @yield [session] If a block is given, it will be passed an SMTP
-        #                  session object. After the block has returned, the
-        #                  session will be closed.
-        # @yieldparam [Net::SMTP] session The SMTP session.
+        # @yield [session]
+        #   If a block is given, it will be passed an SMTP session object.
+        #   After the block has returned, the session will be closed.
+        #
+        # @yieldparam [Net::SMTP] session
+        #   The SMTP session.
         #
         # @see smtp_connect
         # @since 0.3.0

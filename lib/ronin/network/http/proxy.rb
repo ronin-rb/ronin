@@ -29,14 +29,18 @@ module Ronin
         #
         # Creates a new Proxy object that represents a proxy to connect to.
         #
-        # @param [Hash] options Additional options for the proxy.
-        # @option options [String] :host The host-name of the proxy.
+        # @param [Hash] options
+        #   Additional options for the proxy.
+        #
+        # @option options [String] :host
+        #   The host-name of the proxy.
+        #
         # @option options [Integer] :port (DEFAULT_PORT)
-        #                                 The port that the proxy is
-        #                                 running on.
-        # @option options [String] :user The user-name to authenticate as.
-        # @option options [String] :password The password to authenticate
-        #                                    with.
+        #   The port that the proxy is running on.
+        # @option options [String] :user
+        #   The user-name to authenticate as.
+        # @option options [String] :password
+        #   The password to authenticate with.
         #
         def initialize(options={})
           super()
@@ -62,16 +66,17 @@ module Ronin
         #
         # Specifies whether the proxy object is usable.
         #
-        # @return [Boolean] Specifies whether the proxy object is
-        #                   usable by Net::HTTP::Proxy.
+        # @return [Boolean]
+        #   Specifies whether the proxy object is usable by
+        #   Net::HTTP::Proxy.
         #
         def enabled?
           !(self[:host].nil? || self[:port].nil?)
         end
 
         #
-        # @return [String, nil] The host-name to connect when using the
-        #                       proxy.
+        # @return [String, nil]
+        #   The host-name to connect when using the proxy.
         #
         def host
           self[:host]
@@ -80,15 +85,19 @@ module Ronin
         #
         # Set the host-name of the proxy.
         #
-        # @param [String] new_host The new host-name to use.
-        # @return [String] The new host-name to use.
+        # @param [String] new_host
+        #   The new host-name to use.
+        #
+        # @return [String]
+        #   The new host-name to use.
         #
         def host=(new_host)
           self[:host] = new_host.to_s
         end
 
         #
-        # @return [Integer] The port to connect when using the proxy.
+        # @return [Integer]
+        #   The port to connect when using the proxy.
         #
         def port
           self[:port]
@@ -97,16 +106,19 @@ module Ronin
         #
         # Set the port of the proxy.
         #
-        # @param [Integer] new_port The new port to use.
-        # @return [Integer] The new port to use.
+        # @param [Integer] new_port
+        #   The new port to use.
+        #
+        # @return [Integer]
+        #   The new port to use.
         #
         def port=(new_port)
           self[:port] = new_port.to_i
         end
 
         #
-        # @return [String, nil] The user-name to authenticate as, when
-        #                       using the proxy.
+        # @return [String, nil]
+        #   The user-name to authenticate as, when using the proxy.
         #
         def user
           self[:user]
@@ -115,16 +127,19 @@ module Ronin
         #
         # Set the user-name to authenticate as with the proxy.
         #
-        # @param [String] new_user The new user-name to use.
-        # @return [Integer] The new user-name to use.
+        # @param [String] new_user
+        #   The new user-name to use.
+        #
+        # @return [Integer]
+        #   The new user-name to use.
         #
         def user=(new_user)
           self[:user] = new_user.to_s
         end
 
         #
-        # @return [String, nil] The password to authenticate with, when
-        #                       using the proxy.
+        # @return [String, nil]
+        #   The password to authenticate with, when using the proxy.
         #
         def password
           self[:password]
@@ -133,8 +148,11 @@ module Ronin
         #
         # Set the password to authenticate with for the proxy.
         #
-        # @param [String] new_user The new user-name to use.
-        # @return [Integer] The new user-name to use.
+        # @param [String] new_user
+        #   The new user-name to use.
+        #
+        # @return [Integer]
+        #   The new user-name to use.
         #
         def password=(new_password)
           self[:password] = new_password.to_s
@@ -143,9 +161,9 @@ module Ronin
         #
         # Builds a HTTP URI from the proxy information.
         #
-        # @return [URI::HTTP, nil] The HTTP URI representing the proxy.
-        #                          If the proxy is disabled, then
-        #                          +nil+ will be returned.
+        # @return [URI::HTTP, nil]
+        #   The HTTP URI representing the proxy. If the proxy is disabled,
+        #   then +nil+ will be returned.
         #
         def url
           return nil unless enabled?
@@ -168,7 +186,8 @@ module Ronin
         #
         # Converts the proxy object to a String.
         #
-        # @return [String] The host-name of the proxy.
+        # @return [String]
+        #   The host-name of the proxy.
         #
         def to_s
           self[:host].to_s
@@ -177,7 +196,8 @@ module Ronin
         #
         # Inspects the proxy object.
         #
-        # @return [String] The inspection of the proxy object.
+        # @return [String]
+        #   The inspection of the proxy object.
         #
         def inspect
           unless (self[:host] || self[:port])

@@ -31,21 +31,36 @@ module Net
   #
   # Creates a connection to the ESMTP server.
   #
-  # @param [String] host The host to connect to.
-  # @param [Hash] options Additional options.
-  # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
-  #                                 The port to connect to.
-  # @option options [String] :helo The HELO domain.
-  # @option options [Symbol] :auth The type of authentication to use.
-  #                                Can be either +:login+, +:plain+, or
-  #                                +:cram_md5+.
-  # @option options [String] :user The user-name to authenticate with.
-  # @option options [String] :password The password to authenticate with.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [session] If a block is given, it will be passed an ESMTP enabled
-  #                  session object.
-  # @yieldparam [Net::SMTP] session The ESMTP session.
-  # @return [Net::SMTP] the ESMTP enabled session.
+  # @param [Hash] options
+  #   Additional options.
+  #
+  # @option options [Integer] :port (Ronin::Network::SMTP.default_port)
+  #   The port to connect to.
+  #
+  # @option options [String] :helo
+  #   The HELO domain.
+  #
+  # @option options [Symbol] :auth
+  #   The type of authentication to use. Can be either +:login+, +:plain+,
+  #   or +:cram_md5+.
+  #
+  # @option options [String] :user
+  #   The user-name to authenticate with.
+  #
+  # @option options [String] :password
+  #   The password to authenticate with.
+  #
+  # @yield [session]
+  #   If a block is given, it will be passed an ESMTP enabled session object.
+  #
+  # @yieldparam [Net::SMTP] session
+  #   The ESMTP session.
+  #
+  # @return [Net::SMTP]
+  #   The ESMTP enabled session.
   #
   def Net.esmtp_connect(host,options={},&block)
     Net.smtp_connect(host,options) do |sess|
@@ -57,13 +72,18 @@ module Net
   #
   # Starts an ESMTP session with the ESMTP enabled server.
   #
-  # @param [String] host The host to connect to.
-  # @param [Hash] options Additional options.
+  # @param [String] host
+  #   The host to connect to.
   #
-  # @yield [session] If a block is given, it will be passed an ESMTP enabled
-  #                  session object. After the block has returned, the
-  #                  session will be closed.
-  # @yieldparam [Net::SMTP] session The ESMTP session.
+  # @param [Hash] options
+  #   Additional options.
+  #
+  # @yield [session]
+  #   If a block is given, it will be passed an ESMTP enabled session
+  #   object. After the block has returned, the session will be closed.
+  #
+  # @yieldparam [Net::SMTP] session
+  #   The ESMTP session.
   #
   # @see Net.esmtp_connect
   #

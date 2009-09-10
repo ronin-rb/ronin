@@ -53,7 +53,8 @@ module Ronin
     #
     # Converts the architecture to a String.
     #
-    # @return [String] The name of the architecture.
+    # @return [String]
+    #   The name of the architecture.
     #
     def to_s
       self.name.to_s
@@ -63,12 +64,17 @@ module Ronin
     # Defines a new builtin Arch with the specified _name_ and the given
     # _options_.
     #
-    # @param [Symbol, String] name The name of the architecture.
-    # @param [Hash] options Additional options.
-    # @option options [Symbol, String] :endian The endianness of the
-    #                                          architecture.
-    # @option options [Integer] :address_length The address-length of the
-    #                                           architecture.
+    # @param [Symbol, String] name
+    #   The name of the architecture.
+    #
+    # @param [Hash] options
+    #   Additional options.
+    #
+    # @option options [Symbol, String] :endian
+    #   The endianness of the architecture.
+    #
+    # @option options [Integer] :address_length
+    #   The address-length of the architecture.
     #
     # @example Defining a builtin Arch
     #   Arch.predefine :alpha, :endian => :big, :address_length => 8

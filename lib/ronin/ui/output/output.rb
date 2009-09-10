@@ -24,7 +24,8 @@ module Ronin
   module UI
     module Output
       #
-      # @return [Boolean] Specifies whether verbose output is enabled.
+      # @return [Boolean]
+      #   Specifies whether verbose output is enabled.
       #
       # @since 0.3.0
       #
@@ -33,7 +34,8 @@ module Ronin
       end
 
       #
-      # @return [Boolean] Specifies whether quiet output is enabled.
+      # @return [Boolean]
+      #   Specifies whether quiet output is enabled.
       #
       # @since 0.3.0
       #
@@ -42,7 +44,8 @@ module Ronin
       end
 
       #
-      # @return [Boolean] Specifies whether silent output is enabled.
+      # @return [Boolean]
+      #   Specifies whether silent output is enabled.
       #
       # @since 0.3.0
       #
@@ -53,8 +56,11 @@ module Ronin
       #
       # Changes the verbose mode.
       #
-      # @param [Boolean] mode The new verbose mode.
-      # @return [Boolean] The new verbose mode.
+      # @param [Boolean] mode
+      #   The new verbose mode.
+      #
+      # @return [Boolean]
+      #   The new verbose mode.
       #
       # @since 0.3.0
       #
@@ -71,8 +77,11 @@ module Ronin
       #
       # Changes verbose output.
       #
-      # @param [Boolean] mode The new quiet mode.
-      # @return [Boolean] The new quiet mode.
+      # @param [Boolean] mode
+      #   The new quiet mode.
+      #
+      # @return [Boolean]
+      #   The new quiet mode.
       #
       # @since 0.3.0
       #
@@ -89,8 +98,11 @@ module Ronin
       #
       # Changes verbose output.
       #
-      # @param [Boolean] mode The new quiet mode.
-      # @return [Boolean] The new quiet mode.
+      # @param [Boolean] mode
+      #   The new quiet mode.
+      #
+      # @return [Boolean]
+      #   The new quiet mode.
       #
       # @since 0.3.0
       #
@@ -105,7 +117,8 @@ module Ronin
       end
 
       #
-      # @return [Ronin::UI::Output::Handler] The current Output handler.
+      # @return [Ronin::UI::Output::Handler]
+      #   The current Output handler.
       #
       # @since 0.3.0
       #
@@ -116,10 +129,10 @@ module Ronin
       #
       # Sets the current Output handler.
       #
-      # @param [Handler] new_handler The new output handler to use.
-      #                              Must provide the +puts+, +print_info+,
-      #                              +print_debug+, +print_warning+ and
-      #                              +print_error+ class methods.
+      # @param [Handler] new_handler
+      #   The new output handler to use. Must provide the +puts+,
+      #   +print_info+, +print_debug+, +print_warning+ and +print_error+
+      #   class methods.
       #
       # @since 0.3.0
       #

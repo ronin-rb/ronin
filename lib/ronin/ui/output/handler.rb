@@ -37,8 +37,11 @@ module Ronin
         #
         # Changes color output.
         #
-        # @param [Boolean] mode The new color mode.
-        # @return [Boolean] The new color mode.
+        # @param [Boolean] mode
+        #   The new color mode.
+        #
+        # @return [Boolean]
+        #   The new color mode.
         #
         # @since 0.3.0
         #
@@ -55,7 +58,8 @@ module Ronin
         #
         # Prints one or more messages.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @since 0.3.0
         #
@@ -66,7 +70,8 @@ module Ronin
         #
         # Prints one or more messages as +info+ messages.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @since 0.3.0
         #
@@ -77,7 +82,8 @@ module Ronin
         #
         # Prints one or more messages as +debug+ mssages.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @since 0.3.0
         #
@@ -88,7 +94,8 @@ module Ronin
         #
         # Prints one or more messages as +warning+ mssages.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @since 0.3.0
         #
@@ -99,7 +106,8 @@ module Ronin
         #
         # Prints one or more messages as +error+ mssages.
         #
-        # @param [Array] messages The messages to print.
+        # @param [Array] messages
+        #   The messages to print.
         #
         # @since 0.3.0
         #

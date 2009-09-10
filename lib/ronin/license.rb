@@ -47,7 +47,8 @@ module Ronin
     #
     # Converts the license to a String.
     #
-    # @return [String] The name of the license.
+    # @return [String]
+    #   The name of the license.
     #
     def to_s
       self.name.to_s

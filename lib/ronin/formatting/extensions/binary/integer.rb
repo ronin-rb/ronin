@@ -25,13 +25,15 @@ class Integer
   #
   # Extracts a sequence of bytes which represent the Integer.
   #
-  # @param [Integer] address_length The number of bytes to decode from
-  #                                 the Integer.
-  # @param [Symbol] endian The endianness to use while decoding the bytes
-  #                        of the Integer. May be either +:big+, +:little+
-  #                        or +:net+.
+  # @param [Integer] address_length
+  #   The number of bytes to decode from the Integer.
   #
-  # @return [Array] The bytes decoded from the Integer.
+  # @param [Symbol] endian
+  #   The endianness to use while decoding the bytes of the Integer.
+  #   May be either +:big+, +:little+ or +:net+.
+  #
+  # @return [Array]
+  #   The bytes decoded from the Integer.
   #
   # @example
   #   0xff41.bytes(2)
@@ -68,10 +70,14 @@ class Integer
   # Packs the Integer into a String, for a specific architecture and
   # address-length.
   #
-  # @param [Ronin::Arch] arch The architecture to pack the Integer for.
-  # @param [Integer] address_length The number of bytes to pack.
+  # @param [Ronin::Arch] arch
+  #   The architecture to pack the Integer for.
   #
-  # @return [String] The packed Integer.
+  # @param [Integer] address_length
+  #   The number of bytes to pack.
+  #
+  # @return [String]
+  #   The packed Integer.
   #
   # @example
   #   0x41.pack(Arch.i686) # => "A\000\000\000"
@@ -84,7 +90,8 @@ class Integer
   end
 
   #
-  # @return [String] The hex escaped version of the Integer.
+  # @return [String]
+  #   The hex escaped version of the Integer.
   #
   # @example
   #   42.hex_escape

@@ -24,9 +24,11 @@ module Ronin
       #
       # Hexdumps an object.
       #
-      # @param [#each_byte] object The object to hexdump, must respond to
-      #                            the +each_byte+ method.
-      # @param [IO] output The output stream to print the hexdump to.
+      # @param [#each_byte] object
+      #   The object to hexdump, must respond to the +each_byte+ method.
+      #
+      # @param [IO] output
+      #   The output stream to print the hexdump to.
       #
       def Hexdump.dump(object,output=STDOUT)
         index = 0

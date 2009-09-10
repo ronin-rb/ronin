@@ -28,10 +28,12 @@ module Ronin
       #
       # Creates a new empty ExtensionCache object.
       #
-      # @yield [cache] If a block is given, it will be passed the newly
-      #                created extension cache.
-      # @yieldparam [ExtensionCache] cache The newly created extension
-      #                                    cache.
+      # @yield [cache]
+      #   If a block is given, it will be passed the newly created
+      #   extension cache.
+      #
+      # @yieldparam [ExtensionCache] cache
+      #   The newly created extension cache.
       #
       def initialize(&block)
         super() do |hash,key|
@@ -48,7 +50,8 @@ module Ronin
       end
 
       #
-      # @return [Array] The sorted names of the extensions within the cache.
+      # @return [Array]
+      #   The sorted names of the extensions within the cache.
       #
       def names
         keys.sort
@@ -61,12 +64,15 @@ module Ronin
       # Selects the extensions within the cache that match the specified
       # _block_.
       #
-      # @yield [ext] The block will be passed each extension, and the
-      #              extension will be selected based on the return value
-      #              of the block.
-      # @yieldparam [Extension] ext An extension from the cache.
+      # @yield [ext]
+      #   The block will be passed each extension, and the extension will
+      #   be selected based on the return value of the block.
       #
-      # @return [Array] The selected extensions.
+      # @yieldparam [Extension] ext
+      #   An extension from the cache.
+      #
+      # @return [Array]
+      #   The selected extensions.
       #
       def with(&block)
         values.select(&block)
@@ -76,8 +82,9 @@ module Ronin
       # Searches within the cache for the extension with the specified
       # _name_.
       #
-      # @return [Boolean] Specifies whether the cache contains the
-      #                   extension with the specified _name_.
+      # @return [Boolean]
+      #   Specifies whether the cache contains the extension with the
+      #   specified _name_.
       #
       def has?(name)
         has_key?(name.to_s)
@@ -86,15 +93,18 @@ module Ronin
       #
       # Loads the extension with the specified _name_.
       #
-      # @param [String, Symbol] name The name of the extension to load.
+      # @param [String, Symbol] name
+      #   The name of the extension to load.
       #
-      # @yield [ext] If a block is given, it will be passed the loaded
-      #              extension.
-      # @yieldparam [Extension] ext The loaded extension.
+      # @yield [ext]
+      #   If a block is given, it will be passed the loaded extension.
       #
-      # @raise [ExtensionNotFound] The extension with the specified _name_
-      #                            could not be found in the extension
-      #                            cache.
+      # @yieldparam [Extension] ext
+      #   The loaded extension.
+      #
+      # @raise [ExtensionNotFound]
+      #   The extension with the specified _name_ could not be found in
+      #   the extension cache.
       #
       def load_extension(name,&block)
         name = name.to_s
@@ -113,9 +123,11 @@ module Ronin
       #
       # Reloads one or all extensions within the extension cache.
       #
-      # @param [String, Symbol] name The specific extension to reload.
+      # @param [String, Symbol] name
+      #   The specific extension to reload.
       #
-      # @return [true] Specifies the reload was successful.
+      # @return [true]
+      #   Specifies the reload was successful.
       #
       def reload!(name=nil)
         reloader = lambda { |ext_name|

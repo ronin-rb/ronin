@@ -28,13 +28,15 @@ module Ronin
   #
   # Provides transparent access to Platform.extension via constants.
   #
-  # @param [String] name The constant name to map to an extension
-  #                      in the extension cache.
+  # @param [String] name
+  #   The constant name to map to an extension in the extension cache.
   #
-  # @return [Extension] The extension that maps to the constant _name_.
+  # @return [Extension]
+  #   The extension that maps to the constant _name_.
   #
-  # @raise [NameError] No extension could be found in the extension cache,
-  #                    that maps to the constant _name_.
+  # @raise [NameError]
+  #   No extension could be found in the extension cache, that maps to the
+  #   constant _name_.
   #
   # @example
   #   Ronin::Shellcode
@@ -54,17 +56,22 @@ module Ronin
   #
   # Provides transparent access to Platform.extension via methods.
   #
-  # @param [Symbol, String] name The name of the extension to search for
-  #                              within the extension cache.
+  # @param [Symbol, String] name
+  #   The name of the extension to search for within the extension cache.
   #
-  # @yield [ext] If a block is given, it will be passed the extension
-  #              which has the matching _name_.
-  # @yieldparam [Extension] ext The matching extension.
+  # @yield [ext]
+  #   If a block is given, it will be passed the extension which has the
+  #   matching _name_.
   #
-  # @return [Extension] The matching extension.
+  # @yieldparam [Extension] ext
+  #   The matching extension.
   #
-  # @raise [NoMethodError] No extension could be found in the extension
-  #                        cache with the matching _name_.
+  # @return [Extension]
+  #   The matching extension.
+  #
+  # @raise [NoMethodError]
+  #   No extension could be found in the extension cache with the
+  #   matching _name_.
   #
   # @example
   #   shellcode
