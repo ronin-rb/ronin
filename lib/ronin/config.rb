@@ -63,13 +63,13 @@ module Ronin
     end
 
     #
-    # Auto-creates a directory within TMP_DIR.
+    # Auto-creates a directory within {TMP_DIR}.
     #
     # @param [String] sub_path
-    #   The sub-path within TMP_DIR.
+    #   The sub-path within {TMP_DIR}.
     #
     # @return [String]
-    #   The full path within TMP_DIR.
+    #   The full path within {TMP_DIR}.
     #
     def Config.tmp_dir(sub_path=nil)
       if sub_path
