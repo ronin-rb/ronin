@@ -63,18 +63,6 @@ module Ronin
     end
 
     #
-    # @param [String] sub_path
-    #   The sub-path within TMP_DIR.
-    #   
-    # @return [String]
-    #   The full path within TMP_DIR.
-    #
-    def Config.tmp(sub_path)
-      sub_path = File.expand_path(File.join('',sub_path))
-      return File.join(TMP_DIR,sub_path)
-    end
-
-    #
     # Auto-creates a directory within TMP_DIR.
     #
     # @param [String] sub_path
@@ -85,7 +73,8 @@ module Ronin
     #
     def Config.tmp_dir(sub_path=nil)
       if sub_path
-        path = Config.tmp(sub_path)
+        sub_path = File.expand_path(File.join('',sub_path))
+        path = File.join(TMP_DIR,sub_path)
 
         unless File.exist?(path)
           FileUtils.mkdir_p(path)
