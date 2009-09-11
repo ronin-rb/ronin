@@ -366,6 +366,17 @@ module Ronin
         return self
       end
 
+      #
+      # The temporary directory for the extension.
+      #
+      # @return [String]
+      #   The path to the extensions temporary directory within
+      #   {Config::TMP_DIR}.
+      #
+      def tmp_dir
+        @tmp_dir ||= Config.tmp_dir(@name)
+      end
+
       def static_paths(path,&block)
         @paths.each do |dir|
           static_dir = File.join(dir,STATIC_DIR)
@@ -485,17 +496,6 @@ module Ronin
       def teardown(&block)
         @teardown_blocks << block if block
         return self
-      end
-
-      #
-      # The temporary directory for the extension.
-      #
-      # @return [String]
-      #   The path to the extensions temporary directory within
-      #   {Config::TMP_DIR}.
-      #
-      def tmp_dir
-        @tmp_dir ||= Config.tmp_dir(@name)
       end
 
     end
