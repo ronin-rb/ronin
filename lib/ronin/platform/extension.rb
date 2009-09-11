@@ -92,63 +92,6 @@ module Ronin
       end
 
       #
-      # Loads all extensions with the matching _name_, into a new extension.
-      #
-      # @param [String] name
-      #   The name of the extensions to load.
-      #
-      # @yield [ext]
-      #   If a block is given, it will be passed the newly created
-      #   extension.
-      #
-      # @yieldparam [Extension] ext
-      #   The newly created extension.
-      #
-      # @return [Extension]
-      #   The newly created extension.
-      #
-      # @example
-      #   Extension.load('shellcode') do |ext|
-      #     puts ext.search('moon_lander')
-      #   end
-      #
-      def Extension.load(name,&block)
-        ext = Extension.new(name)
-        ext.include(name)
-
-        block.call(ext) if block
-        return ext
-      end
-
-      #
-      # Loads all extensions with the matching _name_ into a new extension,
-      # and then runs the extension.
-      #
-      # @param [String] name
-      #   The name of the extensions to load and run.
-      #
-      # @yield [(ext)]
-      #   The block that will be called, after the extension has been setup,
-      #   and before it has been torendown.
-      #
-      # @yieldparam [Extension] ext
-      #   The newly created extension.
-      #
-      # @return [Extension]
-      #   The newly created extension.
-      #
-      # @example
-      #   Extension.run('exploits') do |ext|
-      #     puts ext.search(:product => 'Apache')
-      #   end
-      #
-      # @see Extension#run.
-      #
-      def Extension.run(name,&block)
-        Extension.load(name) { |ext| ext.run(&block) }
-      end
-
-      #
       # Includes all extensions with the matching _name_ into the extension.
       #
       # @param [String] name

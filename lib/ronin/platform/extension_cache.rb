@@ -96,27 +96,20 @@ module Ronin
       # @param [String, Symbol] name
       #   The name of the extension to load.
       #
-      # @yield [ext]
-      #   If a block is given, it will be passed the loaded extension.
-      #
-      # @yieldparam [Extension] ext
-      #   The loaded extension.
-      #
       # @raise [ExtensionNotFound]
       #   The extension with the specified _name_ could not be found in
       #   the extension cache.
       #
-      def load_extension(name,&block)
+      def load_extension(name)
         name = name.to_s
 
         unless Platform.overlays.has_extension?(name)
           raise(ExtensionNotFound,"extension #{name.dump} does not eixst",caller)
         end
 
-        return Extension.load(name) do |ext|
-          ext.setup!
-
-          block.call(ext) if block
+        return Extension.new(name) do |ext|
+          include(self.name)
+          setup!
         end
       end
 
