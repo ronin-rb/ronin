@@ -487,6 +487,17 @@ module Ronin
         return self
       end
 
+      #
+      # The temporary directory for the extension.
+      #
+      # @return [String]
+      #   The path to the extensions temporary directory within
+      #   {Config::TMP_DIR}.
+      #
+      def tmp_dir
+        @tmp_dir ||= Config.tmp_dir(@name)
+      end
+
     end
   end
 end
