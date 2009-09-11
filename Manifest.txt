@@ -181,7 +181,6 @@ lib/ronin/yard/handlers/ruby/legacy/property_handler.rb
 lib/ronin/yard/handlers/ruby/legacy/belongs_to_handler.rb
 lib/ronin/yard/handlers/ruby/legacy/has_handler.rb
 lib/ronin/yard/handlers/ruby/legacy/scanner_handler.rb
-lib/ronin/ronin.rb
 lib/ronin/version.rb
 tasks/spec.rb
 tasks/yard.rb
