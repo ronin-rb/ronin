@@ -25,7 +25,6 @@ require 'ronin/path'
 require 'ronin/network'
 require 'ronin/database'
 require 'ronin/ui'
-require 'ronin/ronin'
 
 require 'chars'
 require 'pp'
