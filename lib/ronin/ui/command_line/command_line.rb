@@ -133,7 +133,7 @@ module Ronin
       #   run, and which will be passed to the Command.
       #
       def CommandLine.start(argv=ARGV)
-        if (argv.empty? || argv.first[0..0]=='-')
+        if (argv.empty? || argv.first[0,1]=='-')
           name = DEFAULT_COMMAND
         else
           name = argv.first
