@@ -51,21 +51,20 @@ module Ronin
       end
 
       #
-      # Searches for the command with the matching _name_.
+      # Searches for the command with the matching name.
       #
       # @param [String, Symbol] name
       #   The name of the command to search for.
       #
       # @return [Boolean]
-      #   Specifies whether a command exists with the matching _name_.
+      #   Specifies whether a command exists with the matching name.
       #
       def CommandLine.has_command?(name)
         CommandLine.commands.include?(name.to_s)
       end
 
       #
-      # Searches for a Command class with the matching command-line
-      # _name_.
+      # Searches for a Command class with the matching command-line name.
       #
       # @param [String, Symbol] name
       #   The command-line name of the command to search for.
@@ -126,6 +125,9 @@ module Ronin
       # @param [Array] argv
       #   Command-line arguments which are used to select the Command to
       #   run, and which will be passed to the Command.
+      #
+      # @return [true]
+      #   The command was successfully ran.
       #
       def CommandLine.start(argv=ARGV)
         if (argv.empty? || argv.first[0,1]=='-')
