@@ -41,15 +41,10 @@ module Ronin
       def CommandLine.commands
         unless class_variable_defined?('@@ronin_commands')
           pattern = File.join('lib',COMMANDS_DIR,'*.rb')
-          paths = Gem.find_resources(pattern)
-          
-          @@ronin_commands = []
-            
-          paths.each do |path|
-            name = File.basename(path).gsub(/\.rb$/,'')
 
-            @@ronin_commands << name unless @@ronin_commands.include?(name)
-          end
+          @@ronin_commands = Gem.find_resources(pattern).map { |path|
+            File.basename(path).gsub(/\.rb$/,'')
+          }.uniq
         end
 
         return @@ronin_commands
