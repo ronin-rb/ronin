@@ -21,6 +21,8 @@
 require 'ronin/model'
 require 'ronin/license'
 
+require 'extlib'
+
 module Ronin
   module Model
     module HasLicense
@@ -46,6 +48,9 @@ module Ronin
             self.all(:license_id => Ronin::License[name].id)
           end
         end
+
+        model_name = base.name.split('::').last.snake_case.plural.to_sym
+        License.has(License.n,model_name,:model => base.name)
       end
     end
   end
