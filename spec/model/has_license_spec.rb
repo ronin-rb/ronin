@@ -8,6 +8,13 @@ describe Model::HasLicense do
     LicensedModel.auto_migrate!
   end
 
+  it "should define relationships with License" do
+    relationship = License.relationships['licensed_models']
+    
+    relationship.should_not be_nil
+    relationship.child_model.should == LicensedModel
+  end
+
   it "should have a license" do
     model = LicensedModel.new(:content => 'bla')
     model.license = License.gpl2
