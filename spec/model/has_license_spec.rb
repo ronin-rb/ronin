@@ -8,6 +8,13 @@ describe Model::HasLicense do
     LicensedModel.auto_migrate!
   end
 
+  it "should define a license relationship" do
+    relationship = LicensedModel.relationships['license']
+
+    relationship.should_not be_nil
+    relationship.parent_model.should == License
+  end
+
   it "should define relationships with License" do
     relationship = License.relationships['licensed_models']
     
