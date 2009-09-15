@@ -239,8 +239,10 @@ module Ronin
       #   The updated overlay.
       #
       def update(&block)
-        if @repository.update(@uri)
-          initialize_metadata()
+        if (@uri && @media)
+          if @repository.update(@uri)
+            initialize_metadata()
+          end
         end
 
         block.call(self) if block
