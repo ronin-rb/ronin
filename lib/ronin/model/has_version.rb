@@ -31,6 +31,19 @@ module Ronin
           property :version, String, :default => '0.1', :index => true
 
           #
+          # Finds all models with a specific version.
+          #
+          # @param [String] version
+          #   The specific version to search for.
+          #
+          # @return [Array]
+          #   The models with the specific version.
+          #
+          def self.revision(version)
+            self.all(:version => version.to_s)
+          end
+
+          #
           # Finds latest version of the model.
           #
           def self.latest
