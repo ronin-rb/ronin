@@ -101,4 +101,6 @@ class Integer
     "\\x%.2x" % self
   end
 
+  alias char chr
+
 end
