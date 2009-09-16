@@ -1,12 +1,10 @@
 require 'ronin/model/model'
 
-class TestModel
+require 'model/classes/basic_model'
+
+class CustomModel < BasicModel
 
   include Ronin::Model
-
-  property :id, Serial
-
-  property :name, String
 
   attr_reader :var
 
