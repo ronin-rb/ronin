@@ -247,8 +247,10 @@ spec/network/http/http_spec.rb
 spec/code/classes/thing.rb
 spec/code/reference_spec.rb
 spec/code/symbol_table_spec.rb
+spec/model/classes/test_model.rb
 spec/model/classes/described_model.rb
 spec/model/classes/licensed_model.rb
+spec/model/model_spec.rb
 spec/model/has_description_spec.rb
 spec/model/has_license_spec.rb
 spec/license_spec.rb

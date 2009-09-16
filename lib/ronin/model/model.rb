@@ -35,6 +35,13 @@ module Ronin
           include DataMapper::Resource
           include DataMapper::Migrations
 
+          def self.allocate
+            resource = super
+            resource.instance_eval("initialize()")
+
+            return resource
+          end
+
           #
           # @return [Symbol]
           #   The default repository name used for the model.
