@@ -112,11 +112,15 @@ module Ronin
 
       self.attributes.each do |name,value|
         unless (exclude.include?(name) || value.nil?)
-          name = Extlib::Inflection.humanize(name).ljust(align)
-          value = formatter.call(value)
+          name = name.to_s
 
-          block.call(name,value) if block
-          formatted[name] = value
+          unless name[-3..-1] == '_id'
+            name = Extlib::Inflection.humanize(name).ljust(align)
+            value = formatter.call(value)
+
+            block.call(name,value) if block
+            formatted[name] = value
+          end
         end
       end
 
