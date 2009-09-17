@@ -28,6 +28,7 @@ lib/ronin/extensions/array.rb
 lib/ronin/extensions/uri.rb
 lib/ronin/extensions/uri/query_params.rb
 lib/ronin/extensions/uri/http.rb
+lib/ronin/extensions/symbol.rb
 lib/ronin/extensions/string.rb
 lib/ronin/extensions/file.rb
 lib/ronin/extensions/ip_addr.rb
@@ -208,6 +209,7 @@ spec/author_spec.rb
 spec/extensions/classes/some_class.rb
 spec/extensions/kernel_spec.rb
 spec/extensions/array_spec.rb
+spec/extensions/symbol_spec.rb
 spec/extensions/string_spec.rb
 spec/extensions/ip_addr_spec.rb
 spec/extensions/uri/http_spec.rb

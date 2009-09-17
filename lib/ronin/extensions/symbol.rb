@@ -18,10 +18,25 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/extensions/meta'
-require 'ronin/extensions/kernel'
-require 'ronin/extensions/uri'
-require 'ronin/extensions/symbol'
-require 'ronin/extensions/string'
-require 'ronin/extensions/file'
-require 'ronin/extensions/ip_addr'
+class Symbol
+
+  #
+  # Converts the Symbol to a human readable String.
+  #
+  # @return [String]
+  #   The human readable form the Symbol.
+  #
+  # @example
+  #   :status.humanize
+  #   # => "Status"
+  #
+  #   :cached_timestamp.humanize
+  #   # => "Cached Timestamp"
+  #
+  def humanize
+    self.to_s.split('_').map { |part|
+      part.capitalize
+    }.join(' ')
+  end
+
+end
