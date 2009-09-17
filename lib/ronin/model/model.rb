@@ -64,10 +64,20 @@ module Ronin
     # @param [Array<Symbol>] exclude
     #   A list of attribute names to exclude.
     #
+    # @yield [name, value]
+    #   If a block is given, it will be passed the name and humanized
+    #   value of each attribute.
+    #
+    # @yieldparam [String] name
+    #   The humanized name of the attribute.
+    #
+    # @yieldparam [String] value
+    #   The human readable value of the attribute.
+    #
     # @return [Hash{String => String}]
     #   A hash of the humanly readable names and values of the attributes.
     #
-    def humanize_attributes(*exclude)
+    def humanize_attributes(*exclude,&block)
       formatter = lambda { |value|
         if value.kind_of?(Array)
           value.map(&formatter).join(', ')
@@ -84,8 +94,10 @@ module Ronin
         unless (name == :id || name == :type || exclude.include?(name))
           unless value.nil?
             name = Extlib::Inflection.humanize(name)
+            value = formatter.call(value)
 
-            formatted[name] = formatter.call(value)
+            formatted[name] = value
+            block.call(name,value) if block
           end
         end
       end
