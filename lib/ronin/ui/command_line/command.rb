@@ -19,7 +19,6 @@
 #
 
 require 'ronin/ui/output'
-require 'ronin/version'
 
 require 'thor'
 require 'extlib'
@@ -34,7 +33,6 @@ module Ronin
 
         default_task :default
         map '-h' => :help
-        map '-V' => :version
 
         def self.start(arguments=ARGV,config={})
           unless map[arguments.first.to_s]
@@ -69,16 +67,6 @@ module Ronin
         # Default method to call after the options have been parsed.
         #
         def default(*arguments)
-        end
-
-        desc "version", "displays the version"
-
-        #
-        # Prints the version information and exists.
-        #
-        def version
-          puts "Ronin #{Ronin::VERSION}"
-          exit
         end
 
         desc "help", "displays the help for the command"

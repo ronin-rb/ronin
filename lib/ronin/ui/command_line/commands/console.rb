@@ -22,12 +22,15 @@ require 'ronin/ui/command_line/command'
 require 'ronin/ui/output'
 require 'ronin/ui/console'
 require 'ronin/database'
+require 'ronin/version'
 
 module Ronin
   module UI
     module CommandLine
       module Commands
         class Console < Command
+
+          map '-V' => :version
 
           desc "console", "start the Ronin Console"
           method_option :database, :type => :string, :aliases => '-D'
@@ -48,6 +51,16 @@ module Ronin
             end
 
             UI::Console.start
+          end
+
+          desc "version", "displays the version"
+
+          #
+          # Prints the version information and exists.
+          #
+          def version
+            puts "Ronin #{Ronin::VERSION}"
+            exit
           end
 
         end
