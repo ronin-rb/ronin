@@ -61,10 +61,13 @@ module Ronin
     # Formats the attributes of the model into human readable names
     # and values.
     #
+    # @param [Array<Symbol>] exclude
+    #   A list of attribute names to exclude.
+    #
     # @return [Hash{String => String}]
     #   A hash of the humanly readable names and values of the attributes.
     #
-    def humanize_attributes
+    def humanize_attributes(*exclude)
       formatter = lambda { |value|
         if value.kind_of?(Array)
           value.map(&formatter)
@@ -78,7 +81,7 @@ module Ronin
       formatted = {}
 
       self.attributes.each do |name,value|
-        unless (name == :id || name == :type)
+        unless (name == :id || name == :type || exclude.include?(name))
           name = Extlib::Inflection.humanize(name)
 
           formatted[name] = formatter.call(value)

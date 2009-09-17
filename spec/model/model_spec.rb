@@ -40,4 +40,10 @@ describe Model do
 
     resource.humanize_attributes.should == {'Name' => 'joe', 'Age' => '21'}
   end
+
+  it "should exclude certain attributes to humanize" do
+    resource = BasicModel.new(:name => 'joe', :age => 21)
+
+    resource.humanize_attributes(:name).should == {'Age' => '21'}
+  end
 end
