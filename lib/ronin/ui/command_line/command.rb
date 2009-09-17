@@ -140,7 +140,7 @@ module Ronin
         #   The messages to print, one per-line.
         #
         def puts(*messages)
-          super(*(messages.map { |mesg| (' ' * @indent) + mesg }))
+          super(*(messages.map { |mesg| (' ' * @indent) + mesg.to_s }))
         end
 
         #
