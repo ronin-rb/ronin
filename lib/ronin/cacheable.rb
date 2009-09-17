@@ -99,13 +99,32 @@ module Ronin
         end
 
         #
-        # Loads the first object with the matching _attributes_.
+        # Loads the first object with matching attributes.
         #
-        def self.load_first(attributes={})
-          if (obj = self.first(attributes))
-            obj.load_original!
-          end
+        # @param [Hash] attributes
+        #   Attributes to search for.
+        #
+        # @yield [objs]
+        #   If a block is given, it will be passed all matching
+        #   objects to be filtered down. The first object from the filtered
+        #   objects will end up being selected.
+        #
+        # @yieldparam [Array<Cacheable>] objs
+        #   All matching objects.
+        #
+        # @return [Cacheable]
+        #   The loaded cached objects.
+        #
+        def self.load_first(attributes={},&block)
+          objs = if block
+                   objs = self.all(attributes)
 
+                   (block.call(objs) || objs).first
+                 else
+                   self.first(attributes)
+                 end
+
+          obj.load_original! if obj
           return obj
         end
       end
