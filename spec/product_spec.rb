@@ -16,7 +16,7 @@ describe Product do
 
   it "should default the vendor to the name of the product" do
     product = Product.new(:name => 'Adobe', :version => '0.1.0')
-    product.vendor.should == @product.name
+    product.vendor.should == product.name
 
     product.should be_valid
   end
