@@ -124,7 +124,7 @@ module Ronin
         #
         # @return [nil]
         #
-        def indent(n,&block)
+        def indent(n=2,&block)
           @indent += n
 
           block.call()
