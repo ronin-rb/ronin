@@ -70,7 +70,7 @@ module Ronin
     def humanize_attributes(*exclude)
       formatter = lambda { |value|
         if value.kind_of?(Array)
-          value.map(&formatter)
+          value.map(&formatter).join(', ')
         elsif value.kind_of?(Symbol)
           Extlib::Inflection.humanize(value)
         else
