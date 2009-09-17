@@ -23,4 +23,9 @@ describe UI::CommandLine::Command do
   it "should still respond to option mappings" do
     TestCommand.start(['-m']).should == 'mapped task'
   end
+
+  it "should have zero indentation by default" do
+    command = TestCommand.new
+    command.instance_variable_get('@indent').should == 0
+  end
 end
