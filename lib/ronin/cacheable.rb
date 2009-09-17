@@ -116,13 +116,13 @@ module Ronin
         #   The loaded cached objects.
         #
         def self.load_first(attributes={},&block)
-          objs = if block
-                   objs = self.all(attributes)
+          obj = if block
+                  objs = self.all(attributes)
 
-                   (block.call(objs) || objs).first
-                 else
-                   self.first(attributes)
-                 end
+                  (block.call(objs) || objs).first
+                else
+                  self.first(attributes)
+                end
 
           obj.load_original! if obj
           return obj
