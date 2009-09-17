@@ -18,8 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/extensions/symbol'
-
+require 'extlib'
 require 'dm-core'
 require 'dm-types'
 require 'dm-validations'
@@ -70,7 +69,7 @@ module Ronin
         if value.kind_of?(Array)
           value.map(&formatter)
         elsif value.kind_of?(Symbol)
-          value.humanize
+          Extlib::Inflection.humanize(value)
         else
           value.to_s
         end
@@ -80,7 +79,9 @@ module Ronin
 
       self.attributes.each do |name,value|
         unless (name == :id || name == :type)
-          formatted[name.humanize] = formatter.call(value)
+          name = Extlib::Inflection.humanize(name)
+
+          formatted[name] = formatter.call(value)
         end
       end
 
