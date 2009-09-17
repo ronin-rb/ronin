@@ -150,7 +150,7 @@ module Ronin
         #   The title to print.
         #
         def print_title(title)
-          puts "[ #{title} ]\n\n"
+          puts "[ #{title} ]"
         end
 
         #
