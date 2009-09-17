@@ -45,7 +45,7 @@ module Ronin
                 end
               end
 
-              exit
+              return
             end
 
             begin

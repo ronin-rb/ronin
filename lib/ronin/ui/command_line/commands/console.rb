@@ -58,7 +58,6 @@ module Ronin
           #
           def version
             puts "Ronin #{Ronin::VERSION}"
-            exit
           end
 
         end
