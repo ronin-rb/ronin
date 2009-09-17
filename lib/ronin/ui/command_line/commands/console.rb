@@ -38,8 +38,6 @@ module Ronin
           method_option :verbose, :type => :boolean, :aliases => '-v'
 
           def default
-            UI::Output.verbose! if options.verbose?
-
             if options[:require]
               options[:require].each do |path|
                 UI::Console.auto_load << path

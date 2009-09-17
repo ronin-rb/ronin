@@ -37,8 +37,6 @@ module Ronin
               Platform.load_overlays(options[:cache])
             end
 
-            UI::Output.enable! if options.verbose?
-
             unless name
               indent do
                 # list all overlays by name
