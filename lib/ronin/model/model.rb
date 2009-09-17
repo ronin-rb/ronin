@@ -61,7 +61,10 @@ module Ronin
     # Formats the attributes of the model into human readable names
     # and values.
     #
-    # @param [Array<Symbol>] exclude
+    # @param [Hash] options
+    #   Additional options.
+    #
+    # @option options [Array<Symbol>] :exclude ([])
     #   A list of attribute names to exclude.
     #
     # @yield [name, value]
@@ -77,7 +80,9 @@ module Ronin
     # @return [Hash{String => String}]
     #   A hash of the humanly readable names and values of the attributes.
     #
-    def humanize_attributes(*exclude,&block)
+    def humanize_attributes(options={},&block)
+      exclude = (options[:exclude] || [])
+
       formatter = lambda { |value|
         if value.kind_of?(Array)
           value.map(&formatter).join(', ')
