@@ -34,4 +34,10 @@ describe Model do
     resource.name.should == 'bob'
     resource.var.should == 2
   end
+
+  it "should format the attributes of a model" do
+    resource = BasicModel.new(:name => 'joe', :age => 21)
+
+    resource.format_attributes.should == {'Name' => 'joe', 'Age' => '21'}
+  end
 end

@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/extensions/symbol'
+
 require 'dm-core'
 require 'dm-types'
 require 'dm-validations'
@@ -54,6 +56,35 @@ module Ronin
           property :type, Discriminator
         end
       end
+    end
+
+    #
+    # Formats the attributes of the model into human readable names
+    # and values.
+    #
+    # @return [Hash{String => String}]
+    #   A hash of the humanly readable names and values of the attributes.
+    #
+    def format_attributes
+      formatter = lambda { |value|
+        if value.kind_of?(Array)
+          value.map(&formatter)
+        elsif value.kind_of?(Symbol)
+          value.humanize
+        else
+          value.to_s
+        end
+      }
+
+      formatted = {}
+
+      self.attributes.each do |name,value|
+        unless (name == :id || name == :type)
+          formatted[name.humanize] = formatter.call(value)
+        end
+      end
+
+      return formatted
     end
   end
 end

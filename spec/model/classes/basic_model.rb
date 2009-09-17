@@ -8,4 +8,6 @@ class BasicModel
 
   property :name, String
 
+  property :age, Integer
+
 end
