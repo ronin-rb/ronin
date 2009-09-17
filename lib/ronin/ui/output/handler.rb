@@ -64,7 +64,7 @@ module Ronin
         # @since 0.3.0
         #
         def self.puts(*messages)
-          shell.say messages.join($/)
+          Kernel.puts(*messages)
         end
 
         #
