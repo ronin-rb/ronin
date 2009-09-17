@@ -35,17 +35,29 @@ describe Model do
     resource.var.should == 2
   end
 
-  it "should humanize the attributes of a model" do
-    resource = BasicModel.new(:name => 'joe', :age => 21)
+  describe "humanize_attributes" do
+    before(:all) do
+      @resource = BasicModel.new(:name => 'joe', :age => 21)
+    end
 
-    resource.humanize_attributes.should == {'Name' => 'joe', 'Age' => '21'}
-  end
+    it "should humanize the attributes of a model" do
+      @resource.humanize_attributes.should == {
+        'Name' => 'joe',
+        'Age' => '21'
+      }
+    end
 
-  it "should exclude certain attributes to humanize" do
-    resource = BasicModel.new(:name => 'joe', :age => 21)
+    it "should exclude certain attributes to humanize" do
+      @resource.humanize_attributes(:exclude => [:name]).should == {
+        'Age' => '21'
+      }
+    end
 
-    resource.humanize_attributes(:exclude => [:name]).should == {
-      'Age' => '21'
-    }
+    it "should left-justify the humanized names of the attributes" do
+      @resource.humanize_attributes(:align => true).keys.should == [
+        'Name',
+        'Age '
+      ]
+    end
   end
 end

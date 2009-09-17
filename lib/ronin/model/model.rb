@@ -67,6 +67,10 @@ module Ronin
     # @option options [Array<Symbol>] :exclude ([])
     #   A list of attribute names to exclude.
     #
+    # @option options [Boolean] :align (false)
+    #   Specifies whether or not to left-align the humanized attribute
+    #   names.
+    #
     # @yield [name, value]
     #   If a block is given, it will be passed the name and humanized
     #   value of each attribute.
@@ -82,9 +86,16 @@ module Ronin
     #
     def humanize_attributes(options={},&block)
       exclude = [:id, :type]
+      align = 0
 
       if options[:exclude]
         exclude += options[:exclude]
+      end
+
+      if options[:align]
+        align = self.attributes.keys.map { |name|
+          name.to_s.length
+        }.max
       end
 
       formatter = lambda { |value|
@@ -101,7 +112,7 @@ module Ronin
 
       self.attributes.each do |name,value|
         unless (exclude.include?(name) || value.nil?)
-          name = Extlib::Inflection.humanize(name)
+          name = Extlib::Inflection.humanize(name).ljust(align)
           value = formatter.call(value)
 
           block.call(name,value) if block
