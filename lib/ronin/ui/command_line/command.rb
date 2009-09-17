@@ -205,7 +205,7 @@ module Ronin
 
           indent do
             hash.each do |name,value|
-              name = (name + separator).ljust(align)
+              name = name.ljust(align) + separator
               puts "#{name}#{value}"
             end
           end
