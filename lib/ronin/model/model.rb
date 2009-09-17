@@ -100,6 +100,8 @@ module Ronin
       formatted = {}
 
       self.attributes.each do |name,value|
+        next if value.nil?
+
         unless (exclude.include?(name) || value.nil?)
           name = name.to_s
 

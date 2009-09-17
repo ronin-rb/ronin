@@ -52,5 +52,11 @@ describe Model do
         'Age' => '21'
       }
     end
+
+    it "should filter out nil values" do
+      resource = BasicModel.new(:name => 'joe')
+
+      resource.humanize_attributes.should == {'Name' => 'joe'}
+    end
   end
 end
