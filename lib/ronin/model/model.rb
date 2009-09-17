@@ -64,7 +64,7 @@ module Ronin
     # @return [Hash{String => String}]
     #   A hash of the humanly readable names and values of the attributes.
     #
-    def format_attributes
+    def humanize_attributes
       formatter = lambda { |value|
         if value.kind_of?(Array)
           value.map(&formatter)

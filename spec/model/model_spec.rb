@@ -35,9 +35,9 @@ describe Model do
     resource.var.should == 2
   end
 
-  it "should format the attributes of a model" do
+  it "should humanize the attributes of a model" do
     resource = BasicModel.new(:name => 'joe', :age => 21)
 
-    resource.format_attributes.should == {'Name' => 'joe', 'Age' => '21'}
+    resource.humanize_attributes.should == {'Name' => 'joe', 'Age' => '21'}
   end
 end
