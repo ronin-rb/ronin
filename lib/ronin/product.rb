@@ -70,11 +70,7 @@ module Ronin
     #   The product vendor, name and version.
     #
     def to_s
-      if (self.vendor && (self.vendor != self.name))
-        return "#{self.vendor} #{self.name} #{self.version}"
-      else
-        return "#{self.name} #{self.version}"
-      end
+      [self.vendor, self.name, self.version].compact.join(' ')
     end
 
   end
