@@ -58,5 +58,11 @@ describe Model do
 
       resource.humanize_attributes.should == {'Name' => 'joe'}
     end
+
+    it "should filter out empty values" do
+      resource = BasicModel.new(:name => '', :age => 21)
+
+      resource.humanize_attributes.should == {'Age' => '21'}
+    end
   end
 end

@@ -100,7 +100,7 @@ module Ronin
       formatted = {}
 
       self.attributes.each do |name,value|
-        next if value.nil?
+        next if (value.nil? || (value.respond_to?(:empty?) && value.empty?))
 
         unless (exclude.include?(name) || value.nil?)
           name = name.to_s
