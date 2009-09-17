@@ -34,6 +34,24 @@ module Ronin
         default_task :default
         map '-h' => :help
 
+        #
+        # Creates a new Command object.
+        #
+        # @param [Array] arguments
+        #   Command-line arguments.
+        #
+        # @param [Hash] options
+        #   Additional command-line options.
+        #
+        # @param [Hash] config
+        #   Additional configuration.
+        #
+        def initialize(arguments=[],options={},config={})
+          @indent = 0
+
+          super(arguments,options,config)
+        end
+
         def self.start(arguments=ARGV,config={})
           unless map[arguments.first.to_s]
             arguments = [default_task] + arguments
@@ -94,13 +112,35 @@ module Ronin
         end
 
         #
+        # Increases the indentation out output temporarily.
+        #
+        # @param [Integer] n
+        #   The number of spaces to increase the indentation by.
+        #
+        # @yield []
+        #   The block will be called after the indentation has been
+        #   increased. After the block has returned, the indentation will
+        #   be returned to normal.
+        #
+        # @return [nil]
+        #
+        def indent(n,&block)
+          @indent += n
+
+          block.call()
+
+          @indent -= n
+          return nil
+        end
+
+        #
         # Prints a given title.
         #
         # @param [String] title
         #   The title to print.
         #
         def print_title(title)
-          puts "[ #{title} ]\n\n"
+          puts "#{' ' * @indent}[ #{title} ]\n\n"
         end
 
         #
@@ -112,16 +152,13 @@ module Ronin
         # @param [Hash] options
         #   Additional options.
         #
-        # @option options [Integer] :indent (2)
-        #   The number of spaces to indent the output.
-        #
         # @option options [String] :title
         #   The optional title to print before the contents of the Array.
         #
         # @return [nil]
         #
         def print_array(array,options={})
-          indent = (' ' * (options[:indent] || 2))
+          indent = (' ' * (@indent + 2))
 
           print_title(options[:title]) if options[:title]
 
@@ -142,9 +179,6 @@ module Ronin
         # @param [Hash] options
         #   Additional options.
         #
-        # @option options [Integer] :indent (2)
-        #   The number of spaces to indent the output.
-        #
         # @option options [String] :separator ("\t")
         #   The separator to use between the keys and values of the Hash.
         #
@@ -154,7 +188,7 @@ module Ronin
         # @return [nil]
         #
         def print_hash(hash,options={})
-          indent = (' ' * (options[:indent] || 2))
+          indent = (' ' * (@indent + 2))
           separator = (options[:separator] || "\t")
           align = hash.keys.map { |name|
             name.to_s.length
