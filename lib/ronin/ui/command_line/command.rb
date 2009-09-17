@@ -93,6 +93,84 @@ module Ronin
           self.class.name.split('::').last.snake_case
         end
 
+        #
+        # Prints a given title.
+        #
+        # @param [String] title
+        #   The title to print.
+        #
+        def print_title(title)
+          puts "[ #{title} ]\n\n"
+        end
+
+        #
+        # Prints a given Array.
+        #
+        # @param [Array] array 
+        #   The Array to print.
+        #
+        # @param [Hash] options
+        #   Additional options.
+        #
+        # @option options [Integer] :indent (2)
+        #   The number of spaces to indent the output.
+        #
+        # @option options [String] :title
+        #   The optional title to print before the contents of the Array.
+        #
+        # @return [nil]
+        #
+        def print_array(array,options={})
+          indent = (' ' * (options[:indent] || 2))
+
+          print_title(options[:title]) if options[:title]
+
+          array.each do |value|
+            puts "#{indent}#{value}"
+          end
+
+          puts "\n" if options[:title]
+          return nil
+        end
+
+        #
+        # Prints a given Hash.
+        #
+        # @param [Hash] hash
+        #   The Hash to print.
+        #
+        # @param [Hash] options
+        #   Additional options.
+        #
+        # @option options [Integer] :indent (2)
+        #   The number of spaces to indent the output.
+        #
+        # @option options [String] :separator ("\t")
+        #   The separator to use between the keys and values of the Hash.
+        #
+        # @option options [String] :title
+        #   The optional title to print before the contents of the Hash.
+        #
+        # @return [nil]
+        #
+        def print_hash(hash,options={})
+          indent = (' ' * (options[:indent] || 2))
+          separator = (options[:separator] || "\t")
+          align = hash.keys.map { |name|
+            name.to_s.length
+          }.max
+
+          print_title(options[:title]) if options[:title]
+
+          hash.each do |name,value|
+            name = (name + separator).ljust(align)
+            puts "#{indent}#{name}#{value}"
+          end
+
+          puts "\n" if options[:title]
+          return nil
+        end
+
       end
     end
   end

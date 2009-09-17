@@ -52,12 +52,5 @@ describe Model do
         'Age' => '21'
       }
     end
-
-    it "should left-justify the humanized names of the attributes" do
-      @resource.humanize_attributes(:align => true).keys.should == [
-        'Name',
-        'Age '
-      ]
-    end
   end
 end
