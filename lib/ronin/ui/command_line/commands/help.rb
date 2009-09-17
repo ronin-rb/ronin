@@ -40,8 +40,8 @@ module Ronin
             else
               puts 'Available commands:'
 
-              CommandLine.commands.sort.each do |name|
-                puts "  #{name}"
+              indent do
+                CommandLine.commands.sort.each { |name| puts name }
               end
             end
           end

@@ -40,9 +40,11 @@ module Ronin
             UI::Output.enable! if options.verbose?
 
             unless name
-              # list all overlays by name
-              Platform.overlays.each_overlay do |overlay|
-                puts "  #{overlay}"
+              indent do
+                # list all overlays by name
+                Platform.overlays.each_overlay do |overlay|
+                  puts overlay
+                end
               end
 
               exit
@@ -56,44 +58,45 @@ module Ronin
               exit -1
             end
 
-            puts "[ #{overlay.name} ]\n\n"
+            print_title overlay.name
 
-            puts "  Path: #{overlay.path}"
-            puts "  Media: #{overlay.media}" if overlay.media
-            puts "  URI: #{overlay.uri}" if overlay.uri
+            indent do
+              puts "Path: #{overlay.path}"
+              puts "Media: #{overlay.media}" if overlay.media
+              puts "URI: #{overlay.uri}" if overlay.uri
 
-            if UI::Output.verbose?
-              putc "\n"
-
-              if overlay.title
-                puts "  Title: #{overlay.title}"
-              end
-
-              if overlay.source
-                puts "  Source URI: #{overlay.source}"
-              end
-
-              if overlay.source_view
-                puts "  Source View: #{overlay.source_view}"
-              end
-
-              if overlay.website
-                puts "  Website: #{overlay.website}"
-              end
-
-              unless overlay.extensions.empty?
-                puts "  Extensions:\n\n"
-                overlay.extensions.each { |ext| puts "    #{ext}" }
+              if UI::Output.verbose?
                 putc "\n"
-              end
 
-              if overlay.description
-                puts "  Description:\n\n    #{overlay.description}\n\n"
+                if overlay.title
+                  puts "Title: #{overlay.title}"
+                end
+
+                if overlay.source
+                  puts "Source URI: #{overlay.source}"
+                end
+
+                if overlay.source_view
+                  puts "Source View: #{overlay.source_view}"
+                end
+
+                if overlay.website
+                  puts "Website: #{overlay.website}"
+                end
+
+                unless overlay.extensions.empty?
+                  print_array(overlay.extensions, :title => 'Extensions')
+                end
+
+                if overlay.description
+                  puts "Description:\n\n"
+                  indent { puts "#{overlay.description}\n\n" }
+                else
+                  putc "\n"
+                end
               else
                 putc "\n"
               end
-            else
-              putc "\n"
             end
           end
 
