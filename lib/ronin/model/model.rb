@@ -82,9 +82,11 @@ module Ronin
 
       self.attributes.each do |name,value|
         unless (name == :id || name == :type || exclude.include?(name))
-          name = Extlib::Inflection.humanize(name)
+          unless value.nil?
+            name = Extlib::Inflection.humanize(name)
 
-          formatted[name] = formatter.call(value)
+            formatted[name] = formatter.call(value)
+          end
         end
       end
 
