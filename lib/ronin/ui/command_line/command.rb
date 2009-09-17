@@ -187,16 +187,12 @@ module Ronin
         # @param [Hash] options
         #   Additional options.
         #
-        # @option options [String] :separator ("\t")
-        #   The separator to use between the keys and values of the Hash.
-        #
         # @option options [String] :title
         #   The optional title to print before the contents of the Hash.
         #
         # @return [nil]
         #
         def print_hash(hash,options={})
-          separator = (options[:separator] || "\t")
           align = hash.keys.map { |name|
             name.to_s.length
           }.max
@@ -205,8 +201,8 @@ module Ronin
 
           indent do
             hash.each do |name,value|
-              name = name.ljust(align) + separator
-              puts "#{name}#{value}"
+              name = "#{name}:".ljust(align)
+              puts "#{name}\t#{value}"
             end
           end
 
