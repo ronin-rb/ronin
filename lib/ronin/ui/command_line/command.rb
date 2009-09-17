@@ -171,9 +171,7 @@ module Ronin
           print_title(options[:title]) if options[:title]
 
           indent do
-            array.each do |value|
-              puts "#{indent}#{value}"
-            end
+            array.each { |value| puts value }
           end
 
           puts "\n" if options[:title]
@@ -208,7 +206,7 @@ module Ronin
           indent do
             hash.each do |name,value|
               name = (name + separator).ljust(align)
-              puts "#{indent}#{name}#{value}"
+              puts "#{name}#{value}"
             end
           end
 
