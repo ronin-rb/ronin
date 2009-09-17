@@ -4,10 +4,6 @@ require 'spec_helper'
 require 'ui/command_line/classes/test_command'
 
 describe UI::CommandLine::Command do
-  it "should provide a version task by default" do
-    UI::CommandLine::Command.tasks['version'].should_not be_nil
-  end
-
   it "should provide a help task by default" do
     UI::CommandLine::Command.tasks['help'].should_not be_nil
   end
