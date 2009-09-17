@@ -134,13 +134,23 @@ module Ronin
         end
 
         #
+        # Print the given messages with indentation.
+        #
+        # @param [Array] messages
+        #   The messages to print, one per-line.
+        #
+        def puts(*messages)
+          super(*(messages.map { |mesg| (' ' * @indent) + mesg }))
+        end
+
+        #
         # Prints a given title.
         #
         # @param [String] title
         #   The title to print.
         #
         def print_title(title)
-          puts "#{' ' * @indent}[ #{title} ]\n\n"
+          puts "[ #{title} ]\n\n"
         end
 
         #
@@ -158,12 +168,12 @@ module Ronin
         # @return [nil]
         #
         def print_array(array,options={})
-          indent = (' ' * (@indent + 2))
-
           print_title(options[:title]) if options[:title]
 
-          array.each do |value|
-            puts "#{indent}#{value}"
+          indent do
+            array.each do |value|
+              puts "#{indent}#{value}"
+            end
           end
 
           puts "\n" if options[:title]
@@ -188,7 +198,6 @@ module Ronin
         # @return [nil]
         #
         def print_hash(hash,options={})
-          indent = (' ' * (@indent + 2))
           separator = (options[:separator] || "\t")
           align = hash.keys.map { |name|
             name.to_s.length
@@ -196,9 +205,11 @@ module Ronin
 
           print_title(options[:title]) if options[:title]
 
-          hash.each do |name,value|
-            name = (name + separator).ljust(align)
-            puts "#{indent}#{name}#{value}"
+          indent do
+            hash.each do |name,value|
+              name = (name + separator).ljust(align)
+              puts "#{indent}#{name}#{value}"
+            end
           end
 
           puts "\n" if options[:title]
