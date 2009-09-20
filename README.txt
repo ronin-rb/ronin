@@ -68,14 +68,15 @@ install or update Overlays.
 
 == REQUIREMENTS:
 
-* {libxml2}[http://xmlsoft.org/]
-* {libsqlite3}[http://sqlite.org/]
 * {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.2.0
+  * {libxml2}[http://xmlsoft.org/]
+  * {libxslt1}[http://xmlsoft.org/XSLT/]
 * {DataMapper}[http://datamapper.org/]:
   * extlib >= 0.9.12
   * dm-core >= 0.9.11
   * data_objects >= 0.9.11
   * do_sqlite3 >= 0.9.11
+    * {libsqlite3}[http://sqlite.org/]
   * dm-types >= 0.9.11
   * dm-serializer >= 0.9.11
   * dm-validations >= 0.9.11
