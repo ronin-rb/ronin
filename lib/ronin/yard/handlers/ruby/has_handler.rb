@@ -1,5 +1,7 @@
 require 'yard'
 
+require 'ronin/yard/handlers/ruby/base'
+
 module YARD
   module Handlers
     module Ruby
@@ -8,7 +10,11 @@ module YARD
         handles method_call(:has)
 
         def process
-          n = statement[1].jump(:int, :ident)
+          n = if statement[1] == :"."
+                statement[3].jump(:int, :ident) 
+              else
+                statement.jump(:int, :ident) 
+              end
 
           if ((n.type == :int && n.source =~ /^[0-9]\d*$/) || 
               (n.type == :ident && n.source == 'n'))
