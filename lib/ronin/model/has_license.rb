@@ -33,6 +33,9 @@ module Ronin
           # The license
           belongs_to :license, :nullable => true
 
+          model_name = self.name.split('::').last.snake_case.plural.to_sym
+          License.has n, model_name, :model => self.name
+
           #
           # Returns all models having the predefined license with the
           # specified _name_.
@@ -48,9 +51,6 @@ module Ronin
             self.all(:license_id => Ronin::License[name].id)
           end
         end
-
-        model_name = base.name.split('::').last.snake_case.plural.to_sym
-        License.has(License.n,model_name,:model => base.name)
       end
     end
   end
