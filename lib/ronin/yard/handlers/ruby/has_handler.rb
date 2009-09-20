@@ -11,9 +11,9 @@ module YARD
 
         def process
           n = if statement[1] == :"."
-                statement[3].jump(:int, :ident) 
+                statement[3].jump(:int, :ident)
               else
-                statement.jump(:int, :ident) 
+                statement.jump(:int, :ident)
               end
 
           if ((n.type == :int && n.source =~ /^[0-9]\d*$/) || 
