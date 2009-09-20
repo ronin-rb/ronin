@@ -12,26 +12,30 @@ module YARD
         def process
           nobj = effected_namespace
           mscope = scope
-          name = statement.jump(:symbol).source[1..-1]
+          name = statement.parameters[0].last
 
-          register MethodObject.new(nobj, name, :class) do |o|
-            o.visibility = :public
-            o.source = statement.source
-            o.signature = "def #{nobj}.#{name}(repository=nil)"
-            o.parameters = [['repository', 'nil']]
-          end
+          if name.type == :symbol
+            name = name.source[1..-1]
 
-          register MethodObject.new(nobj, name, mscope) do |o|
-            o.visibility = :public
-            o.source = statement.source
-            o.signature = "def #{name}"
-          end
+            register MethodObject.new(nobj, name, :class) do |o|
+              o.visibility = :public
+              o.source = statement.source
+              o.signature = "def #{nobj}.#{name}(repository=nil)"
+              o.parameters = [['repository', 'nil']]
+            end
 
-          register MethodObject.new(nobj, "#{name}=", mscope) do |o|
-            o.visibility = :public
-            o.source = statement.source
-            o.signature = "def #{name}=(value)"
-            o.parameters = [['value', nil]]
+            register MethodObject.new(nobj, name, mscope) do |o|
+              o.visibility = :public
+              o.source = statement.source
+              o.signature = "def #{name}"
+            end
+
+            register MethodObject.new(nobj, "#{name}=", mscope) do |o|
+              o.visibility = :public
+              o.source = statement.source
+              o.signature = "def #{name}=(value)"
+              o.parameters = [['value', nil]]
+            end
           end
         end
 
