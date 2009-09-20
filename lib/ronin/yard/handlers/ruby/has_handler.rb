@@ -18,7 +18,7 @@ module YARD
 
           if ((n.type == :int && n.source =~ /^[0-9]\d*$/) || 
               (n.type == :ident && n.source == 'n'))
-            nobj = namespace
+            nobj = effected_namespace
             mscope = scope
             name = statement.jump(:symbol).source[1..-1]
 

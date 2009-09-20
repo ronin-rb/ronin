@@ -1,5 +1,7 @@
 require 'yard'
 
+require 'ronin/yard/handlers/ruby/base'
+
 module YARD
   module Handlers
     module Ruby
@@ -8,7 +10,7 @@ module YARD
         handles method_call(:property)
 
         def process
-          nobj = namespace
+          nobj = effected_namespace
           mscope = scope
           name = statement.jump(:symbol).source[1..-1]
 
