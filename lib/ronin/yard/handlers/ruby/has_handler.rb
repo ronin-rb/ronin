@@ -10,17 +10,15 @@ module YARD
         handles method_call(:has)
 
         def process
-          n = if statement[1] == :"."
-                statement[3].jump(:int, :ident)
-              else
-                statement.jump(:int, :ident)
-              end
+          args = statement.parameters
+          n = args[0]
+          name = args[1]
 
-          if ((n.type == :int && n.source =~ /^[0-9]\d*$/) || 
-              (n.type == :ident && n.source == 'n'))
+          if (name.type == :symbol &&
+              ((n.type == :int && n.source =~ /^[0-9]\d*$/) || 
+              (n.type == :ident && n.source == 'n')))
             nobj = effected_namespace
             mscope = scope
-            name = statement.jump(:symbol).source[1..-1]
 
             register MethodObject.new(nobj, name, :class) do |o|
               o.visibility = :public
