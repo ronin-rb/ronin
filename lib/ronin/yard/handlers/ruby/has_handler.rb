@@ -15,7 +15,7 @@ module YARD
           name = args[1].last
 
           if (name.type == :symbol &&
-              ((n.type == :int && n.source =~ /^[0-9]\d*$/) || 
+              ((n.type == :int && n.source =~ /^[0-9]\d*$/) ||
               (n.type == :ident && n.source == 'n')))
             nobj = effected_namespace
             mscope = scope
