@@ -38,6 +38,7 @@ module YARD
               o.visibility = :public
               o.source = statement.source
               o.signature = "def #{name}="
+              o.parameters = [["new_#{name}", nil]]
             end
           end
         end
