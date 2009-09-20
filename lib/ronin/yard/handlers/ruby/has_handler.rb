@@ -11,14 +11,15 @@ module YARD
 
         def process
           args = statement.parameters
-          n = args[0]
-          name = args[1]
+          n = args[0].last
+          name = args[1].last
 
           if (name.type == :symbol &&
               ((n.type == :int && n.source =~ /^[0-9]\d*$/) || 
               (n.type == :ident && n.source == 'n')))
             nobj = effected_namespace
             mscope = scope
+            name = name.source[1..-1]
 
             register MethodObject.new(nobj, name, :class) do |o|
               o.visibility = :public
