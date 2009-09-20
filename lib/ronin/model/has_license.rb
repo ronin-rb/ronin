@@ -50,7 +50,7 @@ module Ronin
         end
 
         model_name = base.name.split('::').last.snake_case.plural.to_sym
-        License.has(License.n,model_name,:model => base.name)
+        License.has License.n, model_name, :model => base.name
       end
     end
   end
