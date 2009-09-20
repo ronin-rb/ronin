@@ -95,7 +95,7 @@ install or update Overlays.
 
 * Install an Overlay:
 
-    $ ronin install svn://example.com/var/svn/overlay
+    $ ronin install svn://example.com/path/to/overlay
 
 * List installed Overlays:
 
