@@ -7,6 +7,45 @@ describe Network::HTTP::Proxy do
     @proxy = Network::HTTP::Proxy.new
   end
 
+  it "should parse host-names" do
+    proxy = Network::HTTP::Proxy.parse('127.0.0.1')
+
+    proxy.host.should == '127.0.0.1'
+  end
+
+  it "should parse 'host:port' URLs" do
+    proxy = Network::HTTP::Proxy.parse('127.0.0.1:80')
+
+    proxy.host.should == '127.0.0.1'
+    proxy.port.should == 80
+  end
+
+  it "should parse 'user@host:port' URLs" do
+    proxy = Network::HTTP::Proxy.parse('joe@127.0.0.1:80')
+
+    proxy.user.should == 'joe'
+    proxy.host.should == '127.0.0.1'
+    proxy.port.should == 80
+  end
+
+  it "should prase 'user:password@host:port' URLs" do
+    proxy = Network::HTTP::Proxy.parse('joe:lol@127.0.0.1:80')
+
+    proxy.user.should == 'joe'
+    proxy.password.should == 'lol'
+    proxy.host.should == '127.0.0.1'
+    proxy.port.should == 80
+  end
+
+  it "should ignore http:// prefixes when parsing proxy URLs" do
+    proxy = Network::HTTP::Proxy.parse('http://joe:lol@127.0.0.1:80')
+
+    proxy.user.should == 'joe'
+    proxy.password.should == 'lol'
+    proxy.host.should == '127.0.0.1'
+    proxy.port.should == 80
+  end
+
   it "should behave like a Hash" do
     @proxy[:host] = 'example.com'
     @proxy[:host].should == 'example.com'

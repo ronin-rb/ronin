@@ -52,6 +52,46 @@ module Ronin
         end
 
         #
+        # Parses a proxy string.
+        #
+        # @param [String] proxy
+        #   The proxy in String form.
+        #
+        # @return [Proxy]
+        #   The parsed proxy information.
+        #
+        # @example
+        #   Proxy.parse('217.31.51.77:443')
+        #
+        # @example
+        #   Proxy.parse('joe:lol@127.0.0.1:8080')
+        #
+        # @example
+        #   Proxy.parse('http://201.26.192.61:8080')
+        #
+        def Proxy.parse(proxy)
+          proxy = proxy.gsub(/^http(s)?:\/*/,'')
+
+          if proxy.include?('@')
+            auth, proxy = proxy.split('@',2)
+            user, password = auth.split(':')
+          else
+            user = nil
+            password = nil
+          end
+
+          host, port = proxy.split(':',2)
+          port = port.to_i if port
+
+          return Proxy.new(
+            :host => host,
+            :port => port,
+            :user => user,
+            :password => password
+          )
+        end
+
+        #
         # Disables the Proxy object.
         #
         def disable!
