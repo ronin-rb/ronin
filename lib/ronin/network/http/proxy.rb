@@ -52,10 +52,10 @@ module Ronin
         end
 
         #
-        # Parses a proxy string.
+        # Parses a proxy URL.
         #
         # @param [String] proxy
-        #   The proxy in String form.
+        #   The proxy URL in String form.
         #
         # @return [Proxy]
         #   The parsed proxy information.
