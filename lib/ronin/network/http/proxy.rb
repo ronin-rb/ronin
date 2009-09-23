@@ -70,7 +70,7 @@ module Ronin
         #   Proxy.parse('http://201.26.192.61:8080')
         #
         def Proxy.parse(proxy)
-          proxy = proxy.gsub(/^http(s)?:\/*/,'')
+          proxy = proxy.to_s.gsub(/^http(s)?:\/*/,'')
 
           if proxy.include?('@')
             auth, proxy = proxy.split('@',2)
