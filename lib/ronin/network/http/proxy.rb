@@ -54,7 +54,7 @@ module Ronin
         #
         # Parses a proxy URL.
         #
-        # @param [String] proxy
+        # @param [String, URI::HTTP] proxy
         #   The proxy URL in String form.
         #
         # @return [Proxy]
