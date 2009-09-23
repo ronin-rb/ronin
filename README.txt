@@ -66,31 +66,6 @@ install or update Overlays.
   * Auto-indentation enabled.
   * Pretty-Print loaded.
 
-== REQUIREMENTS:
-
-* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.2.0
-  * {libxml2}[http://xmlsoft.org/]
-  * {libxslt1}[http://xmlsoft.org/XSLT/]
-* {DataMapper}[http://datamapper.org/]:
-  * extlib >= 0.9.12
-  * dm-core >= 0.9.11
-  * data_objects >= 0.9.11
-  * do_sqlite3 >= 0.9.11
-    * {libsqlite3}[http://sqlite.org/]
-  * dm-types >= 0.9.11
-  * dm-serializer >= 0.9.11
-  * dm-validations >= 0.9.11
-* {dm-predefined}[http://dm-predefined.rubyforge.org/] >= 0.1.0
-* {parameters}[http://parameters.rubyforge.org/] >= 0.1.5
-* {contextify}[http://contextify.rubyforge.org/] >= 0.1.2
-* {reverse-require}[http://reverserequire.rubyforge.org/] >= 0.3.1
-* {repertoire}[http://repertoire.rubyforge.org/] >= 0.2.1
-* thor >= 0.11.5
-
-== INSTALL:
-
-  $ sudo gem install ronin
-
 == SYNOPSIS:
 
 * Install an Overlay:
@@ -120,6 +95,31 @@ install or update Overlays.
 * View available commands:
 
     $ ronin help
+
+== REQUIREMENTS:
+
+* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.2.0
+  * {libxml2}[http://xmlsoft.org/]
+  * {libxslt1}[http://xmlsoft.org/XSLT/]
+* {DataMapper}[http://datamapper.org/]:
+  * extlib >= 0.9.12
+  * dm-core >= 0.9.11
+  * data_objects >= 0.9.11
+  * do_sqlite3 >= 0.9.11
+    * {libsqlite3}[http://sqlite.org/]
+  * dm-types >= 0.9.11
+  * dm-serializer >= 0.9.11
+  * dm-validations >= 0.9.11
+* {dm-predefined}[http://dm-predefined.rubyforge.org/] >= 0.1.0
+* {parameters}[http://parameters.rubyforge.org/] >= 0.1.5
+* {contextify}[http://contextify.rubyforge.org/] >= 0.1.2
+* {reverse-require}[http://reverserequire.rubyforge.org/] >= 0.3.1
+* {repertoire}[http://repertoire.rubyforge.org/] >= 0.2.1
+* thor >= 0.11.5
+
+== INSTALL:
+
+  $ sudo gem install ronin
 
 == RONIN LIBRARIES:
 
