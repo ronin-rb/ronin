@@ -99,9 +99,31 @@ module Ronin
         #
         def valid?
           Net.http_get_body(
-            :url => 'http://www.example.com',
+            :url => 'http://www.example.com/',
             :proxy => self
           ).include?('Example Web Page')
+        end
+
+        #
+        # Measures the lag of the proxy.
+        #
+        # @return [Float]
+        #   The extra number of seconds it takes the proxy to process the
+        #   request.
+        #
+        def lag
+          time = lambda { |proxy|
+            t1 = Time.now
+            Net.http_head(
+              :url => 'http://www.example.com/',
+              :proxy => proxy
+            )
+            t2 = Time.now
+
+            (t2 - t1)
+          }
+
+          return (time.call(self) - time.call(nil))
         end
 
         #
