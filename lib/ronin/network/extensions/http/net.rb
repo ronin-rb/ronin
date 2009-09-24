@@ -48,7 +48,7 @@ module Net
   # @option options [String] :path
   #   The path to request from the HTTP server.
   #
-  # @option options [Hash] :proxy (Ronin::Network::HTTP.proxy)
+  # @option options [String, Hash] :proxy (Ronin::Network::HTTP.proxy)
   #   A Hash of proxy settings to use when connecting to the HTTP server.
   #
   # @yield [session]
