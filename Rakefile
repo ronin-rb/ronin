@@ -12,7 +12,7 @@ Hoe.spec('ronin') do
   self.remote_rdoc_dir = 'docs/ronin'
   self.extra_deps = [
     ['yard', '>=0.2.3.5'],
-    ['nokogiri', '>=1.2.0'],
+    ['nokogiri', '>=1.3.3'],
     ['extlib', '>=0.9.13'],
     ['data_objects', '>=0.10.0'],
     ['do_sqlite3', '>=0.10.0'],
