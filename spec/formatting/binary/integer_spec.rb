@@ -124,4 +124,8 @@ describe Integer do
       42.hex_escape.should == "\\x2a"
     end
   end
+
+  it "should alias char to the #chr method" do
+    0x41.char.should == 'A'
+  end
 end
