@@ -98,10 +98,14 @@ module Ronin
         #   Specifies if the proxy can proxy requests.
         #
         def valid?
-          Net.http_get_body(
-            :url => 'http://www.example.com/',
-            :proxy => self
-          ).include?('Example Web Page')
+          begin
+            Net.http_get_body(
+              :url => 'http://www.example.com/',
+              :proxy => self
+            ).include?('Example Web Page')
+          rescue Errno::ETIMEDOUT, Timeout::Error
+            return false
+          end
         end
 
         #
@@ -123,7 +127,11 @@ module Ronin
             (t2 - t1)
           }
 
-          return (time.call(self) - time.call(nil))
+          begin
+            return (time.call(self) - time.call(nil))
+          rescue Errno::ETIMEDOUT, Timeout::Error
+            return (1.0/0)
+          end
         end
 
         #
