@@ -63,7 +63,7 @@ module Ronin
       # @option options [String] :host
       #   The host to connect to.
       #
-      # @option options [String] :port (Ronin::Network::HTTP.default_proxy_port)
+      # @option options [String] :port (::Net::HTTP.default_port)
       #   The port to connect to.
       #
       # @option options [String] :user
@@ -75,7 +75,7 @@ module Ronin
       # @option options [String] :path ('/')
       #   The path to request.
       #
-      # @option options [Hash] :proxy (Ronin::Network::HTTP.proxy) 
+      # @option options [String, Hash] :proxy (Ronin::Network::HTTP.proxy)
       #   The Proxy information.
       #
       # @return [Hash]
