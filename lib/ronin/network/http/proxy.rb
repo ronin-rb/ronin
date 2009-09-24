@@ -103,7 +103,7 @@ module Ronin
               :url => 'http://www.example.com/',
               :proxy => self
             ).include?('Example Web Page')
-          rescue Errno::ETIMEDOUT, Timeout::Error
+          rescue Timeout::Error, StandardError
             return false
           end
         end
@@ -129,7 +129,7 @@ module Ronin
 
           begin
             return (time.call(self) - time.call(nil))
-          rescue Errno::ETIMEDOUT, Timeout::Error
+          rescue Timeout::Error, StandardError
             return (1.0/0)
           end
         end
