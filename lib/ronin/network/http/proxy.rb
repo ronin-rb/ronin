@@ -92,6 +92,19 @@ module Ronin
         end
 
         #
+        # Tests the proxy.
+        #
+        # @return [Boolean]
+        #   Specifies if the proxy can proxy requests.
+        #
+        def valid?
+          Net.http_get_body(
+            :url => 'http://www.example.com',
+            :proxy => self
+          ).include?('Example Web Page')
+        end
+
+        #
         # Disables the Proxy object.
         #
         def disable!
