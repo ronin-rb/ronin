@@ -108,8 +108,6 @@ module Ronin
         if (proxy = new_options[:proxy])
           unless proxy.kind_of?(Hash)
             new_options[:proxy] = Ronin::Network::HTTP::Proxy.parse(proxy)
-          else
-            proxy[:port] ||= Ronin::Network::HTTP.default_proxy_port
           end
         else
           new_options[:proxy] = Ronin::Network::HTTP.proxy
