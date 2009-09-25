@@ -21,6 +21,7 @@
 * Added YARD handlers for detecting Ronin::Scanners::Scanner.scanner
   method-calles.
 * Added Ronin::Config.tmp_dir.
+* Added Kernel.require_within.
 * Added Net.tcp_server.
 * Added Net.tcp_server_session.
 * Added Net.tcp_single_server.
