@@ -103,23 +103,23 @@ install or update Overlays.
 
 == REQUIREMENTS:
 
-* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.2.0
+* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.3.3
   * {libxml2}[http://xmlsoft.org/]
   * {libxslt1}[http://xmlsoft.org/XSLT/]
 * {DataMapper}[http://datamapper.org/]:
-  * extlib >= 0.9.12
-  * dm-core >= 0.9.11
-  * data_objects >= 0.9.11
-  * do_sqlite3 >= 0.9.11
+  * extlib >= 0.9.13
+  * dm-core >= 0.10.0
+  * data_objects >= 0.10.0
+  * do_sqlite3 >= 0.10.0
     * {libsqlite3}[http://sqlite.org/]
-  * dm-types >= 0.9.11
-  * dm-serializer >= 0.9.11
-  * dm-validations >= 0.9.11
-* {dm-predefined}[http://dm-predefined.rubyforge.org/] >= 0.1.0
-* {parameters}[http://parameters.rubyforge.org/] >= 0.1.5
-* {contextify}[http://contextify.rubyforge.org/] >= 0.1.2
+  * dm-types >= 0.10.0
+  * dm-validations >= 0.10.0
+* {dm-predefined}[http://dm-predefined.rubyforge.org/] >= 0.2.0
+* {chars}[http://chars.rubyforge.org/] >= 0.1.2
+* {parameters}[http://parameters.rubyforge.org/] >= 0.1.8
+* {contextify}[http://contextify.rubyforge.org/] >= 0.1.3
 * {reverse-require}[http://reverserequire.rubyforge.org/] >= 0.3.1
-* {repertoire}[http://repertoire.rubyforge.org/] >= 0.2.1
+* {repertoire}[http://repertoire.rubyforge.org/] >= 0.2.3
 * thor >= 0.11.5
 
 == INSTALL:
