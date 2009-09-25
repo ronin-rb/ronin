@@ -1,7 +1,7 @@
 === 0.3.0 / 2009-09-24
 
-* Require YARD >= 0.2.3.5.
-* Require Nokogiri >= 1.3.3.
+* Require yard >= 0.2.3.5.
+* Require nokogiri >= 1.3.3.
 * Require extlib >= 0.9.13.
 * Require data_objects >= 0.10.0.
 * Require do_sqlite3 >= 0.10.0.
@@ -14,7 +14,7 @@
 * Require contextify >= 0.1.3.
 * Require repertoire >= 0.2.3.
 * Require thor >= 0.11.5.
-* Require RSpec >= 1.1.12.
+* Require rspec >= 1.1.12.
 * Moved to YARD based documentation.
 * Added YARD handlers for detecting DataMapper property, has and belongs_to
   method-calles.
