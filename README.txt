@@ -61,10 +61,15 @@ install or update Overlays.
   * Enumerating IP ranges:
     * IPv4 / IPv6 addresses.
     * CIDR / globbed ranges.
+  * (Un-)Hexdumping data.
+  * Handling exceptions.
 * Provides a customized Ruby Console with:
   * Tab-completion enabled.
   * Auto-indentation enabled.
   * Pretty-Print loaded.
+  * print_info, print_error, print_warning and print_debug output helper
+    methods with color-output.
+* Provides an extendable command-line interface based on Thor.
 
 == SYNOPSIS:
 
