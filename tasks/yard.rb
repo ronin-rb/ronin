@@ -10,7 +10,8 @@ YARD::Rake::YardocTask.new do |t|
   t.options = [
     '--protected',
     '--files', 'History.txt',
-    '--title', 'Ronin'
+    '--title', 'Ronin',
+    '--quiet'
   ]
 end
 
