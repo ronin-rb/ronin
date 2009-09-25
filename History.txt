@@ -1,3 +1,97 @@
+=== 0.3.0 / 2009-09-24
+
+* Require YARD >= 0.2.3.5.
+* Require Nokogiri >= 1.3.3.
+* Require extlib >= 0.9.13.
+* Require data_objects >= 0.10.0.
+* Require do_sqlite3 >= 0.10.0.
+* Require dm-core >= 0.10.0.
+* Require dm-types >= 0.10.0.
+* Require dm-validations >= 0.10.0.
+* Require dm-predefined >= 0.2.0.
+* Require chars >= 0.1.2.
+* Require parameters >= 0.1.8.
+* Require contextify >= 0.1.3.
+* Require repertoire >= 0.2.3.
+* Require thor >= 0.11.5.
+* Require RSpec >= 1.1.12.
+* Moved to YARD based documentation.
+* Added YARD handlers for detecting DataMapper property, has and belongs_to
+  method-calles.
+* Added YARD handlers for detecting Ronin::Scanners::Scanner.scanner
+  method-calles.
+* Added Ronin::Config.tmp_dir.
+* Added Net.tcp_server.
+* Added Net.tcp_server_session.
+* Added Net.tcp_single_server.
+* Added Net.udp_server.
+* Added Net.udp_server_session.
+* Added Ronin::Network::HTTP::Proxy.
+* Added Ronin::Model#humanize_attributes.
+* Added Ronin::Model::HasVersion.revision.
+* Added Ronin::Templates::Template.
+* Added Ronin::Platform::Overlays#gems.
+* Added attr_reader, attr_writer and attr_accessor instance methods to
+  Ronin::Platform::Extension.
+* Added Ronin::Platform::Overlay#load!.
+* Added Ronin::Platform::Overlay#reload!.
+* Added Ronin::Platform::Extension#tmp_dir.
+* Added Ronin::Platform::ExtensionCache#reload!.
+* Added Ronin::Platform.reload!.
+* Added Ronin::UI::Output.verbose=.
+* Added Ronin::UI::Output.verbose?.
+* Added Ronin::UI::Output.quiet=.
+* Added Ronin::UI::Output.quiet?.
+* Added Ronin::UI::Output.silent=.
+* Added Ronin::UI::Output.silent?.
+* Added Ronin::UI::Output::Helpers.
+* Added Ronin::UI::CommandLine::Command#indent.
+* Added Ronin::UI::CommandLine::Command#print_title.
+* Added Ronin::UI::CommandLine::Command#print_array.
+* Added Ronin::UI::CommandLine::Command#print_hash.
+* Renamed Ronin::License.gpl_2 to Ronin::License.gpl2.
+* Renamed Ronin::License.gpl_3 to Ronin::License.gpl3.
+* Renamed Ronin::License.lgpl_3 to Ronin::License.lgpl3.
+* Renamed the :post_data option to :postdata for the Net.http_post and
+  Net.http_post_body methods.
+* Renamed Ronin::Sessions to Ronin::Network::Helpers.
+* Renamed Ronin::Platform::ExtensionCache#has_extension? to
+  Ronin::Platform::ExtensionCache#has?.
+* Renamed Ronin::Platform::ExtensionCache#extension_with to
+  Ronin::Platform::ExtensionCache#with.
+* Renamed Ronin::UI::Diagnostics to Ronin::UI::Output.
+* Removed Hash#explode.
+* Removed URI::HTTP#explode_query_params and URI::HTTP#test_query_params.
+* Removed Ronin::Model.first_or_new, since it is provided by
+  dm-core 0.10.0.
+* Removed Ronin.console.
+* Removed Ronin::License.predefine.
+* Updated the summary and 3-point description of Ronin.
+* Aliased Integer#char to Integer#chr.
+* Changed Ronin::Database::DEFAULT_CONFIG to be a String, for printability.
+* Overrode Ronin::Model.allocate so that the initialize method of models
+  is always called when resources are allocated.
+* Improved the white-space removal in Ronin::Model::HasDescription.
+* Have Ronin::Model::HasLicense auto-define a relationship with
+  Ronin::License.
+* Fixed formatting issue in Ronin::Product#to_s.
+* Allow Ronin::Cacheable.load_first to accept a block.
+* Make sure Ronin::Static.directory raises a RuntimeError if the given
+  directory is missing or not a directory.
+* Allow the :proxy option passed to Net.http_* methods to be a String,
+  Hash or Ronin::Network::HTTP::Proxy.
+* Make sure Ronin::Network::Helpers::Helper.require_variable raises
+  a RuntimeError if the required instance variable is not set.
+* Merged Ronin::Platform::Extension.load into
+  Ronin::Platform::ExtensionCache#load_extension.
+* Updated the overlay.xsl used to render the ronin.xml files within
+  Overlays.
+* Merged Ronin::UI::Verbose into Ronin::UI::Output.
+* Rewrote Ronin::UI::CommandLine::Command to inherit from Thor.
+* Rewrote the Ronin::UI::CommandLine commands to use Thor options.
+* Include Ronin::UI::Output::Helpers into Ronin::Sessions::Session.
+* Include Ronin::UI::Output::Helpers into Ronin::Console sessions.
+
 === 0.2.4 / 2009-07-02
 
 * Require Hoe >= 2.0.0
