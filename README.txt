@@ -103,6 +103,7 @@ install or update Overlays.
 
 == REQUIREMENTS:
 
+* {yard}[http://yard.soen.ca/] >= 0.2.3.5
 * {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.3.3
   * {libxml2}[http://xmlsoft.org/]
   * {libxslt1}[http://xmlsoft.org/XSLT/]
