@@ -41,8 +41,8 @@ install or update Overlays.
     * Git
     * Rsync
 * Allows for the loading of Extensions from one or more Overlays.
-* Provides persistent storage of objects using DataMapper.
-* Caches and mirrors objects stored in Overlays using DataMapper.
+* Provides Object Database using DataMapper.
+* Caches and mirrors Objects stored in Overlays using DataMapper.
 * Provides convenience methods for:
   * Formatting data:
     * Binary
