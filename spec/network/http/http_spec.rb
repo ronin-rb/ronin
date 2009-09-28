@@ -3,13 +3,13 @@ require 'ronin/network/http'
 require 'spec_helper'
 
 describe Network::HTTP do
-  describe "HTTP.proxy" do
+  describe "proxy" do
     it "should be disabled by default" do
       Network::HTTP.proxy.should_not be_enabled
     end
   end
 
-  describe "HTTP.proxy=" do
+  describe "proxy=" do
     after(:all) do
       Network::HTTP.proxy.disable!
     end
@@ -42,7 +42,7 @@ describe Network::HTTP do
     end
   end
 
-  describe "HTTP.expand_options" do
+  describe "expand_options" do
     it "should added a default port and path" do
       options = {:host => 'example.com'}
       expanded_options = Network::HTTP.expand_options(options)
@@ -78,7 +78,7 @@ describe Network::HTTP do
     end
   end
 
-  describe "HTTP.headers" do
+  describe "headers" do
     it "should convert Symbol options to HTTP Headers" do
       options = {:user_agent => 'bla', :location => 'test'}
 
@@ -108,7 +108,7 @@ describe Network::HTTP do
     end
   end
 
-  describe "HTTP.request" do
+  describe "request" do
     it "should handle Symbol names" do
       Network::HTTP.request(
         :method => :get, :path => '/'
