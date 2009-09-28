@@ -26,6 +26,8 @@ module Ronin
   module Network
     module HTTP
       #
+      # The Ronin HTTP proxy to use.
+      #
       # @return [Proxy]
       #   The Ronin HTTP proxy hash.
       #
