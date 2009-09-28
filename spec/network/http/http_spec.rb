@@ -3,6 +3,12 @@ require 'ronin/network/http'
 require 'spec_helper'
 
 describe Network::HTTP do
+  describe "HTTP.proxy" do
+    it "should be disabled by default" do
+      Network::HTTP.proxy.should_not be_enabled
+    end
+  end
+
   describe "HTTP.proxy=" do
     after(:all) do
       Network::HTTP.proxy.disable!
