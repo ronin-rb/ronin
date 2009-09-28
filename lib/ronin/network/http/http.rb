@@ -34,6 +34,27 @@ module Ronin
       end
 
       #
+      # Sets the Ronin HTTP proxy to use.
+      #
+      # @param [Proxy, Hash, String] new_proxy
+      #   The new proxy to use.
+      #
+      # @return [Proxy]
+      #   The new proxy.
+      #
+      def HTTP.proxy=(new_proxy)
+        if new_proxy.kind_of?(Proxy)
+          @@http_proxy = new_proxy
+        elsif new_proxy.kind_of?(Hash)
+          @@http_proxy = Proxy.new(new_proxy)
+        elsif new_proxy.kind_of?(String)
+          @@http_proxy = Proxy.parse(new_proxy)
+        else
+          raise(RuntimeError,"the given proxy is neither a Proxy, Hash or String",caller)
+        end
+      end
+
+      #
       # @return [String, nil]
       #   The default Ronin HTTP User-Agent.
       #

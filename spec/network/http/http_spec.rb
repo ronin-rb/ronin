@@ -3,6 +3,39 @@ require 'ronin/network/http'
 require 'spec_helper'
 
 describe Network::HTTP do
+  describe "HTTP.proxy=" do
+    after(:all) do
+      Network::HTTP.proxy.disable!
+    end
+
+    it "should accept Network::HTTP::Proxy arguments" do
+      Network::HTTP.proxy = Network::HTTP::Proxy.new(
+        :host => 'www.example.com',
+        :port => 9001
+      )
+
+      Network::HTTP.proxy[:host].should == 'www.example.com'
+      Network::HTTP.proxy[:port].should == 9001
+    end
+
+    it "should accept Hash arguments" do
+      Network::HTTP.proxy = {
+        :host => 'www.example.com',
+        :port => 9001
+      }
+
+      Network::HTTP.proxy[:host].should == 'www.example.com'
+      Network::HTTP.proxy[:port].should == 9001
+    end
+
+    it "should accept String arguments" do
+      Network::HTTP.proxy = 'www.example.com:9001'
+
+      Network::HTTP.proxy[:host].should == 'www.example.com'
+      Network::HTTP.proxy[:port].should == 9001
+    end
+  end
+
   describe "HTTP.expand_options" do
     it "should added a default port and path" do
       options = {:host => 'example.com'}
