@@ -227,28 +227,13 @@ module Ronin
       #   end
       #
       def scan(categories={},&block)
+        options = normalize_category_options(categories)
         tests = {}
-        options = {}
         results = {}
 
-        if categories.empty?
-          self.class.scans_for.each { |name| categories[name] = true }
-        end
-
-        categories.each do |name,opts|
-          name = name.to_sym
-
-          if opts
-            tests[name] = self.class.scanners_in(name)
-
-            options[name] = if opts.kind_of?(Hash)
-              opts
-            else
-              {}
-            end
-
-            results[name] = []
-          end
+        options.each do |name,opts|
+          tests[name] = self.class.scanners_in(name)
+          results[name] = []
         end
 
         current_category = nil
@@ -289,6 +274,40 @@ module Ronin
       #
       def each_target(&block)
         block.call(self)
+      end
+
+      private
+
+      #
+      # Converts a Hash of categories to scan and options, into a Hash
+      # of scanner options.
+      #
+      # @param [Hash{String,Symbol => Boolean,Hash}] categories
+      #   The categories to scan for and their options.
+      #
+      # @return [Hash{Symbol => Hash}]
+      #   The normalized scanner options.
+      #
+      def normalize_category_options(categories)
+        options = {}
+
+        if categories.empty?
+          self.class.scans_for.each { |name| options[name] = {} }
+        else
+          categories.each do |name,opts|
+            name = name.to_sym
+
+            if opts
+              options[name] = if opts.kind_of?(Hash)
+                                opts
+                              else
+                                {}
+                              end
+            end
+          end
+        end
+
+        return options
       end
     end
   end
