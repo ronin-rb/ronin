@@ -196,7 +196,7 @@ module Ronin
       # If no categories are specified, all categories will be ran
       # against +each_target+.
       #
-      # @param [Hash{Symbol => true,Hash}] categories
+      # @param [Hash{Symbol,String => Boolean,Hash}] categories
       #   The categories to scan for, with additional per-category
       #   scanner-options.
       #
