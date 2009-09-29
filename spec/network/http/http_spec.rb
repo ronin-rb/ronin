@@ -40,6 +40,12 @@ describe Network::HTTP do
       Network::HTTP.proxy[:host].should == 'www.example.com'
       Network::HTTP.proxy[:port].should == 9001
     end
+
+    it "should raise a RuntimeError exception when given anything else" do
+      lambda {
+        Network::HTTP.proxy = 42
+      }.should raise_error(RuntimeError)
+    end
   end
 
   describe "expand_options" do
