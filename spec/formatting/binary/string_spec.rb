@@ -76,6 +76,26 @@ describe String do
     end
   end
 
+  describe "base64_encode" do
+    before(:all) do
+      @string = "hello\0"
+    end
+
+    it "should base64 encode a String" do
+      @string.base64_encode.should == "aGVsbG8A\n"
+    end
+  end
+
+  describe "base64_decode" do
+    before(:all) do
+      @string = "aGVsbG8A\n"
+    end
+
+    it "should base64 decode a String" do
+      @string.base64_decode.should == "hello\0"
+    end
+  end
+
   describe "zlib_inflate" do
     before(:all) do
       @zlib_chunk = "x\xda3H\xb3H3MM6\xd354II\xd651K5\xd7M43N\xd4M\xb3\xb0L2O14423Mb\0\0\xc02\t\xae"
