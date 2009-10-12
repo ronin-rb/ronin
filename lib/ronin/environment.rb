@@ -31,5 +31,4 @@ require 'pp'
 
 module Ronin
   Config.load
-  Database.setup
 end
