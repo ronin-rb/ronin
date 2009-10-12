@@ -36,6 +36,19 @@ module Ronin
           end
 
           #
+          # Destructively migrates the data-store to match the model.
+          #
+          # @param [Symbol] repository
+          #   The repository to be migrated
+          #
+          def auto_migrate!(repository=self.repository_name)
+            result = super(repository)
+
+            @auto_upgraded = true
+            return result
+          end
+
+          #
           # Safely migrates the data-store to match the model preserving
           # data already in the data-store.
           #
