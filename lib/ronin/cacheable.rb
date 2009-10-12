@@ -190,6 +190,18 @@ module Ronin
     end
 
     #
+    # The directory the object was cached from.
+    #
+    # @return [String]
+    #   The base-directory of the objects +cached_path+ property.
+    #
+    def cache_dir
+      if self.cached_path
+        return File.dirname(self.cached_path)
+      end
+    end
+
+    #
     # @return [Boolean]
     #   Specifies whether the original code has been loaded into the
     #   object.
