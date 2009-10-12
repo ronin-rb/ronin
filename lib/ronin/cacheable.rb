@@ -234,6 +234,9 @@ module Ronin
     #
     def cache!
       if self.cached_path
+        # explicitly call lazy_upgrade!
+        self.class.lazy_upgrade!
+
         # delete any existing objects
         self.class.all(:cached_path => self.cached_path).destroy!
 
