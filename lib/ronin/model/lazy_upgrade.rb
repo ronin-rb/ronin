@@ -50,7 +50,7 @@ module Ronin
           end
 
           def lazy_upgrade!(repository=self.repository_name)
-            auto_upgrade(repository) unless auto_upgraded?
+            auto_upgrade!(repository) unless auto_upgraded?
           end
         end
 
