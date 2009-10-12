@@ -74,16 +74,16 @@ module Ronin
           end
         end
 
-        base.before_class_method :create do
-          self.lazy_upgrade!
-        end
-
         base.before_class_method :first do
           self.lazy_upgrade!
         end
 
         base.before_class_method :all do
           self.lazy_upgrade!
+        end
+
+        base.before :valid? do
+          self.class.lazy_upgrade!
         end
 
         base.before :save do
