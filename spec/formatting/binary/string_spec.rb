@@ -8,8 +8,12 @@ describe String do
     String.method_defined?(:depack).should == true
   end
 
-  it "should provide String#hex_escape" do
-    String.method_defined?(:hex_escape).should == true
+  it "should provide String#zlib_inflate" do
+    String.method_defined?(:zlib_inflate).should == true
+  end
+
+  it "should provide String#zlib_deflate" do
+    String.method_defined?(:zlib_deflate).should == true
   end
 
   it "should provide String#hex_unescape" do
@@ -69,6 +73,26 @@ describe String do
 
     it "should depack itself as a quad for a big-endian architecture" do
       @ppc_packed_quad.depack(Arch.ppc,8).should == @integer
+    end
+  end
+
+  describe "zlib_inflate" do
+    before(:all) do
+      @zlib_chunk = "x\xda3H\xb3H3MM6\xd354II\xd651K5\xd7M43N\xd4M\xb3\xb0L2O14423Mb\0\0\xc02\t\xae"
+    end
+
+    it "should inflate a zlib deflated String" do
+      @zlib_chunk.zlib_inflate.should == "0f8f5ec6-14dc-46e7-a63a-f89b7d11265b\0"
+    end
+  end
+
+  describe "zlib_deflate" do
+    before(:all) do
+      @string = "hello"
+    end
+
+    it "should zlib deflate a String" do
+      @string.zlib_deflate.should == "x\x9c\xcbH\xcd\xc9\xc9\a\0\x06,\x02\x15"
     end
   end
 

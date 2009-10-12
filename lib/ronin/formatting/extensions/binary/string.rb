@@ -24,6 +24,13 @@ require 'ronin/arch'
 
 require 'base64'
 
+begin
+  require 'zlib'
+rescue Gem::LoadError => e
+  raise(e)
+rescue ::LoadError
+end
+
 class String
 
   #
@@ -174,6 +181,26 @@ class String
   #
   def base64_decode
     Base64.decode64(self)
+  end
+
+  #
+  # Zlib inflate a string.
+  #
+  # @return [String]
+  #   The zlib inflated form of the string.
+  #
+  def zlib_inflate
+    Zlib::Inflate.inflate(self)
+  end
+
+  #
+  # Zlib deflate a string.
+  #
+  # @return [String]
+  #   The zlib deflated form of the string.
+  #
+  def zlib_deflate
+    Zlib::Deflate.deflate(self)
   end
 
   #
