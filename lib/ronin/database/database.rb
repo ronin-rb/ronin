@@ -20,11 +20,6 @@
 
 require 'ronin/database/exceptions/invalid_config'
 require 'ronin/model'
-require 'ronin/arch'
-require 'ronin/os'
-require 'ronin/author'
-require 'ronin/license'
-require 'ronin/product'
 require 'ronin/config'
 
 require 'yaml'
@@ -156,7 +151,7 @@ module Ronin
       # setup the database repository
       DataMapper.setup(Model::REPOSITORY_NAME, configuration)
 
-      Database.update!(&block)
+      block.call() if block
       return nil
     end
   end
