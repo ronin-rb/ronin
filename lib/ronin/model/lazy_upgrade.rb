@@ -50,8 +50,8 @@ module Ronin
           end
 
           #
-          # Safely migrates the data-store to match the model, but only
-          # if the model has not yet been migrated.
+          # Safely migrates the data-store to match the model, but only if
+          # the model has not yet been migrated.
           #
           # @param [Symbol] repository
           #   The repository to be migrated 
