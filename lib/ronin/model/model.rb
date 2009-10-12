@@ -19,6 +19,7 @@
 #
 
 require 'ronin/model/lazy_upgrade'
+require 'ronin/model/lazy_setup'
 
 require 'extlib'
 require 'dm-core'
@@ -38,6 +39,7 @@ module Ronin
           include DataMapper::Resource
           include DataMapper::Migrations
           include Model::LazyUpgrade
+          include Model::LazySetup
 
           def self.allocate
             resource = super
