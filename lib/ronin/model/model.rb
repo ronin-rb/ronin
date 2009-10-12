@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/model/lazy_upgrade'
+
 require 'extlib'
 require 'dm-core'
 require 'dm-types'
@@ -35,6 +37,7 @@ module Ronin
         base.module_eval do
           include DataMapper::Resource
           include DataMapper::Migrations
+          include Model::LazyUpgrade
 
           def self.allocate
             resource = super
@@ -53,31 +56,6 @@ module Ronin
 
           # The class type property
           property :type, Discriminator
-
-          #
-          # Determines if the model has been auto-upgraded recently.
-          #
-          # @return [Boolean]
-          #   Specifies whether the model has been auto-upgraded.
-          #
-          def auto_upgraded?
-            @auto_upgraded == true
-          end
-
-          #
-          # Safely migrates the data-store to match the model preserving
-          # data already in the data-store.
-          #
-          # @param [Symbol] repository
-          #   repository_name the repository to be migrated 
-          #
-          def auto_upgrade!(repository=self.repository_name)
-            result = super(repository)
-
-            @auto_upgraded = true
-            return result
-          end
-
         end
       end
     end
