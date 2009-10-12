@@ -44,11 +44,11 @@ module Ronin
       # Overlay static/ directory
       STATIC_DIR = 'static'
 
-      # Overlay objects directory
-      OBJECTS_DIR = 'objects'
+      # Overlay cache directory
+      CACHE_DIR = 'cache'
 
       # Reserved directories
-      RESERVED_DIRS = [LIB_DIR, STATIC_DIR, OBJECTS_DIR]
+      RESERVED_DIRS = [LIB_DIR, STATIC_DIR, CACHE_DIR]
 
       # Local path to the overlay
       attr_reader :path
@@ -86,8 +86,8 @@ module Ronin
       # The static directory
       attr_reader :static_dir
 
-      # The objects directory
-      attr_reader :objects_dir
+      # The cache directory
+      attr_reader :cache_dir
 
       # Repository of the overlay
       attr_reader :repository
@@ -117,7 +117,7 @@ module Ronin
         @path = File.expand_path(path)
         @name = File.basename(@path)
         @static_dir = File.join(@path,STATIC_DIR)
-        @objects_dir = File.join(@path,OBJECTS_DIR)
+        @cache_dir = File.join(@path,CACHE_DIR)
         @uri = uri
         @repository = Repository.new(@path,Media.types[media])
 
@@ -168,7 +168,7 @@ module Ronin
       def has_extension?(name)
         name = File.basename(name.to_s)
 
-        return false if name == OBJECTS_DIR
+        return false if name == CACHE_DIR
         return File.directory?(File.join(@path,name))
       end
 

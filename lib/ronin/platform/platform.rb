@@ -108,7 +108,7 @@ module Ronin
       overlay = Overlay.new(path,media,uri)
 
       Platform.overlays.add(overlay) do |overlay|
-        ObjectCache.cache(overlay.objects_dir)
+        ObjectCache.cache(overlay.cache_dir)
       end
 
       block.call(overlay) if block
@@ -171,7 +171,7 @@ module Ronin
     #
     def Platform.update(&block)
       Platform.overlays.update do |overlay|
-        ObjectCache.mirror(overlay.objects_dir)
+        ObjectCache.mirror(overlay.cache_dir)
       end
 
       block.call if block
@@ -218,7 +218,7 @@ module Ronin
     #
     def Platform.uninstall(name,&block)
       Platform.overlays.uninstall(name) do |overlay|
-        ObjectCache.clean(overlay.objects_dir)
+        ObjectCache.clean(overlay.cache_dir)
       end
 
       block.call() if block
