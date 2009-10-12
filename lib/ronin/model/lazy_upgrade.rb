@@ -40,7 +40,7 @@ module Ronin
           # data already in the data-store.
           #
           # @param [Symbol] repository
-          #   repository_name the repository to be migrated 
+          #   The repository to be migrated 
           #
           def auto_upgrade!(repository=self.repository_name)
             result = super(repository)
@@ -49,6 +49,13 @@ module Ronin
             return result
           end
 
+          #
+          # Safely migrates the data-store to match the model, but only
+          # if the model has not yet been migrated.
+          #
+          # @param [Symbol] repository
+          #   The repository to be migrated 
+          #
           def lazy_upgrade!(repository=self.repository_name)
             auto_upgrade!(repository) unless auto_upgraded?
           end
