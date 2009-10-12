@@ -166,10 +166,7 @@ module Ronin
       #   specified _name_.
       #
       def has_extension?(name)
-        name = File.basename(name.to_s)
-
-        return false if name == CACHE_DIR
-        return File.directory?(File.join(@path,name))
+        extensions.include?(name.to_s)
       end
 
       #
