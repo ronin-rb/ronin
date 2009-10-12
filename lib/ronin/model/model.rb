@@ -53,6 +53,31 @@ module Ronin
 
           # The class type property
           property :type, Discriminator
+
+          #
+          # Determines if the model has been auto-upgraded recently.
+          #
+          # @return [Boolean]
+          #   Specifies whether the model has been auto-upgraded.
+          #
+          def auto_upgraded?
+            @auto_upgraded == true
+          end
+
+          #
+          # Safely migrates the data-store to match the model preserving
+          # data already in the data-store.
+          #
+          # @param [Symbol] repository
+          #   repository_name the repository to be migrated 
+          #
+          def auto_upgrade!(repository=self.repository_name)
+            result = super(repository)
+
+            @auto_upgraded = true
+            return result
+          end
+
         end
       end
     end
