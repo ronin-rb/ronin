@@ -112,8 +112,8 @@ class IPAddr
   end
 
   #
-  # Iterates over each IP address that is included in the addresses netmask.
-  # Supports both IPv4 and IPv6 addresses.
+  # Iterates over each IP address that is included in the addresses
+  # netmask. Supports both IPv4 and IPv6 addresses.
   #
   # @yield [ip]
   #   The block which will be passed every IP address covered be the
