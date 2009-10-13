@@ -36,16 +36,6 @@ module Ronin
         property :cached_timestamp, DataMapper::Types::EpochTime
 
         #
-        # Initializes the cacheable object.
-        #
-        def initialize(*arguments,&block)
-          @original_loaded = false
-          @cache_prepared = false
-
-          super(*arguments,&block)
-        end
-
-        #
         # Loads an object from the file at the specified _path_.
         #
         def self.load_from(path)
@@ -179,6 +169,16 @@ module Ronin
       Cacheable.load_all_from(path) do |obj|
         obj.cache!
       end
+    end
+
+    #
+    # Initializes the cacheable object.
+    #
+    def initialize(*arguments,&block)
+      @original_loaded = false
+      @cache_prepared = false
+
+      super(*arguments,&block)
     end
 
     #
