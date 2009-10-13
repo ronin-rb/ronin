@@ -127,6 +127,8 @@ lib/ronin/arch.rb
 lib/ronin/os.rb
 lib/ronin/product.rb
 lib/ronin/cacheable.rb
+lib/ronin/cacheable/cached_file.rb
+lib/ronin/cacheable/cacheable.rb
 lib/ronin/environment.rb
 lib/ronin/platform.rb
 lib/ronin/platform/tasks/spec.rb
