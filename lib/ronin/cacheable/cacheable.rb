@@ -119,9 +119,9 @@ module Ronin
     # @return [String]
     #   The path property from the +cached_file+ resource.
     #
-    def cache_file
+    def cache_path
       if self.cached_file
-        return self.cached_file.path
+        return File.expand_path(self.cached_file.path)
       end
     end
 
@@ -132,8 +132,8 @@ module Ronin
     #   The directory for the path property from the +cached_file+ resource.
     #
     def cache_dir
-      if self.cached_file
-        return File.dirname(self.cached_file.path)
+      if (path = self.cache_path)
+        return File.dirname(path)
       end
     end
 
