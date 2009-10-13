@@ -21,6 +21,7 @@
 require 'ronin/model'
 
 require 'extlib'
+require 'contextify'
 
 module Ronin
   module Cacheable
