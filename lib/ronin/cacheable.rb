@@ -46,28 +46,6 @@ module Ronin
         end
 
         #
-        # Returns the first instance of the model that matches the given
-        # query _arguments_.
-        #
-        def self.first(*arguments)
-          if (obj = super(*arguments))
-            obj.instance_variable_set('@cache_prepared',true)
-          end
-
-          return obj
-        end
-
-        #
-        # Returns all instances of the model that matches the given query
-        # _arguments_.
-        #
-        def self.all(*arguments)
-          super(*arguments).each do |obj|
-            obj.instance_variable_set('@cache_prepared',true)
-          end
-        end
-
-        #
         # Loads an object from the file at the specified _path_.
         #
         def self.load_from(path)
@@ -126,6 +104,20 @@ module Ronin
 
           obj.load_original! if obj
           return obj
+        end
+      end
+
+      base.after_class_method(:all) do |*args|
+        if (objs = args.first)
+          objs.each do |obj|
+            obj.instance_variable_set('@cache_prepared',true)
+          end
+        end
+      end
+
+      base.after_class_method(:first) do |*args|
+        if (obj = args.first)
+          obj.instance_variable_set('@cache_prepared',true)
         end
       end
 
