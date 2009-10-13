@@ -49,6 +49,23 @@ module Ronin
       end
 
       #
+      # Creates a new CacheFile object with a given path, and caches it.
+      #
+      # @return [CacheFile, nil]
+      #   The saved CacheFile. Returns +nil+ if no objects could be cached
+      #   from the file.
+      #
+      def CachedFile.cache(path)
+        file = CachedFile.new(:path => File.expand_path(path))
+
+        unless file.cache
+          return nil
+        end
+
+        return file
+      end
+
+      #
       # The path to require to access the Class of the cached object.
       #
       # @return [String]
