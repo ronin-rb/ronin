@@ -190,10 +190,7 @@ lib/ronin/version.rb
 tasks/spec.rb
 tasks/yard.rb
 spec/spec_helper.rb
-spec/classes/cacheable_model.rb
 spec/helpers/database.rb
-spec/helpers/cacheable.rb
-spec/helpers/contexts/ronin_cacheable_model.rb
 spec/static/classes/static_class.rb
 spec/static/helpers/static1/one.txt
 spec/static/helpers/static1/dir/two.txt
@@ -263,7 +260,11 @@ spec/license_spec.rb
 spec/path_spec.rb
 spec/os_spec.rb
 spec/product_spec.rb
-spec/cacheable_spec.rb
+spec/cacheable/classes/cacheable_model.rb
+spec/cacheable/helpers/cacheable.rb
+spec/cacheable/helpers/contexts/ronin_cacheable_model.rb
+spec/cacheable/cached_file_spec.rb
+spec/cacheable/cacheable_spec.rb
 spec/scanners/classes/example_scanner.rb
 spec/scanners/classes/another_scanner.rb
 spec/scanners/scanner_spec.rb
