@@ -93,18 +93,17 @@ module Ronin
         rescue Gem::LoadError => e
           raise(e)
         rescue ::LoadError
-          return nil
         end
 
         # filter out missing class names
-        begin
-          model = Object.const_get(self.model_class)
-        rescue NameError
-          return nil
-        end
+        model = begin
+                  Object.const_get(self.model_class)
+                rescue NameError
+                  return nil
+                end
 
         # filter out non-Cacheable models
-        if model.kind_of?(Cacheable)
+        if model.ancestors.include?(Cacheable)
           return model
         end
       end
