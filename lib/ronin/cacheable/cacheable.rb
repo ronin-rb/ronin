@@ -31,6 +31,7 @@ module Ronin
         include Ronin::Model
 
         belongs_to :cached_file,
+                   :nullable => true,
                    :model => Ronin::Cacheable::CachedFile
 
         #
