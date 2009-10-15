@@ -19,6 +19,7 @@
 #
 
 require 'ronin/platform/exceptions/extension_not_found'
+require 'ronin/platform/object_cache'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
 require 'ronin/static/static'
@@ -248,11 +249,21 @@ module Ronin
       #   The updated overlay.
       #
       def update(&block)
+        # de-activate the overlay
+        deactivate!
+
         if (@uri && @media)
+          # only update if we have a URI and a media type
           if @repository.update(@uri)
             initialize_metadata()
           end
         end
+
+        # re-activate the overlay
+        activate!
+
+        # sync the object cache
+        ObjectCache.sync(cache_dir)
 
         block.call(self) if block
         return self
