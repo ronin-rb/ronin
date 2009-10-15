@@ -45,7 +45,7 @@ module Ronin
           obj.cached_file = CachedFile.new(
             :path => path,
             :timestamp => File.mtime(path),
-            :model_class => obj.class.to_s
+            :model_name => obj.class.to_s
           )
           obj.prepare_cache!
           return obj

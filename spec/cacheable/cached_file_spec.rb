@@ -71,8 +71,8 @@ describe Cacheable::CachedFile do
       @file.timestamp.should_not be_nil
     end
 
-    it "should have a model_class to the class of the cached object" do
-      @file.model_class.should == 'CacheableModel'
+    it "should have the model name of the cached object" do
+      @file.model_name.should == 'CacheableModel'
     end
 
     it "should be able to load the Model of the cached object" do

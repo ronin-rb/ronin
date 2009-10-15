@@ -40,7 +40,7 @@ module Ronin
       property :timestamp, DataMapper::Types::EpochTime
 
       # The class name of the cached object
-      property :model_class, String
+      property :model_name, String
 
       before(:destroy) do
         if (obj = self.cached_object)
@@ -72,8 +72,8 @@ module Ronin
       #   The possible path infered from the class name.
       #
       def model_path
-        if self.model_class
-          return self.model_class.to_const_path
+        if self.model_name
+          return self.model_name.to_const_path
         end
       end
 
@@ -85,7 +85,7 @@ module Ronin
       #   could not be loaded or found.
       #
       def cached_model
-        return unless self.model_class
+        return unless self.model_name
 
         # filter out unloadable models
         begin
@@ -97,7 +97,7 @@ module Ronin
 
         # filter out missing class names
         model = begin
-                  ::Object.full_const_get(self.model_class)
+                  ::Object.full_const_get(self.model_name)
                 rescue NameError
                   return nil
                 end
@@ -176,7 +176,7 @@ module Ronin
           obj.save
 
           # reset the model-class
-          self.model_class = obj.class.to_s
+          self.model_name = obj.class.to_s
 
           # update the timestamp
           self.timestamp = File.mtime(self.path)
