@@ -253,8 +253,8 @@ module Ronin
         # de-activate the overlay
         deactivate!
 
+        # only update if we have a URI and a media type
         if (@uri && @media)
-          # only update if we have a URI and a media type
           @repository.update(@uri)
         end
 
