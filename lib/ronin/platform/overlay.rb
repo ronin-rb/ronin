@@ -255,10 +255,11 @@ module Ronin
 
         if (@uri && @media)
           # only update if we have a URI and a media type
-          if @repository.update(@uri)
-            initialize_metadata()
-          end
+          @repository.update(@uri)
         end
+
+        # re-initialize the metadata
+        initialize_metadata()
 
         # re-activate the overlay
         activate!
