@@ -97,7 +97,7 @@ module Ronin
 
         # filter out missing class names
         model = begin
-                  Object.const_get(self.model_class)
+                  Object.full_const_get(self.model_class)
                 rescue NameError
                   return nil
                 end
