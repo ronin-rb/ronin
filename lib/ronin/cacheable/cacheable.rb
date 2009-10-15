@@ -161,7 +161,7 @@ module Ronin
 
         if block
           catch_all do
-            instance_eval(&block)
+            instance_eval(&block) if block
             @original_loaded = true
           end
         end
@@ -183,8 +183,10 @@ module Ronin
     #
     def prepare_cache!
       unless @cache_prepared
-        instance_eval(&(@cache_block)) if @cache_block
-        @cache_prepared = true
+        catch_all do
+          instance_eval(&(@cache_block)) if @cache_block
+          @cache_prepared = true
+        end
       end
     end
 
