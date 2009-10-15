@@ -44,10 +44,10 @@ module Ronin
       # Overlay static/ directory
       STATIC_DIR = 'static'
 
-      # Overlay cache directory
+      # Overlay cache/ directory
       CACHE_DIR = 'cache'
 
-      # Extensions directory
+      # Overlay exts/ directory
       EXTS_DIR = 'exts'
 
       # Local path to the overlay
