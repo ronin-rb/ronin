@@ -193,6 +193,16 @@ module Ronin
       end
 
       #
+      # Determines if the overlay has been activated.
+      #
+      # @return [Boolean]
+      #   Specifies whether the overlay has been activated.
+      #
+      def activated?
+        lib_dirs.any? { |path| $LOAD_PATH.include?(path) }
+      end
+
+      #
       # Activates the overlay by adding all of the lib_dirs to the
       # +$LOAD_PATH+ global variable.
       #
