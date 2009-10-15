@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/extensions/kernel'
 require 'ronin/database'
 require 'ronin/cacheable'
-require 'ronin/extensions/kernel'
 
 module Ronin
   module Platform
@@ -97,7 +97,7 @@ module Ronin
 
         # cache the remaining new paths
         new_paths.each do |path|
-          Cacheable::CachedFile.cache(path)
+          catch_all { Cacheable::CachedFile.cache(path) }
         end
 
         return true
@@ -112,7 +112,7 @@ module Ronin
       #
       def ObjectCache.clean(directory)
         ObjectCache.each(directory) do |cached_file|
-          cached_file.destroy
+          catch_all { cached_file.destroy }
         end
 
         return true

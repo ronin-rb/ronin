@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/extensions/kernel'
 require 'ronin/cacheable/cached_file'
 require 'ronin/model'
 
@@ -159,10 +158,8 @@ module Ronin
       if (self.cached_file && !(@original_loaded))
         block = self.class.load_context_block(cache_path)
 
-        catch_all do
-          instance_eval(&block) if block
-          @original_loaded = true
-        end
+        instance_eval(&block) if block
+        @original_loaded = true
       end
 
       return self
@@ -181,10 +178,8 @@ module Ronin
     #
     def prepare_cache!
       unless @cache_prepared
-        catch_all do
-          instance_eval(&(@cache_block)) if @cache_block
-          @cache_prepared = true
-        end
+        instance_eval(&(@cache_block)) if @cache_block
+        @cache_prepared = true
       end
     end
 
