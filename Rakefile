@@ -13,7 +13,7 @@ Hoe.spec('ronin') do
   self.extra_deps = [
     ['yard', '>=0.2.3.5'],
     ['nokogiri', '>=1.3.3'],
-    ['extlib', '>=0.9.13'],
+    ['extlib', '>=0.9.14'],
     ['data_objects', '>=0.10.0'],
     ['do_sqlite3', '>=0.10.0'],
     ['dm-core', '>=0.10.0'],
