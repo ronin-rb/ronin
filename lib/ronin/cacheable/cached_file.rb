@@ -144,7 +144,7 @@ module Ronin
         return true unless self.timestamp
 
         if File.file?(self.path)
-          return File.mtime(self.path).to_i > self.timestamp
+          return File.mtime(self.path).to_i > self.timestamp.to_i
         end
 
         # do not assume updates, if there is no path

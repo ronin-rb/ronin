@@ -46,7 +46,7 @@ describe Cacheable::CachedFile do
       CacheableModel.auto_migrate!
 
       @file = Cacheable::CachedFile.cache(CACHEABLE_PATH)
-      @file.timestamp -= 10
+      @file.timestamp = Time.at(@file.timestamp - 10)
       @file.save
     end
 
