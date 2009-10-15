@@ -171,7 +171,7 @@ module Ronin
     #
     def Platform.update(&block)
       Platform.overlays.update do |overlay|
-        ObjectCache.mirror(overlay.cache_dir)
+        ObjectCache.sync(overlay.cache_dir)
       end
 
       block.call if block
