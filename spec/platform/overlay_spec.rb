@@ -33,36 +33,6 @@ describe Platform::Overlay do
     end
   end
 
-  describe "directories" do
-    before(:all) do
-      @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
-    end
-
-    it "should exclude the 'lib' directory from the extensions" do
-      @overlay.extension_paths.include?('lib').should == false
-    end
-
-    it "should exclude the 'static' directory from the extensions" do
-      @overlay.extension_paths.include?('static').should == false
-    end
-
-    it "should exclude the 'cache' directory from the extensions" do
-      @overlay.extension_paths.include?('cache').should == false
-    end
-
-    it "should not recognize 'lib' as an extension" do
-      @overlay.has_extension?('lib').should == false
-    end
-
-    it "should not recognize 'static' as an extension" do
-      @overlay.has_extension?('static').should == false
-    end
-
-    it "should not recognize 'cache' as an extension" do
-      @overlay.has_extension?('cache').should == false
-    end
-  end
-
   describe "activate!" do
     before(:all) do
       @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))

@@ -47,8 +47,8 @@ module Ronin
       # Overlay cache directory
       CACHE_DIR = 'cache'
 
-      # Reserved directories
-      RESERVED_DIRS = [LIB_DIR, STATIC_DIR, CACHE_DIR]
+      # Extensions directory
+      EXTS_DIR = 'exts'
 
       # Local path to the overlay
       attr_reader :path
@@ -89,6 +89,9 @@ module Ronin
       # The cache directory
       attr_reader :cache_dir
 
+      # The exts directory
+      attr_reader :exts_dir
+
       # Repository of the overlay
       attr_reader :repository
 
@@ -118,6 +121,7 @@ module Ronin
         @name = File.basename(@path)
         @static_dir = File.join(@path,STATIC_DIR)
         @cache_dir = File.join(@path,CACHE_DIR)
+        @exts_dir = File.join(@path,EXTS_DIR)
         @uri = uri
         @repository = Repository.new(@path,Media.types[media])
 
@@ -139,10 +143,8 @@ module Ronin
       #   The paths of all extensions within the overlay.
       #
       def extension_paths
-        @repository.directories.reject do |dir|
-          name = File.basename(dir)
-
-          RESERVED_DIRS.include?(name)
+        Dir[File.join(@exts_dir,'*')].select do |path|
+          File.directory?(path)
         end
       end
 
