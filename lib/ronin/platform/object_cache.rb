@@ -43,25 +43,22 @@ module Ronin
       # Finds all cached objects.
       #
       # @param [String] directory
-      #   Optional directory to search within for cached objects.
+      #   Optional directory to search within for cached files.
       #
-      # @yield [obj]
-      #   The block that will receive all cached object.
+      # @yield [cached_file]
+      #   The block that will receive all cached files.
       #
-      # @yieldparam [Cacheable] obj
-      #   The cached object.
+      # @yieldparam [Cacheable::CachedFile] cached_file
+      #   The cached file.
       #
       def ObjectCache.each(directory=nil,&block)
         attributes = {}
 
         if directory
-          attributes.merge!(:cached_path.like => File.join(directory,'%'))
+          attributes.merge!(:path.like => File.join(directory,'%'))
         end
 
-        Cacheable.models.each do |base|
-          base.all(attributes).each(&block)
-        end
-
+        Cacheable::CachedFile.all(attributes).each(&block)
         return true
       end
 
@@ -73,10 +70,8 @@ module Ronin
       #   The directory to cache all objects from.
       #
       def ObjectCache.cache(directory)
-        Database.setup unless Database.setup?
-
         ObjectCache.paths(directory).each do |path|
-          catch_all { Cacheable.cache_all(path) }
+          catch_all { Cacheable::CachedFile.cache(path) }
         end
 
         return true
@@ -93,16 +88,18 @@ module Ronin
       def ObjectCache.sync(directory)
         new_paths = ObjectCache.paths(directory)
 
-        Database.setup unless Database.setup?
+        # Sync existing cached files
+        ObjectCache.each(directory) do |cached_file|
+          new_paths.delete(cached_file.path)
 
-        ObjectCache.each(directory) do |obj|
-          new_paths.delete(obj.cached_path)
-
-          catch_all { obj.sync! }
+          catch_all { cached_file.sync }
         end
 
         # cache the remaining new paths
-        new_paths.each { |path| Cacheable.cache(path) }
+        new_paths.each do |path|
+          Cacheable::CachedFile.cache(path)
+        end
+
         return true
       end
 
@@ -114,9 +111,10 @@ module Ronin
       #   Deletes all cached objects from the specified _directory_.
       #
       def ObjectCache.clean(directory)
-        Database.setup unless Database.setup?
+        ObjectCache.each(directory) do |cached_file|
+          cached_file.destroy
+        end
 
-        ObjectCache.each(directory) { |obj| obj.destroy }
         return true
       end
     end
