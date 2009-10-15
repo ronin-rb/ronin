@@ -20,6 +20,7 @@
 
 require 'ronin/platform/exceptions/overlay_cached'
 require 'ronin/platform/exceptions/overlay_not_found'
+require 'ronin/platform/object_cache'
 require 'ronin/platform/overlay'
 require 'ronin/config'
 
@@ -295,6 +296,8 @@ module Ronin
         end
 
         self[overlay.name.to_s] = overlay
+        ObjectCache.cache(overlay.cache_dir)
+
         dirty!
 
         block.call(overlay) if block
@@ -323,8 +326,12 @@ module Ronin
       def update(&block)
         overlays.each do |overlay|
           overlay.deactivate!
-          overlay.update(&block)
+          overlay.update()
           overlay.active!
+
+          ObjectCache.sync(overlay.cache_dir)
+
+          block.call(overlay) if block
         end
 
         return self
@@ -363,6 +370,8 @@ module Ronin
 
         delete_if { |key,value| key == name }
         dirty!
+
+        ObjectCache.clean(overlay.cache_dir)
 
         block.call(overlay) if block
         return overlay
