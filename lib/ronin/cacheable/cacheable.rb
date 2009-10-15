@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/extensions/kernel'
 require 'ronin/cacheable/cached_file'
 require 'ronin/model'
 
@@ -158,8 +159,12 @@ module Ronin
       if (self.cached_file && !(@original_loaded))
         block = self.class.load_context_block(cache_path)
 
-        instance_eval(&block) if block
-        @original_loaded = true
+        if block
+          catch_all do
+            instance_eval(&block)
+            @original_loaded = true
+          end
+        end
       end
 
       return self
