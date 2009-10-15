@@ -236,7 +236,8 @@ module Ronin
       end
 
       #
-      # Updates the overlay and reloads it's metadata.
+      # Updates the overlay, reloads it's metadata and syncs the
+      # ObjectCache.
       #
       # @yield [overlay]
       #   If a block is given, it will be passed after the overlay has
