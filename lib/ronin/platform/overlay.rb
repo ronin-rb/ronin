@@ -125,6 +125,7 @@ module Ronin
         @exts_dir = File.join(@path,EXTS_DIR)
         @uri = uri
         @repository = Repository.new(@path,Media.types[media])
+        @activated = false
 
         initialize_metadata()
 
@@ -200,7 +201,7 @@ module Ronin
       #   Specifies whether the overlay has been activated.
       #
       def activated?
-        lib_dirs.any? { |path| $LOAD_PATH.include?(path) }
+        @activated == true
       end
 
       #
@@ -220,6 +221,7 @@ module Ronin
         init_path = File.join(@path,LIB_DIR,INIT_FILE)
         load init_path if File.file?(init_path)
 
+        @activated = true
         return true
       end
 
@@ -232,6 +234,8 @@ module Ronin
 
         paths = lib_dirs
         $LOAD_PATH.reject! { |path| paths.include?(path) }
+
+        @activated = false
         return true
       end
 
