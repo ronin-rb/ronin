@@ -159,11 +159,9 @@ module Ronin
       if (self.cached_file && !(@original_loaded))
         block = self.class.load_context_block(cache_path)
 
-        if block
-          catch_all do
-            instance_eval(&block) if block
-            @original_loaded = true
-          end
+        catch_all do
+          instance_eval(&block) if block
+          @original_loaded = true
         end
       end
 
