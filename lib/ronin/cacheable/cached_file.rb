@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/extensions/kernel'
 require 'ronin/model'
 
 require 'extlib'
@@ -127,10 +128,14 @@ module Ronin
       #   The first Cacheable object loaded from the cache file.
       #   
       def fresh_object
-        # load the first found context
-        Contextify.load_contexts(self.path).find do |obj|
-          obj.class.ancestors.include?(Cacheable)
+        catch_all do
+          # load the first found context
+          return Contextify.load_contexts(self.path).find do |obj|
+            obj.class.ancestors.include?(Cacheable)
+          end
         end
+
+        return nil
       end
 
       #
