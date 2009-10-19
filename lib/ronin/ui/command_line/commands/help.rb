@@ -41,7 +41,7 @@ module Ronin
               puts 'Available commands:'
 
               indent do
-                CommandLine.commands.sort.each { |name| puts name }
+                CommandLine.commands.each { |name| puts name }
               end
             end
           end

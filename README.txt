@@ -120,7 +120,6 @@ install or update Overlays.
 * {parameters}[http://parameters.rubyforge.org/] >= 0.1.8
 * {contextify}[http://contextify.rubyforge.org/] >= 0.1.3
 * {reverse-require}[http://reverserequire.rubyforge.org/] >= 0.3.1
-* {repertoire}[http://repertoire.rubyforge.org/] >= 0.2.3
 * thor >= 0.11.5
 
 == INSTALL:

@@ -19,9 +19,11 @@
 #
 
 require 'ronin/ui/command_line/exceptions/unknown_command'
+require 'ronin/version'
 
-require 'reverse_require'
+require 'rubygems'
 require 'extlib'
+require 'set'
 
 module Ronin
   module UI
@@ -40,11 +42,25 @@ module Ronin
       #
       def CommandLine.commands
         unless class_variable_defined?('@@ronin_commands')
-          pattern = File.join('lib',COMMANDS_DIR,'*.rb')
+          @@ronin_commands = SortedSet[]
 
-          @@ronin_commands = Gem.find_resources(pattern).map { |path|
-            File.basename(path).gsub(/\.rb$/,'')
-          }.uniq
+          add_paths = lambda { |paths|
+            paths.each do |path|
+              @@ronin_commands << File.basename(path).gsub(/\.rb$/,'')
+            end
+          }
+
+          pattern = File.join(File.dirname(__FILE__),File.basename(COMMANDS_DIR),'*.rb')
+          add_paths.call(Dir[pattern])
+
+          version = Gem::Version.new(VERSION)
+          ronin = Gem.source_index.find_name('ronin',version).first
+
+          pattern = File.join(COMMANDS_DIR,'*.rb')
+
+          ronin.dependent_gems.each do |deps|
+            add_paths.call(Gem.searcher.matching_files(deps.first,pattern))
+          end
         end
 
         return @@ronin_commands
