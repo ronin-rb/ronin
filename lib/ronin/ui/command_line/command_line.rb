@@ -53,7 +53,8 @@ module Ronin
           add_paths.call(Dir[pattern])
 
           pattern = File.join(COMMANDS_DIR,'*.rb')
-          deps = Gem.source_index.find_name('ronin')
+          version = Gem::Version.new(VERSION)
+          deps = Gem.source_index.find_name('ronin',version)
 
           deps.each do |dep|
             dep.dependent_gems.each do |deps|
