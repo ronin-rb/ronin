@@ -52,14 +52,13 @@ module Ronin
           pattern = File.join(File.dirname(__FILE__),File.basename(COMMANDS_DIR),'*.rb')
           add_paths.call(Dir[pattern])
 
-          pattern = File.join(COMMANDS_DIR,'*.rb')
           version = Gem::Version.new(VERSION)
-          deps = Gem.source_index.find_name('ronin',version)
+          ronin = Gem.source_index.find_name('ronin',version).first
 
-          deps.each do |dep|
-            dep.dependent_gems.each do |deps|
-              add_paths.call(Gem.searcher.matching_files(deps.first,pattern))
-            end
+          pattern = File.join(COMMANDS_DIR,'*.rb')
+
+          ronin.dependent_gems.each do |deps|
+            add_paths.call(Gem.searcher.matching_files(deps.first,pattern))
           end
         end
 
