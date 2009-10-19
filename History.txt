@@ -31,7 +31,7 @@
 * Added Ronin::Model#humanize_attributes.
 * Added Ronin::Model::HasVersion.revision.
 * Added Ronin::Templates::Template.
-* Added Ronin::Platform::Overlays#gems.
+* Added Ronin::Platform::Overlay#gems.
 * Added attr_reader, attr_writer and attr_accessor instance methods to
   Ronin::Platform::Extension.
 * Added Ronin::Platform::Overlay#load!.
