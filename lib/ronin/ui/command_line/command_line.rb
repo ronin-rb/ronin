@@ -21,8 +21,9 @@
 require 'ronin/ui/command_line/exceptions/unknown_command'
 require 'ronin/version'
 
-require 'set'
+require 'rubygems'
 require 'extlib'
+require 'set'
 
 module Ronin
   module UI
