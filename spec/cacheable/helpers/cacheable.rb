@@ -1,5 +1,3 @@
-require 'classes/cacheable_model'
-
 require 'tmpdir'
 require 'fileutils'
 

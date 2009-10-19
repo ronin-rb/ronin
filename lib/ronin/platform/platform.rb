@@ -20,7 +20,6 @@
 
 require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/overlay_cache'
-require 'ronin/platform/object_cache'
 require 'ronin/platform/extension_cache'
 
 require 'uri'
@@ -102,17 +101,8 @@ module Ronin
         raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
       end
 
-      media = options[:media]
-      uri = options[:uri]
-
-      overlay = Overlay.new(path,media,uri)
-
-      Platform.overlays.add(overlay) do |overlay|
-        ObjectCache.cache(overlay.cache_dir)
-      end
-
-      block.call(overlay) if block
-      return overlay
+      overlay = Overlay.new(path,options[:media],options[:uri])
+      return Platform.overlays.add(overlay,&block)
     end
 
     #
@@ -170,11 +160,9 @@ module Ronin
     #   updated within the cache.
     #
     def Platform.update(&block)
-      Platform.overlays.update do |overlay|
-        ObjectCache.mirror(overlay.cache_dir)
-      end
+      Platform.overlays.update()
 
-      block.call if block
+      block.call() if block
       return nil
     end
 
@@ -217,9 +205,7 @@ module Ronin
     #   overlay cache.
     #
     def Platform.uninstall(name,&block)
-      Platform.overlays.uninstall(name) do |overlay|
-        ObjectCache.clean(overlay.cache_dir)
-      end
+      Platform.overlays.uninstall(name)
 
       block.call() if block
       return nil

@@ -19,6 +19,7 @@
 #
 
 require 'ronin/platform/exceptions/extension_not_found'
+require 'ronin/platform/object_cache'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
 require 'ronin/static/static'
@@ -124,6 +125,7 @@ module Ronin
         @exts_dir = File.join(@path,EXTS_DIR)
         @uri = uri
         @repository = Repository.new(@path,Media.types[media])
+        @activated = false
 
         initialize_metadata()
 
@@ -193,6 +195,16 @@ module Ronin
       end
 
       #
+      # Determines if the overlay has been activated.
+      #
+      # @return [Boolean]
+      #   Specifies whether the overlay has been activated.
+      #
+      def activated?
+        @activated == true
+      end
+
+      #
       # Activates the overlay by adding all of the lib_dirs to the
       # +$LOAD_PATH+ global variable.
       #
@@ -209,6 +221,7 @@ module Ronin
         init_path = File.join(@path,LIB_DIR,INIT_FILE)
         load init_path if File.file?(init_path)
 
+        @activated = true
         return true
       end
 
@@ -221,11 +234,14 @@ module Ronin
 
         paths = lib_dirs
         $LOAD_PATH.reject! { |path| paths.include?(path) }
+
+        @activated = false
         return true
       end
 
       #
-      # Updates the overlay and reloads it's metadata.
+      # Updates the overlay, reloads it's metadata and syncs the
+      # ObjectCache.
       #
       # @yield [overlay]
       #   If a block is given, it will be passed after the overlay has
@@ -238,11 +254,22 @@ module Ronin
       #   The updated overlay.
       #
       def update(&block)
+        # de-activate the overlay
+        deactivate!
+
+        # only update if we have a URI and a media type
         if (@uri && @media)
-          if @repository.update(@uri)
-            initialize_metadata()
-          end
+          @repository.update(@uri)
         end
+
+        # re-initialize the metadata
+        initialize_metadata()
+
+        # re-activate the overlay
+        activate!
+
+        # sync the object cache
+        ObjectCache.sync(cache_dir)
 
         block.call(self) if block
         return self
