@@ -1,9 +1,10 @@
 = Ronin
 
-* http://ronin.rubyforge.org/
+* http://ronin.rubyforge.org
 * http://github.com/postmodern/ronin
+* http://github.com/postmodern/ronin/issues
+* http://groups.google.com/group/ronin-ruby
 * irc.freenode.net #ronin
-* Postmodern (postmodern.mod3 at gmail.com)
 
 == DESCRIPTION:
 
