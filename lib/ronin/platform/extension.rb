@@ -83,31 +83,6 @@ module Ronin
       end
 
       #
-      # Includes all extensions with the matching _name_ into the extension.
-      #
-      # @param [String] name
-      #   The name of the extensions to include.
-      #
-      # @yield [ext]
-      #   If a block is given, it will be passed the extension, after the
-      #   other extensions have been included into it.
-      #
-      # @yieldparam [Extension] ext
-      #   The extension.
-      #
-      # @return [Extension]
-      #   The extension.
-      #
-      def include(name,&block)
-        Platform.overlays.extension_paths(name).each do |path|
-          include_path(path)
-        end
-
-        block.call(self) if block
-        return self
-      end
-
-      #
       # Includes the extension at the specified path.
       #
       # @param [String] path
@@ -140,6 +115,31 @@ module Ronin
         end
 
         return true
+      end
+
+      #
+      # Includes all extensions with the matching _name_ into the extension.
+      #
+      # @param [String] name
+      #   The name of the extensions to include.
+      #
+      # @yield [ext]
+      #   If a block is given, it will be passed the extension, after the
+      #   other extensions have been included into it.
+      #
+      # @yieldparam [Extension] ext
+      #   The extension.
+      #
+      # @return [Extension]
+      #   The extension.
+      #
+      def include(name,&block)
+        Platform.overlays.extension_paths(name).each do |path|
+          include_path(path)
+        end
+
+        block.call(self) if block
+        return self
       end
 
       #
