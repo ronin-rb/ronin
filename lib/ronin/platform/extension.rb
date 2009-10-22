@@ -132,6 +132,8 @@ module Ronin
           raise(ExtensionNotFound,"extension #{path.dump} does not exist",caller)
         end
 
+        return false if @paths.include?(path)
+
         if File.file?(path)
           # instance_eval the extension block
           context_block = Extension.load_context_block(path)
