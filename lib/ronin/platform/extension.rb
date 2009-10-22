@@ -123,23 +123,17 @@ module Ronin
       # @param [String] name
       #   The name of the extensions to include.
       #
-      # @yield [ext]
-      #   If a block is given, it will be passed the extension, after the
-      #   other extensions have been included into it.
+      # @return [Boolean]
+      #   Specifies the extension was included successfully.
       #
-      # @yieldparam [Extension] ext
-      #   The extension.
-      #
-      # @return [Extension]
-      #   The extension.
-      #
-      def include(name,&block)
+      def include(name)
+        success = false
+
         Platform.overlays.extension_paths(name).each do |path|
-          include_path(path)
+          success = include_path(path)
         end
 
-        block.call(self) if block
-        return self
+        return success
       end
 
       #
