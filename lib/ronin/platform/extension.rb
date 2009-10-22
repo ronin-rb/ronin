@@ -119,8 +119,8 @@ module Ronin
       # @yieldparam [Extension] ext
       #   The extension.
       #
-      # @return [Extension]
-      #   The extension.
+      # @return [Boolean]
+      #   Specifies the path was included successfully.
       #
       # @raise [ExtensionNotFound]
       #   The specified path could not be found.
@@ -144,7 +144,7 @@ module Ronin
         end
 
         block.call(self) if block
-        return self
+        return true
       end
 
       #
