@@ -57,17 +57,11 @@ describe Platform::Extension do
     @ext.instance_eval { @var }.should be_nil
   end
 
-  it "should be able to be ran" do
-    @ext.run do |ext|
-      ext.run_method.should == :running
-    end
-  end
-
   it "should allow the definition of reader and writer methods" do
-    @ext.run do |ext|
-      ext.var.should == :setup
-      ext.var = :random
-      ext.var.should == :random
-    end
+    @ext.setup!
+    
+    @ext.var.should == :setup
+    @ext.var = :random
+    @ext.var.should == :random
   end
 end

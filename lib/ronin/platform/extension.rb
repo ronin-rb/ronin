@@ -263,41 +263,6 @@ module Ronin
       end
 
       #
-      # Sets up the extension, passes the extension to the specified
-      # _block_ and then tears down the extension.
-      #
-      # @yield [(ext)]
-      #   If a block is given, it will be called after the extension has
-      #   been setup. When the block has finished, the extension will be
-      #   toredown.
-      #
-      # @yieldparam [Extension] ext
-      #   The extension.
-      #
-      # @return [Extension]
-      #   The extension.
-      #
-      # @example
-      #   ext.run do |ext|
-      #     ext.console(ARGV)
-      #   end
-      #
-      def run(&block)
-        setup!
-
-        if block
-          if block.arity == 1
-            block.call(self)
-          else
-            block.call()
-          end
-        end
-
-        teardown!
-        return self
-      end
-
-      #
       # The temporary directory for the extension.
       #
       # @return [String]
