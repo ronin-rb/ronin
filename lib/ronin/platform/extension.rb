@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/extension_cache'
 require 'ronin/platform/platform'
 require 'ronin/extensions/kernel'
@@ -91,14 +90,14 @@ module Ronin
       # @return [Boolean]
       #   Specifies the path was included successfully.
       #
-      # @raise [ExtensionNotFound]
+      # @raise [RuntimeError]
       #   The specified path could not be found.
       #
       def include_path(path)
         path = File.expand_path(path)
 
         unless File.file?(path)
-          raise(ExtensionNotFound,"extension #{path.dump} does not exist",caller)
+          raise(RuntimeError,"extension #{path.dump} does not exist",caller)
         end
 
         return false if @paths.include?(path)
