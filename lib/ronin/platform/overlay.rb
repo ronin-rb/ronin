@@ -84,6 +84,9 @@ module Ronin
       # Description
       attr_reader :description
 
+      # The lib directory
+      attr_reader :lib_dir
+
       # The static directory
       attr_reader :static_dir
 
@@ -120,9 +123,12 @@ module Ronin
       def initialize(path,media=nil,uri=nil,&block)
         @path = File.expand_path(path)
         @name = File.basename(@path)
+
+        @lib_dir = File.join(@path,LIB_DIR)
         @static_dir = File.join(@path,STATIC_DIR)
         @cache_dir = File.join(@path,CACHE_DIR)
         @exts_dir = File.join(@path,EXTS_DIR)
+
         @uri = uri
         @repository = Repository.new(@path,Media.types[media])
         @activated = false
@@ -145,9 +151,7 @@ module Ronin
       #   The paths of all extensions within the overlay.
       #
       def extension_paths
-        Dir[File.join(@exts_dir,'*')].select do |path|
-          File.directory?(path)
-        end
+        Dir[File.join(@exts_dir,'*.rb')]
       end
 
       #
@@ -155,7 +159,7 @@ module Ronin
       #   The names of all extensions within the overlay.
       #
       def extensions
-        extension_paths.map { |dir| File.basename(dir) }
+        extension_paths.map { |dir| File.basename(dir).gsub(/\.rb$/,'') }
       end
 
       #
@@ -174,27 +178,6 @@ module Ronin
       end
 
       #
-      # @return [Array]
-      #   The +lib+ directories of the overlay and the extensions within
-      #   the overlay.
-      #
-      def lib_dirs
-        dirs = []
-
-        find_directory = lambda { |path|
-          dirs << path if File.directory?(path)
-        }
-
-        find_directory.call(File.join(@path,LIB_DIR))
-
-        extension_paths.each do |path|
-          find_directory.call(File.join(path,Extension::LIB_DIR))
-        end
-
-        return dirs
-      end
-
-      #
       # Determines if the overlay has been activated.
       #
       # @return [Boolean]
@@ -205,16 +188,15 @@ module Ronin
       end
 
       #
-      # Activates the overlay by adding all of the lib_dirs to the
-      # +$LOAD_PATH+ global variable.
+      # Activates the overlay by adding the lib_dir to the +$LOAD_PATH+
+      # global variable.
       #
       def activate!
         # add the static/ directory
         Static.directory(@static_dir) if File.directory?(@static_dir)
 
-        # add the lib/ directories
-        lib_dirs.each do |path|
-          $LOAD_PATH << path unless $LOAD_PATH.include?(path)
+        if File.directory?(@lib_dir)
+          $LOAD_PATH << @lib_dir unless $LOAD_PATH.include?(@lib_dir)
         end
 
         # load the lib/init.rb file
@@ -226,14 +208,13 @@ module Ronin
       end
 
       #
-      # Deactivates the overlay by removing the lib_dirs from the
+      # Deactivates the overlay by removing the lib_dir from the
       # +$LOAD_PATH+ global variable.
       #
       def deactivate!
         Static.static_dirs.reject! { |dir| dir == @static_dir }
 
-        paths = lib_dirs
-        $LOAD_PATH.reject! { |path| paths.include?(path) }
+        $LOAD_PATH.delete(@lib_dir)
 
         @activated = false
         return true
