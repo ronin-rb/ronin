@@ -113,19 +113,13 @@ module Ronin
       # @param [String] path
       #   The path of the extension file to include.
       #
-      # @yield [ext]
-      #   If a block is given, it will be passed the extension.
-      #
-      # @yieldparam [Extension] ext
-      #   The extension.
-      #
       # @return [Boolean]
       #   Specifies the path was included successfully.
       #
       # @raise [ExtensionNotFound]
       #   The specified path could not be found.
       #
-      def include_path(path,&block)
+      def include_path(path)
         path = File.expand_path(path)
 
         unless File.file?(path)
@@ -145,7 +139,6 @@ module Ronin
           @paths << path
         end
 
-        block.call(self) if block
         return true
       end
 
