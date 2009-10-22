@@ -45,20 +45,8 @@ module Ronin
       #
       contextify :ronin_extension
 
-      # Extension file name
-      EXTENSION_FILE = 'extension.rb'
-
-      # Extension lib/ directory
-      LIB_DIR = 'lib'
-
-      # Extension static/ directory
-      STATIC_DIR = 'static'
-
       # Name of extension
       attr_reader :name
-
-      # Paths of similar extensions
-      attr_reader :paths
 
       #
       # Creates a new Extension object.
@@ -80,7 +68,6 @@ module Ronin
       #
       def initialize(name,&block)
         @name = name.to_s
-        @paths = []
 
         @setup = false
         @toredown = true
@@ -117,10 +104,10 @@ module Ronin
       end
 
       #
-      # Includes the extension at the specified _path_ into the extension.
+      # Includes the extension at the specified path.
       #
       # @param [String] path
-      #   The path of the extension directory to include from.
+      #   The path of the extension file to include.
       #
       # @yield [ext]
       #   If a block is given, it will be passed the extension.
@@ -132,23 +119,18 @@ module Ronin
       #   The extension.
       #
       # @raise [ExtensionNotFound]
-      #   The specified _path_ was not a valid directory.
+      #   The specified path could not be found.
       #
       def include_path(path,&block)
         path = File.expand_path(path)
 
-        unless File.directory?(path)
-          raise(ExtensionNotFound,"extension #{path.dump} is not a valid extension",caller)
+        unless File.file?(path)
+          raise(ExtensionNotFound,"extension #{path.dump} does not exist",caller)
         end
 
-        # add to the search paths
-        @paths << path
-
-        extension_file = File.join(path,EXTENSION_FILE)
-
-        if File.file?(extension_file)
+        if File.file?(path)
           # instance_eval the extension block
-          context_block = Extension.load_context_block(extension_file)
+          context_block = Extension.load_context_block(path)
 
           if context_block
             catch_all { instance_eval(&context_block) }
@@ -318,17 +300,6 @@ module Ronin
       #
       def tmp_dir
         @tmp_dir ||= Config.tmp_dir(@name)
-      end
-
-      def static_paths(path,&block)
-        @paths.each do |dir|
-          static_dir = File.join(dir,STATIC_DIR)
-          next unless File.directory?(static_dir)
-
-          block.call(File.join(static_dir,path))
-        end
-
-        super(path,&block)
       end
 
       #
