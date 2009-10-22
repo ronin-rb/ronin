@@ -48,6 +48,9 @@ module Ronin
       # Name of extension
       attr_reader :name
 
+      # The paths the extension was loaded from
+      attr_reader :paths
+
       #
       # Creates a new Extension object.
       #
@@ -68,6 +71,7 @@ module Ronin
       #
       def initialize(name,&block)
         @name = name.to_s
+        @paths = []
 
         @setup = false
         @toredown = true
@@ -135,6 +139,8 @@ module Ronin
           if context_block
             catch_all { instance_eval(&context_block) }
           end
+
+          @paths << path
         end
 
         block.call(self) if block
