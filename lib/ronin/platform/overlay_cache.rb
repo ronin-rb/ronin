@@ -230,11 +230,12 @@ module Ronin
       #   The paths of all extensions with the matching _name_.
       #
       def extension_paths(name)
+        file_name = "#{name}.rb"
         ext_paths = []
 
         each_overlay do |overlay|
           overlay.extension_paths.each do |path|
-            ext_paths << path if File.basename(path) == name
+            ext_paths << path if File.basename(path) == file_name
           end
         end
 

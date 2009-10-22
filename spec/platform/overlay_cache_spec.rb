@@ -60,6 +60,6 @@ describe Platform::OverlayCache do
     paths = @cache.extension_paths('test')
 
     paths.length.should == 2
-    paths.select { |path| File.basename(path) == 'test' }.should == paths
+    paths.select { |path| File.basename(path) == 'test.rb' }.should == paths
   end
 end

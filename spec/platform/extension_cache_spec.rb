@@ -51,7 +51,7 @@ describe Platform::ExtensionCache do
     paths = @cache.load_extension('test').paths
 
     paths.length.should == 2
-    paths.select { |path| path =~ /test$/ }.should == paths
+    paths.select { |path| path =~ /test\.rb$/ }.should == paths
   end
 
   it "should reload previously loaded extensions" do
