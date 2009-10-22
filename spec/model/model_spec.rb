@@ -5,17 +5,6 @@ require 'model/classes/basic_model'
 require 'model/classes/custom_model'
 
 describe Model do
-  it "should auto-upgrade lazily" do
-    model1 = BasicModel.first
-    model2 = CustomModel.first
-
-    model1.should be_nil
-    model2.should be_nil
-
-    BasicModel.should be_auto_upgraded
-    CustomModel.should be_auto_upgraded
-  end
-
   it "should have a default repository name" do
     BasicModel.default_repository_name.should == Model::REPOSITORY_NAME
   end
