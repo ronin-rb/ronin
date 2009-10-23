@@ -33,6 +33,9 @@ module Ronin
 
       include Repertoire
 
+      # Overlay Format version
+      VERSION = '2.0'
+
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
 
@@ -53,6 +56,9 @@ module Ronin
 
       # Local path to the overlay
       attr_reader :path
+
+      # The format version of the overlay
+      attr_reader :version
 
       # Name of the overlay
       attr_reader :name
@@ -295,6 +301,8 @@ module Ronin
         metadata_path = File.join(@path,METADATA_FILE)
 
         # set to default values
+        @version = nil
+
         @title = @name
         @license = nil
 
@@ -310,6 +318,10 @@ module Ronin
         if File.file?(metadata_path)
           doc = Nokogiri::XML(open(metadata_path))
           overlay = doc.at('/ronin-overlay')
+
+          if (version_attr = overlay.attributes['version'])
+            @version = version_attr.inner_text.strip
+          end
 
           if (title_tag = overlay.at('title'))
             @title = title_tag.inner_text.strip

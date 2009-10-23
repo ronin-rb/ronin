@@ -9,6 +9,10 @@ describe Platform::Overlay do
       @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
     end
 
+    it "should load the format version" do
+      @overlay.version.should_not be_nil
+    end
+
     it "should load the title" do
       @overlay.title.should == 'Hello World'
     end
