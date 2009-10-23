@@ -167,6 +167,20 @@ module Ronin
       end
 
       #
+      # Determines if the overlay's version is compatible with the current
+      # implementation of {Overlay}.
+      #
+      # @return [Boolean]
+      #   Specifies whether the overlay is still compatible with the
+      #   {Overlay}.
+      #
+      # @see Overlay.compatible?
+      #
+      def compatible?
+        Overlay.compatible?(@version)
+      end
+
+      #
       # @return [Symbol]
       #   The media type of the overlay.
       #
