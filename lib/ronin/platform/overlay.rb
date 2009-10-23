@@ -342,7 +342,7 @@ module Ronin
           overlay = doc.at('/ronin-overlay')
 
           if (version_attr = overlay.attributes['version'])
-            @version = version_attr.inner_text.strip
+            @version = version_attr.inner_text.strip.to_i
           end
 
           if (title_tag = overlay.at('title'))
