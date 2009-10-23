@@ -34,7 +34,7 @@ module Ronin
       include Repertoire
 
       # Overlay Format version
-      VERSION = '1'
+      VERSION = 1
 
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
