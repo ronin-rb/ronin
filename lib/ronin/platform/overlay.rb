@@ -36,7 +36,7 @@ module Ronin
       # Overlay Format version
       VERSION = 1
 
-      # A list of backwards compatible Overlay Format versions
+      # A list of compatible Overlay Format versions
       COMPATIBILITY = [1]
 
       # Overlay metadata XML file name
@@ -148,15 +148,14 @@ module Ronin
       end
 
       #
-      # Determines if the given Overlay Format version is backwards
-      # compatible with {Ronin::Platform::Overlay}.
+      # Determines if the given Overlay Format version is compatible 
+      # with the current implementation of {Overlay}.
       #
       # @param [Integer] version
-      #   The version to check for backwards compatibility.
+      #   The version to check for compatibility.
       #
       # @return [Boolean]
-      #   Specifies whether the given version is supported by
-      #   {Ronin::Platform::Overlay}.
+      #   Specifies whether the given version is supported by {Overlay}.
       #
       def Overlay.compatible?(version)
         COMPATIBILITY.each do |compat|
