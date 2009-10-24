@@ -37,7 +37,7 @@ module Ronin
       VERSION = 1
 
       # A list of compatible Overlay Format versions
-      COMPATIBILITY = [1]
+      COMPATIBLE_VERSIONS = [1]
 
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
@@ -158,7 +158,7 @@ module Ronin
       #   Specifies whether the given version is supported by {Overlay}.
       #
       def Overlay.compatible?(version)
-        COMPATIBILITY.each do |compat|
+        COMPATIBLE_VERSIONS.each do |compat|
           return true if compat === version
         end
 
