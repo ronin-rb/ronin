@@ -33,10 +33,10 @@ module Ronin
 
       include Repertoire
 
-      # Overlay Format version
+      # Overlay Implementation Version
       VERSION = 1
 
-      # A list of compatible Overlay Format versions
+      # A list of compatible Overlay Implementation Versions
       COMPATIBLE_VERSIONS = [1]
 
       # Overlay metadata XML file name
@@ -148,8 +148,8 @@ module Ronin
       end
 
       #
-      # Determines if the given Overlay Format version is compatible 
-      # with the current implementation of {Overlay}.
+      # Determines if the given Overlay Implementation Version is
+      # compatible with the current implementation of {Overlay}.
       #
       # @param [Integer] version
       #   The version to check for compatibility.
@@ -166,8 +166,8 @@ module Ronin
       end
 
       #
-      # Determines if the overlay's version is compatible with the current
-      # implementation of {Overlay}.
+      # Determines if the overlay's implementation version is compatible
+      # with the current implementation of {Overlay}.
       #
       # @return [Boolean]
       #   Specifies whether the overlay is still compatible with the
