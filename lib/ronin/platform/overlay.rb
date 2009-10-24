@@ -23,6 +23,7 @@ require 'ronin/platform/object_cache'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
 require 'ronin/static/static'
+require 'ronin/ui/output'
 
 require 'repertoire'
 require 'nokogiri'
@@ -32,6 +33,7 @@ module Ronin
     class Overlay
 
       include Repertoire
+      include UI::Output::Helpers
 
       # Overlay Implementation Version
       VERSION = 1
@@ -356,6 +358,8 @@ module Ronin
 
           if (version_attr = overlay.attributes['version'])
             @version = version_attr.inner_text.strip.to_i
+          else
+            print_warning "Overlay #{@name.dump} does not specify an Overlay Version attribute in \"ronin.xml\""
           end
 
           if (title_tag = overlay.at('title'))
@@ -397,6 +401,10 @@ module Ronin
           if (description_tag = overlay.at('description'))
             @description = description_tag.inner_text.strip
           end
+        end
+
+        if (@version && !(compatible?))
+          print_warning "Overlay #{@name.dump} is not compatible with the current Overlay implementation"
         end
 
         return self
