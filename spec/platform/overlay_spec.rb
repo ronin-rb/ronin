@@ -4,6 +4,16 @@ require 'platform/helpers/overlays'
 require 'spec_helper'
 
 describe Platform::Overlay do
+  describe "compatible?" do
+    it "should not be backwards compatible with unknown version numbers" do
+      Platform::Overlay.compatible?(0).should == false
+    end
+
+    it "should not be forwards compatible with future version numbers" do
+      Platform::Overlay.compatible?(9999).should == false
+    end
+  end
+
   describe "initialize_metadata" do
     before(:all) do
       @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
