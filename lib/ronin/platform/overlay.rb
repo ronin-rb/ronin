@@ -23,7 +23,7 @@ require 'ronin/platform/object_cache'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
 require 'ronin/static/static'
-require 'ronin/ui/output'
+require 'ronin/ui/output/helpers'
 
 require 'repertoire'
 require 'nokogiri'
