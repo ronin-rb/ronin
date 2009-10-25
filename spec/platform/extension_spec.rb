@@ -53,12 +53,12 @@ describe Platform::Extension do
   it "should have teardown blocks" do
     @ext.setup!
     @ext.teardown!
-    @ext.instance_eval { @var }.should == :toredown
+    @ext.var.should == :toredown
   end
 
   it "should not be torendown before it is setup" do
     @ext.teardown!
-    @ext.instance_eval { @var }.should be_nil
+    @ext.var.should be_nil
   end
 
   it "should allow the definition of reader and writer methods" do
