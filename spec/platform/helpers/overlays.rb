@@ -4,7 +4,7 @@ require 'erb'
 module Helpers
   OVERLAY_CACHE = File.expand_path(File.join(File.dirname(__FILE__),'overlays'))
 
-  def overlay_cache_path(&block)
+  def overlay_cache_path
     file = Tempfile.new('overlays.yaml')
     path = file.path
 
@@ -14,7 +14,6 @@ module Helpers
     file.write(template.result(binding))
     file.close
 
-    block.call(path) if block
     return path
   end
 
