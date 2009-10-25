@@ -17,4 +17,8 @@ module Helpers
     block.call(path) if block
     return path
   end
+
+  def create_overlay(name)
+    Platform::Overlay.new(File.join(OVERLAY_CACHE,name))
+  end
 end
