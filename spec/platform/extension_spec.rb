@@ -27,8 +27,11 @@ describe Platform::Extension do
     }.length.should == 1
   end
 
-  it "should allow for custom methods" do
-    @ext.has_method?(:test_method).should == true
+  it "should specify which methods were added to the extension" do
+    @ext.exposed_methods.should == [:var, :var=, :test_method]
+  end
+
+  it "should allow calling added methods" do
     @ext.test_method.should == :method
   end
 
