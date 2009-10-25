@@ -9,6 +9,24 @@ describe Platform::Extension do
     @ext.include_path(extension_path('test'))
   end
 
+  it "should not allow including bad paths" do
+    lambda {
+      @ext.include_path('bla')
+    }.should raise_error(RuntimeError)
+  end
+
+  it "should not include the same path twice" do
+    @ext.include_path(extension_path('test')).should == false
+  end
+
+  it "should prevent circular including of paths" do
+    @ext.include_path(extension_path('circular'))
+
+    @ext.paths.select { |path|
+      File.basename(path) == 'circular.rb'
+    }.length.should == 1
+  end
+
   it "should allow for custom methods" do
     @ext.has_method?(:test_method).should == true
     @ext.test_method.should == :method

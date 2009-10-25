@@ -273,6 +273,7 @@ spec/scanners/classes/another_scanner.rb
 spec/scanners/scanner_spec.rb
 spec/platform/helpers/extensions.rb
 spec/platform/helpers/extensions/test.rb
+spec/platform/helpers/extensions/circular.rb
 spec/platform/helpers/overlays.rb
 spec/platform/helpers/overlays.yaml.erb
 spec/platform/helpers/overlays/test1/ronin.xml
