@@ -164,6 +164,8 @@ describe String do
   end
 
   describe "unhexdump" do
+    include Helpers
+
     describe "GNU hexdump" do
       before(:all) do
         @ascii = load_binary_data('ascii')

@@ -1,7 +1,7 @@
 require 'ronin/platform/overlay'
 
-require 'platform/helpers/overlays'
 require 'spec_helper'
+require 'platform/helpers/overlays'
 
 describe Platform::Overlay do
   describe "compatible?" do
@@ -16,7 +16,7 @@ describe Platform::Overlay do
 
   describe "initialize_metadata" do
     before(:all) do
-      @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
+      @overlay = Platform::Overlay.new(File.join(Helpers::OVERLAY_CACHE,'hello'))
     end
 
     it "should load the format version" do
@@ -49,7 +49,7 @@ describe Platform::Overlay do
 
   describe "activate!" do
     before(:all) do
-      @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
+      @overlay = Platform::Overlay.new(File.join(Helpers::OVERLAY_CACHE,'hello'))
       @overlay.activate!
     end
 
@@ -64,7 +64,7 @@ describe Platform::Overlay do
 
   describe "deactivate!" do
     before(:all) do
-      @overlay = Platform::Overlay.new(File.join(OVERLAY_CACHE,'hello'))
+      @overlay = Platform::Overlay.new(File.join(Helpers::OVERLAY_CACHE,'hello'))
       @overlay.deactivate!
     end
 

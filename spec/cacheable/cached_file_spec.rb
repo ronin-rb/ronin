@@ -1,6 +1,7 @@
 require 'ronin/cacheable/cached_file'
 
 require 'spec_helper'
+require 'cacheable/helpers/cacheable'
 
 describe Cacheable::CachedFile do
   describe "new files" do
@@ -8,9 +9,9 @@ describe Cacheable::CachedFile do
       Cacheable::CachedFile.auto_migrate!
       CacheableModel.auto_migrate!
 
-      FileUtils.cp CACHEABLE_FILE, CACHEABLE_PATH
+      FileUtils.cp Helpers::CACHEABLE_FILE, Helpers::CACHEABLE_PATH
 
-      @file = Cacheable::CachedFile.cache(CACHEABLE_PATH)
+      @file = Cacheable::CachedFile.cache(Helpers::CACHEABLE_PATH)
     end
 
     it "should be able to cache new files" do
@@ -32,7 +33,7 @@ describe Cacheable::CachedFile do
       Cacheable::CachedFile.auto_migrate!
       CacheableModel.auto_migrate!
 
-      @file = Cacheable::CachedFile.cache(CACHEABLE_PATH)
+      @file = Cacheable::CachedFile.cache(Helpers::CACHEABLE_PATH)
     end
 
     it "should not re-cache unmodified files" do
@@ -45,7 +46,7 @@ describe Cacheable::CachedFile do
       Cacheable::CachedFile.auto_migrate!
       CacheableModel.auto_migrate!
 
-      @file = Cacheable::CachedFile.cache(CACHEABLE_PATH)
+      @file = Cacheable::CachedFile.cache(Helpers::CACHEABLE_PATH)
       @file.timestamp = Time.at(@file.timestamp - 10)
       @file.save
     end
@@ -60,7 +61,7 @@ describe Cacheable::CachedFile do
       Cacheable::CachedFile.auto_migrate!
       CacheableModel.auto_migrate!
 
-      @file = Cacheable::CachedFile.cache(CACHEABLE_FILE)
+      @file = Cacheable::CachedFile.cache(Helpers::CACHEABLE_FILE)
     end
 
     it "should have a path" do
@@ -92,9 +93,9 @@ describe Cacheable::CachedFile do
       Cacheable::CachedFile.auto_migrate!
       CacheableModel.auto_migrate!
 
-      @file = Cacheable::CachedFile.cache(CACHEABLE_PATH)
+      @file = Cacheable::CachedFile.cache(Helpers::CACHEABLE_PATH)
 
-      FileUtils.rm CACHEABLE_PATH
+      FileUtils.rm Helpers::CACHEABLE_PATH
 
       @file.sync
     end

@@ -1,9 +1,11 @@
 require 'ronin/platform/ronin'
 
-require 'platform/helpers/overlays'
 require 'spec_helper'
+require 'platform/helpers/overlays'
 
 describe Ronin do
+  include Helpers
+
   before(:all) do
     Platform.load_overlays(overlay_cache_path)
   end

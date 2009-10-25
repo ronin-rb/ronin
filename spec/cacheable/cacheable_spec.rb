@@ -9,7 +9,7 @@ describe Cacheable do
     before(:all) do
       CacheableModel.auto_migrate!
 
-      @obj = CacheableModel.load_from(CACHEABLE_FILE)
+      @obj = CacheableModel.load_from(Helpers::CACHEABLE_FILE)
     end
 
     it "should have a cached_file resource" do
@@ -17,11 +17,11 @@ describe Cacheable do
     end
 
     it "should have a cache_path" do
-      @obj.cache_path.should == CACHEABLE_FILE
+      @obj.cache_path.should == Helpers::CACHEABLE_FILE
     end
 
     it "should have a cache_dir" do
-      @obj.cache_dir.should == File.dirname(CACHEABLE_FILE)
+      @obj.cache_dir.should == File.dirname(Helpers::CACHEABLE_FILE)
     end
 
     it "should prepare the object to be cached" do
@@ -46,7 +46,7 @@ describe Cacheable do
       Cacheable::CachedFile.auto_migrate!
       CacheableModel.auto_migrate!
 
-      Cacheable::CachedFile.cache(CACHEABLE_FILE)
+      Cacheable::CachedFile.cache(Helpers::CACHEABLE_FILE)
     end
 
     it "should be able to load the original object" do

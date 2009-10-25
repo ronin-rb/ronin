@@ -1,9 +1,11 @@
 require 'ronin/platform/extension_cache'
 
-require 'platform/helpers/overlays'
 require 'spec_helper'
+require 'platform/helpers/overlays'
 
 describe Platform::ExtensionCache do
+  include Helpers
+
   before(:all) do
     Platform.load_overlays(overlay_cache_path)
   end

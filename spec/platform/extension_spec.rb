@@ -4,6 +4,8 @@ require 'spec_helper'
 require 'platform/helpers/extensions'
 
 describe Platform::Extension do
+  include Helpers
+
   before(:each) do
     @ext = Platform::Extension.new('test')
     @ext.include_path(extension_path('test'))
