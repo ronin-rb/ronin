@@ -27,6 +27,18 @@ describe Platform::Extension do
     }.length.should == 1
   end
 
+  it "should allow defining reader methods for instance variables" do
+    @ext.instance_variable_set('@var',2)
+
+    @ext.var.should == 2
+  end
+
+  it "should allow defining writer methods for instance variables" do
+    @ext.var = 3
+
+    @ext.instance_variable_get('@var').should == 3
+  end
+
   it "should specify which methods were added to the extension" do
     @ext.exposed_methods.should == [:var, :var=, :test_method]
   end
