@@ -106,11 +106,11 @@ module Ronin
           # instance_eval the extension block
           context_block = Extension.load_context_block(path)
 
+          @paths << path
+
           if context_block
             catch_all { instance_eval(&context_block) }
           end
-
-          @paths << path
         end
 
         return true
