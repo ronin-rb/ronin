@@ -28,9 +28,6 @@ module Ronin
     # Ronin home directory
     PATH = FileUtils.mkdir_p(File.join(HOME,'.ronin'))
 
-    # Main configuration file
-    CONFIG_PATH = File.join(PATH,'config.rb')
-
     # Configuration files directory
     CONFIG_DIR = FileUtils.mkdir_p(File.join(PATH,'config'))
 
@@ -40,11 +37,10 @@ module Ronin
     #
     # Loads the Ronin configuration file.
     #
-    # @param [String, nil] name
+    # @param [Symbol, String, nil] name
     #   The optional name of the file to load within +CONFIG_DIR+.
-    #   If no name is given, +CONFIG_PATH+ will simply be loaded.
     #
-    # @example Load the main config file at <tt>~/.ronin/config.rb</tt>
+    # @example Load the config file at <tt>~/.ronin/config/ronin.rb</tt>
     #   Config.load
     #   # => true
     #
@@ -52,12 +48,8 @@ module Ronin
     #   Config.load :sql
     #   # => true
     #
-    def Config.load(name=nil)
-      if name
-        path = File.expand_path(File.join(CONFIG_DIR,name.to_s))
-      else
-        path = CONFIG_PATH
-      end
+    def Config.load(name=:ronin)
+      path = File.expand_path(File.join(CONFIG_DIR,name.to_s))
 
       require path if File.file?(path)
     end
