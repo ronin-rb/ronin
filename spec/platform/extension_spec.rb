@@ -1,29 +1,12 @@
 require 'ronin/platform/extension'
 
 require 'spec_helper'
+require 'platform/helpers/extensions'
 
 describe Platform::Extension do
   before(:each) do
-    @ext = Platform::Extension.new('test') do
-      attr_reader :var
-      attr_writer :var
-
-      setup do
-        @var = :setup
-      end
-
-      teardown do
-        @var = :toredown
-      end
-
-      def test_method
-        :method
-      end
-
-      def run_method
-        @var = :running
-      end
-    end
+    @ext = Platform::Extension.new('test')
+    @ext.include_path(extension_path('test'))
   end
 
   it "should allow for custom methods" do
