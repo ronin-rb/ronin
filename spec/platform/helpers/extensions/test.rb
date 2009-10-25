@@ -17,8 +17,4 @@ ronin_extension do
     :method
   end
 
-  def run_method
-    @var = :running
-  end
-
 end
