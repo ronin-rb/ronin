@@ -47,7 +47,7 @@ module Ronin
             :timestamp => File.mtime(path),
             :model_name => obj.class.to_s
           )
-          obj.prepare_cache!
+
           return obj
         end
 
@@ -173,27 +173,22 @@ module Ronin
       @cache_prepared == true
     end
 
-    #
-    # Prepares the object for caching.
-    #
-    def prepare_cache!
-      unless @cache_prepared
-        instance_eval(&(@cache_block)) if @cache_block
-        @cache_prepared = true
-      end
-    end
-
     protected
 
     #
-    # Will run the specified _block_ when the object is about to be cached.
+    # Will call the specified _block_ only once, in order to prepare the
+    # object for caching.
     #
     # @yield []
     #   The block will be ran inside the object when the object is to be
     #   prepared for caching.
     #
     def cache(&block)
-      @cache_block = block
+      unless prepared_for_cache?
+        @cache_prepared = true
+
+        block.call()
+      end
     end
 
     #

@@ -172,7 +172,6 @@ module Ronin
         if (obj = fresh_object)
           # re-cache the fresh_object
           obj.cached_file = self
-          obj.prepare_cache!
           obj.save
 
           # reset the model-class
