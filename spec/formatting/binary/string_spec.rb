@@ -148,6 +148,7 @@ describe String do
     before(:all) do
       @string = 'hello'
       @key = 0x50
+      @keys = [0x50, 0x55]
     end
 
     it "should not contain the key used in the xor" do
@@ -160,6 +161,14 @@ describe String do
 
     it "should be able to be decoded with another xor" do
       @string.xor(@key).xor(@key).should == @string
+    end
+
+    it "should allow xoring against a single key" do
+      @string.xor(@key).should == "85<<?"
+    end
+
+    it "should allow xoring against multiple keys" do
+      @string.xor(@keys).should == "80<9?"
     end
   end
 

@@ -146,7 +146,7 @@ class String
   #
   # XOR encodes the String.
   #
-  # @param [Integer] key
+  # @param [Enumerable, Integer] key
   #   The byte to XOR against each byte in the String.
   #
   # @return [String]
@@ -156,10 +156,27 @@ class String
   #   "hello".xor(0x41)
   #   # => ")$--."
   #
+  # @example
+  #   "hello again".xor([0x55, 0x41, 0xe1])
+  #   # => "=$\x8d9.\xc14&\x80</"
+  #
   def xor(key)
     encoded = ''
 
-    each_byte { |b| encoded << (b ^ key).chr }
+    # expand key into many keys
+    keys = if key.kind_of?(Enumerable)
+             key.to_a
+           else
+             [key]
+           end
+
+    # make sure all keys are integers
+    keys.map! { |key| key.to_i }
+
+    Enumerable::Enumerator.new(self,:each_byte).each_with_index do |b,i|
+      encoded << (b ^ keys[i % keys.length]).chr
+    end
+
     return encoded
   end
 
