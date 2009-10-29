@@ -1,5 +1,7 @@
 require 'ronin/database'
 
+require 'spec_helper'
+
 module Helpers
-  Ronin::Database.setup(ENV['DATABASE'] || 'sqlite3::memory:')
+  Database.setup(ENV['DATABASE'] || 'sqlite3::memory:')
 end
