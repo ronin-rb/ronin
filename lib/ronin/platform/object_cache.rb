@@ -52,13 +52,13 @@ module Ronin
       #   The cached file.
       #
       def ObjectCache.each(directory=nil,&block)
-        attributes = {}
-
+        files = Cacheable::CachedFile.all
+        
         if directory
-          attributes.merge!(:path.like => File.join(directory,'%'))
+          files = files.from(directory)
         end
-
-        Cacheable::CachedFile.all(attributes).each(&block)
+          
+        files.each(&block)
         return true
       end
 

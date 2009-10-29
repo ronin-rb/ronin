@@ -49,6 +49,19 @@ module Ronin
       end
 
       #
+      # Finds all cached files that were cached from a given directory.
+      #
+      # @param [String] directory
+      #   The directory search for.
+      #
+      # @return [DataMapper::Collection<CachedFile>]
+      #   The cached files that were cached from the given directory.
+      #
+      def CachedFile.from(directory)
+        all(:path.like => File.join(File.expand_path(directory),'%'))
+      end
+
+      #
       # Creates a new CacheFile object with a given path, and caches it.
       #
       # @return [CacheFile, nil]
