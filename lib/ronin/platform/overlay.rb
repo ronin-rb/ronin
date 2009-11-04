@@ -359,7 +359,7 @@ module Ronin
           if (version_attr = overlay.attributes['version'])
             @version = version_attr.inner_text.strip.to_i
           else
-            print_warning "Overlay #{@name.dump} does not specify an Overlay Version attribute in \"ronin.xml\""
+            print_error "Overlay #{@name.dump} does not specify an Overlay Version attribute in \"ronin.xml\""
           end
 
           if (title_tag = overlay.at('title'))
@@ -404,7 +404,7 @@ module Ronin
         end
 
         if (@version && !(compatible?))
-          print_warning "Overlay #{@name.dump} is not compatible with the current Overlay implementation"
+          print_error "Overlay #{@name.dump} is not compatible with the current Overlay implementation"
         end
 
         return self
