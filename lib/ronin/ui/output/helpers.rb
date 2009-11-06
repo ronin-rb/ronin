@@ -24,8 +24,6 @@ module Ronin
   module UI
     module Output
       module Helpers
-        protected
-
         #
         # Prints one or more messages.
         #
