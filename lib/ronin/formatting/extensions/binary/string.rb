@@ -23,6 +23,7 @@ require 'ronin/formatting/extensions/text'
 require 'ronin/arch'
 
 require 'base64'
+require 'enumerator'
 
 begin
   require 'zlib'
@@ -173,7 +174,7 @@ class String
     # make sure all keys are integers
     keys.map! { |key| key.to_i }
 
-    Enumerable::Enumerator.new(self,:each_byte).each_with_index do |b,i|
+    Enumerator.new(self,:each_byte).each_with_index do |b,i|
       encoded << (b ^ keys[i % keys.length]).chr
     end
 
