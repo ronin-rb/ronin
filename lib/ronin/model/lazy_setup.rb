@@ -26,14 +26,78 @@ module Ronin
     module LazySetup
       def self.included(base)
         base.metaclass_eval do
-          def auto_migrate!(*arguments)
+          #
+          # Determines if the model has been auto-upgraded recently.
+          #
+          # @return [Boolean]
+          #   Specifies whether the model has been auto-upgraded.
+          #
+          def auto_upgraded?
+            @auto_upgraded == true
+          end
+
+          #
+          # Destructively migrates the data-store to match the model.
+          #
+          # @param [Symbol] repository
+          #   The repository to be migrated
+          #
+          def auto_migrate!(repository=self.repository_name)
             Ronin::Database.setup unless Ronin::Database.setup?
+
+            result = super(repository)
+
+            @auto_upgraded = true
+            return result
+          end
+
+          #
+          # Safely migrates the data-store to match the model preserving
+          # data already in the data-store.
+          #
+          # @param [Symbol] repository
+          #   The repository to be migrated 
+          #
+          def auto_upgrade!(repository=self.repository_name)
+            Ronin::Database.setup unless Ronin::Database.setup?
+
+            result = super(repository)
+
+            @auto_upgraded = true
+            return result
+          end
+
+          #
+          # Safely migrates the data-store to match the model, but only if
+          # the model has not yet been migrated.
+          #
+          # @param [Symbol] repository
+          #   The repository to be migrated 
+          #
+          def lazy_upgrade!(repository=self.repository_name)
+            auto_upgrade!(repository) unless auto_upgraded?
+          end
+
+          def new(*arguments,&block)
+            self.lazy_upgrade!
+
+            super(*arguments,&block)
+          end
+
+          def create(*arguments)
+            self.lazy_upgrade!
 
             super(*arguments)
           end
 
-          def auto_upgrade!(*arguments)
-            Ronin::Database.setup unless Ronin::Database.setup?
+          def all(*arguments)
+            self.lazy_upgrade!
+
+            super(*arguments)
+          end
+
+          def first(*arguments)
+            self.lazy_upgrade!
 
             super(*arguments)
           end

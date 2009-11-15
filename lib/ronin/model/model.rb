@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/lazy_upgrade'
 require 'ronin/model/lazy_setup'
 
 require 'extlib'
@@ -38,7 +37,6 @@ module Ronin
         base.module_eval do
           include DataMapper::Resource
           include DataMapper::Migrations
-          include Model::LazyUpgrade
           include Model::LazySetup
 
           def self.allocate
