@@ -19,15 +19,25 @@
 #
 
 require 'ronin/database/database'
+require 'ronin/extensions/meta'
 
 module Ronin
   module Model
     module LazySetup
       def self.included(base)
-        lazy_setup = proc { Database.setup unless Database.setup? }
+        base.metaclass_eval do
+          def auto_migrate!(*arguments)
+            Ronin::Database.setup unless Ronin::Database.setup?
 
-        base.before_class_method(:auto_migrate!,&lazy_setup)
-        base.before_class_method(:auto_upgrade!,&lazy_setup)
+            super(*arguments)
+          end
+
+          def auto_upgrade!(*arguments)
+            Ronin::Database.setup unless Ronin::Database.setup?
+
+            super(*arguments)
+          end
+        end
       end
     end
   end

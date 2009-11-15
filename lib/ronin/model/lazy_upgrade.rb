@@ -72,22 +72,30 @@ module Ronin
           def lazy_upgrade!(repository=self.repository_name)
             auto_upgrade!(repository) unless auto_upgraded?
           end
-        end
 
-        base.before_class_method :new do
-          self.lazy_upgrade!
-        end
+          def new(*arguments,&block)
+            self.lazy_upgrade!
 
-        base.before_class_method :create do
-          self.lazy_upgrade!
-        end
+            super(*arguments,&block)
+          end
 
-        base.before_class_method :all do
-          self.lazy_upgrade!
-        end
+          def create(*arguments)
+            self.lazy_upgrade!
 
-        base.before_class_method :first do
-          self.lazy_upgrade!
+            super(*arguments)
+          end
+
+          def all(*arguments)
+            self.lazy_upgrade!
+
+            super(*arguments)
+          end
+
+          def first(*arguments)
+            self.lazy_upgrade!
+
+            super(*arguments)
+          end
         end
       end
     end
