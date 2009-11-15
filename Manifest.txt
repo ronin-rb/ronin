@@ -256,7 +256,7 @@ spec/model/classes/custom_model.rb
 spec/model/classes/described_model.rb
 spec/model/classes/licensed_model.rb
 spec/model/model_spec.rb
-spec/model/lazy_upgrade_spec.rb
+spec/model/lazy_setup_spec.rb
 spec/model/has_description_spec.rb
 spec/model/has_license_spec.rb
 spec/license_spec.rb
