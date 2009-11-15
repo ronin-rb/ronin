@@ -42,7 +42,7 @@ describe Platform::Extension do
   end
 
   it "should specify which methods were added to the extension" do
-    @ext.exposed_methods.should == [:var, :var=, :test_method]
+    @ext.exposed_methods.should == [:test_method, :var, :var=]
   end
 
   it "should allow calling added methods" do
