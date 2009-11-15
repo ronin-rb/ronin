@@ -38,8 +38,4 @@ describe Code::SymbolTable do
     @table[:three].should == 3
     @table[:four].should == 4
   end
-
-  it "should display the values of the symbols when inspected" do
-    @table.inspect.should == '{:one=>[:a, :b, :c], :two=>{:one=>1, :two=>2}}'
-  end
 end
