@@ -95,6 +95,12 @@ module Ronin
 
             super(*arguments)
           end
+
+          def last(*arguments)
+            self.lazy_upgrade!
+
+            super(*arguments)
+          end
         end
       end
 
