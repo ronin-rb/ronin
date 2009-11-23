@@ -152,6 +152,8 @@ module Ronin
       #   console.start { @var = 'hello' }
       #
       def Console.start(script=nil,&block)
+        ARGV.clear
+
         IRB.setup(script)
 
         # configure IRB
