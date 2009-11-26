@@ -192,7 +192,7 @@ module Ronin
     # method again.
     #
     def method_missing(name,*arguments,&block)
-      if (self.cached_file && !(@original_loaded))
+      if (cached? && !(original_loaded?))
         load_original!
 
         return self.send(name,*arguments,&block)
