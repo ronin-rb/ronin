@@ -133,7 +133,7 @@ module Ronin
     #   The directory for the path property from the +cached_file+ resource.
     #
     def cache_dir
-      if (path = self.cache_path)
+      if (path = cache_path)
         return File.dirname(path)
       end
     end
