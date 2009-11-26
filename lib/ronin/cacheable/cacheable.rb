@@ -147,8 +147,8 @@ module Ronin
       if (cached? && !(original_loaded?))
         block = self.class.load_context_block(cache_path)
 
-        instance_eval(&block) if block
         @original_loaded = true
+        instance_eval(&block) if block
         return true
       end
 
