@@ -55,7 +55,7 @@ module Ronin
         # Loads all objects with the matching _attributes_.
         #
         def self.load_all(attributes={})
-          self.all(attributes).map { |obj| obj.load_original! }
+          self.all(attributes).each { |obj| obj.load_original! }
         end
 
         #
