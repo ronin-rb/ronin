@@ -42,12 +42,6 @@ module Ronin
       # The class name of the cached object
       property :model_name, String
 
-      before(:destroy) do
-        if (obj = self.cached_object)
-          obj.destroy
-        end
-      end
-
       #
       # Finds all cached files that were cached from a given directory.
       #
@@ -225,6 +219,20 @@ module Ronin
         end
 
         return false
+      end
+
+      #
+      # Before destroying the cached file object, also destroy the
+      # associated cached object.
+      #
+      def destroy!
+        unless destroyed?
+          if (obj = self.cached_object)
+            obj.destroy
+          end
+        end
+
+        super
       end
 
     end
