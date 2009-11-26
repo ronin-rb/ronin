@@ -31,7 +31,7 @@ module Ronin
           include Ronin::Model
 
           # The license
-          belongs_to :license, :nullable => true
+          belongs_to :license, :required => false
 
           #
           # Returns all models having the predefined license with the
