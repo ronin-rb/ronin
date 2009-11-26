@@ -159,6 +159,16 @@ module Ronin
       @cache_prepared == true
     end
 
+    #
+    # Indicates whether the object has been cached.
+    #
+    # @return [Boolean]
+    #   Specifies whether the object has been previously cached.
+    #
+    def cached?
+      (saved? && self.cached_file)
+    end
+
     protected
 
     #
@@ -170,7 +180,7 @@ module Ronin
     #   prepared for caching.
     #
     def cache(&block)
-      unless (saved? || prepared_for_cache?)
+      unless (cached? || prepared_for_cache?)
         @cache_prepared = true
 
         block.call()
