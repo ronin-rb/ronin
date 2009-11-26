@@ -88,20 +88,6 @@ module Ronin
           return obj
         end
       end
-
-      base.after_class_method(:all) do |*args|
-        if (objs = args.first)
-          objs.each do |obj|
-            obj.instance_variable_set('@cache_prepared',true)
-          end
-        end
-      end
-
-      base.after_class_method(:first) do |*args|
-        if (obj = args.first)
-          obj.instance_variable_set('@cache_prepared',true)
-        end
-      end
     end
 
     #
@@ -184,7 +170,7 @@ module Ronin
     #   prepared for caching.
     #
     def cache(&block)
-      unless prepared_for_cache?
+      unless (saved? || prepared_for_cache?)
         @cache_prepared = true
 
         block.call()
