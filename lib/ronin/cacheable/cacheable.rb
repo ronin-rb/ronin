@@ -140,15 +140,19 @@ module Ronin
     # Loads the code from the cached file for the object, and instance evals
     # it into the object.
     #
+    # @return [Boolean]
+    #   Indicates the original code was successfully loaded.
+    #
     def load_original!
-      if (self.cached_file && !(@original_loaded))
+      if (cached? && !(original_loaded?))
         block = self.class.load_context_block(cache_path)
 
         instance_eval(&block) if block
         @original_loaded = true
+        return true
       end
 
-      return self
+      return false
     end
 
     #
