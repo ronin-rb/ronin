@@ -77,37 +77,7 @@ module Ronin
           def lazy_upgrade!(repository=self.repository_name)
             auto_upgrade!(repository) unless auto_upgraded?
           end
-
-          def create(*arguments)
-            self.lazy_upgrade!
-
-            super(*arguments)
-          end
-
-          def all(*arguments)
-            self.lazy_upgrade!
-
-            super(*arguments)
-          end
-
-          def first(*arguments)
-            self.lazy_upgrade!
-
-            super(*arguments)
-          end
-
-          def last(*arguments)
-            self.lazy_upgrade!
-
-            super(*arguments)
-          end
         end
-      end
-
-      def initialize(*arguments,&block)
-        self.class.lazy_upgrade!
-
-        super(*arguments,&block)
       end
     end
   end

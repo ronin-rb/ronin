@@ -111,6 +111,9 @@ module Ronin
 
         # filter out non-Cacheable models
         if model.ancestors.include?(Cacheable)
+          # lazy upgrade the model before usage
+          model.lazy_upgrade!
+
           return model
         end
       end
@@ -130,14 +133,27 @@ module Ronin
       #
       # A freshly loaded Cacheable object from the cache file.
       #
-      # @return [Model]
+      # @return [Cacheable, nil]
       #   The first Cacheable object loaded from the cache file.
+      #   Returns +nil+ if the file did not contain any cacheable objects.
       #   
       def fresh_object
         # load the first found context
-        Contextify.load_contexts(self.path).find do |obj|
-          obj.class.ancestors.include?(Cacheable)
+        Contextify.load_blocks(self.path).each do |name,block|
+          model = Contextify.contexts[name]
+
+          if model.ancestors.include?(Cacheable)
+            # lazy upgrade the model before creating the object
+            model.lazy_upgrade!
+
+            # create the fresh object
+            object = model.new()
+            object.instance_eval(&block)
+            return object
+          end
         end
+
+        return nil
       end
 
       #
