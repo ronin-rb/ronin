@@ -152,10 +152,7 @@ module Ronin
       DataMapper.setup(Model::REPOSITORY_NAME, configuration)
 
       # auto-upgrade the database repository
-      DataMapper.auto_upgrade!(Model::REPOSITORY_NAME)
-
-      block.call() if block
-      return nil
+      Database.upgrade(&block)
     end
   end
 end
