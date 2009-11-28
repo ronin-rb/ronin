@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/lazy_setup'
+require 'ronin/model/lazy_upgrade'
 
 require 'extlib'
 require 'dm-core'
