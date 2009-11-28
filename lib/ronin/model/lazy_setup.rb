@@ -43,8 +43,6 @@ module Ronin
           #   The repository to be migrated
           #
           def auto_migrate!(repository=self.repository_name)
-            Ronin::Database.setup unless Ronin::Database.setup?
-
             result = super(repository)
 
             @auto_upgraded = true
@@ -59,8 +57,6 @@ module Ronin
           #   The repository to be migrated 
           #
           def auto_upgrade!(repository=self.repository_name)
-            Ronin::Database.setup unless Ronin::Database.setup?
-
             result = super(repository)
 
             @auto_upgraded = true
