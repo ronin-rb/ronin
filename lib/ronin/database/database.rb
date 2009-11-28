@@ -127,7 +127,7 @@ module Ronin
     # @yield []
     #   The block to call before the Database is updated.
     #
-    def Database.update!(&block)
+    def Database.upgrade(&block)
       block.call if block
 
       DataMapper.auto_upgrade!(Model::REPOSITORY_NAME) if Database.setup?
@@ -150,6 +150,9 @@ module Ronin
 
       # setup the database repository
       DataMapper.setup(Model::REPOSITORY_NAME, configuration)
+
+      # auto-upgrade the database repository
+      DataMapper.auto_upgrade!(Model::REPOSITORY_NAME)
 
       block.call() if block
       return nil
