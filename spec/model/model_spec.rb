@@ -5,6 +5,10 @@ require 'model/classes/basic_model'
 require 'model/classes/custom_model'
 
 describe Model do
+  before(:all) do
+    BasicModel.auto_migrate!
+  end
+
   it "should have a default repository name" do
     BasicModel.default_repository_name.should == Model::REPOSITORY_NAME
   end
