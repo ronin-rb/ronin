@@ -67,6 +67,8 @@ lib/ronin/network/extensions/telnet.rb
 lib/ronin/network/extensions/telnet/net.rb
 lib/ronin/network/extensions/http.rb
 lib/ronin/network/extensions/http/net.rb
+lib/ronin/network/extensions/ssl.rb
+lib/ronin/network/extensions/ssl/io.rb
 lib/ronin/network/helpers.rb
 lib/ronin/network/helpers/helper.rb
 lib/ronin/network/helpers/tcp.rb
@@ -91,6 +93,7 @@ lib/ronin/network/http/exceptions.rb
 lib/ronin/network/http/exceptions/unknown_request.rb
 lib/ronin/network/http/proxy.rb
 lib/ronin/network/http/http.rb
+lib/ronin/network/ssl.rb
 lib/ronin/code/emittable.rb
 lib/ronin/code/token.rb
 lib/ronin/code/reference.rb
