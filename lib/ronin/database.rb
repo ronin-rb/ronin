@@ -19,3 +19,14 @@
 #
 
 require 'ronin/database/database'
+
+module Ronin
+  Database.upgrade do
+    require 'ronin/author'
+    require 'ronin/license'
+    require 'ronin/arch'
+    require 'ronin/os'
+    require 'ronin/product'
+    require 'ronin/cacheable/cached_file'
+  end
+end
