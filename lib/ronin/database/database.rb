@@ -128,7 +128,7 @@ module Ronin
     #   The block to call before the Database is updated.
     #
     def Database.upgrade(&block)
-      block.call if block
+      block.call() if block
 
       DataMapper.auto_upgrade!(Model::REPOSITORY_NAME) if Database.setup?
       return nil
