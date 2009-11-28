@@ -47,6 +47,8 @@ class IO
   # @return [OpenSSL::SSL::SSLSocket]
   #   The ssl socket.
   #
+  # @since 0.3.1
+  #
   def ssl_start(options={},&block)
     verify_mode = 'VERIFY_' + (options[:verify] || :none).to_s.upcase
 
@@ -85,6 +87,8 @@ class IO
   #   The ssl socket.
   #
   # @return [nil]
+  #
+  # @since 0.3.1
   #
   def ssl_session(options={},&block)
     session = ssl(options)
