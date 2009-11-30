@@ -28,7 +28,6 @@ module Ronin
     class CachedFile
 
       include Ronin::Model
-      include Contextify
 
       # The primary key of the cached file
       property :id, Serial
