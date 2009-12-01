@@ -34,11 +34,13 @@ module Ronin
           belongs_to :license, :required => false
 
           #
-          # Returns all models having the predefined license with the
-          # specified _name_.
+          # Finds all models associated with a given license.
           #
           # @param [Symbol, String] name
           #   The name of the license which models are associated with.
+          #
+          # @return [Model]
+          #   The models associated with a given license.
           #
           # @example
           #   LicensedModel.licensed_under(:cc_by_nc)
