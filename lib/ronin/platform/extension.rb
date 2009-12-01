@@ -43,7 +43,7 @@ module Ronin
       #
       # @example
       #   ronin_extension do
-      #     ...
+      #     # ...
       #   end
       #
       contextify :ronin_extension
