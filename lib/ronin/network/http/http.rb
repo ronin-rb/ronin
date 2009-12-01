@@ -57,6 +57,8 @@ module Ronin
       end
 
       #
+      # The default Ronin HTTP User-Agent string.
+      #
       # @return [String, nil]
       #   The default Ronin HTTP User-Agent.
       #
@@ -65,7 +67,7 @@ module Ronin
       end
 
       #
-      # Sets the default Ronin HTTP User-Agent.
+      # Sets the default Ronin HTTP User-Agent string.
       #
       # @param [String] agent
       #   The new User-Agent string to use.
