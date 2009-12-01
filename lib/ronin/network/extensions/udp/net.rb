@@ -22,8 +22,7 @@ require 'socket'
 
 module Net
   #
-  # Creates a new UDPSocket object with the specified _host_, _port_
-  # and the given _local_host_ and _local_port_.
+  # Creates a new UDPSocket object connected to a given host and port.
   #
   # @param [String] host
   #   The host to connect to.
@@ -63,9 +62,8 @@ module Net
   end
 
   #
-  # Creates a new UDPSocket object with the specified _host_, _port_, and
-  # the given _local_host_ and _local_port_. The specified _data_ will
-  # then be written to the newly created UDPSocket.
+  # Creates a new UDPSocket object, connected to a given host and port.
+  # The given data will then be written to the newly created UDPSocket.
   #
   # @param [String] data
   #   The data to send through the connection.
@@ -100,8 +98,8 @@ module Net
   end
 
   #
-  # Creates a new UDPSocket object with the specified _host_, _port_
-  # and the given _local_host_ and _local_port_.
+  # Creates a new temporary UDPSocket object, connected to the given host
+  # and port.
   #
   # @param [String] host
   #   The host to connect to.
@@ -134,9 +132,7 @@ module Net
   end
 
   #
-  # Connects to the specified _host_ and _port_ with the given _local_host_
-  # and _local_port_, reads the banner then closes the connection,
-  # returning the received banner.
+  # Reads the banner from the service running on the given host and port.
   #
   # @param [String] host
   #   The host to connect to.
@@ -169,7 +165,7 @@ module Net
   end
 
   #
-  # Creates a new UDPServer listening on the specified _host_ and _port_.
+  # Creates a new UDPServer listening on a given host and port.
   #
   # @param [Integer] port
   #   The local port to listen on.
@@ -193,8 +189,7 @@ module Net
   end
 
   #
-  # Creates a new UDPServer listening on the specified _host_ and _port_,
-  # passing it to the given _block_ and then closing the server.
+  # Creates a new temporary UDPServer listening on a given host and port.
   #
   # @param [Integer] port
   #   The local port to bind to.

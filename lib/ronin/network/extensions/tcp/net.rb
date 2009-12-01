@@ -22,8 +22,7 @@ require 'socket'
 
 module Net
   #
-  # Creates a new TCPSocket object with the specified _host_, _port_
-  # and the given _local_host_ and _local_port_.
+  # Creates a new TCPSocket object connected to a given host and port.
   #
   # @param [String] host
   #   The host to connect to.
@@ -64,9 +63,8 @@ module Net
   end
 
   #
-  # Creates a new TCPSocket object with the specified _host_, _port_, and
-  # the given _local_host_ and _local_port_. The specified _data_ will
-  # then be written to the newly created TCPSocket.
+  # Creates a new TCPSocket object, connected to a given host and port.
+  # The given data will then be written to the newly created TCPSocket.
   #
   # @param [String] data
   #   The data to send through the connection.
@@ -98,10 +96,8 @@ module Net
   end
 
   #
-  # Creates a new TCPSocket object with the specified _host_, _port_
-  # and the given _local_host_ and _local_port_. If _block_ is given, it
-  # will be passed the newly created TCPSocket object. After the TCPSocket
-  # object has been passed to the given _block_ it will be closed.
+  # Creates a new temporary TCPSocket object, connected to the given host
+  # and port.
   #
   # @param [String] host
   #   The host to connect to.
@@ -134,9 +130,7 @@ module Net
   end
 
   #
-  # Connects to the specified _host_ and _port_ with the given
-  # _local_host_ and _local_port_, reads the banner then closes the
-  # connection.
+  # Reads the banner from the service running on the given host and port.
   #
   # @param [String] host
   #   The host to connect to.
@@ -175,9 +169,8 @@ module Net
   end
 
   #
-  # Connects to the specified _host_ and _port_ with the given _local_host_
-  # and _local_port_, sends the specified _data_ and then closes the
-  # connection.
+  # Connects to a specified host and port, sends the given data and then
+  # closes the connection.
   #
   # @param [String] data
   #   The data to send through the connection.
@@ -211,7 +204,7 @@ module Net
   end
 
   #
-  # Creates a new TCPServer listening on the specified _host_ and _port_.
+  # Creates a new TCPServer listening on a given host and port.
   #
   # @param [Integer] port
   #   The local port to listen on.
@@ -236,8 +229,7 @@ module Net
   end
 
   #
-  # Creates a new TCPServer listening on the specified _host_ and _port_,
-  # passing it to the given _block_ and then closing the server.
+  # Creates a new temporary TCPServer listening on a host and port.
   #
   # @param [Integer] port
   #   The local port to bind to.
@@ -274,8 +266,8 @@ module Net
   end
 
   #
-  # Creates a new TCPServer listening on the specified _host_ and _port_,
-  # then accepts only one client.
+  # Creates a new TCPServer listening on a given host and port,
+  # accepts only one client and then stops listening.
   #
   # @param [Integer] port
   #   The local port to listen on.
@@ -284,8 +276,8 @@ module Net
   #   The host to bind to.
   #
   # @yield [client]
-  #   The block which will be passed the newly connected _client_.
-  #   After the block has finished, the _client_ and the server will be
+  #   The block which will be passed the newly connected client.
+  #   After the block has finished, the client and the server will be
   #   closed.
   #
   # @yieldparam [TCPSocket] client
