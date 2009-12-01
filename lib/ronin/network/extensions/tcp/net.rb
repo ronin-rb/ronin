@@ -31,10 +31,10 @@ module Net
   # @param [Integer] port
   #   The port to connect to.
   #
-  # @param [String] local_host
+  # @param [String] local_host (nil)
   #   The local host to bind to.
   #
-  # @param [Integer] local_port
+  # @param [Integer] local_port (nil)
   #   The local port to bind to.
   #
   # @yield [socket]
@@ -77,10 +77,10 @@ module Net
   # @param [Integer] port
   #   The port to connect to.
   #
-  # @param [String] local_host
+  # @param [String] local_host (nil)
   #   The local host to bind to.
   #
-  # @param [Integer] local_port
+  # @param [Integer] local_port (nil)
   #   The local port to bind to.
   #
   # @yield [socket]
@@ -109,10 +109,10 @@ module Net
   # @param [Integer] port
   #   The port to connect to.
   #
-  # @param [String] local_host
+  # @param [String] local_host (nil)
   #   The local host to bind to.
   #
-  # @param [Integer] local_port
+  # @param [Integer] local_port (nil)
   #   The local port to bind to.
   #
   # @yield [socket]
@@ -144,10 +144,10 @@ module Net
   # @param [Integer] port
   #   The port to connect to.
   #
-  # @param [String] local_host
+  # @param [String] local_host (nil)
   #   The local host to bind to.
   #
-  # @param [Integer] local_port
+  # @param [Integer] local_port (nil)
   #   The local port to bind to.
   #
   # @yield [banner]
@@ -188,10 +188,10 @@ module Net
   # @param [Integer] port
   #   The port to connect to.
   #
-  # @param [String] local_host
+  # @param [String] local_host (nil)
   #   The local host to bind to.
   #
-  # @param [Integer] local_port
+  # @param [Integer] local_port (nil)
   #   The local port to bind to.
   #
   # @return [true]
@@ -216,7 +216,7 @@ module Net
   # @param [Integer] port
   #   The local port to listen on.
   #
-  # @param [String] host
+  # @param [String] host ('0.0.0.0')
   #   The host to bind to.
   #
   # @return [TCPServer]
@@ -242,7 +242,7 @@ module Net
   # @param [Integer] port
   #   The local port to bind to.
   #
-  # @param [String] host
+  # @param [String] host ('0.0.0.0')
   #   The host to bind to.
   #
   # @yield [server]
@@ -280,7 +280,7 @@ module Net
   # @param [Integer] port
   #   The local port to listen on.
   #
-  # @param [String] host
+  # @param [String] host ('0.0.0.0')
   #   The host to bind to.
   #
   # @yield [client]
