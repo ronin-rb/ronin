@@ -85,6 +85,9 @@ module Ronin
       # @param [String] directory
       #   The directory to sync all objects with.
       #
+      # @return [true]
+      #   Specifies that the syncing of the given directory was successful.
+      #
       def ObjectCache.sync(directory)
         new_paths = ObjectCache.paths(directory)
 
@@ -109,6 +112,10 @@ module Ronin
       #
       # @param [String] directory
       #   Deletes all cached objects from the specified _directory_.
+      #
+      # @return [true]
+      #   Specifies that the deletion of the objects, originally cached
+      #   from the given directory, was successful.
       #
       def ObjectCache.clean(directory)
         ObjectCache.each(directory) do |cached_file|
