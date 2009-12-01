@@ -52,7 +52,10 @@ module Ronin
         end
 
         #
-        # Loads all objects with the matching _attributes_.
+        # Loads all objects with the matching attributes.
+        #
+        # @param [Hash] attributes
+        #   Attributes to search for.
         #
         def self.load_all(attributes={})
           self.all(attributes).each { |obj| obj.load_original! }
@@ -176,7 +179,7 @@ module Ronin
     protected
 
     #
-    # Will call the specified _block_ only once, in order to prepare the
+    # Will call the given block only once, in order to prepare the
     # object for caching.
     #
     # @yield []
