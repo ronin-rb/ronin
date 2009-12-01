@@ -23,8 +23,7 @@ require 'ronin/formatting/extensions/binary/string'
 class File
 
   #
-  # Converts the hexdump at the specified _path_ back into the original
-  # raw-data.
+  # Converts the hexdump at the given path back into raw-data.
   #
   # @see String#unhexdump.
   #

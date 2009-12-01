@@ -222,8 +222,7 @@ class String
   end
 
   #
-  # Converts a multitude of hexdump formats back into the original
-  # raw-data.
+  # Converts a multitude of hexdump formats back into raw-data.
   #
   # @param [Hash] options
   #   Additional options.
