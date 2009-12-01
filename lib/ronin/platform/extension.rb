@@ -35,9 +35,13 @@ module Ronin
       include UI::Output::Helpers
 
       #
-      # Creates a new Ronin::Platform::Extension object using the given
-      # _block_.
+      # Creates a new Ronin::Platform::Extension object.
       #
+      # @yield []
+      #   If a block is given, it will be evaluated within the new
+      #   extension.
+      #
+      # @example
       #   ronin_extension do
       #     ...
       #   end
