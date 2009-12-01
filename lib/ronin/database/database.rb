@@ -127,6 +127,8 @@ module Ronin
     # @yield []
     #   The block to call before the Database is updated.
     #
+    # @return [nil]
+    #
     def Database.upgrade(&block)
       block.call() if block
 

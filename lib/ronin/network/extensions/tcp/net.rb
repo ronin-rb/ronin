@@ -122,6 +122,8 @@ module Net
   # @yieldparam [TCPsocket] socket
   #   The newly created TCPSocket object.
   #
+  # @return [nil]
+  #
   def Net.tcp_session(host,port,local_host=nil,local_port=nil,&block)
     Net.tcp_connect(host,port,local_host,local_port) do |sock|
       block.call(sock) if block

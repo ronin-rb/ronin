@@ -39,6 +39,8 @@ class IPAddr
   # @yieldparam [String] ip
   #   An IP address within the IP address range.
   #
+  # @return [nil]
+  #
   # @example Enumerate through a CIDR range
   #   IPAddr.each('10.1.1.1/24') do |ip|
   #     puts ip

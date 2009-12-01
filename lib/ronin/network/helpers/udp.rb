@@ -107,6 +107,8 @@ module Ronin
         # @yieldparam [UDPsocket] socket
         #   The newly created UDPSocket object.
         #
+        # @return [nil]
+        #
         # @since 0.3.0
         #
         def udp_session(&block)

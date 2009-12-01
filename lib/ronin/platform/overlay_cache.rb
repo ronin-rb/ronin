@@ -385,6 +385,8 @@ module Ronin
       # @yieldparam [Overlay] overlay
       #   The uninstalled overlay.
       #
+      # @return [nil]
+      #
       # @example
       #   cache.uninstall('hello_word')
       #   # => #<Ronin::Platform::Overlay: ...>

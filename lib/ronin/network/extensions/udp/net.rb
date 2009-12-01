@@ -122,6 +122,8 @@ module Net
   # @yieldparam [UDPsocket] socket
   #   The newly created UDPSocket object.
   #
+  # @return [nil]
+  #
   def Net.udp_session(host,port,local_host=nil,local_port=nil,&block)
     Net.udp_connect(host,port,local_host,local_port) do |sock|
       block.call(sock) if block

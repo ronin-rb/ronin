@@ -104,6 +104,8 @@ module Ronin
         # @yieldparam [TCPsocket] socket
         #   The newly created TCPSocket object.
         #
+        # @return [nil]
+        #
         # @since 0.3.0
         #
         def tcp_session(&block)

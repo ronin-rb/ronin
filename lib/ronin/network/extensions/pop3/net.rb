@@ -77,6 +77,8 @@ module Net
   # @yieldparam [Net::POP3] session
   #   The newly created POP3 session.
   #
+  # @return [nil]
+  #
   def Net.pop3_session(host,options={},&block)
     Net.pop3_connect(host,options) do |sess|
       block.call(sess) if block

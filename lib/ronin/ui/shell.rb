@@ -46,6 +46,8 @@ module Ronin
     # @yieldparam [String] line
     #   The command entered into the shell.
     #
+    # @return [nil]
+    #
     # @example
     #   Shell.start(:prompt => '$') { |shell,line| system(line) }
     #

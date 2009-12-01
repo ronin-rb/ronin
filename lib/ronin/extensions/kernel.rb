@@ -25,8 +25,9 @@ module Kernel
   # @yield []
   #   The block to be called.
   #
-  # @return [nil]
-  #   An exception was ignored, or the block returned nil.
+  # @return [Object, nil]
+  #   The return-value of the given block. If +nil+ is returned, an
+  #   exception occurred and was ignored.
   #
   # @example
   #   attempt do

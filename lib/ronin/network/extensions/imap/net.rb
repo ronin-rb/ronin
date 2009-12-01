@@ -104,6 +104,8 @@ module Net
   # @yieldparam [Net::IMAP] session
   #   The newly created IMAP session object.
   #
+  # @return [nil]
+  #
   # @see Net.imap_connect
   #
   def Net.imap_session(host,options={},&block)

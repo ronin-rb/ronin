@@ -159,6 +159,8 @@ module Ronin
     #   If a block is given, it will be called after all overlays have been
     #   updated within the cache.
     #
+    # @return [nil]
+    #
     def Platform.update(&block)
       Platform.overlays.update()
 
@@ -180,6 +182,8 @@ module Ronin
     # @yieldparam [Overlay] overlay
     #   The removed overlay.
     #
+    # @return [nil]
+    #
     # @raise [OverlayNotFound]
     #   The overlay with the specified _name_ could not be found in the
     #   overlay cache.
@@ -199,6 +203,8 @@ module Ronin
     # @yield []
     #   If a block is given, it will be called after the overlay has been
     #   uninstalled.
+    #
+    # @return [nil]
     #
     # @raise [OverlayNotFound]
     #   The overlay with the specified _name_ could not be found in the

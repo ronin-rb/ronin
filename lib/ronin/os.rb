@@ -67,6 +67,8 @@ module Ronin
     # @param [String] os_name
     #   The name of the OS.
     #
+    # @return [nil]
+    #
     # @example
     #   OS.predefine :freebsd, 'FreeBSD'
     #

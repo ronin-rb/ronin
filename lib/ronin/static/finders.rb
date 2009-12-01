@@ -37,6 +37,8 @@ module Ronin
       # Returns the first matching static path for the specified _path_.
       # If no matching static path can be found, +nil+ will be returned.
       #
+      # @return [String, nil]
+      #
       def static_find(path)
         static_paths(path) do |full_path|
           return full_path if File.exists?(full_path)
@@ -48,6 +50,8 @@ module Ronin
       #
       # Returns the first matching static file for the specified _path_.
       # If no matching static file can be found, +nil+ will be returned.
+      #
+      # @return [String, nil]
       #
       def find_static_file(path)
         static_paths(path) do |full_path|
@@ -61,6 +65,8 @@ module Ronin
       # Returns the first matching static directory for the specified
       # _path_. If no matching static directory can be found, +nil+ will be
       # returned.
+      #
+      # @return [String, nil]
       #
       def find_static_dir(path)
         static_paths(path) do |full_path|

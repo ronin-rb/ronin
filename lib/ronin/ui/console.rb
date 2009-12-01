@@ -145,6 +145,8 @@ module Ronin
       # @yield []
       #   The block to be ran within the Console, after it has been setup.
       #
+      # @return [nil]
+      #
       # @example
       #   Console.start
       #

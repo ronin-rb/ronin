@@ -30,6 +30,8 @@ module Ronin
       # @param [IO] output
       #   The output stream to print the hexdump to.
       #
+      # @return [nil]
+      #
       def Hexdump.dump(object,output=STDOUT)
         index = 0
         offset = 0

@@ -133,6 +133,8 @@ module Net
   # @yieldparam [Net::Telnet] session
   #   The newly created Telnet session.
   #
+  # @return [nil]
+  #
   # @example
   #   Net.telnet_session('towel.blinkenlights.nl') do |movie|
   #     movie.each_line { |line| puts line }
