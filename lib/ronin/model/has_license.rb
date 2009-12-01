@@ -39,7 +39,7 @@ module Ronin
           # @param [Symbol, String] name
           #   The name of the license which models are associated with.
           #
-          # @return [Model]
+          # @return [Array<Model>]
           #   The models associated with a given license.
           #
           # @example

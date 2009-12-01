@@ -33,11 +33,14 @@ module Ronin
           property :description, Text
 
           #
-          # Finds models with descriptions containing the specified
-          # _fragment_.
+          # Finds models with descriptions containing a given fragment of
+          # text.
           #
           # @param [String] fragment
           #   The fragment of text to match descriptions with.
+          #
+          # @return [Array<Model>]
+          #   The found models.
           #
           # @example
           #   Exploit.describing 'bypass'
