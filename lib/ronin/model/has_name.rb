@@ -34,10 +34,13 @@ module Ronin
           validates_present :name
 
           #
-          # Finds models with names containing the specified _fragment_.
+          # Finds models with names containing a given fragment of text.
           #
           # @param [String] fragment
           #   The fragment of text to search for within the names of models.
+          #
+          # @return [Array<Model>]
+          #   The found models.
           #
           # @example
           #   Exploit.named 'ProFTP'
