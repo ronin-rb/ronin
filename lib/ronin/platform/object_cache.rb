@@ -51,6 +51,8 @@ module Ronin
       # @yieldparam [Cacheable::CachedFile] cached_file
       #   The cached file.
       #
+      # @return [nil]
+      #
       def ObjectCache.each(directory=nil,&block)
         files = Cacheable::CachedFile.all
         
