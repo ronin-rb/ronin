@@ -59,7 +59,7 @@ module Ronin
         end
           
         files.each(&block)
-        return true
+        return nil
       end
 
       #
