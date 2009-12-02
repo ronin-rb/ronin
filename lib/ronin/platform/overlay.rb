@@ -111,9 +111,7 @@ module Ronin
       attr_reader :repository
 
       #
-      # Creates a new Overlay object with the specified _path_, _media_
-      # and _uri_. If a _block_ is given it will be passed the newly
-      # created Overlay object.
+      # Creates a new Overlay object.
       #
       # @param [String] path
       #   The path to the overlay.
@@ -206,7 +204,7 @@ module Ronin
       end
 
       #
-      # Searches for the extension with the specified _name_ within the
+      # Searches for the extension with the specified name within the
       # overlay.
       #
       # @param [String, Symbol] name
@@ -214,7 +212,7 @@ module Ronin
       #
       # @return [Boolean]
       #   Specifies whether the overlay contains the extension with the
-      #   specified _name_.
+      #   specified name.
       #
       def has_extension?(name)
         extensions.include?(name.to_s)
@@ -231,7 +229,7 @@ module Ronin
       end
 
       #
-      # Activates the overlay by adding the lib_dir to the +$LOAD_PATH+
+      # Activates the overlay by adding the {lib_dir} to the +$LOAD_PATH+
       # global variable.
       #
       def activate!
@@ -251,7 +249,7 @@ module Ronin
       end
 
       #
-      # Deactivates the overlay by removing the lib_dir from the
+      # Deactivates the overlay by removing the {lib_dir} from the
       # +$LOAD_PATH+ global variable.
       #
       def deactivate!
@@ -331,8 +329,7 @@ module Ronin
 
       #
       # Loads the overlay metadata from the METADATA_FILE within the
-      # overlay +path+. If a _block_ is given, it will be passed the
-      # overlay after the metadata has been loaded.
+      # overlay.
       #
       def initialize_metadata()
         metadata_path = File.join(@path,METADATA_FILE)

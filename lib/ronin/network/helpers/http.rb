@@ -81,8 +81,7 @@ module Ronin
         end
 
         #
-        # Connects to the HTTP server and sends an HTTP Request using the
-        # given _options_.
+        # Connects to the HTTP server and sends an HTTP Request.
         #
         # @param [Hash] options
         #   Additional options.
@@ -95,13 +94,13 @@ module Ronin
         # @yield [request, (options)]
         #   If a block is given, it will be passed the HTTP request object.
         #   If the block has an arity of 2, it will also be passed the
-        #   expanded version of the given _options_.
+        #   expanded version of the given options.
         #
         # @yieldparam [Net::HTTP::Request] request
         #   The HTTP request object to use in the request.
         #
         # @yieldparam [Hash] options
-        #   The expanded version of the given _options_.
+        #   The expanded version of the given options.
         #
         # @return [Net::HTTP::Response]
         #   The response of the HTTP request.
@@ -114,7 +113,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Copy request with the given _options_.
+        # Performs an HTTP Copy request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -134,7 +133,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Delete request with the given _options_.
+        # Performs an HTTP Delete request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -154,7 +153,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Get request with the given _options_.
+        # Performs an HTTP Get request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -174,7 +173,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Get request with the given _options_.
+        # Performs an HTTP Get request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -194,7 +193,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Head request with the given _options_.
+        # Performs an HTTP Head request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -214,7 +213,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Lock request with the given _options_.
+        # Performs an HTTP Lock request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -234,7 +233,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Mkcol request with the given _options_.
+        # Performs an HTTP Mkcol request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -254,7 +253,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Move request with the given _options_.
+        # Performs an HTTP Move request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -274,7 +273,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Options request with the given _options_.
+        # Performs an HTTP Options request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -294,7 +293,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Post request with the given _options_.
+        # Performs an HTTP Post request.
         #
         # @param [Hash] options
         #   Additional options.
@@ -320,7 +319,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Post request with the given _options_.
+        # Performs an HTTP Post request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -340,7 +339,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Propfind request with the given _options_.
+        # Performs an HTTP Propfind request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -360,7 +359,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Proppatch request with the given _options_.
+        # Performs an HTTP Proppatch request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -380,7 +379,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Trace request with the given _options_.
+        # Performs an HTTP Trace request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received
@@ -400,7 +399,7 @@ module Ronin
         end
 
         #
-        # Performes an HTTP Unlock request with the given _options_.
+        # Performs an HTTP Unlock request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received

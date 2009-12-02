@@ -185,7 +185,7 @@ module Ronin
     # @return [nil]
     #
     # @raise [OverlayNotFound]
-    #   The overlay with the specified _name_ could not be found in the
+    #   The overlay with the specified name could not be found in the
     #   overlay cache.
     #
     def Platform.remove(name,&block)
@@ -207,7 +207,7 @@ module Ronin
     # @return [nil]
     #
     # @raise [OverlayNotFound]
-    #   The overlay with the specified _name_ could not be found in the
+    #   The overlay with the specified name could not be found in the
     #   overlay cache.
     #
     def Platform.uninstall(name,&block)
@@ -227,7 +227,7 @@ module Ronin
     end
 
     #
-    # Searches for the extension with the specified _name_, in all
+    # Searches for the extension with the specified name, in all
     # overlays within the overlay cache.
     #
     # @param [String] name
@@ -235,7 +235,7 @@ module Ronin
     #
     # @return [Boolean]
     #   Specifies whether the overlay cache contains the extension with
-    #   the matching _name_.
+    #   the matching name.
     #
     def Platform.has_extension?(name)
       Platform.overlays.has_extension?(name)
@@ -264,7 +264,7 @@ module Ronin
     #
     # @yield [ext]
     #   If a block is given, it will be passed the extension with the
-    #   matching _name_.
+    #   matching name.
     #
     # @yieldparam [Extension] ext
     #   The desired extension.
@@ -273,7 +273,7 @@ module Ronin
     #   The desired extension.
     #
     # @raise [ExtensionNotFound]
-    #   The extension with the specified _name_ could not be found in any
+    #   The extension with the specified name could not be found in any
     #   of the overlays or in the extension cache.
     #
     def Platform.extension(name,&block)

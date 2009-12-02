@@ -141,30 +141,30 @@ module Ronin
       end
 
       #
-      # Searches for the overlay with the specified _name_.
+      # Searches for the overlay with the given name.
       #
       # @param [String] name
       #   The name of the overlay to search for.
       #
       # @return [Boolean]
       #   Specifies whether the cache contains the Overlay with the
-      #   matching _name_.
+      #   matching name.
       #
       def has?(name)
         has_key?(name.to_s)
       end
 
       #
-      # Searches for the overlay with the specified _name_.
+      # Searches for the overlay with the given name.
       #
       # @param [String] name
       #   The name of the overlay to search for.
       #
       # @return [Overlay]
-      #   The overlay with the matching _name_.
+      #   The overlay with the matching name.
       #
       # @raise [OverlayNotFound]
-      #   No overlay with the matching _name_ could be found in the
+      #   No overlay with the matching name could be found in the
       #   overlay cache.
       #
       def get(name)
@@ -192,7 +192,7 @@ module Ronin
       #   The name of the extension to search for.
       #
       # @return [Boolean]
-      #   Specifies whether the extension with the specified _name_ exists
+      #   Specifies whether the extension with the specified name exists
       #   within any of the overlays in the overlay cache.
       #
       def has_extension?(name)
@@ -220,14 +220,14 @@ module Ronin
       end
 
       #
-      # Selects the paths of extensions that have the specified _name_, in
+      # Selects the paths of extensions that have the given name, in
       # all overlays in the overlay cache.
       #
       # @param [String] name
       #   The name of the extension to gather paths for.
       #
       # @return [Array]
-      #   The paths of all extensions with the matching _name_.
+      #   The paths of all extensions with the matching name.
       #
       def extension_paths(name)
         file_name = "#{name}.rb"
@@ -243,7 +243,7 @@ module Ronin
       end
 
       #
-      # Adds an overlay with the specified _name_ to the overlay cache.
+      # Adds an overlay with the given name to the overlay cache.
       #
       # @param [String] name
       #   The name of the overlay.
@@ -287,7 +287,7 @@ module Ronin
       #   end
       #
       # @raise [OverlayCache]
-      #   The specified _overlay_ has already been cached.
+      #   The specified overlay has already been cached.
       #
       def add(overlay,&block)
         name = overlay.name.to_s

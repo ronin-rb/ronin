@@ -121,7 +121,7 @@ module Ronin
       end
 
       #
-      # Includes all extensions with the matching _name_ into the extension.
+      # Includes all extensions with the matching name into the extension.
       #
       # @param [String] name
       #   The name of the extensions to include.
@@ -148,14 +148,14 @@ module Ronin
       end
 
       #
-      # Searches for a public method with the specified _name_.
+      # Searches for a public method with the specified name.
       #
       # @param [Symbol, String] name
       #   The method name to search for.
       #
       # @return [Boolean]
       #   Specifies whether there is a public method with the specified
-      #   _name_.
+      #   name.
       #
       # @example
       #   ext.has_method?(:console)
@@ -348,8 +348,8 @@ module Ronin
       end
 
       #
-      # Adds the specified _block_ to the list of blocks to run in order
-      # to properly setup the extension.
+      # Adds the given block to the list of blocks to run in order to
+      # properly setup the extension.
       #
       # @example
       #   setup do
@@ -362,8 +362,8 @@ module Ronin
       end
 
       #
-      # Adds the specified _block_ to the list of blocks to run in order
-      # to properly tear-down the extension.
+      # Adds the given block to the list of blocks to run in order to
+      # properly tear-down the extension.
       #
       # @example
       #   teardown do

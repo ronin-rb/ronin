@@ -84,7 +84,7 @@ module Ronin
 
       #
       # Finds the template, pushing the directory that the template resides
-      # within to +template_dirs+, calls the given _block_ and then pops
+      # within to +template_dirs+, calls the given block and then pops
       # the directory off of +template_dirs+.
       #
       # @param [String] sub_path

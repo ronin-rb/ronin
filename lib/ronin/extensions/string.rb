@@ -21,7 +21,7 @@
 class String
 
   #
-  # Returns the common prefix of the string and the specified _other_
+  # Returns the common prefix of the string and the specified other
   # string. If no common prefix can be found an empty string will be
   # returned.
   #
@@ -38,7 +38,7 @@ class String
   end
 
   #
-  # Returns the common postfix of the string and the specified _other_
+  # Returns the common postfix of the string and the specified other
   # string. If no common postfix can be found an empty string will be
   # returned.
   #
@@ -58,7 +58,7 @@ class String
   end
 
   #
-  # Returns the uncommon substring within the specified _other_ string,
+  # Returns the uncommon substring within the specified other string,
   # which does not occur within the string. If no uncommon substring can be
   # found, an empty string will be returned.
   #

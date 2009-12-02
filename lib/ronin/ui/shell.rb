@@ -25,8 +25,7 @@ module Ronin
     DEFAULT_PROMPT = '>'
 
     #
-    # Creates and starts a new Shell object with the specified _options_.
-    # If a _block_ is given, it will be passed every command.
+    # Creates a new Shell object and starts it.
     #
     # @param [Hash] options
     #   Additional options.

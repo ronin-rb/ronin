@@ -42,8 +42,7 @@ module Net
   #   The password to authenticate with when connecting to the POP3 server.
   #
   # @yield [session]
-  #   If a _block_ is given, it will be passed the newly created POP3
-  #   session.
+  #   If a block is given, it will be passed the newly created POP3 session.
   #
   # @yieldparam [Net::POP3] session
   #   The newly created POP3 session.
@@ -71,8 +70,8 @@ module Net
   #   Additional options.
   #
   # @yield [session]
-  #   If a _block_ is given, it will be passed the newly created POP3
-  #   session. After the _block_ has returned, the session will be closed.
+  #   If a block is given, it will be passed the newly created POP3 session.
+  #   After the block has returned, the session will be closed.
   #
   # @yieldparam [Net::POP3] session
   #   The newly created POP3 session.

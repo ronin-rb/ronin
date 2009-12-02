@@ -21,7 +21,7 @@
 class File
 
   #
-  # Writes the specified _data_ to the specified _path_.
+  # Writes the given data to a specified path.
   #
   # @param [String] path
   #   The path of the file to write to.

@@ -262,9 +262,9 @@ module Ronin
       protected
 
       #
-      # A place holder method which will call the specified _block_ with
+      # A place holder method which will call the given block with
       # each target object to be scanned. By default, the method will call
-      # the specified _block_ once, simply passing it the +self+ object.
+      # the given block once, simply passing it the +self+ object.
       #
       # @yield [target]
       #   The block that will be passed each target object to be scanned.

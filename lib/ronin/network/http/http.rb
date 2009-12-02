@@ -77,7 +77,7 @@ module Ronin
       end
 
       #
-      # Expands the given HTTP _options_.
+      # Expands the given HTTP options.
       #
       # @param [Hash] options
       #   HTTP options.
@@ -104,7 +104,7 @@ module Ronin
       #   The Proxy information.
       #
       # @return [Hash]
-      #   The expanded version of _options_.
+      #   The expanded version of options.
       #
       def HTTP.expand_options(options={})
         new_options = options.dup
@@ -151,7 +151,7 @@ module Ronin
       #   Ronin HTTP headers.
       #
       # @return [Hash]
-      #   The camel-cased HTTP headers created from the given _options_.
+      #   The camel-cased HTTP headers created from the given options.
       #
       def HTTP.headers(options={})
         headers = {}
@@ -174,9 +174,7 @@ module Ronin
       end
 
       #
-      # Creates an HTTP request object with the specified _type_ and
-      # given _options_. If type does not represent the name of an Net:HTTP
-      # Request Class an UnknownRequest exception will be raised.
+      # Creates a specific type of HTTP request object.
       #
       # @param [Hash] options
       #   The HTTP options for the request.

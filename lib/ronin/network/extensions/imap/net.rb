@@ -49,7 +49,7 @@ module Net
   #   The password to authenticate with when connecting to the server.
   #
   # @yield [session]
-  #   If a _block_ is given, it will be passed the newly created IMAP
+  #   If a block is given, it will be passed the newly created IMAP
   #   session.
   #
   # @yieldparam [Net::IMAP] session
@@ -98,8 +98,8 @@ module Net
   #   Additional options.
   #
   # @yield [session]
-  #   If a _block_ is given, it will be passed the newly created IMAP
-  #   session. After the _block_ has returned, the session will be closed.
+  #   If a block is given, it will be passed the newly created IMAP
+  #   session. After the block has returned, the session will be closed.
   #
   # @yieldparam [Net::IMAP] session
   #   The newly created IMAP session object.

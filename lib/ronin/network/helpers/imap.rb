@@ -83,8 +83,8 @@ module Ronin
         # variables will also be used to make the connection.
         #
         # @yield [session]
-        #   If a _block_ is given, it will be passed the newly created
-        #   IMAP session. After the _block_ has returned, the session will
+        #   If a block is given, it will be passed the newly created
+        #   IMAP session. After the block has returned, the session will
         #   be closed.
         #
         # @yieldparam [Net::IMAP] session

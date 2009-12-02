@@ -25,7 +25,7 @@ require 'net/http'
 
 module Net
   #
-  # Connects to the HTTP server using the given _options_.
+  # Connects to the HTTP server.
   #
   # @param [Hash] options
   #   Additional options
@@ -82,9 +82,7 @@ module Net
   end
 
   #
-  # Connects to the HTTP server and sends an HTTP Request using the given
-  # _options_. If a _block_ is given it will be passed the newly created
-  # HTTP Request object.
+  # Connects to the HTTP server and sends an HTTP Request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -135,8 +133,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Copy request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Copy request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -161,8 +158,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Delete request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Delete request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -196,8 +192,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Get request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Get request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -222,8 +217,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Get request with the given _options_. If a _block_
-  # is given, it will be passed the response body from the HTTP server.
+  # Performs an HTTP Get request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -245,8 +239,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Head request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Head request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -286,8 +279,7 @@ module Net
   end
 
   #
-  # Sends a HTTP Head request using the given _options_ and returns the
-  # HTTP Server header.
+  # Sends a HTTP Head request and returns the HTTP Server header.
   #
   # @param [Hash] options
   #   Additional options.
@@ -302,8 +294,7 @@ module Net
   end
 
   #
-  # Sends an HTTP Head request using the given _options_ and returns the
-  # HTTP X-Powered-By header.
+  # Sends an HTTP Head request and returns the HTTP X-Powered-By header.
   #
   # @param [Hash] options
   #   Additional options.
@@ -324,8 +315,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Lock request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Lock request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -350,8 +340,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Mkcol request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Mkcol request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -376,8 +365,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Move request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Move request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -402,8 +390,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Options request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Options request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -428,8 +415,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Post request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Post request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -467,8 +453,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Post request with the given _options_. If a _block_
-  # is given, it will be passed the response body from the HTTP server.
+  # Performs an HTTP Post request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -493,8 +478,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Propfind request with the given _options_. If a
-  # _block_ is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Propfind request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -528,8 +512,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Proppatch request with the given _options_. If a
-  # _block_ is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Proppatch request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -554,8 +537,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Trace request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Trace request.
   #
   # @param [Hash] options
   #   Additional options.
@@ -580,8 +562,7 @@ module Net
   end
 
   #
-  # Performes an HTTP Unlock request with the given _options_. If a _block_
-  # is given, it will be passed the response from the HTTP server.
+  # Performs an HTTP Unlock request.
   #
   # @param [Hash] options
   #   Additional options.

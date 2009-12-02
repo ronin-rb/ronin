@@ -61,8 +61,8 @@ module Ronin
       alias each_extension each_value
 
       #
-      # Selects the extensions within the cache that match the specified
-      # _block_.
+      # Selects the extensions within the cache that satisfies the given
+      # block.
       #
       # @yield [ext]
       #   The block will be passed each extension, and the extension will
@@ -79,25 +79,24 @@ module Ronin
       end
 
       #
-      # Searches within the cache for the extension with the specified
-      # _name_.
+      # Searches within the cache for the extension with the specified name.
       #
       # @return [Boolean]
       #   Specifies whether the cache contains the extension with the
-      #   specified _name_.
+      #   specified name.
       #
       def has?(name)
         has_key?(name.to_s)
       end
 
       #
-      # Loads the extension with the specified _name_.
+      # Loads the extension with the specified name.
       #
       # @param [String, Symbol] name
       #   The name of the extension to load.
       #
       # @raise [ExtensionNotFound]
-      #   The extension with the specified _name_ could not be found in
+      #   The extension with the specified name could not be found in
       #   the extension cache.
       #
       def load_extension(name)

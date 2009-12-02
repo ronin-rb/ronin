@@ -49,7 +49,7 @@ module Ronin
         #   server.
         #
         # @yield [session]
-        #   If a _block_ is given, it will be passed the newly created
+        #   If a block is given, it will be passed the newly created
         #   POP3 session.
         #
         # @yieldparam [Net::POP3] session
@@ -82,8 +82,8 @@ module Ronin
         # also be used to connect to the server.
         #
         # @yield [session]
-        #   If a _block_ is given, it will be passed the newly created
-        #   POP3 session. After the _block_ has returned, the session
+        #   If a block is given, it will be passed the newly created
+        #   POP3 session. After the block has returned, the session
         #   will be closed.
         #
         # @yieldparam [Net::POP3] session

@@ -75,11 +75,11 @@ module Ronin
       #
       # @return [Ronin::UI::Command]
       #   The Command registered with the command-line utility with the
-      #   matching command-line _name_.
+      #   matching command-line name.
       #
       # @raise [UnknownCommand]
       #   No valid command could be found or loaded with the matching
-      #   command-line _name_.
+      #   command-line name.
       #
       # @example
       #   CommandLine.get_command('gen_overlay')

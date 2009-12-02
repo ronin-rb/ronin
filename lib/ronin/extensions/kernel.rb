@@ -20,7 +20,7 @@
 
 module Kernel
   #
-  # Calls the given _block_ and ignores any raised exceptions.
+  # Calls the given block and ignores any raised exceptions.
   #
   # @yield []
   #   The block to be called.
@@ -43,7 +43,7 @@ module Kernel
   end
 
   #
-  # Attempts to run the given _block_ and catches any SyntaxError,
+  # Attempts to run the given block and catches any SyntaxError,
   # RuntimeError or StandardError exceptions.
   #
   # @param [Boolean] verbose
@@ -75,15 +75,15 @@ module Kernel
   end
 
   #
-  # Safely requires the specified _sub_path_ from within the specified
-  # _directory_.
+  # Safely requires the specified sub_path from within the specified
+  # directory.
   #
   # @param [String] directory
   #   The directory to require the _sub_path_ within.
   #
   # @param [String] sub_path
   #   The relative path to require, specifically within the specified
-  #   _directory_.
+  #   directory.
   #
   # @return [Boolean]
   #   Specifies wether or not the _sub_path_ has not been loaded before.

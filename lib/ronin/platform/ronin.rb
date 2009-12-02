@@ -32,11 +32,11 @@ module Ronin
   #   The constant name to map to an extension in the extension cache.
   #
   # @return [Extension]
-  #   The extension that maps to the constant _name_.
+  #   The extension that maps to the constant name.
   #
   # @raise [NameError]
   #   No extension could be found in the extension cache, that maps to the
-  #   constant _name_.
+  #   constant name.
   #
   # @example
   #   Ronin::Shellcode
@@ -61,7 +61,7 @@ module Ronin
   #
   # @yield [ext]
   #   If a block is given, it will be passed the extension which has the
-  #   matching _name_.
+  #   matching name.
   #
   # @yieldparam [Extension] ext
   #   The matching extension.
@@ -71,7 +71,7 @@ module Ronin
   #
   # @raise [NoMethodError]
   #   No extension could be found in the extension cache with the
-  #   matching _name_.
+  #   matching name.
   #
   # @example
   #   shellcode

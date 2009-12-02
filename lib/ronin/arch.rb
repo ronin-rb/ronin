@@ -61,8 +61,7 @@ module Ronin
     end
 
     #
-    # Defines a new builtin Arch with the specified _name_ and the given
-    # _options_.
+    # Defines a new builtin Arch.
     #
     # @param [Symbol, String] name
     #   The name of the architecture.

@@ -66,7 +66,7 @@ module Ronin
 
         #
         # Connects to the host and port specified by the +@host+ and +@port+
-        # instance variables, then sends the specified _data_. If the
+        # instance variables, then sends the given data. If the
         # +@local_host+ and +@local_port+ instance variables are set, they
         # will be used for the local host and port of the UDP connection.
         #
@@ -124,8 +124,8 @@ module Ronin
         end
 
         #
-        # Creates a new UDPServer object listening on +server_host+ and
-        # +server_port+.
+        # Creates a new UDPServer object listening on +@server_host+ and
+        # +@server_port+ instance variables.
         #
         # @yield [server]
         #   The given block will be passed the newly created server.
@@ -154,9 +154,8 @@ module Ronin
         end
 
         #
-        # Creates a new UDPServer object listening on +server_host+ and
-        # +server_port+, passing it to the given _block then closing the
-        # server.
+        # Creates a new temporary UDPServer object listening on the
+        # +@server_host+ and +@server_port+ instance variables.
         #
         # @yield [server]
         #   The given block will be passed the newly created server.

@@ -26,13 +26,13 @@ module Ronin
   module Platform
     module ObjectCache
       #
-      # Searches for object files within the specified _directory_.
+      # Searches for object files within a given directory.
       #
       # @param [String] directory
       #   The directory to search for object files within.
       #
       # @return [Array]
-      #   All paths within the specified _directory_ pointing to object
+      #   All paths within the specified directory pointing to object
       #   files.
       #
       def ObjectCache.paths(directory)
@@ -65,8 +65,8 @@ module Ronin
       end
 
       #
-      # Cache all objects loaded from the paths within the specified
-      # _directory_.
+      # Cache all objects loaded from the paths within a given
+      # directory.
       #
       # @param [String] directory
       #   The directory to cache all objects from.
