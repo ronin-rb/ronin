@@ -279,6 +279,7 @@ spec/cacheable/cacheable_spec.rb
 spec/scanners/classes/example_scanner.rb
 spec/scanners/classes/another_scanner.rb
 spec/scanners/scanner_spec.rb
+spec/scanners/extensions_spec.rb
 spec/platform/helpers/extensions.rb
 spec/platform/helpers/extensions/test.rb
 spec/platform/helpers/extensions/circular.rb
