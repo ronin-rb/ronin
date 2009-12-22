@@ -18,6 +18,4 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/scanners/exceptions'
-require 'ronin/scanners/extensions'
-require 'ronin/scanners/scanner'
+require 'ronin/scanners/extensions/uri/http'
