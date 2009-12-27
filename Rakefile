@@ -8,7 +8,10 @@ require './tasks/yard.rb'
 
 Hoe.spec('ronin') do
   self.developer('Postmodern','postmodern.mod3@gmail.com')
+  self.readme_file = 'README.rdoc'
+  self.history_file = 'History.rdoc'
   self.remote_rdoc_dir = 'docs/ronin'
+
   self.extra_deps = [
     ['yard', '>=0.5.2'],
     ['nokogiri', '>=1.3.3'],

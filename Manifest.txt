@@ -1,7 +1,7 @@
-History.txt
 COPYING.txt
+History.rdoc
 Manifest.txt
-README.txt
+README.rdoc
 Rakefile
 bin/ronin
 bin/ronin-add
