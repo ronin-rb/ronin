@@ -15,7 +15,6 @@ Hoe.spec('ronin') do
   self.remote_yard_dir = 'docs/ronin'
 
   self.extra_deps += [
-    ['yard', '>=0.5.2'],
     ['nokogiri', '>=1.3.3'],
     ['extlib', '>=0.9.14'],
     ['data_objects', '>=0.10.1'],
