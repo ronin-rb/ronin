@@ -3,11 +3,13 @@
 require 'rubygems'
 require 'hoe'
 require 'hoe/signing'
-require './tasks/spec.rb'
 require './tasks/yard.rb'
 
 Hoe.spec('ronin') do
   self.developer('Postmodern','postmodern.mod3@gmail.com')
+
+  self.rspec_options += ['--colour', '--format', 'specdoc']
+
   self.readme_file = 'README.rdoc'
   self.history_file = 'History.rdoc'
   self.remote_rdoc_dir = 'docs/ronin'
