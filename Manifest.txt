@@ -195,7 +195,6 @@ lib/ronin/yard/handlers/ruby/legacy/has_handler.rb
 lib/ronin/yard/handlers/ruby/legacy/scanner_handler.rb
 lib/ronin/ronin.rb
 lib/ronin/version.rb
-tasks/yard.rb
 spec/spec_helper.rb
 spec/helpers/database.rb
 spec/static/classes/static_class.rb
