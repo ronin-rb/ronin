@@ -1,7 +1,7 @@
 #
 # Ronin - A Ruby platform for exploit development and security research.
 #
-# Copyright (c) 2006-2009 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2010 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
