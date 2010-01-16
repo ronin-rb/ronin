@@ -187,7 +187,7 @@ module Ronin
     #   prepared for caching.
     #
     def cache(&block)
-      unless (cached? || prepared_for_cache?)
+      unless (block.nil? || cached? || prepared_for_cache?)
         @cache_prepared = true
 
         block.call()
