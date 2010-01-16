@@ -202,12 +202,18 @@ module Ronin
     #   The block will be ran inside the object when the object is to be
     #   prepared for caching.
     #
+    # @return [Boolean]
+    #   Specifies whether the object was successfully prepared for caching.
+    #
     def cache(&block)
       unless (block.nil? || cached? || prepared_for_cache?)
         @cache_prepared = true
 
         block.call()
+        return true
       end
+
+      return false
     end
 
     #
