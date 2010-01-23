@@ -99,9 +99,6 @@ module Ronin
       # The lib directory
       attr_reader :lib_dir
 
-      # The static directory
-      attr_reader :static_dir
-
       # The cache directory
       attr_reader :cache_dir
 
