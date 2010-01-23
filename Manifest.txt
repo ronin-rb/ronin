@@ -187,13 +187,6 @@ lib/ronin/ronin.rb
 lib/ronin/version.rb
 spec/spec_helper.rb
 spec/helpers/database.rb
-spec/static/classes/static_class.rb
-spec/static/helpers/static1/one.txt
-spec/static/helpers/static1/dir/two.txt
-spec/static/helpers/static2/dir/two.txt
-spec/static/helpers/static.rb
-spec/static/finders_spec.rb
-spec/static/static_spec.rb
 spec/templates/classes/example_template.rb
 spec/templates/classes/example_erb.rb
 spec/templates/helpers/static.rb
