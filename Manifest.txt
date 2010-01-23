@@ -14,9 +14,6 @@ bin/ronin-uninstall
 bin/ronin-update
 lib/ronin.rb
 lib/ronin/config.rb
-lib/ronin/static.rb
-lib/ronin/static/static.rb
-lib/ronin/static/finders.rb
 lib/ronin/templates.rb
 lib/ronin/templates/template.rb
 lib/ronin/templates/erb.rb

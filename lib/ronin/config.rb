@@ -18,10 +18,15 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'static_paths'
 require 'fileutils'
 
 module Ronin
   module Config
+    include StaticPaths
+
+    static_dir File.join(File.dirname(__FILE__),'..','..','static')
+
     # The users home directory
     HOME = File.expand_path(ENV['HOME'] || ENV['HOMEPATH'])
 

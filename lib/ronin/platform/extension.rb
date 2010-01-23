@@ -21,17 +21,17 @@
 require 'ronin/platform/extension_cache'
 require 'ronin/platform/platform'
 require 'ronin/extensions/kernel'
-require 'ronin/static/finders'
 require 'ronin/ui/output/helpers'
 
 require 'contextify'
+require 'static_paths/finders'
 
 module Ronin
   module Platform
     class Extension
 
       include Contextify
-      include Static::Finders
+      include StaticPaths::Finders
       include UI::Output::Helpers
 
       #

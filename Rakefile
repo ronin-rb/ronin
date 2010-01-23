@@ -24,6 +24,7 @@ Hoe.spec('ronin') do
     ['dm-types', '>=0.10.2'],
     ['dm-validations', '>=0.10.2'],
     ['dm-predefined', '>=0.2.1'],
+    ['static_paths', '>=0.1.0'],
     ['chars', '>=0.1.2'],
     ['parameters', '>=0.1.8'],
     ['contextify', '>=0.1.4'],

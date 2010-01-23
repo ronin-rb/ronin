@@ -22,9 +22,9 @@ require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
-require 'ronin/static/static'
 require 'ronin/ui/output/helpers'
 
+require 'static_paths'
 require 'repertoire'
 require 'nokogiri'
 
@@ -32,6 +32,7 @@ module Ronin
   module Platform
     class Overlay
 
+      include StaticPaths
       include Repertoire
       include UI::Output::Helpers
 
@@ -234,7 +235,7 @@ module Ronin
       #
       def activate!
         # add the static/ directory
-        Static.directory(@static_dir) if File.directory?(@static_dir)
+        self.class.static_dir(@static_dir) if File.directory?(@static_dir)
 
         if File.directory?(@lib_dir)
           $LOAD_PATH << @lib_dir unless $LOAD_PATH.include?(@lib_dir)
@@ -253,7 +254,7 @@ module Ronin
       # +$LOAD_PATH+ global variable.
       #
       def deactivate!
-        Static.static_dirs.reject! { |dir| dir == @static_dir }
+        StaticPaths.paths.reject! { |dir| dir == @static_dir }
 
         $LOAD_PATH.delete(@lib_dir)
 

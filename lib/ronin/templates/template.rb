@@ -18,12 +18,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/static/finders'
+require 'static_paths/finders'
 
 module Ronin
   module Templates
     module Template
-      include Static::Finders
+      include StaticPaths::Finders
 
       protected
 
@@ -55,8 +55,8 @@ module Ronin
 
       #
       # Finds the template within the +template_dir+ or uses
-      # Static::Finders#find_static_file to search through all
-      # +static+ directories for the template.
+      # StaticPaths::Finders#find_static_file to search through all
+      # <tt>static/</tt> directories for the template.
       #
       # @param [String] sub_path
       #   The relative path of the template to find.
