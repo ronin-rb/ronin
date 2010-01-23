@@ -232,7 +232,7 @@ module Ronin
       #
       def activate!
         # add the static/ directory
-        self.class.static_dir(@static_dir) if File.directory?(@static_dir)
+        static_dir(@static_dir) if File.directory?(@static_dir)
 
         if File.directory?(@lib_dir)
           $LOAD_PATH << @lib_dir unless $LOAD_PATH.include?(@lib_dir)
@@ -251,7 +251,7 @@ module Ronin
       # +$LOAD_PATH+ global variable.
       #
       def deactivate!
-        StaticPaths.paths.reject! { |dir| dir == @static_dir }
+        unregister_static_paths
 
         $LOAD_PATH.delete(@lib_dir)
 
