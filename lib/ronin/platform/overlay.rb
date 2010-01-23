@@ -254,7 +254,7 @@ module Ronin
       # +$LOAD_PATH+ global variable.
       #
       def deactivate!
-        unregister_static_paths
+        unregister_static_dirs!
 
         $LOAD_PATH.delete(@lib_dir)
 
