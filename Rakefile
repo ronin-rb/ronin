@@ -12,7 +12,7 @@ Hoe.spec('ronin') do
   self.rspec_options += ['--colour', '--format', 'specdoc']
 
   self.yard_title = 'Ronin Documentation'
-  self.yard_opts += ['--protected']
+  self.yard_options += ['--protected']
   self.remote_yard_dir = 'docs/ronin'
 
   self.extra_deps += [
