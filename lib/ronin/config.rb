@@ -25,7 +25,7 @@ module Ronin
   module Config
     include StaticPaths
 
-    static_dir File.join(File.dirname(__FILE__),'..','..','static')
+    register_static_dir File.join(File.dirname(__FILE__),'..','..','static')
 
     # The users home directory
     HOME = File.expand_path(ENV['HOME'] || ENV['HOMEPATH'])

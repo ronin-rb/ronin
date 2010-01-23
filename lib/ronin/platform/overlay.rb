@@ -99,6 +99,9 @@ module Ronin
       # The lib directory
       attr_reader :lib_dir
 
+      # The static directory
+      attr_reader :static_dir
+
       # The cache directory
       attr_reader :cache_dir
 
@@ -232,7 +235,7 @@ module Ronin
       #
       def activate!
         # add the static/ directory
-        static_dir(@static_dir) if File.directory?(@static_dir)
+        register_static_dir @static_dir if File.directory?(@static_dir)
 
         if File.directory?(@lib_dir)
           $LOAD_PATH << @lib_dir unless $LOAD_PATH.include?(@lib_dir)
