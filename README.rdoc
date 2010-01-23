@@ -117,6 +117,7 @@ install or update Overlays.
   * dm-types >= 0.10.0
   * dm-validations >= 0.10.0
 * {dm-predefined}[http://dm-predefined.rubyforge.org/] >= 0.2.0
+* {static_paths}[http://github.com/postmodern/static_paths] >= 0.1.0
 * {chars}[http://chars.rubyforge.org/] >= 0.1.2
 * {parameters}[http://parameters.rubyforge.org/] >= 0.1.8
 * {contextify}[http://contextify.rubyforge.org/] >= 0.1.3
