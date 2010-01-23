@@ -235,7 +235,7 @@ module Ronin
       #
       def activate!
         # add the static/ directory
-        register_static_dir @static_dir if File.directory?(@static_dir)
+        register_static_dir(@static_dir) if File.directory?(@static_dir)
 
         if File.directory?(@lib_dir)
           $LOAD_PATH << @lib_dir unless $LOAD_PATH.include?(@lib_dir)
