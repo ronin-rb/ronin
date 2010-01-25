@@ -26,7 +26,6 @@ Hoe.spec('ronin') do
     ['dm-predefined', '>=0.2.1'],
     ['static_paths', '>=0.1.0'],
     ['chars', '>=0.1.2'],
-    ['parameters', '>=0.1.8'],
     ['contextify', '>=0.1.4'],
     ['repertoire', '>=0.2.3'],
     ['thor', '>=0.11.5']
