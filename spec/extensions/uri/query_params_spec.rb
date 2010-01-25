@@ -16,7 +16,7 @@ describe URI::QueryParams do
   end
 
   it "#query_params should contain params" do
-    @uri.query_params.empty?.should == false
+    @uri.query_params.should_not be_empty
   end
 
   it "#query_params can contain single-word params" do

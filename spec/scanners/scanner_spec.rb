@@ -37,7 +37,7 @@ describe Scanners::Scanner do
     tests = ExampleScanner.scanners_in(:test2)
 
     tests.length.should == 2
-    tests.all? { |test| test.kind_of?(Proc) }.should == true
+    tests.all? { |test| test.should be_kind_of(Proc) }.should == true
   end
 
   it "should specify the category names of all tests" do
@@ -64,8 +64,9 @@ describe Scanners::Scanner do
     results = {:test1 => [1], :test2 => [2, 4]}
 
     @example_scanner.scan do |category,result|
-      results.has_key?(category).should == true
-      results[category].include?(result).should == true
+      results.should have_key(category)
+
+      results[category].should include(result)
     end
   end
 

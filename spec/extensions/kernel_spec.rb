@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe Kernel do
   it "should provide Kernel#attempt" do
-    Kernel.respond_to?('attempt').should == true
+    Kernel.should respond_to('attempt')
   end
 
   describe "attempt" do

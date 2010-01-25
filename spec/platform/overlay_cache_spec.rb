@@ -37,8 +37,8 @@ describe Platform::OverlayCache do
       overlay.name =~ /^test/
     end
 
-    overlays.include?(@cache.get('test1')).should == true
-    overlays.include?(@cache.get('test2')).should == true
+    overlays.should include(@cache.get('test1'))
+    overlays.should include(@cache.get('test2'))
   end
 
   it "should return the paths to all the overlays" do

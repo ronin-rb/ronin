@@ -13,12 +13,12 @@ describe IPAddr do
       addresses = @fixed_addr.map { |ip| IPAddr.new(ip) }
 
       addresses.length.should == 1
-      @fixed_addr.include?(addresses.first)
+      @fixed_addr.should include(addresses.first)
     end
 
     it "should iterate over all IP addresses contained within the IP range" do
       @class_c.each do |ip|
-        @class_c.include?(IPAddr.new(ip)).should == true
+        @class_c.should include(IPAddr.new(ip))
       end
     end
   end

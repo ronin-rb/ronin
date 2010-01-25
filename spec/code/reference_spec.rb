@@ -14,9 +14,9 @@ describe Code::Reference do
   end
 
   it "should be a kind of Reference" do
-    @ref.kind_of?(Code::Reference).should == true
-    @ref.is_a?(Code::Reference).should == true
-    @ref.instance_of?(Code::Reference).should == true
+    @ref.should be_kind_of(Code::Reference)
+    @ref.should be_is_a(Code::Reference)
+    @ref.should be_instance_of(Code::Reference)
   end
 
   it "should have the class of the referenced object" do
@@ -24,29 +24,29 @@ describe Code::Reference do
   end
 
   it "should be a kind of the referenced object type" do
-    @ref.kind_of?(Thing).should == true
-    @ref.is_a?(Thing).should == true
-    @ref.instance_of?(Thing).should == true
+    @ref.should be_kind_of(Thing)
+    @ref.should be_is_a(Thing)
+    @ref.should be_instance_of(Thing)
   end
 
   it "should be equal to itself" do
-    @ref.eql?(@ref).should == true
+    @ref.should eql(@ref)
     @ref.should == @ref
     @ref.should === @ref
   end
 
   it "should be equal to the referenced object" do
-    @ref.eql?(@object).should == true
+    @ref.should be_eql(@object)
     @ref.should == @object
     @ref.should === @object
   end
 
   it "should respond to Reference methods" do
-    @ref.respond_to?(:value).should == true
+    @ref.should respond_to(:value)
   end
 
   it "should respond to the methods of the referenced object" do
-    @ref.respond_to?(:exposed).should == true
+    @ref.should respond_to(:exposed)
   end
 
   it "should relay method calls to the referenced object" do
