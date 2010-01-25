@@ -1,9 +1,9 @@
-require 'ronin/model/lazy_setup'
+require 'ronin/model/lazy_upgrade'
 
 require 'spec_helper'
 require 'model/classes/lazy_model'
 
-describe Ronin::Model::LazySetup do
+describe Ronin::Model::LazyUpgrade do
   describe "pre auto_upgrade" do
     it "should not be auto_upgraded after being loaded" do
       LazyModel.should_not be_auto_upgraded

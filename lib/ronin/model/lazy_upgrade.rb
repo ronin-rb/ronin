@@ -23,7 +23,7 @@ require 'ronin/extensions/meta'
 
 module Ronin
   module Model
-    module LazySetup
+    module LazyUpgrade
       def self.included(base)
         base.metaclass_eval do
           #

@@ -37,7 +37,7 @@ module Ronin
         base.module_eval do
           include DataMapper::Resource
           include DataMapper::Migrations
-          include Model::LazySetup
+          include Model::LazyUpgrade
 
           def self.allocate
             resource = super
