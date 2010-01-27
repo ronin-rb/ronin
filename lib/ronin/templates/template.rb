@@ -125,6 +125,26 @@ module Ronin
         template_dirs.shift
         return result
       end
+
+      #
+      # Finds and reads the contents of a template.
+      #
+      # @param [String] template_path
+      #   The relative path to the template.
+      #
+      # @return [String]
+      #   The contents of the template.
+      #
+      # @example
+      #   read_template 'path/to/_include.txt'
+      #
+      # @since 0.4.0
+      #
+      def read_template(template_path)
+        enter_template(template_path) do |path|
+          File.read(path)
+        end
+      end
     end
   end
 end
