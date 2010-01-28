@@ -1,5 +1,5 @@
 require 'rubygems'
-gem 'rspec', '>=1.2.9'
+gem 'rspec', '>=1.3.0'
 require 'spec'
 
 require 'ronin/version'
