@@ -280,7 +280,7 @@
     * Renamed Extension#perform_teardown to Extension#teardown!.
   * Removed un-used or surpurfulous methods.
   * Removed 'lib/ronin/platform/config.rb'.
-  * Allow Overlays to have their own <tt>lib/</tt> directories.
+  * Allow Overlays to have their own `lib/` directories.
   * Many bug fixes.
 * Updated the README.txt.
 * Fixed bug in UI::Console.auto_load and UI::Console.start.
@@ -318,7 +318,7 @@
   data through a TCP connection then closing it.
 * Added Ronin::UI::CommandLine::ParamParser for parsing command-line
   options into a Hash of parameters.
-* Automatically create the <tt>~/.ronin/config/</tt> directory.
+* Automatically create the `~/.ronin/config/` directory.
 * Refactored Ronin::Objectify and how it uses primary keys.
 * All Ronin::Session mixins use standard naming conventions for defining
   the 'host' and 'port' parameters.

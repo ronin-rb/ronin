@@ -45,11 +45,11 @@ module Ronin
     # @param [Symbol, String, nil] name
     #   The optional name of the file to load within +CONFIG_DIR+.
     #
-    # @example Load the config file at <tt>~/.ronin/config/ronin.rb</tt>
+    # @example Load the config file at `~/.ronin/config/ronin.rb`
     #   Config.load
     #   # => true
     #
-    # @example Load a specific config file in <tt>~/.ronin/config/</tt>
+    # @example Load a specific config file in `~/.ronin/config/`
     #   Config.load :sql
     #   # => true
     #

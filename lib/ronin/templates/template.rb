@@ -56,7 +56,7 @@ module Ronin
       #
       # Finds the template within the `template_dir` or uses
       # StaticPaths::Finders#find_static_file to search through all
-      # <tt>static/</tt> directories for the template.
+      # `static/` directories for the template.
       #
       # @param [String] sub_path
       #   The relative path of the template to find.
