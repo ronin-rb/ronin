@@ -17,7 +17,6 @@ lib/ronin/config.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
-lib/ronin/extensions/kernel.rb
 lib/ronin/network.rb
 lib/ronin/network/extensions.rb
 lib/ronin/network/extensions/tcp.rb
@@ -153,8 +152,6 @@ spec/spec_helper.rb
 spec/helpers/database.rb
 spec/arch_spec.rb
 spec/author_spec.rb
-spec/extensions/classes/some_class.rb
-spec/extensions/kernel_spec.rb
 spec/network/helpers/classes/test_helper.rb
 spec/network/helpers/classes/uses_test_helper.rb
 spec/network/helpers/helper_spec.rb
