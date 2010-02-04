@@ -30,7 +30,7 @@ class Integer
   #
   # @param [Symbol] endian
   #   The endianness to use while decoding the bytes of the Integer.
-  #   May be either +:big+, +:little+ or +:net+.
+  #   May be either `:big`, `:little` or `:net`.
   #
   # @return [Array]
   #   The bytes decoded from the Integer.

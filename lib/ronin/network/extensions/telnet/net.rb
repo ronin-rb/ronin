@@ -43,7 +43,7 @@ module Net
   #   received traffic to.
   #
   # @option options [String] :dump_log
-  #   Similar to the +:output_log+ option, but connection output is also
+  #   Similar to the `:output_log` option, but connection output is also
   #   written in hexdump format.
   #
   # @option options [Regexp] :prompt (Ronin::Network::Telnet.default_prompt)

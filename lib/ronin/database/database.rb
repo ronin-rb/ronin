@@ -41,7 +41,7 @@ module Ronin
 
     #
     # Returns the Database configuration that is stored in the
-    # +CONFIG_FILE+. Defaults to +DEFAULT_CONFIG+ if +CONFIG_FILE+ does not
+    # `CONFIG_FILE`. Defaults to `DEFAULT_CONFIG` if `CONFIG_FILE` does not
     # exist.
     #
     # @raise [InvalidConfig]
@@ -97,7 +97,7 @@ module Ronin
     #
     # @option options [Symbol] :level
     #   The level of messages to log.
-    #   May be either +:fatal+, +:error+, +:warn+, +:info+ or +:debug+.
+    #   May be either `:fatal`, `:error`, `:warn`, `:info` or `:debug`.
     #
     # @return [DataMapper::Logger]
     #   The new Database log.

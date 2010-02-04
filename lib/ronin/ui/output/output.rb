@@ -130,8 +130,8 @@ module Ronin
       # Sets the current Output handler.
       #
       # @param [Handler] new_handler
-      #   The new output handler to use. Must provide the +puts+,
-      #   +print_info+, +print_debug+, +print_warning+ and +print_error+
+      #   The new output handler to use. Must provide the `puts`,
+      #   `print_info`, `print_debug`, `print_warning` and `print_error`
       #   class methods.
       #
       # @since 0.3.0

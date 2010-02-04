@@ -124,7 +124,7 @@ module Ronin
       # name, the CommandLine utility will attempt to find and run
       # the Command with the matching command-line name. If the first
       # argument is an option, or there are no arguments, the
-      # +DEFAULT_COMMAND+ will be ran.
+      # `DEFAULT_COMMAND` will be ran.
       #
       # @param [Array] argv
       #   Command-line arguments which are used to select the Command to

@@ -1,4 +1,4 @@
-=== 0.3.0 / 2009-09-24
+### 0.3.0 / 2009-09-24
 
 * Require yard >= 0.2.3.5.
 * Require nokogiri >= 1.3.3.
@@ -93,7 +93,7 @@
 * Include Ronin::UI::Output::Helpers into Ronin::Sessions::Session.
 * Include Ronin::UI::Output::Helpers into Ronin::Console sessions.
 
-=== 0.2.4 / 2009-07-02
+### 0.2.4 / 2009-07-02
 
 * Require Hoe >= 2.0.0
 * Require Parameters >= 0.1.6.
@@ -135,7 +135,7 @@
   * Cleaned up CSS.
   * Removed the jQuery expander plugin.
 
-=== 0.2.3 / 2009-05-06
+### 0.2.3 / 2009-05-06
 
 * Require extlib >= 0.9.12.
 * Require dm-core >= 0.9.11.
@@ -189,7 +189,7 @@
 * Added more specs.
 * All specs now pass on Ruby 1.9.1-p0.
 
-=== 0.2.2 / 2009-03-26
+### 0.2.2 / 2009-03-26
 
 * Split out Ronin::Chars into the Chars library.
 * Split out ronin-overlay and ronin-ext sub-commands into the Ronin Gen
@@ -214,7 +214,7 @@
 * Added the ExtensionCache#reload! method.
 * Added more specs.
 
-=== 0.2.1 / 2009-02-23
+### 0.2.1 / 2009-02-23
 
 * Added Ronin::UI::Verbose.
 * Require Nokogiri >= 1.2.0:
@@ -285,7 +285,7 @@
 * Updated the README.txt.
 * Fixed bug in UI::Console.auto_load and UI::Console.start.
 
-=== 0.1.4 / 2009-01-22
+### 0.1.4 / 2009-01-22
 
 * Moved Ronin::Web and Ronin::Sessions::Web into the ronin-web library.
 * Removed dependencies to hpricot, mechanize, spidr and rack.
@@ -303,7 +303,7 @@
 * Automatically load 'ronin/ui/hexdump' when starting the
   Ronin::UI::Console.
 
-=== 0.1.3 / 2009-01-08
+### 0.1.3 / 2009-01-08
 
 * Moved Context into the Contextify library.
 * Require dm-core >= 0.9.9.
@@ -331,7 +331,7 @@
 * Added more specs.
 * Added more documentation.
 
-=== 0.1.2 / 2008-12-10
+### 0.1.2 / 2008-12-10
 
 * Require do_sqlite3 >= 0.9.9, since version 0.9.8 was totally broken.
 * Require reverse-require >= 0.2.0, for improved performance.
@@ -375,7 +375,7 @@
 * Added even more specs.
 * More typo and documentation fixes.
 
-=== 0.1.1 / 2008-10-26
+### 0.1.1 / 2008-10-26
 
 * Depend on the newly renamed reverse-require (>= 0.1.2) gem.
 * Added Ronin::Code::SymbolTable for DSLs to make use of.
@@ -388,7 +388,7 @@
 * Removed the Ronin::Runner namespace, renaming the Ronin::Runner::Program
   namespace to Ronin::Program.
 
-=== 0.1.0 / 2008-09-28
+### 0.1.0 / 2008-09-28
 
 * Changed how Sessions are setup.
 * Have Ronin use it's own DataMapper Repository name-space to avoid
@@ -397,7 +397,7 @@
 * Added specs.
 * Fixed various trivial bugs.
 
-=== 0.0.9 / 2008-08-20
+### 0.0.9 / 2008-08-20
 
 * Initial release.
 * Supports installing/updating/uninstalling of Overlays.

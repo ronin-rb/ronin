@@ -133,12 +133,12 @@ module Ronin
           #   Additional scanner-options that can be used to configure
           #   the scanning.
           #
-          # @example Defining a scanner for the +:lfi+ category.
+          # @example Defining a scanner for the `:lfi` category.
           #   scanner(:lfi) do |url,results|
           #     # ...
           #   end
           #
-          # @example Defining a scanner for the +:sqli+ category, that
+          # @example Defining a scanner for the `:sqli` category, that
           #          accepts additional scanner-options.
           #   scanner(:sqli) do |url,results,options|
           #     # ...
@@ -192,9 +192,9 @@ module Ronin
       end
 
       #
-      # Runs all scanners in the given categories against +each_target+.
+      # Runs all scanners in the given categories against `each_target`.
       # If no categories are specified, all categories will be ran
-      # against +each_target+.
+      # against `each_target`.
       #
       # @param [Hash{Symbol,String => Boolean,Hash}] categories
       #   The categories to scan for, with additional per-category
@@ -264,7 +264,7 @@ module Ronin
       #
       # A place holder method which will call the given block with
       # each target object to be scanned. By default, the method will call
-      # the given block once, simply passing it the +self+ object.
+      # the given block once, simply passing it the `self` object.
       #
       # @yield [target]
       #   The block that will be passed each target object to be scanned.

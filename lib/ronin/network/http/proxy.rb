@@ -246,7 +246,7 @@ module Ronin
         #
         # @return [URI::HTTP, nil]
         #   The HTTP URI representing the proxy. If the proxy is disabled,
-        #   then +nil+ will be returned.
+        #   then `nil` will be returned.
         #
         def url
           return nil unless enabled?

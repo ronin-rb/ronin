@@ -285,7 +285,7 @@ module Net
   #   Additional options.
   #
   # @return [String]
-  #   The HTTP +Server+ header.
+  #   The HTTP `Server` header.
   #
   # @see http_request
   #
@@ -300,7 +300,7 @@ module Net
   #   Additional options.
   #
   # @return [String]
-  #   The HTTP +X-Powered-By+ header.
+  #   The HTTP `X-Powered-By` header.
   #
   # @see http_request
   #
@@ -421,7 +421,7 @@ module Net
   #   Additional options.
   #
   # @option options [String] :postdata
-  #   The +POSTDATA+ to send with the HTTP Post request.
+  #   The `POSTDATA` to send with the HTTP Post request.
   #
   # @yield [response]
   #   If a block is given, it will be passed the response received from
@@ -459,7 +459,7 @@ module Net
   #   Additional options.
   #
   # @option options [String] :postdata
-  #   The +POSTDATA+ to send with the HTTP Post request.
+  #   The `POSTDATA` to send with the HTTP Post request.
   #
   # @yield [response]
   #   If a block is given, it will be passed the response received from

@@ -66,7 +66,7 @@ module Ronin
       end
 
       #
-      # Loads the overlays from the cache-file at the +path+.
+      # Loads the overlays from the cache-file at the `path`.
       #
       def load!
         return false unless File.file?(@path)

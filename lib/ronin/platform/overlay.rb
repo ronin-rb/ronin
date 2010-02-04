@@ -118,8 +118,8 @@ module Ronin
       #   The path to the overlay.
       #
       # @param [Symbol] media
-      #   The media of the overlay. Can be either +:git+, +:hg+, +:snv+ or
-      #   +:rsync+.
+      #   The media of the overlay. Can be either `:git`, `:hg`, `:snv` or
+      #   `:rsync`.
       #
       # @param [String, URI::HTTP, URI::HTTPS] uri
       #   The URI the overlay resides at.
@@ -230,7 +230,7 @@ module Ronin
       end
 
       #
-      # Activates the overlay by adding the {lib_dir} to the +$LOAD_PATH+
+      # Activates the overlay by adding the {lib_dir} to the `$LOAD_PATH`
       # global variable.
       #
       def activate!
@@ -251,7 +251,7 @@ module Ronin
 
       #
       # Deactivates the overlay by removing the {lib_dir} from the
-      # +$LOAD_PATH+ global variable.
+      # `$LOAD_PATH` global variable.
       #
       def deactivate!
         unregister_static_dirs!

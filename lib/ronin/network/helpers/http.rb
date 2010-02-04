@@ -299,7 +299,7 @@ module Ronin
         #   Additional options.
         #
         # @option options [String] :post_data
-        #   The +POSTDATA+ to send with the HTTP Post request.
+        #   The `POSTDATA` to send with the HTTP Post request.
         #
         # @yield [response]
         #   If a block is given, it will be passed the response received

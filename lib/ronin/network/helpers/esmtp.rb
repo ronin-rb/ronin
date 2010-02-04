@@ -39,8 +39,8 @@ module Ronin
         end
 
         #
-        # Creates a connection to the ESMTP server. The +@host+, +@port+,
-        # +@esmtp_login+, +@esmtp_user+ and +@esmtp_password+ instance
+        # Creates a connection to the ESMTP server. The `@host`, `@port`,
+        # `@esmtp_login`, `@esmtp_user` and `@esmtp_password` instance
         # variables will also be used to connect to the ESMTP server.
         #
         # @param [Hash] options
@@ -54,7 +54,7 @@ module Ronin
         #
         # @option options [Symbol] :auth
         #   The type of authentication to use.
-        #   Can be either +:login+, +:plain+, or +:cram_md5+.
+        #   Can be either `:login`, `:plain`, or `:cram_md5`.
         #
         # @option options [String] :user
         #   The user-name to authenticate with.
@@ -92,8 +92,8 @@ module Ronin
         end
 
         #
-        # Starts a session with the ESMTP server. The +@host+, +@port+,
-        # +@esmtp_login+, +@esmtp_user+ and +@esmtp_password+ instance
+        # Starts a session with the ESMTP server. The `@host`, `@port`,
+        # `@esmtp_login`, `@esmtp_user` and `@esmtp_password` instance
         # variables will also be used to connect to the ESMTP server.
         #
         # @param [Hash] options

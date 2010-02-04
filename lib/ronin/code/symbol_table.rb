@@ -35,8 +35,8 @@ module Ronin
       end
 
       #
-      # Returns +true+ if the table has the symbol with the specified
-      # _name_, returns +false+ otherwise.
+      # Returns `true` if the table has the symbol with the specified
+      # _name_, returns `false` otherwise.
       #
       def has_symbol?(name)
         @table.has_key?(name.to_sym)

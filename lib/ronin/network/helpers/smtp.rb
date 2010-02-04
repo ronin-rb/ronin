@@ -39,8 +39,8 @@ module Ronin
         end
 
         #
-        # Creates a connection to the SMTP server. The +@host+, +@port+,
-        # +@smtp_login+, +@smtp_user+ and +@smtp_password+ instance
+        # Creates a connection to the SMTP server. The `@host`, `@port`,
+        # `@smtp_login`, `@smtp_user` and `@smtp_password` instance
         # variables will also be used to connect to the server.
         #
         # @param [Hash] options
@@ -53,8 +53,8 @@ module Ronin
         #   The HELO domain.
         #
         # @option options [Symbol] :auth
-        #   The type of authentication to use. Can be either +:login+,
-        #   +:plain+ or +:cram_md5+.
+        #   The type of authentication to use. Can be either `:login`,
+        #   `:plain` or `:cram_md5`.
         #
         # @option options [String] :user
         #   The user-name to authenticate with.
@@ -91,8 +91,8 @@ module Ronin
         end
 
         #
-        # Starts a session with the SMTP server. The +@host+, +@port+,
-        # +@smtp_login+, +@smtp_user+ and +@smtp_password+ instance
+        # Starts a session with the SMTP server. The `@host`, `@port`,
+        # `@smtp_login`, `@smtp_user` and `@smtp_password` instance
         # variables will also be used to connect to the server.
         #
         # @yield [session]

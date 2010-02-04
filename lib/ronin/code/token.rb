@@ -44,8 +44,8 @@ module Ronin
       end
 
       #
-      # Returns +true+ if the token has the same value as the specified
-      # _other_ token, returns +false+ otherwise.
+      # Returns `true` if the token has the same value as the specified
+      # _other_ token, returns `false` otherwise.
       #
       def ==(other)
         self.value == other.value

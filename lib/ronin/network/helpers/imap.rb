@@ -30,8 +30,8 @@ module Ronin
         protected
 
         #
-        # Creates a connection to the IMAP server. The +@host+, +@port+,
-        # +@imap_auth+, +@imap_user+ and +@imap_password+ instance
+        # Creates a connection to the IMAP server. The `@host`, `@port`,
+        # `@imap_auth`, `@imap_user` and `@imap_password` instance
         # variables will also be used to make the connection.
         #
         # @param [Hash] options
@@ -45,7 +45,7 @@ module Ronin
         #
         # @option options [Symbol] :auth
         #   The type of authentication to perform when connecting to the
-        #   server. May be either +:login+ or +:cram_md5+.
+        #   server. May be either `:login` or `:cram_md5`.
         #
         # @option options [String] :user
         #   The user to authenticate as when connecting to the server.
@@ -78,8 +78,8 @@ module Ronin
         end
 
         #
-        # Starts a session with the IMAP server. The +@host+, +@port+,
-        # +@imap_auth+, +@imap_user+ and +@imap_password+ instance
+        # Starts a session with the IMAP server. The `@host`, `@port`,
+        # `@imap_auth`, `@imap_user` and `@imap_password` instance
         # variables will also be used to make the connection.
         #
         # @yield [session]

@@ -33,7 +33,7 @@ class IO
   #
   # @option options [Boolean] :verify (:none)
   #   Specifies whether the SSL certificate will be verified. May be either
-  #   +:none+, +:client_once+, +:peer+ or +:fail_if_no_peer_cert+.
+  #   `:none`, `:client_once`, `:peer` or `:fail_if_no_peer_cert`.
   #
   # @option options [Boolean] :sync (true)
   #   Specifies that the SSL socket will sync the write buffer.
@@ -74,7 +74,7 @@ class IO
   #
   # @option options [Boolean] :verify (:none)
   #   Specifies whether the SSL certificate will be verified. May be either
-  #   +:none+, +:client_once+, +:peer+ or +:fail_if_no_peer_cert+.
+  #   `:none`, `:client_once`, `:peer` or `:fail_if_no_peer_cert`.
   #
   # @option options [Boolean] :sync (true)
   #   Specifies that the SSL socket will sync the write buffer.

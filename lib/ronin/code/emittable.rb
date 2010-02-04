@@ -22,7 +22,7 @@ module Ronin
   module Code
     module Emittable
       #
-      # Default emit method which simply returns +nil+.
+      # Default emit method which simply returns `nil`.
       #
       def emit
         []

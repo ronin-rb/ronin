@@ -44,8 +44,8 @@ module Net
   #   The HELO domain.
   #
   # @option options [Symbol] :auth
-  #   The type of authentication to use. Can be either +:login+, +:plain+,
-  #   or +:cram_md5+.
+  #   The type of authentication to use. Can be either `:login`, `:plain`,
+  #   or `:cram_md5`.
   #
   # @option options [String] :user
   #   The user-name to authenticate with.

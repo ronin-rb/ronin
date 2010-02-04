@@ -40,7 +40,7 @@ module Net
   #
   # @option options [Symbol] :auth
   #   The type of authentication to perform when connecting to the server.
-  #   May be either +:login+ or +:cram_md5+.
+  #   May be either `:login` or `:cram_md5`.
   #
   # @option options [String] :user
   #   The user to authenticate as when connecting to the server.

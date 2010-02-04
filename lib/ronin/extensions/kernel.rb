@@ -26,7 +26,7 @@ module Kernel
   #   The block to be called.
   #
   # @return [Object, nil]
-  #   The return-value of the given block. If +nil+ is returned, an
+  #   The return-value of the given block. If `nil` is returned, an
   #   exception occurred and was ignored.
   #
   # @example

@@ -41,32 +41,32 @@ module Ronin
       end
 
       #
-      # Returns +true+ if the referenced object is a kind of _base_ class,
-      # returns +false+ otherwise.
+      # Returns `true` if the referenced object is a kind of _base_ class,
+      # returns `false` otherwise.
       #
       def is_a?(base)
         @value.is_a?(base) || super(base)
       end
 
       #
-      # Returns +true+ if the referenced object is a kind of _base_ class,
-      # returns +false+ otherwise.
+      # Returns `true` if the referenced object is a kind of _base_ class,
+      # returns `false` otherwise.
       #
       def kind_of?(base)
         @value.kind_of?(base) || super(base)
       end
 
       #
-      # Returns +true+ if the referenced object is an instance of the
-      # specified _base_ class, returns +false+ otherwise.
+      # Returns `true` if the referenced object is an instance of the
+      # specified _base_ class, returns `false` otherwise.
       #
       def instance_of?(base)
         @value.instance_of?(base) || super(base)
       end
 
       #
-      # Returns +true+ if the referenced object responds to the specified
-      # method _name_, returns +false+ otherwise.
+      # Returns `true` if the referenced object responds to the specified
+      # method _name_, returns `false` otherwise.
       #
       def respond_to?(name)
         @value.respond_to?(name) || super(name)
@@ -88,8 +88,8 @@ module Ronin
       end
 
       #
-      # Returns +true+ if the referenced object equals the specified
-      # _value_, returns +false+ otherwise.
+      # Returns `true` if the referenced object equals the specified
+      # _value_, returns `false` otherwise.
       #
       def eql?(value)
         @value.eql?(value) || super(value)

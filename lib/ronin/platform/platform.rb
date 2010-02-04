@@ -66,8 +66,8 @@ module Ronin
     #   A pre-existing path to the overlay.
     #
     # @option options [Symbol] :media
-    #   The media type of the overlay, may be either +:git+, +:hg+,
-    #   +:svn+ or +:rsync+.
+    #   The media type of the overlay, may be either `:git`, `:hg`,
+    #   `:svn` or `:rsync`.
     #
     # @option options [String, URI::HTTP, URI::HTTPS] uri
     #   The URI of the overlay.
@@ -83,10 +83,10 @@ module Ronin
     #   The newly added overlay.
     #
     # @raise [ArgumentError]
-    #   The +:path+ option was not specified.
+    #   The `:path` option was not specified.
     #
     # @raise [OverlayNotFound]
-    #   The +:path+ option did not represent a valid directory.
+    #   The `:path` option did not represent a valid directory.
     #
     def Platform.add(options={},&block)
       path = options[:path]
@@ -116,8 +116,8 @@ module Ronin
     #   The URI to the overlay.
     #
     # @option options [Symbol] :media
-    #   The media type of the overlay, may be either +:git+, +:hg+,
-    #   +:svn+ or +:rsync+.
+    #   The media type of the overlay, may be either `:git`, `:hg`,
+    #   `:svn` or `:rsync`.
     #
     # @yield [overlay]
     #   If a block is given, it will be passed the overlay, after it has
@@ -130,7 +130,7 @@ module Ronin
     #   The newly installed overlay.
     #
     # @raise [ArgumentError]
-    #   The +:uri+ option must be specified.
+    #   The `:uri` option must be specified.
     #
     def Platform.install(options={},&block)
       unless options[:uri]

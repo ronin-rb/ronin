@@ -58,7 +58,7 @@ module Ronin
       # Creates a new CacheFile object with a given path, and caches it.
       #
       # @return [CacheFile, nil]
-      #   The saved CacheFile. Returns +nil+ if no objects could be cached
+      #   The saved CacheFile. Returns `nil` if no objects could be cached
       #   from the file.
       #
       def CachedFile.cache(path)
@@ -87,7 +87,7 @@ module Ronin
       # The Model of the cached object.
       #
       # @return [Class, nil]
-      #   Returns the Model of the cached object, or +nil+ if the class
+      #   Returns the Model of the cached object, or `nil` if the class
       #   could not be loaded or found.
       #
       def cached_model
@@ -134,7 +134,7 @@ module Ronin
       #
       # @return [Cacheable, nil]
       #   The first Cacheable object loaded from the cache file.
-      #   Returns +nil+ if the file did not contain any cacheable objects.
+      #   Returns `nil` if the file did not contain any cacheable objects.
       #   
       def fresh_object
         # load the first found context

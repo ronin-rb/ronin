@@ -30,9 +30,9 @@ module Ronin
         protected
 
         #
-        # Creates a connection to a Telnet server. The +@host+, +@port+,
-        # +@telnet_user+, +@telnet_password+, +@telnet_proxy+ and
-        # +@telnet_ssl+ instance variables will also be used to connect
+        # Creates a connection to a Telnet server. The `@host`, `@port`,
+        # `@telnet_user`, `@telnet_password`, `@telnet_proxy` and
+        # `@telnet_ssl` instance variables will also be used to connect
         # to the Telnet server.
         #
         # @param [Hash] options
@@ -49,7 +49,7 @@ module Ronin
         #   and all received traffic to.
         #
         # @option options [String] :dump_log
-        #   Similar to the +:output_log+ option, but connection output
+        #   Similar to the `:output_log` option, but connection output
         #   is also written in hexdump format.
         #
         # @option options [Regexp] :prompt (Ronin::Network::Telnet.default_prompt)
@@ -119,9 +119,9 @@ module Ronin
         end
 
         #
-        # Starts a session with a Telnet server. The +@host+, +@port+,
-        # +@telnet_user+, +@telnet_password+, +@telnet_proxy+ and
-        # +@telnet_ssl+ instance variables will also be used to connect
+        # Starts a session with a Telnet server. The `@host`, `@port`,
+        # `@telnet_user`, `@telnet_password`, `@telnet_proxy` and
+        # `@telnet_ssl` instance variables will also be used to connect
         # to the Telnet server.
         #
         # @yield [session]

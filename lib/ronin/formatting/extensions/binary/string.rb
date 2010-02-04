@@ -228,16 +228,16 @@ class String
   #   Additional options.
   #
   # @option options [Symbol] :format
-  #   The expected format of the hexdump. Must be either +:od+ or
-  #   +:hexdump+.
+  #   The expected format of the hexdump. Must be either `:od` or
+  #   `:hexdump`.
   #
   # @option options [Symbol] :encoding
   #   Denotes the encoding used for the bytes within the hexdump.
-  #   Must be one of the following: +:binary+, +:octal+, +:octal_bytes+
-  #   +:octal_shorts+, +:octal_ints+, :octal_quads+, +:decimal+,
-  #   +:decimal_bytes+, +:decimal_shorts+, +:decimal_ints+,
-  #   +:decimal_quads+, +:hex+ +:hex_bytes+, +:hex_shorts+, +:hex_ints+ or
-  #   +:hex_quads+.
+  #   Must be one of the following: `:binary`, `:octal`, `:octal_bytes`
+  #   `:octal_shorts`, `:octal_ints`, :octal_quads`, `:decimal`,
+  #   `:decimal_bytes`, `:decimal_shorts`, `:decimal_ints`,
+  #   `:decimal_quads`, `:hex`, `:hex_bytes`, `:hex_shorts`, `:hex_ints` or
+  #   `:hex_quads`.
   #
   # @option options [Integer] :segment (16)
   #   The length in bytes of each segment in the hexdump.

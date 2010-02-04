@@ -30,8 +30,8 @@ module Ronin
         protected
 
         #
-        # Creates a connection to the POP3 server. The +@host+, +@port+,
-        # +@pop3_user+ and +@pop3_password+ instance variables will also
+        # Creates a connection to the POP3 server. The `@host`, `@port`,
+        # `@pop3_user` and `@pop3_password` instance variables will also
         # be used to connect to the server.
         #
         # @param [Hash] options
@@ -77,8 +77,8 @@ module Ronin
         end
 
         #
-        # Starts a session with the POP3 server. The +@host+, +@port+,
-        # +@pop3_user+ and +@pop3_password+ instance variables will
+        # Starts a session with the POP3 server. The `@host`, `@port`,
+        # `@pop3_user` and `@pop3_password` instance variables will
         # also be used to connect to the server.
         #
         # @yield [session]

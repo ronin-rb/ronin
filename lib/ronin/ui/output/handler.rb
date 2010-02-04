@@ -68,7 +68,7 @@ module Ronin
         end
 
         #
-        # Prints one or more messages as +info+ messages.
+        # Prints one or more messages as `info` messages.
         #
         # @param [Array] messages
         #   The messages to print.
@@ -80,7 +80,7 @@ module Ronin
         end
 
         #
-        # Prints one or more messages as +debug+ mssages.
+        # Prints one or more messages as `debug` mssages.
         #
         # @param [Array] messages
         #   The messages to print.
@@ -92,7 +92,7 @@ module Ronin
         end
 
         #
-        # Prints one or more messages as +warning+ mssages.
+        # Prints one or more messages as `warning` mssages.
         #
         # @param [Array] messages
         #   The messages to print.
@@ -104,7 +104,7 @@ module Ronin
         end
 
         #
-        # Prints one or more messages as +error+ mssages.
+        # Prints one or more messages as `error` mssages.
         #
         # @param [Array] messages
         #   The messages to print.

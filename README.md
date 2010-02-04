@@ -1,4 +1,4 @@
-= Ronin
+# Ronin
 
 * http://ronin.rubyforge.org
 * http://github.com/postmodern/ronin
@@ -6,34 +6,34 @@
 * http://groups.google.com/group/ronin-ruby
 * irc.freenode.net #ronin
 
-== DESCRIPTION:
+## DESCRIPTION:
 
 Ronin is a Ruby platform for exploit development and security research.
 Ronin allows for the rapid development and distribution of code, exploits
 or payloads over many common Source-Code-Management (SCM) systems.
 
-=== Ruby
+### Ruby
 
 Ronin's Ruby environment allows security researchers to leverage Ruby with
 ease. The Ruby environment contains a multitude of convenience methods
 for working with data in Ruby, a Ruby Object Database, a customized Ruby
 Console and an extendable command-line interface.
 
-=== Extend
+### Extend
 
 Ronin's more specialized features are provided by additional Ronin
 libraries, which users can choose to install. These libraries can allow
 one to write and run Exploits and Payloads, scan for PHP vulnerabilities,
 perform Google Dorks  or run 3rd party scanners.
 
-=== Publish
+### Publish
 
 Ronin allows users to publish and share code, exploits, payloads or other
 data via Overlays. Overlays are directories of code and data that can be
 hosted on any SVN, Hg, Git or Rsync server. Ronin makes it easy to create,
 install or update Overlays.
 
-== FEATURES:
+## FEATURES:
 
 * Supports installing/updating/uninstalling of Overlays.
   * Supports accessing Overlays from various media types:
@@ -72,65 +72,65 @@ install or update Overlays.
     methods with color-output.
 * Provides an extendable command-line interface based on Thor.
 
-== SYNOPSIS:
+## SYNOPSIS:
 
-* Install an Overlay:
+Install an Overlay:
 
     $ ronin install svn://example.com/path/to/overlay
 
-* List installed Overlays:
+List installed Overlays:
 
     $ ronin list
 
-* Update all installed Overlays:
+Update all installed Overlays:
 
     $ ronin update
 
-* Update a specific Overlay:
+Update a specific Overlay:
 
     $ ronin update overlay-name
 
-* Uninstall an Overlay:
+Uninstall an Overlay:
 
     $ ronin uninstall overlay-name
 
-* Start the Ronin console:
+Start the Ronin console:
 
     $ ronin
 
-* View available commands:
+View available commands:
 
     $ ronin help
 
-== REQUIREMENTS:
+## REQUIREMENTS:
 
-* {yard}[http://yard.soen.ca/] >= 0.2.3.5
-* {nokogiri}[http://nokogiri.rubyforge.org/] >= 1.3.3
-  * {libxml2}[http://xmlsoft.org/]
-  * {libxslt1}[http://xmlsoft.org/XSLT/]
-* {DataMapper}[http://datamapper.org/]:
+* [yard](http://yard.soen.ca/) >= 0.2.3.5
+* [nokogiri](http://nokogiri.rubyforge.org/) >= 1.3.3
+  * [libxml2](http://xmlsoft.org/)
+  * [libxslt1](http://xmlsoft.org/XSLT/)
+* [DataMapper](http://datamapper.org/):
   * extlib >= 0.9.13
   * dm-core >= 0.10.0
   * data_objects >= 0.10.0
   * do_sqlite3 >= 0.10.0
-    * {libsqlite3}[http://sqlite.org/]
+    * [libsqlite3](http://sqlite.org/)
   * dm-types >= 0.10.0
   * dm-validations >= 0.10.0
-* {dm-predefined}[http://dm-predefined.rubyforge.org/] >= 0.2.0
-* {static_paths}[http://github.com/postmodern/static_paths] >= 0.1.0
-* {chars}[http://chars.rubyforge.org/] >= 0.1.2
-* {parameters}[http://parameters.rubyforge.org/] >= 0.1.8
-* {contextify}[http://contextify.rubyforge.org/] >= 0.1.3
-* {reverse-require}[http://reverserequire.rubyforge.org/] >= 0.3.1
+* [dm-predefined](http://dm-predefined.rubyforge.org/) >= 0.2.0
+* [static_paths](http://github.com/postmodern/static_paths) >= 0.1.0
+* [chars](http://chars.rubyforge.org/) >= 0.1.2
+* [parameters](http://parameters.rubyforge.org/) >= 0.1.8
+* [contextify](http://contextify.rubyforge.org/) >= 0.1.3
+* [reverse-require](http://reverserequire.rubyforge.org/) >= 0.3.1
 * thor >= 0.11.5
 
-== INSTALL:
+## INSTALL:
 
   $ sudo gem install ronin
 
-== RONIN LIBRARIES:
+## RONIN LIBRARIES:
 
-=== Ronin ASM
+### Ronin ASM
 
 * http://ronin.rubyforge.org/asm/
 * http://github.com/postmodern/ronin-asm
@@ -138,7 +138,7 @@ install or update Overlays.
 Ronin ASM is a Ruby library for Ronin that provides dynamic Assembly (ASM)
 generation of programs or shellcode.
 
-=== Ronin Dorks
+### Ronin Dorks
 
 * http://ronin.rubyforge.org/dorks/
 * http://github.com/postmodern/ronin-dorks
@@ -146,7 +146,7 @@ generation of programs or shellcode.
 Ronin Dorks is a Ruby library for Ronin that provides support for various
 Google (tm) Dorks functionality.
 
-=== Ronin Exploits
+### Ronin Exploits
 
 * http://ronin.rubyforge.org/exploits/
 * http://github.com/postmodern/ronin-exploits
@@ -154,14 +154,14 @@ Google (tm) Dorks functionality.
 Ronin Exploits is a Ruby library for Ronin that provides exploitation and
 payload crafting functionality.
 
-=== Ronin Gen
+### Ronin Gen
 
 * http://ronin.rubyforge.org/gen/
 * http://github.com/postmodern/ronin-gen
 
 Ronin Gen is a Ruby library for Ronin that provides various generators.
 
-=== Ronin SQL
+### Ronin SQL
 
 * http://ronin.rubyforge.org/sql/
 * http://github.com/postmodern/ronin-sql
@@ -169,7 +169,7 @@ Ronin Gen is a Ruby library for Ronin that provides various generators.
 Ronin SQL is a Ruby library for Ronin that provids support for SQL related
 security tasks, such as scanning for and exploiting SQL injections.
 
-=== Ronin PHP
+### Ronin PHP
 
 * http://ronin.rubyforge.org/php/
 * http://github.com/postmodern/ronin-php
@@ -178,7 +178,7 @@ Ronin PHP is a Ruby library for Ronin that provides support for PHP related
 security tasks, such as finding and exploiting Local File Inclusion (LFI)
 and Remote File Inclusion (RFI).
 
-=== Ronin Web
+### Ronin Web
 
 * http://ronin.rubyforge.org/web/
 * http://github.com/postmodern/ronin-web
@@ -186,7 +186,7 @@ and Remote File Inclusion (RFI).
 Ronin Web is a Ruby library for Ronin that provides support for web
 scraping and spidering functionality.
 
-== LICENSE:
+## LICENSE:
 
 Ronin - A Ruby platform for exploit development and security research.
 
