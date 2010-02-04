@@ -21,7 +21,6 @@ lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
 lib/ronin/extensions/kernel.rb
-lib/ronin/path.rb
 lib/ronin/network.rb
 lib/ronin/network/extensions.rb
 lib/ronin/network/extensions/tcp.rb
@@ -193,7 +192,6 @@ spec/model/lazy_upgrade_spec.rb
 spec/model/has_description_spec.rb
 spec/model/has_license_spec.rb
 spec/license_spec.rb
-spec/path_spec.rb
 spec/os_spec.rb
 spec/product_spec.rb
 spec/cacheable/classes/cacheable_model.rb
