@@ -14,9 +14,6 @@ bin/ronin-uninstall
 bin/ronin-update
 lib/ronin.rb
 lib/ronin/config.rb
-lib/ronin/extensions.rb
-lib/ronin/extensions/meta.rb
-lib/ronin/extensions/meta/object.rb
 lib/ronin/network.rb
 lib/ronin/network/extensions.rb
 lib/ronin/network/extensions/tcp.rb
