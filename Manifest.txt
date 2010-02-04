@@ -77,14 +77,6 @@ lib/ronin/rpc/client.rb
 lib/ronin/rpc/service.rb
 lib/ronin/rpc/console.rb
 lib/ronin/rpc/shell.rb
-lib/ronin/scanners.rb
-lib/ronin/scanners/exceptions.rb
-lib/ronin/scanners/exceptions/unknown_category.rb
-lib/ronin/scanners/extensions.rb
-lib/ronin/scanners/extensions/ip_addr.rb
-lib/ronin/scanners/extensions/uri.rb
-lib/ronin/scanners/extensions/uri/http.rb
-lib/ronin/scanners/scanner.rb
 lib/ronin/database.rb
 lib/ronin/database/exceptions.rb
 lib/ronin/database/exceptions/invalid_config.rb
@@ -189,10 +181,6 @@ spec/cacheable/helpers/cacheable.rb
 spec/cacheable/helpers/contexts/ronin_cacheable_model.rb
 spec/cacheable/cached_file_spec.rb
 spec/cacheable/cacheable_spec.rb
-spec/scanners/classes/example_scanner.rb
-spec/scanners/classes/another_scanner.rb
-spec/scanners/scanner_spec.rb
-spec/scanners/extensions_spec.rb
 spec/platform/helpers/extensions.rb
 spec/platform/helpers/extensions/test.rb
 spec/platform/helpers/extensions/circular.rb
