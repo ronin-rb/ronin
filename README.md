@@ -123,6 +123,7 @@ View available commands:
 * [contextify](http://contextify.rubyforge.org/) >= 0.1.3
 * [reverse-require](http://reverserequire.rubyforge.org/) >= 0.3.1
 * thor >= 0.11.5
+* [ronin-ext](http://ronin.rubyforge.org/) >= 0.1.0
 
 ## INSTALL:
 

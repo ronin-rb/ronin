@@ -28,7 +28,8 @@ Hoe.spec('ronin') do
     ['chars', '>=0.1.2'],
     ['contextify', '>=0.1.4'],
     ['repertoire', '>=0.2.3'],
-    ['thor', '>=0.11.5']
+    ['thor', '>=0.11.5'],
+    ['ronin-ext', '>=0.1.0']
   ]
 
   self.extra_dev_deps += [
