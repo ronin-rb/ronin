@@ -20,7 +20,3 @@
 
 require 'ronin/extensions/meta'
 require 'ronin/extensions/kernel'
-require 'ronin/extensions/uri'
-require 'ronin/extensions/string'
-require 'ronin/extensions/file'
-require 'ronin/extensions/ip_addr'
