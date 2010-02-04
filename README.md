@@ -68,8 +68,8 @@ install or update Overlays.
   * Tab-completion enabled.
   * Auto-indentation enabled.
   * Pretty-Print loaded.
-  * print_info, print_error, print_warning and print_debug output helper
-    methods with color-output.
+  * `print_info`, `print_error`, `print_warning` and `print_debug`
+    output helper methods with color-output.
 * Provides an extendable command-line interface based on Thor.
 
 ## SYNOPSIS:
