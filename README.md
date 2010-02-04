@@ -126,7 +126,7 @@ View available commands:
 
 ## INSTALL:
 
-  $ sudo gem install ronin
+    $ sudo gem install ronin
 
 ## RONIN LIBRARIES:
 
