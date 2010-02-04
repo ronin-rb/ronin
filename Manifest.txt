@@ -14,9 +14,6 @@ bin/ronin-uninstall
 bin/ronin-update
 lib/ronin.rb
 lib/ronin/config.rb
-lib/ronin/templates.rb
-lib/ronin/templates/template.rb
-lib/ronin/templates/erb.rb
 lib/ronin/extensions.rb
 lib/ronin/extensions/meta.rb
 lib/ronin/extensions/meta/object.rb
@@ -162,13 +159,6 @@ lib/ronin/ronin.rb
 lib/ronin/version.rb
 spec/spec_helper.rb
 spec/helpers/database.rb
-spec/templates/classes/example_template.rb
-spec/templates/classes/example_erb.rb
-spec/templates/helpers/static.rb
-spec/templates/helpers/static/templates/example.erb
-spec/templates/helpers/static/templates/_relative.erb
-spec/templates/template_spec.rb
-spec/templates/erb_spec.rb
 spec/arch_spec.rb
 spec/author_spec.rb
 spec/extensions/classes/some_class.rb
