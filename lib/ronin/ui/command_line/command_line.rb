@@ -19,10 +19,9 @@
 #
 
 require 'ronin/ui/command_line/exceptions/unknown_command'
+require 'ronin/extensions/kernel'
 require 'ronin/ronin'
 
-require 'rubygems'
-require 'extlib'
 require 'set'
 
 module Ronin
@@ -96,21 +95,11 @@ module Ronin
         # mess things up we will take care of this ahead of time here
         name.gsub!(/[\s-]/, '_')
 
-        begin
-          require File.join(COMMANDS_DIR,name)
-        rescue Gem::LoadError => e
-          raise(e)
-        rescue ::LoadError
+        path = File.join(COMMANDS_DIR,name)
+
+        unless (command = require_const(path))
           raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
         end
-
-        class_name = name.to_const_string
-
-        unless Commands.const_defined?(class_name)
-          raise(UnknownCommand,"unknown command #{name.dump}",caller)
-        end
-
-        command = Commands.const_get(class_name)
 
         unless command.respond_to?(:start)
           raise(UnknownCommand,"command #{name.dump} must provide a 'start' method",caller)
