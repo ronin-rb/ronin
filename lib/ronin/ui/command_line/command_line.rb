@@ -93,7 +93,7 @@ module Ronin
 
         # eventually someone is going to use a space or - which is going
         # mess things up we will take care of this ahead of time here
-        name.gsub!(/[\s-]/, '_')
+        name.gsub!(/[\s_-]+/, '_')
 
         unless (command = require_within(COMMANDS_DIR,name))
           raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
