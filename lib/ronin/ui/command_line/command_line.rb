@@ -95,9 +95,7 @@ module Ronin
         # mess things up we will take care of this ahead of time here
         name.gsub!(/[\s-]/, '_')
 
-        path = File.join(COMMANDS_DIR,name)
-
-        unless (command = require_const(path))
+        unless (command = require_within(COMMANDS_DIR,name))
           raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
         end
 
