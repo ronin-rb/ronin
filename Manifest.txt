@@ -87,7 +87,6 @@ lib/ronin/ui/command_line/commands/remove.rb
 lib/ronin/ui/command_line/commands/uninstall.rb
 lib/ronin/ui/command_line/commands/help.rb
 lib/ronin/ui/command_line/command_line.rb
-lib/ronin/ronin.rb
 lib/ronin/version.rb
 spec/spec_helper.rb
 spec/helpers/database.rb
