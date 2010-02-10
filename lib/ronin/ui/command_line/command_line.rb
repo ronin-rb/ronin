@@ -81,14 +81,14 @@ module Ronin
       #   command-line name.
       #
       # @example
-      #   CommandLine.get_command('gen_overlay')
+      #   CommandLine.command('gen_overlay')
       #   # => Ronin::UI::CommandLine::Commands::GenOverlay
       #
       # @example
-      #   CommandLine.get_command('gen-overlay')
+      #   CommandLine.command('gen-overlay')
       #   # => Ronin::UI::CommandLine::Commands::GenOverlay
       #
-      def CommandLine.get_command(name)
+      def CommandLine.command(name)
         name = name.to_s
 
         # eventually someone is going to use a space or - which is going
@@ -129,7 +129,7 @@ module Ronin
         end
 
         begin
-          CommandLine.get_command(name).start(argv)
+          CommandLine.command(name).start(argv)
         rescue UnknownCommand => e
           STDERR.puts e
           exit -1

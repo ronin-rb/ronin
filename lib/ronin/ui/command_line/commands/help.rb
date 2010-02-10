@@ -32,7 +32,7 @@ module Ronin
           def default(command=nil)
             if command
               begin
-                CommandLine.get_command(command).start(['--help'])
+                CommandLine.command(command).start(['--help'])
               rescue UnknownCommand
                 print_error "unknown command #{command.dump}"
                 exit -1
