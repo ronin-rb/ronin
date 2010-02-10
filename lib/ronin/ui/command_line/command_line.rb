@@ -54,19 +54,6 @@ module Ronin
       end
 
       #
-      # Searches for the command with the matching name.
-      #
-      # @param [String, Symbol] name
-      #   The name of the command to search for.
-      #
-      # @return [Boolean]
-      #   Specifies whether a command exists with the matching name.
-      #
-      def CommandLine.has_command?(name)
-        CommandLine.commands.include?(name.to_s)
-      end
-
-      #
       # Searches for a Command class with the matching command-line name.
       #
       # @param [String, Symbol] name
