@@ -78,6 +78,7 @@ lib/ronin/ui/command_line.rb
 lib/ronin/ui/command_line/exceptions.rb
 lib/ronin/ui/command_line/exceptions/unknown_command.rb
 lib/ronin/ui/command_line/command.rb
+lib/ronin/ui/command_line/commands.rb
 lib/ronin/ui/command_line/commands/console.rb
 lib/ronin/ui/command_line/commands/add.rb
 lib/ronin/ui/command_line/commands/install.rb
