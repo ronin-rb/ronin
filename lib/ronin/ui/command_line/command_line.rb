@@ -19,6 +19,7 @@
 #
 
 require 'ronin/ui/command_line/exceptions/unknown_command'
+require 'ronin/ui/command_line/commands'
 require 'ronin/extensions/kernel'
 require 'ronin/ronin'
 
@@ -27,9 +28,6 @@ require 'set'
 module Ronin
   module UI
     module CommandLine
-      # Directory which stores the commands
-      COMMANDS_DIR = File.join('ronin','ui','command_line','commands')
-
       # Name of the default to run
       DEFAULT_COMMAND = 'console'
 
@@ -43,7 +41,7 @@ module Ronin
         unless class_variable_defined?('@@ronin_commands')
           @@ronin_commands = SortedSet[]
 
-          pattern = File.join('lib',COMMANDS_DIR,'*.rb')
+          pattern = File.join('lib',Commands.namespace_root,'*.rb')
 
           Ronin.find_files(pattern).each do |path|
             @@ronin_commands << File.basename(path).gsub(/\.rb$/,'')
@@ -82,7 +80,7 @@ module Ronin
         # mess things up we will take care of this ahead of time here
         name.gsub!(/[\s_-]+/, '_')
 
-        unless (command = require_const_in(COMMANDS_DIR,name))
+        unless (command = Commands.require_const(name))
           raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
         end
 

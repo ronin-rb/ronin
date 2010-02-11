@@ -27,10 +27,11 @@ module Ronin
       module Commands
         class Remove < Command
 
-          desc "remove NAME", "Remove the specified Overlay"
-          method_option :cache, :type => :string, :aliases => '-C'
+          desc 'Remove the specified Overlay'
+          class_option :cache, :type => :string, :aliases => '-C'
+          argument :name, :type => :string
 
-          def default(name)
+          def execute
             if options[:cache]
               Platform.load_overlays(options[:cache])
             end

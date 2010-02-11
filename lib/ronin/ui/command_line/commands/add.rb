@@ -27,17 +27,18 @@ module Ronin
       module Commands
         class Add < Command
 
-          desc "add PATH", "Add a local overlay to the Overlay cache"
-          method_option :cache, :type => :string, :aliases => '-C'
-          method_option :media, :type => :string, :aliases => '-m'
-          method_option :local, :type => :boolean, :aliases => '-L'
-          method_option :rsync, :type => :boolean
-          method_option :svn, :type => :boolean
-          method_option :hg, :type => :boolean
-          method_option :git, :type => :boolean
-          method_option :uri, :type => :string, :aliaes => '-U'
+          desc "Add a local overlay to the Overlay cache"
+          class_option :cache, :type => :string, :aliases => '-C'
+          class_option :media, :type => :string, :aliases => '-m'
+          class_option :local, :type => :boolean, :aliases => '-L'
+          class_option :rsync, :type => :boolean
+          class_option :svn, :type => :boolean
+          class_option :hg, :type => :boolean
+          class_option :git, :type => :boolean
+          class_option :uri, :type => :string, :aliaes => '-U'
+          argument :path, :type => :string
 
-          def default(path)
+          def execute
             if options[:cache]
               Platform.load_overlays(options[:cache])
             end

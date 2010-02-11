@@ -30,14 +30,17 @@ module Ronin
       module Commands
         class Console < Command
 
-          map '-V' => :version
+          desc 'start the Ronin Console'
+          class_option :database, :type => :string, :aliases => '-D'
+          class_option :require, :type => :array, :aliases => '-r'
+          class_option :verbose, :type => :boolean, :aliases => '-v'
 
-          desc "console", "start the Ronin Console"
-          method_option :database, :type => :string, :aliases => '-D'
-          method_option :require, :type => :array, :aliases => '-r'
-          method_option :verbose, :type => :boolean, :aliases => '-v'
+          def execute
+            if options.version?
+              puts "ronin #{Ronin::VERSION}"
+              return
+            end
 
-          def default
             if options[:require]
               options[:require].each do |path|
                 UI::Console.auto_load << path
@@ -49,15 +52,6 @@ module Ronin
             end
 
             UI::Console.start
-          end
-
-          desc "version", "displays the version"
-
-          #
-          # Prints the version information and exists.
-          #
-          def version
-            puts "Ronin #{Ronin::VERSION}"
           end
 
         end

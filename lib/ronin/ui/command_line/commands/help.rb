@@ -27,15 +27,15 @@ module Ronin
       module Commands
         class Help < Command
 
-          desc "help [COMMAND]", "Displays the list of available commands or prints information on a specific command"
+          desc 'Displays the list of available commands or prints information on a specific command'
+          argument :command, :type => :string, :required => false
 
-          def default(command=nil)
-            if command
+          def execute
+            if self.command
               begin
-                CommandLine.command(command).start(['--help'])
+                CommandLine.command(self.command).start(['--help'])
               rescue UnknownCommand
                 print_error "unknown command #{command.dump}"
-                exit -1
               end
             else
               puts 'Available commands:'

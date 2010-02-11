@@ -27,15 +27,16 @@ module Ronin
       module Commands
         class Install < Command
 
-          desc "install URI", "Installs the Overlay located at the specified URI"
-          method_option :cache, :type => :string, :aliases => '-C'
-          method_option :media, :type => :string, :aliases => '-m'
-          method_option :rsync, :type => :boolean
-          method_option :svn, :type => :boolean
-          method_option :hg, :type => :boolean
-          method_option :git, :type => :boolean
+          desc 'Installs the Overlay located at the specified URI'
+          class_option :cache, :type => :string, :aliases => '-C'
+          class_option :media, :type => :string, :aliases => '-m'
+          class_option :rsync, :type => :boolean
+          class_option :svn, :type => :boolean
+          class_option :hg, :type => :boolean
+          class_option :git, :type => :boolean
+          arugment :uri, :type => :string
 
-          def default(uri)
+          def execute
             if options[:cache]
               Platform.load_overlays(options[:cache])
             end

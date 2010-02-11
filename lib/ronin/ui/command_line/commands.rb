@@ -18,42 +18,15 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/command'
-require 'ronin/platform/overlay'
+require 'open_namespace'
 
 module Ronin
   module UI
     module CommandLine
       module Commands
-        class Update < Command
+        include OpenNamespace
 
-          desc 'Update all Overlays or just a specified Overlay'
-          class_option :cache, :type => :string, :aliases => '-C'
-          argument :name, :type => :string, :required => false
-
-          def execute
-            if options[:cache]
-              Platform.load_overlays(options[:cache])
-            end
-
-            update = lambda { |overlay|
-              print_info "Updating Overlay #{overlay.name.dump} ..."
-              overlay.update
-            }
-
-            if name
-              begin
-                update.call(Platform.overlays.get(name))
-              rescue Platform::OverlayNotFound => e
-                print_error e.message
-                exit -1
-              end
-            else
-              Platform.overlays.each_overlay(&update)
-            end
-          end
-
-        end
+        self.namespace_root = File.join('ronin','ui','command_line','commands')
       end
     end
   end

@@ -27,10 +27,11 @@ module Ronin
       module Commands
         class Uninstall < Command
 
-          desc "uninstall NAME", "Uninstall the specified Overlay"
-          method_option :cache, :type => :string, :aliases => '-C'
+          desc 'Uninstall the specified Overlay'
+          class_option :cache, :type => :string, :aliases => '-C'
+          argument :name, :type => :string
 
-          def default(name)
+          def execute
             if options[:cache]
               Platform.load_overlays(options[:cache])
             end

@@ -28,11 +28,12 @@ module Ronin
       module Commands
         class List < Command
 
-          desc "list [NAME]", "List all Overlays or a specific one"
-          method_option :cache, :type => :string, :aliases => '-C'
-          method_option :verbose, :type => :boolean, :aliaes => '-v'
+          desc 'List all Overlays or a specific one'
+          class_option :cache, :type => :string, :aliases => '-C'
+          class_option :verbose, :type => :boolean, :aliaes => '-v'
+          argument :name, :type => :string, :required => false
 
-          def default(name=nil)
+          def execute
             if options[:cache]
               Platform.load_overlays(options[:cache])
             end

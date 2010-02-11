@@ -21,18 +21,33 @@
 require 'ronin/ui/output'
 
 require 'thor'
+require 'thor/group'
 require 'extlib'
 
 module Ronin
   module UI
     module CommandLine
-      class Command < Thor
+      class Command < Thor::Group
 
         include Thor::Actions
         include Output::Helpers
 
-        default_task :default
-        map '-h' => :help
+        class_option :verbose, :type => :boolean, :default => false, :aliases => '-v'
+        class_option :quiet, :type => :boolean, :default => true, :aliases => '-q'
+        class_option :silent, :type => :boolean, :default => false, :aliases => '-Q'
+        class_option :color, :type => :boolean, :default => true
+        class_option :nocolor, :type => :boolean, :default => false
+
+        def self.inherited(super_class)
+          super_class.namespace(super_class.command_name)
+        end
+
+        #
+        # Returns the name of the command.
+        #
+        def self.command_name
+          self.name.split('::').last.snake_case
+        end
 
         #
         # Creates a new Command object.
@@ -40,76 +55,33 @@ module Ronin
         # @param [Array] arguments
         #   Command-line arguments.
         #
-        # @param [Hash] options
+        # @param [Array] opts
         #   Additional command-line options.
         #
         # @param [Hash] config
         #   Additional configuration.
         #
-        def initialize(arguments=[],options={},config={})
+        def initialize(arguments=[],opts={},config={})
+          super(arguments,opts,config)
+
           @indent = 0
 
-          super(arguments,options,config)
-        end
+          UI::Output.verbose = self.options.verbose?
+          UI::Output.quiet = self.options.quiet?
+          UI::Output.silent = self.options.silent?
 
-        def self.start(arguments=ARGV,config={})
-          unless map[arguments.first.to_s]
-            arguments = [default_task] + arguments
-          end
-
-          super(arguments,config)
-        end
-
-        no_tasks do
-          def invoke(task,arguments)
-            UI::Output.verbose = options.verbose?
-            UI::Output.quiet = options.quiet?
-            UI::Output.silent = options.silent?
-
-            if options.nocolor?
-              UI::Output::Handler.color = false
-            end
-
-            super(task,arguments)
+          if self.options.nocolor?
+            UI::Output::Handler.color = false
           end
         end
-
-        desc "command [ARGS...]", "default task to run"
-        method_option :verbose, :type => :boolean, :default => false, :aliases => '-v'
-        method_option :quiet, :type => :boolean, :default => true, :aliases => '-q'
-        method_option :silent, :type => :boolean, :default => true, :aliases => '-Q'
-        method_option :color, :type => :boolean, :default => true
-        method_option :nocolor, :type => :boolean, :default => false
 
         #
         # Default method to call after the options have been parsed.
         #
-        def default(*arguments)
-        end
-
-        desc "help", "displays the help for the command"
-
-        #
-        # Prints the help information for the command and exists.
-        #
-        def help
-          self.class.help(
-            shell, 
-            self.class.default_task,
-            :short => false,
-            :ident => 2,
-            :namespace => false
-          )
+        def execute
         end
 
         protected
-
-        #
-        # Returns the name of the command.
-        #
-        def name
-          self.class.name.split('::').last.snake_case
-        end
 
         #
         # Increases the indentation out output temporarily.
