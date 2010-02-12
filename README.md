@@ -6,7 +6,7 @@
 * http://groups.google.com/group/ronin-ruby
 * irc.freenode.net #ronin
 
-## DESCRIPTION:
+## Description
 
 Ronin is a Ruby platform for exploit development and security research.
 Ronin allows for the rapid development and distribution of code, exploits
@@ -33,7 +33,7 @@ data via Overlays. Overlays are directories of code and data that can be
 hosted on any SVN, Hg, Git or Rsync server. Ronin makes it easy to create,
 install or update Overlays.
 
-## FEATURES:
+## Feature
 
 * Supports installing/updating/uninstalling of Overlays.
   * Supports accessing Overlays from various media types:
@@ -72,7 +72,7 @@ install or update Overlays.
     output helper methods with color-output.
 * Provides an extendable command-line interface based on Thor.
 
-## SYNOPSIS:
+## Synopsis
 
 Install an Overlay:
 
@@ -102,7 +102,7 @@ View available commands:
 
     $ ronin help
 
-## REQUIREMENTS:
+## Requirements
 
 * [yard](http://yard.soen.ca/) >= 0.2.3.5
 * [nokogiri](http://nokogiri.rubyforge.org/) >= 1.3.3
@@ -125,11 +125,11 @@ View available commands:
 * thor >= 0.11.5
 * [ronin-ext](http://ronin.rubyforge.org/) >= 0.1.0
 
-## INSTALL:
+## Install
 
     $ sudo gem install ronin
 
-## RONIN LIBRARIES:
+## Additional Libraries
 
 ### Ronin ASM
 
@@ -187,7 +187,7 @@ and Remote File Inclusion (RFI).
 Ronin Web is a Ruby library for Ronin that provides support for web
 scraping and spidering functionality.
 
-## LICENSE:
+## License
 
 Ronin - A Ruby platform for exploit development and security research.
 
