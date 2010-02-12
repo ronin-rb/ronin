@@ -230,7 +230,7 @@ module Ronin
       end
 
       #
-      # Activates the overlay by adding the {lib_dir} to the `$LOAD_PATH`
+      # Activates the overlay by adding the `lib_dir` to the `$LOAD_PATH`
       # global variable.
       #
       def activate!
@@ -250,7 +250,7 @@ module Ronin
       end
 
       #
-      # Deactivates the overlay by removing the {lib_dir} from the
+      # Deactivates the overlay by removing the `lib_dir` from the
       # `$LOAD_PATH` global variable.
       #
       def deactivate!

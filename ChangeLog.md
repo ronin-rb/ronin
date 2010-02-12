@@ -238,7 +238,7 @@
 === 0.2.0 / 2009-02-06
 
 * Moved the HTML formatting methods into the
-  {ronin-html}[http://ronin.rubyforge.org/html/] library.
+  [ronin-html](http://ronin.rubyforge.org/html/) library.
 * Added 'ronin/environment' which loads the Ronin Environment.
 * Added the --database option to the DefaultCommand.
 * Added the -C option to the add, install, list, update, remove and
