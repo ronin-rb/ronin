@@ -145,6 +145,8 @@ module Ronin
     #   The block to call after the Database has been setup, but before
     #   it is updated.
     #
+    # @see Database.upgrade
+    #
     def Database.setup(&block)
       # setup the database log
       Database.setup_log unless Database.log
