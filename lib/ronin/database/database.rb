@@ -37,46 +37,36 @@ module Ronin
     # Database log level
     DEFAULT_LOG_LEVEL = :info
 
-    # Default configuration of the database
-    DEFAULT_CONFIG = Addressable::URI.new(
+    # Default database repository
+    DEFAULT_REPOSITORY = Addressable::URI.new(
       :scheme => 'sqlite3',
       :path => File.join(Config::PATH,'database.sqlite3')
     )
 
     #
-    # Returns the Database configuration that is stored in the
-    # `CONFIG_FILE`. Defaults to `DEFAULT_CONFIG` if `CONFIG_FILE` does not
-    # exist.
+    # Returns the Database repositories to use.
     #
     # @raise [InvalidConfig]
     #   The config file did not contain a YAML Hash or String.
     #
-    def Database.config
-      unless (class_variable_defined?('@@ronin_database_config'))
-        @@ronin_database_config = DEFAULT_CONFIG
+    def Database.repositories
+      unless class_variable_defined?('@@ronin_database_repositories')
+        @@ronin_database_repositories = {
+          :default => DEFAULT_REPOSITORY
+        }
 
         if File.file?(CONFIG_FILE)
           conf = YAML.load(CONFIG_FILE)
 
-          unless (conf.kind_of?(Hash) || conf.kind_of?(String))
-            raise(InvalidConfig,"#{CONFIG_FILE} must contain either a Hash or a String",caller)
+          unless conf.kind_of?(Hash)
+            raise(InvalidConfig,"#{CONFIG_FILE} must contain a YAML Hash of repositories",caller)
           end
 
-          @@ronin_database_config = conf
+          @@ronin_database_repositories.merge!(conf)
         end
       end
 
-      return @@ronin_database_config ||= DEFAULT_CONFIG
-    end
-
-    #
-    # Sets the Database configuration.
-    #
-    # @param [String, Hash] configuration
-    #   The DataMapper configuration to set the Ronin::Database with.
-    #
-    def Database.config=(configuration)
-      @@ronin_database_config = configuration
+      return @@ronin_database_repositories
     end
 
     #
@@ -115,11 +105,16 @@ module Ronin
     end
 
     #
+    # Determines if a specific database repository is setup.
+    #
+    # @param [Symbol] name
+    #   The database repository name.
+    #
     # @return [Boolean]
     #   Specifies wether or not the Database is setup.
     #
-    def Database.setup?
-      repository = DataMapper.repository(Model::REPOSITORY_NAME)
+    def Database.setup?(name=:default)
+      repository = DataMapper.repository(name)
 
       return repository.class.adapters.has_key?(repository.name)
     end
@@ -136,26 +131,28 @@ module Ronin
     def Database.upgrade(&block)
       block.call() if block
 
-      DataMapper.auto_upgrade!(Model::REPOSITORY_NAME) if Database.setup?
+      Database.repositories.each_key do |name|
+        DataMapper.auto_upgrade!(name) if Database.setup?(name)
+      end
+
       return nil
     end
 
     #
     # Sets up the Database.
     #
-    # @param [String, Hash] configuration
-    #   The DataMapper configuration to use to setup the Database.
-    # 
     # @yield []
     #   The block to call after the Database has been setup, but before
     #   it is updated.
     #
-    def Database.setup(configuration=Database.config,&block)
+    def Database.setup(&block)
       # setup the database log
       Database.setup_log unless Database.log
 
-      # setup the database repository
-      DataMapper.setup(Model::REPOSITORY_NAME, configuration)
+      # setup the database repositories
+      Database.repositories.each do |name,uri|
+        DataMapper.setup(name,uri)
+      end
 
       # auto-upgrade the database repository
       Database.upgrade(&block)

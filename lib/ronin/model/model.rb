@@ -46,14 +46,6 @@ module Ronin
             return resource
           end
 
-          #
-          # @return [Symbol]
-          #   The default repository name used for the model.
-          #
-          def self.default_repository_name
-            Model::REPOSITORY_NAME
-          end
-
           # The class type property
           property :type, Discriminator
         end

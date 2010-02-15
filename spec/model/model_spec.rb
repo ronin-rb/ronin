@@ -10,7 +10,7 @@ describe Model do
   end
 
   it "should have a default repository name" do
-    BasicModel.default_repository_name.should == Model::REPOSITORY_NAME
+    BasicModel.default_repository_name.should == :default
   end
 
   it "should allow creating new instances of the model" do
