@@ -75,6 +75,31 @@ module Ronin
     end
 
     #
+    # Saves the Database configuration to `CONFIG_FILE`.
+    #
+    # @yield []
+    #   If a block is given, it will be called before the database
+    #   configuration is saved.
+    #
+    # @return [true]
+    #
+    def Database.save(&block)
+      block.call() if block
+
+      File.open(CONFIG_FILE,'w') do |file|
+        hash = {}
+        
+        Database.repositories.each do |name,value|
+          hash[name.to_s] = value.to_s
+        end
+
+        YAML.dump(hash,file)
+      end
+
+      return true
+    end
+
+    #
     # @return [DataMapper::Logger, nil]
     #   The current Database log.
     #
