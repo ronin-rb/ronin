@@ -59,7 +59,7 @@ module Ronin
         }
 
         if File.file?(CONFIG_FILE)
-          conf = YAML.load(CONFIG_FILE)
+          conf = YAML.load_file(CONFIG_FILE)
 
           unless conf.kind_of?(Hash)
             raise(InvalidConfig,"#{CONFIG_FILE} must contain a YAML Hash of repositories",caller)
