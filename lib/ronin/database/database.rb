@@ -62,7 +62,9 @@ module Ronin
             raise(InvalidConfig,"#{CONFIG_FILE} must contain a YAML Hash of repositories",caller)
           end
 
-          @@ronin_database_repositories.merge!(conf)
+          conf.each do |name,uri|
+            @@ronin_database_repositories[name.to_sym] = Addressable::URI.parse(uri)
+          end
         end
       end
 
