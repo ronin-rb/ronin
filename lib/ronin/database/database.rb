@@ -46,8 +46,11 @@ module Ronin
     #
     # Returns the Database repositories to use.
     #
+    # @return [Hash{Symbol => Addressable::URI}]
+    #   The database repository names and URIs.
+    #
     # @raise [InvalidConfig]
-    #   The config file did not contain a YAML Hash or String.
+    #   The config file did not contain a YAML Hash.
     #
     def Database.repositories
       unless class_variable_defined?('@@ronin_database_repositories')
