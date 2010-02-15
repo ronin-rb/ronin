@@ -120,6 +120,24 @@ module Ronin
     end
 
     #
+    # Creates the Database, by running auto-migrations, but only if the
+    # Database is already setup.
+    #
+    # @yield []
+    #   The block to call after the Database is reset.
+    #
+    # @return [nil]
+    #
+    def Database.create(&block)
+      Database.repositories.each_key do |name|
+        DataMapper.auto_migrate!(name) if Database.setup?(name)
+      end
+
+      block.call() if block
+      return nil
+    end
+
+    #
     # Updates the Database, by running auto-upgrades, but only if the
     # Database is already setup.
     #
