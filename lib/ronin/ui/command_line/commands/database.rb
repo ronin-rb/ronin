@@ -70,21 +70,9 @@ module Ronin
             elsif options[:delete]
               delete_repository
             else
-              Ronin::Database.repositories.each do |name,uri|
-                puts "[ #{name} ]\n\n"
-
-                indent do
-                  puts "adapter: #{uri.scheme}"
-                  puts "host: #{uri.host}" if uri.host
-                  puts "port: #{uri.port}" if uri.port
-                  puts "user: #{uri.user}" if uri.user
-                  puts "password: #{uri.password}" if uri.password
-
-                  if uri.scheme == :sqlite3
-                    puts "path: #{uri.path}"
-                  else
-                    puts "database: #{File.basename(uri.path)}"
-                  end
+              indent do
+                Ronin::Database.repositories.each do |name,uri|
+                  puts "#{name}: #{uri}"
                 end
               end
             end
