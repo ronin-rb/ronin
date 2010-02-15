@@ -41,7 +41,8 @@ module Ronin
           class_option :port, :type => :numeric, :banner => '9999'
           class_option :user, :type => :string
           class_option :password, :type => :string
-          class_option :path, :type => :string, :banner => '/database'
+          class_option :database, :type => :string, :banner => 'database_name'
+          class_option :path, :type => :string, :banner => '/path/file.db'
 
           def execute
             if (options.create? || options.upgrade?)
@@ -78,7 +79,12 @@ module Ronin
                   puts "port: #{uri.port}" if uri.port
                   puts "user: #{uri.user}" if uri.user
                   puts "password: #{uri.password}" if uri.password
-                  puts "path: #{uri.path}" if uri.path
+
+                  if uri.scheme == :sqlite3
+                    puts "path: #{uri.path}"
+                  else
+                    puts "database: #{File.basename(uri.path)}"
+                  end
                 end
               end
             end
@@ -98,7 +104,12 @@ module Ronin
             uri.port = options[:port] if options[:port]
             uri.user = options[:user] if options[:user]
             uri.password = options[:password] if options[:password]
-            uri.path = options[:path] if options[:path]
+
+            if options[:database]
+              uri.path = options[:database]
+            elsif options[:path]
+              uri.path = options[:path]
+            end
 
             return uri
           end
@@ -129,7 +140,12 @@ module Ronin
                 uri.port = options[:port] if options[:port]
                 uri.user = options[:user] if options[:user]
                 uri.password = options[:password] if options[:password]
-                uri.path = options[:path] if options[:path]
+
+                if options[:database]
+                  uri.path = options[:database]
+                elsif options[:path]
+                  uri.path = options[:path]
+                end
               end
             end
           end
