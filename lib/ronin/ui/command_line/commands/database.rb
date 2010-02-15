@@ -87,18 +87,20 @@ module Ronin
           protected
 
           def repository_uri
-            if options[:uri]
-              Addressable::URI.parse(options[:uri])
-            else
-              Addressable::URI.new(
-                :scheme => options[:adapter],
-                :host => options[:host],
-                :port => options[:port],
-                :user => options[:user],
-                :password => options[:password],
-                :path => options[:path]
-              )
-            end
+            uri = if options[:uri]
+                    Addressable::URI.parse(options[:uri])
+                  else
+                    Addressable::URI.new()
+                  end
+
+            uri.scheme = options[:adapter] if options[:adapter]
+            uri.host = options[:host] if options[:host]
+            uri.port = options[:port] if options[:port]
+            uri.user = options[:user] if options[:user]
+            uri.password = options[:password] if options[:password]
+            uri.path = options[:path] if options[:path]
+
+            return uri
           end
 
           def add_repository
@@ -117,7 +119,18 @@ module Ronin
                 raise(StandardError,"unknown database repository #{name}",caller)
               end
 
-              Ronin::Database.repositories[name].join!(repository_uri)
+              if options[:uri]
+                Ronin::Database.repositories[name] = repository_uri
+              else
+                uri = Ronin::Database.repositories[name]
+
+                uri.scheme = options[:adapter] if options[:adapter]
+                uri.host = options[:host] if options[:host]
+                uri.port = options[:port] if options[:port]
+                uri.user = options[:user] if options[:user]
+                uri.password = options[:password] if options[:password]
+                uri.path = options[:path] if options[:path]
+              end
             end
           end
 
