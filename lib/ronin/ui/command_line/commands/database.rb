@@ -28,10 +28,10 @@ module Ronin
         class Database < Command
 
           desc "Manages the Ronin Database"
-          class_option :add, :type => :string, :banner => 'name', :aliases => '-a'
-          class_option :set, :type => :string, :banner => 'name', :aliases => '-s'
-          class_option :remove, :type => :string, :banner => 'name', :aliases => '-r'
-          class_option :clear, :type => :string, :banner => 'name', :aliases => '-C'
+          class_option :add, :type => :string, :banner => 'NAME', :aliases => '-a'
+          class_option :set, :type => :string, :banner => 'NAME', :aliases => '-s'
+          class_option :remove, :type => :string, :banner => 'NAME', :aliases => '-r'
+          class_option :clear, :type => :string, :banner => 'NAME', :aliases => '-C'
           
           # repository options
           class_option :uri, :type => :string, :banner => 'sqlite3:///path'
@@ -40,7 +40,7 @@ module Ronin
           class_option :port, :type => :numeric, :banner => '9999'
           class_option :user, :type => :string
           class_option :password, :type => :string
-          class_option :database, :type => :string, :banner => 'database_name'
+          class_option :database, :type => :string, :banner => 'NAME'
           class_option :path, :type => :string, :banner => '/path/file.db'
 
           def execute
