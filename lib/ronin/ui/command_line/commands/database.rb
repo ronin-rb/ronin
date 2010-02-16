@@ -31,7 +31,7 @@ module Ronin
           class_option :add, :type => :string, :banner => 'name', :aliases => '-a'
           class_option :set, :type => :string, :banner => 'name', :aliases => '-s'
           class_option :remove, :type => :string, :banner => 'name', :aliases => '-r'
-          class_option :create, :type => :boolean
+          class_option :clear, :type => :string, :banner => 'name', :aliases => '-C'
           
           # repository options
           class_option :uri, :type => :string, :banner => 'sqlite3:///path'
@@ -44,11 +44,13 @@ module Ronin
           class_option :path, :type => :string, :banner => '/path/file.db'
 
           def execute
-            if options.create?
-              print_info "Creating the Ronin Database ..."
+            if options[:clear]
+              name = options[:clear].to_sym
 
-              Ronin::Database.create do
-                print_info "Ronin Database created."
+              print_info "Clearing the Database repository #{name} ..."
+
+              Ronin::Database.clear(name) do
+                print_info "Database repository #{name} cleared."
               end
 
               return

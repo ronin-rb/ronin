@@ -170,26 +170,6 @@ module Ronin
     end
 
     #
-    # Creates the Database, by running auto-migrations, but only if the
-    # Database is already setup.
-    #
-    # @yield []
-    #   The block to call after the Database is reset.
-    #
-    # @return [nil]
-    #
-    # @since 0.4.0
-    #
-    def Database.create(&block)
-      Database.repositories.each_key do |name|
-        DataMapper.auto_migrate!(name) if Database.setup?(name)
-      end
-
-      block.call() if block
-      return nil
-    end
-
-    #
     # Updates the Database, by running auto-upgrades, but only if the
     # Database is already setup.
     #
@@ -252,6 +232,36 @@ module Ronin
       end
 
       return DataMapper.repository(name,&block)
+    end
+
+    #
+    # Clears the Database, by running destructive auto-migrations.
+    #
+    # @param [String, Symbol] name
+    #   The name of the Database repository to clear.
+    #
+    # @yield []
+    #   If a block is given, it will be called after the Database
+    #   repository has been cleared.
+    #
+    # @return [nil]
+    #
+    # @raise [UnknownRepository]
+    #   The specified Database repository is unknown.
+    #
+    # @since 0.4.0
+    #
+    def Database.clear(name,&block)
+      name = name.to_sym
+
+      unless Database.repository?(name)
+        raise(UnknownRepository,"unknown database repository #{name}",caller)
+      end
+
+      DataMapper.auto_migrate!(name)
+
+      block.call() if block
+      return nil
     end
 
     #
