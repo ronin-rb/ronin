@@ -19,6 +19,7 @@
 #
 
 require 'ronin/database/exceptions/invalid_config'
+require 'ronin/database/exceptions/unknown_repository'
 require 'ronin/model'
 require 'ronin/config'
 
@@ -219,6 +220,28 @@ module Ronin
 
       # auto-upgrade the database repository
       Database.upgrade(&block)
+    end
+
+    #
+    # Performs Database transactions within a given repository.
+    #
+    # @param [String, Symbol] name
+    #   The name of the repository to access.
+    #
+    # @return [DataMapper::Repository]
+    #   The Database repository.
+    #
+    # @raise [UnknownRepository]
+    #   The specified Database repository is unknown.
+    #
+    def Database.repository(name,&block)
+      name = name.to_sym
+
+      unless Database.repository?(name)
+        raise(UnknownRepository,"unknown database repository #{name}",caller)
+      end
+
+      return DataMapper.repository(name,&block)
     end
   end
 end
