@@ -108,6 +108,8 @@ module Ronin
             Ronin::Database.save do
               Ronin::Database.repositories[name] = repository_uri
             end
+
+            print_info "Database repository #{name} added."
           end
 
           def set_repository
@@ -137,6 +139,8 @@ module Ronin
                 end
               end
             end
+
+            print_info "Database repository #{name} updated."
           end
 
           def remove_repository
@@ -150,6 +154,8 @@ module Ronin
             Ronin::Database.save do
               Ronin::Database.repositories.delete(name)
             end
+
+            print_info "Database repository #{name} removed."
           end
 
         end
