@@ -103,21 +103,22 @@ module Ronin
           end
 
           def add_repository
-            Ronin::Database.save do
-              name = options[:add].to_sym
+            name = options[:add].to_sym
 
+            Ronin::Database.save do
               Ronin::Database.repositories[name] = repository_uri
             end
           end
 
           def set_repository
+            name = options[:set].to_sym
+
+            unless Ronin::Database.repository?(name)
+              print_error "Unknown Database repository #{name}"
+              return
+            end
+
             Ronin::Database.save do
-              name = options[:set].to_sym
-
-              unless Ronin::Database.repositories.has_key?(name)
-                raise(StandardError,"unknown database repository #{name}",caller)
-              end
-
               if options[:uri]
                 Ronin::Database.repositories[name] = repository_uri
               else
@@ -139,8 +140,15 @@ module Ronin
           end
 
           def delete_repository
+            name = options[:delete].to_sym
+
+            unless Ronin::Database.repository?(name)
+              print_error "Unknown Database repository #{name}"
+              return
+            end
+
             Ronin::Database.save do
-              Ronin::Database.repositories.delete(options[:delete].to_sym)
+              Ronin::Database.repositories.delete(name)
             end
           end
 
