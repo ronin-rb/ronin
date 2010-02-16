@@ -30,7 +30,7 @@ module Ronin
           desc "Manages the Ronin Database"
           class_option :add, :type => :string, :banner => 'name', :aliases => '-a'
           class_option :set, :type => :string, :banner => 'name', :aliases => '-s'
-          class_option :delete, :type => :string, :banner => 'name', :aliases => '-d'
+          class_option :remove, :type => :string, :banner => 'name', :aliases => '-r'
           class_option :create, :type => :boolean
           class_option :upgrade, :type => :boolean
           
@@ -139,8 +139,8 @@ module Ronin
             end
           end
 
-          def delete_repository
-            name = options[:delete].to_sym
+          def remove_repository
+            name = options[:remove].to_sym
 
             unless Ronin::Database.repository?(name)
               print_error "Unknown Database repository #{name}"
