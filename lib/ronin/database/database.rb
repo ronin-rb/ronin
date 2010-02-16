@@ -75,6 +75,19 @@ module Ronin
     end
 
     #
+    # Determines if the Database provides a specific repository.
+    #
+    # @param [String, Symbol] name
+    #   Name of the repository.
+    #
+    # @return [Boolean]
+    #   Specifies if the Database provides the repository.
+    #
+    def Database.repository?(name)
+      Database.repositories.has_key?(name.to_sym)
+    end
+
+    #
     # Saves the Database configuration to `CONFIG_FILE`.
     #
     # @yield []
