@@ -32,7 +32,6 @@ module Ronin
           class_option :set, :type => :string, :banner => 'name', :aliases => '-s'
           class_option :remove, :type => :string, :banner => 'name', :aliases => '-r'
           class_option :create, :type => :boolean
-          class_option :upgrade, :type => :boolean
           
           # repository options
           class_option :uri, :type => :string, :banner => 'sqlite3:///path'
@@ -45,19 +44,11 @@ module Ronin
           class_option :path, :type => :string, :banner => '/path/file.db'
 
           def execute
-            if (options.create? || options.upgrade?)
-              if options.upgrade?
-                Ronin::Database.upgrade do
-                  print_info "Upgrading the Ronin Database ..."
-                end
+            if options.create?
+              print_info "Creating the Ronin Database ..."
 
-                print_info "Ronin Database upgrade complete."
-              elsif options.create?
-                print_info "Creating the Ronin Database ..."
-
-                Ronin::Database.create do
-                  print_info "Ronin Database created."
-                end
+              Ronin::Database.create do
+                print_info "Ronin Database created."
               end
 
               return
