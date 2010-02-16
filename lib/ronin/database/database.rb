@@ -53,6 +53,8 @@ module Ronin
     # @raise [InvalidConfig]
     #   The config file did not contain a YAML Hash.
     #
+    # @since 0.4.0
+    #
     def Database.repositories
       unless class_variable_defined?('@@ronin_database_repositories')
         @@ronin_database_repositories = {
@@ -84,6 +86,8 @@ module Ronin
     # @return [Boolean]
     #   Specifies if the Database provides the repository.
     #
+    # @since 0.4.0
+    #
     def Database.repository?(name)
       Database.repositories.has_key?(name.to_sym)
     end
@@ -96,6 +100,8 @@ module Ronin
     #   configuration is saved.
     #
     # @return [true]
+    #
+    # @since 0.4.0
     #
     def Database.save(&block)
       block.call() if block
@@ -172,6 +178,8 @@ module Ronin
     #
     # @return [nil]
     #
+    # @since 0.4.0
+    #
     def Database.create(&block)
       Database.repositories.each_key do |name|
         DataMapper.auto_migrate!(name) if Database.setup?(name)
@@ -233,6 +241,8 @@ module Ronin
     #
     # @raise [UnknownRepository]
     #   The specified Database repository is unknown.
+    #
+    # @since 0.4.0
     #
     def Database.repository(name,&block)
       name = name.to_sym
