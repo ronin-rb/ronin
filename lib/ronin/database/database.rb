@@ -253,5 +253,27 @@ module Ronin
 
       return DataMapper.repository(name,&block)
     end
+
+    #
+    # Performs Database transactions in each of the Database
+    # repositories.
+    #
+    # @yield []
+    #   The given block will be ran within the context of each Database
+    #   repository.
+    #
+    # @return [Array<Symbol>]
+    #   The Database repository names that the transactions were performed
+    #   within.
+    #
+    # @since 0.4.0
+    #
+    def Database.each(&block)
+      Database.repositories.each_key do |name|
+        DataMapper.repository(name,&block)
+      end
+
+      return Database.repositories.keys
+    end
   end
 end
