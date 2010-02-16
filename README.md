@@ -94,6 +94,18 @@ Uninstall an Overlay:
 
     $ ronin uninstall overlay-name
 
+List available Databases:
+
+    $ ronin database
+
+Add a new Database:
+
+    $ ronin database --add team --uri mysql://user:pass@vpn.example.com/db
+
+Remove a Database:
+
+    $ ronin database --remove team
+
 Start the Ronin console:
 
     $ ronin
