@@ -262,18 +262,22 @@ module Ronin
     #   The given block will be ran within the context of each Database
     #   repository.
     #
-    # @return [Array<Symbol>]
-    #   The Database repository names that the transactions were performed
-    #   within.
+    # @return [Array]
+    #   The results from each database transaction.
     #
     # @since 0.4.0
     #
-    def Database.each(&block)
+    def Database.map(&block)
+      results = []
+
       Database.repositories.each_key do |name|
-        DataMapper.repository(name,&block)
+        DataMapper.repository(name) do
+          result = block.call()
+          results << result unless result.nil?
+        end
       end
 
-      return Database.repositories.keys
+      return results
     end
   end
 end
