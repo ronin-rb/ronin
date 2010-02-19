@@ -31,13 +31,17 @@ module Ronin
     HOME = File.expand_path(ENV['HOME'] || ENV['HOMEPATH'])
 
     # Ronin home directory
-    PATH = FileUtils.mkdir_p(File.join(HOME,'.ronin'))
+    PATH = File.join(HOME,'.ronin')
 
     # Configuration files directory
-    CONFIG_DIR = FileUtils.mkdir_p(File.join(PATH,'config'))
+    CONFIG_DIR = File.join(PATH,'config')
 
     # Temporary file directory
-    TMP_DIR = FileUtils.mkdir_p(File.join(PATH,'tmp'))
+    TMP_DIR = File.join(PATH,'tmp')
+    
+    FileUtils.mkdir(PATH) unless File.directory?(PATH)
+    FileUtils.mkdir(CONFIG_DIR) unless File.directory?(PATH)
+    FileUtils.mkdir(TMP_DIR) unless File.directory?(TMP_DIR)
 
     #
     # Loads the Ronin configuration file.
