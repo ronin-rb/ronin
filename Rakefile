@@ -29,7 +29,7 @@ begin
     gem.add_dependency 'ronin-ext', '>= 0.1.0'
     gem.add_development_dependency 'rspec', '>= 1.3.0'
     gem.add_development_dependency 'yard', '>= 0.5.3'
-    gem.add_development_dependency 'yard-dm', '>= 0.1.0'
+    gem.add_development_dependency 'yard-dm', '>= 0.1.1'
     gem.has_rdoc = 'yard'
   end
 rescue LoadError
