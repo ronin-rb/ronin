@@ -26,6 +26,10 @@ require 'dm-types'
 require 'dm-validations'
 
 module Ronin
+  #
+  # Modifies a class so that it can represent a DataMapper model in the
+  # {Database}.
+  #
   module Model
     include DataMapper::Types
 

@@ -23,6 +23,9 @@ require 'ronin/extensions/meta'
 
 module Ronin
   module Model
+    #
+    # Allows a model to be lazily upgraded in the database.
+    #
     module LazyUpgrade
       def self.included(base)
         base.metaclass_eval do

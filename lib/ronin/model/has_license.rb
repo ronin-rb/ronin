@@ -25,6 +25,9 @@ require 'extlib'
 
 module Ronin
   module Model
+    #
+    # Adds a `license` relation between a model and the {License} model.
+    #
     module HasLicense
       def self.included(base)
         base.module_eval do

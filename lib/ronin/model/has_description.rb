@@ -22,6 +22,9 @@ require 'ronin/model'
 
 module Ronin
   module Model
+    #
+    # Adds a `description` property to a model.
+    #
     module HasDescription
       include DataMapper::Types
 

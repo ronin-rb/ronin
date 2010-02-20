@@ -22,6 +22,9 @@ require 'ronin/model'
 
 module Ronin
   module Model
+    #
+    # Adds a `name` property to a model.
+    #
     module HasName
       def self.included(base)
         base.module_eval do

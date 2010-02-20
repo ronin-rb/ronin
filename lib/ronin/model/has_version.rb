@@ -22,6 +22,9 @@ require 'ronin/model'
 
 module Ronin
   module Model
+    #
+    # Adds a `version` property to a model.
+    #
     module HasVersion
       def self.included(base)
         base.module_eval do
