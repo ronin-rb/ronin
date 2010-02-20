@@ -49,6 +49,24 @@ module Ronin
           def self.licensed_under(name)
             self.all(:license => Ronin::License.predefined_resource(name))
           end
+
+          #
+          # Sets the license of the model.
+          #
+          # @param [Symbol, String] name
+          #   The name of the license to use.
+          #
+          # @return [License]
+          #   The new license of the model.
+          #
+          # @example
+          #   license! :mit
+          #
+          # @since 0.4.0
+          #
+          def license!(name)
+            self.license = Ronin::License.predefined_resource(name)
+          end
         end
 
         model_name = base.name.split('::').last.snake_case.plural.to_sym
