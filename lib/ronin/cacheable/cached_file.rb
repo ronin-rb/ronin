@@ -25,6 +25,11 @@ require 'contextify'
 
 module Ronin
   module Cacheable
+    #
+    # The {CachedFile} model stores information in the {Database} about
+    # files that {Cacheable} Models were cached from. {CachedFile} also
+    # manages the {Cacheable} objects that were saved in the {Database}.
+    #
     class CachedFile
 
       include Ronin::Model

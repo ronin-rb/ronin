@@ -24,6 +24,79 @@ require 'ronin/model'
 require 'contextify'
 
 module Ronin
+  #
+  # The {Cacheable} module allows an instance of a {Model} to be cached
+  # into the local {Database}, to be loaded later on. This is made possible
+  # by creating a relationship between the model and the {CachedFile} model.
+  #
+  # Once cached, {Cacheable} models can be quickly queried within the
+  # {Database}, and a fresh copy of the object can be loaded from the
+  # file it was originally cached from.
+  #
+  # ## Making a Model cacheable
+  #
+  # In order to make a Model cacheable, one must include the {Cacheable}
+  # module and contextifying the model. Contextifying a model involves
+  # calling the `contextify` method, which defines a top-level method
+  # used for loading model instances from files.
+  #
+  #     class MyModel
+  #
+  #         include Cacheable
+  #
+  #         # Defines the my_model method for loading instances from files
+  #         contextify :my_model
+  #
+  #         # Primary key of the model
+  #         property :id, Serial
+  #
+  #         # Title of the model
+  #         property :title, String
+  #
+  #         # ...
+  #
+  #     end
+  #
+  # ## Creating cacheable files
+  #
+  # Once a model is made {Cacheable}, it can load instances defined within
+  # a file:
+  #
+  #     require 'ronin/my_model'
+  #
+  #     my_model do
+  #
+  #       cache do
+  #         self.title = 'My model in a file'
+  #       end
+  #
+  #       def some_method
+  #         puts 'Even methods can be loaded from the file'
+  #       end
+  #
+  #     end
+  #
+  # The above example shows a typical cacheable file for `MyModel`. The
+  # file defines the ruby code to evaluate within a new instance of
+  # `MyModel` within a `my_model` block. Since the contents of the
+  # `my_model` block is simply evaluated within new instances, once can set
+  # instance variables or define new methods.
+  #
+  # Any cacheable data is set within a `cache` block, so the cacheable data
+  # is only set before caching.
+  #
+  # ## Loading cacheable files
+  #
+  # Instances can be loaded from cacheable files using the `load_from`
+  # class method of a cacheable Model.
+  #
+  #     my_model = MyModel.load_from('path/to/file.rb')
+  #     # => #<MyModel:0x710e0428cde0 @id=nil @title="My model in a file'>
+  #
+  #     my_model.some_method
+  #     # Even methods can be loaded from the file
+  #     # => nil
+  #
   module Cacheable
     def self.included(base)
       base.module_eval do
