@@ -24,6 +24,11 @@ require 'ronin/extensions/meta'
 require 'extlib'
 
 module Ronin
+  #
+  # Represents an Operating System and predefines other common ones
+  # ({linux}, {freebsd}, {openbsd}, {netbsd}, {osx}, {solaris}, {windows}
+  # and {unix}).
+  #
   class OS
 
     include Model
