@@ -23,6 +23,11 @@ require 'ronin/model'
 require 'dm-predefined'
 
 module Ronin
+  #
+  # Represents a software license and pre-defines many other common ones
+  # ({cc_by}, {cc_by_sa}, {cc_by_nd}, {cc_by_nc}, {cc_by_nc_sa},
+  # {cc_by_nc_nd}, {cc0}, {gpl2}, {gpl3}, {lgpl3} and {mit}).
+  #
   class License
 
     include Model
