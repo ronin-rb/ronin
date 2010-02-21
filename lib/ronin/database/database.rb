@@ -30,7 +30,7 @@ require 'dm-core'
 module Ronin
   #
   # Manages the {Database} configuration and the defined repositories.
-  # Also provides a simple wrapper around `DataMapper`, for initializing,
+  # Also provides a simple wrapper around DataMapper, for initializing,
   # auto-upgrading and querying {Database} repositories.
   #
   module Database
