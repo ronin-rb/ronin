@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-02-18}
+  s.date = %q{2010-02-20}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-list", "ronin-help", "ronin-install", "ronin-remove", "ronin-uninstall", "ronin-update", "ronin-database"]
@@ -268,6 +268,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, [">= 1.3.0"])
       s.add_development_dependency(%q<yard>, [">= 0.5.3"])
       s.add_development_dependency(%q<yard-dm>, [">= 0.1.1"])
+      s.add_development_dependency(%q<yard-dm-predefined>, [">= 0.1.0"])
     else
       s.add_dependency(%q<nokogiri>, [">= 1.3.3"])
       s.add_dependency(%q<extlib>, [">= 0.9.14"])
@@ -287,6 +288,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rspec>, [">= 1.3.0"])
       s.add_dependency(%q<yard>, [">= 0.5.3"])
       s.add_dependency(%q<yard-dm>, [">= 0.1.1"])
+      s.add_dependency(%q<yard-dm-predefined>, [">= 0.1.0"])
     end
   else
     s.add_dependency(%q<nokogiri>, [">= 1.3.3"])
@@ -307,6 +309,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rspec>, [">= 1.3.0"])
     s.add_dependency(%q<yard>, [">= 0.5.3"])
     s.add_dependency(%q<yard-dm>, [">= 0.1.1"])
+    s.add_dependency(%q<yard-dm-predefined>, [">= 0.1.0"])
   end
 end
 
