@@ -25,7 +25,9 @@ require 'dm-predefined'
 module Ronin
   #
   # Represents a Computer Architecture and pre-defines many other common
-  # architectures.
+  # architectures ({i386}, {i486}, {i686}, {i986}, {x86_64}, {ia64}, {ppc},
+  # {ppc64}, {sparc}, {sparc64}, {mips_le}, {mips_be}, {arm_le}
+  # and {arm_be}).
   #
   class Arch
 
