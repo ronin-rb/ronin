@@ -24,6 +24,10 @@ require 'rexml/document'
 require 'uri'
 
 module Ronin
+  #
+  # Represents an author and any information about them or the organization
+  # which they belong to.
+  #
   class Author
 
     include Model
