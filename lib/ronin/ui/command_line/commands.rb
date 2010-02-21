@@ -23,6 +23,10 @@ require 'open_namespace'
 module Ronin
   module UI
     module CommandLine
+      #
+      # The {Commands} namespace contains all of the {Command} classes
+      # available to {CommandLine}.
+      #
       module Commands
         include OpenNamespace
 
