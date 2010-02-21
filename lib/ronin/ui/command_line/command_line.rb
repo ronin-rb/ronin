@@ -30,7 +30,8 @@ module Ronin
     #
     # The {CommandLine} provides an extendable Command Line Interface (CLI)
     # for Ronin. The {CommandLine} can load any sub-command using the
-    # {get} method, from the `ronin/ui/command_line/commands` directory.
+    # {command} method, from the `ronin/ui/command_line/commands`
+    # directory.
     #
     module CommandLine
       # Name of the default to run
