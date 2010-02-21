@@ -27,6 +27,78 @@ require 'extlib'
 module Ronin
   module UI
     module CommandLine
+      #
+      # The {Command} class inherits `Thor::Group` to provide a base-class
+      # for defining sub-commands for the {CommandLine}.
+      #
+      # ## Extending
+      #
+      # To create a new sub-command one can inherit the {Command} class.
+      # The new sub-command can define multiple `class_options` and
+      # `arguments` which `Thor::Group` will use to parse command-line
+      # arguments.
+      #
+      #     require 'ronin/ui/command_line/command'
+      #
+      #     module Ronin
+      #       module UI
+      #         module CommandLine
+      #           module Commands
+      #             class MyCommand < Command
+      #
+      #               desc 'My command'
+      #
+      #               # command options
+      #               class_option :stuff, :type => :boolean
+      #               class_option :syntax, :type => :string
+      #               class_option :includes, :type => :array
+      #
+      #               # command arguments
+      #               argument :path
+      #
+      #               #
+      #               # Executes the command.
+      #               #
+      #               def execute
+      #                 print_info "Stuff enabled" if options.stuff?
+      #
+      #                 if options[:syntax]
+      #                   print_info "Using syntax #{options[:syntax]}"
+      #                 end
+      #
+      #                 if options[:includes]
+      #                   print_info "Including:"
+      #                   print_array options[:includes]
+      #                 end
+      #               end
+      #
+      #             end
+      #           end
+      #         end
+      #       end
+      #     end
+      #
+      # ## Running
+      #
+      # To run the sub-command from Ruby, one can call the `start` class
+      # method with the options and arguments to run the sub-command with.
+      #
+      #     MyCommand.start(
+      #       {:stuff => true, :syntax => 'bla', :includes => ['other']},
+      #       ['some/file.txt']
+      #     )
+      #
+      # To ensure that your sub-command is accessible to the `ronin`
+      # command, make sure that the ruby file the sub-command is defined
+      # within is in the `ronin/ui/command_line/commands` directory of a
+      # Ronin library. If the sub-command class is named 'MyCommand'
+      # it's ruby file must also be named 'my_command.rb'.
+      #
+      # To run the sub-command using the `ronin` command, simply specify
+      # it's underscored name:
+      #
+      #     ronin my_command some/file.txt --stuff --syntax bla --includes one two
+      #
       class Command < Thor::Group
 
         include Thor::Actions
