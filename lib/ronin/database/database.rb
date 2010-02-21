@@ -28,6 +28,11 @@ require 'yaml'
 require 'dm-core'
 
 module Ronin
+  #
+  # Manages the {Database} configuration and the defined repositories.
+  # Also provides a simple wrapper around `DataMapper`, for initializing,
+  # auto-upgrading and querying {Database} repositories.
+  #
   module Database
     # Database configuration file
     CONFIG_FILE = File.join(Config::PATH,'database.yml')
