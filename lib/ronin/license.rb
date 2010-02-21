@@ -25,7 +25,7 @@ require 'dm-predefined'
 module Ronin
   #
   # Represents a software license and pre-defines many other common ones
-  # ({cc_by}, {cc_by_sa}, {cc_by_nd}, {cc_by_nc}, {cc_by_nc_sa},
+  # ({bsd}, {cc_by}, {cc_by_sa}, {cc_by_nd}, {cc_by_nc}, {cc_by_nc_sa},
   # {cc_by_nc_nd}, {cc0}, {gpl2}, {gpl3}, {lgpl3} and {mit}).
   #
   class License
@@ -58,6 +58,12 @@ module Ronin
     def to_s
       self.name.to_s
     end
+
+    # Berkeley Software Distribution License
+    predefine :bsd,
+              :name => 'BSD',
+              :description => 'Berkeley Software Distribution License',
+              :url => 'http://www.opensource.org/licenses/bsd-license.php'
 
     # Creative Commons By-Attribution License
     predefine :cc_by,
