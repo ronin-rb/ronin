@@ -23,6 +23,10 @@ require 'ronin/model'
 require 'dm-predefined'
 
 module Ronin
+  #
+  # Represents a Computer Architecture and pre-defines many other common
+  # architectures.
+  #
   class Arch
 
     include Model
