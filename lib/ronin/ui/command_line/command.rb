@@ -31,7 +31,7 @@ module Ronin
       # The {Command} class inherits `Thor::Group` to provide a base-class
       # for defining sub-commands for the {CommandLine}.
       #
-      # ## Extending
+      # # Extending
       #
       # To create a new sub-command one can inherit the {Command} class.
       # The new sub-command can define multiple `class_options` and
@@ -78,7 +78,7 @@ module Ronin
       #       end
       #     end
       #
-      # ## Running
+      # # Running
       #
       # To run the sub-command from Ruby, one can call the `start` class
       # method with the options and arguments to run the sub-command with.

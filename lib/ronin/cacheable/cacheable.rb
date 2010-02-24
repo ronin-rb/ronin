@@ -33,7 +33,7 @@ module Ronin
   # {Database}, and a fresh copy of the object can be loaded from the
   # file it was originally cached from.
   #
-  # ## Making a Model cacheable
+  # # Making a Model cacheable
   #
   # In order to make a Model cacheable, one must include the {Cacheable}
   # module and contextifying the model. Contextifying a model involves
@@ -57,7 +57,7 @@ module Ronin
   #
   #     end
   #
-  # ## Creating cacheable files
+  # # Creating cacheable files
   #
   # Once a model is made {Cacheable}, it can load instances defined within
   # a file:
@@ -85,7 +85,7 @@ module Ronin
   # Any cacheable data is set within a `cache` block, so the cacheable data
   # is only set before caching.
   #
-  # ## Loading cacheable files
+  # # Loading cacheable files
   #
   # Instances can be loaded from cacheable files using the `load_from`
   # class method of a cacheable Model.
