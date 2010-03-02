@@ -249,22 +249,6 @@ module Ronin
       (saved? && self.cached_file)
     end
 
-    #
-    # Default method that will be called before the object is cached.
-    #
-    # @since 0.3.1
-    #
-    def before_caching
-    end
-
-    #
-    # Default method that will be called after the object is cached.
-    #
-    # @since 0.3.1
-    #
-    def after_caching
-    end
-
     protected
 
     #
