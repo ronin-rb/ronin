@@ -22,3 +22,11 @@ require 'ronin/platform/exceptions'
 require 'ronin/platform/extension'
 require 'ronin/platform/overlay'
 require 'ronin/platform/platform'
+require 'ronin/database'
+
+module Ronin
+  Database.upgrade do
+    require 'ronin/platform/maintainer'
+    require 'ronin/platform/overlay'
+  end
+end

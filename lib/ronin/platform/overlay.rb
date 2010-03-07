@@ -20,9 +20,10 @@
 
 require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/object_cache'
-require 'ronin/platform/maintainer'
 require 'ronin/platform/extension'
 require 'ronin/ui/output/helpers'
+require 'ronin/model/has_license'
+require 'ronin/model'
 
 require 'static_paths'
 require 'pullr/local_repository'
@@ -32,8 +33,11 @@ module Ronin
   module Platform
     class Overlay
 
+      include Model
+      include Model::HasLicense
       include StaticPaths
       include UI::Output::Helpers
+      include Repertoire
 
       # Overlay Implementation Version
       VERSION = 1
@@ -59,41 +63,44 @@ module Ronin
       # Overlay exts/ directory
       EXTS_DIR = 'exts'
 
+      # The primary key of the overlay
+      property :id, Serial
+
       # Local path to the overlay
-      attr_reader :path
+      property :path, String
+
+      # The SCM used by the overlay
+      property :scm, String
 
       # The format version of the overlay
-      attr_reader :version
+      property :version, Integer
 
       # Name of the overlay
-      attr_reader :name
+      property :name, String
 
       # URI that the overlay was installed from
-      attr_reader :uri
+      property :uri, String
 
       # Title of the overlay
-      attr_reader :title
-
-      # License that the overlay contents is under
-      attr_reader :license
+      property :title, Text
 
       # Source URI of the overlay
-      attr_reader :source
+      property :source, String
 
       # Source View URI of the overlay
-      attr_reader :source_view
+      property :source_view, String
 
       # Website URI for the overlay
-      attr_reader :website
+      property :website, String
+
+      # Description
+      property :description, Text
+
+      # Maintainers of the overlay
+      has 0..n, :maintainers
 
       # Ruby Gems required by the overlay
       attr_reader :gems
-
-      # Maintainers of the overlay
-      attr_reader :maintainers
-
-      # Description
-      attr_reader :description
 
       # The lib directory
       attr_reader :lib_dir
@@ -126,15 +133,20 @@ module Ronin
       # @yieldparam [Overlay] overlay
       #   The newly created overlay.
       #
-      def initialize(path,scm=:rsync,uri=nil,&block)
-        @path = File.expand_path(path)
-        @name = File.basename(@path)
-        @uri = uri
+      def initialize(path,scm=nil,uri=nil,&block)
+        path = File.expand_path(path)
 
-        @lib_dir = File.join(@path,LIB_DIR)
-        @static_dir = File.join(@path,STATIC_DIR)
-        @cache_dir = File.join(@path,CACHE_DIR)
-        @exts_dir = File.join(@path,EXTS_DIR)
+        super(
+          :path => path,
+          :scm => scm,
+          :name => File.basename(path),
+          :uri => uri
+        )
+
+        @lib_dir = File.join(path,LIB_DIR)
+        @static_dir = File.join(path,STATIC_DIR)
+        @cache_dir = File.join(path,CACHE_DIR)
+        @exts_dir = File.join(path,EXTS_DIR)
 
         @repository = begin
                         Pullr::LocalRepository.new(
@@ -181,7 +193,7 @@ module Ronin
       # @see Overlay.compatible?
       #
       def compatible?
-        Overlay.compatible?(@version)
+        Overlay.compatible?(self.version)
       end
 
       #
@@ -246,7 +258,7 @@ module Ronin
         end
 
         # load the lib/init.rb file
-        init_path = File.join(@path,LIB_DIR,INIT_FILE)
+        init_path = File.join(self.path,LIB_DIR,INIT_FILE)
         load init_path if File.file?(init_path)
 
         @activated = true
@@ -285,7 +297,7 @@ module Ronin
         deactivate!
 
         # only update if we have a repository
-        @repository.update(@uri) if @repository
+        @repository.update(self.uri) if @repository
 
         # re-initialize the metadata
         initialize_metadata()
@@ -325,7 +337,7 @@ module Ronin
       #   The name of the overlay.
       #
       def to_s
-        @name.to_s
+        self.name.to_s
       end
 
       protected
@@ -335,55 +347,54 @@ module Ronin
       # overlay.
       #
       def initialize_metadata()
-        metadata_path = File.join(@path,METADATA_FILE)
+        metadata_path = File.join(self.path,METADATA_FILE)
 
         # set to default values
-        @version = nil
+        self.version = nil
 
-        @title = @name
-        @license = nil
+        self.title = @name
+        self.description = nil
+        self.license = nil
 
-        @source = @uri
-        @source_view = @source
-        @website = @source_view
+        self.source = self.uri
+        self.source_view = self.source
+        self.website = self.source_view
+        self.maintainers.clear
 
         @gems = []
-
-        @maintainers = []
-        @description = nil
 
         if File.file?(metadata_path)
           doc = Nokogiri::XML(open(metadata_path))
           overlay = doc.at('/ronin-overlay')
 
           if (version_attr = overlay.attributes['version'])
-            @version = version_attr.inner_text.strip.to_i
+            self.version = version_attr.inner_text.strip.to_i
           else
-            print_error "Overlay #{@name.dump} does not specify an Overlay Version attribute in \"ronin.xml\""
+            print_error "Overlay #{self.name.dump} does not specify an Overlay Version attribute in \"ronin.xml\""
           end
 
           if (title_tag = overlay.at('title'))
-            @title = title_tag.inner_text.strip
+            self.title = title_tag.inner_text.strip
+          end
+
+          if (description_tag = overlay.at('description'))
+            self.description = description_tag.inner_text.strip
           end
 
           if (license_tag = overlay.at('license'))
-            @license = license_tag.inner_text.strip
+            self.license = license_tag.inner_text.strip
           end
 
           if (source_tag = overlay.at('source'))
-            @source = source_tag.inner_text.strip
+            self.source = source_tag.inner_text.strip
           end
 
-          if (source_view_tag = @source_view = overlay.at('source-view'))
-            @source_view = source_view_tag.inner_text.strip
+          if (source_view_tag = overlay.at('source-view'))
+            self.source_view = source_view_tag.inner_text.strip
           end
 
-          if (website_tag = @website = overlay.at('website'))
-            @website = website_tag.inner_text.strip
-          end
-
-          overlay.search('dependencies/gem').each do |gem|
-            @gems << gem.inner_text.strip
+          if (website_tag = overlay.at('website'))
+            self.website = website_tag.inner_text.strip
           end
 
           overlay.search('maintainers/maintainer').each do |maintainer|
@@ -395,16 +406,19 @@ module Ronin
               email = email.inner_text.strip
             end
 
-            @maintainers << Maintainer.new(name,email)
+            self.maintainers << Maintainer.first_or_new(
+              :name => name,
+              :email => email
+            )
           end
 
-          if (description_tag = overlay.at('description'))
-            @description = description_tag.inner_text.strip
+          overlay.search('dependencies/gem').each do |gem|
+            @gems << gem.inner_text.strip
           end
         end
 
-        if (@version && !(compatible?))
-          print_error "Overlay #{@name.dump} is not compatible with the current Overlay implementation"
+        if (self.version && !(compatible?))
+          print_error "Overlay #{self.name.dump} is not compatible with the current Overlay implementation"
         end
 
         return self

@@ -24,6 +24,9 @@ module Ronin
   module Platform
     class Maintainer < Author
 
+      # The Overlay the maintainer works on
+      belongs_to :overlay
+
       #
       # @return [String]
       #   The String representation of the maintainer object.
