@@ -26,10 +26,13 @@ require 'ronin/network'
 require 'ronin/database'
 require 'ronin/ui'
 
+require 'open_namespace'
 require 'chars'
 require 'pp'
 
 module Ronin
+  include OpenNamespace
+
   Config.load
   Database.setup
 end
