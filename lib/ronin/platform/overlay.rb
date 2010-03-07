@@ -19,6 +19,7 @@
 #
 
 require 'ronin/platform/exceptions/extension_not_found'
+require 'ronin/platform/maintainer'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/extension'
 require 'ronin/ui/output/helpers'
