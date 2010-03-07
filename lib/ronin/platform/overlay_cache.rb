@@ -24,8 +24,6 @@ require 'ronin/platform/object_cache'
 require 'ronin/platform/overlay'
 require 'ronin/config'
 
-require 'yaml'
-
 module Ronin
   module Platform
     class OverlayCache < Hash
@@ -33,17 +31,8 @@ module Ronin
       # Default overlay cache directory
       CACHE_DIR = File.join(Ronin::Config::PATH,'overlays')
 
-      # Name of the overlay cache file
-      CACHE_FILE = File.join(Ronin::Config::PATH,'overlays.yaml')
-
-      # Path of cache file
-      attr_reader :path
-
       #
       # Create a new OverlayCache object.
-      #
-      # @param [String] path
-      #   The path of the overlay cache file.
       #
       # @yield [cache]
       #   If a block is given, it will be passed the newly created overlay
@@ -52,39 +41,19 @@ module Ronin
       # @yieldparam [OverlayCache] cache
       #   The newly created overly cache.
       #
-      def initialize(path=CACHE_FILE,&block)
+      def initialize(&block)
         super()
-
-        @path = path
-        @dirty = false
-
         load!()
-
-        at_exit(&method(:save))
 
         block.call(self) if block
       end
 
       #
-      # Loads the overlays from the cache-file at the `path`.
+      # Loads all overlays.
       #
       def load!
-        return false unless File.file?(@path)
-
-        descriptions = YAML.load_file(@path)
-
-        return false unless descriptions.kind_of?(Array)
-
-        descriptions.each do |overlay|
-          if overlay.kind_of?(Hash)
-            overlay = Overlay.new(
-              overlay[:path],
-              overlay[:scm],
-              overlay[:uri]
-            )
-
-            self[overlay.name] = overlay
-          end
+        Overlay.all.each do |overlay|
+          self[overlay.name] = overlay
         end
 
         return true
@@ -299,8 +268,6 @@ module Ronin
         self[overlay.name.to_s] = overlay
         ObjectCache.cache(overlay.cache_dir)
 
-        dirty!
-
         block.call(overlay) if block
         return overlay
       end
@@ -364,7 +331,6 @@ module Ronin
         overlay.deactivate!
 
         delete_if { |key,value| key == name }
-        dirty!
 
         ObjectCache.clean(overlay.cache_dir)
 
@@ -402,50 +368,6 @@ module Ronin
         end
 
         return nil
-      end
-
-      #
-      # Saves the overlay cache to the path.
-      #
-      def save
-        return false unless dirty?
-
-        parent_directory = File.dirname(@path)
-
-        unless File.directory?(parent_directory)
-          FileUtils.mkdir_p(parent_directory)
-        end
-
-        File.open(@path,'w') do |output|
-          descriptions = overlays.map do |overlay|
-            {
-              :path => overlay.path,
-              :scm => overlay.scm,
-              :uri => overlay.uri
-            }
-          end
-
-          YAML.dump(descriptions,output)
-        end
-
-        return true
-      end
-
-      #
-      # @return [String]
-      #   The path of the cache.
-      #
-      def to_s
-        @path.to_s
-      end
-
-      protected
-
-      #
-      # Marks the overlay cache as dirty.
-      #
-      def dirty!
-        @dirty = true
       end
 
     end
