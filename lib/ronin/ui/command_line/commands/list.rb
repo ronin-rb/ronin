@@ -20,7 +20,7 @@
 
 require 'ronin/ui/command_line/command'
 require 'ronin/ui/output'
-require 'ronin/platform'
+require 'ronin/platform/overlay'
 
 module Ronin
   module UI
@@ -29,32 +29,27 @@ module Ronin
         class List < Command
 
           desc 'List all Overlays or a specific one'
-          class_option :cache, :type => :string, :aliases => '-C'
           class_option :verbose, :type => :boolean, :aliaes => '-v'
           argument :name, :type => :string, :required => false
 
           def execute
-            if options[:cache]
-              Platform.load_overlays(options[:cache])
-            end
+            Database.setup
 
             unless name
               indent do
                 # list all overlays by name
-                Platform.overlays.each_overlay do |overlay|
-                  puts overlay
-                end
+                Platform::Overlay.all.each { |overlay| puts overlay }
               end
 
               return
             end
 
-            begin
-              # list a specific overlay
-              overlay = Platform.overlays.get(name)
-            rescue Platform::OverlayNotFound => e
-              print_error e.message
-              exit -1
+            # find a specific overlay
+            overlay = Platform::Overlay.first(:name => name)
+
+            unless overlay
+              print_error "Could not find the Overlay #{name.dump}"
+              return
             end
 
             print_title overlay.name
