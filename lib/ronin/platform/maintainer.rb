@@ -25,7 +25,7 @@ module Ronin
     class Maintainer < Author
 
       # The Overlay the maintainer works on
-      belongs_to :overlay
+      belongs_to :overlay, :required => false
 
       #
       # @return [String]
