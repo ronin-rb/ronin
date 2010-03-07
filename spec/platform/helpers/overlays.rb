@@ -2,14 +2,14 @@ require 'tempfile'
 require 'erb'
 
 module Helpers
-  OVERLAY_CACHE = File.expand_path(File.join(File.dirname(__FILE__),'overlays'))
+  OVERLAYS_DIR = File.expand_path(File.join(File.dirname(__FILE__),'overlays'))
 
-  OVERLAYS = Dir[File.join(OVERLAY_CACHE,'*')].map do |path|
+  OVERLAYS = Dir[File.join(OVERLAYS_DIR,'*')].map do |path|
     File.basename(path)
   end
 
   def create_overlay(name)
-    Platform::Overlay.new(File.join(OVERLAY_CACHE,name))
+    Platform::Overlay.new(File.join(OVERLAYS_DIR,name))
   end
 
   def overlay_cache
