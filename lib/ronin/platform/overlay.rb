@@ -302,6 +302,9 @@ module Ronin
         # re-initialize the metadata
         initialize_metadata()
 
+        # and save any changes to the database
+        self.save
+
         # re-activate the overlay
         activate!
 
