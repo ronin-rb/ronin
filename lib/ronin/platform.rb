@@ -21,3 +21,4 @@
 require 'ronin/platform/exceptions'
 require 'ronin/platform/extension'
 require 'ronin/platform/overlay'
+require 'ronin/platform/platform'
