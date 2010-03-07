@@ -331,6 +331,8 @@ module Ronin
       def uninstall(&block)
         FileUtils.rm_rf(@repository.path) if @repository
 
+        self.destroy
+
         block.call(self) if block
         return self
       end
