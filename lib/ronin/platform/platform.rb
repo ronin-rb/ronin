@@ -23,6 +23,7 @@ require 'ronin/platform/overlay_cache'
 require 'ronin/platform/extension_cache'
 
 require 'uri'
+require 'extlib'
 
 module Ronin
   module Platform
@@ -291,6 +292,78 @@ module Ronin
     #
     def Platform.reload!
       Platform.overlays.reload! && Platform.extensions.reload!
+    end
+
+    protected
+
+    #
+    # Provides transparent access to Platform.extension via constants.
+    #
+    # @param [String] name
+    #   The constant name to map to an extension in the extension cache.
+    #
+    # @return [Extension]
+    #   The extension that maps to the constant name.
+    #
+    # @raise [NameError]
+    #   No extension could be found in the extension cache, that maps to the
+    #   constant name.
+    #
+    # @example
+    #   Ronin::Shellcode
+    #   # => #<Ronin::Platform::Extension: @name="shellcode" ...>
+    #
+    def Platform.const_missing(name)
+      name = name.to_s
+      ext_name = name.snake_case
+
+      if Platform.has_extension?(ext_name)
+        return Platform.extension(ext_name)
+      end
+
+      return super(name)
+    end
+
+    #
+    # Provides transparent access to Platform.extension via methods.
+    #
+    # @param [Symbol, String] name
+    #   The name of the extension to search for within the extension cache.
+    #
+    # @yield [ext]
+    #   If a block is given, it will be passed the extension which has the
+    #   matching name.
+    #
+    # @yieldparam [Extension] ext
+    #   The matching extension.
+    #
+    # @return [Extension]
+    #   The matching extension.
+    #
+    # @raise [NoMethodError]
+    #   No extension could be found in the extension cache with the
+    #   matching name.
+    #
+    # @example
+    #   shellcode
+    #   # => #<Ronin::Platform::Extension: ...>
+    #
+    # @example
+    #   shellcode do |ext|
+    #     puts ext.exposed_methods
+    #   end
+    #
+    def Platform.method_missing(name,*args,&block)
+      if args.length == 0
+        ext_name = name.id2name
+
+        # return an extension if available
+        if Platform.has_extension?(ext_name)
+          return Platform.extension(ext_name,&block)
+        end
+      end
+
+      return super(name,*args,&block)
     end
   end
 end
