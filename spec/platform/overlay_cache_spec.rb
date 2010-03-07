@@ -7,11 +7,7 @@ describe Platform::OverlayCache do
   include Helpers
 
   before(:all) do
-    @cache = Platform::OverlayCache.new(overlay_cache_path)
-  end
-
-  it "should not be dirty by default" do
-    @cache.should_not be_dirty
+    @cache = overlay_cache
   end
 
   it "should not be empty" do
