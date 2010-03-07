@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-02-24}
+  s.date = %q{2010-03-06}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-list", "ronin-help", "ronin-install", "ronin-remove", "ronin-uninstall", "ronin-update", "ronin-database"]
@@ -41,10 +41,6 @@ Gem::Specification.new do |s|
     "lib/ronin/cacheable.rb",
     "lib/ronin/cacheable/cacheable.rb",
     "lib/ronin/cacheable/cached_file.rb",
-    "lib/ronin/code/emittable.rb",
-    "lib/ronin/code/reference.rb",
-    "lib/ronin/code/symbol_table.rb",
-    "lib/ronin/code/token.rb",
     "lib/ronin/config.rb",
     "lib/ronin/database.rb",
     "lib/ronin/database/database.rb",
@@ -122,11 +118,6 @@ Gem::Specification.new do |s|
     "spec/cacheable/classes/cacheable_model.rb",
     "spec/cacheable/helpers/cacheable.rb",
     "spec/cacheable/helpers/contexts/ronin_cacheable_model.rb",
-    "spec/code/classes/thing.rb",
-    "spec/code/emittable_spec.rb",
-    "spec/code/reference_spec.rb",
-    "spec/code/symbol_table_spec.rb",
-    "spec/code/token_spec.rb",
     "spec/database_spec.rb",
     "spec/helpers/database.rb",
     "spec/license_spec.rb",
@@ -231,11 +222,6 @@ Gem::Specification.new do |s|
     "spec/templates/erb_spec.rb",
     "spec/templates/helpers/static.rb",
     "spec/templates/template_spec.rb",
-    "spec/code/symbol_table_spec.rb",
-    "spec/code/reference_spec.rb",
-    "spec/code/emittable_spec.rb",
-    "spec/code/token_spec.rb",
-    "spec/code/classes/thing.rb",
     "spec/helpers/database.rb",
     "spec/cacheable/cacheable_spec.rb",
     "spec/cacheable/cached_file_spec.rb",
