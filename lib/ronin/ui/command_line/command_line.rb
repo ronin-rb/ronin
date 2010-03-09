@@ -21,7 +21,6 @@
 require 'ronin/ui/command_line/exceptions/unknown_command'
 require 'ronin/ui/command_line/commands'
 require 'ronin/extensions/kernel'
-require 'ronin/ronin'
 
 module Ronin
   module UI
