@@ -23,8 +23,6 @@ require 'ronin/ui/command_line/commands'
 require 'ronin/extensions/kernel'
 require 'ronin/ronin'
 
-require 'set'
-
 module Ronin
   module UI
     #
@@ -40,21 +38,11 @@ module Ronin
       #
       # All command-line names of Commands available to the CommandLine.
       #
-      # @return [Array]
+      # @return [Set]
       #   The command-line names of available Command classes.
       #
       def CommandLine.commands
-        unless class_variable_defined?('@@ronin_commands')
-          @@ronin_commands = SortedSet[]
-
-          pattern = File.join('lib',Commands.namespace_root,'*.rb')
-
-          Ronin.find_files(pattern).each do |path|
-            @@ronin_commands << File.basename(path).gsub(/\.rb$/,'')
-          end
-        end
-
-        return @@ronin_commands
+        Commands.namespace_files
       end
 
       #
