@@ -25,7 +25,7 @@ require 'ronin/platform/extension'
 require 'ronin/ui/output/helpers'
 
 require 'static_paths'
-require 'repertoire'
+require 'pullr/local_repository'
 require 'nokogiri'
 
 module Ronin
@@ -33,7 +33,6 @@ module Ronin
     class Overlay
 
       include StaticPaths
-      include Repertoire
       include UI::Output::Helpers
 
       # Overlay Implementation Version
@@ -130,17 +129,25 @@ module Ronin
       # @yieldparam [Overlay] overlay
       #   The newly created overlay.
       #
-      def initialize(path,media=nil,uri=nil,&block)
+      def initialize(path,media=:rsync,uri=nil,&block)
         @path = File.expand_path(path)
         @name = File.basename(@path)
+        @uri = uri
 
         @lib_dir = File.join(@path,LIB_DIR)
         @static_dir = File.join(@path,STATIC_DIR)
         @cache_dir = File.join(@path,CACHE_DIR)
         @exts_dir = File.join(@path,EXTS_DIR)
 
-        @uri = uri
-        @repository = Repository.new(@path,Media.types[media])
+        @repository = begin
+                        Pullr::LocalRepository.new(
+                          :path => @path,
+                          :scm => media
+                        )
+                      rescue Pullr::AmbigiousRepository
+                        nil
+                      end
+
         @activated = false
 
         initialize_metadata()
@@ -185,7 +192,7 @@ module Ronin
       #   The media type of the overlay.
       #
       def media
-        @repository.media_name
+        @repository.scm
       end
 
       #
@@ -281,9 +288,7 @@ module Ronin
         deactivate!
 
         # only update if we have a URI and a media type
-        if (@uri && @media)
-          @repository.update(@uri)
-        end
+        @repository.update(@uri) if @repository
 
         # re-initialize the metadata
         initialize_metadata()
@@ -312,7 +317,7 @@ module Ronin
       #   The deleted overlay.
       #
       def uninstall(&block)
-        @repository.delete
+        FileUtils.rm_rf(@repository.path)
 
         block.call(self) if block
         return self
