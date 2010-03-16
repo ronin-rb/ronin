@@ -114,8 +114,8 @@ module Ronin
       #   The path to the overlay.
       #
       # @param [Symbol] media
-      #   The media of the overlay. Can be either `:git`, `:hg`, `:snv` or
-      #   `:rsync`.
+      #   The media of the overlay. Can be either `:git`, `:mercurial`,
+      #   `:sub_version` or `:rsync`.
       #
       # @param [String, URI::HTTP, URI::HTTPS] uri
       #   The URI the overlay resides at.
