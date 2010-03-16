@@ -107,9 +107,6 @@ module Ronin
       # The exts directory
       attr_reader :exts_dir
 
-      # Repository of the overlay
-      attr_reader :repository
-
       #
       # Creates a new Overlay object.
       #
