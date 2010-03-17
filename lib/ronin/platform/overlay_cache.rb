@@ -53,7 +53,9 @@ module Ronin
       #
       def load!
         Overlay.all.each do |overlay|
-          self[overlay.name] = overlay
+          if overlay.compatible?
+            self[overlay.name] = overlay
+          end
         end
 
         return true
