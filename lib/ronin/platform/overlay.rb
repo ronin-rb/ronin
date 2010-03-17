@@ -113,8 +113,8 @@ module Ronin
       # @param [String] path
       #   The path to the overlay.
       #
-      # @param [Symbol] media
-      #   The media of the overlay. Can be either `:git`, `:mercurial`,
+      # @param [Symbol] scm
+      #   The SCM used by the overlay. Can be either `:git`, `:mercurial`,
       #   `:sub_version` or `:rsync`.
       #
       # @param [String, URI::HTTP, URI::HTTPS] uri
@@ -126,7 +126,7 @@ module Ronin
       # @yieldparam [Overlay] overlay
       #   The newly created overlay.
       #
-      def initialize(path,media=:rsync,uri=nil,&block)
+      def initialize(path,scm=:rsync,uri=nil,&block)
         @path = File.expand_path(path)
         @name = File.basename(@path)
         @uri = uri
@@ -139,7 +139,7 @@ module Ronin
         @repository = begin
                         Pullr::LocalRepository.new(
                           :path => @path,
-                          :scm => media
+                          :scm => scm
                         )
                       rescue Pullr::AmbigiousRepository
                         nil
@@ -186,9 +186,9 @@ module Ronin
 
       #
       # @return [Symbol]
-      #   The media type of the overlay.
+      #   The SCM used by the overlay.
       #
-      def media
+      def scm
         @repository.scm
       end
 
@@ -284,7 +284,7 @@ module Ronin
         # de-activate the overlay
         deactivate!
 
-        # only update if we have a URI and a media type
+        # only update if we have a repository
         @repository.update(@uri) if @repository
 
         # re-initialize the metadata
@@ -314,7 +314,7 @@ module Ronin
       #   The deleted overlay.
       #
       def uninstall(&block)
-        FileUtils.rm_rf(@repository.path)
+        FileUtils.rm_rf(@repository.path) if @repository
 
         block.call(self) if block
         return self
