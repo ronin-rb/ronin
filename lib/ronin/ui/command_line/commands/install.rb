@@ -29,7 +29,7 @@ module Ronin
 
           desc 'Installs the Overlay located at the specified URI'
           class_option :cache, :type => :string, :aliases => '-C'
-          class_option :media, :type => :string, :aliases => '-m'
+          class_option :scm, :type => :string, :aliases => '-S'
           class_option :rsync, :type => :boolean
           class_option :svn, :type => :boolean
           class_option :hg, :type => :boolean
@@ -41,20 +41,20 @@ module Ronin
               Platform.load_overlays(options[:cache])
             end
 
-            media = if options[:media]
-                      options[:media].to_sym
+            scm = if options[:scm]
+                      options[:scm].to_sym
                     elsif options.rsync?
                       :rsync
                     elsif options.svn?
-                      :svn
+                      :sub_version
                     elsif options.hg?
-                      :hg
+                      :mercurial
                     elsif options.git?
                       :git
                     end
 
             begin
-              Platform.install(:uri => uri, :media => media) do |overlay|
+              Platform.install(:uri => uri, :scm => scm) do |overlay|
                 print_info "Overlay #{overlay.name.dump} has been installed."
               end
             rescue Platform::OverlayCached => e

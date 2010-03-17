@@ -29,7 +29,7 @@ module Ronin
 
           desc "Add a local overlay to the Overlay cache"
           class_option :cache, :type => :string, :aliases => '-C'
-          class_option :media, :type => :string, :aliases => '-m'
+          class_option :scm, :type => :string, :aliases => '-S'
           class_option :local, :type => :boolean, :aliases => '-L'
           class_option :rsync, :type => :boolean
           class_option :svn, :type => :boolean
@@ -45,16 +45,16 @@ module Ronin
 
             overlay_options = {:path => path}
 
-            overlay_options[:media] = if options[:media]
-                                        options[:media].to_sym
+            overlay_options[:scm] = if options[:scm]
+                                        options[:scm].to_sym
                                       elsif options.local?
                                         nil
                                       elsif options.rsync?
                                         :rsync
                                       elsif options.svn?
-                                        :svn
+                                        :sub_version
                                       elsif options.hg?
-                                        :hg
+                                        :mercurial
                                       elsif options.git?
                                         :git
                                       end
