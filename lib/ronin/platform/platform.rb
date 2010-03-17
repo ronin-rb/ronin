@@ -29,27 +29,6 @@ require 'pullr'
 module Ronin
   module Platform
     #
-    # Load the overlay cache.
-    #
-    # @param [String] path
-    #   The optional path to the overlay cache file.
-    #
-    # @return [OverlayCache]
-    #   The newly loaded overlay cache.
-    #
-    # @example
-    #   Overlay.load_overlays
-    #   # => #<Ronin::Platform::OverlayCache: ...>
-    #
-    # @example
-    #   Overlay.load_overlays('/custom/overlays/cache.yaml')
-    #   # => #<Ronin::Platform::OverlayCache: ...>
-    #
-    def Platform.load_overlays(path=OverlayCache::CACHE_FILE)
-      @@ronin_overlay_cache = OverlayCache.new(path)
-    end
-
-    #
     # @return [OverlayCache]
     #   The current overlay cache. If no overlay cache is present, the
     #   default overlay will be loaded.

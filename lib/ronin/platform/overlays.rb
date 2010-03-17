@@ -22,5 +22,5 @@ require 'ronin/platform/platform'
 require 'ronin/platform/ronin'
 
 module Ronin
-  Platform.load_overlays
+  Platform.overlays
 end
