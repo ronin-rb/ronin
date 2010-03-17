@@ -22,7 +22,7 @@ require 'ronin/ui/output'
 
 require 'thor'
 require 'thor/group'
-require 'extlib'
+require 'active_support/inflector'
 
 module Ronin
   module UI
@@ -118,7 +118,7 @@ module Ronin
         # Returns the name of the command.
         #
         def self.command_name
-          self.name.split('::').last.snake_case
+          self.name.split('::').last.underscore
         end
 
         #

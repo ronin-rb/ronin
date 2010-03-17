@@ -20,7 +20,7 @@
 
 require 'ronin/model/lazy_upgrade'
 
-require 'extlib'
+require 'active_support/inflector'
 require 'dm-core'
 require 'dm-types'
 require 'dm-validations'

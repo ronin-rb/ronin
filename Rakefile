@@ -14,7 +14,7 @@ begin
     gem.homepage = 'http://github.com/ronin-ruby/ronin'
     gem.authors = ['Postmodern']
     gem.add_dependency 'nokogiri', '~> 1.3.3'
-    gem.add_dependency 'extlib', '~> 0.9.14'
+    gem.add_dependency 'activesupport', '~> 2.3.5'
     gem.add_dependency 'data_objects', '~> 0.10.1'
     gem.add_dependency 'do_sqlite3', '~> 0.10.1'
     gem.add_dependency 'dm-core', '~> 0.10.2'
