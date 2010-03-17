@@ -38,7 +38,6 @@ module Ronin
       include Model::HasLicense
       include StaticPaths
       include UI::Output::Helpers
-      include Repertoire
 
       # Overlay Implementation Version
       VERSION = 1
