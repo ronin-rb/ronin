@@ -28,7 +28,6 @@ module Ronin
         class Add < Command
 
           desc "Add a local overlay to the Overlay cache"
-          class_option :cache, :type => :string, :aliases => '-C'
           class_option :scm, :type => :string, :aliases => '-S'
           class_option :local, :type => :boolean, :aliases => '-L'
           class_option :rsync, :type => :boolean
@@ -39,10 +38,6 @@ module Ronin
           argument :path, :type => :string
 
           def execute
-            if options[:cache]
-              Platform.load_overlays(options[:cache])
-            end
-
             overlay_options = {:path => path}
 
             overlay_options[:scm] = if options[:scm]

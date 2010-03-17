@@ -28,7 +28,6 @@ module Ronin
         class Install < Command
 
           desc 'Installs the Overlay located at the specified URI'
-          class_option :cache, :type => :string, :aliases => '-C'
           class_option :scm, :type => :string, :aliases => '-S'
           class_option :rsync, :type => :boolean
           class_option :svn, :type => :boolean
@@ -37,10 +36,6 @@ module Ronin
           arugment :uri, :type => :string
 
           def execute
-            if options[:cache]
-              Platform.load_overlays(options[:cache])
-            end
-
             scm = if options[:scm]
                       options[:scm].to_sym
                     elsif options.rsync?

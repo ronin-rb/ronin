@@ -28,14 +28,9 @@ module Ronin
         class Remove < Command
 
           desc 'Remove the specified Overlay'
-          class_option :cache, :type => :string, :aliases => '-C'
           argument :name, :type => :string
 
           def execute
-            if options[:cache]
-              Platform.load_overlays(options[:cache])
-            end
-
             begin
               Platform.remove(name) do |overlay|
                 print_info "Removing Overlay #{overlay.name.dump} ..."
