@@ -24,6 +24,7 @@ require 'ronin/platform/extension_cache'
 
 require 'uri'
 require 'extlib'
+require 'pullr'
 
 module Ronin
   module Platform
@@ -66,9 +67,9 @@ module Ronin
     # @option options [String] :path
     #   A pre-existing path to the overlay.
     #
-    # @option options [Symbol] :media
-    #   The media type of the overlay, may be either `:git`, `:hg`,
-    #   `:svn` or `:rsync`.
+    # @option options [Symbol] :scm
+    #   The SCM used by the overlay, may be either `:git`, `:mercurial`,
+    #   `:sub_version` or `:rsync`.
     #
     # @option options [String, URI::HTTP, URI::HTTPS] uri
     #   The URI of the overlay.
@@ -102,7 +103,7 @@ module Ronin
         raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
       end
 
-      overlay = Overlay.new(path,options[:media],options[:uri])
+      overlay = Overlay.new(path,options[:scm],options[:uri])
       return Platform.overlays.add(overlay,&block)
     end
 
@@ -113,12 +114,12 @@ module Ronin
     # @param [Hash] options
     #   Additional options.
     #
-    # @option options [String, URI::HTTP, URI::HTTPS] :uri
+    # @option options [Addressable::URI, String] :uri
     #   The URI to the overlay.
     #
-    # @option options [Symbol] :media
-    #   The media type of the overlay, may be either `:git`, `:hg`,
-    #   `:svn` or `:rsync`.
+    # @option options [Symbol] :scm
+    #   The SCM used by the overlay. May be either `:git`, `:mercurial`,
+    #   `:sub_version` or `:rsync`.
     #
     # @yield [overlay]
     #   If a block is given, it will be passed the overlay, after it has
@@ -138,19 +139,17 @@ module Ronin
         raise(ArgumentError,":uri must be passed to Platform.install",caller)
       end
 
-      uri = options[:uri].to_s
-      host = (URI(uri).host || 'localhost')
-      host_dir = File.join(OverlayCache::CACHE_DIR,host)
-      options = options.merge(:into => host_dir)
+      repo = Pullr::RemoteRepository.new(options)
+      into = File.join(OverlayCache::CACHE_DIR,repo.uri.host,repo.name)
 
-      Repertoire.checkout(options) do |repo|
-        return Platform.add(
-          :path => repo.path,
-          :media => repo.media_name,
-          :uri => uri,
-          &block
-        )
-      end
+      local_repo = repo.pull(into)
+
+      return Platform.add(
+        :path => local_repo.path,
+        :scm => local_repo.scm,
+        :uri => repo.uri,
+        &block
+      )
     end
 
     #
