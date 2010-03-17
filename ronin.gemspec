@@ -184,6 +184,7 @@ Gem::Specification.new do |s|
     "spec/ui/command_line/command_spec.rb",
     "spec/ui/output_spec.rb",
     "spec/database_spec.rb",
+    "spec/ronin_spec.rb",
     "spec/license_spec.rb",
     "spec/model/has_license_spec.rb",
     "spec/model/has_description_spec.rb",
@@ -212,7 +213,6 @@ Gem::Specification.new do |s|
     "spec/platform/overlay_spec.rb",
     "spec/platform/maintainer_spec.rb",
     "spec/product_spec.rb",
-    "spec/ronin_spec.rb",
     "spec/spec_helper.rb",
     "spec/templates/classes/example_erb.rb",
     "spec/templates/classes/example_template.rb",
@@ -245,7 +245,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<static_paths>, [">= 0.1.0"])
       s.add_runtime_dependency(%q<chars>, [">= 0.1.2"])
       s.add_runtime_dependency(%q<contextify>, [">= 0.1.4"])
-      s.add_runtime_dependency(%q<pullr>, [">= 0.1.1"])
+      s.add_runtime_dependency(%q<pullr>, [">= 0.1.2"])
       s.add_runtime_dependency(%q<thor>, [">= 0.13.0"])
       s.add_runtime_dependency(%q<ronin-ext>, [">= 0.1.0"])
       s.add_development_dependency(%q<rspec>, [">= 1.3.0"])
@@ -265,7 +265,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<static_paths>, [">= 0.1.0"])
       s.add_dependency(%q<chars>, [">= 0.1.2"])
       s.add_dependency(%q<contextify>, [">= 0.1.4"])
-      s.add_dependency(%q<pullr>, [">= 0.1.1"])
+      s.add_dependency(%q<pullr>, [">= 0.1.2"])
       s.add_dependency(%q<thor>, [">= 0.13.0"])
       s.add_dependency(%q<ronin-ext>, [">= 0.1.0"])
       s.add_dependency(%q<rspec>, [">= 1.3.0"])
@@ -286,7 +286,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<static_paths>, [">= 0.1.0"])
     s.add_dependency(%q<chars>, [">= 0.1.2"])
     s.add_dependency(%q<contextify>, [">= 0.1.4"])
-    s.add_dependency(%q<pullr>, [">= 0.1.1"])
+    s.add_dependency(%q<pullr>, [">= 0.1.2"])
     s.add_dependency(%q<thor>, [">= 0.13.0"])
     s.add_dependency(%q<ronin-ext>, [">= 0.1.0"])
     s.add_dependency(%q<rspec>, [">= 1.3.0"])
