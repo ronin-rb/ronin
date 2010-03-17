@@ -166,35 +166,19 @@ module Ronin
       end
 
       #
-      # Determines if the given Overlay Implementation Version is
-      # compatible with the current implementation of {Overlay}.
-      #
-      # @param [Integer] version
-      #   The version to check for compatibility.
-      #
-      # @return [Boolean]
-      #   Specifies whether the given version is supported by {Overlay}.
-      #
-      def Overlay.compatible?(version)
-        COMPATIBLE_VERSIONS.each do |compat|
-          return true if compat === version
-        end
-
-        return false
-      end
-
-      #
       # Determines if the overlay's implementation version is compatible
       # with the current implementation of {Overlay}.
       #
       # @return [Boolean]
       #   Specifies whether the overlay is still compatible with the
-      #   {Overlay}.
-      #
-      # @see Overlay.compatible?
+      #   {Platform}.
       #
       def compatible?
-        Overlay.compatible?(self.version)
+        COMPATIBLE_VERSIONS.each do |compat|
+          return true if compat === self.version
+        end
+
+        return false
       end
 
       #
