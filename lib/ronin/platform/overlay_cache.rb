@@ -79,7 +79,7 @@ module Ronin
           if overlay.kind_of?(Hash)
             overlay = Overlay.new(
               overlay[:path],
-              overlay[:media],
+              overlay[:scm],
               overlay[:uri]
             )
 
@@ -420,7 +420,7 @@ module Ronin
           descriptions = overlays.map do |overlay|
             {
               :path => overlay.path,
-              :media => overlay.media,
+              :scm => overlay.scm,
               :uri => overlay.uri
             }
           end
