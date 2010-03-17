@@ -21,8 +21,6 @@
 require 'ronin/model'
 require 'ronin/extensions/meta'
 
-require 'extlib'
-
 module Ronin
   #
   # Represents an Operating System and predefines other common ones
