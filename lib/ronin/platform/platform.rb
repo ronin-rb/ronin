@@ -119,31 +119,6 @@ module Ronin
     end
 
     #
-    # Removes an overlay from the overlay cache, but leaves the contents
-    # of the overlay intact.
-    #
-    # @param [String] name
-    #   The name of the overlay to remove.
-    #
-    # @yield [overlay]
-    #   If a block is given, it will be passed the overlay after it has
-    #   been removed.
-    #
-    # @yieldparam [Overlay] overlay
-    #   The removed overlay.
-    #
-    # @return [nil]
-    #
-    # @raise [OverlayNotFound]
-    #   The overlay with the specified name could not be found in the
-    #   overlay cache.
-    #
-    def Platform.remove!(name,&block)
-      Platform.overlays.remove!(name,&block)
-      return nil
-    end
-
-    #
     # Uninstalls an overlay from the overlay cache, and deletes the
     # contents of the overlay.
     #

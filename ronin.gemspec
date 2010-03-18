@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.date = %q{2010-03-20}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
-  s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-list", "ronin-help", "ronin-install", "ronin-remove", "ronin-uninstall", "ronin-update", "ronin-database"]
+  s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-list", "ronin-help", "ronin-install", "ronin-uninstall", "ronin-update", "ronin-database"]
   s.extra_rdoc_files = [
     "ChangeLog.md",
     "README.md"
@@ -32,7 +32,6 @@ Gem::Specification.new do |s|
     "bin/ronin-help",
     "bin/ronin-install",
     "bin/ronin-list",
-    "bin/ronin-remove",
     "bin/ronin-uninstall",
     "bin/ronin-update",
     "lib/ronin.rb",
@@ -93,7 +92,6 @@ Gem::Specification.new do |s|
     "lib/ronin/ui/command_line/commands/help.rb",
     "lib/ronin/ui/command_line/commands/install.rb",
     "lib/ronin/ui/command_line/commands/list.rb",
-    "lib/ronin/ui/command_line/commands/remove.rb",
     "lib/ronin/ui/command_line/commands/uninstall.rb",
     "lib/ronin/ui/command_line/commands/update.rb",
     "lib/ronin/ui/command_line/exceptions.rb",

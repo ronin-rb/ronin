@@ -230,6 +230,24 @@ module Ronin
       end
 
       #
+      # Deletes an overlay with the given name from the overlay cache.
+      #
+      # @param [String] name
+      #   The name of the overlay.
+      #
+      # @return [Overlay]
+      #   The deleted overlay.
+      #
+      # @since 0.4.0
+      #
+      def delete(name)
+        overlay = super(name.to_s)
+
+        overlay.deactive! if overlay
+        return overlay
+      end
+
+      #
       # Adds an overlay to the cache.
       #
       # @param [Overlay] overlay
@@ -310,45 +328,6 @@ module Ronin
       end
 
       #
-      # Removes an overlay from the overlay cache, but leaves the contents
-      # of the overlay intact.
-      #
-      # @param [String] name
-      #   The name of the overlay to remove.
-      #
-      # @yield [overlay]
-      #   If a block is given, it will be passed the removed overlay.
-      #
-      # @yieldparam [Overlay] overlay
-      #   The removed overlay.
-      #
-      # @return [Overlay]
-      #   The removed overlay.
-      #
-      # @example
-      #   cache.remove('hello_word')
-      #   # => #<Ronin::Platform::Overlay: ...>
-      #
-      # @example
-      #   cache.remove('hello_word') do |overlay|
-      #     puts "Overlay #{overlay} removed"
-      #   end
-      #
-      def remove!(name,&block)
-        name = name.to_s
-
-        overlay = get(name)
-        overlay.deactivate!
-
-        delete_if { |key,value| key == name }
-
-        ObjectCache.clean(overlay.cache_dir)
-
-        block.call(overlay) if block
-        return overlay
-      end
-
-      #
       # Uninstalls an overlay and its contents from the overlay cache.
       #
       # @param [String] name
@@ -373,10 +352,15 @@ module Ronin
       #   end
       #
       def uninstall!(name,&block)
-        remove(name) do |overlay|
-          overlay.uninstall!(&block)
+        name = name.to_s
+
+        unless (overlay = delete(name))
+          raise(OverlayCached,"overlay #{name.dump} is already present in the cache",caller)
         end
 
+        overlay.uninstall!(&block)
+
+        ObjectCache.clean(overlay.cache_dir)
         return nil
       end
 
