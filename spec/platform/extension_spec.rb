@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'platform/helpers/extensions'
 
 describe Platform::Extension do
-  include Helpers::Overlays
+  include Helpers::Extensions
 
   before(:each) do
     @ext = Platform::Extension.new('test')
