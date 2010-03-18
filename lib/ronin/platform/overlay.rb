@@ -501,7 +501,7 @@ module Ronin
       #   The name of the overlay.
       #
       def to_s
-        self.name.to_s
+        "#{self.host}/#{self.name}"
       end
 
       #
