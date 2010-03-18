@@ -295,7 +295,7 @@ module Ronin
           # de-activate the overlay
           overlay.deactive!
 
-          overlay.update
+          overlay.update!
 
           # re-activate the overlay
           overlay.activate!
@@ -374,7 +374,7 @@ module Ronin
       #
       def uninstall(name,&block)
         remove(name) do |overlay|
-          overlay.uninstall(&block)
+          overlay.uninstall!(&block)
         end
 
         return nil

@@ -354,7 +354,7 @@ module Ronin
       # @return [Overlay]
       #   The updated overlay.
       #
-      def update(&block)
+      def update!(&block)
         # only update if we have a repository
         @repository.update(self.uri) if @repository
 
@@ -381,7 +381,7 @@ module Ronin
       # @return [Overlay]
       #   The deleted overlay.
       #
-      def uninstall(&block)
+      def uninstall!(&block)
         FileUtils.rm_rf(self.path) unless self.local?
 
         self.destroy
