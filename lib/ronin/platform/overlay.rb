@@ -218,14 +218,12 @@ module Ronin
 
         local_repo = repo.pull(into)
 
-        new_overlay = Overlay.new(
+        new_overlay = Overlay.create!(
           :path => local_repo.path,
           :scm => local_repo.scm,
           :uri => repo.uri,
           :local => false
         )
-
-        new_overlay.save!
 
         block.call(new_overlay) if block
         return new_overlay
