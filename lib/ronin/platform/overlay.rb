@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/object_cache'
@@ -144,6 +145,10 @@ module Ronin
         end
 
         path = File.expand_path(path.to_s)
+
+        unless File.directory?(path)
+          raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
+        end
 
         super({:name => File.basename(path)}.merge(attributes))
 

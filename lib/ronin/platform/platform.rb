@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/overlay_cache'
 require 'ronin/platform/extension_cache'
 
@@ -70,19 +69,7 @@ module Ronin
     #   The `:path` option did not represent a valid directory.
     #
     def Platform.add(options={},&block)
-      path = options[:path]
-
-      unless path
-        raise(ArgumentError,":path must be passed to Platform.add",caller)
-      end
-
-      path = path.to_s
-
-      unless File.directory?(path)
-        raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
-      end
-
-      return Platform.overlays.add(Overlay.new(options),&block)
+      Platform.overlays.add(Overlay.new(options),&block)
     end
 
     #
