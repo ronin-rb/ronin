@@ -34,20 +34,22 @@ module Ronin
     include DataMapper::Types
 
     def self.included(base)
-      unless base.ancestors.include?(DataMapper::Resource)
-        base.module_eval do
+      base.module_eval do
+        unless self.ancestors.include?(DataMapper::Resource)
           include DataMapper::Resource
-          include DataMapper::Migrations
-          include Model::LazyUpgrade
+        end
 
-          def self.load(records,query)
-            resources = super(records,query)
-            
-            # Forcibly call initialize after loading the resources
-            resources.each { |resource| resource.send(:initialize) }
+        include DataMapper::Types
+        include DataMapper::Migrations
+        include Model::LazyUpgrade
 
-            return resources
-          end
+        def self.load(records,query)
+          resources = super(records,query)
+
+          # Forcibly call initialize after loading the resources
+          resources.each { |resource| resource.send(:initialize) }
+
+          return resources
         end
       end
     end
