@@ -185,7 +185,7 @@ module Ronin
       #   The SCM used by the overlay.
       #
       def scm
-        @repository.scm
+        @repository.scm if @repository
       end
 
       #
