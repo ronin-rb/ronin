@@ -214,16 +214,18 @@ module Ronin
         end
 
         repo = Pullr::RemoteRepository.new(options)
-        into = File.join(Config::CACHE_DIR,repo.uri.host,repo.name)
 
-        local_repo = repo.pull(into)
+        host = repo.uri.host
+        name = repo.name
+
+        local_repo = repo.pull(File.join(Config::CACHE_DIR,host,name))
 
         new_overlay = Overlay.create!(
           :path => local_repo.path,
           :scm => local_repo.scm,
           :uri => repo.uri,
           :local => false,
-          :name => repo.name
+          :name => name
         )
 
         block.call(new_overlay) if block
