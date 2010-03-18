@@ -27,6 +27,8 @@ require 'extlib'
 module Ronin
   module Platform
     #
+    # The currently loaded Overlays.
+    #
     # @return [OverlayCache]
     #   The current overlay cache. If no overlay cache is present, the
     #   default overlay will be loaded.
@@ -67,6 +69,8 @@ module Ronin
     # @raise [OverlayNotFound]
     #   The `:path` option did not represent a valid directory.
     #
+    # @since 0.4.0
+    #
     def Platform.add!(options={},&block)
       Platform.overlays.add!(Overlay.create!(options),&block)
     end
@@ -98,6 +102,8 @@ module Ronin
     # @raise [ArgumentError]
     #   The `:uri` option must be specified.
     #
+    # @since 0.4.0
+    #
     def Platform.install!(options={},&block)
       Platform.overlays.add!(Overlay.install(options),&block)
     end
@@ -110,6 +116,8 @@ module Ronin
     #   updated within the cache.
     #
     # @return [nil]
+    #
+    # @since 0.4.0
     #
     def Platform.update!(&block)
       Platform.overlays.update!()
@@ -134,6 +142,8 @@ module Ronin
     # @raise [OverlayNotFound]
     #   The overlay with the specified name could not be found in the
     #   overlay cache.
+    #
+    # @since 0.4.0
     #
     def Platform.uninstall!(name,&block)
       Platform.overlays.uninstall!(name)

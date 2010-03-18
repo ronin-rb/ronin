@@ -263,17 +263,19 @@ module Ronin
       # @return [Overlay]
       #   The newly added overlay.
       #
+      # @raise [OverlayCache]
+      #   The specified overlay has already been cached.
+      #
       # @example
-      #   cache.add(overlay)
+      #   cache.add!(overlay)
       #   # => #<Ronin::Platform::Overlay: ...>
       #
       # @example
-      #   cache.add(overlay) do |cache|
+      #   cache.add!(overlay) do |cache|
       #     puts "Overlay #{overlay} added"
       #   end
       #
-      # @raise [OverlayCache]
-      #   The specified overlay has already been cached.
+      # @since 0.4.0
       #
       def add!(overlay,&block)
         name = overlay.name.to_s
@@ -300,13 +302,15 @@ module Ronin
       #   Each updated overlay in the cache.
       #
       # @example
-      #   update
+      #   update!
       #   # => #<Ronin::Platform::OverlayCache: ...>
       #
       # @example
-      #   update do |overlay|
+      #   update! do |overlay|
       #     puts "#{overaly} is updated"
       #   end
+      #
+      # @since 0.4.0
       #
       def update!(&block)
         overlays.each do |overlay|
@@ -343,13 +347,15 @@ module Ronin
       # @return [nil]
       #
       # @example
-      #   cache.uninstall('hello_word')
+      #   cache.uninstall!('hello_word')
       #   # => #<Ronin::Platform::Overlay: ...>
       #
       # @example
-      #   cache.uninstall('hello_word') do |overlay|
+      #   cache.uninstall!('hello_word') do |overlay|
       #     puts "Overlay #{overlay} uninstalled"
       #   end
+      #
+      # @since 0.4.0
       #
       def uninstall!(name,&block)
         name = name.to_s
