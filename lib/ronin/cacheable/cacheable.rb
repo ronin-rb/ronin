@@ -103,6 +103,9 @@ module Ronin
         include Contextify
         include Ronin::Model
 
+        # The class-name of the cached object
+        property :type, Discriminator
+
         belongs_to :cached_file,
                    :required => false,
                    :model => Ronin::Cacheable::CachedFile
