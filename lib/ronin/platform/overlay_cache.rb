@@ -139,7 +139,7 @@ module Ronin
         name = name.to_s
 
         unless has?(name)
-          raise(OverlayNotFound,"overlay #{name.dump} is not present in cache #{self.to_s.dump}",caller)
+          raise(OverlayNotFound,"overlay #{name.dump} is not present in cache",caller)
         end
 
         return self[name]
