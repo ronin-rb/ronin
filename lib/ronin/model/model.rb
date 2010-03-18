@@ -40,11 +40,13 @@ module Ronin
           include DataMapper::Migrations
           include Model::LazyUpgrade
 
-          def self.allocate
-            resource = super
-            resource.instance_eval("initialize()")
+          def self.load(records,query)
+            resources = super(records,query)
+            
+            # Forcibly call initialize after loading the resources
+            resources.each { |resource| resource.send(:initialize) }
 
-            return resource
+            return resources
           end
 
           # The class type property
