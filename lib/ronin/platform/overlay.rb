@@ -208,7 +208,7 @@ module Ronin
       # @raise [ArgumentError]
       #   The `:uri` option must be specified.
       #
-      def Overlay.install(options={},&block)
+      def Overlay.install!(options={},&block)
         unless options[:uri]
           raise(ArgumentError,":uri must be passed to Platform.install",caller)
         end

@@ -105,7 +105,7 @@ module Ronin
     # @since 0.4.0
     #
     def Platform.install!(options={},&block)
-      Platform.overlays.add!(Overlay.install(options),&block)
+      Platform.overlays.add!(Overlay.install!(options),&block)
     end
 
     #
