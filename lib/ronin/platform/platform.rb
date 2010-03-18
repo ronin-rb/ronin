@@ -68,7 +68,7 @@ module Ronin
     #   The `:path` option did not represent a valid directory.
     #
     def Platform.add(options={},&block)
-      Platform.overlays.add(Overlay.new(options),&block)
+      Platform.overlays.add(Overlay.create!(options),&block)
     end
 
     #
