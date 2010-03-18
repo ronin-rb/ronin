@@ -31,20 +31,25 @@ module Ronin
           argument :name, :type => :string, :required => false
 
           def execute
-            update = lambda { |overlay|
-              print_info "Updating Overlay #{overlay.name.dump} ..."
-              overlay.update
-            }
-
             if name
               begin
-                update.call(Platform.overlays.get(name))
+                overlay = Platform.overlays.get(name)
+                
+                print_info "Updating Overlay #{overlay.name.dump} ..."
+
+                overlay.update!
+
+                print_info "Overlay updated."
               rescue Platform::OverlayNotFound => e
                 print_error e.message
                 exit -1
               end
             else
-              Platform.overlays.each_overlay(&update)
+              print_info "Updating Overlays ..."
+
+              Platform.update!
+
+              print_info "Overlays updated."
             end
           end
 

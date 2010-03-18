@@ -32,7 +32,7 @@ module Ronin
 
           def execute
             begin
-              Platform.uninstall(name) do
+              Platform.uninstall!(name) do
                 print_info "Uninstalling Overlay #{name.dump} ..."
               end
             rescue Platform::OverlayNotFound => e

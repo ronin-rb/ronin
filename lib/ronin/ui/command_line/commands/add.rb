@@ -41,8 +41,6 @@ module Ronin
 
             overlay_options[:scm] = if options[:scm]
                                         options[:scm].to_sym
-                                      elsif options.local?
-                                        nil
                                       elsif options.rsync?
                                         :rsync
                                       elsif options.svn?
@@ -58,7 +56,7 @@ module Ronin
             end
 
             begin
-              Platform.add(overlay_options) do |overlay|
+              Platform.add!(overlay_options) do |overlay|
                 print_info "Overlay #{overlay.name.dump} added."
               end
             rescue Platform::OverlayNotFound, Platform::OverlayCached => e

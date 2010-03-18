@@ -49,7 +49,7 @@ module Ronin
                     end
 
             begin
-              Platform.install(:uri => uri, :scm => scm) do |overlay|
+              Platform.install!(:uri => uri, :scm => scm) do |overlay|
                 print_info "Overlay #{overlay.name.dump} has been installed."
               end
             rescue Platform::OverlayCached => e
