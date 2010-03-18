@@ -6,11 +6,27 @@ require 'platform/helpers/overlays'
 describe Platform::Overlay do
   include Helpers::Overlays
 
-  describe "initialize_metadata" do
-    before(:all) do
-      @overlay = load_overlay('hello')
-    end
+  before(:all) do
+    @overlay = load_overlay('hello')
+  end
 
+  it "should be compatible with the current Ronin::Platform::Overlay" do
+    @overlay.should be_compatible
+  end
+
+  it "should require a path property" do
+    lambda {
+      Platform::Overlay.new
+    }.should raise_error(Platform::OverlayNotFound)
+  end
+
+  it "should require a path to the overlay directory" do
+    lambda {
+      Platform::Overlay.new(:path => 'path/to/nowhere')
+    }.should raise_error(Platform::OverlayNotFound)
+  end
+
+  describe "initialize_metadata" do
     it "should load the format version" do
       @overlay.version.should_not be_nil
     end
@@ -42,7 +58,6 @@ describe Platform::Overlay do
 
   describe "activate!" do
     before(:all) do
-      @overlay = load_overlay('hello')
       @overlay.activate!
     end
 
@@ -57,7 +72,6 @@ describe Platform::Overlay do
 
   describe "deactivate!" do
     before(:all) do
-      @overlay = load_overlay('hello')
       @overlay.deactivate!
     end
 
