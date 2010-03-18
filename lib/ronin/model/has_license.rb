@@ -21,8 +21,6 @@
 require 'ronin/model/model'
 require 'ronin/license'
 
-require 'extlib'
-
 module Ronin
   module Model
     #
@@ -72,8 +70,7 @@ module Ronin
           end
         end
 
-        model_name = base.name.split('::').last.snake_case.plural.to_sym
-        License.has License.n, model_name, :model => base.name
+        License.has License.n, base.relationship_name, :model => base.name
       end
     end
   end
