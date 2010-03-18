@@ -141,29 +141,27 @@ module Ronin
       #   The newly created overlay.
       #
       def initialize(attributes={},&block)
-        path = attributes[:path]
+        super(attributes)
 
-        unless path
-          raise(ArgumentError,"must specify the 'path' attribute",caller)
+        unless self.path
+          raise(OverlayNotFound,"no path defined for the overlay",caller)
         end
 
         path = File.expand_path(path.to_s)
 
-        unless File.directory?(path)
-          raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
+        unless File.directory?(self.path)
+          raise(OverlayNotFound,"overlay #{self.path.dump} cannot be found",caller)
         end
         
-        super(attributes)
-
-        @lib_dir = File.join(path,LIB_DIR)
-        @static_dir = File.join(path,STATIC_DIR)
-        @cache_dir = File.join(path,CACHE_DIR)
-        @exts_dir = File.join(path,EXTS_DIR)
+        @lib_dir = File.join(self.path,LIB_DIR)
+        @static_dir = File.join(self.path,STATIC_DIR)
+        @cache_dir = File.join(self.path,CACHE_DIR)
+        @exts_dir = File.join(self.path,EXTS_DIR)
 
         @repository = begin
                         Pullr::LocalRepository.new(
-                          :path => path,
-                          :scm => attributes[:scm]
+                          :path => self.path,
+                          :scm => self.scm
                         )
                       rescue Pullr::AmbigiousRepository
                         nil
