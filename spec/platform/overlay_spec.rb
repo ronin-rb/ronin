@@ -6,16 +6,6 @@ require 'platform/helpers/overlays'
 describe Platform::Overlay do
   include Helpers::Overlays
 
-  describe "compatible?" do
-    it "should not be backwards compatible with unknown version numbers" do
-      Platform::Overlay.compatible?(0).should == false
-    end
-
-    it "should not be forwards compatible with future version numbers" do
-      Platform::Overlay.compatible?(9999).should == false
-    end
-  end
-
   describe "initialize_metadata" do
     before(:all) do
       @overlay = load_overlay('hello')
@@ -34,7 +24,8 @@ describe Platform::Overlay do
     end
 
     it "should load the license" do
-      @overlay.license.should == 'GPL-2'
+      @overlay.license.should_not be_nil
+      @overlay.license.name.should == 'GPL-2'
     end
 
     it "should load the maintainers" do
