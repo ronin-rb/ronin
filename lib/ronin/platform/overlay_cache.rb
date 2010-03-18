@@ -284,6 +284,9 @@ module Ronin
           raise(OverlayCached,"overlay #{name.dump} is already present in the cache #{self.to_s.dump}",caller)
         end
 
+        # save the overlay before adding it to the cache
+        overlay.save!
+
         self[overlay.name.to_s] = overlay
 
         # update the object cache
