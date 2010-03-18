@@ -43,6 +43,19 @@ module Ronin
         include DataMapper::Migrations
         include Model::LazyUpgrade
 
+        #
+        # The default name to use when defining relationships with the
+        # model.
+        #
+        # @return [Symbol]
+        #   The name to use in relationships.
+        #
+        # @since 0.4.0
+        #
+        def self.relationship_name
+          self.name.split('::').last.snake_case.plural.to_sym
+        end
+
         def self.load(records,query)
           resources = super(records,query)
 
