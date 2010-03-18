@@ -4,11 +4,7 @@ require 'spec_helper'
 require 'platform/helpers/overlays'
 
 describe Platform::ExtensionCache do
-  include Helpers
-
-  before(:all) do
-    Platform.load_overlays(overlay_cache_path)
-  end
+  include Helpers::Overlays
 
   before(:each) do
     @cache = Platform::ExtensionCache.new

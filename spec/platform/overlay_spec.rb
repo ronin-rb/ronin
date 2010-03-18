@@ -4,7 +4,7 @@ require 'spec_helper'
 require 'platform/helpers/overlays'
 
 describe Platform::Overlay do
-  include Helpers
+  include Helpers::Overlays
 
   describe "compatible?" do
     it "should not be backwards compatible with unknown version numbers" do
@@ -18,7 +18,7 @@ describe Platform::Overlay do
 
   describe "initialize_metadata" do
     before(:all) do
-      @overlay = create_overlay('hello')
+      @overlay = load_overlay('hello')
     end
 
     it "should load the format version" do
@@ -51,7 +51,7 @@ describe Platform::Overlay do
 
   describe "activate!" do
     before(:all) do
-      @overlay = create_overlay('hello')
+      @overlay = load_overlay('hello')
       @overlay.activate!
     end
 
@@ -66,7 +66,7 @@ describe Platform::Overlay do
 
   describe "deactivate!" do
     before(:all) do
-      @overlay = create_overlay('hello')
+      @overlay = load_overlay('hello')
       @overlay.deactivate!
     end
 

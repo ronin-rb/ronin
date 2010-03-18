@@ -1,24 +1,15 @@
-require 'tempfile'
-require 'erb'
+require 'helpers/database'
 
 module Helpers
-  OVERLAYS_DIR = File.expand_path(File.join(File.dirname(__FILE__),'overlays'))
+  module Overlays
+    OVERLAYS_DIR = File.expand_path(File.join(File.dirname(__FILE__),'overlays'))
 
-  OVERLAYS = Dir[File.join(OVERLAYS_DIR,'*')].map do |path|
-    File.basename(path)
-  end
-
-  def create_overlay(name)
-    Platform::Overlay.new(File.join(OVERLAYS_DIR,name))
-  end
-
-  def overlay_cache
-    cache = Platform::OverlayCache.new
-
-    OVERLAYS.each do |name|
-      cache.add(create_overlay(name))
+    OVERLAYS = Dir[File.join(OVERLAYS_DIR,'*')].each do |path|
+      Platform::Overlay.create(:path => path)
     end
 
-    return cache
+    def load_overlay(name)
+      Platform::Overlay.first(:name => name)
+    end
   end
 end

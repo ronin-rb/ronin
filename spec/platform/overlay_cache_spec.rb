@@ -4,10 +4,10 @@ require 'platform/helpers/overlays'
 require 'spec_helper'
 
 describe Platform::OverlayCache do
-  include Helpers
+  include Helpers::Overlays
 
   before(:all) do
-    @cache = overlay_cache
+    @cache = OverlayCache.new
   end
 
   it "should not be empty" do

@@ -4,11 +4,7 @@ require 'spec_helper'
 require 'platform/helpers/overlays'
 
 describe Platform do
-  include Helpers
-
-  before(:all) do
-    Platform.load_overlays(overlay_cache_path)
-  end
+  include Helpers::Overlays
 
   it "should be able to load custom overlay caches" do
     Platform.overlays.should_not be_empty
