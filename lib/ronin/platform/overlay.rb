@@ -232,6 +232,17 @@ module Ronin
       end
 
       #
+      # Determines whether the Overlay was installed from a remote
+      # repository.
+      #
+      # @return [Boolean]
+      #   Specifies whether the Overlay is remote.
+      #
+      def remote?
+        !(self.local)
+      end
+
+      #
       # Determines if the overlay's implementation version is compatible
       # with the current implementation of {Overlay}.
       #
