@@ -23,12 +23,13 @@ require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/extension'
+require 'ronin/platform/config'
 require 'ronin/ui/output/helpers'
 require 'ronin/model/has_license'
 require 'ronin/model'
 
+require 'pullr'
 require 'static_paths'
-require 'pullr/local_repository'
 require 'nokogiri'
 
 module Ronin
@@ -173,6 +174,55 @@ module Ronin
         initialize_metadata()
 
         block.call(self) if block
+      end
+
+      #
+      # Installs an overlay into the OverlayCache::CACHE_DIR and adds it
+      # to the overlay cache.
+      #
+      # @param [Hash] options
+      #   Additional options.
+      #
+      # @option options [Addressable::URI, String] :uri
+      #   The URI to the overlay.
+      #
+      # @option options [Symbol] :scm
+      #   The SCM used by the overlay. May be either `:git`, `:mercurial`,
+      #   `:sub_version` or `:rsync`.
+      #
+      # @yield [overlay]
+      #   If a block is given, it will be passed the overlay, after it has
+      #   been installed.
+      #
+      # @yieldparam [Overlay] overlay
+      #   The newly installed overlay.
+      #
+      # @return [Overlay]
+      #   The newly installed overlay.
+      #
+      # @raise [ArgumentError]
+      #   The `:uri` option must be specified.
+      #
+      def Overlay.install(options={},&block)
+        unless options[:uri]
+          raise(ArgumentError,":uri must be passed to Platform.install",caller)
+        end
+
+        repo = Pullr::RemoteRepository.new(options)
+        into = File.join(Config::CACHE_DIR,repo.uri.host,repo.name)
+
+        local_repo = repo.pull(into)
+
+        new_overlay = Overlay.new(
+          :path => local_repo.path,
+          :scm => local_repo.scm,
+          :uri => repo.uri
+        )
+
+        new_overlay.save!
+
+        block.call(new_overlay) if block
+        return new_overlay
       end
 
       #
@@ -340,8 +390,6 @@ module Ronin
         self.name.to_s
       end
 
-      protected
-
       #
       # Loads the overlay metadata from the METADATA_FILE within the
       # overlay.
@@ -352,7 +400,7 @@ module Ronin
         # set to default values
         self.version = nil
 
-        self.title = @name
+        self.title = self.name
         self.description = nil
         self.license = nil
 

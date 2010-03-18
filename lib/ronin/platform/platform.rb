@@ -20,11 +20,9 @@
 
 require 'ronin/platform/overlay_cache'
 require 'ronin/platform/extension_cache'
-require 'ronin/platform/config'
 
 require 'uri'
 require 'extlib'
-require 'pullr'
 
 module Ronin
   module Platform
@@ -101,21 +99,7 @@ module Ronin
     #   The `:uri` option must be specified.
     #
     def Platform.install(options={},&block)
-      unless options[:uri]
-        raise(ArgumentError,":uri must be passed to Platform.install",caller)
-      end
-
-      repo = Pullr::RemoteRepository.new(options)
-      into = File.join(Config::CACHE_DIR,repo.uri.host,repo.name)
-
-      local_repo = repo.pull(into)
-
-      return Platform.add(
-        :path => local_repo.path,
-        :scm => local_repo.scm,
-        :uri => repo.uri,
-        &block
-      )
+      Platform.overlays.add(Overlay.install(options),&block)
     end
 
     #
