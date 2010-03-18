@@ -67,8 +67,8 @@ module Ronin
     # @raise [OverlayNotFound]
     #   The `:path` option did not represent a valid directory.
     #
-    def Platform.add(options={},&block)
-      Platform.overlays.add(Overlay.create!(options),&block)
+    def Platform.add!(options={},&block)
+      Platform.overlays.add!(Overlay.create!(options),&block)
     end
 
     #
@@ -98,8 +98,8 @@ module Ronin
     # @raise [ArgumentError]
     #   The `:uri` option must be specified.
     #
-    def Platform.install(options={},&block)
-      Platform.overlays.add(Overlay.install(options),&block)
+    def Platform.install!(options={},&block)
+      Platform.overlays.add!(Overlay.install(options),&block)
     end
 
     #
@@ -111,8 +111,8 @@ module Ronin
     #
     # @return [nil]
     #
-    def Platform.update(&block)
-      Platform.overlays.update()
+    def Platform.update!(&block)
+      Platform.overlays.update!()
 
       block.call() if block
       return nil
@@ -138,8 +138,8 @@ module Ronin
     #   The overlay with the specified name could not be found in the
     #   overlay cache.
     #
-    def Platform.remove(name,&block)
-      Platform.overlays.remove(name,&block)
+    def Platform.remove!(name,&block)
+      Platform.overlays.remove!(name,&block)
       return nil
     end
 
@@ -160,8 +160,8 @@ module Ronin
     #   The overlay with the specified name could not be found in the
     #   overlay cache.
     #
-    def Platform.uninstall(name,&block)
-      Platform.overlays.uninstall(name)
+    def Platform.uninstall!(name,&block)
+      Platform.overlays.uninstall!(name)
 
       block.call() if block
       return nil

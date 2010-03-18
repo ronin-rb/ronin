@@ -257,7 +257,7 @@ module Ronin
       # @raise [OverlayCache]
       #   The specified overlay has already been cached.
       #
-      def add(overlay,&block)
+      def add!(overlay,&block)
         name = overlay.name.to_s
 
         if has?(name)
@@ -290,7 +290,7 @@ module Ronin
       #     puts "#{overaly} is updated"
       #   end
       #
-      def update(&block)
+      def update!(&block)
         overlays.each do |overlay|
           # de-activate the overlay
           overlay.deactive!
@@ -334,7 +334,7 @@ module Ronin
       #     puts "Overlay #{overlay} removed"
       #   end
       #
-      def remove(name,&block)
+      def remove!(name,&block)
         name = name.to_s
 
         overlay = get(name)
@@ -372,7 +372,7 @@ module Ronin
       #     puts "Overlay #{overlay} uninstalled"
       #   end
       #
-      def uninstall(name,&block)
+      def uninstall!(name,&block)
         remove(name) do |overlay|
           overlay.uninstall!(&block)
         end
