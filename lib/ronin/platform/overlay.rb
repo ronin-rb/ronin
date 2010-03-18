@@ -380,7 +380,7 @@ module Ronin
       #   The deleted overlay.
       #
       def uninstall(&block)
-        FileUtils.rm_rf(@repository.path) unless self.local?
+        FileUtils.rm_rf(self.path) unless self.local?
 
         self.destroy
 
