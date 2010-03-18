@@ -67,20 +67,22 @@ module Ronin
       # The primary key of the overlay
       property :id, Serial
 
-      # Local path to the overlay
+      # Local path to the overlay repository
       property :path, String
 
-      # The SCM used by the overlay
+      # URI that the overlay was installed from
+      property :uri, String
+
+      # The SCM used by the overlay repository
       property :scm, String
 
       # The format version of the overlay
       property :version, Integer
 
       # Name of the overlay
-      property :name, String
-
-      # URI that the overlay was installed from
-      property :uri, String
+      property :name, String, :default => lambda { |overlay,name|
+        File.basename(overlay.path)
+      }
 
       # Title of the overlay
       property :title, Text
@@ -149,8 +151,8 @@ module Ronin
         unless File.directory?(path)
           raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
         end
-
-        super({:name => File.basename(path)}.merge(attributes))
+        
+        super(attributes)
 
         @lib_dir = File.join(path,LIB_DIR)
         @static_dir = File.join(path,STATIC_DIR)
