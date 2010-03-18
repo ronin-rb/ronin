@@ -363,9 +363,6 @@ module Ronin
         # re-initialize the metadata
         initialize_metadata()
 
-        # and save any changes to the database
-        self.save
-
         block.call(self) if block
         return self
       end
@@ -387,8 +384,6 @@ module Ronin
       #
       def uninstall!(&block)
         FileUtils.rm_rf(self.path) unless self.local?
-
-        self.destroy
 
         block.call(self) if block
         return self

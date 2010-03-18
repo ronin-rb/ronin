@@ -285,6 +285,8 @@ module Ronin
         end
 
         self[overlay.name.to_s] = overlay
+
+        # update the object cache
         ObjectCache.cache(overlay.cache_dir)
 
         block.call(overlay) if block
@@ -317,7 +319,11 @@ module Ronin
           # de-activate the overlay
           overlay.deactive!
 
+          # Update the overlay and it's metadata
           overlay.update!
+
+          # and save any changes to the database
+          overlay.save!
 
           # re-activate the overlay
           overlay.activate!
@@ -364,8 +370,13 @@ module Ronin
           raise(OverlayCached,"overlay #{name.dump} is already present in the cache",caller)
         end
 
+        # Uninstall the overlay's files
         overlay.uninstall!(&block)
 
+        # remove the overlay from the database
+        overlay.destroy
+
+        # clean the object cache
         ObjectCache.clean(overlay.cache_dir)
         return nil
       end
