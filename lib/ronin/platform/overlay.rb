@@ -77,6 +77,10 @@ module Ronin
       # The SCM used by the overlay repository
       property :scm, String
 
+      # Specifies whether the overlay was installed remotely
+      # or added using a local directory.
+      property :local, Boolean, :default => true
+
       # The format version of the overlay
       property :version, Integer, :required => true
 
@@ -217,7 +221,8 @@ module Ronin
         new_overlay = Overlay.new(
           :path => local_repo.path,
           :scm => local_repo.scm,
-          :uri => repo.uri
+          :uri => repo.uri,
+          :local => false
         )
 
         new_overlay.save!
@@ -375,7 +380,7 @@ module Ronin
       #   The deleted overlay.
       #
       def uninstall(&block)
-        FileUtils.rm_rf(@repository.path) if @repository
+        FileUtils.rm_rf(@repository.path) unless self.local?
 
         self.destroy
 
