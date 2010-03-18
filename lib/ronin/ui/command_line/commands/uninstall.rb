@@ -29,16 +29,15 @@ module Ronin
 
           desc 'Uninstall the specified Overlay'
           argument :name, :type => :string
+          argument :host, :type => :string
 
           def execute
-            begin
-              Platform.uninstall!(name) do
-                print_info "Uninstalling Overlay #{name.dump} ..."
-              end
-            rescue Platform::OverlayNotFound => e
-              print_error e.message
-              exit -1
-            end
+            overlay = Platform::Overlay.uninstall!(
+              options[:name],
+              options[:host]
+            )
+
+            print_info "Uninstalling Overlay #{overlay} ..."
           end
 
         end

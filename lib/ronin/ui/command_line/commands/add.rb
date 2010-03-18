@@ -55,14 +55,9 @@ module Ronin
               overlay_options[:uri] = options[:uri]
             end
 
-            begin
-              Platform.add!(overlay_options) do |overlay|
-                print_info "Overlay #{overlay.name.dump} added."
-              end
-            rescue Platform::OverlayNotFound, Platform::OverlayCached => e
-              print_error e.message
-              exit -1
-            end
+            overlay = Platform::Overlay.add!(overlay_options)
+
+            print_info "Overlay #{overlay} added."
           end
 
         end

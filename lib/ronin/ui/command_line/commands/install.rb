@@ -36,6 +36,11 @@ module Ronin
           arugment :uri, :type => :string
 
           def execute
+            unless (uri = options[:uri])
+              print_error "Must specify the --uri option"
+              exit -1
+            end
+
             scm = if options[:scm]
                       options[:scm].to_sym
                     elsif options.rsync?
@@ -48,14 +53,12 @@ module Ronin
                       :git
                     end
 
-            begin
-              Platform.install!(:uri => uri, :scm => scm) do |overlay|
-                print_info "Overlay #{overlay.name.dump} has been installed."
-              end
-            rescue Platform::OverlayCached => e
-              print_error e.message
-              exit -1
-            end
+            overlay = Platform::Overlay.install!(
+              :uri => uri,
+              :scm => scm
+            )
+
+            print_info "Overlay #{overlay} has been installed."
           end
 
         end

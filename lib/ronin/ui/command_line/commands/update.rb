@@ -33,9 +33,9 @@ module Ronin
           def execute
             if name
               begin
-                overlay = Platform.overlays.get(name)
+                overlay = Platform.get(name)
                 
-                print_info "Updating Overlay #{overlay.name.dump} ..."
+                print_info "Updating Overlay #{overlay} ..."
 
                 overlay.update!
 
@@ -47,7 +47,9 @@ module Ronin
             else
               print_info "Updating Overlays ..."
 
-              Platform.update!
+              Platform::Overlay.update! do |overlay|
+                print_info "Updating Overlay #{overlay} ..."
+              end
 
               print_info "Overlays updated."
             end
