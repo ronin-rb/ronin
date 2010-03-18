@@ -72,7 +72,7 @@ module Ronin
       property :path, String, :required => true
 
       # URI that the overlay was installed from
-      property :uri, String
+      property :uri, URI
 
       # The SCM used by the overlay repository
       property :scm, String
@@ -83,6 +83,11 @@ module Ronin
 
       # The format version of the overlay
       property :version, Integer, :required => true
+
+      # The host the overlay belongs to
+      property :host, String, :default => lambda { |overlay,host|
+        overlay.uri.host if overlay.uri
+      }
 
       # Name of the overlay
       property :name, String, :default => lambda { |overlay,name|
@@ -225,6 +230,7 @@ module Ronin
           :scm => local_repo.scm,
           :uri => repo.uri,
           :local => false,
+          :host => host,
           :name => name
         )
 
