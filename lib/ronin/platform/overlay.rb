@@ -69,7 +69,7 @@ module Ronin
       property :id, Serial
 
       # Local path to the overlay repository
-      property :path, String
+      property :path, String, :required => true
 
       # URI that the overlay was installed from
       property :uri, String
@@ -78,7 +78,7 @@ module Ronin
       property :scm, String
 
       # The format version of the overlay
-      property :version, Integer
+      property :version, Integer, :required => true
 
       # Name of the overlay
       property :name, String, :default => lambda { |overlay,name|
@@ -102,6 +102,9 @@ module Ronin
 
       # Maintainers of the overlay
       has 0..n, :maintainers
+
+      # Validations for the `path` and `version` properties
+      validates_present :path, :version
 
       # Ruby Gems required by the overlay
       attr_reader :gems
