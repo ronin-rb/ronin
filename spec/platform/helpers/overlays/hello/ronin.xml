@@ -1,15 +1,12 @@
 <?xml version='1.0'?>
 <?xml-stylesheet type="text/xsl" href="http://ronin.rubyforge.org/static/ronin/platform/overlay.xsl"?>
-<ronin-overlay version='1'>
+<ronin-overlay version='2' library='gpl2'>
   <title>
     Hello World
   </title>
   <website>
     http://ronin.rubyforge.org/
   </website>
-  <license>
-    GPL-2
-  </license>
   <maintainers>
     <maintainer>
       <name>
