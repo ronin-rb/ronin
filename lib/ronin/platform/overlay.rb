@@ -117,6 +117,9 @@ module Ronin
       #
       # Creates a new Overlay object.
       #
+      # @param [Hash] attributes
+      #   The attributes of the overlay.
+      #
       # @param [String] path
       #   The path to the overlay.
       #
@@ -133,15 +136,16 @@ module Ronin
       # @yieldparam [Overlay] overlay
       #   The newly created overlay.
       #
-      def initialize(path,scm=nil,uri=nil,&block)
-        path = File.expand_path(path)
+      def initialize(attributes={},&block)
+        path = attributes[:path]
 
-        super(
-          :path => path,
-          :scm => scm,
-          :name => File.basename(path),
-          :uri => uri
-        )
+        unless path
+          raise(ArgumentError,"must specify the 'path' attribute",caller)
+        end
+
+        path = File.expand_path(path.to_s)
+
+        super({:name => File.basename(path)}.merge(attributes))
 
         @lib_dir = File.join(path,LIB_DIR)
         @static_dir = File.join(path,STATIC_DIR)
@@ -150,8 +154,8 @@ module Ronin
 
         @repository = begin
                         Pullr::LocalRepository.new(
-                          :path => @path,
-                          :scm => scm
+                          :path => path,
+                          :scm => attributes[:scm]
                         )
                       rescue Pullr::AmbigiousRepository
                         nil

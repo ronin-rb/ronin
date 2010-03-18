@@ -82,8 +82,7 @@ module Ronin
         raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
       end
 
-      overlay = Overlay.new(path,options[:scm],options[:uri])
-      return Platform.overlays.add(overlay,&block)
+      return Platform.overlays.add(Overlay.new(options),&block)
     end
 
     #
