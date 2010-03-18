@@ -230,7 +230,7 @@ module Ronin
       #
       # @since 0.4.0
       #
-      def Overlay.add(options={})
+      def Overlay.add!(options={})
         overlay = Overlay.create!(options)
 
         # update the object cache
@@ -296,10 +296,8 @@ module Ronin
       #
       def Overlay.update!(&block)
         Overlay.all.each do |overlay|
+          # update the overlay's contents
           overlay.update!
-
-          # sync the object cache
-          ObjectCache.sync(overlay.cache_dir)
 
           block.call(overlay) if block
         end
@@ -452,6 +450,18 @@ module Ronin
         # re-initialize the metadata
         initialize_metadata()
 
+        # save the model if it was previously saved
+        save! if saved?
+
+        # activates the overlay before caching it's objects
+        activate!
+
+        # sync the object cache
+        ObjectCache.sync(@cache_dir)
+
+        # deactivates the overlay
+        deactivate!
+
         block.call(self) if block
         return self
       end
@@ -472,13 +482,15 @@ module Ronin
       # @since 0.4.0
       #
       def uninstall!(&block)
+        deactivate!
+
         FileUtils.rm_rf(self.path) unless self.local?
 
         # clean the object cache
-        ObjectCache.clean(overlay.cache_dir)
+        ObjectCache.clean(@cache_dir)
 
         # remove the overlay from the database
-        overlay.destroy
+        destroy if saved?
 
         block.call(self) if block
         return self
