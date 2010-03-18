@@ -20,6 +20,7 @@
 
 require 'ronin/platform/overlay_cache'
 require 'ronin/platform/extension_cache'
+require 'ronin/platform/config'
 
 require 'uri'
 require 'extlib'
@@ -73,7 +74,7 @@ module Ronin
     end
 
     #
-    # Installs an overlay into the OverlayCache::CACHE_DIR and adds it
+    # Installs an overlay into the `Config::CACHE_DIR` and adds it
     # to the overlay cache.
     #
     # @param [Hash] options
@@ -105,7 +106,7 @@ module Ronin
       end
 
       repo = Pullr::RemoteRepository.new(options)
-      into = File.join(OverlayCache::CACHE_DIR,repo.uri.host,repo.name)
+      into = File.join(Config::CACHE_DIR,repo.uri.host,repo.name)
 
       local_repo = repo.pull(into)
 

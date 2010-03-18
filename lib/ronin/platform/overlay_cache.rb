@@ -22,14 +22,11 @@ require 'ronin/platform/exceptions/overlay_cached'
 require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/overlay'
-require 'ronin/config'
+require 'ronin/platform/config'
 
 module Ronin
   module Platform
     class OverlayCache < Hash
-
-      # Default overlay cache directory
-      CACHE_DIR = File.join(Ronin::Config::PATH,'overlays')
 
       #
       # Create a new OverlayCache object.
