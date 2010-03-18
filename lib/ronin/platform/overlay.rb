@@ -40,10 +40,10 @@ module Ronin
       include UI::Output::Helpers
 
       # Overlay Implementation Version
-      VERSION = 1
+      VERSION = 2
 
       # A list of compatible Overlay Implementation Versions
-      COMPATIBLE_VERSIONS = [1]
+      COMPATIBLE_VERSIONS = [1,2]
 
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
@@ -370,8 +370,10 @@ module Ronin
             self.description = description_tag.inner_text.strip
           end
 
-          if (license_tag = overlay.at('license'))
-            self.license = license_tag.inner_text.strip
+          if (license_attr = overlay.attributes['license'])
+            name = license_attr.inner_text.strip
+
+            self.license = License.predefined_resource(name)
           end
 
           if (source_tag = overlay.at('source'))
