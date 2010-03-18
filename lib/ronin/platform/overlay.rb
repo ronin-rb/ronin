@@ -187,6 +187,59 @@ module Ronin
       end
 
       #
+      # Searches for the Overlay with a given name, and potentially
+      # installed from the given host.
+      #
+      # @param [String] name
+      #   The name of the Overlay.
+      #
+      # @param [String] host
+      #   The host the Overlay was installed from.
+      #
+      # @return [Overlay]
+      #   The found Overlay.
+      #
+      # @raise [OverlayNotFound]
+      #   No Overlay could be found with the given name or host.
+      #
+      # @since 0.4.0
+      #
+      def Overlay.get(name,host=nil)
+        query = {:name => name.to_s}
+
+        if host
+          query[:host] = host.to_s
+        end
+
+        unless (overlay = Overlay.first(query))
+          if host
+            raise(OverlayNotFound,"overlay #{query[:name].dump} from host #{query[:host].dump} cannot be found",caller)
+          else
+            raise(OverlayNotFound,"overlay #{query[:name].dump} cannot be found",caller)
+          end
+        end
+
+        return overlay
+      end
+
+      #
+      # Adds an Overlay with the given options.
+      #
+      # @return [Overlay]
+      #   The added Overlay.
+      #
+      # @since 0.4.0
+      #
+      def Overlay.add(options={})
+        overlay = Overlay.create!(options)
+
+        # update the object cache
+        ObjectCache.cache(overlay.cache_dir)
+
+        return overlay
+      end
+
+      #
       # Installs an overlay into the OverlayCache::CACHE_DIR and adds it
       # to the overlay cache.
       #
@@ -194,26 +247,21 @@ module Ronin
       #   Additional options.
       #
       # @option options [Addressable::URI, String] :uri
-      #   The URI to the overlay.
+      #   The URI to the Overlay.
       #
       # @option options [Symbol] :scm
-      #   The SCM used by the overlay. May be either `:git`, `:mercurial`,
+      #   The SCM used by the Overlay. May be either `:git`, `:mercurial`,
       #   `:sub_version` or `:rsync`.
       #
-      # @yield [overlay]
-      #   If a block is given, it will be passed the overlay, after it has
-      #   been installed.
-      #
-      # @yieldparam [Overlay] overlay
-      #   The newly installed overlay.
-      #
       # @return [Overlay]
-      #   The newly installed overlay.
+      #   The newly installed Overlay.
       #
       # @raise [ArgumentError]
       #   The `:uri` option must be specified.
       #
-      def Overlay.install!(options={},&block)
+      # @since 0.4.0
+      #
+      def Overlay.install!(options={})
         unless options[:uri]
           raise(ArgumentError,":uri must be passed to Platform.install",caller)
         end
@@ -225,7 +273,7 @@ module Ronin
 
         local_repo = repo.pull(File.join(Config::CACHE_DIR,host,name))
 
-        new_overlay = Overlay.create!(
+        return Overlay.add!(
           :path => local_repo.path,
           :scm => local_repo.scm,
           :uri => repo.uri,
@@ -233,9 +281,43 @@ module Ronin
           :host => host,
           :name => name
         )
+      end
 
-        block.call(new_overlay) if block
-        return new_overlay
+      #
+      # Updates all Overlays.
+      #
+      # @yield [overlay]
+      #   If a block is given, it will be passed each updated Overlay.
+      #
+      # @yieldparam [Overlay] overlay
+      #   An updated Overlay.
+      #
+      # @since 0.4.0
+      #
+      def Overlay.update!(&block)
+        Overlay.all.each do |overlay|
+          overlay.update!
+
+          # sync the object cache
+          ObjectCache.sync(overlay.cache_dir)
+
+          block.call(overlay) if block
+        end
+      end
+
+      #
+      # Uninstalls the Overlay with the given name or host.
+      #
+      # @param [String] name
+      #   The name of the Overlay to uninstall.
+      #
+      # @param [String] host
+      #   The host the Overlay was installed from.
+      #
+      # @return [nil]
+      #
+      def Overlay.uninstall!(name,host=nil)
+        Overlay.get(name,host).uninstall!
       end
 
       #
@@ -391,6 +473,12 @@ module Ronin
       #
       def uninstall!(&block)
         FileUtils.rm_rf(self.path) unless self.local?
+
+        # clean the object cache
+        ObjectCache.clean(overlay.cache_dir)
+
+        # remove the overlay from the database
+        overlay.destroy
 
         block.call(self) if block
         return self
