@@ -51,33 +51,32 @@ module Ronin
           def self.describing(fragment)
             self.all(:description.like => "%#{fragment}%")
           end
+          #
+          # Strips leading and trailing white-space from each line, then sets
+          # the description property.
+          #
+          # @param [String] new_text
+          #   The new description to use.
+          #
+          # @example
+          #   self.description = %{
+          #     Some text here.
+          #
+          #     More text.
+          #   }
+          #
+          # @since 0.3.0
+          #
+          def description=(new_text)
+            sanitized_lines = []
+
+            new_text.to_s.each_line do |line|
+              sanitized_lines << line.strip
+            end
+
+            attribute_set(:description,sanitized_lines.join("\n").strip)
+          end
         end
-      end
-
-      #
-      # Strips leading and trailing white-space from each line, then sets
-      # the description property.
-      #
-      # @param [String] new_text
-      #   The new description to use.
-      #
-      # @example
-      #   self.description = %{
-      #     Some text here.
-      #
-      #     More text.
-      #   }
-      #
-      # @since 0.3.0
-      #
-      def description=(new_text)
-        sanitized_lines = []
-
-        new_text.to_s.each_line do |line|
-          sanitized_lines << line.strip
-        end
-
-        attribute_set(:description,sanitized_lines.join("\n").strip)
       end
     end
   end
