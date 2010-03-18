@@ -7,7 +7,7 @@ describe Platform::OverlayCache do
   include Helpers::Overlays
 
   before(:all) do
-    @cache = OverlayCache.new
+    @cache = Platform::OverlayCache.new
   end
 
   it "should not be empty" do
