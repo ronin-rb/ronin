@@ -292,7 +292,18 @@ module Ronin
       #
       def update(&block)
         overlays.each do |overlay|
-          overlay.update(&block)
+          # de-activate the overlay
+          overlay.deactive!
+
+          overlay.update
+
+          # re-activate the overlay
+          overlay.activate!
+
+          # sync the object cache
+          ObjectCache.sync(overlay.cache_dir)
+
+          block.call(overlay) if block
         end
 
         return self

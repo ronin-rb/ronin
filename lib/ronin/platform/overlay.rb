@@ -355,9 +355,6 @@ module Ronin
       #   The updated overlay.
       #
       def update(&block)
-        # de-activate the overlay
-        deactivate!
-
         # only update if we have a repository
         @repository.update(self.uri) if @repository
 
@@ -366,12 +363,6 @@ module Ronin
 
         # and save any changes to the database
         self.save
-
-        # re-activate the overlay
-        activate!
-
-        # sync the object cache
-        ObjectCache.sync(cache_dir)
 
         block.call(self) if block
         return self
