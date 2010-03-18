@@ -64,6 +64,28 @@ module Ronin
 
         Author.has Author.n, base.relationship_name, :model => base.name
       end
+
+      #
+      # Adds a new author to the resource.
+      #
+      # @param [Hash] attributes
+      #   Additional attributes to create the new author.
+      #
+      # @yield [author]
+      #   If a block is given, it will be passed the newly created author
+      #   object.
+      #
+      # @yieldparam [Author] author
+      #   The author object associated with the resource.
+      #
+      # @example
+      #   author :name => 'Anonymous',
+      #          :email => 'anon@example.com',
+      #          :organization => 'Anonymous LLC'
+      #
+      def author(attributes={},&block)
+        self.authors << Author.new(attributes,&block)
+      end
     end
   end
 end
