@@ -398,8 +398,7 @@ module Ronin
       def initialize_metadata()
         metadata_path = File.join(self.path,METADATA_FILE)
 
-        # set to default values
-        self.version = nil
+        self.version = 0
 
         self.title = self.name
         self.description = nil
@@ -418,8 +417,6 @@ module Ronin
 
           if (version_attr = overlay.attributes['version'])
             self.version = version_attr.inner_text.strip.to_i
-          else
-            print_error "Overlay #{self.name.dump} does not specify an Overlay Version attribute in \"ronin.xml\""
           end
 
           if (title_tag = overlay.at('title'))
@@ -468,7 +465,7 @@ module Ronin
           end
         end
 
-        if (self.version && !(compatible?))
+        unless compatible?
           print_error "Overlay #{self.name.dump} is not compatible with the current Overlay implementation"
         end
 
