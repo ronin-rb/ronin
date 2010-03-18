@@ -104,7 +104,7 @@ module Ronin
         include Ronin::Model
 
         # The class-name of the cached object
-        property :type, Discriminator
+        property :type, DataMapper::Types::Discriminator
 
         # The cached file of the object
         belongs_to :cached_file,
