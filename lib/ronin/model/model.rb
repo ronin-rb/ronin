@@ -54,7 +54,7 @@ module Ronin
         # @since 0.4.0
         #
         def self.relationship_name
-          self.name.split('::').last.snake_case.plural.to_sym
+          self.name.split('::').last.underscore.plural.to_sym
         end
 
         def self.load(records,query)
