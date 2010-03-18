@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-03-16}
+  s.date = %q{2010-03-17}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-list", "ronin-help", "ronin-install", "ronin-remove", "ronin-uninstall", "ronin-update", "ronin-database"]
@@ -50,6 +50,7 @@ Gem::Specification.new do |s|
     "lib/ronin/environment.rb",
     "lib/ronin/license.rb",
     "lib/ronin/model.rb",
+    "lib/ronin/model/has_authors.rb",
     "lib/ronin/model/has_description.rb",
     "lib/ronin/model/has_license.rb",
     "lib/ronin/model/has_name.rb",
@@ -203,14 +204,14 @@ Gem::Specification.new do |s|
     "spec/platform/helpers/overlays/hello/lib/stuff/test.rb",
     "spec/platform/helpers/overlays/hello/lib/stuff/another_test.rb",
     "spec/platform/helpers/overlays.rb",
+    "spec/platform/helpers/extensions.rb",
     "spec/platform/helpers/extensions/test.rb",
     "spec/platform/helpers/extensions/circular.rb",
-    "spec/platform/helpers/extensions.rb",
     "spec/platform/extension_cache_spec.rb",
     "spec/platform/extension_spec.rb",
     "spec/platform/overlay_cache_spec.rb",
-    "spec/platform/platform_spec.rb",
     "spec/platform/overlay_spec.rb",
+    "spec/platform/platform_spec.rb",
     "spec/platform/maintainer_spec.rb",
     "spec/product_spec.rb",
     "spec/spec_helper.rb",
