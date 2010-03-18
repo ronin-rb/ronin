@@ -48,9 +48,6 @@ module Ronin
 
             return resources
           end
-
-          # The class type property
-          property :type, Discriminator
         end
       end
     end
