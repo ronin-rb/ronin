@@ -106,6 +106,7 @@ module Ronin
         # The class-name of the cached object
         property :type, Discriminator
 
+        # The cached file of the object
         belongs_to :cached_file,
                    :required => false,
                    :model => Ronin::Cacheable::CachedFile
