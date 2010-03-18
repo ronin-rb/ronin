@@ -222,7 +222,8 @@ module Ronin
           :path => local_repo.path,
           :scm => local_repo.scm,
           :uri => repo.uri,
-          :local => false
+          :local => false,
+          :name => repo.name
         )
 
         block.call(new_overlay) if block
