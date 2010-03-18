@@ -29,7 +29,6 @@ module Ronin
 
           desc "Add a local overlay to the Overlay cache"
           class_option :scm, :type => :string, :aliases => '-S'
-          class_option :local, :type => :boolean, :aliases => '-L'
           class_option :rsync, :type => :boolean
           class_option :svn, :type => :boolean
           class_option :hg, :type => :boolean
