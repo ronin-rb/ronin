@@ -55,7 +55,10 @@ module Ronin
             print_title overlay.name
 
             indent do
-              puts "Path: #{overlay.path}"
+              if overlay.local?
+                puts "Path: #{overlay.path}"
+              end
+
               puts "Media: #{overlay.media}" if overlay.media
               puts "URI: #{overlay.uri}" if overlay.uri
 
