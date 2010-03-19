@@ -36,7 +36,7 @@ module Ronin
             Database.setup
 
             overlay = Platform::Overlay.uninstall!(
-              self.name,
+              name,
               options[:host]
             )
 
