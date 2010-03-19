@@ -19,8 +19,8 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/ui/output'
 require 'ronin/platform/overlay'
+require 'ronin/database'
 
 module Ronin
   module UI

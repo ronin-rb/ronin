@@ -20,6 +20,7 @@
 
 require 'ronin/ui/command_line/command'
 require 'ronin/platform/overlay'
+require 'ronin/database'
 
 module Ronin
   module UI
@@ -52,6 +53,8 @@ module Ronin
                     elsif options.git?
                       :git
                     end
+
+            Database.setup
 
             overlay = Platform::Overlay.install!(
               :uri => uri,

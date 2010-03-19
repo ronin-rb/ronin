@@ -20,6 +20,7 @@
 
 require 'ronin/ui/command_line/command'
 require 'ronin/platform/overlay'
+require 'ronin/database'
 
 module Ronin
   module UI
@@ -55,8 +56,9 @@ module Ronin
               overlay_options[:uri] = options[:uri]
             end
 
-            overlay = Platform::Overlay.add!(overlay_options)
+            Database.setup
 
+            overlay = Platform::Overlay.add!(overlay_options)
             print_info "Overlay #{overlay} added."
           end
 

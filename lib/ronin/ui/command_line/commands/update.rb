@@ -20,6 +20,7 @@
 
 require 'ronin/ui/command_line/command'
 require 'ronin/platform/overlay'
+require 'ronin/database'
 
 module Ronin
   module UI
@@ -31,6 +32,8 @@ module Ronin
           argument :name, :type => :string, :required => false
 
           def execute
+            Database.setup
+
             if name
               begin
                 overlay = Platform.get(name)
