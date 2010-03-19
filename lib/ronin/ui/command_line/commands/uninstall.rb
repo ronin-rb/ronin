@@ -29,14 +29,14 @@ module Ronin
         class Uninstall < Command
 
           desc 'Uninstall the specified Overlay'
+          class_option :host, :type => :string, :aliases => '-H'
           argument :name, :type => :string
-          argument :host, :type => :string
 
           def execute
             Database.setup
 
             overlay = Platform::Overlay.uninstall!(
-              options[:name],
+              self.name,
               options[:host]
             )
 
