@@ -227,7 +227,7 @@ module Ronin
       #
       def Overlay.add!(options={})
         unless options[:path]
-          raise(OverlayNotFound,"no path defined for the overlay",caller)
+          raise(ArgumentError,"the :path option was not given",caller)
         end
 
         path = File.expand_path(options[:path].to_s)

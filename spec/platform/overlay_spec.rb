@@ -17,7 +17,7 @@ describe Platform::Overlay do
   it "should not add Overlays without a path property" do
     lambda {
       Platform::Overlay.add!
-    }.should raise_error(Platform::OverlayNotFound)
+    }.should raise_error(ArgumentError)
   end
 
   it "should not add Overlays that do not point to a directory" do
