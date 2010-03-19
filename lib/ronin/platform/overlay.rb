@@ -159,7 +159,6 @@ module Ronin
       def initialize(attributes={},&block)
         super(attributes)
 
-       
         @lib_dir = File.join(self.path,LIB_DIR)
         @static_dir = File.join(self.path,STATIC_DIR)
         @cache_dir = File.join(self.path,CACHE_DIR)
@@ -200,17 +199,20 @@ module Ronin
       # @since 0.4.0
       #
       def Overlay.get(name,host=nil)
-        query = {:name => name.to_s}
+        name = name.to_s
+        host = if host
+                 host.to_s
+               else
+                 nil
+               end
 
-        if host
-          query[:host] = host.to_s
-        end
+        query = {:name => name, :host => host}
 
         unless (overlay = Overlay.first(query))
           if host
-            raise(OverlayNotFound,"overlay #{query[:name].dump} from host #{query[:host].dump} cannot be found",caller)
+            raise(OverlayNotFound,"overlay #{name.dump} from host #{host.dump} cannot be found",caller)
           else
-            raise(OverlayNotFound,"overlay #{query[:name].dump} cannot be found",caller)
+            raise(OverlayNotFound,"overlay #{name.dump} cannot be found",caller)
           end
         end
 
@@ -236,6 +238,7 @@ module Ronin
           raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
         end
 
+        # create and save the Overlay
         overlay = Overlay.create!(options.merge(:path => path))
 
         # update the object cache
@@ -276,8 +279,10 @@ module Ronin
         host = repo.uri.host
         name = repo.name
 
+        # pull down the remote repository
         local_repo = repo.pull(File.join(Config::CACHE_DIR,host,name))
 
+        # add the new remote overlay
         return Overlay.add!(
           :path => local_repo.path,
           :scm => local_repo.scm,
