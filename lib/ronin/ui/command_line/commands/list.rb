@@ -60,7 +60,7 @@ module Ronin
                 puts "Path: #{overlay.path}"
               end
 
-              puts "Media: #{overlay.media}" if overlay.media
+              puts "SCM: #{overlay.scm}" if overlay.scm
               puts "URI: #{overlay.uri}" if overlay.uri
 
               if UI::Output.verbose?
