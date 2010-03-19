@@ -86,7 +86,11 @@ module Ronin
 
       # The host the overlay belongs to
       property :host, String, :default => lambda { |overlay,host|
-        overlay.uri.host if overlay.uri
+        if overlay.uri
+          overlay.uri.host
+        else
+          'localhost'
+        end
       }
 
       # Name of the overlay
