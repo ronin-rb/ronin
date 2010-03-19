@@ -226,7 +226,7 @@ module Ronin
       # @since 0.4.0
       #
       def Overlay.add!(options={})
-        unless options[:path]
+        unless options.has_key?(:path)
           raise(ArgumentError,"the :path option was not given",caller)
         end
 
