@@ -29,7 +29,6 @@ module Ronin
         class List < Command
 
           desc 'List all Overlays or a specific one'
-          class_option :verbose, :type => :boolean, :aliaes => '-v'
           class_option :host, :type => :string, :aliaes => '-H'
           argument :name, :type => :string, :required => false
 
@@ -66,7 +65,7 @@ module Ronin
                 puts "Host: #{overlay.host}"
               end
 
-              if UI::Output.verbose?
+              if options.verbose?
                 putc "\n"
 
                 if overlay.title
