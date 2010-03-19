@@ -61,7 +61,10 @@ module Ronin
               end
 
               puts "SCM: #{overlay.scm}" if overlay.scm
-              puts "URI: #{overlay.uri}" if overlay.uri
+
+              if overlay.host
+                puts "Host: #{overlay.host}"
+              end
 
               if UI::Output.verbose?
                 putc "\n"
@@ -69,6 +72,8 @@ module Ronin
                 if overlay.title
                   puts "Title: #{overlay.title}"
                 end
+
+                puts "URI: #{overlay.uri}" if overlay.uri
 
                 if overlay.source
                   puts "Source URI: #{overlay.source}"
