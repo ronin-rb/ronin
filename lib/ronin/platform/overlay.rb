@@ -159,16 +159,7 @@ module Ronin
       def initialize(attributes={},&block)
         super(attributes)
 
-        unless self.path
-          raise(OverlayNotFound,"no path defined for the overlay",caller)
-        end
-
-        path = File.expand_path(path.to_s)
-
-        unless File.directory?(self.path)
-          raise(OverlayNotFound,"overlay #{self.path.dump} cannot be found",caller)
-        end
-        
+       
         @lib_dir = File.join(self.path,LIB_DIR)
         @static_dir = File.join(self.path,STATIC_DIR)
         @cache_dir = File.join(self.path,CACHE_DIR)
@@ -235,7 +226,17 @@ module Ronin
       # @since 0.4.0
       #
       def Overlay.add!(options={})
-        overlay = Overlay.create!(options)
+        unless options[:path]
+          raise(OverlayNotFound,"no path defined for the overlay",caller)
+        end
+
+        path = File.expand_path(options[:path].to_s)
+
+        unless File.directory?(path)
+          raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
+        end
+
+        overlay = Overlay.create!(options.merge(:path => path))
 
         # update the object cache
         ObjectCache.cache(overlay.cache_dir)

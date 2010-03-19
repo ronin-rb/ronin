@@ -14,15 +14,15 @@ describe Platform::Overlay do
     @overlay.should be_compatible
   end
 
-  it "should require a path property" do
+  it "should not add Overlays without a path property" do
     lambda {
-      Platform::Overlay.new
+      Platform::Overlay.add!
     }.should raise_error(Platform::OverlayNotFound)
   end
 
-  it "should require a path to the overlay directory" do
+  it "should not add Overlays that do not point to a directory" do
     lambda {
-      Platform::Overlay.new(:path => 'path/to/nowhere')
+      Platform::Overlay.add!(:path => 'path/to/nowhere')
     }.should raise_error(Platform::OverlayNotFound)
   end
 
