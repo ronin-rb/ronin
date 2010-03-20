@@ -228,6 +228,15 @@ module Ronin
       # @return [Overlay]
       #   The added Overlay.
       #
+      # @raise [ArgumentError]
+      #   The `:path` option was not specified.
+      #
+      # @raise [OverlayNotFound]
+      #   The path of the Overlay did not exist or was not a directory.
+      #
+      # @raise [OverlayCached]
+      #   An Overlay already exists with the same path.
+      #
       # @since 0.4.0
       #
       def Overlay.add!(options={})
