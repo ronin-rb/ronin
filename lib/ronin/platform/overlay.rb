@@ -559,10 +559,10 @@ module Ronin
             self.description = description_tag.inner_text.strip
           end
 
-          if (license_attr = overlay.attributes['license'])
-            name = license_attr.inner_text.strip
+          if (license_tag = overlay.at('license'))
+            name = license_tag.inner_text.strip
 
-            self.license = License.predefined_resource(name)
+            self.license = License.predefined_resource_with(:name => name)
           end
 
           if (source_tag = overlay.at('source'))
