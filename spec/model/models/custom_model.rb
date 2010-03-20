@@ -1,6 +1,6 @@
 require 'ronin/model/model'
 
-require 'model/classes/basic_model'
+require 'model/models/basic_model'
 
 class CustomModel < BasicModel
 

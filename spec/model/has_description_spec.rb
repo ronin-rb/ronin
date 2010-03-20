@@ -1,7 +1,7 @@
 require 'ronin/model/has_description'
 
 require 'spec_helper'
-require 'model/classes/described_model'
+require 'model/models/described_model'
 
 describe Model::HasDescription do
   before(:each) do

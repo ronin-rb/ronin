@@ -1,7 +1,7 @@
 require 'ronin/model/has_license'
 
 require 'spec_helper'
-require 'model/classes/licensed_model'
+require 'model/models/licensed_model'
 
 describe Model::HasLicense do
   before(:all) do

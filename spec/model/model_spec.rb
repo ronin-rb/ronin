@@ -1,8 +1,8 @@
 require 'ronin/model/model'
 
 require 'spec_helper'
-require 'model/classes/basic_model'
-require 'model/classes/custom_model'
+require 'model/models/basic_model'
+require 'model/models/custom_model'
 
 describe Model do
   before(:all) do

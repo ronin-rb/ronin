@@ -1,7 +1,7 @@
 require 'ronin/model/lazy_upgrade'
 
 require 'spec_helper'
-require 'model/classes/lazy_model'
+require 'model/models/lazy_model'
 
 describe Ronin::Model::LazyUpgrade do
   describe "pre auto_upgrade" do
