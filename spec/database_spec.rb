@@ -19,10 +19,6 @@ describe Database do
     OS.should be_auto_upgraded
   end
 
-  it "should auto_upgrade the Product model" do
-    Product.should be_auto_upgraded
-  end
-
   it "should auto_upgrade the Cacheable::CachedFile model" do
     Cacheable::CachedFile.should be_auto_upgraded
   end

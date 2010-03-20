@@ -71,7 +71,6 @@ Gem::Specification.new do |s|
     "lib/ronin/platform/overlay_cache.rb",
     "lib/ronin/platform/overlays.rb",
     "lib/ronin/platform/platform.rb",
-    "lib/ronin/product.rb",
     "lib/ronin/rpc.rb",
     "lib/ronin/rpc/call.rb",
     "lib/ronin/rpc/client.rb",
@@ -109,7 +108,6 @@ Gem::Specification.new do |s|
     "lib/ronin/ui/output/helpers.rb",
     "lib/ronin/ui/output/output.rb",
     "lib/ronin/ui/shell.rb",
-    "lib/ronin/vendor.rb",
     "lib/ronin/version.rb",
     "ronin.gemspec",
     "spec/arch_spec.rb",
@@ -158,7 +156,6 @@ Gem::Specification.new do |s|
     "spec/platform/overlay_cache_spec.rb",
     "spec/platform/overlay_spec.rb",
     "spec/platform/platform_spec.rb",
-    "spec/product_spec.rb",
     "spec/ronin_spec.rb",
     "spec/spec_helper.rb",
     "spec/templates/classes/example_erb.rb",
@@ -171,7 +168,6 @@ Gem::Specification.new do |s|
     "spec/ui/command_line/classes/test_command.rb",
     "spec/ui/command_line/command_spec.rb",
     "spec/ui/output_spec.rb",
-    "spec/vendor_spec.rb",
     "static/ronin/platform/overlay.xsl"
   ]
   s.has_rdoc = %q{yard}
@@ -189,7 +185,6 @@ Gem::Specification.new do |s|
     "spec/database_spec.rb",
     "spec/ronin_spec.rb",
     "spec/license_spec.rb",
-    "spec/vendor_spec.rb",
     "spec/model/has_license_spec.rb",
     "spec/model/has_description_spec.rb",
     "spec/model/classes/licensed_model.rb",
@@ -216,7 +211,6 @@ Gem::Specification.new do |s|
     "spec/platform/overlay_spec.rb",
     "spec/platform/platform_spec.rb",
     "spec/platform/maintainer_spec.rb",
-    "spec/product_spec.rb",
     "spec/spec_helper.rb",
     "spec/templates/classes/example_erb.rb",
     "spec/templates/classes/example_template.rb",
