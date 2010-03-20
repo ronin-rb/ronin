@@ -7,17 +7,18 @@ describe Product do
     product = Product.new
     product.should_not be_valid
 
-    product.name = 'test'
+    product.name = 'Test'
     product.should_not be_valid
 
     product.version = '0.1.0'
     product.should be_valid
   end
 
-  it "should default the vendor to the name of the product" do
-    product = Product.new(:name => 'Adobe', :version => '0.1.0')
-    product.vendor.should == product.name
+  it "should be convertable to a String" do
+    product = Product.new(:name => 'Test', :version => '0.1.0')
+    product.to_s.should == 'Test 0.1.0'
 
-    product.should be_valid
+    product.vendor = Vendor.new(:name => 'TestCo')
+    product.to_s.should == 'TestCo Test 0.1.0'
   end
 end

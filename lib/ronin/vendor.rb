@@ -19,36 +19,34 @@
 #
 
 require 'ronin/model'
-require 'ronin/vendor'
 
 module Ronin
   #
-  # Represents a Software Product.
+  # Represents a Software Vendor.
   #
-  class Product
+  class Vendor
 
     include Model
 
-    # Primary key
+    # The primary-key of the vendor
     property :id, Serial
 
-    # Name
-    property :name, String, :required => true, :index => true
+    # The name of the vendor
+    property :name, String, :required => true, :unique => true
 
-    # Version
-    property :version, String, :required => true, :index => true
-
-    # The vendor of the product
-    belongs_to :vendor, :required => false
+    # Products published by the vendor
+    has 0..n, :products
 
     #
-    # Converts the product to a String.
+    # Converts the vendor to a String.
     #
     # @return [String]
-    #   The product vendor, name and version.
+    #   The name of the vendor.
+    #
+    # @since 0.4.0
     #
     def to_s
-      [self.vendor, self.name, self.version].compact.join(' ')
+      self.name.to_s
     end
 
   end

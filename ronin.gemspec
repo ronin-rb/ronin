@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-03-17}
+  s.date = %q{2010-03-19}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-list", "ronin-help", "ronin-install", "ronin-remove", "ronin-uninstall", "ronin-update", "ronin-database"]
@@ -109,6 +109,7 @@ Gem::Specification.new do |s|
     "lib/ronin/ui/output/helpers.rb",
     "lib/ronin/ui/output/output.rb",
     "lib/ronin/ui/shell.rb",
+    "lib/ronin/vendor.rb",
     "lib/ronin/version.rb",
     "ronin.gemspec",
     "spec/arch_spec.rb",
@@ -170,6 +171,7 @@ Gem::Specification.new do |s|
     "spec/ui/command_line/classes/test_command.rb",
     "spec/ui/command_line/command_spec.rb",
     "spec/ui/output_spec.rb",
+    "spec/vendor_spec.rb",
     "static/ronin/platform/overlay.xsl"
   ]
   s.has_rdoc = %q{yard}
@@ -187,6 +189,7 @@ Gem::Specification.new do |s|
     "spec/database_spec.rb",
     "spec/ronin_spec.rb",
     "spec/license_spec.rb",
+    "spec/vendor_spec.rb",
     "spec/model/has_license_spec.rb",
     "spec/model/has_description_spec.rb",
     "spec/model/classes/licensed_model.rb",
