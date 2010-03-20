@@ -31,10 +31,7 @@ module Ronin
           include Ronin::Model
 
           # The name of the model
-          property :name, String, :index => true
-
-          # Validations
-          validates_present :name
+          property :name, String, :required => true, :index => true
 
           #
           # Finds models with names containing a given fragment of text.
