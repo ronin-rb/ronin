@@ -72,7 +72,7 @@ module Ronin
       property :id, Serial
 
       # Local path to the overlay repository
-      property :path, String, :required => true
+      property :path, String, :required => true, :unique => true
 
       # URI that the overlay was installed from
       property :uri, URI
