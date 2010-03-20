@@ -62,7 +62,9 @@ module Ronin
           end
         end
 
-        Author.has Author.n, base.relationship_name, :model => base.name
+        Author.belongs_to base.relationship_name,
+                          :model => base.name,
+                          :required => false
       end
 
       #
