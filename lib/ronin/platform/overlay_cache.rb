@@ -26,7 +26,7 @@ require 'ronin/platform/config'
 
 module Ronin
   module Platform
-    class OverlayCache < Hash
+    class OverlayCache < Array
 
       #
       # Create a new OverlayCache object.
@@ -49,100 +49,25 @@ module Ronin
       # Loads all overlays.
       #
       def load!
+        self.clear
+
         Overlay.all.each do |overlay|
-          if overlay.compatible?
-            self[overlay.name] = overlay
-          end
+          self << overlay if overlay.compatible?
         end
 
-        return true
+        return self
       end
 
-      #
-      # Clears the overlay cache, and reloads it's contents from the same
-      # cache-file.
-      #
-      def reload!
-        clear
-        load!
-      end
+      alias reload! load!
 
       #
-      # @return [Boolean]
-      #   Specifies whether the overlay cache has been modified.
+      # The names of the overlays in the overlay cache.
       #
-      def dirty?
-        @dirty == true
-      end
-
-      #
-      # @return [Array]
-      #   The sorted names of the overlays within the cache.
+      # @return [Array<String>]
+      #   The overlay names.
       #
       def names
-        keys.sort
-      end
-
-      alias overlays values
-      alias each_overlay each_value
-
-      #
-      # Selects overlays from the overlay cache.
-      #
-      # @yield [overlay]
-      #   The block that will be passed each overlay. Overlays will be
-      #   selected based on the return value of the block.
-      #
-      # @yieldparam [Overlay] overlay
-      #   An overlay from the cache.
-      #
-      # @return [Array]
-      #   The selected overlay.
-      #
-      # @example
-      #   cache.with do |overlay|
-      #     overlay.author == 'the dude'
-      #   end
-      #
-      def with(&block)
-        values.select(&block)
-      end
-
-      #
-      # Searches for the overlay with the given name.
-      #
-      # @param [String] name
-      #   The name of the overlay to search for.
-      #
-      # @return [Boolean]
-      #   Specifies whether the cache contains the Overlay with the
-      #   matching name.
-      #
-      def has?(name)
-        has_key?(name.to_s)
-      end
-
-      #
-      # Searches for the overlay with the given name.
-      #
-      # @param [String] name
-      #   The name of the overlay to search for.
-      #
-      # @return [Overlay]
-      #   The overlay with the matching name.
-      #
-      # @raise [OverlayNotFound]
-      #   No overlay with the matching name could be found in the
-      #   overlay cache.
-      #
-      def get(name)
-        name = name.to_s
-
-        unless has?(name)
-          raise(OverlayNotFound,"overlay #{name.dump} cannot be found",caller)
-        end
-
-        return self[name]
+        self.map { |overlay| overlay.to_s }
       end
 
       #
@@ -150,7 +75,7 @@ module Ronin
       #   The paths of the overlays contained in the cache.
       #
       def paths
-        overlays.map { |overlay| overlay.path }
+        self.map { |overlay| overlay.path }
       end
 
       #
@@ -164,11 +89,7 @@ module Ronin
       #   within any of the overlays in the overlay cache.
       #
       def has_extension?(name)
-        each_overlay do |overlay|
-          return true if overlay.extensions.include?(name)
-        end
-
-        return false
+        self.any? { |overlay| overlay.extensions.include?(name) }
       end
 
       #
@@ -178,7 +99,7 @@ module Ronin
       def extensions
         ext_names = []
 
-        each_overlay do |overlay|
+        self.each do |overlay|
           overlay.extensions.each do |name|
             ext_names << name unless ext_names.include?(name)
           end
@@ -201,50 +122,13 @@ module Ronin
         file_name = "#{name}.rb"
         ext_paths = []
 
-        each_overlay do |overlay|
+        self.each do |overlay|
           overlay.extension_paths.each do |path|
             ext_paths << path if File.basename(path) == file_name
           end
         end
 
         return ext_paths
-      end
-
-      #
-      # Adds an overlay with the given name to the overlay cache.
-      #
-      # @param [String] name
-      #   The name of the overlay.
-      #
-      # @param [Overlay] overlay
-      #   The new overlay.
-      #
-      # @return [Overlay]
-      #   The new overlay.
-      #
-      def []=(name,overlay)
-        super(name.to_s,overlay)
-
-        overlay.activate!
-        return overlay
-      end
-
-      #
-      # Deletes an overlay with the given name from the overlay cache.
-      #
-      # @param [String] name
-      #   The name of the overlay.
-      #
-      # @return [Overlay]
-      #   The deleted overlay.
-      #
-      # @since 0.4.0
-      #
-      def delete(name)
-        overlay = super(name.to_s)
-
-        overlay.deactive! if overlay
-        return overlay
       end
 
     end

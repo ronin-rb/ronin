@@ -14,29 +14,6 @@ describe Platform::OverlayCache do
     @cache.should_not be_empty
   end
 
-  it "should have specific overlays" do
-    @cache.has?('test1').should == true
-  end
-
-  it "should return specific overlays" do
-    @cache.get('test1').name.should == 'test1'
-  end
-
-  it "should raise an OverlayNotFound exception when requesting missing overlays" do
-    lambda {
-      @cache.get('nothing')
-    }.should raise_error(Platform::OverlayNotFound)
-  end
-
-  it "should be able to select overlays with certain attributes" do
-    overlays = @cache.with do |overlay|
-      overlay.name =~ /^test/
-    end
-
-    overlays.should include(@cache.get('test1'))
-    overlays.should include(@cache.get('test2'))
-  end
-
   it "should return the paths to all the overlays" do
     paths = @cache.paths
 
