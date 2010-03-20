@@ -36,7 +36,7 @@ module Ronin
 
             if name
               begin
-                overlay = Platform.get(name)
+                overlay = Platform::Overlay.get(name)
                 
                 print_info "Updating Overlay #{overlay} ..."
 
