@@ -20,8 +20,6 @@
 
 require 'ronin/model'
 
-require 'rexml/document'
-
 module Ronin
   #
   # Represents a Software Product.
