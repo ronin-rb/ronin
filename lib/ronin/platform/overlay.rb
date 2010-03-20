@@ -213,9 +213,9 @@ module Ronin
 
         unless (overlay = Overlay.first(query))
           if host
-            raise(OverlayNotFound,"overlay #{name.dump} from host #{host.dump} cannot be found",caller)
+            raise(OverlayNotFound,"Overlay #{name.dump} from host #{host.dump} cannot be found",caller)
           else
-            raise(OverlayNotFound,"overlay #{name.dump} cannot be found",caller)
+            raise(OverlayNotFound,"Overlay #{name.dump} cannot be found",caller)
           end
         end
 
@@ -232,17 +232,17 @@ module Ronin
       #
       def Overlay.add!(options={})
         unless options.has_key?(:path)
-          raise(ArgumentError,"the :path option was not given",caller)
+          raise(ArgumentError,"The :path option was not given",caller)
         end
 
         path = File.expand_path(options[:path].to_s)
 
         unless File.directory?(path)
-          raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
+          raise(OverlayNotFound,"Overlay #{path.dump} cannot be found",caller)
         end
 
         if Overlay.first(:path => path)
-          raise(OverlayCached,"an overlay at the path #{path.dump} was already added",caller)
+          raise(OverlayCached,"An overlay at the path #{path.dump} was already added",caller)
         end
 
         # create and save the Overlay
