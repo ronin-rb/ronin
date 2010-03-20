@@ -4,6 +4,10 @@ require 'spec_helper'
 require 'model/models/described_model'
 
 describe Model::HasDescription do
+  before(:all) do
+    DescribedModel.auto_migrate!
+  end
+
   before(:each) do
     @model = DescribedModel.new
   end
