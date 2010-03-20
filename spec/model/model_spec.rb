@@ -26,10 +26,17 @@ describe Model do
     resource.var.should == 2
   end
 
-  it "should still call initialize when loading from the database" do
-    CustomModel.create(:name => 'bob')
+  it "should call initialize when creating a new resource" do
+    resource = CustomModel.create!(:name => 'jim')
 
-    resource = CustomModel.first
+    resource.name.should == 'jim'
+    resource.var.should == 2
+  end
+
+  it "should call initialize when loading from the database" do
+    CustomModel.create!(:name => 'bob')
+
+    resource = CustomModel.first(:name => 'bob')
     resource.name.should == 'bob'
     resource.var.should == 2
   end
