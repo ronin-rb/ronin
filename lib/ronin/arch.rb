@@ -38,17 +38,15 @@ module Ronin
     property :id, Serial
 
     # Name of the architecture
-    property :name, String
+    property :name, String, :required => true, :unique => true
 
     # Endianness of the architecture
-    property :endian, String
+    property :endian, String, :required => true
 
     # Address length of the architecture
-    property :address_length, Integer
+    property :address_length, Integer, :required => true
 
     # Validates
-    validates_present :name, :endian, :address_length
-    validates_is_unique :name
     validates_format :endian, :with => lambda { |endian|
       endian == 'big' || endian == 'little'
     }

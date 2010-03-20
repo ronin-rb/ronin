@@ -37,13 +37,10 @@ module Ronin
     property :id, Serial
 
     # Name of the Operating System
-    property :name, String, :index => true
+    property :name, String, :required => true, :index => true
 
     # Version of the Operating System
     property :version, String, :index => true
-
-    # Validates
-    validates_present :name
 
     #
     # Converts the os to a String.

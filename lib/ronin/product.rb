@@ -34,16 +34,13 @@ module Ronin
     property :id, Serial
 
     # Name
-    property :name, String, :index => true
+    property :name, String, :required => true, :index => true
 
     # Version
-    property :version, String, :index => true
+    property :version, String, :required => true, :index => true
 
     # Venders
     property :vendor, String
-
-    # Validates
-    validates_present :name, :version
 
     #
     # Creates a new Product object.

@@ -37,17 +37,13 @@ module Ronin
     property :id, Serial
 
     # License name
-    property :name, String
+    property :name, String, :required => true, :unique => true
 
     # Description of license
-    property :description, Text
+    property :description, Text, :required => true
 
     # URL of the License document
     property :url, String
-
-    # Validations
-    validates_present :name, :description
-    validates_is_unique :name
 
     #
     # Converts the license to a String.
