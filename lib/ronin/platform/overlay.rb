@@ -47,6 +47,9 @@ module Ronin
       # A list of compatible Overlay Implementation Versions
       COMPATIBLE_VERSIONS = [1,2]
 
+      # The default host-name that overlays are installed from
+      DEFAULT_HOST = 'localhost'
+
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
 
@@ -89,7 +92,7 @@ module Ronin
         if overlay.uri
           overlay.uri.host
         else
-          'localhost'
+          DEFAULT_HOST
         end
       }
 
@@ -187,26 +190,25 @@ module Ronin
       # @param [String] name
       #   The name of the Overlay.
       #
-      # @param [String] host
-      #   The host the Overlay was installed from.
-      #
       # @return [Overlay]
       #   The found Overlay.
       #
       # @raise [OverlayNotFound]
       #   No Overlay could be found with the given name or host.
       #
+      # @example Load the Overlay with the given name
+      #   Overlay.get('postmodern-overlay')
+      #
+      # @example Load the Overlay with the given name and host.
+      #   Overlay.get('postmodern-overlay/github.com')
+      #
       # @since 0.4.0
       #
-      def Overlay.get(name,host=nil)
-        name = name.to_s
-        host = if host
-                 host.to_s
-               else
-                 nil
-               end
+      def Overlay.get(name)
+        name, host = name.to_s.split('/',2)
 
-        query = {:name => name, :host => host}
+        query = {:name => name}
+        query[:host] = host if host
 
         unless (overlay = Overlay.first(query))
           if host
@@ -280,7 +282,7 @@ module Ronin
         name = repo.name
 
         # pull down the remote repository
-        local_repo = repo.pull(File.join(Config::CACHE_DIR,host,name))
+        local_repo = repo.pull(File.join(Config::CACHE_DIR,name,host))
 
         # add the new remote overlay
         return Overlay.add!(
@@ -324,8 +326,14 @@ module Ronin
       #
       # @return [nil]
       #
-      def Overlay.uninstall!(name,host=nil)
-        Overlay.get(name,host).uninstall!
+      # @example Uninstall the Overlay with the given name
+      #   Overlay.uninstall!('postmodern-overlay')
+      #
+      # @example Uninstall the Overlay with the given name and host.
+      #   Overlay.uninstall!('postmodern-overlay/github.com')
+      #
+      def Overlay.uninstall!(name)
+        Overlay.get(name).uninstall!
       end
 
       #

@@ -10,8 +10,29 @@ describe Platform::Overlay do
     @overlay = load_overlay('hello')
   end
 
-  it "should be compatible with the current Ronin::Platform::Overlay" do
-    @overlay.should be_compatible
+  it "should be able to retrieve an Overlay by name" do
+    overlay = Platform::Overlay.get('hello')
+
+    overlay.name.should == 'hello'
+  end
+
+  it "should be able to retrieve an Overlay by host and name" do
+    overlay = Platform::Overlay.get('hello/localhost')
+
+    overlay.name.should == 'hello'
+    overlay.host.should == 'localhost'
+  end
+
+  it "should raise OverlayNotFound for unknown Overlay names" do
+    lambda {
+      Platform::Overlay.get('bla')
+    }.should raise_error(Platform::OverlayNotFound)
+  end
+
+  it "should raise OverlayNotFound for unknown Overlay names or hosts" do
+    lambda {
+      Platform::Overlay.get('bla/bla')
+    }.should raise_error(Platform::OverlayNotFound)
   end
 
   it "should not add Overlays without a path property" do
@@ -24,6 +45,10 @@ describe Platform::Overlay do
     lambda {
       Platform::Overlay.add!(:path => 'path/to/nowhere')
     }.should raise_error(Platform::OverlayNotFound)
+  end
+
+  it "should be compatible with the current Ronin::Platform::Overlay" do
+    @overlay.should be_compatible
   end
 
   describe "initialize_metadata" do

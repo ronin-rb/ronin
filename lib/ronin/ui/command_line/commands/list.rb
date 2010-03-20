@@ -29,7 +29,6 @@ module Ronin
         class List < Command
 
           desc 'List all Overlays or a specific one'
-          class_option :host, :type => :string, :aliaes => '-H'
           argument :name, :type => :string, :required => false
 
           def execute
@@ -46,7 +45,7 @@ module Ronin
 
             # find a specific overlay
             begin
-              overlay = Platform::Overlay.get(name,options[:host])
+              overlay = Platform::Overlay.get(name)
             rescue Platform::OverlayNotFound
               print_error "Could not find the Overlay #{name.dump}"
               return
