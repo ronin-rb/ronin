@@ -241,6 +241,10 @@ module Ronin
           raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
         end
 
+        if Overlay.first(:path => path)
+          raise(OverlayCached,"an overlay at the path #{path.dump} was already added",caller)
+        end
+
         # create and save the Overlay
         overlay = Overlay.create!(options.merge(:path => path))
 
