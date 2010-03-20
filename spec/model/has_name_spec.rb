@@ -8,6 +8,12 @@ describe Model::HasName do
     NamedModel.auto_migrate!
   end
 
+  it "should define a name property" do
+    property = NamedModel.properties['name']
+
+    property.should_not be_nil
+  end
+
   it "should require a name" do
     model = NamedModel.new
     model.should_not be_valid

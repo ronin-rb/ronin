@@ -8,6 +8,12 @@ describe Model::HasDescription do
     DescribedModel.auto_migrate!
   end
 
+  it "should define a description property" do
+    property = DescribedModel.properties['description']
+
+    property.should_not be_nil
+  end
+
   describe "description" do
     before(:each) do
       @model = DescribedModel.new
