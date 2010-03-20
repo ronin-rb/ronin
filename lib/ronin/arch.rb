@@ -41,16 +41,10 @@ module Ronin
     property :name, String, :required => true, :unique => true
 
     # Endianness of the architecture
-    property :endian, String, :required => true
+    property :endian, Enum[:big, :little], :required => true
 
     # Address length of the architecture
     property :address_length, Integer, :required => true
-
-    # Validates
-    validates_format :endian, :with => lambda { |endian|
-      endian == 'big' || endian == 'little'
-    }
-    validates_is_number :address_length
 
     #
     # Converts the architecture to a String.
