@@ -24,6 +24,7 @@ require 'extlib'
 require 'dm-core'
 require 'dm-types'
 require 'dm-validations'
+require 'dm-aggregates'
 
 module Ronin
   #
