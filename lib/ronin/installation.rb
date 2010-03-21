@@ -68,17 +68,50 @@ module Ronin
     end
 
     #
+    # Enumerates over all files from all installed Ronin libraries.
+    #
+    # @yield [file, (gem)]
+    #   The given block will be passed each file, from each library.
+    #
+    # @yieldparam [String] file
+    #   The path to the file.
+    #
+    # @yieldparam [Gem::Specification] gem
+    #   The RubyGem that the file belongs to.
+    #
+    # @return [nil]
+    # 
+    # @since 0.4.0
+    #
+    def Installation.each_file(&block)
+      Installation.gems.each do |name,gem|
+        gem.files.each do |file|
+          if block.arity == 2
+            block.call(file,gem)
+          else
+            block.call(file)
+          end
+        end
+      end
+
+      return nil
+    end
+
+    #
     # Enumerates over all files within a given directory found in any
     # of the installed Ronin libraries.
     #
     # @param [String] directory
     #   The directory path to search within.
     #
-    # @yield [path]
+    # @yield [file, (gem)]
     #   The given block will be passed each file found within the directory.
     #
-    # @yieldparam [String] path
+    # @yieldparam [String] file
     #   The path to the file found within the directory.
+    #
+    # @yieldparam [Gem::Specification] gem
+    #   The RubyGem that the file belongs to.
     #
     # @return [nil]
     #
@@ -87,11 +120,9 @@ module Ronin
     def Installation.each_file_in(directory,&block)
       directory = File.join(File.expand_path(directory),'')
 
-      Installation.gems.each_value do |gem|
-        gem.files.each do |file|
-          if file[0..directory.length] == directory
-            block.call(directory)
-          end
+      Installation.each_file do |file,gem|
+        if file[0..directory.length] == directory
+          block.call(directory)
         end
       end
 
