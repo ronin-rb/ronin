@@ -250,7 +250,7 @@ module Ronin
           raise(OverlayNotFound,"Overlay #{path.dump} cannot be found",caller)
         end
 
-        if Overlay.first(:path => path)
+        if Overlay.count(:path => path) > 0
           raise(OverlayCached,"An overlay at the path #{path.dump} was already added",caller)
         end
 
