@@ -83,13 +83,41 @@ describe Platform::Overlay do
     end
   end
 
-  it "should be compatible with the current Ronin::Platform::Overlay" do
-    @overlay.should be_compatible
+  describe "initialize" do
+    it "should default the 'name' property to the name of the Overlay directory" do
+      overlay = Platform::Overlay.new(
+        :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello')
+      )
+
+      overlay.name.should == 'hello'
+    end
+
+    it "should default the 'host' to the URI's host-name" do
+      overlay = Platform::Overlay.new(
+        :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello'),
+        :uri => 'git://github.com/path/to/hello.git'
+      )
+
+      overlay.host.should == 'github.com'
+    end
+
+    it "should default the 'installed' property to false" do
+      overlay = Platform::Overlay.new(
+        :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello'),
+        :uri => 'git://github.com/path/to/hello.git'
+      )
+
+      overlay.installed.should == false
+    end
   end
 
   describe "initialize_metadata" do
     it "should load the format version" do
       @overlay.version.should_not be_nil
+    end
+
+    it "should be compatible with the current Ronin::Platform::Overlay" do
+      @overlay.should be_compatible
     end
 
     it "should load the title" do
