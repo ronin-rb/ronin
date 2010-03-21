@@ -69,14 +69,14 @@ module Ronin
       # The primary key of the overlay
       property :id, Serial
 
+      # The SCM used by the overlay repository
+      property :scm, String
+
       # Local path to the overlay repository
       property :path, String, :required => true, :unique => true
 
       # URI that the overlay was installed from
       property :uri, URI
-
-      # The SCM used by the overlay repository
-      property :scm, String
 
       # Specifies whether the overlay was installed remotely
       # or added using a local directory.
