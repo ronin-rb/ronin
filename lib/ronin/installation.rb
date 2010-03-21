@@ -27,23 +27,24 @@ module Ronin
   #
   module Installation
     #
-    # Finds the additional Ronin libraries, installed on the system as
-    # RubyGems.
+    # Finds the installed Ronin libraries via RubyGems.
     #
     # @return [Hash{String => Gem::Specification}]
-    #   The names and gem-specs of the additional Ronin libraries.
+    #   The names and gem-specs of the installed Ronin libraries.
     #
     # @since 0.4.0
     #
     def Installation.gems
       unless defined?(@@ronin_gems)
         version = Gem::Requirement.new(">=#{Ronin::VERSION}")
-        ronin = Gem.source_index.find_name('ronin',version).first
+        ronin_gem = Gem.source_index.find_name('ronin',version).first
 
         @@ronin_gems = {}
 
         if ronin
-          ronin.dependent_gems.each do |gems|
+          @@ronin_gems['ronin'] = ronin_gem
+
+          ronin_gem.dependent_gems.each do |gems|
             gem = gems.first
 
             @@ronin_gems[gem.name] = gem
@@ -95,17 +96,6 @@ module Ronin
       end
 
       return nil
-    end
-
-    def Installation.each_file(path)
-      path = File.expand_path(path)
-
-      Installation.gems.each_value do |gem|
-        gem.files.each do |file|
-          block.call(directory) if file == path
-        end
-      end
-
     end
   end
 end
