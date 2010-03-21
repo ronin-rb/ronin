@@ -104,11 +104,8 @@ module Ronin
       # Title of the overlay
       property :title, Text
 
-      # Source URI of the overlay
-      property :source, String
-
       # Source View URI of the overlay
-      property :source_view, String
+      property :source, String
 
       # Website URI for the overlay
       property :website, String
@@ -550,8 +547,7 @@ module Ronin
         self.license = nil
 
         self.source = self.uri
-        self.source_view = self.source
-        self.website = self.source_view
+        self.website = self.source
         self.maintainers.clear
 
         @gems = []
@@ -580,10 +576,6 @@ module Ronin
 
           if (source_tag = overlay.at('source'))
             self.source = source_tag.inner_text.strip
-          end
-
-          if (source_view_tag = overlay.at('source-view'))
-            self.source_view = source_view_tag.inner_text.strip
           end
 
           if (website_tag = overlay.at('website'))

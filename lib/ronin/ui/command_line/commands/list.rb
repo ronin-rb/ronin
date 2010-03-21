@@ -77,10 +77,6 @@ module Ronin
                   puts "Source URI: #{overlay.source}"
                 end
 
-                if overlay.source_view
-                  puts "Source View: #{overlay.source_view}"
-                end
-
                 if overlay.website
                   puts "Website: #{overlay.website}"
                 end
