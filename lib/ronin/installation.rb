@@ -65,5 +65,47 @@ module Ronin
     def Installation.libraries
       Installation.gems.keys
     end
+
+    #
+    # Enumerates over all files within a given directory found in any
+    # of the installed Ronin libraries.
+    #
+    # @param [String] directory
+    #   The directory path to search within.
+    #
+    # @yield [path]
+    #   The given block will be passed each file found within the directory.
+    #
+    # @yieldparam [String] path
+    #   The path to the file found within the directory.
+    #
+    # @return [nil]
+    #
+    # @since 0.4.0
+    #
+    def Installation.each_file_in(directory,&block)
+      directory = File.join(File.expand_path(directory),'')
+
+      Installation.gems.each_value do |gem|
+        gem.files.each do |file|
+          if file[0..directory.length] == directory
+            block.call(directory)
+          end
+        end
+      end
+
+      return nil
+    end
+
+    def Installation.each_file(path)
+      path = File.expand_path(path)
+
+      Installation.gems.each_value do |gem|
+        gem.files.each do |file|
+          block.call(directory) if file == path
+        end
+      end
+
+    end
   end
 end
