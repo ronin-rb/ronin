@@ -59,6 +59,18 @@ describe Platform::Overlay do
     }.should raise_error(Platform::DuplicateOverlay)
   end
 
+  it "should not allow installing an Overlay with no URI" do
+    lambda {
+      Platform::Overlay.install!
+    }.should raise_error(ArgumentError)
+  end
+
+  it "should not allow installing an Overlay that was already installed" do
+    lambda {
+      Platform::Overlay.install!(:uri => load_overlay('random').uri)
+    }.should raise_error(Platform::DuplicateOverlay)
+  end
+
   it "should be compatible with the current Ronin::Platform::Overlay" do
     @overlay.should be_compatible
   end
