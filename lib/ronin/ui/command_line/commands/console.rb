@@ -28,6 +28,9 @@ module Ronin
   module UI
     module CommandLine
       module Commands
+        #
+        # The `ronin console` command.
+        #
         class Console < Command
 
           desc 'start the Ronin Console'
@@ -35,6 +38,9 @@ module Ronin
           class_option :require, :type => :array, :aliases => '-r'
           class_option :verbose, :type => :boolean, :aliases => '-v'
 
+          #
+          # Starts the Ronin Console.
+          #
           def execute
             if options.version?
               puts "ronin #{Ronin::VERSION}"

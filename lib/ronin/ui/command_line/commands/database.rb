@@ -25,6 +25,9 @@ module Ronin
   module UI
     module CommandLine
       module Commands
+        #
+        # The `ronin database` command.
+        #
         class Database < Command
 
           desc "Manages the Ronin Database"
@@ -43,6 +46,9 @@ module Ronin
           class_option :database, :type => :string, :banner => 'NAME'
           class_option :path, :type => :string, :banner => '/path/file.db'
 
+          #
+          # Displays or modifies the Ronin Database configuration.
+          #
           def execute
             if options[:clear]
               name = options[:clear].to_sym
@@ -73,6 +79,12 @@ module Ronin
 
           protected
 
+          #
+          # Creates a repository URI from the command options.
+          #
+          # @return [Addressable::URI]
+          #   The repository URI.
+          #
           def repository_uri
             uri = if options[:uri]
                     Addressable::URI.parse(options[:uri])
@@ -95,6 +107,9 @@ module Ronin
             return uri
           end
 
+          #
+          # Adds a new Database repository.
+          #
           def add_repository
             name = options[:add].to_sym
 
@@ -105,6 +120,9 @@ module Ronin
             print_info "Database repository #{name} added."
           end
 
+          #
+          # Sets the URI for an existing Database repository.
+          #
           def set_repository
             name = options[:set].to_sym
 
@@ -136,6 +154,9 @@ module Ronin
             print_info "Database repository #{name} updated."
           end
 
+          #
+          # Removes an existing Database repository.
+          #
           def remove_repository
             name = options[:remove].to_sym
 

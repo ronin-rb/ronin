@@ -26,6 +26,9 @@ module Ronin
   module UI
     module CommandLine
       module Commands
+        #
+        # The `ronin add` command.
+        #
         class Add < Command
 
           desc "Add a local overlay to the Overlay cache"
@@ -37,6 +40,9 @@ module Ronin
           class_option :uri, :type => :string, :aliaes => '-U'
           argument :path, :type => :string
 
+          #
+          # Adds a local Overlay.
+          #
           def execute
             overlay_options = {:path => path}
 

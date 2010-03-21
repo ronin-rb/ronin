@@ -25,11 +25,17 @@ module Ronin
   module UI
     module CommandLine
       module Commands
+        #
+        # The `ronin help` command.
+        #
         class Help < Command
 
           desc 'Displays the list of available commands or prints information on a specific command'
           argument :command, :type => :string, :required => false
 
+          #
+          # Lists the available commands.
+          #
           def execute
             if self.command
               begin

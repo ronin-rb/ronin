@@ -26,6 +26,9 @@ module Ronin
   module UI
     module CommandLine
       module Commands
+        #
+        # The `ronin install` command.
+        #
         class Install < Command
 
           desc 'Installs the Overlay located at the specified URI'
@@ -36,6 +39,9 @@ module Ronin
           class_option :git, :type => :boolean
           argument :uri, :type => :string
 
+          #
+          # Installs an Overlay.
+          #
           def execute
             unless uri
               print_error "Must specify the URI"

@@ -26,11 +26,17 @@ module Ronin
   module UI
     module CommandLine
       module Commands
+        #
+        # The `ronin list` command.
+        #
         class List < Command
 
           desc 'List all Overlays or a specific one'
           argument :name, :type => :string, :required => false
 
+          #
+          # Lists the installed or added Overlays.
+          #
           def execute
             Database.setup
 

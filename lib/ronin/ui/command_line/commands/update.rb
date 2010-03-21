@@ -26,11 +26,17 @@ module Ronin
   module UI
     module CommandLine
       module Commands
+        #
+        # The `ronin update` command.
+        #
         class Update < Command
 
           desc 'Update all Overlays or just a specified Overlay'
           argument :name, :type => :string, :required => false
 
+          #
+          # Updates the previously installed or added Overlays.
+          #
           def execute
             Database.setup
 

@@ -26,11 +26,17 @@ module Ronin
   module UI
     module CommandLine
       module Commands
+        #
+        # The `ronin uninstall` command.
+        #
         class Uninstall < Command
 
           desc 'Uninstall the specified Overlay'
           argument :name, :type => :string
 
+          #
+          # Uninstalls a previously installed or added Overlay.
+          #
           def execute
             Database.setup
 
