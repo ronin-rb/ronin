@@ -574,6 +574,10 @@ module Ronin
             self.license = License.predefined_resource_with(:name => name)
           end
 
+          if (uri_tag = overlay.at('uri'))
+            self.uri ||= uri_tag.inner_text.strip
+          end
+
           if (source_tag = overlay.at('source'))
             self.source = source_tag.inner_text.strip
           end
