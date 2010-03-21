@@ -47,7 +47,7 @@ describe Platform::Overlay do
     }.should raise_error(Platform::OverlayNotFound)
   end
 
-  it "should not allow adding an Overlay twice" do
+  it "should not allow adding an Overlay from the same path twice" do
     lambda {
       Platform::Overlay.add!(:path => @overlay.path)
     }.should raise_error(Platform::DuplicateOverlay)
