@@ -21,8 +21,11 @@
 require 'ronin/version'
 
 module Ronin
+  #
+  # The {Installation} module provides methods which help reflect on the
+  # installation of Ronin on the system.
+  #
   module Installation
-
     #
     # Finds the additional Ronin libraries, installed on the system as
     # RubyGems.
@@ -62,6 +65,5 @@ module Ronin
     def Installation.libraries
       Installation.gems.keys
     end
-
   end
 end
