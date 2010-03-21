@@ -20,7 +20,7 @@
 
 require 'ronin/ui/command_line/exceptions/unknown_command'
 require 'ronin/ui/command_line/commands'
-require 'ronin/extensions/kernel'
+require 'ronin/installation'
 
 module Ronin
   module UI
@@ -41,7 +41,17 @@ module Ronin
       #   The command-line names of available Command classes.
       #
       def CommandLine.commands
-        Commands.namespace_files
+        unless defined?(@@ronin_ui_commands)
+          commands_dir = File.join('lib',Commands.namespace_root)
+
+          @@ronin_ui_commands = Set[]
+
+          Installation.each_file_in(commands_dir) do |path|
+            @@ronin_ui_commands << File.basename(path).gsub(/\.rb$/,'')
+          end
+        end
+
+        return @@ronin_ui_commands
       end
 
       #
