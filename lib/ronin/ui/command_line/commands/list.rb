@@ -34,15 +34,33 @@ module Ronin
           def execute
             Database.setup
 
-            unless name
-              indent do
-                # list all overlays by name
-                Platform::Overlay.all.each { |overlay| puts overlay }
-              end
-
-              return
+            if name
+              list_overlay!
+            else
+              list_overlays!
             end
+          end
 
+          protected
+
+          #
+          # Lists all Overlays in the {Database}.
+          #
+          def list_overlays!
+            # list all overlays by name
+            Platform::Overlay.all.each do |overlay|
+              if options.verbose?
+                display_overlay(overlay)
+              else
+                indent { puts overlay }
+              end
+            end
+          end
+
+          #
+          # Lists a specific Overlay.
+          #
+          def list_overlay!
             # find a specific overlay
             begin
               overlay = Platform::Overlay.get(name)
@@ -51,6 +69,16 @@ module Ronin
               return
             end
 
+            display_overlay(overlay)
+          end
+
+          #
+          # Prints an Overlay to the console.
+          #
+          # @param [Platform::Overlay] overlay
+          #   The Overlay to display.
+          #
+          def display_overlay(overlay)
             print_title overlay.name
 
             indent do
