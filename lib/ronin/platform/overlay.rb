@@ -83,8 +83,10 @@ module Ronin
       # or added using a local directory.
       property :installed, Boolean, :default => false
 
-      # The format version of the overlay
-      property :version, Integer, :required => true
+      # Name of the overlay
+      property :name, String, :default => lambda { |overlay,name|
+        File.basename(overlay.path)
+      }
 
       # The host the overlay belongs to
       property :host, String, :default => lambda { |overlay,host|
@@ -95,10 +97,8 @@ module Ronin
         end
       }
 
-      # Name of the overlay
-      property :name, String, :default => lambda { |overlay,name|
-        File.basename(overlay.path)
-      }
+      # The format version of the overlay
+      property :version, Integer, :required => true
 
       # Title of the overlay
       property :title, Text
@@ -312,8 +312,8 @@ module Ronin
           :path => path,
           :uri => repo.uri,
           :installed => true,
-          :host => host,
-          :name => name
+          :name => name,
+          :host => host
         )
       end
 
