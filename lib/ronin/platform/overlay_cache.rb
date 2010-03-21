@@ -23,10 +23,13 @@ require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/overlay'
 require 'ronin/platform/config'
+require 'ronin/ui/output/helpers'
 
 module Ronin
   module Platform
     class OverlayCache < Array
+
+      include UI::Output::Helpers
 
       #
       # Create a new OverlayCache object.
@@ -52,7 +55,11 @@ module Ronin
         self.clear
 
         Overlay.all.each do |overlay|
-          self << overlay if overlay.compatible?
+          if overlay.compatible?
+            self << overlay
+          else
+            print_error "Overlay #{overlay} is not compatible with the current Overlay implementation"
+          end
         end
 
         return self

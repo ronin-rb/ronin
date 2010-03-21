@@ -24,7 +24,6 @@ require 'ronin/platform/maintainer'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/extension'
 require 'ronin/platform/config'
-require 'ronin/ui/output/helpers'
 require 'ronin/model/has_license'
 require 'ronin/model'
 
@@ -39,7 +38,6 @@ module Ronin
       include Model
       include Model::HasLicense
       include StaticPaths
-      include UI::Output::Helpers
 
       # Overlay Implementation Version
       VERSION = 2
@@ -604,10 +602,6 @@ module Ronin
           overlay.search('dependencies/gem').each do |gem|
             @gems << gem.inner_text.strip
           end
-        end
-
-        unless compatible?
-          print_error "Overlay #{self.name.dump} is not compatible with the current Overlay implementation"
         end
 
         return self
