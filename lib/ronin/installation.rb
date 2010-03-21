@@ -108,7 +108,7 @@ module Ronin
     #   The given block will be passed each file found within the directory.
     #
     # @yieldparam [String] file
-    #   The path to the file found within the directory.
+    #   The sub-path to the file found within the directory.
     #
     # @yieldparam [Gem::Specification] gem
     #   The RubyGem that the file belongs to.
@@ -122,7 +122,7 @@ module Ronin
 
       Installation.each_file do |file,gem|
         if file[0...directory.length] == directory
-          block.call(file)
+          block.call(file[directory.length..-1])
         end
       end
 

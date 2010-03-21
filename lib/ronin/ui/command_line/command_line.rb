@@ -47,7 +47,7 @@ module Ronin
           @@ronin_ui_commands = Set[]
 
           Installation.each_file_in(commands_dir) do |path|
-            @@ronin_ui_commands << File.basename(path).gsub(/\.rb$/,'')
+            @@ronin_ui_commands << path.gsub(/\.rb$/,'')
           end
         end
 
