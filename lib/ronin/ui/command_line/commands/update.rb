@@ -34,28 +34,45 @@ module Ronin
           def execute
             Database.setup
 
-            if name
-              begin
-                overlay = Platform::Overlay.get(name)
-                
-                print_info "Updating Overlay #{overlay} ..."
-
-                overlay.update!
-
-                print_info "Overlay updated."
-              rescue Platform::OverlayNotFound => e
-                print_error e.message
-                exit -1
-              end
+            unless name
+              update_all_overlay!
             else
-              print_info "Updating Overlays ..."
-
-              Platform::Overlay.update! do |overlay|
-                print_info "Updating Overlay #{overlay} ..."
-              end
-
-              print_info "Overlays updated."
+              update_overlay!
             end
+          end
+
+          protected
+
+          #
+          # Updates all Overlays.
+          #
+          def update_all_overlays!
+            print_info "Updating Overlays ..."
+
+            Platform::Overlay.update! do |overlay|
+              print_info "Updating Overlay #{overlay} ..."
+            end
+
+            print_info "Overlays updated."
+          end
+
+          #
+          # Updates a specific Overlay.
+          #
+          def update_overlay!
+            begin
+              overlay = Platform::Overlay.get(name)
+
+            rescue Platform::OverlayNotFound => e
+              print_error e.message
+              exit -1
+            end
+
+            print_info "Updating Overlay #{overlay} ..."
+
+            overlay.update!
+
+            print_info "Overlay updated."
           end
 
         end
