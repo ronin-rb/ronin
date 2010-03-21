@@ -19,6 +19,7 @@ begin
     gem.add_dependency 'dm-core', '>= 0.10.2'
     gem.add_dependency 'dm-types', '>= 0.10.2'
     gem.add_dependency 'dm-validations', '>= 0.10.2'
+    gem.add_dependency 'dm-aggregates', '>= 0.10.2'
     gem.add_dependency 'dm-predefined', '>= 0.2.1'
     gem.add_dependency 'open-namespace', '>= 0.1.1'
     gem.add_dependency 'static_paths', '>= 0.1.0'

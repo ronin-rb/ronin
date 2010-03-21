@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-03-19}
+  s.date = %q{2010-03-20}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-list", "ronin-help", "ronin-install", "ronin-remove", "ronin-uninstall", "ronin-update", "ronin-database"]
@@ -191,13 +191,13 @@ Gem::Specification.new do |s|
     "spec/model/has_description_spec.rb",
     "spec/model/lazy_upgrade_spec.rb",
     "spec/model/model_spec.rb",
-    "spec/model/models/licensed_model.rb",
+    "spec/model/has_name_spec.rb",
     "spec/model/models/basic_model.rb",
     "spec/model/models/custom_model.rb",
     "spec/model/models/described_model.rb",
     "spec/model/models/lazy_model.rb",
+    "spec/model/models/licensed_model.rb",
     "spec/model/models/named_model.rb",
-    "spec/model/has_name_spec.rb",
     "spec/platform/helpers/overlays/test1/exts/test.rb",
     "spec/platform/helpers/overlays/test2/exts/test.rb",
     "spec/platform/helpers/overlays/random/exts/random.rb",
@@ -242,6 +242,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<dm-core>, [">= 0.10.2"])
       s.add_runtime_dependency(%q<dm-types>, [">= 0.10.2"])
       s.add_runtime_dependency(%q<dm-validations>, [">= 0.10.2"])
+      s.add_runtime_dependency(%q<dm-aggregates>, [">= 0.10.2"])
       s.add_runtime_dependency(%q<dm-predefined>, [">= 0.2.1"])
       s.add_runtime_dependency(%q<open-namespace>, [">= 0.1.1"])
       s.add_runtime_dependency(%q<static_paths>, [">= 0.1.0"])
@@ -262,6 +263,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<dm-core>, [">= 0.10.2"])
       s.add_dependency(%q<dm-types>, [">= 0.10.2"])
       s.add_dependency(%q<dm-validations>, [">= 0.10.2"])
+      s.add_dependency(%q<dm-aggregates>, [">= 0.10.2"])
       s.add_dependency(%q<dm-predefined>, [">= 0.2.1"])
       s.add_dependency(%q<open-namespace>, [">= 0.1.1"])
       s.add_dependency(%q<static_paths>, [">= 0.1.0"])
@@ -283,6 +285,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<dm-core>, [">= 0.10.2"])
     s.add_dependency(%q<dm-types>, [">= 0.10.2"])
     s.add_dependency(%q<dm-validations>, [">= 0.10.2"])
+    s.add_dependency(%q<dm-aggregates>, [">= 0.10.2"])
     s.add_dependency(%q<dm-predefined>, [">= 0.2.1"])
     s.add_dependency(%q<open-namespace>, [">= 0.1.1"])
     s.add_dependency(%q<static_paths>, [">= 0.1.0"])
