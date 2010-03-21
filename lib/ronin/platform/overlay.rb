@@ -154,16 +154,6 @@ module Ronin
         @cache_dir = File.join(self.path,CACHE_DIR)
         @exts_dir = File.join(self.path,EXTS_DIR)
 
-        begin
-          @repository = Pullr::LocalRepository.new(
-            :path => self.path,
-            :scm => self.scm
-          )
-
-          self.scm ||= @repository.scm
-        rescue Pullr::AmbigiousRepository
-        end
-
         @activated = false
 
         initialize_metadata()
@@ -306,11 +296,12 @@ module Ronin
         path = File.join(Config::CACHE_DIR,name,domain)
 
         # pull down the remote repository
-        repo.pull(path)
+        local_repo = repo.pull(path)
 
         # add the new remote overlay
         overlay = Overlay.new(
           :path => path,
+          :scm => local_repo.scm,
           :uri => repo.uri,
           :installed => true,
           :name => name,
@@ -471,8 +462,13 @@ module Ronin
       # @since 0.4.0
       #
       def update!(&block)
+        local_repo = Pullr::LocalRepository.new(
+          :path => self.path,
+          :scm => self.scm
+        )
+
         # only update if we have a repository
-        @repository.update(self.uri) if @repository
+        local_repo.update(self.uri)
 
         # re-initialize the metadata
         initialize_metadata()
