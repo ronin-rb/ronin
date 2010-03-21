@@ -40,11 +40,11 @@ module Ronin
       include Model::HasLicense
       include StaticPaths
 
-      # Overlay Implementation Version
-      VERSION = 2
+      # Overlay Format Version
+      FORMAT_VERSION = 2
 
       # A list of compatible Overlay Implementation Versions
-      COMPATIBLE_VERSIONS = [1,2]
+      COMPATIBLE_FORMATS = [1,2]
 
       # The default domain that overlays are added from
       DEFAULT_DOMAIN = 'localhost'
@@ -370,7 +370,7 @@ module Ronin
       #   {Platform}.
       #
       def compatible?
-        COMPATIBLE_VERSIONS.each do |compat|
+        COMPATIBLE_FORMATS.each do |compat|
           return true if compat === self.version
         end
 
