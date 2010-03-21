@@ -60,8 +60,8 @@ module Ronin
 
               puts "SCM: #{overlay.scm}" if overlay.scm
 
-              if overlay.host
-                puts "Host: #{overlay.host}"
+              if overlay.domain
+                puts "Domain: #{overlay.domain}"
               end
 
               if options.verbose?

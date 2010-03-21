@@ -17,11 +17,11 @@ describe Platform::Overlay do
       overlay.name.should == 'hello'
     end
 
-    it "should be able to retrieve an Overlay by host and name" do
+    it "should be able to retrieve an Overlay by name and domain" do
       overlay = Platform::Overlay.get('hello/localhost')
 
       overlay.name.should == 'hello'
-      overlay.host.should == 'localhost'
+      overlay.domain.should == 'localhost'
     end
 
     it "should raise OverlayNotFound for unknown Overlay names" do
@@ -30,7 +30,7 @@ describe Platform::Overlay do
       }.should raise_error(Platform::OverlayNotFound)
     end
 
-    it "should raise OverlayNotFound for unknown Overlay names or hosts" do
+    it "should raise OverlayNotFound for unknown Overlay names or domains" do
       lambda {
         Platform::Overlay.get('bla/bla')
       }.should raise_error(Platform::OverlayNotFound)
@@ -92,13 +92,13 @@ describe Platform::Overlay do
       overlay.name.should == 'hello'
     end
 
-    it "should default the 'host' to the URI's host-name" do
+    it "should default the 'domain' property to the URI's host-name" do
       overlay = Platform::Overlay.new(
         :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello'),
         :uri => 'git://github.com/path/to/hello.git'
       )
 
-      overlay.host.should == 'github.com'
+      overlay.domain.should == 'github.com'
     end
 
     it "should default the 'installed' property to false" do

@@ -46,8 +46,8 @@ module Ronin
       # A list of compatible Overlay Implementation Versions
       COMPATIBLE_VERSIONS = [1,2]
 
-      # The default host-name that overlays are installed from
-      DEFAULT_HOST = 'localhost'
+      # The default domain that overlays are added from
+      DEFAULT_DOMAIN = 'localhost'
 
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
@@ -88,12 +88,12 @@ module Ronin
         File.basename(overlay.path)
       }
 
-      # The host the overlay belongs to
-      property :host, String, :default => lambda { |overlay,host|
+      # The domain the overlay belongs to
+      property :domain, String, :default => lambda { |overlay,domain|
         if overlay.uri
           overlay.uri.host
         else
-          DEFAULT_HOST
+          DEFAULT_DOMAIN
         end
       }
 
@@ -179,7 +179,7 @@ module Ronin
 
       #
       # Searches for the Overlay with a given name, and potentially
-      # installed from the given host.
+      # installed from the given domain.
       #
       # @param [String] name
       #   The name of the Overlay.
@@ -188,25 +188,25 @@ module Ronin
       #   The found Overlay.
       #
       # @raise [OverlayNotFound]
-      #   No Overlay could be found with the given name or host.
+      #   No Overlay could be found with the given name or domain.
       #
       # @example Load the Overlay with the given name
       #   Overlay.get('postmodern-overlay')
       #
-      # @example Load the Overlay with the given name and host.
+      # @example Load the Overlay with the given name and domain.
       #   Overlay.get('postmodern-overlay/github.com')
       #
       # @since 0.4.0
       #
       def Overlay.get(name)
-        name, host = name.to_s.split('/',2)
+        name, domain = name.to_s.split('/',2)
 
         query = {:name => name}
-        query[:host] = host if host
+        query[:domain] = domain if domain
 
         unless (overlay = Overlay.first(query))
-          if host
-            raise(OverlayNotFound,"Overlay #{name.dump} from host #{host.dump} cannot be found",caller)
+          if domain
+            raise(OverlayNotFound,"Overlay #{name.dump} from domain #{domain.dump} cannot be found",caller)
           else
             raise(OverlayNotFound,"Overlay #{name.dump} cannot be found",caller)
           end
@@ -250,7 +250,7 @@ module Ronin
         # create the Overlay
         overlay = Overlay.new(options.merge(:path => path))
 
-        if Overlay.count(:name => overlay.name, :host => overlay.host) > 0
+        if Overlay.count(:name => overlay.name, :domain => overlay.domain) > 0
           raise(DuplicateOverlay,"The overlay #{overlay} already exists in the database",caller)
         end
 
@@ -296,13 +296,17 @@ module Ronin
 
         repo = Pullr::RemoteRepository.new(options)
         name = repo.name
-        host = repo.uri.host
+        domain = if repo.uri.scheme
+                   repo.uri.host
+                 else
+                   repo.uri.to_s.match(/\@([^@:\/]+)/)[1]
+                 end
 
-        if Overlay.count(:name => name, :host => host) > 0
-          raise(DuplicateOverlay,"An Overlay already exists with the name #{name.dump} from host #{host.dump}",caller)
+        if Overlay.count(:name => name, :domain => domain) > 0
+          raise(DuplicateOverlay,"An Overlay already exists with the name #{name.dump} from domain #{domain.dump}",caller)
         end
 
-        path = File.join(Config::CACHE_DIR,name,host)
+        path = File.join(Config::CACHE_DIR,name,domain)
 
         # pull down the remote repository
         repo.pull(path)
@@ -313,7 +317,7 @@ module Ronin
           :uri => repo.uri,
           :installed => true,
           :name => name,
-          :host => host
+          :domain => domain
         )
       end
 
@@ -338,20 +342,17 @@ module Ronin
       end
 
       #
-      # Uninstalls the Overlay with the given name or host.
+      # Uninstalls the Overlay with the given name or domain.
       #
       # @param [String] name
       #   The name of the Overlay to uninstall.
-      #
-      # @param [String] host
-      #   The host the Overlay was installed from.
       #
       # @return [nil]
       #
       # @example Uninstall the Overlay with the given name
       #   Overlay.uninstall!('postmodern-overlay')
       #
-      # @example Uninstall the Overlay with the given name and host.
+      # @example Uninstall the Overlay with the given name and domain.
       #   Overlay.uninstall!('postmodern-overlay/github.com')
       #
       def Overlay.uninstall!(name)
@@ -522,7 +523,7 @@ module Ronin
       #   The name of the overlay.
       #
       def to_s
-        "#{self.name}/#{self.host}"
+        "#{self.name}/#{self.domain}"
       end
 
       #

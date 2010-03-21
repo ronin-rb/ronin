@@ -7,7 +7,7 @@ module Helpers
     Platform::Overlay.create!(
       :path => File.join(OVERLAYS_DIR,'hello'),
       :name => 'hello',
-      :host => Platform::Overlay::DEFAULT_HOST
+      :domain => Platform::Overlay::DEFAULT_DOMAIN
     )
 
     Platform::Overlay.create!(
@@ -15,21 +15,21 @@ module Helpers
       :uri => 'git@github.com/path/to/random.git',
       :installed => true,
       :name => 'random',
-      :host => 'github.com'
+      :domain => 'github.com'
     )
 
     Platform::Overlay.create!(
       :path => File.join(OVERLAYS_DIR,'test1'),
       :uri => 'git@github.com/path/to/test1.git',
       :name => 'test1',
-      :host => 'github.com'
+      :domain => 'github.com'
     )
 
     Platform::Overlay.create!(
       :path => File.join(OVERLAYS_DIR,'test2'),
       :uri => 'git@github.com/path/to/test2.git',
       :name => 'test2',
-      :host => 'github.com'
+      :domain => 'github.com'
     )
 
     def load_overlay(name)
