@@ -92,15 +92,6 @@ describe Platform::Overlay do
       overlay.name.should == 'hello'
     end
 
-    it "should default the 'domain' property to the URI's host-name" do
-      overlay = Platform::Overlay.new(
-        :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello'),
-        :uri => 'git://github.com/path/to/hello.git'
-      )
-
-      overlay.domain.should == 'github.com'
-    end
-
     it "should default the 'installed' property to false" do
       overlay = Platform::Overlay.new(
         :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello'),

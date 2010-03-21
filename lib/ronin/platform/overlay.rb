@@ -89,13 +89,7 @@ module Ronin
       }
 
       # The domain the overlay belongs to
-      property :domain, String, :default => lambda { |overlay,domain|
-        if overlay.uri
-          overlay.uri.host
-        else
-          DEFAULT_DOMAIN
-        end
-      }
+      property :domain, String
 
       # The format version of the overlay
       property :version, Integer, :required => true
@@ -248,7 +242,10 @@ module Ronin
         end
 
         # create the Overlay
-        overlay = Overlay.new(options.merge(:path => path))
+        overlay = Overlay.new(options.merge(
+          :path => path,
+          :domain => DEFAULT_DOMAIN
+        ))
 
         if Overlay.count(:name => overlay.name, :domain => overlay.domain) > 0
           raise(DuplicateOverlay,"The overlay #{overlay} already exists in the database",caller)
@@ -312,13 +309,21 @@ module Ronin
         repo.pull(path)
 
         # add the new remote overlay
-        return Overlay.add!(
+        overlay = Overlay.new(
           :path => path,
           :uri => repo.uri,
           :installed => true,
           :name => name,
           :domain => domain
         )
+
+        # save the Overlay
+        overlay.save!
+
+        # update the object cache
+        ObjectCache.cache(overlay.cache_dir)
+
+        return overlay
       end
 
       #
