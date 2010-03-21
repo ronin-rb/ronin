@@ -79,6 +79,8 @@ module Ronin
                   puts "Website: #{overlay.website}"
                 end
 
+                putc "\n"
+
                 unless overlay.extensions.empty?
                   print_array(overlay.extensions, :title => 'Extensions')
                 end
