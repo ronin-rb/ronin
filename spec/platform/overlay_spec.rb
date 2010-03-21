@@ -49,7 +49,13 @@ describe Platform::Overlay do
 
   it "should not allow adding an Overlay from the same path twice" do
     lambda {
-      Platform::Overlay.add!(:path => @overlay.path)
+      Platform::Overlay.add!(:path => load_overlay('hello').path)
+    }.should raise_error(Platform::DuplicateOverlay)
+  end
+
+  it "should not allow adding an Overlay that was already installed" do
+    lambda {
+      Platform::Overlay.add!(:path => load_overlay('random').path)
     }.should raise_error(Platform::DuplicateOverlay)
   end
 
