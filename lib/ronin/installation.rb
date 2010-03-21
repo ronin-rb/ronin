@@ -121,7 +121,7 @@ module Ronin
       directory = File.join(directory,'')
 
       Installation.each_file do |file,gem|
-        if file[0..directory.length] == directory
+        if file[0...directory.length] == directory
           block.call(directory)
         end
       end
