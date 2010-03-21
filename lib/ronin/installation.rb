@@ -41,7 +41,7 @@ module Ronin
 
         @@ronin_gems = {}
 
-        if ronin
+        if ronin_gem
           @@ronin_gems['ronin'] = ronin_gem
 
           ronin_gem.dependent_gems.each do |gems|
