@@ -55,14 +55,12 @@ module Ronin
 
             indent do
               if overlay.installed?
+                puts "Domain: #{overlay.domain}"
+              else
                 puts "Path: #{overlay.path}"
               end
 
               puts "SCM: #{overlay.scm}" if overlay.scm
-
-              if overlay.domain
-                puts "Domain: #{overlay.domain}"
-              end
 
               if options.verbose?
                 putc "\n"
