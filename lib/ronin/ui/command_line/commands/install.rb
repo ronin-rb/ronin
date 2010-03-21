@@ -34,7 +34,7 @@ module Ronin
           class_option :svn, :type => :boolean
           class_option :hg, :type => :boolean
           class_option :git, :type => :boolean
-          arugment :uri, :type => :string
+          argument :uri, :type => :string
 
           def execute
             unless (uri = options[:uri])
