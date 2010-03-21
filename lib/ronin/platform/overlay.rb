@@ -289,6 +289,8 @@ module Ronin
         domain = if repo.uri.scheme
                    repo.uri.host
                  else
+                   # Use a regexp to pull out the host-name, if the URI
+                   # lacks a scheme.
                    repo.uri.to_s.match(/\@([^@:\/]+)/)[1]
                  end
 
