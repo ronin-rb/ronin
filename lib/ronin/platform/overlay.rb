@@ -89,7 +89,7 @@ module Ronin
       }
 
       # The domain the overlay belongs to
-      property :domain, String
+      property :domain, String, :required => true
 
       # The format version of the overlay
       property :version, Integer, :required => true
