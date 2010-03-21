@@ -235,7 +235,7 @@ module Ronin
         overlay = Overlay.new(options.merge(
           :path => path,
           :installed => false,
-          :domain => DEFAULT_DOMAIN,
+          :domain => DEFAULT_DOMAIN
         ))
 
         name = overlay.name
