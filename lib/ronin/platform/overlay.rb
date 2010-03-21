@@ -159,14 +159,15 @@ module Ronin
         @cache_dir = File.join(self.path,CACHE_DIR)
         @exts_dir = File.join(self.path,EXTS_DIR)
 
-        @repository = begin
-                        Pullr::LocalRepository.new(
-                          :path => self.path,
-                          :scm => self.scm
-                        )
-                      rescue Pullr::AmbigiousRepository
-                        nil
-                      end
+        begin
+          @repository = Pullr::LocalRepository.new(
+            :path => self.path,
+            :scm => self.scm
+          )
+
+          self.scm ||= @repository.scm
+        rescue Pullr::AmbigiousRepository
+        end
 
         @activated = false
 
@@ -366,14 +367,6 @@ module Ronin
         end
 
         return false
-      end
-
-      #
-      # @return [Symbol]
-      #   The SCM used by the overlay.
-      #
-      def scm
-        @repository.scm if @repository
       end
 
       #
