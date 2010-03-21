@@ -34,10 +34,10 @@ module Ronin
           def execute
             Database.setup
 
-            if name
-              list_overlay!
+            unless name
+              list_all_overlays!
             else
-              list_overlays!
+              list_overlay!
             end
           end
 
@@ -46,7 +46,7 @@ module Ronin
           #
           # Lists all Overlays in the {Database}.
           #
-          def list_overlays!
+          def list_all_overlays!
             # list all overlays by name
             Platform::Overlay.all.each do |overlay|
               if options.verbose?
