@@ -118,7 +118,7 @@ module Ronin
     # @since 0.4.0
     #
     def Installation.each_file_in(directory,&block)
-      directory = File.join(File.expand_path(directory),'')
+      directory = File.join(directory,'')
 
       Installation.each_file do |file,gem|
         if file[0..directory.length] == directory
