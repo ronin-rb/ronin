@@ -477,8 +477,8 @@ module Ronin
         # re-initialize the metadata
         initialize_metadata()
 
-        # save the model if it was previously saved
-        save! if saved?
+        # save the overlay
+        save!
 
         # activates the overlay before caching it's objects
         activate!
