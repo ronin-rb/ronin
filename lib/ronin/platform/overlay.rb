@@ -246,12 +246,15 @@ module Ronin
           raise(OverlayCached,"An overlay at the path #{path.dump} was already added",caller)
         end
 
-        # create and save the Overlay
+        # create the Overlay
         overlay = Overlay.new(options.merge(:path => path))
 
         if Overlay.count(:name => overlay.name, :host => overlay.host) > 0
           raise(OverlayCached,"The overlay #{overlay} already exists in the database",caller)
         end
+
+        # save the Overlay
+        overlay.save!
 
         # update the object cache
         ObjectCache.cache(overlay.cache_dir)
