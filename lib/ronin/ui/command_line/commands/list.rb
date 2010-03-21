@@ -84,7 +84,8 @@ module Ronin
                 end
 
                 if overlay.description
-                  puts "Description:\n\n"
+                  print_title "Description"
+
                   indent { puts "#{overlay.description}\n\n" }
                 else
                   putc "\n"
