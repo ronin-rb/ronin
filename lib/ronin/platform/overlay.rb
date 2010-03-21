@@ -165,8 +165,7 @@ module Ronin
         @repository = begin
                         Pullr::LocalRepository.new(
                           :path => self.path,
-                          :scm => self.scm,
-                          :uri => self.uri
+                          :scm => self.scm
                         )
                       rescue Pullr::AmbigiousRepository
                         nil
