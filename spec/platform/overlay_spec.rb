@@ -116,7 +116,9 @@ describe Platform::Overlay do
     end
 
     it "should load the website" do
-      @overlay.website.should == 'http://ronin.rubyforge.org/'
+      website = Addressable::URI.parse('http://ronin.rubyforge.org/')
+
+      @overlay.website.should == website
     end
 
     it "should load the license" do
