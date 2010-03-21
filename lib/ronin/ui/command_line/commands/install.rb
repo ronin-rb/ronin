@@ -56,10 +56,15 @@ module Ronin
 
             Database.setup
 
-            overlay = Platform::Overlay.install!(
-              :uri => uri,
-              :scm => scm
-            )
+            begin
+              overlay = Platform::Overlay.install!(
+                :uri => uri,
+                :scm => scm
+              )
+            rescue Platform::OverlayCached => e
+              print_error e.message
+              exit -1
+            end
 
             print_info "Overlay #{overlay} has been installed."
           end

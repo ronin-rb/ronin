@@ -246,6 +246,15 @@ module Ronin
           raise(OverlayCached,"An overlay at the path #{path.dump} was already added",caller)
         end
 
+        if (options.has_key?(:name) && options.has_key?(:host))
+          name = options[:name].to_s
+          host = options[:host].to_s
+
+          if Overlay.count(:name => name, :host => host) > 0
+            raise(OverlayCached,"An Overlay already exists with the name #{name.dump} from host #{host.dump}",caller)
+          end
+        end
+
         # create and save the Overlay
         overlay = Overlay.create!(options.merge(:path => path))
 
@@ -275,6 +284,10 @@ module Ronin
       # @raise [ArgumentError]
       #   The `:uri` option must be specified.
       #
+      # @raise [OverlayCached]
+      #   An Overlay already exists with the same `name` and `host`
+      #   properties.
+      #
       # @since 0.4.0
       #
       def Overlay.install!(options={})
@@ -283,9 +296,13 @@ module Ronin
         end
 
         repo = Pullr::RemoteRepository.new(options)
-
-        host = repo.uri.host
         name = repo.name
+        host = repo.uri.host
+
+        if Overlay.count(:name => name, :host => host) > 0
+          raise(OverlayCached,"An Overlay already exists with the name #{name.dump} from host #{host.dump}",caller)
+        end
+
         path = File.join(Config::CACHE_DIR,name,host)
 
         # pull down the remote repository
