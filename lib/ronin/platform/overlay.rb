@@ -114,9 +114,6 @@ module Ronin
       # Maintainers of the overlay
       has 0..n, :maintainers
 
-      # Validations for the `path` and `version` properties
-      validates_present :path, :version
-
       # Ruby Gems required by the overlay
       attr_reader :gems
 
