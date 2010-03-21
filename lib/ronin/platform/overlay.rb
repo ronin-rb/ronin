@@ -98,10 +98,10 @@ module Ronin
       property :title, Text
 
       # Source View URI of the overlay
-      property :source, String
+      property :source, URI
 
       # Website URI for the overlay
-      property :website, String
+      property :website, URI
 
       # Description
       property :description, Text
