@@ -37,8 +37,8 @@ module Ronin
           argument :uri, :type => :string
 
           def execute
-            unless (uri = options[:uri])
-              print_error "Must specify the --uri option"
+            unless uri
+              print_error "Must specify the URI"
               exit -1
             end
 
