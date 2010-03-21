@@ -237,7 +237,10 @@ module Ronin
           :domain => DEFAULT_DOMAIN
         ))
 
-        if Overlay.count(:name => overlay.name, :domain => overlay.domain) > 0
+        name = overlay.name
+        domain = overlay.domain
+
+        if Overlay.count(:name => name, :domain => domain) > 0
           raise(DuplicateOverlay,"The overlay #{overlay} already exists in the database",caller)
         end
 
