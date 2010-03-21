@@ -54,7 +54,7 @@ module Ronin
             print_title overlay.name
 
             indent do
-              if overlay.local?
+              if overlay.installed?
                 puts "Path: #{overlay.path}"
               end
 

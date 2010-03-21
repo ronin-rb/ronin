@@ -80,7 +80,7 @@ module Ronin
 
       # Specifies whether the overlay was installed remotely
       # or added using a local directory.
-      property :local, Boolean, :default => true
+      property :installed, Boolean, :default => false
 
       # The format version of the overlay
       property :version, Integer, :required => true
@@ -307,7 +307,7 @@ module Ronin
         return Overlay.add!(
           :path => path,
           :uri => repo.uri,
-          :local => false,
+          :installed => true,
           :host => host,
           :name => name
         )
@@ -352,17 +352,6 @@ module Ronin
       #
       def Overlay.uninstall!(name)
         Overlay.get(name).uninstall!
-      end
-
-      #
-      # Determines whether the Overlay was installed from a remote
-      # repository.
-      #
-      # @return [Boolean]
-      #   Specifies whether the Overlay is remote.
-      #
-      def remote?
-        !(self.local)
       end
 
       #
@@ -512,7 +501,7 @@ module Ronin
       def uninstall!(&block)
         deactivate!
 
-        FileUtils.rm_rf(self.path) unless self.local?
+        FileUtils.rm_rf(self.path) if self.installed?
 
         # clean the object cache
         ObjectCache.clean(@cache_dir)
