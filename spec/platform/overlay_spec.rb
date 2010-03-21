@@ -50,7 +50,7 @@ describe Platform::Overlay do
   it "should not allow adding an Overlay twice" do
     lambda {
       Platform::Overlay.add!(:path => @overlay.path)
-    }.should raise_error(Platform::OverlayCached)
+    }.should raise_error(Platform::DuplicateOverlay)
   end
 
   it "should be compatible with the current Ronin::Platform::Overlay" do

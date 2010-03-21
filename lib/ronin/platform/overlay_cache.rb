@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/platform/exceptions/overlay_cached'
 require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/overlay'

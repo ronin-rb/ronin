@@ -60,7 +60,7 @@ module Ronin
 
             begin
               overlay = Platform::Overlay.add!(overlay_options)
-            rescue Platform::OverlayCached => e
+            rescue Platform::DuplicateOverlay => e
               print_error e.message
               exit -1
             end

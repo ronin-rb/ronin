@@ -20,7 +20,7 @@
 
 module Ronin
   module Platform
-    class OverlayCached < StandardError
+    class DuplicateOverlay< StandardError
     end
   end
 end

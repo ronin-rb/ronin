@@ -61,7 +61,7 @@ module Ronin
                 :uri => uri,
                 :scm => scm
               )
-            rescue Platform::OverlayCached => e
+            rescue Platform::DuplicateOverlay => e
               print_error e.message
               exit -1
             end

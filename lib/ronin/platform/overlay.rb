@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/platform/exceptions/duplicate_overlay'
 require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/maintainer'
@@ -226,7 +227,7 @@ module Ronin
       # @raise [OverlayNotFound]
       #   The path of the Overlay did not exist or was not a directory.
       #
-      # @raise [OverlayCached]
+      # @raise [DuplicateOverlay]
       #   The Overlay was already added or installed.
       #
       # @since 0.4.0
@@ -243,14 +244,14 @@ module Ronin
         end
 
         if Overlay.count(:path => path) > 0
-          raise(OverlayCached,"An overlay at the path #{path.dump} was already added",caller)
+          raise(DuplicateOverlay,"An overlay at the path #{path.dump} was already added",caller)
         end
 
         # create the Overlay
         overlay = Overlay.new(options.merge(:path => path))
 
         if Overlay.count(:name => overlay.name, :host => overlay.host) > 0
-          raise(OverlayCached,"The overlay #{overlay} already exists in the database",caller)
+          raise(DuplicateOverlay,"The overlay #{overlay} already exists in the database",caller)
         end
 
         # save the Overlay
@@ -282,7 +283,7 @@ module Ronin
       # @raise [ArgumentError]
       #   The `:uri` option must be specified.
       #
-      # @raise [OverlayCached]
+      # @raise [DuplicateOverlay]
       #   An Overlay already exists with the same `name` and `host`
       #   properties.
       #
@@ -298,7 +299,7 @@ module Ronin
         host = repo.uri.host
 
         if Overlay.count(:name => name, :host => host) > 0
-          raise(OverlayCached,"An Overlay already exists with the name #{name.dump} from host #{host.dump}",caller)
+          raise(DuplicateOverlay,"An Overlay already exists with the name #{name.dump} from host #{host.dump}",caller)
         end
 
         path = File.join(Config::CACHE_DIR,name,host)
