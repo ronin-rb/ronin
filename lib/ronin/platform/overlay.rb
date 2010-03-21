@@ -286,14 +286,14 @@ module Ronin
 
         host = repo.uri.host
         name = repo.name
+        path = File.join(Config::CACHE_DIR,name,host)
 
         # pull down the remote repository
-        local_repo = repo.pull(File.join(Config::CACHE_DIR,name,host))
+        repo.pull(path)
 
         # add the new remote overlay
         return Overlay.add!(
-          :path => local_repo.path,
-          :scm => local_repo.scm,
+          :path => path,
           :uri => repo.uri,
           :local => false,
           :host => host,
