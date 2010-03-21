@@ -227,7 +227,7 @@ module Ronin
       #   The path of the Overlay did not exist or was not a directory.
       #
       # @raise [OverlayCached]
-      #   An Overlay already exists with the same path.
+      #   The Overlay was already added or installed.
       #
       # @since 0.4.0
       #
@@ -246,17 +246,12 @@ module Ronin
           raise(OverlayCached,"An overlay at the path #{path.dump} was already added",caller)
         end
 
-        if (options.has_key?(:name) && options.has_key?(:host))
-          name = options[:name].to_s
-          host = options[:host].to_s
-
-          if Overlay.count(:name => name, :host => host) > 0
-            raise(OverlayCached,"An Overlay already exists with the name #{name.dump} from host #{host.dump}",caller)
-          end
-        end
-
         # create and save the Overlay
-        overlay = Overlay.create!(options.merge(:path => path))
+        overlay = Overlay.new(options.merge(:path => path))
+
+        if Overlay.count(:name => overlay.name, :host => overlay.host) > 0
+          raise(OverlayCached,"The overlay #{overlay} already exists in the database",caller)
+        end
 
         # update the object cache
         ObjectCache.cache(overlay.cache_dir)

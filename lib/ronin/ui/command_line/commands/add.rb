@@ -58,7 +58,13 @@ module Ronin
 
             Database.setup
 
-            overlay = Platform::Overlay.add!(overlay_options)
+            begin
+              overlay = Platform::Overlay.add!(overlay_options)
+            rescue Platform::OverlayCached => e
+              print_error e.message
+              exit -1
+            end
+
             print_info "Overlay #{overlay} added."
           end
 
