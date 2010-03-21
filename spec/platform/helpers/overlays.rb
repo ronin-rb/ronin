@@ -15,11 +15,13 @@ module Helpers
     )
 
     Platform::Overlay.create!(
-      :path => File.join(OVERLAYS_DIR,'test1')
+      :path => File.join(OVERLAYS_DIR,'test1'),
+      :uri => 'git@github.com:/path/to/test1.git'
     )
 
     Platform::Overlay.create!(
-      :path => File.join(OVERLAYS_DIR,'test2')
+      :path => File.join(OVERLAYS_DIR,'test2'),
+      :uri => 'git@github.com:/path/to/test2.git'
     )
 
     def load_overlay(name)

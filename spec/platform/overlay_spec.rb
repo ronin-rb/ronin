@@ -10,65 +10,77 @@ describe Platform::Overlay do
     @overlay = load_overlay('hello')
   end
 
-  it "should be able to retrieve an Overlay by name" do
-    overlay = Platform::Overlay.get('hello')
+  describe "get" do
+    it "should be able to retrieve an Overlay by name" do
+      overlay = Platform::Overlay.get('hello')
 
-    overlay.name.should == 'hello'
+      overlay.name.should == 'hello'
+    end
+
+    it "should be able to retrieve an Overlay by host and name" do
+      overlay = Platform::Overlay.get('hello/localhost')
+
+      overlay.name.should == 'hello'
+      overlay.host.should == 'localhost'
+    end
+
+    it "should raise OverlayNotFound for unknown Overlay names" do
+      lambda {
+        Platform::Overlay.get('bla')
+      }.should raise_error(Platform::OverlayNotFound)
+    end
+
+    it "should raise OverlayNotFound for unknown Overlay names or hosts" do
+      lambda {
+        Platform::Overlay.get('bla/bla')
+      }.should raise_error(Platform::OverlayNotFound)
+    end
   end
 
-  it "should be able to retrieve an Overlay by host and name" do
-    overlay = Platform::Overlay.get('hello/localhost')
+  describe "add!" do
+    it "should not add Overlays without a path property" do
+      lambda {
+        Platform::Overlay.add!
+      }.should raise_error(ArgumentError)
+    end
 
-    overlay.name.should == 'hello'
-    overlay.host.should == 'localhost'
+    it "should not add Overlays that do not point to a directory" do
+      lambda {
+        Platform::Overlay.add!(:path => 'path/to/nowhere')
+      }.should raise_error(Platform::OverlayNotFound)
+    end
+
+    it "should not allow adding an Overlay from the same path twice" do
+      lambda {
+        Platform::Overlay.add!(:path => load_overlay('hello').path)
+      }.should raise_error(Platform::DuplicateOverlay)
+    end
+
+    it "should not allow adding an Overlay that was already installed" do
+      lambda {
+        Platform::Overlay.add!(:path => load_overlay('random').path)
+      }.should raise_error(Platform::DuplicateOverlay)
+    end
   end
 
-  it "should raise OverlayNotFound for unknown Overlay names" do
-    lambda {
-      Platform::Overlay.get('bla')
-    }.should raise_error(Platform::OverlayNotFound)
-  end
+  describe "install!" do
+    it "should not allow installing an Overlay with no URI" do
+      lambda {
+        Platform::Overlay.install!
+      }.should raise_error(ArgumentError)
+    end
 
-  it "should raise OverlayNotFound for unknown Overlay names or hosts" do
-    lambda {
-      Platform::Overlay.get('bla/bla')
-    }.should raise_error(Platform::OverlayNotFound)
-  end
+    it "should not allow installing an Overlay that was already added" do
+      lambda {
+        Platform::Overlay.install!(:uri => load_overlay('test1').uri)
+      }.should raise_error(Platform::DuplicateOverlay)
+    end
 
-  it "should not add Overlays without a path property" do
-    lambda {
-      Platform::Overlay.add!
-    }.should raise_error(ArgumentError)
-  end
-
-  it "should not add Overlays that do not point to a directory" do
-    lambda {
-      Platform::Overlay.add!(:path => 'path/to/nowhere')
-    }.should raise_error(Platform::OverlayNotFound)
-  end
-
-  it "should not allow adding an Overlay from the same path twice" do
-    lambda {
-      Platform::Overlay.add!(:path => load_overlay('hello').path)
-    }.should raise_error(Platform::DuplicateOverlay)
-  end
-
-  it "should not allow adding an Overlay that was already installed" do
-    lambda {
-      Platform::Overlay.add!(:path => load_overlay('random').path)
-    }.should raise_error(Platform::DuplicateOverlay)
-  end
-
-  it "should not allow installing an Overlay with no URI" do
-    lambda {
-      Platform::Overlay.install!
-    }.should raise_error(ArgumentError)
-  end
-
-  it "should not allow installing an Overlay that was already installed" do
-    lambda {
-      Platform::Overlay.install!(:uri => load_overlay('random').uri)
-    }.should raise_error(Platform::DuplicateOverlay)
+    it "should not allow installing an Overlay from the same URI twice" do
+      lambda {
+        Platform::Overlay.install!(:uri => load_overlay('random').uri)
+      }.should raise_error(Platform::DuplicateOverlay)
+    end
   end
 
   it "should be compatible with the current Ronin::Platform::Overlay" do
