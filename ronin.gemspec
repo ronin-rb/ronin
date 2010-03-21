@@ -119,6 +119,7 @@ Gem::Specification.new do |s|
     "spec/cacheable/helpers/contexts/ronin_cacheable_model.rb",
     "spec/database_spec.rb",
     "spec/helpers/database.rb",
+    "spec/installation_spec.rb",
     "spec/license_spec.rb",
     "spec/model/has_description_spec.rb",
     "spec/model/has_license_spec.rb",
@@ -226,7 +227,8 @@ Gem::Specification.new do |s|
     "spec/cacheable/classes/cacheable_model.rb",
     "spec/cacheable/helpers/cacheable.rb",
     "spec/cacheable/helpers/contexts/ronin_cacheable_model.rb",
-    "spec/os_spec.rb"
+    "spec/os_spec.rb",
+    "spec/installation_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
