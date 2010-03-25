@@ -1,8 +1,8 @@
 # Ronin
 
 * [ronin.rubyforge.org](http://ronin.rubyforge.org)
-* [github.com/postmodern/ronin](http://github.com/postmodern/ronin)
-* [github.com/postmodern/ronin/issues](http://github.com/postmodern/ronin/issues)
+* [github.com/ronin-ruby/ronin](http://github.com/ronin-ruby/ronin)
+* [github.com/ronin-ruby/ronin/issues](http://github.com/ronin-ruby/ronin/issues)
 * [groups.google.com/group/ronin-ruby](http://groups.google.com/group/ronin-ruby)
 * irc.freenode.net #ronin
 
@@ -144,41 +144,41 @@ View available commands:
 
 ### Ronin ASM
 
-* [github.com/postmodern/ronin-asm](http://github.com/postmodern/ronin-asm)
+* [github.com/ronin-ruby/ronin-asm](http://github.com/ronin-ruby/ronin-asm)
 
 Ronin ASM is a Ruby library for Ronin that provides dynamic Assembly (ASM)
 generation of programs or shellcode.
 
 ### Ronin Dorks
 
-* [github.com/postmodern/ronin-dorks](http://github.com/postmodern/ronin-dorks)
+* [github.com/ronin-ruby/ronin-dorks](http://github.com/ronin-ruby/ronin-dorks)
 
 Ronin Dorks is a Ruby library for Ronin that provides support for various
 Google (tm) Dorks functionality.
 
 ### Ronin Exploits
 
-* [github.com/postmodern/ronin-exploits](http://github.com/postmodern/ronin-exploits)
+* [github.com/ronin-ruby/ronin-exploits](http://github.com/ronin-ruby/ronin-exploits)
 
 Ronin Exploits is a Ruby library for Ronin that provides exploitation and
 payload crafting functionality.
 
 ### Ronin Gen
 
-* [github.com/postmodern/ronin-gen](http://github.com/postmodern/ronin-gen)
+* [github.com/ronin-ruby/ronin-gen](http://github.com/ronin-ruby/ronin-gen)
 
 Ronin Gen is a Ruby library for Ronin that provides various generators.
 
 ### Ronin SQL
 
-* [github.com/postmodern/ronin-sql](http://github.com/postmodern/ronin-sql)
+* [github.com/ronin-ruby/ronin-sql](http://github.com/ronin-ruby/ronin-sql)
 
 Ronin SQL is a Ruby library for Ronin that provids support for SQL related
 security tasks, such as scanning for and exploiting SQL injections.
 
 ### Ronin PHP
 
-* [github.com/postmodern/ronin-php](http://github.com/postmodern/ronin-php)
+* [github.com/ronin-ruby/ronin-php](http://github.com/ronin-ruby/ronin-php)
 
 Ronin PHP is a Ruby library for Ronin that provides support for PHP related
 security tasks, such as finding and exploiting Local File Inclusion (LFI)
@@ -186,7 +186,7 @@ and Remote File Inclusion (RFI).
 
 ### Ronin Web
 
-* [github.com/postmodern/ronin-web](http://github.com/postmodern/ronin-web)
+* [github.com/ronin-ruby/ronin-web](http://github.com/ronin-ruby/ronin-web)
 
 Ronin Web is a Ruby library for Ronin that provides support for web
 scraping and spidering functionality.
