@@ -7,7 +7,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = 'ronin'
     gem.version = Ronin::VERSION
-    gem.license = 'GPL-2'
+    gem.licenses = ['GPL-2']
     gem.summary = %Q{A Ruby platform for exploit development and security research.}
     gem.description = %Q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
     gem.email = 'postmodern.mod3@gmail.com'
