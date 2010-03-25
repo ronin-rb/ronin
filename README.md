@@ -144,41 +144,41 @@ View available commands:
 
 ### Ronin ASM
 
-* http://github.com/postmodern/ronin-asm
+* [github.com/postmodern/ronin-asm](http://github.com/postmodern/ronin-asm)
 
 Ronin ASM is a Ruby library for Ronin that provides dynamic Assembly (ASM)
 generation of programs or shellcode.
 
 ### Ronin Dorks
 
-* http://github.com/postmodern/ronin-dorks
+* [github.com/postmodern/ronin-dorks](http://github.com/postmodern/ronin-dorks)
 
 Ronin Dorks is a Ruby library for Ronin that provides support for various
 Google (tm) Dorks functionality.
 
 ### Ronin Exploits
 
-* http://github.com/postmodern/ronin-exploits
+* [github.com/postmodern/ronin-exploits](http://github.com/postmodern/ronin-exploits)
 
 Ronin Exploits is a Ruby library for Ronin that provides exploitation and
 payload crafting functionality.
 
 ### Ronin Gen
 
-* http://github.com/postmodern/ronin-gen
+* [github.com/postmodern/ronin-gen](http://github.com/postmodern/ronin-gen)
 
 Ronin Gen is a Ruby library for Ronin that provides various generators.
 
 ### Ronin SQL
 
-* http://github.com/postmodern/ronin-sql
+* [github.com/postmodern/ronin-sql](http://github.com/postmodern/ronin-sql)
 
 Ronin SQL is a Ruby library for Ronin that provids support for SQL related
 security tasks, such as scanning for and exploiting SQL injections.
 
 ### Ronin PHP
 
-* http://github.com/postmodern/ronin-php
+* [github.com/postmodern/ronin-php](http://github.com/postmodern/ronin-php)
 
 Ronin PHP is a Ruby library for Ronin that provides support for PHP related
 security tasks, such as finding and exploiting Local File Inclusion (LFI)
@@ -186,7 +186,7 @@ and Remote File Inclusion (RFI).
 
 ### Ronin Web
 
-* http://github.com/postmodern/ronin-web
+* [github.com/postmodern/ronin-web](http://github.com/postmodern/ronin-web)
 
 Ronin Web is a Ruby library for Ronin that provides support for web
 scraping and spidering functionality.
