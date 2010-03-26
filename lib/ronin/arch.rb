@@ -41,7 +41,7 @@ module Ronin
     property :name, String, :required => true, :unique => true
 
     # Endianness of the architecture
-    property :endian, Enum[:big, :little], :required => true
+    property :endian, String, :set => ['little', 'big'], :required => true
 
     # Address length of the architecture
     property :address_length, Integer, :required => true
