@@ -23,7 +23,6 @@ require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/cached_file'
-require 'ronin/platform/object_cache'
 require 'ronin/platform/extension'
 require 'ronin/platform/config'
 require 'ronin/model/has_license'
@@ -252,8 +251,10 @@ module Ronin
         # save the Overlay
         overlay.save!
 
-        # update the object cache
-        ObjectCache.cache(overlay.cache_dir)
+        # cache any files from within the `cache/` directory of the overlay
+        overlay.cache_paths.each do |path|
+          catch_all { overlay.cached_files << CachedFile.cache(path) }
+        end
 
         return overlay
       end
@@ -321,8 +322,10 @@ module Ronin
         # save the Overlay
         overlay.save!
 
-        # update the object cache
-        ObjectCache.cache(overlay.cache_dir)
+        # cache any files from within the `cache/` directory of the overlay
+        overlay.cache_paths.each do |path|
+          catch_all { overlay.cached_files << CachedFile.cache(path) }
+        end
 
         return overlay
       end
@@ -379,6 +382,18 @@ module Ronin
         end
 
         return false
+      end
+
+      #
+      # All paths within the `cache/` directory of the overlay.
+      #
+      # @return [Array]
+      #   The paths within the `cache/` directory.
+      #
+      # @since 0.4.0
+      #
+      def cache_paths
+        Dir[File.join(@cache_dir,'*.rb')]
       end
 
       #
@@ -457,7 +472,7 @@ module Ronin
 
       #
       # Updates the overlay, reloads it's metadata and syncs the
-      # ObjectCache.
+      # cached files of the overlay.
       #
       # @yield [overlay]
       #   If a block is given, it will be passed after the overlay has
@@ -489,8 +504,20 @@ module Ronin
         # activates the overlay before caching it's objects
         activate!
 
-        # sync the object cache
-        ObjectCache.sync(@cache_dir)
+        new_paths = cached_paths
+
+        self.cached_files.each do |cached_file|
+          # filter out pre-existing paths within the `cached/` directory
+          new_paths.delete(cached_file.path)
+
+          # sync the cached file and catch any exceptions
+          catch_all { cached_file.sync }
+        end
+
+        # cache the new paths within the `cache/` directory
+        new_paths.each do |path|
+          catch_all { self.cached_files << CachedFile.cache(path) }
+        end
 
         # deactivates the overlay
         deactivate!
@@ -519,8 +546,10 @@ module Ronin
 
         FileUtils.rm_rf(self.path) if self.installed?
 
-        # clean the object cache
-        ObjectCache.clean(@cache_dir)
+        # destroy any cached files first
+        self.cached_files.each do |cached_file|
+          cached_file.destroy
+        end
 
         # remove the overlay from the database
         destroy if saved?

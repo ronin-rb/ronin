@@ -66,7 +66,6 @@ Gem::Specification.new do |s|
     "lib/ronin/platform/extension.rb",
     "lib/ronin/platform/extension_cache.rb",
     "lib/ronin/platform/maintainer.rb",
-    "lib/ronin/platform/object_cache.rb",
     "lib/ronin/platform/overlay.rb",
     "lib/ronin/platform/overlay_cache.rb",
     "lib/ronin/platform/overlays.rb",
