@@ -24,7 +24,7 @@ require 'ronin/model/model'
 require 'contextify'
 
 module Ronin
-  module Model
+  module Platform
     #
     # The {Cacheable} module allows an instance of a {Model} to be cached
     # into the local {Database}, to be loaded later on. This is made
