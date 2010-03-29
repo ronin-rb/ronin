@@ -24,7 +24,7 @@ require 'extlib'
 require 'contextify'
 
 module Ronin
-  module Cacheable
+  module Platform
     #
     # The {CachedFile} model stores information in the {Database} about
     # files that {Cacheable} Models were cached from. {CachedFile} also
@@ -45,6 +45,9 @@ module Ronin
 
       # The class name of the cached object
       property :model_name, String
+
+      # The overlay the file was cached from
+      belongs_to :overlay
 
       #
       # Finds all cached files that were cached from a given directory.

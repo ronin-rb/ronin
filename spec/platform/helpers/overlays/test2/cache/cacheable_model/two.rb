@@ -1,11 +1,11 @@
-require 'cacheable/classes/cacheable_model'
+require 'platform/classes/cacheable_model'
 
 ronin_cacheable_model do
 
   @config = true
 
   cache do
-    self.content = 'this is a test'
+    self.content = 'this is test two'
   end
 
   def greeting

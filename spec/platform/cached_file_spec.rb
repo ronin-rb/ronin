@@ -1,7 +1,6 @@
-require 'ronin/cacheable/cached_file'
+require 'ronin/platform/cached_file'
 
 require 'spec_helper'
-require 'cacheable/helpers/cacheable'
 
 describe Cacheable::CachedFile do
   describe "new files" do

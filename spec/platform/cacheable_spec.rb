@@ -1,10 +1,9 @@
-require 'ronin/cacheable'
+require 'ronin/platform/cacheable'
 
 require 'spec_helper'
-require 'cacheable/classes/cacheable_model'
-require 'cacheable/helpers/cacheable'
+require 'platform/classes/cacheable_model'
 
-describe Cacheable do
+describe Platform::Cacheable do
   describe "load_from" do
     before(:all) do
       CacheableModel.auto_migrate!
@@ -18,10 +17,6 @@ describe Cacheable do
 
     it "should have a cache_path" do
       @obj.cache_path.should == Helpers::CACHEABLE_FILE
-    end
-
-    it "should have a cache_dir" do
-      @obj.cache_dir.should == File.dirname(Helpers::CACHEABLE_FILE)
     end
 
     it "should prepare the object to be cached" do

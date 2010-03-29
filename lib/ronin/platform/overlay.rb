@@ -22,6 +22,7 @@ require 'ronin/platform/exceptions/duplicate_overlay'
 require 'ronin/platform/exceptions/overlay_not_found'
 require 'ronin/platform/exceptions/extension_not_found'
 require 'ronin/platform/maintainer'
+require 'ronin/platform/cached_file'
 require 'ronin/platform/object_cache'
 require 'ronin/platform/extension'
 require 'ronin/platform/config'
@@ -108,6 +109,9 @@ module Ronin
 
       # Maintainers of the overlay
       has 0..n, :maintainers
+
+      # The cached files from the overlay
+      has 0..n, :cached_files
 
       # Ruby Gems required by the overlay
       attr_reader :gems

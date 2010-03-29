@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-03-25}
+  s.date = %q{2010-03-28}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-list", "ronin-help", "ronin-install", "ronin-uninstall", "ronin-update", "ronin-database"]
@@ -37,9 +37,6 @@ Gem::Specification.new do |s|
     "lib/ronin.rb",
     "lib/ronin/arch.rb",
     "lib/ronin/author.rb",
-    "lib/ronin/cacheable.rb",
-    "lib/ronin/cacheable/cacheable.rb",
-    "lib/ronin/cacheable/cached_file.rb",
     "lib/ronin/config.rb",
     "lib/ronin/database.rb",
     "lib/ronin/database/database.rb",
@@ -59,6 +56,8 @@ Gem::Specification.new do |s|
     "lib/ronin/model/model.rb",
     "lib/ronin/os.rb",
     "lib/ronin/platform.rb",
+    "lib/ronin/platform/cacheable.rb",
+    "lib/ronin/platform/cached_file.rb",
     "lib/ronin/platform/config.rb",
     "lib/ronin/platform/exceptions.rb",
     "lib/ronin/platform/exceptions/duplicate_overlay.rb",
@@ -112,11 +111,6 @@ Gem::Specification.new do |s|
     "ronin.gemspec",
     "spec/arch_spec.rb",
     "spec/author_spec.rb",
-    "spec/cacheable/cacheable_spec.rb",
-    "spec/cacheable/cached_file_spec.rb",
-    "spec/cacheable/classes/cacheable_model.rb",
-    "spec/cacheable/helpers/cacheable.rb",
-    "spec/cacheable/helpers/contexts/ronin_cacheable_model.rb",
     "spec/database_spec.rb",
     "spec/helpers/database.rb",
     "spec/installation_spec.rb",
@@ -133,6 +127,9 @@ Gem::Specification.new do |s|
     "spec/model/models/licensed_model.rb",
     "spec/model/models/named_model.rb",
     "spec/os_spec.rb",
+    "spec/platform/cacheable_spec.rb",
+    "spec/platform/cached_file_spec.rb",
+    "spec/platform/classes/cacheable_model.rb",
     "spec/platform/extension_cache_spec.rb",
     "spec/platform/extension_spec.rb",
     "spec/platform/helpers/extensions.rb",
@@ -149,9 +146,11 @@ Gem::Specification.new do |s|
     "spec/platform/helpers/overlays/random/exts/random.rb",
     "spec/platform/helpers/overlays/random/ronin.xml",
     "spec/platform/helpers/overlays/test1/cache/.keep",
+    "spec/platform/helpers/overlays/test1/cache/cacheable_model/one.rb",
     "spec/platform/helpers/overlays/test1/exts/test.rb",
     "spec/platform/helpers/overlays/test1/ronin.xml",
     "spec/platform/helpers/overlays/test2/cache/.keep",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/two.rb",
     "spec/platform/helpers/overlays/test2/exts/test.rb",
     "spec/platform/helpers/overlays/test2/ronin.xml",
     "spec/platform/maintainer_spec.rb",
@@ -200,7 +199,9 @@ Gem::Specification.new do |s|
     "spec/model/models/licensed_model.rb",
     "spec/model/models/named_model.rb",
     "spec/platform/helpers/overlays/test1/exts/test.rb",
+    "spec/platform/helpers/overlays/test1/cache/cacheable_model/one.rb",
     "spec/platform/helpers/overlays/test2/exts/test.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/two.rb",
     "spec/platform/helpers/overlays/random/exts/random.rb",
     "spec/platform/helpers/overlays/hello/exts/hello.rb",
     "spec/platform/helpers/overlays/hello/lib/init.rb",
@@ -216,6 +217,9 @@ Gem::Specification.new do |s|
     "spec/platform/overlay_spec.rb",
     "spec/platform/platform_spec.rb",
     "spec/platform/maintainer_spec.rb",
+    "spec/platform/cached_file_spec.rb",
+    "spec/platform/classes/cacheable_model.rb",
+    "spec/platform/cacheable_spec.rb",
     "spec/installation_spec.rb",
     "spec/spec_helper.rb",
     "spec/templates/classes/example_erb.rb",
@@ -224,11 +228,6 @@ Gem::Specification.new do |s|
     "spec/templates/helpers/static.rb",
     "spec/templates/template_spec.rb",
     "spec/helpers/database.rb",
-    "spec/cacheable/cacheable_spec.rb",
-    "spec/cacheable/cached_file_spec.rb",
-    "spec/cacheable/classes/cacheable_model.rb",
-    "spec/cacheable/helpers/cacheable.rb",
-    "spec/cacheable/helpers/contexts/ronin_cacheable_model.rb",
     "spec/os_spec.rb"
   ]
 

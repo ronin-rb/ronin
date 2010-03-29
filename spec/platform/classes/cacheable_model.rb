@@ -1,8 +1,8 @@
-require 'ronin/cacheable'
+require 'ronin/platform/cacheable'
 
 class CacheableModel
 
-  include Ronin::Cacheable
+  include Ronin::Platform::Cacheable
 
   contextify :ronin_cacheable_model
 
