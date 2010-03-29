@@ -253,7 +253,7 @@ module Ronin
 
         # cache any files from within the `cache/` directory of the overlay
         overlay.cache_paths.each do |path|
-          catch_all { overlay.cached_files << CachedFile.cache(path) }
+          catch_all { overlay.cached_files.new(:path => path).cache }
         end
 
         return overlay
@@ -324,7 +324,7 @@ module Ronin
 
         # cache any files from within the `cache/` directory of the overlay
         overlay.cache_paths.each do |path|
-          catch_all { overlay.cached_files << CachedFile.cache(path) }
+          catch_all { overlay.cached_files.new(:path => path).cache }
         end
 
         return overlay
@@ -516,7 +516,7 @@ module Ronin
 
         # cache the new paths within the `cache/` directory
         new_paths.each do |path|
-          catch_all { self.cached_files << CachedFile.cache(path) }
+          catch_all { self.cached_files.new(:path => path).cache }
         end
 
         # deactivates the overlay
