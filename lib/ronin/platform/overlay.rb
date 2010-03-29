@@ -252,9 +252,7 @@ module Ronin
         overlay.save!
 
         # cache any files from within the `cache/` directory of the overlay
-        overlay.cache_paths.each do |path|
-          catch_all { overlay.cached_files.new(:path => path).cache }
-        end
+        overlay.save_cached_files!
 
         return overlay
       end
@@ -323,9 +321,7 @@ module Ronin
         overlay.save!
 
         # cache any files from within the `cache/` directory of the overlay
-        overlay.cache_paths.each do |path|
-          catch_all { overlay.cached_files.new(:path => path).cache }
-        end
+        overlay.save_cached_files!
 
         return overlay
       end
@@ -471,6 +467,77 @@ module Ronin
       end
 
       #
+      # Clears the {#cached_files} and re-saves the cached files within the
+      # `cache/` directory.
+      #
+      # @return [Overlay]
+      #   The cleaned overlay.
+      #
+      # @since 0.4.0
+      #
+      def save_cached_files!
+        clean_cached_files!
+
+        overlay.cache_paths.each do |path|
+          catch_all { overlay.cached_files.new(:path => path).cache }
+        end
+
+        return self
+      end
+
+      #
+      # Syncs the {#cached_files} of the overlay, and adds any new cached
+      # files.
+      #
+      # @return [Overlay]
+      #   The cleaned overlay.
+      #
+      # @since 0.4.0
+      #
+      def sync_cached_files!
+        # activates the overlay before caching it's objects
+        activate!
+
+        new_paths = cache_paths
+
+        self.cached_files.each do |cached_file|
+          # filter out pre-existing paths within the `cached/` directory
+          new_paths.delete(cached_file.path)
+
+          # sync the cached file and catch any exceptions
+          catch_all { cached_file.sync }
+        end
+
+        # cache the new paths within the `cache/` directory
+        new_paths.each do |path|
+          catch_all { self.cached_files.new(:path => path).cache }
+        end
+
+        # deactivates the overlay
+        deactivate!
+
+        return self
+      end
+
+      #
+      # Deletes any {#cached_files} associated with the overlay.
+      #
+      # @return [Overlay]
+      #   The cleaned overlay.
+      #
+      # @since 0.4.0
+      #
+      def clean_cached_files!
+        if saved?
+          self.cached_files.destroy
+        else
+          self.cached_files.clear
+        end
+
+        return self
+      end
+
+      #
       # Updates the overlay, reloads it's metadata and syncs the
       # cached files of the overlay.
       #
@@ -501,26 +568,8 @@ module Ronin
         # save the overlay
         save!
 
-        # activates the overlay before caching it's objects
-        activate!
-
-        new_paths = cached_paths
-
-        self.cached_files.each do |cached_file|
-          # filter out pre-existing paths within the `cached/` directory
-          new_paths.delete(cached_file.path)
-
-          # sync the cached file and catch any exceptions
-          catch_all { cached_file.sync }
-        end
-
-        # cache the new paths within the `cache/` directory
-        new_paths.each do |path|
-          catch_all { self.cached_files.new(:path => path).cache }
-        end
-
-        # deactivates the overlay
-        deactivate!
+        # syncs the cached files of the overlay
+        sync_cached_files!
 
         block.call(self) if block
         return self
@@ -547,9 +596,7 @@ module Ronin
         FileUtils.rm_rf(self.path) if self.installed?
 
         # destroy any cached files first
-        self.cached_files.each do |cached_file|
-          cached_file.destroy
-        end
+        clean_cached_files!
 
         # remove the overlay from the database
         destroy if saved?
