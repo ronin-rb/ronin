@@ -38,13 +38,13 @@ module Ronin
       property :id, Serial
 
       # The path to the file where the object was defined in
-      property :path, DataMapper::Types::FilePath
+      property :path, DataMapper::Types::FilePath, :required => true
 
       # The timestamp of the cached file
-      property :timestamp, DataMapper::Types::EpochTime
+      property :timestamp, DataMapper::Types::EpochTime, :required => true
 
       # The class name of the cached object
-      property :model_name, String
+      property :model_name, String, :required => true
 
       # The overlay the file was cached from
       belongs_to :overlay
