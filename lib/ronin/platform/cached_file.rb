@@ -32,16 +32,16 @@ module Ronin
     #
     class CachedFile
 
-      include Ronin::Model
+      include Model
 
       # The primary key of the cached file
       property :id, Serial
 
       # The path to the file where the object was defined in
-      property :path, DataMapper::Types::FilePath, :required => true
+      property :path, FilePath, :required => true
 
       # The timestamp of the cached file
-      property :timestamp, DataMapper::Types::EpochTime, :required => true
+      property :timestamp, EpochTime, :required => true
 
       # The class name of the cached object
       property :model_name, String, :required => true
