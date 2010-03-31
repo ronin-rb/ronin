@@ -38,7 +38,7 @@ module Ronin
       property :id, Serial
 
       # The path to the file where the object was defined in
-      property :path, FilePath, :required => true
+      property :path, String, :required => true
 
       # The timestamp of the cached file
       property :timestamp, EpochTime, :required => true
