@@ -528,12 +528,7 @@ module Ronin
       # @since 0.4.0
       #
       def clean_cached_files!
-        if saved?
-          self.cached_files.destroy
-        else
-          self.cached_files.clear
-        end
-
+        self.cached_files.clear
         return self
       end
 
