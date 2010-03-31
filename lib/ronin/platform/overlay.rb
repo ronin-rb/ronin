@@ -479,7 +479,7 @@ module Ronin
         clean_cached_files!
 
         cache_paths.each do |path|
-          catch_all { self.cached_files.new(:path => path).cache }
+          self.cached_files.new(:path => path).cache
         end
 
         return self
@@ -505,12 +505,12 @@ module Ronin
           new_paths.delete(cached_file.path)
 
           # sync the cached file and catch any exceptions
-          catch_all { cached_file.sync }
+          cached_file.sync
         end
 
         # cache the new paths within the `cache/` directory
         new_paths.each do |path|
-          catch_all { self.cached_files.new(:path => path).cache }
+          self.cached_files.new(:path => path).cache
         end
 
         # deactivates the overlay
