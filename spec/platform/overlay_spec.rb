@@ -244,7 +244,7 @@ describe Platform::Overlay do
       it "should update stale cached files" do
         cached_file = @test1.cached_files.first
 
-        cached_file.timestamp.should == File.mtime(cached_file.path).to_i
+        cached_file.timestamp.should == File.mtime(cached_file.path)
       end
 
       it "should cache new files" do

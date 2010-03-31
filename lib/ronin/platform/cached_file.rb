@@ -41,7 +41,7 @@ module Ronin
       property :path, String, :required => true
 
       # The timestamp of the cached file
-      property :timestamp, EpochTime, :required => true
+      property :timestamp, Time, :required => true
 
       # The class name of the cached object
       property :model_name, String, :required => true
@@ -144,7 +144,7 @@ module Ronin
         return true unless self.timestamp
 
         if File.file?(self.path)
-          return File.mtime(self.path).to_i > self.timestamp.to_i
+          return File.mtime(self.path) > self.timestamp
         end
 
         # do not assume updates, if there is no path
