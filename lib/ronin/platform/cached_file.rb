@@ -49,6 +49,9 @@ module Ronin
       # The overlay the file was cached from
       belongs_to :overlay
 
+      # Any exceptions raise when loading a fresh object
+      attr_reader :cache_exception
+
       # Any cache errors encountered when caching the object
       attr_reader :cache_errors
 
@@ -128,8 +131,15 @@ module Ronin
 
             # create the fresh object
             object = model.new()
-            object.instance_eval(&block)
-            return object
+
+            begin
+              object.instance_eval(&block)
+
+              @cache_exception = nil
+              return object
+            rescue Exception => e
+              @cache_exception = e
+            end
           end
         end
 
@@ -184,7 +194,6 @@ module Ronin
 
           if obj.save
             @cache_errors = nil
-
             return save
           else
             @cache_errors = obj.errors
