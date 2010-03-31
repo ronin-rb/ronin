@@ -138,7 +138,7 @@ describe Platform::CachedFile do
     end
 
     it "should delete the cached files" do
-      Platform::CachedFile.count(@cached_file.id).should == 0
+      Platform::CachedFile.count(:id => @cached_file.id).should == 0
     end
 
     it "should delete cached objects for missing files" do
