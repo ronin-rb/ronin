@@ -183,16 +183,16 @@ module Ronin
       #
       def cache
         if (obj = fresh_object)
-          # reset the model-class
-          self.model_name = obj.class.to_s
-
-          # update the timestamp
-          self.timestamp = File.mtime(self.path)
-
           # re-cache the fresh_object
           obj.cached_file = self
 
           if obj.save
+            # reset the model-class
+            self.model_name = obj.class.to_s
+
+            # update the timestamp
+            self.timestamp = File.mtime(self.path)
+
             @cache_errors = nil
             return save
           else
