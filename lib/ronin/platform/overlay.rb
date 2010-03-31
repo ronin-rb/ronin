@@ -389,7 +389,7 @@ module Ronin
       # @since 0.4.0
       #
       def cache_paths
-        Dir[File.join(@cache_dir,'*.rb')]
+        Dir[File.join(@cache_dir,'**','*.rb')]
       end
 
       #
