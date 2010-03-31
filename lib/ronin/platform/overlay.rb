@@ -478,8 +478,8 @@ module Ronin
       def save_cached_files!
         clean_cached_files!
 
-        overlay.cache_paths.each do |path|
-          catch_all { overlay.cached_files.new(:path => path).cache }
+        cache_paths.each do |path|
+          catch_all { self.cached_files.new(:path => path).cache }
         end
 
         return self
