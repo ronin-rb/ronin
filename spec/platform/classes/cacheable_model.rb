@@ -10,6 +10,6 @@ class CacheableModel
 
   property :content, String
 
-  attr_accessor :config
+  attr_accessor :var
 
 end

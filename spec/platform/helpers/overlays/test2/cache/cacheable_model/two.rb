@@ -2,7 +2,7 @@ require 'platform/classes/cacheable_model'
 
 ronin_cacheable_model do
 
-  @config = true
+  @var = 2
 
   cache do
     self.content = 'this is test two'

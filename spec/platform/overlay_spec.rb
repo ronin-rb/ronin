@@ -163,4 +163,105 @@ describe Platform::Overlay do
       }.should raise_error(LoadError)
     end
   end
+
+  describe "cache_paths" do
+    before(:all) do
+      @test1 = load_overlay('test1')
+    end
+
+    it "should list the contents of the 'cache/' directory" do
+      @test1.cache_paths.should_not be_empty
+
+      @test1.cache_paths.all? { |path|
+        path.include?('cache')
+      }.should == true
+    end
+
+    it "should only list '.rb' files" do
+      @test1.cache_paths.should_not be_empty
+
+      @test1.cache_paths.all? { |path|
+        File.extname(path).should == '.rb'
+      }.should == true
+    end
+  end
+
+  describe "cached_files" do
+    before(:all) do
+      @test1 = load_overlay('test1')
+      @test2 = load_overlay('test2')
+    end
+
+    describe "save_cached_files!" do
+      before(:all) do
+        @test1.save_cached_files!
+        @test2.save_cached_files!
+      end
+
+      it "should be populated cached_files" do
+        @test1.cached_files.should_not be_empty
+        @test2.cached_files.should_not be_empty
+      end
+
+      it "should clear cached_files before re-populate them" do
+        test1_files = @test1.cached_files.length
+        test2_files = @test2.cached_files.length
+
+        @test1.save_cached_files!
+        @test2.save_cached_files!
+
+        @test1.cached_files.length.should == test1_files
+        @test2.cached_files.length.should == test2_files
+      end
+
+      it "should be populated using the paths in the 'cache/' directory" do
+        @test1.cached_files.map { |file|
+          file.path
+        }.should == @test1.cache_paths
+
+        @test2.cached_files.map { |file|
+          file.path
+        }.should == @test2.cache_paths
+      end
+    end
+
+    describe "sync_cached_files!" do
+      before(:all) do
+        @test1.save_cached_files!
+        @test2.save_cached_files!
+
+        file1 = @test1.cached_files.first
+
+        file1.timestamp -= 10
+        file1.save
+
+        @test2.cached_files.clear
+
+        @test1.sync_cached_files!
+        @test2.sync_cached_files!
+      end
+
+      it "should update stale cached files" do
+        cached_file = @test1.cached_files.first
+
+        cached_file.timestamp.should == File.mtime(cached_file.path).to_i
+      end
+
+      it "should cache new files" do
+        @test2.cached_files.should_not be_empty
+      end
+    end
+
+    describe "clean_cached_files!" do
+      before(:all) do
+        @test1.clean_cached_files!
+        @test2.clean_cached_files!
+      end
+
+      it "should clear the cached_files" do
+        @test1.cached_files.should be_empty
+        @test2.cached_files.should be_empty
+      end
+    end
+  end
 end
