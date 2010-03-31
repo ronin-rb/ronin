@@ -170,6 +170,9 @@ module Ronin
             return obj
           end
         end
+
+        CachedFile.has 1, base.relationship_name,
+                          :model => base.name
       end
 
       #
