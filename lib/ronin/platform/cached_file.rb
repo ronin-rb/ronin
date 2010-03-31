@@ -49,6 +49,9 @@ module Ronin
       # The overlay the file was cached from
       belongs_to :overlay
 
+      # Any cache errors encountered when caching the object
+      attr_reader :cache_errors
+
       #
       # The path to require to access the Class of the cached object.
       #
@@ -179,7 +182,13 @@ module Ronin
           # re-cache the fresh_object
           obj.cached_file = self
 
-          return save if obj.save
+          if obj.save
+            @cache_errors = nil
+
+            return save
+          else
+            @cache_errors = obj.errors
+          end
         end
 
         return false
