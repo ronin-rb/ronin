@@ -38,7 +38,7 @@ module Ronin
       property :id, Serial
 
       # The path to the file where the object was defined in
-      property :path, String, :required => true
+      property :path, FilePath, :required => true
 
       # The timestamp of the cached file
       property :timestamp, Time, :required => true
@@ -157,7 +157,7 @@ module Ronin
         return true unless self.timestamp
 
         if File.file?(self.path)
-          return File.mtime(self.path) > self.timestamp
+          return self.path.mtime > self.timestamp
         end
 
         # do not assume updates, if there is no path
@@ -171,7 +171,7 @@ module Ronin
       #   Specifies whether the cache file was deleted.
       #
       def missing?
-        !(File.file?(self.path))
+        !(self.path.file?)
       end
 
       #
@@ -183,18 +183,18 @@ module Ronin
       #
       def cache
         if (obj = fresh_object)
+          # reset the model-class
+          self.model_name = obj.class.to_s
+
+          # update the timestamp
+          self.timestamp = self.path.mtime
+
           # re-cache the fresh_object
           obj.cached_file = self
 
           if obj.save
-            # reset the model-class
-            self.model_name = obj.class.to_s
-
-            # update the timestamp
-            self.timestamp = File.mtime(self.path)
-
             @cache_errors = nil
-            return save
+            return true
           else
             @cache_errors = obj.errors
           end

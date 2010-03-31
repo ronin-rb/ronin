@@ -1,6 +1,7 @@
 require 'ronin/platform/overlay'
 
 require 'spec_helper'
+require 'platform/classes/cacheable_model'
 require 'platform/helpers/overlays'
 
 describe Platform::Overlay do
@@ -171,23 +172,21 @@ describe Platform::Overlay do
 
     it "should list the contents of the 'cache/' directory" do
       @test1.cache_paths.should_not be_empty
-
-      @test1.cache_paths.all? { |path|
-        path.include?('cache')
-      }.should == true
     end
 
     it "should only list '.rb' files" do
       @test1.cache_paths.should_not be_empty
 
       @test1.cache_paths.all? { |path|
-        File.extname(path).should == '.rb'
+        path.extname.should == '.rb'
       }.should == true
     end
   end
 
   describe "cached_files" do
     before(:all) do
+      CacheableModel.auto_migrate!
+
       @test1 = load_overlay('test1')
       @test2 = load_overlay('test2')
     end

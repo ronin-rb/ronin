@@ -74,7 +74,7 @@ module Ronin
       property :scm, String
 
       # Local path to the overlay repository
-      property :path, String, :required => true, :unique => true
+      property :path, FilePath, :required => true, :unique => true
 
       # URI that the overlay was installed from
       property :uri, URI
@@ -85,7 +85,7 @@ module Ronin
 
       # Name of the overlay
       property :name, String, :default => lambda { |overlay,name|
-        File.basename(overlay.path)
+        overlay.path.basename
       }
 
       # The domain the overlay belongs to
@@ -152,10 +152,10 @@ module Ronin
       def initialize(attributes={},&block)
         super(attributes)
 
-        @lib_dir = File.join(self.path,LIB_DIR)
-        @static_dir = File.join(self.path,STATIC_DIR)
-        @cache_dir = File.join(self.path,CACHE_DIR)
-        @exts_dir = File.join(self.path,EXTS_DIR)
+        @lib_dir = self.path.join(LIB_DIR)
+        @static_dir = self.path.join(STATIC_DIR)
+        @cache_dir = self.path.join(CACHE_DIR)
+        @exts_dir = self.path.join(EXTS_DIR)
 
         @activated = false
 
@@ -224,14 +224,14 @@ module Ronin
           raise(ArgumentError,"the :path option was not given",caller)
         end
 
-        path = File.expand_path(options[:path].to_s)
+        path = Pathname.new(options[:path]).expand_path
 
-        unless File.directory?(path)
-          raise(OverlayNotFound,"overlay #{path.dump} cannot be found",caller)
+        unless path.directory?
+          raise(OverlayNotFound,"overlay #{path} cannot be found",caller)
         end
 
         if Overlay.count(:path => path) > 0
-          raise(DuplicateOverlay,"an overlay at the path #{path.dump} was already added",caller)
+          raise(DuplicateOverlay,"an overlay at the path #{path} was already added",caller)
         end
 
         # create the Overlay
@@ -389,7 +389,7 @@ module Ronin
       # @since 0.4.0
       #
       def cache_paths
-        Dir[File.join(@cache_dir,'**','*.rb')]
+        Pathname.glob(@cache_dir.join('**','*.rb'))
       end
 
       #
@@ -397,7 +397,7 @@ module Ronin
       #   The paths of all extensions within the overlay.
       #
       def extension_paths
-        Dir[File.join(@exts_dir,'*.rb')]
+        Pathname.glob(@exts_dir.join('*.rb'))
       end
 
       #
@@ -446,8 +446,8 @@ module Ronin
         end
 
         # load the lib/init.rb file
-        init_path = File.join(self.path,LIB_DIR,INIT_FILE)
-        load init_path if File.file?(init_path)
+        init_path = self.path.join(LIB_DIR,INIT_FILE)
+        load init_path if init_path.file?
 
         @activated = true
         return true
@@ -613,7 +613,7 @@ module Ronin
       # overlay.
       #
       def initialize_metadata()
-        metadata_path = File.join(self.path,METADATA_FILE)
+        metadata_path = self.path.join(METADATA_FILE)
 
         self.version = 0
 

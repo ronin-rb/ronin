@@ -18,9 +18,10 @@ describe Platform::OverlayCache do
     paths = @cache.paths
 
     paths.length.should == 4
-    paths.select { |path|
-      path =~ /(test[12]|hello|random)$/
-    }.should == paths
+
+    paths.map { |path|
+      path.basename.to_s
+    }.should =~ ['hello', 'random', 'test1', 'test2']
   end
 
   it "should have specific extensions" do
