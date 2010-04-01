@@ -188,12 +188,12 @@ module Ronin
       #
       # The file the object was cached from.
       #
-      # @return [String]
+      # @return [Pathname]
       #   The path property from the `cached_file` resource.
       #
       def cache_path
         if self.cached_file
-          return File.expand_path(self.cached_file.path)
+          return self.cached_file.path
         end
       end
 
