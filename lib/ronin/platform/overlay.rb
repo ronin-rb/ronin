@@ -249,10 +249,11 @@ module Ronin
         end
 
         # save the Overlay
-        overlay.save!
-
-        # cache any files from within the `cache/` directory of the overlay
-        overlay.cache_files!
+        if overlay.save
+          # cache any files from within the `cache/` directory of the
+          # overlay
+          overlay.cache_files!
+        end
 
         return overlay
       end
@@ -318,10 +319,11 @@ module Ronin
         )
 
         # save the Overlay
-        overlay.save!
-
-        # cache any files from within the `cache/` directory of the overlay
-        overlay.cache_files!
+        if overlay.save
+          # cache any files from within the `cache/` directory of the
+          # overlay
+          overlay.cache_files!
+        end
 
         return overlay
       end
@@ -561,10 +563,10 @@ module Ronin
         initialize_metadata()
 
         # save the overlay
-        save!
-
-        # syncs the cached files of the overlay
-        sync_cached_files!
+        if save
+          # syncs the cached files of the overlay
+          sync_cached_files!
+        end
 
         block.call(self) if block
         return self
