@@ -383,7 +383,7 @@ module Ronin
       #
       # All paths within the `cache/` directory of the overlay.
       #
-      # @return [Array]
+      # @return [Array<Pathname>]
       #   The paths within the `cache/` directory.
       #
       # @since 0.4.0
@@ -393,7 +393,7 @@ module Ronin
       end
 
       #
-      # @return [Array]
+      # @return [Array<Pathname>]
       #   The paths of all extensions within the overlay.
       #
       def extension_paths
