@@ -33,6 +33,29 @@ begin
     gem.add_development_dependency 'yard-dm', '>= 0.1.1'
     gem.add_development_dependency 'yard-dm-predefined', '>= 0.1.0'
     gem.has_rdoc = 'yard'
+
+    gem.post_install_message = %{
+    Thank you for installing Ronin, a Ruby platform for exploit development
+    and security research. To list the available commands:
+
+      $ ronin help
+
+    To jump into the Ronin Ruby Console:
+
+      $ ronin
+
+    Additional functionality can be added to Ronin by installing additional
+    libraries:
+    * ronin-asm
+    * ronin-dorks
+    * ronin-exploits
+    * ronin-gen
+    * ronin-int
+    * ronin-php
+    * ronin-scanners
+    * ronin-sql
+    * ronin-web
+    }
   end
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
