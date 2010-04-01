@@ -118,11 +118,19 @@ module Ronin
       #
       # @return [Cacheable, nil]
       #   The first Cacheable object loaded from the cache file.
-      #   Returns `nil` if the file did not contain any cacheable objects.
+      #   If `nil` is returned, the file did not contain any cacheable
+      #   objects or the cache file contained a syntax error.
       #   
       def fresh_object
-        # load the first found context
-        Contextify.load_blocks(self.path).each do |name,block|
+        begin
+          # load the first found context
+          blocks = Contextify.load_blocks(self.path)
+        rescue SyntaxError => e
+          @cache_exception = e
+          return nil
+        end
+
+        blocks.each do |name,block|
           model = Contextify.contexts[name]
 
           if model.ancestors.include?(Cacheable)
