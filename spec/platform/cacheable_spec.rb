@@ -2,13 +2,20 @@ require 'ronin/platform/cacheable'
 
 require 'spec_helper'
 require 'platform/classes/cacheable_model'
+require 'platform/helpers/overlays'
 
 describe Platform::Cacheable do
+  include Helpers::Overlays
+
+  before(:all) do
+    @overlay = load_overlay('test1')
+    @overlay.save_cached_files!
+  end
+
   describe "load_from" do
     before(:all) do
-      CacheableModel.auto_migrate!
-
-      @obj = CacheableModel.load_from(Helpers::CACHEABLE_FILE)
+      @path = @overlay.cached_files.first.path
+      @obj = CacheableModel.load_from(@path)
     end
 
     it "should have a cached_file resource" do
@@ -16,15 +23,15 @@ describe Platform::Cacheable do
     end
 
     it "should have a cache_path" do
-      @obj.cache_path.should == Helpers::CACHEABLE_FILE
+      @obj.cache_path.should == @path
     end
 
     it "should prepare the object to be cached" do
-      @obj.content.should == 'this is a test'
+      @obj.content.should == 'this is test one'
     end
 
     it "should preserve instance variables" do
-      @obj.config.should == true
+      @obj.var.should == 1
     end
 
     it "should preserve instance methods" do
@@ -37,34 +44,27 @@ describe Platform::Cacheable do
   end
 
   describe "cached" do
-    before(:all) do
-      Cacheable::CachedFile.auto_migrate!
-      CacheableModel.auto_migrate!
-
-      Cacheable::CachedFile.cache(Helpers::CACHEABLE_FILE)
+    before(:each) do
+      @model = CacheableModel.first
     end
 
     it "should be able to load the original object" do
-      model = CacheableModel.first
+      @model.load_original!
 
-      model.load_original!
-      model.greeting.should == 'hello'
+      @model.greeting.should == 'hello'
     end
 
     it "should load the original object on demand" do
-      model = CacheableModel.first
-
-      model.greeting.should == 'hello'
+      @model.greeting.should == 'hello'
     end
 
     it "should only load the original object once" do
-      model = CacheableModel.first
-      model.load_original!
+      @model.load_original!
 
-      model.config = false
-      model.load_original!
+      @model.var = false
+      @model.load_original!
 
-      model.config.should == false
+      @model.var.should == false
     end
   end
 end
