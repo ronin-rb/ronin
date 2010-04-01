@@ -194,6 +194,7 @@ describe Platform::Overlay do
     describe "cache_files!" do
       before(:all) do
         @test1.cache_files!
+        @test2.cache_files!
       end
 
       it "should be populated cached_files" do
@@ -207,7 +208,7 @@ describe Platform::Overlay do
       end
 
       it "should safely ignore files that have syntax errors" do
-        @test1.cached_files.any? { |cached_file|
+        @test2.cached_files.any? { |cached_file|
           cached_file.path.basename == 'syntax_error.rb'
         }.should == false
       end
