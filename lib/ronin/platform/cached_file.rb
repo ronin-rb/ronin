@@ -246,7 +246,7 @@ module Ronin
       def destroy!
         unless destroyed?
           if (obj = self.cached_object)
-            obj.destroy
+            obj.destroy!
           end
         end
 
