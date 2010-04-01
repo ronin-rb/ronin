@@ -194,33 +194,23 @@ describe Platform::Overlay do
     describe "cache_files!" do
       before(:all) do
         @test1.cache_files!
-        @test2.cache_files!
       end
 
       it "should be populated cached_files" do
         @test1.cached_files.should_not be_empty
-        @test2.cached_files.should_not be_empty
       end
 
       it "should clear cached_files before re-populate them" do
         test1_files = @test1.cached_files.length
-        test2_files = @test2.cached_files.length
-
         @test1.cache_files!
-        @test2.cache_files!
 
         @test1.cached_files.length.should == test1_files
-        @test2.cached_files.length.should == test2_files
       end
 
       it "should be populated using the paths in the 'cache/' directory" do
         @test1.cached_files.map { |file|
           file.path
         }.should == @test1.cache_paths
-
-        @test2.cached_files.map { |file|
-          file.path
-        }.should == @test2.cache_paths
       end
     end
 
@@ -254,12 +244,10 @@ describe Platform::Overlay do
     describe "clean_cached_files!" do
       before(:all) do
         @test1.clean_cached_files!
-        @test2.clean_cached_files!
       end
 
       it "should clear the cached_files" do
         @test1.cached_files.should be_empty
-        @test2.cached_files.should be_empty
       end
     end
   end
