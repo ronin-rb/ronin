@@ -125,7 +125,7 @@ module Ronin
         begin
           # load the first found context
           blocks = Contextify.load_blocks(self.path)
-        rescue SyntaxError => e
+        rescue SyntaxError, LoadError => e
           @cache_exception = e
           return nil
         end
