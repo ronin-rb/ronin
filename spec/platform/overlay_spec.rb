@@ -200,6 +200,18 @@ describe Platform::Overlay do
         @test1.cached_files.should_not be_empty
       end
 
+      it "should omit files that raised exceptions when being cached" do
+        @test1.cached_files.any? { |cached_file|
+          cached_file.path.basename == 'exception.rb'
+        }.should == false
+      end
+
+      it "should safely ignore files that have syntax errors" do
+        @test1.cached_files.any? { |cached_file|
+          cached_file.path.basename == 'syntax_error.rb'
+        }.should == false
+      end
+
       it "should clear cached_files before re-populate them" do
         test1_files = @test1.cached_files.length
         @test1.cache_files!
