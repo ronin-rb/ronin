@@ -14,7 +14,7 @@ describe Platform::CachedFile do
 
   describe "cached file" do
     before(:all) do
-      @overlay.save_cached_files!
+      @overlay.cache_files!
 
       @cached_file = @overlay.cached_files.first
     end
@@ -88,7 +88,7 @@ describe Platform::CachedFile do
 
   describe "unmodified cached file" do
     before(:all) do
-      @overlay.save_cached_files!
+      @overlay.cache_files!
 
       @cached_file = @overlay.cached_files.first
     end
@@ -108,7 +108,7 @@ describe Platform::CachedFile do
 
   describe "modified cached file" do
     before(:all) do
-      @overlay.save_cached_files!
+      @overlay.cache_files!
 
       @cached_file = @overlay.cached_files.first
       @cached_file.timestamp -= 10
@@ -130,7 +130,7 @@ describe Platform::CachedFile do
 
   describe "missing cached file" do
     before(:all) do
-      @overlay.save_cached_files!
+      @overlay.cache_files!
 
       @cached_file = @overlay.cached_files.first
       @cached_file.path = File.join('','missing','file.rb')

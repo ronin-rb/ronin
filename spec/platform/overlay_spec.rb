@@ -191,10 +191,10 @@ describe Platform::Overlay do
       @test2 = load_overlay('test2')
     end
 
-    describe "save_cached_files!" do
+    describe "cache_files!" do
       before(:all) do
-        @test1.save_cached_files!
-        @test2.save_cached_files!
+        @test1.cache_files!
+        @test2.cache_files!
       end
 
       it "should be populated cached_files" do
@@ -206,8 +206,8 @@ describe Platform::Overlay do
         test1_files = @test1.cached_files.length
         test2_files = @test2.cached_files.length
 
-        @test1.save_cached_files!
-        @test2.save_cached_files!
+        @test1.cache_files!
+        @test2.cache_files!
 
         @test1.cached_files.length.should == test1_files
         @test2.cached_files.length.should == test2_files
@@ -226,8 +226,8 @@ describe Platform::Overlay do
 
     describe "sync_cached_files!" do
       before(:all) do
-        @test1.save_cached_files!
-        @test2.save_cached_files!
+        @test1.cache_files!
+        @test2.cache_files!
 
         file1 = @test1.cached_files.first
 

@@ -252,7 +252,7 @@ module Ronin
         overlay.save!
 
         # cache any files from within the `cache/` directory of the overlay
-        overlay.save_cached_files!
+        overlay.cache_files!
 
         return overlay
       end
@@ -321,7 +321,7 @@ module Ronin
         overlay.save!
 
         # cache any files from within the `cache/` directory of the overlay
-        overlay.save_cached_files!
+        overlay.cache_files!
 
         return overlay
       end
@@ -475,7 +475,7 @@ module Ronin
       #
       # @since 0.4.0
       #
-      def save_cached_files!
+      def cache_files!
         clean_cached_files!
 
         cache_paths.each do |path|

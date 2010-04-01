@@ -9,7 +9,7 @@ describe Platform::Cacheable do
 
   before(:all) do
     @overlay = load_overlay('test1')
-    @overlay.save_cached_files!
+    @overlay.cache_files!
   end
 
   describe "load_from" do
