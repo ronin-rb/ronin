@@ -24,7 +24,7 @@ begin
     gem.add_dependency 'dm-predefined', '~> 0.2.3'
     gem.add_dependency 'open-namespace', '~> 0.1.0'
     gem.add_dependency 'static_paths', '~> 0.1.0'
-    gem.add_dependency 'contextify', '~> 0.1.4'
+    gem.add_dependency 'contextify', '~> 0.1.5'
     gem.add_dependency 'pullr', '~> 0.1.2'
     gem.add_dependency 'thor', '~> 0.13.0'
     gem.add_dependency 'ronin-ext', '~> 0.1.0'
