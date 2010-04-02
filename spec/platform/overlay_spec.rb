@@ -202,7 +202,7 @@ describe Platform::Overlay do
       end
 
       it "should recover from files that raised exceptions" do
-        @test1.cached_files.any? { |cached_file|
+        @test2.cached_files.any? { |cached_file|
           cached_file.path.basename == Pathname.new('exceptions.rb')
         }.should == true
       end
