@@ -201,15 +201,27 @@ describe Platform::Overlay do
         @test1.cached_files.should_not be_empty
       end
 
+      it "should recover from files that contain syntax errors" do
+        @test2.cached_files.any? { |cached_file|
+          cached_file.path.basename == Pathname.new('syntax_errors.rb')
+        }.should == true
+      end
+
       it "should recover from files that raised exceptions" do
         @test2.cached_files.any? { |cached_file|
           cached_file.path.basename == Pathname.new('exceptions.rb')
         }.should == true
       end
 
-      it "should recover from files that contain syntax errors" do
+      it "should recover from files that raise NoMethodError" do
         @test2.cached_files.any? { |cached_file|
-          cached_file.path.basename == Pathname.new('syntax_errors.rb')
+          cached_file.path.basename == Pathname.new('no_method_errors.rb')
+        }.should == true
+      end
+
+      it "should recover from files that have validation errors" do
+        @test2.cached_files.any? { |cached_file|
+          cached_file.path.basename == Pathname.new('validation_errors.rb')
         }.should == true
       end
 

@@ -8,7 +8,7 @@ class CacheableModel
 
   property :id, Serial
 
-  property :content, String
+  property :content, String, :required => true
 
   attr_accessor :var
 
