@@ -116,25 +116,24 @@ View available commands:
 
 ## Requirements
 
-* [yard](http://yard.soen.ca/) >= 0.2.3.5
-* [nokogiri](http://nokogiri.rubyforge.org/) >= 1.3.3
+* [nokogiri](http://nokogiri.rubyforge.org/) ~> 1.3.3
   * [libxml2](http://xmlsoft.org/)
   * [libxslt1](http://xmlsoft.org/XSLT/)
 * [DataMapper](http://datamapper.org/):
-  * extlib >= 0.9.14
-  * data_objects >= 0.10.1
-  * do_sqlite3 >= 0.10.1
+  * extlib ~> 0.9.14
+  * data_objects ~> 0.10.1
+  * do_sqlite3 ~> 0.10.1
     * [libsqlite3](http://sqlite.org/)
-  * dm-core >= 0.10.2
-  * dm-types >= 0.10.2
-  * dm-validations >= 0.10.2
-* [dm-predefined](http://dm-predefined.rubyforge.org/) >= 0.2.1
-* [open-namespace](http://github.com/postmodern/open-namespace) >= 0.1.0
-* [static_paths](http://github.com/postmodern/static_paths) >= 0.1.0
-* [chars](http://chars.rubyforge.org/) >= 0.1.2
-* [contextify](http://contextify.rubyforge.org/) >= 0.1.4
-* thor >= 0.13.0
-* [ronin-ext](http://ronin.rubyforge.org/) >= 0.1.0
+  * dm-core ~> 0.10.2
+  * dm-types ~> 0.10.2
+  * dm-validations ~> 0.10.2
+* [dm-predefined](http://github.com/postmodern/dm-predefined/) ~> 0.2.3
+* [open-namespace](http://github.com/postmodern/open-namespace) ~> 0.1.0
+* [static_paths](http://github.com/postmodern/static_paths) ~> 0.1.0
+* [contextify](http://github.com/postmodern/contextify/) ~> 0.1.5
+* [pullr](http://github.com/postmodern/pullr/) ~> 0.1.5
+* [thor](http://github.com/wycats/thor/) ~> 0.13.0
+* [ronin-ext](http://ronin.rubyforge.org/) ~> 0.1.0
 
 ## Install
 
