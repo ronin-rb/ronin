@@ -9,14 +9,16 @@ describe Platform::CachedFile do
   include Helpers::Overlays
 
   before(:all) do
-    @overlay = load_overlay('test1')
+    @test1 = load_overlay('test1')
+    @test2 = load_overlay('test2')
+
+    @test1.cache_files!
+    @test2.cache_files!
   end
 
   describe "cached file" do
     before(:all) do
-      @overlay.cache_files!
-
-      @cached_file = @overlay.cached_files.first
+      @cached_file = @test1.cached_files.first
     end
 
     it "should have a path" do
@@ -86,11 +88,56 @@ describe Platform::CachedFile do
     end
   end
 
+  describe "new cached files" do
+    before(:all) do
+      @syntax_error = @test2.cached_files.find do |cached_file|
+        cached_file.path.basename == Pathname.new('syntax_errors.rb')
+      end
+
+      @load_error = @test2.cached_files.find do |cached_file|
+        cached_file.path.basename == Pathname.new('load_errors.rb')
+      end
+
+      @no_method_error = @test2.cached_files.find do |cached_file|
+        cached_file.path.basename == Pathname.new('no_method_errors.rb')
+      end
+
+      @exception = @test2.cached_files.find do |cached_file|
+        cached_file.path.basename == Pathname.new('exceptions.rb')
+      end
+
+      @validation_error = @test2.cached_files.find do |cached_file|
+        cached_file.path.basename == Pathname.new('validation_errors.rb')
+      end
+    end
+
+    it "should store syntax errors" do
+      @syntax_error.cache_exception.should_not be_nil
+      @syntax_error.cache_exception.class.should == SyntaxError
+    end
+
+    it "should store LoadError exceptions" do
+      @load_error.cache_exception.should_not be_nil
+      @load_error.cache_exception.class.should == LoadError
+    end
+
+    it "should store NoMethodError exceptions" do
+      @no_method_error.cache_exception.should_not be_nil
+      @no_method_error.cache_exception.class.should == NoMethodError
+    end
+
+    it "should store Exceptions raised when creating the fresh object" do
+      @exception.cache_exception.should_not be_nil
+    end
+
+    it "should store validation errors" do
+      @validation_error.cache_errors.should_not be_nil
+    end
+  end
+
   describe "unmodified cached file" do
     before(:all) do
-      @overlay.cache_files!
-
-      @cached_file = @overlay.cached_files.first
+      @cached_file = @test1.cached_files.first
     end
 
     it "should not have updated code" do
@@ -108,9 +155,7 @@ describe Platform::CachedFile do
 
   describe "modified cached file" do
     before(:all) do
-      @overlay.cache_files!
-
-      @cached_file = @overlay.cached_files.first
+      @cached_file = @test1.cached_files.first
       @cached_file.timestamp -= 10
       @cached_file.save
     end
@@ -130,9 +175,7 @@ describe Platform::CachedFile do
 
   describe "missing cached file" do
     before(:all) do
-      @overlay.cache_files!
-
-      @cached_file = @overlay.cached_files.first
+      @cached_file = @test1.cached_files.first
       @cached_file.path = File.join('','missing','file.rb')
       @cached_file.sync
     end
