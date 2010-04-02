@@ -41,7 +41,7 @@ module Ronin
             Database.setup
 
             unless name
-              update_all_overlay!
+              update_all_overlays!
             else
               update_overlay!
             end
