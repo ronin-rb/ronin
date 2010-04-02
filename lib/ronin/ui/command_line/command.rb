@@ -254,6 +254,22 @@ module Ronin
           return nil
         end
 
+        #
+        # Prints an exception and a shortened backtrace.
+        #
+        # @param [Exception] exception
+        #   The exception to print.
+        #
+        # @since 0.4.0
+        #
+        def print_exception(exception)
+          print_error exception.message
+
+          (0..5).each do |i|
+            print_error '  ' + exception.backtrace[i]
+          end
+        end
+
       end
     end
   end
