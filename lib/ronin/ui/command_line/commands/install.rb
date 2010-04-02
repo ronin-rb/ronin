@@ -72,6 +72,18 @@ module Ronin
               exit -1
             end
 
+            overlay.cached_files.each do |cached_file|
+              if cached_file.cache_exception
+                print_exception cached_file.cache_exception
+              end
+
+              if cached_file.cache_errors
+                cached_file.cache_errors.each do |error|
+                  print_error error
+                end
+              end
+            end
+
             print_info "Overlay #{overlay} has been installed."
           end
 

@@ -56,6 +56,7 @@ module Ronin
             print_info "Updating Overlays ..."
 
             Platform::Overlay.update! do |overlay|
+              print_cache_errors(overlay)
               print_info "Updating Overlay #{overlay} ..."
             end
 
@@ -78,7 +79,22 @@ module Ronin
 
             overlay.update!
 
+            print_cache_errors(overlay)
             print_info "Overlay updated."
+          end
+
+          def print_cache_errors(overlay)
+            overlay.cached_files.each do |cached_file|
+              if cached_file.cache_exception
+                print_exception cached_file.cache_exception
+              end
+
+              if cached_file.cache_errors
+                cached_file.cache_errors.each do |error|
+                  print_error error
+                end
+              end
+            end
           end
 
         end
