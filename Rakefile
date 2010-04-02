@@ -21,7 +21,7 @@ begin
     gem.add_dependency 'dm-types', '~> 0.10.2'
     gem.add_dependency 'dm-validations', '~> 0.10.2'
     gem.add_dependency 'dm-aggregates', '~> 0.10.2'
-    gem.add_dependency 'dm-predefined', '~> 0.2.2'
+    gem.add_dependency 'dm-predefined', '~> 0.2.3'
     gem.add_dependency 'open-namespace', '~> 0.1.0'
     gem.add_dependency 'static_paths', '~> 0.1.0'
     gem.add_dependency 'contextify', '~> 0.1.4'
