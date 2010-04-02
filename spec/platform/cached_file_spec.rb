@@ -92,7 +92,7 @@ describe Platform::CachedFile do
     end
   end
 
-  describe "new cached files" do
+  describe "failed cached files" do
     before(:all) do
       @syntax_error = @test2.cached_files.find do |cached_file|
         cached_file.path.basename == Pathname.new('syntax_errors.rb')
