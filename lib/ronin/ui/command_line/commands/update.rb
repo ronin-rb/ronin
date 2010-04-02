@@ -83,6 +83,13 @@ module Ronin
             print_info "Overlay updated."
           end
 
+          #
+          # Print out any exceptions or validation errors encountered
+          # when caching the files of the overlay.
+          #
+          # @param [Overlay] overlay
+          #   The overlay that was updated.
+          #
           def print_cache_errors(overlay)
             overlay.cached_files.each do |cached_file|
               if cached_file.cache_exception
