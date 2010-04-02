@@ -21,6 +21,10 @@ describe Platform::CachedFile do
       @cached_file = @test1.cached_files.first
     end
 
+    it "should be saved" do
+      @cached_file.should be_saved
+    end
+
     it "should have a path" do
       @cached_file.path.should_not be_nil
     end
@@ -109,6 +113,13 @@ describe Platform::CachedFile do
       @validation_error = @test2.cached_files.find do |cached_file|
         cached_file.path.basename == Pathname.new('validation_errors.rb')
       end
+    end
+
+    it "should not save new cached files that raised exceptions" do
+      @syntax_error.should_not be_saved
+      @load_error.should_not be_saved
+      @exception.should_not be_saved
+      @validation_error.should_not be_saved
     end
 
     it "should store syntax errors" do
