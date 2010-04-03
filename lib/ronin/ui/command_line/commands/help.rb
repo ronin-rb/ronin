@@ -45,7 +45,7 @@ module Ronin
               end
             else
               print_title 'Available commands'
-              print_array CommandLine.commands.keys
+              print_array CommandLine.commands.keys.sort
             end
           end
 
