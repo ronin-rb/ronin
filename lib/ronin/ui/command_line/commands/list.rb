@@ -32,6 +32,8 @@ module Ronin
         class List < Command
 
           desc 'List all Overlays or a specific one'
+          class_option :remote, :type => :boolean, :aliases => '-r'
+          class_option :local, :type => :boolean, :aliases => '-l'
           argument :name, :type => :string, :required => false
 
           #
@@ -53,8 +55,16 @@ module Ronin
           # Lists all Overlays in the {Database}.
           #
           def list_all_overlays!
+            query = {}
+
+            if options.local?
+              query[:domain] = Platform::Overlay::DEFAULT_DOMAIN
+            elsif options.remote?
+              query[:domain.not] = Platform::Overlay::DEFAULT_DOMAIN
+            end
+
             # list all overlays by name
-            Platform::Overlay.all.each do |overlay|
+            Platform::Overlay.all(query).each do |overlay|
               if options.verbose?
                 display_overlay(overlay)
               else
