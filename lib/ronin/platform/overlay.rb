@@ -367,6 +367,31 @@ module Ronin
       end
 
       #
+      # Determines if the overlay was added locally.
+      #
+      # @return [Boolean]
+      #   Specifies whether the overlay was added locally.
+      #
+      # @since 0.4.0
+      #
+      def local?
+        self.domain == LOCAL_DOMAIN
+      end
+
+      #
+      # Determines if the overlay was installed from a remote repository.
+      #
+      # @return [Boolean]
+      #   Specifies whether the overlay was installed from a remote
+      #   repository.
+      #
+      # @since 0.4.0
+      #
+      def remote?
+        self.domain != LOCAL_DOMAIN
+      end
+
+      #
       # Determines if the overlay's implementation version is compatible
       # with the current implementation of {Overlay}.
       #
