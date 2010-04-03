@@ -47,7 +47,7 @@ module Ronin
       COMPATIBLE_FORMATS = [1,2]
 
       # The default domain that overlays are added from
-      DEFAULT_DOMAIN = 'localhost'
+      LOCAL_DOMAIN = 'localhost'
 
       # Overlay metadata XML file name
       METADATA_FILE = 'ronin.xml'
@@ -238,7 +238,7 @@ module Ronin
         overlay = Overlay.new(options.merge(
           :path => path,
           :installed => false,
-          :domain => DEFAULT_DOMAIN
+          :domain => LOCAL_DOMAIN
         ))
 
         name = overlay.name

@@ -58,9 +58,9 @@ module Ronin
             query = {}
 
             if options.local?
-              query[:domain] = Platform::Overlay::DEFAULT_DOMAIN
+              query[:domain] = Platform::Overlay::LOCAL_DOMAIN
             elsif options.remote?
-              query[:domain.not] = Platform::Overlay::DEFAULT_DOMAIN
+              query[:domain.not] = Platform::Overlay::LOCAL_DOMAIN
             end
 
             # list all overlays by name

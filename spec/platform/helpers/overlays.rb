@@ -7,7 +7,7 @@ module Helpers
     Platform::Overlay.create!(
       :path => File.join(OVERLAYS_DIR,'hello'),
       :name => 'hello',
-      :domain => Platform::Overlay::DEFAULT_DOMAIN
+      :domain => Platform::Overlay::LOCAL_DOMAIN
     )
 
     Platform::Overlay.create!(
