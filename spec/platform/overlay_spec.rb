@@ -84,6 +84,22 @@ describe Platform::Overlay do
     end
   end
 
+  describe "domain" do
+    it "should be considered local for 'localhost' domains" do
+      hello = load_overlay('hello')
+
+      hello.should be_local
+      hello.should_not be_remote
+    end
+
+    it "should be considered remote for non 'localhost' domains" do
+      random = load_overlay('random')
+
+      random.should be_remote
+      random.should_not be_local
+    end
+  end
+
   describe "initialize" do
     it "should default the 'name' property to the name of the Overlay directory" do
       overlay = Platform::Overlay.new(
