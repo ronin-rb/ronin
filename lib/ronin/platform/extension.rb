@@ -20,7 +20,6 @@
 
 require 'ronin/platform/extension_cache'
 require 'ronin/platform/platform'
-require 'ronin/extensions/kernel'
 require 'ronin/ui/output/helpers'
 
 require 'contextify'
@@ -112,9 +111,7 @@ module Ronin
 
           @paths << path
 
-          if context_block
-            catch_all { instance_eval(&context_block) }
-          end
+          instance_eval(&context_block) if context_block
         end
 
         return true
