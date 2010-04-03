@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-03-28}
+  s.date = %q{2010-04-02}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-list", "ronin-help", "ronin-install", "ronin-uninstall", "ronin-update", "ronin-database"]
@@ -144,12 +144,15 @@ Gem::Specification.new do |s|
     "spec/platform/helpers/overlays/random/cache/.keep",
     "spec/platform/helpers/overlays/random/exts/random.rb",
     "spec/platform/helpers/overlays/random/ronin.xml",
-    "spec/platform/helpers/overlays/test1/cache/.keep",
     "spec/platform/helpers/overlays/test1/cache/cacheable_model/one.rb",
     "spec/platform/helpers/overlays/test1/exts/test.rb",
     "spec/platform/helpers/overlays/test1/ronin.xml",
-    "spec/platform/helpers/overlays/test2/cache/.keep",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/exceptions.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/load_errors.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/no_method_errors.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/syntax_errors.rb",
     "spec/platform/helpers/overlays/test2/cache/cacheable_model/two.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/validation_errors.rb",
     "spec/platform/helpers/overlays/test2/exts/test.rb",
     "spec/platform/helpers/overlays/test2/ronin.xml",
     "spec/platform/maintainer_spec.rb",
@@ -173,6 +176,28 @@ Gem::Specification.new do |s|
   s.has_rdoc = %q{yard}
   s.homepage = %q{http://github.com/ronin-ruby/ronin}
   s.licenses = ["GPL-2"]
+  s.post_install_message = %q{
+    Thank you for installing Ronin, a Ruby platform for exploit development
+    and security research. To list the available commands:
+
+      $ ronin help
+
+    To jump into the Ronin Ruby Console:
+
+      $ ronin
+
+    Additional functionality can be added to Ronin by installing additional
+    libraries:
+    * ronin-asm
+    * ronin-dorks
+    * ronin-exploits
+    * ronin-gen
+    * ronin-int
+    * ronin-php
+    * ronin-scanners
+    * ronin-sql
+    * ronin-web
+    }
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
@@ -200,7 +225,12 @@ Gem::Specification.new do |s|
     "spec/platform/helpers/overlays/test1/exts/test.rb",
     "spec/platform/helpers/overlays/test1/cache/cacheable_model/one.rb",
     "spec/platform/helpers/overlays/test2/exts/test.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/exceptions.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/load_errors.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/no_method_errors.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/syntax_errors.rb",
     "spec/platform/helpers/overlays/test2/cache/cacheable_model/two.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/validation_errors.rb",
     "spec/platform/helpers/overlays/random/exts/random.rb",
     "spec/platform/helpers/overlays/hello/exts/hello.rb",
     "spec/platform/helpers/overlays/hello/lib/init.rb",
@@ -216,9 +246,9 @@ Gem::Specification.new do |s|
     "spec/platform/overlay_spec.rb",
     "spec/platform/platform_spec.rb",
     "spec/platform/maintainer_spec.rb",
+    "spec/platform/cacheable_spec.rb",
     "spec/platform/cached_file_spec.rb",
     "spec/platform/classes/cacheable_model.rb",
-    "spec/platform/cacheable_spec.rb",
     "spec/installation_spec.rb",
     "spec/spec_helper.rb",
     "spec/templates/classes/example_erb.rb",
@@ -235,66 +265,66 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<nokogiri>, [">= 1.3.3"])
-      s.add_runtime_dependency(%q<extlib>, [">= 0.9.14"])
-      s.add_runtime_dependency(%q<data_objects>, [">= 0.10.1"])
-      s.add_runtime_dependency(%q<do_sqlite3>, [">= 0.10.1"])
-      s.add_runtime_dependency(%q<dm-core>, [">= 0.10.2"])
-      s.add_runtime_dependency(%q<dm-types>, [">= 0.10.2"])
-      s.add_runtime_dependency(%q<dm-validations>, [">= 0.10.2"])
-      s.add_runtime_dependency(%q<dm-aggregates>, [">= 0.10.2"])
-      s.add_runtime_dependency(%q<dm-predefined>, [">= 0.2.2"])
-      s.add_runtime_dependency(%q<open-namespace>, [">= 0.1.0"])
-      s.add_runtime_dependency(%q<static_paths>, [">= 0.1.0"])
-      s.add_runtime_dependency(%q<contextify>, [">= 0.1.4"])
-      s.add_runtime_dependency(%q<pullr>, [">= 0.1.2"])
-      s.add_runtime_dependency(%q<thor>, [">= 0.13.0"])
-      s.add_runtime_dependency(%q<ronin-ext>, [">= 0.1.0"])
-      s.add_development_dependency(%q<rspec>, [">= 1.3.0"])
-      s.add_development_dependency(%q<yard>, [">= 0.5.3"])
-      s.add_development_dependency(%q<yard-dm>, [">= 0.1.1"])
-      s.add_development_dependency(%q<yard-dm-predefined>, [">= 0.1.0"])
+      s.add_runtime_dependency(%q<nokogiri>, ["~> 1.3.3"])
+      s.add_runtime_dependency(%q<extlib>, ["~> 0.9.14"])
+      s.add_runtime_dependency(%q<data_objects>, ["~> 0.10.1"])
+      s.add_runtime_dependency(%q<do_sqlite3>, ["~> 0.10.1"])
+      s.add_runtime_dependency(%q<dm-core>, ["~> 0.10.2"])
+      s.add_runtime_dependency(%q<dm-types>, ["~> 0.10.2"])
+      s.add_runtime_dependency(%q<dm-validations>, ["~> 0.10.2"])
+      s.add_runtime_dependency(%q<dm-aggregates>, ["~> 0.10.2"])
+      s.add_runtime_dependency(%q<dm-predefined>, ["~> 0.2.3"])
+      s.add_runtime_dependency(%q<open-namespace>, ["~> 0.1.0"])
+      s.add_runtime_dependency(%q<static_paths>, ["~> 0.1.0"])
+      s.add_runtime_dependency(%q<contextify>, ["~> 0.1.5"])
+      s.add_runtime_dependency(%q<pullr>, ["~> 0.1.2"])
+      s.add_runtime_dependency(%q<thor>, ["~> 0.13.0"])
+      s.add_runtime_dependency(%q<ronin-ext>, ["~> 0.1.0"])
+      s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_development_dependency(%q<yard>, ["~> 0.5.3"])
+      s.add_development_dependency(%q<yard-dm>, ["~> 0.1.1"])
+      s.add_development_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
     else
-      s.add_dependency(%q<nokogiri>, [">= 1.3.3"])
-      s.add_dependency(%q<extlib>, [">= 0.9.14"])
-      s.add_dependency(%q<data_objects>, [">= 0.10.1"])
-      s.add_dependency(%q<do_sqlite3>, [">= 0.10.1"])
-      s.add_dependency(%q<dm-core>, [">= 0.10.2"])
-      s.add_dependency(%q<dm-types>, [">= 0.10.2"])
-      s.add_dependency(%q<dm-validations>, [">= 0.10.2"])
-      s.add_dependency(%q<dm-aggregates>, [">= 0.10.2"])
-      s.add_dependency(%q<dm-predefined>, [">= 0.2.2"])
-      s.add_dependency(%q<open-namespace>, [">= 0.1.0"])
-      s.add_dependency(%q<static_paths>, [">= 0.1.0"])
-      s.add_dependency(%q<contextify>, [">= 0.1.4"])
-      s.add_dependency(%q<pullr>, [">= 0.1.2"])
-      s.add_dependency(%q<thor>, [">= 0.13.0"])
-      s.add_dependency(%q<ronin-ext>, [">= 0.1.0"])
-      s.add_dependency(%q<rspec>, [">= 1.3.0"])
-      s.add_dependency(%q<yard>, [">= 0.5.3"])
-      s.add_dependency(%q<yard-dm>, [">= 0.1.1"])
-      s.add_dependency(%q<yard-dm-predefined>, [">= 0.1.0"])
+      s.add_dependency(%q<nokogiri>, ["~> 1.3.3"])
+      s.add_dependency(%q<extlib>, ["~> 0.9.14"])
+      s.add_dependency(%q<data_objects>, ["~> 0.10.1"])
+      s.add_dependency(%q<do_sqlite3>, ["~> 0.10.1"])
+      s.add_dependency(%q<dm-core>, ["~> 0.10.2"])
+      s.add_dependency(%q<dm-types>, ["~> 0.10.2"])
+      s.add_dependency(%q<dm-validations>, ["~> 0.10.2"])
+      s.add_dependency(%q<dm-aggregates>, ["~> 0.10.2"])
+      s.add_dependency(%q<dm-predefined>, ["~> 0.2.3"])
+      s.add_dependency(%q<open-namespace>, ["~> 0.1.0"])
+      s.add_dependency(%q<static_paths>, ["~> 0.1.0"])
+      s.add_dependency(%q<contextify>, ["~> 0.1.5"])
+      s.add_dependency(%q<pullr>, ["~> 0.1.2"])
+      s.add_dependency(%q<thor>, ["~> 0.13.0"])
+      s.add_dependency(%q<ronin-ext>, ["~> 0.1.0"])
+      s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_dependency(%q<yard>, ["~> 0.5.3"])
+      s.add_dependency(%q<yard-dm>, ["~> 0.1.1"])
+      s.add_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
     end
   else
-    s.add_dependency(%q<nokogiri>, [">= 1.3.3"])
-    s.add_dependency(%q<extlib>, [">= 0.9.14"])
-    s.add_dependency(%q<data_objects>, [">= 0.10.1"])
-    s.add_dependency(%q<do_sqlite3>, [">= 0.10.1"])
-    s.add_dependency(%q<dm-core>, [">= 0.10.2"])
-    s.add_dependency(%q<dm-types>, [">= 0.10.2"])
-    s.add_dependency(%q<dm-validations>, [">= 0.10.2"])
-    s.add_dependency(%q<dm-aggregates>, [">= 0.10.2"])
-    s.add_dependency(%q<dm-predefined>, [">= 0.2.2"])
-    s.add_dependency(%q<open-namespace>, [">= 0.1.0"])
-    s.add_dependency(%q<static_paths>, [">= 0.1.0"])
-    s.add_dependency(%q<contextify>, [">= 0.1.4"])
-    s.add_dependency(%q<pullr>, [">= 0.1.2"])
-    s.add_dependency(%q<thor>, [">= 0.13.0"])
-    s.add_dependency(%q<ronin-ext>, [">= 0.1.0"])
-    s.add_dependency(%q<rspec>, [">= 1.3.0"])
-    s.add_dependency(%q<yard>, [">= 0.5.3"])
-    s.add_dependency(%q<yard-dm>, [">= 0.1.1"])
-    s.add_dependency(%q<yard-dm-predefined>, [">= 0.1.0"])
+    s.add_dependency(%q<nokogiri>, ["~> 1.3.3"])
+    s.add_dependency(%q<extlib>, ["~> 0.9.14"])
+    s.add_dependency(%q<data_objects>, ["~> 0.10.1"])
+    s.add_dependency(%q<do_sqlite3>, ["~> 0.10.1"])
+    s.add_dependency(%q<dm-core>, ["~> 0.10.2"])
+    s.add_dependency(%q<dm-types>, ["~> 0.10.2"])
+    s.add_dependency(%q<dm-validations>, ["~> 0.10.2"])
+    s.add_dependency(%q<dm-aggregates>, ["~> 0.10.2"])
+    s.add_dependency(%q<dm-predefined>, ["~> 0.2.3"])
+    s.add_dependency(%q<open-namespace>, ["~> 0.1.0"])
+    s.add_dependency(%q<static_paths>, ["~> 0.1.0"])
+    s.add_dependency(%q<contextify>, ["~> 0.1.5"])
+    s.add_dependency(%q<pullr>, ["~> 0.1.2"])
+    s.add_dependency(%q<thor>, ["~> 0.13.0"])
+    s.add_dependency(%q<ronin-ext>, ["~> 0.1.0"])
+    s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+    s.add_dependency(%q<yard>, ["~> 0.5.3"])
+    s.add_dependency(%q<yard-dm>, ["~> 0.1.1"])
+    s.add_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
   end
 end
 
