@@ -119,6 +119,16 @@ module Ronin
                   print_array(overlay.extensions, :title => 'Extensions')
                 end
 
+                unless overlay.cached_files.empty?
+                  print_title 'Cached Files'
+
+                  indent do
+                    overlay.cached_files.each do |cached_file|
+                      puts cached_file.path
+                    end
+                  end
+                end
+
                 if overlay.description
                   print_title "Description"
 
