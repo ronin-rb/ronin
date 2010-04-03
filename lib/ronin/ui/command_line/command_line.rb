@@ -37,17 +37,19 @@ module Ronin
       #
       # All command-line names of Commands available to the CommandLine.
       #
-      # @return [Set]
-      #   The command-line names of available Command classes.
+      # @return [Hash]
+      #   The command-line names and paths of available Command classes.
       #
       def CommandLine.commands
         unless defined?(@@ronin_ui_commands)
           commands_dir = File.join('lib',Commands.namespace_root)
 
-          @@ronin_ui_commands = Set[]
+          @@ronin_ui_commands = {}
 
           Installation.each_file_in(commands_dir) do |path|
-            @@ronin_ui_commands << path.gsub(/\.rb$/,'')
+            name = path.gsub(/\.rb$/,'').gsub(/[_-]+/,'_')
+
+            @@ronin_ui_commands[name] = path
           end
         end
 
