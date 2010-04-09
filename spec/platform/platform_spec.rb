@@ -6,6 +6,18 @@ require 'platform/helpers/overlays'
 describe Platform do
   include Helpers::Overlays
 
+  it "should auto_upgrade the Platform::Maintainer model" do
+    Platform::Maintainer.should be_auto_upgraded
+  end
+
+  it "should auto_upgrade the Platform::CachedFile model" do
+    Platform::CachedFile.should be_auto_upgraded
+  end
+
+  it "should auto_upgrade the Platform::Overlay model" do
+    Platform::Overlay.should be_auto_upgraded
+  end
+
   it "should be able to load custom overlay caches" do
     Platform.overlays.should_not be_empty
   end
