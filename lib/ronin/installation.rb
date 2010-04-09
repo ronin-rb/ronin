@@ -20,6 +20,8 @@
 
 require 'ronin/version'
 
+require 'enumerator'
+
 module Ronin
   #
   # The {Installation} module provides methods which help reflect on the
