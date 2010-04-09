@@ -26,6 +26,5 @@ module Ronin
     require 'ronin/license'
     require 'ronin/arch'
     require 'ronin/os'
-    require 'ronin/cacheable/cached_file'
   end
 end
