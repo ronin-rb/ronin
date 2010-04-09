@@ -18,8 +18,4 @@ describe Database do
   it "should auto_upgrade the OS model" do
     OS.should be_auto_upgraded
   end
-
-  it "should auto_upgrade the Cacheable::CachedFile model" do
-    Cacheable::CachedFile.should be_auto_upgraded
-  end
 end
