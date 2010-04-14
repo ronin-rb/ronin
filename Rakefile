@@ -22,7 +22,7 @@ begin
     gem.add_dependency 'dm-validations', '~> 0.10.2'
     gem.add_dependency 'dm-aggregates', '~> 0.10.2'
     gem.add_dependency 'dm-predefined', '~> 0.2.3'
-    gem.add_dependency 'open-namespace', '~> 0.1.0'
+    gem.add_dependency 'open_namespace', '~> 0.2.0'
     gem.add_dependency 'data_paths', '~> 0.2.1'
     gem.add_dependency 'contextify', '~> 0.1.5'
     gem.add_dependency 'pullr', '~> 0.1.2'
