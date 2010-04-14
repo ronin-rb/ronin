@@ -129,7 +129,7 @@ View available commands:
   * dm-validations ~> 0.10.2
 * [dm-predefined](http://github.com/postmodern/dm-predefined/) ~> 0.2.3
 * [open-namespace](http://github.com/postmodern/open-namespace) ~> 0.1.0
-* [static_paths](http://github.com/postmodern/static_paths) ~> 0.1.0
+* [data_paths](http://github.com/postmodern/data_paths) ~> 0.2.0
 * [contextify](http://github.com/postmodern/contextify/) ~> 0.1.5
 * [pullr](http://github.com/postmodern/pullr/) ~> 0.1.5
 * [thor](http://github.com/wycats/thor/) ~> 0.13.0

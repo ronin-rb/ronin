@@ -23,14 +23,14 @@ require 'ronin/platform/platform'
 require 'ronin/ui/output/helpers'
 
 require 'contextify'
-require 'static_paths/finders'
+require 'data_paths/finders'
 
 module Ronin
   module Platform
     class Extension
 
       include Contextify
-      include StaticPaths::Finders
+      include DataPaths::Finders
       include UI::Output::Helpers
 
       #

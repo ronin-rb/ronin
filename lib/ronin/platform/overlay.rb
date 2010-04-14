@@ -29,7 +29,7 @@ require 'ronin/model/has_license'
 require 'ronin/model'
 
 require 'pullr'
-require 'static_paths'
+require 'data_paths'
 require 'nokogiri'
 
 module Ronin
@@ -38,7 +38,7 @@ module Ronin
 
       include Model
       include Model::HasLicense
-      include StaticPaths
+      include DataPaths
 
       # Overlay Format Version
       FORMAT_VERSION = 2
@@ -58,8 +58,8 @@ module Ronin
       # The init.rb file to load from the LIB_DIR
       INIT_FILE = 'init.rb'
 
-      # Overlay static/ directory
-      STATIC_DIR = 'static'
+      # Overlay `data/` directory
+      DATA_DIR = 'data'
 
       # Overlay cache/ directory
       CACHE_DIR = 'cache'
@@ -118,8 +118,8 @@ module Ronin
       # The lib directory
       attr_reader :lib_dir
 
-      # The static directory
-      attr_reader :static_dir
+      # The data directory
+      attr_reader :data_dir
 
       # The cache directory
       attr_reader :cache_dir
@@ -153,7 +153,7 @@ module Ronin
         super(attributes)
 
         @lib_dir = self.path.join(LIB_DIR)
-        @static_dir = self.path.join(STATIC_DIR)
+        @data_dir = self.path.join(DATA_DIR)
         @cache_dir = self.path.join(CACHE_DIR)
         @exts_dir = self.path.join(EXTS_DIR)
 
@@ -465,8 +465,8 @@ module Ronin
       # global variable.
       #
       def activate!
-        # add the static/ directory
-        register_static_dir(@static_dir) if File.directory?(@static_dir)
+        # add the data/ directory
+        register_data_dir(@data_dir) if File.directory?(@data_dir)
 
         if File.directory?(@lib_dir)
           $LOAD_PATH << @lib_dir unless $LOAD_PATH.include?(@lib_dir)
@@ -485,7 +485,7 @@ module Ronin
       # `$LOAD_PATH` global variable.
       #
       def deactivate!
-        unregister_static_dirs!
+        unregister_data_dirs!
 
         $LOAD_PATH.delete(@lib_dir)
 
