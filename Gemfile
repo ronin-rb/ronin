@@ -3,7 +3,7 @@ ronin_ruby = "git://github.com/ronin-ruby"
 
 group :runtime do
   gem 'bundler',	'~> 0.9.19'
-  gem 'nokogiri',	'~> 1.3.1'
+  gem 'nokogiri',	'~> 1.4.1'
   gem 'extlib',		'~> 0.9.14'
   gem 'data_objects',	'~> 0.10.1'
   gem 'do_sqlite3',	'~> 0.10.1'

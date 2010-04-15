@@ -255,7 +255,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<bundler>, ["~> 0.9.19"])
-      s.add_runtime_dependency(%q<nokogiri>, ["~> 1.3.1"])
+      s.add_runtime_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_runtime_dependency(%q<extlib>, ["~> 0.9.14"])
       s.add_runtime_dependency(%q<data_objects>, ["~> 0.10.1"])
       s.add_runtime_dependency(%q<do_sqlite3>, ["~> 0.10.1"])
@@ -278,7 +278,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
     else
       s.add_dependency(%q<bundler>, ["~> 0.9.19"])
-      s.add_dependency(%q<nokogiri>, ["~> 1.3.1"])
+      s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_dependency(%q<extlib>, ["~> 0.9.14"])
       s.add_dependency(%q<data_objects>, ["~> 0.10.1"])
       s.add_dependency(%q<do_sqlite3>, ["~> 0.10.1"])
@@ -302,7 +302,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<bundler>, ["~> 0.9.19"])
-    s.add_dependency(%q<nokogiri>, ["~> 1.3.1"])
+    s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
     s.add_dependency(%q<extlib>, ["~> 0.9.14"])
     s.add_dependency(%q<data_objects>, ["~> 0.10.1"])
     s.add_dependency(%q<do_sqlite3>, ["~> 0.10.1"])
