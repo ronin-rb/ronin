@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-04-14}
+  s.date = %q{2010-04-15}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin-console", "ronin-update", "ronin-uninstall", "ronin-add", "ronin", "ronin-list", "ronin-install", "ronin-database", "ronin-help"]
@@ -254,7 +254,6 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<bundler>, ["~> 0.9.19"])
       s.add_runtime_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_runtime_dependency(%q<extlib>, ["~> 0.9.14"])
       s.add_runtime_dependency(%q<data_objects>, ["~> 0.10.1"])
@@ -270,6 +269,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<pullr>, ["~> 0.1.2"])
       s.add_runtime_dependency(%q<thor>, ["~> 0.13.0"])
       s.add_runtime_dependency(%q<ronin-ext>, ["~> 0.1.0"])
+      s.add_development_dependency(%q<bundler>, ["~> 0.9.19"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
@@ -277,7 +277,6 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<yard-dm>, ["~> 0.1.1"])
       s.add_development_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
     else
-      s.add_dependency(%q<bundler>, ["~> 0.9.19"])
       s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_dependency(%q<extlib>, ["~> 0.9.14"])
       s.add_dependency(%q<data_objects>, ["~> 0.10.1"])
@@ -293,6 +292,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<pullr>, ["~> 0.1.2"])
       s.add_dependency(%q<thor>, ["~> 0.13.0"])
       s.add_dependency(%q<ronin-ext>, ["~> 0.1.0"])
+      s.add_dependency(%q<bundler>, ["~> 0.9.19"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_dependency(%q<rspec>, ["~> 1.3.0"])
@@ -301,7 +301,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
     end
   else
-    s.add_dependency(%q<bundler>, ["~> 0.9.19"])
     s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
     s.add_dependency(%q<extlib>, ["~> 0.9.14"])
     s.add_dependency(%q<data_objects>, ["~> 0.10.1"])
@@ -317,6 +316,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<pullr>, ["~> 0.1.2"])
     s.add_dependency(%q<thor>, ["~> 0.13.0"])
     s.add_dependency(%q<ronin-ext>, ["~> 0.1.0"])
+    s.add_dependency(%q<bundler>, ["~> 0.9.19"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
     s.add_dependency(%q<rspec>, ["~> 1.3.0"])

@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 ronin_ruby = "git://github.com/ronin-ruby"
 
 group :runtime do
-  gem 'bundler',	'~> 0.9.19'
   gem 'nokogiri',	'~> 1.4.1'
   gem 'extlib',		'~> 0.9.14'
   gem 'data_objects',	'~> 0.10.1'
@@ -21,6 +20,7 @@ group :runtime do
 end
 
 group :development do
+  gem 'bundler',		'~> 0.9.19'
   gem 'rake',			'~> 0.8.7'
   gem 'jeweler',		'~> 1.4.0', :git => 'git://github.com/technicalpickles/jeweler.git'
   gem 'rspec',			'~> 1.3.0'
