@@ -272,10 +272,10 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, ["~> 0.9.19"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
-      s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
       s.add_development_dependency(%q<yard>, ["~> 0.5.3"])
       s.add_development_dependency(%q<yard-dm>, ["~> 0.1.1"])
       s.add_development_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
+      s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
     else
       s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_dependency(%q<extlib>, ["~> 0.9.14"])
@@ -295,10 +295,10 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, ["~> 0.9.19"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
-      s.add_dependency(%q<rspec>, ["~> 1.3.0"])
       s.add_dependency(%q<yard>, ["~> 0.5.3"])
       s.add_dependency(%q<yard-dm>, ["~> 0.1.1"])
       s.add_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
+      s.add_dependency(%q<rspec>, ["~> 1.3.0"])
     end
   else
     s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
@@ -319,10 +319,10 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bundler>, ["~> 0.9.19"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
-    s.add_dependency(%q<rspec>, ["~> 1.3.0"])
     s.add_dependency(%q<yard>, ["~> 0.5.3"])
     s.add_dependency(%q<yard-dm>, ["~> 0.1.1"])
     s.add_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
+    s.add_dependency(%q<rspec>, ["~> 1.3.0"])
   end
 end
 

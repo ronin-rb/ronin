@@ -2,7 +2,7 @@ require 'rubygems'
 require 'bundler'
 
 begin
-  Bundler.setup(:runtime, :development)
+  Bundler.setup(:development)
 rescue Bundler::BundlerError => e
   STDERR.puts e.message
   STDERR.puts "Run `bundle install` to install missing gems"
