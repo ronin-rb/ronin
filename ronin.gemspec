@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-04-15}
+  s.date = %q{2010-04-22}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin-console", "ronin-update", "ronin-uninstall", "ronin-add", "ronin", "ronin-list", "ronin-install", "ronin-database", "ronin-help"]
@@ -192,61 +192,60 @@ Gem::Specification.new do |s|
   * ronin-sql
   * ronin-web
   }
-  s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{A Ruby platform for exploit development and security research.}
   s.test_files = [
+    "spec/arch_spec.rb",
     "spec/author_spec.rb",
-    "spec/os_spec.rb",
+    "spec/database_spec.rb",
+    "spec/helpers/database.rb",
     "spec/installation_spec.rb",
-    "spec/spec_helper.rb",
-    "spec/ronin_spec.rb",
-    "spec/ui/command_line/command_spec.rb",
-    "spec/ui/command_line/classes/test_command.rb",
-    "spec/ui/output_spec.rb",
-    "spec/model/has_name_spec.rb",
+    "spec/license_spec.rb",
     "spec/model/has_description_spec.rb",
     "spec/model/has_license_spec.rb",
-    "spec/model/model_spec.rb",
+    "spec/model/has_name_spec.rb",
     "spec/model/lazy_upgrade_spec.rb",
-    "spec/model/models/named_model.rb",
-    "spec/model/models/custom_model.rb",
-    "spec/model/models/licensed_model.rb",
-    "spec/model/models/lazy_model.rb",
-    "spec/model/models/described_model.rb",
+    "spec/model/model_spec.rb",
     "spec/model/models/basic_model.rb",
-    "spec/license_spec.rb",
-    "spec/platform/overlay_spec.rb",
-    "spec/platform/extension_cache_spec.rb",
-    "spec/platform/overlay_cache_spec.rb",
-    "spec/platform/maintainer_spec.rb",
-    "spec/platform/extension_spec.rb",
+    "spec/model/models/custom_model.rb",
+    "spec/model/models/described_model.rb",
+    "spec/model/models/lazy_model.rb",
+    "spec/model/models/licensed_model.rb",
+    "spec/model/models/named_model.rb",
+    "spec/os_spec.rb",
+    "spec/platform/cacheable_spec.rb",
     "spec/platform/cached_file_spec.rb",
+    "spec/platform/classes/cacheable_model.rb",
+    "spec/platform/extension_cache_spec.rb",
+    "spec/platform/extension_spec.rb",
+    "spec/platform/helpers/extensions.rb",
+    "spec/platform/helpers/extensions/circular.rb",
+    "spec/platform/helpers/extensions/test.rb",
     "spec/platform/helpers/overlays.rb",
-    "spec/platform/helpers/overlays/test2/exts/test.rb",
-    "spec/platform/helpers/overlays/test2/cache/cacheable_model/two.rb",
-    "spec/platform/helpers/overlays/test2/cache/cacheable_model/exceptions.rb",
-    "spec/platform/helpers/overlays/test2/cache/cacheable_model/no_method_errors.rb",
-    "spec/platform/helpers/overlays/test2/cache/cacheable_model/syntax_errors.rb",
-    "spec/platform/helpers/overlays/test2/cache/cacheable_model/load_errors.rb",
-    "spec/platform/helpers/overlays/test2/cache/cacheable_model/validation_errors.rb",
-    "spec/platform/helpers/overlays/random/exts/random.rb",
-    "spec/platform/helpers/overlays/test1/exts/test.rb",
-    "spec/platform/helpers/overlays/test1/cache/cacheable_model/one.rb",
     "spec/platform/helpers/overlays/hello/exts/hello.rb",
     "spec/platform/helpers/overlays/hello/lib/init.rb",
-    "spec/platform/helpers/overlays/hello/lib/stuff/test.rb",
     "spec/platform/helpers/overlays/hello/lib/stuff/another_test.rb",
-    "spec/platform/helpers/extensions.rb",
-    "spec/platform/helpers/extensions/test.rb",
-    "spec/platform/helpers/extensions/circular.rb",
+    "spec/platform/helpers/overlays/hello/lib/stuff/test.rb",
+    "spec/platform/helpers/overlays/random/exts/random.rb",
+    "spec/platform/helpers/overlays/test1/cache/cacheable_model/one.rb",
+    "spec/platform/helpers/overlays/test1/exts/test.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/exceptions.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/load_errors.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/no_method_errors.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/syntax_errors.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/two.rb",
+    "spec/platform/helpers/overlays/test2/cache/cacheable_model/validation_errors.rb",
+    "spec/platform/helpers/overlays/test2/exts/test.rb",
+    "spec/platform/maintainer_spec.rb",
+    "spec/platform/overlay_cache_spec.rb",
+    "spec/platform/overlay_spec.rb",
     "spec/platform/platform_spec.rb",
-    "spec/platform/classes/cacheable_model.rb",
-    "spec/platform/cacheable_spec.rb",
-    "spec/helpers/database.rb",
-    "spec/database_spec.rb",
-    "spec/arch_spec.rb"
+    "spec/ronin_spec.rb",
+    "spec/spec_helper.rb",
+    "spec/ui/command_line/classes/test_command.rb",
+    "spec/ui/command_line/command_spec.rb",
+    "spec/ui/output_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
@@ -269,13 +268,13 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<pullr>, ["~> 0.1.2"])
       s.add_runtime_dependency(%q<thor>, ["~> 0.13.0"])
       s.add_runtime_dependency(%q<ronin-ext>, ["~> 0.1.0"])
-      s.add_development_dependency(%q<bundler>, ["~> 0.9.19"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_development_dependency(%q<yard>, ["~> 0.5.3"])
       s.add_development_dependency(%q<yard-dm>, ["~> 0.1.1"])
       s.add_development_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_development_dependency(%q<bundler>, ["~> 0.9.23"])
     else
       s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_dependency(%q<extlib>, ["~> 0.9.14"])
@@ -292,13 +291,13 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<pullr>, ["~> 0.1.2"])
       s.add_dependency(%q<thor>, ["~> 0.13.0"])
       s.add_dependency(%q<ronin-ext>, ["~> 0.1.0"])
-      s.add_dependency(%q<bundler>, ["~> 0.9.19"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_dependency(%q<yard>, ["~> 0.5.3"])
       s.add_dependency(%q<yard-dm>, ["~> 0.1.1"])
       s.add_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
       s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_dependency(%q<bundler>, ["~> 0.9.23"])
     end
   else
     s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
@@ -316,13 +315,13 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<pullr>, ["~> 0.1.2"])
     s.add_dependency(%q<thor>, ["~> 0.13.0"])
     s.add_dependency(%q<ronin-ext>, ["~> 0.1.0"])
-    s.add_dependency(%q<bundler>, ["~> 0.9.19"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
     s.add_dependency(%q<yard>, ["~> 0.5.3"])
     s.add_dependency(%q<yard-dm>, ["~> 0.1.1"])
     s.add_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
     s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+    s.add_dependency(%q<bundler>, ["~> 0.9.23"])
   end
 end
 

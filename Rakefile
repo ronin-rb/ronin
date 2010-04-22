@@ -22,6 +22,7 @@ Jeweler::Tasks.new do |gem|
   gem.email = 'postmodern.mod3@gmail.com'
   gem.homepage = 'http://github.com/ronin-ruby/ronin'
   gem.authors = ['Postmodern']
+  gem.add_development_dependency 'bundler', '~> 0.9.23'
   gem.has_rdoc = 'yard'
 
   gem.post_install_message = %{
