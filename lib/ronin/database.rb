@@ -20,11 +20,9 @@
 
 require 'ronin/database/database'
 
-module Ronin
-  Database.upgrade do
-    require 'ronin/author'
-    require 'ronin/license'
-    require 'ronin/arch'
-    require 'ronin/os'
-  end
+Ronin::Database.upgrade do
+  require 'ronin/author'
+  require 'ronin/license'
+  require 'ronin/arch'
+  require 'ronin/os'
 end
