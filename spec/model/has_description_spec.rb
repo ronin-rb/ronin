@@ -1,6 +1,6 @@
+require 'spec_helper'
 require 'ronin/model/has_description'
 
-require 'spec_helper'
 require 'model/models/described_model'
 
 describe Model::HasDescription do

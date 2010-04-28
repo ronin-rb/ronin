@@ -1,6 +1,5 @@
-require 'ronin/installation'
-
 require 'spec_helper'
+require 'ronin/installation'
 
 describe Installation do
   before(:each) do

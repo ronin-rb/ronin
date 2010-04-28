@@ -1,6 +1,6 @@
+require 'spec_helper'
 require 'ronin/model/lazy_upgrade'
 
-require 'spec_helper'
 require 'model/models/lazy_model'
 
 describe Ronin::Model::LazyUpgrade do

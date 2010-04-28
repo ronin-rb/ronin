@@ -1,6 +1,5 @@
-require 'ronin/ui/output'
-
 require 'spec_helper'
+require 'ronin/ui/output'
 
 describe UI::Output do
   it "should be quiet by default" do

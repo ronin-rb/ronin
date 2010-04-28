@@ -1,6 +1,6 @@
+require 'spec_helper'
 require 'ronin/platform/platform'
 
-require 'spec_helper'
 require 'platform/helpers/overlays'
 
 describe Platform do

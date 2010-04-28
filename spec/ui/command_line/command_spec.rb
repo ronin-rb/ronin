@@ -1,6 +1,6 @@
+require 'spec_helper'
 require 'ronin/ui/command_line/command'
 
-require 'spec_helper'
 require 'ui/command_line/classes/test_command'
 
 describe UI::CommandLine::Command do

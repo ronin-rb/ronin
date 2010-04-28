@@ -1,6 +1,6 @@
+require 'spec_helper'
 require 'ronin/platform/extension'
 
-require 'spec_helper'
 require 'platform/helpers/extensions'
 
 describe Platform::Extension do

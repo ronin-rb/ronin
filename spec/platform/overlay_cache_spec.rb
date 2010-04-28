@@ -1,7 +1,7 @@
+require 'spec_helper'
 require 'ronin/platform/overlay_cache'
 
 require 'platform/helpers/overlays'
-require 'spec_helper'
 
 describe Platform::OverlayCache do
   include Helpers::Overlays

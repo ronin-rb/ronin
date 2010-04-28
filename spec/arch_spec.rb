@@ -1,6 +1,6 @@
+require 'spec_helper'
 require 'ronin/arch'
 
-require 'spec_helper'
 require 'helpers/database'
 
 describe Arch do

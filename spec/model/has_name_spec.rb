@@ -1,6 +1,6 @@
+require 'spec_helper'
 require 'ronin/model/has_name'
 
-require 'spec_helper'
 require 'model/models/named_model'
 
 describe Model::HasName do

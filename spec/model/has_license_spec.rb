@@ -1,6 +1,6 @@
+require 'spec_helper'
 require 'ronin/model/has_license'
 
-require 'spec_helper'
 require 'model/models/licensed_model'
 
 describe Model::HasLicense do

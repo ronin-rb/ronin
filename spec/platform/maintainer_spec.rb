@@ -1,6 +1,5 @@
-require 'ronin/platform/maintainer'
-
 require 'spec_helper'
+require 'ronin/platform/maintainer'
 
 describe Platform::Maintainer do
   before(:all) do

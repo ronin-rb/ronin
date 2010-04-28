@@ -1,6 +1,5 @@
-require 'ronin/database'
-
 require 'spec_helper'
+require 'ronin/database'
 
 describe Database do
   it "should auto_upgrade the Author model" do

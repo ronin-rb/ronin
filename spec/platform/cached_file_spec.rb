@@ -1,6 +1,6 @@
+require 'spec_helper'
 require 'ronin/platform/cached_file'
 
-require 'spec_helper'
 require 'helpers/database'
 require 'platform/classes/cacheable_model'
 require 'platform/helpers/overlays'
