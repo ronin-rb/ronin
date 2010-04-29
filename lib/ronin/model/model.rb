@@ -40,6 +40,7 @@ module Ronin
           include DataMapper::Resource
         end
 
+        include DataMapper
         include DataMapper::Types
         include DataMapper::Migrations
         include Model::LazyUpgrade
