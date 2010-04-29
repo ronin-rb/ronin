@@ -16,7 +16,7 @@ group :runtime do
   gem 'contextify',	'~> 0.1.5'
   gem 'pullr',		'~> 0.1.2'
   gem 'thor',		'~> 0.13.0'
-  gem 'ronin-ext',	'~> 0.1.0', :git => "#{ronin_ruby}/ronin-ext.git"
+  gem 'ronin-support',	'~> 0.1.0', :git => "#{ronin_ruby}/ronin-support.git"
 end
 
 group :development do
