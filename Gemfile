@@ -10,6 +10,8 @@ group :runtime do
   gem 'dm-types',	'~> 0.10.2'
   gem 'dm-validations',	'~> 0.10.2'
   gem 'dm-aggregates',	'~> 0.10.2'
+  gem 'dm-timestamps',	'~> 0.10.2'
+  gem 'dm-tags',	'~> 0.10.1'
   gem 'dm-predefined',	'~> 0.2.3'
   gem 'open_namespace',	'~> 0.3.0'
   gem 'parameters',	'~> 0.2.0', :git => 'git://github.com/postmodern/parameters.git'

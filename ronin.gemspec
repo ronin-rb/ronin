@@ -37,17 +37,27 @@ Gem::Specification.new do |s|
     "bin/ronin-update",
     "data/ronin/platform/overlay.xsl",
     "lib/ronin.rb",
+    "lib/ronin/address.rb",
     "lib/ronin/arch.rb",
     "lib/ronin/author.rb",
+    "lib/ronin/campaign.rb",
+    "lib/ronin/comment.rb",
     "lib/ronin/config.rb",
+    "lib/ronin/country.rb",
+    "lib/ronin/credential.rb",
     "lib/ronin/database.rb",
     "lib/ronin/database/database.rb",
     "lib/ronin/database/exceptions.rb",
     "lib/ronin/database/exceptions/invalid_config.rb",
     "lib/ronin/database/exceptions/unknown_repository.rb",
     "lib/ronin/environment.rb",
+    "lib/ronin/host_name.rb",
+    "lib/ronin/host_name_ip_address.rb",
     "lib/ronin/installation.rb",
+    "lib/ronin/ip_address.rb",
+    "lib/ronin/ip_address_mac_address.rb",
     "lib/ronin/license.rb",
+    "lib/ronin/mac_address.rb",
     "lib/ronin/model.rb",
     "lib/ronin/model/has_authors.rb",
     "lib/ronin/model/has_description.rb",
@@ -65,6 +75,8 @@ Gem::Specification.new do |s|
     "lib/ronin/network/mixins/tcp.rb",
     "lib/ronin/network/mixins/telnet.rb",
     "lib/ronin/network/mixins/udp.rb",
+    "lib/ronin/open_port.rb",
+    "lib/ronin/organization.rb",
     "lib/ronin/os.rb",
     "lib/ronin/platform.rb",
     "lib/ronin/platform/cacheable.rb",
@@ -81,6 +93,7 @@ Gem::Specification.new do |s|
     "lib/ronin/platform/overlay_cache.rb",
     "lib/ronin/platform/overlays.rb",
     "lib/ronin/platform/platform.rb",
+    "lib/ronin/port.rb",
     "lib/ronin/rpc.rb",
     "lib/ronin/rpc/call.rb",
     "lib/ronin/rpc/client.rb",
@@ -91,6 +104,12 @@ Gem::Specification.new do |s|
     "lib/ronin/rpc/response.rb",
     "lib/ronin/rpc/service.rb",
     "lib/ronin/rpc/shell.rb",
+    "lib/ronin/service.rb",
+    "lib/ronin/service_credential.rb",
+    "lib/ronin/site_credential.rb",
+    "lib/ronin/target.rb",
+    "lib/ronin/tcp_port.rb",
+    "lib/ronin/udp_port.rb",
     "lib/ronin/ui.rb",
     "lib/ronin/ui/command_line.rb",
     "lib/ronin/ui/command_line/command.rb",
@@ -117,6 +136,7 @@ Gem::Specification.new do |s|
     "lib/ronin/ui/output/helpers.rb",
     "lib/ronin/ui/output/output.rb",
     "lib/ronin/ui/shell.rb",
+    "lib/ronin/url.rb",
     "lib/ronin/version.rb",
     "ronin.gemspec",
     "spec/arch_spec.rb",
@@ -270,6 +290,8 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<dm-types>, ["~> 0.10.2"])
       s.add_runtime_dependency(%q<dm-validations>, ["~> 0.10.2"])
       s.add_runtime_dependency(%q<dm-aggregates>, ["~> 0.10.2"])
+      s.add_runtime_dependency(%q<dm-timestamps>, ["~> 0.10.2"])
+      s.add_runtime_dependency(%q<dm-tags>, ["~> 0.10.1"])
       s.add_runtime_dependency(%q<dm-predefined>, ["~> 0.2.3"])
       s.add_runtime_dependency(%q<open_namespace>, ["~> 0.3.0"])
       s.add_runtime_dependency(%q<parameters>, ["~> 0.2.0"])
@@ -297,6 +319,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<dm-types>, ["~> 0.10.2"])
       s.add_dependency(%q<dm-validations>, ["~> 0.10.2"])
       s.add_dependency(%q<dm-aggregates>, ["~> 0.10.2"])
+      s.add_dependency(%q<dm-timestamps>, ["~> 0.10.2"])
+      s.add_dependency(%q<dm-tags>, ["~> 0.10.1"])
       s.add_dependency(%q<dm-predefined>, ["~> 0.2.3"])
       s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
       s.add_dependency(%q<parameters>, ["~> 0.2.0"])
@@ -325,6 +349,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<dm-types>, ["~> 0.10.2"])
     s.add_dependency(%q<dm-validations>, ["~> 0.10.2"])
     s.add_dependency(%q<dm-aggregates>, ["~> 0.10.2"])
+    s.add_dependency(%q<dm-timestamps>, ["~> 0.10.2"])
+    s.add_dependency(%q<dm-tags>, ["~> 0.10.1"])
     s.add_dependency(%q<dm-predefined>, ["~> 0.2.3"])
     s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
     s.add_dependency(%q<parameters>, ["~> 0.2.0"])
