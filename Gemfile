@@ -12,7 +12,7 @@ group :runtime do
   gem 'dm-aggregates',	'~> 0.10.2'
   gem 'dm-predefined',	'~> 0.2.3'
   gem 'open_namespace',	'~> 0.3.0'
-  gem 'parameters',	'~> 0.2.0'
+  gem 'parameters',	'~> 0.2.0', :git => 'git://github.com/postmodern/parameters.git'
   gem 'data_paths',	'~> 0.2.1'
   gem 'contextify',	'~> 0.1.5'
   gem 'pullr',		'~> 0.1.2'
