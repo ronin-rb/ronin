@@ -110,13 +110,13 @@ module Ronin
     #
     def to_uri
       url_class = if self.scheme == 'https'
-                    URI::HTTPS
+                    ::URI::HTTPS
                   else
-                    URI::HTTP
+                    ::URI::HTTP
                   end
 
-      host = if self.host
-               self.host.address
+      host = if self.host_name
+               self.host_name.address
              end
       port = if self.port
                self.port.number
@@ -126,7 +126,8 @@ module Ronin
         :host => host,
         :port => port,
         :path => self.path,
-        :query => self.query_string
+        :query => self.query_string,
+        :fragment => self.fragment
       )
     end
 
