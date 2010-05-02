@@ -138,7 +138,7 @@ module Ronin
     #   The string form of the url.
     #
     def to_s
-      self.to_url.to_s
+      self.to_uri.to_s
     end
 
   end
