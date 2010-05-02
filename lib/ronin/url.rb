@@ -69,6 +69,30 @@ module Ronin
     has_tags_on :tags
 
     #
+    # Parses the URL.
+    #
+    # @param [String] url
+    #   The raw URL to parse.
+    #
+    # @return [URL]
+    #   The parsed URL.
+    #
+    # @since 0.4.0
+    #
+    def URL.parse(url)
+      uri = URI.parse(url)
+
+      return URL.new(
+        :scheme => uri.scheme,
+        :host_name => HostName.first_or_new(:address => uri.host),
+        :port => uri.port,
+        :path => uri.path,
+        :query_string => uri.query,
+        :fragment => uri.fragment
+      )
+    end
+
+    #
     # The host name of the url.
     #
     # @return [String]
