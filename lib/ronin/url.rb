@@ -80,7 +80,7 @@ module Ronin
     # @since 0.4.0
     #
     def URL.parse(url)
-      uri = URI.parse(url)
+      uri = ::URI.parse(url)
 
       return URL.new(
         :scheme => uri.scheme,
