@@ -115,9 +115,16 @@ module Ronin
                     URI::HTTP
                   end
 
+      host = if self.host
+               self.host.address
+             end
+      port = if self.port
+               self.port.number
+             end
+
       return url_class.build(
-        :host => self.host,
-        :port => self.port,
+        :host => host,
+        :port => port,
         :path => self.path,
         :query => self.query_string
       )
