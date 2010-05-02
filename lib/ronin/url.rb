@@ -85,7 +85,7 @@ module Ronin
       return URL.new(
         :scheme => uri.scheme,
         :host_name => HostName.first_or_new(:address => uri.host),
-        :port => uri.port,
+        :port => TCPPort.first_or_new(:number => uri.port),
         :path => uri.path,
         :query_string => uri.query,
         :fragment => uri.fragment
