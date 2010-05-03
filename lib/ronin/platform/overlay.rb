@@ -432,7 +432,7 @@ module Ronin
       #   The names of all extensions within the overlay.
       #
       def extensions
-        extension_paths.map { |dir| File.basename(dir).gsub(/\.rb$/,'') }
+        extension_paths.map { |dir| File.basename(dir).chomp('.rb') }
       end
 
       #

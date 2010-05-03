@@ -47,7 +47,7 @@ module Ronin
           @@ronin_ui_commands = {}
 
           Installation.each_file_in(commands_dir) do |path|
-            name = path.gsub(/\.rb$/,'').gsub(/[_-]+/,'_')
+            name = path.chomp('.rb').gsub(/[_-]+/,'_')
 
             @@ronin_ui_commands[name] = path
           end
