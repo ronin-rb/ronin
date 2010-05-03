@@ -108,8 +108,8 @@ module Ronin
     #
     # @since 0.4.0
     #
-    def Database.save(&block)
-      block.call() if block
+    def Database.save
+      yield if block_given?
 
       File.open(CONFIG_FILE,'w') do |file|
         hash = {}
@@ -183,8 +183,8 @@ module Ronin
     #
     # @return [nil]
     #
-    def Database.upgrade(&block)
-      block.call() if block
+    def Database.upgrade
+      yield if block_given?
 
       Database.repositories.each_key do |name|
         DataMapper.auto_upgrade!(name) if Database.setup?(name)
@@ -256,7 +256,7 @@ module Ronin
     #
     # @since 0.4.0
     #
-    def Database.clear(name,&block)
+    def Database.clear(name)
       name = name.to_sym
 
       unless Database.repository?(name)
@@ -265,7 +265,7 @@ module Ronin
 
       DataMapper.auto_migrate!(name)
 
-      block.call() if block
+      yield if block_given?
       return nil
     end
 

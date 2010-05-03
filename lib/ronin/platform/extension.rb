@@ -187,7 +187,7 @@ module Ronin
       #     puts "Extension #{ext} has been setup..."
       #   end
       #
-      def setup!(&block)
+      def setup!
         unless @setup
           @setup_blocks.each do |setup_block|
             setup_block.call(self) if setup_block
@@ -197,7 +197,7 @@ module Ronin
           @toredown = false
         end
 
-        block.call(self) if block
+        yield self if block_given?
         return self
       end
 
@@ -231,8 +231,8 @@ module Ronin
       #     puts "Extension #{ext} is being tore down..."
       #   end
       #
-      def teardown!(&block)
-        block.call(self) if block
+      def teardown!
+        yield self if block_given?
 
         unless @toredown
           @teardown_blocks.each do |teardown_block|

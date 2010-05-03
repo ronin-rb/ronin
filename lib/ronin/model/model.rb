@@ -92,7 +92,7 @@ module Ronin
     # @return [Hash{String => String}]
     #   A hash of the humanly readable names and values of the attributes.
     #
-    def humanize_attributes(options={},&block)
+    def humanize_attributes(options={})
       exclude = [:id, :type]
 
       if options[:exclude]
@@ -121,7 +121,10 @@ module Ronin
             name = Extlib::Inflection.humanize(name)
             value = formatter.call(value)
 
-            block.call(name,value) if block
+            if block_given?
+              yield name, value
+            end
+
             formatted[name] = value
           end
         end

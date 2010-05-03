@@ -112,9 +112,9 @@ module Ronin
         #
         # @see pop3_connect
         #
-        def pop3_session(options={},&block)
+        def pop3_session(options={})
           pop3_connect(options) do |sess|
-            block.call(sess) if block
+            yield sess if block_given?
             sess.finish
 
             if @port

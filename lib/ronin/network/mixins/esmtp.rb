@@ -133,9 +133,9 @@ module Ronin
         #
         # @see esmtp_connect
         #
-        def esmtp_session(options={},&block)
+        def esmtp_session(options={})
           esmtp_connect(options) do |sess|
-            block.call(sess) if block
+            yield sess if block_given?
 
             sess.close
 

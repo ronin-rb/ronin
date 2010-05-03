@@ -66,7 +66,7 @@ module Ronin
           history_rollback += 1
 
           begin
-            block.call(self,line)
+            yield self, line
           rescue => e
             puts "#{e.class.name}: #{e.message}"
           end

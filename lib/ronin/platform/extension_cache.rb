@@ -35,7 +35,7 @@ module Ronin
       # @yieldparam [ExtensionCache] cache
       #   The newly created extension cache.
       #
-      def initialize(&block)
+      def initialize
         super() do |hash,key|
           name = key.to_s
 
@@ -46,7 +46,7 @@ module Ronin
           each_extension { |ext| ext.teardown! }
         end
 
-        block.call(self) if block
+        yield self if block_given?
       end
 
       #

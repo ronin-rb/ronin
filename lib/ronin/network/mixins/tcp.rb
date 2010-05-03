@@ -289,7 +289,7 @@ module Ronin
 
             print_info "Client connected #{client_host}:#{client_port}"
 
-            block.call(client) if block
+            yield client if block_given?
 
             print_info "Disconnecting client #{client_host}:#{client_port}"
           end

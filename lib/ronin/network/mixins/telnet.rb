@@ -172,7 +172,7 @@ module Ronin
         #
         def telnet_session(options={},&block)
           return telnet_connect(options) do |sess|
-            block.call(sess) if block
+            yield sess if block_given?
             sess.close
 
             if self.port

@@ -168,10 +168,10 @@ module Ronin
         #
         # @return [nil]
         #
-        def indent(n=2,&block)
+        def indent(n=2)
           @indent += n
 
-          block.call()
+          yield
 
           @indent -= n
           return nil

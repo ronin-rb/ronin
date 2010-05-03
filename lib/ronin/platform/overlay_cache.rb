@@ -43,7 +43,7 @@ module Ronin
         super()
         load!()
 
-        block.call(self) if block
+        yield self if block_given?
       end
 
       #

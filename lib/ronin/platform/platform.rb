@@ -96,10 +96,10 @@ module Ronin
     #   The extension with the specified name could not be found in any
     #   of the overlays or in the extension cache.
     #
-    def Platform.extension(name,&block)
+    def Platform.extension(name)
       ext = Platform.extensions[name]
 
-      block.call(ext) if block
+      yield ext if block_given?
       return ext
     end
 

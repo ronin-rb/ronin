@@ -117,9 +117,9 @@ module Ronin
       # @yieldparam [Result] message
       #   A result message returned from a previous evaluation.
       #
-      def each(&block)
+      def each
         until @output.empty?
-          block.call(@output.pop)
+          yield @output.pop
         end
 
         return self

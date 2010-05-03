@@ -130,7 +130,7 @@ module Ronin
         #
         def smtp_session(options={},&block)
           smtp_connect(options) do |sess|
-            block.call(sess) if block
+            yield sess if block_given?
             sess.close
 
             if self.port

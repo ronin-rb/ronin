@@ -118,9 +118,9 @@ module Ronin
         #
         # @see imap_connect
         #
-        def imap_session(options={},&block)
+        def imap_session(options={})
           imap_connect(options) do |sess|
-            block.call(sess) if block
+            yield sess if block_given?
 
             print_info "Logging out ..."
 
