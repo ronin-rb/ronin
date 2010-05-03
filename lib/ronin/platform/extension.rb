@@ -141,7 +141,10 @@ module Ronin
       #   The list of public methods exposed by the extension.
       #
       def exposed_methods
-        methods(false).sort.map { |name| name.to_sym }
+        ext_methods = methods(false).sort
+
+        ext_methods.map! { |name| name.to_sym }
+        return ext_methods
       end
 
       #

@@ -47,7 +47,11 @@ module Ronin
           @@ronin_ui_commands = {}
 
           Installation.each_file_in(commands_dir) do |path|
-            name = path.chomp('.rb').gsub(/[_-]+/,'_')
+            # remove the .rb file extension
+            name = path.chomp('.rb')
+            
+            # replace all _ and - characters with a single _
+            name.gsub!(/[_-]+/,'_')
 
             @@ronin_ui_commands[name] = path
           end
