@@ -18,41 +18,44 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/types/description'
-require 'ronin/model/model'
+require 'dm-core'
 
 module Ronin
   module Model
-    #
-    # Adds a `description` property to a model.
-    #
-    module HasDescription
-      include DataMapper::Types
+    module Types
+      class Description < DataMapper::Type
 
-      def self.included(base)
-        base.module_eval do
-          include Ronin::Model
+        primitive DataMapper::Types::Text
 
-          # The description of the model
-          property :description, Description
+        #
+        # Typecasts the description.
+        #
+        # @param [Object] value
+        #   The text of the description.
+        #
+        # @param [DataMapper::Property] property
+        #   The description property.
+        #
+        # @return [String, nil]
+        #   The typecasted description.
+        #
+        # @since 0.4.0
+        #
+        def self.typecast(value,property)
+          case value
+          when nil
+            nil
+          else
+            sanitized_lines = []
 
-          #
-          # Finds models with descriptions containing a given fragment of
-          # text.
-          #
-          # @param [String] fragment
-          #   The fragment of text to match descriptions with.
-          #
-          # @return [Array<Model>]
-          #   The found models.
-          #
-          # @example
-          #   Exploit.describing 'bypass'
-          #
-          def self.describing(fragment)
-            self.all(:description.like => "%#{fragment}%")
+            value.each_line do |line|
+              sanitized_lines << line.strip
+            end
+
+            return sanitized_lines.join("\n").strip
           end
         end
+
       end
     end
   end

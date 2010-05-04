@@ -19,6 +19,7 @@
 #
 
 require 'ronin/model/lazy_upgrade'
+require 'ronin/model/types'
 
 require 'extlib'
 require 'dm-core'
@@ -33,6 +34,7 @@ module Ronin
   #
   module Model
     include DataMapper::Types
+    include Model::Types
 
     def self.included(base)
       base.module_eval do
@@ -44,6 +46,7 @@ module Ronin
         include DataMapper::Types
         include DataMapper::Migrations
         include Model::LazyUpgrade
+        include Model::Types
 
         #
         # The default name to use when defining relationships with the
