@@ -48,7 +48,7 @@ module Ronin
           else
             sanitized_lines = []
 
-            value.each_line do |line|
+            value.to_s.each_line do |line|
               sanitized_lines << line.strip
             end
 
