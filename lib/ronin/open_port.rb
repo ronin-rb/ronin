@@ -64,6 +64,8 @@ module Ronin
     # @return [Integer]
     #   The port number.
     #
+    # @since 0.4.0
+    #
     def to_i
       self.port.to_i
     end
@@ -73,6 +75,8 @@ module Ronin
     #
     # @return [String]
     #   The information of the open port.
+    #
+    # @since 0.4.0
     #
     def to_s
       str = self.port.to_s

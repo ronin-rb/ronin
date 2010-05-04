@@ -58,6 +58,8 @@ module Ronin
     # @return [MacAddress]
     #   The MAC Address that most recently used the IP Address.
     #
+    # @since 0.4.0
+    #
     def recent_mac_address
       relation = self.ip_address_mac_addresses.first(:order => [:created_at.desc])
 
@@ -71,6 +73,8 @@ module Ronin
     #
     # @return [HostName]
     #   The host name that most recently used by the IP Address.
+    #
+    # @since 0.4.0
     #
     def recent_host_name
       relation = self.host_name_ip_addresses.first(:order => [:created_at.desc])
@@ -86,6 +90,8 @@ module Ronin
     # @return [IPAddr]
     #   The IPAddr object representing either the IPv4 or IPv6 address.
     #
+    # @since 0.4.0
+    #
     def to_ip
       self.address
     end
@@ -96,6 +102,8 @@ module Ronin
     # @return [Integer]
     #   The network representation of the IP address.
     #
+    # @since 0.4.0
+    #
     def to_i
       self.address.to_i
     end
@@ -105,6 +113,8 @@ module Ronin
     #
     # @return [String]
     #   The address.
+    #
+    # @since 0.4.0
     #
     def to_s
       self.address.to_s

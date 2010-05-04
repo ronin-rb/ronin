@@ -98,6 +98,8 @@ module Ronin
     # @return [String]
     #   The address of host name.
     #
+    # @since 0.4.0
+    #
     def host
       self.host_name.address
     end
@@ -107,6 +109,8 @@ module Ronin
     #
     # @return [URI::HTTP, URI::HTTPS]
     #   The URI object created from the url attributes.
+    #
+    # @since 0.4.0
     #
     def to_uri
       url_class = if self.scheme == 'https'
@@ -136,6 +140,8 @@ module Ronin
     #
     # @return [String]
     #   The string form of the url.
+    #
+    # @since 0.4.0
     #
     def to_s
       self.to_uri.to_s

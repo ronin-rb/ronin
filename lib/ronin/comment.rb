@@ -57,6 +57,8 @@ module Ronin
     #   Returns `true` if the comment is valid, or an `Array` if the
     #   comment has no associations or more than one.
     #
+    # @since 0.4.0
+    #
     def check_comment_associations
       fields = [:address, :open_port, :url]
       all_nil = fields.all? { |name| self.send(name).nil? }
@@ -79,6 +81,8 @@ module Ronin
     #
     # @return [String]
     #   The body of the comment.
+    #
+    # @since 0.4.0
     #
     def to_s
       self.body.to_s

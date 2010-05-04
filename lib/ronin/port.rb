@@ -49,6 +49,8 @@ module Ronin
     # @return [Integer]
     #   The port number.
     #
+    # @since 0.4.0
+    #
     def to_i
       self.number.to_i
     end
@@ -58,6 +60,8 @@ module Ronin
     #
     # @return [String]
     #   The port number and protocol.
+    #
+    # @since 0.4.0
     #
     def to_s
       "#{self.number}/#{self.protocol}"

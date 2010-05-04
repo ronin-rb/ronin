@@ -45,6 +45,8 @@ module Ronin
     # @return [IpAddress]
     #   The IP Address that most recently used by the host name.
     #
+    # @since 0.4.0
+    #
     def recent_ip_address
       relation = self.host_name_ip_addresses.first(:order => [:created_at.desc])
 
@@ -58,6 +60,8 @@ module Ronin
     #
     # @return [String]
     #   The address of the host name.
+    #
+    # @since 0.4.0
     #
     def to_s
       self.address.to_s
