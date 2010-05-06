@@ -34,7 +34,7 @@ module Ronin
           include Ronin::Model
 
           # The description of the model
-          property :description, Description
+          property :description, Model::Types::Description
 
           #
           # Finds models with descriptions containing a given fragment of
