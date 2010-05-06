@@ -37,7 +37,7 @@ module Ronin
 
     # The Address
     property :address, String, :required => true,
-      :unique => true
+                               :unique => true
 
     # The optional organization the host belongs to
     belongs_to :organization, :required => false
