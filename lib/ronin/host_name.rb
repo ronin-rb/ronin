@@ -36,9 +36,6 @@ module Ronin
     has 0..n, :ip_addresses, :through => :host_name_ip_addresses,
                              :model => 'IPAddress'
 
-    # Any comments associated with the host name
-    has 0..n, :comments
-
     #
     # The IP Address that was most recently used by the host name.
     #
