@@ -19,7 +19,6 @@
 #
 
 require 'ronin/platform/platform'
-require 'ronin/platform/ronin'
 
 module Ronin
   Platform.overlays
