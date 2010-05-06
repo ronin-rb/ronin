@@ -20,6 +20,4 @@
 
 require 'ronin/platform/platform'
 
-module Ronin
-  Platform.overlays
-end
+Ronin::Platform.overlays
