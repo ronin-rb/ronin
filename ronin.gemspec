@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-05-05}
+  s.date = %q{2010-05-08}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin-console", "ronin-update", "ronin-uninstall", "ronin-add", "ronin", "ronin-list", "ronin-install", "ronin-database", "ronin-help"]
@@ -66,6 +66,8 @@ Gem::Specification.new do |s|
     "lib/ronin/model/has_version.rb",
     "lib/ronin/model/lazy_upgrade.rb",
     "lib/ronin/model/model.rb",
+    "lib/ronin/model/types.rb",
+    "lib/ronin/model/types/description.rb",
     "lib/ronin/network/mixins.rb",
     "lib/ronin/network/mixins/esmtp.rb",
     "lib/ronin/network/mixins/http.rb",
@@ -111,6 +113,7 @@ Gem::Specification.new do |s|
     "lib/ronin/tcp_port.rb",
     "lib/ronin/udp_port.rb",
     "lib/ronin/ui.rb",
+    "lib/ronin/ui/async_console.rb",
     "lib/ronin/ui/command_line.rb",
     "lib/ronin/ui/command_line/command.rb",
     "lib/ronin/ui/command_line/command_line.rb",
@@ -304,12 +307,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<ronin-support>, ["~> 0.1.0"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
-      s.add_development_dependency(%q<ruby-graphviz>, ["~> 0.9.10"])
-      s.add_development_dependency(%q<dm-visualizer>, ["~> 0.1.0"])
-      s.add_development_dependency(%q<yard>, ["~> 0.5.3"])
-      s.add_development_dependency(%q<yard-parameters>, ["~> 0.1.0"])
-      s.add_development_dependency(%q<yard-dm>, ["~> 0.1.1"])
-      s.add_development_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
       s.add_development_dependency(%q<bundler>, ["~> 0.9.23"])
     else
@@ -333,12 +330,6 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
-      s.add_dependency(%q<ruby-graphviz>, ["~> 0.9.10"])
-      s.add_dependency(%q<dm-visualizer>, ["~> 0.1.0"])
-      s.add_dependency(%q<yard>, ["~> 0.5.3"])
-      s.add_dependency(%q<yard-parameters>, ["~> 0.1.0"])
-      s.add_dependency(%q<yard-dm>, ["~> 0.1.1"])
-      s.add_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
       s.add_dependency(%q<rspec>, ["~> 1.3.0"])
       s.add_dependency(%q<bundler>, ["~> 0.9.23"])
     end
@@ -363,12 +354,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
-    s.add_dependency(%q<ruby-graphviz>, ["~> 0.9.10"])
-    s.add_dependency(%q<dm-visualizer>, ["~> 0.1.0"])
-    s.add_dependency(%q<yard>, ["~> 0.5.3"])
-    s.add_dependency(%q<yard-parameters>, ["~> 0.1.0"])
-    s.add_dependency(%q<yard-dm>, ["~> 0.1.1"])
-    s.add_dependency(%q<yard-dm-predefined>, ["~> 0.1.0"])
     s.add_dependency(%q<rspec>, ["~> 1.3.0"])
     s.add_dependency(%q<bundler>, ["~> 0.9.23"])
   end
