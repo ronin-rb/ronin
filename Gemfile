@@ -28,6 +28,13 @@ group :development do
 end
 
 group :doc do
+  case RUBY_ENGINE
+  when 'jruby'
+    gem 'maruku',	'~> 0.6.0'
+  else
+    gem 'rdiscount',	'~> 1.6.3'
+  end
+
   gem 'ruby-graphviz',		'~> 0.9.10'
   gem 'dm-visualizer',		'~> 0.1.0', :git => 'git://github.com/postmodern/dm-visualizer.git'
   gem 'yard',			'~> 0.5.3'
