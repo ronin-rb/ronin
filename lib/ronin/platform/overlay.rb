@@ -30,6 +30,9 @@ require 'ronin/model'
 
 require 'pullr'
 require 'data_paths'
+
+# require 'java' to work around a nokogiri/jruby bug
+require 'java' if RUBY_PLATFORM.include?('java')
 require 'nokogiri'
 
 module Ronin
