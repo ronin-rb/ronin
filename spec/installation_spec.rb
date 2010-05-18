@@ -42,8 +42,8 @@ describe Installation do
   end
 
   describe "each_file" do
-    it "should enumerate over every file from every Ronin library" do
-      Installation.each_file.to_a.should == %w{
+    before(:all) do
+      @expected = %w[
         lib/ronin/ui/command_line/commands/add.rb
         lib/ronin/ui/command_line/commands/console.rb
         lib/ronin/ui/command_line/commands/database.rb
@@ -56,21 +56,23 @@ describe Installation do
         lib/ronin/ui/command_line/commands/exploits.rb
         lib/ronin/ui/command_line/commands/payload.rb
         lib/ronin/ui/command_line/commands/payloads.rb
-      }
+      ]
+    end
+    it "should enumerate over every file from every Ronin library" do
+      Installation.each_file.to_a.should == @expected
     end
 
     it "should return an Enumerator when no block is given" do
-      Installation.each_file.class.should == Enumerator
+      Installation.each_file.all? { |file|
+        @expected.include?(file)
+      }.should == true
     end
   end
 
   describe "each_file_in" do
     before(:all) do
       @directory = 'lib/ronin/ui/command_line/commands'
-    end
-
-    it "should enumerate over the files within a certain directory" do
-      Installation.each_file_in(@directory).to_a.should == %w{
+      @expected = %w[
         add.rb
         console.rb
         database.rb
@@ -83,11 +85,17 @@ describe Installation do
         exploits.rb
         payload.rb
         payloads.rb
-      }
+      ]
+    end
+
+    it "should enumerate over the files within a certain directory" do
+      Installation.each_file_in(@directory).to_a.should == @expected
     end
 
     it "should return an Enumerator when no block is given" do
-      Installation.each_file_in(@directory).class.should == Enumerator
+      Installation.each_file_in(@directory).all? { |file|
+        @expected.include?(file)
+      }.should == true
     end
   end
 end
