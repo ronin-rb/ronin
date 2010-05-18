@@ -49,6 +49,10 @@ module Ronin
           Installation.each_file_in(commands_dir) do |path|
             # remove the .rb file extension
             name = path.chomp('.rb')
+
+            # replace any file separators with a ':', to mimic the
+            # naming convention of Rake/Thor.
+            name.tr!(File::SEPARATOR,':')
             
             # replace all _ and - characters with a single _
             name.gsub!(/[_-]+/,'_')
