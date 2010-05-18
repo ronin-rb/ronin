@@ -81,11 +81,14 @@ module Ronin
     # @yieldparam [Gem::Specification] gem
     #   The RubyGem that the file belongs to.
     #
-    # @return [nil]
-    # 
+    # @return [Enumerator]
+    #   Returns an Enumerator if no block is given.
+    #
     # @since 0.4.0
     #
     def Installation.each_file(&block)
+      return enum_for(:each_file) unless block
+
       Installation.gems.each do |name,gem|
         gem.files.each do |file|
           if block.arity == 2
@@ -112,11 +115,14 @@ module Ronin
     # @yieldparam [String] file
     #   The sub-path to the file found within the directory.
     #
-    # @return [nil]
+    # @return [Enumerator]
+    #   Returns an Enumerator if no block is given.
     #
     # @since 0.4.0
     #
     def Installation.each_file_in(directory)
+      return enum_for(:each_file_in,directory) unless block_given?
+
       directory = File.join(directory,'')
 
       Installation.each_file do |file,gem|
