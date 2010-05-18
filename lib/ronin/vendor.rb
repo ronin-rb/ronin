@@ -18,33 +18,36 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/database/database'
+require 'ronin/model'
 
-Ronin::Database.upgrade do
-  require 'ronin/author'
-  require 'ronin/license'
-  require 'ronin/arch'
-  require 'ronin/os'
-  require 'ronin/product'
-  require 'ronin/vendor'
-  require 'ronin/country'
-  require 'ronin/address'
-  require 'ronin/mac_address'
-  require 'ronin/ip_address_mac_address'
-  require 'ronin/ip_address'
-  require 'ronin/host_name_ip_address'
-  require 'ronin/host_name'
-  require 'ronin/port'
-  require 'ronin/tcp_port'
-  require 'ronin/udp_port'
-  require 'ronin/service'
-  require 'ronin/open_port'
-  require 'ronin/url'
-  require 'ronin/credential'
-  require 'ronin/service_credential'
-  require 'ronin/site_credential'
-  require 'ronin/comment'
-  require 'ronin/organization'
-  require 'ronin/target'
-  require 'ronin/campaign'
+module Ronin
+  #
+  # Represents a Software Vendor.
+  #
+  class Vendor
+
+    include Model
+
+    # The primary-key of the vendor
+    property :id, Serial
+
+    # The name of the vendor
+    property :name, String, :required => true, :unique => true
+
+    # Products published by the vendor
+    has 0..n, :products
+
+    #
+    # Converts the vendor to a String.
+    #
+    # @return [String]
+    #   The name of the vendor.
+    #
+    # @since 0.4.0
+    #
+    def to_s
+      self.name.to_s
+    end
+
+  end
 end

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-05-08}
+  s.date = %q{2010-05-17}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin-console", "ronin-update", "ronin-uninstall", "ronin-add", "ronin", "ronin-list", "ronin-install", "ronin-database", "ronin-help"]
@@ -96,6 +96,7 @@ Gem::Specification.new do |s|
     "lib/ronin/platform/overlays.rb",
     "lib/ronin/platform/platform.rb",
     "lib/ronin/port.rb",
+    "lib/ronin/product.rb",
     "lib/ronin/rpc.rb",
     "lib/ronin/rpc/call.rb",
     "lib/ronin/rpc/client.rb",
@@ -140,6 +141,7 @@ Gem::Specification.new do |s|
     "lib/ronin/ui/output/output.rb",
     "lib/ronin/ui/shell.rb",
     "lib/ronin/url.rb",
+    "lib/ronin/vendor.rb",
     "lib/ronin/version.rb",
     "ronin.gemspec",
     "spec/arch_spec.rb",
@@ -226,7 +228,7 @@ Gem::Specification.new do |s|
   * ronin-web
   }
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.7}
   s.summary = %q{A Ruby platform for exploit development and security research.}
   s.test_files = [
     "spec/arch_spec.rb",
@@ -286,7 +288,7 @@ Gem::Specification.new do |s|
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_runtime_dependency(%q<extlib>, ["~> 0.9.14"])
       s.add_runtime_dependency(%q<data_objects>, ["~> 0.10.1"])
