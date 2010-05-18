@@ -52,6 +52,12 @@ module Ronin
     # Ports of the host
     has 0..n, :open_ports
 
+    # Any OS guesses against the IP Address
+    has 0..n, :os_guesses
+
+    # Any OSes that the IP Address might be running
+    has 0..n, :oses, :through => :os_guesses
+
     #
     # The MAC Address that was most recently used by the IP Address.
     #
@@ -81,6 +87,22 @@ module Ronin
 
       if relation
         return relation.host_name
+      end
+    end
+
+    #
+    # The Operating System that was most recently guessed for the IP Address.
+    #
+    # @return [OS]
+    #   The Operating System that most recently was guessed.
+    #
+    # @since 0.4.0
+    #
+    def recent_os_guess
+      relation = self.os_guesses.first(:order => [:created_at.desc])
+
+      if relation
+        return relation.os
       end
     end
 

@@ -80,6 +80,7 @@ Gem::Specification.new do |s|
     "lib/ronin/open_port.rb",
     "lib/ronin/organization.rb",
     "lib/ronin/os.rb",
+    "lib/ronin/os_guess.rb",
     "lib/ronin/platform.rb",
     "lib/ronin/platform/cacheable.rb",
     "lib/ronin/platform/cached_file.rb",

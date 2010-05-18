@@ -42,6 +42,30 @@ module Ronin
     # Version of the Operating System
     property :version, String, :index => true
 
+    # Any OS guesses for the Operating System
+    has 0..n, :os_guesses
+
+    # Any IP Addresses that might be running the Operating System
+    has 0..n, :ip_addresses, :through => :os_guesses
+
+    #
+    # The IP Address that was most recently guessed to be using the
+    # Operating System.
+    #
+    # @return [IPAddress]
+    #   The IP Address most recently guessed to be using the
+    #   Operating System.
+    #
+    # @since 0.4.0
+    #
+    def recent_ip_address
+      relation = self.os_guesses.first(:order => [:created_at.desc])
+
+      if relation
+        return relation.ip_address
+      end
+    end
+
     #
     # Converts the os to a String.
     #
