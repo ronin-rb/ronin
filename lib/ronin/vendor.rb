@@ -35,7 +35,7 @@ module Ronin
     property :name, String, :required => true, :unique => true
 
     # Products published by the vendor
-    has 0..n, :products
+    has 0..n, :software, :model => 'Software'
 
     #
     # Converts the vendor to a String.

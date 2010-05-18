@@ -25,7 +25,7 @@ Ronin::Database.upgrade do
   require 'ronin/license'
   require 'ronin/arch'
   require 'ronin/os'
-  require 'ronin/product'
+  require 'ronin/software'
   require 'ronin/vendor'
   require 'ronin/country'
   require 'ronin/address'

@@ -23,9 +23,9 @@ require 'ronin/vendor'
 
 module Ronin
   #
-  # Represents a Software Product.
+  # Represents a Software product.
   #
-  class Product
+  class Software
 
     include Model
 
