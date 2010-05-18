@@ -196,11 +196,13 @@ Gem::Specification.new do |s|
     "spec/platform/overlay_spec.rb",
     "spec/platform/platform_spec.rb",
     "spec/ronin_spec.rb",
+    "spec/software_spec.rb",
     "spec/spec_helper.rb",
     "spec/ui/command_line/classes/test_command.rb",
     "spec/ui/command_line/command_spec.rb",
     "spec/ui/output_spec.rb",
-    "spec/url_spec.rb"
+    "spec/url_spec.rb",
+    "spec/vendor_spec.rb"
   ]
   s.has_rdoc = %q{yard}
   s.homepage = %q{http://github.com/ronin-ruby/ronin}
@@ -277,11 +279,13 @@ Gem::Specification.new do |s|
     "spec/platform/overlay_spec.rb",
     "spec/platform/platform_spec.rb",
     "spec/ronin_spec.rb",
+    "spec/software_spec.rb",
     "spec/spec_helper.rb",
     "spec/ui/command_line/classes/test_command.rb",
     "spec/ui/command_line/command_spec.rb",
     "spec/ui/output_spec.rb",
-    "spec/url_spec.rb"
+    "spec/url_spec.rb",
+    "spec/vendor_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
