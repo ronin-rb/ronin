@@ -1,11 +1,8 @@
 require 'spec_helper'
+require 'platform/spec_helper'
 require 'ronin/platform/platform'
 
-require 'platform/helpers/overlays'
-
 describe Platform do
-  include Helpers::Overlays
-
   it "should auto_upgrade the Platform::Maintainer model" do
     Platform::Maintainer.should be_auto_upgraded
   end

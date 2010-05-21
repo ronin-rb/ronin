@@ -1,8 +1,6 @@
 require 'spec_helper'
 require 'ronin/arch'
 
-require 'helpers/database'
-
 describe Arch do
   it "should require a name, endian and address_length attributes" do
     arch = Arch.new

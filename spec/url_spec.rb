@@ -1,7 +1,6 @@
-require 'ronin/url'
-
 require 'spec_helper'
-require 'helpers/database'
+
+require 'ronin/url'
 
 describe URL do
   it "should have a default path" do

@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'ronin/vendor'
 
-require 'helpers/database'
+require 'ronin/vendor'
 
 describe Vendor do
   it "should require name attribute" do

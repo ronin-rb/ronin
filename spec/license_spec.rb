@@ -1,8 +1,6 @@
 require 'spec_helper'
 require 'ronin/license'
 
-require 'helpers/database'
-
 describe License do
   it "should require name and description attributes" do
     license = License.new

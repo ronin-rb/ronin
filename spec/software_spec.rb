@@ -1,8 +1,6 @@
 require 'spec_helper'
 require 'ronin/software'
 
-require 'helpers/database'
-
 describe Software do
   it "should require name and version attributes" do
     software = Software.new

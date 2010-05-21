@@ -1,8 +1,6 @@
 require 'spec_helper'
 require 'ronin/os'
 
-require 'helpers/database'
-
 describe OS do
   it "should require a name" do
     os = OS.new
