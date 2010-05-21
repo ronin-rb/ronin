@@ -41,7 +41,7 @@ module Ronin
     # The open ports
     has 1..n, :open_ports
 
-    validates_is_unique :number, :scope => [:protocol]
+    validates_uniqueness_of :number, :scope => [:protocol]
 
     #
     # Converts the port to an integer.

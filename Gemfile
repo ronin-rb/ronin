@@ -1,18 +1,27 @@
 source 'http://rubygems.org'
-ronin_ruby = "git://github.com/ronin-ruby"
+datamapper = 'git://github.com/datamapper'
+ronin_ruby = 'git://github.com/ronin-ruby'
 
 group :runtime do
   gem 'nokogiri',	'~> 1.4.1'
   gem 'extlib',		'~> 0.9.14'
-  gem 'data_objects',	'~> 0.10.1'
-  gem 'do_sqlite3',	'~> 0.10.1'
-  gem 'dm-core',	'~> 0.10.2'
-  gem 'dm-types',	'~> 0.10.2'
-  gem 'dm-validations',	'~> 0.10.2'
-  gem 'dm-aggregates',	'~> 0.10.2'
-  gem 'dm-timestamps',	'~> 0.10.2'
-  gem 'dm-tags',	'~> 0.10.1'
-  gem 'dm-predefined',	'~> 0.2.3'
+
+  # DataMapper adapters
+  gem 'dm-do-adapter',		'~> 1.0.0.rc2', :git => "#{datamapper}/dm-do-adapter.git"
+  gem 'dm-sqlite-adapter',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-sqlite-adapter.git"
+
+  # DataMapper dependencies
+  gem 'dm-core',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-core.git"
+  gem 'dm-types',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-types.git"
+  gem 'dm-migrations',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-migrations.git"
+  gem 'dm-validations',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-validations.git"
+  gem 'dm-aggregates',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-aggregates.git"
+  gem 'dm-timestamps',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-timestamps.git"
+  gem 'dm-tags',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-tags.git"
+
+  # DataMapper plugins
+  gem 'dm-is-predefined',	'~> 0.3.0', :git => 'git://github.com/postmodern/dm-is-predefined.git', :branch => 'dm-1.0.0'
+
   gem 'open_namespace',	'~> 0.3.0'
   gem 'parameters',	'~> 0.2.1'
   gem 'data_paths',	'~> 0.2.1'
@@ -41,7 +50,7 @@ group :doc do
   gem 'yard-contextify',	'~> 0.1.0', :git => 'git://github.com/postmodern/yard-contextify.git'
   gem 'yard-parameters',	'~> 0.1.0'
   gem 'yard-dm',		'~> 0.1.1'
-  gem 'yard-dm-predefined',	'~> 0.1.0'
+  gem 'yard-dm-is-predefined',	'~> 0.2.0', :git => 'git://github.com/postmodern/yard-dm-is-predefined.git'
 end
 
 gem 'rspec',	'~> 1.3.0', :group => [:development, :test]

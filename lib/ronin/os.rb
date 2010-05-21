@@ -20,6 +20,7 @@
 
 require 'ronin/model'
 require 'ronin/os_guess'
+require 'ronin/ip_address'
 require 'ronin/extensions/meta'
 
 require 'extlib'

@@ -23,6 +23,7 @@ require 'ronin/address'
 require 'ronin/ip_address_mac_address'
 require 'ronin/host_name_ip_address'
 require 'ronin/os_guess'
+require 'ronin/os'
 
 require 'ipaddr'
 
@@ -34,8 +35,8 @@ module Ronin
                                 :required => true
 
     # The IP Address
-    property :address, Types::IPAddress, :required => true,
-                                         :unique => true
+    property :address, Property::IPAddress, :required => true,
+                                            :unique => true
 
     # The MAC Addresses associations
     has 0..n, :ip_address_mac_addresses, :model => 'IPAddressMACAddress'

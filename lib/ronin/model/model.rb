@@ -24,6 +24,7 @@ require 'ronin/model/types'
 require 'extlib'
 require 'dm-core'
 require 'dm-types'
+require 'dm-migrations'
 require 'dm-validations'
 require 'dm-aggregates'
 
