@@ -18,10 +18,11 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/model'
 require 'ronin/address'
 require 'ronin/ip_address_mac_address'
 require 'ronin/host_name_ip_address'
-require 'ronin/model'
+require 'ronin/os_guess'
 
 require 'ipaddr'
 
@@ -53,10 +54,12 @@ module Ronin
     has 0..n, :open_ports
 
     # Any OS guesses against the IP Address
-    has 0..n, :os_guesses
+    has 0..n, :os_guesses, :model => 'OSGuess'
 
     # Any OSes that the IP Address might be running
-    has 0..n, :oses, :through => :os_guesses
+    has 0..n, :oses, :through => :os_guesses,
+                     :model => 'OS',
+                     :child_key => :os
 
     #
     # The MAC Address that was most recently used by the IP Address.

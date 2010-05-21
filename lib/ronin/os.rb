@@ -19,6 +19,7 @@
 #
 
 require 'ronin/model'
+require 'ronin/os_guess'
 require 'ronin/extensions/meta'
 
 require 'extlib'
@@ -43,10 +44,12 @@ module Ronin
     property :version, String, :index => true
 
     # Any OS guesses for the Operating System
-    has 0..n, :os_guesses
+    has 0..n, :os_guesses, :model => 'OSGuess'
 
     # Any IP Addresses that might be running the Operating System
-    has 0..n, :ip_addresses, :through => :os_guesses
+    has 0..n, :ip_addresses, :through => :os_guesses,
+                             :model => 'IPAddress',
+                             :child_key => :ip_address
 
     #
     # The IP Address that was most recently guessed to be using the
