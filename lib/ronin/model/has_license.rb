@@ -21,6 +21,11 @@
 require 'ronin/model/model'
 require 'ronin/license'
 
+<<<<<<< HEAD
+=======
+require 'active_support/inflector'
+
+>>>>>>> Replace extlib method-calls with activesupport equivalents.
 module Ronin
   module Model
     #

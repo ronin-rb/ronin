@@ -23,8 +23,6 @@ require 'ronin/os_guess'
 require 'ronin/ip_address'
 require 'ronin/extensions/meta'
 
-require 'extlib'
-
 module Ronin
   #
   # Represents an Operating System and predefines other common ones

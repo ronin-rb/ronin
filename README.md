@@ -119,8 +119,8 @@ View available commands:
 * [nokogiri](http://nokogiri.rubyforge.org/) ~> 1.3.3
   * [libxml2](http://xmlsoft.org/)
   * [libxslt1](http://xmlsoft.org/XSLT/)
+* [ActiveSupport](http://rubygems.org/gems/activesupport) >= 3.0.0
 * [DataMapper](http://datamapper.org/):
-  * extlib ~> 0.9.14
   * data_objects ~> 0.10.1
   * do_sqlite3 ~> 0.10.1
     * [libsqlite3](http://sqlite.org/)

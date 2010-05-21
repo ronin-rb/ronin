@@ -4,7 +4,7 @@ ronin_ruby = 'git://github.com/ronin-ruby'
 
 group :runtime do
   gem 'nokogiri',	'~> 1.4.1'
-  gem 'extlib',		'~> 0.9.14'
+  gem 'activesupport',	'~> 3.0.0.beta3'
 
   # DataMapper adapters
   gem 'dm-do-adapter',		'~> 1.0.0.rc2', :git => "#{datamapper}/dm-do-adapter.git"

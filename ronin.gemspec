@@ -295,11 +295,12 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<nokogiri>, ["~> 1.4.1"])
-      s.add_runtime_dependency(%q<extlib>, ["~> 0.9.14"])
+      s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
       s.add_runtime_dependency(%q<dm-do-adapter>, ["~> 1.0.0.rc2"])
       s.add_runtime_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0.rc2"])
       s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.0.rc2"])
       s.add_runtime_dependency(%q<dm-types>, ["~> 1.0.0.rc2"])
+      s.add_runtime_dependency(%q<dm-migrations>, ["~> 1.0.0.rc2"])
       s.add_runtime_dependency(%q<dm-validations>, ["~> 1.0.0.rc2"])
       s.add_runtime_dependency(%q<dm-aggregates>, ["~> 1.0.0.rc2"])
       s.add_runtime_dependency(%q<dm-timestamps>, ["~> 1.0.0.rc2"])
@@ -318,11 +319,12 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, ["~> 0.9.23"])
     else
       s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
-      s.add_dependency(%q<extlib>, ["~> 0.9.14"])
+      s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
       s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0.rc2"])
       s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0.rc2"])
       s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc2"])
       s.add_dependency(%q<dm-types>, ["~> 1.0.0.rc2"])
+      s.add_dependency(%q<dm-migrations>, ["~> 1.0.0.rc2"])
       s.add_dependency(%q<dm-validations>, ["~> 1.0.0.rc2"])
       s.add_dependency(%q<dm-aggregates>, ["~> 1.0.0.rc2"])
       s.add_dependency(%q<dm-timestamps>, ["~> 1.0.0.rc2"])
@@ -342,11 +344,12 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
-    s.add_dependency(%q<extlib>, ["~> 0.9.14"])
+    s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
     s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0.rc2"])
     s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0.rc2"])
     s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc2"])
     s.add_dependency(%q<dm-types>, ["~> 1.0.0.rc2"])
+    s.add_dependency(%q<dm-migrations>, ["~> 1.0.0.rc2"])
     s.add_dependency(%q<dm-validations>, ["~> 1.0.0.rc2"])
     s.add_dependency(%q<dm-aggregates>, ["~> 1.0.0.rc2"])
     s.add_dependency(%q<dm-timestamps>, ["~> 1.0.0.rc2"])
