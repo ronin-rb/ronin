@@ -12,9 +12,9 @@ end
 require 'spec'
 require 'ronin/database'
 
-Spec::Runner.configure do |spec|
-  include Ronin
+include Ronin
 
+Spec::Runner.configure do |spec|
   spec.before(:suite) do
     Database.repositories[:default] = 'sqlite3::memory:'
 

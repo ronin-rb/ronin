@@ -3,7 +3,7 @@ require 'platform/helpers/overlays'
 require 'ronin/platform'
 
 Spec::Runner.configure do |spec|
-  include Helpers::Overlays
+  spec.include Helpers::Overlays
 
   spec.before(:suite) do
     Platform::Overlay.create!(
