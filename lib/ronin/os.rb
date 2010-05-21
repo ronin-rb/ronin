@@ -48,7 +48,7 @@ module Ronin
     # Any IP Addresses that might be running the Operating System
     has 0..n, :ip_addresses, :through => :os_guesses,
                              :model => 'IPAddress',
-                             :child_key => :ip_address
+                             :via => :ip_address
 
     #
     # The IP Address that was most recently guessed to be using the

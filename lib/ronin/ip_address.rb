@@ -60,7 +60,7 @@ module Ronin
     # Any OSes that the IP Address might be running
     has 0..n, :oses, :through => :os_guesses,
                      :model => 'OS',
-                     :child_key => :os
+                     :via => :os
 
     #
     # The MAC Address that was most recently used by the IP Address.
