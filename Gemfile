@@ -16,7 +16,7 @@ group :runtime do
   gem 'open_namespace',	'~> 0.3.0'
   gem 'parameters',	'~> 0.2.1'
   gem 'data_paths',	'~> 0.2.1'
-  gem 'contextify',	'~> 0.1.5'
+  gem 'contextify',	'~> 0.1.6'
   gem 'pullr',		'~> 0.1.2'
   gem 'thor',		'~> 0.13.0'
   gem 'ronin-support',	'~> 0.1.0', :git => "#{ronin_ruby}/ronin-support.git"
@@ -38,7 +38,7 @@ group :doc do
   gem 'ruby-graphviz',		'~> 0.9.10'
   gem 'dm-visualizer',		'~> 0.1.0', :git => 'git://github.com/postmodern/dm-visualizer.git'
   gem 'yard',			'~> 0.5.3'
-  gem 'yard-contextify',	'~> 0.1.0', :git => 'git://github.com/postmodern/yard-contextify.git'
+  gem 'yard-contextify',	'~> 0.1.0'
   gem 'yard-parameters',	'~> 0.1.0'
   gem 'yard-dm',		'~> 0.1.1'
   gem 'yard-dm-predefined',	'~> 0.1.0'

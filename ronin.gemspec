@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-05-17}
+  s.date = %q{2010-05-23}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin-console", "ronin-update", "ronin-uninstall", "ronin-add", "ronin", "ronin-list", "ronin-install", "ronin-database", "ronin-help"]
@@ -308,7 +308,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<open_namespace>, ["~> 0.3.0"])
       s.add_runtime_dependency(%q<parameters>, ["~> 0.2.1"])
       s.add_runtime_dependency(%q<data_paths>, ["~> 0.2.1"])
-      s.add_runtime_dependency(%q<contextify>, ["~> 0.1.5"])
+      s.add_runtime_dependency(%q<contextify>, ["~> 0.1.6"])
       s.add_runtime_dependency(%q<pullr>, ["~> 0.1.2"])
       s.add_runtime_dependency(%q<thor>, ["~> 0.13.0"])
       s.add_runtime_dependency(%q<ronin-support>, ["~> 0.1.0"])
@@ -331,7 +331,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
       s.add_dependency(%q<parameters>, ["~> 0.2.1"])
       s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
-      s.add_dependency(%q<contextify>, ["~> 0.1.5"])
+      s.add_dependency(%q<contextify>, ["~> 0.1.6"])
       s.add_dependency(%q<pullr>, ["~> 0.1.2"])
       s.add_dependency(%q<thor>, ["~> 0.13.0"])
       s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
@@ -355,7 +355,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
     s.add_dependency(%q<parameters>, ["~> 0.2.1"])
     s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
-    s.add_dependency(%q<contextify>, ["~> 0.1.5"])
+    s.add_dependency(%q<contextify>, ["~> 0.1.6"])
     s.add_dependency(%q<pullr>, ["~> 0.1.2"])
     s.add_dependency(%q<thor>, ["~> 0.13.0"])
     s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
