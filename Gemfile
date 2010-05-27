@@ -7,17 +7,17 @@ group :runtime do
   gem 'activesupport',	'~> 3.0.0.beta3'
 
   # DataMapper adapters
-  gem 'dm-do-adapter',		'~> 1.0.0.rc2', :git => "#{datamapper}/dm-do-adapter.git"
-  gem 'dm-sqlite-adapter',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-sqlite-adapter.git"
+  gem 'dm-do-adapter',		'~> 1.0.0.rc3', :git => "#{datamapper}/dm-do-adapter.git"
+  gem 'dm-sqlite-adapter',	'~> 1.0.0.rc3', :git => "#{datamapper}/dm-sqlite-adapter.git"
 
   # DataMapper dependencies
-  gem 'dm-core',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-core.git"
-  gem 'dm-types',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-types.git"
-  gem 'dm-migrations',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-migrations.git"
-  gem 'dm-validations',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-validations.git"
-  gem 'dm-aggregates',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-aggregates.git"
-  gem 'dm-timestamps',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-timestamps.git"
-  gem 'dm-tags',	'~> 1.0.0.rc2', :git => "#{datamapper}/dm-tags.git"
+  gem 'dm-core',	'~> 1.0.0.rc3', :git => "#{datamapper}/dm-core.git"
+  gem 'dm-types',	'~> 1.0.0.rc3', :git => "#{datamapper}/dm-types.git"
+  gem 'dm-migrations',	'~> 1.0.0.rc3', :git => "#{datamapper}/dm-migrations.git"
+  gem 'dm-validations',	'~> 1.0.0.rc3', :git => "#{datamapper}/dm-validations.git"
+  gem 'dm-aggregates',	'~> 1.0.0.rc3', :git => "#{datamapper}/dm-aggregates.git"
+  gem 'dm-timestamps',	'~> 1.0.0.rc3', :git => "#{datamapper}/dm-timestamps.git"
+  gem 'dm-tags',	'~> 1.0.0.rc3', :git => "#{datamapper}/dm-tags.git"
 
   # DataMapper plugins
   gem 'dm-is-predefined',	'~> 0.3.0', :git => 'git://github.com/postmodern/dm-is-predefined.git', :branch => 'dm-1.0.0'
