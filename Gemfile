@@ -36,7 +36,7 @@ group :doc do
   end
 
   gem 'ruby-graphviz',		'~> 0.9.10'
-  gem 'dm-visualizer',		'~> 0.1.0', :git => 'git://github.com/postmodern/dm-visualizer.git'
+  gem 'dm-visualizer',		'~> 0.1.0'
   gem 'yard',			'~> 0.5.3'
   gem 'yard-contextify',	'~> 0.1.0'
   gem 'yard-parameters',	'~> 0.1.0'
