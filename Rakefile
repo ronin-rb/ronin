@@ -58,8 +58,10 @@ end
 
 task :default => :spec
 
-require 'dm-visualizer/rake/library/graphviz_task'
-DataMapper::Visualizer::Rake::Library::GraphVizTask.new(
+require 'dm-visualizer/rake/graphviz_task'
+DataMapper::Visualizer::Rake::GraphVizTask.new(
+  :bundle => [:runtime],
+  :include => ['lib'],
   :require => ['ronin/database', 'ronin/platform']
 )
 
