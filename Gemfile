@@ -20,7 +20,7 @@ group :runtime do
   gem 'dm-tags',	'~> 1.0.0.rc3', :git => "#{datamapper}/dm-tags.git"
 
   # DataMapper plugins
-  gem 'dm-is-predefined',	'~> 0.3.0', :git => 'git://github.com/postmodern/dm-is-predefined.git', :branch => 'dm-1.0.0'
+  gem 'dm-is-predefined',	'~> 0.3.0', :git => 'git://github.com/postmodern/dm-is-predefined.git'
 
   gem 'open_namespace',	'~> 0.3.0'
   gem 'parameters',	'~> 0.2.1'
