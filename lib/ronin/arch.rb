@@ -20,7 +20,7 @@
 
 require 'ronin/model'
 
-require 'dm-predefined'
+require 'dm-is-predefined'
 
 module Ronin
   #
@@ -32,7 +32,8 @@ module Ronin
   class Arch
 
     include Model
-    include DataMapper::Predefined
+
+    is :predefined
 
     # Primary key
     property :id, Serial

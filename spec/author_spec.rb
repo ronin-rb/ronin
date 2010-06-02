@@ -1,8 +1,6 @@
 require 'spec_helper'
 require 'ronin/author'
 
-require 'helpers/database'
-
 describe Author do
   it "should have a String representation" do
     author = Author.new(:name => 'test')

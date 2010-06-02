@@ -29,14 +29,11 @@ module Ronin
 
     include Model
 
-    # Primary key
-    property :id, Serial
-
     # The IP Address the OS guess was made against
-    belongs_to :ip_address, :model => 'IPAddress'
+    belongs_to :ip_address, :key => true, :model => 'IPAddress'
 
     # The guessed OS
-    belongs_to :os, :model => 'OS'
+    belongs_to :os, :key => true, :model => 'OS'
 
     # Tracks when an OS guess is made against an IP Address
     timestamps :created_at

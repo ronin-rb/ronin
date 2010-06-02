@@ -23,9 +23,7 @@ require 'dm-core'
 module Ronin
   module Model
     module Types
-      class Description < DataMapper::Type
-
-        primitive DataMapper::Types::Text
+      class Description < DataMapper::Property::Text
 
         #
         # Typecasts the description.

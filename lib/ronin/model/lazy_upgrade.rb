@@ -45,7 +45,7 @@ module Ronin
           # @param [Symbol] repository
           #   The repository to be migrated
           #
-          def auto_migrate!(repository=self.repository_name)
+          def auto_migrate!(repository=nil)
             result = super(repository)
 
             @auto_upgraded = true
@@ -59,7 +59,7 @@ module Ronin
           # @param [Symbol] repository
           #   The repository to be migrated 
           #
-          def auto_upgrade!(repository=self.repository_name)
+          def auto_upgrade!(repository=nil)
             result = super(repository)
 
             @auto_upgraded = true

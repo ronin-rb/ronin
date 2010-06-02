@@ -1,11 +1,9 @@
 require 'spec_helper'
+require 'platform/spec_helper'
+
 require 'ronin/platform/overlay_cache'
 
-require 'platform/helpers/overlays'
-
 describe Platform::OverlayCache do
-  include Helpers::Overlays
-
   before(:all) do
     @cache = Platform::OverlayCache.new
   end

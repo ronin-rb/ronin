@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'platform/spec_helper'
+
 require 'ronin/platform/maintainer'
 
 describe Platform::Maintainer do

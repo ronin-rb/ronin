@@ -22,7 +22,8 @@ require 'ronin/platform/overlay_cache'
 require 'ronin/platform/extension_cache'
 
 require 'uri'
-require 'extlib'
+require 'pullr'
+require 'active_support/inflector'
 
 module Ronin
   module Platform
@@ -134,7 +135,7 @@ module Ronin
     #
     def Platform.const_missing(name)
       name = name.to_s
-      ext_name = name.snake_case
+      ext_name = name.underscore
 
       if Platform.has_extension?(ext_name)
         return Platform.extension(ext_name)

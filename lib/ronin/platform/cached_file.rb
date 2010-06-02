@@ -21,8 +21,8 @@
 require 'ronin/platform/overlay'
 require 'ronin/model'
 
-require 'extlib'
 require 'contextify'
+require 'active_support/inflector'
 
 module Ronin
   module Platform
@@ -64,7 +64,7 @@ module Ronin
       #
       def model_path
         if self.model_name
-          return self.model_name.to_const_path
+          return self.model_name.underscore
         end
       end
 

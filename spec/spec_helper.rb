@@ -10,6 +10,18 @@ rescue Bundler::BundlerError => e
 end
 
 require 'spec'
-require 'ronin/version'
+require 'ronin/database'
 
 include Ronin
+
+Spec::Runner.configure do |spec|
+  spec.before(:suite) do
+    Database.repositories[:default] = 'sqlite3::memory:'
+
+    if ENV['DEBUG']
+      Database.setup_log(:stream => STDOUT, :level => :debug)
+    end
+
+    Database.setup
+  end
+end

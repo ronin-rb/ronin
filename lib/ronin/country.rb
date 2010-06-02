@@ -20,13 +20,14 @@
 
 require 'ronin/model'
 
-require 'dm-predefined'
+require 'dm-is-predefined'
 
 module Ronin
   class Country
 
     include Model
-    include DataMapper::Predefined
+
+    is :predefined
 
     # The primary key of the Country
     property :id, Serial

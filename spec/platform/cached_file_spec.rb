@@ -1,13 +1,10 @@
 require 'spec_helper'
+require 'platform/spec_helper'
+require 'platform/classes/cacheable_model'
+
 require 'ronin/platform/cached_file'
 
-require 'helpers/database'
-require 'platform/classes/cacheable_model'
-require 'platform/helpers/overlays'
-
 describe Platform::CachedFile do
-  include Helpers::Overlays
-
   before(:all) do
     @test1 = load_overlay('test1')
     @test2 = load_overlay('test2')

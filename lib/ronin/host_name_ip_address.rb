@@ -29,14 +29,11 @@ module Ronin
 
     include Model
 
-    # The primary-key of the join model
-    property :id, Serial
-
     # The host name pointing to the IP Address
-    belongs_to :host_name
+    belongs_to :host_name, :key => true
 
     # The IP Address
-    belongs_to :ip_address, :model => 'IPAddress'
+    belongs_to :ip_address, :key => true, :model => 'IPAddress'
 
     # Tracks when a IP Address is associated with a host name
     timestamps :created_at

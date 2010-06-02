@@ -29,14 +29,11 @@ module Ronin
 
     include Model
 
-    # The primary-key of the join table
-    property :id, Serial
-
     # The IP Address
-    belongs_to :ip_address, :model => 'IPAddress'
+    belongs_to :ip_address, :key => true, :model => 'IPAddress'
 
     # The Mac Address
-    belongs_to :mac_address, :model => 'MACAddress'
+    belongs_to :mac_address, :key => true, :model => 'MACAddress'
 
     # Tracks when an IP Address becomes associated with a MAC Address
     timestamps :created_at

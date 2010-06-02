@@ -34,14 +34,11 @@ module Ronin
     include Model
     include DataMapper::Timestamps
 
-    # Primary key of the open port
+    # The primary key of the open port
     property :id, Serial
 
-    # any credentials used by the service running on the port
-    has 0..n, :service_credentials
-
-    # The comments associated with the open port
-    has 0..n, :comments
+    # The IP Address that was scanned
+    belongs_to :ip_address, :model => 'IPAddress'
 
     # The port
     belongs_to :port
@@ -49,8 +46,11 @@ module Ronin
     # The service detected on the port
     belongs_to :service, :required => false
 
-    # The IP Address that was scanned
-    belongs_to :ip_address, :model => 'IPAddress'
+    # any credentials used by the service running on the port
+    has 0..n, :service_credentials
+
+    # The comments associated with the open port
+    has 0..n, :comments
 
     # Define the created_at timestamp
     timestamps :created_at

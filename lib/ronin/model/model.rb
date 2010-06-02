@@ -21,9 +21,10 @@
 require 'ronin/model/lazy_upgrade'
 require 'ronin/model/types'
 
-require 'extlib'
+require 'active_support/inflector'
 require 'dm-core'
 require 'dm-types'
+require 'dm-migrations'
 require 'dm-validations'
 require 'dm-aggregates'
 
@@ -58,7 +59,7 @@ module Ronin
         # @since 0.4.0
         #
         def self.relationship_name
-          self.name.split('::').last.snake_case.plural.to_sym
+          self.name.split('::').last.underscore.pluralize.to_sym
         end
 
         def self.load(records,query)
