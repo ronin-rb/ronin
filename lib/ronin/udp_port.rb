@@ -23,8 +23,15 @@ require 'ronin/port'
 module Ronin
   class UDPPort < Port
 
-    # The protocol of the port (defaults to 'udp')
-    property :protocol, String, :default => 'udp'
+    #
+    # Creates a new {UDPPort} resource.
+    #
+    # @param [Hash] attributes
+    #   The attribute names and values to initialize the udp port with.
+    #
+    def initialize(attributes={})
+      super(attributes.merge(:protocol => 'udp'))
+    end
 
   end
 end

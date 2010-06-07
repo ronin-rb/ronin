@@ -24,11 +24,18 @@ require 'ronin/url'
 module Ronin
   class TCPPort < Port
 
-    # The protocol of the port (defaults to 'tcp')
-    property :protocol, String, :default => 'tcp'
-
     # The URLs that use the port
     has 0..n, :urls, :model => 'URL'
+
+    #
+    # Creates a new {TCPPort} resource.
+    #
+    # @param [Hash] attributes
+    #   The attribute names and values to initialize the tcp port with.
+    #
+    def initialize(attributes={})
+      super(attributes.merge(:protocol => 'tcp'))
+    end
 
   end
 end
