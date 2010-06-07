@@ -3,7 +3,6 @@ datamapper = 'git://github.com/datamapper'
 ronin_ruby = 'git://github.com/ronin-ruby'
 
 group :runtime do
-  gem 'nokogiri',	'~> 1.4.1'
   gem 'activesupport',	'~> 3.0.0.beta3'
 
   # DataMapper adapters
@@ -23,6 +22,8 @@ group :runtime do
   # DataMapper plugins
   gem 'dm-is-predefined',	'~> 0.3.0', :git => 'git://github.com/postmodern/dm-is-predefined.git'
 
+  # Library dependencies
+  gem 'nokogiri',	'~> 1.4.1'
   gem 'open_namespace',	'~> 0.3.0'
   gem 'parameters',	'~> 0.2.1'
   gem 'data_paths',	'~> 0.2.1'
