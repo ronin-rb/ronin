@@ -3,7 +3,7 @@ datamapper = 'git://github.com/datamapper'
 ronin_ruby = 'git://github.com/ronin-ruby'
 
 group :runtime do
-  gem 'activesupport',	'~> 3.0.0.beta3'
+  gem 'activesupport',	'~> 3.0.0.beta3', :require => 'active_support'
 
   # DataMapper adapters
   gem 'dm-do-adapter',		'~> 1.0.0.rc3', :git => "#{datamapper}/dm-do-adapter.git"
