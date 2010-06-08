@@ -9,10 +9,10 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-06-05}
+  s.date = %q{2010-06-08}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
-  s.executables = ["ronin-console", "ronin-update", "ronin-uninstall", "ronin-add", "ronin", "ronin-list", "ronin-install", "ronin-database", "ronin-help"]
+  s.executables = ["ronin-help", "ronin-install", "ronin", "ronin-uninstall", "ronin-console", "ronin-update", "ronin-list", "ronin-add", "ronin-database"]
   s.extra_rdoc_files = [
     "ChangeLog.md",
     "README.md"
@@ -295,19 +295,19 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
-      s.add_runtime_dependency(%q<dm-do-adapter>, ["~> 1.0.0.rc3"])
-      s.add_runtime_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0.rc3"])
-      s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.0.rc3"])
-      s.add_runtime_dependency(%q<dm-types>, ["~> 1.0.0.rc3"])
-      s.add_runtime_dependency(%q<dm-constraints>, ["~> 1.0.0.rc3"])
-      s.add_runtime_dependency(%q<dm-migrations>, ["~> 1.0.0.rc3"])
-      s.add_runtime_dependency(%q<dm-validations>, ["~> 1.0.0.rc3"])
-      s.add_runtime_dependency(%q<dm-aggregates>, ["~> 1.0.0.rc3"])
-      s.add_runtime_dependency(%q<dm-timestamps>, ["~> 1.0.0.rc3"])
-      s.add_runtime_dependency(%q<dm-tags>, ["~> 1.0.0.rc3"])
+      s.add_runtime_dependency(%q<dm-do-adapter>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<dm-types>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<dm-constraints>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<dm-migrations>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<dm-validations>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<dm-aggregates>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<dm-timestamps>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<dm-tags>, ["~> 1.0.0"])
       s.add_runtime_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
+      s.add_runtime_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_runtime_dependency(%q<open_namespace>, ["~> 0.3.0"])
       s.add_runtime_dependency(%q<parameters>, ["~> 0.2.1"])
       s.add_runtime_dependency(%q<data_paths>, ["~> 0.2.1"])
@@ -320,19 +320,19 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
       s.add_development_dependency(%q<bundler>, ["~> 0.9.23"])
     else
-      s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
-      s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0.rc3"])
-      s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0.rc3"])
-      s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc3"])
-      s.add_dependency(%q<dm-types>, ["~> 1.0.0.rc3"])
-      s.add_dependency(%q<dm-constraints>, ["~> 1.0.0.rc3"])
-      s.add_dependency(%q<dm-migrations>, ["~> 1.0.0.rc3"])
-      s.add_dependency(%q<dm-validations>, ["~> 1.0.0.rc3"])
-      s.add_dependency(%q<dm-aggregates>, ["~> 1.0.0.rc3"])
-      s.add_dependency(%q<dm-timestamps>, ["~> 1.0.0.rc3"])
-      s.add_dependency(%q<dm-tags>, ["~> 1.0.0.rc3"])
+      s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0"])
+      s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0"])
+      s.add_dependency(%q<dm-core>, ["~> 1.0.0"])
+      s.add_dependency(%q<dm-types>, ["~> 1.0.0"])
+      s.add_dependency(%q<dm-constraints>, ["~> 1.0.0"])
+      s.add_dependency(%q<dm-migrations>, ["~> 1.0.0"])
+      s.add_dependency(%q<dm-validations>, ["~> 1.0.0"])
+      s.add_dependency(%q<dm-aggregates>, ["~> 1.0.0"])
+      s.add_dependency(%q<dm-timestamps>, ["~> 1.0.0"])
+      s.add_dependency(%q<dm-tags>, ["~> 1.0.0"])
       s.add_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
+      s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
       s.add_dependency(%q<parameters>, ["~> 0.2.1"])
       s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
@@ -346,19 +346,19 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, ["~> 0.9.23"])
     end
   else
-    s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
     s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
-    s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0.rc3"])
-    s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0.rc3"])
-    s.add_dependency(%q<dm-core>, ["~> 1.0.0.rc3"])
-    s.add_dependency(%q<dm-types>, ["~> 1.0.0.rc3"])
-    s.add_dependency(%q<dm-constraints>, ["~> 1.0.0.rc3"])
-    s.add_dependency(%q<dm-migrations>, ["~> 1.0.0.rc3"])
-    s.add_dependency(%q<dm-validations>, ["~> 1.0.0.rc3"])
-    s.add_dependency(%q<dm-aggregates>, ["~> 1.0.0.rc3"])
-    s.add_dependency(%q<dm-timestamps>, ["~> 1.0.0.rc3"])
-    s.add_dependency(%q<dm-tags>, ["~> 1.0.0.rc3"])
+    s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0"])
+    s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0"])
+    s.add_dependency(%q<dm-core>, ["~> 1.0.0"])
+    s.add_dependency(%q<dm-types>, ["~> 1.0.0"])
+    s.add_dependency(%q<dm-constraints>, ["~> 1.0.0"])
+    s.add_dependency(%q<dm-migrations>, ["~> 1.0.0"])
+    s.add_dependency(%q<dm-validations>, ["~> 1.0.0"])
+    s.add_dependency(%q<dm-aggregates>, ["~> 1.0.0"])
+    s.add_dependency(%q<dm-timestamps>, ["~> 1.0.0"])
+    s.add_dependency(%q<dm-tags>, ["~> 1.0.0"])
     s.add_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
+    s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
     s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
     s.add_dependency(%q<parameters>, ["~> 0.2.1"])
     s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
