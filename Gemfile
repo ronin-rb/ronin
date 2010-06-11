@@ -52,7 +52,7 @@ group :doc do
   gem 'yard-contextify',	'~> 0.1.0'
   gem 'yard-parameters',	'~> 0.1.0'
   gem 'yard-dm',		'~> 0.1.1'
-  gem 'yard-dm-is-predefined',	'~> 0.2.0', :git => 'git://github.com/postmodern/yard-dm-is-predefined.git'
+  gem 'yard-dm-is-predefined',	'~> 0.2.0'
 end
 
 gem 'rspec',	'~> 1.3.0', :group => [:development, :test]
