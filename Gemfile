@@ -20,7 +20,7 @@ group :runtime do
   gem 'dm-tags',	'~> 1.0.0'
 
   # DataMapper plugins
-  gem 'dm-is-predefined',	'~> 0.3.0', :git => 'git://github.com/postmodern/dm-is-predefined.git'
+  gem 'dm-is-predefined',	'~> 0.3.0'
 
   # Library dependencies
   gem 'nokogiri',	'~> 1.4.1'
