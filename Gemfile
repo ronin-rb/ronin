@@ -3,6 +3,7 @@ datamapper = 'git://github.com/datamapper'
 ronin_ruby = 'git://github.com/ronin-ruby'
 
 group :runtime do
+  gem 'tzinfo',		'~> 0.3.22'
   gem 'activesupport',	'~> 3.0.0.beta3', :require => 'active_support'
 
   # DataMapper adapters
