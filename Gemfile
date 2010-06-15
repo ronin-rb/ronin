@@ -1,8 +1,9 @@
 source 'http://rubygems.org'
-datamapper = 'git://github.com/datamapper'
-ronin_ruby = 'git://github.com/ronin-ruby'
 
-group :runtime do
+DATA_MAPPER = 'git://github.com/datamapper'
+RONIN = 'git://github.com/ronin-ruby'
+
+group(:runtime) do
   gem 'tzinfo',		'~> 0.3.22'
   gem 'activesupport',	'~> 3.0.0.beta3', :require => 'active_support'
 
@@ -31,15 +32,15 @@ group :runtime do
   gem 'contextify',	'~> 0.1.6'
   gem 'pullr',		'~> 0.1.2'
   gem 'thor',		'~> 0.13.0'
-  gem 'ronin-support',	'~> 0.1.0', :git => "#{ronin_ruby}/ronin-support.git"
+  gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN}/ronin-support.git"
 end
 
-group :development do
+group(:development) do
   gem 'rake',			'~> 0.8.7'
   gem 'jeweler',		'~> 1.4.0', :git => 'git://github.com/technicalpickles/jeweler.git'
 end
 
-group :doc do
+group(:doc) do
   case RUBY_PLATFORM
   when 'java'
     gem 'maruku',	'~> 0.6.0'
