@@ -112,5 +112,27 @@ module Ronin
 
       return nil
     end
+
+    #
+    # Requires all files within the given directory.
+    #
+    # @param [String] directory
+    #   A directory that resides within `lib/`.
+    #
+    # @return [Boolean]
+    #   Specifies whether any files were successfully required.
+    #
+    # @since 0.4.0
+    #
+    def Installation.require_all_in(directory)
+      lib_dir = File.join('lib',directory)
+      result = false
+
+      Installation.each_file_in(lib_dir) do |name|
+        result |= (require File.join(directory,name))
+      end
+
+      return result
+    end
   end
 end
