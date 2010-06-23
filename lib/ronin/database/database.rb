@@ -20,8 +20,10 @@
 
 require 'ronin/database/exceptions/invalid_config'
 require 'ronin/database/exceptions/unknown_repository'
+require 'ronin/database/migrations'
 require 'ronin/model'
 require 'ronin/config'
+require 'ronin/installation'
 
 require 'addressable/uri'
 require 'yaml'
@@ -48,6 +50,9 @@ module Ronin
       :scheme => 'sqlite3',
       :path => File.join(Config::PATH,'database.sqlite3')
     )
+
+    # Directory which contains the database migrations
+    MIGRATIONS_DIR = File.join('lib','ronin','database','migrations')
 
     #
     # Returns the Database repositories to use.
@@ -183,13 +188,16 @@ module Ronin
     #
     # @return [nil]
     #
-    def Database.upgrade
+    def Database.upgrade(version=nil)
       yield if block_given?
 
-      Database.repositories.each_key do |name|
-        DataMapper.auto_upgrade!(name) if Database.setup?(name)
+      unless Installation.require_all_in(MIGRATIONS_DIR)
+        Dir[File.join(File.dirname(__FILE__),'migrations','*.rb')].each do |path|
+          require path
+        end
       end
 
+      Migrations.migrate_up(version)
       return nil
     end
 
