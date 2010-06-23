@@ -180,24 +180,24 @@ module Ronin
     end
 
     #
-    # Updates the Database, by running auto-upgrades, but only if the
-    # Database is already setup.
+    # Upgrades the Database, by running migrations for a given
+    # ronin library, but only if the Database has been setup.
+    #
+    # @param [Symbol] library
+    #   The library to upgrade the Database for.
+    #
+    # @param [String] version
+    #   The version of the library to upgrade the Database for.
     #
     # @yield []
-    #   The block to call before the Database is updated.
+    #   The block to call before the Database is upgraded.
     #
     # @return [nil]
     #
-    def Database.upgrade(version=nil)
+    def Database.upgrade(library=:ronin,version=nil)
       yield if block_given?
 
-      unless Installation.require_all_in(MIGRATIONS_DIR)
-        Dir[File.join(File.dirname(__FILE__),'migrations','*.rb')].each do |path|
-          require path
-        end
-      end
-
-      Migrations.migrate_up(version)
+      Migrations.migrate_up(library,version) if Database.setup?
       return nil
     end
 
