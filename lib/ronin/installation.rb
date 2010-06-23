@@ -124,11 +124,11 @@ module Ronin
     #
     # @since 0.4.0
     #
-    def Installation.require_all_in(directory)
+    def Installation.require_all(directory)
       lib_dir = File.join('lib',directory)
       result = false
 
-      Installation.each_file_in(lib_dir) do |name|
+      Installation.each_file(lib_dir) do |name|
         result |= (require File.join(directory,name))
       end
 
