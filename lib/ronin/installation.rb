@@ -70,39 +70,6 @@ module Ronin
     end
 
     #
-    # Enumerates over all files from all installed Ronin libraries.
-    #
-    # @yield [file, (gem)]
-    #   The given block will be passed each file, from each library.
-    #
-    # @yieldparam [String] file
-    #   The path to the file.
-    #
-    # @yieldparam [Gem::Specification] gem
-    #   The RubyGem that the file belongs to.
-    #
-    # @return [Enumerator]
-    #   Returns an Enumerator if no block is given.
-    #
-    # @since 0.4.0
-    #
-    def Installation.each_file(&block)
-      return enum_for(:each_file) unless block
-
-      Installation.gems.each do |name,gem|
-        gem.files.each do |file|
-          if block.arity == 2
-            block.call(file,gem)
-          else
-            block.call(file)
-          end
-        end
-      end
-
-      return nil
-    end
-
-    #
     # Enumerates over all files within a given directory found in any
     # of the installed Ronin libraries.
     #
@@ -120,14 +87,25 @@ module Ronin
     #
     # @since 0.4.0
     #
-    def Installation.each_file_in(directory)
-      return enum_for(:each_file_in,directory) unless block_given?
+    def Installation.each_file(directory)
+      return enum_for(:each_file,directory) unless block_given?
 
       directory = File.join(directory,'')
+      pass_path = lambda { |path| yield path[directory.length..-1] }
 
-      Installation.each_file do |file,gem|
-        if file[0...directory.length] == directory
-          yield file[directory.length..-1]
+      if Installation.gems.empty?
+        # if there are no gems installed, do a raw Dir.glob
+        root_dir = File.expand_path(File.join(File.dirname(__FILE__),'..','..'))
+
+        Dir.glob(File.join(root_dir,directory,'{**/}*.*'),&pass_path)
+      else
+        # query the installed gems
+        Installation.gems.each do |name,gem|
+          gem.files.each do |file|
+            if file[0...directory.length] == directory
+              pass_path.call(file)
+            end
+          end
         end
       end
 

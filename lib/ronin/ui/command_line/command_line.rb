@@ -46,7 +46,7 @@ module Ronin
 
           @@ronin_ui_commands = {}
 
-          Installation.each_file_in(commands_dir) do |path|
+          Installation.each_file(commands_dir) do |path|
             # remove the .rb file extension
             name = path.chomp('.rb')
 
