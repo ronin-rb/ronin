@@ -97,7 +97,7 @@ module Ronin
         # if there are no gems installed, do a raw Dir.glob
         root_dir = File.expand_path(File.join(File.dirname(__FILE__),'..','..'))
 
-        Dir.glob(File.join(root_dir,directory,'{**/}*.*'),&pass_path)
+        Dir.glob(File.join(root_dir,directory,'**/*.*'),&pass_path)
       else
         # query the installed gems
         Installation.gems.each do |name,gem|
