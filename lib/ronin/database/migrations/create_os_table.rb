@@ -19,9 +19,25 @@
 #
 
 require 'ronin/database/migrations/migrations'
-require 'ronin/database/migrations/create_arch_table'
-require 'ronin/database/migrations/create_os_table'
-require 'ronin/database/migrations/create_vendor_table'
-require 'ronin/database/migrations/create_software_table'
-require 'ronin/database/migrations/create_license_table'
-require 'ronin/database/migrations/create_author_table'
+
+module Ronin
+  module Database
+    module Migrations
+      migration(:ronin, '0.4.0', :create_os_table) do
+        up do
+          create_table :ronin_oses do
+            column :id, Integer, :serial => true
+            column :name, String, :not_null => true
+            column :version, String
+          end
+
+          create_index :ronin_oses, :name
+        end
+
+        down do
+          drop_table :ronin_oses
+        end
+      end
+    end
+  end
+end
