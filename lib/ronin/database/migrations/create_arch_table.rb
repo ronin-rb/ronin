@@ -27,10 +27,12 @@ module Ronin
         up do
           create_table :ronin_arches do
             column :id, Integer, :serial => true
-            column :name, String, :required => true, :unique => true
+            column :name, String, :required => true
             column :endian, String, :required => true
             column :address_length, Integer, :required => true
           end
+
+          create_index :ronin_arches, :name, :unique => true
         end
 
         down do
