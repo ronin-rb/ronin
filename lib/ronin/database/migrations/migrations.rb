@@ -65,7 +65,7 @@ module Ronin
 
         Migrations.migrations[library][version].each_with_index do |(name,block),index|
           Database.repositories.each_key do |repo|
-            yield DataMapper::Migration.new(index,"#{library}-#{version}_#{name}",:database => repo,&block)
+            yield DataMapper::Migration.new(index,"#{library}-#{version}-#{name}",:database => repo,&block)
           end
         end
       end
