@@ -23,20 +23,18 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_license_table) do
+      migration(:ronin, '0.4.0', :create_vendors_table) do
         up do
-          create_table :ronin_licenses do
+          create_table :ronin_vendors do
             column :id, Integer, :serial => true
             column :name, String, :not_null => true
-            column :description, Text, :not_null => true
-            column :url, String
           end
 
-          create_index :ronin_licenses, :name, :unique => true
+          create_index :ronin_vendors, :name, :unique => true
         end
 
         down do
-          drop_table :ronin_licenses
+          drop_table :ronin_vendors
         end
       end
     end

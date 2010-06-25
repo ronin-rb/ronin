@@ -19,9 +19,9 @@
 #
 
 require 'ronin/database/migrations/migrations'
-require 'ronin/database/migrations/create_arch_table'
-require 'ronin/database/migrations/create_os_table'
-require 'ronin/database/migrations/create_vendor_table'
-require 'ronin/database/migrations/create_software_table'
-require 'ronin/database/migrations/create_license_table'
-require 'ronin/database/migrations/create_author_table'
+require 'ronin/database/migrations/create_arches_table'
+require 'ronin/database/migrations/create_oses_table'
+require 'ronin/database/migrations/create_vendors_table'
+require 'ronin/database/migrations/create_softwares_table'
+require 'ronin/database/migrations/create_licenses_table'
+require 'ronin/database/migrations/create_authors_table'

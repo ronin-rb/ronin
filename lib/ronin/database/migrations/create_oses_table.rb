@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_os_table) do
+      migration(:ronin, '0.4.0', :create_oses_table) do
         up do
           create_table :ronin_oses do
             column :id, Integer, :serial => true
