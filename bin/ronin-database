@@ -2,10 +2,21 @@
 
 require 'rubygems'
 
-lib_dir = File.expand_path(File.join(File.dirname(__FILE__),'..','lib'))
-unless $LOAD_PATH.include?(lib_dir)
-  $LOAD_PATH << lib_dir
+root_dir = File.expand_path(File.join(File.dirname(__FILE__),'..'))
+if File.directory?(File.join(root_dir,'.bundle'))
+  require 'bundler'
+
+  begin
+    Bundler.setup(:runtime)
+  rescue Bundler::BundlerError => e
+    STDERR.puts e.message
+    STDERR.puts "Run `bundle install` to install missing gems"
+    exit e.status_code
+  end
 end
+
+lib_dir = File.join(root_dir,'lib')
+$LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
 
 require 'ronin/ui/command_line/commands/database'
 
