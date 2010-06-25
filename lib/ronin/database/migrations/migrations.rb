@@ -179,6 +179,11 @@ module Ronin
         return true
       end
 
+      # XXX: hack to override the global URI constant only within migrations.
+      DataMapper::Migration.class_eval do
+        URI = DataMapper::Property::URI
+      end
+
       #
       # Allows Database migrations to access property types from
       # `DataMapper::Property`.
