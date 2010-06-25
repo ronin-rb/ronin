@@ -189,16 +189,22 @@ module Ronin
     # @param [String] version
     #   The version of the library to upgrade the Database for.
     #
-    # @yield []
-    #   The block to call before the Database is upgraded.
+    # @return [Boolean]
+    #   Specifies whether the Database was migrated or is currently
+    #   not setup.
     #
-    # @return [nil]
-    #
-    def Database.upgrade(library=:ronin,version=nil)
-      yield if block_given?
+    def Database.upgrade!(library=nil,version=nil)
+      return false unless Database.setup?
 
-      Migrations.migrate_up(library,version) if Database.setup?
-      return nil
+      if library
+        return Migrations.migrate_up!(library,version)
+      end
+
+      Migrations.migrations.each_key do |library_name|
+        Migrations.migrate_up!(library_name)
+      end
+
+      return true
     end
 
     #
@@ -208,7 +214,7 @@ module Ronin
     #   The block to call after the Database has been setup, but before
     #   it is updated.
     #
-    # @see Database.upgrade
+    # @see Database.upgrade!
     #
     def Database.setup(&block)
       # setup the database log
@@ -220,7 +226,7 @@ module Ronin
       end
 
       # auto-upgrade the database repository
-      Database.upgrade(&block)
+      Database.upgrade!(&block)
     end
 
     #

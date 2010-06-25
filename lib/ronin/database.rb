@@ -19,32 +19,6 @@
 #
 
 require 'ronin/database/database'
+require 'ronin/database/migrations'
 
-Ronin::Database.upgrade do
-  require 'ronin/author'
-  require 'ronin/license'
-  require 'ronin/arch'
-  require 'ronin/os'
-  require 'ronin/software'
-  require 'ronin/vendor'
-  require 'ronin/country'
-  require 'ronin/address'
-  require 'ronin/mac_address'
-  require 'ronin/ip_address_mac_address'
-  require 'ronin/ip_address'
-  require 'ronin/host_name_ip_address'
-  require 'ronin/host_name'
-  require 'ronin/port'
-  require 'ronin/tcp_port'
-  require 'ronin/udp_port'
-  require 'ronin/service'
-  require 'ronin/open_port'
-  require 'ronin/url'
-  require 'ronin/credential'
-  require 'ronin/service_credential'
-  require 'ronin/site_credential'
-  require 'ronin/comment'
-  require 'ronin/organization'
-  require 'ronin/target'
-  require 'ronin/campaign'
-end
+Ronin::Database.upgrade!
