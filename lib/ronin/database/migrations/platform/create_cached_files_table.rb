@@ -19,10 +19,25 @@
 #
 
 require 'ronin/database/migrations/migrations'
-require 'ronin/database/migrations/create_arches_table'
-require 'ronin/database/migrations/create_oses_table'
-require 'ronin/database/migrations/create_vendors_table'
-require 'ronin/database/migrations/create_softwares_table'
-require 'ronin/database/migrations/create_licenses_table'
-require 'ronin/database/migrations/create_authors_table'
-require 'ronin/database/migrations/platform'
+
+module Ronin
+  module Database
+    module Migrations
+      migration(:ronin, '0.4.0', :create_cached_files_table) do
+        up do
+          create_table :ronin_platform_cached_files do
+            column :id, Integer, :serial => true
+            column :path, FilePath, :not_null => true
+            column :timestamp, Time, :not_null => true
+            column :model_name, String, :not_null => true
+            column :overlay_id, Integer, :not_null => true
+          end
+        end
+
+        down do
+          drop_table :ronin_platform_cached_files
+        end
+      end
+    end
+  end
+end

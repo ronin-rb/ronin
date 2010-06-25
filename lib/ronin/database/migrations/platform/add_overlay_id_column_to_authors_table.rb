@@ -19,10 +19,23 @@
 #
 
 require 'ronin/database/migrations/migrations'
-require 'ronin/database/migrations/create_arches_table'
-require 'ronin/database/migrations/create_oses_table'
-require 'ronin/database/migrations/create_vendors_table'
-require 'ronin/database/migrations/create_softwares_table'
-require 'ronin/database/migrations/create_licenses_table'
-require 'ronin/database/migrations/create_authors_table'
-require 'ronin/database/migrations/platform'
+
+module Ronin
+  module Database
+    module Migrations
+      migration(:ronin, '0.4.0', :add_overlay_id_column_to_authors_table) do
+        up do
+          modify_table :ronin_authors do
+            add_column :overlay_id, Integer
+          end
+        end
+
+        down do
+          modify_table :ronin_authors do
+            remove_column :overlay_id
+          end
+        end
+      end
+    end
+  end
+end
