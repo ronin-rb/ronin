@@ -18,7 +18,11 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'dm-core'
 require 'dm-migrations/migration'
+
+require 'enumerator'
+require 'rubygems/version'
 
 module Ronin
   module Database
@@ -26,7 +30,7 @@ module Ronin
       #
       # The registered database migrations.
       #
-      # @return [Hash{Symbol => Hash{String => Array<DataMapper::Migration>}}]
+      # @return [Hash{Symbol => Hash{String => Hash{Symbol => Proc}}}]
       #   Database migrations grouped by library name and version.
       #
       # @since 0.4.0
@@ -36,42 +40,31 @@ module Ronin
       end
 
       #
-      # Enumerates over the migrations for a library.
+      # Iterates over the migrations for a specific version of a library.
       #
       # @param [Symbol] library
       #   The name of the library.
       #
-      # @param [String] lib_version
-      #   The optional version of the library.
+      # @param [String] version
+      #   The version of the library.
       #
       # @yield [migration]
-      #   The given block will be passed each migration for the library.
+      #   The given block will be passed each migration.
       #
       # @yieldparam [DataMapper::Migration] migration
-      #   A database migration.
+      #   A DataMapper migration.
       #
-      def Migrations.each(library,lib_version=nil,&block)
-        library = library.to_sym
+      # @return [Enumerator]
+      #   Returns an enumerator object if no block was given.
+      #
+      # @since 0.4.0
+      #
+      def Migrations.each(library,version)
+        return enum_for(:each,library,version) unless block_given?
 
-        unless Migrations.migrations.has_key?(library)
-          raise(RuntimeError,"unknown library to migration #{library}",caller)
-        end
-
-        library_migrations = Migrations.migrations[library]
-
-        if lib_version
-          lib_version = lib_version.to_s
-
-          unless library_migrations.has_key?(lib_version)
-            raise(RuntimeError,"unknown version to migrate #{lib_version} for #{library}",caller)
-          end
-
-          library_migrations.each do |version,version_migrations|
-            version_migration.each(&block) if version <= lib_version
-          end
-        else
-          library_migrations.each do |version,version_migrations|
-            version_migrations.each(&block)
+        Migrations.migrations[library][version].each_with_index do |(name,block),index|
+          Database.repositories.each_key do |repo|
+            yield DataMapper::Migration.new(index,"#{library}-#{version}_#{name}",:database => repo,&block)
           end
         end
       end
@@ -85,8 +78,30 @@ module Ronin
       # @param [String] lib_version
       #   The optional version of the library.
       #
+      # @return [true]
+      #   Specifies that the migration was successful.
+      #
+      # @since 0.4.0
+      #
       def Migrations.migrate_up!(library,lib_version=nil)
-        Migrations.each(library,lib_version) { |migration| migration.perform_up }
+        library = library.to_sym
+
+        unless Migrations.migrations.has_key?(library)
+          raise(RuntimeError,"unknown library to migrate #{library}",caller)
+        end
+
+        if lib_version
+          lib_version = Gem::Version.new(lib_version)
+        end
+
+        Migrations.migrations[library].each_key do |version|
+          # migrate up all versions less or equal to the desired version
+          if (lib_version.nil? || (version <= lib_version))
+            Migrations.each(library,version) do |migration|
+              migration.perform_up
+            end
+          end
+        end
       end
 
       #
@@ -98,8 +113,31 @@ module Ronin
       # @param [String] lib_version
       #   The optional version of the library.
       #
-      def Migrations.migrate_down!(library,lib_version=nil)
-        Migrations.each(library,lib_version) { |migration| migration.perform_down }
+      # @return [true]
+      #   Specifies that the migration was successful.
+      #
+      # @since 0.4.0
+      #
+      def Migrations.migrate_down!(library,lib_version)
+        library = library.to_sym
+
+        unless Migrations.migrations.has_key?(library)
+          raise(RuntimeError,"unknown library to migrate #{library}",caller)
+        end
+
+        lib_version = Gem::Version.new(lib_version)
+
+        # note the usage of reverse_each
+        Migrations.migrations[library].keys.reverse_each do |version|
+          # migrate down all versions greater than the desired version
+          if version > lib_version
+            Migrations.each(library,version).reverse_each do |migration|
+              migration.perform_down
+            end
+          end
+        end
+
+        return true
       end
 
       protected
@@ -126,21 +164,18 @@ module Ronin
       #
       def Migrations.migration(library,version,name,&block)
         library = library.to_sym
-        version = version.to_s
-        migration_name = "#{library}-#{version}_#{name}"
+        version = Gem::Version.new(version)
+        name = name.to_sym
 
         Migrations.migrations[library] ||= {}
-        Migrations.migrations[library][version] ||= []
+        Migrations.migrations[library][version] ||= {}
 
-        if Migrations.migrations[library][version].any? { |migration| migration.name == migration_name }
-          raise(DataMapper::DuplicateMigrationNameError,"migration name conflict: #{migration_name}",caller)
+        if Migrations.migrations[library][version].has_key?(name)
+          raise(DataMapper::DuplicateMigrationNameError,"migration name conflict: #{name} for #{library}-#{version}",caller)
         end
 
-        position = Migrations.migrations[library][version].length
-        new_migration = DataMapper::Migration.new(position,migration_name,&block)
-
-        Migrations.migrations[library][version] << new_migration
-        return new_migration
+        Migrations.migrations[library][version][name] = block
+        return true
       end
     end
   end
