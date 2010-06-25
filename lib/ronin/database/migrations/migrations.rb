@@ -177,6 +177,29 @@ module Ronin
         Migrations.migrations[library][version][name] = block
         return true
       end
+
+      #
+      # Allows Database migrations to access property types from
+      # `DataMapper::Property`.
+      #
+      # @param [Symbol] name
+      #   Constant name.
+      #
+      # @return [DataMapper::Property]
+      #   A DataMapper Property class.
+      #
+      # @raise [NameError]
+      #   The constant could not be found within `DataMapper::Property`.
+      #
+      # @since 0.4.0
+      #
+      def Migrations.const_missing(name)
+        if DataMapper::Property.const_defined?(name)
+          return DataMapper::Property.const_get(name)
+        end
+
+        return super(name)
+      end
     end
   end
 end
