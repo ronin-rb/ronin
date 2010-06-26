@@ -19,12 +19,26 @@
 #
 
 require 'ronin/database/migrations/migrations'
-require 'ronin/database/migrations/create_arches_table'
-require 'ronin/database/migrations/create_oses_table'
-require 'ronin/database/migrations/create_vendors_table'
-require 'ronin/database/migrations/create_softwares_table'
-require 'ronin/database/migrations/create_licenses_table'
-require 'ronin/database/migrations/create_authors_table'
-require 'ronin/database/migrations/create_addresses_table'
-require 'ronin/database/migrations/create_ports_table'
-require 'ronin/database/migrations/platform'
+
+module Ronin
+  module Database
+    module Migrations
+      migration(:ronin, '0.4.0', :create_ports_table) do
+        up do
+          create_table :ronin_ports do
+            column :id, Integer, :serial => true
+            column :protocol, String, :not_null => true
+            column :number, Integer, :not_null => true
+            column :organization_id, Integer
+          end
+
+          create_index :ronin_ports, :address, :name => :protocol_port, :unique => true
+        end
+
+        down do
+          drop_table :ronin_ports
+        end
+      end
+    end
+  end
+end
