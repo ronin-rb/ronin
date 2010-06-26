@@ -244,7 +244,7 @@ module Ronin
       # Before destroying the cached file object, also destroy the
       # associated cached object.
       #
-      def destroy!
+      def destroy
         unless destroyed?
           if (obj = self.cached_object)
             obj.destroy!
