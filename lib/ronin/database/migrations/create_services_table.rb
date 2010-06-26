@@ -19,16 +19,26 @@
 #
 
 require 'ronin/database/migrations/migrations'
-require 'ronin/database/migrations/create_arches_table'
-require 'ronin/database/migrations/create_oses_table'
-require 'ronin/database/migrations/create_vendors_table'
-require 'ronin/database/migrations/create_softwares_table'
-require 'ronin/database/migrations/create_licenses_table'
-require 'ronin/database/migrations/create_authors_table'
-require 'ronin/database/migrations/create_addresses_table'
-require 'ronin/database/migrations/create_ports_table'
-require 'ronin/database/migrations/add_version_column_to_addresses_table'
-require 'ronin/database/migrations/create_ip_address_mac_addresses_table'
-require 'ronin/database/migrations/create_host_name_ip_addresses_table'
-require 'ronin/database/migrations/create_services_table'
-require 'ronin/database/migrations/platform'
+
+module Ronin
+  module Database
+    module Migrations
+      migration(:ronin, '0.4.0', :create_services_table) do
+        up do
+          create_table :ronin_services do
+            column :id, Integer, :serial => true
+            column :name, String, :not_null => true
+            column :number, Integer, :not_null => true
+            column :organization_id, Integer
+          end
+
+          create_index :ronin_services, :name, :unique => true
+        end
+
+        down do
+          drop_table :ronin_services
+        end
+      end
+    end
+  end
+end
