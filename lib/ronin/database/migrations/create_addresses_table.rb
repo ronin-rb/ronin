@@ -30,6 +30,7 @@ module Ronin
             column :type, String, :not_null => true
             column :address, String, :not_null => true
             column :organization_id, Integer
+            column :created_at, Time, :not_null => true
           end
 
           create_index :ronin_addresses, :address, :unique => true
