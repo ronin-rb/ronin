@@ -21,6 +21,7 @@
 require 'dm-core'
 require 'dm-types'
 require 'dm-migrations/migration'
+require 'dm-migrations/property_constants'
 
 require 'enumerator'
 require 'rubygems/version'
@@ -28,6 +29,8 @@ require 'rubygems/version'
 module Ronin
   module Database
     module Migrations
+      include DataMapper::Migrations::PropertyConstants
+
       #
       # The registered database migrations.
       #
@@ -143,6 +146,11 @@ module Ronin
 
       protected
 
+      # XXX: hack to override the global URI constant only within migrations.
+      DataMapper::Migration.class_eval do
+        URI = DataMapper::Property::URI
+      end
+
       #
       # Registers a database migration.
       #
@@ -177,34 +185,6 @@ module Ronin
 
         Migrations.migrations[library][version][name] = block
         return true
-      end
-
-      # XXX: hack to override the global URI constant only within migrations.
-      DataMapper::Migration.class_eval do
-        URI = DataMapper::Property::URI
-      end
-
-      #
-      # Allows Database migrations to access property types from
-      # `DataMapper::Property`.
-      #
-      # @param [Symbol] name
-      #   Constant name.
-      #
-      # @return [DataMapper::Property]
-      #   A DataMapper Property class.
-      #
-      # @raise [NameError]
-      #   The constant could not be found within `DataMapper::Property`.
-      #
-      # @since 0.4.0
-      #
-      def Migrations.const_missing(name)
-        if DataMapper::Property.const_defined?(name)
-          return DataMapper::Property.const_get(name)
-        end
-
-        return super(name)
       end
     end
   end
