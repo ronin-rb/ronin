@@ -23,19 +23,19 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_oses_table) do
+      migration(:ronin, '0.4.0', :create_os_table) do
         up do
-          create_table :ronin_oses do
+          create_table :ronin_os do
             column :id, Integer, :serial => true
             column :name, String, :not_null => true
             column :version, String
           end
 
-          create_index :ronin_oses, :name
+          create_index :ronin_os, :name
         end
 
         down do
-          drop_table :ronin_oses
+          drop_table :ronin_os
         end
       end
     end

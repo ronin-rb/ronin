@@ -20,7 +20,7 @@
 
 require 'ronin/database/migrations/migrations'
 require 'ronin/database/migrations/create_arches_table'
-require 'ronin/database/migrations/create_oses_table'
+require 'ronin/database/migrations/create_os_table'
 require 'ronin/database/migrations/create_vendors_table'
 require 'ronin/database/migrations/create_softwares_table'
 require 'ronin/database/migrations/create_licenses_table'
