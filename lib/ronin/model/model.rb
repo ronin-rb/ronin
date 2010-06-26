@@ -20,8 +20,8 @@
 
 require 'ronin/model/lazy_upgrade'
 require 'ronin/model/types'
+require 'ronin/support/inflector'
 
-require 'active_support/inflector'
 require 'dm-core'
 require 'dm-types'
 require 'dm-migrations'
@@ -107,7 +107,7 @@ module Ronin
         if value.kind_of?(Array)
           value.map(&formatter).join(', ')
         elsif value.kind_of?(Symbol)
-          Extlib::Inflection.humanize(value)
+          Support::Inflector.humanize(value)
         else
           value.to_s
         end
@@ -122,7 +122,7 @@ module Ronin
           name = name.to_s
 
           unless name[-3..-1] == '_id'
-            name = Extlib::Inflection.humanize(name)
+            name = Support::Inflector.humanize(name)
             value = formatter.call(value)
 
             if block_given?
