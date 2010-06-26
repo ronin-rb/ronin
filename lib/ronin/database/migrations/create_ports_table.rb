@@ -32,7 +32,7 @@ module Ronin
             column :organization_id, Integer
           end
 
-          create_index :ronin_ports, :protocol, :number, :name => :protocol_port, :unique => true
+          create_index :ronin_ports, :protocol, :number, :name => :protocol_number, :unique => true
         end
 
         down do
