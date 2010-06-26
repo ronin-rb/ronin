@@ -39,7 +39,7 @@ module Ronin
         #
         # @since 0.4.0
         #
-        def self.typecast(value,property)
+        def typecast(value)
           case value
           when nil
             nil
