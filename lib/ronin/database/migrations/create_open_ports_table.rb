@@ -19,17 +19,25 @@
 #
 
 require 'ronin/database/migrations/migrations'
-require 'ronin/database/migrations/create_arches_table'
-require 'ronin/database/migrations/create_oses_table'
-require 'ronin/database/migrations/create_vendors_table'
-require 'ronin/database/migrations/create_softwares_table'
-require 'ronin/database/migrations/create_licenses_table'
-require 'ronin/database/migrations/create_authors_table'
-require 'ronin/database/migrations/create_addresses_table'
-require 'ronin/database/migrations/create_ports_table'
-require 'ronin/database/migrations/add_version_column_to_addresses_table'
-require 'ronin/database/migrations/create_ip_address_mac_addresses_table'
-require 'ronin/database/migrations/create_host_name_ip_addresses_table'
-require 'ronin/database/migrations/create_services_table'
-require 'ronin/database/migrations/create_open_ports_table'
-require 'ronin/database/migrations/platform'
+
+module Ronin
+  module Database
+    module Migrations
+      migration(:ronin, '0.4.0', :create_open_ports_table) do
+        up do
+          create_table :ronin_open_ports do
+            column :id, Integer, :serial => true
+            column :ip_address_id, Integer, :not_null => true
+            column :port_id, Integer, :not_null => true
+            column :service_id, Integer
+            column :created_at, Time, :not_null => true
+          end
+        end
+
+        down do
+          drop_table :ronin_open_ports
+        end
+      end
+    end
+  end
+end
