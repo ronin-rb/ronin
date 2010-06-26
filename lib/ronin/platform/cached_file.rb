@@ -226,7 +226,7 @@ module Ronin
         elsif updated?
           if (obj = cached_object)
             # destroy the previously cached object
-            obj.destroy
+            obj.destroy!
           end
 
           unless cache
