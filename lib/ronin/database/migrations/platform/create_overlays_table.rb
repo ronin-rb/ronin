@@ -29,14 +29,14 @@ module Ronin
             column :id, Integer, :serial => true
             column :scm, String
             column :path, FilePath, :not_null => true 
-            column :uri, URI
+            column :uri, DataMapper::Property::URI
             column :installed, Boolean, :default => false
             column :name, String
             column :domain, String, :not_null => true
             column :version, Integer, :not_null => true
             column :title, Text
-            column :source, URI
-            column :website, URI
+            column :source, DataMapper::Property::URI
+            column :website, DataMapper::Property::URI
             column :description, Text
 
             column :license_id, Integer
