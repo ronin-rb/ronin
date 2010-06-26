@@ -27,7 +27,7 @@ module Ronin
         up do
           create_table :ronin_addresses do
             column :id, Integer, :serial => true
-            column :type, Discriminator
+            column :type, String, :not_null => true
             column :address, String, :not_null => true
             column :organization_id, Integer
           end
