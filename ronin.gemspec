@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-06-08}
+  s.date = %q{2010-06-25}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin-help", "ronin-install", "ronin", "ronin-uninstall", "ronin-console", "ronin-update", "ronin-list", "ronin-add", "ronin-database"]
@@ -50,6 +50,35 @@ Gem::Specification.new do |s|
     "lib/ronin/database/exceptions.rb",
     "lib/ronin/database/exceptions/invalid_config.rb",
     "lib/ronin/database/exceptions/unknown_repository.rb",
+    "lib/ronin/database/migrations.rb",
+    "lib/ronin/database/migrations/add_open_port_id_column_to_credentials_table.rb",
+    "lib/ronin/database/migrations/add_url_id_column_to_credentials_table.rb",
+    "lib/ronin/database/migrations/add_version_column_to_addresses_table.rb",
+    "lib/ronin/database/migrations/create_addresses_table.rb",
+    "lib/ronin/database/migrations/create_arches_table.rb",
+    "lib/ronin/database/migrations/create_authors_table.rb",
+    "lib/ronin/database/migrations/create_campaigns_table.rb",
+    "lib/ronin/database/migrations/create_comments_table.rb",
+    "lib/ronin/database/migrations/create_countries_table.rb",
+    "lib/ronin/database/migrations/create_credentials_table.rb",
+    "lib/ronin/database/migrations/create_host_name_ip_addresses_table.rb",
+    "lib/ronin/database/migrations/create_ip_address_mac_addresses_table.rb",
+    "lib/ronin/database/migrations/create_licenses_table.rb",
+    "lib/ronin/database/migrations/create_open_ports_table.rb",
+    "lib/ronin/database/migrations/create_organizations_table.rb",
+    "lib/ronin/database/migrations/create_os_guesses_table.rb",
+    "lib/ronin/database/migrations/create_os_table.rb",
+    "lib/ronin/database/migrations/create_ports_table.rb",
+    "lib/ronin/database/migrations/create_services_table.rb",
+    "lib/ronin/database/migrations/create_softwares_table.rb",
+    "lib/ronin/database/migrations/create_targets_table.rb",
+    "lib/ronin/database/migrations/create_urls_table.rb",
+    "lib/ronin/database/migrations/create_vendors_table.rb",
+    "lib/ronin/database/migrations/migrations.rb",
+    "lib/ronin/database/migrations/platform.rb",
+    "lib/ronin/database/migrations/platform/add_overlay_id_column_to_authors_table.rb",
+    "lib/ronin/database/migrations/platform/create_cached_files_table.rb",
+    "lib/ronin/database/migrations/platform/create_overlays_table.rb",
     "lib/ronin/environment.rb",
     "lib/ronin/host_name.rb",
     "lib/ronin/host_name_ip_address.rb",
@@ -295,6 +324,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<tzinfo>, ["~> 0.3.22"])
       s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
       s.add_runtime_dependency(%q<dm-do-adapter>, ["~> 1.0.0"])
       s.add_runtime_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0"])
@@ -320,6 +350,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
       s.add_development_dependency(%q<bundler>, ["~> 0.9.23"])
     else
+      s.add_dependency(%q<tzinfo>, ["~> 0.3.22"])
       s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
       s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0"])
       s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0"])
@@ -346,6 +377,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, ["~> 0.9.23"])
     end
   else
+    s.add_dependency(%q<tzinfo>, ["~> 0.3.22"])
     s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
     s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0"])
     s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0"])
