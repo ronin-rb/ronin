@@ -28,7 +28,7 @@ module Ronin
           create_table :ronin_os_guesses do
             column :ip_address_id, Integer, :key => true
             column :os_id, Integer, :key => true
-            column :created_at, Time
+            column :created_at, Time, :not_null => true
           end
         end
 

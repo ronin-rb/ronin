@@ -31,7 +31,7 @@ module Ronin
             column :address_id, Integer
             column :open_port_id, Integer
             column :url_id, Integer
-            column :created_at, Time
+            column :created_at, Time, :not_null => true
           end
         end
 

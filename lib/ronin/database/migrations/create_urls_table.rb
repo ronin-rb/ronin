@@ -33,7 +33,7 @@ module Ronin
             column :path, String, :default => ''
             column :query_string, String
             column :fragment, String
-            column :created_at, Time
+            column :created_at, Time, :not_null => true
           end
         end
 
