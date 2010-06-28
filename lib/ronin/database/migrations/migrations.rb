@@ -18,11 +18,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'dm-core'
-require 'dm-types'
-require 'dm-migrations/migration'
-require 'dm-migrations/property_constants'
+require 'ronin/database/migration'
 
+require 'dm-types'
+require 'dm-migrations/property_constants'
 require 'enumerator'
 require 'rubygems/version'
 
@@ -68,7 +67,7 @@ module Ronin
 
         Migrations.migrations[library][version].each_with_index do |(name,block),index|
           Database.repositories.each_key do |repo|
-            yield DataMapper::Migration.new(index,"#{library}-#{version}-#{name}",:database => repo,&block)
+            yield Migration.new(index,library,version,name,:database => repo,&block)
           end
         end
       end
