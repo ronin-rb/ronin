@@ -21,14 +21,13 @@
 require 'ronin/database/migration'
 
 require 'dm-types'
-require 'dm-migrations/property_constants'
 require 'enumerator'
 require 'rubygems/version'
 
 module Ronin
   module Database
     module Migrations
-      include DataMapper::Migrations::PropertyConstants
+      include DataMapper::Property::Lookup
 
       #
       # The registered database migrations.
