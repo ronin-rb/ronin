@@ -12,7 +12,7 @@ group(:runtime) do
   gem 'dm-sqlite-adapter',	'~> 1.0.0'
 
   # DataMapper dependencies
-  gem 'dm-core',	'~> 1.0.0'
+  gem 'dm-core',	'~> 1.0.0', :git => 'git://github.com/postmodern/dm-core.git', :branch => 'postmodern'
   gem 'dm-types',	'~> 1.0.0'
   gem 'dm-constraints',	'~> 1.0.0'
   gem 'dm-migrations',	'~> 1.0.0', :git => 'git://github.com/postmodern/dm-migrations.git', :branch => 'postmodern'
