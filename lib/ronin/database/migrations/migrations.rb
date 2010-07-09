@@ -20,6 +20,7 @@
 
 require 'ronin/database/migration'
 
+require 'dm-core'
 require 'dm-types'
 require 'enumerator'
 require 'rubygems/version'
@@ -27,7 +28,7 @@ require 'rubygems/version'
 module Ronin
   module Database
     module Migrations
-      include DataMapper::Property::Lookup
+      extend DataMapper::Property::Lookup
 
       #
       # The registered database migrations.
