@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-06-25}
+  s.date = %q{2010-07-09}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin-help", "ronin-install", "ronin", "ronin-uninstall", "ronin-console", "ronin-update", "ronin-list", "ronin-add", "ronin-database"]
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
-    ".specopts",
+    ".rspec",
     ".yardopts",
     "COPYING.txt",
     "ChangeLog.md",
@@ -50,6 +50,7 @@ Gem::Specification.new do |s|
     "lib/ronin/database/exceptions.rb",
     "lib/ronin/database/exceptions/invalid_config.rb",
     "lib/ronin/database/exceptions/unknown_repository.rb",
+    "lib/ronin/database/migration.rb",
     "lib/ronin/database/migrations.rb",
     "lib/ronin/database/migrations/add_open_port_id_column_to_credentials_table.rb",
     "lib/ronin/database/migrations/add_url_id_column_to_credentials_table.rb",
@@ -88,6 +89,7 @@ Gem::Specification.new do |s|
     "lib/ronin/license.rb",
     "lib/ronin/mac_address.rb",
     "lib/ronin/model.rb",
+    "lib/ronin/model/class_methods.rb",
     "lib/ronin/model/has_authors.rb",
     "lib/ronin/model/has_description.rb",
     "lib/ronin/model/has_license.rb",
@@ -350,7 +352,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<ronin-support>, ["~> 0.1.0"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
-      s.add_development_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_development_dependency(%q<rspec>, ["~> 2.0.0.beta.16"])
       s.add_development_dependency(%q<bundler>, ["~> 0.9.23"])
     else
       s.add_dependency(%q<tzinfo>, ["~> 0.3.22"])
@@ -376,7 +378,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
-      s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+      s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.16"])
       s.add_dependency(%q<bundler>, ["~> 0.9.23"])
     end
   else
@@ -403,7 +405,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
-    s.add_dependency(%q<rspec>, ["~> 1.3.0"])
+    s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.16"])
     s.add_dependency(%q<bundler>, ["~> 0.9.23"])
   end
 end
