@@ -12,10 +12,10 @@ group(:runtime) do
   gem 'dm-sqlite-adapter',	'~> 1.0.0'
 
   # DataMapper dependencies
-  gem 'dm-core',	'~> 1.0.0', :git => 'git://github.com/postmodern/dm-core.git', :branch => 'postmodern'
+  gem 'dm-core',	'~> 1.0.0', :git => 'git://github.com/datamapper/dm-core.git'
   gem 'dm-types',	'~> 1.0.0'
   gem 'dm-constraints',	'~> 1.0.0'
-  gem 'dm-migrations',	'~> 1.0.0', :git => 'git://github.com/postmodern/dm-migrations.git', :branch => 'postmodern'
+  gem 'dm-migrations',	'~> 1.0.0', :git => 'git://github.com/postmodern/dm-migrations.git'
   gem 'dm-validations',	'~> 1.0.0'
   gem 'dm-aggregates',	'~> 1.0.0'
   gem 'dm-timestamps',	'~> 1.0.0'
@@ -57,4 +57,4 @@ group(:doc) do
   gem 'yard-dm-is-predefined',	'~> 0.2.0'
 end
 
-gem 'rspec',	'~> 1.3.0', :group => [:development, :test]
+gem 'rspec',	'~> 2.0.0.beta.16', :group => [:development, :test]

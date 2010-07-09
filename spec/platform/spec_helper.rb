@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'platform/helpers/overlays'
 require 'ronin/platform'
 
-Spec::Runner.configure do |spec|
+RSpec.configure do |spec|
   spec.include Helpers::Overlays
 
   spec.before(:suite) do

@@ -9,13 +9,13 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-require 'spec'
+require 'rspec'
 require 'tempfile'
 require 'ronin/database/database'
 
 include Ronin
 
-Spec::Runner.configure do |spec|
+RSpec.configure do |spec|
   spec.before(:suite) do
     database_file = Tempfile.new('ronin_database').path
     database_uri = Addressable::URI.new(
