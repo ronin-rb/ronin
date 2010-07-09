@@ -27,56 +27,52 @@ module Ronin
     # Allows a model to be lazily upgraded in the database.
     #
     module LazyUpgrade
-      def self.included(base)
-        base.metaclass_eval do
-          #
-          # Determines if the model has been auto-upgraded recently.
-          #
-          # @return [Boolean]
-          #   Specifies whether the model has been auto-upgraded.
-          #
-          def auto_upgraded?
-            @auto_upgraded == true
-          end
+      #
+      # Determines if the model has been auto-upgraded recently.
+      #
+      # @return [Boolean]
+      #   Specifies whether the model has been auto-upgraded.
+      #
+      def auto_upgraded?
+        @auto_upgraded == true
+      end
 
-          #
-          # Destructively migrates the data-store to match the model.
-          #
-          # @param [Symbol] repository
-          #   The repository to be migrated
-          #
-          def auto_migrate!(repository=nil)
-            result = super(repository)
+      #
+      # Destructively migrates the data-store to match the model.
+      #
+      # @param [Symbol] repository
+      #   The repository to be migrated
+      #
+      def auto_migrate!(repository=nil)
+        result = super(repository)
 
-            @auto_upgraded = true
-            return result
-          end
+        @auto_upgraded = true
+        return result
+      end
 
-          #
-          # Safely migrates the data-store to match the model preserving
-          # data already in the data-store.
-          #
-          # @param [Symbol] repository
-          #   The repository to be migrated 
-          #
-          def auto_upgrade!(repository=nil)
-            result = super(repository)
+      #
+      # Safely migrates the data-store to match the model preserving
+      # data already in the data-store.
+      #
+      # @param [Symbol] repository
+      #   The repository to be migrated 
+      #
+      def auto_upgrade!(repository=nil)
+        result = super(repository)
 
-            @auto_upgraded = true
-            return result
-          end
+        @auto_upgraded = true
+        return result
+      end
 
-          #
-          # Safely migrates the data-store to match the model, but only if
-          # the model has not yet been migrated.
-          #
-          # @param [Symbol] repository
-          #   The repository to be migrated 
-          #
-          def lazy_upgrade!(repository=self.repository_name)
-            auto_upgrade!(repository) unless auto_upgraded?
-          end
-        end
+      #
+      # Safely migrates the data-store to match the model, but only if
+      # the model has not yet been migrated.
+      #
+      # @param [Symbol] repository
+      #   The repository to be migrated 
+      #
+      def lazy_upgrade!(repository=self.repository_name)
+        auto_upgrade!(repository) unless auto_upgraded?
       end
     end
   end

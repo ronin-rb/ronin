@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/model/class_methods'
 require 'ronin/model/lazy_upgrade'
 require 'ronin/model/types'
 require 'ronin/support/inflector'
@@ -46,30 +47,9 @@ module Ronin
         include DataMapper
         include DataMapper::Types
         include DataMapper::Migrations
-        include Model::LazyUpgrade
         include Model::Types
-
-        #
-        # The default name to use when defining relationships with the
-        # model.
-        #
-        # @return [Symbol]
-        #   The name to use in relationships.
-        #
-        # @since 0.4.0
-        #
-        def self.relationship_name
-          self.name.split('::').last.underscore.pluralize.to_sym
-        end
-
-        def self.load(records,query)
-          resources = super(records,query)
-
-          # Forcibly call initialize after loading the resources
-          resources.each { |resource| resource.send(:initialize) }
-
-          return resources
-        end
+        extend Model::ClassMethods
+        extend Model::LazyUpgrade
       end
     end
 
