@@ -20,7 +20,7 @@
 
 require 'ronin/database/exceptions/invalid_config'
 require 'ronin/database/exceptions/unknown_repository'
-require 'ronin/database/migrations'
+require 'ronin/database/migrations/migrations'
 require 'ronin/model'
 require 'ronin/config'
 require 'ronin/installation'
