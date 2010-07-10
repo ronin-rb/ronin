@@ -144,6 +144,7 @@ Gem::Specification.new do |s|
     "lib/ronin/site_credential.rb",
     "lib/ronin/software.rb",
     "lib/ronin/spec/database.rb",
+    "lib/ronin/spec/ui/output.rb",
     "lib/ronin/support/inflector.rb",
     "lib/ronin/target.rb",
     "lib/ronin/tcp_port.rb",
