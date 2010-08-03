@@ -35,7 +35,6 @@ module Ronin
   # {Database}.
   #
   module Model
-    include DataMapper::Types
     include Model::Types
 
     def self.included(base)
@@ -45,7 +44,6 @@ module Ronin
         end
 
         include DataMapper
-        include DataMapper::Types
         include DataMapper::Migrations
         include Model::Types
         extend Model::ClassMethods
