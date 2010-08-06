@@ -36,6 +36,7 @@ group(:runtime) do
 end
 
 group(:development) do
+  gem 'bundler',		'~> 1.0.0'
   gem 'rake',			'~> 0.8.7'
   gem 'jeweler',		'~> 1.4.0', :git => 'git://github.com/technicalpickles/jeweler.git'
 end
