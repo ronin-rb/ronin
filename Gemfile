@@ -27,7 +27,7 @@ group(:runtime) do
   # Library dependencies
   gem 'nokogiri',	'~> 1.4.1'
   gem 'open_namespace',	'~> 0.3.0'
-  gem 'parameters',	'~> 0.2.1'
+  gem 'parameters',	'~> 0.2.2'
   gem 'data_paths',	'~> 0.2.1'
   gem 'contextify',	'~> 0.1.6'
   gem 'pullr',		'~> 0.1.2'
