@@ -9,10 +9,10 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-07-09}
+  s.date = %q{2010-08-06}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
-  s.executables = ["ronin-help", "ronin-install", "ronin", "ronin-uninstall", "ronin-console", "ronin-update", "ronin-list", "ronin-add", "ronin-database"]
+  s.executables = ["ronin-install", "ronin-add", "ronin-update", "ronin-list", "ronin-help", "ronin-database", "ronin-uninstall", "ronin", "ronin-console"]
   s.extra_rdoc_files = [
     "ChangeLog.md",
     "README.md"
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "COPYING.txt",
     "ChangeLog.md",
     "Gemfile",
+    "Gemfile.lock",
     "README.md",
     "Rakefile",
     "bin/ronin",
@@ -346,12 +347,13 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
       s.add_runtime_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_runtime_dependency(%q<open_namespace>, ["~> 0.3.0"])
-      s.add_runtime_dependency(%q<parameters>, ["~> 0.2.1"])
+      s.add_runtime_dependency(%q<parameters>, ["~> 0.2.2"])
       s.add_runtime_dependency(%q<data_paths>, ["~> 0.2.1"])
       s.add_runtime_dependency(%q<contextify>, ["~> 0.1.6"])
       s.add_runtime_dependency(%q<pullr>, ["~> 0.1.2"])
       s.add_runtime_dependency(%q<thor>, ["~> 0.13.0"])
       s.add_runtime_dependency(%q<ronin-support>, ["~> 0.1.0"])
+      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.0.0.beta.16"])
@@ -372,12 +374,13 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
       s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
-      s.add_dependency(%q<parameters>, ["~> 0.2.1"])
+      s.add_dependency(%q<parameters>, ["~> 0.2.2"])
       s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
       s.add_dependency(%q<contextify>, ["~> 0.1.6"])
       s.add_dependency(%q<pullr>, ["~> 0.1.2"])
       s.add_dependency(%q<thor>, ["~> 0.13.0"])
       s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
+      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
       s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.16"])
@@ -399,12 +402,13 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
     s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
     s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
-    s.add_dependency(%q<parameters>, ["~> 0.2.1"])
+    s.add_dependency(%q<parameters>, ["~> 0.2.2"])
     s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
     s.add_dependency(%q<contextify>, ["~> 0.1.6"])
     s.add_dependency(%q<pullr>, ["~> 0.1.2"])
     s.add_dependency(%q<thor>, ["~> 0.13.0"])
     s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
+    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
     s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.16"])
