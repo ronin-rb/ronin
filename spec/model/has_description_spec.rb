@@ -9,9 +9,7 @@ describe Model::HasDescription do
   end
 
   it "should define a description property" do
-    property = DescribedModel.properties['description']
-
-    property.should_not be_nil
+    DescribedModel.properties.should be_named(:description)
   end
 
   describe "description" do

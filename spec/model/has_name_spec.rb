@@ -9,9 +9,7 @@ describe Model::HasName do
   end
 
   it "should define a name property" do
-    property = NamedModel.properties['name']
-
-    property.should_not be_nil
+    NamedModel.properties.should be_named(:name)
   end
 
   it "should require a name" do
