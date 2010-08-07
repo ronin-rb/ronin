@@ -15,7 +15,7 @@ group(:runtime) do
   gem 'dm-core',	'~> 1.0.0', :git => 'git://github.com/datamapper/dm-core.git'
   gem 'dm-types',	'~> 1.0.0'
   gem 'dm-constraints',	'~> 1.0.0'
-  gem 'dm-migrations',	'~> 1.0.0', :git => 'git://github.com/postmodern/dm-migrations.git'
+  gem 'dm-migrations',	'~> 1.0.0', :git => 'git://github.com/datamapper/dm-migrations.git'
   gem 'dm-validations',	'~> 1.0.0'
   gem 'dm-aggregates',	'~> 1.0.0'
   gem 'dm-timestamps',	'~> 1.0.0'

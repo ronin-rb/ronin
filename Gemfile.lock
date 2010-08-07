@@ -7,15 +7,15 @@ GIT
       extlib (~> 0.9.15)
 
 GIT
-  remote: git://github.com/postmodern/dm-migrations.git
-  revision: c72ba40
+  remote: git://github.com/datamapper/dm-migrations.git
+  revision: 01ab4df
   specs:
     dm-migrations (1.0.0)
       dm-core (~> 1.0.0)
 
 GIT
   remote: git://github.com/ronin-ruby/ronin-support.git
-  revision: d5f86fe
+  revision: 2fa125a
   specs:
     ronin-support (0.1.0)
       chars (~> 0.1.2)
@@ -79,7 +79,7 @@ GEM
     fastercsv (1.5.3)
     gemcutter (0.6.1)
     git (1.2.5)
-    json_pure (1.4.4)
+    json_pure (1.4.5)
     nokogiri (1.4.3.1)
     open_namespace (0.3.0)
     parameters (0.2.2)
