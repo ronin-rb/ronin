@@ -22,6 +22,7 @@ require 'ronin/platform/cached_file'
 require 'ronin/model/model'
 
 require 'contextify'
+require 'set'
 
 module Ronin
   module Platform
@@ -114,23 +115,6 @@ module Ronin
                      :model => 'Ronin::Platform::CachedFile'
 
           #
-          # Loads an object from the file at the specified _path_.
-          #
-          def self.load_from(path)
-            path = File.expand_path(path)
-            obj = self.load_context(path)
-
-            obj.instance_variable_set('@original_loaded',true)
-            obj.cached_file = CachedFile.new(
-              :path => path,
-              :timestamp => File.mtime(path),
-              :model_name => obj.class.to_s
-            )
-
-            return obj
-          end
-
-          #
           # Loads all objects with the matching attributes.
           #
           # @param [Hash] attributes
@@ -173,6 +157,54 @@ module Ronin
 
         CachedFile.has 1, base.relationship_name,
                           :model => base.name
+
+        Cacheable.models << base
+      end
+
+      #
+      # The models that are cacheable.
+      #
+      # @return [Set<Cacheable>]
+      #   Cacheable models.
+      #
+      # @since 0.4.0
+      #
+      def Cacheable.models
+        @@ronin_cacheable_models ||= Set[]
+      end
+
+      #
+      # Loads the first cacheable object from a file.
+      #
+      # @param [String] path
+      #   The file to load the cacheable object from.
+      #
+      # @return [Cacheable]
+      #   The cacheable object.
+      #
+      # @raise [RuntimeError]
+      #   There were no cacheable objects defined in the file.
+      #
+      # @since 0.4.0
+      #
+      def Cacheable.load_from(path)
+        path = File.expand_path(path)
+        obj = Contextify.load_contexts(path).find do |obj|
+          obj.class < Cacheable
+        end
+
+        unless obj
+          raise(RuntimeError,"No cacheable object defined in #{path.dump}",caller)
+        end
+
+        obj.instance_variable_set('@original_loaded',true)
+        obj.cached_file = CachedFile.new(
+          :path => path,
+          :timestamp => File.mtime(path),
+          :model_name => obj.class.to_s
+        )
+
+        return obj
       end
 
       #

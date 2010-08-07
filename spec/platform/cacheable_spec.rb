@@ -13,7 +13,7 @@ describe Platform::Cacheable do
   describe "load_from" do
     before(:all) do
       @path = @overlay.cached_files.first.path
-      @obj = CacheableModel.load_from(@path)
+      @obj = Platform::Cacheable.load_from(@path)
     end
 
     it "should have a cached_file resource" do
