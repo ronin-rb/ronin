@@ -21,6 +21,7 @@
 require 'ronin/database/migration'
 
 require 'dm-core'
+require 'dm-core/property/lookup'
 require 'dm-types'
 require 'enumerator'
 require 'rubygems/version'
