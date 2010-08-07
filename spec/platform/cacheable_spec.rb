@@ -10,6 +10,20 @@ describe Platform::Cacheable do
     @overlay.cache_files!
   end
 
+  describe "included" do
+    it "should add the type property to the model" do
+      CacheableModel.properties.should be_named(:type)
+    end
+
+    it "should add a relation between Platform::CachedFile and the model" do
+      CacheableModel.relationships.should have_key(:cached_file)
+    end
+
+    it "should add the class to Cacheable.models" do
+      Platform::Cacheable.models.should include(CacheableModel)
+    end
+  end
+
   describe "load_from" do
     before(:all) do
       @path = @overlay.cached_files.first.path
