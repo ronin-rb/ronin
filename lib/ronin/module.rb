@@ -43,6 +43,23 @@ module Ronin
       end
     end
 
+    # 
+    # Loads a module from a file.
+    #
+    # @param [String] path
+    #   The path to the file.
+    #
+    # @return [Module]
+    #   The loaded module.
+    #
+    # @see Platform::Cacheable.load_from
+    #
+    # @since 0.4.0
+    #
+    def Module.load_from(path)
+      Platform::Cacheable.load_from(path)
+    end
+
     #
     # Initializes the Ronin Module.
     #
