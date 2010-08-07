@@ -164,8 +164,7 @@ describe Platform::CachedFile do
   describe "modified cached file" do
     before(:all) do
       @cached_file = @test1.cached_files.first
-      @cached_file.timestamp -= 10
-      @cached_file.save
+      @cached_file.update(:timestamp => (@cached_file.timestamp - 10))
     end
 
     it "should not have updated code" do
@@ -184,7 +183,7 @@ describe Platform::CachedFile do
   describe "missing cached file" do
     before(:all) do
       @cached_file = @test1.cached_files.first
-      @cached_file.path = File.join('','missing','file.rb')
+      @cached_file.update(:path => File.join('','missing','file.rb'))
       @cached_file.sync
     end
 
