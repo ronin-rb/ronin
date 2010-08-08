@@ -27,8 +27,6 @@ module Ronin
     # Adds a `description` property to a model.
     #
     module HasDescription
-      include DataMapper::Types
-
       def self.included(base)
         base.module_eval do
           include Ronin::Model
