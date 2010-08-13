@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/ronin-ruby/ronin-support.git
-  revision: 2fa125a
+  revision: 1ebbd36
   specs:
     ronin-support (0.1.0)
       chars (~> 0.1.2)
@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: git://github.com/technicalpickles/jeweler.git
-  revision: b996854
+  revision: f27bcbb
   specs:
     jeweler (1.4.0)
       bundler (>= 0.9.5)
@@ -35,7 +35,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     activesupport (3.0.0.rc)
-    addressable (2.1.2)
+    addressable (2.2.0)
     chars (0.1.2)
       yard (>= 0.2.3.5)
     contextify (0.1.6)
@@ -79,7 +79,7 @@ GEM
     fastercsv (1.5.3)
     gemcutter (0.6.1)
     git (1.2.5)
-    json_pure (1.4.5)
+    json_pure (1.4.6)
     nokogiri (1.4.3.1)
     open_namespace (0.3.0)
     parameters (0.2.2)
