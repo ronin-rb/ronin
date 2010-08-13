@@ -48,6 +48,7 @@ Jeweler::Tasks.new do |gem|
   * ronin-web
   }
 end
+Jeweler::GemcutterTasks.new
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new
