@@ -4,16 +4,18 @@ require 'ronin/model/has_name'
 require 'model/models/named_model'
 
 describe Model::HasName do
+  subject { NamedModel }
+
   before(:all) do
-    NamedModel.auto_migrate!
+    subject.auto_migrate!
   end
 
   it "should define a name property" do
-    NamedModel.properties.should be_named(:name)
+    subject.properties.should be_named(:name)
   end
 
   it "should require a name" do
-    model = NamedModel.new
+    model = subject.new
     model.should_not be_valid
 
     model.name = 'foo'
@@ -21,10 +23,10 @@ describe Model::HasName do
   end
 
   it "should be able to find resources with similar names" do
-    NamedModel.create!(:name => 'foo1')
-    NamedModel.create!(:name => 'foo2')
+    subject.create!(:name => 'foo1')
+    subject.create!(:name => 'foo2')
 
-    models = NamedModel.named('foo')
+    models = subject.named('foo')
 
     models.length.should == 2
     models[0].name.should == 'foo1'

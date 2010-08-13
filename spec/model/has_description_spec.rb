@@ -4,55 +4,56 @@ require 'ronin/model/has_description'
 require 'model/models/described_model'
 
 describe Model::HasDescription do
+  subject { DescribedModel }
+
   before(:all) do
-    DescribedModel.auto_migrate!
+    subject.auto_migrate!
   end
 
   it "should define a description property" do
-    DescribedModel.properties.should be_named(:description)
+    subject.properties.should be_named(:description)
   end
 
   describe "description" do
-    before(:each) do
-      @model = DescribedModel.new
-    end
+    let(:resource) { DescribedModel.new }
 
     it "should allow the setting of the description" do
-      @model.description = 'test one'
-      @model.description.should == 'test one'
+      resource.description = 'test one'
+      resource.description.should == 'test one'
     end
 
     it "should strip leading and tailing white-space" do
-      @model.description = %{   test two    }
+      resource.description = %{   test two    }
 
-      @model.description.should == 'test two'
+      resource.description.should == 'test two'
     end
 
     it "should strip leading and tailing white-space from each line" do
-      @model.description = %{
+      resource.description = %{
         test
         three
       }
 
-      @model.description.should == "test\nthree"
+      resource.description.should == "test\nthree"
     end
 
     it "should preserve non-bordering empty lines" do
-      @model.description = %{
+      resource.description = %{
         test
 
         four
       }
 
-      @model.description.should == "test\n\nfour"
+      resource.description.should == "test\n\nfour"
     end
   end
 
   it "should be able to find resources with similar descriptions" do
-    DescribedModel.create!(:description => 'foo one')
-    DescribedModel.create!(:description => 'foo bar two')
+    subject.create!(:description => 'foo one')
+    subject.create!(:description => 'foo bar two')
 
-    models = DescribedModel.describing('foo')
+    models = subject.describing('foo')
+
     models.length.should == 2
     models[0].description.should == 'foo one'
     models[1].description.should == 'foo bar two'

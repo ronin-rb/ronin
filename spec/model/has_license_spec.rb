@@ -4,12 +4,14 @@ require 'ronin/model/has_license'
 require 'model/models/licensed_model'
 
 describe Model::HasLicense do
+  subject { LicensedModel }
+
   before(:all) do
-    LicensedModel.auto_migrate!
+    subject.auto_migrate!
   end
 
   it "should define a license relationship" do
-    relationship = LicensedModel.relationships['license']
+    relationship = subject.relationships['license']
 
     relationship.should_not be_nil
     relationship.parent_model.should == License
@@ -19,11 +21,11 @@ describe Model::HasLicense do
     relationship = License.relationships['licensed_models']
     
     relationship.should_not be_nil
-    relationship.child_model.should == LicensedModel
+    relationship.child_model.should == subject
   end
 
   it "should have a license" do
-    model = LicensedModel.create!(
+    model = subject.create!(
       :content => 'bla',
       :license => License.gpl2
     )
@@ -32,11 +34,11 @@ describe Model::HasLicense do
   end
 
   it "should provide helper methods for querying licensed models" do
-    model = LicensedModel.create!(
+    model = subject.create!(
       :content => 'stuff here',
       :license => License.gpl2
     )
 
-    LicensedModel.licensed_under(:gpl2).first == model
+    subject.licensed_under(:gpl2).first == model
   end
 end

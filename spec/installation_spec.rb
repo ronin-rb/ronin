@@ -31,20 +31,20 @@ describe Installation do
       :dependent_gems => [@ronin_gem]
     )
 
-    Installation.stub!(:gems).and_return(
+    subject.stub!(:gems).and_return(
       'ronin' => @ronin_gem,
       'ronin-exploits' => @ronin_exploits_gem
     )
   end
 
   it "should provide the names of the installed Ronin libraries" do
-    Installation.libraries.should == ['ronin', 'ronin-exploits']
+    subject.libraries.should == ['ronin', 'ronin-exploits']
   end
 
   describe "each_file" do
-    before(:all) do
-      @directory = 'lib/ronin/ui/command_line/commands'
-      @expected = %w[
+    let(:directory) { 'lib/ronin/ui/command_line/commands' }
+    let(:expected) {
+      %w[
         add.rb
         console.rb
         database.rb
@@ -58,15 +58,15 @@ describe Installation do
         payload.rb
         payloads.rb
       ]
-    end
+    }
 
     it "should enumerate over the files within a certain directory" do
-      Installation.each_file(@directory).to_a.should == @expected
+      subject.each_file(directory).to_a.should == expected
     end
 
     it "should return an Enumerator when no block is given" do
-      Installation.each_file(@directory).all? { |file|
-        @expected.include?(file)
+      subject.each_file(directory).all? { |file|
+        expected.include?(file)
       }.should == true
     end
   end

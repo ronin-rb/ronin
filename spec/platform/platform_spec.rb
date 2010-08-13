@@ -4,15 +4,15 @@ require 'ronin/platform/platform'
 
 describe Platform do
   it "should be able to load custom overlay caches" do
-    Platform.overlays.should_not be_empty
+    subject.overlays.should_not be_empty
   end
 
   it "should have specific extensions" do
-    Platform.has_extension?('test').should == true
+    subject.has_extension?('test').should == true
   end
 
   it "should provide the names of all available extensions" do
-    Platform.extension_names.should == ['hello', 'random', 'test']
+    subject.extension_names.should == ['hello', 'random', 'test']
   end
 
   it "should provide transparent access to extensions via methods" do
@@ -28,7 +28,7 @@ describe Platform do
   end
 
   it "should provide transparent access to extensions via methods" do
-    ext = Platform.hello
+    ext = subject.hello
 
     ext.should_not be_nil
     ext.name.should == 'hello'
@@ -36,6 +36,6 @@ describe Platform do
   end
 
   it "should raise NoMethodError when accessing missing extensions" do
-    lambda { self.nothing }.should raise_error(NoMethodError)
+    lambda { subject.nothing }.should raise_error(NoMethodError)
   end
 end

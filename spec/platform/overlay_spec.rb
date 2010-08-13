@@ -5,19 +5,17 @@ require 'platform/classes/cacheable_model'
 require 'ronin/platform/overlay'
 
 describe Platform::Overlay do
-  before(:all) do
-    @overlay = load_overlay('hello')
-  end
+  subject { Platform::Overlay }
 
   describe "get" do
     it "should be able to retrieve an Overlay by name" do
-      overlay = Platform::Overlay.get('hello')
+      overlay = subject.get('hello')
 
       overlay.name.should == 'hello'
     end
 
     it "should be able to retrieve an Overlay by name and domain" do
-      overlay = Platform::Overlay.get('hello/localhost')
+      overlay = subject.get('hello/localhost')
 
       overlay.name.should == 'hello'
       overlay.domain.should == 'localhost'
@@ -25,13 +23,13 @@ describe Platform::Overlay do
 
     it "should raise OverlayNotFound for unknown Overlay names" do
       lambda {
-        Platform::Overlay.get('bla')
+        subject.get('bla')
       }.should raise_error(Platform::OverlayNotFound)
     end
 
     it "should raise OverlayNotFound for unknown Overlay names or domains" do
       lambda {
-        Platform::Overlay.get('bla/bla')
+        subject.get('bla/bla')
       }.should raise_error(Platform::OverlayNotFound)
     end
   end
@@ -39,25 +37,25 @@ describe Platform::Overlay do
   describe "add!" do
     it "should not add Overlays without a path property" do
       lambda {
-        Platform::Overlay.add!
+        subject.add!
       }.should raise_error(ArgumentError)
     end
 
     it "should not add Overlays that do not point to a directory" do
       lambda {
-        Platform::Overlay.add!(:path => 'path/to/nowhere')
+        subject.add!(:path => 'path/to/nowhere')
       }.should raise_error(Platform::OverlayNotFound)
     end
 
     it "should not allow adding an Overlay from the same path twice" do
       lambda {
-        Platform::Overlay.add!(:path => load_overlay('hello').path)
+        subject.add!(:path => load_overlay('hello').path)
       }.should raise_error(Platform::DuplicateOverlay)
     end
 
     it "should not allow adding an Overlay that was already installed" do
       lambda {
-        Platform::Overlay.add!(:path => load_overlay('random').path)
+        subject.add!(:path => load_overlay('random').path)
       }.should raise_error(Platform::DuplicateOverlay)
     end
   end
@@ -65,19 +63,19 @@ describe Platform::Overlay do
   describe "install!" do
     it "should not allow installing an Overlay with no URI" do
       lambda {
-        Platform::Overlay.install!
+        subject.install!
       }.should raise_error(ArgumentError)
     end
 
     it "should not allow installing an Overlay that was already added" do
       lambda {
-        Platform::Overlay.install!(:uri => load_overlay('test1').uri)
+        subject.install!(:uri => load_overlay('test1').uri)
       }.should raise_error(Platform::DuplicateOverlay)
     end
 
     it "should not allow installing an Overlay from the same URI twice" do
       lambda {
-        Platform::Overlay.install!(:uri => load_overlay('random').uri)
+        subject.install!(:uri => load_overlay('random').uri)
       }.should raise_error(Platform::DuplicateOverlay)
     end
   end
@@ -100,7 +98,7 @@ describe Platform::Overlay do
 
   describe "initialize" do
     it "should default the 'name' property to the name of the Overlay directory" do
-      overlay = Platform::Overlay.new(
+      overlay = subject.new(
         :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello')
       )
 
@@ -108,7 +106,7 @@ describe Platform::Overlay do
     end
 
     it "should default the 'installed' property to false" do
-      overlay = Platform::Overlay.new(
+      overlay = subject.new(
         :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello'),
         :uri => 'git://github.com/path/to/hello.git'
       )
@@ -118,44 +116,48 @@ describe Platform::Overlay do
   end
 
   describe "initialize_metadata" do
+    subject { load_overlay('hello') }
+
     it "should load the format version" do
-      @overlay.version.should_not be_nil
+      subject.version.should_not be_nil
     end
 
     it "should be compatible with the current Ronin::Platform::Overlay" do
-      @overlay.should be_compatible
+      subject.should be_compatible
     end
 
     it "should load the title" do
-      @overlay.title.should == 'Hello World'
+      subject.title.should == 'Hello World'
     end
 
     it "should load the website" do
       website = Addressable::URI.parse('http://ronin.rubyforge.org/')
 
-      @overlay.website.should == website
+      subject.website.should == website
     end
 
     it "should load the license" do
-      @overlay.license.should_not be_nil
-      @overlay.license.name.should == 'GPL-2'
+      subject.license.should_not be_nil
+      subject.license.name.should == 'GPL-2'
     end
 
     it "should load the maintainers" do
-      @overlay.maintainers.find { |maintainer|
+      subject.maintainers.find { |maintainer|
         maintainer.name == 'Postmodern' && \
           maintainer.email == 'postmodern.mod3@gmail.com'
       }.should_not be_nil
     end
 
     it "should load the description" do
-      @overlay.description.should == %{This is a test overlay used in Ronin's specs.}
+      subject.description.should == %{This is a test overlay used in Ronin's specs.}
     end
   end
 
   describe "activate!" do
+    subject { load_overlay('hello') }
+
     before(:all) do
-      @overlay.activate!
+      subject.activate!
     end
 
     it "should load the init.rb file if present" do
@@ -168,8 +170,10 @@ describe Platform::Overlay do
   end
 
   describe "deactivate!" do
+    subject { load_overlay('hello') }
+
     before(:all) do
-      @overlay.deactivate!
+      subject.deactivate!
     end
 
     it "should make the lib directory unaccessible to Kernel#require" do
@@ -180,18 +184,16 @@ describe Platform::Overlay do
   end
 
   describe "cache_paths" do
-    before(:all) do
-      @test1 = load_overlay('test1')
-    end
+    subject { load_overlay('test1') }
 
     it "should list the contents of the 'cache/' directory" do
-      @test1.cache_paths.should_not be_empty
+      subject.cache_paths.should_not be_empty
     end
 
     it "should only list '.rb' files" do
-      @test1.cache_paths.should_not be_empty
+      subject.cache_paths.should_not be_empty
 
-      @test1.cache_paths.all? { |path|
+      subject.cache_paths.all? { |path|
         path.extname.should == '.rb'
       }.should == true
     end
@@ -200,93 +202,93 @@ describe Platform::Overlay do
   describe "cached_files" do
     before(:all) do
       CacheableModel.auto_migrate!
-
-      @test1 = load_overlay('test1')
-      @test2 = load_overlay('test2')
     end
+
+    let(:test1) { load_overlay('test1') }
+    let(:test2) { load_overlay('test2') }
 
     describe "cache_files!" do
       before(:all) do
-        @test1.cache_files!
-        @test2.cache_files!
+        test1.cache_files!
+        test2.cache_files!
       end
 
       it "should be populated cached_files" do
-        @test1.cached_files.should_not be_empty
+        test1.cached_files.should_not be_empty
       end
 
       it "should recover from files that contain syntax errors" do
-        @test2.cached_files.any? { |cached_file|
+        test2.cached_files.any? { |cached_file|
           cached_file.path.basename == Pathname.new('syntax_errors.rb')
         }.should == true
       end
 
       it "should recover from files that raised exceptions" do
-        @test2.cached_files.any? { |cached_file|
+        test2.cached_files.any? { |cached_file|
           cached_file.path.basename == Pathname.new('exceptions.rb')
         }.should == true
       end
 
       it "should recover from files that raise NoMethodError" do
-        @test2.cached_files.any? { |cached_file|
+        test2.cached_files.any? { |cached_file|
           cached_file.path.basename == Pathname.new('no_method_errors.rb')
         }.should == true
       end
 
       it "should recover from files that have validation errors" do
-        @test2.cached_files.any? { |cached_file|
+        test2.cached_files.any? { |cached_file|
           cached_file.path.basename == Pathname.new('validation_errors.rb')
         }.should == true
       end
 
       it "should clear cached_files before re-populate them" do
-        test1_files = @test1.cached_files.length
-        @test1.cache_files!
+        test1_files = test1.cached_files.length
+        test1.cache_files!
 
-        @test1.cached_files.length.should == test1_files
+        test1.cached_files.length.should == test1_files
       end
 
       it "should be populated using the paths in the 'cache/' directory" do
-        @test1.cached_files.map { |file|
+        test1.cached_files.map { |file|
           file.path
-        }.should == @test1.cache_paths
+        }.should == test1.cache_paths
       end
     end
 
     describe "sync_cached_files!" do
       before(:all) do
-        @test1.cache_files!
-        @test2.cache_files!
+        test1.cache_files!
+        test2.cache_files!
 
-        file1 = @test1.cached_files.first
+        file1 = test1.cached_files.first
 
         file1.timestamp -= 10
         file1.save
 
-        @test2.cached_files.clear
+        test2.cached_files.clear
 
-        @test1.sync_cached_files!
-        @test2.sync_cached_files!
+        test1.sync_cached_files!
+        test2.sync_cached_files!
       end
 
       it "should update stale cached files" do
-        cached_file = @test1.cached_files.first
+        cached_file = test1.cached_files.first
 
         cached_file.timestamp.should == File.mtime(cached_file.path)
       end
 
       it "should cache new files" do
-        @test2.cached_files.should_not be_empty
+        test2.cached_files.should_not be_empty
       end
     end
 
     describe "clean_cached_files!" do
       before(:all) do
-        @test1.clean_cached_files!
+        test1.clean_cached_files!
       end
 
       it "should clear the cached_files" do
-        @test1.cached_files.should be_empty
+        test1.cached_files.should be_empty
       end
     end
   end

@@ -4,16 +4,12 @@ require 'platform/spec_helper'
 require 'ronin/platform/overlay_cache'
 
 describe Platform::OverlayCache do
-  before(:all) do
-    @cache = Platform::OverlayCache.new
-  end
-
   it "should not be empty" do
-    @cache.should_not be_empty
+    should_not be_empty
   end
 
   it "should return the paths to all the overlays" do
-    paths = @cache.paths
+    paths = subject.paths
 
     paths.length.should == 4
 
@@ -23,17 +19,19 @@ describe Platform::OverlayCache do
   end
 
   it "should have specific extensions" do
-    @cache.has_extension?('test').should == true
+    subject.has_extension?('test').should == true
   end
 
   it "should have extensions" do
-    @cache.extensions.should == ['hello', 'random', 'test']
+    subject.extensions.should == ['hello', 'random', 'test']
   end
 
   it "should provide the paths to specific extensions" do
-    paths = @cache.extension_paths('test')
+    paths = subject.extension_paths('test')
 
     paths.length.should == 2
-    paths.select { |path| File.basename(path) == 'test.rb' }.should == paths
+    paths.select { |path|
+      File.basename(path) == 'test.rb'
+    }.should == paths
   end
 end
