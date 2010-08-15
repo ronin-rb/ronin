@@ -118,16 +118,17 @@ View available commands:
 
 * [ActiveSupport](http://rubygems.org/gems/activesupport) >= 3.0.0
 * [DataMapper](http://datamapper.org/):
-  * dm-do-adapter ~> 1.0.0
-  * dm-sqlite-adapter ~> 1.0.0
+  * [dm-do-adapter](http://github.com/datamapper/dm-do-adapter) ~> 1.0.0
+  * [dm-sqlite-adapter](http://github.com/datamapper/dm-sqlite-adapter)
+    ~> 1.0.0
     * [libsqlite3](http://sqlite.org/)
-  * dm-core ~> 1.0.0
-  * dm-types ~> 1.0.0
-  * dm-migrations ~> 1.0.0
-  * dm-validations ~> 1.0.0
-  * dm-aggregates ~> 1.0.0
-  * dm-timestamps ~> 1.0.0
-  * dm-tags ~> 1.0.0
+  * [dm-core](http://github.com/datamapper/dm-core) ~> 1.0.0
+  * [dm-types](http://github.com/datamapper/dm-types) ~> 1.0.0
+  * [dm-migrations](http://github.com/datamapper/dm-migrations) ~> 1.0.0
+  * [dm-validations](http://github.com/datamapper/dm-validations) ~> 1.0.0
+  * [dm-aggregates](http://github.com/datamapper/dm-aggregates) ~> 1.0.0
+  * [dm-timestamps](http://github.com/datamapper/dm-timestamps) ~> 1.0.0
+  * [dm-tags](http://github.com/datamapper/dm-tags) ~> 1.0.0
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined/)
   ~> 0.3.0
 * [nokogiri](http://nokogiri.rubyforge.org/) ~> 1.4.1
