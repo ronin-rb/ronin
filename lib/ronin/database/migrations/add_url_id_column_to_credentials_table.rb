@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:add_url_id_column_to_credentials_table, :needs => :create_credentials_table) do
+      migration(:add_url_id_column_to_credentials_table, :needs => [:create_credentials_table, :create_urls_table]) do
         up do
           modify_table :ronin_credentials do
             add_column :url_id, Integer
