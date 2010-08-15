@@ -4,8 +4,12 @@ DATA_MAPPER = 'git://github.com/datamapper'
 RONIN = 'git://github.com/ronin-ruby'
 
 group(:runtime) do
-  gem 'tzinfo',		'~> 0.3.22'
-  gem 'activesupport',	'~> 3.0.0.rc', :require => 'active_support'
+  if ENV['EXTLIB']
+    gem 'extlib', '~> 0.9.15'
+  else
+    gem 'tzinfo',		'~> 0.3.22'
+    gem 'activesupport',	'~> 3.0.0.rc', :require => 'active_support'
+  end
 
   # DataMapper adapters
   gem 'dm-do-adapter',		'~> 1.0.0'
