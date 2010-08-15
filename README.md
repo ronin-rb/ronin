@@ -127,7 +127,8 @@ View available commands:
   * dm-core ~> 0.10.2
   * dm-types ~> 0.10.2
   * dm-validations ~> 0.10.2
-* [dm-predefined](http://github.com/postmodern/dm-predefined/) ~> 0.2.3
+* [dm-is-predefined](http://github.com/postmodern/dm-is-predefined/)
+  ~> 0.3.0
 * [open_namespace](http://github.com/postmodern/open_namespace) ~> 0.2.0
 * [parameters](http://github.com/postmodern/parameters) ~> 0.2.0
 * [data_paths](http://github.com/postmodern/data_paths) ~> 0.2.0
