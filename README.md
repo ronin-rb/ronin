@@ -116,26 +116,30 @@ View available commands:
 
 ## Requirements
 
-* [nokogiri](http://nokogiri.rubyforge.org/) ~> 1.3.3
-  * [libxml2](http://xmlsoft.org/)
-  * [libxslt1](http://xmlsoft.org/XSLT/)
 * [ActiveSupport](http://rubygems.org/gems/activesupport) >= 3.0.0
 * [DataMapper](http://datamapper.org/):
-  * data_objects ~> 0.10.1
-  * do_sqlite3 ~> 0.10.1
+  * dm-do-adapter ~> 1.0.0
+  * dm-sqlite-adapter ~> 1.0.0
     * [libsqlite3](http://sqlite.org/)
-  * dm-core ~> 0.10.2
-  * dm-types ~> 0.10.2
-  * dm-validations ~> 0.10.2
+  * dm-core ~> 1.0.0
+  * dm-types ~> 1.0.0
+  * dm-migrations ~> 1.0.0
+  * dm-validations ~> 1.0.0
+  * dm-aggregates ~> 1.0.0
+  * dm-timestamps ~> 1.0.0
+  * dm-tags ~> 1.0.0
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined/)
   ~> 0.3.0
-* [open_namespace](http://github.com/postmodern/open_namespace) ~> 0.2.0
-* [parameters](http://github.com/postmodern/parameters) ~> 0.2.0
-* [data_paths](http://github.com/postmodern/data_paths) ~> 0.2.0
-* [contextify](http://github.com/postmodern/contextify/) ~> 0.1.5
-* [pullr](http://github.com/postmodern/pullr/) ~> 0.1.5
+* [nokogiri](http://nokogiri.rubyforge.org/) ~> 1.4.1
+  * [libxml2](http://xmlsoft.org/)
+  * [libxslt1](http://xmlsoft.org/XSLT/)
+* [open_namespace](http://github.com/postmodern/open_namespace) ~> 0.3.0
+* [parameters](http://github.com/postmodern/parameters) ~> 0.2.2
+* [data_paths](http://github.com/postmodern/data_paths) ~> 0.2.1
+* [contextify](http://github.com/postmodern/contextify/) ~> 0.1.6
+* [pullr](http://github.com/postmodern/pullr/) ~> 0.1.2
 * [thor](http://github.com/wycats/thor/) ~> 0.13.0
-* [ronin-ext](http://ronin.rubyforge.org/) ~> 0.1.0
+* [ronin-support](http://github.com/ronin-ruby/ronin-support/) ~> 0.1.0
 
 ## Install
 
