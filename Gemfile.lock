@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/ronin-ruby/ronin-support.git
-  revision: 1ebbd36
+  revision: 2c39841
   specs:
     ronin-support (0.1.0)
       chars (~> 0.1.2)
@@ -23,7 +23,7 @@ GIT
 
 GIT
   remote: git://github.com/technicalpickles/jeweler.git
-  revision: f27bcbb
+  revision: 7856803
   specs:
     jeweler (1.4.0)
       bundler (>= 0.9.5)
