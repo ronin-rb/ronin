@@ -4,14 +4,16 @@ require 'rubygems'
 
 root_dir = File.expand_path(File.join(File.dirname(__FILE__),'..'))
 if File.directory?(File.join(root_dir,'.bundle'))
-  require 'bundler'
+  Dir.chdir(root_dir) do |path|
+    require 'bundler'
 
-  begin
-    Bundler.setup(:runtime)
-  rescue Bundler::BundlerError => e
-    STDERR.puts e.message
-    STDERR.puts "Run `bundle install` to install missing gems"
-    exit e.status_code
+    begin
+      Bundler.setup(:runtime)
+    rescue Bundler::BundlerError => e
+      STDERR.puts e.message
+      STDERR.puts "Run `bundle install` to install missing gems"
+      exit e.status_code
+    end
   end
 end
 
