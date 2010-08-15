@@ -21,7 +21,11 @@
 begin
   require 'active_support/inflector'
 rescue LoadError
-  require 'extlib/inflection'
+  begin
+    require 'extlib/inflection'
+  rescue LoadError
+    raise(LoadError,"unable to load 'active_support/inflector' or 'extlib/inflection'",caller)
+  end
 end
 
 module Ronin
