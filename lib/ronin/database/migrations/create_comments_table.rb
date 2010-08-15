@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_comments_table) do
+      migration(:create_comments_table, :needs => [:create_addresses_table, :create_open_ports_table]) do
         up do
           create_table :ronin_comments do
             column :id, Integer, :serial => true

@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_cached_files_table) do
+      migration(:create_cached_files_table, :needs => :create_overlays_table) do
         up do
           create_table :ronin_platform_cached_files do
             column :id, Integer, :serial => true

@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_host_name_ip_addresses_table) do
+      migration(:create_host_name_ip_addresses_table, :needs => :create_addresses_table) do
         up do
           create_table :ronin_host_name_ip_addresses do
             column :host_name_id, Integer, :key => true

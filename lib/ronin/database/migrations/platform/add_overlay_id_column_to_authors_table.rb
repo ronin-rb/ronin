@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :add_overlay_id_column_to_authors_table) do
+      migration(:add_overlay_id_column_to_authors_table, :needs => :create_authors_table) do
         up do
           modify_table :ronin_authors do
             add_column :overlay_id, Integer

@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_targets_table) do
+      migration(:create_targets_table, :needs => [:create_campaigns_table, :create_addresses_table]) do
         up do
           create_table :ronin_targets do
             column :id, Integer, :serial => true

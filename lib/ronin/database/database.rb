@@ -183,28 +183,16 @@ module Ronin
     # Upgrades the Database, by running migrations for a given
     # ronin library, but only if the Database has been setup.
     #
-    # @param [Symbol] library
-    #   The library to upgrade the Database for.
-    #
-    # @param [String] version
-    #   The version of the library to upgrade the Database for.
-    #
     # @return [Boolean]
     #   Specifies whether the Database was migrated or is currently
     #   not setup.
     #
-    def Database.upgrade!(library=nil,version=nil)
-      return false unless Database.setup?
-
-      if library
-        return Migrations.migrate_up!(library,version)
+    def Database.upgrade!
+      if Database.setup?
+        DataMapper::Migrations::Runner.migrate_up!
+      else
+        false
       end
-
-      Migrations.migrations.each_key do |library_name|
-        Migrations.migrate_up!(library_name)
-      end
-
-      return true
     end
 
     #

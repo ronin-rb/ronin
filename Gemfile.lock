@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/datamapper/dm-core.git
-  revision: fc51abc
+  revision: 75c67e6
   specs:
     dm-core (1.0.0)
       addressable (~> 2.1)
@@ -8,14 +8,14 @@ GIT
 
 GIT
   remote: git://github.com/datamapper/dm-migrations.git
-  revision: c2a0167
+  revision: 01ab4df
   specs:
     dm-migrations (1.0.0)
       dm-core (~> 1.0.0)
 
 GIT
   remote: git://github.com/ronin-ruby/ronin-support.git
-  revision: 11ea346
+  revision: 2c39841
   specs:
     ronin-support (0.1.0)
       chars (~> 0.1.2)
@@ -23,10 +23,11 @@ GIT
 
 GIT
   remote: git://github.com/technicalpickles/jeweler.git
-  revision: d3b29e1
+  revision: 7856803
   specs:
     jeweler (1.4.0)
-      bundler (>= 1.0.0.rc.5)
+      bundler (>= 0.9.5)
+      gemcutter (>= 0.1.0)
       git (>= 1.2.5)
       rake
 
@@ -76,6 +77,7 @@ GEM
       data_objects (= 0.10.2)
     extlib (0.9.15)
     fastercsv (1.5.3)
+    gemcutter (0.6.1)
     git (1.2.5)
     json_pure (1.4.6)
     nokogiri (1.4.3.1)
@@ -96,7 +98,7 @@ GEM
     ruby-graphviz (0.9.16)
     stringex (1.1.0)
     thor (0.14.0)
-    tzinfo (0.3.23)
+    tzinfo (0.3.22)
     uuidtools (2.1.1)
     yard (0.5.8)
     yard-contextify (0.1.0)

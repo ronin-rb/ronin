@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_softwares_table) do
+      migration(:create_softwares_table, :needs => :create_vendors_table) do
         up do
           create_table :ronin_softwares do
             column :id, Integer, :serial => true

@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_os_guesses_table) do
+      migration(:create_os_guesses_table, :needs => [:create_addresses_table, :create_os_table]) do
         up do
           create_table :ronin_os_guesses do
             column :ip_address_id, Integer, :key => true

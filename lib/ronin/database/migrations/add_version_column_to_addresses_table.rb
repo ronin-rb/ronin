@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :add_version_column_to_addresses_table) do
+      migration(:add_version_column_to_addresses_table, :needs => :create_addresses_table) do
         up do
           modify_table :ronin_addresses do
             add_column :version, Integer

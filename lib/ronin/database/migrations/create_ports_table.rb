@@ -23,7 +23,7 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:ronin, '0.4.0', :create_ports_table) do
+      migration(:create_ports_table, :needs => [:create_organizations_table]) do
         up do
           create_table :ronin_ports do
             column :id, Integer, :serial => true
