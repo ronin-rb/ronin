@@ -3,7 +3,7 @@
 require 'rubygems'
 
 root_dir = File.expand_path(File.join(File.dirname(__FILE__),'..'))
-if File.directory?(File.join(root_dir,'.bundle'))
+if File.directory?(File.join(root_dir,'.git'))
   Dir.chdir(root_dir) do |path|
     require 'bundler'
 
