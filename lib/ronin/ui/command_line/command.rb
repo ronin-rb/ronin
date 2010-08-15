@@ -19,10 +19,10 @@
 #
 
 require 'ronin/ui/output'
+require 'ronin/support/inflector'
 
 require 'thor'
 require 'thor/group'
-require 'active_support/inflector'
 
 module Ronin
   module UI

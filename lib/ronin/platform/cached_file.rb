@@ -19,10 +19,10 @@
 #
 
 require 'ronin/platform/overlay'
+require 'ronin/support/inflector'
 require 'ronin/model'
 
 require 'contextify'
-require 'active_support/inflector'
 
 module Ronin
   module Platform

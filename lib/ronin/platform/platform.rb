@@ -20,10 +20,10 @@
 
 require 'ronin/platform/overlay_cache'
 require 'ronin/platform/extension_cache'
+require 'ronin/support/inflector'
 
 require 'uri'
 require 'pullr'
-require 'active_support/inflector'
 
 module Ronin
   module Platform
