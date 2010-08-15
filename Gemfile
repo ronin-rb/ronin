@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-RSPEC_VERSION = '~> 2.0.0.beta.16'
-
 DATA_MAPPER = 'git://github.com/datamapper'
 RONIN = 'git://github.com/ronin-ruby'
 
@@ -64,10 +62,4 @@ group(:doc) do
   gem 'yard-dm-is-predefined',	'~> 0.2.0'
 end
 
-
-group(:development, :test) do
-  gem 'rspec-core',		RSPEC_VERSION
-  gem 'rspec-expectations',	RSPEC_VERSION
-  gem 'rspec-mocks',		RSPEC_VERSION
-  gem 'rspec',			RSPEC_VERSION
-end
+gem 'rspec',	'~> 2.0.0.beta.16', :group => [:development, :test]
