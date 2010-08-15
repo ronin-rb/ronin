@@ -139,7 +139,7 @@ View available commands:
 * [data_paths](http://github.com/postmodern/data_paths) ~> 0.2.1
 * [contextify](http://github.com/postmodern/contextify/) ~> 0.1.6
 * [pullr](http://github.com/postmodern/pullr/) ~> 0.1.2
-* [thor](http://github.com/wycats/thor/) ~> 0.13.0
+* [thor](http://github.com/wycats/thor/) ~> 0.14.0
 * [ronin-support](http://github.com/ronin-ruby/ronin-support/) ~> 0.1.0
 
 ## Install

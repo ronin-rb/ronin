@@ -31,7 +31,7 @@ group(:runtime) do
   gem 'data_paths',	'~> 0.2.1'
   gem 'contextify',	'~> 0.1.6'
   gem 'pullr',		'~> 0.1.2'
-  gem 'thor',		'~> 0.13.0'
+  gem 'thor',		'~> 0.14.0'
   gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN}/ronin-support.git"
 end
 
