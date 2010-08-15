@@ -113,7 +113,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport (~> 3.0.0.beta3)
+  activesupport (~> 3.0.0.rc)
   bundler (~> 1.0.0)
   contextify (~> 0.1.6)
   data_paths (~> 0.2.1)
