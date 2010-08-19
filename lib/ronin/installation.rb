@@ -91,20 +91,26 @@ module Ronin
       return enum_for(:each_file,directory) unless block_given?
 
       directory = File.join(directory,'')
-      pass_path = lambda { |path| yield path[directory.length..-1] }
 
       if Installation.gems.empty?
-        # if there are no gems installed, do a raw Dir.glob
-        root_dir = File.expand_path(File.join(File.dirname(__FILE__),'..','..'))
-        directory = File.join(root_dir,directory)
+        # if there are no gems installed, find any ronin libraries
+        # in $LOAD_PATH
+        $LOAD_PATH.each do |lib_dir|
+          if File.directory?(File.join(lib_dir,'ronin'))
+            root_dir = File.expand_path(File.join(lib_dir,'..'))
+            full_dir = File.join(root_dir,directory)
 
-        Dir.glob(File.join(directory,'**/*.*'),&pass_path)
+            Dir.glob(File.join(full_dir,'**','*.*')) do |path|
+              yield path[full_dir.length..-1]
+            end
+          end
+        end
       else
         # query the installed gems
         Installation.gems.each do |name,gem|
           gem.files.each do |file|
             if file[0...directory.length] == directory
-              pass_path.call(file)
+              yield path[directory.length..-1]
             end
           end
         end
