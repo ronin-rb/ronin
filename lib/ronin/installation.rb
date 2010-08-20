@@ -155,7 +155,7 @@ module Ronin
       else
         # if we cannot find an installed ronin gem, search the $LOAD_PATH
         # for ronin gemspecs and load those
-        $LOAD_PATH.each do |lib_dir|
+        $LOAD_PATH.reverse_each do |lib_dir|
           root_dir = File.expand_path(File.join(lib_dir,'..'))
           gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')].first
 
@@ -164,6 +164,8 @@ module Ronin
 
             @@ronin_gems[gem.name] = gem
             @@ronin_gem_paths[gem.name] = root_dir
+
+            break if File.basename(gemspec_path) == 'ronin.gemspec'
           end
         end
       end
