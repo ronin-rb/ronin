@@ -51,6 +51,19 @@ module Ronin
 
             @@ronin_gems[gem.name] = gem
           end
+        else
+          # if we cannot find an installed ronin gem, search the $LOAD_PATH
+          # for ronin gemspecs and load those
+          $LOAD_PATH.each do |lib_dir|
+            root_dir = File.expand_path(File.join(lib_dir,'..'))
+            gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')].first
+
+            if gemspec_path
+              gem = Gem::SourceIndex.load_specification(gemspec_path)
+
+              @@ronin_gems[gem.name] = gem
+            end
+          end
         end
       end
 
@@ -92,26 +105,11 @@ module Ronin
 
       directory = File.join(directory,'')
 
-      if Installation.gems.empty?
-        # if there are no gems installed, find any ronin libraries
-        # in $LOAD_PATH
-        $LOAD_PATH.each do |lib_dir|
-          if File.directory?(File.join(lib_dir,'ronin'))
-            root_dir = File.expand_path(File.join(lib_dir,'..'))
-            full_dir = File.join(root_dir,directory)
-
-            Dir.glob(File.join(full_dir,'**','*.*')) do |path|
-              yield path[full_dir.length..-1]
-            end
-          end
-        end
-      else
-        # query the installed gems
-        Installation.gems.each do |name,gem|
-          gem.files.each do |file|
-            if file[0...directory.length] == directory
-              yield path[directory.length..-1]
-            end
+      # query the installed gems
+      Installation.gems.each do |name,gem|
+        gem.files.each do |file|
+          if file[0...directory.length] == directory
+            yield file[directory.length..-1]
           end
         end
       end
