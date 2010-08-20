@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/datamapper/dm-core.git
-  revision: 75c67e6
+  revision: fc51abc
   specs:
     dm-core (1.0.0)
       addressable (~> 2.1)
@@ -8,14 +8,14 @@ GIT
 
 GIT
   remote: git://github.com/datamapper/dm-migrations.git
-  revision: 01ab4df
+  revision: c2a0167
   specs:
     dm-migrations (1.0.0)
       dm-core (~> 1.0.0)
 
 GIT
   remote: git://github.com/ronin-ruby/ronin-support.git
-  revision: 2c39841
+  revision: fcd973b
   specs:
     ronin-support (0.1.0)
       chars (~> 0.1.2)
@@ -98,7 +98,7 @@ GEM
     ruby-graphviz (0.9.16)
     stringex (1.1.0)
     thor (0.14.0)
-    tzinfo (0.3.22)
+    tzinfo (0.3.23)
     uuidtools (2.1.1)
     yard (0.5.8)
     yard-contextify (0.1.0)
