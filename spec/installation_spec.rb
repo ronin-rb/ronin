@@ -2,43 +2,20 @@ require 'spec_helper'
 require 'ronin/installation'
 
 describe Installation do
-  before(:each) do
-    @ronin_gem = mock(
-      'ronin gem',
-      :name => 'ronin',
-      :files => %w{
-        lib/ronin/ui/command_line/commands/add.rb
-        lib/ronin/ui/command_line/commands/console.rb
-        lib/ronin/ui/command_line/commands/database.rb
-        lib/ronin/ui/command_line/commands/help.rb
-        lib/ronin/ui/command_line/commands/install.rb
-        lib/ronin/ui/command_line/commands/list.rb
-        lib/ronin/ui/command_line/commands/uninstall.rb
-        lib/ronin/ui/command_line/commands/update.rb
-      },
-      :dependent_gems => []
-    )
+  it "should load the gemspec for the 'ronin' library" do
+    subject.gems['ronin'].should_not be_nil
+  end
 
-    @ronin_exploits_gem = mock(
-      'ronin-exploits gem',
-      :name => 'ronin-exploits',
-      :files => %w{
-        lib/ronin/ui/command_line/commands/exploit.rb
-        lib/ronin/ui/command_line/commands/exploits.rb
-        lib/ronin/ui/command_line/commands/payload.rb
-        lib/ronin/ui/command_line/commands/payloads.rb
-      },
-      :dependent_gems => [@ronin_gem]
-    )
+  it "should not load the gemspecs of libraries that 'ronin' depends on" do
+    subject.gems['ronin-support'].should be_nil
+  end
 
-    subject.stub!(:gems).and_return(
-      'ronin' => @ronin_gem,
-      'ronin-exploits' => @ronin_exploits_gem
-    )
+  it "should find the installation path of the 'ronin' library" do
+    subject.paths['ronin'].should_not be_nil
   end
 
   it "should provide the names of the installed Ronin libraries" do
-    subject.libraries.should == ['ronin', 'ronin-exploits']
+    subject.libraries.should include('ronin')
   end
 
   describe "each_file" do
@@ -53,10 +30,6 @@ describe Installation do
         list.rb
         uninstall.rb
         update.rb
-        exploit.rb
-        exploits.rb
-        payload.rb
-        payloads.rb
       ]
     }
 
