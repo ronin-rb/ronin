@@ -6,10 +6,6 @@ describe Installation do
     subject.gems['ronin'].should_not be_nil
   end
 
-  it "should not load the gemspecs of libraries that 'ronin' depends on" do
-    subject.gems['ronin-support'].should be_nil
-  end
-
   it "should find the installation path of the 'ronin' library" do
     subject.paths['ronin'].should_not be_nil
   end
