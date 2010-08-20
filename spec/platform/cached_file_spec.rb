@@ -124,6 +124,9 @@ describe Platform::CachedFile do
       syntax_error.should_not be_saved
       load_error.should_not be_saved
       exception.should_not be_saved
+    end
+
+    it "should not save new cached files that contain validation errors" do
       validation_error.should_not be_saved
     end
 
