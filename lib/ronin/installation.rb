@@ -37,35 +37,7 @@ module Ronin
     # @since 0.4.0
     #
     def Installation.gems
-      unless defined?(@@ronin_gems)
-        version = Gem::Requirement.new(">=#{Ronin::VERSION}")
-        ronin_gem = Gem.source_index.find_name('ronin',version).first
-
-        @@ronin_gems = {}
-
-        if ronin_gem
-          @@ronin_gems['ronin'] = ronin_gem
-
-          ronin_gem.dependent_gems.each do |gems|
-            gem = gems.first
-
-            @@ronin_gems[gem.name] = gem
-          end
-        else
-          # if we cannot find an installed ronin gem, search the $LOAD_PATH
-          # for ronin gemspecs and load those
-          $LOAD_PATH.each do |lib_dir|
-            root_dir = File.expand_path(File.join(lib_dir,'..'))
-            gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')].first
-
-            if gemspec_path
-              gem = Gem::SourceIndex.load_specification(gemspec_path)
-
-              @@ronin_gems[gem.name] = gem
-            end
-          end
-        end
-      end
+      Installation.load_gemspecs! unless defined?(@@ronin_gems)
 
       return @@ronin_gems
     end
@@ -80,6 +52,20 @@ module Ronin
     #
     def Installation.libraries
       Installation.gems.keys
+    end
+
+    #
+    # The installation paths of installed Ronin libraries.
+    #
+    # @return [Hash{String => String}]
+    #   The paths to the installed Ronin libraries.
+    #
+    # @since 0.4.0
+    #
+    def Installation.paths
+      Installation.load_gemspecs! unless defined?(@@ronin_gem_paths)
+
+      return @@ronin_gem_paths
     end
 
     #
@@ -137,6 +123,52 @@ module Ronin
       end
 
       return result
+    end
+
+    protected
+
+    #
+    # Loads the gemspecs for any installed Ronin libraries.
+    #
+    # @return [true]
+    #   All Ronin libraries were successfully found.
+    #
+    # @since 0.4.0
+    #
+    def Installation.load_gemspecs!
+      version = Gem::Requirement.new(">=#{Ronin::VERSION}")
+      ronin_gem = Gem.source_index.find_name('ronin',version).first
+
+      @@ronin_gems = {}
+      @@ronin_gem_paths = {}
+
+      if ronin_gem
+        @@ronin_gems['ronin'] = ronin_gem
+        @@ronin_gem_paths['ronin'] = ronin_gem.full_gem_path
+
+        ronin_gem.dependent_gems.each do |gems|
+          gem = gems.first
+
+          @@ronin_gems[gem.name] = gem
+          @@ronin_gem_paths[gem.name] = gem.full_gem_path
+        end
+      else
+        # if we cannot find an installed ronin gem, search the $LOAD_PATH
+        # for ronin gemspecs and load those
+        $LOAD_PATH.each do |lib_dir|
+          root_dir = File.expand_path(File.join(lib_dir,'..'))
+          gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')].first
+
+          if gemspec_path
+            gem = Gem::SourceIndex.load_specification(gemspec_path)
+
+            @@ronin_gems[gem.name] = gem
+            @@ronin_gem_paths[gem.name] = root_dir
+          end
+        end
+      end
+
+      return true
     end
   end
 end
