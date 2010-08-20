@@ -57,6 +57,18 @@ describe Platform::Cacheable do
   describe "cached" do
     subject { CacheableModel.first }
 
+    it "should have a cached_file resource" do
+      subject.cached_file.should_not be_nil
+    end
+
+    it "should have a cache_path" do
+      subject.cache_path.should be_file
+    end
+
+    it "should load the context block" do
+      subject.class.load_context_block(subject.cache_path).should_not be_nil
+    end
+
     it "should be able to load the original object" do
       subject.load_original!
 
