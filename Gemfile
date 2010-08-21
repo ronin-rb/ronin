@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 DATA_MAPPER = 'git://github.com/datamapper'
 RONIN = 'git://github.com/ronin-ruby'
 
+RSPEC_VERSION = '~> 2.0.0.beta.16'
+
 if ENV['EXTLIB']
   gem 'extlib', '~> 0.9.15'
 else
@@ -60,4 +62,7 @@ group(:doc) do
   gem 'yard-dm-is-predefined',	'~> 0.2.0'
 end
 
-gem 'rspec',	'~> 2.0.0.beta.16', :group => [:development, :test]
+group(:development, :test) do
+  gem 'rspec-core',	RSPEC_VERSION, :git => 'git://github.com/postmodern/rspec-core.git'
+  gem 'rspec',		RSPEC_VERSION
+end
