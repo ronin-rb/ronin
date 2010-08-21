@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-08-06}
+  s.date = %q{2010-08-21}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin-install", "ronin-add", "ronin-update", "ronin-list", "ronin-help", "ronin-database", "ronin-uninstall", "ronin", "ronin-console"]
@@ -51,7 +51,6 @@ Gem::Specification.new do |s|
     "lib/ronin/database/exceptions.rb",
     "lib/ronin/database/exceptions/invalid_config.rb",
     "lib/ronin/database/exceptions/unknown_repository.rb",
-    "lib/ronin/database/migration.rb",
     "lib/ronin/database/migrations.rb",
     "lib/ronin/database/migrations/add_open_port_id_column_to_credentials_table.rb",
     "lib/ronin/database/migrations/add_url_id_column_to_credentials_table.rb",
@@ -333,7 +332,7 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<tzinfo>, ["~> 0.3.22"])
-      s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
+      s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0.rc"])
       s.add_runtime_dependency(%q<dm-do-adapter>, ["~> 1.0.0"])
       s.add_runtime_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0"])
       s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.0"])
@@ -351,16 +350,17 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<data_paths>, ["~> 0.2.1"])
       s.add_runtime_dependency(%q<contextify>, ["~> 0.1.6"])
       s.add_runtime_dependency(%q<pullr>, ["~> 0.1.2"])
-      s.add_runtime_dependency(%q<thor>, ["~> 0.13.0"])
+      s.add_runtime_dependency(%q<thor>, ["~> 0.14.0"])
       s.add_runtime_dependency(%q<ronin-support>, ["~> 0.1.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.4.0"])
+      s.add_development_dependency(%q<rspec-core>, ["~> 2.0.0.beta.16"])
       s.add_development_dependency(%q<rspec>, ["~> 2.0.0.beta.16"])
       s.add_development_dependency(%q<bundler>, ["~> 0.9.23"])
     else
       s.add_dependency(%q<tzinfo>, ["~> 0.3.22"])
-      s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
+      s.add_dependency(%q<activesupport>, ["~> 3.0.0.rc"])
       s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0"])
       s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0"])
       s.add_dependency(%q<dm-core>, ["~> 1.0.0"])
@@ -378,17 +378,18 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
       s.add_dependency(%q<contextify>, ["~> 0.1.6"])
       s.add_dependency(%q<pullr>, ["~> 0.1.2"])
-      s.add_dependency(%q<thor>, ["~> 0.13.0"])
+      s.add_dependency(%q<thor>, ["~> 0.14.0"])
       s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
+      s.add_dependency(%q<rspec-core>, ["~> 2.0.0.beta.16"])
       s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.16"])
       s.add_dependency(%q<bundler>, ["~> 0.9.23"])
     end
   else
     s.add_dependency(%q<tzinfo>, ["~> 0.3.22"])
-    s.add_dependency(%q<activesupport>, ["~> 3.0.0.beta3"])
+    s.add_dependency(%q<activesupport>, ["~> 3.0.0.rc"])
     s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.0"])
     s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.0"])
     s.add_dependency(%q<dm-core>, ["~> 1.0.0"])
@@ -406,11 +407,12 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
     s.add_dependency(%q<contextify>, ["~> 0.1.6"])
     s.add_dependency(%q<pullr>, ["~> 0.1.2"])
-    s.add_dependency(%q<thor>, ["~> 0.13.0"])
+    s.add_dependency(%q<thor>, ["~> 0.14.0"])
     s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<jeweler>, ["~> 1.4.0"])
+    s.add_dependency(%q<rspec-core>, ["~> 2.0.0.beta.16"])
     s.add_dependency(%q<rspec>, ["~> 2.0.0.beta.16"])
     s.add_dependency(%q<bundler>, ["~> 0.9.23"])
   end
