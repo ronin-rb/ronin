@@ -15,7 +15,7 @@ gem 'dm-do-adapter',		'~> 1.0.0'
 gem 'dm-sqlite-adapter',	'~> 1.0.0'
 
 # DataMapper dependencies
-gem 'dm-core',	'~> 1.0.0', :git => 'git://github.com/datamapper/dm-core.git'
+gem 'dm-core',	'~> 1.0.0', :git => 'git://github.com/postmodern/dm-core.git', :branch => 'runner'
 gem 'dm-types',	'~> 1.0.0'
 gem 'dm-constraints',	'~> 1.0.0'
 gem 'dm-migrations',	'~> 1.0.0', :git => 'git://github.com/datamapper/dm-migrations.git'
