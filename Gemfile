@@ -42,7 +42,7 @@ gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN}/ronin-support.git"
 group(:development) do
   gem 'bundler',		'~> 1.0.0'
   gem 'rake',			'~> 0.8.7'
-  gem 'jeweler',		'~> 1.4.0', :git => 'git://github.com/technicalpickles/jeweler.git'
+  gem 'jeweler',		'~> 1.5.0', :git => 'git://github.com/technicalpickles/jeweler.git'
 end
 
 group(:doc) do
