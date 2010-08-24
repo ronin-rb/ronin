@@ -92,7 +92,7 @@ module Ronin
       directory = File.join(directory,'')
 
       # query the installed gems
-      Installation.gems.each do |name,gem|
+      Installation.gems.each_value do |gem|
         gem.files.each do |file|
           if file[0...directory.length] == directory
             yield file[directory.length..-1]
