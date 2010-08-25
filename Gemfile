@@ -4,7 +4,7 @@ DATA_MAPPER = 'git://github.com/datamapper'
 RONIN = 'git://github.com/ronin-ruby'
 
 if ENV['EXTLIB']
-  gem 'extlib', '~> 0.9.15'
+  gem 'extlib',		'~> 0.9.15'
 else
   gem 'tzinfo',		'~> 0.3.22'
   gem 'activesupport',	'~> 3.0.0.rc', :require => 'active_support'
@@ -15,20 +15,20 @@ gem 'dm-do-adapter',		'~> 1.0.0'
 gem 'dm-sqlite-adapter',	'~> 1.0.0'
 
 # DataMapper dependencies
-gem 'dm-core',	'~> 1.0.0', :git => 'git://github.com/datamapper/dm-core.git'
-gem 'dm-types',	'~> 1.0.0'
+gem 'dm-core',		'~> 1.0.0', :git => "#{DATA_MAPPER}/dm-core.git"
+gem 'dm-types',		'~> 1.0.0'
 gem 'dm-constraints',	'~> 1.0.0'
 gem 'dm-migrations',	'~> 1.0.0', :git => 'git://github.com/postmodern/dm-migrations.git', :branch => 'runner'
 gem 'dm-validations',	'~> 1.0.0'
 gem 'dm-aggregates',	'~> 1.0.0'
 gem 'dm-timestamps',	'~> 1.0.0'
-gem 'dm-tags',	'~> 1.0.0'
+gem 'dm-tags',		'~> 1.0.0'
 
 # DataMapper plugins
 gem 'dm-is-predefined',	'~> 0.3.0'
 
 # Library dependencies
-gem 'nokogiri',	'~> 1.4.1'
+gem 'nokogiri',		'~> 1.4.1'
 gem 'open_namespace',	'~> 0.3.0'
 gem 'parameters',	'~> 0.2.2'
 gem 'data_paths',	'~> 0.2.1'
