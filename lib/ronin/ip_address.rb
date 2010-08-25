@@ -30,13 +30,21 @@ require 'ipaddr'
 module Ronin
   class IPAddress < Address
 
-    # Type of the address
-    property :version, Integer, :set => [4, 6],
-                                :required => true
-
     # The IP Address
     property :address, Property::IPAddress, :required => true,
                                             :unique => true
+
+    # Type of the address
+    property :version, Integer, :set => [4, 6],
+                                :default => lambda { |ip_addr,version|
+                                  if ip_addr.address
+                                    if ip_addr.address.ipv6?
+                                      6
+                                    else
+                                      4
+                                    end
+                                  end
+                                }
 
     # The MAC Addresses associations
     has 0..n, :ip_address_mac_addresses, :model => 'IPAddressMACAddress'
