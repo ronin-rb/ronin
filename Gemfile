@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-DATA_MAPPER = 'git://github.com/datamapper'
-RONIN = 'git://github.com/ronin-ruby'
+DATA_MAPPER = 'http://github.com/datamapper'
+RONIN = 'http://github.com/ronin-ruby'
 
 if ENV['EXTLIB']
   gem 'extlib',		'~> 0.9.15'
@@ -18,7 +18,7 @@ gem 'dm-sqlite-adapter',	'~> 1.0.0'
 gem 'dm-core',		'~> 1.0.0', :git => "#{DATA_MAPPER}/dm-core.git"
 gem 'dm-types',		'~> 1.0.0'
 gem 'dm-constraints',	'~> 1.0.0'
-gem 'dm-migrations',	'~> 1.0.0', :git => 'git://github.com/postmodern/dm-migrations.git', :branch => 'runner'
+gem 'dm-migrations',	'~> 1.0.0', :git => 'http://github.com/postmodern/dm-migrations.git', :branch => 'runner'
 gem 'dm-validations',	'~> 1.0.0'
 gem 'dm-aggregates',	'~> 1.0.0'
 gem 'dm-timestamps',	'~> 1.0.0'
@@ -40,7 +40,7 @@ gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN}/ronin-support.git"
 group(:development) do
   gem 'bundler',		'~> 1.0.0'
   gem 'rake',			'~> 0.8.7'
-  gem 'jeweler',		'~> 1.5.0', :git => 'git://github.com/technicalpickles/jeweler.git'
+  gem 'jeweler',		'~> 1.5.0', :git => 'http://github.com/technicalpickles/jeweler.git'
 end
 
 group(:doc) do

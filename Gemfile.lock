@@ -1,13 +1,13 @@
 GIT
-  remote: git://github.com/datamapper/dm-core.git
-  revision: fc51abc
+  remote: http://github.com/datamapper/dm-core.git
+  revision: cd3340c
   specs:
     dm-core (1.0.0)
       addressable (~> 2.1)
       extlib (~> 0.9.15)
 
 GIT
-  remote: git://github.com/postmodern/dm-migrations.git
+  remote: http://github.com/postmodern/dm-migrations.git
   revision: a352ef2
   branch: runner
   specs:
@@ -15,16 +15,16 @@ GIT
       dm-core (~> 1.0.0)
 
 GIT
-  remote: git://github.com/ronin-ruby/ronin-support.git
-  revision: 6436b35
+  remote: http://github.com/ronin-ruby/ronin-support.git
+  revision: 3d9ca06
   specs:
     ronin-support (0.1.0)
       chars (~> 0.1.2)
       data_paths (~> 0.2.1)
 
 GIT
-  remote: git://github.com/technicalpickles/jeweler.git
-  revision: 2a40fdc
+  remote: http://github.com/technicalpickles/jeweler.git
+  revision: 62f2651
   specs:
     jeweler (1.5.0.pre)
       bundler (>= 1.0.0.rc.5)
