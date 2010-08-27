@@ -7,6 +7,12 @@ GIT
       extlib (~> 0.9.15)
 
 GIT
+  remote: http://github.com/postmodern/contextify.git
+  revision: 4970af0
+  specs:
+    contextify (0.1.6)
+
+GIT
   remote: http://github.com/postmodern/dm-migrations.git
   revision: a352ef2
   branch: runner
@@ -38,7 +44,6 @@ GEM
     addressable (2.2.0)
     chars (0.1.2)
       yard (>= 0.2.3.5)
-    contextify (0.1.6)
     data_objects (0.10.2)
       addressable (~> 2.1)
     data_paths (0.2.1)
@@ -125,7 +130,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 3.0.0.rc)
   bundler (~> 1.0.0)
-  contextify (~> 0.1.6)
+  contextify (~> 0.1.6)!
   data_paths (~> 0.2.1)
   dm-aggregates (~> 1.0.0)
   dm-constraints (~> 1.0.0)
