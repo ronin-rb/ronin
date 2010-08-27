@@ -27,7 +27,7 @@ module Ronin
     #
     module HasTitle
       def self.included(base)
-        base.send :include, Ronin::Model
+        base.send :include, Model
 
         base.module_eval do
           # The title of the model

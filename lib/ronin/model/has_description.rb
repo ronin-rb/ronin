@@ -28,7 +28,7 @@ module Ronin
     #
     module HasDescription
       def self.included(base)
-        base.send :include, Ronin::Model
+        base.send :include, Model
 
         base.module_eval do
           # The description of the model
