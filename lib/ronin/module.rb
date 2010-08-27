@@ -31,16 +31,14 @@ require 'parameters'
 module Ronin
   module Module
     def self.included(base)
-      base.module_eval do
-        include Parameters
-        include Model
-        include Model::HasName
-        include Model::HasDescription
-        include Model::HasVersion
-        include Model::HasLicense
-        include Model::HasAuthors
-        include Platform::Cacheable
-      end
+      base.send :include, Parameters,
+                          Model,
+                          Model::HasName,
+                          Model::HasDescription,
+                          Model::HasVersion,
+                          Model::HasLicense,
+                          Model::HasAuthors,
+                          Platform::Cacheable
     end
 
     # 

@@ -38,17 +38,12 @@ module Ronin
     include Model::Types
 
     def self.included(base)
-      base.module_eval do
-        unless self.ancestors.include?(DataMapper::Resource)
-          include DataMapper::Resource
-        end
-
-        include DataMapper
-        include DataMapper::Migrations
-        include Model::Types
-        extend Model::ClassMethods
-        extend Model::LazyUpgrade
+      unless base.ancestors.include?(DataMapper::Resource)
+        base.send :include, DataMapper::Resource
       end
+
+      base.send :include, DataMapper, DataMapper::Migrations, Model::Types
+      base.send :extend, Model::ClassMethods, Model::LazyUpgrade
     end
 
     #

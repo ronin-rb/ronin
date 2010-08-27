@@ -27,9 +27,9 @@ module Ronin
     #
     module HasName
       def self.included(base)
-        base.module_eval do
-          include Ronin::Model
+        base.send :include, Ronin::Model
 
+        base.module_eval do
           # The name of the model
           property :name, String, :required => true, :index => true
 

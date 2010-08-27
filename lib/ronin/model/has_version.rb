@@ -27,9 +27,9 @@ module Ronin
     #
     module HasVersion
       def self.included(base)
-        base.module_eval do
-          include Ronin::Model
+        base.send :include, Ronin::Model
 
+        base.module_eval do
           # The version of the model
           property :version, String, :default => '0.1', :index => true
 

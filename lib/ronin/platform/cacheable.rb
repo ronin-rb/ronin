@@ -102,10 +102,9 @@ module Ronin
     #
     module Cacheable
       def self.included(base)
-        base.module_eval do
-          include Contextify
-          include Ronin::Model
+        base.send :include, Contextify, Model
 
+        base.module_eval do
           # The class-name of the cached object
           property :type, DataMapper::Property::Discriminator
 

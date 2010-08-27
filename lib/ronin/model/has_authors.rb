@@ -29,9 +29,9 @@ module Ronin
     #
     module HasAuthors
       def self.included(base)
-        base.module_eval do
-          include Ronin::Model
+        base.send :include, Model
 
+        base.module_eval do
           # The authors associated with the model.
           has 0..n, :authors, :model => 'Ronin::Author'
 

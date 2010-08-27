@@ -27,9 +27,9 @@ module Ronin
     #
     module HasTitle
       def self.included(base)
-        base.module_eval do
-          include Ronin::Model
+        base.send :include, Ronin::Model
 
+        base.module_eval do
           # The title of the model
           property :title, String
 

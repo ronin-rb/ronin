@@ -28,9 +28,9 @@ module Ronin
     #
     module HasLicense
       def self.included(base)
-        base.module_eval do
-          include Ronin::Model
+        base.send :include, Model
 
+        base.module_eval do
           # The license
           belongs_to :license, :required => false,
                                :model => 'Ronin::License'
