@@ -117,6 +117,8 @@ Gem::Specification.new do |s|
     "lib/ronin/os_guess.rb",
     "lib/ronin/platform.rb",
     "lib/ronin/platform/cacheable.rb",
+    "lib/ronin/platform/cacheable/cacheable.rb",
+    "lib/ronin/platform/cacheable/class_methods.rb",
     "lib/ronin/platform/cached_file.rb",
     "lib/ronin/platform/config.rb",
     "lib/ronin/platform/exceptions.rb",
