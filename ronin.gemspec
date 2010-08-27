@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-08-25}
+  s.date = %q{2010-08-27}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-database", "ronin-help", "ronin-install", "ronin-list", "ronin-uninstall", "ronin-update"]
@@ -95,6 +95,7 @@ Gem::Specification.new do |s|
     "lib/ronin/model/has_description.rb",
     "lib/ronin/model/has_license.rb",
     "lib/ronin/model/has_name.rb",
+    "lib/ronin/model/has_title.rb",
     "lib/ronin/model/has_version.rb",
     "lib/ronin/model/lazy_upgrade.rb",
     "lib/ronin/model/model.rb",
@@ -190,6 +191,7 @@ Gem::Specification.new do |s|
     "spec/model/has_description_spec.rb",
     "spec/model/has_license_spec.rb",
     "spec/model/has_name_spec.rb",
+    "spec/model/has_title_spec.rb",
     "spec/model/lazy_upgrade_spec.rb",
     "spec/model/model_spec.rb",
     "spec/model/models/basic_model.rb",
@@ -198,6 +200,7 @@ Gem::Specification.new do |s|
     "spec/model/models/lazy_model.rb",
     "spec/model/models/licensed_model.rb",
     "spec/model/models/named_model.rb",
+    "spec/model/models/titled_model.rb",
     "spec/os_spec.rb",
     "spec/platform/cacheable_spec.rb",
     "spec/platform/cached_file_spec.rb",
@@ -281,6 +284,7 @@ Gem::Specification.new do |s|
     "spec/model/has_description_spec.rb",
     "spec/model/has_license_spec.rb",
     "spec/model/has_name_spec.rb",
+    "spec/model/has_title_spec.rb",
     "spec/model/lazy_upgrade_spec.rb",
     "spec/model/model_spec.rb",
     "spec/model/models/basic_model.rb",
@@ -289,6 +293,7 @@ Gem::Specification.new do |s|
     "spec/model/models/lazy_model.rb",
     "spec/model/models/licensed_model.rb",
     "spec/model/models/named_model.rb",
+    "spec/model/models/titled_model.rb",
     "spec/os_spec.rb",
     "spec/platform/cacheable_spec.rb",
     "spec/platform/cached_file_spec.rb",
