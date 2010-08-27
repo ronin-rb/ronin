@@ -18,5 +18,24 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/has_authors/class_methods'
-require 'ronin/model/has_authors/has_authors'
+require 'ronin/model/has_version/class_methods'
+require 'ronin/model/model'
+
+module Ronin
+  module Model
+    #
+    # Adds a `version` property to a model.
+    #
+    module HasVersion
+      def self.included(base)
+        base.send :include, Model
+        base.send :extend, ClassMethods
+
+        base.module_eval do
+          # The version of the model
+          property :version, String, :default => '0.1', :index => true
+        end
+      end
+    end
+  end
+end

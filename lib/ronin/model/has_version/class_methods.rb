@@ -18,5 +18,30 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/has_authors/class_methods'
-require 'ronin/model/has_authors/has_authors'
+module Ronin
+  module Model
+    module HasVersion
+      module ClassMethods
+        #
+        # Finds all models with a specific version.
+        #
+        # @param [String] version
+        #   The specific version to search for.
+        #
+        # @return [Array]
+        #   The models with the specific version.
+        #
+        def revision(version)
+          self.all(:version => version.to_s)
+        end
+
+        #
+        # Finds latest version of the model.
+        #
+        def latest
+          self.first(:order => [:version.desc])
+        end
+      end
+    end
+  end
+end

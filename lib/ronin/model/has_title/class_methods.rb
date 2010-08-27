@@ -18,5 +18,26 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/has_authors/class_methods'
-require 'ronin/model/has_authors/has_authors'
+module Ronin
+  module Model
+    module HasTitle
+      module ClassMethods
+        #
+        # Finds models with titles containing a given fragment of text.
+        #
+        # @param [String] fragment
+        #   The fragment of text to match titles with.
+        #
+        # @return [Array<Model>]
+        #   The found models.
+        #
+        # @example
+        #   Vuln.titled 'bypass'
+        #
+        def titled(fragment)
+          self.all(:title.like => "%#{fragment}%")
+        end
+      end
+    end
+  end
+end

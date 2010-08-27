@@ -18,5 +18,24 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/has_authors/class_methods'
-require 'ronin/model/has_authors/has_authors'
+require 'ronin/model/has_name/class_methods'
+require 'ronin/model/model'
+
+module Ronin
+  module Model
+    #
+    # Adds a `name` property to a model.
+    #
+    module HasName
+      def self.included(base)
+        base.send :include, Model
+        base.send :extend, ClassMethods
+
+        base.module_eval do
+          # The name of the model
+          property :name, String, :required => true, :index => true
+        end
+      end
+    end
+  end
+end

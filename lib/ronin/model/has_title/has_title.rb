@@ -18,5 +18,24 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/has_authors/class_methods'
-require 'ronin/model/has_authors/has_authors'
+require 'ronin/model/has_title/class_methods'
+require 'ronin/model/model'
+
+module Ronin
+  module Model
+    #
+    # Adds a `title` property to a model.
+    #
+    module HasTitle
+      def self.included(base)
+        base.send :include, Model
+        base.send :extend, ClassMethods
+
+        base.module_eval do
+          # The title of the model
+          property :title, String
+        end
+      end
+    end
+  end
+end

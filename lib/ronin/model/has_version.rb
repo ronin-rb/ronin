@@ -18,42 +18,5 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/model'
-
-module Ronin
-  module Model
-    #
-    # Adds a `version` property to a model.
-    #
-    module HasVersion
-      def self.included(base)
-        base.send :include, Model
-
-        base.module_eval do
-          # The version of the model
-          property :version, String, :default => '0.1', :index => true
-
-          #
-          # Finds all models with a specific version.
-          #
-          # @param [String] version
-          #   The specific version to search for.
-          #
-          # @return [Array]
-          #   The models with the specific version.
-          #
-          def self.revision(version)
-            self.all(:version => version.to_s)
-          end
-
-          #
-          # Finds latest version of the model.
-          #
-          def self.latest
-            self.first(:order => [:version.desc])
-          end
-        end
-      end
-    end
-  end
-end
+require 'ronin/model/has_version/class_methods'
+require 'ronin/model/has_version/has_version'

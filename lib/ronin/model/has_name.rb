@@ -18,38 +18,5 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/model'
-
-module Ronin
-  module Model
-    #
-    # Adds a `name` property to a model.
-    #
-    module HasName
-      def self.included(base)
-        base.send :include, Model
-
-        base.module_eval do
-          # The name of the model
-          property :name, String, :required => true, :index => true
-
-          #
-          # Finds models with names containing a given fragment of text.
-          #
-          # @param [String] fragment
-          #   The fragment of text to search for within the names of models.
-          #
-          # @return [Array<Model>]
-          #   The found models.
-          #
-          # @example
-          #   Exploit.named 'ProFTP'
-          #
-          def self.named(fragment)
-            self.all(:name.like => "%#{fragment}%")
-          end
-        end
-      end
-    end
-  end
-end
+require 'ronin/model/has_name/class_methods'
+require 'ronin/model/has_name/has_name'

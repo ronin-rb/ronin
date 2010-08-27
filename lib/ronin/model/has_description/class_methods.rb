@@ -18,5 +18,27 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/has_authors/class_methods'
-require 'ronin/model/has_authors/has_authors'
+module Ronin
+  module Model
+    module HasDescription
+      module ClassMethods
+        #
+        # Finds models with descriptions containing a given fragment of
+        # text.
+        #
+        # @param [String] fragment
+        #   The fragment of text to match descriptions with.
+        #
+        # @return [Array<Model>]
+        #   The found models.
+        #
+        # @example
+        #   Exploit.describing 'bypass'
+        #
+        def describing(fragment)
+          self.all(:description.like => "%#{fragment}%")
+        end
+      end
+    end
+  end
+end

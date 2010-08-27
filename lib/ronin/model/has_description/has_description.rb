@@ -18,5 +18,25 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/has_authors/class_methods'
-require 'ronin/model/has_authors/has_authors'
+require 'ronin/model/has_description/class_methods'
+require 'ronin/model/types/description'
+require 'ronin/model/model'
+
+module Ronin
+  module Model
+    #
+    # Adds a `description` property to a model.
+    #
+    module HasDescription
+      def self.included(base)
+        base.send :include, Model
+        base.send :extend, ClassMethods
+
+        base.module_eval do
+          # The description of the model
+          property :description, Model::Types::Description
+        end
+      end
+    end
+  end
+end

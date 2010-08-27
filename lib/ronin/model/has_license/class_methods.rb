@@ -18,5 +18,27 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/has_authors/class_methods'
-require 'ronin/model/has_authors/has_authors'
+module Ronin
+  module Model
+    module HasLicense
+      module ClassMethods
+        #
+        # Finds all models associated with a given license.
+        #
+        # @param [Symbol, String] name
+        #   The name of the license which models are associated with.
+        #
+        # @return [Array<Model>]
+        #   The models associated with a given license.
+        #
+        # @example
+        #   LicensedModel.licensed_under(:cc_by_nc)
+        #   # => [#<Ronin::LicensedModel: ...>, ...]
+        #
+        def licensed_under(name)
+          self.all(:license => Ronin::License.predefined_resource(name))
+        end
+      end
+    end
+  end
+end

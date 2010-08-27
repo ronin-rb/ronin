@@ -18,5 +18,36 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model/has_authors/class_methods'
-require 'ronin/model/has_authors/has_authors'
+module Ronin
+  module Model
+    module HasAuthors
+      module ClassMethods
+        #
+        # Finds all resources associated with a given author.
+        #
+        # @param [String] name
+        #   The name of the author.
+        #
+        # @return [Array<Model>]
+        #   The resources written by the author.
+        #
+        def written_by(name)
+          all(self.authors.name.like => "%#{name}%")
+        end
+
+        #
+        # Finds all resources associated with a given organization.
+        #
+        # @param [String] name
+        #   The name of the organization.
+        #
+        # @return [Array<Model>]
+        #   The resources associated with the organization.
+        #
+        def written_for(name)
+          all(self.authors.organization.like => "%#{name}%")
+        end
+      end
+    end
+  end
+end
