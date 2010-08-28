@@ -90,7 +90,7 @@ module Ronin
       uri = ::URI.parse(url)
 
       return URL.new(
-        :scheme => uri.scheme,
+        :scheme => URLScheme.first_or_new(:name => uri.scheme),
         :host_name => HostName.first_or_new(:address => uri.host),
         :port => TCPPort.first_or_new(:number => uri.port),
         :path => uri.path,
