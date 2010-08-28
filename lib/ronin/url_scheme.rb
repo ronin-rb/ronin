@@ -21,7 +21,7 @@
 require 'ronin/model'
 
 module Ronin
-  module URLScheme
+  class URLScheme
 
     include Model
 
