@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/url_scheme'
 require 'ronin/host_name'
 require 'ronin/tcp_port'
 require 'ronin/site_credential'
@@ -34,12 +35,18 @@ module Ronin
     include Model
     include DataMapper::Timestamps
 
+    # Mapping of URL Schemes and URI classes
+    SCHEMES = {
+      'https' => ::URI::HTTPS,
+      'http' => ::URI::HTTP,
+      'ftp' => ::URI::FTP
+    }
+
     # Primary key of the URL
     property :id, Serial
 
-    # Scheme of the URL
-    property :scheme, String, :set => ['http', 'https'],
-                              :required => true
+    # The scheme of the URL
+    belongs_to :scheme, :model => 'URLScheme'
 
     # The host name of the URL
     belongs_to :host_name
@@ -113,11 +120,7 @@ module Ronin
     # @since 0.4.0
     #
     def to_uri
-      url_class = if self.scheme == 'https'
-                    ::URI::HTTPS
-                  else
-                    ::URI::HTTP
-                  end
+      url_class = (SCHEMES[self.scheme.name] || ::URI::Generic)
 
       host = if self.host_name
                self.host_name.address
@@ -127,6 +130,7 @@ module Ronin
              end
 
       return url_class.build(
+        :scheme => self.scheme.name,
         :host => host,
         :port => port,
         :path => self.path,

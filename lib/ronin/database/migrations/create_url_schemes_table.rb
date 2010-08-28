@@ -18,33 +18,21 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/database/migrations/create_url_schemes_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:create_urls_table, :needs => [
-                                      :create_url_schemes_table,
-                                      :create_addresses_table,
-                                      :create_ports_table
-                                    ]
-      ) do
+      migration(:create_url_schemes_table) do
         up do
-          create_table :ronin_urls do
+          create_table :ronin_url_schemes do
             column :id, Integer, :serial => true
-            column :scheme_id, Integer, :not_null => true
-            column :host_name_id, Integer, :not_null => true
-            column :port_id, Integer, :not_null => true
-            column :path, String, :default => ''
-            column :query_string, String
-            column :fragment, String
-            column :created_at, Time, :not_null => true
+            column :name, String, :not_null => true
           end
         end
 
         down do
-          drop_table :ronin_urls
+          drop_table :ronin_url_schemes
         end
       end
     end
