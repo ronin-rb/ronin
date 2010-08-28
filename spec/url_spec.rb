@@ -17,7 +17,7 @@ describe URL do
 
   it "should be convertable to a String" do
     url = URL.new(
-      :scheme => 'https',
+      :scheme => URLScheme.new(:name => 'https'),
       :host_name => HostName.new(:address => 'www.example.com'),
       :port => TCPPort.new(:number => 8080),
       :path => '/path',
@@ -34,7 +34,8 @@ describe URL do
     end
 
     it "should parse URL schemes" do
-      @url.scheme.should == 'https'
+      @url.scheme.should_not be_nil
+      @url.scheme.name.should == 'https'
     end
 
     it "should parse host names" do
