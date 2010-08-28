@@ -10,16 +10,16 @@ describe URL do
   end
 
   it "should have a host String" do
-    url = URL.new(:host_name => HostName.new(:address => 'www.example.com'))
+    url = URL.new(:host_name => {:address => 'www.example.com'})
 
     url.host.should == 'www.example.com'
   end
 
   it "should be convertable to a String" do
     url = URL.new(
-      :scheme => URLScheme.new(:name => 'https'),
-      :host_name => HostName.new(:address => 'www.example.com'),
-      :port => TCPPort.new(:number => 8080),
+      :scheme => {:name => 'https'},
+      :host_name => {:address => 'www.example.com'},
+      :port => {:number => 8080},
       :path => '/path',
       :query_string => 'q=1',
       :fragment => 'frag'
