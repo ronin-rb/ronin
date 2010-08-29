@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-08-27}
+  s.date = %q{2010-08-28}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-database", "ronin-help", "ronin-install", "ronin-list", "ronin-uninstall", "ronin-update"]
@@ -74,6 +74,7 @@ Gem::Specification.new do |s|
     "lib/ronin/database/migrations/create_services_table.rb",
     "lib/ronin/database/migrations/create_softwares_table.rb",
     "lib/ronin/database/migrations/create_targets_table.rb",
+    "lib/ronin/database/migrations/create_url_schemes_table.rb",
     "lib/ronin/database/migrations/create_urls_table.rb",
     "lib/ronin/database/migrations/create_vendors_table.rb",
     "lib/ronin/database/migrations/migrations.rb",
@@ -193,6 +194,7 @@ Gem::Specification.new do |s|
     "lib/ronin/ui/output/output.rb",
     "lib/ronin/ui/shell.rb",
     "lib/ronin/url.rb",
+    "lib/ronin/url_scheme.rb",
     "lib/ronin/vendor.rb",
     "lib/ronin/version.rb",
     "ronin.gemspec",
@@ -367,6 +369,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<dm-tags>, ["~> 1.0.0"])
       s.add_runtime_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
       s.add_runtime_dependency(%q<nokogiri>, ["~> 1.4.1"])
+      s.add_runtime_dependency(%q<uri-query_params>, ["~> 0.4.0"])
       s.add_runtime_dependency(%q<open_namespace>, ["~> 0.3.0"])
       s.add_runtime_dependency(%q<parameters>, ["~> 0.2.2"])
       s.add_runtime_dependency(%q<data_paths>, ["~> 0.2.1"])
@@ -394,6 +397,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<dm-tags>, ["~> 1.0.0"])
       s.add_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
       s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
+      s.add_dependency(%q<uri-query_params>, ["~> 0.4.0"])
       s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
       s.add_dependency(%q<parameters>, ["~> 0.2.2"])
       s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
@@ -422,6 +426,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<dm-tags>, ["~> 1.0.0"])
     s.add_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
     s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
+    s.add_dependency(%q<uri-query_params>, ["~> 0.4.0"])
     s.add_dependency(%q<open_namespace>, ["~> 0.3.0"])
     s.add_dependency(%q<parameters>, ["~> 0.2.2"])
     s.add_dependency(%q<data_paths>, ["~> 0.2.1"])

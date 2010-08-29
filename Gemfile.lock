@@ -22,11 +22,12 @@ GIT
 
 GIT
   remote: http://github.com/ronin-ruby/ronin-support.git
-  revision: fbc3e09
+  revision: 73af532
   specs:
     ronin-support (0.1.0)
       chars (~> 0.1.2)
       data_paths (~> 0.2.1)
+      uri-query_params (~> 0.4.0)
 
 GIT
   remote: http://github.com/technicalpickles/jeweler.git
