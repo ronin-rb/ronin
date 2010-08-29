@@ -28,6 +28,7 @@ require 'ronin/model'
 require 'dm-timestamps'
 require 'dm-tags'
 require 'uri'
+require 'uri/query_params'
 
 module Ronin
   class URL
@@ -109,6 +110,18 @@ module Ronin
     #
     def host
       self.host_name.address
+    end
+
+    #
+    # The query params of the URL.
+    #
+    # @return [Hash{String => String}]
+    #   The query params of the URL.
+    #
+    # @since 0.4.0
+    #
+    def query_params
+      @query_params ||= URI::QueryParams.parse(self.query_string)
     end
 
     #
