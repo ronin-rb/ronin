@@ -9,7 +9,7 @@ if ENV['EXTLIB']
   gem 'extlib',		'~> 0.9.15'
 else
   gem 'tzinfo',		'~> 0.3.22'
-  gem 'activesupport',	'~> 3.0.0.rc', :require => 'active_support'
+  gem 'activesupport',	'~> 3.0.0', :require => 'active_support'
 end
 
 # DataMapper adapters
@@ -43,7 +43,7 @@ gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN}/ronin-support.git"
 group(:development) do
   gem 'bundler',		'~> 1.0.0'
   gem 'rake',			'~> 0.8.7'
-  gem 'jeweler',		'~> 1.5.0', :git => 'http://github.com/technicalpickles/jeweler.git'
+  gem 'jeweler',		'~> 1.5.0.pre'
 end
 
 group(:doc) do

@@ -29,19 +29,10 @@ GIT
       data_paths (~> 0.2.1)
       uri-query_params (~> 0.4.0)
 
-GIT
-  remote: http://github.com/technicalpickles/jeweler.git
-  revision: 62f2651
-  specs:
-    jeweler (1.5.0.pre)
-      bundler (>= 1.0.0.rc.5)
-      git (>= 1.2.5)
-      rake
-
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (3.0.0.rc)
+    activesupport (3.0.0)
     addressable (2.2.0)
     chars (0.1.2)
       yard (>= 0.2.3.5)
@@ -91,6 +82,10 @@ GEM
     fastercsv (1.5.3)
     git (1.2.5)
     jdbc-sqlite3 (3.6.3.054)
+    jeweler (1.5.0.pre2)
+      bundler (>= 1.0.0.rc.5)
+      git (>= 1.2.5)
+      rake
     json_pure (1.4.6)
     nokogiri (1.4.3.1)
     nokogiri (1.4.3.1-java)
@@ -130,7 +125,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport (~> 3.0.0.rc)
+  activesupport (~> 3.0.0)
   bundler (~> 1.0.0)
   contextify (~> 0.1.6)!
   data_paths (~> 0.2.1)
@@ -146,7 +141,7 @@ DEPENDENCIES
   dm-types (~> 1.0.0)
   dm-validations (~> 1.0.0)
   dm-visualizer (~> 0.1.0)
-  jeweler (~> 1.5.0)!
+  jeweler (~> 1.5.0.pre)
   nokogiri (~> 1.4.1)
   open_namespace (~> 0.3.0)
   parameters (~> 0.2.2)
