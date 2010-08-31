@@ -44,26 +44,7 @@ install or update Overlays.
 * Allows for the loading of Extensions from one or more Overlays.
 * Provides Object Database using DataMapper.
 * Caches and mirrors Objects stored in Overlays using DataMapper.
-* Provides convenience methods for:
-  * Formatting data:
-    * Binary
-    * Text
-    * HTTP
-    * URIs
-  * Generating random text.
-  * Networking:
-    * TCP
-    * UDP
-    * SMTP / ESMTP
-    * POP3
-    * Imap
-    * Telnet
-    * HTTP / HTTPS
-  * Enumerating IP ranges:
-    * IPv4 / IPv6 addresses.
-    * CIDR / globbed ranges.
-  * (Un-)Hexdumping data.
-  * Handling exceptions.
+* Convenience methods provided by [ronin-support](http://github.com/ronin-ruby/ronin-support).
 * Provides a customized Ruby Console with:
   * Tab-completion enabled.
   * Auto-indentation enabled.
