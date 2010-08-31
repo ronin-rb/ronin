@@ -37,9 +37,9 @@ install or update Overlays.
 
 * Supports installing/updating/uninstalling of Overlays.
   * Supports accessing Overlays from various media types:
-    * Subversion (SVN)
-    * Mercurial (Hg)
-    * Git
+    * [Subversion (SVN)](http://subversion.tigris.org/)
+    * [Mercurial (Hg)](http://mercurial.selenic.com/)
+    * [Git](http://git-scm.com/)
     * Rsync
 * Allows for the loading of Extensions from one or more Overlays.
 * Provides Object Database using [DataMapper](http://datamapper.org).
