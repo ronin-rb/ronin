@@ -44,7 +44,8 @@ install or update Overlays.
 * Allows for the loading of Extensions from one or more Overlays.
 * Provides Object Database using DataMapper.
 * Caches and mirrors Objects stored in Overlays using DataMapper.
-* Convenience methods provided by [ronin-support](http://github.com/ronin-ruby/ronin-support).
+* Convenience methods provided by
+  [ronin-support](http://github.com/ronin-ruby/ronin-support#readme).
 * Provides a customized Ruby Console with:
   * Tab-completion enabled.
   * Auto-indentation enabled.
