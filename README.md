@@ -133,52 +133,45 @@ View available commands:
 
 ### Ronin ASM
 
-* [github.com/ronin-ruby/ronin-asm](http://github.com/ronin-ruby/ronin-asm)
-
-Ronin ASM is a Ruby library for Ronin that provides dynamic Assembly (ASM)
-generation of programs or shellcode.
+[Ronin ASM](http://github.com/ronin-ruby/ronin-asm#readme) is a
+Ruby library for Ronin that provides dynamic Assembly (ASM) generation of
+programs or shellcode.
 
 ### Ronin Dorks
 
-* [github.com/ronin-ruby/ronin-dorks](http://github.com/ronin-ruby/ronin-dorks)
-
-Ronin Dorks is a Ruby library for Ronin that provides support for various
-Google (tm) Dorks functionality.
+[Ronin Dorks](http://github.com/ronin-ruby/ronin-dorks#readme) is a
+Ruby library for Ronin that provides support for various Google (tm) Dorks
+functionality.
 
 ### Ronin Exploits
 
-* [github.com/ronin-ruby/ronin-exploits](http://github.com/ronin-ruby/ronin-exploits)
-
-Ronin Exploits is a Ruby library for Ronin that provides exploitation and
-payload crafting functionality.
+[Ronin Exploits](http://github.com/ronin-ruby/ronin-exploits#readme) is a
+Ruby library for Ronin that provides exploitation and payload crafting
+functionality.
 
 ### Ronin Gen
 
-* [github.com/ronin-ruby/ronin-gen](http://github.com/ronin-ruby/ronin-gen)
-
-Ronin Gen is a Ruby library for Ronin that provides various generators.
+[Ronin Gen](http://github.com/ronin-ruby/ronin-gen#readme) is a Ruby library
+for Ronin that provides various generators.
 
 ### Ronin SQL
 
-* [github.com/ronin-ruby/ronin-sql](http://github.com/ronin-ruby/ronin-sql)
-
-Ronin SQL is a Ruby library for Ronin that provids support for SQL related
-security tasks, such as scanning for and exploiting SQL injections.
+[Ronin SQL](http://github.com/ronin-ruby/ronin-sql#readme) is a Ruby library
+for Ronin that provids support for SQL related security tasks, such as
+scanning for and exploiting SQL injections.
 
 ### Ronin PHP
 
-* [github.com/ronin-ruby/ronin-php](http://github.com/ronin-ruby/ronin-php)
-
-Ronin PHP is a Ruby library for Ronin that provides support for PHP related
-security tasks, such as finding and exploiting Local File Inclusion (LFI)
-and Remote File Inclusion (RFI).
+[Ronin PHP](http://github.com/ronin-ruby/ronin-php#readme) is a Ruby library
+for Ronin that provides support for PHP related security tasks, such as
+finding and exploiting Local File Inclusion (LFI) and
+Remote File Inclusion (RFI).
 
 ### Ronin Web
 
-* [github.com/ronin-ruby/ronin-web](http://github.com/ronin-ruby/ronin-web)
-
-Ronin Web is a Ruby library for Ronin that provides support for web
-scraping and spidering functionality.
+[Ronin Web](http://github.com/ronin-ruby/ronin-web#readme) is a Ruby library
+for Ronin that provides support for web scraping and spidering
+functionality.
 
 ## License
 
