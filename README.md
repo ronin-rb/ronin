@@ -51,7 +51,8 @@ install or update Overlays.
   * Pretty-Print loaded.
   * `print_info`, `print_error`, `print_warning` and `print_debug`
     output helper methods with color-output.
-* Provides an extendable command-line interface based on Thor.
+* Provides an extendable command-line interface based on
+  [Thor](http://github.com/wycats/thor#readme).
 
 ## Synopsis
 
