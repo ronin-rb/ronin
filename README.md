@@ -42,7 +42,7 @@ install or update Overlays.
     * Git
     * Rsync
 * Allows for the loading of Extensions from one or more Overlays.
-* Provides Object Database using DataMapper.
+* Provides Object Database using [DataMapper](http://datamapper.org).
 * Caches and mirrors Objects stored in Overlays using DataMapper.
 * Convenience methods provided by
   [ronin-support](http://github.com/ronin-ruby/ronin-support#readme).
