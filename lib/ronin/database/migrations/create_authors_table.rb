@@ -27,7 +27,7 @@ module Ronin
         up do
           create_table :ronin_authors do
             column :id, Integer, :serial => true
-            column :name, String, :not_null => true
+            column :name, String
             column :organization, String
             column :pgp_signature, String
             column :email, String

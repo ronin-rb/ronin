@@ -31,14 +31,11 @@ module Ronin
 
     include Model
 
-    # Anonymouse author name
-    ANONYMOUSE = 'Anonymous'
-
     # Primary key of the author
     property :id, Serial
 
     # Name of author
-    property :name, String, :required => true, :index =>  true
+    property :name, String, :index =>  true
 
     # Author's associated group
     property :organization, String
@@ -54,37 +51,6 @@ module Ronin
 
     # Author's biography
     property :biography, Text
-
-    #
-    # Creates a new Author object with the given _options_. If _block_ is
-    # given, it will be passed the newly created Author object.
-    #
-    # @param [Hash] options
-    #   Additional options.
-    #
-    # @option options [String] :name (ANONYMOUSE)
-    #   The name of the author.
-    #
-    # @option options [String] :organization
-    #   The organization the author belongs to.
-    #
-    # @option options [String] :pgp_signature
-    #   The PGP fingerprint of the author.
-    #
-    # @option options [String] :email
-    #   The email to contact the author.
-    #
-    # @option options [String] :url
-    #   The URL of the author.
-    #
-    # @option options [String] :biography
-    #   The biography of the author.
-    #
-    def initialize(options={},&block)
-      super(options)
-
-      block.call(self) if block
-    end
 
     #
     # Converts the author to a String.
