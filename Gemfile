@@ -55,7 +55,7 @@ group(:doc) do
 
   gem 'ruby-graphviz',		'~> 0.9.10'
   gem 'dm-visualizer',		'~> 0.1.0'
-  gem 'yard',			'~> 0.5.3'
+  gem 'yard',			'~> 0.6.0'
   gem 'yard-contextify',	'~> 0.1.0'
   gem 'yard-parameters',	'~> 0.1.0'
   gem 'yard-dm',		'~> 0.1.1'
