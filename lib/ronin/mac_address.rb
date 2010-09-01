@@ -59,7 +59,7 @@ module Ronin
     # @since 0.4.0
     #
     def to_i
-      self.address.split(':').reverse.inject(0) do |bits,char|
+      self.address.split(':').inject(0) do |bits,char|
         bits = ((bits << 8) | char.hex)
       end
     end
