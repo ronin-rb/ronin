@@ -126,7 +126,6 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport (~> 3.0.0)
-  bundler (~> 1.0.0)
   contextify (~> 0.1.6)!
   data_paths (~> 0.2.1)
   dm-aggregates (~> 1.0.0)
