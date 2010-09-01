@@ -20,7 +20,6 @@
 
 require 'ronin/model'
 
-require 'rexml/document'
 require 'uri'
 
 module Ronin

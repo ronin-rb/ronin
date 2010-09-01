@@ -80,7 +80,7 @@ module Ronin
     #
     def to_s
       str = self.port.to_s
-      str = "#{str} (#{self.service})" if self.service
+      str << "(#{self.service})" if self.service
 
       return str
     end

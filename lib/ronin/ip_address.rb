@@ -95,7 +95,9 @@ module Ronin
     # @since 0.4.0
     #
     def recent_mac_address
-      relation = self.ip_address_mac_addresses.first(:order => [:created_at.desc])
+      relation = self.ip_address_mac_addresses.first(
+        :order => [:created_at.desc]
+      )
 
       if relation
         return relation.mac_address
@@ -111,7 +113,9 @@ module Ronin
     # @since 0.4.0
     #
     def recent_host_name
-      relation = self.host_name_ip_addresses.first(:order => [:created_at.desc])
+      relation = self.host_name_ip_addresses.first(
+        :order => [:created_at.desc]
+      )
 
       if relation
         return relation.host_name

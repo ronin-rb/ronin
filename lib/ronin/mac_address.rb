@@ -26,8 +26,7 @@ module Ronin
   class MACAddress < Address
 
     # The IP Addresses the MAC Address hosts
-    has 0..n, :ip_address_mac_addresses,
-              :model => 'IPAddressMACAddress'
+    has 0..n, :ip_address_mac_addresses, :model => 'IPAddressMACAddress'
 
     # The IP Addresses associated with the MAC Address
     has 0..n, :ip_addresses, :through => :ip_address_mac_addresses,
@@ -42,7 +41,9 @@ module Ronin
     # @since 0.4.0
     #
     def recent_ip_address
-      relation = self.ip_address_mac_addresses.first(:order => [:created_at.desc])
+      relation = self.ip_address_mac_addresses.first(
+        :order => [:created_at.desc]
+      )
 
       if relation
         return relation.ip_address

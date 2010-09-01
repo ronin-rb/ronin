@@ -45,7 +45,9 @@ module Ronin
     # @since 0.4.0
     #
     def recent_ip_address
-      relation = self.host_name_ip_addresses.first(:order => [:created_at.desc])
+      relation = self.host_name_ip_addresses.first(
+        :order => [:created_at.desc]
+      )
 
       if relation
         return relation.ip_address
