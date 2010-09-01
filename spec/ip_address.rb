@@ -2,6 +2,9 @@ require 'spec_helper'
 require 'ronin/ip_address'
 
 describe IPAddress do
+  let(:example_domain) { 'www.example.com' }
+  let(:example_ip) { '192.0.32.10' }
+
   it "should require an address" do
     ip = IPAddress.new
 
@@ -9,15 +12,21 @@ describe IPAddress do
   end
 
   it "should resolve host names to IP Addresses" do
-    ip = IPAddress.resolv('example.com')
+    ip = IPAddress.resolv(example_domain)
 
-    ip.address.should == '192.0.32.10'
+    ip.address.should == example_ip
   end
 
   it "should resolve host names to multiple IP Addresses" do
-    ips = IPAddress.resolv_all('example.com').addresses
+    ips = IPAddress.resolv_all(example_domain).addresses
 
-    ips.should include('192.0.32.10')
+    ips.should include(example_ip)
+  end
+
+  it "should reverse lookup any host names for the IP Address" do
+    ip = IPAddress.new(:address => example_ip)
+
+    ip.reverse_lookup.address.should == example_domain
   end
 
   describe "version" do
