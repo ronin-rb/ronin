@@ -18,7 +18,7 @@ describe IPAddress do
   end
 
   it "should resolve host names to multiple IP Addresses" do
-    ips = IPAddress.resolv_all(example_domain).addresses
+    ips = IPAddress.resolv_all(example_domain).map { |ip| ip.address }
 
     ips.should include(example_ip)
   end
