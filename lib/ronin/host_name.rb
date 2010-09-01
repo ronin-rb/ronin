@@ -37,6 +37,32 @@ module Ronin
                              :model => 'IPAddress'
 
     #
+    # Resolves the IP Address of the host name.
+    #
+    # @return [IPAddress]
+    #   The IP Address for the host name.
+    #
+    # @since 0.4.0
+    #
+    def resolv
+      self.ip_addresses.first_or_new(:address => Resolv.getaddress(self.address))
+    end
+
+    #
+    # Resolves all IP Addresses for the host name.
+    #
+    # @return [Array<IPAddress>]
+    #   The IP Addresses for the host name.
+    #
+    # @since 0.4.0
+    #
+    def resolv_all
+      Resolv.getaddresses(self.address).map do |ip|
+        self.ip_addresses.first_or_new(:address => ip)
+      end
+    end
+
+    #
     # The IP Address that was most recently used by the host name.
     #
     # @return [IpAddress]
