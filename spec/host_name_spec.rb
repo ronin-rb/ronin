@@ -7,6 +7,12 @@ describe HostName do
 
   subject { HostName.new(:address => example_domain) }
 
+  it "should require an address" do
+    host_name = HostName.new
+
+    host_name.should_not be_valid
+  end
+
   it "should resolv the IP Address for the host name" do
     subject.resolv.address.should == example_ip
   end
