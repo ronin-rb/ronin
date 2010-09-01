@@ -72,17 +72,17 @@ module Ronin
                      :via => :os
 
     #
-    # Looks up the IP Address of a host name.
+    # Resolves the host name to an IP Address.
     #
     # @param [String] host_name
-    #   The host name to lookup.
+    #   The host name to resolve.
     #
     # @return [IPAddress]
     #   The new or previously saved IP Address for the host name.
     #
     # @since 0.4.0
     #
-    def IPAddress.lookup(host_name)
+    def IPAddress.resolv(host_name)
       IPAddress.first_or_new(:address => Resolv.getaddress(host_name))
     end
 
