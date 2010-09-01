@@ -29,7 +29,7 @@ module Ronin
     property :id, Serial
 
     # user-name of the credential
-    property :user, String
+    property :user, String, :index => true
 
     # password of the credential
     property :password, String

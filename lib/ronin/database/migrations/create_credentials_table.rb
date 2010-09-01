@@ -30,6 +30,8 @@ module Ronin
             column :user, String
             column :password, String
           end
+
+          create_index :ronin_credentials, :user
         end
 
         down do
