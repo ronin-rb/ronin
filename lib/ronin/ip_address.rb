@@ -26,6 +26,7 @@ require 'ronin/os_guess'
 require 'ronin/os'
 
 require 'ipaddr'
+require 'resolv'
 
 module Ronin
   class IPAddress < Address
@@ -69,6 +70,21 @@ module Ronin
     has 0..n, :oses, :through => :os_guesses,
                      :model => 'OS',
                      :via => :os
+
+    #
+    # Looks up the IP Address of a host name.
+    #
+    # @param [String] host_name
+    #   The host name to lookup.
+    #
+    # @return [IPAddress]
+    #   The new or previously saved IP Address for the host name.
+    #
+    # @since 0.4.0
+    #
+    def IPAddress.lookup(host_name)
+      IPAddress.first_or_new(:address => Resolv.getaddress(host_name))
+    end
 
     #
     # The MAC Address that was most recently used by the IP Address.
