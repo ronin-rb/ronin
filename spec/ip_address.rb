@@ -14,6 +14,12 @@ describe IPAddress do
     ip.address.should == '192.0.32.10'
   end
 
+  it "should resolve host names to multiple IP Addresses" do
+    ips = IPAddress.resolv_all('example.com').addresses
+
+    ips.should include('192.0.32.10')
+  end
+
   describe "version" do
     let(:ipv4) { IPAddress.new(:address => '192.168.1.1') }
     let(:ipv6) { IPAddress.new(:address => '::1') }

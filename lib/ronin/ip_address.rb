@@ -87,6 +87,23 @@ module Ronin
     end
 
     #
+    # Resolves the host name to multiple IP Addresses.
+    #
+    # @param [String] host_name
+    #   The host name to resolve.
+    #
+    # @return [Array<IPAddress>]
+    #   The new or previously saved IP Addresses for the host name.
+    #
+    # @since 0.4.0
+    #
+    def IPAddress.resolv_all(host_name)
+      Resolv.getaddresses(host_name).map do |ip|
+        IPAddress.first_or_new(:address => ip)
+      end
+    end
+
+    #
     # The MAC Address that was most recently used by the IP Address.
     #
     # @return [MacAddress]
