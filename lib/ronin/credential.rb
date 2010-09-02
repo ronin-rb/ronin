@@ -35,5 +35,17 @@ module Ronin
     # user-name of the credential
     belongs_to :user_name
 
+    #
+    # The user the credential belongs to.
+    #
+    # @return [String]
+    #   The user name.
+    #
+    # @since 0.4.0
+    #
+    def user
+      self.user_name.name if self.user_name
+    end
+
   end
 end

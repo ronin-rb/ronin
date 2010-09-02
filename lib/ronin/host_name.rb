@@ -40,6 +40,8 @@ module Ronin
     # The email addresses that are associated with the host-name.
     has 0..n, :email_addresses
 
+    alias name address
+
     #
     # Resolves the IP Address of the host name.
     #

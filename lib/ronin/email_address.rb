@@ -62,6 +62,30 @@ module Ronin
     end
 
     #
+    # The user of the email address.
+    #
+    # @return [String]
+    #   The user name.
+    #
+    # @since 0.4.0
+    #
+    def user
+      self.user_name.name if self.user_name
+    end
+
+    #
+    # The host of the email address.
+    #
+    # @return [String]
+    #   The host name.
+    #
+    # @since 0.4.0
+    #
+    def host
+      self.host_name.address if self.host_name
+    end
+
+    #
     # Converts the email address into a String.
     #
     # @return [String]
