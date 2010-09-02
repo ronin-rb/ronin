@@ -18,9 +18,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model'
 require 'ronin/user_name'
 require 'ronin/host_name'
+require 'ronin/model'
 
 require 'dm-timestamps'
 
@@ -53,11 +53,11 @@ module Ronin
     # @since 0.4.0
     #
     def EmailAddress.parse(email)
-      user_name, host_name = email.strip.split('@',2)
+      user, host = email.strip.split('@',2)
 
-      EmailAddress.first_or_new(
-        EmailAddress.user_name.name => user_name,
-        EmailAddress.host_name.address => host_name
+      return EmailAddress.first_or_new(
+        :user_name => UserName.first_or_new(:name => user),
+        :host_name => HostName.first_or_new(:address => host)
       )
     end
 
