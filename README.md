@@ -42,7 +42,32 @@ install or update Overlays.
     * [Git](http://git-scm.com/)
     * Rsync
 * Allows for the loading of Extensions from one or more Overlays.
-* Provides Object Database using [DataMapper](http://datamapper.org).
+* Provides Object Database using [DataMapper](http://datamapper.org)
+  with:
+  * {Ronin::Author}
+  * {Ronin::License}
+  * {Ronin::Arch}
+  * {Ronin::OS}
+  * {Ronin::Software}
+  * {Ronin::Vendor}
+  * {Ronin::Address}
+    * {Ronin::MACAddress}
+    * {Ronin::IPAddress}
+    * {Ronin::HostName}
+  * {Ronin::Port}
+    * {Ronin::TCPPort}
+    * {Ronin::UDPPort}
+  * {Ronin::Service}
+  * {Ronin::OpenPort}
+  * {Ronin::OSGuess}
+  * {Ronin::UserName}
+  * {Ronin::URL}
+  * {Ronin::EmailAddress}
+  * {Ronin::Credential}
+  * {Ronin::ServiceCredential}
+  * {Ronin::Organization}
+  * {Ronin::Campaign}
+  * {Ronin::Target}
 * Caches and mirrors Objects stored in Overlays using DataMapper.
 * Convenience methods provided by
   [ronin-support](http://github.com/ronin-ruby/ronin-support#readme).
