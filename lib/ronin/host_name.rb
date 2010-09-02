@@ -21,6 +21,7 @@
 require 'ronin/address'
 require 'ronin/host_name_ip_address'
 require 'ronin/url'
+require 'ronin/email_address'
 require 'ronin/model'
 
 module Ronin
@@ -35,6 +36,9 @@ module Ronin
     # The IP Addresses that host the host name
     has 0..n, :ip_addresses, :through => :host_name_ip_addresses,
                              :model => 'IPAddress'
+
+    # The email addresses that are associated with the host-name.
+    has 0..n, :email_addresses
 
     #
     # Resolves the IP Address of the host name.
