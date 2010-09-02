@@ -33,10 +33,10 @@ module Ronin
     property :id, Serial
 
     # The user-name component of the email address
-    belongs_to :user_name
+    belongs_to :user_name, :unique => :user_host
 
     # The host-name component of the email address
-    belongs_to :host_name
+    belongs_to :host_name, :unique => :user_host
 
     # Tracks when the email address was created at.
     timestamps :created_at

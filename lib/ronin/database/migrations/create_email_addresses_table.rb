@@ -37,6 +37,10 @@ module Ronin
             column :host_name_id, Integer, :key => true
             column :created_at, Time, :not_null => true
           end
+
+          create_index :ronin_email_addresses, :user_name_id, :host_name_id,
+                       :name => :user_host,
+                       :unique => true
         end
 
         down do
