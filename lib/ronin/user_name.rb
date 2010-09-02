@@ -1,7 +1,7 @@
 #
 # Ronin - A Ruby platform for exploit development and security research.
 #
-# Copyright (c) 2009-2010 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2010 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,22 +18,41 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/user_name'
 require 'ronin/model'
 
+require 'dm-timestamps'
+
 module Ronin
-  class Credential
+  class UserName
 
     include Model
 
-    # primary key of the credential
+    # The primary key of the user-name
     property :id, Serial
 
-    # password of the credential
-    property :password, String
+    # The name of the user
+    property :name, String, :unique => true
 
-    # user-name of the credential
-    belongs_to :user_name
+    # Tracks when the user-name was created.
+    timestamps :created_at
+
+    # Any credentials belonging to the user
+    has 0..n, :credentials
+
+    # Email addresses of the user
+    has 0..n, :email_addresses
+
+    #
+    # Converts the user-name into a String.
+    #
+    # @return [String]
+    #   The name of the user.
+    #
+    # @since 0.4.0
+    #
+    def to_s
+      self.name.to_s
+    end
 
   end
 end

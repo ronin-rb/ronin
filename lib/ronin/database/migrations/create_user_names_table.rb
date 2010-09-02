@@ -1,7 +1,7 @@
 #
 # Ronin - A Ruby platform for exploit development and security research.
 #
-# Copyright (c) 2009-2010 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2010 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,22 +18,26 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/user_name'
-require 'ronin/model'
+require 'ronin/database/migrations/migrations'
 
 module Ronin
-  class Credential
+  module Database
+    module Migrations
+      migration(:create_user_names_table) do
+        up do
+          create_table :ronin_user_names do
+            column :id, Integer, :serial => true
+            column :name, String, :not_null => true
+            column :created_at, Time, :not_null => true
+          end
 
-    include Model
+          create_index :ronin_user_names, :name, :unique => true
+        end
 
-    # primary key of the credential
-    property :id, Serial
-
-    # password of the credential
-    property :password, String
-
-    # user-name of the credential
-    belongs_to :user_name
-
+        down do
+          drop_table :ronin_user_names
+        end
+      end
+    end
   end
 end
