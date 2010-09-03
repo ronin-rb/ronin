@@ -33,7 +33,7 @@ data via Overlays. Overlays are directories of code and data that can be
 hosted on any SVN, Hg, Git or Rsync server. Ronin makes it easy to create,
 install or update Overlays.
 
-## Feature
+## Features
 
 * Supports installing/updating/uninstalling of Overlays.
   * Supports accessing Overlays from various media types:
