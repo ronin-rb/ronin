@@ -32,7 +32,7 @@ module Ronin
     property :name, String, :required => true
 
     # The URLs that use the scheme
-    has 1..n, :urls
+    has 1..n, :urls, :model => 'URL'
 
     #
     # Converts the URL Scheme to a String.
