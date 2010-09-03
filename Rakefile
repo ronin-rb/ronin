@@ -56,9 +56,43 @@ task :default => :spec
 
 require 'dm-visualizer/rake/graphviz_task'
 DataMapper::Visualizer::Rake::GraphVizTask.new(
-  :bundle => [:runtime],
-  :include => ['lib'],
-  :require => ['ronin/database', 'ronin/platform']
+  :bundle => [:default],
+  :include => %w[lib],
+  :require => %w[
+    ronin/arch
+    ronin/address
+    ronin/author
+    ronin/campaign
+    ronin/comment
+    ronin/country
+    ronin/credential
+    ronin/email_address
+    ronin/host_name_ip_address
+    ronin/host_name
+    ronin/ip_address_mac_address
+    ronin/ip_address
+    ronin/license
+    ronin/mac_address
+    ronin/open_port
+    ronin/organization
+    ronin/os_guess
+    ronin/os
+    ronin/platform/cached_file
+    ronin/platform/maintainer
+    ronin/platform/overlay
+    ronin/port
+    ronin/service_credential
+    ronin/service
+    ronin/site_credential
+    ronin/software
+    ronin/target
+    ronin/tcp_port
+    ronin/udp_port
+    ronin/url
+    ronin/url_scheme
+    ronin/user_name
+    ronin/vendor
+  ]
 )
 
 require 'yard'
