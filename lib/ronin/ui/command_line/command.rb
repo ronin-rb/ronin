@@ -167,7 +167,7 @@ module Ronin
           if $0 == 'ronin'
             super
           else
-            $0
+            self.basename
           end
         end
 
