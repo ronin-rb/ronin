@@ -156,6 +156,22 @@ module Ronin
         protected
 
         #
+        # The banner for the command.
+        #
+        # @return [String]
+        #   The banner string.
+        #
+        # @since 0.4.0
+        #
+        def self.banner
+          if $0 == 'ronin'
+            super
+          else
+            $0
+          end
+        end
+
+        #
         # Increases the indentation out output temporarily.
         #
         # @param [Integer] n
