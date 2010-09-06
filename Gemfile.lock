@@ -22,7 +22,7 @@ GIT
 
 GIT
   remote: http://github.com/postmodern/thor.git
-  revision: b21a94e4aa479f7fb6ebaf3f7d971af5ca314a41
+  revision: 1440efbc60a71f23b7d75e8df6e0338f0c0dd9d8
   specs:
     thor (0.14.0)
 
