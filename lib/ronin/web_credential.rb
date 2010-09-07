@@ -22,7 +22,7 @@ require 'ronin/credential'
 require 'ronin/url'
 
 module Ronin
-  class SiteCredential < Credential
+  class WebCredential < Credential
 
     # the url the credential can be used with
     belongs_to :url, :required => false,

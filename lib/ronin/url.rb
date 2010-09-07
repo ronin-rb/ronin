@@ -21,7 +21,7 @@
 require 'ronin/url_scheme'
 require 'ronin/host_name'
 require 'ronin/tcp_port'
-require 'ronin/site_credential'
+require 'ronin/web_credential'
 require 'ronin/comment'
 require 'ronin/model'
 
@@ -65,7 +65,7 @@ module Ronin
     property :fragment, String
 
     # Any credentials used with the URL
-    has 0..n, :site_credentials
+    has 0..n, :web_credentials
 
     # Comments on the URL
     has 0..n, :comments

@@ -65,6 +65,7 @@ install or update Overlays.
   * {Ronin::EmailAddress}
   * {Ronin::Credential}
   * {Ronin::ServiceCredential}
+  * {Ronin::WebCredential}
   * {Ronin::Organization}
   * {Ronin::Campaign}
   * {Ronin::Target}
