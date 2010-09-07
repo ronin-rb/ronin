@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 DATA_MAPPER = 'http://github.com/datamapper'
-DM_VERSION = '~> 1.0.0'
+DM_VERSION = '~> 1.0.1'
 
 RONIN = 'http://github.com/ronin-ruby'
 
@@ -17,7 +17,7 @@ gem 'dm-do-adapter',		DM_VERSION
 gem 'dm-sqlite-adapter',	DM_VERSION
 
 # DataMapper dependencies
-gem 'dm-core',		DM_VERSION, :git => "#{DATA_MAPPER}/dm-core.git"
+gem 'dm-core',		DM_VERSION
 gem 'dm-types',		DM_VERSION
 gem 'dm-constraints',	DM_VERSION
 gem 'dm-migrations',	DM_VERSION, :git => 'http://github.com/postmodern/dm-migrations.git', :branch => 'runner'
