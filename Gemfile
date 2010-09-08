@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 DATA_MAPPER = 'http://github.com/datamapper'
-DM_VERSION = '~> 1.0.1'
+DM_VERSION = '~> 1.0.2'
 
 RONIN = 'http://github.com/ronin-ruby'
 
