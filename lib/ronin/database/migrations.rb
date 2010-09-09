@@ -47,3 +47,7 @@ require 'ronin/database/migrations/create_campaigns_table'
 require 'ronin/database/migrations/create_targets_table'
 require 'ronin/database/migrations/add_frozen_tag_list_columns'
 require 'ronin/database/migrations/platform'
+
+require 'ronin/database/database'
+
+Ronin::Database.upgrade!

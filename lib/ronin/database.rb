@@ -20,5 +20,3 @@
 
 require 'ronin/database/database'
 require 'ronin/database/migrations'
-
-Ronin::Database.upgrade!
