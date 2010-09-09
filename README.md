@@ -125,6 +125,7 @@ View available commands:
 
 ## Requirements
 
+* [Ruby](http://www.ruby-lang.org/) >= 1.8.7
 * [ActiveSupport](http://rubygems.org/gems/activesupport) >= 3.0.0
 * [DataMapper](http://datamapper.org/):
   * [dm-do-adapter](http://github.com/datamapper/dm-do-adapter) ~> 1.0.0
