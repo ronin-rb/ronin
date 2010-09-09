@@ -38,14 +38,14 @@ module Ronin
     # Version
     property :version, String, :required => true, :index => true
 
-    # The vendor of the product
+    # The vendor of the software
     belongs_to :vendor, :required => false
 
     #
-    # Converts the product to a String.
+    # Converts the software to a String.
     #
     # @return [String]
-    #   The product vendor, name and version.
+    #   The software vendor, name and version.
     #
     def to_s
       [self.vendor, self.name, self.version].compact.join(' ')
