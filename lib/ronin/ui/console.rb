@@ -175,8 +175,15 @@ module Ronin
           # include the output helpers
           include Ronin::UI::Output::Helpers
 
-          # setup irb completion
-          require 'irb/completion' if Ronin::UI::Console.completion
+          if Ronin::UI::Console.completion
+            begin
+              # setup irb completion
+              require 'irb/completion'
+            rescue LoadError
+              print_error "Unable to load 'irb/completion'."
+              print_error "Ruby was not compiled with readline support."
+            end
+          end
 
           # require any of the auto-load paths
           Ronin::UI::Console.auto_load.each do |path|
