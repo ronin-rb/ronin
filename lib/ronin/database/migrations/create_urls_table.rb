@@ -40,6 +40,7 @@ module Ronin
             column :query_string, String
             column :fragment, String
             column :created_at, Time, :not_null => true
+            column :frozen_tag_list, Text
           end
         end
 

@@ -31,6 +31,7 @@ module Ronin
             column :address, String, :not_null => true
             column :organization_id, Integer
             column :created_at, Time, :not_null => true
+            column :frozen_tag_list, Text
           end
 
           create_index :ronin_addresses, :address, :unique => true

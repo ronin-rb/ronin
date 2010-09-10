@@ -31,6 +31,7 @@ module Ronin
             column :port_id, Integer, :not_null => true
             column :service_id, Integer
             column :created_at, Time, :not_null => true
+            column :frozen_tag_list, Text
           end
         end
 

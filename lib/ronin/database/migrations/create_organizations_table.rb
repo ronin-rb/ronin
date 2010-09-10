@@ -30,6 +30,7 @@ module Ronin
             column :name, String, :not_null => true
             column :description, Text, :not_null => true
             column :created_at, Time, :not_null => true
+            column :frozen_tag_list, Text
           end
         end
 

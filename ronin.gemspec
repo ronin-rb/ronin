@@ -52,7 +52,6 @@ Gem::Specification.new do |s|
     "lib/ronin/database/exceptions/invalid_config.rb",
     "lib/ronin/database/exceptions/unknown_repository.rb",
     "lib/ronin/database/migrations.rb",
-    "lib/ronin/database/migrations/add_frozen_tag_list_columns.rb",
     "lib/ronin/database/migrations/add_open_port_id_column_to_credentials_table.rb",
     "lib/ronin/database/migrations/add_url_id_column_to_credentials_table.rb",
     "lib/ronin/database/migrations/add_version_column_to_addresses_table.rb",
