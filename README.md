@@ -128,22 +128,23 @@ View available commands:
 * [Ruby](http://www.ruby-lang.org/) >= 1.8.7
 * [ActiveSupport](http://rubygems.org/gems/activesupport) >= 3.0.0
 * [DataMapper](http://datamapper.org/):
-  * [dm-do-adapter](http://github.com/datamapper/dm-do-adapter) ~> 1.0.0
+  * [dm-do-adapter](http://github.com/datamapper/dm-do-adapter) ~> 1.0.2
   * [dm-sqlite-adapter](http://github.com/datamapper/dm-sqlite-adapter)
-    ~> 1.0.0
+    ~> 1.0.2
     * [libsqlite3](http://sqlite.org/)
-  * [dm-core](http://github.com/datamapper/dm-core) ~> 1.0.0
-  * [dm-types](http://github.com/datamapper/dm-types) ~> 1.0.0
-  * [dm-migrations](http://github.com/datamapper/dm-migrations) ~> 1.0.0
-  * [dm-validations](http://github.com/datamapper/dm-validations) ~> 1.0.0
-  * [dm-aggregates](http://github.com/datamapper/dm-aggregates) ~> 1.0.0
-  * [dm-timestamps](http://github.com/datamapper/dm-timestamps) ~> 1.0.0
-  * [dm-tags](http://github.com/datamapper/dm-tags) ~> 1.0.0
+  * [dm-core](http://github.com/datamapper/dm-core) ~> 1.0.2
+  * [dm-types](http://github.com/datamapper/dm-types) ~> 1.0.2
+  * [dm-migrations](http://github.com/datamapper/dm-migrations) ~> 1.0.2
+  * [dm-validations](http://github.com/datamapper/dm-validations) ~> 1.0.2
+  * [dm-aggregates](http://github.com/datamapper/dm-aggregates) ~> 1.0.2
+  * [dm-timestamps](http://github.com/datamapper/dm-timestamps) ~> 1.0.2
+  * [dm-tags](http://github.com/datamapper/dm-tags) ~> 1.0.2
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined/)
   ~> 0.3.0
 * [nokogiri](http://nokogiri.rubyforge.org/) ~> 1.4.1
   * [libxml2](http://xmlsoft.org/)
   * [libxslt1](http://xmlsoft.org/XSLT/)
+* [uri-query_params](http://github.com/postmodern/uri-query_params) ~> 0.4.0
 * [open_namespace](http://github.com/postmodern/open_namespace) ~> 0.3.0
 * [parameters](http://github.com/postmodern/parameters) ~> 0.2.2
 * [data_paths](http://github.com/postmodern/data_paths) ~> 0.2.1
