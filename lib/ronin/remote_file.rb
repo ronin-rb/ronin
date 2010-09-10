@@ -1,7 +1,7 @@
 #
 # Ronin - A Ruby platform for exploit development and security research.
 #
-# Copyright (c) 2009-2010 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2010 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,32 +18,36 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/campaign'
-require 'ronin/address'
-require 'ronin/mac_address'
-require 'ronin/ip_address'
-require 'ronin/host_name'
+require 'ronin/target'
 require 'ronin/model'
 
+require 'dm-timestamps'
+require 'dm-tags'
+
 module Ronin
-  class Target
+  class RemoteFile
 
     include Model
 
-    # Primary key of the target
+    # Primary key of the remote file
     property :id, Serial
 
-    # The campaign the target belongs to
-    belongs_to :campaign
+    # Remote path of the file
+    property :remote_path, String, :required => true,
+                                   :index => true,
+                                   :unique => :target_remote_path
 
-    # The host being targeted
-    belongs_to :address
+    # Local path of the file
+    property :local_path, String, :required => true
 
-    # The organization that is being targeted
-    has 1, :organization, :through => :address
+    # The target the file was recovered from
+    belongs_to :target, :unique => :target_remote_path
 
-    # The remote files recovered from the target
-    has 0..n, :remote_files
+    # Tracks when the remote file was first recovered
+    timestamps :created_at
+
+    # Tags
+    has_tags_on :tags
 
   end
 end

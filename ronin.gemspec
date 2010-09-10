@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-09-07}
+  s.date = %q{2010-09-09}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-database", "ronin-help", "ronin-install", "ronin-list", "ronin-uninstall", "ronin-update"]
@@ -72,6 +72,7 @@ Gem::Specification.new do |s|
     "lib/ronin/database/migrations/create_os_guesses_table.rb",
     "lib/ronin/database/migrations/create_os_table.rb",
     "lib/ronin/database/migrations/create_ports_table.rb",
+    "lib/ronin/database/migrations/create_remote_files_table.rb",
     "lib/ronin/database/migrations/create_services_table.rb",
     "lib/ronin/database/migrations/create_softwares_table.rb",
     "lib/ronin/database/migrations/create_targets_table.rb",
@@ -149,6 +150,7 @@ Gem::Specification.new do |s|
     "lib/ronin/platform/overlays.rb",
     "lib/ronin/platform/platform.rb",
     "lib/ronin/port.rb",
+    "lib/ronin/remote_file.rb",
     "lib/ronin/rpc.rb",
     "lib/ronin/rpc/call.rb",
     "lib/ronin/rpc/client.rb",
@@ -367,16 +369,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<tzinfo>, ["~> 0.3.22"])
       s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0"])
-      s.add_runtime_dependency(%q<dm-do-adapter>, ["~> 1.0.1"])
-      s.add_runtime_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.1"])
-      s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.1"])
-      s.add_runtime_dependency(%q<dm-types>, ["~> 1.0.1"])
-      s.add_runtime_dependency(%q<dm-constraints>, ["~> 1.0.1"])
-      s.add_runtime_dependency(%q<dm-migrations>, ["~> 1.0.1"])
-      s.add_runtime_dependency(%q<dm-validations>, ["~> 1.0.1"])
-      s.add_runtime_dependency(%q<dm-aggregates>, ["~> 1.0.1"])
-      s.add_runtime_dependency(%q<dm-timestamps>, ["~> 1.0.1"])
-      s.add_runtime_dependency(%q<dm-tags>, ["~> 1.0.1"])
+      s.add_runtime_dependency(%q<dm-do-adapter>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-core>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-types>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-constraints>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-migrations>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-validations>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-aggregates>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-timestamps>, ["~> 1.0.2"])
+      s.add_runtime_dependency(%q<dm-tags>, ["~> 1.0.2"])
       s.add_runtime_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
       s.add_runtime_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_runtime_dependency(%q<uri-query_params>, ["~> 0.4.0"])
@@ -394,16 +396,16 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<tzinfo>, ["~> 0.3.22"])
       s.add_dependency(%q<activesupport>, ["~> 3.0.0"])
-      s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.1"])
-      s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.1"])
-      s.add_dependency(%q<dm-core>, ["~> 1.0.1"])
-      s.add_dependency(%q<dm-types>, ["~> 1.0.1"])
-      s.add_dependency(%q<dm-constraints>, ["~> 1.0.1"])
-      s.add_dependency(%q<dm-migrations>, ["~> 1.0.1"])
-      s.add_dependency(%q<dm-validations>, ["~> 1.0.1"])
-      s.add_dependency(%q<dm-aggregates>, ["~> 1.0.1"])
-      s.add_dependency(%q<dm-timestamps>, ["~> 1.0.1"])
-      s.add_dependency(%q<dm-tags>, ["~> 1.0.1"])
+      s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-core>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-types>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-constraints>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-migrations>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-validations>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-aggregates>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-timestamps>, ["~> 1.0.2"])
+      s.add_dependency(%q<dm-tags>, ["~> 1.0.2"])
       s.add_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
       s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
       s.add_dependency(%q<uri-query_params>, ["~> 0.4.0"])
@@ -422,16 +424,16 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<tzinfo>, ["~> 0.3.22"])
     s.add_dependency(%q<activesupport>, ["~> 3.0.0"])
-    s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.1"])
-    s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.1"])
-    s.add_dependency(%q<dm-core>, ["~> 1.0.1"])
-    s.add_dependency(%q<dm-types>, ["~> 1.0.1"])
-    s.add_dependency(%q<dm-constraints>, ["~> 1.0.1"])
-    s.add_dependency(%q<dm-migrations>, ["~> 1.0.1"])
-    s.add_dependency(%q<dm-validations>, ["~> 1.0.1"])
-    s.add_dependency(%q<dm-aggregates>, ["~> 1.0.1"])
-    s.add_dependency(%q<dm-timestamps>, ["~> 1.0.1"])
-    s.add_dependency(%q<dm-tags>, ["~> 1.0.1"])
+    s.add_dependency(%q<dm-do-adapter>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-sqlite-adapter>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-core>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-types>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-constraints>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-migrations>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-validations>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-aggregates>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-timestamps>, ["~> 1.0.2"])
+    s.add_dependency(%q<dm-tags>, ["~> 1.0.2"])
     s.add_dependency(%q<dm-is-predefined>, ["~> 0.3.0"])
     s.add_dependency(%q<nokogiri>, ["~> 1.4.1"])
     s.add_dependency(%q<uri-query_params>, ["~> 0.4.0"])
