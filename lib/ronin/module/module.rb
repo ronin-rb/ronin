@@ -18,6 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/module/class_methods'
 require 'ronin/model/model'
 require 'ronin/model/has_name'
 require 'ronin/model/has_description'
@@ -39,6 +40,8 @@ module Ronin
                           Model::HasLicense,
                           Model::HasAuthors,
                           Platform::Cacheable
+
+      base.send :extend, ClassMethods
     end
 
     # 
