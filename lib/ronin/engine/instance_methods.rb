@@ -44,15 +44,11 @@ module Ronin
       # @since 0.4.0
       #
       def inspect
-        body = ''
-
-        attribute_pairs = []
+        body = []
 
         self.attributes.each do |name,value|
-          attribute_pairs << "#{name}: #{value.inspect}"
+          body << "#{name}: #{value.inspect}"
         end
-
-        body << attribute_pairs.join(', ')
 
         param_pairs = []
 
@@ -60,9 +56,9 @@ module Ronin
           param_pairs << "#{name}: #{param.value.inspect}"
         end
 
-        body << " params: {#{param_pairs.join(', ')}}"
+        body << "params: {#{param_pairs.join(', ')}}"
 
-        return "#<#{self.class}: #{body}>"
+        return "#<#{self.class}: #{body.join(', ')}>"
       end
     end
   end
