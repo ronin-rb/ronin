@@ -19,10 +19,10 @@
 #
 
 module Ronin
-  module Module
+  module Engine
     module ClassMethods
       #
-      # Finds and loads all matching Ronin Modules.
+      # Finds and loads all matching Ronin Engines.
       #
       # @param [Hash] options
       #   Query options.
@@ -39,8 +39,8 @@ module Ronin
       # @option options [String] :license
       #   The license to search for.
       #
-      # @return [Array<Module>]
-      #   The Ronin Module with the matching attributes.
+      # @return [Array<Engine>]
+      #   The Ronin Engine with the matching attributes.
       #
       # @since 0.4.0
       #
@@ -51,7 +51,7 @@ module Ronin
       end
 
       #
-      # Finds and loads a specific Ronin Module.
+      # Finds and loads a specific Ronin Engine.
       #
       # @param [Hash] options
       #   Query options.
@@ -68,8 +68,8 @@ module Ronin
       # @option options [String] :license
       #   The license to search for.
       #
-      # @return [Array<Module>]
-      #   The Ronin Module with the matching attributes.
+      # @return [Array<Engine>]
+      #   The Ronin Engine with the matching attributes.
       #
       # @since 0.4.0
       #
@@ -84,7 +84,7 @@ module Ronin
       protected
 
       #
-      # Creates a custom query for the Ronin Module.
+      # Creates a custom query for the Ronin Engine.
       #
       # @param [Hash] options
       #   Query options.
@@ -102,7 +102,7 @@ module Ronin
       #   The license to search for.
       #
       # @return [DataMapper::Collection]
-      #   The custom query for the Ronin Module.
+      #   The custom query for the Ronin Engine.
       #
       # @since 0.4.0
       #
