@@ -37,14 +37,14 @@ module Ronin
 
     def self.included(base)
       base.send :include, Engine::InstanceMethods,
-                          Parameters,
                           Model,
                           Model::HasName,
                           Model::HasDescription,
                           Model::HasVersion,
                           Model::HasLicense,
                           Model::HasAuthors,
-                          Platform::Cacheable
+                          Platform::Cacheable,
+                          Parameters
 
       base.send :extend, ClassMethods
     end
