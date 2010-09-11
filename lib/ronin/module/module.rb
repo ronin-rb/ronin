@@ -26,11 +26,14 @@ require 'ronin/model/has_version'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
 require 'ronin/platform/cacheable'
+require 'ronin/ui/output/helpers'
 
 require 'parameters'
 
 module Ronin
   module Module
+    include UI::Output::Helpers
+
     def self.included(base)
       base.send :include, Parameters,
                           Model,
