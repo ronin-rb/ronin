@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-09-10}
+  s.date = %q{2010-09-11}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{postmodern.mod3@gmail.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-database", "ronin-help", "ronin-install", "ronin-list", "ronin-uninstall", "ronin-update"]
@@ -85,6 +85,10 @@ Gem::Specification.new do |s|
     "lib/ronin/database/migrations/platform/create_cached_files_table.rb",
     "lib/ronin/database/migrations/platform/create_overlays_table.rb",
     "lib/ronin/email_address.rb",
+    "lib/ronin/engine.rb",
+    "lib/ronin/engine/class_methods.rb",
+    "lib/ronin/engine/engine.rb",
+    "lib/ronin/engine/instance_methods.rb",
     "lib/ronin/environment.rb",
     "lib/ronin/host_name.rb",
     "lib/ronin/host_name_ip_address.rb",
@@ -117,9 +121,6 @@ Gem::Specification.new do |s|
     "lib/ronin/model/model.rb",
     "lib/ronin/model/types.rb",
     "lib/ronin/model/types/description.rb",
-    "lib/ronin/module.rb",
-    "lib/ronin/module/class_methods.rb",
-    "lib/ronin/module/module.rb",
     "lib/ronin/network/mixins.rb",
     "lib/ronin/network/mixins/esmtp.rb",
     "lib/ronin/network/mixins/http.rb",
@@ -209,6 +210,8 @@ Gem::Specification.new do |s|
     "spec/author_spec.rb",
     "spec/database_spec.rb",
     "spec/email_address_spec.rb",
+    "spec/engine/classes/engine_class.rb",
+    "spec/engine/engine_spec.rb",
     "spec/host_name_spec.rb",
     "spec/installation_spec.rb",
     "spec/ip_address.rb",
@@ -305,6 +308,8 @@ Gem::Specification.new do |s|
     "spec/author_spec.rb",
     "spec/database_spec.rb",
     "spec/email_address_spec.rb",
+    "spec/engine/classes/engine_class.rb",
+    "spec/engine/engine_spec.rb",
     "spec/host_name_spec.rb",
     "spec/installation_spec.rb",
     "spec/ip_address.rb",
