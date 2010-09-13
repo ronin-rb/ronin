@@ -113,6 +113,18 @@ module Ronin
     end
 
     #
+    # The port number used by the URL.
+    #
+    # @return [Integer]
+    #   The port number.
+    #
+    # @since 0.4.0
+    #
+    def port_number
+      self.port.number
+    end
+
+    #
     # The query params of the URL.
     #
     # @return [Hash{String => String}]
