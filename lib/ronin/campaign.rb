@@ -35,9 +35,6 @@ module Ronin
     # The files directory name
     FILES_DIR = 'files'
 
-    # The wiki directory name
-    WIKI_DIR = 'wiki'
-
     # Primary key of the campaign
     property :id, Serial
 
@@ -76,18 +73,6 @@ module Ronin
     #
     def files_dir
       File.join(Config::CAMPAIGNS_DIR,dir_name,FILES_DIR)
-    end
-
-    #
-    # The directory used to store the campaign wiki.
-    #
-    # @return [String]
-    #   The wiki directory used by the campaign.
-    #
-    # @since 0.4.0
-    #
-    def wiki_dir
-      File.join(Config::CAMPAIGNS_DIR,dir_name,WIKI_DIR)
     end
 
   end
