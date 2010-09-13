@@ -66,6 +66,8 @@ module Ronin
     # @return [String]
     #   The files directory used by the campaign.
     #
+    # @since 0.4.0
+    #
     def files_dir
       File.join(Config::CAMPAIGNS_DIR,dir_name,'files')
     end
@@ -75,6 +77,8 @@ module Ronin
     #
     # @return [String]
     #   The wiki directory used by the campaign.
+    #
+    # @since 0.4.0
     #
     def wiki_dir
       File.join(Config::CAMPAIGNS_DIR,dir_name,'wiki')
