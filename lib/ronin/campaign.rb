@@ -22,6 +22,8 @@ require 'ronin/target'
 require 'ronin/model'
 require 'ronin/model/has_name'
 require 'ronin/model/has_description'
+require 'ronin/extensions/file'
+require 'ronin/config'
 
 module Ronin
   class Campaign
@@ -44,6 +46,29 @@ module Ronin
 
     # The host comments made during the campaign
     has 0..n, :comments, :through => :addresses
+
+    #
+    # The directory name used by the campaign.
+    #
+    # @return [String]
+    #   The lowercase, underscore-separated and escaped directory name
+    #   for the campaign.
+    #
+    # @since 0.4.0
+    #
+    def dir_name
+      File.escape_name(self.name.downcase.gsub(/[\s]+/,'_'))
+    end
+
+    #
+    # The directory which stores collected files for the campaign.
+    #
+    # @return [String]
+    #   The files directory used by the campaign.
+    #
+    def files_dir
+      File.join(Config::CAMPAIGNS_DIR,dir_name,'files')
+    end
 
   end
 end
