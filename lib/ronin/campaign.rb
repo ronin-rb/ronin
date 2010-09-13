@@ -32,6 +32,12 @@ module Ronin
     include Model::HasName
     include Model::HasDescription
 
+    # The files directory name
+    FILES_DIR = 'files'
+
+    # The wiki directory name
+    WIKI_DIR = 'wiki'
+
     # Primary key of the campaign
     property :id, Serial
 
@@ -69,7 +75,7 @@ module Ronin
     # @since 0.4.0
     #
     def files_dir
-      File.join(Config::CAMPAIGNS_DIR,dir_name,'files')
+      File.join(Config::CAMPAIGNS_DIR,dir_name,FILES_DIR)
     end
 
     #
@@ -81,7 +87,7 @@ module Ronin
     # @since 0.4.0
     #
     def wiki_dir
-      File.join(Config::CAMPAIGNS_DIR,dir_name,'wiki')
+      File.join(Config::CAMPAIGNS_DIR,dir_name,WIKI_DIR)
     end
 
   end
