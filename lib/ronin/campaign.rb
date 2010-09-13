@@ -70,5 +70,15 @@ module Ronin
       File.join(Config::CAMPAIGNS_DIR,dir_name,'files')
     end
 
+    #
+    # The directory used to store the campaign wiki.
+    #
+    # @return [String]
+    #   The wiki directory used by the campaign.
+    #
+    def wiki_dir
+      File.join(Config::CAMPAIGNS_DIR,dir_name,'wiki')
+    end
+
   end
 end
