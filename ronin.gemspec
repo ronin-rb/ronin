@@ -158,7 +158,6 @@ Gem::Specification.new do |s|
     "lib/ronin/rpc/client.rb",
     "lib/ronin/rpc/console.rb",
     "lib/ronin/rpc/exceptions.rb",
-    "lib/ronin/rpc/exceptions/not_implemented.rb",
     "lib/ronin/rpc/exceptions/response_missing.rb",
     "lib/ronin/rpc/response.rb",
     "lib/ronin/rpc/service.rb",

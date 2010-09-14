@@ -18,7 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/rpc/exceptions/not_implemented'
 require 'ronin/rpc/exceptions/response_missing'
 require 'ronin/rpc/service'
 require 'ronin/extensions/meta'
@@ -52,28 +51,28 @@ module Ronin
       #
       # Default method which creates a Call object for the specified
       # _function_ and the given _arguments_. By default create_call raises
-      # a NotImplemented exception.
+      # a NotImplementedError exception.
       #
       def create_call(function,*arguments)
-        raise(NotImplemented,"the \"create_call\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"create_call\" method is not implemented in #{self.class}",caller)
       end
 
       #
       # Default method which sends the _call_object_ to the RPC Server and 
       # returns the response of the Server. By default send_call raises
-      # a NotImplemented exception.
+      # a NotImplementedError exception.
       #
       def send_call(call_object)
-        raise(NotImplemented,"the \"send_call\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"send_call\" method is not implemented in #{self.class}",caller)
       end
 
       #
       # Default method which extracts the return-value and output generated
       # by the RPC function call from the specified _response_ data. By
-      # default return_value raises a NotImplemented exception.
+      # default return_value raises a NotImplementedError exception.
       #
       def return_value(response)
-        raise(NotImplemented,"the \"return_value\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"return_value\" method is not implemented in #{self.class}",caller)
       end
 
       #

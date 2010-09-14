@@ -18,8 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/rpc/exceptions/not_implemented'
-
 module Ronin
   module RPC
     class Call
@@ -41,11 +39,11 @@ module Ronin
 
       #
       # Default method which encodes the call object into a format parsable
-      # by the RPC Server. By default encode raises a NotImplemented
+      # by the RPC Server. By default encode raises a NotImplementedError
       # exception.
       #
       def encode
-        raise(NotImplemented,"the \"encode\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"encode\" method is not implemented in #{self.class}",caller)
       end
 
       #

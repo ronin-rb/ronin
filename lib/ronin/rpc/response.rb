@@ -18,8 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/rpc/exceptions/not_implemented'
-
 module Ronin
   module RPC
     class Response
@@ -39,7 +37,7 @@ module Ronin
       # RPC response.
       #
       def decode
-        raise(NotImplemented,"the \"decode\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"decode\" method is not implemented in #{self.class}",caller)
       end
 
       #

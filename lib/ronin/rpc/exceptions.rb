@@ -18,5 +18,4 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/rpc/exceptions/not_implemented'
 require 'ronin/rpc/exceptions/response_missing'
