@@ -20,7 +20,7 @@
 
 module Ronin
   module RPC
-    class ResponseMissing < StandardError
+    class ResponseMissing < RuntimeError
     end
   end
 end
