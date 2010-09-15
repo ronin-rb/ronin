@@ -30,7 +30,7 @@ module Ronin
       # output of the program will be returned as a String.
       #
       def exec(program,*arguments)
-        call(:exec,program,*arguments)
+        call(:exec,program,arguments)
       end
 
       #
