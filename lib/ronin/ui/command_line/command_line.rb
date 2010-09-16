@@ -120,6 +120,7 @@ module Ronin
       #
       def CommandLine.start(argv=ARGV)
         if (argv.empty? || argv.first[0,1]=='-')
+          # run the default command if an option or no arguments were given
           name = DEFAULT_COMMAND
         else
           name = argv.first
