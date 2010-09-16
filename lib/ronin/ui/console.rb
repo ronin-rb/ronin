@@ -139,9 +139,6 @@ module Ronin
       #
       # Starts a Console.
       #
-      # @param [String] script
-      #   The path to a script to run within the Console.
-      #
       # @yield []
       #   The block to be ran within the Console, after it has been setup.
       #
@@ -153,10 +150,10 @@ module Ronin
       # @example
       #   console.start { @var = 'hello' }
       #
-      def Console.start(script=nil,&block)
+      def Console.start(&block)
         ARGV.clear
 
-        IRB.setup(script)
+        IRB.setup
 
         # configure IRB
         IRB.conf[:IRB_NAME] = 'ronin'
