@@ -153,7 +153,7 @@ module Ronin
       def Console.start(&block)
         ARGV.clear
 
-        IRB.setup
+        IRB.setup(nil)
 
         # configure IRB
         IRB.conf[:IRB_NAME] = 'ronin'
@@ -161,7 +161,7 @@ module Ronin
         IRB.conf[:AUTO_INDENT] = Console.indent
         IRB.conf[:BACK_TRACE_LIMIT] = Console.backtrace_depth
 
-        irb = IRB::Irb.new(nil,script)
+        irb = IRB::Irb.new(nil)
 
         # configure the IRB context
         irb.context.main.instance_eval do
