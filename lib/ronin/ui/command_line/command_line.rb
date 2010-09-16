@@ -123,7 +123,13 @@ module Ronin
           name = DEFAULT_COMMAND
         else
           name = argv.first
-          argv = argv[1..-1]
+
+          if File.file?(name)
+            # run the default command if the sub-command is a file
+            name = DEFAULT_COMMAND
+          else
+            argv = argv[1..-1]
+          end
         end
 
         begin

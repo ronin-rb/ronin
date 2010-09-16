@@ -37,6 +37,7 @@ module Ronin
           class_option :database, :type => :string, :aliases => '-D'
           class_option :require, :type => :array, :aliases => '-r'
           class_option :verbose, :type => :boolean, :aliases => '-v'
+          argument :script, :type => :string, :required => false
 
           #
           # Starts the Ronin Console.
@@ -57,7 +58,12 @@ module Ronin
               Database.config = options[:database]
             end
 
-            UI::Console.start
+            if script
+              require 'ronin/environment'
+              require File.join('.',script)
+            else
+              UI::Console.start
+            end
           end
 
         end
