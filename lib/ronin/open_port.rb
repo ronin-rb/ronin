@@ -59,6 +59,30 @@ module Ronin
     has_tags_on :tags
 
     #
+    # The IP Address of the open port.
+    #
+    # @return [String]
+    #   The IP Address.
+    #
+    # @since 0.4.0
+    #
+    def address
+      self.ip_address.address
+    end
+
+    #
+    # The port number.
+    #
+    # @return [Integer]
+    #   The port number.
+    #
+    # @since 0.4.0
+    #
+    def number
+      self.port.number
+    end
+
+    #
     # Converts the open port to an integer.
     #
     # @return [Integer]
