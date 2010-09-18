@@ -1,6 +1,6 @@
 # Ronin
 
-* [ronin.rubyforge.org](http://ronin.rubyforge.org)
+* [ronin-ruby.github.com](http://ronin-ruby.github.com)
 * [github.com/ronin-ruby/ronin](http://github.com/ronin-ruby/ronin)
 * [github.com/ronin-ruby/ronin/issues](http://github.com/ronin-ruby/ronin/issues)
 * [groups.google.com/group/ronin-ruby](http://groups.google.com/group/ronin-ruby)
