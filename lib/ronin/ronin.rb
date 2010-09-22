@@ -18,17 +18,14 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ronin'
-require 'ronin/config'
-require 'ronin/extensions'
-require 'ronin/formatting'
-require 'ronin/path'
-require 'ronin/network'
-require 'ronin/database'
-require 'ronin/ui'
+require 'ronin/class_methods'
 
-require 'chars'
-require 'pp'
+require 'open_namespace'
 
-Ronin::Config.load
-Ronin::Database.setup
+module Ronin
+  include OpenNamespace
+
+  def self.included(base)
+    base.send :extend, ClassMethods
+  end
+end

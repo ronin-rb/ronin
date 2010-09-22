@@ -18,17 +18,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ronin'
-require 'ronin/config'
-require 'ronin/extensions'
-require 'ronin/formatting'
-require 'ronin/path'
-require 'ronin/network'
-require 'ronin/database'
-require 'ronin/ui'
-
-require 'chars'
-require 'pp'
-
-Ronin::Config.load
-Ronin::Database.setup
+module Ronin
+  module ClassMethods
+    def const_missing(name)
+      Ronin.send(:const_missing,name) || super(name)
+    end
+  end
+end
