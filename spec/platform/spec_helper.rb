@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'platform/helpers/overlays'
-require 'ronin/platform'
+require 'ronin/platform/platform'
 
 RSpec.configure do |spec|
   spec.include Helpers::Overlays

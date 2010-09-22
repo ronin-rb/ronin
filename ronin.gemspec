@@ -150,7 +150,6 @@ Gem::Specification.new do |s|
     "lib/ronin/platform/maintainer.rb",
     "lib/ronin/platform/overlay.rb",
     "lib/ronin/platform/overlay_cache.rb",
-    "lib/ronin/platform/overlays.rb",
     "lib/ronin/platform/platform.rb",
     "lib/ronin/port.rb",
     "lib/ronin/remote_file.rb",

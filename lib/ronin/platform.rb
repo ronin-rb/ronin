@@ -24,3 +24,5 @@ require 'ronin/platform/cached_file'
 require 'ronin/platform/maintainer'
 require 'ronin/platform/overlay'
 require 'ronin/platform/platform'
+
+Ronin::Platform.activate!
