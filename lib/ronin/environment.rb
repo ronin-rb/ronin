@@ -22,11 +22,11 @@ require 'ronin/ronin'
 require 'ronin/config'
 require 'ronin/database'
 require 'ronin/extensions'
-require 'ronin/formatting'
-require 'ronin/network'
-require 'ronin/ui/hexdump'
+require 'ronin/formatting/extensions'
+require 'ronin/network/extensions'
+require 'ronin/ui/hexdump/extensions'
 
-require 'chars'
+require 'chars/extensions'
 
 Ronin::Config.load
 Ronin::Database.setup
