@@ -20,4 +20,4 @@
 
 require 'ronin/platform/platform'
 
-Ronin::Platform.overlays
+Ronin::Platform.activate!

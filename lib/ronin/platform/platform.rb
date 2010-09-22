@@ -39,6 +39,50 @@ module Ronin
     end
 
     #
+    # Determines if the Platform has been activated yet.
+    #
+    # @return [Boolean]
+    #   Specifies whether the Platform has been activated.
+    #
+    # @since 0.4.0
+    #
+    def Platform.activated?
+      Platform.overlays.all? { |overlay| overlay.activated? }
+    end
+
+    #
+    # Activates all overlays in the Platform.
+    #
+    # @return [true]
+    #   All overlays have been activated.
+    #
+    # @since 0.4.0
+    #
+    def Platform.activate!
+      Platform.overlays.each do |overlay|
+        overlay.activate! unless overlay.activated?
+      end
+
+      return true
+    end
+
+    #
+    # Deactivates all overlays in the Platform.
+    #
+    # @return [true]
+    #   All overlays have been deactivated.
+    #
+    # @since 0.4.0
+    #
+    def Platform.deactivate!
+      Platform.overlays.each do |overlay|
+        overlay.deactivate! if overlay.activated?
+      end
+
+      return true
+    end
+
+    #
     # @return [Array]
     #   The names of all extensions within the overlays in the overlay
     #   cache.
