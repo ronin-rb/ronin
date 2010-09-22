@@ -168,6 +168,8 @@ module Ronin
           require 'ronin'
           require 'ronin/platform'
 
+          require 'pp'
+
           # include the output helpers
           include Ronin::UI::Output::Helpers
 

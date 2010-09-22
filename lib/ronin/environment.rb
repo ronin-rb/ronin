@@ -24,10 +24,9 @@ require 'ronin/database'
 require 'ronin/extensions'
 require 'ronin/formatting'
 require 'ronin/network'
-require 'ronin/ui'
+require 'ronin/ui/hexdump'
 
 require 'chars'
-require 'pp'
 
 Ronin::Config.load
 Ronin::Database.setup
