@@ -19,5 +19,4 @@
 #
 
 require 'ronin/environment'
-require 'ronin/platform'
 require 'ronin/version'

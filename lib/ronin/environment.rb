@@ -20,11 +20,10 @@
 
 require 'ronin/ronin'
 require 'ronin/config'
+require 'ronin/database'
 require 'ronin/extensions'
 require 'ronin/formatting'
-require 'ronin/path'
 require 'ronin/network'
-require 'ronin/database'
 require 'ronin/ui'
 
 require 'chars'

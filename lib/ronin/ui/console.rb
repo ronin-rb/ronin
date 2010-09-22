@@ -166,7 +166,6 @@ module Ronin
         # configure the IRB context
         irb.context.main.instance_eval do
           require 'ronin'
-          require 'ronin/ui/output'
           require 'ronin/platform/overlays'
 
           # include the output helpers
