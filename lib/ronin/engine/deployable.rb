@@ -40,8 +40,8 @@ module Ronin
         @deploy_block = nil
         @deployed = false
 
-        @cleanup_block = nil
-        @cleaned = false
+        @evacuate_block = nil
+        @evacuated = false
       end
 
       #
@@ -78,7 +78,7 @@ module Ronin
         @deployed = false
         @deploy_block.call() if @deploy_block
         @deployed = true
-        @cleaned = false
+        @evacuated = false
 
         print_info "#{engine_name} #{self} deployed!"
 
@@ -87,42 +87,42 @@ module Ronin
       end
 
       #
-      # Determines whether the engine was cleaned up.
+      # Determines whether the engine was evacuated.
       #
       # @return [Boolean]
-      #   Specifies whether the engine has been cleaned up.
+      #   Specifies whether the engine has been evacuated.
       #
       # @since 0.4.0
       #
-      def cleaned?
-        @cleaned == true
+      def evacuated?
+        @evacuated == true
       end
 
       #
-      # Cleans the built engine.
+      # Evacuates the deployed engine.
       #
       # @yield []
       #   If a block is given, it will be called before the engine is
-      #   cleaned.
+      #   evacuated.
       #
       # @return [Engine]
-      #   The cleaned engine.
+      #   The evacuated engine.
       #
-      # @see #cleanup
+      # @see #evacuate
       #
       # @since 0.4.0
       #
-      def cleanup!
+      def evacuate!
         yield if block_given?
 
-        print_info "Cleaning up #{engine_name} #{self} ..."
+        print_info "Evauating #{engine_name} #{self} ..."
 
-        @cleaned = false
-        @cleanup_block.call() if @cleanup_block
-        @cleaned = true
+        @evacuated = false
+        @evacuate_block.call() if @evacuate_block
+        @evacuated = true
         @deployed = false
 
-        print_info "#{engine_name} #{self} cleaned."
+        print_info "#{engine_name} #{self} evacuated."
         return self
       end
 
@@ -160,19 +160,19 @@ module Ronin
 
       #
       # Registers a given block to be called when the engine is being
-      # cleaned up.
+      # evacuated.
       #
       # @yield []
       #   The given block will be called when the engine is being
-      #   cleaned up.
+      #   evacuated.
       #
       # @return [Engine]
       #   The engine.
       #
       # @since 0.4.0
       #
-      def cleanup(&block)
-        @cleanup_block = block
+      def evacuate(&block)
+        @evacuate_block = block
         return self
       end
     end
