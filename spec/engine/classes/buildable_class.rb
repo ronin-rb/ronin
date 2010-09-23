@@ -3,8 +3,8 @@ require 'ronin/engine/buildable'
 
 class BuildableClass
 
-  include Engine
-  include Engine::Buildable
+  include Ronin::Engine
+  include Ronin::Engine::Buildable
 
   parameter :var, :default => 'world'
 
