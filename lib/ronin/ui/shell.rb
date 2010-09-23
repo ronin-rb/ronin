@@ -18,9 +18,13 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/ui/output/helpers'
+
 module Ronin
   module UI
     module Shell
+
+      extend Output::Helpers
 
       # Default shell prompt
       DEFAULT_PROMPT = '>'
@@ -76,49 +80,6 @@ module Ronin
 
         history_rollback.times { Readline::HISTORY.pop }
         return nil
-      end
-
-      #
-      # Print a character to the shell.
-      #
-      # @param [String] char
-      #   The character to print.
-      #
-      def Shell.putc(char)
-        STDOUT.putc(char)
-      end
-
-      #
-      # Print a String to the shell.
-      #
-      # @param [String] string
-      #   The String to print.
-      #
-      def Shell.print(string)
-        STDOUT.print(string)
-      end
-
-      #
-      # Print a String and a new-line character to the shell.
-      #
-      # @param [String] string
-      #   The String to print.
-      #
-      def Shell.puts(string)
-        STDOUT.puts(string)
-      end
-
-      #
-      # Render the format-string and print the result to the shell.
-      #
-      # @param [String] string
-      #   The format-string to render.
-      #
-      # @param [Array] objects
-      #   Additional objects to use in the format-string.
-      #
-      def Shell.printf(string,*objects)
-        STDOUT.printf(string,*objects)
       end
 
     end
