@@ -18,9 +18,14 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/engine/exceptions/not_built'
+require 'ronin/engine/verifiable'
+
 module Ronin
   module Engine
     module Buildable
+      include Verifiable
+
       #
       # Initializes the buildable engine.
       #
@@ -61,22 +66,41 @@ module Ronin
       #
       # @since 0.4.0
       #
-      def build!(options={},&block)
+      def build!(options={})
         self.params = options
         print_debug "#{engine_type} #{self} parameters: #{self.params.inspect}"
 
-        @built = false
-
         print_info "Building #{engine_type} #{self} ..."
 
+        @built = false
         @build_block.call() if @build_block
-        
-        print_info "#{engine_type} #{self} built!"
-
         @built = true
+
+        print_info "#{engine_type} #{self} built!"
 
         yield if block_given?
         return self
+      end
+
+      #
+      # Verifies that the engine has been built and is properly configured.
+      #
+      # @return [true]
+      #   The engine has been verified.
+      #
+      # @raise [NotBuilt]
+      #   The engine has not been built, and cannot be verified.
+      #
+      # @see #verify
+      #
+      # @since 0.4.0
+      #
+      def verify!
+        unless built?
+          raise(NotBuilt,"cannot verify an unbuilt #{engine_type}",caller)
+        end
+
+        super
       end
 
       protected
@@ -96,7 +120,6 @@ module Ronin
         @build_block = block
         return self
       end
-
     end
   end
 end
