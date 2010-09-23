@@ -46,4 +46,10 @@ describe Engine do
 
     resource.y.should == 2
   end
+
+  it "should have an engine-name" do
+    resource = subject.new
+
+    resource.engine_name.should == 'EngineClass'
+  end
 end
