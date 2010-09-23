@@ -25,6 +25,39 @@ module Ronin
     module Output
       module Helpers
         #
+        # Writes data unless output has been silenced.
+        #
+        # @param [String, Object] data
+        #   The data to write.
+        #
+        # @return [Integer, nil]
+        #   The number of bytes writen.
+        #
+        # @since 0.4.0
+        #
+        def write(data)
+          Output.handler.write(data.to_s) unless Output.silent?
+        end
+
+        #
+        # Prints a character.
+        #
+        # @param [String, Integer] data
+        #   The character or byte to print.
+        #
+        # @return [String, Integer]
+        #   The byte or character.
+        #
+        # @since 0.4.0
+        #
+        def putc(data)
+          char = data.chr if data.kind_of?(Integer)
+
+          write(data)
+          return data
+        end
+
+        #
         # Prints one or more messages.
         #
         # @param [Array] messages
@@ -36,7 +69,31 @@ module Ronin
         # @since 0.3.0
         #
         def puts(*messages)
-          Output.handler.puts(*messages) unless Output.silent?
+          unless messages.empty?
+            messages.each { |message| write("#{message}#{$/}") }
+          else
+            write($/)
+          end
+
+          return nil
+        end
+
+        #
+        # Prints formatted data.
+        #
+        # @param [String] format
+        #   The format string.
+        #
+        # @param [Array] data
+        #   The data to format.
+        #
+        # @return [nil]
+        # 
+        # @since 0.4.0
+        #
+        def printf(format,*data)
+          write(format % data)
+          return nil
         end
 
         #
@@ -45,13 +102,21 @@ module Ronin
         # @param [Array] messages
         #   The messages to print.
         #
+        # @return [Boolean]
+        #   Specifies whether the messages were successfully printed.
+        #
         # @example
         #   print_info 'Connecting ...'
         #
         # @since 0.3.0
         #
         def print_info(*messages)
-          Output.handler.print_info(*messages) unless Output.silent?
+          unless Output.silent?
+            Output.handler.print_info(*messages)
+            return true
+          end
+
+          return false
         end
 
         #
@@ -59,6 +124,9 @@ module Ronin
         #
         # @param [Array] messages
         #   The messages to print.
+        #
+        # @return [Boolean]
+        #   Specifies whether the messages were successfully printed.
         #
         # @example
         #   print_debug "var1: #{var1.inspect}"
@@ -68,7 +136,10 @@ module Ronin
         def print_debug(*messages)
           if (Output.verbose? && !(Output.silent?))
             Output.handler.print_debug(*messages)
+            return true
           end
+
+          return false
         end
 
         #
@@ -76,6 +147,9 @@ module Ronin
         #
         # @param [Array] messages
         #   The messages to print.
+        #
+        # @return [Boolean]
+        #   Specifies whether the messages were successfully printed.
         #
         # @example
         #   print_warning 'Detecting a restricted character in the buffer'
@@ -85,7 +159,10 @@ module Ronin
         def print_warning(*messages)
           if (Output.verbose? && !(Output.silent?))
             Output.handler.print_warning(*messages)
+            return true
           end
+          
+          return false
         end
 
         #
@@ -94,13 +171,21 @@ module Ronin
         # @param [Array] messages
         #   The messages to print.
         #
+        # @return [Boolean]
+        #   Specifies whether the messages were successfully printed.
+        #
         # @example
         #   print_error 'Could not connect!'
         #
         # @since 0.3.0
         #
         def print_error(*messages)
-          Output.handler.print_error(*messages) unless Output.silent?
+          unless Output.silent?
+            Output.handler.print_error(*messages)
+            return true
+          end
+
+          return false
         end
       end
     end

@@ -56,15 +56,15 @@ module Ronin
         end
 
         #
-        # Prints one or more messages.
+        # Writes data to `STDOUT`.
         #
-        # @param [Array] messages
-        #   The messages to print.
+        # @param [String] data
+        #   The data to write.
         #
-        # @since 0.3.0
+        # @since 0.4.0
         #
-        def self.puts(*messages)
-          Kernel.puts(*messages)
+        def self.write(data)
+          STDOUT.write(data)
         end
 
         #
