@@ -36,6 +36,24 @@ module Ronin
       end
 
       #
+      # Converts the engine to a String.
+      #
+      # @return [String]
+      #   The name and version of the engine.
+      #
+      # @since 0.4.0
+      #
+      def to_s
+        if (self.name && self.version)
+          "#{self.name} #{self.version}"
+        elsif self.name
+          self.name.to_s
+        elsif self.version
+          self.version.to_s
+        end
+      end
+
+      #
       # Inspects both the properties and parameters of the Ronin Engine.
       #
       # @return [String]
