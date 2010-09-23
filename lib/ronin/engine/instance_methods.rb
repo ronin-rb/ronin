@@ -36,6 +36,18 @@ module Ronin
       end
 
       #
+      # The engine type.
+      #
+      # @return [String]
+      #   The name of the engine class.
+      #
+      # @since 0.4.0
+      #
+      def engine_type
+        self.class.base_model.class_name
+      end
+
+      #
       # Converts the engine to a String.
       #
       # @return [String]

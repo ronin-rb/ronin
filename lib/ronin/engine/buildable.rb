@@ -63,15 +63,15 @@ module Ronin
       #
       def build!(options={},&block)
         self.params = options
-        print_debug "#{model.name} #{self} parameters: #{self.params.inspect}"
+        print_debug "#{engine_type} #{self} parameters: #{self.params.inspect}"
 
         @built = false
 
-        print_info "Building #{model.name} #{self} ..."
+        print_info "Building #{engine_type} #{self} ..."
 
         @build_block.call() if @build_block
         
-        print_info "#{model.name} #{self} built!"
+        print_info "#{engine_type} #{self} built!"
 
         @built = true
 
