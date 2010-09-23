@@ -27,7 +27,7 @@ describe Engine::Buildable do
       subject.output.should == "hello world"
     end
 
-    it "should make the object built" do
+    it "should mark the engine as built" do
       subject.build!
 
       subject.should be_built
