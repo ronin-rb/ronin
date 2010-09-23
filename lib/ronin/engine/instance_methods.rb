@@ -44,7 +44,7 @@ module Ronin
       # @since 0.4.0
       #
       def engine_name
-        self.class.base_model.class_name
+        @ngine_name ||= self.class.base_model.name.split('::').last
       end
 
       #
