@@ -33,14 +33,14 @@ module Ronin
       #
       def verify!
         unless built?
-          raise(NotBuilt,"cannot deploy an unbuilt #{engine_type}",caller)
+          raise(NotBuilt,"cannot deploy an unbuilt #{engine_name}",caller)
         end
 
-        print_info "Verifying #{engine_type} ..."
+        print_info "Verifying #{engine_name} ..."
 
         @verify_block.call() if @verify_block
 
-        print_info "#{engine_type} verified!"
+        print_info "#{engine_name} verified!"
         return true
       end
 

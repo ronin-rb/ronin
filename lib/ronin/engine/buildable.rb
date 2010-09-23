@@ -68,15 +68,15 @@ module Ronin
       #
       def build!(options={})
         self.params = options
-        print_debug "#{engine_type} #{self} parameters: #{self.params.inspect}"
+        print_debug "#{engine_name} #{self} parameters: #{self.params.inspect}"
 
-        print_info "Building #{engine_type} #{self} ..."
+        print_info "Building #{engine_name} #{self} ..."
 
         @built = false
         @build_block.call() if @build_block
         @built = true
 
-        print_info "#{engine_type} #{self} built!"
+        print_info "#{engine_name} #{self} built!"
 
         yield if block_given?
         return self
@@ -97,7 +97,7 @@ module Ronin
       #
       def verify!
         unless built?
-          raise(NotBuilt,"cannot verify an unbuilt #{engine_type}",caller)
+          raise(NotBuilt,"cannot verify an unbuilt #{engine_name}",caller)
         end
 
         super

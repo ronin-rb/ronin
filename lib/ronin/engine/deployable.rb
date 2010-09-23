@@ -73,14 +73,14 @@ module Ronin
       def deploy!
         verify!
 
-        print_info "Deploying #{engine_type} #{self} ..."
+        print_info "Deploying #{engine_name} #{self} ..."
 
         @deployed = false
         @deploy_block.call() if @deploy_block
         @deployed = true
         @cleaned = false
 
-        print_info "#{engine_type} #{self} deployed!"
+        print_info "#{engine_name} #{self} deployed!"
 
         yield if block_given?
         return self
@@ -115,14 +115,14 @@ module Ronin
       def cleanup!
         yield if block_given?
 
-        print_info "Cleaning up #{engine_type} #{self} ..."
+        print_info "Cleaning up #{engine_name} #{self} ..."
 
         @cleaned = false
         @cleanup_block.call() if @cleanup_block
         @cleaned = true
         @deployed = false
 
-        print_info "#{engine_type} #{self} cleaned."
+        print_info "#{engine_name} #{self} cleaned."
         return self
       end
 

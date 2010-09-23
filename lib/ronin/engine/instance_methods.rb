@@ -43,7 +43,7 @@ module Ronin
       #
       # @since 0.4.0
       #
-      def engine_type
+      def engine_name
         self.class.base_model.class_name
       end
 
