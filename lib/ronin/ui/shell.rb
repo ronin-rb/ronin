@@ -19,106 +19,108 @@
 #
 
 module Ronin
-  module Shell
+  module UI
+    module Shell
 
-    # Default shell prompt
-    DEFAULT_PROMPT = '>'
+      # Default shell prompt
+      DEFAULT_PROMPT = '>'
 
-    #
-    # Creates a new Shell object and starts it.
-    #
-    # @param [Hash] options
-    #   Additional options.
-    #
-    # @option options [String] :name ('')
-    #   The shell-name to use before the prompt.
-    #
-    # @option options [String] :prompt (DEFAULT_PROMPT)
-    #   The prompt to use for the shell.
-    #
-    # @yield [shell, line]
-    #   The block that will be passed every command entered.
-    #
-    # @yieldparam [Shell] shell
-    #   The shell to use for output.
-    #
-    # @yieldparam [String] line
-    #   The command entered into the shell.
-    #
-    # @return [nil]
-    #
-    # @example
-    #   Shell.start(:prompt => '$') { |shell,line| system(line) }
-    #
-    def Shell.start(options={},&block)
-      name = (options[:name] || '')
-      prompt = (options[:prompt] || DEFAULT_PROMPT)
+      #
+      # Creates a new Shell object and starts it.
+      #
+      # @param [Hash] options
+      #   Additional options.
+      #
+      # @option options [String] :name ('')
+      #   The shell-name to use before the prompt.
+      #
+      # @option options [String] :prompt (DEFAULT_PROMPT)
+      #   The prompt to use for the shell.
+      #
+      # @yield [shell, line]
+      #   The block that will be passed every command entered.
+      #
+      # @yieldparam [Shell] shell
+      #   The shell to use for output.
+      #
+      # @yieldparam [String] line
+      #   The command entered into the shell.
+      #
+      # @return [nil]
+      #
+      # @example
+      #   Shell.start(:prompt => '$') { |shell,line| system(line) }
+      #
+      def Shell.start(options={},&block)
+        name = (options[:name] || '')
+        prompt = (options[:prompt] || DEFAULT_PROMPT)
 
-      history_rollback = 0
+        history_rollback = 0
 
-      loop do
-        line = Readline.readline("#{name}#{prompt} ")
+        loop do
+          line = Readline.readline("#{name}#{prompt} ")
 
-        if line =~ /^\s*exit\s*$/
-          break
-        else
-          Readline::HISTORY << line
-          history_rollback += 1
+          if line =~ /^\s*exit\s*$/
+            break
+          else
+            Readline::HISTORY << line
+            history_rollback += 1
 
-          begin
-            yield self, line
-          rescue => e
-            puts "#{e.class.name}: #{e.message}"
+            begin
+              yield self, line
+            rescue => e
+              puts "#{e.class.name}: #{e.message}"
+            end
           end
         end
+
+        history_rollback.times { Readline::HISTORY.pop }
+        return nil
       end
 
-      history_rollback.times { Readline::HISTORY.pop }
-      return nil
-    end
+      #
+      # Print a character to the shell.
+      #
+      # @param [String] char
+      #   The character to print.
+      #
+      def Shell.putc(char)
+        STDOUT.putc(char)
+      end
 
-    #
-    # Print a character to the shell.
-    #
-    # @param [String] char
-    #   The character to print.
-    #
-    def Shell.putc(char)
-      STDOUT.putc(char)
-    end
+      #
+      # Print a String to the shell.
+      #
+      # @param [String] string
+      #   The String to print.
+      #
+      def Shell.print(string)
+        STDOUT.print(string)
+      end
 
-    #
-    # Print a String to the shell.
-    #
-    # @param [String] string
-    #   The String to print.
-    #
-    def Shell.print(string)
-      STDOUT.print(string)
-    end
+      #
+      # Print a String and a new-line character to the shell.
+      #
+      # @param [String] string
+      #   The String to print.
+      #
+      def Shell.puts(string)
+        STDOUT.puts(string)
+      end
 
-    #
-    # Print a String and a new-line character to the shell.
-    #
-    # @param [String] string
-    #   The String to print.
-    #
-    def Shell.puts(string)
-      STDOUT.puts(string)
-    end
+      #
+      # Render the format-string and print the result to the shell.
+      #
+      # @param [String] string
+      #   The format-string to render.
+      #
+      # @param [Array] objects
+      #   Additional objects to use in the format-string.
+      #
+      def Shell.printf(string,*objects)
+        STDOUT.printf(string,*objects)
+      end
 
-    #
-    # Render the format-string and print the result to the shell.
-    #
-    # @param [String] string
-    #   The format-string to render.
-    #
-    # @param [Array] objects
-    #   Additional objects to use in the format-string.
-    #
-    def Shell.printf(string,*objects)
-      STDOUT.printf(string,*objects)
     end
-
   end
 end
