@@ -43,7 +43,7 @@ module Ronin
             "%.8x  %s  |%s|\n",
             index,
             hex_segment.join(' ').ljust(47).insert(23,' '),
-            print_segment
+            print_segment.join
           )
         }
 
