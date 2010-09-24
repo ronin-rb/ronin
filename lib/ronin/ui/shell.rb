@@ -62,12 +62,13 @@ module Ronin
         history_rollback = 0
 
         loop do
-          line = Readline.readline("#{name}#{prompt} ")
+          raw_line = Readline.readline("#{name}#{prompt} ")
+          line = raw_line.strip
 
-          if line =~ /^\s*(exit|quit)\s*$/
+          if line =~ /^(exit|quit)$/
             break
-          else
-            Readline::HISTORY << line
+          elsif !(line.empty?)
+            Readline::HISTORY << raw_line
             history_rollback += 1
 
             begin
