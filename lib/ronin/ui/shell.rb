@@ -64,7 +64,7 @@ module Ronin
         loop do
           line = Readline.readline("#{name}#{prompt} ")
 
-          if line =~ /^\s*exit\s*$/
+          if line =~ /^\s*(exit|quit)\s*$/
             break
           else
             Readline::HISTORY << line
