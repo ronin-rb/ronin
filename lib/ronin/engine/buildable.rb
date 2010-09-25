@@ -37,7 +37,7 @@ module Ronin
       def initialize(attributes={})
         super(attributes)
 
-        @build_block = nil
+        @build_blocks = []
         @built = false
       end
 
@@ -73,7 +73,7 @@ module Ronin
         print_info "Building #{engine_name} #{self} ..."
 
         @built = false
-        @build_block.call() if @build_block
+        @build_blocks.each { |block| block.call() }
         @built = true
 
         print_info "#{engine_name} #{self} built!"
@@ -117,7 +117,7 @@ module Ronin
       # @since 0.4.0
       #
       def build(&block)
-        @build_block = block
+        @build_blocks << block
         return self
       end
     end
