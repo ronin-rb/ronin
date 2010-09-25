@@ -37,10 +37,10 @@ module Ronin
       def initialize(attributes={})
         super(attributes)
 
-        @deploy_block = nil
+        @deploy_blocks = []
         @deployed = false
 
-        @evacuate_block = nil
+        @evacuate_blocks = []
         @evacuated = false
       end
 
@@ -76,7 +76,7 @@ module Ronin
         print_info "Deploying #{engine_name} #{self} ..."
 
         @deployed = false
-        @deploy_block.call() if @deploy_block
+        @deploy_blocks.each { |block| block.call() }
         @deployed = true
         @evacuated = false
 
@@ -118,7 +118,7 @@ module Ronin
         print_info "Evauating #{engine_name} #{self} ..."
 
         @evacuated = false
-        @evacuate_block.call() if @evacuate_block
+        @evacuate_blocks.each { |block| block.call() }
         @evacuated = true
         @deployed = false
 
@@ -154,7 +154,7 @@ module Ronin
       # @since 0.4.0
       #
       def deploy(&block)
-        @deploy_block = block
+        @deploy_blocks << block
         return self
       end
 
@@ -172,7 +172,7 @@ module Ronin
       # @since 0.4.0
       #
       def evacuate(&block)
-        @evacuate_block = block
+        @evacuate_blocks.unshift(block)
         return self
       end
     end
