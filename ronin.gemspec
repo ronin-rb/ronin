@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-09-23}
+  s.date = %q{2010-09-24}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{ronin-ruby@googlegroups.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-database", "ronin-help", "ronin-install", "ronin-list", "ronin-uninstall", "ronin-update"]
@@ -408,7 +408,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<data_paths>, ["~> 0.2.1"])
       s.add_runtime_dependency(%q<contextify>, ["~> 0.1.6"])
       s.add_runtime_dependency(%q<pullr>, ["~> 0.1.2"])
-      s.add_runtime_dependency(%q<thor>, ["~> 0.14.0"])
+      s.add_runtime_dependency(%q<thor>, ["~> 0.14.2"])
       s.add_runtime_dependency(%q<ronin-support>, ["~> 0.1.0"])
       s.add_development_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.0.pre"])
@@ -435,7 +435,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
       s.add_dependency(%q<contextify>, ["~> 0.1.6"])
       s.add_dependency(%q<pullr>, ["~> 0.1.2"])
-      s.add_dependency(%q<thor>, ["~> 0.14.0"])
+      s.add_dependency(%q<thor>, ["~> 0.14.2"])
       s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
       s.add_dependency(%q<rake>, ["~> 0.8.7"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.0.pre"])
@@ -463,7 +463,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<data_paths>, ["~> 0.2.1"])
     s.add_dependency(%q<contextify>, ["~> 0.1.6"])
     s.add_dependency(%q<pullr>, ["~> 0.1.2"])
-    s.add_dependency(%q<thor>, ["~> 0.14.0"])
+    s.add_dependency(%q<thor>, ["~> 0.14.2"])
     s.add_dependency(%q<ronin-support>, ["~> 0.1.0"])
     s.add_dependency(%q<rake>, ["~> 0.8.7"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.0.pre"])
