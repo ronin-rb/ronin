@@ -22,6 +22,20 @@ module Ronin
   module Engine
     module Verifiable
       #
+      # Initializes the verifiable engine.
+      #
+      # @param [Hash] attributes
+      #   Additional attributes for the engine.
+      #
+      # @since 0.4.0
+      #
+      def initialize(attributes={})
+        super(attributes)
+
+        @verify_blocks = []
+      end
+
+      #
       # Verifies that the engine is properly configured.
       #
       # @return [true]
@@ -34,7 +48,7 @@ module Ronin
       def verify!
         print_info "Verifying #{engine_name} ..."
 
-        @verify_block.call() if @verify_block
+        @verify_blocks.each { |block| block.call() }
 
         print_info "#{engine_name} verified!"
         return true
@@ -54,7 +68,7 @@ module Ronin
       # @since 0.4.0
       #
       def verify(&block)
-        @verify_block = block
+        @verify_blocks << block
         return self
       end
     end
