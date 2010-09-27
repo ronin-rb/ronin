@@ -18,6 +18,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/engine/exceptions/not_built'
-require 'ronin/engine/exceptions/verification_failed'
-require 'ronin/engine/exceptions/deploy_failed'
+module Ronin
+  module Engine
+    class VerificationFailed < RuntimeError
+    end
+  end
+end
