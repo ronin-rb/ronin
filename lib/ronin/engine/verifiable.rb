@@ -263,7 +263,7 @@ module Ronin
 
         verify do
           actual_value = self.send(name)
-          message ||= "#{name} (#{actual_value.inspect}) must be one of #{values.inspect}"
+          message ||= "#{name} (#{actual_value.inspect}) must be one of #{expected_values.inspect}"
 
           flunk(message) unless expected_values.include?(actual_value)
         end
@@ -289,14 +289,14 @@ module Ronin
       #
       # @since 0.4.0
       #
-      def verify_not_in(name,expected_values,message=nil)
+      def verify_not_in(name,unexpected_values,message=nil)
         name = name.to_sym
 
         verify do
           actual_value = self.send(name)
-          message ||= "#{name} (#{actual_value.inspect}) cannot be one of #{values.inspect}"
+          message ||= "#{name} (#{actual_value.inspect}) cannot be one of #{unexpected_values.inspect}"
 
-          flunk(message) unless !expected_values.include?(actual_value)
+          flunk(message) unless !unexpected_values.include?(actual_value)
         end
       end
     end
