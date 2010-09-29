@@ -162,6 +162,7 @@ module Ronin
       #   # # => "hello"
       #
       def Console.start(variables={},&block)
+        # clear ARGV, so IRB does not try to interpret the command-line args
         ARGV.clear
 
         IRB.setup(nil)
