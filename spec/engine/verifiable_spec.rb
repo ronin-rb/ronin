@@ -56,6 +56,15 @@ describe Engine::Verifiable do
     obj.verify!.should == true
   end
 
+  it "should verify a method returns a non-nil value" do
+    obj = subject.new { verify_set :var }
+
+    lambda { obj.verify! }.should raise_error(Engine::VerificationFailed)
+
+    obj.var = 2
+    obj.verify!.should == true
+  end
+
   it "should verify a method matches a pattern" do
     obj = subject.new { verify_match :var, /lo/ }
 
@@ -76,7 +85,7 @@ describe Engine::Verifiable do
     obj.verify!.should == true
   end
 
-  it "should verify a method returns a value in a set of expected values" do
+  it "should verify a method returns a value in a set of values" do
     obj = subject.new { verify_in :var, [0, 2, 4, 8] }
 
     obj.var = 3
@@ -86,7 +95,7 @@ describe Engine::Verifiable do
     obj.verify!.should == true
   end
 
-  it "should verify a method returns a value not in a set of expected values" do
+  it "should verify a method returns a value not in a set of values" do
     obj = subject.new { verify_not_in :var, [0, 2, 4, 8] }
 
     obj.var = 2

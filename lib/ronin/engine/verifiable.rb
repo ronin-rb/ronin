@@ -173,6 +173,34 @@ module Ronin
       end
 
       #
+      # Verifies a method returns a non-`nil` value.
+      #
+      # @param [Symbol] name
+      #   The method to call.
+      #
+      # @param [String] message
+      #   Optional failure message.
+      #
+      # @return [true]
+      #   The method returned a non-`nil` value.
+      #
+      # @raise [VerificationFailed]
+      #   The method returned `nil`.
+      #
+      # @since 0.4.0
+      #
+      def verify_set(name,message=nil)
+        name = name.to_sym
+
+        verify do
+          actual_value = self.send(name)
+          message ||= "#{name} is not set"
+
+          flunk(message) if actual_value.nil?
+        end
+      end
+
+      #
       # Verifies a method matches the pattern.
       #
       # @param [Symbol] name
