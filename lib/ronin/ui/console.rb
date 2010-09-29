@@ -139,6 +139,9 @@ module Ronin
       #
       # Starts a Console.
       #
+      # @param [Hash{Symbol => Object}] variables
+      #   Instance variable names and values to set within the console.
+      #
       # @yield []
       #   The block to be ran within the Console, after it has been setup.
       #
@@ -146,11 +149,19 @@ module Ronin
       #
       # @example
       #   Console.start
+      #   # >>
       #
       # @example
-      #   console.start { @var = 'hello' }
+      #   Console.start(:var => 'hello')
+      #   # >> @var
+      #   # # => "hello"
       #
-      def Console.start(&block)
+      # @example
+      #   Console.start { @var = 'hello' }
+      #   # >> @var
+      #   # # => "hello"
+      #
+      def Console.start(variables={},&block)
         ARGV.clear
 
         IRB.setup(nil)
@@ -162,9 +173,10 @@ module Ronin
         IRB.conf[:BACK_TRACE_LIMIT] = Console.backtrace_depth
 
         irb = IRB::Irb.new(nil)
+        main = irb.context.main
 
         # configure the IRB context
-        irb.context.main.instance_eval do
+        main.instance_eval do
           require 'ronin'
           require 'ronin/platform'
 
@@ -184,20 +196,23 @@ module Ronin
           end
 
           # require any of the auto-load paths
-          Ronin::UI::Console.auto_load.each do |path|
-            require path
-          end
+          Ronin::UI::Console.auto_load.each { |path| require path }
 
           include Ronin
         end
 
         # run any setup-blocks
         Console.setup_blocks.each do |setup_block|
-          irb.context.main.instance_eval(&setup_block)
+          main.instance_eval(&setup_block)
+        end
+
+        # populate instance variables
+        variables.each do |name,value|
+          main.instance_variable_set("@#{name}".to_sym,value)
         end
 
         # run the supplied configuration block is given
-        irb.context.main.instance_eval(&block) if block
+        main.instance_eval(&block) if block
 
         IRB.conf[:MAIN_CONTEXT] = irb.context
 
