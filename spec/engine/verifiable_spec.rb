@@ -65,6 +65,16 @@ describe Engine::Verifiable do
     obj.verify!.should == true
   end
 
+  it "should verify a method returns a non-empty value" do
+    obj = subject.new { verify_set :var }
+
+    obj.var = ''
+    lambda { obj.verify! }.should raise_error(Engine::VerificationFailed)
+
+    obj.var = 'hello'
+    obj.verify!.should == true
+  end
+
   it "should verify a method matches a pattern" do
     obj = subject.new { verify_match :var, /lo/ }
 

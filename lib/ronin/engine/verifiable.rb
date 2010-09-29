@@ -196,7 +196,13 @@ module Ronin
           actual_value = self.send(name)
           message ||= "#{name} is not set"
 
-          flunk(message) if actual_value.nil?
+          blank = if actual_value.respond_to?(:empty?)
+                    actual_value.empty?
+                  else
+                    actual_value.nil?
+                  end
+
+          flunk(message) if blank
         end
       end
 
