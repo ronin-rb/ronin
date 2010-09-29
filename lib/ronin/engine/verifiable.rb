@@ -23,10 +23,6 @@ require 'ronin/engine/exceptions/verification_failed'
 module Ronin
   module Engine
     module Verifiable
-      def self.included(base)
-        base.send :extend, ClassMethods
-      end
-
       #
       # Initializes the verifiable engine.
       #
