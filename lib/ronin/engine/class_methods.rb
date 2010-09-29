@@ -45,7 +45,7 @@ module Ronin
       # @since 0.4.0
       #
       def load_all(options={})
-        return custom_query(options).all(options).each do |resource|
+        return custom_query(options).each do |resource|
           resource.load_original!
         end
       end
@@ -74,7 +74,7 @@ module Ronin
       # @since 0.4.0
       #
       def load_first(options={})
-        if (resource = custom_query(options).first(options))
+        if (resource = custom_query(options).first)
           resource.load_original!
         end
 
@@ -125,7 +125,7 @@ module Ronin
           query = query.licensed_under(options.delete(:license))
         end
 
-        return query
+        return query.all(options)
       end
     end
   end
