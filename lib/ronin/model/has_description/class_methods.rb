@@ -36,7 +36,7 @@ module Ronin
         #   Exploit.describing 'bypass'
         #
         def describing(fragment)
-          self.all(:description.like => "%#{fragment}%")
+          all(:description.like => "%#{fragment}%")
         end
       end
     end

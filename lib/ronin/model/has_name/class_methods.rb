@@ -35,7 +35,7 @@ module Ronin
         #   Exploit.named 'ProFTP'
         #
         def named(fragment)
-          self.all(:name.like => "%#{fragment}%")
+          all(:name.like => "%#{fragment}%")
         end
       end
     end

@@ -29,7 +29,7 @@ module Ronin
         #   Attributes to search for.
         #
         def load_all(attributes={})
-          self.all(attributes).each { |obj| obj.load_original! }
+          all(attributes).each { |obj| obj.load_original! }
         end
 
         #
@@ -51,7 +51,7 @@ module Ronin
         #
         def load_first(attributes={},&block)
           obj = if block
-                  objs = self.all(attributes)
+                  objs = all(attributes)
 
                   (block.call(objs) || objs).first
                 else

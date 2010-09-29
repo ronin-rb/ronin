@@ -107,7 +107,7 @@ module Ronin
       # @since 0.4.0
       #
       def custom_query(options)
-        query = self.all
+        query = all
 
         if options.has_key?(:name)
           query = query.named(options.delete(:name))

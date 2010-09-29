@@ -32,7 +32,7 @@ module Ronin
         #   The models with the specific version.
         #
         def revision(version)
-          self.all(:version => version.to_s)
+          all(:version => version.to_s)
         end
 
         #
