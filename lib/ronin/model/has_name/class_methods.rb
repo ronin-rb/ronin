@@ -35,6 +35,8 @@ module Ronin
         #   Exploit.named 'ProFTP'
         #
         def named(fragment)
+          # we must use :name.like to avoid DataMapper confusing the name
+          # property with the Class#name method
           all(:name.like => "%#{fragment}%")
         end
       end
