@@ -20,9 +20,6 @@
 
 require 'ronin/campaign'
 require 'ronin/address'
-require 'ronin/mac_address'
-require 'ronin/ip_address'
-require 'ronin/host_name'
 require 'ronin/remote_file'
 require 'ronin/model'
 
