@@ -34,7 +34,7 @@ RSpec.configure do |spec|
     Ronin::Database.repositories[:default] = database_uri
 
     if ENV['DEBUG']
-      Ronin::Database.setup_log(:stream => STDOUT, :level => :debug)
+      Ronin::Database.setup_log(:stream => STDERR, :level => :debug)
     end
 
     Ronin::Database.setup
