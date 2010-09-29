@@ -81,9 +81,9 @@ DataMapper::Visualizer::Rake::GraphVizTask.new(
     ronin/platform/maintainer
     ronin/platform/overlay
     ronin/port
-    ronin/service_credential
     ronin/service
-    ronin/site_credential
+    ronin/service_credential
+    ronin/web_credential
     ronin/software
     ronin/target
     ronin/tcp_port
