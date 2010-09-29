@@ -45,9 +45,10 @@ module Ronin
       # @since 0.4.0
       #
       def load_all(options={})
-        return custom_query(options).each do |resource|
-          resource.load_original!
-        end
+        resources = custom_query(options)
+        
+        resources.each { |resource| resource.load_original! }
+        return resources
       end
 
       #
