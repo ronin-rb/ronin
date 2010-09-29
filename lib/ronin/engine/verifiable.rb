@@ -197,9 +197,9 @@ module Ronin
 
         verify do
           actual_value = self.send(name)
-          message ||= "#{name} (#{actual_value.inspect}) must match #{expected_value.inspect}"
+          message ||= "#{name} (#{actual_value.inspect}) must match #{pattern.inspect}"
 
-          flunk(message) unless actual_value.match(expected_value)
+          flunk(message) unless actual_value.match(pattern)
         end
       end
 
@@ -228,9 +228,9 @@ module Ronin
 
         verify do
           actual_value = self.send(name)
-          message ||= "#{name} (#{actual_value.inspect}) cannot match #{expected_value.inspect}"
+          message ||= "#{name} (#{actual_value.inspect}) cannot match #{pattern.inspect}"
 
-          flunk(message) unless !actual_value.match(expected_value)
+          flunk(message) unless !actual_value.match(pattern)
         end
       end
 
