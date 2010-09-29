@@ -36,7 +36,7 @@ module Ronin
         #   # => [#<Ronin::LicensedModel: ...>, ...]
         #
         def licensed_under(name)
-          all(:license => Ronin::License.predefined_resource(name))
+          all(self.license.name => name.to_s)
         end
       end
     end

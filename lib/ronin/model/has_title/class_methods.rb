@@ -35,7 +35,7 @@ module Ronin
         #   Vuln.titled 'bypass'
         #
         def titled(fragment)
-          all(:title.like => "%#{fragment}%")
+          all('title.like' => "%#{fragment}%")
         end
       end
     end
