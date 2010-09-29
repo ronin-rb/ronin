@@ -240,7 +240,7 @@ module Ronin
       # @param [Symbol] name
       #   The method name.
       #
-      # @param [Array<Object>]  expected_values
+      # @param [#include?]  expected_values
       #   The expected values.
       #
       # @param [String] message
@@ -271,7 +271,7 @@ module Ronin
       # @param [Symbol] name
       #   The method name.
       #
-      # @param [Array<Object>]  unexpected_values
+      # @param [#include?]  unexpected_values
       #   The unexpected values.
       #
       # @param [String] message
