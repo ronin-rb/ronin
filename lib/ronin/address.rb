@@ -19,6 +19,7 @@
 #
 
 require 'ronin/organization'
+require 'ronin/target'
 require 'ronin/model'
 
 require 'dm-timestamps'
