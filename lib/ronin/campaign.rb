@@ -25,6 +25,8 @@ require 'ronin/model/has_description'
 require 'ronin/extensions/file'
 require 'ronin/config'
 
+require 'fileutils'
+
 module Ronin
   class Campaign
 
