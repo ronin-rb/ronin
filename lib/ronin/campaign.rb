@@ -79,7 +79,10 @@ module Ronin
     # @since 0.4.0
     #
     def files_dir
-      File.join(Config::CAMPAIGNS_DIR,dir_name,FILES_DIR)
+      path = File.join(Config::CAMPAIGNS_DIR,dir_name,FILES_DIR)
+
+      FileUtils.mkdir_p(path) unless File.directory?(path)
+      return path
     end
 
   end
