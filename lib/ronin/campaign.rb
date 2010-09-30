@@ -57,10 +57,17 @@ module Ronin
     #   The lowercase, underscore-separated and escaped directory name
     #   for the campaign.
     #
+    # @raise [DataMapper::ValidationError]
+    #   The campaign was not assigned a name.
+    #
     # @since 0.4.0
     #
     def dir_name
-      File.escape_name(self.name.downcase.gsub(/[\s]+/,'_'))
+      unless self.name
+        raise(DataMapper::ValidationError,"the campaign must have a name",caller)
+      end
+
+      return File.escape_name(self.name.downcase.gsub(/[\s]+/,'_'))
     end
 
     #

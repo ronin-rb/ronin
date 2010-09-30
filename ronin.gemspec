@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-09-28}
+  s.date = %q{2010-09-29}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{ronin-ruby@googlegroups.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-database", "ronin-help", "ronin-install", "ronin-list", "ronin-uninstall", "ronin-update"]
@@ -216,6 +216,7 @@ Gem::Specification.new do |s|
     "ronin.gemspec",
     "spec/arch_spec.rb",
     "spec/author_spec.rb",
+    "spec/campaign_spec.rb",
     "spec/database_spec.rb",
     "spec/email_address_spec.rb",
     "spec/engine/buildable_spec.rb",
@@ -320,6 +321,7 @@ Gem::Specification.new do |s|
   s.test_files = [
     "spec/arch_spec.rb",
     "spec/author_spec.rb",
+    "spec/campaign_spec.rb",
     "spec/database_spec.rb",
     "spec/email_address_spec.rb",
     "spec/engine/buildable_spec.rb",
