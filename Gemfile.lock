@@ -14,10 +14,11 @@ GIT
 
 GIT
   remote: http://github.com/ronin-ruby/ronin-support.git
-  revision: c8f5e08fd52683e0f0479d58034cb1ba229d42db
+  revision: 887f6993fa468048a18f932f4fdf7a69e046efcc
   specs:
     ronin-support (0.1.0)
       chars (~> 0.1.2)
+      combinatorics (~> 0.2.0)
       data_paths (~> 0.2.1)
       uri-query_params (~> 0.4.0)
 
@@ -28,6 +29,7 @@ GEM
     addressable (2.2.0)
     chars (0.1.2)
       yard (>= 0.2.3.5)
+    combinatorics (0.2.0)
     data_objects (0.10.2)
       addressable (~> 2.1)
     data_paths (0.2.1)
