@@ -196,9 +196,9 @@ module Ronin
 
         unless (overlay = Overlay.first(query))
           if domain
-            raise(OverlayNotFound,"overlay #{name.dump} from domain #{domain.dump} cannot be found",caller)
+            raise(OverlayNotFound,"overlay #{name.dump} from domain #{domain.dump} cannot be found")
           else
-            raise(OverlayNotFound,"overlay #{name.dump} cannot be found",caller)
+            raise(OverlayNotFound,"overlay #{name.dump} cannot be found")
           end
         end
 
@@ -224,17 +224,17 @@ module Ronin
       #
       def Overlay.add!(options={})
         unless options.has_key?(:path)
-          raise(ArgumentError,"the :path option was not given",caller)
+          raise(ArgumentError,"the :path option was not given")
         end
 
         path = Pathname.new(options[:path]).expand_path
 
         unless path.directory?
-          raise(OverlayNotFound,"overlay #{path} cannot be found",caller)
+          raise(OverlayNotFound,"overlay #{path} cannot be found")
         end
 
         if Overlay.count(:path => path) > 0
-          raise(DuplicateOverlay,"an overlay at the path #{path} was already added",caller)
+          raise(DuplicateOverlay,"an overlay at the path #{path} was already added")
         end
 
         # create the Overlay
@@ -248,7 +248,7 @@ module Ronin
         domain = overlay.domain
 
         if Overlay.count(:name => name, :domain => domain) > 0
-          raise(DuplicateOverlay,"the overlay #{overlay} already exists in the database",caller)
+          raise(DuplicateOverlay,"the overlay #{overlay} already exists in the database")
         end
 
         # save the Overlay
@@ -289,7 +289,7 @@ module Ronin
       #
       def Overlay.install!(options={})
         unless options[:uri]
-          raise(ArgumentError,":uri must be passed to Platform.install",caller)
+          raise(ArgumentError,":uri must be passed to Platform.install")
         end
 
         repo = Pullr::RemoteRepository.new(options)
@@ -303,7 +303,7 @@ module Ronin
                  end
 
         if Overlay.count(:name => name, :domain => domain) > 0
-          raise(DuplicateOverlay,"an Overlay already exists with the name #{name.dump} from domain #{domain.dump}",caller)
+          raise(DuplicateOverlay,"an Overlay already exists with the name #{name.dump} from domain #{domain.dump}")
         end
 
         path = File.join(Config::CACHE_DIR,name,domain)

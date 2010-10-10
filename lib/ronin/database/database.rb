@@ -75,7 +75,7 @@ module Ronin
           conf = YAML.load_file(CONFIG_FILE)
 
           unless conf.kind_of?(Hash)
-            raise(InvalidConfig,"#{CONFIG_FILE} must contain a YAML Hash of repositories",caller)
+            raise(InvalidConfig,"#{CONFIG_FILE} must contain a YAML Hash of repositories")
           end
 
           conf.each do |name,uri|
@@ -235,7 +235,7 @@ module Ronin
       name = name.to_sym
 
       unless Database.repository?(name)
-        raise(UnknownRepository,"unknown database repository #{name}",caller)
+        raise(UnknownRepository,"unknown database repository #{name}")
       end
 
       return DataMapper.repository(name,&block)
@@ -262,7 +262,7 @@ module Ronin
       name = name.to_sym
 
       unless Database.repository?(name)
-        raise(UnknownRepository,"unknown database repository #{name}",caller)
+        raise(UnknownRepository,"unknown database repository #{name}")
       end
 
       DataMapper.auto_migrate!(name)

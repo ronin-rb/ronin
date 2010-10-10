@@ -103,7 +103,7 @@ module Ronin
         name = name.to_s
 
         unless Platform.overlays.has_extension?(name)
-          raise(ExtensionNotFound,"extension #{name.dump} does not eixst",caller)
+          raise(ExtensionNotFound,"extension #{name.dump} does not eixst")
         end
 
         return Extension.new(name) do |ext|

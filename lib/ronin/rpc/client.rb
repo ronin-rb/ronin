@@ -54,7 +54,7 @@ module Ronin
       # a NotImplementedError exception.
       #
       def create_call(function,*arguments)
-        raise(NotImplementedError,"the \"create_call\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"create_call\" method is not implemented in #{self.class}")
       end
 
       #
@@ -63,7 +63,7 @@ module Ronin
       # a NotImplementedError exception.
       #
       def send_call(call_object)
-        raise(NotImplementedError,"the \"send_call\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"send_call\" method is not implemented in #{self.class}")
       end
 
       #
@@ -72,7 +72,7 @@ module Ronin
       # default return_value raises a NotImplementedError exception.
       #
       def return_value(response)
-        raise(NotImplementedError,"the \"return_value\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"return_value\" method is not implemented in #{self.class}")
       end
 
       #

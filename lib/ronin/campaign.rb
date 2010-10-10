@@ -66,7 +66,7 @@ module Ronin
     #
     def dir_name
       unless self.name
-        raise(DataMapper::ValidationError,"the campaign must have a name",caller)
+        raise(DataMapper::ValidationError,'the campaign must have a name')
       end
 
       return File.escape_name(self.name.downcase.gsub(/[\s]+/,'_'))

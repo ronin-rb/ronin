@@ -46,6 +46,9 @@ module Ronin
     # The service detected on the port
     belongs_to :service, :required => false
 
+    # Any proxy information
+    has 1, :proxy_info
+
     # any credentials used by the service running on the port
     has 0..n, :service_credentials
 

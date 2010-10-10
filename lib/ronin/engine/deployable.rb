@@ -137,7 +137,7 @@ module Ronin
       # @since 0.4.0
       #
       def deploy_failed!(message)
-        raise(DeployFailed,message,caller)
+        raise(DeployFailed,message)
       end
 
       #

@@ -37,7 +37,7 @@ module Ronin
       # RPC response.
       #
       def decode
-        raise(NotImplementedError,"the \"decode\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"decode\" method is not implemented in #{self.class}")
       end
 
       #

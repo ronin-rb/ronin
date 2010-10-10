@@ -100,7 +100,7 @@ module Ronin
         path = File.expand_path(path)
 
         unless File.file?(path)
-          raise(RuntimeError,"extension #{path.dump} does not exist",caller)
+          raise(RuntimeError,"extension #{path.dump} does not exist")
         end
 
         return false if @paths.include?(path)

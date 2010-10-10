@@ -97,7 +97,7 @@ module Ronin
       #
       def verify!
         unless built?
-          raise(NotBuilt,"cannot verify an unbuilt #{engine_name}",caller)
+          raise(NotBuilt,"cannot verify an unbuilt #{engine_name}")
         end
 
         super

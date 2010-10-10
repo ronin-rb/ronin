@@ -70,7 +70,7 @@ module Ronin
       # @since 0.4.0
       #
       def flunk(message)
-        raise(VerificationFailed,message,caller)
+        raise(VerificationFailed,message)
       end
 
       #

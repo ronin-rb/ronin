@@ -156,7 +156,7 @@ module Ronin
         end
 
         unless obj
-          raise(RuntimeError,"No cacheable object defined in #{path.dump}",caller)
+          raise(RuntimeError,"No cacheable object defined in #{path.dump}")
         end
 
         obj.instance_variable_set('@original_loaded',true)

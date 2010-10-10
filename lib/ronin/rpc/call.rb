@@ -43,7 +43,7 @@ module Ronin
       # exception.
       #
       def encode
-        raise(NotImplementedError,"the \"encode\" method is not implemented in #{self.class}",caller)
+        raise(NotImplementedError,"the \"encode\" method is not implemented in #{self.class}")
       end
 
       #
