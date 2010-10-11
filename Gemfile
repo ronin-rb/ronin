@@ -75,4 +75,4 @@ group(:test) do
   end
 end
 
-gem 'rspec',	'~> 2.0.0.rc', :group => [:development, :test]
+gem 'rspec',	'~> 2.0.0', :group => [:development, :test]
