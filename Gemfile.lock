@@ -79,7 +79,7 @@ GEM
     fastercsv (1.5.3)
     git (1.2.5)
     jdbc-sqlite3 (3.6.3.054)
-    jeweler (1.5.0.pre3)
+    jeweler (1.5.0.pre5)
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
