@@ -18,12 +18,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/database/migrations/create_addresses_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:create_host_name_ip_addresses_table, :needs => :create_addresses_table) do
+      migration(
+        :create_host_name_ip_addresses_table,
+        :needs => :create_addresses_table
+      ) do
         up do
           create_table :ronin_host_name_ip_addresses do
             column :host_name_id, Integer, :key => true

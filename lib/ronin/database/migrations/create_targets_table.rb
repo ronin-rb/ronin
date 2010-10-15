@@ -18,12 +18,17 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/database/migrations/create_campaigns_table'
+require 'ronin/database/migrations/create_addresses_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:create_targets_table, :needs => [:create_campaigns_table, :create_addresses_table]) do
+      migration(
+        :create_targets_table,
+        :needs => [:create_campaigns_table, :create_addresses_table]
+      ) do
         up do
           create_table :ronin_targets do
             column :id, Integer, :serial => true

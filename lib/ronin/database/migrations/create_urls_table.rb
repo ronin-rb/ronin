@@ -19,16 +19,20 @@
 #
 
 require 'ronin/database/migrations/create_url_schemes_table'
+require 'ronin/database/migrations/create_addresses_table'
+require 'ronin/database/migrations/create_ports_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:create_urls_table, :needs => [
-                                      :create_url_schemes_table,
-                                      :create_addresses_table,
-                                      :create_ports_table
-                                    ]
+      migration(
+        :create_urls_table,
+        :needs => [
+          :create_url_schemes_table,
+          :create_addresses_table,
+          :create_ports_table
+        ]
       ) do
         up do
           create_table :ronin_urls do

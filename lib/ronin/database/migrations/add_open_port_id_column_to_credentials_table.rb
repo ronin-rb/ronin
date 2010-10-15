@@ -18,12 +18,17 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/database/migrations/create_credentials_table'
+require 'ronin/database/migrations/create_open_ports_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:add_open_port_id_column_to_credentials_table, :needs => [:create_credentials_table, :create_open_ports_table]) do
+      migration(
+        :add_open_port_id_column_to_credentials_table,
+        :needs => [:create_credentials_table, :create_open_ports_table]
+      ) do
         up do
           modify_table :ronin_credentials do
             add_column :open_port_id, Integer

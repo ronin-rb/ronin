@@ -25,10 +25,9 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:create_email_addresses_table, :needs => [
-                  :create_user_names_table,
-                  :create_addresses_table
-                ]
+      migration(
+        :create_email_addresses_table,
+        :needs => [:create_user_names_table, :create_addresses_table]
       ) do
         up do
           create_table :ronin_email_addresses do

@@ -18,12 +18,17 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/database/migrations/create_addresses_table'
+require 'ronin/database/migrations/create_ports_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:create_open_ports_table, :needs => [:create_addresses_table, :create_ports_table]) do
+      migration(
+        :create_open_ports_table,
+        :needs => [:create_addresses_table, :create_ports_table]
+      ) do
         up do
           create_table :ronin_open_ports do
             column :id, Integer, :serial => true

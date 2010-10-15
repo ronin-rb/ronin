@@ -18,12 +18,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/database/migrations/platform/create_overlays_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:create_cached_files_table, :needs => :create_overlays_table) do
+      migration(
+        :create_cached_files_table,
+        :needs => :create_overlays_table
+      ) do
         up do
           create_table :ronin_platform_cached_files do
             column :id, Integer, :serial => true

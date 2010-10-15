@@ -18,12 +18,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/database/migrations/create_authors_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:add_overlay_id_column_to_authors_table, :needs => :create_authors_table) do
+      migration(
+        :add_overlay_id_column_to_authors_table,
+        :needs => :create_authors_table
+      ) do
         up do
           modify_table :ronin_authors do
             add_column :overlay_id, Integer
