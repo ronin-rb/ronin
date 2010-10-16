@@ -210,7 +210,7 @@ module Ronin
         #   The title to print.
         #
         def print_title(title)
-          puts "[ #{title} ]\n\n"
+          puts "[ #{title} ]\n"
         end
 
         #
@@ -234,7 +234,7 @@ module Ronin
             array.each { |value| puts value }
           end
 
-          puts "\n" if options[:title]
+          puts if options[:title]
           return nil
         end
 
@@ -266,7 +266,7 @@ module Ronin
             end
           end
 
-          puts "\n" if options[:title]
+          puts if options[:title]
           return nil
         end
 
