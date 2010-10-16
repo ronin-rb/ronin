@@ -18,38 +18,36 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/database/migrations/create_user_names_table'
-require 'ronin/database/migrations/create_open_ports_table'
-require 'ronin/database/migrations/create_urls_table'
-require 'ronin/database/migrations/create_proxies_table'
+require 'ronin/database/migrations/create_addresses_table'
+require 'ronin/database/migrations/create_ports_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
       migration(
-        :create_credentials_table,
+        :create_proxies_table,
         :needs => [
-          :create_user_names_table,
-          :create_open_ports_table,
-          :create_urls_table,
-          :create_proxies_table
+          :create_addresses_table,
+          :create_ports_table
         ]
       ) do
         up do
-          create_table :ronin_credentials do
+          create_table :ronin_proxies do
             column :id, Integer, :serial => true
-            column :user_name_id, Integer, :key => true
-            column :password, String
-
-            column :open_port_id, Integer
-            column :url_id, Integer
-            column :proxy_id, Integer
+            column :type, String, :not_null => true
+            column :anonymous, Boolean, :default => false
+            column :latency, Float
+            column :alive, Boolean, :default => true
+            column :ip_address_id, Integer, :not_null => true
+            column :port_id, Integer, :not_null => true
+            column :created_at, DateTime
+            column :updated_at, DateTime
           end
         end
 
         down do
-          drop_table :ronin_credentials
+          drop_table :ronin_proxies
         end
       end
     end
