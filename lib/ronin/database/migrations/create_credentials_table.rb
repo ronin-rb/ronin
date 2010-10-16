@@ -19,17 +19,29 @@
 #
 
 require 'ronin/database/migrations/create_user_names_table'
+require 'ronin/database/migrations/create_open_ports_table'
+require 'ronin/database/migrations/create_urls_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:create_credentials_table) do
+      migration(
+        :create_credentials_table,
+        :needs => [
+          :create_user_names_table,
+          :create_open_ports_table,
+          :create_urls_table
+        ]
+      ) do
         up do
           create_table :ronin_credentials do
             column :id, Integer, :serial => true
             column :user_name_id, Integer, :key => true
             column :password, String
+
+            column :open_port_id, Integer
+            column :url_id, Integer
           end
         end
 
