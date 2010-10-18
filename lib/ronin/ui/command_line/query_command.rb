@@ -26,6 +26,11 @@ module Ronin
     module CommandLine
       class QueryCommand < Command
 
+        class_option :csv, :type => :boolean
+        class_option :xml, :type => :boolean
+        class_option :yaml, :type => :boolean
+        class_option :json, :type => :boolean
+
         #
         # The model to query.
         #
@@ -58,7 +63,7 @@ module Ronin
         def execute
           Database.setup
 
-          new_query.each { |resource| print_resource(resource) }
+          print_query(new_query)
         end
 
         protected
@@ -212,6 +217,28 @@ module Ronin
         #
         def print_resource(resource)
           puts resource
+        end
+
+        #
+        # Prints the resources in the query.
+        #
+        # @param [DataMapper::Collection] query
+        #   The query to print.
+        #
+        # @since 0.4.0
+        #
+        def print_query(query)
+          if options.csv?
+            print query.to_csv
+          elsif options.xml?
+            print query.to_xml
+          elsif options.yaml?
+            print query.to_yaml
+          elsif options.json?
+            print query.to_json
+          else
+            query.each { |resource| print_resource(resource) }
+          end
         end
 
       end
