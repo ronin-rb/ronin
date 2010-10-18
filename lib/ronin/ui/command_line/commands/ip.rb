@@ -59,9 +59,55 @@ module Ronin
           #
           # Queries the {IPAddress} model.
           #
+          # @since 0.4.0
+          #
           def execute
             if options.list?
               super
+            end
+          end
+
+          protected
+
+          #
+          # Prints an IP Address.
+          #
+          # @param [IPAddress] ip
+          #   The IP Address to print.
+          #
+          # @since 0.4.0
+          #
+          def print_resource(ip)
+            if options.verbose?
+              print_title ip.address
+
+              indent do
+                unless ip.mac_addresses.empty?
+                  print_array ip.mac_addresses, :title => 'MAC Addresses'
+                end
+
+                unless ip.host_names.empty?
+                  print_array ip.host_names, :title => 'Hostnames'
+                end
+
+                unless ip.open_ports.empty?
+                  print_section 'Open Ports' do
+                    ip.open_ports.each do |port|
+                      if port.service
+                        puts "#{port}\t#{port.service}"
+                      else
+                        puts port
+                      end
+                    end
+                  end
+                end
+
+                unless ip.comments.empty?
+                  print_array ip.comments, :title => 'Comments'
+                end
+              end
+            else
+              super(ip)
             end
           end
 
