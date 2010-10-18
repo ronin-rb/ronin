@@ -114,7 +114,6 @@ module Ronin
           belongs_to :cached_file,
                      :required => false,
                      :model => 'Ronin::Platform::CachedFile'
-
         end
 
         CachedFile.has 1, base.relationship_name,
