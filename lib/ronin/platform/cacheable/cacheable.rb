@@ -253,11 +253,11 @@ module Ronin
       #   Specifies whether the object was successfully prepared for
       #   caching.
       #
-      def cache(&block)
-        unless (block.nil? || cached? || prepared_for_cache?)
+      def cache
+        if (block_given? && !(cached? || prepared_for_cache?))
           @cache_prepared = true
 
-          block.call()
+          yield
           return true
         end
 
