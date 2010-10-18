@@ -29,7 +29,10 @@ module Ronin
         #   Attributes to search for.
         #
         def load_all(attributes={})
-          all(attributes).each { |obj| obj.load_original! }
+          resources = all(attributes)
+          resources.each { |resource| resource.load_original! }
+
+          return resources
         end
 
         #
@@ -38,28 +41,15 @@ module Ronin
         # @param [Hash] attributes
         #   Attributes to search for.
         #
-        # @yield [objs]
-        #   If a block is given, it will be passed all matching
-        #   objects to be filtered down. The first object from the
-        #   filtered objects will end up being selected.
-        #
-        # @yieldparam [Array<Cacheable>] objs
-        #   All matching objects.
-        #
         # @return [Cacheable]
         #   The loaded cached objects.
         #
-        def load_first(attributes={},&block)
-          obj = if block
-                  objs = all(attributes)
+        def load_first(attributes={})
+          if (resource = first(attributes))
+            resource.load_original!
+          end
 
-                  (block.call(objs) || objs).first
-                else
-                  self.first(attributes)
-                end
-
-          obj.load_original! if obj
-          return obj
+          return resource
         end
       end
     end
