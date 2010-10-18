@@ -185,9 +185,7 @@ module Ronin
       #   The path property from the `cached_file` resource.
       #
       def cache_path
-        if self.cached_file
-          return self.cached_file.path
-        end
+        self.cached_file.path if self.cached_file
       end
 
       #
