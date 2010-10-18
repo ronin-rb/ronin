@@ -191,7 +191,7 @@ module Ronin
           query = self.class.query_model.all
 
           self.class.query_options.each do |name,value|
-            if options.has_key?(name)
+            unless options[name].nil?
               query = if value.kind_of?(Proc)
                         custom_query(query,options[name],&value)
                       else
