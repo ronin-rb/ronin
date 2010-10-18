@@ -129,7 +129,7 @@ module Ronin
         #
         # @since 0.4.0
         #
-        def custom_query(query,arguments,&block)
+        def custom_query(query,arguments=[],&block)
           if block.arity == 1
             block.call(query)
           elsif block.arity == 2
