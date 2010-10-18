@@ -60,8 +60,11 @@ module Ronin
     # The host names associated with the IP Address
     has 0..n, :host_names, :through => :host_name_ip_addresses
 
-    # Ports of the host
+    # Open ports of the host
     has 0..n, :open_ports
+
+    # Ports of the host
+    has 0..n, :ports, :through => :open_ports
 
     # Any OS guesses against the IP Address
     has 0..n, :os_guesses, :model => 'OSGuess'
