@@ -214,6 +214,20 @@ module Ronin
         end
 
         #
+        # Prints a section with a title.
+        #
+        # @yield []
+        #   The block will be called after the title has been printed
+        #   and indentation increased.
+        #
+        # @since 0.4.0
+        #
+        def print_section(title,&block)
+          print_title(title)
+          indent(&block)
+        end
+
+        #
         # Prints a given Array.
         #
         # @param [Array] array 
