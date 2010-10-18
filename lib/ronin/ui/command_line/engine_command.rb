@@ -43,30 +43,6 @@ module Ronin
                                :method => :licensed_under
 
         #
-        # Initializes the engine command.
-        #
-        # @param [Array] arguments
-        #   Command-line arguments.
-        #
-        # @param [Array] opts
-        #   Additional command-line options.
-        #
-        # @param [Hash] config
-        #   Additional configuration.
-        #
-        # @see Command#initialize
-        #
-        def initialize(arguments=[],opts={},config={})
-          super(arguments,opts,config)
-
-          unless self.class.engine_class
-            raise(StandardError,"#{self.class} does not have a defined engine_class")
-          end
-
-          @engine_class = self.class.engine_class
-        end
-
-        #
         # The class to load engines from.
         #
         # @return [Engine]
