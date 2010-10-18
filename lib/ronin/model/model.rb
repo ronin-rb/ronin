@@ -28,6 +28,7 @@ require 'dm-types'
 require 'dm-migrations'
 require 'dm-validations'
 require 'dm-aggregates'
+require 'dm-serializer'
 
 module Ronin
   #
@@ -42,8 +43,12 @@ module Ronin
         base.send :include, DataMapper::Resource
       end
 
-      base.send :include, DataMapper, DataMapper::Migrations, Model::Types
-      base.send :extend, Model::ClassMethods, Model::LazyUpgrade
+      base.send :include, DataMapper,
+                          DataMapper::Migrations,
+                          DataMapper::Serialize,
+                          Model::Types
+      base.send :extend, Model::ClassMethods,
+                         Model::LazyUpgrade
     end
 
     #

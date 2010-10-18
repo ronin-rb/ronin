@@ -22,6 +22,7 @@ gem 'dm-types',		DM_VERSION
 gem 'dm-constraints',	DM_VERSION
 gem 'dm-migrations',	DM_VERSION, :git => 'http://github.com/postmodern/dm-migrations.git', :branch => 'runner'
 gem 'dm-validations',	DM_VERSION
+gem 'dm-serializer',	DM_VERSION
 gem 'dm-aggregates',	DM_VERSION
 gem 'dm-timestamps',	DM_VERSION
 gem 'dm-tags',		DM_VERSION
