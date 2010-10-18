@@ -19,6 +19,7 @@
 #
 
 require 'ronin/ui/command_line/command'
+require 'ronin/database'
 
 module Ronin
   module UI
@@ -55,6 +56,8 @@ module Ronin
         # @since 0.4.0
         #
         def execute
+          Database.setup
+
           new_query.each { |resource| print_resource(resource) }
         end
 
