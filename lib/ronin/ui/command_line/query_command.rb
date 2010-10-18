@@ -107,19 +107,28 @@ module Ronin
         # @param [DataMapper::Collection] query
         #   The current query.
         #
-        # @yield [query]
+        # @yield [query,*arguments]
         #   The given block will be passed the current query to modify.
         #
         # @yieldparam [DataMapper::Collection] query
         #   The current query.
+        #
+        # @yieldparam [Array] arguments
+        #   Optional arguments that will be passed to the block.
         #
         # @return [DataMapper::Collection]
         #   The modified query.
         #
         # @since 0.4.0
         #
-        def custom_query(query,&block)
-          block.call(query) || query
+        def custom_query(query,arguments,&block)
+          if block.arity == 1
+            block.call(query)
+          elsif block.arity == 2
+            block.call(query,arguments)
+          else
+            block.call(query,*arguments)
+          end
         end
 
         #
@@ -176,7 +185,7 @@ module Ronin
           self.class.query_options.each do |name,value|
             if options.has_key?(name)
               query = if value.kind_of?(Proc)
-                        custom_query(query,&value)
+                        custom_query(query,options[name],&value)
                       else
                         query_method(query,name,options[name])
                       end
