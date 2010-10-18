@@ -18,14 +18,29 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/command'
+require 'ronin/ui/command_line/query_command'
+require 'ronin/engine'
 
 module Ronin
   module UI
     module CommandLine
-      class EngineCommand < Command
+      class EngineCommand < QueryCommand
 
         class_option :file, :type => :string, :aliases => '-f'
+
+        query_option :name, :type => :string,
+                            :aliases => '-n',
+                            :method => :named
+
+        query_option :describing, :type => :string, :aliases => '-d'
+
+        query_option :version, :type => :string,
+                               :aliases => '-V',
+                               :method => :revision
+
+        query_option :license, :type => :string,
+                               :aliases => '-L',
+                               :method => :licensed_under
 
         #
         # Initializes the engine command.
@@ -60,19 +75,7 @@ module Ronin
         # @since 0.4.0
         #
         def self.engine_class
-          @engine_class
-        end
-
-        #
-        # The query options for the command.
-        #
-        # @return [Hash]
-        #   The query options and their query method names.
-        #
-        # @since 0.4.0
-        #
-        def self.query_options
-          @@query_options ||= {}
+          query_model
         end
 
         protected
@@ -80,51 +83,24 @@ module Ronin
         #
         # Defines the class to load engines from.
         #
-        # @param [Engine] model
+        # @param [Engine] engine
         #   The engine class.
         #
         # @return [Engine]
         #   The new engine class.
         #
-        # @since 0.4.0
-        #
-        def self.engine_class=(model)
-          @engine_class = model
-        end
-
-        #
-        # Defines a query option for the command.
-        #
-        # @param [Symbol] name
-        #   The option name.
-        #
-        # @param [Hash] options
-        #   Additional options.
-        #
-        # @option options [Symbol] :method (name)
-        #   Custom query method name.
+        # @raise [ArgumentError]
+        #   The given engine class does not include {Ronin::Engine}.
         #
         # @since 0.4.0
         #
-        def self.query_option(name,options={})
-          self.query_options[name] = (options.delete(:method) || name)
+        def self.engine_class=(engine)
+          unless engine.included_modules.include?(Engine)
+            raise(ArgumentError,"#{engine} does not include Ronin::Engine")
+          end
 
-          class_options(name,options)
+          self.query_model = engine
         end
-
-        query_option :name, :type => :string,
-                            :aliases => '-n',
-                            :method => :named
-
-        query_option :describing, :type => :string, :aliases => '-d'
-
-        query_option :version, :type => :string,
-                               :aliases => '-V',
-                               :method => :revision
-
-        query_option :license, :type => :string,
-                               :aliases => '-L',
-                               :method => :licensed_under
 
         #
         # Loads an engine using the commands options.
@@ -140,31 +116,10 @@ module Ronin
         #
         def load_engine
           if options[:file]
-            return @engine_class.load_from(options[:file])
+            self.class.engine_class.load_from(options[:file])
+          else
+            new_query.load_first
           end
-
-          query = @engine_class.all
-
-          self.class.query_options.each do |name|
-            if options.has_key?(name)
-              query_method = begin
-                               @engine_class.instance_method(name)
-                             rescue NameError
-                               raise("Unknown query method #{@engine_class}.#{name}")
-                             end
-
-              query = case query_method.arity
-                      when 0
-                        query.send(name)
-                      when 1
-                        query.send(name,options[name])
-                      else
-                        query.send(name,*options[name])
-                      end
-            end
-          end
-
-          query.load_first
         end
 
       end

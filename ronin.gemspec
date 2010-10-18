@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Postmodern"]
-  s.date = %q{2010-10-16}
+  s.date = %q{2010-10-18}
   s.description = %q{Ronin is a Ruby platform for exploit development and security research. Ronin allows for the rapid development and distribution of code, exploits or payloads over many common Source-Code-Management (SCM) systems.}
   s.email = %q{ronin-ruby@googlegroups.com}
   s.executables = ["ronin", "ronin-add", "ronin-console", "ronin-database", "ronin-help", "ronin-install", "ronin-list", "ronin-uninstall", "ronin-update"]
@@ -195,8 +195,10 @@ Gem::Specification.new do |s|
     "lib/ronin/ui/command_line/commands/list.rb",
     "lib/ronin/ui/command_line/commands/uninstall.rb",
     "lib/ronin/ui/command_line/commands/update.rb",
+    "lib/ronin/ui/command_line/engine_command.rb",
     "lib/ronin/ui/command_line/exceptions.rb",
     "lib/ronin/ui/command_line/exceptions/unknown_command.rb",
+    "lib/ronin/ui/command_line/query_command.rb",
     "lib/ronin/ui/console.rb",
     "lib/ronin/ui/hexdump.rb",
     "lib/ronin/ui/hexdump/extensions.rb",
