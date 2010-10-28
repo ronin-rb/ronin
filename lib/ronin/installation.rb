@@ -18,8 +18,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/version'
-
 require 'enumerator'
 
 module Ronin
@@ -136,8 +134,7 @@ module Ronin
     # @since 0.4.0
     #
     def Installation.load_gemspecs!
-      version = Gem::Requirement.new(">=#{Ronin::VERSION}")
-      ronin_gem = Gem.source_index.find_name('ronin',version).first
+      ronin_gem = Gem.loaded_specs['ronin']
 
       @@ronin_gems = {}
       @@ronin_gem_paths = {}
