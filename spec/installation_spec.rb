@@ -23,6 +23,7 @@ describe Installation do
         database.rb
         help.rb
         install.rb
+        ip.rb
         list.rb
         uninstall.rb
         update.rb
