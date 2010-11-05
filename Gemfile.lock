@@ -45,8 +45,8 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (3.0.0)
-    addressable (2.2.0)
+    activesupport (3.0.1)
+    addressable (2.2.2)
     chars (0.2.0)
     combinatorics (0.3.1)
     contextify (0.2.0)
@@ -101,7 +101,7 @@ GEM
       jdbc-sqlite3 (>= 3.5.8)
     extlib (0.9.15)
     fastercsv (1.5.3)
-    jdbc-sqlite3 (3.6.3.054)
+    jdbc-sqlite3 (3.6.14.2.056-java)
     json_pure (1.4.6)
     nokogiri (1.4.3.1)
     nokogiri (1.4.3.1-java)
