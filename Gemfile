@@ -29,8 +29,8 @@ group :development do
   gem 'yard-dm',		'~> 0.1.1'
   gem 'yard-dm-is-predefined',	'~> 0.2.0'
 
-  gem 'ore',		'~> 0.2.0'
-  gem 'ore-tasks',	'~> 0.1.2'
+  gem 'ore-core',	'~> 0.1.0'
+  gem 'ore-tasks',	'~> 0.2.0'
   gem 'rspec',		'~> 2.0.0'
 end
 
