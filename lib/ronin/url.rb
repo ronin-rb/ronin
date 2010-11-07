@@ -19,6 +19,7 @@
 #
 
 require 'ronin/url_scheme'
+require 'ronin/url_query_param'
 require 'ronin/host_name'
 require 'ronin/tcp_port'
 require 'ronin/web_credential'
@@ -58,11 +59,11 @@ module Ronin
     # Path of the URL
     property :path, String, :default => ''
 
-    # Query string of the URL
-    property :query_string, String
-
     # The fragment of the URL
     property :fragment, String
+
+    # The query params of the URL
+    has 0..n, :query_params, :model => 'URLQueryParam'
 
     # Any credentials used with the URL
     has 0..n, :web_credentials
@@ -89,15 +90,21 @@ module Ronin
     #
     def URL.parse(url)
       uri = ::URI.parse(url)
-
-      return URL.new(
+      new_url = URL.new(
         :scheme => URLScheme.first_or_new(:name => uri.scheme),
         :host_name => HostName.first_or_new(:address => uri.host),
         :port => TCPPort.first_or_new(:number => uri.port),
         :path => uri.path,
-        :query_string => uri.query,
         :fragment => uri.fragment
       )
+
+      if uri.respond_to?(:query_params)
+        uri.query_params.each do |name,value|
+          new_url.query_params.new(:name => name, :value => value)
+        end
+      end
+
+      return new_url
     end
 
     #
@@ -125,15 +132,42 @@ module Ronin
     end
 
     #
-    # The query params of the URL.
+    # Dumps the URL query params into a URI query string.
     #
-    # @return [Hash{String => String}]
-    #   The query params of the URL.
+    # @return [String]
+    #   The URI query string.
     #
     # @since 0.4.0
     #
-    def query_params
-      @query_params ||= URI::QueryParams.parse(self.query_string)
+    def query_string
+      params = {}
+
+      self.query_params.each do |param|
+        params[param.name] = param.value
+      end
+
+      return URI::QueryParams.dump(params)
+    end
+
+    #
+    # Sets the query params of the URL.
+    #
+    # @param [String] query
+    #   The query string to parse.
+    #
+    # @return [String]
+    #   The given query string.
+    #
+    # @since 0.4.0
+    #
+    def query_string=(query)
+      self.query_params.clear
+
+      URI::QueryParams.parse(query).each do |name,value|
+        self.query_params.new(:name => name, :value => value)
+      end
+
+      return query
     end
 
     #
@@ -154,14 +188,20 @@ module Ronin
                self.port.number
              end
 
-      return url_class.build(
+      new_uri = url_class.build(
         :scheme => self.scheme.name,
         :host => host,
         :port => port,
         :path => self.path,
-        :query => self.query_string,
         :fragment => self.fragment
       )
+
+      params = {}
+
+      self.query_params.each { |param| params[param.name] = param.value }
+      new_uri.query = URI::QueryParams.dump(params)
+
+      return new_uri
     end
 
     #
