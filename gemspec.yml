@@ -10,6 +10,23 @@ authors: Postmodern
 email: postmodern.mod3@gmail.com
 homepage: http://github.com/ronin-ruby/ronin
 has_yard: true
+post_install_message: |
+  Thank you for installing Ronin, a Ruby platform for exploit development
+  and security research. To list the available commands:
+
+      $ ronin help
+
+  To jump into the Ronin Ruby Console:
+
+      $ ronin
+
+  Additional functionality can be added to Ronin by installing additional
+  libraries:
+
+      * ronin-asm                   * ronin-php
+      * ronin-dorks                 * ronin-scanners
+      * ronin-exploits              * ronin-sql
+      * ronin-gen                   * ronin-web
 
 dependencies:
   tzinfo: ~> 0.3.22
