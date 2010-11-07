@@ -59,8 +59,9 @@ DataMapper::Visualizer::Rake::GraphVizTask.new(
     ronin/target
     ronin/tcp_port
     ronin/udp_port
-    ronin/url
     ronin/url_scheme
+    ronin/url_query_param
+    ronin/url
     ronin/user_name
     ronin/vendor
   ]
