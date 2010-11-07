@@ -188,20 +188,14 @@ module Ronin
                self.port.number
              end
 
-      new_uri = url_class.build(
+      return url_class.build(
         :scheme => self.scheme.name,
         :host => host,
         :port => port,
         :path => self.path,
+        :query => self.query_string,
         :fragment => self.fragment
       )
-
-      params = {}
-
-      self.query_params.each { |param| params[param.name] = param.value }
-      new_uri.query = URI::QueryParams.dump(params)
-
-      return new_uri
     end
 
     #
