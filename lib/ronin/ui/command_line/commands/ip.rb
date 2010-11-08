@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/query_command'
+require 'ronin/ui/command_line/model_command'
 require 'ronin/ip_address'
 
 module Ronin
@@ -28,7 +28,7 @@ module Ronin
         #
         # The `ronin-ip` command.
         #
-        class IP < QueryCommand
+        class IP < ModelCommand
 
           self.query_model = IPAddress
 

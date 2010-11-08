@@ -18,13 +18,13 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/query_command'
+require 'ronin/ui/command_line/model_command'
 require 'ronin/engine'
 
 module Ronin
   module UI
     module CommandLine
-      class EngineCommand < QueryCommand
+      class EngineCommand < ModelCommand
 
         class_option :file, :type => :string, :aliases => '-f'
 

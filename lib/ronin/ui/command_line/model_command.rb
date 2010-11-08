@@ -24,7 +24,7 @@ require 'ronin/database'
 module Ronin
   module UI
     module CommandLine
-      class QueryCommand < Command
+      class ModelCommand < Command
 
         class_option :csv, :type => :boolean
         class_option :xml, :type => :boolean
