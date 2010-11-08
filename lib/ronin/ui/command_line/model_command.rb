@@ -39,8 +39,8 @@ module Ronin
         #
         # @since 0.4.0
         #
-        def self.query_model
-          @query_model
+        def self.model
+          @model
         end
 
         #
@@ -79,8 +79,8 @@ module Ronin
         #
         # @since 0.4.0
         #
-        def self.query_model=(model)
-          @query_model = model
+        def self.model=(model)
+          @model = model
         end
 
         #
@@ -188,7 +188,7 @@ module Ronin
         # @since 0.4.0
         #
         def new_query(&block)
-          query = self.class.query_model.all
+          query = self.class.model.all
 
           self.class.query_options.each do |name,value|
             unless options[name].nil?

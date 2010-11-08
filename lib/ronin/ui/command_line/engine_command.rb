@@ -51,7 +51,7 @@ module Ronin
         # @since 0.4.0
         #
         def self.engine_class
-          query_model
+          model
         end
 
         protected
@@ -75,7 +75,7 @@ module Ronin
             raise(ArgumentError,"#{engine} does not include Ronin::Engine")
           end
 
-          self.query_model = engine
+          self.model = engine
         end
 
         #
