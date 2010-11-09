@@ -52,6 +52,9 @@ module Ronin
     # The comments associated with the open port
     has 0..n, :comments
 
+    # When the open-port was last scanned
+    property :last_scanned_at
+
     # Define the created_at timestamp
     timestamps :created_at
 
