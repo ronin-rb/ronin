@@ -87,6 +87,22 @@ module Ronin
     end
 
     #
+    # Determines when the host was last scanned.
+    #
+    # @return [Time, nil]
+    #   The time the host was last scanned at.
+    #
+    # @since 0.4.0
+    #
+    def last_scanned_at
+      last_scanned_url = self.urls.first(
+        :order_by => [:last_scanned_at.desc]
+      )
+
+      return last_scanned_url.last_scanned_at if last_scanned_url
+    end
+
+    #
     # Converts the host name to a string.
     #
     # @return [String]
