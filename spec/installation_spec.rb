@@ -27,6 +27,7 @@ describe Installation do
         list.rb
         uninstall.rb
         update.rb
+        url.rb
       ]
     }
 
