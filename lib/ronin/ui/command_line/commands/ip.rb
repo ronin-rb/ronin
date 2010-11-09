@@ -82,6 +82,10 @@ module Ronin
               print_title ip.address
 
               indent do
+                if (last_scanned_at = ip.last_scanned_at)
+                  print_hash('Last Scanned' => last_scanned_at)
+                end
+
                 unless ip.mac_addresses.empty?
                   print_array ip.mac_addresses, :title => 'MAC Addresses'
                 end

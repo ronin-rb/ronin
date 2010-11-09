@@ -171,6 +171,22 @@ module Ronin
     end
 
     #
+    # Determines when the IP address was last scanned.
+    #
+    # @return [Time, nil]
+    #   The time the IP address was last scanned at.
+    #
+    # @since 0.4.0
+    #
+    def last_scanned_at
+      last_scanned_port = self.open_ports.first(
+        :order_by => [:last_scanned_at.desc]
+      )
+
+      return last_scanned_port.last_scanned_at if last_scanned_port
+    end
+
+    #
     # Converts the address to an IP address object.
     #
     # @return [IPAddr]
