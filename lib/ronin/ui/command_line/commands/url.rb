@@ -94,7 +94,8 @@ module Ronin
                   'Host' => url.host_name,
                   'Port' => url.port.number,
                   'Path' => url.path,
-                  'Fragment' => url.fragment
+                  'Fragment' => url.fragment,
+                  'Last Scanned' => url.last_scanned_at
                 )
 
                 unless url.query_params.empty?
