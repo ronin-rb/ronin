@@ -35,6 +35,7 @@ module Ronin
             column :ip_address_id, Integer, :not_null => true
             column :port_id, Integer, :not_null => true
             column :service_id, Integer
+            column :last_scanned_at, Time
             column :created_at, Time, :not_null => true
             column :frozen_tag_list, Text
           end
