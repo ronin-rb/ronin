@@ -72,7 +72,7 @@ module Ronin
     has 0..n, :comments
 
     # When the URL was last scanned
-    property :last_scanned_at
+    property :last_scanned_at, Time
 
     # Defines the created_at timestamp
     timestamps :created_at
