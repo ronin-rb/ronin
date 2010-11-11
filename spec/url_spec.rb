@@ -47,9 +47,9 @@ describe URL do
     url.to_s.should == uri.to_s
   end
 
-  describe "parse" do
+  describe "from" do
     before(:all) do
-      @url = URL.parse(uri.to_s)
+      @url = URL.from(uri)
     end
 
     it "should parse URL schemes" do

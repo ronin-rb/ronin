@@ -81,18 +81,17 @@ module Ronin
     has_tags_on :tags
 
     #
-    # Parses the URL.
+    # Creates a new URL.
     #
-    # @param [String] url
-    #   The raw URL to parse.
+    # @param [URI::HTTP] uri
+    #   The URI to create the URL from.
     #
     # @return [URL]
-    #   The parsed URL.
+    #   The new URL.
     #
     # @since 0.4.0
     #
-    def URL.parse(url)
-      uri = ::URI.parse(url)
+    def URL.from(uri)
       new_url = URL.new(
         :scheme => URLScheme.first_or_new(:name => uri.scheme),
         :host_name => HostName.first_or_new(:address => uri.host),
@@ -108,6 +107,23 @@ module Ronin
       end
 
       return new_url
+    end
+
+    #
+    # Parses the URL.
+    #
+    # @param [String] url
+    #   The raw URL to parse.
+    #
+    # @return [URL]
+    #   The parsed URL.
+    #
+    # @see URL.from
+    #
+    # @since 0.4.0
+    #
+    def URL.parse(url)
+      URL.from(::URI.parse(url))
     end
 
     #
