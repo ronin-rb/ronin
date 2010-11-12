@@ -8,13 +8,13 @@ GIT
 
 GIT
   remote: http://github.com/ronin-ruby/ronin-support.git
-  revision: aeb8d169ced6f8711424d29adad50ba94ff6c713
+  revision: 8daf226259c65a0ac939adf0f03da8da9ecf96ea
   specs:
     ronin-support (0.1.0)
       chars (~> 0.2.0)
       combinatorics (~> 0.3.1)
       data_paths (~> 0.2.1)
-      uri-query_params (~> 0.5.1)
+      uri-query_params (~> 0.5.2)
 
 PATH
   remote: .
@@ -40,7 +40,7 @@ PATH
       pullr (~> 0.1.2)
       thor (~> 0.14.3)
       tzinfo (~> 0.3.22)
-      uri-query_params (~> 0.5.1)
+      uri-query_params (~> 0.5.2)
 
 GEM
   remote: https://rubygems.org/
@@ -128,7 +128,7 @@ GEM
     stringex (1.1.0)
     thor (0.14.4)
     tzinfo (0.3.23)
-    uri-query_params (0.5.1)
+    uri-query_params (0.5.2)
     uuidtools (2.1.1)
     weakling (0.0.4-java)
     yard (0.6.1)
@@ -176,7 +176,7 @@ DEPENDENCIES
   ruby-graphviz (~> 0.9.10)
   thor (~> 0.14.3)
   tzinfo (~> 0.3.22)
-  uri-query_params (~> 0.5.1)
+  uri-query_params (~> 0.5.2)
   yard (~> 0.6.1)
   yard-contextify (~> 0.1.0)
   yard-dm (~> 0.1.1)
