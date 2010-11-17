@@ -36,7 +36,7 @@ module Ronin
             column :overlay_id, Integer
           end
 
-          create_index :ronin_authors, :name, :unique => true
+          create_index :ronin_authors, :name
         end
 
         down do
