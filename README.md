@@ -141,9 +141,6 @@ View available commands:
   * [dm-tags](http://github.com/datamapper/dm-tags) ~> 1.0.2
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined/)
   ~> 0.3.0
-* [nokogiri](http://nokogiri.rubyforge.org/) ~> 1.4.1
-  * [libxml2](http://xmlsoft.org/)
-  * [libxslt1](http://xmlsoft.org/XSLT/)
 * [uri-query_params](http://github.com/postmodern/uri-query_params) ~> 0.4.0
 * [open_namespace](http://github.com/postmodern/open_namespace) ~> 0.3.0
 * [parameters](http://github.com/postmodern/parameters) ~> 0.2.2
