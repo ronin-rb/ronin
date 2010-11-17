@@ -59,7 +59,7 @@ module Ronin
             end
 
             if script
-              require 'ronin/environment'
+              require 'ronin'
               require File.join('.',script)
             else
               UI::Console.start
