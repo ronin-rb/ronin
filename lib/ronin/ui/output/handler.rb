@@ -61,7 +61,7 @@ module Ronin
         # @param [String] data
         #   The data to write.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def self.write(data)
           STDOUT.write(data)

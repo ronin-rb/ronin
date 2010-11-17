@@ -48,7 +48,7 @@ module Ronin
     # @return [String]
     #   The name of the user.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_s
       self.name.to_s

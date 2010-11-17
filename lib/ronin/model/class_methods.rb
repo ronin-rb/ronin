@@ -28,7 +28,7 @@ module Ronin
       # @return [Symbol]
       #   The name to use in relationships.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def relationship_name
         self.name.split('::').last.underscore.pluralize.to_sym

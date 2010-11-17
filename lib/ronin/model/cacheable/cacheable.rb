@@ -128,7 +128,7 @@ module Ronin
       # @return [Set<Cacheable>]
       #   Cacheable models.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def Cacheable.models
         @@ronin_cacheable_models ||= Set[]
@@ -146,7 +146,7 @@ module Ronin
       # @raise [RuntimeError]
       #   There were no cacheable objects defined in the file.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def Cacheable.load_from(path)
         path = File.expand_path(path)

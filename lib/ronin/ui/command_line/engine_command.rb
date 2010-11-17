@@ -48,7 +48,7 @@ module Ronin
         # @return [Engine]
         #   The engine class.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def self.engine_class
           model
@@ -68,7 +68,7 @@ module Ronin
         # @raise [ArgumentError]
         #   The given engine class does not include {Ronin::Engine}.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def self.engine_class=(engine)
           unless engine.included_modules.include?(Engine)
@@ -88,7 +88,7 @@ module Ronin
         #   The engine class did not define the query method for one of the
         #   query options.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def load_engine
           if options[:file]

@@ -29,7 +29,7 @@ module Ronin
       # @param [Hash] attributes
       #   Additional attributes for the engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def initialize(attributes={})
         super(attributes)
@@ -45,7 +45,7 @@ module Ronin
       #
       # @see verify
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify!
         print_info "Verifying #{engine_name} ..."
@@ -67,7 +67,7 @@ module Ronin
       # @raise [VerificationFailed]
       #   The verification failure message.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def flunk(message)
         raise(VerificationFailed,message)
@@ -82,7 +82,7 @@ module Ronin
       # @return [Engine]
       #   The engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify(&block)
         @verify_blocks << block
@@ -104,7 +104,7 @@ module Ronin
       # @raise [VerificationFailed]
       #   The expression was not true.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify?(message,&block)
         verify { flunk(message) unless block.call() }
@@ -128,7 +128,7 @@ module Ronin
       # @raise [VerificationFailed]
       #   The method did not return the expected value.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify_equal(name,expected_value,message=nil)
         name = name.to_sym
@@ -159,7 +159,7 @@ module Ronin
       # @raise [VerificationFailed]
       #   The method did return the unexpected value.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify_not_equal(name,unexpected_value,message=nil)
         name = name.to_sym
@@ -187,7 +187,7 @@ module Ronin
       # @raise [VerificationFailed]
       #   The method returned `nil`.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify_set(name,message=nil)
         name = name.to_sym
@@ -224,7 +224,7 @@ module Ronin
       # @raise [VerificationFailed]
       #   The method did not match the pattern.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify_match(name,pattern,message=nil)
         name = name.to_sym
@@ -255,7 +255,7 @@ module Ronin
       # @raise [VerificationFailed]
       #   The method did not match the pattern.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify_no_match(name,pattern,message=nil)
         name = name.to_sym
@@ -286,7 +286,7 @@ module Ronin
       # @raise [VerificationFailed]
       #   The method did not return one of the expected values.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify_in(name,expected_values,message=nil)
         name = name.to_sym
@@ -317,7 +317,7 @@ module Ronin
       # @raise [VerificationFailed]
       #   The method did return one of the unexpected values.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify_not_in(name,unexpected_values,message=nil)
         name = name.to_sym

@@ -33,7 +33,7 @@ module Ronin
         # @return [Integer, nil]
         #   The number of bytes writen.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def write(data)
           Output.handler.write(data.to_s) unless Output.silent?
@@ -48,7 +48,7 @@ module Ronin
         # @return [String, Integer]
         #   The byte or character.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def putc(data)
           char = data.chr if data.kind_of?(Integer)
@@ -89,7 +89,7 @@ module Ronin
         #
         # @return [nil]
         # 
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def printf(format,*data)
           write(format % data)

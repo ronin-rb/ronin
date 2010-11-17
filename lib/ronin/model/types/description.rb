@@ -37,7 +37,7 @@ module Ronin
         # @return [String, nil]
         #   The typecasted description.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def typecast(value)
           case value

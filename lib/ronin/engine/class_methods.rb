@@ -42,7 +42,7 @@ module Ronin
       # @return [Array<Engine>]
       #   The Ronin Engine with the matching attributes.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def load_all(options={})
         resources = custom_query(options)
@@ -72,7 +72,7 @@ module Ronin
       # @return [Array<Engine>]
       #   The Ronin Engine with the matching attributes.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def load_first(options={})
         if (resource = custom_query(options).first)
@@ -105,7 +105,7 @@ module Ronin
       # @return [DataMapper::Collection]
       #   The custom query for the Ronin Engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def custom_query(options)
         query = all

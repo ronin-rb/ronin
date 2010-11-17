@@ -63,7 +63,7 @@ module Ronin
     # @raise [InvalidConfig]
     #   The config file did not contain a YAML Hash.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Database.repositories
       unless class_variable_defined?('@@ronin_database_repositories')
@@ -96,7 +96,7 @@ module Ronin
     # @return [Boolean]
     #   Specifies if the Database provides the repository.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Database.repository?(name)
       Database.repositories.has_key?(name.to_sym)
@@ -111,7 +111,7 @@ module Ronin
     #
     # @return [true]
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Database.save
       yield if block_given?
@@ -229,7 +229,7 @@ module Ronin
     # @raise [UnknownRepository]
     #   The specified Database repository is unknown.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Database.repository(name,&block)
       name = name.to_sym
@@ -256,7 +256,7 @@ module Ronin
     # @raise [UnknownRepository]
     #   The specified Database repository is unknown.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Database.clear(name)
       name = name.to_sym
@@ -282,7 +282,7 @@ module Ronin
     # @return [Array]
     #   The results from each database transaction.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Database.map(&block)
       results = []

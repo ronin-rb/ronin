@@ -27,7 +27,7 @@ module Ronin
       # @param [Hash] attributes
       #   The attributes or parameter values to initialize the engine with.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def initialize(attributes={})
         super(attributes)
@@ -41,7 +41,7 @@ module Ronin
       # @return [String]
       #   The name of the engine class.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def engine_name
         @ngine_name ||= self.class.base_model.name.split('::').last
@@ -53,7 +53,7 @@ module Ronin
       # @return [String]
       #   The name and version of the engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def to_s
         if (self.name && self.version)
@@ -71,7 +71,7 @@ module Ronin
       # @return [String]
       #   The inspected Ronin Engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def inspect
         body = []

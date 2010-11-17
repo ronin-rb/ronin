@@ -67,7 +67,7 @@ module Ronin
           #
           # Queries the {Ronin::URL} model.
           #
-          # @since 0.4.0
+          # @since 1.0.0
           #
           def execute
             if options.list?
@@ -83,7 +83,7 @@ module Ronin
           # @param [Ronin::URL] url
           #   The URL to print.
           #
-          # @since 0.4.0
+          # @since 1.0.0
           #
           def print_resource(url)
             if options.verbose?

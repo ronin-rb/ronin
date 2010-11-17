@@ -41,7 +41,7 @@ module Ronin
     # @return [String]
     #   The user name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def user
       self.user_name.name if self.user_name

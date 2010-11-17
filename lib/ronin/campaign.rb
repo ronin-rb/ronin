@@ -62,7 +62,7 @@ module Ronin
     # @raise [DataMapper::ValidationError]
     #   The campaign was not assigned a name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def dir_name
       unless self.name
@@ -78,7 +78,7 @@ module Ronin
     # @return [String]
     #   The files directory used by the campaign.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def files_dir
       path = File.join(Config::CAMPAIGNS_DIR,dir_name,FILES_DIR)

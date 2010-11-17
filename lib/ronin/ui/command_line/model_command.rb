@@ -37,7 +37,7 @@ module Ronin
         # @return [DataMapper::Resource]
         #   The model that will be queried.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def self.model
           @model
@@ -49,7 +49,7 @@ module Ronin
         # @return [Hash]
         #   The query options and their query method names.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def self.query_options
           @@query_options ||= {}
@@ -58,7 +58,7 @@ module Ronin
         #
         # Default method performs the query and prints the found resources.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def execute
           Database.setup
@@ -77,7 +77,7 @@ module Ronin
         # @return [DataMapper::Resource]
         #   The model that will be queried.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def self.model=(model)
           @model = model
@@ -95,7 +95,7 @@ module Ronin
         # @option options [Symbol] :method (name)
         #   Custom query method name.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def self.query_option(name,options={},&block)
           self.query_options[name] = if block
@@ -127,7 +127,7 @@ module Ronin
         # @return [DataMapper::Collection]
         #   The modified query.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def custom_query(query,arguments=[],&block)
           if block.arity == 1
@@ -154,7 +154,7 @@ module Ronin
         # @return [DataMapper::Collection]
         #   The modified query.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def query_method(query,name,arguments=[])
           query_method = begin
@@ -185,7 +185,7 @@ module Ronin
         # @return [DataMapper::Collection]
         #   The new query.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def new_query(&block)
           query = self.class.model.all
@@ -213,7 +213,7 @@ module Ronin
         # @param [DataMapper::Resource] resource
         #   A queried resource from the Database.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def print_resource(resource)
           puts resource
@@ -225,7 +225,7 @@ module Ronin
         # @param [DataMapper::Collection] query
         #   The query to print.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def print_query(query)
           if options.csv?

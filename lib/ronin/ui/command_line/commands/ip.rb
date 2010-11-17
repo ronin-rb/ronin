@@ -59,7 +59,7 @@ module Ronin
           #
           # Queries the {IPAddress} model.
           #
-          # @since 0.4.0
+          # @since 1.0.0
           #
           def execute
             if options.list?
@@ -75,7 +75,7 @@ module Ronin
           # @param [IPAddress] ip
           #   The IP Address to print.
           #
-          # @since 0.4.0
+          # @since 1.0.0
           #
           def print_resource(ip)
             if options.verbose?

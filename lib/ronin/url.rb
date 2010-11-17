@@ -89,7 +89,7 @@ module Ronin
     # @return [URL]
     #   The new URL.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def URL.from(uri)
       new_url = URL.new(
@@ -120,7 +120,7 @@ module Ronin
     #
     # @see URL.from
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def URL.parse(url)
       URL.from(::URI.parse(url))
@@ -132,7 +132,7 @@ module Ronin
     # @return [String]
     #   The address of host name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def host
       self.host_name.address
@@ -144,7 +144,7 @@ module Ronin
     # @return [Integer]
     #   The port number.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def port_number
       self.port.number
@@ -156,7 +156,7 @@ module Ronin
     # @return [String]
     #   The URI query string.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def query_string
       params = {}
@@ -177,7 +177,7 @@ module Ronin
     # @return [String]
     #   The given query string.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def query_string=(query)
       self.query_params.clear
@@ -195,7 +195,7 @@ module Ronin
     # @return [URI::HTTP, URI::HTTPS]
     #   The URI object created from the url attributes.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_uri
       url_class = (SCHEMES[self.scheme.name] || ::URI::Generic)
@@ -223,7 +223,7 @@ module Ronin
     # @return [String]
     #   The string form of the url.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_s
       self.to_uri.to_s

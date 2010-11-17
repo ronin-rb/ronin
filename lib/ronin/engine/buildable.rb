@@ -32,7 +32,7 @@ module Ronin
       # @param [Hash] attributes
       #   Additional attributes for the engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def initialize(attributes={})
         super(attributes)
@@ -47,7 +47,7 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the engine is built.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def built?
         @built == true
@@ -64,7 +64,7 @@ module Ronin
       #
       # @see #build
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def build!(options={})
         self.params = options
@@ -93,7 +93,7 @@ module Ronin
       #
       # @see #verify
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def verify!
         unless built?
@@ -114,7 +114,7 @@ module Ronin
       # @return [Engine]
       #   The engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def build(&block)
         @build_blocks << block

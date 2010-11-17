@@ -67,7 +67,7 @@ module Ronin
     # @return [String]
     #   The IP Address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def address
       self.ip_address.address
@@ -79,7 +79,7 @@ module Ronin
     # @return [Integer]
     #   The port number.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def number
       self.port.number
@@ -91,7 +91,7 @@ module Ronin
     # @return [Integer]
     #   The port number.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_i
       self.port.to_i
@@ -103,7 +103,7 @@ module Ronin
     # @return [String]
     #   The information of the open port.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_s
       str = self.port.to_s

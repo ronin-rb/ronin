@@ -83,7 +83,7 @@ module Ronin
     # @return [IPAddress]
     #   The new or previously saved IP Address for the host name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def IPAddress.resolv(host_name)
       IPAddress.first_or_new(:address => Resolv.getaddress(host_name))
@@ -98,7 +98,7 @@ module Ronin
     # @return [Array<IPAddress>]
     #   The new or previously saved IP Addresses for the host name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def IPAddress.resolv_all(host_name)
       Resolv.getaddresses(host_name).map do |ip|
@@ -112,7 +112,7 @@ module Ronin
     # @return [HostName]
     #   The host name associated with the IP Address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def reverse_lookup
       self.host_names.first_or_new(:address => Resolv.getname(self.address))
@@ -124,7 +124,7 @@ module Ronin
     # @return [MacAddress]
     #   The MAC Address that most recently used the IP Address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def recent_mac_address
       relation = self.ip_address_mac_addresses.first(
@@ -142,7 +142,7 @@ module Ronin
     # @return [HostName]
     #   The host name that most recently used by the IP Address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def recent_host_name
       relation = self.host_name_ip_addresses.first(
@@ -160,7 +160,7 @@ module Ronin
     # @return [OS]
     #   The Operating System that most recently was guessed.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def recent_os_guess
       relation = self.os_guesses.first(:order => [:created_at.desc])
@@ -176,7 +176,7 @@ module Ronin
     # @return [Time, nil]
     #   The time the IP address was last scanned at.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def last_scanned_at
       last_scanned_port = self.open_ports.first(
@@ -192,7 +192,7 @@ module Ronin
     # @return [IPAddr]
     #   The IPAddr object representing either the IPv4 or IPv6 address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_ip
       self.address
@@ -204,7 +204,7 @@ module Ronin
     # @return [Integer]
     #   The network representation of the IP address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_i
       self.address.to_i
@@ -216,7 +216,7 @@ module Ronin
     # @return [String]
     #   The address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_s
       self.address.to_s

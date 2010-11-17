@@ -164,7 +164,7 @@ module Ronin
     # @example Load the Overlay with the given name and domain.
     #   Overlay.find('postmodern-overlay/github.com')
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Overlay.find(name)
       name, domain = name.to_s.split('/',2)
@@ -198,7 +198,7 @@ module Ronin
     # @raise [DuplicateOverlay]
     #   The Overlay was already added or installed.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Overlay.add!(options={})
       unless options.has_key?(:path)
@@ -263,7 +263,7 @@ module Ronin
     #   An Overlay already exists with the same `name` and `host`
     #   properties.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Overlay.install!(options={})
       unless options[:uri]
@@ -318,7 +318,7 @@ module Ronin
     # @yieldparam [Overlay] overlay
     #   An updated Overlay.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Overlay.update!
       Overlay.all.each do |overlay|
@@ -355,7 +355,7 @@ module Ronin
     #
     # @see #activate!
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Overlay.activate!
       Overlay.all.each { |overlay| overlay.activate! }
@@ -369,7 +369,7 @@ module Ronin
     #
     # @see #deactivate!
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Overlay.deactivate!
       Overlay.all.reverse_each { |overlay| overlay.deactivate! }
@@ -381,7 +381,7 @@ module Ronin
     # @return [Boolean]
     #   Specifies whether the overlay was added locally.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def local?
       self.domain == LOCAL_DOMAIN
@@ -394,7 +394,7 @@ module Ronin
     #   Specifies whether the overlay was installed from a remote
     #   repository.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def remote?
       self.domain != LOCAL_DOMAIN
@@ -406,7 +406,7 @@ module Ronin
     # @return [Array<Pathname>]
     #   The paths within the `cache/` directory.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def cache_paths
       Pathname.glob(@cache_dir.join('**','*.rb'))
@@ -462,7 +462,7 @@ module Ronin
     # @return [Overlay]
     #   The cleaned overlay.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def cache_files!
       clean_cached_files!
@@ -481,7 +481,7 @@ module Ronin
     # @return [Overlay]
     #   The cleaned overlay.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def sync_cached_files!
       # activates the overlay before caching it's objects
@@ -514,7 +514,7 @@ module Ronin
     # @return [Overlay]
     #   The cleaned overlay.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def clean_cached_files!
       self.cached_files.clear
@@ -535,7 +535,7 @@ module Ronin
     # @return [Overlay]
     #   The updated overlay.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def update!
       local_repo = Pullr::LocalRepository.new(
@@ -572,7 +572,7 @@ module Ronin
     # @return [Overlay]
     #   The deleted overlay.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def uninstall!
       deactivate!

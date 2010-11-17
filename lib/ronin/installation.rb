@@ -32,7 +32,7 @@ module Ronin
     # @return [Hash{String => Gem::Specification}]
     #   The names and gem-specs of the installed Ronin libraries.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Installation.gems
       Installation.load_gemspecs! unless defined?(@@ronin_gems)
@@ -46,7 +46,7 @@ module Ronin
     # @return [Array<String>]
     #   The library names.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Installation.libraries
       Installation.gems.keys
@@ -58,7 +58,7 @@ module Ronin
     # @return [Hash{String => String}]
     #   The paths to the installed Ronin libraries.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Installation.paths
       Installation.load_gemspecs! unless defined?(@@ronin_gem_paths)
@@ -82,7 +82,7 @@ module Ronin
     # @return [Enumerator]
     #   Returns an Enumerator if no block is given.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Installation.each_file(directory)
       return enum_for(:each_file,directory) unless block_given?
@@ -110,7 +110,7 @@ module Ronin
     # @return [Boolean]
     #   Specifies whether any files were successfully required.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Installation.require_all(directory)
       lib_dir = File.join('lib',directory)
@@ -131,7 +131,7 @@ module Ronin
     # @return [true]
     #   All Ronin libraries were successfully found.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Installation.load_gemspecs!
       ronin_gem = Gem.loaded_specs['ronin']

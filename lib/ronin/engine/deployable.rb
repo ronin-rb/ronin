@@ -32,7 +32,7 @@ module Ronin
       # @param [Hash] attributes
       #   Additional attributes for the engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def initialize(attributes={})
         super(attributes)
@@ -50,7 +50,7 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the engine was previously deployed.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def deployed?
         @deployed == true
@@ -68,7 +68,7 @@ module Ronin
       #
       # @see deploy
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def deploy!
         verify!
@@ -92,7 +92,7 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the engine has been evacuated.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def evacuated?
         @evacuated == true
@@ -110,7 +110,7 @@ module Ronin
       #
       # @see #evacuate
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def evacuate!
         yield if block_given?
@@ -134,7 +134,7 @@ module Ronin
       # @raise [DeployFailed]
       #   The deployment of the exploit failed.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def deploy_failed!(message)
         raise(DeployFailed,message)
@@ -151,7 +151,7 @@ module Ronin
       # @return [Engine]
       #   The engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def deploy(&block)
         @deploy_blocks << block
@@ -169,7 +169,7 @@ module Ronin
       # @return [Engine]
       #   The engine.
       #
-      # @since 0.4.0
+      # @since 1.0.0
       #
       def evacuate(&block)
         @evacuate_blocks.unshift(block)

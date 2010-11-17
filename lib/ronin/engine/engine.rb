@@ -60,7 +60,7 @@ module Ronin
     #
     # @see Model::Cacheable.load_from
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def Engine.load_from(path)
       Model::Cacheable.load_from(path)

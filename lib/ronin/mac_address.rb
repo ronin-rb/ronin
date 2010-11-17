@@ -38,7 +38,7 @@ module Ronin
     # @return [IpAddress]
     #   The IP Address that most recently used the MAC Address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def recent_ip_address
       relation = self.ip_address_mac_addresses.first(
@@ -56,7 +56,7 @@ module Ronin
     # @return [Integer]
     #   The network representation of the MAC address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_i
       self.address.split(':').inject(0) do |bits,char|
@@ -70,7 +70,7 @@ module Ronin
     # @return [String]
     #   The MAC address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_s
       self.address.to_s

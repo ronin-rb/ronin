@@ -161,7 +161,7 @@ module Ronin
         # @return [String]
         #   The banner string.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def self.banner
           if $0 == 'ronin'
@@ -220,7 +220,7 @@ module Ronin
         #   The block will be called after the title has been printed
         #   and indentation increased.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def print_section(title,&block)
           print_title(title)
@@ -290,7 +290,7 @@ module Ronin
         # @param [Exception] exception
         #   The exception to print.
         #
-        # @since 0.4.0
+        # @since 1.0.0
         #
         def print_exception(exception)
           print_error exception.message

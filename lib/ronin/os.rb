@@ -58,7 +58,7 @@ module Ronin
     #   The IP Address most recently guessed to be using the
     #   Operating System.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def recent_ip_address
       relation = self.os_guesses.first(:order => [:created_at.desc])

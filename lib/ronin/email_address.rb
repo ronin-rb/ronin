@@ -50,7 +50,7 @@ module Ronin
     # @return [EmailAddress]
     #   A new or previously saved email address resource.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def EmailAddress.parse(email)
       user, host = email.strip.split('@',2)
@@ -67,7 +67,7 @@ module Ronin
     # @return [String]
     #   The user name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def user
       self.user_name.name if self.user_name
@@ -79,7 +79,7 @@ module Ronin
     # @return [String]
     #   The host name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def host
       self.host_name.address if self.host_name
@@ -91,7 +91,7 @@ module Ronin
     # @return [String]
     #   The raw email address.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_s
       "#{self.user_name}@#{self.host_name}"

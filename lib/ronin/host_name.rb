@@ -48,7 +48,7 @@ module Ronin
     # @return [IPAddress]
     #   The IP Address for the host name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def resolv
       self.ip_addresses.first_or_new(:address => Resolv.getaddress(self.address))
@@ -60,7 +60,7 @@ module Ronin
     # @return [Array<IPAddress>]
     #   The IP Addresses for the host name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def resolv_all
       Resolv.getaddresses(self.address).map do |ip|
@@ -74,7 +74,7 @@ module Ronin
     # @return [IpAddress]
     #   The IP Address that most recently used by the host name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def recent_ip_address
       relation = self.host_name_ip_addresses.first(
@@ -92,7 +92,7 @@ module Ronin
     # @return [Time, nil]
     #   The time the host was last scanned at.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def last_scanned_at
       last_scanned_url = self.urls.first(
@@ -108,7 +108,7 @@ module Ronin
     # @return [String]
     #   The address of the host name.
     #
-    # @since 0.4.0
+    # @since 1.0.0
     #
     def to_s
       self.address.to_s
