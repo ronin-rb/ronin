@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: http://github.com/ronin-ruby/ronin-support.git
-  revision: 8daf226259c65a0ac939adf0f03da8da9ecf96ea
+  revision: 6c89950e62383dbeffca9a2a5c698b1650d27503
   specs:
     ronin-support (0.1.0)
       chars (~> 0.2.0)
@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    ronin (0.4.0)
+    ronin (1.0.0)
       activesupport (~> 3.0.0)
       contextify (~> 0.2.0)
       data_paths (~> 0.2.1)
