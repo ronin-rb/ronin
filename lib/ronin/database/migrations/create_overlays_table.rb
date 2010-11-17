@@ -18,29 +18,35 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/database/migrations/create_licenses_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:create_authors_table) do
+      migration(:create_overlays_table, :needs => :create_licenses_table) do
         up do
-          create_table :ronin_authors do
+          create_table :ronin_overlays do
             column :id, Integer, :serial => true
+            column :scm, String
+            column :path, FilePath, :not_null => true 
+            column :uri, DataMapper::Property::URI
+            column :installed, Boolean, :default => false
             column :name, String
-            column :organization, String
-            column :pgp_signature, String
-            column :email, String
-            column :site, String
-            column :biography, Text
-            column :overlay_id, Integer
+            column :domain, String, :not_null => true
+            column :title, Text
+            column :source, DataMapper::Property::URI
+            column :website, DataMapper::Property::URI
+            column :description, Text
+
+            column :license_id, Integer
           end
 
-          create_index :ronin_authors, :name, :unique => true
+          create_index :ronin_overlays, :path, :unique => true
         end
 
         down do
-          drop_table :ronin_authors
+          drop_table :ronin_overlays
         end
       end
     end

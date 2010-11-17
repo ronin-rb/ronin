@@ -18,33 +18,38 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/command'
-require 'ronin/overlay'
-require 'ronin/database'
-
 module Ronin
-  module UI
-    module CommandLine
-      module Commands
+  module Model
+    module Cacheable
+      module ClassMethods
         #
-        # The `ronin uninstall` command.
+        # Loads all objects with the matching attributes.
         #
-        class Uninstall < Command
+        # @param [Hash] attributes
+        #   Attributes to search for.
+        #
+        def load_all(attributes={})
+          resources = all(attributes)
+          resources.each { |resource| resource.load_original! }
 
-          desc 'Uninstall the specified Overlay'
-          argument :name, :type => :string
+          return resources
+        end
 
-          #
-          # Uninstalls a previously installed or added Overlay.
-          #
-          def execute
-            Database.setup
-
-            overlay = Overlay.uninstall!(name)
-
-            print_info "Uninstalling Overlay #{overlay} ..."
+        #
+        # Loads the first object with matching attributes.
+        #
+        # @param [Hash] attributes
+        #   Attributes to search for.
+        #
+        # @return [Cacheable]
+        #   The loaded cached objects.
+        #
+        def load_first(attributes={})
+          if (resource = first(attributes))
+            resource.load_original!
           end
 
+          return resource
         end
       end
     end

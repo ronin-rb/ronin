@@ -19,7 +19,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/platform/overlay'
+require 'ronin/overlay'
 require 'ronin/database'
 
 module Ronin
@@ -58,13 +58,13 @@ module Ronin
             query = {}
 
             if options.local?
-              query[:domain] = Platform::Overlay::LOCAL_DOMAIN
+              query[:domain] = Overlay::LOCAL_DOMAIN
             elsif options.remote?
-              query[:domain.not] = Platform::Overlay::LOCAL_DOMAIN
+              query[:domain.not] = Overlay::LOCAL_DOMAIN
             end
 
             # list all overlays by name
-            Platform::Overlay.all(query).each do |overlay|
+            Overlay.all(query).each do |overlay|
               if options.verbose?
                 display_overlay(overlay)
               else
@@ -79,8 +79,8 @@ module Ronin
           def list_overlay!
             # find a specific overlay
             begin
-              overlay = Platform::Overlay.get(name)
-            rescue Platform::OverlayNotFound
+              overlay = Overlay.find(name)
+            rescue OverlayNotFound
               print_error "Could not find the Overlay #{name.dump}"
               return
             end
@@ -91,7 +91,7 @@ module Ronin
           #
           # Prints an Overlay to the console.
           #
-          # @param [Platform::Overlay] overlay
+          # @param [Overlay] overlay
           #   The Overlay to display.
           #
           def display_overlay(overlay)

@@ -179,7 +179,7 @@ module Ronin
         # configure the IRB context
         main.instance_eval do
           require 'ronin'
-          require 'ronin/platform'
+          require 'ronin/overlay'
 
           require 'pp'
 
@@ -196,10 +196,13 @@ module Ronin
             end
           end
 
+          include Ronin
+
+          # activates all installed or added overlays
+          Ronin::Overlay.activate!
+
           # require any of the auto-load paths
           Ronin::UI::Console.auto_load.each { |path| require path }
-
-          include Ronin
         end
 
         # run any setup-blocks

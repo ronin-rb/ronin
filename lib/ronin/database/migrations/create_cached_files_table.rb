@@ -18,33 +18,28 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/command'
-require 'ronin/overlay'
-require 'ronin/database'
+require 'ronin/database/migrations/create_overlays_table'
+require 'ronin/database/migrations/migrations'
 
 module Ronin
-  module UI
-    module CommandLine
-      module Commands
-        #
-        # The `ronin uninstall` command.
-        #
-        class Uninstall < Command
-
-          desc 'Uninstall the specified Overlay'
-          argument :name, :type => :string
-
-          #
-          # Uninstalls a previously installed or added Overlay.
-          #
-          def execute
-            Database.setup
-
-            overlay = Overlay.uninstall!(name)
-
-            print_info "Uninstalling Overlay #{overlay} ..."
+  module Database
+    module Migrations
+      migration(
+        :create_cached_files_table,
+        :needs => :create_overlays_table
+      ) do
+        up do
+          create_table :ronin_cached_files do
+            column :id, Integer, :serial => true
+            column :path, FilePath, :not_null => true
+            column :timestamp, Time, :not_null => true
+            column :model_name, String, :not_null => true
+            column :overlay_id, Integer, :not_null => true
           end
+        end
 
+        down do
+          drop_table :ronin_cached_files
         end
       end
     end

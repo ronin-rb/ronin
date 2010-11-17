@@ -19,7 +19,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/platform/overlay'
+require 'ronin/overlay'
 require 'ronin/database'
 
 module Ronin
@@ -62,15 +62,12 @@ module Ronin
 
             Database.setup
 
-            begin
-              overlay = Platform::Overlay.install!(
-                :uri => uri,
-                :scm => scm
-              )
-            rescue Platform::DuplicateOverlay => e
-              print_error e.message
-              exit -1
-            end
+            overlay = begin
+                        Overlay.install!(:uri => uri, :scm => scm)
+                      rescue DuplicateOverlay => e
+                        print_error e.message
+                        exit -1
+                      end
 
             overlay.cached_files.each do |cached_file|
               if cached_file.cache_exception

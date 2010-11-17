@@ -6,6 +6,8 @@ class VerifiableClass
   include Ronin::Engine
   include Ronin::Engine::Verifiable
 
+  property :id, Serial
+
   parameter :var
 
   def initialize(attributes={},&block)

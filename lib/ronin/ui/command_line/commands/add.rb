@@ -19,7 +19,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/platform/overlay'
+require 'ronin/overlay'
 require 'ronin/database'
 
 module Ronin
@@ -65,8 +65,8 @@ module Ronin
             Database.setup
 
             begin
-              overlay = Platform::Overlay.add!(overlay_options)
-            rescue Platform::DuplicateOverlay => e
+              overlay = Overlay.add!(overlay_options)
+            rescue DuplicateOverlay => e
               print_error e.message
               exit -1
             end

@@ -26,7 +26,7 @@ require 'ronin/model/has_description'
 require 'ronin/model/has_version'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
-require 'ronin/platform/cacheable'
+require 'ronin/model/cacheable'
 require 'ronin/ui/output/helpers'
 
 require 'parameters'
@@ -43,7 +43,7 @@ module Ronin
                           Model::HasVersion,
                           Model::HasLicense,
                           Model::HasAuthors,
-                          Platform::Cacheable,
+                          Model::Cacheable,
                           Parameters
 
       base.send :extend, ClassMethods
@@ -58,12 +58,12 @@ module Ronin
     # @return [Engine]
     #   The loaded engine.
     #
-    # @see Platform::Cacheable.load_from
+    # @see Model::Cacheable.load_from
     #
     # @since 0.4.0
     #
     def Engine.load_from(path)
-      Platform::Cacheable.load_from(path)
+      Model::Cacheable.load_from(path)
     end
   end
 end

@@ -19,7 +19,7 @@
 #
 
 require 'ronin/ui/command_line/command'
-require 'ronin/platform/overlay'
+require 'ronin/overlay'
 require 'ronin/database'
 
 module Ronin
@@ -55,7 +55,7 @@ module Ronin
           def update_all_overlays!
             print_info "Updating Overlays ..."
 
-            Platform::Overlay.update! do |overlay|
+            Overlay.update! do |overlay|
               print_cache_errors(overlay)
               print_info "Updating Overlay #{overlay} ..."
             end
@@ -68,9 +68,9 @@ module Ronin
           #
           def update_overlay!
             begin
-              overlay = Platform::Overlay.get(name)
+              overlay = Overlay.find(name)
 
-            rescue Platform::OverlayNotFound => e
+            rescue OverlayNotFound => e
               print_error e.message
               exit -1
             end

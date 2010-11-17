@@ -19,7 +19,6 @@
 #
 
 require 'ronin/model/class_methods'
-require 'ronin/model/lazy_upgrade'
 require 'ronin/model/types'
 require 'ronin/support/inflector'
 
@@ -47,8 +46,7 @@ module Ronin
                           DataMapper::Migrations,
                           DataMapper::Serialize,
                           Model::Types
-      base.send :extend, Model::ClassMethods,
-                         Model::LazyUpgrade
+      base.send :extend, Model::ClassMethods
     end
 
     #

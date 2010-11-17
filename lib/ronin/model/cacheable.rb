@@ -18,35 +18,5 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/command'
-require 'ronin/overlay'
-require 'ronin/database'
-
-module Ronin
-  module UI
-    module CommandLine
-      module Commands
-        #
-        # The `ronin uninstall` command.
-        #
-        class Uninstall < Command
-
-          desc 'Uninstall the specified Overlay'
-          argument :name, :type => :string
-
-          #
-          # Uninstalls a previously installed or added Overlay.
-          #
-          def execute
-            Database.setup
-
-            overlay = Overlay.uninstall!(name)
-
-            print_info "Uninstalling Overlay #{overlay} ..."
-          end
-
-        end
-      end
-    end
-  end
-end
+require 'ronin/model/cacheable/class_methods'
+require 'ronin/model/cacheable/cacheable'

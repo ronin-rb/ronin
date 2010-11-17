@@ -21,8 +21,8 @@ describe Engine do
     subject.included_modules.should include(Model::HasVersion)
   end
 
-  it "should include Platform::Cacheable" do
-    subject.included_modules.should include(Platform::Cacheable)
+  it "should include Model::Cacheable" do
+    subject.included_modules.should include(Model::Cacheable)
   end
 
   it "should include Parameters" do
