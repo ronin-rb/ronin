@@ -9,15 +9,15 @@ describe Overlay do
 
   subject { Overlay }
 
-  describe "get" do
+  describe "find" do
     it "should be able to retrieve an Overlay by name" do
-      overlay = subject.get('hello')
+      overlay = subject.find('hello')
 
       overlay.name.should == 'hello'
     end
 
     it "should be able to retrieve an Overlay by name and domain" do
-      overlay = subject.get('hello/localhost')
+      overlay = subject.find('hello/localhost')
 
       overlay.name.should == 'hello'
       overlay.domain.should == 'localhost'
@@ -25,13 +25,13 @@ describe Overlay do
 
     it "should raise OverlayNotFound for unknown Overlay names" do
       lambda {
-        subject.get('bla')
+        subject.find('bla')
       }.should raise_error(OverlayNotFound)
     end
 
     it "should raise OverlayNotFound for unknown Overlay names or domains" do
       lambda {
-        subject.get('bla/bla')
+        subject.find('bla/bla')
       }.should raise_error(OverlayNotFound)
     end
   end
@@ -120,10 +120,6 @@ describe Overlay do
   describe "initialize_metadata" do
     subject { load_overlay('hello') }
 
-    it "should load the format version" do
-      subject.version.should_not be_nil
-    end
-
     it "should load the title" do
       subject.title.should == 'Hello World'
     end
@@ -140,10 +136,12 @@ describe Overlay do
     end
 
     it "should load the maintainers" do
-      subject.maintainers.find { |maintainer|
-        maintainer.name == 'Postmodern' && \
-          maintainer.email == 'postmodern.mod3@gmail.com'
-      }.should_not be_nil
+      author = subject.authors.find { |author|
+        author.name == 'Postmodern' &&
+        author.email == 'postmodern.mod3@gmail.com'
+      }
+      
+      author.should_not be_nil
     end
 
     it "should load the description" do

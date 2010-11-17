@@ -1,7 +1,7 @@
-require 'spec_helper'
-require 'ronin/model/has_license'
-
+require 'model/spec_helper'
 require 'model/models/licensed_model'
+
+require 'ronin/model/has_license'
 
 describe Model::HasLicense do
   subject { LicensedModel }

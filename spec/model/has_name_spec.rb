@@ -1,7 +1,7 @@
-require 'spec_helper'
-require 'ronin/model/has_name'
-
+require 'model/spec_helper'
 require 'model/models/named_model'
+
+require 'ronin/model/has_name'
 
 describe Model::HasName do
   subject { NamedModel }

@@ -1,7 +1,7 @@
-require 'spec_helper'
-require 'ronin/model/has_description'
-
+require 'model/spec_helper'
 require 'model/models/described_model'
+
+require 'ronin/model/has_description'
 
 describe Model::HasDescription do
   subject { DescribedModel }

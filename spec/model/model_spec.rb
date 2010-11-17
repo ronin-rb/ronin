@@ -1,8 +1,8 @@
-require 'spec_helper'
-require 'ronin/model/model'
-
+require 'model/spec_helper'
 require 'model/models/basic_model'
 require 'model/models/custom_model'
+
+require 'ronin/model/model'
 
 describe Model do
   subject { BasicModel }

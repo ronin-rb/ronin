@@ -63,12 +63,6 @@ describe CachedFile do
       obj.class.should == cacheable_model
     end
 
-    it "should lazy-upgrade the cached model before loading the fresh object" do
-      obj = subject.fresh_object
-
-      obj.class.should be_auto_upgraded
-    end
-
     it "should cache the loaded object along with the cached file" do
       obj = cacheable_model.first(:cached_file => subject)
       

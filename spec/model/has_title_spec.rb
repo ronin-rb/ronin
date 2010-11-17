@@ -1,7 +1,7 @@
-require 'spec_helper'
-require 'ronin/model/has_title'
-
+require 'model/spec_helper'
 require 'model/models/titled_model'
+
+require 'ronin/model/has_title'
 
 describe Model::HasTitle do
   subject { TitledModel }

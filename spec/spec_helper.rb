@@ -1,5 +1,4 @@
 require 'rspec'
-require 'model/models'
 require 'helpers/overlays'
 
 require 'ronin/spec/database'
@@ -8,8 +7,6 @@ include Ronin
 
 RSpec.configure do |spec|
   spec.before(:suite) do
-    DataMapper.auto_migrate!
-
     Overlay.create(
       :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello'),
       :name => 'hello',
