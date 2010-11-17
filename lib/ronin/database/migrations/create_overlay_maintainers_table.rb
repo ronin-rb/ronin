@@ -18,51 +18,32 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model'
+require 'ronin/database/migrations/migrations'
+require 'ronin/database/migrations/create_authors_table'
+require 'ronin/database/migrations/create_overlays_table'
 
 module Ronin
-  #
-  # Represents an author and any information about them or the organization
-  # which they belong to.
-  #
-  class Author
+  module Database
+    module Migrations
+      migration(
+        :create_overlay_maintainers_table,
+        :needs => [
+          :create_authors_table,
+          :create_overlays_table
+        ]
+      ) do
+        up do
+          create_table :ronin_overlay_maintainers do
+            column :id, Integer, :serial => true
+            column :author_id, Integer
+            column :overlay_id, Integer
+          end
+        end
 
-    include Model
-
-    # Primary key of the author
-    property :id, Serial
-
-    # Name of author
-    property :name, String, :index =>  true
-
-    # Author's associated group
-    property :organization, String
-
-    # Author's PGP signature
-    property :pgp_signature, Text
-
-    # Author's email
-    property :email, String
-
-    # Author's site
-    property :site, String
-
-    # Author's biography
-    property :biography, Text
-
-    #
-    # Converts the author to a String.
-    #
-    # @return [String]
-    #   The name of the author.
-    #
-    def to_s
-      if self.email
-        "#{self.name} <#{self.email}>"
-      else
-        self.name.to_s
+        down do
+          drop_table :ronin_overlay_maintainers
+        end
       end
     end
-
   end
 end

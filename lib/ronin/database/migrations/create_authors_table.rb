@@ -33,7 +33,6 @@ module Ronin
             column :email, String
             column :site, String
             column :biography, Text
-            column :overlay_id, Integer
           end
 
           create_index :ronin_authors, :name
