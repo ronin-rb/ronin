@@ -28,7 +28,7 @@ require 'ronin/config'
 
 require 'pullr'
 require 'data_paths'
-require 'nokogiri'
+require 'yaml'
 
 module Ronin
   class Overlay
@@ -40,8 +40,8 @@ module Ronin
     # The default domain that overlays are added from
     LOCAL_DOMAIN = 'localhost'
 
-    # Overlay metadata XML file name
-    METADATA_FILE = 'ronin.xml'
+    # Overlay metadata file name
+    METADATA_FILE = 'overlay.yml'
 
     # Overlay lib/ directory
     LIB_DIR = 'lib'
@@ -140,7 +140,7 @@ module Ronin
 
       @activated = false
 
-      initialize_metadata()
+      initialize_metadata
 
       yield self if block_given?
     end
@@ -601,7 +601,7 @@ module Ronin
     # Loads the overlay metadata from the METADATA_FILE within the
     # overlay.
     #
-    def initialize_metadata()
+    def initialize_metadata
       metadata_path = self.path.join(METADATA_FILE)
 
       self.title = self.name
@@ -612,55 +612,51 @@ module Ronin
       self.website = self.source
       self.authors.clear
 
-      @gems = []
-
       if File.file?(metadata_path)
-        doc = Nokogiri::XML(open(metadata_path))
-        overlay = doc.at('/ronin-overlay')
+        metadata = YAML.load_file(metadata_path)
 
-        if (title_tag = overlay.at('title'))
-          self.title = title_tag.inner_text.strip
+        if (title = metadata['title'])
+          self.title = title
         end
 
-        if (description_tag = overlay.at('description'))
-          self.description = description_tag.inner_text.strip
+        if (description = metadata['description'])
+          self.description = description
         end
 
-        if (license_tag = overlay.at('license'))
-          name = license_tag.inner_text.strip
-
-          self.license = License.predefined_resource_with(:name => name)
+        if (license = metadata['license'])
+          self.license = License.predefined_resource_with(:name => license)
         end
 
-        if (uri_tag = overlay.at('uri'))
-          self.uri ||= uri_tag.inner_text.strip
+        if (uri = metadata['uri'])
+          self.uri ||= uri
         end
 
-        if (source_tag = overlay.at('source'))
-          self.source = source_tag.inner_text.strip
+        if (source = metadata['source'])
+          self.source = source
         end
 
-        if (website_tag = overlay.at('website'))
-          self.website = website_tag.inner_text.strip
+        if (website = metadata['website'])
+          self.website = website
         end
 
-        overlay.search('maintainers/maintainer').each do |maintainer|
-          if (name = maintainer.at('name'))
-            name = name.inner_text.strip
+        case metadata['authors']
+        when Hash
+          metadata['authors'].each do |name,email|
+            self.authors << Author.first_or_new(
+              :name => name,
+              :email => email,
+              :overlay => self
+            )
           end
-
-          if (email = maintainer.at('email'))
-            email = email.inner_text.strip
+        when Array
+          metadata['authors'].each do |name|
+            self.authors << Author.first_or_new(
+              :name => name,
+              :overlay => self
+            )
           end
-
-          self.authors << Author.first_or_new(
-            :name => name,
-            :email => email
-          )
-        end
-
-        overlay.search('dependencies/gem').each do |gem|
-          @gems << gem.inner_text.strip
+        when String
+          self.authors << Author.first_or_new(:name => metadata['authors'])
         end
       end
 
