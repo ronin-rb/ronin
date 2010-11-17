@@ -25,8 +25,6 @@ module Ronin
   module Config
     include DataPaths
 
-    register_data_dir File.join(File.dirname(__FILE__),'..','..','data')
-
     # The users home directory
     HOME = File.expand_path(ENV['HOME'] || ENV['HOMEPATH'])
 
