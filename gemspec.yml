@@ -29,6 +29,7 @@ post_install_message: |
       * ronin-gen                   * ronin-web
 
 dependencies:
+  i18n: ~> 0.4.1
   tzinfo: ~> 0.3.22
   activesupport: ~> 3.0.0
   # DataMapper adapters
