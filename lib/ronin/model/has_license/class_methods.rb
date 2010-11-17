@@ -35,6 +35,8 @@ module Ronin
         #   LicensedModel.licensed_under(:cc_by_nc)
         #   # => [#<Ronin::LicensedModel: ...>, ...]
         #
+        # @since 1.0.0
+        #
         def licensed_under(name)
           all(self.license.name => name.to_s)
         end

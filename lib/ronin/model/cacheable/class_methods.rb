@@ -28,6 +28,8 @@ module Ronin
         # @param [Hash] attributes
         #   Attributes to search for.
         #
+        # @since 1.0.0
+        #
         def load_all(attributes={})
           resources = all(attributes)
           resources.each { |resource| resource.load_original! }
@@ -43,6 +45,8 @@ module Ronin
         #
         # @return [Cacheable]
         #   The loaded cached objects.
+        #
+        # @since 1.0.0
         #
         def load_first(attributes={})
           if (resource = first(attributes))
