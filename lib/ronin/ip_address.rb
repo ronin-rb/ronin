@@ -118,7 +118,7 @@ module Ronin
     #
     # @since 1.0.0
     #
-    def reverse_lookup
+    def resolv
       begin
         self.host_names.first_or_new(
           :address => Resolv.getname(self.address)

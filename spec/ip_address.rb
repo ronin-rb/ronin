@@ -3,8 +3,9 @@ require 'ronin/ip_address'
 
 describe IPAddress do
   let(:example_domain) { 'www.example.com' }
-  let(:bad_domain) { '.bad.domain.com.' }
   let(:example_ip) { '192.0.32.10' }
+  let(:bad_domain) { '.bad.domain.com.' }
+  let(:bad_ip) { '0.0.0.0' }
 
   it "should require an address" do
     ip = IPAddress.new
@@ -12,7 +13,7 @@ describe IPAddress do
     ip.should_not be_valid
   end
 
-  describe "resolv" do
+  describe "IPAddress.resolv" do
     it "should resolve host names to IP Addresses" do
       ip = IPAddress.resolv(example_domain)
 
@@ -24,7 +25,7 @@ describe IPAddress do
     end
   end
 
-  describe "resolv_all" do
+  describe "IPAddress.resolv_all" do
     it "should resolve host names to multiple IP Addresses" do
       ips = IPAddress.resolv_all(example_domain).map { |ip| ip.address }
 
@@ -36,10 +37,18 @@ describe IPAddress do
     end
   end
 
-  it "should reverse lookup any host names for the IP Address" do
-    ip = IPAddress.new(:address => example_ip)
+  describe "resolv" do
+    it "should reverse lookup any host names for the IP Address" do
+      ip = IPAddress.new(:address => example_ip)
 
-    ip.reverse_lookup.address.should == example_domain
+      ip.resolv.address.should == example_domain
+    end
+
+    it "should return nil for unresolved domain names" do
+      ip = IPAddress.new(:address => bad_ip)
+      
+      ip.resolv.should be_nil
+    end
   end
 
   describe "version" do
