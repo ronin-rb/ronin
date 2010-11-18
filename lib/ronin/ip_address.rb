@@ -54,10 +54,10 @@ module Ronin
     has 0..n, :mac_addresses, :through => :ip_address_mac_addresses,
                               :model => 'MACAddress'
 
-    # The host names that the IP Address serves
+    # The host-names that the IP Address serves
     has 0..n, :host_name_ip_addresses, :model => 'HostNameIPAddress'
 
-    # The host names associated with the IP Address
+    # The host-names associated with the IP Address
     has 0..n, :host_names, :through => :host_name_ip_addresses
 
     # Open ports of the host
@@ -75,13 +75,13 @@ module Ronin
                      :via => :os
 
     #
-    # Resolves the host name to an IP Address.
+    # Resolves the host-name to an IP Address.
     #
     # @param [String] host_name
-    #   The host name to resolve.
+    #   The host-name to resolve.
     #
     # @return [IPAddress]
-    #   The new or previously saved IP Address for the host name.
+    #   The new or previously saved IP Address for the host-name.
     #
     # @since 1.0.0
     #
@@ -93,13 +93,13 @@ module Ronin
     end
 
     #
-    # Resolves the host name to multiple IP Addresses.
+    # Resolves the host-name to multiple IP Addresses.
     #
     # @param [String] host_name
-    #   The host name to resolve.
+    #   The host-name to resolve.
     #
     # @return [Array<IPAddress>]
-    #   The new or previously saved IP Addresses for the host name.
+    #   The new or previously saved IP Addresses for the host-name.
     #
     # @since 1.0.0
     #
@@ -113,7 +113,7 @@ module Ronin
     # Performs a reverse lookup on the IP address.
     #
     # @return [HostName, nil]
-    #   The host name associated with the IP Address. If the IP address
+    #   The host-name associated with the IP Address. If the IP address
     #   could not be resolved, `nil` will be returned.
     #
     # @since 1.0.0
@@ -131,7 +131,7 @@ module Ronin
     # Performs a reverse lookup on the IP address.
     #
     # @return [Array<HostName>]
-    #   The host names associated with the IP Address.
+    #   The host-names associated with the IP Address.
     #
     # @since 1.0.0
     #
@@ -160,10 +160,10 @@ module Ronin
     end
 
     #
-    # The host name that was most recently used by the IP Address.
+    # The host-name that was most recently used by the IP Address.
     #
     # @return [HostName]
-    #   The host name that most recently used by the IP Address.
+    #   The host-name that most recently used by the IP Address.
     #
     # @since 1.0.0
     #

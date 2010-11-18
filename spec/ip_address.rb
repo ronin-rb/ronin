@@ -14,7 +14,7 @@ describe IPAddress do
   end
 
   describe "IPAddress.resolv" do
-    it "should resolve host names to IP Addresses" do
+    it "should resolve host-names to IP Addresses" do
       ip = IPAddress.resolv(example_domain)
 
       ip.address.should == example_ip
@@ -26,7 +26,7 @@ describe IPAddress do
   end
 
   describe "IPAddress.resolv_all" do
-    it "should resolve host names to multiple IP Addresses" do
+    it "should resolve host-names to multiple IP Addresses" do
       ips = IPAddress.resolv_all(example_domain).map { |ip| ip.address }
 
       ips.should include(example_ip)
