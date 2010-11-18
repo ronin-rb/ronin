@@ -86,7 +86,10 @@ module Ronin
     # @since 1.0.0
     #
     def IPAddress.resolv(host_name)
-      IPAddress.first_or_new(:address => Resolv.getaddress(host_name))
+      begin
+        IPAddress.first_or_new(:address => Resolv.getaddress(host_name))
+      rescue Resolv::ResolvError
+      end
     end
 
     #
@@ -107,15 +110,21 @@ module Ronin
     end
 
     #
-    # Performs a reverse lookup on the IP Address.
+    # Performs a reverse lookup on the IP address.
     #
-    # @return [HostName]
-    #   The host name associated with the IP Address.
+    # @return [HostName, nil]
+    #   The host name associated with the IP Address. If the IP address
+    #   could not be resolved, `nil` will be returned.
     #
     # @since 1.0.0
     #
     def reverse_lookup
-      self.host_names.first_or_new(:address => Resolv.getname(self.address))
+      begin
+        self.host_names.first_or_new(
+          :address => Resolv.getname(self.address)
+        )
+      rescue Resolv::ResolvError
+      end
     end
 
     #

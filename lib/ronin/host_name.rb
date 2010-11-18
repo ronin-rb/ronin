@@ -45,13 +45,19 @@ module Ronin
     #
     # Resolves the IP Address of the host name.
     #
-    # @return [IPAddress]
-    #   The IP Address for the host name.
+    # @return [IPAddress, nil]
+    #   The IP Address for the host name. If the host name could not be
+    #   resolved, `nil` will be returned.
     #
     # @since 1.0.0
     #
     def resolv
-      self.ip_addresses.first_or_new(:address => Resolv.getaddress(self.address))
+      begin
+        self.ip_addresses.first_or_new(
+          :address => Resolv.getaddress(self.address)
+        )
+      rescue Resolv::ResolvError
+      end
     end
 
     #
