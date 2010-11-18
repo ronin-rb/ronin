@@ -128,6 +128,20 @@ module Ronin
     end
 
     #
+    # Performs a reverse lookup on the IP address.
+    #
+    # @return [Array<HostName>]
+    #   The host names associated with the IP Address.
+    #
+    # @since 1.0.0
+    #
+    def resolv_all
+      Resolv.getnames(self.address).map do |host_name|
+        self.host_names.first_or_new(:address => host_name)
+      end
+    end
+
+    #
     # The MAC Address that was most recently used by the IP Address.
     #
     # @return [MacAddress]

@@ -38,7 +38,7 @@ describe IPAddress do
   end
 
   describe "resolv" do
-    it "should reverse lookup any host names for the IP Address" do
+    it "should reverse lookup the host-name for an IP Address" do
       ip = IPAddress.new(:address => example_ip)
 
       ip.resolv.address.should == example_domain
@@ -48,6 +48,22 @@ describe IPAddress do
       ip = IPAddress.new(:address => bad_ip)
       
       ip.resolv.should be_nil
+    end
+  end
+
+  describe "resolv_all" do
+    it "should reverse lookup the host-names for an IP Address" do
+      ip = IPAddress.new(:address => example_ip)
+
+      ip.resolv_all.any? { |host_name|
+        host_name.address == example_domain
+      }.should == true
+    end
+
+    it "should return an empty Array for unresolved domain names" do
+      ip = IPAddress.new(:address => bad_ip)
+
+      ip.resolv_all(bad_domain).should be_empty
     end
   end
 
