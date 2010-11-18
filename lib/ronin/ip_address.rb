@@ -164,7 +164,8 @@ module Ronin
     end
 
     #
-    # The Operating System that was most recently guessed for the IP Address.
+    # The Operating System that was most recently guessed for the IP
+    # Address.
     #
     # @return [OS]
     #   The Operating System that most recently was guessed.
