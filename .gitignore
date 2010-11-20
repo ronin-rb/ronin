@@ -1,6 +1,6 @@
 doc
 pkg
-tmp/*
+vendor/cache
 .bundle
 .DS_Store
 .yardoc
