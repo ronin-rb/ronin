@@ -42,10 +42,17 @@ module Ronin
             column :license_id, Integer
           end
 
+          create_table :ronin_author_overlays do
+            column :id, Serial
+            column :author_id, Integer, :not_null => true
+            column :overlay_id, Integer, :not_null => true
+          end
+
           create_index :ronin_overlays, :path, :unique => true
         end
 
         down do
+          drop_table :ronin_author_overlays
           drop_table :ronin_overlays
         end
       end

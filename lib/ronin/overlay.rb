@@ -21,8 +21,8 @@
 require 'ronin/exceptions/duplicate_overlay'
 require 'ronin/exceptions/overlay_not_found'
 require 'ronin/model/has_license'
+require 'ronin/model/has_authors'
 require 'ronin/model'
-require 'ronin/overlay_maintainer'
 require 'ronin/cached_file'
 require 'ronin/config'
 
@@ -35,6 +35,7 @@ module Ronin
 
     include Model
     include Model::HasLicense
+    include Model::HasAuthors
     include DataPaths
 
     # The default domain that overlays are added from
@@ -90,14 +91,6 @@ module Ronin
 
     # Description
     property :description, Text
-
-    # Maintainers of the overlay
-    has 0..n, :overlay_maintainers
-
-    # The authors that maintain the overlay
-    has 0..n, :maintainers, :through => :overlay_maintainers,
-                            :via => :author,
-                            :model => 'Author'
 
     # The cached files from the overlay
     has 0..n, :cached_files
@@ -615,7 +608,7 @@ module Ronin
 
       self.source = self.uri
       self.website = self.source
-      self.maintainers.clear
+      self.authors.clear
 
       if File.file?(metadata_path)
         metadata = YAML.load_file(metadata_path)
@@ -647,17 +640,17 @@ module Ronin
         case metadata['authors']
         when Hash
           metadata['authors'].each do |name,email|
-            self.maintainers << Author.first_or_new(
+            self.authors << Author.first_or_new(
               :name => name,
               :email => email
             )
           end
         when Array
           metadata['authors'].each do |name|
-            self.maintainers << Author.first_or_new(:name => name)
+            self.authors << Author.first_or_new(:name => name)
           end
         when String
-          self.maintainers << Author.first_or_new(
+          self.authors << Author.first_or_new(
             :name => metadata['authors']
           )
         end

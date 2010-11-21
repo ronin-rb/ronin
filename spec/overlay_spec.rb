@@ -136,7 +136,7 @@ describe Overlay do
     end
 
     it "should load the maintainers" do
-      author = subject.maintainers.find { |author|
+      author = subject.authors.find { |author|
         author.name == 'Postmodern' &&
         author.email == 'postmodern.mod3@gmail.com'
       }
