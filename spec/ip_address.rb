@@ -17,6 +17,7 @@ describe IPAddress do
     it "should resolve host-names to IP Addresses" do
       ip = IPAddress.resolv(example_domain)
 
+      ip.should_not be_nil
       ip.address.should == example_ip
     end
 
@@ -27,9 +28,13 @@ describe IPAddress do
 
   describe "IPAddress.resolv_all" do
     it "should resolve host-names to multiple IP Addresses" do
-      ips = IPAddress.resolv_all(example_domain).map { |ip| ip.address }
+      ips = IPAddress.resolv_all(example_domain)
 
-      ips.should include(example_ip)
+      ips.should_not be_empty
+
+      ips.find { |ip|
+        ip.address == example_ip
+      }.should_not be_nil
     end
 
     it "should return an empty Array for unresolved domain names" do
@@ -40,8 +45,10 @@ describe IPAddress do
   describe "resolv" do
     it "should reverse lookup the host-name for an IP Address" do
       ip = IPAddress.new(:address => example_ip)
-
-      ip.resolv.address.should == example_domain
+      host_name = ip.resolv
+      
+      host_name.should_not be_nil
+      host_name.address.should == example_domain
     end
 
     it "should return nil for unresolved domain names" do
@@ -54,10 +61,13 @@ describe IPAddress do
   describe "resolv_all" do
     it "should reverse lookup the host-names for an IP Address" do
       ip = IPAddress.new(:address => example_ip)
+      host_names = ip.resolv_all
 
-      ip.resolv_all.any? { |host_name|
+      host_names.should_not be_empty?
+
+      host_names.find { |host_name|
         host_name.address == example_domain
-      }.should == true
+      }.should_not be_nil
     end
 
     it "should return an empty Array for unresolved domain names" do

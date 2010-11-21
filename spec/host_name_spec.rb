@@ -16,7 +16,10 @@ describe HostName do
 
   describe "resolv" do
     it "should resolv the IP Address for the host name" do
-      subject.resolv.address.should == example_ip
+      ip = subject.resolv
+      
+      ip.should_not be_nil
+      ip.address.should == example_ip
     end
 
     it "should return nil for unresolved host names" do
@@ -26,9 +29,10 @@ describe HostName do
 
   describe "resolv_all" do
     it "should resolv all IP Addresses for the host name" do
-      ips = subject.resolv_all.map { |ip| ip.address }
+      ips = subject.resolv_all
     
-      ips.should include(example_ip)
+      ips.should_not be_empty
+      ips.find { |ip| ip.address == example_ip }.should_not be_nil
     end
 
     it "should return an empty Array for unresolved host names" do
