@@ -203,6 +203,9 @@ module Ronin
 
           # require any of the auto-load paths
           Ronin::UI::Console.auto_load.each { |path| require path }
+
+          # append the current directory to $LOAD_PATH for Ruby 1.9.
+          $LOAD_PATH << '.' unless $LOAD_PATH.include?('.')
         end
 
         # run any setup-blocks
