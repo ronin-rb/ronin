@@ -1,9 +1,10 @@
 # Ronin
 
-* [ronin-ruby.github.com](http://ronin-ruby.github.com)
-* [github.com/ronin-ruby/ronin](http://github.com/ronin-ruby/ronin)
-* [github.com/ronin-ruby/ronin/issues](http://github.com/ronin-ruby/ronin/issues)
-* [groups.google.com/group/ronin-ruby](http://groups.google.com/group/ronin-ruby)
+* [Website](http://ronin-ruby.github.com)
+* [Source](http://github.com/ronin-ruby/ronin)
+* [Issues](http://github.com/ronin-ruby/ronin/issues)
+* [Documentation](http://rubydoc.info/github/ronin-ruby/ronin/frames)
+* [Mailing List](http://groups.google.com/group/ronin-ruby)
 * irc.freenode.net #ronin
 
 ## Description
