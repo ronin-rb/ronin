@@ -51,9 +51,6 @@ module Ronin
       :path => File.join(Config::PATH,'database.sqlite3')
     )
 
-    # Directory which contains the database migrations
-    MIGRATIONS_DIR = File.join('lib','ronin','database','migrations')
-
     #
     # Returns the Database repositories to use.
     #
