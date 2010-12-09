@@ -16,11 +16,12 @@ gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN}/ronin-support.git"
 group :development do
   gem 'rake',         '~> 0.8.7'
 
-  case RUBY_PLATFORM
-  when 'java'
-    gem 'maruku',     '~> 0.6.0'
-  else
-    gem 'rdiscount',  '~> 1.6.3'
+  platforms :jruby do
+    gem 'maruku',	  '~> 0.6.0'
+  end
+
+  platforms :ruby do
+    gem 'rdiscount','~> 1.6.3'
   end
 
   gem 'ruby-graphviz',		      '~> 0.9.10'
