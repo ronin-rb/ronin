@@ -186,7 +186,7 @@ module Ronin
     #
     def Database.upgrade!
       if Database.setup?
-        DataMapper::Migrations::Runner.migrate_up!
+        Migrations.migrate_up!
       else
         false
       end

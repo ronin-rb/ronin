@@ -1,7 +1,6 @@
 GIT
-  remote: http://github.com/postmodern/dm-migrations.git
-  revision: 0fbaeefb1d260ac312d23b13d62c09de89d1f1af
-  branch: runner
+  remote: http://github.com/datamapper/dm-migrations.git
+  revision: 6ba919f1659e7773cf16c79ce328f3cbfc5455ce
   specs:
     dm-migrations (1.0.2)
       dm-core (~> 1.0.2)
