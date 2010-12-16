@@ -18,6 +18,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/ui/output/output'
+
 require 'dm-migrations/migration'
 
 module Ronin
@@ -37,7 +39,7 @@ module Ronin
         # @param [Hash] options
         #   Additional options for the migration.
         #
-        # @option options [Boolean] :verbose (true)
+        # @option options [Boolean] :verbose (false)
         #   Enables or disables verbose output.
         #
         # @option options [Symbol] :repository (:default)
@@ -49,7 +51,12 @@ module Ronin
         # @api semipublic
         #
         def initialize(name,options={},&block)
-          @needs = Set[*options.fetch(:needs,[])]
+          options = options.merge(
+            :verbose => UI::Output.verbose?,
+            :needs => []
+          )
+
+          @needs = Set[*options[:needs]]
 
           super(0,name,options,&block)
         end
