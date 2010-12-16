@@ -32,19 +32,19 @@ module Ronin
         # Creates a new migration.
         #
         # @param [Symbol] name
-        # The name of the migration.
+        #   The name of the migration.
         #
         # @param [Hash] options
-        # Additional options for the migration.
+        #   Additional options for the migration.
         #
         # @option options [Boolean] :verbose (true)
-        # Enables or disables verbose output.
+        #   Enables or disables verbose output.
         #
         # @option options [Symbol] :repository (:default)
-        # The DataMapper repository the migration will operate on.
+        #   The DataMapper repository the migration will operate on.
         #
         # @option options [Array, Symbol] :needs ([])
-        # Other migrations that are dependencies of the migration.
+        #   Other migrations that are dependencies of the migration.
         #
         # @api semipublic
         #

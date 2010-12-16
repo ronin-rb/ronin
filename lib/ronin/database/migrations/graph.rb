@@ -172,9 +172,9 @@ module Ronin
         #   The migration position or name to stop after.
         #
         # @yield [migration]
-        #   The given block will be passed each migration. Once the migration
-        #   of the given position or name is yielded, no further migrations
-        #   will be yielded.
+        #   The given block will be passed each migration. Once the
+        #   migration of the given position or name is yielded, no further
+        #   migrations will be yielded.
         #
         # @yieldparam [Migration] migration
         #   A migration from the graph.
@@ -210,9 +210,9 @@ module Ronin
         #   The migration position or name to stop before.
         #
         # @yield [migration]
-        #   The given block will be passed each migration. Once the migration
-        #   of the given position or name is reached, no further migrations
-        #   will be yielded.
+        #   The given block will be passed each migration. Once the
+        #   migration of the given position or name is reached, no further
+        #   migrations will be yielded.
         #
         # @yieldparam [Migration] migration
         #   A migration from the graph.
