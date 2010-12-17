@@ -6,9 +6,6 @@ RONIN = 'http://github.com/ronin-ruby'
 
 gemspec
 
-# DataMapper dependencies
-gem 'dm-migrations',	DM_VERSION, :git => 'http://github.com/datamapper/dm-migrations.git'
-
 # Library dependencies
 gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN}/ronin-support.git"
 
