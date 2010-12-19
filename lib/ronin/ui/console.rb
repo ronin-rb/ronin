@@ -18,111 +18,118 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/ui/output/helpers'
 require 'ronin/config'
+require 'ronin/ronin'
 
-require 'irb'
+require 'ripl'
+require 'ripl/multi_line'
+require 'ripl/completion'
 
 module Ronin
   module UI
-    module Console
-      # Default prompt style.
-      PROMPT = :SIMPLE
+    class Console
 
-      # Default indentation mode.
-      INDENT = true
+      include Ronin
+      include Ronin::UI::Output::Helpers
 
-      # Default backtrace depth.
-      BACKTRACE_DEPTH = 5
+      # The history file for the Console session
+      HISTORY_FILE = File.join(Config::PATH,'console.log')
 
-      # Default completion mode.
-      COMPLETION = true
-
-      #
-      # @return [String]
-      #   The default Console prompt style.
-      #
-      def Console.prompt
-        @@ronin_console_prompt ||= PROMPT
-      end
+      @@color = true
+      @@indent = true
+      @@short_errors = true
+      @@auto_load = []
+      @@setup_blocks = []
 
       #
-      # Sets the default Console prompt style.
-      #
-      # @param [String] style
-      #   The new Console prompt style to use.
-      #
-      def Console.prompt=(style)
-        @@ronin_console_prompt = style
-      end
-
+      # Determines whether colorized output will be enabled.
       #
       # @return [Boolean]
-      #   The default Console indent setting.
+      #   Specifies whether colorized output will be enabled.
       #
-      def Console.indent
-        @@ronin_console_indent ||= INDENT
+      # @since 1.0.0
+      #
+      def Console.color?
+        @@color
+      end
+
+      #
+      # Enables or disables colorized output.
+      #
+      # @param [Boolean] mode
+      #   The new colorized output mode.
+      #
+      # @return [Boolean]
+      #   The colorized output mode.
+      #
+      # @since 1.0.0
+      #
+      def Console.color=(mode)
+        @@color = mode
+      end
+
+      #
+      # Determines whether auto-indentation will be used.
+      #
+      # @return [Boolean]
+      #   The Console indent setting.
+      #
+      # @since 1.0.0
+      #
+      def Console.indent?
+        @@indent
       end
 
       #
       # Sets the default Console indent setting.
       #
       # @param [Boolean] mode
-      #   The new default Console indent setting.
-      #
-      # @example
-      #   Console.indent = false
-      #   # => false
-      #
-      def Console.indent=(mode)
-        @@ronin_console_indent = mode
-      end
-
-      #
-      # @return [Integer]
-      #   The default Console back-trace depth.
-      #
-      def Console.backtrace_depth
-        @@ronin_console_backtrace_depth ||= BACKTRACE_DEPTH
-      end
-
-      #
-      # Sets the default Console back-trace depth.
-      #
-      # @param [Integer] depth
-      #   The new default Console back-trace depth.
-      #
-      def Console.backtrace_depth=(depth)
-        @@ronin_console_backtrace_depth = depth
-      end
-
-      #
-      # @return [Boolean]
-      #   The default Console tab-completion setting.
-      #
-      def Console.completion
-        @@ronin_console_completion ||= COMPLETION
-      end
-
-      #
-      # Sets the default Console tab-completion setting.
+      #   The new Console indent setting.
       #
       # @param [Boolean] mode
-      #   The new default Console tab-completion setting.
+      #   The Console indent setting.
       #
-      # @example
-      #   Console.completion = false
-      #   # => false
-      #
-      def Console.completion=(mode)
-        @@ronin_console_completion = mode
+      def Console.indent=(mode)
+        @@indent = mode
       end
 
+      #
+      # Determines whenter one-line errors will be printed, instead of full
+      # backtraces.
+      #
+      # @return [Boolean]
+      #   The Console short-errors setting.
+      #
+      # @since 1.0.0
+      #
+      def Console.short_errors?
+        @@short_errors
+      end
+
+      #
+      # Enables or disables the printing of one-lin errors.
+      #
+      # @param [Boolean] mode
+      #   The new Console short-errors setting.
+      #
+      # @return [Boolean]
+      #   The Console short-errors setting.
+      #
+      # @since 1.0.0
+      #
+      def Console.short_errors=(mode)
+        @@short_errors = mode
+      end
+
+      #
+      # The list of files to load before starting the Console.
       #
       # @return [Array]
       #   The files to require when the Console starts.
       #
       def Console.auto_load
-        @@ronin_console_auto_load ||= []
+        @@auto_load
       end
 
       #
@@ -133,7 +140,33 @@ module Ronin
       #   The block to be ran from within the Console.
       #
       def Console.setup(&block)
-        Console.setup_blocks << block if block
+        @@setup_blocks << block if block
+      end
+
+      #
+      # Creates a new Console instance.
+      #
+      # @param [Hash{Symbol => Object}] variables
+      #   Instance variable names and values to set within the console.
+      #
+      # @yield []
+      #   The block to be ran within the Console, after it has been setup.
+      #
+      # @since 1.0.0
+      #
+      def initialize(variables={},&block)
+        # populate instance variables
+        variables.each do |name,value|
+          instance_variable_set("@#{name}".to_sym,value)
+        end
+
+        # run any setup-blocks
+        @@setup_blocks.each do |setup_block|
+          context.instance_eval(&setup_block)
+        end
+
+        # run the supplied configuration block is given
+        instance_eval(&block) if block
       end
 
       #
@@ -145,7 +178,8 @@ module Ronin
       # @yield []
       #   The block to be ran within the Console, after it has been setup.
       #
-      # @return [nil]
+      # @return [Console]
+      #   The instance context the Console ran within.
       #
       # @example
       #   Console.start
@@ -162,83 +196,50 @@ module Ronin
       #   # # => "hello"
       #
       def Console.start(variables={},&block)
-        # clear ARGV, so IRB does not try to interpret the command-line args
-        ARGV.clear
+        require 'ripl/color_result' if @@color
+        require 'ripl/auto_indent' if @@indent
+        require 'ripl/short_errors' if @@short_errors
+        require 'pp'
 
-        IRB.setup(nil)
+        require 'ronin'
+        require 'ronin/overlay'
 
-        # configure IRB
-        IRB.conf[:IRB_NAME] = 'ronin'
-        IRB.conf[:PROMPT_MODE] = Console.prompt
-        IRB.conf[:AUTO_INDENT] = Console.indent
-        IRB.conf[:BACK_TRACE_LIMIT] = Console.backtrace_depth
+        # activates all installed or added overlays
+        Ronin::Overlay.activate!
 
-        irb = IRB::Irb.new(nil)
-        main = irb.context.main
+        # require any of the auto-load paths
+        @@auto_load.each { |path| require path }
 
-        # configure the IRB context
-        main.instance_eval do
-          require 'ronin'
-          require 'ronin/overlay'
+        # append the current directory to $LOAD_PATH for Ruby 1.9.
+        $LOAD_PATH << '.' unless $LOAD_PATH.include?('.')
 
-          require 'pp'
+        context = self.new(variables,&block)
+        context_binding = context.instance_eval { binding }
 
-          # include the output helpers
-          include Ronin::UI::Output::Helpers
+        Ripl.start(
+          :argv => [],
+          :name => 'ronin',
+          :binding => context_binding,
+          :history => HISTORY_FILE
+        )
 
-          if Ronin::UI::Console.completion
-            begin
-              # setup irb completion
-              require 'irb/completion'
-            rescue LoadError
-              print_error "Unable to load 'irb/completion'."
-              print_error "Ruby was not compiled with readline support."
-            end
-          end
-
-          include Ronin
-
-          # activates all installed or added overlays
-          Ronin::Overlay.activate!
-
-          # require any of the auto-load paths
-          Ronin::UI::Console.auto_load.each { |path| require path }
-
-          # append the current directory to $LOAD_PATH for Ruby 1.9.
-          $LOAD_PATH << '.' unless $LOAD_PATH.include?('.')
-        end
-
-        # run any setup-blocks
-        Console.setup_blocks.each do |setup_block|
-          main.instance_eval(&setup_block)
-        end
-
-        # populate instance variables
-        variables.each do |name,value|
-          main.instance_variable_set("@#{name}".to_sym,value)
-        end
-
-        # run the supplied configuration block is given
-        main.instance_eval(&block) if block
-
-        IRB.conf[:MAIN_CONTEXT] = irb.context
-
-        trap('SIGINT') { irb.signal_handle }
-        catch(:IRB_EXIT) { irb.eval_input }
-
-        putc "\n"
-        return nil
+        return context
       end
 
-      protected
+      alias include extend
 
       #
-      # @return [Array]
-      #   The blocks to be ran from within the Console after it is started.
+      # Inspects the console.
       #
-      def Console.setup_blocks
-        @@console_setup_blocks ||= []
+      # @return [String]
+      #   The inspected console.
+      #
+      # @since 1.0.0
+      #
+      def inspect
+        'Console'
       end
+
     end
   end
 end
