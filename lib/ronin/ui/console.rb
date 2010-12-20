@@ -23,8 +23,9 @@ require 'ronin/config'
 require 'ronin/ronin'
 
 require 'ripl'
-require 'ripl/multi_line'
 require 'ripl/completion'
+require 'ripl/multi_line'
+require 'ripl/auto_indent'
 
 module Ronin
   module UI
@@ -37,7 +38,6 @@ module Ronin
       HISTORY_FILE = File.join(Config::PATH,'console.log')
 
       @@color = true
-      @@indent = true
       @@short_errors = true
       @@auto_load = []
       @@setup_blocks = []
@@ -67,31 +67,6 @@ module Ronin
       #
       def Console.color=(mode)
         @@color = mode
-      end
-
-      #
-      # Determines whether auto-indentation will be used.
-      #
-      # @return [Boolean]
-      #   The Console indent setting.
-      #
-      # @since 1.0.0
-      #
-      def Console.indent?
-        @@indent
-      end
-
-      #
-      # Sets the default Console indent setting.
-      #
-      # @param [Boolean] mode
-      #   The new Console indent setting.
-      #
-      # @param [Boolean] mode
-      #   The Console indent setting.
-      #
-      def Console.indent=(mode)
-        @@indent = mode
       end
 
       #
@@ -171,7 +146,6 @@ module Ronin
       #
       def Console.start(variables={},&block)
         require 'ripl/color_result' if @@color
-        require 'ripl/auto_indent' if @@indent
         require 'ripl/short_errors' if @@short_errors
         require 'pp'
 
