@@ -144,32 +144,6 @@ module Ronin
       end
 
       #
-      # Creates a new Console instance.
-      #
-      # @param [Hash{Symbol => Object}] variables
-      #   Instance variable names and values to set within the console.
-      #
-      # @yield []
-      #   The block to be ran within the Console, after it has been setup.
-      #
-      # @since 1.0.0
-      #
-      def initialize(variables={},&block)
-        # populate instance variables
-        variables.each do |name,value|
-          instance_variable_set("@#{name}".to_sym,value)
-        end
-
-        # run any setup-blocks
-        @@setup_blocks.each do |setup_block|
-          context.instance_eval(&setup_block)
-        end
-
-        # run the supplied configuration block is given
-        instance_eval(&block) if block
-      end
-
-      #
       # Starts a Console.
       #
       # @param [Hash{Symbol => Object}] variables
@@ -213,31 +187,44 @@ module Ronin
         # append the current directory to $LOAD_PATH for Ruby 1.9.
         $LOAD_PATH << '.' unless $LOAD_PATH.include?('.')
 
-        context = self.new(variables,&block)
-        context_binding = context.instance_eval { binding }
+        context = class << self.new; self; end
 
+        # populate instance variables
+        variables.each do |name,value|
+          context.instance_variable_set("@#{name}".to_sym,value)
+        end
+
+        # run any setup-blocks
+        @@setup_blocks.each do |setup_block|
+          context.instance_eval(&setup_block)
+        end
+
+        # run the supplied configuration block is given
+        context.instance_eval(&block) if block
+
+        # Start the Ripl console
         Ripl.start(
           :argv => [],
           :name => 'ronin',
-          :binding => context_binding,
+          :binding => context.instance_eval { binding },
           :history => HISTORY_FILE
         )
 
         return context
       end
 
-      alias include extend
-
-      #
-      # Inspects the console.
-      #
-      # @return [String]
-      #   The inspected console.
-      #
-      # @since 1.0.0
-      #
-      def inspect
-        'Console'
+      class << self
+        #
+        # Inspects the console.
+        #
+        # @return [String]
+        #   The inspected console.
+        #
+        # @since 1.0.0
+        #
+        def inspect
+          "#<Ronin::UI::Console>"
+        end
       end
 
     end
