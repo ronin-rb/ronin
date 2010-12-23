@@ -44,6 +44,9 @@ module Ronin
     # Overlay metadata file name
     METADATA_FILE = 'overlay.yml'
 
+    # Overlay bin/ directory
+    LIB_DIR = 'bin'
+
     # Overlay lib/ directory
     LIB_DIR = 'lib'
 
@@ -99,6 +102,9 @@ module Ronin
     attr_reader :gems
 
     # The lib directory
+    attr_reader :bin_dir
+
+    # The lib directory
     attr_reader :lib_dir
 
     # The data directory
@@ -132,6 +138,7 @@ module Ronin
     def initialize(attributes={})
       super(attributes)
 
+      @bin_dir = self.path.join(BIN_DIR)
       @lib_dir = self.path.join(LIB_DIR)
       @data_dir = self.path.join(DATA_DIR)
       @cache_dir = self.path.join(CACHE_DIR)
