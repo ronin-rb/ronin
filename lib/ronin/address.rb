@@ -49,9 +49,6 @@ module Ronin
     # The campaigns targeting the address
     has 0..n, :campaigns, :through => :targets
 
-    # Any comments made on the address
-    has 0..n, :comments
-
     # Tracks when the IP Address was first created
     timestamps :created_at
 

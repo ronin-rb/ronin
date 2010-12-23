@@ -23,7 +23,6 @@ require 'ronin/url_query_param'
 require 'ronin/host_name'
 require 'ronin/tcp_port'
 require 'ronin/web_credential'
-require 'ronin/comment'
 require 'ronin/model'
 
 require 'dm-timestamps'
@@ -67,9 +66,6 @@ module Ronin
 
     # Any credentials used with the URL
     has 0..n, :web_credentials
-
-    # Comments on the URL
-    has 0..n, :comments
 
     # When the URL was last scanned
     property :last_scanned_at, Time

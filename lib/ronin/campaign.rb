@@ -49,9 +49,6 @@ module Ronin
     # The organization the campaign covers
     has 0..n, :organizations, :through => :targets
 
-    # The host comments made during the campaign
-    has 0..n, :comments, :through => :addresses
-
     #
     # The directory name used by the campaign.
     #

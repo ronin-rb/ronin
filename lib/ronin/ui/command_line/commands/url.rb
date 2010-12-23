@@ -107,10 +107,6 @@ module Ronin
 
                   print_hash params, :title => 'Query Params'
                 end
-
-                unless url.comments.empty?
-                  print_array url.comments, :title => 'Comments'
-                end
               end
             else
               super(url)

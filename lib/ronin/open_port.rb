@@ -19,7 +19,6 @@
 #
 
 require 'ronin/service_credential'
-require 'ronin/comment'
 require 'ronin/port'
 require 'ronin/service'
 require 'ronin/ip_address'
@@ -48,9 +47,6 @@ module Ronin
 
     # any credentials used by the service running on the port
     has 0..n, :service_credentials
-
-    # The comments associated with the open port
-    has 0..n, :comments
 
     # When the open-port was last scanned
     property :last_scanned_at, Time

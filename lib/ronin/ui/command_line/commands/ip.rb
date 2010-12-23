@@ -105,10 +105,6 @@ module Ronin
                     end
                   end
                 end
-
-                unless ip.comments.empty?
-                  print_array ip.comments, :title => 'Comments'
-                end
               end
             else
               super(ip)
