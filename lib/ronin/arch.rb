@@ -71,6 +71,8 @@ module Ronin
     #   address_length
     #   # => 4
     #
+    # @since 1.0.0
+    #
     def to_ary
       [self.endian, self.address_length]
     end
