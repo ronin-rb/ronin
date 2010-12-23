@@ -599,6 +599,8 @@ module Ronin
       "#{self.name}/#{self.domain}"
     end
 
+    protected
+
     #
     # Loads the overlay metadata from the METADATA_FILE within the
     # overlay.
