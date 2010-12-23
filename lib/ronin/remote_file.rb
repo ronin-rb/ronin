@@ -73,5 +73,30 @@ module Ronin
       !(self.local_path.nil?)
     end
 
+    #
+    # Opens the downloaded remote file for reading.
+    #
+    # @yield [file]
+    #   The opened file will be passed to the given block.
+    #
+    # @yieldparam [File] file
+    #   The opened file.
+    #
+    # @return [File, nil]
+    #   If no block is given, the opened file will be returned.
+    #
+    # @raise [RuntimeError]
+    #   The remote file has not yet been downloaded.
+    #
+    # @since 1.0.0
+    #
+    def open(&block)
+      unless downloaded?
+        raise("remote file has not been downloaded yet")
+      end
+
+      return File.open(self.local_path,'rb',&block)
+    end
+
   end
 end
