@@ -319,7 +319,7 @@ module Ronin
     # @since 1.0.0
     #
     def Overlay.update!
-      Overlay.all.each do |overlay|
+      Overlay.each do |overlay|
         # update the overlay's contents
         overlay.update!
 
@@ -356,7 +356,7 @@ module Ronin
     # @since 1.0.0
     #
     def Overlay.activate!
-      Overlay.all.each { |overlay| overlay.activate! }
+      Overlay.each { |overlay| overlay.activate! }
     end
 
     #
