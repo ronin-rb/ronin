@@ -69,7 +69,7 @@ module Ronin
     end
 
     #
-    # Converts the os to a String.
+    # Converts the Operating System to a String.
     #
     # @return [String]
     #   The OS name and version.
