@@ -374,7 +374,7 @@ module Ronin
     # @since 1.0.0
     #
     def Overlay.deactivate!
-      Overlay.all.reverse_each { |overlay| overlay.deactivate! }
+      Overlay.reverse_each { |overlay| overlay.deactivate! }
     end
 
     #
