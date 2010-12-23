@@ -61,5 +61,17 @@ module Ronin
       all(:local_path.not => nil)
     end
 
+    #
+    # Determines whether the remote file has been downloaded yet.
+    #
+    # @return [Boolean]
+    #   Specifies whether the remote file was downloaded.
+    #
+    # @since 1.0.0
+    #
+    def downloaded?
+      !(self.local_path.nil?)
+    end
+
   end
 end
