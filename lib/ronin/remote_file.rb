@@ -24,6 +24,7 @@ require 'ronin/extensions/file'
 
 require 'dm-timestamps'
 require 'dm-tags'
+require 'fileutils'
 
 module Ronin
   class RemoteFile
@@ -105,7 +106,11 @@ module Ronin
     #   If no block is given, the opened file will be returned.
     #
     def download!(&block)
-      File.open(local_path,'wb',&block)
+      path = local_path
+      directory = File.dirname(path)
+
+      FileUtils.mkdir_p(directory) unless File.directory?(directory)
+      return File.open(local_path,'wb',&block)
     end
 
   end
