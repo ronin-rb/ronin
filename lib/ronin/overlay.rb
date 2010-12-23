@@ -45,7 +45,7 @@ module Ronin
     METADATA_FILE = 'overlay.yml'
 
     # Overlay bin/ directory
-    LIB_DIR = 'bin'
+    BIN_DIR = 'bin'
 
     # Overlay lib/ directory
     LIB_DIR = 'lib'
