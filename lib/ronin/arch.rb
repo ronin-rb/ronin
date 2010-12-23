@@ -58,6 +58,24 @@ module Ronin
     end
 
     #
+    # Splats the architecture into multiple variables.
+    #
+    # @return [Array]
+    #   The {#endian} and {#address_length} of the architecture.
+    #
+    # @example
+    #   endian, address_length = Arch.i386
+    #   
+    #   endian
+    #   # => 'little'
+    #   address_length
+    #   # => 4
+    #
+    def to_ary
+      [self.endian, self.address_length]
+    end
+
+    #
     # Defines a new builtin Arch.
     #
     # @param [Symbol, String] name
