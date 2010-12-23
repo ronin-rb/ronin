@@ -49,5 +49,17 @@ module Ronin
     # Tags
     has_tags_on :tags
 
+    #
+    # Searches for all remote files that have been downloaded.
+    #
+    # @return [Array<RemoteFile>]
+    #   The downloaded remote files.
+    #
+    # @since 1.0.0
+    #
+    def self.downloaded
+      all(:local_path.not => nil)
+    end
+
   end
 end
