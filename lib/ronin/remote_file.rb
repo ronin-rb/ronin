@@ -72,7 +72,7 @@ module Ronin
     # @since 1.0.0
     #
     def downloaded?
-      !(File.exists?(local_path))
+      !(File.file?(local_path))
     end
 
     #
@@ -110,7 +110,7 @@ module Ronin
       directory = File.dirname(path)
 
       FileUtils.mkdir_p(directory) unless File.directory?(directory)
-      return File.open(local_path,'wb',&block)
+      return File.open(path,'wb',&block)
     end
 
   end
