@@ -123,6 +123,12 @@ module Ronin
                   puts "Website: #{overlay.website}"
                 end
 
+                executables = overlay.executables
+
+                unless executables.empty?
+                  puts "Executables: #{executables.join(', ')}"
+                end
+
                 putc "\n"
 
                 unless overlay.cached_files.empty?
