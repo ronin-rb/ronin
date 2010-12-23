@@ -125,10 +125,6 @@ module Ronin
 
                 putc "\n"
 
-                unless overlay.extensions.empty?
-                  print_array(overlay.extensions, :title => 'Extensions')
-                end
-
                 unless overlay.cached_files.empty?
                   print_title 'Cached Files'
 
