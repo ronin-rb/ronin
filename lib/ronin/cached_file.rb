@@ -19,7 +19,7 @@
 #
 
 require 'ronin/support/inflector'
-require 'ronin/overlay'
+require 'ronin/repository'
 require 'ronin/model'
 
 require 'contextify'
@@ -46,8 +46,8 @@ module Ronin
     # The class name of the cached object
     property :model_name, String, :required => true
 
-    # The overlay the file was cached from
-    belongs_to :overlay
+    # The repository the file was cached from
+    belongs_to :repository
 
     # Any exceptions raise when loading a fresh object
     attr_reader :cache_exception

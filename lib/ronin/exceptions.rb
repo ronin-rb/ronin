@@ -18,5 +18,5 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/exceptions/duplicate_overlay'
-require 'ronin/exceptions/overlay_not_found'
+require 'ronin/exceptions/duplicate_repository'
+require 'ronin/exceptions/repository_not_found'
