@@ -38,7 +38,7 @@ module Ronin
                                    :unique => :target_remote_path
 
     # Local path of the file
-    property :local_path, String, :required => true
+    property :local_path, String
 
     # The target the file was recovered from
     belongs_to :target, :unique => :target_remote_path
