@@ -160,5 +160,20 @@ module Ronin
       "#{self.ip_address}:#{self.port}"
     end
 
+    #
+    # Splats the proxy into multiple variables.
+    #
+    # @return [Array]
+    #   The IP address and port number of the proxy.
+    #
+    # @example
+    #   ip, port = proxy
+    #
+    # @since 1.0.0
+    #
+    def to_ary
+      [self.ip_address.address, self.port.number]
+    end
+
   end
 end
