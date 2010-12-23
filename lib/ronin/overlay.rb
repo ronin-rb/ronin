@@ -98,9 +98,6 @@ module Ronin
     # The cached files from the overlay
     has 0..n, :cached_files
 
-    # Ruby Gems required by the overlay
-    attr_reader :gems
-
     # The lib directory
     attr_reader :bin_dir
 
