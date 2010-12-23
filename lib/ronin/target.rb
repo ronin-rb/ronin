@@ -43,5 +43,19 @@ module Ronin
     # The remote files recovered from the target
     has 0..n, :remote_files
 
+    #
+    # The directory to store files related to the target.
+    #
+    # @return [String]
+    #   The path to the directory.
+    #
+    # @since 1.0.0
+    #
+    def directory
+      if self.campaign
+        File.join(self.campaign.directory,self.address.address)
+      end
+    end
+
   end
 end

@@ -34,9 +34,6 @@ module Ronin
     include Model::HasName
     include Model::HasDescription
 
-    # The files directory name
-    FILES_DIR = 'files'
-
     # Primary key of the campaign
     property :id, Serial
 
@@ -50,38 +47,27 @@ module Ronin
     has 0..n, :organizations, :through => :targets
 
     #
-    # The directory name used by the campaign.
+    # The file-name to use for the campaign.
     #
-    # @return [String]
-    #   The lowercase, underscore-separated and escaped directory name
-    #   for the campaign.
-    #
-    # @raise [DataMapper::ValidationError]
-    #   The campaign was not assigned a name.
+    # @return [String, nil]
+    #   The File System safe name to use for the campaign.
     #
     # @since 1.0.0
     #
-    def dir_name
-      unless self.name
-        raise(DataMapper::ValidationError,'the campaign must have a name')
-      end
-
-      return File.escape_name(self.name.downcase.gsub(/[\s]+/,'_'))
+    def filename
+      self.name.downcase.gsub(/[^a-z0-9]+/,'_') if self.name
     end
 
     #
-    # The directory which stores collected files for the campaign.
+    # The directory to store files related to the campaign.
     #
-    # @return [String]
-    #   The files directory used by the campaign.
+    # @return [String, nil]
+    #   The path to the directory.
     #
     # @since 1.0.0
     #
-    def files_dir
-      path = File.join(Config::CAMPAIGNS_DIR,dir_name,FILES_DIR)
-
-      FileUtils.mkdir_p(path) unless File.directory?(path)
-      return path
+    def directory
+      File.join(Config::CAMPAIGNS_DIR,filename) if self.name
     end
 
   end
