@@ -403,6 +403,24 @@ module Ronin
     end
 
     #
+    # The executable scripts in the `bin/` directory.
+    #
+    # @return [Array<String>]
+    #   The executable script names.
+    #
+    # @since 1.0.0
+    #
+    def executables
+      scripts = []
+
+      @bin_dir.entries.each do |path|
+        scripts << path.basename.to_s if path.file?
+      end
+
+      return scripts
+    end
+
+    #
     # All paths within the `cache/` directory of the overlay.
     #
     # @return [Array<Pathname>]
