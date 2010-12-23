@@ -98,5 +98,21 @@ module Ronin
       return File.open(self.local_path,'rb',&block)
     end
 
+    #
+    # Opens a local file for saving the contents of the remote file.
+    #
+    # @yield [file]
+    #   The opened file will be passed to the given block.
+    #
+    # @yieldparam [File] file
+    #   The opened file.
+    #
+    # @return [File, nil]
+    #   If no block is given, the opened file will be returned.
+    #
+    def download!(&block)
+      File.open(self.local_path,'wb',&block)
+    end
+
   end
 end
