@@ -438,7 +438,7 @@ module Ronin
 
       # load the lib/init.rb file
       init_path = self.path.join(LIB_DIR,INIT_FILE)
-      load init_path if init_path.file?
+      require init_path if init_path.file?
 
       @activated = true
       return true
