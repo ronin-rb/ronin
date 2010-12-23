@@ -40,6 +40,21 @@ module Ronin
     # The email addresses that are associated with the host-name.
     has 0..n, :email_addresses
 
+    #
+    # Searches for all host names under the Top-Level Domain (TLD).
+    #
+    # @param [String] name
+    #   The Top-Level Domain (TLD).
+    #
+    # @return [Array<HostName>]
+    #   The matching host names.
+    #
+    # @since 1.0.0
+    #
+    def self.tld(name)
+      self.all(:address.like => "%.#{name}")
+    end
+
     alias name address
 
     #
