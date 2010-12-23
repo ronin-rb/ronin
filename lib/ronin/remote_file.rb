@@ -20,6 +20,7 @@
 
 require 'ronin/target'
 require 'ronin/model'
+require 'ronin/extensions/file'
 
 require 'dm-timestamps'
 require 'dm-tags'
@@ -37,9 +38,6 @@ module Ronin
                                    :index => true,
                                    :unique => :target_remote_path
 
-    # Local path of the file
-    property :local_path, String
-
     # The target the file was recovered from
     belongs_to :target, :unique => :target_remote_path
 
@@ -50,15 +48,18 @@ module Ronin
     has_tags_on :tags
 
     #
-    # Searches for all remote files that have been downloaded.
+    # The local path for the remote file.
     #
-    # @return [Array<RemoteFile>]
-    #   The downloaded remote files.
+    # @return [String, nil]
+    #   The local path within the `~/.ronin/campaigns` directory.
     #
     # @since 1.0.0
     #
-    def self.downloaded
-      all(:local_path.not => nil)
+    def local_path
+      if self.target
+        escaped_path = File.escape_path(self.remote_path)
+        return File.join(self.target.directory,escaped_path)
+      end
     end
 
     #
@@ -70,7 +71,7 @@ module Ronin
     # @since 1.0.0
     #
     def downloaded?
-      !(self.local_path.nil?)
+      !(File.exists?(local_path))
     end
 
     #
@@ -85,17 +86,10 @@ module Ronin
     # @return [File, nil]
     #   If no block is given, the opened file will be returned.
     #
-    # @raise [RuntimeError]
-    #   The remote file has not yet been downloaded.
-    #
     # @since 1.0.0
     #
     def open(&block)
-      unless downloaded?
-        raise("remote file has not been downloaded yet")
-      end
-
-      return File.open(self.local_path,'rb',&block)
+      File.open(local_path,'rb',&block)
     end
 
     #
@@ -111,7 +105,7 @@ module Ronin
     #   If no block is given, the opened file will be returned.
     #
     def download!(&block)
-      File.open(self.local_path,'wb',&block)
+      File.open(local_path,'wb',&block)
     end
 
   end

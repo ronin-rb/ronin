@@ -32,7 +32,6 @@ module Ronin
           create_table :ronin_remote_files do
             column :id, Integer, :serial => true
             column :remote_path, String, :not_null => true
-            column :local_path, String
             column :target_id, Integer, :not_null => true
             column :created_at, Time, :not_null => true
             column :frozen_tag_list, Text
