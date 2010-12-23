@@ -1,5 +1,4 @@
 lib/**/*.rb
-bin/*
 - 
 ChangeLog.md
 COPYING.txt
