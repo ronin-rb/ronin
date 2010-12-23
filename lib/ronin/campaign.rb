@@ -18,12 +18,11 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/target'
 require 'ronin/model'
 require 'ronin/model/has_name'
 require 'ronin/model/has_description'
-require 'ronin/extensions/file'
 require 'ronin/config'
+require 'ronin/target'
 
 require 'fileutils'
 
