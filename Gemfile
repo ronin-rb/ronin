@@ -22,10 +22,6 @@ group :development do
 
   gem 'ruby-graphviz',		      '~> 0.9.10'
   gem 'dm-visualizer',		      '~> 0.1.0'
-  gem 'yard-contextify',	      '~> 0.1.0'
-  gem 'yard-parameters',	      '~> 0.1.0'
-  gem 'yard-dm',                '~> 0.1.1'
-  gem 'yard-dm-is-predefined',	'~> 0.2.0'
 
   gem 'ore-core',     '~> 0.1.0'
   gem 'ore-tasks',    '~> 0.2.0'
