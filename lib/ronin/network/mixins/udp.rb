@@ -66,8 +66,8 @@ module Ronin
 
         #
         # Opens a UDP connection to the host and port specified by the
-        # {host} and {port} parameters. If the {local_host} and
-        # {local_port} parameters are set, they will be used for
+        # {#host} and {#port} parameters. If the {#local_host} and
+        # {#local_port} parameters are set, they will be used for
         # the local host and port of the UDP connection.
         #
         # @yield [socket]
@@ -95,9 +95,9 @@ module Ronin
         end
 
         #
-        # Connects to the host and port specified by the {host} and {port}
-        # parameters, then sends the given data. If the {local_host} and
-        # {local_port} instance methods are set, they will be used for the
+        # Connects to the host and port specified by the {#host} and {#port}
+        # parameters, then sends the given data. If the {#local_host} and
+        # {#local_port} instance methods are set, they will be used for the
         # local host and port of the UDP connection.
         #
         # @param [String] data
@@ -121,7 +121,7 @@ module Ronin
 
         #
         # Creates a UDP session to the host and port specified by the
-        # {host} and {port} parameters. If the {local_host} and {local_port}
+        # {#host} and {#port} parameters. If the {#local_host} and {#local_port}
         # parameters are set, they will be used for the local host and port
         # of the UDP connection.
         #
@@ -144,8 +144,8 @@ module Ronin
         end
 
         #
-        # Creates a new UDPServer object listening on {server_host} and
-        # {server_port} parameters.
+        # Creates a new UDPServer object listening on {#server_host} and
+        # {#server_port} parameters.
         #
         # @yield [server]
         #   The given block will be passed the newly created server.
@@ -171,7 +171,7 @@ module Ronin
 
         #
         # Creates a new temporary UDPServer object listening on the
-        # {server_host} and {server_port} parameters.
+        # {#server_host} and {#server_port} parameters.
         #
         # @yield [server]
         #   The given block will be passed the newly created server.

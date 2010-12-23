@@ -66,8 +66,8 @@ module Ronin
 
         #
         # Opens a TCP connection to the host and port specified by the
-        # {host} and {port} parameters. If the {local_host} and
-        # {local_port} parameters are set, they will be used for
+        # {#host} and {#port} parameters. If the {#local_host} and
+        # {#local_port} parameters are set, they will be used for
         # the local host and port of the TCP connection.
         #
         # @yield [socket]
@@ -96,7 +96,7 @@ module Ronin
         end
 
         #
-        # Connects to the host and port specified by the {host} and {port}
+        # Connects to the host and port specified by the {#host} and {#port}
         # parameters, then sends the given data.
         #
         # @param [String] data
@@ -120,7 +120,7 @@ module Ronin
 
         #
         # Creates a TCP session to the host and port specified by the
-        # {host} and {port} parameters.
+        # {#host} and {#port} parameters.
         #
         # @yield [socket]
         #   If a block is given, it will be passed the newly created socket.
@@ -141,7 +141,7 @@ module Ronin
         end
 
         #
-        # Connects to the host and port specified by the {host} and {port}
+        # Connects to the host and port specified by the {#host} and {#port}
         # parameters, reads the banner then closes the connection.
         #
         # @yield [banner]
@@ -164,7 +164,7 @@ module Ronin
         end
 
         #
-        # Connects to the host and port specified by the {host} and {port}
+        # Connects to the host and port specified by the {#host} and {#port}
         # parameters, sends the given data and then disconnects.
         #
         # @return [true]
@@ -186,8 +186,8 @@ module Ronin
         end
 
         #
-        # Creates a new TCPServer object listening on the {server_host}
-        # and {server_port} parameters.
+        # Creates a new TCPServer object listening on the {#server_host}
+        # and {#server_port} parameters.
         #
         # @yield [server]
         #   The given block will be passed the newly created server.
@@ -213,7 +213,7 @@ module Ronin
 
         #
         # Creates a new temporary TCPServer object listening on the
-        # {server_host} and {server_port} parameters.
+        # {#server_host} and {#server_port} parameters.
         #
         # @yield [server]
         #   The given block will be passed the newly created server.
@@ -255,7 +255,7 @@ module Ronin
 
         #
         # Creates a new temporary TCPServer object listening on
-        # {server_host} and {server_port} parameters.
+        # {#server_host} and {#server_port} parameters.
         # The TCPServer will accepting one client, pass the newly connected
         # client to a given block, disconnects the client and stops
         # listening.

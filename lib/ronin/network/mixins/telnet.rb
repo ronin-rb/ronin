@@ -65,9 +65,9 @@ module Ronin
         protected
 
         #
-        # Creates a connection to a Telnet server. The {host}, {port},
-        # {telnet_user}, {telnet_password}, {telnet_proxy} and
-        # {telnet_ssl} parameters will also be used to connect to the
+        # Creates a connection to a Telnet server. The {#host}, {#port},
+        # {#telnet_user}, {#telnet_password}, {#telnet_proxy} and
+        # {#telnet_ssl} parameters will also be used to connect to the
         # Telnet server.
         #
         # @param [Hash] options
@@ -150,9 +150,9 @@ module Ronin
         end
 
         #
-        # Starts a session with a Telnet server. The {host}, {port},
-        # {telnet_user}, {telnet_password}, {telnet_proxy} and
-        # {telnet_ssl} parameters will also be used to connect to the
+        # Starts a session with a Telnet server. The {#host}, {#port},
+        # {#telnet_user}, {#telnet_password}, {#telnet_proxy} and
+        # {#telnet_ssl} parameters will also be used to connect to the
         # Telnet server.
         #
         # @yield [session]

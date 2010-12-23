@@ -44,19 +44,19 @@ module Ronin
     # Overlay metadata file name
     METADATA_FILE = 'overlay.yml'
 
-    # Overlay bin/ directory
+    # Overlay `bin/` directory
     BIN_DIR = 'bin'
 
-    # Overlay lib/ directory
+    # Overlay `lib/` directory
     LIB_DIR = 'lib'
 
-    # The init.rb file to load from the LIB_DIR
+    # The `init.rb` file to load from the {LIB_DIR}
     INIT_FILE = 'init.rb'
 
     # Overlay `data/` directory
     DATA_DIR = 'data'
 
-    # Overlay cache/ directory
+    # Overlay `cache/` directory
     CACHE_DIR = 'cache'
 
     # The primary key of the overlay
@@ -92,22 +92,22 @@ module Ronin
     # Website URI for the overlay
     property :website, URI
 
-    # Description
+    # Description of the overlay
     property :description, Text
 
     # The cached files from the overlay
     has 0..n, :cached_files
 
-    # The lib directory
+    # The `bin/` directory
     attr_reader :bin_dir
 
-    # The lib directory
+    # The `lib/` directory
     attr_reader :lib_dir
 
-    # The data directory
+    # The `data/` directory
     attr_reader :data_dir
 
-    # The cache directory
+    # The `cache/` directory
     attr_reader :cache_dir
 
     #
@@ -592,8 +592,10 @@ module Ronin
     end
 
     #
+    # Converts the overlay to a String.
+    #
     # @return [String]
-    #   The name of the overlay.
+    #   The name and domain of the overlay.
     #
     def to_s
       "#{self.name}/#{self.domain}"

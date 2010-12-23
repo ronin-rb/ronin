@@ -60,8 +60,8 @@ module Ronin
         protected
 
         #
-        # Creates a connection to the IMAP server. The {host}, {port},
-        # {imap_auth}, {imap_user} and {imap_password} parameters
+        # Creates a connection to the IMAP server. The {#host}, {#port},
+        # {#imap_auth}, {#imap_user} and {#imap_password} parameters
         # will also be used to make the connection.
         #
         # @param [Hash] options
@@ -104,8 +104,8 @@ module Ronin
         end
 
         #
-        # Starts a session with the IMAP server. The {host}, {port},
-        # {imap_auth}, {imap_user} and {imap_password} parameters
+        # Starts a session with the IMAP server. The {#host}, {#port},
+        # {#imap_auth}, {#imap_user} and {#imap_password} parameters
         # will also be used to make the connection.
         #
         # @yield [session]
