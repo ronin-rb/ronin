@@ -413,8 +413,10 @@ module Ronin
     def executables
       scripts = []
 
-      @bin_dir.entries.each do |path|
-        scripts << path.basename.to_s if path.file?
+      if @bin_dir.directory?
+        @bin_dir.entries.each do |path|
+          scripts << path.basename.to_s if path.file?
+        end
       end
 
       return scripts
