@@ -23,6 +23,8 @@ require 'ronin/address'
 require 'ronin/remote_file'
 require 'ronin/model'
 
+require 'fileutils'
+
 module Ronin
   class Target
 
@@ -53,7 +55,10 @@ module Ronin
     #
     def directory
       if self.campaign
-        File.join(self.campaign.directory,self.address.address)
+        path = File.join(self.campaign.directory,self.address.address)
+
+        FileUtils.mkdir(path) unless File.directory?(path)
+        return path
       end
     end
 

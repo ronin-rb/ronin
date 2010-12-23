@@ -67,7 +67,12 @@ module Ronin
     # @since 1.0.0
     #
     def directory
-      File.join(Config::CAMPAIGNS_DIR,filename) if self.name
+      if self.name
+        path = File.join(Config::CAMPAIGNS_DIR,filename)
+
+        FileUtils.mkdir(path) unless File.directory?(path)
+        return path
+      end
     end
 
   end
