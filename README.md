@@ -94,23 +94,23 @@ View available commands:
 
 Install an Overlay:
 
-    $ ronin install svn://example.com/path/to/overlay
+    $ ronin repo --install svn://example.com/path/to/overlay
 
 List installed Overlays:
 
-    $ ronin list
+    $ ronin repo
 
 Update all installed Overlays:
 
-    $ ronin update
+    $ ronin repo --update
 
 Update a specific Overlay:
 
-    $ ronin update overlay-name
+    $ ronin repo --update overlay-name
 
 Uninstall an Overlay:
 
-    $ ronin uninstall overlay-name
+    $ ronin repo --uninstall overlay-name
 
 List available Databases:
 
