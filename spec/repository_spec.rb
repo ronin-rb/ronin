@@ -1,97 +1,97 @@
 require 'spec_helper'
-require 'helpers/overlays'
+require 'helpers/repositories'
 require 'model/models/cacheable_model'
 
-require 'ronin/overlay'
+require 'ronin/repository'
 
-describe Overlay do
-  include Helpers::Overlays
+describe Repository do
+  include Helpers::Repositories
 
-  subject { Overlay }
+  subject { Repository }
 
   describe "find" do
-    it "should be able to retrieve an Overlay by name" do
+    it "should be able to retrieve an Repository by name" do
       overlay = subject.find('hello')
 
       overlay.name.should == 'hello'
     end
 
-    it "should be able to retrieve an Overlay by name and domain" do
+    it "should be able to retrieve an Repository by name and domain" do
       overlay = subject.find('hello/localhost')
 
       overlay.name.should == 'hello'
       overlay.domain.should == 'localhost'
     end
 
-    it "should raise OverlayNotFound for unknown Overlay names" do
+    it "should raise RepositoryNotFound for unknown Repository names" do
       lambda {
         subject.find('bla')
-      }.should raise_error(OverlayNotFound)
+      }.should raise_error(RepositoryNotFound)
     end
 
-    it "should raise OverlayNotFound for unknown Overlay names or domains" do
+    it "should raise RepositoryNotFound for unknown Repository names or domains" do
       lambda {
         subject.find('bla/bla')
-      }.should raise_error(OverlayNotFound)
+      }.should raise_error(RepositoryNotFound)
     end
   end
 
   describe "add!" do
-    it "should not add Overlays without a path property" do
+    it "should not add Repositorys without a path property" do
       lambda {
         subject.add!
       }.should raise_error(ArgumentError)
     end
 
-    it "should not add Overlays that do not point to a directory" do
+    it "should not add Repositorys that do not point to a directory" do
       lambda {
         subject.add!(:path => 'path/to/nowhere')
-      }.should raise_error(OverlayNotFound)
+      }.should raise_error(RepositoryNotFound)
     end
 
-    it "should not allow adding an Overlay from the same path twice" do
+    it "should not allow adding an Repository from the same path twice" do
       lambda {
-        subject.add!(:path => load_overlay('hello').path)
-      }.should raise_error(DuplicateOverlay)
+        subject.add!(:path => repository('hello').path)
+      }.should raise_error(DuplicateRepository)
     end
 
-    it "should not allow adding an Overlay that was already installed" do
+    it "should not allow adding an Repository that was already installed" do
       lambda {
-        subject.add!(:path => load_overlay('random').path)
-      }.should raise_error(DuplicateOverlay)
+        subject.add!(:path => repository('random').path)
+      }.should raise_error(DuplicateRepository)
     end
   end
 
   describe "install!" do
-    it "should not allow installing an Overlay with no URI" do
+    it "should not allow installing an Repository with no URI" do
       lambda {
         subject.install!
       }.should raise_error(ArgumentError)
     end
 
-    it "should not allow installing an Overlay that was already added" do
+    it "should not allow installing an Repository that was already added" do
       lambda {
-        subject.install!(:uri => load_overlay('test1').uri)
-      }.should raise_error(DuplicateOverlay)
+        subject.install!(:uri => repository('test1').uri)
+      }.should raise_error(DuplicateRepository)
     end
 
-    it "should not allow installing an Overlay from the same URI twice" do
+    it "should not allow installing an Repository from the same URI twice" do
       lambda {
-        subject.install!(:uri => load_overlay('random').uri)
-      }.should raise_error(DuplicateOverlay)
+        subject.install!(:uri => repository('random').uri)
+      }.should raise_error(DuplicateRepository)
     end
   end
 
   describe "domain" do
     it "should be considered local for 'localhost' domains" do
-      hello = load_overlay('hello')
+      hello = repository('hello')
 
       hello.should be_local
       hello.should_not be_remote
     end
 
     it "should be considered remote for non 'localhost' domains" do
-      random = load_overlay('random')
+      random = repository('random')
 
       random.should be_remote
       random.should_not be_local
@@ -99,9 +99,9 @@ describe Overlay do
   end
 
   describe "initialize" do
-    it "should default the 'name' property to the name of the Overlay directory" do
+    it "should default the 'name' property to the name of the Repository directory" do
       overlay = subject.new(
-        :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello')
+        :path => File.join(Helpers::Repositories::DIR,'hello')
       )
 
       overlay.name.should == 'hello'
@@ -109,7 +109,7 @@ describe Overlay do
 
     it "should default the 'installed' property to false" do
       overlay = subject.new(
-        :path => File.join(Helpers::Overlays::OVERLAYS_DIR,'hello'),
+        :path => File.join(Helpers::Repositories::DIR,'hello'),
         :uri => 'git://github.com/path/to/hello.git'
       )
 
@@ -118,7 +118,7 @@ describe Overlay do
   end
 
   describe "initialize_metadata" do
-    subject { load_overlay('hello') }
+    subject { repository('hello') }
 
     it "should load the title" do
       subject.title.should == 'Hello World'
@@ -150,7 +150,7 @@ describe Overlay do
   end
 
   describe "activate!" do
-    subject { load_overlay('hello') }
+    subject { repository('hello') }
 
     before(:all) do
       subject.activate!
@@ -166,7 +166,7 @@ describe Overlay do
   end
 
   describe "deactivate!" do
-    subject { load_overlay('hello') }
+    subject { repository('hello') }
 
     before(:all) do
       subject.deactivate!
@@ -180,7 +180,7 @@ describe Overlay do
   end
 
   describe "cache_paths" do
-    subject { load_overlay('test1') }
+    subject { repository('test1') }
 
     it "should list the contents of the 'cache/' directory" do
       subject.cache_paths.should_not be_empty
@@ -200,8 +200,8 @@ describe Overlay do
       CacheableModel.auto_migrate!
     end
 
-    let(:test1) { load_overlay('test1') }
-    let(:test2) { load_overlay('test2') }
+    let(:test1) { repository('test1') }
+    let(:test2) { repository('test2') }
 
     describe "cache_files!" do
       before(:all) do
