@@ -84,6 +84,14 @@ install or update Overlays.
 
 ## Synopsis
 
+Start the Ronin console:
+
+    $ ronin
+
+View available commands:
+
+    $ ronin help
+
 Install an Overlay:
 
     $ ronin install svn://example.com/path/to/overlay
@@ -115,14 +123,6 @@ Add a new Database:
 Remove a Database:
 
     $ ronin database --remove team
-
-Start the Ronin console:
-
-    $ ronin
-
-View available commands:
-
-    $ ronin help
 
 ## Requirements
 
