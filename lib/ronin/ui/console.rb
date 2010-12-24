@@ -150,10 +150,10 @@ module Ronin
         require 'pp'
 
         require 'ronin'
-        require 'ronin/overlay'
+        require 'ronin/repository'
 
         # activates all installed or added overlays
-        Ronin::Overlay.activate!
+        Repository.activate!
 
         # require any of the auto-load paths
         @@auto_load.each { |path| require path }

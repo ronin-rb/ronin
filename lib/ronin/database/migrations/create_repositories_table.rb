@@ -37,16 +37,22 @@ module Ronin
             column :title, Text
             column :source, DataMapper::Property::URI
             column :website, DataMapper::Property::URI
-            column :email, String
             column :description, Text
 
             column :license_id, Integer
+          end
+
+          create_table :ronin_author_repositories do
+            column :id, Integer, :serial => true
+            column :author_id, Integer
+            column :repository_id, Integer
           end
 
           create_index :ronin_repositories, :path, :unique => true
         end
 
         down do
+          drop_table :ronin_author_repositories
           drop_table :ronin_repositories
         end
       end

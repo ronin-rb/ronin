@@ -22,6 +22,7 @@ require 'ronin/exceptions/duplicate_repository'
 require 'ronin/exceptions/repository_not_found'
 require 'ronin/cached_file'
 require 'ronin/model/has_license'
+require 'ronin/model/has_authors'
 require 'ronin/model'
 require 'ronin/config'
 
@@ -33,8 +34,8 @@ module Ronin
   class Repository
 
     include Model
-    include Model::HasLicense
     include Model::HasAuthors
+    include Model::HasLicense
     include DataPaths
 
     # The default domain that repositories are added from
@@ -90,9 +91,6 @@ module Ronin
 
     # Website URI for the repository
     property :website, URI
-
-    # Contact email for the repository
-    property :email, String
 
     # Description of the repository
     property :description, Text
@@ -659,7 +657,7 @@ module Ronin
 
       self.source = self.uri
       self.website = self.source
-      self.email = nil
+      self.authors.clear
 
       if File.file?(metadata_path)
         metadata = YAML.load_file(metadata_path)
@@ -688,8 +686,15 @@ module Ronin
           self.website = website
         end
 
-        if (email = metadata['email'])
-          self.email = email
+        case metadata['authors']
+        when Hash
+          metadata['authors'].each do |name,email|
+            self.authors << Author.first_or_new(:name => name, :email => email)
+          end
+        when Array
+          metadata['authors'].each do |name|
+            self.authors << Author.first_or_new(:name => name)
+          end
         end
       end
 
