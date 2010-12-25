@@ -176,9 +176,9 @@ module Ronin
 
       unless (repo = Repository.first(query))
         if domain
-          raise(RepositoryNotFound,"repository #{name.dump} from domain #{domain.dump} cannot be found")
+          raise(RepositoryNotFound,"Repository #{name.dump} from domain #{domain.dump} cannot be found")
         else
-          raise(RepositoryNotFound,"repository #{name.dump} cannot be found")
+          raise(RepositoryNotFound,"Repository #{name.dump} cannot be found")
         end
       end
 
@@ -210,11 +210,11 @@ module Ronin
       path = Pathname.new(options[:path]).expand_path
 
       unless path.directory?
-        raise(RepositoryNotFound,"repository #{path} cannot be found")
+        raise(RepositoryNotFound,"Repository #{path} cannot be found")
       end
 
       if Repository.count(:path => path) > 0
-        raise(DuplicateRepository,"an repository at the path #{path} was already added")
+        raise(DuplicateRepository,"a Repository at the path #{path} was already added")
       end
 
       # create the repository
@@ -228,7 +228,7 @@ module Ronin
       domain = repo.domain
 
       if Repository.count(:name => name, :domain => domain) > 0
-        raise(DuplicateRepository,"the repository #{repo} already exists in the database")
+        raise(DuplicateRepository,"the Repository #{repo} already exists in the database")
       end
 
       # save the repository
@@ -627,7 +627,7 @@ module Ronin
       script_path = @bin_dir.join(script)
 
       unless script_path.file?
-        raise("no such script #{script.dump} in repository")
+        raise("no such script #{script.dump} in Repository #{self}")
       end
 
       load script_path
