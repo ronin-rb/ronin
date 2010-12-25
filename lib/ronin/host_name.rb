@@ -55,6 +55,21 @@ module Ronin
       self.all(:address.like => "%.#{name}")
     end
 
+    #
+    # Searches for all host names sharing a common domain name.
+    #
+    # @param [String] name
+    #   The common domain name to search for.
+    #
+    # @return [Array<HostName>]
+    #   The matching host names.
+    #
+    # @since 1.0.0
+    #
+    def self.domain(name)
+      self.all(:address.like => "#{name}.%") | self.all(:address.like => "%.#{name}.%")
+    end
+
     alias name address
 
     #
