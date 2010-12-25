@@ -23,6 +23,9 @@ require 'ronin/ui/output/handler'
 module Ronin
   module UI
     module Output
+      @mode = :quiet
+      @handler = Handler
+
       #
       # @return [Boolean]
       #   Specifies whether verbose output is enabled.
@@ -30,7 +33,7 @@ module Ronin
       # @since 0.3.0
       #
       def Output.verbose?
-        (@@ronin_verbose ||= :quiet) == :verbose
+        @mode == :verbose
       end
 
       #
@@ -40,7 +43,7 @@ module Ronin
       # @since 0.3.0
       #
       def Output.quiet?
-        (@@ronin_verbose ||= :quiet) == :quiet
+        @mode == :quiet
       end
 
       #
@@ -50,7 +53,7 @@ module Ronin
       # @since 0.3.0
       #
       def Output.silent?
-        (@@ronin_verbose ||= :quiet) == :silent
+        @mode == :silent
       end
 
       #
@@ -66,9 +69,9 @@ module Ronin
       #
       def Output.verbose=(mode)
         if mode
-          @@ronin_verbose = :verbose
+          @mode = :verbose
         else
-          @@ronin_verbose = :quiet
+          @mode = :quiet
         end
 
         return mode
@@ -87,9 +90,9 @@ module Ronin
       #
       def Output.quiet=(mode)
         if mode
-          @@ronin_verbose = :quiet
+          @mode = :quiet
         else
-          @@ronin_verbose = :verbose
+          @mode = :verbose
         end
 
         return mode
@@ -108,9 +111,9 @@ module Ronin
       #
       def Output.silent=(mode)
         if mode
-          @@ronin_verbose = :silent
+          @mode = :silent
         else
-          @@ronin_verbose = :quiet
+          @mode = :quiet
         end
 
         return mode
@@ -123,7 +126,7 @@ module Ronin
       # @since 0.3.0
       #
       def Output.handler
-        @@ronin_output ||= Handler
+        @handler
       end
 
       #
@@ -137,7 +140,7 @@ module Ronin
       # @since 0.3.0
       #
       def Output.handler=(new_handler)
-        @@ronin_output = new_handler
+        @handler = new_handler
       end
     end
   end
