@@ -1,17 +1,17 @@
 require 'model/spec_helper'
 require 'model/models/cacheable_model'
-require 'helpers/overlays'
+require 'helpers/repositories'
 
 require 'ronin/model/cacheable'
 
 describe Model::Cacheable do
-  include Helpers::Overlays
+  include Helpers::Repositories
 
-  let(:overlay) { load_overlay('test1') }
+  let(:repo) { repository('test1') }
   let(:cacheable_model) { CacheableModel }
 
   before(:all) do
-    overlay.cache_files!
+    repo.cache_files!
   end
 
   it "should add the type property to the model" do
@@ -27,7 +27,7 @@ describe Model::Cacheable do
   end
 
   describe "load_from" do
-    let(:path) { overlay.cached_files.first.path }
+    let(:path) { repo.cached_files.first.path }
 
     subject { Model::Cacheable.load_from(path) }
 

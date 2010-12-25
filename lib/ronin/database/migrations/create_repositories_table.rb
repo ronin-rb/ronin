@@ -24,9 +24,9 @@ require 'ronin/database/migrations/migrations'
 module Ronin
   module Database
     module Migrations
-      migration(:create_overlays_table, :needs => :create_licenses_table) do
+      migration(:create_repositories_table, :needs => :create_licenses_table) do
         up do
-          create_table :ronin_overlays do
+          create_table :ronin_repositories do
             column :id, Integer, :serial => true
             column :scm, String
             column :path, FilePath, :not_null => true 
@@ -42,18 +42,18 @@ module Ronin
             column :license_id, Integer
           end
 
-          create_table :ronin_author_overlays do
-            column :id, Serial
-            column :author_id, Integer, :not_null => true
-            column :overlay_id, Integer, :not_null => true
+          create_table :ronin_author_repositories do
+            column :id, Integer, :serial => true
+            column :author_id, Integer
+            column :repository_id, Integer
           end
 
-          create_index :ronin_overlays, :path, :unique => true
+          create_index :ronin_repositories, :path, :unique => true
         end
 
         down do
-          drop_table :ronin_author_overlays
-          drop_table :ronin_overlays
+          drop_table :ronin_author_repositories
+          drop_table :ronin_repositories
         end
       end
     end

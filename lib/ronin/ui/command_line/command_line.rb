@@ -1,4 +1,4 @@
-#
+r
 # Ronin - A Ruby platform for exploit development and security research.
 #
 # Copyright (c) 2006-2010 Hal Brodigan (postmodern.mod3 at gmail.com)
@@ -79,12 +79,12 @@ module Ronin
       #   command-line name.
       #
       # @example
-      #   CommandLine.command('gen_overlay')
-      #   # => Ronin::UI::CommandLine::Commands::GenOverlay
+      #   CommandLine.command('auto_hack')
+      #   # => Ronin::UI::CommandLine::Commands::AutoHack
       #
       # @example
-      #   CommandLine.command('gen-overlay')
-      #   # => Ronin::UI::CommandLine::Commands::GenOverlay
+      #   CommandLine.command('auto-hack')
+      #   # => Ronin::UI::CommandLine::Commands::AutoHack
       #
       def CommandLine.command(name)
         name = name.to_s

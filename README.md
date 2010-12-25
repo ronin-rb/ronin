@@ -30,19 +30,18 @@ perform Google Dorks  or run 3rd party scanners.
 ### Publish
 
 Ronin allows users to publish and share code, exploits, payloads or other
-data via Overlays. Overlays are directories of code and data that can be
-hosted on any SVN, Hg, Git or Rsync server. Ronin makes it easy to create,
-install or update Overlays.
+data via Ronin Repositories. Repositories are directories of code and data
+that can be hosted on any SVN, Hg, Git or Rsync server. Ronin makes it easy
+to create, install and update Repositories.
 
 ## Features
 
-* Supports installing/updating/uninstalling of Overlays.
-  * Supports accessing Overlays from various media types:
+* Supports installing/updating/uninstalling of Repositories.
+  * Supports installing Repositories from various media types:
     * [Subversion (SVN)](http://subversion.tigris.org/)
     * [Mercurial (Hg)](http://mercurial.selenic.com/)
     * [Git](http://git-scm.com/)
     * Rsync
-* Allows for the loading of Extensions from one or more Overlays.
 * Provides Object Database using [DataMapper](http://datamapper.org)
   with:
   * {Ronin::Author}
@@ -70,7 +69,8 @@ install or update Overlays.
   * {Ronin::Organization}
   * {Ronin::Campaign}
   * {Ronin::Target}
-* Caches and mirrors Objects stored in Overlays using DataMapper.
+* Caches exploits, payloads, scanners, etc stored within Repositories
+  into the Database.
 * Convenience methods provided by
   [ronin-support](http://github.com/ronin-ruby/ronin-support#readme).
 * Provides a customized Ruby Console with:
@@ -84,25 +84,33 @@ install or update Overlays.
 
 ## Synopsis
 
-Install an Overlay:
+Start the Ronin console:
 
-    $ ronin install svn://example.com/path/to/overlay
+    $ ronin
 
-List installed Overlays:
+View available commands:
 
-    $ ronin list
+    $ ronin help
 
-Update all installed Overlays:
+Install a Repository:
 
-    $ ronin update
+    $ ronin repo --install svn://example.com/path/to/repo
 
-Update a specific Overlay:
+List installed Repositories:
 
-    $ ronin update overlay-name
+    $ ronin repo
 
-Uninstall an Overlay:
+Update all installed Repositories:
 
-    $ ronin uninstall overlay-name
+    $ ronin repo --update
+
+Update a specific Repositories:
+
+    $ ronin repo --update repo-name
+
+Uninstall an Repositories:
+
+    $ ronin repo --uninstall repo-name
 
 List available Databases:
 
@@ -115,14 +123,6 @@ Add a new Database:
 Remove a Database:
 
     $ ronin database --remove team
-
-Start the Ronin console:
-
-    $ ronin
-
-View available commands:
-
-    $ ronin help
 
 ## Requirements
 

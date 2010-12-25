@@ -1,14 +1,14 @@
 require 'spec_helper'
-require 'helpers/overlays'
+require 'helpers/repositories'
 require 'model/models/cacheable_model'
 
 require 'ronin/cached_file'
 
 describe CachedFile do
-  include Helpers::Overlays
+  include Helpers::Repositories
 
-  let(:test1) { load_overlay('test1') }
-  let(:test2) { load_overlay('test2') }
+  let(:test1) { repository('test1') }
+  let(:test2) { repository('test2') }
 
   let(:cacheable_model) { CacheableModel }
 

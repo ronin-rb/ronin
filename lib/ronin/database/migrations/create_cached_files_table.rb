@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/database/migrations/create_overlays_table'
+require 'ronin/database/migrations/create_repositories_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
@@ -26,7 +26,7 @@ module Ronin
     module Migrations
       migration(
         :create_cached_files_table,
-        :needs => :create_overlays_table
+        :needs => :create_repositories_table
       ) do
         up do
           create_table :ronin_cached_files do
@@ -34,7 +34,7 @@ module Ronin
             column :path, FilePath, :not_null => true
             column :timestamp, Time, :not_null => true
             column :model_name, String, :not_null => true
-            column :overlay_id, Integer, :not_null => true
+            column :repository_id, Integer, :not_null => true
           end
         end
 

@@ -1,7 +1,7 @@
-title: Test One
+title: Random
 license: GPL-2
 website: http://ronin.rubyforge.org/
 authors:
   Postmodern: postmodern.mod3@gmail.com
 description:
-  This is a test overlay used in Ronin's specs.
+  This is a test repo used in Ronin's specs.

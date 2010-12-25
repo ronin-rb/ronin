@@ -18,32 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/database/migrations/migrations'
-require 'ronin/database/migrations/create_authors_table'
-require 'ronin/database/migrations/create_overlays_table'
-
 module Ronin
-  module Database
-    module Migrations
-      migration(
-        :create_overlay_maintainers_table,
-        :needs => [
-          :create_authors_table,
-          :create_overlays_table
-        ]
-      ) do
-        up do
-          create_table :ronin_overlay_maintainers do
-            column :id, Integer, :serial => true
-            column :author_id, Integer
-            column :overlay_id, Integer
-          end
-        end
-
-        down do
-          drop_table :ronin_overlay_maintainers
-        end
-      end
-    end
+  class DuplicateRepository < StandardError
   end
 end

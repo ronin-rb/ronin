@@ -48,9 +48,8 @@ DataMapper::Visualizer::Rake::GraphVizTask.new(
     ronin/organization
     ronin/os_guess
     ronin/os
-    ronin/platform/cached_file
-    ronin/platform/maintainer
-    ronin/platform/overlay
+    ronin/cached_file
+    ronin/repository
     ronin/port
     ronin/service
     ronin/service_credential

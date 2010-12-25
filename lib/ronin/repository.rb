@@ -18,12 +18,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/exceptions/duplicate_overlay'
-require 'ronin/exceptions/overlay_not_found'
+require 'ronin/exceptions/duplicate_repository'
+require 'ronin/exceptions/repository_not_found'
+require 'ronin/cached_file'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
 require 'ronin/model'
-require 'ronin/cached_file'
 require 'ronin/config'
 
 require 'pullr'
@@ -31,71 +31,71 @@ require 'data_paths'
 require 'yaml'
 
 module Ronin
-  class Overlay
+  class Repository
 
     include Model
-    include Model::HasLicense
     include Model::HasAuthors
+    include Model::HasLicense
     include DataPaths
 
-    # The default domain that overlays are added from
+    # The default domain that repositories are added from
     LOCAL_DOMAIN = 'localhost'
 
-    # Overlay metadata file name
-    METADATA_FILE = 'overlay.yml'
+    # Repository metadata file name
+    METADATA_FILE = 'ronin.yml'
 
-    # Overlay `bin/` directory
+    # Repository `bin/` directory
     BIN_DIR = 'bin'
 
-    # Overlay `lib/` directory
+    # Repository `lib/` directory
     LIB_DIR = 'lib'
 
     # The `init.rb` file to load from the {LIB_DIR}
     INIT_FILE = 'init.rb'
 
-    # Overlay `data/` directory
+    # Repository `data/` directory
     DATA_DIR = 'data'
 
-    # Overlay `cache/` directory
+    # Repository `cache/` directory
     CACHE_DIR = 'cache'
 
-    # The primary key of the overlay
+    # The primary key of the repository
     property :id, Serial
 
-    # The SCM used by the overlay repository
+    # The SCM used by the repository
     property :scm, String
 
-    # Local path to the overlay repository
+    # Local path to the repository
     property :path, FilePath, :required => true, :unique => true
 
-    # URI that the overlay was installed from
+    # URI that the repository was installed from
     property :uri, URI
 
-    # Specifies whether the overlay was installed remotely
+    # Specifies whether the repository was installed remotely
     # or added using a local directory.
     property :installed, Boolean, :default => false
 
-    # Name of the overlay
-    property :name, String, :default => lambda { |overlay,name|
-      overlay.path.basename
+    # Name of the repository
+    property :name, String, :default => lambda { |repo,name|
+      repo.path.basename
     }
 
-    # The domain the overlay belongs to
+    # The domain the repository belongs to
     property :domain, String, :required => true
 
-    # Title of the overlay
+    # Title of the repository
     property :title, Text
 
-    # Source View URI of the overlay
+    # Source View URI of the repository
     property :source, URI
 
-    # Website URI for the overlay
+    # Website URI for the repository
     property :website, URI
 
-    # Description of the overlay
+    # Description of the repository
     property :description, Text
 
-    # The cached files from the overlay
+    # The cached files from the repository
     has 0..n, :cached_files
 
     # The `bin/` directory
@@ -111,26 +111,26 @@ module Ronin
     attr_reader :cache_dir
 
     #
-    # Creates a new Overlay object.
+    # Creates a new {Repository} object.
     #
     # @param [Hash] attributes
-    #   The attributes of the overlay.
+    #   The attributes of the repository.
     #
     # @param [String] path
-    #   The path to the overlay.
+    #   The path to the repository.
     #
     # @param [Symbol] scm
-    #   The SCM used by the overlay. Can be either `:git`, `:mercurial`,
+    #   The SCM used by the repository. Can be either `:git`, `:mercurial`,
     #   `:sub_version` or `:rsync`.
     #
     # @param [String, URI::HTTP, URI::HTTPS] uri
-    #   The URI the overlay resides at.
+    #   The URI the repository resides at.
     #
-    # @yield [overlay]
-    #   If a block is given, the overlay will be passed to it.
+    # @yield [repo]
+    #   If a block is given, the repository will be passed to it.
     #
-    # @yieldparam [Overlay] overlay
-    #   The newly created overlay.
+    # @yieldparam [Repository] repo
+    #   The newly created repository.
     #
     def initialize(attributes={})
       super(attributes)
@@ -148,61 +148,61 @@ module Ronin
     end
 
     #
-    # Searches for the Overlay with a given name, and potentially
+    # Searches for the Repository with a given name, and potentially
     # installed from the given domain.
     #
     # @param [String] name
-    #   The name of the Overlay.
+    #   The name of the repository.
     #
-    # @return [Overlay]
-    #   The found Overlay.
+    # @return [Repository]
+    #   The matching repository.
     #
-    # @raise [OverlayNotFound]
-    #   No Overlay could be found with the given name or domain.
+    # @raise [RepositoryNotFound]
+    #   No repository could be found with the given name or domain.
     #
-    # @example Load the Overlay with the given name
-    #   Overlay.find('postmodern-overlay')
+    # @example Load the repository with the given name
+    #   Repository.find('postmodern-repo')
     #
-    # @example Load the Overlay with the given name and domain.
-    #   Overlay.find('postmodern-overlay/github.com')
+    # @example Load the repository with the given name and domain.
+    #   Repository.find('postmodern-repo/github.com')
     #
     # @since 1.0.0
     #
-    def Overlay.find(name)
+    def Repository.find(name)
       name, domain = name.to_s.split('/',2)
 
       query = {:name => name}
       query[:domain] = domain if domain
 
-      unless (overlay = Overlay.first(query))
+      unless (repo = Repository.first(query))
         if domain
-          raise(OverlayNotFound,"overlay #{name.dump} from domain #{domain.dump} cannot be found")
+          raise(RepositoryNotFound,"Repository #{name.dump} from domain #{domain.dump} cannot be found")
         else
-          raise(OverlayNotFound,"overlay #{name.dump} cannot be found")
+          raise(RepositoryNotFound,"Repository #{name.dump} cannot be found")
         end
       end
 
-      return overlay
+      return repo
     end
 
     #
-    # Adds an Overlay with the given options.
+    # Adds an Repository with the given options.
     #
-    # @return [Overlay]
-    #   The added Overlay.
+    # @return [Repository]
+    #   The added repository.
     #
     # @raise [ArgumentError]
     #   The `:path` option was not specified.
     #
-    # @raise [OverlayNotFound]
-    #   The path of the Overlay did not exist or was not a directory.
+    # @raise [RepositoryNotFound]
+    #   The path of the repository did not exist or was not a directory.
     #
-    # @raise [DuplicateOverlay]
-    #   The Overlay was already added or installed.
+    # @raise [DuplicateRepository]
+    #   The repository was already added or installed.
     #
     # @since 1.0.0
     #
-    def Overlay.add!(options={})
+    def Repository.add!(options={})
       unless options.has_key?(:path)
         raise(ArgumentError,"the :path option was not given")
       end
@@ -210,178 +210,177 @@ module Ronin
       path = Pathname.new(options[:path]).expand_path
 
       unless path.directory?
-        raise(OverlayNotFound,"overlay #{path} cannot be found")
+        raise(RepositoryNotFound,"Repository #{path} cannot be found")
       end
 
-      if Overlay.count(:path => path) > 0
-        raise(DuplicateOverlay,"an overlay at the path #{path} was already added")
+      if Repository.count(:path => path) > 0
+        raise(DuplicateRepository,"a Repository at the path #{path} was already added")
       end
 
-      # create the Overlay
-      overlay = Overlay.new(options.merge(
+      # create the repository
+      repo = Repository.new(options.merge(
         :path => path,
         :installed => false,
         :domain => LOCAL_DOMAIN
       ))
 
-      name = overlay.name
-      domain = overlay.domain
+      name = repo.name
+      domain = repo.domain
 
-      if Overlay.count(:name => name, :domain => domain) > 0
-        raise(DuplicateOverlay,"the overlay #{overlay} already exists in the database")
+      if Repository.count(:name => name, :domain => domain) > 0
+        raise(DuplicateRepository,"the Repository #{repo} already exists in the database")
       end
 
-      # save the Overlay
-      if overlay.save
+      # save the repository
+      if repo.save
         # cache any files from within the `cache/` directory of the
-        # overlay
-        overlay.cache_files!
+        # repository
+        repo.cache_files!
       end
 
-      return overlay
+      return repo
     end
 
     #
-    # Installs an overlay into the OverlayCache::CACHE_DIR and adds it
-    # to the overlay cache.
+    # Installs an repository.
     #
     # @param [Hash] options
     #   Additional options.
     #
     # @option options [Addressable::URI, String] :uri
-    #   The URI to the Overlay.
+    #   The URI to the repository.
     #
     # @option options [Symbol] :scm
-    #   The SCM used by the Overlay. May be either `:git`, `:mercurial`,
+    #   The SCM used by the repository. May be either `:git`, `:mercurial`,
     #   `:sub_version` or `:rsync`.
     #
-    # @return [Overlay]
-    #   The newly installed Overlay.
+    # @return [Repository]
+    #   The newly installed repository.
     #
     # @raise [ArgumentError]
     #   The `:uri` option must be specified.
     #
-    # @raise [DuplicateOverlay]
-    #   An Overlay already exists with the same `name` and `host`
+    # @raise [DuplicateRepository]
+    #   An repository already exists with the same `name` and `host`
     #   properties.
     #
     # @since 1.0.0
     #
-    def Overlay.install!(options={})
+    def Repository.install!(options={})
       unless options[:uri]
-        raise(ArgumentError,":uri must be passed to Overlay.install")
+        raise(ArgumentError,":uri must be passed to Repository.install")
       end
 
-      repo = Pullr::RemoteRepository.new(options)
-      name = repo.name
-      domain = if repo.uri.scheme
-                 repo.uri.host
+      remote_repo = Pullr::RemoteRepository.new(options)
+      name = remote_repo.name
+      domain = if remote_repo.uri.scheme
+                 remote_repo.uri.host
                else
                  # Use a regexp to pull out the host-name, if the URI
                  # lacks a scheme.
-                 repo.uri.to_s.match(/\@([^@:\/]+)/)[1]
+                 remote_repo.uri.to_s.match(/\@([^@:\/]+)/)[1]
                end
 
-      if Overlay.count(:name => name, :domain => domain) > 0
-        raise(DuplicateOverlay,"an Overlay already exists with the name #{name.dump} from domain #{domain.dump}")
+      if Repository.count(:name => name, :domain => domain) > 0
+        raise(DuplicateRepository,"a Repository already exists with the name #{name.dump} from domain #{domain.dump}")
       end
 
-      path = File.join(Config::CACHE_DIR,name,domain)
+      path = File.join(Config::REPOS_DIR,name,domain)
 
       # pull down the remote repository
-      local_repo = repo.pull(path)
+      local_repo = remote_repo.pull(path)
 
-      # add the new remote overlay
-      overlay = Overlay.new(
+      # add the new remote repository
+      repo = Repository.new(
         :path => path,
         :scm => local_repo.scm,
-        :uri => repo.uri,
+        :uri => remote_repo.uri,
         :installed => true,
         :name => name,
         :domain => domain
       )
 
-      # save the Overlay
-      if overlay.save
+      # save the repository 
+      if repo.save
         # cache any files from within the `cache/` directory of the
-        # overlay
-        overlay.cache_files!
+        # repository
+        repo.cache_files!
       end
 
-      return overlay
+      return repo
     end
 
     #
-    # Updates all Overlays.
+    # Updates all repositories.
     #
-    # @yield [overlay]
-    #   If a block is given, it will be passed each updated Overlay.
+    # @yield [repo]
+    #   If a block is given, it will be passed each updated repository.
     #
-    # @yieldparam [Overlay] overlay
-    #   An updated Overlay.
+    # @yieldparam [Repository] repo
+    #   An updated repository.
     #
     # @since 1.0.0
     #
-    def Overlay.update!
-      Overlay.each do |overlay|
-        # update the overlay's contents
-        overlay.update!
+    def Repository.update!
+      Repository.each do |repo|
+        # update the repositories contents
+        repo.update!
 
-        yield overlay if block_given?
+        yield repo if block_given?
       end
     end
 
     #
-    # Uninstalls the Overlay with the given name or domain.
+    # Uninstalls the repository with the given name or domain.
     #
     # @param [String] name
-    #   The name of the Overlay to uninstall.
+    #   The name of the repository to uninstall.
     #
     # @return [nil]
     #
-    # @example Uninstall the Overlay with the given name
-    #   Overlay.uninstall!('postmodern-overlay')
+    # @example Uninstall the repository with the given name
+    #   Repository.uninstall!('postmodern-repo')
     #
-    # @example Uninstall the Overlay with the given name and domain.
-    #   Overlay.uninstall!('postmodern-overlay/github.com')
+    # @example Uninstall the repository with the given name and domain.
+    #   Repository.uninstall!('postmodern-repo/github.com')
     #
-    def Overlay.uninstall!(name)
-      Overlay.find(name).uninstall!
+    def Repository.uninstall!(name)
+      Repository.find(name).uninstall!
     end
 
     #
-    # Activates all installed or added overlays.
+    # Activates all installed or added repositories.
     #
-    # @return [Array<Overlay>]
-    #   The activated overlays.
+    # @return [Array<Repository>]
+    #   The activated repository.
     #
     # @see #activate!
     #
     # @since 1.0.0
     #
-    def Overlay.activate!
-      Overlay.each { |overlay| overlay.activate! }
+    def Repository.activate!
+      Repository.each { |repo| repo.activate! }
     end
 
     #
-    # De-activates all installed or added overlays.
+    # De-activates all installed or added repositories.
     #
-    # @return [Array<Overlay>]
-    #   The de-activated overlays.
+    # @return [Array<Repository>]
+    #   The de-activated repositories.
     #
     # @see #deactivate!
     #
     # @since 1.0.0
     #
-    def Overlay.deactivate!
-      Overlay.reverse_each { |overlay| overlay.deactivate! }
+    def Repository.deactivate!
+      Repository.reverse_each { |repo| repo.deactivate! }
     end
 
     #
-    # Determines if the overlay was added locally.
+    # Determines if the repository was added locally.
     #
     # @return [Boolean]
-    #   Specifies whether the overlay was added locally.
+    #   Specifies whether the repository was added locally.
     #
     # @since 1.0.0
     #
@@ -390,11 +389,10 @@ module Ronin
     end
 
     #
-    # Determines if the overlay was installed from a remote repository.
+    # Determines if the repository was installed remotely.
     #
     # @return [Boolean]
-    #   Specifies whether the overlay was installed from a remote
-    #   repository.
+    #   Specifies whether the repository was installed from a remote URI.
     #
     # @since 1.0.0
     #
@@ -423,7 +421,7 @@ module Ronin
     end
 
     #
-    # All paths within the `cache/` directory of the overlay.
+    # All paths within the `cache/` directory of the repository.
     #
     # @return [Array<Pathname>]
     #   The paths within the `cache/` directory.
@@ -435,17 +433,17 @@ module Ronin
     end
 
     #
-    # Determines if the overlay has been activated.
+    # Determines if the repository has been activated.
     #
     # @return [Boolean]
-    #   Specifies whether the overlay has been activated.
+    #   Specifies whether the repository has been activated.
     #
     def activated?
       @activated == true
     end
 
     #
-    # Activates the overlay by adding the {#lib_dir} to the `$LOAD_PATH`
+    # Activates the repository by adding the {#lib_dir} to the `$LOAD_PATH`
     # global variable.
     #
     def activate!
@@ -465,7 +463,7 @@ module Ronin
     end
 
     #
-    # De-activates the overlay by removing the {#lib_dir} from the
+    # De-activates the repository by removing the {#lib_dir} from the
     # `$LOAD_PATH` global variable.
     #
     def deactivate!
@@ -481,8 +479,8 @@ module Ronin
     # Clears the {#cached_files} and re-saves the cached files within the
     # `cache/` directory.
     #
-    # @return [Overlay]
-    #   The cleaned overlay.
+    # @return [Repository]
+    #   The cleaned repository.
     #
     # @since 1.0.0
     #
@@ -497,16 +495,16 @@ module Ronin
     end
 
     #
-    # Syncs the {#cached_files} of the overlay, and adds any new cached
+    # Syncs the {#cached_files} of the repository, and adds any new cached
     # files.
     #
-    # @return [Overlay]
-    #   The cleaned overlay.
+    # @return [Repository]
+    #   The cleaned repository.
     #
     # @since 1.0.0
     #
     def sync_cached_files!
-      # activates the overlay before caching it's objects
+      # activates the repository before caching it's objects
       activate!
 
       new_paths = cache_paths
@@ -524,17 +522,17 @@ module Ronin
         self.cached_files.new(:path => path).cache
       end
 
-      # deactivates the overlay
+      # deactivates the repository
       deactivate!
 
       return self
     end
 
     #
-    # Deletes any {#cached_files} associated with the overlay.
+    # Deletes any {#cached_files} associated with the repository.
     #
-    # @return [Overlay]
-    #   The cleaned overlay.
+    # @return [Repository]
+    #   The cleaned repository.
     #
     # @since 1.0.0
     #
@@ -544,18 +542,18 @@ module Ronin
     end
 
     #
-    # Updates the overlay, reloads it's metadata and syncs the
-    # cached files of the overlay.
+    # Updates the repository, reloads it's metadata and syncs the
+    # cached files of the repository.
     #
-    # @yield [overlay]
-    #   If a block is given, it will be passed after the overlay has
+    # @yield [repo]
+    #   If a block is given, it will be passed after the repository has
     #   been updated.
     #
-    # @yieldparam [Overlay] overlay
-    #   The updated overlay.
+    # @yieldparam [Repository] repo
+    #   The updated repository.
     #
-    # @return [Overlay]
-    #   The updated overlay.
+    # @return [Repository]
+    #   The updated repository.
     #
     # @since 1.0.0
     #
@@ -571,9 +569,9 @@ module Ronin
       # re-initialize the metadata
       initialize_metadata()
 
-      # save the overlay
+      # save the repository
       if save
-        # syncs the cached files of the overlay
+        # syncs the cached files of the repository
         sync_cached_files!
       end
 
@@ -582,17 +580,17 @@ module Ronin
     end
 
     #
-    # Deletes the contents of the overlay.
+    # Deletes the contents of the repository.
     #
-    # @yield [overlay]
-    #   If a block is given, it will be passed the overlay after it's
+    # @yield [repo]
+    #   If a block is given, it will be passed the repository after it's
     #   contents have been deleted.
     #
-    # @yieldparam [Overlay] overlay
-    #   The deleted overlay.
+    # @yieldparam [Repository] repo
+    #   The deleted repository.
     #
-    # @return [Overlay]
-    #   The deleted overlay.
+    # @return [Repository]
+    #   The deleted repository.
     #
     # @since 1.0.0
     #
@@ -604,7 +602,7 @@ module Ronin
       # destroy any cached files first
       clean_cached_files!
 
-      # remove the overlay from the database
+      # remove the repository from the database
       destroy if saved?
 
       yield self if block_given?
@@ -612,7 +610,7 @@ module Ronin
     end
 
     #
-    # Runs a Ruby script in the `bin/` directory of the overlay.
+    # Runs a Ruby script in the `bin/` directory of the repository.
     #
     # @param [String] script
     #   The name of the script to run.
@@ -621,7 +619,7 @@ module Ronin
     #   Specifies the script was ran.
     #
     # @raise [RuntimeError]
-    #   The script was not found in the `bin/` directory of the overlay.
+    #   The script was not found in the `bin/` directory of the repository.
     #
     # @since 1.0.0
     #
@@ -629,17 +627,17 @@ module Ronin
       script_path = @bin_dir.join(script)
 
       unless script_path.file?
-        raise("no such script #{script.dump} in overlay #{overlay}")
+        raise("no such script #{script.dump} in Repository #{self}")
       end
 
       load script_path
     end
 
     #
-    # Converts the overlay to a String.
+    # Converts the repository to a String.
     #
     # @return [String]
-    #   The name and domain of the overlay.
+    #   The name and domain of the repository.
     #
     def to_s
       "#{self.name}/#{self.domain}"
@@ -648,8 +646,7 @@ module Ronin
     protected
 
     #
-    # Loads the overlay metadata from the METADATA_FILE within the
-    # overlay.
+    # Loads the metadata from {METADATA_FILE} within the repository.
     #
     def initialize_metadata
       metadata_path = self.path.join(METADATA_FILE)
@@ -692,19 +689,12 @@ module Ronin
         case metadata['authors']
         when Hash
           metadata['authors'].each do |name,email|
-            self.authors << Author.first_or_new(
-              :name => name,
-              :email => email
-            )
+            self.authors << Author.first_or_new(:name => name, :email => email)
           end
         when Array
           metadata['authors'].each do |name|
             self.authors << Author.first_or_new(:name => name)
           end
-        when String
-          self.authors << Author.first_or_new(
-            :name => metadata['authors']
-          )
         end
       end
 

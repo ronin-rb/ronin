@@ -18,23 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/author'
-require 'ronin/overlay'
-require 'ronin/model'
-
 module Ronin
-  class OverlayMaintainer
-
-    include Model
-
-    # The primary-key of the overlay author
-    property :id, Serial
-
-    # The overlay that the author maintains
-    belongs_to :overlay
-
-    # The author
-    belongs_to :author
-
+  class RepositoryNotFound < StandardError
   end
 end
