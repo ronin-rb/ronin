@@ -18,15 +18,11 @@ describe Installation do
     let(:directory) { 'lib/ronin/ui/command_line/commands' }
     let(:expected) {
       %w[
-        add.rb
         console.rb
         database.rb
         help.rb
-        install.rb
         ip.rb
-        list.rb
-        uninstall.rb
-        update.rb
+        repo.rb
         url.rb
       ]
     }
