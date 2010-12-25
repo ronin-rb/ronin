@@ -128,14 +128,6 @@ module Ronin
     end
 
     #
-    # @return [DataMapper::Logger, nil]
-    #   The current Database log.
-    #
-    def Database.log
-      @log
-    end
-
-    #
     # Setup the Database log.
     #
     # @param [Hash] options
@@ -151,15 +143,16 @@ module Ronin
     #   The level of messages to log.
     #   May be either `:fatal`, `:error`, `:warn`, `:info` or `:debug`.
     #
-    # @return [DataMapper::Logger]
-    #   The new Database log.
+    # @return [true]
+    #   Specifies that the log has been setup.
     #
     def Database.setup_log(options={})
       path = (options[:path] || DEFAULT_LOG_PATH)
       stream = (options[:stream] || File.new(path,'w+'))
       level = (options[:level] || DEFAULT_LOG_LEVEL)
 
-      return @log = DataMapper::Logger.new(stream,level)
+      @log = DataMapper::Logger.new(stream,level)
+      return true
     end
 
     #
@@ -204,7 +197,7 @@ module Ronin
     #
     def Database.setup(&block)
       # setup the database log
-      Database.setup_log unless Database.log
+      Database.setup_log unless @log
 
       # setup the database repositories
       Database.repositories.each do |name,uri|
