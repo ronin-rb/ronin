@@ -1,4 +1,4 @@
-r
+#
 # Ronin - A Ruby platform for exploit development and security research.
 #
 # Copyright (c) 2006-2010 Hal Brodigan (postmodern.mod3 at gmail.com)
@@ -34,6 +34,8 @@ module Ronin
       # Name of the default to run
       DEFAULT_COMMAND = 'console'
 
+      @commands = {}
+
       #
       # All command-line names of Commands available to the CommandLine.
       #
@@ -41,10 +43,8 @@ module Ronin
       #   The command-line names and paths of available Command classes.
       #
       def CommandLine.commands
-        unless defined?(@@ronin_ui_commands)
+        if @commands.empty?
           commands_dir = File.join('lib',Commands.namespace_root)
-
-          @@ronin_ui_commands = {}
 
           Installation.each_file(commands_dir) do |path|
             # remove the .rb file extension
@@ -57,11 +57,11 @@ module Ronin
             # replace all _ and - characters with a single _
             name.gsub!(/[_-]+/,'_')
 
-            @@ronin_ui_commands[name] = path
+            @commands[name] = path
           end
         end
 
-        return @@ronin_ui_commands
+        return @commands
       end
 
       #

@@ -51,6 +51,9 @@ module Ronin
       :path => File.join(Config::PATH,'database.sqlite3')
     )
 
+    @repositories = {}
+    @log = nil
+
     #
     # Returns the Database repositories to use.
     #
@@ -63,10 +66,8 @@ module Ronin
     # @since 1.0.0
     #
     def Database.repositories
-      unless class_variable_defined?('@@ronin_database_repositories')
-        @@ronin_database_repositories = {
-          :default => DEFAULT_REPOSITORY
-        }
+      if @repositories.empty?
+        @repositories[:default] = DEFAULT_REPOSITORY
 
         if File.file?(CONFIG_FILE)
           conf = YAML.load_file(CONFIG_FILE)
@@ -76,12 +77,12 @@ module Ronin
           end
 
           conf.each do |name,uri|
-            @@ronin_database_repositories[name.to_sym] = Addressable::URI.parse(uri)
+            @repositories[name.to_sym] = Addressable::URI.parse(uri)
           end
         end
       end
 
-      return @@ronin_database_repositories
+      return @repositories
     end
 
     #
@@ -131,7 +132,7 @@ module Ronin
     #   The current Database log.
     #
     def Database.log
-      @@ronin_database_log ||= nil
+      @log
     end
 
     #
@@ -158,7 +159,7 @@ module Ronin
       stream = (options[:stream] || File.new(path,'w+'))
       level = (options[:level] || DEFAULT_LOG_LEVEL)
 
-      return @@ronin_database_log = DataMapper::Logger.new(stream,level)
+      return @log = DataMapper::Logger.new(stream,level)
     end
 
     #

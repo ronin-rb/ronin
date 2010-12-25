@@ -31,7 +31,7 @@ module Ronin
         # @since 0.3.0
         #
         def self.shell
-          @@ronin_output_shell ||= Thor::Shell::Color.new
+          @shell ||= Thor::Shell::Color.new
         end
 
         #
@@ -47,9 +47,9 @@ module Ronin
         #
         def Handler.color=(mode)
           if mode
-            @@ronin_output_shell = Thor::Shell::Color.new
+            @shell = Thor::Shell::Color.new
           else
-            @@ronin_output_shell = Thor::Shell::Basic.new
+            @shell = Thor::Shell::Basic.new
           end
 
           return mode
@@ -114,7 +114,6 @@ module Ronin
         def self.print_error(*messages)
           shell.say messages.map { |mesg| "[!] #{mesg}" }.join($/), :red
         end
-
       end
     end
   end

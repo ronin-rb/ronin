@@ -26,6 +26,9 @@ module Ronin
   # installation of Ronin on the system.
   #
   module Installation
+    @gems = {}
+    @paths = {}
+
     #
     # Finds the installed Ronin libraries via RubyGems.
     #
@@ -35,9 +38,8 @@ module Ronin
     # @since 1.0.0
     #
     def Installation.gems
-      Installation.load_gemspecs! unless defined?(@@ronin_gems)
-
-      return @@ronin_gems
+      Installation.load_gemspecs! if @gems.empty?
+      return @gems
     end
 
     #
@@ -61,9 +63,8 @@ module Ronin
     # @since 1.0.0
     #
     def Installation.paths
-      Installation.load_gemspecs! unless defined?(@@ronin_gem_paths)
-
-      return @@ronin_gem_paths
+      Installation.load_gemspecs! if @paths.empty?
+      return @paths
     end
 
     #
@@ -136,18 +137,15 @@ module Ronin
     def Installation.load_gemspecs!
       ronin_gem = Gem.loaded_specs['ronin']
 
-      @@ronin_gems = {}
-      @@ronin_gem_paths = {}
-
       if ronin_gem
-        @@ronin_gems['ronin'] = ronin_gem
-        @@ronin_gem_paths['ronin'] = ronin_gem.full_gem_path
+        @gems['ronin'] = ronin_gem
+        @paths['ronin'] = ronin_gem.full_gem_path
 
         ronin_gem.dependent_gems.each do |gems|
           gem = gems.first
 
-          @@ronin_gems[gem.name] = gem
-          @@ronin_gem_paths[gem.name] = gem.full_gem_path
+          @gems[gem.name] = gem
+          @paths[gem.name] = gem.full_gem_path
         end
       else
         # if we cannot find an installed ronin gem, search the $LOAD_PATH
@@ -159,8 +157,8 @@ module Ronin
           if gemspec_path
             gem = Gem::SourceIndex.load_specification(gemspec_path)
 
-            @@ronin_gems[gem.name] = gem
-            @@ronin_gem_paths[gem.name] = root_dir
+            @gems[gem.name] = gem
+            @paths[gem.name] = root_dir
           end
         end
       end

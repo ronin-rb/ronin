@@ -102,6 +102,8 @@ module Ronin
     #     # => nil
     #
     module Cacheable
+      @models = Set[]
+
       def self.included(base)
         base.send :include, Contextify, Model
         base.send :extend, ClassMethods
@@ -119,7 +121,7 @@ module Ronin
         CachedFile.has 1, base.relationship_name,
                           :model => base.name
 
-        Cacheable.models << base
+        @models << base
       end
 
       #
@@ -131,7 +133,7 @@ module Ronin
       # @since 1.0.0
       #
       def Cacheable.models
-        @@ronin_cacheable_models ||= Set[]
+        @models
       end
 
       #
