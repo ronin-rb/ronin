@@ -57,66 +57,39 @@ module Ronin
       end
 
       #
-      # Changes the verbose mode.
+      # Enables verbose output.
       #
-      # @param [Boolean] mode
-      #   The new verbose mode.
+      # @return [Output]
       #
-      # @return [Boolean]
-      #   The new verbose mode.
+      # @since 1.0.0
       #
-      # @since 0.3.0
-      #
-      def Output.verbose=(mode)
-        if mode
-          @mode = :verbose
-        else
-          @mode = :quiet
-        end
-
-        return mode
+      def Output.verbose!
+        @mode = :verbose
+        return self
       end
 
       #
-      # Changes verbose output.
+      # Disables verbose output.
       #
-      # @param [Boolean] mode
-      #   The new quiet mode.
+      # @return [Output]
       #
-      # @return [Boolean]
-      #   The new quiet mode.
+      # @since 1.0.0
       #
-      # @since 0.3.0
-      #
-      def Output.quiet=(mode)
-        if mode
-          @mode = :quiet
-        else
-          @mode = :verbose
-        end
-
-        return mode
+      def Output.quiet!
+        @mode = :quiet
+        return self
       end
 
       #
-      # Changes verbose output.
+      # Disables all output.
       #
-      # @param [Boolean] mode
-      #   The new quiet mode.
+      # @return [Output]
       #
-      # @return [Boolean]
-      #   The new quiet mode.
+      # @since 1.0.0
       #
-      # @since 0.3.0
-      #
-      def Output.silent=(mode)
-        if mode
-          @mode = :silent
-        else
-          @mode = :quiet
-        end
-
-        return mode
+      def Output.silent!
+        @mode = :silent
+        return self
       end
 
       #

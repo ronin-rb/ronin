@@ -145,9 +145,9 @@ module Ronin
 
           @indent = 0
 
-          UI::Output.verbose = true if self.options.verbose?
-          UI::Output.quiet = true if self.options.quiet?
-          UI::Output.silent = true if self.options.silent?
+          UI::Output.verbose! if self.options.verbose?
+          UI::Output.quiet! if self.options.quiet?
+          UI::Output.silent! if self.options.silent?
 
           if self.options.nocolor?
             UI::Output::Handler.color = false

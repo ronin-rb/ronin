@@ -24,6 +24,6 @@ require 'rspec'
 
 RSpec.configure do |spec|
   spec.before(:suite) do
-    Ronin::UI::Output.silent = true unless ENV['DEBUG']
+    Ronin::UI::Output.silent! unless ENV['DEBUG']
   end
 end
