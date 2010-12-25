@@ -30,19 +30,18 @@ perform Google Dorks  or run 3rd party scanners.
 ### Publish
 
 Ronin allows users to publish and share code, exploits, payloads or other
-data via Overlays. Overlays are directories of code and data that can be
-hosted on any SVN, Hg, Git or Rsync server. Ronin makes it easy to create,
-install or update Overlays.
+data via Ronin Repositories. Repositories are directories of code and data
+that can be hosted on any SVN, Hg, Git or Rsync server. Ronin makes it easy
+to create, install and update Repositories.
 
 ## Features
 
-* Supports installing/updating/uninstalling of Overlays.
-  * Supports accessing Overlays from various media types:
+* Supports installing/updating/uninstalling of Repositories.
+  * Supports installing Repositories from various media types:
     * [Subversion (SVN)](http://subversion.tigris.org/)
     * [Mercurial (Hg)](http://mercurial.selenic.com/)
     * [Git](http://git-scm.com/)
     * Rsync
-* Allows for the loading of Extensions from one or more Overlays.
 * Provides Object Database using [DataMapper](http://datamapper.org)
   with:
   * {Ronin::Author}
@@ -70,7 +69,8 @@ install or update Overlays.
   * {Ronin::Organization}
   * {Ronin::Campaign}
   * {Ronin::Target}
-* Caches and mirrors Objects stored in Overlays using DataMapper.
+* Caches exploits, payloads, scanners, etc stored within Repositories
+  into the Database.
 * Convenience methods provided by
   [ronin-support](http://github.com/ronin-ruby/ronin-support#readme).
 * Provides a customized Ruby Console with:
@@ -92,25 +92,25 @@ View available commands:
 
     $ ronin help
 
-Install an Overlay:
+Install a Repository:
 
-    $ ronin repo --install svn://example.com/path/to/overlay
+    $ ronin repo --install svn://example.com/path/to/repo
 
-List installed Overlays:
+List installed Repositories:
 
     $ ronin repo
 
-Update all installed Overlays:
+Update all installed Repositories:
 
     $ ronin repo --update
 
-Update a specific Overlay:
+Update a specific Repositories:
 
-    $ ronin repo --update overlay-name
+    $ ronin repo --update repo-name
 
-Uninstall an Overlay:
+Uninstall an Repositories:
 
-    $ ronin repo --uninstall overlay-name
+    $ ronin repo --uninstall repo-name
 
 List available Databases:
 

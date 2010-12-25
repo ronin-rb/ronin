@@ -34,7 +34,7 @@ module Ronin
     # Configuration files directory
     CONFIG_DIR = File.join(PATH,'config')
 
-    # Directory which Overlays are installed into
+    # Directory which repositories are installed into
     REPOS_DIR = File.join(PATH,'repos')
 
     # Temporary file directory

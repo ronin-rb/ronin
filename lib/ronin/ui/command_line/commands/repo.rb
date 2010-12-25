@@ -88,7 +88,7 @@ module Ronin
 
           #
           # Print out any exceptions or validation errors encountered
-          # when caching the files of the overlay.
+          # when caching the files of the repository.
           #
           # @param [Repository] repo
           #   The repository that was updated.
@@ -181,7 +181,7 @@ module Ronin
           def add(path)
             repo = begin
                      Repository.add!(:path => path, :scm => @scm)
-                   rescue DuplicateOverlay => e
+                   rescue DuplicateRepository => e
                      print_error e.message
                      exit -1
                    end

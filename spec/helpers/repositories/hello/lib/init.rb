@@ -1,1 +1,1 @@
-$hello_overlay_loaded = true
+$hello_repo_loaded = true

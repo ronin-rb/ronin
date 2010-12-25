@@ -11,16 +11,16 @@ describe Repository do
 
   describe "find" do
     it "should be able to retrieve an Repository by name" do
-      overlay = subject.find('hello')
+      repo = subject.find('hello')
 
-      overlay.name.should == 'hello'
+      repo.name.should == 'hello'
     end
 
     it "should be able to retrieve an Repository by name and domain" do
-      overlay = subject.find('hello/localhost')
+      repo = subject.find('hello/localhost')
 
-      overlay.name.should == 'hello'
-      overlay.domain.should == 'localhost'
+      repo.name.should == 'hello'
+      repo.domain.should == 'localhost'
     end
 
     it "should raise RepositoryNotFound for unknown Repository names" do
@@ -100,20 +100,20 @@ describe Repository do
 
   describe "initialize" do
     it "should default the 'name' property to the name of the Repository directory" do
-      overlay = subject.new(
+      repo = subject.new(
         :path => File.join(Helpers::Repositories::DIR,'hello')
       )
 
-      overlay.name.should == 'hello'
+      repo.name.should == 'hello'
     end
 
     it "should default the 'installed' property to false" do
-      overlay = subject.new(
+      repo = subject.new(
         :path => File.join(Helpers::Repositories::DIR,'hello'),
         :uri => 'git://github.com/path/to/hello.git'
       )
 
-      overlay.installed.should == false
+      repo.installed.should == false
     end
   end
 
@@ -145,7 +145,7 @@ describe Repository do
     end
 
     it "should load the description" do
-      subject.description.should == %{This is a test overlay used in Ronin's specs.}
+      subject.description.should == %{This is a test repo used in Ronin's specs.}
     end
   end
 
@@ -157,7 +157,7 @@ describe Repository do
     end
 
     it "should load the init.rb file if present" do
-      $hello_overlay_loaded.should == true
+      $hello_repo_loaded.should == true
     end
 
     it "should make the lib directory accessible to Kernel#require" do

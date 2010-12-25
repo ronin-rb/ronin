@@ -152,7 +152,7 @@ module Ronin
         require 'ronin'
         require 'ronin/repository'
 
-        # activates all installed or added overlays
+        # activates all installed or added repositories
         Repository.activate!
 
         # require any of the auto-load paths
