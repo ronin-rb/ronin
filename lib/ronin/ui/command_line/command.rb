@@ -104,9 +104,16 @@ module Ronin
         include Thor::Actions
         include Output::Helpers
 
-        class_option :verbose, :type => :boolean, :default => false, :aliases => '-v'
-        class_option :quiet, :type => :boolean, :default => true, :aliases => '-q'
-        class_option :silent, :type => :boolean, :default => false, :aliases => '-Q'
+        class_option :verbose, :type => :boolean,
+                               :default => false,
+                               :aliases => '-v'
+        class_option :quiet, :type => :boolean,
+                             :default => false,
+                             :aliases => '-q'
+        class_option :silent, :type => :boolean,
+                              :default => false,
+                              :aliases => '-Q'
+
         class_option :color, :type => :boolean, :default => true
         class_option :nocolor, :type => :boolean, :default => false
 
@@ -138,9 +145,9 @@ module Ronin
 
           @indent = 0
 
-          UI::Output.verbose = self.options.verbose?
-          UI::Output.quiet = self.options.quiet?
-          UI::Output.silent = self.options.silent?
+          UI::Output.verbose = true if self.options.verbose?
+          UI::Output.quiet = true if self.options.quiet?
+          UI::Output.silent = true if self.options.silent?
 
           if self.options.nocolor?
             UI::Output::Handler.color = false
