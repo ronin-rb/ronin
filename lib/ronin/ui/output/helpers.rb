@@ -36,7 +36,12 @@ module Ronin
         # @since 1.0.0
         #
         def write(data)
-          Output.handler.write(data.to_s) unless Output.silent?
+          unless Output.silent?
+            data = data.to_s
+
+            Output.handler.write(data)
+            return data.length
+          end
         end
 
         #
