@@ -88,7 +88,7 @@ module Ronin
         # @since 0.3.0
         #
         def self.print_debug(*messages)
-          shell.say messages.map { |mesg| "[+] #{mesg}" }.join($/), :cyan
+          shell.say messages.map { |mesg| "[=] #{mesg}" }.join($/), :cyan
         end
 
         #
