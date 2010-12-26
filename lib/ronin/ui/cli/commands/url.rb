@@ -36,11 +36,11 @@ module Ronin
             urls.all(:scheme => scheme)
           end
 
-          query_option :host, :type => :string, :aliases => '-H' do |urls,hosts|
+          query_option :hosts, :type => :array, :aliases => '-H' do |urls,hosts|
             urls.all('host_name.address' => hosts)
           end
 
-          query_option :port, :type => :numeric, :aliases => '-P' do |urls,port|
+          query_option :ports, :type => :array, :aliases => '-P' do |urls,port|
             urls.all('ports.number' => port)
           end
 

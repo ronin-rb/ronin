@@ -44,11 +44,11 @@ module Ronin
             ips.all('ports.number' => ports)
           end
 
-          query_option :mac, :type => :array, :aliases => '-M' do |ips,macs|
+          query_option :macs, :type => :array, :aliases => '-M' do |ips,macs|
             ips.all('mac_addresses.address' => macs)
           end
 
-          query_option :host, :type => :array, :aliases => '-H' do |ips,hosts|
+          query_option :hosts, :type => :array, :aliases => '-H' do |ips,hosts|
             ips.all('host_names.address' => hosts)
           end
 
