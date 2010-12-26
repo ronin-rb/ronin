@@ -54,7 +54,7 @@ module Ronin
             # naming convention of Rake/Thor.
             name.tr!(File::SEPARATOR,':')
             
-            # replace all _ and - characters with a single _
+            # replace all '_' and '-' characters with a single '_' character
             name.gsub!(/[_-]+/,'_')
 
             @commands[name] = path
@@ -65,12 +65,12 @@ module Ronin
       end
 
       #
-      # Searches for a Command class with the matching command-line name.
+      # Searches for a {Command} class with the matching name.
       #
       # @param [String, Symbol] name
       #   The command-line name of the command to search for.
       #
-      # @return [Ronin::UI::Command]
+      # @return [Command]
       #   The Command registered with the command-line utility with the
       #   matching command-line name.
       #
