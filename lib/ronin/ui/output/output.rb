@@ -18,13 +18,13 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/output/handler'
+require 'ronin/ui/output/terminal/color'
 
 module Ronin
   module UI
     module Output
       @mode = :quiet
-      @handler = Handler
+      @handler = Terminal::Color
 
       #
       # @return [Boolean]

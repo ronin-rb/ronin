@@ -19,6 +19,7 @@
 #
 
 require 'ronin/ui/output'
+require 'ronin/ui/output/terminal'
 require 'ronin/support/inflector'
 
 require 'thor'
@@ -150,7 +151,7 @@ module Ronin
           UI::Output.silent! if self.options.silent?
 
           if self.options.nocolor?
-            UI::Output::Handler.color = false
+            UI::Output.handler = UI::Output::Terminal::Raw
           end
         end
 
