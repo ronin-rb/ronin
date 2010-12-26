@@ -46,6 +46,9 @@ module Ronin
     # The targets associated with the address
     has 0..n, :targets
 
+    # The remote files associated with the address
+    has 0..n, :remote_files, :through => :targets
+
     # The campaigns targeting the address
     has 0..n, :campaigns, :through => :targets
 
