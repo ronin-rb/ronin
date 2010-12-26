@@ -19,6 +19,7 @@
 #
 
 require 'ronin/ui/output/helpers'
+require 'ronin/repository'
 require 'ronin/config'
 require 'ronin/ronin'
 
@@ -146,10 +147,9 @@ module Ronin
       def Console.start(variables={},&block)
         require 'ripl/color_result' if @@color
         require 'ripl/short_errors' if @@short_errors
-        require 'pp'
 
         require 'ronin'
-        require 'ronin/repository'
+        require 'pp'
 
         # activates all installed or added repositories
         Repository.activate!
