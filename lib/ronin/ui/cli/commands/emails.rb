@@ -85,7 +85,12 @@ module Ronin
                 line.strip!
                 next if line.empty?
 
-                email = EmailAddress.parse(line)
+                email = begin
+                          EmailAddress.parse(line)
+                        rescue => e
+                          print_error e.message
+                          next
+                        end
 
                 if email.save
                   print_info "Imported #{email}"
