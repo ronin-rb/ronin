@@ -93,7 +93,7 @@ module Ronin
                   ip = IPAddress.new(:address => match)
 
                   if ip.save
-                    print_info "Imported #{ip}."
+                    print_info "Imported #{ip}"
                   else
                     print_error "Unable to import #{match.dump}."
                   end
