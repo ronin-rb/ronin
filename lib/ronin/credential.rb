@@ -77,7 +77,7 @@ module Ronin
     # @since 1.0.0
     #
     def to_ary
-      [self.user, self.password]
+      [self.user.name, self.password.clear_text]
     end
 
   end
