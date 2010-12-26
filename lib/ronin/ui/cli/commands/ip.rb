@@ -78,36 +78,34 @@ module Ronin
           # @since 1.0.0
           #
           def print_resource(ip)
-            if options.verbose?
-              print_title ip.address
+            return super(ip) unless options.verbose?
 
-              indent do
-                if (last_scanned_at = ip.last_scanned_at)
-                  print_hash('Last Scanned' => last_scanned_at)
-                end
+            print_title ip.address
 
-                unless ip.mac_addresses.empty?
-                  print_array ip.mac_addresses, :title => 'MAC Addresses'
-                end
+            indent do
+              if (last_scanned_at = ip.last_scanned_at)
+                print_hash('Last Scanned' => last_scanned_at)
+              end
 
-                unless ip.host_names.empty?
-                  print_array ip.host_names, :title => 'Hostnames'
-                end
+              unless ip.mac_addresses.empty?
+                print_array ip.mac_addresses, :title => 'MAC Addresses'
+              end
 
-                unless ip.open_ports.empty?
-                  print_section 'Open Ports' do
-                    ip.open_ports.each do |port|
-                      if port.service
-                        puts "#{port}\t#{port.service}"
-                      else
-                        puts port
-                      end
+              unless ip.host_names.empty?
+                print_array ip.host_names, :title => 'Hostnames'
+              end
+
+              unless ip.open_ports.empty?
+                print_section 'Open Ports' do
+                  ip.open_ports.each do |port|
+                    if port.service
+                      puts "#{port}\t#{port.service}"
+                    else
+                      puts port
                     end
                   end
                 end
               end
-            else
-              super(ip)
             end
           end
 

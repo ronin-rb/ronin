@@ -86,30 +86,28 @@ module Ronin
           # @since 1.0.0
           #
           def print_resource(url)
-            if options.verbose?
-              print_title url
+            return super(url) unless options.verbose?
 
-              indent do
-                print_hash(
-                  'Host' => url.host_name,
-                  'Port' => url.port.number,
-                  'Path' => url.path,
-                  'Fragment' => url.fragment,
-                  'Last Scanned' => url.last_scanned_at
-                )
+            print_title url
 
-                unless url.query_params.empty?
-                  params = {}
+            indent do
+              print_hash(
+                'Host' => url.host_name,
+                'Port' => url.port.number,
+                'Path' => url.path,
+                'Fragment' => url.fragment,
+                'Last Scanned' => url.last_scanned_at
+              )
 
-                  url.query_params.each do |param|
-                    params[param.name] = param.value
-                  end
+              unless url.query_params.empty?
+                params = {}
 
-                  print_hash params, :title => 'Query Params'
+                url.query_params.each do |param|
+                  params[param.name] = param.value
                 end
+
+                print_hash params, :title => 'Query Params'
               end
-            else
-              super(url)
             end
           end
 
