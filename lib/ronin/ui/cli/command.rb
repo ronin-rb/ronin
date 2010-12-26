@@ -116,7 +116,7 @@ module Ronin
                               :aliases => '-Q'
 
         class_option :color, :type => :boolean, :default => true
-        class_option :nocolor, :type => :boolean, :default => false
+        class_option :no_color, :type => :boolean, :default => false
 
         def self.inherited(super_class)
           super_class.namespace(super_class.command_name)
@@ -150,8 +150,10 @@ module Ronin
           UI::Output.quiet! if self.options.quiet?
           UI::Output.silent! if self.options.silent?
 
-          if self.options.nocolor?
+          if self.options.no_color?
             UI::Output.handler = UI::Output::Terminal::Raw
+          elsif self.options.color?
+            UI::Output.handler = UI::Output::Terminal::Color
           end
         end
 
