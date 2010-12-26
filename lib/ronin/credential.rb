@@ -48,6 +48,18 @@ module Ronin
     end
 
     #
+    # Converts the credentials to a String.
+    #
+    # @return [String]
+    #   The user name and the password.
+    #
+    # @since 1.0.0
+    #
+    def to_s
+      "#{self.user_name}:#{self.password}"
+    end
+
+    #
     # Splits the credential to multiple variables.
     #
     # @return [Array<String>]
