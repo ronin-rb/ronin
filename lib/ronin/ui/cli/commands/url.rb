@@ -94,7 +94,9 @@ module Ronin
           def import(path)
             File.open(path) do |file|
               file.each_line do |line|
-                line = line.strip
+                line.strip!
+                next if line.empty?
+
                 url = URL.parse(line)
 
                 if url.save

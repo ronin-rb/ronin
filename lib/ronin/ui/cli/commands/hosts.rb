@@ -74,7 +74,9 @@ module Ronin
           def import(path)
             File.open(path) do |file|
               file.each_line do |line|
-                line = line.strip
+                line.strip!
+                next if line.empty?
+
                 host = HostName.new(:address => line)
 
                 if host.save
