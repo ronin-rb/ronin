@@ -42,6 +42,8 @@ module Ronin
       # @return [Hash]
       #   The command-line names and paths of available Command classes.
       #
+      # @since 1.0.0
+      #
       def CLI.commands
         if @commands.empty?
           commands_dir = File.join('lib',Commands.namespace_root)
@@ -86,6 +88,8 @@ module Ronin
       #   CLI.command('auto-hack')
       #   # => Ronin::UI::CLI::Commands::AutoHack
       #
+      # @since 1.0.0
+      #
       def CLI.command(name)
         name = name.to_s
 
@@ -116,6 +120,8 @@ module Ronin
       #
       # @return [true]
       #   The command was successfully ran.
+      #
+      # @since 1.0.0
       #
       def CLI.start(argv=ARGV)
         if (argv.empty? || argv.first[0,1]=='-')
