@@ -15,7 +15,7 @@ describe Installation do
   end
 
   describe "each_file" do
-    let(:directory) { 'lib/ronin/ui/command_line/commands' }
+    let(:directory) { 'lib/ronin/ui/cli/commands' }
     let(:expected) {
       %w[
         console.rb

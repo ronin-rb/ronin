@@ -18,38 +18,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/command'
-require 'ronin/ui/command_line/command_line'
-
 module Ronin
   module UI
-    module CommandLine
-      module Commands
-        #
-        # The `ronin help` command.
-        #
-        class Help < Command
-
-          desc 'Displays the list of available commands or prints information on a specific command'
-          argument :command, :type => :string, :required => false
-
-          #
-          # Lists the available commands.
-          #
-          def execute
-            if self.command
-              begin
-                CommandLine.command(self.command).start(['--help'])
-              rescue UnknownCommand
-                print_error "unknown command #{command.dump}"
-              end
-            else
-              print_array CommandLine.commands.keys.sort,
-                          :title => 'Available commands'
-            end
-          end
-
-        end
+    module CLI
+      class UnknownCommand < StandardError
       end
     end
   end

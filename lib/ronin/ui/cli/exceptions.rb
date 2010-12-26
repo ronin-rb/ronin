@@ -18,5 +18,4 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/command'
-require 'ronin/ui/command_line/command_line'
+require 'ronin/ui/cli/exceptions/unknown_command'

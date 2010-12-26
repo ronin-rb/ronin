@@ -26,10 +26,10 @@ require 'thor/group'
 
 module Ronin
   module UI
-    module CommandLine
+    module CLI
       #
       # The {Command} class inherits `Thor::Group` to provide a base-class
-      # for defining sub-commands for the {CommandLine}.
+      # for defining sub-commands for the {CLI}.
       #
       # # Extending
       #
@@ -38,11 +38,11 @@ module Ronin
       # `arguments` which `Thor::Group` will use to parse command-line
       # arguments.
       #
-      #     require 'ronin/ui/command_line/command'
+      #     require 'ronin/ui/cli/command'
       #
       #     module Ronin
       #       module UI
-      #         module CommandLine
+      #         module CLI
       #           module Commands
       #             class MyCommand < Command
       #

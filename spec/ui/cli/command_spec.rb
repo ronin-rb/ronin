@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'ronin/ui/command_line/command'
+require 'ronin/ui/cli/command'
 
-require 'ui/command_line/classes/test_command'
+require 'ui/cli/classes/test_command'
 
-describe UI::CommandLine::Command do
+describe UI::CLI::Command do
   subject { TestCommand }
 
   it "should have a command name" do

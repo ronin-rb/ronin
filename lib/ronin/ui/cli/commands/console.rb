@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/command'
+require 'ronin/ui/cli/command'
 require 'ronin/ui/output'
 require 'ronin/ui/console'
 require 'ronin/database'
@@ -26,7 +26,7 @@ require 'ronin/version'
 
 module Ronin
   module UI
-    module CommandLine
+    module CLI
       module Commands
         #
         # The `ronin console` command.

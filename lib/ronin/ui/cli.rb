@@ -18,20 +18,5 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'open_namespace'
-
-module Ronin
-  module UI
-    module CommandLine
-      #
-      # The {Commands} namespace contains all of the {Command} classes
-      # available to {CommandLine}.
-      #
-      module Commands
-        include OpenNamespace
-
-        self.namespace_root = File.join('ronin','ui','command_line','commands')
-      end
-    end
-  end
-end
+require 'ronin/ui/cli/command'
+require 'ronin/ui/cli/cli'

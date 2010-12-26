@@ -18,4 +18,20 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/exceptions/unknown_command'
+require 'open_namespace'
+
+module Ronin
+  module UI
+    module CLI
+      #
+      # The {Commands} namespace contains all of the {Command} classes
+      # available to {CLI}.
+      #
+      module Commands
+        include OpenNamespace
+
+        self.namespace_root = File.join('ronin','ui','cli','commands')
+      end
+    end
+  end
+end

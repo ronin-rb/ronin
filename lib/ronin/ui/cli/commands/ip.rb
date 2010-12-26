@@ -18,12 +18,12 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/model_command'
+require 'ronin/ui/cli/model_command'
 require 'ronin/ip_address'
 
 module Ronin
   module UI
-    module CommandLine
+    module CLI
       module Commands
         #
         # The `ronin-ip` command.

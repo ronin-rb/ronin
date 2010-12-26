@@ -18,31 +18,31 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/ui/command_line/exceptions/unknown_command'
-require 'ronin/ui/command_line/commands'
+require 'ronin/ui/cli/exceptions/unknown_command'
+require 'ronin/ui/cli/commands'
 require 'ronin/installation'
 
 module Ronin
   module UI
     #
-    # The {CommandLine} provides an extendable Command Line Interface (CLI)
-    # for Ronin. The {CommandLine} can load any sub-command using the
-    # {command} method, from the `ronin/ui/command_line/commands`
+    # The {CLI} provides an extendable Command Line Interface (CLI)
+    # for Ronin. The {CLI} can load any sub-command using the
+    # {command} method, from the `ronin/ui/cli/commands`
     # directory.
     #
-    module CommandLine
+    module CLI
       # Name of the default to run
       DEFAULT_COMMAND = 'console'
 
       @commands = {}
 
       #
-      # All command-line names of Commands available to the CommandLine.
+      # All command-line names of Commands available to the {CLI}.
       #
       # @return [Hash]
       #   The command-line names and paths of available Command classes.
       #
-      def CommandLine.commands
+      def CLI.commands
         if @commands.empty?
           commands_dir = File.join('lib',Commands.namespace_root)
 
@@ -79,14 +79,14 @@ module Ronin
       #   command-line name.
       #
       # @example
-      #   CommandLine.command('auto_hack')
-      #   # => Ronin::UI::CommandLine::Commands::AutoHack
+      #   CLI.command('auto_hack')
+      #   # => Ronin::UI::CLI::Commands::AutoHack
       #
       # @example
-      #   CommandLine.command('auto-hack')
-      #   # => Ronin::UI::CommandLine::Commands::AutoHack
+      #   CLI.command('auto-hack')
+      #   # => Ronin::UI::CLI::Commands::AutoHack
       #
-      def CommandLine.command(name)
+      def CLI.command(name)
         name = name.to_s
 
         # eventually someone is going to use a space or - which is going
@@ -105,11 +105,10 @@ module Ronin
       end
 
       #
-      # Runs the CommandLine utility. If the first argument is a Command
-      # name, the CommandLine utility will attempt to find and run
-      # the Command with the matching command-line name. If the first
-      # argument is an option, or there are no arguments, the
-      # `DEFAULT_COMMAND` will be ran.
+      # Runs the command-line utility. If the first argument is a Command
+      # name, the {CLI} will attempt to find and run the command with the
+      # matching command-line name. If the first argument is an option,
+      # or there are no arguments, the {DEFAULT_COMMAND} will be ran.
       #
       # @param [Array] argv
       #   Command-line arguments which are used to select the Command to
@@ -118,7 +117,7 @@ module Ronin
       # @return [true]
       #   The command was successfully ran.
       #
-      def CommandLine.start(argv=ARGV)
+      def CLI.start(argv=ARGV)
         if (argv.empty? || argv.first[0,1]=='-')
           # run the default command if an option or no arguments were given
           name = DEFAULT_COMMAND
@@ -134,7 +133,7 @@ module Ronin
         end
 
         begin
-          CommandLine.command(name).start(argv)
+          CLI.command(name).start(argv)
         rescue UnknownCommand => e
           STDERR.puts e
           exit -1
