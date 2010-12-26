@@ -86,7 +86,7 @@ module Ronin
       hash = digest_class.new
 
       if options[:prepend_salt]
-        hash << options[:prefix_salt].to_s
+        hash << options[:prepend_salt].to_s
       end
 
       hash << self.clear_text
