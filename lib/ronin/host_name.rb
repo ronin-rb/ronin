@@ -37,6 +37,12 @@ module Ronin
     has 0..n, :ip_addresses, :through => :host_name_ip_addresses,
                              :model => 'IPAddress'
 
+    # Open ports of the host
+    has 0..n, :open_ports, :through => :ip_addresses
+
+    # Ports of the host
+    has 0..n, :ports, :through => :ip_addresses
+
     # The email addresses that are associated with the host-name.
     has 0..n, :email_addresses
 
