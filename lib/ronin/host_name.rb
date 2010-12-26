@@ -27,9 +27,6 @@ require 'ronin/model'
 module Ronin
   class HostName < Address
 
-    # URLs that point to this host name
-    has 0..n, :urls, :model => 'URL'
-
     # The IP Address associations
     has 0..n, :host_name_ip_addresses, :model => 'HostNameIPAddress'
 
@@ -45,6 +42,9 @@ module Ronin
 
     # The email addresses that are associated with the host-name.
     has 0..n, :email_addresses
+
+    # URLs that point to this host name
+    has 0..n, :urls, :model => 'URL'
 
     #
     # Searches for all host names under the Top-Level Domain (TLD).
