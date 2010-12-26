@@ -48,8 +48,8 @@ module Ronin
             ips.all('mac_addresses.address' => macs)
           end
 
-          query_option :hostname, :type => :array, :aliases => '-H' do |ips,names|
-            ips.all('host_names.address' => names)
+          query_option :host, :type => :array, :aliases => '-H' do |ips,hosts|
+            ips.all('host_names.address' => hosts)
           end
 
           class_option :list, :type => :boolean,
