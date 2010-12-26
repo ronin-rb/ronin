@@ -31,6 +31,8 @@ module Ronin
   module UI
     class Console
 
+      include Ronin
+
       # The history file for the Console session
       HISTORY_FILE = File.join(Config::PATH,'console.log')
 
@@ -185,7 +187,6 @@ module Ronin
       end
 
       class << self
-        include Ronin
         include Ronin::UI::Output::Helpers
 
         #
