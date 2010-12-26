@@ -52,14 +52,45 @@ module Ronin
                               :default => true,
                               :aliases => '-l'
 
+          class_option :import, :type => :string,
+                                :aliases => '-i',
+                                :banner => 'FILE'
+
           #
           # Queries the {EmailAddress} model.
           #
           # @since 1.0.0
           #
           def execute
-            if options.list?
+            if options[:import]
+              import options[:import]
+            elsif options.list?
               super
+            end
+          end
+
+          protected
+
+          #
+          # Imports email addresses from a file.
+          #
+          # @param [String] path
+          #   The path to the file.
+          #
+          # @since 1.0.0
+          #
+          def import(path)
+            File.open(path) do |file|
+              file.each_line do |line|
+                line = line.strip
+                email = EmailAddress.parse(line)
+
+                if email.save
+                  print_info "Imported #{email}"
+                else
+                  print_error "Unable to import #{line.dump}."
+                end
+              end
             end
           end
 
