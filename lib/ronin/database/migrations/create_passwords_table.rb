@@ -18,40 +18,23 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/database/migrations/create_user_names_table'
-require 'ronin/database/migrations/create_passwords_table'
-require 'ronin/database/migrations/create_open_ports_table'
-require 'ronin/database/migrations/create_urls_table'
-require 'ronin/database/migrations/create_proxies_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(
-        :create_credentials_table,
-        :needs => [
-          :create_user_names_table,
-          :create_passwords_table,
-          :create_open_ports_table,
-          :create_urls_table,
-          :create_proxies_table
-        ]
-      ) do
+      migration(:create_passwords_table) do
         up do
-          create_table :ronin_credentials do
+          create_table :ronin_passwords do
             column :id, Integer, :serial => true
-            column :user_name_id, Integer, :key => true
-            column :password_id, Integer, :key => true
-
-            column :open_port_id, Integer
-            column :url_id, Integer
-            column :proxy_id, Integer
+            column :clear_text, String, :not_null => true
           end
+
+          create_index :ronin_passwords, :clear_text, :unique => true
         end
 
         down do
-          drop_table :ronin_credentials
+          drop_table :ronin_passwords
         end
       end
     end

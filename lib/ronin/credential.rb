@@ -19,6 +19,7 @@
 #
 
 require 'ronin/user_name'
+require 'ronin/password'
 require 'ronin/model'
 
 module Ronin
@@ -26,13 +27,13 @@ module Ronin
 
     include Model
 
-    # primary key of the credential
+    # Primary key of the credential
     property :id, Serial
 
-    # password of the credential
-    property :password, String
+    # Password of the credential
+    belongs_to :password
 
-    # user-name of the credential
+    # User name of the credential
     belongs_to :user_name
 
     #
