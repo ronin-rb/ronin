@@ -42,6 +42,9 @@ module Ronin
     # The target the file was recovered from
     belongs_to :target, :unique => :target_remote_path
 
+    # The address the file was recovered from
+    has 1, :address, :through => :target
+
     # Tracks when the remote file was first recovered
     timestamps :created_at
 
