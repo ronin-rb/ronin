@@ -50,10 +50,21 @@ module Ronin
     # @return [EmailAddress]
     #   A new or previously saved email address resource.
     #
+    # @raise [RuntimeError]
+    #   The email address did not have a user name or a host name.
+    #
     # @since 1.0.0
     #
     def EmailAddress.parse(email)
       user, host = email.strip.split('@',2)
+
+      if user.empty?
+        raise("email address #{email.dump} must have a user name")
+      end
+
+      if host.empty?
+        raise("email address #{email.dump} must have a host name")
+      end
 
       return EmailAddress.first_or_new(
         :user_name => UserName.first_or_new(:name => user),
