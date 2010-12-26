@@ -19,6 +19,7 @@
 #
 
 require 'ronin/ui/cli/model_command'
+require 'ronin/extensions/ip_addr'
 require 'ronin/ip_address'
 
 module Ronin
@@ -56,18 +57,50 @@ module Ronin
                               :default => true,
                               :aliases => '-l'
 
+          class_option :import, :type => :string,
+                                :aliases => '-i',
+                                :banner => 'FILE'
+
           #
           # Queries the {IPAddress} model.
           #
           # @since 1.0.0
           #
           def execute
-            if options.list?
+            if options[:import]
+              import options[:import]
+            elsif options.list?
               super
             end
           end
 
           protected
+
+          #
+          # Extracts and saves IP Addresses from a file.
+          #
+          # @param [String] path
+          #   The path of the file.
+          #
+          # @since 1.0.0
+          #
+          def import(path)
+            Database.setup
+
+            File.open(options[:import]) do |file|
+              file.each_line do |line|
+                IPAddr.extract(line) do |match|
+                  ip = IPAddress.new(:address => match)
+
+                  if ip.save
+                    print_info "Imported #{ip}."
+                  else
+                    print_error "Unable to import #{match.dump}."
+                  end
+                end
+              end
+            end
+          end
 
           #
           # Prints an IP Address.
