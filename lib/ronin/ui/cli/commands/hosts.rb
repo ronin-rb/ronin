@@ -102,7 +102,7 @@ module Ronin
             print_title host.address
 
             indent do
-              if (last_scanned_at = ip.last_scanned_at)
+              if (last_scanned_at = host.last_scanned_at)
                 print_hash('Last Scanned' => last_scanned_at)
               end
 
