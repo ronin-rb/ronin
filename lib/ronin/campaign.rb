@@ -46,6 +46,38 @@ module Ronin
     has 0..n, :organizations, :through => :targets
 
     #
+    # Determines if an address is targeted by the campaign.
+    #
+    # @param [Address] address
+    #   The address.
+    #
+    # @return [Boolean]
+    #   Specifies whether the address is targeted.
+    #
+    # @since 1.0.0
+    #
+    def targets?(addr)
+      self.addresses.include?(address)
+    end
+
+    #
+    # Adds an address to the campaign.
+    #
+    # @param [Address] address
+    #   The address that will be targeted.
+    #
+    # @return [Target]
+    #   The new target of the campaign.
+    #
+    # @since 1.0.0
+    #
+    def target!(address)
+      return false if targets?(address)
+
+      return Target.create(:campaign => self, :address => address)
+    end
+
+    #
     # The file-name to use for the campaign.
     #
     # @return [String, nil]
