@@ -58,7 +58,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.tld(name)
-      self.all(:address.like => "%.#{name}")
+      all(:address.like => "%.#{name}")
     end
 
     #
@@ -73,7 +73,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.domain(name)
-      self.all(:address.like => "#{name}.%") | self.all(:address.like => "%.#{name}.%")
+      all(:address.like => "#{name}.%") | all(:address.like => "%.#{name}.%")
     end
 
     alias name address
