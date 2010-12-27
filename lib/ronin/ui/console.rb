@@ -21,7 +21,7 @@
 require 'ronin/ui/output/helpers'
 require 'ronin/repository'
 require 'ronin/config'
-require 'ronin/ronin'
+require 'ronin/class_methods'
 
 require 'ripl'
 require 'ripl/completion'
@@ -31,8 +31,6 @@ require 'ripl/auto_indent'
 module Ronin
   module UI
     class Console
-
-      include Ronin
 
       # The history file for the Console session
       HISTORY_FILE = File.join(Config::PATH,'console.log')
@@ -187,6 +185,8 @@ module Ronin
       end
 
       class << self
+        include Ronin
+        include Ronin::ClassMethods
         include Ronin::UI::Output::Helpers
 
         #
