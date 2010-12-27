@@ -35,6 +35,10 @@ module Ronin
             column :campaign_id, Integer, :not_null => true
             column :address_id, Integer, :not_null => true
           end
+
+          create_index :ronin_targets, :campaign_id, :address_id,
+                       :name => :campaign_address,
+                       :unique => true
         end
 
         down do

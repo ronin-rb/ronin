@@ -34,10 +34,10 @@ module Ronin
     property :id, Serial
 
     # The campaign the target belongs to
-    belongs_to :campaign
+    belongs_to :campaign, :unique => :campaign_address
 
     # The host being targeted
-    belongs_to :address
+    belongs_to :address, :unique => :campaign_address
 
     # The organization that is being targeted
     has 1, :organization, :through => :address
