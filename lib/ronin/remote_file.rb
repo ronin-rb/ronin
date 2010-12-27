@@ -52,6 +52,36 @@ module Ronin
     has_tags_on :tags
 
     #
+    # Searches for all remote files with the basename.
+    #
+    # @param [String] basename
+    #   The basename of the file.
+    #
+    # @return [Array<RemoteFile>]
+    #   The matching remote files.
+    #
+    # @since 1.0.0
+    #
+    def self.named(basename)
+      all(:remote_path => basename) | all(:remote_path.like => "%/#{basename}")
+    end
+
+    #
+    # Searches for all remote files with the file name extension.
+    #
+    # @param [String, Symbol] ext
+    #   The file name extension.
+    #
+    # @return [Array<RemoteFile>]
+    #   The matching remote files.
+    #
+    # @since 1.0.0
+    #
+    def self.extension(ext)
+      all(:remote_path => "%.#{ext}")
+    end
+
+    #
     # The local path for the remote file.
     #
     # @return [String, nil]
