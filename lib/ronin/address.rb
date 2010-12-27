@@ -34,7 +34,7 @@ module Ronin
     property :id, Serial
 
     # The class name of the Address
-    property :type, Discriminator
+    property :type, Discriminator, :required => true
 
     # The Address
     property :address, String, :required => true,
