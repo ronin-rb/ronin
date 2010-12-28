@@ -65,7 +65,8 @@ module Ronin
 
             if script
               require 'ronin'
-              require File.join('.',script)
+
+              require File.expand_path(script)
             else
               UI::Console.start
             end
