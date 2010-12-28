@@ -24,4 +24,3 @@ require 'ronin/network/extensions'
 require 'ronin/ui/hexdump/extensions'
 
 require 'chars/extensions'
-require 'combinatorics'
