@@ -88,6 +88,10 @@ Start the Ronin console:
 
     $ ronin
 
+Run a Ruby script in Ronin:
+
+    $ ronin exec script.rb
+
 View available commands:
 
     $ ronin help
