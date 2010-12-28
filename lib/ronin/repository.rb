@@ -610,30 +610,6 @@ module Ronin
     end
 
     #
-    # Runs a Ruby script in the `bin/` directory of the repository.
-    #
-    # @param [String] script
-    #   The name of the script to run.
-    #
-    # @return [Boolean]
-    #   Specifies the script was ran.
-    #
-    # @raise [RuntimeError]
-    #   The script was not found in the `bin/` directory of the repository.
-    #
-    # @since 1.0.0
-    #
-    def run(script)
-      script_path = @bin_dir.join(script)
-
-      unless script_path.file?
-        raise("no such script #{script.dump} in Repository #{self}")
-      end
-
-      load script_path
-    end
-
-    #
     # Converts the repository to a String.
     #
     # @return [String]
