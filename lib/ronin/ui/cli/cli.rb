@@ -124,18 +124,13 @@ module Ronin
       # @since 1.0.0
       #
       def CLI.start(argv=ARGV)
-        if (argv.empty? || argv.first[0,1] == '-')
-          # run the default command if an option or no arguments were given
+        name = argv.first
+
+        # run the default command if an option or no arguments were given
+        if (name.nil? || name[0,1] == '-' || File.file?(name))
           name = DEFAULT_COMMAND
         else
-          name = argv.first
-
-          if File.file?(name)
-            # run the default command if the sub-command is a file
-            name = DEFAULT_COMMAND
-          else
-            argv = argv[1..-1]
-          end
+          argv = argv[1..-1]
         end
 
         begin
