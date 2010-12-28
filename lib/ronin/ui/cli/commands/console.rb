@@ -37,7 +37,8 @@ module Ronin
           class_option :database, :type => :string, :aliases => '-D'
           class_option :require, :type => :array,
                                  :default => [],
-                                 :aliases => '-r'
+                                 :aliases => '-r',
+                                 :banner => 'PATH'
           class_option :verbose, :type => :boolean, :aliases => '-v'
           class_option :backtrace, :type => :boolean
           argument :script, :type => :string, :required => false
