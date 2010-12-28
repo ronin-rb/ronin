@@ -124,7 +124,7 @@ module Ronin
       # @since 1.0.0
       #
       def CLI.start(argv=ARGV)
-        if (argv.empty? || argv.first[0,1]=='-')
+        if (argv.empty? || argv.first[0,1] == '-')
           # run the default command if an option or no arguments were given
           name = DEFAULT_COMMAND
         else
