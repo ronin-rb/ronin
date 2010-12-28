@@ -66,7 +66,7 @@ module Ronin
             if script
               require 'ronin'
 
-              require File.expand_path(script)
+              load File.expand_path(script)
             else
               UI::Console.start
             end
