@@ -35,7 +35,9 @@ module Ronin
 
           desc 'start the Ronin Console'
           class_option :database, :type => :string, :aliases => '-D'
-          class_option :require, :type => :array, :aliases => '-r'
+          class_option :require, :type => :array,
+                                 :default => [],
+                                 :aliases => '-r'
           class_option :verbose, :type => :boolean, :aliases => '-v'
           class_option :backtrace, :type => :boolean
           argument :script, :type => :string, :required => false
@@ -52,10 +54,8 @@ module Ronin
             UI::Console.color = false if options.nocolor?
             UI::Console.short_errors = false if options.backtrace?
 
-            if options[:require]
-              options[:require].each do |path|
-                UI::Console.auto_load << path
-              end
+            options[:require].each do |path|
+              UI::Console.auto_load << path
             end
 
             if options[:database]
