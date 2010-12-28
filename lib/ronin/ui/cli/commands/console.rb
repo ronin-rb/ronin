@@ -41,7 +41,6 @@ module Ronin
                                  :banner => 'PATH'
           class_option :verbose, :type => :boolean, :aliases => '-v'
           class_option :backtrace, :type => :boolean
-          argument :script, :type => :string, :required => false
 
           #
           # Starts the Ronin Console.
@@ -63,13 +62,7 @@ module Ronin
               Database.config = options[:database]
             end
 
-            if script
-              require 'ronin'
-
-              load File.expand_path(script)
-            else
-              UI::Console.start
-            end
+            UI::Console.start
           end
 
         end
