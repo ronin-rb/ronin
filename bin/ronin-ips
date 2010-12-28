@@ -20,6 +20,6 @@ end
 lib_dir = File.join(root_dir,'lib')
 $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
 
-require 'ronin/ui/cli/commands/repo'
+require 'ronin/ui/cli/commands/ips'
 
-Ronin::UI::CLI::Commands::Repo.start
+Ronin::UI::CLI::Commands::IPs.start

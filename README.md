@@ -94,23 +94,23 @@ View available commands:
 
 Install a Repository:
 
-    $ ronin repo --install svn://example.com/path/to/repo
+    $ ronin repos --install svn://example.com/path/to/repo
 
 List installed Repositories:
 
-    $ ronin repo
+    $ ronin repos
 
 Update all installed Repositories:
 
-    $ ronin repo --update
+    $ ronin repos --update
 
 Update a specific Repositories:
 
-    $ ronin repo --update repo-name
+    $ ronin repos --update repo-name
 
 Uninstall an Repositories:
 
-    $ ronin repo --uninstall repo-name
+    $ ronin repos --uninstall repo-name
 
 List available Databases:
 

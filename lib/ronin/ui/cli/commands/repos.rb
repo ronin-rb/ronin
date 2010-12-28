@@ -27,9 +27,9 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin repo` command.
+        # The `ronin repos` command.
         #
-        class Repo < Command
+        class Repos < Command
 
           desc 'Manages Ronin repositories'
           class_option :add, :type => :string,

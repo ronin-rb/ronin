@@ -27,9 +27,9 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-ip` command.
+        # The `ronin-ips` command.
         #
-        class IP < ModelCommand
+        class IPs < ModelCommand
 
           self.model = IPAddress
 

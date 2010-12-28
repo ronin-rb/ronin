@@ -26,9 +26,9 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-url` command.
+        # The `ronin-urls` command.
         #
-        class URL < ModelCommand
+        class URLs < ModelCommand
 
           self.model = Ronin::URL
 
