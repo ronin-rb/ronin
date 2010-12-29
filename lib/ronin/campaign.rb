@@ -63,18 +63,23 @@ module Ronin
     #
     # Adds an address to the campaign.
     #
-    # @param [Address] address
+    # @param [String] addr
     #   The address that will be targeted.
     #
     # @return [Target]
     #   The new target of the campaign.
     #
+    # @raise [RuntimeError]
+    #   The given address could not be found.
+    #
     # @since 1.0.0
     #
-    def target!(address)
-      return false if targets?(address)
+    def target!(addr)
+      unless (address = Address.first(:address => addr))
+        raise("unknown address #{addr.dump}")
+      end
 
-      return Target.create(:campaign => self, :address => address)
+      return Target.first_or_create(:campaign => self, :address => address)
     end
 
     #
