@@ -46,6 +46,21 @@ module Ronin
     has 0..n, :organizations, :through => :targets
 
     #
+    # Searches for all campaigns targeting an {Address}.
+    #
+    # @param [String] addr
+    #   The address to search for.
+    #
+    # @return [Array<Campaign>]
+    #   The campaigns that target the given address.
+    #
+    # @since 1.0.0
+    #
+    def self.targeting(addr)
+      all('addresses.address' => addr)
+    end
+
+    #
     # Determines if an address is targeted by the campaign.
     #
     # @param [Address] address
