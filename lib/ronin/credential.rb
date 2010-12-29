@@ -37,6 +37,21 @@ module Ronin
     belongs_to :user_name
 
     #
+    # Searches for all credentials for a specific user.
+    #
+    # @param [String] name
+    #   The name of the user.
+    #
+    # @return [Array<Credential>]
+    #   The credentials for the user.
+    #
+    # @since 1.0.0
+    #
+    def self.for_user(name)
+      all('user_name.name' => name)
+    end
+
+    #
     # The user the credential belongs to.
     #
     # @return [String]
