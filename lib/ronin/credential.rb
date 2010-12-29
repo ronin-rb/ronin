@@ -52,6 +52,21 @@ module Ronin
     end
 
     #
+    # Searches for all credentials with a common password.
+    #
+    # @param [String] password
+    #   The password to search for.
+    #
+    # @return [Array<Credential>]
+    #   The credentials with the common password.
+    #
+    # @since 1.0.0
+    #
+    def self.with_password(password)
+      all('password.clear_text' => password)
+    end
+
+    #
     # The user the credential belongs to.
     #
     # @return [String]
