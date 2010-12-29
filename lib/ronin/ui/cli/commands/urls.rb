@@ -30,7 +30,7 @@ module Ronin
         #
         class URLs < ModelCommand
 
-          self.model = Ronin::URL
+          self.model = URL
 
           query_option :scheme, :type => :string do |urls,scheme|
             urls.all(:scheme => scheme)
