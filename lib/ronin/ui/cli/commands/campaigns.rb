@@ -38,9 +38,7 @@ module Ronin
 
           query_option :description, :type => :string, :aliases => '-d'
 
-          query_option :addresses, :type => :array, :aliases => '-A' do |campaigns,addresses|
-            campaigns.all('addresses.address' => addresses)
-          end
+          query_option :targeting, :type => :array, :aliases => '-T'
 
           query_option :organizations, :type => :array, :aliases => '-O' do |campaigns,orgs|
             campaigns.all('organizations.name' => orgs)
@@ -53,6 +51,9 @@ module Ronin
           class_option :add, :type => :string,
                              :aliases => '-a',
                              :banner => 'NAME'
+
+          class_option :targets, :type => :array,
+                                 :banner => 'ADDR [...]'
 
           #
           # Queries the {Campaign} model.
@@ -79,6 +80,9 @@ module Ronin
           #
           def add(name)
             campaign = Campaign.new(:name => name)
+
+            # add targets to the campaign
+            options[:targets].each { |target| campaign.target!(target) }
 
             if campaign.save
               print_info "Added campaign #{campaign}"
