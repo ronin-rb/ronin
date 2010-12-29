@@ -19,6 +19,7 @@
 #
 
 require 'ronin/model'
+require 'ronin/model/has_name'
 require 'ronin/os_guess'
 require 'ronin/ip_address'
 require 'ronin/extensions/meta'
@@ -32,12 +33,10 @@ module Ronin
   class OS
 
     include Model
+    include Model::HasName
 
     # Primary key
     property :id, Serial
-
-    # Name of the Operating System
-    property :name, String, :required => true, :index => true
 
     # Version of the Operating System
     property :version, String, :index => true
@@ -80,9 +79,9 @@ module Ronin
     #
     def to_s
       if self.version
-        return "#{self.name} #{self.version}"
+        "#{self.name} #{self.version}"
       else
-        return self.name.to_s
+        super
       end
     end
 

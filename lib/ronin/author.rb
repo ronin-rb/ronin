@@ -19,6 +19,7 @@
 #
 
 require 'ronin/model'
+require 'ronin/model/has_name'
 
 module Ronin
   #
@@ -28,12 +29,10 @@ module Ronin
   class Author
 
     include Model
+    include Model::HasName
 
     # Primary key of the author
     property :id, Serial
-
-    # Name of author
-    property :name, String, :index =>  true
 
     # Author's associated group
     property :organization, String
@@ -60,7 +59,7 @@ module Ronin
       if self.email
         "#{self.name} <#{self.email}>"
       else
-        self.name.to_s
+        super
       end
     end
 

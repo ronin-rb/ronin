@@ -59,7 +59,7 @@ module Ronin
         if (self.name && self.version)
           "#{self.name} #{self.version}"
         elsif self.name
-          self.name.to_s
+          super
         elsif self.version
           self.version.to_s
         end

@@ -36,6 +36,18 @@ module Ronin
           property :name, String, :required => true, :index => true
         end
       end
+
+      #
+      # Converts the named resource into a String.
+      #
+      # @return [String]
+      #   The name of the resource.
+      #
+      # @since 1.0.0
+      #
+      def to_s
+        self.name.to_s
+      end
     end
   end
 end

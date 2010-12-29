@@ -45,17 +45,5 @@ module Ronin
     # Tags
     has_tags_on :tags
 
-    #
-    # Converts the Organization to a String.
-    #
-    # @return [String]
-    #   The name of the organization.
-    #
-    # @since 1.0.0
-    #
-    def to_s
-      self.name.to_s
-    end
-
   end
 end
