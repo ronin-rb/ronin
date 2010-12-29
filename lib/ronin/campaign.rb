@@ -48,8 +48,8 @@ module Ronin
     #
     # Searches for all campaigns targeting an {Address}.
     #
-    # @param [String] addr
-    #   The address to search for.
+    # @param [Array<String>, String] addr
+    #   The address(es) to search for.
     #
     # @return [Array<Campaign>]
     #   The campaigns that target the given address.
