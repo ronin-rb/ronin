@@ -154,7 +154,7 @@ module Ronin
     #
     # @since 1.0.0
     #
-    def self.dns(name)
+    def self.lookup(name)
       host = self.host_names.model.first_or_new(:address => name)
 
       return Resolv.getaddresses(name).map do |ip|
@@ -170,7 +170,7 @@ module Ronin
     #
     # @since 1.0.0
     #
-    def dns!
+    def lookup!
       Resolv.getnames(self.address.to_s).map do |name|
         self.host_names.first_or_new(:address => name)
       end

@@ -11,39 +11,39 @@ describe IPAddress do
     ip.should_not be_valid
   end
 
-  describe "dns" do
+  describe "lookup" do
     subject { IPAddress }
 
     let(:bad_domain) { '.bad.domain.com.' }
 
-    it "should resolve host-names to IP Addresses" do
-      ips = IPAddress.dns(example_domain)
+    it "should lookup host-names to IP Addresses" do
+      ips = subject.lookup(example_domain)
 
       ips.should_not be_empty
       ips[0].address.should == example_ip
     end
 
-    it "should return an empty Array for unresolved domain names" do
-      ips = subject.dns(bad_domain)
+    it "should return an empty Array for unknown domain names" do
+      ips = subject.lookup(bad_domain)
       
       ips.should be_empty
     end
   end
 
-  describe "#dns!" do
+  describe "#lookup!" do
     let(:bad_ip) { '0.0.0.0' }
 
     it "should reverse lookup the host-name for an IP Address" do
       ip = IPAddress.new(:address => example_ip)
-      host_names = ip.dns!
+      host_names = ip.lookup!
       
       host_names.should_not be_empty
       host_names[0].address.should == example_domain
     end
 
-    it "should return an empty Array for unresolved domain names" do
+    it "should return an empty Array for unknown domain names" do
       ip = IPAddress.new(:address => bad_ip)
-      host_names = ip.dns!
+      host_names = ip.lookup!
 
       host_names.should be_nil
     end
