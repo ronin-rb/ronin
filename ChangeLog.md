@@ -1,3 +1,52 @@
+### 1.0.0 / 2011-02-01
+
+* Added `ronin/bootstrap` which only loads configuration and the Database.
+* Added {Ronin::Database::Migrations}.
+* Added {Ronin::Address}:
+  * Added {Ronin::MACAddress}.
+  * Added {Ronin::IPAddress}.
+  * Added {Ronin::HostName}.
+* Added {Ronin::Port}:
+  * Added {Ronin::TCPPort}.
+  * Added {Ronin::UDPPort}.
+* Added {Ronin::Service}.
+* Added {Ronin::OpenPort}.
+* Added {Ronin::OSGuess}.
+* Added {Ronin::UserName}.
+* Added {Ronin::URL}:
+  * Added {Ronin::URLScheme}.
+  * Added {Ronin::URLQueryParam}.
+* Added {Ronin::EmailAddress}.
+* Added {Ronin::Credential}.
+* Added {Ronin::ServiceCredential}.
+* Added {Ronin::WebCredential}.
+* Added {Ronin::Organization}.
+* Added {Ronin::Campaign}.
+* Added {Ronin::Target}.
+* Added {Ronin::Engine}.
+* Added {Ronin::UI::Output::Terminal::Raw}.
+* Added {Ronin::UI::Output::Terminal::Color}.
+* Renamed `Ronin::Product` to {Ronin::Software}.
+* Renamed `Ronin::UI::CommandLine` to {Ronin::UI::CLI}.
+* Renamed `Ronin::Platform::Overlay` to {Ronin::Repository}.
+* Renamed `Ronin::Platform::CachedFile` to {Ronin::CachedFile}.
+* Renamed `Ronin::Platform::Cacheable` to {Ronin::Model::Cacheable}.
+* Removed `Ronin::Platform::Extension`.
+* Removed `Ronin::Platform`.
+* Switched from [Jeweler](https://github.com/technicalpickles/jeweler)
+  to [Ore](http://github.com/ruby-ore/ore) and [Bundler](http://gembundler.com).
+* Upgraded to [Rspec2](http://relishapp.com/rspec).
+* Upgraded to [DataMapper](http://datamapper.org) ~> 1.0.2.
+* Use [OpenNamespace](http://github.com/postmodern/open_namespace) to auto-load
+  everything in the {Ronin} namespace.
+* Switched from DataMapper auto-migrations to explicit-migrations.
+* Switched {Ronin::UI::Console} from IRB to
+  [Ripl](https://github.com/cldwalker/ripl):
+  * Enabled result coloring with
+    [ripl-color_result](https://github.com/janlelis/ripl-color_result).
+  * Enabled short errors with
+    [ripl-short_error](https://github.com/janlelis/ripl-misc/blob/master/lib/ripl/short_errors.rb).
+
 ### 0.3.0 / 2009-09-24
 
 * Require yard >= 0.2.3.5.
