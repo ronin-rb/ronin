@@ -91,7 +91,7 @@ module Ronin
       #
       # To ensure that your sub-command is accessible to the `ronin`
       # command, make sure that the ruby file the sub-command is defined
-      # within is in the `ronin/ui/command_line/commands` directory of a
+      # within is in the `ronin/ui/cli/commands` directory of a
       # Ronin library. If the sub-command class is named 'MyCommand'
       # it's ruby file must also be named 'my_command.rb'.
       #

@@ -19,7 +19,7 @@
 #
 
 require 'ronin/ui/cli/command'
-require 'ronin/ui/cli/command_line'
+require 'ronin/ui/cli/cli'
 
 module Ronin
   module UI
@@ -39,12 +39,12 @@ module Ronin
           def execute
             if self.command
               begin
-                CommandLine.command(self.command).start(['--help'])
+                CLI.command(self.command).start(['--help'])
               rescue UnknownCommand
                 print_error "unknown command #{command.dump}"
               end
             else
-              print_array CommandLine.commands.keys.sort,
+              print_array CLI.commands.keys.sort,
                           :title => 'Available commands'
             end
           end
