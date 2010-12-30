@@ -18,33 +18,23 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/database/migrations/create_organizations_table'
-require 'ronin/database/migrations/create_taggings_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(
-        :create_addresses_table,
-        :needs => [:create_organizations_table, :create_taggings_table]
-      ) do
+      migration(:create_tags_table) do
         up do
-          create_table :ronin_addresses do
+          create_table :tags do
             column :id, Integer, :serial => true
-            column :type, String, :not_null => true
-            column :version, Integer
-            column :address, String, :not_null => true
-            column :organization_id, Integer
-            column :created_at, Time, :not_null => true
-            column :frozen_tag_list, Text
+            column :name, String, :not_null => true
           end
 
-          create_index :ronin_addresses, :address, :unique => true
+          create_index :tags, :name, :unique => true
         end
 
         down do
-          drop_table :ronin_addresses
+          drop_table :tags
         end
       end
     end

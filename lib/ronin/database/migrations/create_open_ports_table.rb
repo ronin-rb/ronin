@@ -20,6 +20,7 @@
 
 require 'ronin/database/migrations/create_addresses_table'
 require 'ronin/database/migrations/create_ports_table'
+require 'ronin/database/migrations/create_taggings_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
@@ -27,7 +28,11 @@ module Ronin
     module Migrations
       migration(
         :create_open_ports_table,
-        :needs => [:create_addresses_table, :create_ports_table]
+        :needs => [
+          :create_addresses_table,
+          :create_ports_table,
+          :create_taggings_table
+        ]
       ) do
         up do
           create_table :ronin_open_ports do

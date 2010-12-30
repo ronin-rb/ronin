@@ -19,6 +19,8 @@
 #
 
 require 'ronin/database/migrations/migrations'
+require 'ronin/database/migrations/create_tags_table'
+require 'ronin/database/migrations/create_taggings_table'
 require 'ronin/database/migrations/create_arches_table'
 require 'ronin/database/migrations/create_os_table'
 require 'ronin/database/migrations/create_vendors_table'

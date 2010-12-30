@@ -18,12 +18,16 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/database/migrations/create_taggings_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
   module Database
     module Migrations
-      migration(:create_organizations_table) do
+      migration(
+        :create_organizations_table,
+        :needs => :create_taggings_table
+      ) do
         up do
           create_table :ronin_organizations do
             column :id, Integer, :serial => true

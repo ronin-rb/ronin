@@ -19,6 +19,7 @@
 #
 
 require 'ronin/database/migrations/create_targets_table'
+require 'ronin/database/migrations/create_taggings_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
@@ -26,7 +27,7 @@ module Ronin
     module Migrations
       migration(
         :create_remote_files_table,
-        :needs => :create_targets_table
+        :needs => [:create_targets_table, :create_taggings_table]
       ) do
         up do
           create_table :ronin_remote_files do
