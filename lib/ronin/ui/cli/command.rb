@@ -174,11 +174,7 @@ module Ronin
         # @since 1.0.0
         #
         def self.banner
-          if $0 == 'ronin'
-            super
-          else
-            self.basename
-          end
+          "ronin #{self_task.formatted_usage(self,false,true)}"
         end
 
         #
