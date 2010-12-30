@@ -33,13 +33,9 @@ module Ronin
 
           self.model = IPAddress
 
-          query_option :v4, :type => :boolean, :aliases => '-4' do |ips|
-            ips.all(:version => 4)
-          end
+          query_option :v4, :type => :boolean, :aliases => '-4'
 
-          query_option :v6, :type => :boolean, :aliases => '-6' do |ips|
-            ips.all(:version => 6)
-          end
+          query_option :v6, :type => :boolean, :aliases => '-6'
 
           query_option :ports, :type => :array, :aliases => '-p' do |ips,ports|
             ips.all('ports.number' => ports)

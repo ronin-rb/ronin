@@ -75,6 +75,30 @@ module Ronin
                      :via => :os
 
     #
+    # Searches for all IPv4 addresses.
+    #
+    # @return [Array<IPAddress>]
+    #   The IPv4 addresses.
+    #
+    # @since 1.0.0
+    #
+    def self.v4
+      all(:version => 4)
+    end
+
+    #
+    # Searches for all IPv6 addresses.
+    #
+    # @return [Array<IPAddress>]
+    #   The IPv6 addresses.
+    #
+    # @since 1.0.0
+    #
+    def self.v6
+      all(:version => 6)
+    end
+
+    #
     # Resolves the host-name to an IP Address.
     #
     # @param [String] host_name
