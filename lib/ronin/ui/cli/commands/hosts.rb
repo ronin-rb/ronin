@@ -40,6 +40,14 @@ module Ronin
                                     :aliases => '-p',
                                     :banner => 'PORT [...]'
 
+          query_option :domain, :type => :string,
+                                :aliases => '-D',
+                                :banner => 'DOMAIN'
+
+          query_option :tld, :type => :string,
+                             :aliases => '-T',
+                             :banner => 'TLD'
+
           class_option :list, :type => :boolean,
                               :default => true,
                               :aliases => '-l'
