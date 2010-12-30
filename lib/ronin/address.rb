@@ -59,6 +59,25 @@ module Ronin
     has_tags_on :tags
 
     #
+    # Finds an address.
+    #
+    # @param [String, Integer] key
+    #   The address or index to search for.
+    #
+    # @return [Address, nil]
+    #   The found address.
+    #
+    # @since 1.0.0
+    #
+    def self.[](key)
+      if key.kind_of?(String)
+        first(:address => key)
+      else
+        super(key)
+      end
+    end
+
+    #
     # Converts the address into a string.
     #
     # @return [String]
