@@ -32,33 +32,27 @@ module Ronin
 
           self.model = URL
 
-          query_option :scheme, :type => :string do |urls,scheme|
-            urls.all(:scheme => scheme)
-          end
+          query_option :http, :type => :boolean
+          query_option :https, :type => :boolean
 
-          query_option :hosts, :type => :array, :aliases => '-H' do |urls,hosts|
-            urls.all('host_name.address' => hosts)
-          end
+          query_option :hosts, :type => :array,
+                               :aliases => '-H',
+                               :banner => 'HOST [...]'
 
-          query_option :ports, :type => :array, :aliases => '-P' do |urls,port|
-            urls.all('ports.number' => port)
-          end
+          query_option :ports, :type => :array,
+                               :aliases => '-P',
+                               :banner => 'PORT [...]'
 
-          query_option :path, :type => :string, :aliases => '-p' do |urls,path|
-            urls.all(:path.like => "#{path}%")
-          end
+          query_option :directory, :type => :string, 
+                                   :aliases => '-d'
 
           query_option :fragment, :type => :string, :aliases => '-f' do |urls,fragment|
             urls.all(:fragment => fragment)
           end
 
-          query_option :query_params, :type => :array, :aliases => '-q' do |urls,query_params|
-            urls.all('query_params.name' => query_params)
-          end
+          query_option :query_param, :type => :array, :aliases => '-q'
 
-          query_option :query_values, :type => :array do |urls,query_values|
-            urls.all('query_params.value' => query_values)
-          end
+          query_option :query_value, :type => :array
 
           class_option :list, :type => :boolean,
                               :default => true,
