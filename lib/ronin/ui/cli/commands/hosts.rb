@@ -105,6 +105,8 @@ module Ronin
           # @since 1.0.0
           #
           def import(path)
+            Database.setup
+
             File.open(path) do |file|
               file.each_line do |line|
                 line.strip!
