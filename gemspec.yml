@@ -60,7 +60,8 @@ dependencies:
   ripl-auto_indent: ~> 0.1.0
   ripl-short_errors: ~> 0.1.0
   ripl-color_result: ~> 0.2.0
-  ronin-support: ~> 0.1.0
+  # Ronin dependencies:
+  ronin-support: ~> 0.1.0.pre
 
 development_dependencies:
   bundler: ~> 1.0.0
