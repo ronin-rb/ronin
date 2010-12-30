@@ -77,6 +77,21 @@ module Ronin
     has_tags_on :tags
 
     #
+    # Searches for all URLs sharing a common sub-directory.
+    #
+    # @param [String] sub_dir
+    #   The sub-directory to search for.
+    #
+    # @return [Array<URL>]
+    #   The URL with the common sub-directory.
+    #
+    # @since 1.0.0
+    #
+    def self.directory(sub_dir)
+      all(:path => sub_dir) | all(:path.like => "#{sub_dir}/%")
+    end
+
+    #
     # Creates a new URL.
     #
     # @param [URI::HTTP] uri
