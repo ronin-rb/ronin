@@ -47,6 +47,36 @@ module Ronin
     has 0..n, :urls, :model => 'URL'
 
     #
+    # Searches for host names associated with the given IP address(es).
+    #
+    # @param [Array<String>, String] ips
+    #   The IP address(es) to search for.
+    #
+    # @return [Array<HostName>]
+    #   The matching host names.
+    #
+    # @since 1.0.0
+    #
+    def self.with_ips(ips)
+      all('ip_addresses.address' => ips)
+    end
+
+    #
+    # Searches for host names with the given open port(s).
+    #
+    # @param [Array<Integer>, Integer] numbers
+    #   The open port(s) to search for.
+    #
+    # @return [Array<HostName>]
+    #   The matching host names.
+    #
+    # @since 1.0.0
+    #
+    def self.with_ports(numbers)
+      all('ports.number' => numbers)
+    end
+
+    #
     # Searches for all host names under the Top-Level Domain (TLD).
     #
     # @param [String] name
