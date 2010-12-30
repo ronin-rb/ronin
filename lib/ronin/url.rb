@@ -77,6 +77,18 @@ module Ronin
     has_tags_on :tags
 
     #
+    # Searches for all URLs using HTTP.
+    #
+    # @return [Array<URL>]
+    #   The matching URLs.
+    #
+    # @since 1.0.0
+    #
+    def self.http
+      all('scheme.name' => 'http')
+    end
+
+    #
     # Searches for all URLs using HTTPS.
     #
     # @return [Array<URL>]
