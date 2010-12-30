@@ -129,6 +129,12 @@ module Ronin
     #
     # Resolves all IP Addresses for the host name.
     #
+    # @yield [ip]
+    #   The given block will be passed each resolved IP address.
+    #
+    # @yieldparam [IPAddress] ip
+    #   An IP address resolved from the host name.
+    #
     # @return [Array<IPAddress>]
     #   The IP Addresses for the host name.
     #
@@ -136,7 +142,10 @@ module Ronin
     #
     def resolv_all
       Resolv.getaddresses(self.address).map do |ip|
-        self.ip_addresses.first_or_new(:address => ip)
+        new_ip = self.ip_addresses.first_or_new(:address => ip)
+
+        yield new_ip if block_given?
+        new_ip
       end
     end
 

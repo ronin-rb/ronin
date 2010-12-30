@@ -52,6 +52,10 @@ module Ronin
                               :default => true,
                               :aliases => '-l'
 
+          class_option :resolv, :type => :string,
+                                :aliases => '-r',
+                                :banner => 'IP'
+
           class_option :import, :type => :string,
                                 :aliases => '-i',
                                 :banner => 'FILE'
@@ -64,12 +68,33 @@ module Ronin
           def execute
             if options[:import]
               import options[:import]
+            elsif options[:resolv]
+              resolv options[:resolv]
             elsif options.list?
               super
             end
           end
 
           protected
+
+          #
+          # Resolves an IP address.
+          #
+          # @param [String] addr
+          #   The IP address to resolv.
+          #
+          # @since 1.0.0
+          #
+          def resolv(addr)
+            Database.setup
+
+            print_info "Resolving #{addr} ..."
+
+            ip = IPAddress.first_or_new(:address => addr)
+            ip.resolv_all { |host| print_info "Resolved: #{addr} -> #{host}" }
+
+            print_info "Resolved #{addr}"
+          end
 
           #
           # Extracts and saves IP Addresses from a file.

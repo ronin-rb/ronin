@@ -88,18 +88,12 @@ module Ronin
           def resolv(name)
             Database.setup
 
-            print_info "Resolving up #{name.dump} ..."
+            print_info "Resolving #{name} ..."
 
             host = HostName.first_or_new(:address => name)
-            host.resolv_all
+            host.resolv_all { |ip| print_info "Resolved: #{name} -> #{ip}" }
 
-            if host.save
-              host.ip_addresses.each do |ip|
-                print_info "Resolved #{ip}." if ip.new?
-              end
-
-              print_info "Resolved up #{name.dump}."
-            end
+            print_info "Resolved #{name}"
           end
 
           #

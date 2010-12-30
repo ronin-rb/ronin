@@ -199,6 +199,12 @@ module Ronin
     #
     # Performs a reverse lookup on the IP address.
     #
+    # @yield [host]
+    #   The given block will be passed the resolved host names.
+    #
+    # @yieldparam [HostName] host
+    #   A resolved host name from the IP address.
+    #
     # @return [Array<HostName>]
     #   The host-names associated with the IP Address.
     #
@@ -206,7 +212,10 @@ module Ronin
     #
     def resolv_all
       Resolv.getnames(self.address.to_s).map do |host_name|
-        self.host_names.first_or_new(:address => host_name)
+        new_host = self.host_names.first_or_new(:address => host_name)
+
+        yield new_host if block_given?
+        new_host
       end
     end
 
