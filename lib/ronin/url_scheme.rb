@@ -19,32 +19,19 @@
 #
 
 require 'ronin/model'
+require 'ronin/model/has_unique_name'
 
 module Ronin
   class URLScheme
 
     include Model
+    include Model::HasUniqueName
 
     # primary key of the URL Scheme
     property :id, Serial
 
-    # The name of the URL scheme
-    property :name, String, :required => true
-
     # The URLs that use the scheme
     has 1..n, :urls, :model => 'URL'
-
-    #
-    # Converts the URL Scheme to a String.
-    #
-    # @return [String]
-    #   The name of the URL Scheme.
-    #
-    # @since 1.0.0
-    #
-    def to_s
-      self.name.to_s
-    end
 
   end
 end
