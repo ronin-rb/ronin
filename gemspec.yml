@@ -11,6 +11,7 @@ email: postmodern.mod3@gmail.com
 homepage: http://github.com/ronin-ruby/ronin
 has_yard: true
 post_install_message: |
+  -----------------------------------------------------------------------
   Thank you for installing Ronin, a Ruby platform for exploit development
   and security research. To list the available commands:
 
@@ -27,6 +28,7 @@ post_install_message: |
       * ronin-dorks                 * ronin-scanners
       * ronin-exploits              * ronin-sql
       * ronin-gen                   * ronin-web
+  -----------------------------------------------------------------------
 
 dependencies:
   i18n: ~> 0.4.1
