@@ -161,6 +161,36 @@ module Ronin
     end
 
     #
+    # Searches for URLs with the given query-param.
+    #
+    # @param [Array<String>, String] name
+    #   The query-param name to search for.
+    #
+    # @return [Array<URL>]
+    #   The URLs with the given query-param.
+    #
+    # @since 1.0.0
+    #
+    def self.query_param(name)
+      all('query_params.name' => name)
+    end
+
+    #
+    # Search for all URLs with a given query-param value.
+    #
+    # @param [Array<String>, String] value
+    #   The query-param value to search for.
+    #
+    # @return [Array<URL>]
+    #   The URLs with the given query-param value.
+    #
+    # @since 1.0.0
+    #
+    def self.query_value(value)
+      all('query_params.value' => value)
+    end
+
+    #
     # Creates a new URL.
     #
     # @param [URI::HTTP] uri
