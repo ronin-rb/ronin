@@ -91,7 +91,7 @@ module Ronin
             print_info "Resolving #{name} ..."
 
             host = HostName.first_or_new(:address => name)
-            host.resolv_all { |ip| print_info "Resolved: #{name} -> #{ip}" }
+            host.resolv_all { |ip| print_info "  #{ip}" }
 
             print_info "Resolved #{name}"
           end
