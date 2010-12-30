@@ -34,20 +34,19 @@ module Ronin
           self.model = IPAddress
 
           query_option :v4, :type => :boolean, :aliases => '-4'
-
           query_option :v6, :type => :boolean, :aliases => '-6'
 
-          query_option :ports, :type => :array, :aliases => '-p' do |ips,ports|
-            ips.all('ports.number' => ports)
-          end
+          query_option :with_ports, :type => :array,
+                                    :aliases => '-p',
+                                    :banner => 'PORT [...]'
 
-          query_option :macs, :type => :array, :aliases => '-M' do |ips,macs|
-            ips.all('mac_addresses.address' => macs)
-          end
+          query_option :with_macs, :type => :array,
+                                   :aliases => '-M',
+                                   :banner => 'MAC [...]'
 
-          query_option :hosts, :type => :array, :aliases => '-H' do |ips,hosts|
-            ips.all('host_names.address' => hosts)
-          end
+          query_option :with_hosts, :type => :array,
+                                    :aliases => '-H',
+                                    :banner => 'HOST [...]'
 
           class_option :list, :type => :boolean,
                               :default => true,
