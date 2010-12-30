@@ -52,6 +52,10 @@ module Ronin
                               :default => true,
                               :aliases => '-l'
 
+          class_option :resolv, :type => :string,
+                                :aliases => '-r',
+                                :banner => 'HOST'
+
           class_option :import, :type => :string,
                                 :aliases => '-i',
                                 :banner => 'FILE'
@@ -64,12 +68,39 @@ module Ronin
           def execute
             if options[:import]
               import options[:import]
+            elsif options[:resolv]
+              resolv options[:resolv]
             elsif options.list?
               super
             end
           end
 
           protected
+
+          #
+          # Resolves a host name.
+          #
+          # @param [String] name
+          #   The host name to resolv.
+          #
+          # @since 1.0.0
+          #
+          def resolv(name)
+            Database.setup
+
+            print_info "Resolving up #{name.dump} ..."
+
+            host = HostName.first_or_new(:address => name)
+            host.resolv_all
+
+            if host.save
+              host.ip_addresses.each do |ip|
+                print_info "Resolved #{ip}." if ip.new?
+              end
+
+              print_info "Resolved up #{name.dump}."
+            end
+          end
 
           #
           # Imports host names from a file.
