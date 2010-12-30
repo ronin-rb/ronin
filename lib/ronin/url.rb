@@ -101,6 +101,21 @@ module Ronin
     end
 
     #
+    # Searches for URLs with specific host names.
+    #
+    # @param [Array<String>, String] names
+    #   The host names to search for.
+    #
+    # @return [Array<URL>]
+    #   The matching URLs.
+    #
+    # @since 1.0.0
+    #
+    def self.hosts(names)
+      all('host.address' => names)
+    end
+
+    #
     # Searches for all URLs sharing a common sub-directory.
     #
     # @param [String] sub_dir
