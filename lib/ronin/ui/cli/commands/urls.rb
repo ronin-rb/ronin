@@ -52,6 +52,7 @@ module Ronin
                                      :banner => 'NAME'
 
           query_option :query_value, :type => :array,
+                                     :aliases => '-Q',
                                      :banner => 'VALUE'
 
           class_option :list, :type => :boolean,
