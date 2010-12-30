@@ -52,9 +52,9 @@ module Ronin
                               :default => true,
                               :aliases => '-l'
 
-          class_option :resolv, :type => :string,
-                                :aliases => '-r',
-                                :banner => 'IP'
+          class_option :lookup, :type => :string,
+                                :aliases => '-L',
+                                :banner => 'HOST'
 
           class_option :import, :type => :string,
                                 :aliases => '-i',
@@ -68,8 +68,8 @@ module Ronin
           def execute
             if options[:import]
               import options[:import]
-            elsif options[:resolv]
-              resolv options[:resolv]
+            elsif options[:lookup]
+              lookup options[:lookup]
             elsif options.list?
               super
             end
@@ -78,22 +78,21 @@ module Ronin
           protected
 
           #
-          # Resolves an IP address.
+          # Looks up a host name.
           #
-          # @param [String] addr
-          #   The IP address to resolv.
+          # @param [String] host
+          #   The host name to lookup.
           #
           # @since 1.0.0
           #
-          def resolv(addr)
+          def lookup(host)
             Database.setup
 
-            print_info "Resolving #{addr} ..."
+            print_info "Looking up #{host} ..."
 
-            ip = IPAddress.first_or_new(:address => addr)
-            ip.resolv_all { |host| print_info "  #{host}" }
+            IPAddress.dns(host).each { |ip| print_info "  #{ip}" }
 
-            print_info "Resolved #{addr}"
+            print_info "Looking up #{host}"
           end
 
           #

@@ -144,78 +144,35 @@ module Ronin
     end
 
     #
-    # Resolves the host-name to an IP Address.
+    # Looks up the host name to multiple IP addresses.
     #
-    # @param [String] host_name
-    #   The host-name to resolve.
-    #
-    # @return [IPAddress]
-    #   The new or previously saved IP Address for the host-name.
-    #
-    # @since 1.0.0
-    #
-    def IPAddress.resolv(host_name)
-      begin
-        IPAddress.first_or_new(:address => Resolv.getaddress(host_name))
-      rescue Resolv::ResolvError
-      end
-    end
-
-    #
-    # Resolves the host-name to multiple IP Addresses.
-    #
-    # @param [String] host_name
-    #   The host-name to resolve.
+    # @param [String] name
+    #   The host name to look up.
     #
     # @return [Array<IPAddress>]
-    #   The new or previously saved IP Addresses for the host-name.
+    #   The new or previously saved IP Addresses for the host name.
     #
     # @since 1.0.0
     #
-    def IPAddress.resolv_all(host_name)
-      Resolv.getaddresses(host_name).map do |ip|
-        IPAddress.first_or_new(:address => ip)
+    def self.dns(name)
+      host = self.host_names.model.first_or_new(:address => name)
+
+      return Resolv.getaddresses(name).map do |ip|
+        host.ip_addresses.first_or_new(:address => ip)
       end
     end
 
     #
     # Performs a reverse lookup on the IP address.
-    #
-    # @return [HostName, nil]
-    #   The host-name associated with the IP Address. If the IP address
-    #   could not be resolved, `nil` will be returned.
-    #
-    # @since 1.0.0
-    #
-    def resolv
-      begin
-        self.host_names.first_or_new(
-          :address => Resolv.getname(self.address.to_s)
-        )
-      rescue Resolv::ResolvError
-      end
-    end
-
-    #
-    # Performs a reverse lookup on the IP address.
-    #
-    # @yield [host]
-    #   The given block will be passed the resolved host names.
-    #
-    # @yieldparam [HostName] host
-    #   A resolved host name from the IP address.
     #
     # @return [Array<HostName>]
     #   The host-names associated with the IP Address.
     #
     # @since 1.0.0
     #
-    def resolv_all
-      Resolv.getnames(self.address.to_s).map do |host_name|
-        new_host = self.host_names.first_or_new(:address => host_name)
-
-        yield new_host if block_given?
-        new_host
+    def dns!
+      Resolv.getnames(self.address.to_s).map do |name|
+        self.host_names.first_or_new(:address => name)
       end
     end
 

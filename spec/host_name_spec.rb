@@ -4,7 +4,6 @@ require 'ronin/host_name'
 describe HostName do
   let(:example_domain) { 'www.example.com' }
   let(:example_ip) { '192.0.32.10' }
-  let(:bad_domain) { '.bad.domain.com.' }
 
   subject { HostName.new(:address => example_domain) }
 
@@ -14,29 +13,39 @@ describe HostName do
     host_name.should_not be_valid
   end
 
-  describe "resolv" do
-    it "should resolv the IP Address for the host name" do
-      ip = subject.resolv
+  describe "dns" do
+    subject { HostName }
+
+    let(:bad_ip) { '0.0.0.0' }
+
+    it "should look up the host names for an IP Address" do
+      host_names = subject.dns(example_ip)
       
-      ip.should_not be_nil
-      ip.address.should == example_ip
+      host_names.should_not be_empty
+      host_names[0].address.should == example_domain
     end
 
-    it "should return nil for unresolved host names" do
-      HostName.new(:address => bad_domain).resolv.should be_nil
+    it "should return an empty Array for unknown host names" do
+      host_names = subject.dns(bad_ip)
+      
+      host_names.should be_empty
     end
   end
 
-  describe "resolv_all" do
-    it "should resolv all IP Addresses for the host name" do
-      ips = subject.resolv_all
-    
+  describe "#dns!" do
+    let(:bad_domain) { '.bad.domain.com.' }
+
+    it "should look up the IP Addresses for the host name" do
+      ips = subject.dns!
+      
       ips.should_not be_empty
-      ips.find { |ip| ip.address == example_ip }.should_not be_nil
+      ips[0].address.should == example_ip
     end
 
-    it "should return an empty Array for unresolved host names" do
-      HostName.new(:address => bad_domain).resolv_all.should be_empty
+    it "should return an empty Array for unknown host names" do
+      ips = HostName.new(:address => bad_domain).dns!
+      
+      ips.should be_empty
     end
   end
 end

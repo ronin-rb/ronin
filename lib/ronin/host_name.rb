@@ -24,6 +24,8 @@ require 'ronin/url'
 require 'ronin/email_address'
 require 'ronin/model'
 
+require 'resolv'
+
 module Ronin
   class HostName < Address
 
@@ -106,46 +108,38 @@ module Ronin
       all(:address.like => "#{name}.%") | all(:address.like => "%.#{name}.%")
     end
 
-    alias name address
-
     #
-    # Resolves the IP Address of the host name.
+    # Looks up all host names associated with an IP address.
     #
-    # @return [IPAddress, nil]
-    #   The IP Address for the host name. If the host name could not be
-    #   resolved, `nil` will be returned.
+    # @param [IPAddr, String] addr
+    #   The IP address to lookup.
+    #
+    # @return [Array<HostName>]
+    #   The host names associated with the IP address.
     #
     # @since 1.0.0
     #
-    def resolv
-      begin
-        self.ip_addresses.first_or_new(
-          :address => Resolv.getaddress(self.address)
-        )
-      rescue Resolv::ResolvError
+    def self.dns(addr)
+      ip = self.ip_addresses.model.first_or_new(:address => addr)
+
+      return Resolv.getnames(addr.to_s).map do |name|
+        ip.host_names.first_or_new(:address => name)
       end
     end
 
+    alias name address
+
     #
-    # Resolves all IP Addresses for the host name.
-    #
-    # @yield [ip]
-    #   The given block will be passed each resolved IP address.
-    #
-    # @yieldparam [IPAddress] ip
-    #   An IP address resolved from the host name.
+    # Looks up all IP Addresses for the host name.
     #
     # @return [Array<IPAddress>]
     #   The IP Addresses for the host name.
     #
     # @since 1.0.0
     #
-    def resolv_all
+    def dns!
       Resolv.getaddresses(self.address).map do |ip|
-        new_ip = self.ip_addresses.first_or_new(:address => ip)
-
-        yield new_ip if block_given?
-        new_ip
+        self.ip_addresses.first_or_new(:address => ip)
       end
     end
 
