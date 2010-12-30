@@ -118,7 +118,7 @@ module Ronin
     #
     # Searches for URLs with the specific port number(s).
     #
-    # @param [Array<String>, String] numbers
+    # @param [Array<Integer>, Integer] numbers
     #   The port numbers to search for.
     #
     # @return [Array<URL>]
