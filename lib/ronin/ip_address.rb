@@ -190,7 +190,7 @@ module Ronin
     def resolv
       begin
         self.host_names.first_or_new(
-          :address => Resolv.getname(self.address)
+          :address => Resolv.getname(self.address.to_s)
         )
       rescue Resolv::ResolvError
       end
@@ -205,7 +205,7 @@ module Ronin
     # @since 1.0.0
     #
     def resolv_all
-      Resolv.getnames(self.address).map do |host_name|
+      Resolv.getnames(self.address.to_s).map do |host_name|
         self.host_names.first_or_new(:address => host_name)
       end
     end
