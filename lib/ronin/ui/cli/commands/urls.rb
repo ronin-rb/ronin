@@ -44,15 +44,15 @@ module Ronin
                                :banner => 'PORT [...]'
 
           query_option :directory, :type => :string, 
-                                   :aliases => '-d'
+                                   :aliases => '-d',
+                                   :banner => 'SUBDIR'
 
-          query_option :fragment, :type => :string, :aliases => '-f' do |urls,fragment|
-            urls.all(:fragment => fragment)
-          end
+          query_option :query_param, :type => :array,
+                                     :aliases => '-q',
+                                     :banner => 'NAME'
 
-          query_option :query_param, :type => :array, :aliases => '-q'
-
-          query_option :query_value, :type => :array
+          query_option :query_value, :type => :array,
+                                     :banner => 'VALUE'
 
           class_option :list, :type => :boolean,
                               :default => true,
