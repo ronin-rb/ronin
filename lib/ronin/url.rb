@@ -92,6 +92,21 @@ module Ronin
     end
 
     #
+    # Searches for all URLs with a common file-extension.
+    #
+    # @param [String] ext
+    #   The file extension to search for.
+    #
+    # @return [Array<URL>]
+    #   The URLs with the common file-extension.
+    #
+    # @since 1.0.0
+    #
+    def self.extension(ext)
+      all(:path => "%.#{ext}")
+    end
+
+    #
     # Creates a new URL.
     #
     # @param [URI::HTTP] uri
