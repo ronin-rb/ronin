@@ -101,10 +101,10 @@ module Ronin
     end
 
     #
-    # Searches for URLs with specific host names.
+    # Searches for URLs with specific host name(s).
     #
     # @param [Array<String>, String] names
-    #   The host names to search for.
+    #   The host name(s) to search for.
     #
     # @return [Array<URL>]
     #   The matching URLs.
@@ -113,6 +113,21 @@ module Ronin
     #
     def self.hosts(names)
       all('host.address' => names)
+    end
+
+    #
+    # Searches for URLs with the specific port number(s).
+    #
+    # @param [Array<String>, String] numbers
+    #   The port numbers to search for.
+    #
+    # @return [Array<URL>]
+    #   The matching URLs.
+    #
+    # @since 1.0.0
+    #
+    def self.ports(numbers)
+      all('port.number' => numbers)
     end
 
     #
