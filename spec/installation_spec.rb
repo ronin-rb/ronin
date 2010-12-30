@@ -18,12 +18,17 @@ describe Installation do
     let(:directory) { 'lib/ronin/ui/cli/commands' }
     let(:expected) {
       %w[
+        campaigns.rb
         console.rb
+        creds.rb
         database.rb
+        emails.rb
+        exec.rb
         help.rb
-        ip.rb
-        repo.rb
-        url.rb
+        hosts.rb
+        ips.rb
+        repos.rb
+        urls.rb
       ]
     }
 
