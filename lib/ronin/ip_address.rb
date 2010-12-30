@@ -99,6 +99,51 @@ module Ronin
     end
 
     #
+    # Searches for all IP addresses associated with specific MAC addresses.
+    #
+    # @param [Array<String>, String] macs
+    #   The MAC address(es) to search for.
+    #
+    # @return [Array<IPAddress>]
+    #   The matching IP addresses.
+    #
+    # @since 1.0.0
+    #
+    def self.with_macs(macs)
+      all('mac_addresses.address' => macs)
+    end
+
+    #
+    # Searches for IP addresses associated with the given host names.
+    #
+    # @param [Array<String>, String] names
+    #   The host name(s) to search for.
+    #
+    # @return [Array<IPAddress>]
+    #   The matching IP addresses.
+    #
+    # @since 1.0.0
+    #
+    def self.with_hosts(names)
+      all('host_names.address' => names)
+    end
+
+    #
+    # Searches for IP addresses with the given open ports.
+    #
+    # @param [Array<Integer>, Integer] numbers
+    #   The port number(s) to search for.
+    #
+    # @return [Array<IPAddress>]
+    #   The matching IP addresses.
+    #
+    # @since 1.0.0
+    #
+    def self.with_ports(numbers)
+      all('ports.number' => numbers)
+    end
+
+    #
     # Resolves the host-name to an IP Address.
     #
     # @param [String] host_name
