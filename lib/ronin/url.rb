@@ -77,6 +77,18 @@ module Ronin
     has_tags_on :tags
 
     #
+    # Searches for all URLs using HTTPS.
+    #
+    # @return [Array<URL>]
+    #   The matching URLs.
+    #
+    # @since 1.0.0
+    #
+    def self.https
+      all('scheme.name' => 'https')
+    end
+
+    #
     # Searches for all URLs sharing a common sub-directory.
     #
     # @param [String] sub_dir
