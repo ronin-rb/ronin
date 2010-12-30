@@ -32,13 +32,13 @@ module Ronin
 
           self.model = HostName
 
-          query_option :ports, :type => :array, :aliases => '-p' do |hosts,ports|
-            hosts.all('ports.number' => ports)
-          end
+          query_option :with_ips, :type => :array,
+                                  :aliases => '-I',
+                                  :banner => 'IP [...]'
 
-          query_option :ip, :type => :array, :aliases => '-I' do |hosts,ips|
-            hosts.all('host_names.address' => ips)
-          end
+          query_option :with_ports, :type => :array,
+                                    :aliases => '-p',
+                                    :banner => 'PORT [...]'
 
           class_option :list, :type => :boolean,
                               :default => true,
