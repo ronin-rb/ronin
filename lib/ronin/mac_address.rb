@@ -64,17 +64,5 @@ module Ronin
       end
     end
 
-    #
-    # Converts the MAC address to a `String`.
-    #
-    # @return [String]
-    #   The MAC address.
-    #
-    # @since 1.0.0
-    #
-    def to_s
-      self.address.to_s
-    end
-
   end
 end

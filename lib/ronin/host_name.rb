@@ -174,17 +174,5 @@ module Ronin
       return last_scanned_url.last_scanned_at if last_scanned_url
     end
 
-    #
-    # Converts the host name to a string.
-    #
-    # @return [String]
-    #   The address of the host name.
-    #
-    # @since 1.0.0
-    #
-    def to_s
-      self.address.to_s
-    end
-
   end
 end

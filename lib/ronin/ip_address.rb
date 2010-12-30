@@ -303,17 +303,5 @@ module Ronin
       self.address.to_i
     end
 
-    #
-    # Converts the address to a string.
-    #
-    # @return [String]
-    #   The address.
-    #
-    # @since 1.0.0
-    #
-    def to_s
-      self.address.to_s
-    end
-
   end
 end
