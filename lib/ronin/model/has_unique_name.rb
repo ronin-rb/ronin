@@ -18,28 +18,35 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'ronin/model'
-require 'ronin/model/has_unique_name'
-
-require 'dm-timestamps'
+require 'ronin/model/has_name/class_methods'
 
 module Ronin
-  class UserName
+  module Model
+    #
+    # Adds a unique `name` property to a model.
+    #
+    module HasUniqueName
+      def self.included(base)
+        base.send :include, Model
+        base.send :extend, HasName::ClassMethods
 
-    include Model
-    include Model::HasUniqueName
+        base.module_eval do
+          # The name of the model
+          property :name, String, :required => true, :unique => true
+        end
+      end
 
-    # The primary key of the user-name
-    property :id, Serial
-
-    # Tracks when the user-name was created.
-    timestamps :created_at
-
-    # Any credentials belonging to the user
-    has 0..n, :credentials
-
-    # Email addresses of the user
-    has 0..n, :email_addresses
-
+      #
+      # Converts the named resource into a String.
+      #
+      # @return [String]
+      #   The name of the resource.
+      #
+      # @since 1.0.0
+      #
+      def to_s
+        self.name.to_s
+      end
+    end
   end
 end

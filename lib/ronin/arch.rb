@@ -19,6 +19,7 @@
 #
 
 require 'ronin/model'
+require 'ronin/model/has_unique_name'
 
 require 'dm-is-predefined'
 
@@ -32,30 +33,18 @@ module Ronin
   class Arch
 
     include Model
+    include Model::HasUniqueName
 
     is :predefined
 
     # Primary key
     property :id, Serial
 
-    # Name of the architecture
-    property :name, String, :required => true, :unique => true
-
     # Endianness of the architecture
     property :endian, String, :set => ['little', 'big'], :required => true
 
     # Address length of the architecture
     property :address_length, Integer, :required => true
-
-    #
-    # Converts the architecture to a String.
-    #
-    # @return [String]
-    #   The name of the architecture.
-    #
-    def to_s
-      self.name.to_s
-    end
 
     #
     # Splats the architecture into multiple variables.

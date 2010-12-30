@@ -19,6 +19,7 @@
 #
 
 require 'ronin/model'
+require 'ronin/model/has_unique_name'
 
 module Ronin
   #
@@ -27,27 +28,13 @@ module Ronin
   class Vendor
 
     include Model
+    include Model::HasUniqueName
 
     # The primary-key of the vendor
     property :id, Serial
 
-    # The name of the vendor
-    property :name, String, :required => true, :unique => true
-
     # Products published by the vendor
     has 0..n, :software, :model => 'Software'
-
-    #
-    # Converts the vendor to a String.
-    #
-    # @return [String]
-    #   The name of the vendor.
-    #
-    # @since 1.0.0
-    #
-    def to_s
-      self.name.to_s
-    end
 
   end
 end

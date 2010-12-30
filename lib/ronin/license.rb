@@ -19,6 +19,7 @@
 #
 
 require 'ronin/model'
+require 'ronin/model/has_unique_name'
 
 require 'dm-is-predefined'
 
@@ -31,30 +32,18 @@ module Ronin
   class License
 
     include Model
+    include Model::HasUniqueName
 
     is :predefined
 
     # Primary key
     property :id, Serial
 
-    # License name
-    property :name, String, :required => true, :unique => true
-
     # Description of license
     property :description, Text, :required => true
 
     # URL of the License document
     property :url, String
-
-    #
-    # Converts the license to a String.
-    #
-    # @return [String]
-    #   The name of the license.
-    #
-    def to_s
-      self.name.to_s
-    end
 
     # Berkeley Software Distribution License
     predefine :bsd,
