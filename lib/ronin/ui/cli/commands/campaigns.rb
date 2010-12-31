@@ -38,7 +38,9 @@ module Ronin
 
           query_option :description, :type => :string, :aliases => '-d'
 
-          query_option :targeting, :type => :array, :aliases => '-T'
+          query_option :targeting, :type => :array,
+                                   :aliases => '-T',
+                                   :banner => 'ADDR [...]'
 
           query_option :organizations, :type => :array, :aliases => '-O' do |campaigns,orgs|
             campaigns.all('organizations.name' => orgs)
