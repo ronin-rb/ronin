@@ -29,17 +29,65 @@ module Ronin
 
     include Model
 
-    # The primary key of the email address
+    # The primary key of the email address.
     property :id, Serial
 
-    # The user-name component of the email address
+    # The user-name component of the email address.
     belongs_to :user_name, :unique => :user_host
 
-    # The host-name component of the email address
+    # The host-name component of the email address.
     belongs_to :host_name, :unique => :user_host
+
+    # Any IP addresses associated with the host name.
+    has 0..n, :ip_addresses, :through => :host_name
 
     # Tracks when the email address was created at.
     timestamps :created_at
+
+    #
+    # Searches for email addresses associated with the given host names.
+    #
+    # @param [Array<String>, String] names
+    #   The host name(s) to search for.
+    #
+    # @return [Array<EmailAddress>]
+    #   The matching email addresses.
+    #
+    # @since 1.0.0
+    #
+    def self.with_hosts(names)
+      all('host_name.address' => names)
+    end
+
+    #
+    # Searches for email addresses associated with the given IP address(es).
+    #
+    # @param [Array<String>, String] ips
+    #   The IP address(es) to search for.
+    #
+    # @return [Array<EmailAddress>]
+    #   The matching email addresses.
+    #
+    # @since 1.0.0
+    #
+    def self.with_ips(ips)
+      all('ip_addresses.address' => ips)
+    end
+
+    #
+    # Searches for email addresses associated with the given user names.
+    #
+    # @param [Array<String>, String] names
+    #   The user name(s) to search for.
+    #
+    # @return [Array<EmailAddress>]
+    #   The matching email addresses.
+    #
+    # @since 1.0.0
+    #
+    def self.with_users(names)
+      all('user_name.name' => names)
+    end
 
     #
     # Parses an email address.
