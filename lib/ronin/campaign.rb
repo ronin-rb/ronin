@@ -61,6 +61,21 @@ module Ronin
     end
 
     #
+    # Searches for all campaigns targeting an {Organization}.
+    #
+    # @param [Array<String>, String] names
+    #   The organization name(s) to search for.
+    #
+    # @return [Array<Campaign>]
+    #   The campaigns that target the specified organizations.
+    #
+    # @since 1.0.0
+    #
+    def self.targeting_orgs(names)
+      all('organizations.name' => names)
+    end
+
+    #
     # Determines if an address is targeted by the campaign.
     #
     # @param [Address] address
