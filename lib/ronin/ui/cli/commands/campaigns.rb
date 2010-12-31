@@ -42,9 +42,9 @@ module Ronin
                                    :aliases => '-T',
                                    :banner => 'ADDR [...]'
 
-          query_option :organizations, :type => :array, :aliases => '-O' do |campaigns,orgs|
-            campaigns.all('organizations.name' => orgs)
-          end
+          query_option :targeting_orgs, :type => :array,
+                                        :aliases => '-O',
+                                        :banner => 'NAME [...]'
 
           class_option :list, :type => :boolean,
                               :default => true,
