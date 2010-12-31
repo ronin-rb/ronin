@@ -35,7 +35,7 @@ module Ronin
           query_option :named, :type => :string,
                                :aliases => '-n'
 
-          query_option :description, :type => :string, :aliases => '-d'
+          query_option :describing, :type => :string, :aliases => '-d'
 
           query_option :targeting, :type => :array,
                                    :aliases => '-T',
