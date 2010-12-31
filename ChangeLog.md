@@ -1,5 +1,35 @@
 ### 1.0.0 / 2011-02-01
 
+* Require i18n ~> 0.4.1.
+* Require tzinfo ~> 0.3.22.
+* Require activesupport ~> 3.0.0.
+* Require dm-do-adapter ~> 1.0.2.
+* Require dm-sqlite-adapter ~> 1.0.2.
+* Require dm-core ~> 1.0.2.
+* Require dm-types ~> 1.0.2.
+* Require dm-constraints ~> 1.0.2.
+* Require dm-migrations ~> 1.0.2.
+* Require dm-validations ~> 1.0.2.
+* Require dm-serializer ~> 1.0.2.
+* Require dm-aggregates ~> 1.0.2.
+* Require dm-timestamps ~> 1.0.2.
+* Require dm-tags ~> 1.0.2.
+* Require dm-is-predefined ~> 0.3.0.
+* Require uri-query_params ~> 0.5.2.
+* Require open_namespace ~> 0.3.0.
+* Require parameters ~> 0.2.3.
+* Require data_paths ~> 0.2.1.
+* Require contextify ~> 0.2.0.
+* Require pullr ~> 0.1.2.
+* Require thor ~> 0.14.3.
+* Require ripl ~> 0.2.0.
+* Require ripl-multi_line ~> 0.2.0.
+* Require ripl-auto_indent ~> 0.1.0.
+* Require ripl-short_errors ~> 0.1.0.
+* Require ripl-color_result ~> 0.2.0.
+* Require ronin-support ~> 0.1.0.
+* Require rspec ~> 2.0.0.
+* Require yard ~> 0.6.4.
 * Added `ronin/bootstrap` which only loads configuration and the Database.
 * Added {Ronin::Database::Migrations}.
 * Added {Ronin::Address}:
@@ -35,8 +65,6 @@
 * Removed `Ronin::Platform`.
 * Switched from [Jeweler](https://github.com/technicalpickles/jeweler)
   to [Ore](http://github.com/ruby-ore/ore) and [Bundler](http://gembundler.com).
-* Upgraded to [Rspec2](http://relishapp.com/rspec).
-* Upgraded to [DataMapper](http://datamapper.org) ~> 1.0.2.
 * Use [OpenNamespace](http://github.com/postmodern/open_namespace) to auto-load
   everything in the {Ronin} namespace.
 * Switched from DataMapper auto-migrations to explicit-migrations.
