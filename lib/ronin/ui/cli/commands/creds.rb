@@ -34,15 +34,13 @@ module Ronin
 
           self.model = Credential
 
-          query_option :user, :type => :string,
-                              :aliases => '-u',
-                              :banner => 'USER',
-                              :method => :for_user
+          query_option :for_user, :type => :string,
+                                  :aliases => '-u',
+                                  :banner => 'USER'
 
-          query_option :password, :type => :string,
-                                  :aliases => '-p',
-                                  :banner => 'PASS',
-                                  :method => :with_password
+          query_option :with_password, :type => :string,
+                                       :aliases => '-p',
+                                       :banner => 'PASS'
 
           class_option :list, :type => :boolean,
                               :default => true,

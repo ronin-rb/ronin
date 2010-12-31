@@ -32,9 +32,8 @@ module Ronin
 
           self.model = Campaign 
 
-          query_option :name, :type => :string,
-                              :aliases => '-n',
-                              :method => :named
+          query_option :named, :type => :string,
+                               :aliases => '-n'
 
           query_option :description, :type => :string, :aliases => '-d'
 
