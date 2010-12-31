@@ -32,21 +32,17 @@ module Ronin
 
           self.model = EmailAddress
 
-          query_option :hosts, :type => :array, :aliases => '-H' do |emails,hosts|
-            emails.all('host_name.address' => hosts)
-          end
+          query_option :with_hosts, :type => :array,
+                                    :aliases => '-H',
+                                    :banner => 'HOST [...]'
 
-          query_option :ip, :type => :array, :aliases => '-I' do |emails,ips|
-            hosts.all('host_name.ip_addresses.address' => ips)
-          end
+          query_option :with_ips, :type => :array,
+                                  :aliases => '-I',
+                                  :banner => 'IP [...]'
 
-          query_option :ports, :type => :array, :aliases => '-p' do |emails,ports|
-            emails.all('host_name.ports.number' => ports)
-          end
-
-          query_option :users, :type => :array, :aliases => '-u' do |emails,users|
-            emails.all('user_name.name' => users)
-          end
+          query_option :with_users, :type => :array,
+                                    :aliases => '-u',
+                                    :banner => 'NAME [...]'
 
           class_option :list, :type => :boolean,
                               :default => true,
