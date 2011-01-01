@@ -21,6 +21,8 @@
 require 'ronin/ui/cli/command'
 require 'ronin/database'
 
+require 'set'
+
 module Ronin
   module UI
     module CLI
@@ -46,13 +48,13 @@ module Ronin
         #
         # The query options for the command.
         #
-        # @return [Hash]
+        # @return [Set]
         #   The query options and their query method names.
         #
         # @since 1.0.0
         #
         def self.query_options
-          @@query_options ||= {}
+          @query_options ||= Set[]
         end
 
         #
@@ -63,7 +65,7 @@ module Ronin
         def execute
           Database.setup
 
-          print_query(new_query)
+          print_resources(query)
         end
 
         protected
@@ -92,51 +94,11 @@ module Ronin
         # @param [Hash] options
         #   Additional options.
         #
-        # @option options [Symbol] :method (name)
-        #   Custom query method name.
-        #
         # @since 1.0.0
         #
-        def self.query_option(name,options={},&block)
-          self.query_options[name] = if block
-                                       block
-                                     elsif options[:method]
-                                       options.delete(:method)
-                                     else
-                                       name
-                                     end
-
+        def self.query_option(name,options={})
+          query_options << name
           class_option(name,options)
-        end
-
-        #
-        # Performs a custom query.
-        #
-        # @param [DataMapper::Collection] query
-        #   The current query.
-        #
-        # @yield [query,*arguments]
-        #   The given block will be passed the current query to modify.
-        #
-        # @yieldparam [DataMapper::Collection] query
-        #   The current query.
-        #
-        # @yieldparam [Array] arguments
-        #   Optional arguments that will be passed to the block.
-        #
-        # @return [DataMapper::Collection]
-        #   The modified query.
-        #
-        # @since 1.0.0
-        #
-        def custom_query(query,arguments=[],&block)
-          if block.arity == 1
-            block.call(query)
-          elsif block.arity == 2
-            block.call(query,arguments)
-          else
-            block.call(query,*arguments)
-          end
         end
 
         #
@@ -158,7 +120,7 @@ module Ronin
         #
         def query_method(query,name,arguments=[])
           query_method = begin
-                           query.model.instance_method(name)
+                           query.model.method(name)
                          rescue NameError
                            raise("Undefined query method #{query.model}.#{name}")
                          end
@@ -187,24 +149,21 @@ module Ronin
         #
         # @since 1.0.0
         #
-        def new_query(&block)
-          query = self.class.model.all
+        def query
+          new_query = self.class.model.all
 
-          self.class.query_options.each do |name,value|
-            unless options[name].nil?
-              query = if value.kind_of?(Proc)
-                        custom_query(query,options[name],&value)
-                      else
-                        query_method(query,name,options[name])
-                      end
+          self.class.ancestors.each do |ancestor|
+            if ancestor < ModelCommand
+              ancestor.query_options.each do |name|
+                unless options[name].nil?
+                  new_query = query_method(new_query,name,options[name])
+                end
+              end
             end
           end
 
-          if block
-            query = custom_query(query,&block)
-          end
-
-          return query
+          new_query = yield(new_query) if block_given?
+          return new_query
         end
 
         #
@@ -220,24 +179,24 @@ module Ronin
         end
 
         #
-        # Prints the resources in the query.
+        # Prints multiple resources.
         #
-        # @param [DataMapper::Collection] query
+        # @param [DataMapper::Collection, Array<DataMapper::Resource>] resources
         #   The query to print.
         #
         # @since 1.0.0
         #
-        def print_query(query)
+        def print_resources(resources)
           if options.csv?
-            print query.to_csv
+            print resources.to_csv
           elsif options.xml?
-            print query.to_xml
+            print resources.to_xml
           elsif options.yaml?
-            print query.to_yaml
+            print resources.to_yaml
           elsif options.json?
-            print query.to_json
+            print resources.to_json
           else
-            query.each { |resource| print_resource(resource) }
+            resources.each { |resource| print_resource(resource) }
           end
         end
 
