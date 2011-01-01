@@ -32,6 +32,8 @@ post_install_message: |
 
   *************************************************************************
 
+required_ruby_version: >= 1.8.7
+
 dependencies:
   i18n: ~> 0.4.1
   tzinfo: ~> 0.3.22
