@@ -178,7 +178,8 @@ module Ronin
           :argv => [],
           :name => 'ronin',
           :binding => context.instance_eval { binding },
-          :history => HISTORY_FILE
+          :history => HISTORY_FILE,
+          :irbrc => false
         )
 
         return context
