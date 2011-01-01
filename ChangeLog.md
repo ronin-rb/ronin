@@ -30,7 +30,6 @@
 * Require ripl-color_result ~> 0.2.0.
 * Require ronin-support ~> 0.1.0.
 * Require bundler ~> 1.0.0.
-* Require rspec ~> 2.0.0.
 * Require yard ~> 0.6.4.
 * Added `ronin/bootstrap` which only loads configuration and the Database.
 * Added {Ronin::Database::Migrations}.
