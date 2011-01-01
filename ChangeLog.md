@@ -1,5 +1,6 @@
 ### 1.0.0 / 2011-02-01
 
+* Require Ruby >= 1.8.7.
 * Require i18n ~> 0.4.1.
 * Require tzinfo ~> 0.3.22.
 * Require activesupport ~> 3.0.0.
