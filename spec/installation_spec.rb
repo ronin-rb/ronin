@@ -33,7 +33,7 @@ describe Installation do
     }
 
     it "should enumerate over the files within a certain directory" do
-      subject.each_file(directory).to_a.should == expected
+      subject.each_file(directory).to_a.should =~ expected
     end
 
     it "should return an Enumerator when no block is given" do
