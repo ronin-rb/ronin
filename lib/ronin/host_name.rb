@@ -123,7 +123,7 @@ module Ronin
       ip = IPAddress.first_or_new(:address => addr)
 
       return Resolv.getnames(addr.to_s).map do |name|
-        HostName.first_or_new(
+        HostName.first_or_create(
           :address => name,
           :ip_addresses => [ip]
         )
@@ -142,7 +142,7 @@ module Ronin
     #
     def lookup!
       Resolv.getaddresses(self.address).map do |addr|
-        IPAddress.first_or_new(
+        IPAddress.first_or_create(
           :address => addr,
           :host_names => [self]
         )
