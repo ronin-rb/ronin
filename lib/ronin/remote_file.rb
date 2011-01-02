@@ -36,11 +36,10 @@ module Ronin
 
     # Remote path of the file
     property :remote_path, String, :required => true,
-                                   :index => true,
-                                   :unique => :target_remote_path
+                                   :index => true
 
     # The target the file was recovered from
-    belongs_to :target, :unique => :target_remote_path
+    belongs_to :target
 
     # The address the file was recovered from
     has 1, :address, :through => :target
@@ -50,6 +49,9 @@ module Ronin
 
     # Tags
     has_tags_on :tags
+
+    # Validates the uniqueness of the remote_path and the target.
+    validates_uniqueness_of :remote_path, :scope => [:target]
 
     #
     # Searches for all remote files with the basename.

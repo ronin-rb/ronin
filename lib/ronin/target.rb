@@ -34,16 +34,19 @@ module Ronin
     property :id, Serial
 
     # The campaign the target belongs to
-    belongs_to :campaign, :unique => :campaign_address
+    belongs_to :campaign
 
     # The host being targeted
-    belongs_to :address, :unique => :campaign_address
+    belongs_to :address
 
     # The organization that is being targeted
     has 1, :organization, :through => :address
 
     # The remote files recovered from the target
     has 0..n, :remote_files
+
+    # Validates the uniqueness of the address and the campaign.
+    validates_uniqueness_of :address, :scope => [:campaign]
 
     #
     # The directory to store files related to the target.
