@@ -41,6 +41,9 @@ module Ronin
     # Any IP addresses associated with the host name.
     has 0..n, :ip_addresses, :through => :host_name
 
+    # Any web credentials that are associated with the email address.
+    has 0..n, :web_credentials
+
     # Tracks when the email address was created at.
     timestamps :created_at
 

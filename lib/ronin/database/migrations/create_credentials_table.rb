@@ -45,6 +45,7 @@ module Ronin
             column :password_id, Integer, :not_null => true, :key => true
 
             column :open_port_id, Integer
+            column :email_address_id, Integer
             column :url_id, Integer
             column :proxy_id, Integer
           end
