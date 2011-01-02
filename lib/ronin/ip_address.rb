@@ -157,6 +157,9 @@ module Ronin
     def self.lookup(name)
       host = HostName.first_or_new(:address => name)
 
+      # convert to binary, since Resolv cannot handle UTF-8 domains.
+      name = name.force_encoding('binary')
+
       return Resolv.getaddresses(name).map do |addr|
         IPAddress.first_or_create(
           :address => addr,

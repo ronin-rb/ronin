@@ -121,8 +121,9 @@ module Ronin
     #
     def self.lookup(addr)
       ip = IPAddress.first_or_new(:address => addr)
+      addr = addr.to_s
 
-      return Resolv.getnames(addr.to_s).map do |name|
+      return Resolv.getnames(addr).map do |name|
         HostName.first_or_create(
           :address => name,
           :ip_addresses => [ip]
@@ -141,7 +142,10 @@ module Ronin
     # @since 1.0.0
     #
     def lookup!
-      Resolv.getaddresses(self.address).map do |addr|
+      # convert to binary, since Resolv cannot handle UTF-8 domains.
+      name = self.address.force_encoding('binary')
+
+      Resolv.getaddresses(name).map do |addr|
         IPAddress.first_or_create(
           :address => addr,
           :host_names => [self]
