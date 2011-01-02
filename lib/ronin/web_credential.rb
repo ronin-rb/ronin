@@ -57,5 +57,21 @@ module Ronin
       )
     end
 
+    #
+    # Converts the web credential to a String.
+    #
+    # @return [String]
+    #   The user name, clear-text password and the optional email address.
+    #
+    # @since 1.0.0
+    #
+    def to_s
+      if self.email_address
+        "#{super} (#{self.email_address})"
+      else
+        super
+      end
+    end
+
   end
 end
