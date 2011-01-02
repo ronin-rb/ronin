@@ -92,7 +92,7 @@ module Ronin
 
             IPAddress.lookup(host).each { |ip| print_info "  #{ip}" }
 
-            print_info "Looking up #{host}"
+            print_info "Looked up #{host}"
           end
 
           #
