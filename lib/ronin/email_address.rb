@@ -107,11 +107,15 @@ module Ronin
     # @since 1.0.0
     #
     def EmailAddress.parse(email)
-      user, host = email.strip.split('@',2)
+      user, host = email.split('@',2)
+
+      user.strip!
 
       if user.empty?
         raise("email address #{email.dump} must have a user name")
       end
+
+      host.strip!
 
       if host.empty?
         raise("email address #{email.dump} must have a host name")
