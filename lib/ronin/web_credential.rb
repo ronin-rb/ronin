@@ -32,5 +32,30 @@ module Ronin
     belongs_to :url, :required => false,
                      :model => 'URL'
 
+    #
+    # Searches all web credentials that are associated with an
+    # email address.
+    #
+    # @param [String] email
+    #   The email address to search for.
+    #
+    # @return [Array<WebCredential>]
+    #   The web credentials associated with the email address.
+    #
+    # @since 1.0.0
+    #
+    def self.with_email(email)
+      unless email.include?('@')
+        raise("invalid email address #{email.dump}")
+      end
+
+      user, domain = email.split('@',2)
+
+      return all(
+        'email_address.user_name.name' => user,
+        'email_address.host_name.address' => domain
+      )
+    end
+
   end
 end
