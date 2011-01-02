@@ -186,10 +186,6 @@ module Ronin
       end
 
       class << self
-        include Ronin
-        include Ronin::ClassMethods
-        include Ronin::UI::Output::Helpers
-
         #
         # Inspects the console.
         #

@@ -18,9 +18,14 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
+require 'ronin/ronin'
 require 'ronin/extensions'
 require 'ronin/formatting/extensions'
 require 'ronin/network/extensions'
 require 'ronin/ui/hexdump/extensions'
+require 'ronin/ui/output/helpers'
 
 require 'chars/extensions'
+
+include Ronin
+include Ronin::UI::Output::Helpers
