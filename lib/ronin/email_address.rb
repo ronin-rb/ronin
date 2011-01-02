@@ -33,10 +33,10 @@ module Ronin
     property :id, Serial
 
     # The user-name component of the email address.
-    belongs_to :user_name, :unique => :user_host
+    belongs_to :user_name
 
     # The host-name component of the email address.
-    belongs_to :host_name, :unique => :user_host
+    belongs_to :host_name
 
     # Any IP addresses associated with the host name.
     has 0..n, :ip_addresses, :through => :host_name
@@ -46,6 +46,9 @@ module Ronin
 
     # Tracks when the email address was created at.
     timestamps :created_at
+
+    # Validates the uniqueness of the user-name and the host-name.
+    validates_uniqueness_of :user_name, :scope => [:host_name]
 
     #
     # Searches for email addresses associated with the given host names.
@@ -121,7 +124,7 @@ module Ronin
         raise("email address #{email.dump} must have a host name")
       end
 
-      return EmailAddress.first_or_new(
+      return EmailAddress.new(
         :user_name => UserName.first_or_new(:name => user),
         :host_name => HostName.first_or_new(:address => host)
       )
