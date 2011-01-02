@@ -120,14 +120,22 @@ module Ronin
     # @since 1.0.0
     #
     def self.lookup(addr)
+      addr = addr.to_s
       ip = IPAddress.first_or_new(:address => addr)
+      hosts = begin
+                Resolv.getnames(addr)
+              rescue
+                []
+              end
 
-      return Resolv.getnames(addr.to_s).map do |name|
+      hosts.map! do |name|
         HostName.first_or_create(
           :address => name,
           :ip_addresses => [ip]
         )
       end
+
+      return hosts
     end
 
     alias name address
@@ -141,12 +149,20 @@ module Ronin
     # @since 1.0.0
     #
     def lookup!
-      Resolv.getaddresses(self.address).map do |addr|
+      ips = begin
+              Resolv.getaddresses(self.address)
+            rescue
+              []
+            end
+
+      ips.map! do |addr|
         IPAddress.first_or_create(
           :address => addr,
           :host_names => [self]
         )
       end
+
+      return ips
     end
 
     #

@@ -156,13 +156,20 @@ module Ronin
     #
     def self.lookup(name)
       host = HostName.first_or_new(:address => name)
-
-      return Resolv.getaddresses(name).map do |addr|
+      ips = begin
+              Resolv.getaddresses(name)
+            rescue
+              []
+            end
+        
+      ips.map! do |addr|
         IPAddress.first_or_create(
           :address => addr,
           :host_names => [host]
         )
       end
+
+      return ips
     end
 
     #
@@ -174,12 +181,20 @@ module Ronin
     # @since 1.0.0
     #
     def lookup!
-      Resolv.getnames(self.address.to_s).map do |name|
+      hosts = begin
+                Resolv.getnames(self.address.to_s)
+              rescue
+                []
+              end
+
+      hosts.map! do |name|
         HostName.first_or_create(
           :address => name,
           :ip_addresses => [self]
         )
       end
+
+      return hosts
     end
 
     #
