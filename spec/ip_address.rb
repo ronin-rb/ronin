@@ -5,6 +5,8 @@ describe IPAddress do
   let(:example_domain) { 'www.example.com' }
   let(:example_ip) { '192.0.32.10' }
 
+  subject { IPAddress.new(:address => example_ip) }
+
   it "should require an address" do
     ip = IPAddress.new
 
@@ -23,6 +25,14 @@ describe IPAddress do
       ips[0].address.should == example_ip
     end
 
+    it "should associate the IP addresses with the original host name" do
+      ips = subject.lookup(example_domain)
+
+      ips.each do |ip|
+        ip.host_names[0].address.should == example_domain
+      end
+    end
+
     it "should return an empty Array for unknown domain names" do
       ips = subject.lookup(bad_domain)
       
@@ -34,11 +44,18 @@ describe IPAddress do
     let(:bad_ip) { '0.0.0.0' }
 
     it "should reverse lookup the host-name for an IP Address" do
-      ip = IPAddress.new(:address => example_ip)
-      host_names = ip.lookup!
+      host_names = subject.lookup!
       
       host_names.should_not be_empty
       host_names[0].address.should == example_domain
+    end
+
+    it "should associate the host names with the original IP address" do
+      host_names = subject.lookup!
+
+      host_names.each do |host_name|
+        host_name.ip_addresses[0].address.should == subject
+      end
     end
 
     it "should return an empty Array for unknown domain names" do

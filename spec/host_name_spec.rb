@@ -25,6 +25,14 @@ describe HostName do
       host_names[0].address.should == example_domain
     end
 
+    it "should associate the host names with the original IP address" do
+      host_names = subject.lookup(example_ip)
+      
+      host_names.each do |host|
+        host.ip_addresses[0].address.should == example_ip
+      end
+    end
+
     it "should return an empty Array for unknown host names" do
       host_names = subject.lookup(bad_ip)
       
@@ -40,6 +48,14 @@ describe HostName do
       
       ips.should_not be_empty
       ips[0].address.should == example_ip
+    end
+
+    it "should associate the IP addresses with the original host name" do
+      ips = subject.lookup!
+      
+      ips.each do |ip|
+        ip.host_names[0].address.should == example_domain
+      end
     end
 
     it "should return an empty Array for unknown host names" do
