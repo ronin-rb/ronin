@@ -90,7 +90,13 @@ module Ronin
 
             print_info "Looking up #{host} ..."
 
-            IPAddress.lookup(host).each { |ip| print_info "  #{ip}" }
+            IPAddress.lookup(host).each do |ip|
+              if ip.save
+                print_info "  #{ip}\t[new]"
+              else
+                print_info "  #{ip}"
+              end
+            end
 
             print_info "Looked up #{host}"
           end
