@@ -203,13 +203,6 @@ module Ronin
     #
     def self.[](url)
       url = ::URI.parse(url) unless url.kind_of?(::URI)
-      query_params = []
-
-      unless (url.query.nil? || url.query.empty?)
-        QueryParams.parse(url.query).each do |name,value|
-          query_params << {:name => name, :value => value}
-        end
-      end
 
       query = (
         all('scheme.name' => url.scheme) &
