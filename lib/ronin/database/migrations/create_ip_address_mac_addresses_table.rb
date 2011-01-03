@@ -35,6 +35,11 @@ module Ronin
             column :mac_address_id, Integer, :not_null => true
             column :created_at, Time, :not_null => true
           end
+
+          create_index :ronin_ip_address_mac_addresses,
+                       :ip_address_id, :mac_address_id,
+                       :name => :unique_index_ronin_ip_address_mac_addresses,
+                       :unique => true
         end
 
         down do
