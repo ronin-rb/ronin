@@ -31,9 +31,9 @@ module Ronin
       ) do
         up do
           create_table :ronin_email_addresses do
-            column :id, Integer, :serial => true
-            column :user_name_id, Integer, :not_null => true, :key => true
-            column :host_name_id, Integer, :not_null => true, :key => true
+            column :id, Serial
+            column :user_name_id, Integer, :not_null => true
+            column :host_name_id, Integer, :not_null => true
             column :created_at, Time, :not_null => true
           end
 

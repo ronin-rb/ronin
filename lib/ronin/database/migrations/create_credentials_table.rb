@@ -40,9 +40,9 @@ module Ronin
       ) do
         up do
           create_table :ronin_credentials do
-            column :id, Integer, :serial => true
-            column :user_name_id, Integer, :not_null => true, :key => true
-            column :password_id, Integer, :not_null => true, :key => true
+            column :id, Serial
+            column :user_name_id, Integer, :not_null => true
+            column :password_id, Integer, :not_null => true
 
             column :open_port_id, Integer
             column :email_address_id, Integer
