@@ -49,6 +49,12 @@ module Ronin
             column :url_id, Integer
             column :proxy_id, Integer
           end
+
+          create_index :ronin_credentials,
+                       :user_name_id, :password_id,
+                       :open_port_id, :email_address_id, :url_id, :proxy_id,
+                       :name => :unique_index_ronin_credentials,
+                       :unique => true
         end
 
         down do
