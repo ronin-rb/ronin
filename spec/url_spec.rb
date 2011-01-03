@@ -25,7 +25,7 @@ describe URL do
   it "should have a default path" do
     url = URL.new
 
-    url.path.should == ''
+    url.path.should == '/'
   end
 
   it "should have a host String" do
