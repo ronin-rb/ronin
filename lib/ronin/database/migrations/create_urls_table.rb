@@ -50,6 +50,14 @@ module Ronin
             column :created_at, Time, :not_null => true
             column :frozen_tag_list, Text
           end
+
+          create_index :ronin_urls, :scheme_id,
+                                    :host_name_id,
+                                    :port_id,
+                                    :path,
+                                    :fragment,
+                                    :name => :unique_index_ronin_urls,
+                                    :unique => true
         end
 
         down do
