@@ -30,10 +30,15 @@ module Ronin
       ) do
         up do
           create_table :ronin_os_guesses do
-            column :ip_address_id, Integer, :key => true
-            column :os_id, Integer, :key => true
+            column :id, Serial
+            column :ip_address_id, Integer, :not_null => true
+            column :os_id, Integer, :not_null => true
             column :created_at, Time, :not_null => true
           end
+
+          create_index :ronin_os_guesses, :ip_address_id, :os_id,
+                       :name => :unique_index_ronin_os_guesses,
+                       :unique => true
         end
 
         down do
