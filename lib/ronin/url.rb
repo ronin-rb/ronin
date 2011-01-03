@@ -233,7 +233,7 @@ module Ronin
     # @since 1.0.0
     #
     def URL.from(uri)
-      new_url = URL.new(
+      new_url = URL.first_or_new(
         :scheme => URLScheme.first_or_new(:name => uri.scheme),
         :host_name => HostName.first_or_new(:address => uri.host),
         :port => TCPPort.first_or_new(:number => uri.port),
