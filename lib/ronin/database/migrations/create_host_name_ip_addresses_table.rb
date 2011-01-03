@@ -30,8 +30,9 @@ module Ronin
       ) do
         up do
           create_table :ronin_host_name_ip_addresses do
-            column :host_name_id, Integer, :key => true
-            column :ip_address_id, Integer, :key => true
+            column :id, Serial
+            column :host_name_id, Integer, :not_null => true
+            column :ip_address_id, Integer, :not_null => true
             column :created_at, Time, :not_null => true
           end
         end
