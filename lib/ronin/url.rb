@@ -191,6 +191,37 @@ module Ronin
     end
 
     #
+    # Searches for a URL.
+    #
+    # @param [URI::HTTP, String] url
+    #   The URL to search for.
+    #
+    # @return [Array<URL>]
+    #   The matching URLs.
+    #
+    # @since 1.0.0
+    #
+    def self.[](url)
+      url = ::URI.parse(url) unless url.kind_of?(::URI)
+      query_params = []
+
+      unless (url.query.nil? || url.query.empty?)
+        QueryParams.parse(url.query).each do |name,value|
+          query_params << {:name => name, :value => value}
+        end
+      end
+
+      return all('scheme.name' => url.scheme) &
+             all('host_name.address' => url.host)
+             all('port.number' => url.port) &
+             all(
+               :path => url.path,
+               :fragment => url.fragment,
+               :query_params => query_params
+             )
+    end
+
+    #
     # Creates a new URL.
     #
     # @param [URI::HTTP] uri
