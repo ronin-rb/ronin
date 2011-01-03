@@ -196,8 +196,8 @@ module Ronin
     # @param [URI::HTTP, String] url
     #   The URL to search for.
     #
-    # @return [Array<URL>]
-    #   The matching URLs.
+    # @return [URL, nil]
+    #   The matching URL.
     #
     # @since 1.0.0
     #
@@ -211,14 +211,23 @@ module Ronin
         end
       end
 
-      return all('scheme.name' => url.scheme) &
-             all('host_name.address' => url.host)
-             all('port.number' => url.port) &
-             all(
-               :path => url.path,
-               :fragment => url.fragment,
-               :query_params => query_params
-             )
+      query = (
+        all('scheme.name' => url.scheme) &
+        all('host_name.address' => url.host) &
+        all('port.number' => url.port) &
+        all(:path => url.path, :fragment => url.fragment)
+      )
+
+      if url.query
+        QueryParams.parse(url.query).each do |name,value|
+          query = query.all(
+            'query_params.name' => name,
+            'query_params.value' => value
+          )
+        end
+      end
+
+      return query.first
     end
 
     #
