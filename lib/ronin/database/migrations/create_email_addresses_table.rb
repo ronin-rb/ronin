@@ -38,7 +38,7 @@ module Ronin
           end
 
           create_index :ronin_email_addresses, :user_name_id, :host_name_id,
-                       :name => :user_host,
+                       :name => :unique_index_ronin_email_addresses,
                        :unique => true
         end
 
