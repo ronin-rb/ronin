@@ -124,7 +124,7 @@ module Ronin
         raise("email address #{email.dump} must have a host name")
       end
 
-      return EmailAddress.new(
+      return EmailAddress.first_or_new(
         :user_name => UserName.first_or_new(:name => user),
         :host_name => HostName.first_or_new(:address => host)
       )
