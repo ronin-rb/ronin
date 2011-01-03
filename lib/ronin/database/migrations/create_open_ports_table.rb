@@ -44,6 +44,11 @@ module Ronin
             column :created_at, Time, :not_null => true
             column :frozen_tag_list, Text
           end
+
+          create_index :ronin_open_ports,
+                       :ip_address_id, :port_id, :service_id,
+                       :name => :unique_index_ronin_open_ports,
+                       :unique => true
         end
 
         down do
