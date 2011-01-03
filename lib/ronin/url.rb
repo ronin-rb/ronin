@@ -317,12 +317,16 @@ module Ronin
                self.port.number
              end
 
+      query = unless self.query_params.empty?
+                self.query_string
+              end
+
       return url_class.build(
         :scheme => self.scheme.name,
         :host => host,
         :port => port,
         :path => self.path,
-        :query => self.query_string,
+        :query => query,
         :fragment => self.fragment
       )
     end

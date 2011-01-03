@@ -78,7 +78,7 @@ describe URL do
     end
   end
 
-  describe "to_uri" do
+  describe "#to_uri" do
     before(:all) do
       @url = URL.parse('https://www.example.com:8080/path?q=1#frag')
       @uri = @url.to_uri
@@ -102,6 +102,13 @@ describe URL do
 
     it "should convert the query string" do
       @uri.query.should == query_string
+    end
+
+    it "should omit the query string if there are no query params" do
+      url = URL.parse('https://www.example.com:8080/path')
+      uri = url.to_uri
+
+      uri.query.should be_nil
     end
 
     it "should convert the fragment" do
