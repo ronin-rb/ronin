@@ -29,6 +29,9 @@ module Ronin
 
     include Model
 
+    # The primary-key of the join model.
+    property :id, Serial
+
     # The IP Address
     belongs_to :ip_address, :key => true, :model => 'IPAddress'
 
