@@ -57,6 +57,22 @@
 * Added {Ronin::Engine}.
 * Added {Ronin::UI::Output::Terminal::Raw}.
 * Added {Ronin::UI::Output::Terminal::Color}.
+* Added the `ronin-repos` command for listing, adding, installing and
+  uninstalling Repositories.
+* Added the `ronin-exec` command for running Ruby scripts (local files
+  or `bin/` scripts in Repositories) within the Ronin environment.
+* Added the `ronin-ips` command for listing, importing and exporting
+  IP addresses from the Database.
+* Added the `ronin-hosts` command for listing, importing and exporting
+  host names from the Database.
+* Added the `ronin-urls` command for listing, importing and exporting
+  URLs from the Database.
+* Added the `ronin-emails` command for listing, importing and exporting
+  Email addresses from the Database.
+* Added the `ronin-creds` command for listing, importing and exporting
+  credentials from the Database.
+* Added the `ronin-campaigns` command for listing, importing and exporting
+  Campaigns from the Database.
 * Renamed `Ronin::Product` to {Ronin::Software}.
 * Renamed `Ronin::UI::CommandLine` to {Ronin::UI::CLI}.
 * Renamed `Ronin::Platform::Overlay` to {Ronin::Repository}.
@@ -64,6 +80,8 @@
 * Renamed `Ronin::Platform::Cacheable` to {Ronin::Model::Cacheable}.
 * Removed `Ronin::Platform::Extension`.
 * Removed `Ronin::Platform`.
+* Moved the `ronin-add`, `ronin-install`, `ronin-list` and `ronin-uninstall`
+  commands into the `ronin-repos` command.
 * Switched from [Jeweler](https://github.com/technicalpickles/jeweler)
   to [Ore](http://github.com/ruby-ore/ore) and [Bundler](http://gembundler.com).
 * Use [OpenNamespace](http://github.com/postmodern/open_namespace) to auto-load
