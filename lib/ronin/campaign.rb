@@ -19,7 +19,7 @@
 #
 
 require 'ronin/model'
-require 'ronin/model/has_name'
+require 'ronin/model/has_unique_name'
 require 'ronin/model/has_description'
 require 'ronin/config'
 require 'ronin/target'
@@ -30,7 +30,7 @@ module Ronin
   class Campaign
 
     include Model
-    include Model::HasName
+    include Model::HasUniqueName
     include Model::HasDescription
 
     # Primary key of the campaign

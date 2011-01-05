@@ -31,6 +31,8 @@ module Ronin
             column :description, Text, :not_null => true
             column :created_at, Time
           end
+
+          create_index :ronin_campaigns, :name, :unique => true
         end
 
         down do
