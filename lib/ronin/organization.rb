@@ -20,7 +20,7 @@
 
 require 'ronin/address'
 require 'ronin/model'
-require 'ronin/model/has_name'
+require 'ronin/model/has_unique_name'
 require 'ronin/model/has_description'
 
 require 'dm-timestamps'
@@ -30,7 +30,7 @@ module Ronin
   class Organization
 
     include Model
-    include Model::HasName
+    include Model::HasUniqueName
     include Model::HasDescription
 
     # Primary key of the organization

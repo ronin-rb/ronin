@@ -36,6 +36,8 @@ module Ronin
             column :created_at, Time, :not_null => true
             column :frozen_tag_list, Text
           end
+
+          create_index :ronin_organizations, :name, :unique => true
         end
 
         down do
