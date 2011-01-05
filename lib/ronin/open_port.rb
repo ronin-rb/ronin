@@ -102,10 +102,11 @@ module Ronin
     # @since 1.0.0
     #
     def to_s
-      str = self.port.to_s
-      str << "(#{self.service})" if self.service
-
-      return str
+      if self.service
+        "#{self.port} (#{self.service})"
+      else
+        self.port.to_s
+      end
     end
 
   end
