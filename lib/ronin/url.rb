@@ -85,7 +85,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.http
-      all('scheme.name' => 'http')
+      all(:scheme => {:name => 'http'})
     end
 
     #
@@ -97,7 +97,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.https
-      all('scheme.name' => 'https')
+      all(:scheme => {:name => 'https'})
     end
 
     #
@@ -112,7 +112,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.hosts(names)
-      all('host.address' => names)
+      all(:host => {:address => names})
     end
 
     #
@@ -127,7 +127,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.ports(numbers)
-      all('port.number' => numbers)
+      all(:port => {:number => numbers})
     end
 
     #
@@ -172,7 +172,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.query_param(name)
-      all('query_params.name' => name)
+      all(:query_params => {:name => name})
     end
 
     #
@@ -187,7 +187,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.query_value(value)
-      all('query_params.value' => value)
+      all(:query_params => {:value => value})
     end
 
     #
@@ -204,18 +204,18 @@ module Ronin
     def self.[](url)
       url = ::URI.parse(url) unless url.kind_of?(::URI)
 
-      query = (
-        all('scheme.name' => url.scheme) &
-        all('host_name.address' => url.host) &
-        all('port.number' => url.port) &
-        all(:path => url.path, :fragment => url.fragment)
+      query = all(
+        :scheme => {:name => url.scheme},
+        :host_name => {:address => url.host},
+        :port => {:number => url.port},
+        :path => url.path,
+        :fragment => url.fragment
       )
 
       if url.query
         QueryParams.parse(url.query).each do |name,value|
           query = query.all(
-            'query_params.name' => name,
-            'query_params.value' => value
+            :query_params => {:name => name, :value => value}
           )
         end
       end
