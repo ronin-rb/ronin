@@ -20,33 +20,19 @@
 
 require 'ronin/open_port'
 require 'ronin/model'
+require 'ronin/model/has_unique_name'
 
 module Ronin
   class Service
 
     include Model
+    include Model::HasUniqueName
 
     # Primary key of the service
     property :id, Serial
 
-    # Name of the service
-    property :name, String, :required => true,
-                            :unique => true
-
     # The open ports running the service
     has 1..n, :open_ports
-
-    #
-    # Converts the service to a string.
-    #
-    # @return [String]
-    #   The service name.
-    #
-    # @since 1.0.0
-    #
-    def to_s
-      self.name.to_s
-    end
 
   end
 end
