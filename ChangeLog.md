@@ -23,7 +23,7 @@
 * Require contextify ~> 0.2.0.
 * Require pullr ~> 0.1.2.
 * Require thor ~> 0.14.3.
-* Require ripl ~> 0.2.0.
+* Require ripl ~> 0.3.0.
 * Require ripl-multi_line ~> 0.2.0.
 * Require ripl-auto_indent ~> 0.1.0.
 * Require ripl-short_errors ~> 0.1.0.
@@ -33,6 +33,7 @@
 * Require yard ~> 0.6.4.
 * Added `ronin/bootstrap` which only loads configuration and the Database.
 * Added {Ronin::Database::Migrations}.
+* Added {Ronin::Model::HasUniqueName}.
 * Added {Ronin::Address}:
   * Added {Ronin::MACAddress}.
   * Added {Ronin::IPAddress}.
