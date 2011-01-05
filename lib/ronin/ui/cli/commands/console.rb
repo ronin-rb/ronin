@@ -59,7 +59,7 @@ module Ronin
             end
 
             if options[:database]
-              Database.config = options[:database]
+              Database.repositories[:default] = options[:database]
             end
 
             UI::Console.start
