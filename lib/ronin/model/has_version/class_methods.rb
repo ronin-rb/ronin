@@ -39,7 +39,7 @@ module Ronin
         # Finds latest version of the model.
         #
         def latest
-          self.first(:order => [:version.desc])
+          first(:order => [:version.desc])
         end
       end
     end

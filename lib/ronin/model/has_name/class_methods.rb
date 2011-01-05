@@ -35,11 +35,7 @@ module Ronin
         #   Exploit.named 'ProFTP'
         #
         def named(fragment)
-          # create a query like operator on name manually, to avoid
-          # DataMapper confusing the name property with Class#name.
-          name_like = DataMapper::Query::Operator.new(:name, :like)
-
-          return all(name_like => "%#{fragment}%")
+          all(:name.like => "%#{fragment}%")
         end
       end
     end

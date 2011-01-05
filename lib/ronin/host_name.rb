@@ -60,7 +60,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.with_ips(ips)
-      all('ip_addresses.address' => ips)
+      all(:ip_addresses => {:address => ips})
     end
 
     #
@@ -75,7 +75,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.with_ports(numbers)
-      all('ports.number' => numbers)
+      all(:ports => {:number => numbers})
     end
 
     #
@@ -105,7 +105,8 @@ module Ronin
     # @since 1.0.0
     #
     def self.domain(name)
-      all(:address.like => "#{name}.%") | all(:address.like => "%.#{name}.%")
+      all(:address.like => "#{name}.%") |
+      all(:address.like => "%.#{name}.%")
     end
 
     #

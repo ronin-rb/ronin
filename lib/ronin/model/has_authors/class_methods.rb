@@ -32,7 +32,7 @@ module Ronin
         #   The resources written by the author.
         #
         def written_by(name)
-          all(self.authors.name.like => "%#{name}%")
+          all(:authors => {:name.like => "%#{name}%"})
         end
 
         #
@@ -45,7 +45,7 @@ module Ronin
         #   The resources associated with the organization.
         #
         def written_for(name)
-          all(self.authors.organization.like => "%#{name}%")
+          all(:authors => {:organization.like => "%#{name}%"})
         end
       end
     end

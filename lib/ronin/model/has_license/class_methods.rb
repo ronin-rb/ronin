@@ -38,7 +38,7 @@ module Ronin
         # @since 1.0.0
         #
         def licensed_under(name)
-          all(self.license.name => name.to_s)
+          all(:license => {:name => name.to_s})
         end
       end
     end

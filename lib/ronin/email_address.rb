@@ -62,7 +62,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.with_hosts(names)
-      all('host_name.address' => names)
+      all(:host_name => {:address => names})
     end
 
     #
@@ -77,7 +77,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.with_ips(ips)
-      all('ip_addresses.address' => ips)
+      all(:ip_addresses => {:address => ips})
     end
 
     #
@@ -92,7 +92,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.with_users(names)
-      all('user_name.name' => names)
+      all(:user_name => {:name => names})
     end
 
     #

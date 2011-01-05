@@ -65,7 +65,8 @@ module Ronin
     # @since 1.0.0
     #
     def self.named(basename)
-      all(:remote_path => basename) | all(:remote_path.like => "%/#{basename}")
+      all(:remote_path => basename) |
+      all(:remote_path.like => "%/#{basename}")
     end
 
     #
