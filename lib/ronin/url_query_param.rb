@@ -21,6 +21,8 @@
 require 'ronin/model/has_name'
 require 'ronin/model'
 
+require 'uri/query_params'
+
 module Ronin
   class URLQueryParam
 
@@ -35,6 +37,18 @@ module Ronin
 
     # The URL
     belongs_to :url, :model => 'URL'
+
+    #
+    # Converts the URL query param to a String.
+    #
+    # @return [String]
+    #   The dumped URL query param.
+    #
+    # @since 1.0.0
+    #
+    def to_s
+      URI::QueryParams.dump(self.name => self.value)
+    end
 
   end
 end
