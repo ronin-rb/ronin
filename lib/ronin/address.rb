@@ -89,5 +89,17 @@ module Ronin
       self.address.to_s
     end
 
+    #
+    # Inspects the address.
+    #
+    # @return [String]
+    #   The inspected address.
+    #
+    # @since 1.0.0
+    #
+    def inspect
+      "#<#{self.class}: #{self.address}>"
+    end
+
   end
 end

@@ -47,6 +47,18 @@ module Ronin
       def to_s
         self.name.to_s
       end
+
+      #
+      # Inspects the resource with the unique name.
+      #
+      # @return [String]
+      #   The inspected resource.
+      #
+      # @since 1.0.0
+      #
+      def inspect
+        "#<#{self.class}:#{self.name}>"
+      end
     end
   end
 end

@@ -50,5 +50,17 @@ module Ronin
       URI::QueryParams.dump(self.name => self.value)
     end
 
+    #
+    # Inspects the URL query param.
+    #
+    # @return [String]
+    #   The inspected URL query param.
+    #
+    # @since 1.0.0
+    #
+    def inspect
+      "#<#{self.class}: #{self}>"
+    end
+
   end
 end

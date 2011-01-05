@@ -122,5 +122,17 @@ module Ronin
       self.clear_text
     end
 
+    #
+    # Inspects the password.
+    #
+    # @return [String]
+    #   The inspected password.
+    #
+    # @since 1.0.0
+    #
+    def inspect
+      "#<#{self.class}: #{self.clear_text}>"
+    end
+
   end
 end

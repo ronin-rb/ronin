@@ -67,5 +67,17 @@ module Ronin
       "#{self.number}/#{self.protocol}"
     end
 
+    #
+    # Inspects the port.
+    #
+    # @return [String]
+    #   The inspected port.
+    #
+    # @since 1.0.0
+    #
+    def inspect
+      "#<#{self.class}: #{self}>"
+    end
+
   end
 end

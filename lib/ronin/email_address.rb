@@ -167,6 +167,18 @@ module Ronin
     end
 
     #
+    # Inspects the email address.
+    #
+    # @return [String]
+    #   The inspected email address.
+    #
+    # @since 1.0.0
+    #
+    def inspect
+      "#<#{self.class}: #{self}>"
+    end
+
+    #
     # Splats the email address into multiple variables.
     #
     # @return [Array]
