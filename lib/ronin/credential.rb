@@ -79,6 +79,18 @@ module Ronin
     end
 
     #
+    # The clear-text password of the credential.
+    #
+    # @return [String]
+    #   The clear-text password.
+    #
+    # @since 1.0.0
+    #
+    def clear_text
+      self.password.clear_text if self.password
+    end
+
+    #
     # Converts the credentials to a String.
     #
     # @return [String]
