@@ -29,7 +29,22 @@ describe EmailAddress do
     end
   end
 
+  it "should provide the user-name" do
+    subject.user.should == user
+  end
+
+  it "should provide the host-name" do
+    subject.host.should == host
+  end
+
   it "should convert to a String" do
     subject.to_s.should == email
+  end
+
+  it "should implicitly splat the user-name and host-name" do
+    user_name, host_name = subject
+
+    user_name.should == user
+    host_name.should == host
   end
 end
