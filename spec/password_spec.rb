@@ -32,4 +32,8 @@ describe Password do
       digest.should == Digest::SHA1.hexdigest(password + salt)
     end
   end
+
+  it "should be convertable to a String" do
+    subject.to_s.should == password
+  end
 end
