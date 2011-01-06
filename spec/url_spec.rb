@@ -55,6 +55,10 @@ describe URL do
     it "should query URLs using Strings" do
       URL[@uri.to_s].should == @url
     end
+
+    it "should still treat Integer arguments as indexes" do
+      URL[0].should == @url
+    end
   end
 
   describe "from" do

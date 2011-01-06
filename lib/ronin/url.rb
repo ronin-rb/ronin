@@ -202,6 +202,8 @@ module Ronin
     # @since 1.0.0
     #
     def self.[](url)
+      return super(url) if url.kind_of?(Integer)
+
       url = ::URI.parse(url) unless url.kind_of?(::URI)
 
       query = all(
