@@ -32,7 +32,6 @@ module Ronin
           create_table :ronin_services do
             column :id, Integer, :serial => true
             column :name, String, :not_null => true
-            column :number, Integer, :not_null => true
             column :organization_id, Integer
           end
 
