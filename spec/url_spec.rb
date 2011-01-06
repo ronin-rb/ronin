@@ -11,13 +11,22 @@ describe URL do
   let(:query_string) { 'q=1' }
   let(:fragment) { 'frag' }
 
-  let(:uri) do
-    URI::HTTPS.build(
+  before(:all) do
+    @uri = URI::HTTPS.build(
       :scheme => scheme,
       :host => host_name,
       :port => port,
       :path => path,
       :query => query_string,
+      :fragment => fragment
+    )
+
+    @url = URL.create(
+      :scheme => {:name => scheme},
+      :host_name => {:address => host_name},
+      :port => {:number => port},
+      :path => path,
+      :query_string => query_string,
       :fragment => fragment
     )
   end
@@ -35,84 +44,80 @@ describe URL do
   end
 
   it "should be convertable to a String" do
-    url = URL.new(
-      :scheme => {:name => scheme},
-      :host_name => {:address => host_name},
-      :port => {:number => port},
-      :path => path,
-      :query_string => query_string,
-      :fragment => fragment
-    )
+    @url.to_s.should == @uri.to_s
+  end
 
-    url.to_s.should == uri.to_s
+  describe "[]" do
+    it "should query URLs using URIs" do
+      URL[@uri].should == @url
+    end
+
+    it "should query URLs using Strings" do
+      URL[@uri.to_s].should == @url
+    end
   end
 
   describe "from" do
-    before(:all) do
-      @url = URL.from(uri)
-    end
+    subject { URL.from(@uri) }
 
     it "should parse URL schemes" do
-      @url.scheme.should_not be_nil
-      @url.scheme.name.should == scheme
+      subject.scheme.should_not be_nil
+      subject.scheme.name.should == scheme
     end
 
     it "should parse host names" do
-      @url.host_name.address.should == host_name
+      subject.host_name.address.should == host_name
     end
 
     it "should parse port numbers" do
-      @url.port.number.should == port
+      subject.port.number.should == port
     end
 
     it "should parse paths" do
-      @url.path.should == path
+      subject.path.should == path
     end
 
     it "should parse query strings" do
-      @url.query_string.should == query_string
+      subject.query_string.should == query_string
     end
 
     it "should parse URL fragments" do
-      @url.fragment.should == fragment
+      subject.fragment.should == fragment
     end
   end
 
   describe "#to_uri" do
-    before(:all) do
-      @url = URL.parse('https://www.example.com:8080/path?q=1#frag')
-      @uri = @url.to_uri
-    end
+    subject { @url.to_uri }
 
     it "should convert the scheme" do
-      @uri.scheme.should == scheme
+      subject.scheme.should == scheme
     end
     
     it "should convert the host name" do
-      @uri.host.should == host_name
+      subject.host.should == host_name
     end
 
     it "should convert the port number" do
-      @uri.port.should == port
+      subject.port.should == port
     end
 
     it "should convert the path" do
-      @uri.path.should == path
+      subject.path.should == path
     end
 
     it "should convert the query string" do
-      @uri.query.should == query_string
+      subject.query.should == query_string
     end
 
     it "should omit the query string if there are no query params" do
-      url = URL.parse('https://www.example.com:8080/path')
-      uri = url.to_uri
+      new_url = URL.parse('https://www.example.com:8080/path')
+      new_uri = new_url.to_uri
 
-      uri.query.should be_nil
+      new_uri.query.should be_nil
     end
 
     it "should convert the fragment" do
-      @uri.fragment.should == fragment
+      subject.fragment.should == fragment
     end
   end
 end
