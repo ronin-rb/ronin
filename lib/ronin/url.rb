@@ -213,7 +213,7 @@ module Ronin
       )
 
       if url.query
-        QueryParams.parse(url.query).each do |name,value|
+        URI::QueryParams.parse(url.query).each do |name,value|
           query = query.all(
             :query_params => {:name => name, :value => value}
           )
