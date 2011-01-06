@@ -32,7 +32,14 @@ module Ronin
       #
       # @return [nil]
       #
+      # @raise [ArgumentError]
+      #   The given object does not respond to the `#each_byte` method.
+      #
       def Hexdump.dump(object,output=STDOUT)
+        unless object.respond_to?(:each_byte)
+          raise(ArgumentError,"argument must respond to #each_byte")
+        end
+
         index = 0
         offset = 0
         hex_segment = nil
