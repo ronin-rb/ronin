@@ -23,7 +23,7 @@ describe Engine::Deployable do
     subject.should_not be_deployed
   end
 
-  describe "deploy!" do
+  describe "#deploy!" do
     it "should verify! the engine before deploying it" do
       subject.var = -1
 
@@ -45,7 +45,7 @@ describe Engine::Deployable do
     end
   end
 
-  describe "evacuate!" do
+  describe "#evacuate!" do
     it "should mark the engine as evacuated" do
       subject.evacuate!
 

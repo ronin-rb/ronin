@@ -14,7 +14,7 @@ describe Model::HasDescription do
     subject.properties.should be_named(:description)
   end
 
-  describe "description" do
+  describe "#description" do
     let(:resource) { DescribedModel.new }
 
     it "should allow the setting of the description" do

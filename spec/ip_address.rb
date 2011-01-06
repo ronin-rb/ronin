@@ -66,7 +66,7 @@ describe IPAddress do
     end
   end
 
-  describe "version" do
+  describe "#version" do
     let(:ipv4) { IPAddress.new(:address => '192.168.1.1') }
     let(:ipv6) { IPAddress.new(:address => '::1') }
 

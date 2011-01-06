@@ -7,7 +7,7 @@ describe Author do
     author.to_s.should == 'test'
   end
 
-  describe "to_s" do
+  describe "#to_s" do
     it "should return the name when their is no email" do
       author = Author.new(:name => 'anonymous')
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'ronin/campaign'
 
 describe Campaign do
-  describe "filename" do
+  describe "#filename" do
     it "should return nil if no name is set" do
       campaign = Campaign.new
       

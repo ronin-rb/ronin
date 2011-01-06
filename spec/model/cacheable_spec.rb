@@ -56,7 +56,7 @@ describe Model::Cacheable do
     end
   end
 
-  describe "cached" do
+  context "previously cached" do
     subject { CacheableModel.first }
 
     it "should have a cached_file resource" do

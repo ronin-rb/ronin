@@ -82,7 +82,7 @@ describe Repository do
     end
   end
 
-  describe "domain" do
+  describe "#domain" do
     it "should be considered local for 'localhost' domains" do
       hello = repository('hello')
 
@@ -98,7 +98,7 @@ describe Repository do
     end
   end
 
-  describe "initialize" do
+  describe "#initialize" do
     it "should default the 'name' property to the name of the Repository directory" do
       repo = subject.new(
         :path => File.join(Helpers::Repositories::DIR,'hello')
@@ -117,7 +117,7 @@ describe Repository do
     end
   end
 
-  describe "initialize_metadata" do
+  describe "#initialize_metadata" do
     subject { repository('hello') }
 
     it "should load the title" do
@@ -149,7 +149,7 @@ describe Repository do
     end
   end
 
-  describe "activate!" do
+  describe "#activate!" do
     subject { repository('hello') }
 
     before(:all) do
@@ -165,7 +165,7 @@ describe Repository do
     end
   end
 
-  describe "deactivate!" do
+  describe "#deactivate!" do
     subject { repository('hello') }
 
     before(:all) do
@@ -179,7 +179,7 @@ describe Repository do
     end
   end
 
-  describe "cache_paths" do
+  describe "#cache_paths" do
     subject { repository('test1') }
 
     it "should list the contents of the 'cache/' directory" do
@@ -195,7 +195,7 @@ describe Repository do
     end
   end
 
-  describe "cached_files" do
+  describe "#cached_files" do
     before(:all) do
       CacheableModel.auto_migrate!
     end
@@ -203,7 +203,7 @@ describe Repository do
     let(:test1) { repository('test1') }
     let(:test2) { repository('test2') }
 
-    describe "cache_files!" do
+    describe "#cache_files!" do
       before(:all) do
         test1.cache_files!
         test2.cache_files!
@@ -251,7 +251,7 @@ describe Repository do
       end
     end
 
-    describe "sync_cached_files!" do
+    describe "#sync_cached_files!" do
       before(:all) do
         test1.cache_files!
         test2.cache_files!
@@ -278,7 +278,7 @@ describe Repository do
       end
     end
 
-    describe "clean_cached_files!" do
+    describe "#clean_cached_files!" do
       before(:all) do
         test1.clean_cached_files!
       end
