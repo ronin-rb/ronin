@@ -57,4 +57,11 @@ describe Arch do
   it "should provide built-in archs" do
     Arch.i386.should_not be_nil
   end
+
+  it "should implicitly splat the endian and address length" do
+    endian, address_length = Arch.i386
+
+    endian.should == Arch.i386.endian
+    address_length.should == Arch.i386.address_length
+  end
 end
