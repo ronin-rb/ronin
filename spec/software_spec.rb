@@ -13,11 +13,21 @@ describe Software do
     software.should be_valid
   end
 
-  it "should be convertable to a String" do
-    software = Software.new(:name => 'Test', :version => '0.1.0')
-    software.to_s.should == 'Test 0.1.0'
+  describe "#to_s" do
+    it "should be convertable to a String" do
+      software = Software.new(
+        :name => 'Test', 
+        :version => '0.1.0',
+        :vendor => {:name => 'TestCo'}
+      )
 
-    software.vendor = Vendor.new(:name => 'TestCo')
-    software.to_s.should == 'TestCo Test 0.1.0'
+      software.to_s.should == 'TestCo Test 0.1.0'
+    end
+
+    it "should ignore the missing vendor information" do
+      software = Software.new(:name => 'Test', :version => '0.1.0')
+
+      software.to_s.should == 'Test 0.1.0'
+    end
   end
 end
