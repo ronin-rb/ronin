@@ -13,6 +13,10 @@ describe HostName do
     host_name.should_not be_valid
   end
 
+  it "should alias #name to #address" do
+    subject.name.should == subject.address
+  end
+
   describe "lookup" do
     subject { HostName }
 
