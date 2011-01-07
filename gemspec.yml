@@ -5,7 +5,7 @@ description:
   Ronin allows for the rapid development and distribution of code, exploits
   or payloads over many common Source-Code-Management (SCM) systems.
 
-license: GPL-2
+license: GPL-3
 authors: Postmodern
 email: postmodern.mod3@gmail.com
 homepage: http://github.com/ronin-ruby/ronin
