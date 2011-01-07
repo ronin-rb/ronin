@@ -275,12 +275,12 @@ module Ronin
     #
     # @since 1.0.0
     #
-    def Database.map(&block)
+    def Database.map
       results = []
 
       Database.repositories.each_key do |name|
         DataMapper.repository(name) do
-          result = block.call()
+          result = yield
           results << result unless result.nil?
         end
       end

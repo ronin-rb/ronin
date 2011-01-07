@@ -224,10 +224,7 @@ module Ronin
         :domain => LOCAL_DOMAIN
       ))
 
-      name = repo.name
-      domain = repo.domain
-
-      if Repository.count(:name => name, :domain => domain) > 0
+      if Repository.count(:name => repo.name, :domain => repo.domain) > 0
         raise(DuplicateRepository,"the Repository #{repo} already exists in the database")
       end
 
@@ -567,7 +564,7 @@ module Ronin
       local_repo.update(self.uri)
 
       # re-initialize the metadata
-      initialize_metadata()
+      initialize_metadata
 
       # save the repository
       if save
