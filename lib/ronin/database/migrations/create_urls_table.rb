@@ -42,7 +42,7 @@ module Ronin
             column :id, Integer, :serial => true
             column :scheme_id, Integer, :not_null => true
             column :host_name_id, Integer, :not_null => true
-            column :port_id, Integer, :not_null => true
+            column :port_id, Integer
             column :path, String, :default => '/'
             column :fragment, String
             column :last_scanned_at, Time

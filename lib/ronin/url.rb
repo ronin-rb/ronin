@@ -52,7 +52,7 @@ module Ronin
     belongs_to :host_name
 
     # Port of the URL
-    belongs_to :port, :model => 'TCPPort'
+    belongs_to :port, :model => 'TCPPort', :required => false
 
     # Path of the URL
     property :path, String, :default => '/'
@@ -204,11 +204,14 @@ module Ronin
       return super(url) if url.kind_of?(Integer)
 
       url = ::URI.parse(url) unless url.kind_of?(::URI)
+      port = if url.port
+               {:number => url.port}
+             end
 
       query = all(
         :scheme => {:name => url.scheme},
         :host_name => {:address => url.host},
-        :port => {:number => url.port},
+        :port => port,
         :path => url.path,
         :fragment => url.fragment
       )
@@ -236,10 +239,14 @@ module Ronin
     # @since 1.0.0
     #
     def URL.from(uri)
+      port = if uri.port
+               TCPPort.first_or_new(:number => uri.port)
+             end
+
       new_url = URL.first_or_new(
         :scheme => URLScheme.first_or_new(:name => uri.scheme),
         :host_name => HostName.first_or_new(:address => uri.host),
-        :port => TCPPort.first_or_new(:number => uri.port),
+        :port => port,
         :path => uri.path,
         :fragment => uri.fragment
       )
@@ -291,7 +298,7 @@ module Ronin
     # @since 1.0.0
     #
     def port_number
-      self.port.number
+      self.port.number if self.port
     end
 
     #
