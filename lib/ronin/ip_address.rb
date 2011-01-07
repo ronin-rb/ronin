@@ -206,13 +206,9 @@ module Ronin
     # @since 1.0.0
     #
     def recent_mac_address
-      relation = self.ip_address_mac_addresses.first(
+      self.ip_address_mac_addresses.all(
         :order => [:created_at.desc]
-      )
-
-      if relation
-        return relation.mac_address
-      end
+      ).mac_addresses.first
     end
 
     #
@@ -224,13 +220,9 @@ module Ronin
     # @since 1.0.0
     #
     def recent_host_name
-      relation = self.host_name_ip_addresses.first(
+      self.host_name_ip_addresses.all(
         :order => [:created_at.desc]
-      )
-
-      if relation
-        return relation.host_name
-      end
+      ).host_names.first
     end
 
     #
@@ -243,11 +235,7 @@ module Ronin
     # @since 1.0.0
     #
     def recent_os_guess
-      relation = self.os_guesses.first(:order => [:created_at.desc])
-
-      if relation
-        return relation.os
-      end
+      self.os_guesses.all(:order => [:created_at.desc]).oses.first
     end
 
     #
