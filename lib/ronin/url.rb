@@ -253,7 +253,10 @@ module Ronin
 
       if uri.respond_to?(:query_params)
         uri.query_params.each do |name,value|
-          new_url.query_params.new(:name => name, :value => value)
+          new_url.query_params.first_or_new(
+            :name => name,
+            :value => value
+          )
         end
       end
 
