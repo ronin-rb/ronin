@@ -421,6 +421,7 @@ module Ronin
     def self.normalized_path(uri)
       case uri
       when URI::HTTP
+        # map empty HTTP paths to '/'
         unless uri.path.empty?
           uri.path
         else
