@@ -212,7 +212,7 @@ module Ronin
         :scheme => {:name => url.scheme},
         :host_name => {:address => url.host},
         :port => port,
-        :path => url.path,
+        :path => normalized_path(url),
         :fragment => url.fragment
       )
 
@@ -247,7 +247,7 @@ module Ronin
         :scheme => URLScheme.first_or_new(:name => uri.scheme),
         :host_name => HostName.first_or_new(:address => uri.host),
         :port => port,
-        :path => uri.path,
+        :path => normalized_path(uri),
         :fragment => uri.fragment
       )
 
@@ -382,6 +382,32 @@ module Ronin
     #
     def to_s
       self.to_uri.to_s
+    end
+
+    protected
+
+    #
+    # Normalizes the path of a URI.
+    #
+    # @param [URI] uri
+    #   The URI containing the path.
+    #
+    # @return [String, nil]
+    #   The normalized path.
+    #
+    # @since 1.0.0
+    #
+    def self.normalized_path(uri)
+      case uri
+      when URI::HTTP
+        unless uri.path.empty?
+          uri.path
+        else
+          '/'
+        end
+      else
+        uri.path
+      end
     end
 
   end
