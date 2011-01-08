@@ -238,14 +238,14 @@ module Ronin
     #
     # @since 1.0.0
     #
-    def URL.from(uri)
+    def self.from(uri)
       port = if uri.port
-               TCPPort.first_or_new(:number => uri.port)
+               self.port.model.first_or_new(:number => uri.port)
              end
 
-      new_url = URL.first_or_new(
-        :scheme => URLScheme.first_or_new(:name => uri.scheme),
-        :host_name => HostName.first_or_new(:address => uri.host),
+      new_url = first_or_new(
+        :scheme => self.scheme.model.first_or_new(:name => uri.scheme),
+        :host_name => self.host_name.model.first_or_new(:address => uri.host),
         :port => port,
         :path => normalized_path(uri),
         :fragment => uri.fragment
@@ -273,8 +273,8 @@ module Ronin
     #
     # @since 1.0.0
     #
-    def URL.parse(url)
-      URL.from(::URI.parse(url))
+    def self.parse(url)
+      from(::URI.parse(url))
     end
 
     #
