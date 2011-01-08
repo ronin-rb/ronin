@@ -204,16 +204,20 @@ module Ronin
       return super(url) if url.kind_of?(Integer)
 
       url = ::URI.parse(url) unless url.kind_of?(::URI)
+
       port = if url.port
                {:number => url.port}
              end
+
+      path = normalized_path(url)
+      fragment = url.fragment
 
       query = all(
         :scheme => {:name => url.scheme},
         :host_name => {:address => url.host},
         :port => port,
-        :path => normalized_path(url),
-        :fragment => url.fragment
+        :path => path,
+        :fragment => fragment
       )
 
       if url.query
@@ -239,16 +243,21 @@ module Ronin
     # @since 1.0.0
     #
     def self.from(uri)
+      scheme = self.scheme.model.first_or_new(:name => uri.scheme)
+      host_name = self.host_name.model.first_or_new(:address => uri.host)
       port = if uri.port
                self.port.model.first_or_new(:number => uri.port)
              end
 
+      path = normalized_path(uri)
+      fragment = uri.fragment
+
       new_url = first_or_new(
-        :scheme => self.scheme.model.first_or_new(:name => uri.scheme),
-        :host_name => self.host_name.model.first_or_new(:address => uri.host),
+        :scheme => scheme,
+        :host_name => host_name,
         :port => port,
-        :path => normalized_path(uri),
-        :fragment => uri.fragment
+        :path => path,
+        :fragment => fragment
       )
 
       if uri.respond_to?(:query_params)
