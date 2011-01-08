@@ -82,6 +82,13 @@ describe URL do
     it "should parse URL fragments" do
       subject.fragment.should == fragment
     end
+
+    it "should normalize the paths of HTTP URIs" do
+      uri = URI('http://www.example.com')
+      url = URL.from(uri)
+
+      url.path.should == '/'
+    end
   end
 
   describe "#to_uri" do
