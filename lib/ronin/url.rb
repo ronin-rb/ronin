@@ -292,7 +292,7 @@ module Ronin
     #
     # The port number used by the URL.
     #
-    # @return [Integer]
+    # @return [Integer, nil]
     #   The port number.
     #
     # @since 1.0.0
