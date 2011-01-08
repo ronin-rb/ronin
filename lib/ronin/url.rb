@@ -55,7 +55,7 @@ module Ronin
     belongs_to :port, :model => 'TCPPort', :required => false
 
     # Path of the URL
-    property :path, String, :default => '/'
+    property :path, String
 
     # The fragment of the URL
     property :fragment, String

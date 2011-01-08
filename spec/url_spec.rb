@@ -31,12 +31,6 @@ describe URL do
     )
   end
 
-  it "should have a default path" do
-    url = URL.new
-
-    url.path.should == '/'
-  end
-
   it "should have a host String" do
     url = URL.new(:host_name => {:address => host_name})
 
