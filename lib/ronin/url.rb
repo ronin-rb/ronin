@@ -252,24 +252,25 @@ module Ronin
       path = normalized_path(uri)
       fragment = uri.fragment
 
-      new_url = first_or_new(
-        :scheme => scheme,
-        :host_name => host_name,
-        :port => port,
-        :path => path,
-        :fragment => fragment
-      )
-
+      query_params = []
+      
       if uri.respond_to?(:query_params)
         uri.query_params.each do |name,value|
-          new_url.query_params.first_or_new(
+          query_params << self.query_params.model.first_or_new(
             :name => name,
             :value => value
           )
         end
       end
 
-      return new_url
+      return first_or_new(
+        :scheme => scheme,
+        :host_name => host_name,
+        :port => port,
+        :path => path,
+        :fragment => fragment,
+        :query_params => query_params
+      )
     end
 
     #
