@@ -203,6 +203,7 @@ module Ronin
     def self.[](url)
       return super(url) if url.kind_of?(Integer)
 
+      # optionally parse the URL
       url = ::URI.parse(url) unless url.kind_of?(::URI)
 
       port = if url.port
@@ -212,6 +213,7 @@ module Ronin
       path = normalized_path(url)
       fragment = url.fragment
 
+      # create the initial query
       query = all(
         :scheme => {:name => url.scheme},
         :host_name => {:address => url.host},
@@ -221,6 +223,7 @@ module Ronin
       )
 
       if url.query
+        # add the query params to the query
         URI::QueryParams.parse(url.query).each do |name,value|
           query = query.all(
             :query_params => {:name => name, :value => value}
@@ -243,6 +246,7 @@ module Ronin
     # @since 1.0.0
     #
     def self.from(uri)
+      # find or create the URL scheme, host_name and port
       scheme = self.scheme.model.first_or_new(:name => uri.scheme)
       host_name = self.host_name.model.first_or_new(:address => uri.host)
       port = if uri.port
@@ -255,6 +259,7 @@ module Ronin
       query_params = []
       
       if uri.respond_to?(:query_params)
+        # find or create the URL query params
         uri.query_params.each do |name,value|
           query_params << self.query_params.model.first_or_new(
             :name => name,
@@ -263,6 +268,7 @@ module Ronin
         end
       end
 
+      # find or create the URL
       return first_or_new(
         :scheme => scheme,
         :host_name => host_name,
@@ -362,6 +368,7 @@ module Ronin
     # @since 1.0.0
     #
     def to_uri
+      # map the URL scheme to a URI class
       url_class = (SCHEMES[self.scheme.name] || ::URI::Generic)
 
       host = if self.host_name
@@ -375,6 +382,7 @@ module Ronin
                 self.query_string
               end
 
+      # build the URI
       return url_class.build(
         :scheme => self.scheme.name,
         :host => host,
