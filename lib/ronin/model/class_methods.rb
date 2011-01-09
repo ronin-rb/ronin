@@ -21,6 +21,9 @@ require 'ronin/support/inflector'
 
 module Ronin
   module Model
+    #
+    # Class methods that are added when {Model} is included into a class.
+    #
     module ClassMethods
       #
       # The default name to use when defining relationships with the

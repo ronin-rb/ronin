@@ -36,6 +36,13 @@ module Ronin
   module Model
     include Model::Types
 
+    #
+    # Sets up a class as a DataMapper model that can be used with the
+    # {Database}. Also adds {ClassMethods} to the new model.
+    #
+    # @param [Class] base
+    #   The class that will be setup as a DataMapper model.
+    #
     def self.included(base)
       unless base.ancestors.include?(DataMapper::Resource)
         base.send :include, DataMapper::Resource

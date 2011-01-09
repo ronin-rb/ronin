@@ -24,9 +24,15 @@ require 'ronin/license'
 module Ronin
   module Model
     #
-    # Adds a `license` relation between a model and the {License} model.
+    # Adds a `license` relationship between a model and the {License} model.
     #
     module HasLicense
+      #
+      # Adds the `license` relationship and {ClassMethods} to the model.
+      #
+      # @param [Class] base
+      #   The model.
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, ClassMethods

@@ -26,6 +26,12 @@ module Ronin
     # Adds a `version` property to a model.
     #
     module HasVersion
+      #
+      # Adds the `version` property and {ClassMethods} to the model.
+      #
+      # @param [Class] base
+      #   The model.
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, ClassMethods

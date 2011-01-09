@@ -20,6 +20,10 @@
 module Ronin
   module Model
     module HasName
+      #
+      # Class methods that are added when {HasName} is included into a
+      # model.
+      #
       module ClassMethods
         #
         # Finds models with names containing a given fragment of text.

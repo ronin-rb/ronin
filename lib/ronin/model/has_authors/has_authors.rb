@@ -24,10 +24,15 @@ require 'ronin/author'
 module Ronin
   module Model
     #
-    # Adds an `authors` relation between a model and the `Ronin::Author`
-    # model.
+    # Adds an `authors` relationship between a model and the {Author} model.
     #
     module HasAuthors
+      #
+      # Adds the `authors` relationship and {ClassMethods} to the model.
+      #
+      # @param [Class] base
+      #   The model.
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, ClassMethods

@@ -20,6 +20,10 @@
 module Ronin
   module Model
     module HasDescription
+      #
+      # Class methods that are added when {HasDescription} is included into
+      # a model.
+      #
       module ClassMethods
         #
         # Finds models with descriptions containing a given fragment of

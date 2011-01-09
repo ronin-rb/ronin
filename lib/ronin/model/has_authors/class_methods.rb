@@ -20,6 +20,10 @@
 module Ronin
   module Model
     module HasAuthors
+      #
+      # Class methods that are added when {HasAuthors} is included into a
+      # model.
+      #
       module ClassMethods
         #
         # Finds all resources associated with a given author.

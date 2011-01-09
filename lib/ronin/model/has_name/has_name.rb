@@ -26,6 +26,12 @@ module Ronin
     # Adds a `name` property to a model.
     #
     module HasName
+      #
+      # Adds the `name` property and {ClassMethods} to the model.
+      #
+      # @param [Class] base
+      #   The model.
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, ClassMethods

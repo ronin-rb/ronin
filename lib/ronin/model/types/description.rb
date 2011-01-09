@@ -22,6 +22,11 @@ require 'dm-core'
 module Ronin
   module Model
     module Types
+      #
+      # The Description property type is similar to the `Text` type,
+      # but automatically strips all leading and tailing white-space
+      # from every line.
+      #
       class Description < DataMapper::Property::Text
 
         #

@@ -20,6 +20,10 @@
 module Ronin
   module Model
     module HasVersion
+      #
+      # Class methods that are added when {HasVersion} is included into a
+      # model.
+      #
       module ClassMethods
         #
         # Finds all models with a specific version.

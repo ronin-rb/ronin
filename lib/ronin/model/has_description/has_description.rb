@@ -27,6 +27,12 @@ module Ronin
     # Adds a `description` property to a model.
     #
     module HasDescription
+      #
+      # Adds the `description` property and {ClassMethods} to the model.
+      #
+      # @param [Class] base
+      #   The model.
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, ClassMethods

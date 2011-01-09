@@ -20,6 +20,10 @@
 module Ronin
   module Model
     module HasTitle
+      #
+      # Class methods that are added when {HasTitle} are included into a
+      # model.
+      #
       module ClassMethods
         #
         # Finds models with titles containing a given fragment of text.

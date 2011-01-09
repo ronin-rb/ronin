@@ -20,6 +20,10 @@
 module Ronin
   module Model
     module HasLicense
+      #
+      # Class methods that are added when {HasLicense} is included into a
+      # model.
+      #
       module ClassMethods
         #
         # Finds all models associated with a given license.
