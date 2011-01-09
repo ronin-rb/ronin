@@ -26,8 +26,11 @@ describe URL do
       :host_name => {:address => host_name},
       :port => {:number => port},
       :path => path,
-      :query_string => query_string,
-      :fragment => fragment
+      :fragment => fragment,
+      :query_params => [{
+        :name => query_params.keys[0],
+        :value => query_params.values[0]
+      }]
     )
   end
 
