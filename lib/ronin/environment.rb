@@ -17,6 +17,9 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#
+# Loads all extensions to core Ruby classes.
+#
 require 'ronin/ronin'
 require 'ronin/extensions'
 require 'ronin/formatting/extensions'
@@ -26,5 +29,8 @@ require 'ronin/ui/output/helpers'
 
 require 'chars/extensions'
 
+#
+# Includes the Ronin namespace and output helper methods.
+#
 include Ronin
 include Ronin::UI::Output::Helpers

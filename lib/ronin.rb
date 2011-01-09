@@ -17,6 +17,9 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#
+# Loads up the full Ronin environment.
+#
 require 'ronin/bootstrap'
 require 'ronin/environment'
 require 'ronin/version'

@@ -17,6 +17,9 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+#
+# Loads the Ronin configuration and sets up the Database.
+#
 require 'ronin/config'
 require 'ronin/database'
 
