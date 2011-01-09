@@ -18,7 +18,24 @@
 #
 
 module Ronin
+  #
+  # Class methods that are included when {Ronin} is included.
+  #
   module ClassMethods
+    #
+    # Catches missing constants and searches the {Ronin} namespace.
+    #
+    # @param [Symbol] name
+    #   The constant name.
+    #
+    # @return [Object]
+    #   The found constant.
+    #
+    # @raise [NameError]
+    #   The constant could not be found within {Ronin}.
+    #
+    # @since 1.0.0
+    #
     def const_missing(name)
       Ronin.send(:const_missing,name) || super(name)
     end
