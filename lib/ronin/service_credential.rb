@@ -21,6 +21,9 @@ require 'ronin/credential'
 require 'ronin/open_port'
 
 module Ronin
+  #
+  # Represents Credentials used to access a TCP/UDP {Service}.
+  #
   class ServiceCredential < Credential
 
     belongs_to :open_port, :required => false

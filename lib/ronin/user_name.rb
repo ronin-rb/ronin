@@ -23,12 +23,15 @@ require 'ronin/model/has_unique_name'
 require 'dm-timestamps'
 
 module Ronin
+  #
+  # Represents a user name that can be stored in the {Database}.
+  #
   class UserName
 
     include Model
     include Model::HasUniqueName
 
-    # The primary key of the user-name
+    # The primary key of the user name
     property :id, Serial
 
     # Tracks when the user-name was created.

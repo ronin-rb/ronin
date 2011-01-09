@@ -28,6 +28,9 @@ require 'ipaddr'
 require 'resolv'
 
 module Ronin
+  #
+  # Represents IP addresses that can be stored in the {Database}.
+  #
   class IPAddress < Address
 
     # The IP Address

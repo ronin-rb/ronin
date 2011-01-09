@@ -22,7 +22,7 @@ require 'ronin/model/has_unique_name'
 
 module Ronin
   #
-  # Represents a Software Vendor.
+  # Represents a {Software} vendor.
   #
   class Vendor
 

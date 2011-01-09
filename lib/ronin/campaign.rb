@@ -26,6 +26,9 @@ require 'ronin/target'
 require 'fileutils'
 
 module Ronin
+  #
+  # Represents a grouping of targeted {Address}es.
+  #
   class Campaign
 
     include Model

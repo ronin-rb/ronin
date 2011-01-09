@@ -23,6 +23,9 @@ require 'ronin/model'
 require 'uri/query_params'
 
 module Ronin
+  #
+  # Represents a query param that belongs to a {URL}.
+  #
   class URLQueryParam
 
     include Model

@@ -22,6 +22,9 @@ require 'ronin/password'
 require 'ronin/model'
 
 module Ronin
+  #
+  # Represents Credentials used to access services or websites.
+  #
   class Credential
 
     include Model

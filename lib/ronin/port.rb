@@ -21,6 +21,9 @@ require 'ronin/open_port'
 require 'ronin/model'
 
 module Ronin
+  #
+  # Represents a TCP or UDP port.
+  #
   class Port
 
     include Model

@@ -30,6 +30,9 @@ require 'uri'
 require 'uri/query_params'
 
 module Ronin
+  #
+  # Represents URLs that can be stored in the {Database}.
+  #
   class URL
 
     include Model

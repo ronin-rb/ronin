@@ -21,6 +21,9 @@ require 'ronin/credential'
 require 'ronin/proxy'
 
 module Ronin
+  #
+  # Represents Credentials needed to access a {Proxy}.
+  #
   class ProxyCredential < Credential
 
     belongs_to :proxy, :required => false

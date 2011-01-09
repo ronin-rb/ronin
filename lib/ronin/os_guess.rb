@@ -24,6 +24,9 @@ require 'ronin/model'
 require 'dm-timestamps'
 
 module Ronin
+  #
+  # Represents a guess about what {OS} an {IPAddress} might be running.
+  #
   class OSGuess
 
     include Model

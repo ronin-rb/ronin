@@ -21,6 +21,9 @@ require 'ronin/port'
 require 'ronin/url'
 
 module Ronin
+  #
+  # Represents a TCP {Port}.
+  #
   class TCPPort < Port
 
     # The URLs that use the port

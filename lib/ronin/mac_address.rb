@@ -22,6 +22,9 @@ require 'ronin/ip_address_mac_address'
 require 'ronin/model'
 
 module Ronin
+  #
+  # Represents MAC addresses that can be stored in the {Database}.
+  #
   class MACAddress < Address
 
     # The IP Addresses the MAC Address hosts

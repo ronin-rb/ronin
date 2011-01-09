@@ -23,6 +23,9 @@ require 'ronin/model'
 require 'digest'
 
 module Ronin
+  #
+  # Represents a password that can be stored in the {Database}.
+  #
   class Password
 
     include Model

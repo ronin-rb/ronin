@@ -22,6 +22,9 @@ require 'ronin/email_address'
 require 'ronin/url'
 
 module Ronin
+  #
+  # Represents Credentials used to access websites at specified {URL}s.
+  #
   class WebCredential < Credential
 
     # The optional email address the credential is associated with.

@@ -26,6 +26,9 @@ require 'ronin/model'
 require 'resolv'
 
 module Ronin
+  #
+  # Represents host names that can be stored in the {Database}.
+  #
   class HostName < Address
 
     # The IP Address associations

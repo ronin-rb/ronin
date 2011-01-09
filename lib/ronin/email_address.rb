@@ -24,6 +24,9 @@ require 'ronin/model'
 require 'dm-timestamps'
 
 module Ronin
+  #
+  # Represents email addresses that can be stored in the {Database}.
+  #
   class EmailAddress
 
     include Model

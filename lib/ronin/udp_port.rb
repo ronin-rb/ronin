@@ -20,6 +20,9 @@
 require 'ronin/port'
 
 module Ronin
+  #
+  # Represents a UDP {Port}.
+  #
   class UDPPort < Port
 
     #

@@ -27,6 +27,10 @@ require 'ronin/model'
 require 'dm-timestamps'
 
 module Ronin
+  #
+  # Represents a HTTP or Socks proxy running on a specified {IPAddress}
+  # and {Port}.
+  #
   class Proxy
 
     include Model

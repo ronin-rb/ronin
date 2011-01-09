@@ -22,6 +22,9 @@ require 'ronin/model'
 require 'ronin/model/has_unique_name'
 
 module Ronin
+  #
+  # Represents a TCP/UDP Service that runs on various common ports.
+  #
   class Service
 
     include Model

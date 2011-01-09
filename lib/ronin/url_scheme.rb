@@ -21,6 +21,9 @@ require 'ronin/model'
 require 'ronin/model/has_unique_name'
 
 module Ronin
+  #
+  # Represents a {URL} scheme.
+  #
   class URLScheme
 
     include Model

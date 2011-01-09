@@ -27,6 +27,9 @@ require 'dm-timestamps'
 require 'dm-tags'
 
 module Ronin
+  #
+  # Represents a open port at a specified IP address.
+  #
   class OpenPort
 
     include Model
