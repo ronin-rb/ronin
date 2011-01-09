@@ -24,6 +24,14 @@ require 'open_namespace'
 module Ronin
   include OpenNamespace
 
+  #
+  # Includes {ClassMethods} when {Ronin} is included.
+  #
+  # @param [Class, Module] base
+  #   The class or module that {Ronin} is being included into.
+  #
+  # @since 1.0.0
+  #
   def self.included(base)
     base.send :extend, ClassMethods
   end
