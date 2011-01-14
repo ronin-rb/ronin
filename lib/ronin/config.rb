@@ -39,13 +39,9 @@ module Ronin
     # Temporary file directory
     TMP_DIR = File.join(PATH,'tmp')
 
-    # Directory for storing files for campaigns
-    CAMPAIGNS_DIR = File.join(PATH,'campaigns')
-    
     FileUtils.mkdir(PATH) unless File.directory?(PATH)
     FileUtils.mkdir(CONFIG_DIR) unless File.directory?(PATH)
     FileUtils.mkdir(TMP_DIR) unless File.directory?(TMP_DIR)
-    FileUtils.mkdir(CAMPAIGNS_DIR) unless File.directory?(CAMPAIGNS_DIR)
 
     #
     # Loads the Ronin configuration file.

@@ -20,10 +20,7 @@
 require 'ronin/model'
 require 'ronin/model/has_unique_name'
 require 'ronin/model/has_description'
-require 'ronin/config'
 require 'ronin/target'
-
-require 'fileutils'
 
 module Ronin
   #
@@ -112,35 +109,6 @@ module Ronin
       end
 
       return Target.first_or_create(:campaign => self, :address => address)
-    end
-
-    #
-    # The file-name to use for the campaign.
-    #
-    # @return [String, nil]
-    #   The File System safe name to use for the campaign.
-    #
-    # @since 1.0.0
-    #
-    def filename
-      self.name.downcase.gsub(/[^a-z0-9]+/,'_') if self.name
-    end
-
-    #
-    # The directory to store files related to the campaign.
-    #
-    # @return [String, nil]
-    #   The path to the directory.
-    #
-    # @since 1.0.0
-    #
-    def directory
-      if self.name
-        path = File.join(Config::CAMPAIGNS_DIR,filename)
-
-        FileUtils.mkdir(path) unless File.directory?(path)
-        return path
-      end
     end
 
   end

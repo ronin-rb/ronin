@@ -19,7 +19,6 @@
 
 require 'ronin/campaign'
 require 'ronin/address'
-require 'ronin/remote_file'
 require 'ronin/model'
 
 require 'fileutils'
@@ -43,9 +42,6 @@ module Ronin
 
     # The organization that is being targeted
     has 1, :organization, :through => :address
-
-    # The remote files recovered from the target
-    has 0..n, :remote_files
 
     # Validates the uniqueness of the address and the campaign.
     validates_uniqueness_of :address, :scope => [:campaign]

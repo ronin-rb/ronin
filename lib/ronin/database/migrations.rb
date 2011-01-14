@@ -45,7 +45,6 @@ require 'ronin/database/migrations/create_countries_table'
 require 'ronin/database/migrations/create_organizations_table'
 require 'ronin/database/migrations/create_campaigns_table'
 require 'ronin/database/migrations/create_targets_table'
-require 'ronin/database/migrations/create_remote_files_table'
 require 'ronin/database/migrations/create_cached_files_table'
 require 'ronin/database/migrations/create_repositories_table'
 
