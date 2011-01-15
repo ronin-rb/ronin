@@ -5,6 +5,11 @@ begin
     # custom logic here
   end
 rescue NameError
-  STDERR.puts "The 'ronin.gemspec' file requires Ore."
-  STDERR.puts "Run `gem install ore` to install Ore."
+  begin
+    require 'ore/specification'
+    retry
+  rescue LoadError
+    STDERR.puts "The 'ronin.gemspec' file requires Ore."
+    STDERR.puts "Run `gem install ore` to install Ore."
+  end
 end

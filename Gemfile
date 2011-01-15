@@ -1,3 +1,5 @@
+require 'ore/specification'
+
 source 'https://rubygems.org'
 
 DATA_MAPPER = 'http://github.com/datamapper'
