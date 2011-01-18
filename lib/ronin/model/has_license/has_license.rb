@@ -39,12 +39,10 @@ module Ronin
 
         base.module_eval do
           # The license
-          belongs_to :license, :required => false,
-                               :model => 'Ronin::License'
+          belongs_to :license, Ronin::License, :required => false
 
+          Ronin::License.has 0..n, self.relationship_name, :model => self
         end
-
-        License.has License.n, base.relationship_name, :model => base.name
       end
 
       #

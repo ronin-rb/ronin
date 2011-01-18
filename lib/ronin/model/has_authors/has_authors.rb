@@ -39,12 +39,11 @@ module Ronin
 
         base.module_eval do
           # The authors associated with the model.
-          has 0..n, :authors, :through => DataMapper::Resource,
-                              :model => 'Ronin::Author'
+          has 0..n, :authors, Ronin::Author, :through => DataMapper::Resource
 
           Ronin::Author.has 0..n, self.relationship_name,
                                   :through => DataMapper::Resource,
-                                  :model => self.name
+                                  :model => self
         end
       end
 
