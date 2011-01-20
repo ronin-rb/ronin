@@ -38,6 +38,7 @@ module Ronin
 
     # The port number
     property :number, Integer, :required => true,
+                               :within => 1..65535,
                                :unique_index => :protocol_port
 
     # The open ports
