@@ -101,22 +101,25 @@ module Ronin
         end
 
         #
-        # Prints one or more messages as `info` output.
+        # Prints an `info` message.
         #
-        # @param [Array] messages
-        #   The messages to print.
+        # @param [Array] message
+        #   The message to print.
         #
         # @return [Boolean]
         #   Specifies whether the messages were successfully printed.
         #
         # @example
-        #   print_info 'Connecting ...'
+        #   print_info "Connecting ..."
+        #
+        # @example Print a formatted message.
+        #   print_info "Connected to %s", host
         #
         # @since 0.3.0
         #
-        def print_info(*messages)
+        def print_info(*message)
           unless Output.silent?
-            Output.handler.print_info(*messages)
+            Output.handler.print_info(format_message(message))
             return true
           end
 
@@ -124,22 +127,22 @@ module Ronin
         end
 
         #
-        # Prints one or more messages as `debug` output.
+        # Prints a `debug` message.
         #
-        # @param [Array] messages
-        #   The messages to print.
+        # @param [Array, String] message
+        #   The message to print.
         #
         # @return [Boolean]
         #   Specifies whether the messages were successfully printed.
         #
-        # @example
-        #   print_debug "var1: #{var1.inspect}"
+        # @example Print a formatted message.
+        #   print_debug "vars: %p %p", vars[0], vars[1]
         #
         # @since 0.3.0
         #
-        def print_debug(*messages)
+        def print_debug(*message)
           if (Output.verbose? && !(Output.silent?))
-            Output.handler.print_debug(*messages)
+            Output.handler.print_debug(format_message(message))
             return true
           end
 
@@ -147,22 +150,25 @@ module Ronin
         end
 
         #
-        # Prints one or more messages as `warning` output.
+        # Prints a `warning` message.
         #
-        # @param [Array] messages
-        #   The messages to print.
+        # @param [Array, String] message
+        #   The message to print.
         #
         # @return [Boolean]
         #   Specifies whether the messages were successfully printed.
         #
         # @example
-        #   print_warning 'Detecting a restricted character in the buffer'
+        #   print_warning "Detecting a restricted character in the buffer"
+        #
+        # @example Print a formatted message.
+        #   print_warning "Malformed input detected: %p", user_input
         #
         # @since 0.3.0
         #
-        def print_warning(*messages)
+        def print_warning(*message)
           if (Output.verbose? && !(Output.silent?))
-            Output.handler.print_warning(*messages)
+            Output.handler.print_warning(format_message(message))
             return true
           end
           
@@ -170,26 +176,46 @@ module Ronin
         end
 
         #
-        # Prints one or more messages as `error` output.
+        # Prints an `error` message.
         #
-        # @param [Array] messages
-        #   The messages to print.
+        # @param [Array, String] message
+        #   The message to print.
         #
         # @return [Boolean]
         #   Specifies whether the messages were successfully printed.
         #
         # @example
-        #   print_error 'Could not connect!'
+        #   print_error "Could not connect!"
+        #
+        # @example Print a formatted message.
+        #   print_error "%p: %s", error.class, error.message
         #
         # @since 0.3.0
         #
-        def print_error(*messages)
+        def print_error(*message)
           unless Output.silent?
-            Output.handler.print_error(*messages)
+            Output.handler.print_error(format_message(message))
             return true
           end
 
           return false
+        end
+
+        protected
+
+        #
+        # Formats a message to be printed.
+        #
+        # @param [Array] message
+        #   The message and additional Objects to format.
+        #
+        # @return [String]
+        #   The formatted message.
+        #
+        # @since 1.0.0
+        #
+        def format_message(message)
+          message[0] % message[1..-1]
         end
       end
     end

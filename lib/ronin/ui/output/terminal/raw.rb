@@ -36,51 +36,51 @@ module Ronin
           end
 
           #
-          # Prints one or more messages as `info` messages.
+          # Prints an `info` message.
           #
-          # @param [Array] messages
-          #   The messages to print.
+          # @param [String] message
+          #   The message to print.
           #
           # @since 1.0.0
           #
-          def self.print_info(*messages)
-            messages.each { |mesg| puts "[-] #{mesg}" }
+          def self.print_info(message)
+            puts "[-] #{message}"
           end
 
           #
-          # Prints one or more messages as `debug` mssages.
+          # Prints a `debug` mssage.
           #
-          # @param [Array] messages
-          #   The messages to print.
+          # @param [String] message
+          #   The message to print.
           #
           # @since 1.0.0
           #
-          def self.print_debug(*messages)
-            messages.each { |mesg| puts "[=] #{mesg}" }
+          def self.print_debug(message)
+            puts "[=] #{message}"
           end
 
           #
-          # Prints one or more messages as `warning` mssages.
+          # Prints a `warning` mssage.
           #
-          # @param [Array] messages
-          #   The messages to print.
+          # @param [String] message
+          #   The message to print.
           #
           # @since 1.0.0
           #
-          def self.print_warning(*messages)
-            messages.each { |mesg| puts "[*] #{mesg}" }
+          def self.print_warning(message)
+            puts "[*] #{message}"
           end
 
           #
-          # Prints one or more messages as `error` mssages.
+          # Prints an `error` mssages.
           #
-          # @param [Array] messages
-          #   The messages to print.
+          # @param [String] message
+          #   The message to print.
           #
           # @since 1.0.0
           #
-          def self.print_error(*messages)
-            messages.each { |mesg| puts "[!] #{mesg}" }
+          def self.print_error(message)
+            puts "[!] #{message}"
           end
 
         end

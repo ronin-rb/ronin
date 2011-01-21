@@ -42,51 +42,51 @@ module Ronin
           end
 
           #
-          # Prints one or more messages as `info` messages.
+          # Prints an `info` message.
           #
-          # @param [Array] messages
-          #   The messages to print.
+          # @param [String] message
+          #   The message to print.
           #
           # @since 1.0.0
           #
-          def self.print_info(*messages)
-            messages.each { |mesg| puts "#{GREEN}[-] #{mesg}#{CLEAR}" }
+          def self.print_info(message)
+            puts "#{GREEN}[-] #{message}#{CLEAR}"
           end
 
           #
-          # Prints one or more messages as `debug` mssages.
+          # Prints a `debug` message.
           #
-          # @param [Array] messages
-          #   The messages to print.
+          # @param [String] message
+          #   The message to print.
           #
           # @since 1.0.0
           #
-          def self.print_debug(*messages)
-            messages.each { |mesg| puts "#{CYAN}[=] #{mesg}#{CLEAR}" }
+          def self.print_debug(message)
+            puts "#{CYAN}[=] #{message}#{CLEAR}"
           end
 
           #
-          # Prints one or more messages as `warning` mssages.
+          # Prints a `warning` message.
           #
-          # @param [Array] messages
-          #   The messages to print.
+          # @param [String] message
+          #   The message to print.
           #
           # @since 1.0.0
           #
-          def self.print_warning(*messages)
-            messages.each { |mesg| puts "#{YELLOW}[*] #{mesg}#{CLEAR}" }
+          def self.print_warning(message)
+            puts "#{YELLOW}[*] #{message}#{CLEAR}"
           end
 
           #
-          # Prints one or more messages as `error` mssages.
+          # Prints an `error` message.
           #
-          # @param [Array] messages
-          #   The messages to print.
+          # @param [String] message
+          #   The message to print.
           #
           # @since 1.0.0
           #
-          def self.print_error(*messages)
-            messages.each { |mesg| puts "#{RED}[!] #{mesg}#{CLEAR}" }
+          def self.print_error(message)
+            puts "#{RED}[!] #{message}#{CLEAR}"
           end
 
         end
