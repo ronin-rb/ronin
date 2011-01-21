@@ -215,7 +215,11 @@ module Ronin
         # @since 1.0.0
         #
         def format_message(message)
-          message[0] % message[1..-1]
+          if message.length == 1
+            message[0]
+          else
+            message[0] % message[1..-1]
+          end
         end
       end
     end
