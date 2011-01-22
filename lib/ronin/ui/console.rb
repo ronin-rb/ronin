@@ -67,7 +67,7 @@ module Ronin
       end
 
       #
-      # Determines whenter one-line errors will be printed, instead of full
+      # Determines whether one-line errors will be printed, instead of full
       # backtraces.
       #
       # @return [Boolean]

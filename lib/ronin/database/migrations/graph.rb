@@ -171,7 +171,7 @@ module Ronin
           end
 
           if position > 1
-            # explicit define a dependencey on the previous migration position
+            # explicit define a dependency on the previous migration position
             options[:needs] = [position - 1]
           end
 
@@ -202,7 +202,7 @@ module Ronin
         #   If no block is given, an enumerator object will be returned.
         #
         # @raise [UnknownMigration]
-        #   A migration had a dependencey on an unknown migration.
+        #   A migration had a dependency on an unknown migration.
         #
         # @since 1.0.1
         #
@@ -240,7 +240,7 @@ module Ronin
         #   If no block is given, an enumerator object will be returned.
         #
         # @raise [UnknownMigration]
-        #   A migration had a dependencey on an unknown migration.
+        #   A migration had a dependency on an unknown migration.
         #
         # @since 1.0.1
         #

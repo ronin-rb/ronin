@@ -25,7 +25,7 @@ require 'ronin/extensions/meta'
 
 module Ronin
   #
-  # Represents an Operating System and predefines other common ones
+  # Represents an Operating System and pre-defines other common ones
   # ({linux}, {freebsd}, {openbsd}, {netbsd}, {osx}, {solaris}, {windows}
   # and {unix}).
   #
@@ -109,7 +109,7 @@ module Ronin
     # Defines a new predefined OS.
     #
     # @param [Symbol, String] name
-    #   The method name to define for the builtin OS.
+    #   The method name to define for the predefined OS.
     #
     # @param [String] os_name
     #   The name of the OS.

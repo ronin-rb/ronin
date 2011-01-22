@@ -30,7 +30,7 @@ module Ronin
       class Description < DataMapper::Property::Text
 
         #
-        # Typecasts the description.
+        # Type-casts the description.
         #
         # @param [Object] value
         #   The text of the description.
@@ -39,7 +39,7 @@ module Ronin
         #   The description property.
         #
         # @return [String, nil]
-        #   The typecasted description.
+        #   The type-casted description.
         #
         # @since 1.0.0
         #

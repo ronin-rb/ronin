@@ -203,7 +203,7 @@ module Ronin
 
       #
       # Loads the code from the cached file for the object, and instance
-      # evals it into the object.
+      # evaluates it into the object.
       #
       # @return [Boolean]
       #   Indicates the original code was successfully loaded.

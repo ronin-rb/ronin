@@ -33,7 +33,7 @@ module Ronin
     # Creates a new {TCPPort} resource.
     #
     # @param [Hash] attributes
-    #   The attribute names and values to initialize the tcp port with.
+    #   The attribute names and values to initialize the TCP port with.
     #
     def initialize(attributes={})
       super(attributes.merge(:protocol => 'tcp'))

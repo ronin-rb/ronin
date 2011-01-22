@@ -363,10 +363,10 @@ module Ronin
     end
 
     #
-    # Builds a URI object from the url.
+    # Builds a URI object from the URL.
     #
     # @return [URI::HTTP, URI::HTTPS]
-    #   The URI object created from the url attributes.
+    #   The URI object created from the URL attributes.
     #
     # @since 1.0.0
     #
@@ -397,10 +397,10 @@ module Ronin
     end
 
     #
-    # Converts the url to a String.
+    # Converts the URL to a String.
     #
     # @return [String]
-    #   The string form of the url.
+    #   The string form of the URL.
     #
     # @since 1.0.0
     #

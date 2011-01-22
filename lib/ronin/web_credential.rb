@@ -30,7 +30,7 @@ module Ronin
     # The optional email address the credential is associated with.
     belongs_to :email_address, :required => false
 
-    # The url the credential can be used with.
+    # The URL the credential can be used with.
     belongs_to :url, :required => false,
                      :model => 'URL'
 

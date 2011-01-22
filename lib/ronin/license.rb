@@ -111,7 +111,7 @@ module Ronin
               :description => 'GNU Lesser General Public License v3.0',
               :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
 
-    # The MIT "as-is" Licence
+    # The MIT "as-is" License
     predefine :mit,
               :name => 'MIT',
               :description => 'The MIT Licence',

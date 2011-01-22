@@ -142,7 +142,7 @@ module Ronin
       #   The database was successfully migrated up.
       #
       # @raise [UnknownMigration]
-      #   A migration had a dependencey on an unknown migration.
+      #   A migration had a dependency on an unknown migration.
       #
       # @since 1.0.1
       #
@@ -167,7 +167,7 @@ module Ronin
       #   The database was successfully migrated down.
       #
       # @raise [UnknownMigration]
-      #   A migration had a dependencey on an unknown migration.
+      #   A migration had a dependency on an unknown migration.
       #
       # @since 1.0.1
       #

@@ -66,7 +66,7 @@ module Ronin
     end
 
     #
-    # Defines a new builtin Arch.
+    # Defines a new predefined Arch.
     #
     # @param [Symbol, String] name
     #   The name of the architecture.
@@ -80,7 +80,7 @@ module Ronin
     # @option options [Integer] :address_length
     #   The address-length of the architecture.
     #
-    # @example Defining a builtin Arch
+    # @example Defining a predefined Arch
     #   Arch.predefine :alpha, :endian => :big, :address_length => 8
     #
     # @example Retrieving a predefined Arch

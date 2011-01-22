@@ -58,7 +58,7 @@ module Ronin
     # The path to require to access the Class of the cached object.
     #
     # @return [String]
-    #   The possible path infered from the class name.
+    #   The possible path inferred from the class name.
     #
     def model_path
       if self.model_name

@@ -24,7 +24,7 @@ require 'ronin/installation'
 module Ronin
   module UI
     #
-    # The {CLI} provides an extendable Command Line Interface (CLI)
+    # The {CLI} provides an extensible Command Line Interface (CLI)
     # for Ronin. The {CLI} can load any sub-command using the
     # {command} method, from the `ronin/ui/cli/commands`
     # directory.

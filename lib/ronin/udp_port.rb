@@ -29,7 +29,7 @@ module Ronin
     # Creates a new {UDPPort} resource.
     #
     # @param [Hash] attributes
-    #   The attribute names and values to initialize the udp port with.
+    #   The attribute names and values to initialize the UDP port with.
     #
     def initialize(attributes={})
       super(attributes.merge(:protocol => 'udp'))
