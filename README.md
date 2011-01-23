@@ -143,12 +143,12 @@ Remove a Database:
   * [dm-tags](http://github.com/datamapper/dm-tags) ~> 1.0.2
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined/)
   ~> 0.3.0
-* [env](http://github.com/postmodern/env) ~> 0.1.2
 * [uri-query_params](http://github.com/postmodern/uri-query_params) ~> 0.4.0
 * [open_namespace](http://github.com/postmodern/open_namespace) ~> 0.3.0
 * [parameters](http://github.com/postmodern/parameters) ~> 0.2.2
 * [data_paths](http://github.com/postmodern/data_paths) ~> 0.2.1
 * [contextify](http://github.com/postmodern/contextify/) ~> 0.1.6
+* [env](http://github.com/postmodern/env) ~> 0.1.2
 * [pullr](http://github.com/postmodern/pullr/) ~> 0.1.2
 * [thor](http://github.com/wycats/thor/) ~> 0.14.2
 * [ronin-support](http://github.com/ronin-ruby/ronin-support/) ~> 0.1.0
