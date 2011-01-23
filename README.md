@@ -15,9 +15,21 @@ or payloads over many common Source-Code-Management (SCM) systems.
 
 ### Hack with Ruby
 
-### Organize Data
+Ronin combines all of the flexibility of Ruby with countless convenience
+methods and libraries, to provide a tailored Ruby environment for
+Researchers and Hackers.
+
+### Organize Your Data
+
+Ronin comes with a fully designed Database accessible from Ruby using
+[DataMapper](http://datamapper.org). With Ronin, storing or querying
+IP addresses, Hosts, Ports, URLs, Passwords is as simple as a single line
+of Ruby.
 
 ### Share Code
+
+Ronin makes sharing code with the community, or just your friends, as easy
+as uploading your Ruby files to any SubVersion, Mercurial or Git Repository.
 
 ## Features
 
@@ -64,7 +76,7 @@ or payloads over many common Source-Code-Management (SCM) systems.
   * Pretty-Print loaded.
   * `print_info`, `print_error`, `print_warning` and `print_debug`
     output helper methods with color-output.
-* Provides an extendable command-line interface based on
+* Provides an extensible command-line interface based on
   [Thor](http://github.com/wycats/thor#readme).
 
 ## Synopsis
@@ -131,6 +143,7 @@ Remove a Database:
   * [dm-tags](http://github.com/datamapper/dm-tags) ~> 1.0.2
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined/)
   ~> 0.3.0
+* [env](http://github.com/postmodern/env) ~> 0.1.2
 * [uri-query_params](http://github.com/postmodern/uri-query_params) ~> 0.4.0
 * [open_namespace](http://github.com/postmodern/open_namespace) ~> 0.3.0
 * [parameters](http://github.com/postmodern/parameters) ~> 0.2.2
@@ -172,7 +185,7 @@ for Ronin that provides various generators.
 ### Ronin SQL
 
 [Ronin SQL](http://github.com/ronin-ruby/ronin-sql#readme) is a Ruby library
-for Ronin that provids support for SQL related security tasks, such as
+for Ronin that provides support for SQL related security tasks, such as
 scanning for and exploiting SQL injections.
 
 ### Ronin PHP

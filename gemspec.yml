@@ -54,6 +54,7 @@ dependencies:
   # DataMapper plugins
   dm-is-predefined: ~> 0.3.0
   # Library dependencies
+  env: ~> 0.1.2
   uri-query_params: ~> 0.5.2
   open_namespace: ~> 0.3.0
   parameters: ~> 0.2.3

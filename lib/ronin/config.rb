@@ -17,6 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'env'
 require 'data_paths'
 require 'fileutils'
 
@@ -25,7 +26,7 @@ module Ronin
     include DataPaths
 
     # The users home directory
-    HOME = File.expand_path(ENV['HOME'] || ENV['HOMEPATH'])
+    HOME = Env.home
 
     # Ronin home directory
     PATH = File.join(HOME,'.ronin')
