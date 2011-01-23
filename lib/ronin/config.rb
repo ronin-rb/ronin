@@ -48,18 +48,22 @@ module Ronin
     # Loads the Ronin configuration file.
     #
     # @param [Symbol, String, nil] name
-    #   The optional name of the file to load within +CONFIG_DIR+.
+    #   The optional name of the file to load within {CONFIG_DIR}.
     #
-    # @example Load the config file at `~/.ronin/config/ronin.rb`
+    # @example Load the config file at `~/.ronin/config.rb`
     #   Config.load
     #   # => true
     #
-    # @example Load a specific config file in `~/.ronin/config/`
+    # @example Load the config file at `~/.ronin/config/sql.rb`
     #   Config.load :sql
     #   # => true
     #
-    def Config.load(name=:ronin)
-      path = CONFIG_DIR.join(name.to_s).expand_path
+    def Config.load(name=nil)
+      path = if name
+               CONFIG_DIR.join("#{name}.rb").expand_path
+             else
+               PATH.join('config.rb')
+             end
 
       require path if path.file?
     end
