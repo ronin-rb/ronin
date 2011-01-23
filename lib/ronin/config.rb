@@ -29,20 +29,20 @@ module Ronin
     HOME = Env.home
 
     # Ronin home directory
-    PATH = File.join(HOME,'.ronin')
+    PATH = HOME.join('.ronin')
 
     # Configuration files directory
-    CONFIG_DIR = File.join(PATH,'config')
+    CONFIG_DIR = PATH.join('config')
 
     # Directory which repositories are installed into
-    REPOS_DIR = File.join(PATH,'repos')
+    REPOS_DIR = PATH.join('repos')
 
     # Temporary file directory
-    TMP_DIR = File.join(PATH,'tmp')
+    TMP_DIR = PATH.join('tmp')
 
-    FileUtils.mkdir(PATH) unless File.directory?(PATH)
-    FileUtils.mkdir(CONFIG_DIR) unless File.directory?(PATH)
-    FileUtils.mkdir(TMP_DIR) unless File.directory?(TMP_DIR)
+    PATH.mkdir unless PATH.directory?
+    CONFIG_DIR.mkdir unless PATH.directory?
+    TMP_DIR.mkdir unless TMP_DIR.directory?
 
     #
     # Loads the Ronin configuration file.
@@ -59,9 +59,9 @@ module Ronin
     #   # => true
     #
     def Config.load(name=:ronin)
-      path = File.expand_path(File.join(CONFIG_DIR,name.to_s))
+      path = CONFIG_DIR.join(name.to_s).expand_path
 
-      require path if File.file?(path)
+      require path if path.file?
     end
 
     #
@@ -70,18 +70,15 @@ module Ronin
     # @param [String] sub_path
     #   The sub-path within {TMP_DIR}.
     #
-    # @return [String]
+    # @return [Pathname]
     #   The full path within {TMP_DIR}.
     #
     def Config.tmp_dir(sub_path=nil)
       if sub_path
         sub_path = File.expand_path(File.join('',sub_path))
-        path = File.join(TMP_DIR,sub_path)
+        path = TMP_DIR.join(sub_path)
 
-        unless File.exist?(path)
-          FileUtils.mkdir_p(path)
-        end
-
+        path.mkpath unless path.exist?
         return path
       end
 
