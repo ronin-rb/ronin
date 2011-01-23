@@ -22,6 +22,7 @@
 * Require parameters ~> 0.2.3.
 * Require data_paths ~> 0.2.1.
 * Require contextify ~> 0.2.0.
+* Require env ~> 0.1.2.
 * Require pullr ~> 0.1.2.
 * Require thor ~> 0.14.3.
 * Require ripl ~> 0.3.0.
