@@ -31,7 +31,7 @@ module Ronin
     # Primary key of the port
     property :id, Serial
 
-    # The protocol of the port (tcp/udp)
+    # The protocol of the port (either `'tcp'` / `'udp'`)
     property :protocol, String, :set => ['tcp', 'udp'],
                                 :required => true,
                                 :unique_index => :protocol_port

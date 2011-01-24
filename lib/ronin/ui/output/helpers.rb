@@ -30,7 +30,7 @@ module Ronin
         #   The data to write.
         #
         # @return [Integer, nil]
-        #   The number of bytes writen.
+        #   The number of bytes written.
         #
         # @since 1.0.0
         #

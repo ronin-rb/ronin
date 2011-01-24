@@ -300,7 +300,7 @@ module Ronin
     end
 
     #
-    # The host name of the url.
+    # The host name of the URL.
     #
     # @return [String]
     #   The address of host name.

@@ -48,7 +48,7 @@ module Ronin
           end
 
           #
-          # Prints a `debug` mssage.
+          # Prints a `debug` message.
           #
           # @param [String] message
           #   The message to print.
@@ -60,7 +60,7 @@ module Ronin
           end
 
           #
-          # Prints a `warning` mssage.
+          # Prints a `warning` message.
           #
           # @param [String] message
           #   The message to print.
@@ -72,7 +72,7 @@ module Ronin
           end
 
           #
-          # Prints an `error` mssages.
+          # Prints an `error` messages.
           #
           # @param [String] message
           #   The message to print.

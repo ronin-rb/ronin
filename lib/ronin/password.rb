@@ -62,7 +62,7 @@ module Ronin
     #   The hex-digest of the hashed password.
     #
     # @raise [ArgumentError]
-    #   Unknown Digest alogrithm.
+    #   Unknown Digest algorithm.
     #
     # @example
     #   pass = Password.new(:clear_text => 'secret')
