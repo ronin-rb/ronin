@@ -22,6 +22,9 @@ require 'data_paths'
 require 'fileutils'
 
 module Ronin
+  #
+  # Configuration information for Ronin.
+  #
   module Config
     include DataPaths
 

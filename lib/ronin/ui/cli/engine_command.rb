@@ -23,6 +23,9 @@ require 'ronin/engine'
 module Ronin
   module UI
     module CLI
+      #
+      # A base-command for querying and loading {Engine}s.
+      #
       class EngineCommand < ModelCommand
 
         class_option :file, :type => :string, :aliases => '-f'

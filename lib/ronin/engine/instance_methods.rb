@@ -19,6 +19,9 @@
 
 module Ronin
   module Engine
+    #
+    # Instance methods for an {Engine}.
+    #
     module InstanceMethods
       #
       # Initializes the Ronin Engine.

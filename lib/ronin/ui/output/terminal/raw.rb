@@ -21,6 +21,9 @@ module Ronin
   module UI
     module Output
       module Terminal
+        #
+        # The handler for raw output to the terminal.
+        #
         class Raw
 
           #

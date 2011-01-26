@@ -34,6 +34,20 @@ module Ronin
   module Engine
     include UI::Output::Helpers
 
+    #
+    # Adds the following to the Class.
+    #
+    # * {Engine::InstanceMethods}
+    # * {Model}
+    # * {Model::HasName}
+    # * {Model::HasDescription}
+    # * {Model::HasVersion}
+    # * {Model::HasLicense}
+    # * {Model::HasAuthors}
+    # * {Model::Cacheable}
+    # * [Parameters](http://rubydoc.info/gems/parameters)
+    # * {ClassMethods}
+    #
     def self.included(base)
       base.send :include, Engine::InstanceMethods,
                           Model,

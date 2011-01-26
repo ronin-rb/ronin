@@ -22,6 +22,9 @@ require 'ronin/engine/verifiable'
 
 module Ronin
   module Engine
+    #
+    # Adds deployment methods to an {Engine}.
+    #
     module Deployable
       include Verifiable
 

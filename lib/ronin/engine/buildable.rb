@@ -22,6 +22,9 @@ require 'ronin/engine/verifiable'
 
 module Ronin
   module Engine
+    #
+    # Adds building methods to an {Engine}.
+    #
     module Buildable
       include Verifiable
 

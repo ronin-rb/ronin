@@ -24,6 +24,9 @@ require 'ronin/model'
 require 'dm-timestamps'
 
 module Ronin
+  #
+  # Associates an {IPAddress} with a {MACAddress}.
+  #
   class IPAddressMACAddress
 
     include Model

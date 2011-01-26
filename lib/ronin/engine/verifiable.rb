@@ -21,6 +21,9 @@ require 'ronin/engine/exceptions/verification_failed'
 
 module Ronin
   module Engine
+    #
+    # Adds verification methods to an {Engine}.
+    #
     module Verifiable
       #
       # Initializes the verifiable engine.

@@ -24,6 +24,9 @@ require 'dm-migrations/migration'
 module Ronin
   module Database
     module Migrations
+      #
+      # Represents a Database Migration.
+      #
       class Migration < DataMapper::Migration
 
         # The dependencies of the migration

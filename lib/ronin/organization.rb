@@ -26,6 +26,9 @@ require 'dm-timestamps'
 require 'dm-tags'
 
 module Ronin
+  #
+  # Represents an Organization which owns {Address}es.
+  #
   class Organization
 
     include Model

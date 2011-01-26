@@ -19,6 +19,9 @@
 
 module Ronin
   module UI
+    #
+    # Methods for hexdumping data.
+    #
     module Hexdump
       #
       # Hexdumps an object.

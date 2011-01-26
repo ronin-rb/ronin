@@ -21,12 +21,24 @@ module Ronin
   module UI
     module Output
       module Terminal
+        #
+        # The handler for color output to the terminal.
+        #
         class Color
 
+          # ANSI Green code
           GREEN = "\e[32m"
+
+          # ANSI Cyan code
           CYAN = "\e[36m"
+
+          # ANSI Yellow code
           YELLOW = "\e[33m"
+
+          # ANSI Red code
           RED = "\e[31m"
+
+          # ANSI Clear code
           CLEAR = "\e[0m"
 
           #

@@ -19,6 +19,9 @@
 
 module Ronin
   module Engine
+    #
+    # Class methods for an {Engine}.
+    #
     module ClassMethods
       #
       # Finds and loads all matching Ronin Engines.

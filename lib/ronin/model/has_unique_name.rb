@@ -25,6 +25,13 @@ module Ronin
     # Adds a unique `name` property to a model.
     #
     module HasUniqueName
+      #
+      # Adds the unique `name` property and {HasName::ClassMethods} to the
+      # model.
+      #
+      # @param [Class] base
+      #   The model.
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, HasName::ClassMethods

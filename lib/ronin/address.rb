@@ -25,6 +25,13 @@ require 'dm-timestamps'
 require 'dm-tags'
 
 module Ronin
+  #
+  # A base model which represents an Internet Address, such as:
+  #
+  # * {MACAddress}
+  # * {IPAddress}
+  # * {HostName}
+  #
   class Address
 
     include Model

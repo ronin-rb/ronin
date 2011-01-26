@@ -53,6 +53,9 @@ module Ronin
 
           argument :name, :type => :string, :required => false
 
+          #
+          # Executes the command.
+          #
           def execute
             Database.setup
 
@@ -71,6 +74,12 @@ module Ronin
 
           protected
 
+          #
+          # The selected SCM.
+          #
+          # @return [Symbol]
+          #   The name of the selected SCM.
+          #
           def scm
             @scm ||= if options[:scm]
                        options[:scm].to_sym
@@ -106,6 +115,9 @@ module Ronin
             end
           end
 
+          #
+          # Lists installed or added Repositories.
+          #
           def list
             unless name
               print_array Repository.all
@@ -177,6 +189,12 @@ module Ronin
             end
           end
 
+          #
+          # Adds a Repository.
+          #
+          # @param [String] path
+          #   The path of the local repository.
+          #
           def add(path)
             repo = begin
                      Repository.add!(:path => path, :scm => @scm)
@@ -188,6 +206,12 @@ module Ronin
             print_info "Repository #{repo} added."
           end
 
+          #
+          # Installs a Repository.
+          #
+          # @param [String, URI] uri
+          #   The URI of the remote repository.
+          #
           def install(uri)
             repo = begin
                      Repository.install!(:uri => uri, :scm => scm)
@@ -200,6 +224,9 @@ module Ronin
             print_info "Repository #{repo} has been installed."
           end
 
+          #
+          # Updates installed Repositories.
+          #
           def update
             repos = if name
                       begin
@@ -222,6 +249,12 @@ module Ronin
             end
           end
 
+          #
+          # Uninstalls a Repository.
+          #
+          # @param [String] name
+          #   The name of the repository.
+          #
           def uninstall(name)
             repo = Repository.uninstall!(name)
 

@@ -27,6 +27,9 @@ require 'tsort'
 module Ronin
   module Database
     module Migrations
+      #
+      # Sorts and runs {Migration}s based on their dependencies.
+      #
       class Graph
 
         include Enumerable

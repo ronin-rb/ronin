@@ -29,6 +29,10 @@ require 'ripl/auto_indent'
 
 module Ronin
   module UI
+    #
+    # An interactive Ruby {Console} using
+    # [Ripl](https://github.com/cldwalker/ripl).
+    #
     class Console
 
       # The history file for the Console session

@@ -22,6 +22,9 @@ require 'ronin/ui/output/output'
 module Ronin
   module UI
     module Output
+      #
+      # Helper methods for printing output.
+      #
       module Helpers
         #
         # Writes data unless output has been silenced.

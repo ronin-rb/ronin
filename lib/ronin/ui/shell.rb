@@ -21,6 +21,9 @@ require 'ronin/ui/output/helpers'
 
 module Ronin
   module UI
+    #
+    # Spawns a ReadLine powered interactive Shell.
+    #
     module Shell
 
       extend Output::Helpers

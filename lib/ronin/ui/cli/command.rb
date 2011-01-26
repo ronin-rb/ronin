@@ -117,6 +117,12 @@ module Ronin
         class_option :color, :type => :boolean, :default => true
         class_option :no_color, :type => :boolean, :default => false
 
+        #
+        # Sets the namespace of a new {Command} class.
+        #
+        # @param [Class] super_class
+        #   The new {Command} class.
+        #
         def self.inherited(super_class)
           super_class.namespace(super_class.command_name)
         end

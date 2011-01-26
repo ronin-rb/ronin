@@ -21,6 +21,9 @@ require 'ronin/ui/output/terminal/color'
 
 module Ronin
   module UI
+    #
+    # Controls {Output} from Ronin.
+    #
     module Output
       @mode = :quiet
       @handler = Terminal::Color

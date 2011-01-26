@@ -25,6 +25,9 @@ require 'set'
 module Ronin
   module UI
     module CLI
+      #
+      # A base-command for querying and exporting {Model}s.
+      #
       class ModelCommand < Command
 
         class_option :csv, :type => :boolean
