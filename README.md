@@ -40,8 +40,7 @@ Mercurial or Git.
     * [Mercurial (Hg)](http://mercurial.selenic.com/)
     * [Git](http://git-scm.com/)
     * Rsync
-* Provides Object Database using [DataMapper](http://datamapper.org)
-  with:
+* Provides a Database using [DataMapper](http://datamapper.org) with:
   * {Ronin::Author}
   * {Ronin::License}
   * {Ronin::Arch}
