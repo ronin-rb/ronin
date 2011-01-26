@@ -15,21 +15,22 @@ or payloads over many common Source-Code-Management (SCM) systems.
 
 ### Hack with Ruby
 
-Ronin combines all of the flexibility of Ruby with countless convenience
-methods and libraries, to provide a tailored Ruby environment for
-Researchers and Hackers.
+Ronin combines the flexibility of Ruby with countless convenience methods
+and libraries, to make Ruby usable for Offensive Security or Research work.
 
 ### Organize Your Data
 
-Ronin comes with a fully designed Database accessible from Ruby using
-[DataMapper](http://datamapper.org). With Ronin, storing or querying
-IP addresses, Hosts, Ports, URLs, Passwords is as simple as a single line
-of Ruby.
+Ronin comes with a Database designed for Security data and accessible from
+Ruby using [DataMapper](http://datamapper.org). With Ronin, storing or
+querying IP addresses, Hosts, Ports, URLs, Passwords is as simple as a
+single line of Ruby.
 
 ### Share Code
 
-Ronin makes sharing code with the community, or just your friends, as easy
-as uploading your Ruby files to any SubVersion, Mercurial or Git Repository.
+Ronin allows sharing code with the community, or just your friends, via
+Ronin Repositories. Ronin Repositories are like lazier versions of
+[RubyGems](http://rubygems.org/), that can be hosted with SubVersion,
+Mercurial or Git.
 
 ## Features
 
