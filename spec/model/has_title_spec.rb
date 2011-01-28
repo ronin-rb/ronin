@@ -16,10 +16,10 @@ describe Model::HasTitle do
     subject.create!(:title => 'Foo one')
     subject.create!(:title => 'Foo bar two')
 
-    models = subject.titled('Foo')
+    resources = subject.titled('Foo')
 
-    models.length.should == 2
-    models[0].title.should == 'Foo one'
-    models[1].title.should == 'Foo bar two'
+    resources.length.should == 2
+    resources[0].title.should == 'Foo one'
+    resources[1].title.should == 'Foo bar two'
   end
 end
