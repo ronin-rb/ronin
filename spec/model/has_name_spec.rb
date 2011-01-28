@@ -6,9 +6,7 @@ require 'ronin/model/has_name'
 describe Model::HasName do
   subject { NamedModel }
 
-  before(:all) do
-    subject.auto_migrate!
-  end
+  before(:all) { subject.auto_migrate! }
 
   it "should define a name property" do
     subject.properties.should be_named(:name)

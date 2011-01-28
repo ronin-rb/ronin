@@ -6,9 +6,7 @@ require 'ronin/model/has_license'
 describe Model::HasLicense do
   subject { LicensedModel }
 
-  before(:all) do
-    subject.auto_migrate!
-  end
+  before(:all) { subject.auto_migrate! }
 
   it "should define a license relationship" do
     relationship = subject.relationships['license']

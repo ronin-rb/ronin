@@ -6,9 +6,7 @@ require 'ronin/model/has_description'
 describe Model::HasDescription do
   subject { DescribedModel }
 
-  before(:all) do
-    subject.auto_migrate!
-  end
+  before(:all) { subject.auto_migrate! }
 
   it "should define a description property" do
     subject.properties.should be_named(:description)

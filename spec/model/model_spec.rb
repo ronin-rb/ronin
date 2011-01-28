@@ -9,9 +9,7 @@ describe Model do
 
   let(:custom_model) { CustomModel }
 
-  before(:all) do
-    subject.auto_migrate!
-  end
+  before(:all) { subject.auto_migrate! }
 
   it "should have a default repository name" do
     subject.default_repository_name.should == :default

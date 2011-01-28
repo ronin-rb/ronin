@@ -6,9 +6,7 @@ require 'ronin/model/has_title'
 describe Model::HasTitle do
   subject { TitledModel }
 
-  before(:all) do
-    subject.auto_migrate!
-  end
+  before(:all) { subject.auto_migrate! }
 
   it "should define a title property" do
     subject.properties.should be_named(:title)
