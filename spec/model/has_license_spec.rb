@@ -6,7 +6,14 @@ require 'ronin/model/has_license'
 describe Model::HasLicense do
   subject { LicensedModel }
 
-  before(:all) { subject.auto_migrate! }
+  before(:all) do
+    subject.auto_migrate!
+
+    subject.create(
+      :content => 'stuff here',
+      :license => License.gpl2
+    )
+  end
 
   it "should define a license relationship" do
     relationship = subject.relationships['license']
@@ -22,21 +29,31 @@ describe Model::HasLicense do
     relationship.child_model.should == subject
   end
 
-  it "should have a license" do
-    model = subject.create!(
-      :content => 'bla',
-      :license => License.gpl2
-    )
+  it "should not require a license" do
+    resource = subject.new(:content => 'bla')
 
-    model.license.should == License.gpl2
+    resource.should be_valid
   end
 
-  it "should provide helper methods for querying licensed models" do
-    model = subject.create!(
-      :content => 'stuff here',
-      :license => License.gpl2
-    )
+  describe "licensed_under" do
+    let(:license) { License.gpl2 }
 
-    subject.licensed_under(:gpl2).first == model
+    it "should accept License resources" do
+      resource = subject.licensed_under(license).first
+
+      resource.license.should == license
+    end
+
+    it "should accept the names of predefined Licenses" do
+      resource = subject.licensed_under(:gpl2).first
+
+      resource.license.should == license
+    end
+
+    it "should accept the names of licenses" do
+      resource = subject.licensed_under('GPL-2').first
+
+      resource.license.should == license
+    end
   end
 end

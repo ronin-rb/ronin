@@ -28,20 +28,37 @@ module Ronin
         #
         # Finds all models associated with a given license.
         #
-        # @param [Symbol, String] name
-        #   The name of the license which models are associated with.
+        # @param [License, Symbol, String] license
+        #   The license which models are associated with.
         #
         # @return [Array<Model>]
         #   The models associated with a given license.
         #
-        # @example
+        # @example Query using a predefined {License} resource.
+        #   LicensedModel.licensed_under(License.mit)
+        #   # => [#<Ronin::LicensedModel: ...>, ...]
+        #
+        # @example Query using the name of a predefined {License}.
         #   LicensedModel.licensed_under(:cc_by_nc)
+        #   # => [#<Ronin::LicensedModel: ...>, ...]
+        #
+        # @example Query using the name of a {License}.
+        #   LicensedModel.licensed_under('GPL-2')
         #   # => [#<Ronin::LicensedModel: ...>, ...]
         #
         # @since 1.0.0
         #
-        def licensed_under(name)
-          all(:license => {:name => name.to_s})
+        def licensed_under(license)
+          license = case license
+                    when License
+                      license
+                    when Symbol
+                      License.predefined_resource(license)
+                    else
+                      {:name => license.to_s}
+                    end
+
+          all(:license => license)
         end
       end
     end

@@ -50,10 +50,10 @@ describe Model::HasDescription do
     subject.create!(:description => 'foo one')
     subject.create!(:description => 'foo bar two')
 
-    models = subject.describing('foo')
+    resources = subject.describing('foo')
 
-    models.length.should == 2
-    models[0].description.should == 'foo one'
-    models[1].description.should == 'foo bar two'
+    resources.length.should == 2
+    resources[0].description.should == 'foo one'
+    resources[1].description.should == 'foo bar two'
   end
 end
