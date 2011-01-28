@@ -25,6 +25,10 @@ describe Model::HasVersion do
     )
   end
 
+  it "should include Ronin::Model" do
+    subject.ancestors.should include(Model)
+  end
+
   it "should define a version property" do
     subject.properties.should be_named(:version)
   end

@@ -8,22 +8,25 @@ describe Model::Cacheable do
   include Helpers::Repositories
 
   let(:repo) { repository('test1') }
-  let(:cacheable_model) { CacheableModel }
 
-  before(:all) do
-    repo.cache_files!
+  subject { CacheableModel }
+
+  before(:all) { repo.cache_files! }
+
+  it "should include Ronin::Model" do
+    subject.ancestors.should include(Model)
   end
 
   it "should add the type property to the model" do
-    cacheable_model.properties.should be_named(:type)
+    subject.properties.should be_named(:type)
   end
 
   it "should add a relation between CachedFile and the model" do
-    cacheable_model.relationships.should have_key(:cached_file)
+    subject.relationships.should have_key(:cached_file)
   end
 
   it "should add the class to Cacheable.models" do
-    Model::Cacheable.models.should include(cacheable_model)
+    Model::Cacheable.models.should include(subject)
   end
 
   describe "load_from" do

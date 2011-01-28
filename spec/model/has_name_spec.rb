@@ -8,6 +8,10 @@ describe Model::HasName do
 
   before(:all) { subject.auto_migrate! }
 
+  it "should include Ronin::Model" do
+    subject.ancestors.should include(Model)
+  end
+
   it "should define a name property" do
     subject.properties.should be_named(:name)
   end

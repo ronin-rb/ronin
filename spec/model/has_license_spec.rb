@@ -15,6 +15,10 @@ describe Model::HasLicense do
     )
   end
 
+  it "should include Ronin::Model" do
+    subject.ancestors.should include(Model)
+  end
+
   it "should define a license relationship" do
     relationship = subject.relationships['license']
 
