@@ -14,7 +14,6 @@ RSpec.configure do |spec|
     CacheableModel.auto_migrate!
     CustomModel.auto_migrate!
     DescribedModel.auto_migrate!
-    LazyModel.auto_migrate!
     LicensedModel.auto_migrate!
     NamedModel.auto_migrate!
     TitledModel.auto_migrate!
