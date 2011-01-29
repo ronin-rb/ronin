@@ -1,7 +1,7 @@
-require 'spec_helper'
-require 'ronin/model/has_version'
-
+require 'model/spec_helper'
 require 'model/models/versioned_model'
+
+require 'ronin/model/has_version'
 
 describe Model::HasVersion do
   subject { VersionedModel }

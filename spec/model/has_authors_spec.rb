@@ -1,15 +1,15 @@
 require 'model/spec_helper'
-require 'ronin/model/has_authors'
-
 require 'model/models/authored_model'
+
+require 'ronin/model/has_authors'
 
 describe Model::HasAuthors do
   subject { AuthoredModel }
 
   before(:all) do
-    AuthoredModel.auto_migrate!
+    subject.auto_migrate!
 
-    resource = AuthoredModel.new
+    resource = subject.new
     resource.author(
       :name => 'Alice',
       :email => 'alice@example.com',
