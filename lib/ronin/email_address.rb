@@ -41,7 +41,8 @@ module Ronin
     belongs_to :host_name
 
     # Any IP addresses associated with the host name.
-    has 0..n, :ip_addresses, :through => :host_name
+    has 0..n, :ip_addresses, :through => :host_name,
+                             :model => 'IPAddress'
 
     # Any web credentials that are associated with the email address.
     has 0..n, :web_credentials
