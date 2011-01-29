@@ -205,6 +205,9 @@ module Ronin
 
       # auto-upgrade the database repository
       Database.upgrade!(&block)
+
+      # finalize the model relationships
+      DataMapper.finalize
     end
 
     #
