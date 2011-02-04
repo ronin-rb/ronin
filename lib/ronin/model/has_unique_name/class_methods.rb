@@ -17,5 +17,30 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/model/has_unique_name/class_methods'
-require 'ronin/model/has_unique_name/has_unique_name'
+module Ronin
+  module Model
+    module HasUniqueName
+      module ClassMethods
+        #
+        # Searches for models with the unique name.
+        #
+        # @param [String, Symbol, Integer] key
+        #   The unique name or index to search for.
+        #
+        # @return [Model, nil]
+        #   The matching model.
+        #
+        # @since 1.0.0
+        #   
+        def [](key)
+          case key
+          when String, Symbol
+            first(:name => key.to_s)
+          else
+            super(key)
+          end
+        end
+      end
+    end
+  end
+end
