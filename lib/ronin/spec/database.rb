@@ -36,6 +36,10 @@ RSpec.configure do |spec|
       Ronin::Database.setup_log(:stream => STDERR, :level => :debug)
     end
 
+    # setup the database
     Ronin::Database.setup
+
+    # auto-migrate any models defined in the specs
+    DataMapper.finalize.auto_migrate!
   end
 end
