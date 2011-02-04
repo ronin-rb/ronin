@@ -28,12 +28,23 @@ module Ronin
 
     include Model
     include Model::HasUniqueName
+    
+    is :predefined
 
     # primary key of the URL Scheme
     property :id, Serial
 
     # The URLs that use the scheme
     has 1..n, :urls, :model => 'URL'
+
+    # Predefines the HTTP URL Scheme
+    predefine :http, :name => 'http'
+
+    # Predefines the HTTPS URL Scheme
+    predefine :https, :name => 'https'
+
+    # Predefines the FTP URL Scheme
+    predefine :ftp, :name => 'ftp'
 
   end
 end
