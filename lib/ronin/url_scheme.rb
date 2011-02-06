@@ -20,6 +20,8 @@
 require 'ronin/model'
 require 'ronin/model/has_unique_name'
 
+require 'dm-is-predefined'
+
 module Ronin
   #
   # Represents a {URL} scheme.
