@@ -35,8 +35,6 @@ DataMapper::Visualizer::Rake::GraphVizTask.new(
     ronin/address
     ronin/author
     ronin/campaign
-    ronin/comment
-    ronin/country
     ronin/credential
     ronin/email_address
     ronin/host_name_ip_address
