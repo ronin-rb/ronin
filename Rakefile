@@ -28,7 +28,6 @@ task :default => :spec
 
 require 'dm-visualizer/rake/graphviz_task'
 DataMapper::Visualizer::Rake::GraphVizTask.new(
-  :bundle => [:default],
   :include => %w[lib],
   :require => %w[
     ronin/arch
@@ -54,6 +53,7 @@ DataMapper::Visualizer::Rake::GraphVizTask.new(
     ronin/service_credential
     ronin/web_credential
     ronin/software
+    ronin/vendor
     ronin/target
     ronin/tcp_port
     ronin/udp_port
@@ -61,7 +61,7 @@ DataMapper::Visualizer::Rake::GraphVizTask.new(
     ronin/url_query_param
     ronin/url
     ronin/user_name
-    ronin/vendor
+    ronin/password
   ]
 )
 
