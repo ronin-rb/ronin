@@ -207,7 +207,9 @@ module Ronin
       return super(url) if url.kind_of?(Integer)
 
       # optionally parse the URL
-      url = ::URI.parse(url) unless url.kind_of?(::URI)
+      unless url.kind_of?(::URI)
+        url = ::URI.parse(url.to_s)
+      end
 
       port = if url.port
                {:number => url.port}
