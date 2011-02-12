@@ -27,7 +27,8 @@ module Ronin
   class TCPPort < Port
 
     # The URLs that use the port
-    has 0..n, :urls, :model => 'URL'
+    has 0..n, :urls, :model => 'URL',
+                     :child_key => [:port_id]
 
     #
     # Creates a new {TCPPort} resource.

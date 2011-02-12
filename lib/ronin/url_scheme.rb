@@ -37,7 +37,8 @@ module Ronin
     property :id, Serial
 
     # The URLs that use the scheme
-    has 1..n, :urls, :model => 'URL'
+    has 0..n, :urls, :model => 'URL',
+                     :child_key => [:scheme_id]
 
     # Predefines the HTTP URL Scheme
     predefine :http, :name => 'http'
