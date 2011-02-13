@@ -21,7 +21,6 @@ require 'ronin/database/migrations/create_url_schemes_table'
 require 'ronin/database/migrations/create_url_query_params_table'
 require 'ronin/database/migrations/create_addresses_table'
 require 'ronin/database/migrations/create_ports_table'
-require 'ronin/database/migrations/create_taggings_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
@@ -33,8 +32,7 @@ module Ronin
           :create_url_schemes_table,
           :create_url_query_params_table,
           :create_addresses_table,
-          :create_ports_table,
-          :create_taggings_table
+          :create_ports_table
         ]
       ) do
         up do
@@ -47,7 +45,6 @@ module Ronin
             column :fragment, String
             column :last_scanned_at, Time
             column :created_at, Time, :not_null => true
-            column :frozen_tag_list, Text
           end
 
           create_index :ronin_urls, :scheme_id,

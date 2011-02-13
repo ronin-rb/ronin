@@ -140,7 +140,6 @@ Remove a Database:
   * [dm-validations](http://github.com/datamapper/dm-validations) ~> 1.0.2
   * [dm-aggregates](http://github.com/datamapper/dm-aggregates) ~> 1.0.2
   * [dm-timestamps](http://github.com/datamapper/dm-timestamps) ~> 1.0.2
-  * [dm-tags](http://github.com/datamapper/dm-tags) ~> 1.0.2
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined/)
   ~> 0.3.0
 * [uri-query_params](http://github.com/postmodern/uri-query_params) ~> 0.4.0

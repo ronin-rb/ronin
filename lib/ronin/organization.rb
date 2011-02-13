@@ -23,7 +23,6 @@ require 'ronin/model/has_unique_name'
 require 'ronin/model/has_description'
 
 require 'dm-timestamps'
-require 'dm-tags'
 
 module Ronin
   #
@@ -43,9 +42,6 @@ module Ronin
 
     # Tracks when the organization was first created
     timestamps :created_at
-
-    # Tags
-    has_tags_on :tags
 
   end
 end

@@ -25,7 +25,6 @@ require 'ronin/web_credential'
 require 'ronin/model'
 
 require 'dm-timestamps'
-require 'dm-tags'
 require 'uri'
 require 'uri/query_params'
 
@@ -74,9 +73,6 @@ module Ronin
 
     # Defines the created_at timestamp
     timestamps :created_at
-
-    # Tags
-    has_tags_on :tags
 
     #
     # Searches for all URLs using HTTP.

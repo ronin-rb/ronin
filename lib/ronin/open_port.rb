@@ -24,7 +24,6 @@ require 'ronin/ip_address'
 require 'ronin/model'
 
 require 'dm-timestamps'
-require 'dm-tags'
 
 module Ronin
   #
@@ -55,9 +54,6 @@ module Ronin
 
     # Define the created_at timestamp
     timestamps :created_at
-
-    # Tags
-    has_tags_on :tags
 
     #
     # The IP Address of the open port.

@@ -19,7 +19,6 @@
 
 require 'ronin/database/migrations/create_addresses_table'
 require 'ronin/database/migrations/create_ports_table'
-require 'ronin/database/migrations/create_taggings_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
@@ -30,7 +29,6 @@ module Ronin
         :needs => [
           :create_addresses_table,
           :create_ports_table,
-          :create_taggings_table
         ]
       ) do
         up do
@@ -41,7 +39,6 @@ module Ronin
             column :service_id, Integer
             column :last_scanned_at, Time
             column :created_at, Time, :not_null => true
-            column :frozen_tag_list, Text
           end
 
           create_index :ronin_open_ports,

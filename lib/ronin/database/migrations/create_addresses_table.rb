@@ -18,7 +18,6 @@
 #
 
 require 'ronin/database/migrations/create_organizations_table'
-require 'ronin/database/migrations/create_taggings_table'
 require 'ronin/database/migrations/migrations'
 
 module Ronin
@@ -26,7 +25,7 @@ module Ronin
     module Migrations
       migration(
         :create_addresses_table,
-        :needs => [:create_organizations_table, :create_taggings_table]
+        :needs => :create_organizations_table
       ) do
         up do
           create_table :ronin_addresses do
@@ -36,7 +35,6 @@ module Ronin
             column :address, String, :not_null => true
             column :organization_id, Integer
             column :created_at, Time, :not_null => true
-            column :frozen_tag_list, Text
           end
 
           create_index :ronin_addresses, :address, :unique => true

@@ -22,7 +22,6 @@ require 'ronin/target'
 require 'ronin/model'
 
 require 'dm-timestamps'
-require 'dm-tags'
 
 module Ronin
   #
@@ -57,9 +56,6 @@ module Ronin
 
     # Tracks when the IP Address was first created
     timestamps :created_at
-
-    # Tags
-    has_tags_on :tags
 
     #
     # Finds an address.
