@@ -53,13 +53,13 @@ dependencies:
   # DataMapper plugins
   dm-is-predefined: ~> 0.3.0
   # Library dependencies
-  uri-query_params: ~> 0.5
+  uri-query_params: ~> 0.5, >= 0.5.2
   open_namespace: ~> 0.3
-  parameters: ~> 0.2
-  data_paths: ~> 0.2
+  parameters: ~> 0.2, >= 0.2.3
+  data_paths: ~> 0.2, >= 0.2.1
   contextify: ~> 0.2
-  env: ~> 0.1
-  pullr: ~> 0.1
+  env: ~> 0.1, >= 0.1.2
+  pullr: ~> 0.1, >= 0.1.2
   thor: ~> 0.14.3
   ripl: ~> 0.3
   ripl-multi_line: ~> 0.2
