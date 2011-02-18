@@ -92,7 +92,7 @@ module Ronin
               end
 
       # filter out non-Cacheable models
-      return model if model.ancestors.include?(Cacheable)
+      return model if model < Cacheable
     end
 
     #
@@ -127,7 +127,7 @@ module Ronin
       blocks.each do |name,block|
         model = Contextify.contexts[name]
 
-        if model.ancestors.include?(Cacheable)
+        if model < Cacheable
           # create the fresh object
           object = model.new()
 

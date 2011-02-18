@@ -44,7 +44,7 @@ module Ronin
     #   The class that will be setup as a DataMapper model.
     #
     def self.included(base)
-      unless base.ancestors.include?(DataMapper::Resource)
+      unless base < DataMapper::Resource
         base.send :include, DataMapper::Resource
       end
 
