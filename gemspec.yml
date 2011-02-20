@@ -35,9 +35,6 @@ post_install_message: |
 required_ruby_version: >= 1.8.7
 
 dependencies:
-  i18n: ~> 0.4.1
-  tzinfo: ~> 0.3.22
-  activesupport: ~> 3.0.0
   # DataMapper adapters
   dm-do-adapter: ~> 1.0.2
   dm-sqlite-adapter: ~> 1.0.2
