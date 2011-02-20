@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-DATA_MAPPER = 'http://github.com/datamapper'
+DM_URI = 'http://github.com/datamapper'
 DM_VERSION = '~> 1.0.2'
-RONIN = 'http://github.com/ronin-ruby'
+RONIN_URI = 'http://github.com/ronin-ruby'
 
 gemspec
 
@@ -11,7 +11,7 @@ gem 'tzinfo',         '~> 0.3.22'
 gem 'activesupport',  '~> 3.0.0'
 
 # Library dependencies
-# gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN}/ronin-support.git"
+# gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN_URI}/ronin-support.git"
 
 group :development do
   gem 'rake',         '~> 0.8.7'
@@ -32,7 +32,7 @@ group :test do
 
   unless (DM_ADAPTERS & adapters).empty?
     adapters.each do |adapter|
-      gem "dm-#{adapter}-adapter", DM_VERSION, :git => "#{DATA_MAPPER}/dm-#{adapter}-adapter.git"
+      gem "dm-#{adapter}-adapter", DM_VERSION, :git => "#{DM_URI}/dm-#{adapter}-adapter.git"
     end
   end
 end
