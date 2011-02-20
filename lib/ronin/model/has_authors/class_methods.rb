@@ -48,7 +48,7 @@ module Ronin
         #   The resources associated with the organization.
         #
         def written_for(name)
-          all(:authors => {:organization.like => "%#{name}%"})
+          all('authors.organization.like' => "%#{name}%")
         end
       end
     end
