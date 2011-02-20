@@ -35,7 +35,7 @@ module Ronin
         #   The resources written by the author.
         #
         def written_by(name)
-          all(:authors => {:name.like => "%#{name}%"})
+          all('authors.name.like' => "%#{name}%")
         end
 
         #

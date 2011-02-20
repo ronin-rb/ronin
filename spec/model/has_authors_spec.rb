@@ -9,7 +9,7 @@ describe Model::HasAuthors do
   before(:all) do
     subject.auto_migrate!
 
-    resource = subject.new
+    resource = subject.new(:content => 'Test')
     resource.author(
       :name => 'Alice',
       :email => 'alice@example.com',
@@ -45,20 +45,16 @@ describe Model::HasAuthors do
   end
 
   it "should allow querying resources based on their Author" do
-    pending "DataMapper nested-query bug" do
-      resources = subject.written_by('Alice')
+    resources = subject.written_by('Alice')
 
-      resources.length.should == 1
-      resources[0].author.name.should == 'Alice'
-    end
+    resources.length.should == 1
+    resources[0].authors[0].name.should == 'Alice'
   end
 
   it "should allow querying resources based on their Organization" do
-    pending "DataMapper nested-query bug" do
-      resources = subject.written_for('Crew')
+    resources = subject.written_for('Crew')
 
-      resources.length.should == 1
-      resources[0].author.organization.should == 'Crew'
-    end
+    resources.length.should == 1
+    resources[0].authors[0].organization.should == 'Crew'
   end
 end

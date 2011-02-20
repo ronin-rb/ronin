@@ -58,7 +58,7 @@ module Ronin
       #          :email => 'anon@example.com',
       #          :organization => 'Anonymous LLC'
       #
-      def author(attributes={})
+      def author(attributes)
         self.authors.new(attributes)
       end
     end
