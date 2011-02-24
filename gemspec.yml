@@ -32,7 +32,7 @@ post_install_message: |
 
   *************************************************************************
 
-required_ruby_version: >= 1.8.7
+required_ruby_version: ">= 1.8.7"
 
 dependencies:
   # DataMapper adapters
