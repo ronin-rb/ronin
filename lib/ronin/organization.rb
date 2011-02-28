@@ -17,7 +17,6 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/address'
 require 'ronin/model'
 require 'ronin/model/has_unique_name'
 require 'ronin/model/has_description'
@@ -25,6 +24,8 @@ require 'ronin/model/has_description'
 require 'dm-timestamps'
 
 module Ronin
+  autoload :Address, 'ronin/address'
+
   #
   # Represents an Organization which owns {Address}es.
   #

@@ -17,13 +17,14 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/campaign'
-require 'ronin/address'
 require 'ronin/model'
 
 require 'fileutils'
 
 module Ronin
+  autoload :Campaign, 'ronin/campaign'
+  autoload :Address, 'ronin/address'
+
   #
   # Represents an {Address} targeted by a {Campaign}.
   #

@@ -17,11 +17,12 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/user_name'
-require 'ronin/password'
 require 'ronin/model'
 
 module Ronin
+  autoload :UserName, 'ronin/user_name'
+  autoload :Password, 'ronin/password'
+
   #
   # Represents Credentials used to access services or websites.
   #

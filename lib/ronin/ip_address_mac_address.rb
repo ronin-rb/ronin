@@ -17,13 +17,14 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ip_address'
-require 'ronin/mac_address'
 require 'ronin/model'
 
 require 'dm-timestamps'
 
 module Ronin
+  autoload :IPAddress, 'ronin/ip_address'
+  autoload :MACAddress, 'ronin/mac_address'
+
   #
   # Associates an {IPAddress} with a {MACAddress}.
   #

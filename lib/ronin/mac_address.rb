@@ -18,10 +18,12 @@
 #
 
 require 'ronin/address'
-require 'ronin/ip_address_mac_address'
 require 'ronin/model'
 
 module Ronin
+  autoload :IPAddressMACAddress, 'ronin/ip_address_mac_address'
+  autoload :IPAddress, 'ronin/ip_address'
+
   #
   # Represents MAC addresses that can be stored in the {Database}.
   #

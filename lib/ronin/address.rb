@@ -17,13 +17,14 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/organization'
-require 'ronin/target'
 require 'ronin/model'
 
 require 'dm-timestamps'
 
 module Ronin
+  autoload :Organization, 'ronin/organization'
+  autoload :Target, 'ronin/target'
+
   #
   # A base model which represents an Internet Address, such as:
   #

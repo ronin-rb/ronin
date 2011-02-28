@@ -18,9 +18,10 @@
 #
 
 require 'ronin/model'
-require 'ronin/vendor'
 
 module Ronin
+  autoload :Vendor, 'ronin/vendor'
+
   #
   # Represents a Software product.
   #

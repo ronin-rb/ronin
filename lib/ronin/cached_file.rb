@@ -18,12 +18,13 @@
 #
 
 require 'ronin/support/inflector'
-require 'ronin/repository'
 require 'ronin/model'
 
 require 'contextify'
 
 module Ronin
+  autoload :Repository, 'ronin/repository'
+
   #
   # The {CachedFile} model stores information in the {Database} about
   # files that {Cacheable} Models were cached from. {CachedFile} also

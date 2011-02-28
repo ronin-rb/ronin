@@ -19,7 +19,6 @@
 
 require 'ronin/exceptions/duplicate_repository'
 require 'ronin/exceptions/repository_not_found'
-require 'ronin/cached_file'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
 require 'ronin/model'
@@ -30,6 +29,8 @@ require 'data_paths'
 require 'yaml'
 
 module Ronin
+  autoload :CachedFile, 'ronin/cached_file'
+
   class Repository
 
     include Model

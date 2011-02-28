@@ -17,13 +17,14 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ip_address'
-require 'ronin/os'
 require 'ronin/model'
 
 require 'dm-timestamps'
 
 module Ronin
+  autoload :IPAddress, 'ronin/ip_address'
+  autoload :OS, 'ronin/os'
+
   #
   # Represents a guess about what {OS} an {IPAddress} might be running.
   #

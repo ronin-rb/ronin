@@ -18,10 +18,11 @@
 #
 
 require 'ronin/credential'
-require 'ronin/email_address'
-require 'ronin/url'
 
 module Ronin
+  autoload :EmailAddress, 'ronin/email_address'
+  autoload :URL, 'ronin/url'
+
   #
   # Represents Credentials used to access websites at specified {URL}s.
   #

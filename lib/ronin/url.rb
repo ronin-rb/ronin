@@ -17,11 +17,6 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/url_scheme'
-require 'ronin/url_query_param'
-require 'ronin/host_name'
-require 'ronin/tcp_port'
-require 'ronin/web_credential'
 require 'ronin/model'
 
 require 'dm-timestamps'
@@ -29,6 +24,12 @@ require 'uri'
 require 'uri/query_params'
 
 module Ronin
+  autoload :URLScheme, 'ronin/url_scheme'
+  autoload :URLQueryParam, 'ronin/url_query_param'
+  autoload :HostName, 'ronin/host_name'
+  autoload :TCPPort, 'ronin/tcp_port'
+  autoload :WebCredential, 'ronin/web_credential'
+
   #
   # Represents URLs that can be stored in the {Database}.
   #

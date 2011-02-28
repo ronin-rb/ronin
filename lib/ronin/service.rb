@@ -17,11 +17,12 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/open_port'
 require 'ronin/model'
 require 'ronin/model/has_unique_name'
 
 module Ronin
+  autoload :OpenPort, 'ronin/open_port'
+
   #
   # Represents a TCP/UDP Service that runs on various common ports.
   #
