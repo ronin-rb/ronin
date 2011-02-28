@@ -22,7 +22,7 @@ describe Model::Cacheable do
   end
 
   it "should add a relation between CachedFile and the model" do
-    subject.relationships.should have_key(:cached_file)
+    subject.relationships.should be_named(:cached_file)
   end
 
   it "should add the class to Cacheable.models" do
