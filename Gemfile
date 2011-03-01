@@ -1,25 +1,25 @@
 source 'https://rubygems.org'
 
 DM_URI = 'http://github.com/datamapper'
-DM_VERSION = '~> 1.0.2'
+DM_VERSION = '~> 1.1.0'
 DO_VERSION = '~> 0.10.3'
 RONIN_URI = 'http://github.com/ronin-ruby'
 
 gemspec
 
-gem 'data_objects',		DO_VERSION, :git => "#{DM_URI}/do.git"
-gem 'do_sqlite3',		DO_VERSION, :git => "#{DM_URI}/do.git"
-gem 'dm-do-adapter', 		DM_VERSION, :git => "#{DM_URI}/dm-do-adapter.git"
-gem 'dm-sqlite-adapter', 	DM_VERSION, :git => "#{DM_URI}/dm-sqlite-adapter.git"
-
-gem 'dm-core', 			DM_VERSION, :git => "#{DM_URI}/dm-core.git"
-gem 'dm-types', 		DM_VERSION, :git => "#{DM_URI}/dm-types.git"
-gem 'dm-constraints', 		DM_VERSION, :git => "#{DM_URI}/dm-constraints.git"
-gem 'dm-migrations', 		DM_VERSION, :git => "#{DM_URI}/dm-migrations.git"
-gem 'dm-validations', 		DM_VERSION, :git => "#{DM_URI}/dm-validations.git"
-gem 'dm-serializer', 		DM_VERSION, :git => "#{DM_URI}/dm-serializer.git"
-gem 'dm-aggregates', 		DM_VERSION, :git => "#{DM_URI}/dm-aggregates.git"
-gem 'dm-timestamps', 		DM_VERSION, :git => "#{DM_URI}/dm-timestamps.git"
+# DataMapper dependencies
+# gem 'data_objects',       DO_VERSION, :git => "#{DM_URI}/do.git"
+# gem 'do_sqlite3',         DO_VERSION, :git => "#{DM_URI}/do.git"
+# gem 'dm-do-adapter',      DM_VERSION, :git => "#{DM_URI}/dm-do-adapter.git"
+# gem 'dm-sqlite-adapter',  DM_VERSION, :git => "#{DM_URI}/dm-sqlite-adapter.git"
+# gem 'dm-core',            DM_VERSION, :git => "#{DM_URI}/dm-core.git"
+# gem 'dm-types',           DM_VERSION, :git => "#{DM_URI}/dm-types.git"
+# gem 'dm-constraints',     DM_VERSION, :git => "#{DM_URI}/dm-constraints.git"
+# gem 'dm-migrations',      DM_VERSION, :git => "#{DM_URI}/dm-migrations.git"
+# gem 'dm-validations',     DM_VERSION, :git => "#{DM_URI}/dm-validations.git"
+# gem 'dm-serializer',      DM_VERSION, :git => "#{DM_URI}/dm-serializer.git"
+# gem 'dm-aggregates',      DM_VERSION, :git => "#{DM_URI}/dm-aggregates.git"
+# gem 'dm-timestamps',      DM_VERSION, :git => "#{DM_URI}/dm-timestamps.git"
 
 # Library dependencies
 # gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN_URI}/ronin-support.git"
