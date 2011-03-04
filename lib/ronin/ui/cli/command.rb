@@ -80,13 +80,24 @@ module Ronin
       #
       # # Running
       #
-      # To run the sub-command from Ruby, one can call the `start` class
-      # method with the options and arguments to run the sub-command with.
+      # To run the command from Ruby, one can call the {run} class method
+      # with the options and arguments to run the sub-command with.
       #
-      #     MyCommand.start(
+      #     MyCommand.run(
       #       {:stuff => true, :syntax => 'bla', :includes => ['other']},
       #       ['some/file.txt']
       #     )
+      #
+      # To run the command from Ruby, with raw command-line options,
+      # one can call the `start` class method.
+      #
+      #     MyCommand.start([
+      #       '--stuff', 'true', '--syntax', 'bla', '--includes', 'other',
+      #       'some/file.txt'
+      #     ])
+      #
+      # Note: If `MyCommand.start` is not given any arguments, it will use
+      # `ARGV` instead.
       #
       # To ensure that your sub-command is accessible to the `ronin`
       # command, make sure that the ruby file the sub-command is defined
@@ -132,6 +143,27 @@ module Ronin
         #
         def self.command_name
           self.name.split('::').last.underscore
+        end
+
+        #
+        # Runs the command.
+        #
+        # @param [Hash{String,Symbol => Object}] options
+        #   Option values for the command.
+        #
+        # @param [Array<String>] arguments
+        #   Additional arguments for the command.
+        #
+        # @return [Command]
+        #   The executed command.
+        #
+        # @since 1.0.0
+        #
+        def self.run(options={},arguments=[])
+          command = self.new(arguments,options)
+          command.invoke_all()
+
+          return command
         end
 
         #
