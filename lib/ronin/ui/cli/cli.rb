@@ -25,9 +25,8 @@ module Ronin
   module UI
     #
     # The {CLI} provides an extensible Command Line Interface (CLI)
-    # for Ronin. The {CLI} can load any sub-command using the
-    # {command} method, from the `ronin/ui/cli/commands`
-    # directory.
+    # for Ronin. The {CLI} can load any command using the {command} method,
+    # from the `ronin/ui/cli/commands` directory.
     #
     module CLI
       # Name of the default to run

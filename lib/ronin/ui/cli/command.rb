@@ -29,14 +29,13 @@ module Ronin
     module CLI
       #
       # The {Command} class inherits `Thor::Group` to provide a base-class
-      # for defining sub-commands for the {CLI}.
+      # for defining commands for the {CLI}.
       #
       # # Extending
       #
-      # To create a new sub-command one can inherit the {Command} class.
-      # The new sub-command can define multiple `class_options` and
-      # `arguments` which `Thor::Group` will use to parse command-line
-      # arguments.
+      # To create a new command one can inherit the {Command} class.
+      # The new command can define multiple `class_options` and `arguments`
+      # which `Thor::Group` will use to parse command-line arguments.
       #
       #     require 'ronin/ui/cli/command'
       #
@@ -81,15 +80,15 @@ module Ronin
       # # Running
       #
       # To run the command from Ruby, one can call the {run} class method
-      # with the options and arguments to run the sub-command with.
+      # with the options and arguments to run the command with:
       #
       #     MyCommand.run(
       #       {:stuff => true, :syntax => 'bla', :includes => ['other']},
       #       ['some/file.txt']
       #     )
       #
-      # To run the command from Ruby, with raw command-line options,
-      # one can call the `start` class method.
+      # To run the command from Ruby, with raw command-line options, one
+      # can call the `start` class method:
       #
       #     MyCommand.start([
       #       '--stuff', 'true', '--syntax', 'bla', '--includes', 'other',
@@ -99,16 +98,17 @@ module Ronin
       # Note: If `MyCommand.start` is not given any arguments, it will use
       # `ARGV` instead.
       #
-      # To ensure that your sub-command is accessible to the `ronin`
-      # command, make sure that the ruby file the sub-command is defined
-      # within is in the `ronin/ui/cli/commands` directory of a
-      # Ronin library. If the sub-command class is named 'MyCommand'
-      # it's ruby file must also be named 'my_command.rb'.
+      # To ensure that your command is accessible to the `ronin` command,
+      # make sure that the ruby file the command is defined within is in
+      # the `ronin/ui/cli/commands` directory of a Ronin library.
+      # If the command class is named 'MyCommand' it's ruby file must also
+      # be named 'my_command.rb'.
       #
-      # To run the sub-command using the `ronin` command, simply specify
-      # it's underscored name:
+      # To run the command using the `ronin` command, simply specify it's
+      # underscored name:
       #
-      #     ronin my_command some/file.txt --stuff --syntax bla --includes one two
+      #     ronin my_command some/file.txt --stuff --syntax bla \
+      #       --includes one two
       #
       class Command < Thor::Group
 
