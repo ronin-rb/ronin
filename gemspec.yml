@@ -67,7 +67,7 @@ dependencies:
   ronin-support: ~> 0.1.0.rc1
 
 development_dependencies:
-  bundler: ~> 1.0.0
+  bundler: ~> 1.0.10
   yard: ~> 0.6.4
   yard-contextify: ~> 0.1.0
   yard-parameters: ~> 0.1.0
