@@ -4,8 +4,14 @@ class TestCommand < Ronin::UI::CLI::Command
 
   desc 'Tests the default task'
 
+  class_option :foo, :type => :boolean
+
   def execute
-    'default task'
+    if options.foo?
+      'foo task'
+    else
+      'default task'
+    end
   end
 
 end

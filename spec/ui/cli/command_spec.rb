@@ -14,6 +14,12 @@ describe UI::CLI::Command do
     subject.start([]).should == ['default task']
   end
 
+  it "should allow running the task with options" do
+    command = subject.run({:foo => true})
+
+    command.options.foo.should == true
+  end
+
   it "should have zero indentation by default" do
     command = subject.new
     command.instance_variable_get('@indent').should == 0
