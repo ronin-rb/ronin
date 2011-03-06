@@ -18,6 +18,5 @@
 #
 
 require 'ronin/ui/output'
-require 'ronin/ui/hexdump'
 require 'ronin/ui/console'
 require 'ronin/ui/shell'
