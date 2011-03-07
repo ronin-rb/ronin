@@ -71,6 +71,7 @@ Mercurial or Git.
 * Convenience methods provided by
   [ronin-support](http://github.com/ronin-ruby/ronin-support#readme).
 * Provides a customized Ruby Console with:
+  * Syntax highlighting.
   * Tab-completion enabled.
   * Auto-indentation enabled.
   * Pretty-Print loaded.
