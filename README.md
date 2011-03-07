@@ -128,28 +128,28 @@ Remove a Database:
 ## Requirements
 
 * [Ruby](http://www.ruby-lang.org/) >= 1.8.7
-* [ActiveSupport](http://rubygems.org/gems/activesupport) >= 3.0.0
 * [DataMapper](http://datamapper.org/):
-  * [dm-do-adapter](http://github.com/datamapper/dm-do-adapter) ~> 1.0.2
+  * [dm-do-adapter](http://github.com/datamapper/dm-do-adapter) ~> 1.1.0
   * [dm-sqlite-adapter](http://github.com/datamapper/dm-sqlite-adapter)
-    ~> 1.0.2
+    ~> 1.1.0
     * [libsqlite3](http://sqlite.org/)
-  * [dm-core](http://github.com/datamapper/dm-core) ~> 1.0.2
-  * [dm-types](http://github.com/datamapper/dm-types) ~> 1.0.2
-  * [dm-migrations](http://github.com/datamapper/dm-migrations) ~> 1.0.2
-  * [dm-validations](http://github.com/datamapper/dm-validations) ~> 1.0.2
-  * [dm-aggregates](http://github.com/datamapper/dm-aggregates) ~> 1.0.2
-  * [dm-timestamps](http://github.com/datamapper/dm-timestamps) ~> 1.0.2
+  * [dm-core](http://github.com/datamapper/dm-core) ~> 1.1.0
+  * [dm-types](http://github.com/datamapper/dm-types) ~> 1.1.0
+  * [dm-migrations](http://github.com/datamapper/dm-migrations) ~> 1.1.0
+  * [dm-validations](http://github.com/datamapper/dm-validations) ~> 1.1.0
+  * [dm-aggregates](http://github.com/datamapper/dm-aggregates) ~> 1.1.0
+  * [dm-timestamps](http://github.com/datamapper/dm-timestamps) ~> 1.1.0
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined/)
-  ~> 0.3.0
-* [uri-query_params](http://github.com/postmodern/uri-query_params) ~> 0.4.0
-* [open_namespace](http://github.com/postmodern/open_namespace) ~> 0.3.0
-* [parameters](http://github.com/postmodern/parameters) ~> 0.2.2
-* [data_paths](http://github.com/postmodern/data_paths) ~> 0.2.1
-* [contextify](http://github.com/postmodern/contextify/) ~> 0.1.6
-* [env](http://github.com/postmodern/env) ~> 0.1.2
-* [pullr](http://github.com/postmodern/pullr/) ~> 0.1.2
-* [thor](http://github.com/wycats/thor/) ~> 0.14.2
+  ~> 0.3.1
+* [uri-query_params](http://github.com/postmodern/uri-query_params)
+  ~> 0.5, >= 0.5.2
+* [open_namespace](http://github.com/postmodern/open_namespace) ~> 0.3
+* [parameters](http://github.com/postmodern/parameters) ~> 0.2, >= 0.2.3
+* [data_paths](http://github.com/postmodern/data_paths) ~> 0.2, >= 0.2.1
+* [contextify](http://github.com/postmodern/contextify/) ~> 0.2
+* [env](http://github.com/postmodern/env) ~> 0.1, >= 0.1.2
+* [pullr](http://github.com/postmodern/pullr/) ~> 0.1, >= 0.1.2
+* [thor](http://github.com/wycats/thor/) ~> 0.14.3
 * [ronin-support](http://github.com/ronin-ruby/ronin-support/) ~> 0.1.0
 
 ## Install
