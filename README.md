@@ -150,6 +150,7 @@ Remove a Database:
 * [contextify](http://github.com/postmodern/contextify/) ~> 0.2
 * [env](http://github.com/postmodern/env) ~> 0.1, >= 0.1.2
 * [pullr](http://github.com/postmodern/pullr/) ~> 0.1, >= 0.1.2
+* [hexdump](http://github.com/postmodern/hexdump#readme) ~> 0.1
 * [thor](http://github.com/wycats/thor/) ~> 0.14.3
 * [ronin-support](http://github.com/ronin-ruby/ronin-support/) ~> 0.1.0
 
