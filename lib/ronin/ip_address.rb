@@ -28,6 +28,7 @@ module Ronin
   autoload :HostNameIPAddress, 'ronin/host_name_ip_address'
   autoload :OSGuess, 'ronin/os_guess'
   autoload :OS, 'ronin/os'
+  autoload :OpenPort, 'ronin/open_port'
 
   #
   # Represents IP addresses that can be stored in the {Database}.
