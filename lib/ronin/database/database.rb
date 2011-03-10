@@ -186,13 +186,9 @@ module Ronin
     #
     # Sets up the Database.
     #
-    # @yield []
-    #   The block to call after the Database has been setup, but before
-    #   it is updated.
-    #
     # @see Database.upgrade!
     #
-    def Database.setup(&block)
+    def Database.setup
       # setup the database log
       Database.setup_log unless @log
 
@@ -201,8 +197,8 @@ module Ronin
         DataMapper.setup(name,uri)
       end
 
-      # auto-upgrade the database repository
-      Database.upgrade!(&block)
+      # apply any new migrations to the database
+      Database.upgrade!
     end
 
     #
