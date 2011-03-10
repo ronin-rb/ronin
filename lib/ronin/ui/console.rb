@@ -19,7 +19,6 @@
 
 require 'ronin/config'
 require 'ronin/repository'
-require 'ronin/class_methods'
 
 module Ronin
   module UI
