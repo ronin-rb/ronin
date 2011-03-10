@@ -19,7 +19,7 @@
 
 require 'ronin/ui/output/output'
 
-require 'dm-migrations/migration'
+require 'dm-migrations'
 
 module Ronin
   module Database
