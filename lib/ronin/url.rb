@@ -20,7 +20,9 @@
 require 'ronin/model'
 
 require 'dm-timestamps'
-require 'uri'
+require 'uri/http'
+require 'uri/https'
+require 'uri/ftp'
 require 'uri/query_params'
 
 module Ronin
