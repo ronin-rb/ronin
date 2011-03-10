@@ -45,7 +45,3 @@ require 'ronin/database/migrations/create_campaigns_table'
 require 'ronin/database/migrations/create_targets_table'
 require 'ronin/database/migrations/create_cached_files_table'
 require 'ronin/database/migrations/create_repositories_table'
-
-require 'ronin/database/database'
-
-Ronin::Database.upgrade!
