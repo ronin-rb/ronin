@@ -22,11 +22,6 @@ require 'ronin/repository'
 require 'ronin/config'
 require 'ronin/class_methods'
 
-require 'ripl'
-require 'ripl/completion'
-require 'ripl/multi_line'
-require 'ripl/auto_indent'
-
 module Ronin
   module UI
     #
@@ -146,6 +141,10 @@ module Ronin
       #   # # => "hello"
       #
       def Console.start(variables={},&block)
+        require 'ripl'
+        require 'ripl/completion'
+        require 'ripl/multi_line'
+        require 'ripl/auto_indent'
         require 'ripl/color_result' if @@color
         require 'ripl/short_errors' if @@short_errors
 
