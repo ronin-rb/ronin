@@ -17,9 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ui/output/helpers'
-require 'ronin/repository'
 require 'ronin/config'
+require 'ronin/repository'
 require 'ronin/class_methods'
 
 module Ronin
