@@ -87,7 +87,7 @@ module Ronin
 
       # filter out missing class names
       model = begin
-                ::Object.full_const_get(self.model_name)
+                DataMapper::Ext::Object.full_const_get(self.model_name)
               rescue NameError
                 return nil
               end
