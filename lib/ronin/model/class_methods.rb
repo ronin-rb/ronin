@@ -35,7 +35,9 @@ module Ronin
       # @since 1.0.0
       #
       def relationship_name
-        self.name.split('::').last.underscore.pluralize.to_sym
+        name = Support::Inflector.underscore(self.name.split('::').last)
+
+        return Support::Inflector.pluralize(name).to_sym
       end
 
       #

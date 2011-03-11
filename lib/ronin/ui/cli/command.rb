@@ -142,7 +142,7 @@ module Ronin
         # Returns the name of the command.
         #
         def self.command_name
-          self.name.split('::').last.underscore
+          Support::Inflector.underscore(self.name.split('::').last)
         end
 
         #

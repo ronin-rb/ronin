@@ -63,7 +63,7 @@ module Ronin
     #
     def model_path
       if self.model_name
-        return self.model_name.underscore
+        Support::Inflector.underscore(self.model_name)
       end
     end
 
