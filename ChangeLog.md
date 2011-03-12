@@ -1,10 +1,7 @@
-### 1.0.0 / 2011-02-01
+### 1.0.0 / 2011-03-15
 
 * Upgraded to the GPL-3 license.
 * Require Ruby >= 1.8.7.
-* Require i18n ~> 0.4.1.
-* Require tzinfo ~> 0.3.22.
-* Require activesupport ~> 3.0.0.
 * Require dm-do-adapter ~> 1.1.0.
 * Require dm-sqlite-adapter ~> 1.1.0.
 * Require dm-core ~> 1.1.0.
