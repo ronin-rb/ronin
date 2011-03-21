@@ -17,8 +17,6 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'enumerator'
-
 module Ronin
   #
   # The {Installation} module provides methods which help reflect on the
