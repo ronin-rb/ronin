@@ -27,7 +27,7 @@
 * Require ripl-short_errors ~> 0.1.
 * Require ripl-color_result ~> 0.2.
 * Require thor ~> 0.14.3.
-* Require ronin-support ~> 0.1.0.
+* Require ronin-support ~> 0.1.
 * Added `ronin/bootstrap` which only loads configuration and the Database.
 * Added {Ronin::Database::Migrations}.
 * Added {Ronin::Model::HasUniqueName}.
