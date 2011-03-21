@@ -148,7 +148,7 @@ Remove a Database:
   * [dm-timestamps](http://github.com/datamapper/dm-timestamps#readme)
     ~> 1.1.0
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined#readme)
-  ~> 0.3.1
+  ~> 0.3, >= 0.3.1
 * [uri-query_params](http://github.com/postmodern/uri-query_params#readme)
   ~> 0.5, >= 0.5.2
 * [open_namespace](http://github.com/postmodern/open_namespace#readme)

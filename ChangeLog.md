@@ -12,7 +12,7 @@
 * Require dm-serializer ~> 1.1.0.
 * Require dm-aggregates ~> 1.1.0.
 * Require dm-timestamps ~> 1.1.0.
-* Require dm-is-predefined ~> 0.3.1.
+* Require dm-is-predefined ~> 0.3, >= 0.3.1.
 * Require uri-query_params ~> 0.5, >= 0.5.2.
 * Require open_namespace ~> 0.3.
 * Require parameters ~> 0.2, >= 0.2.3.
