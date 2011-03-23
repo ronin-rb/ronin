@@ -98,6 +98,12 @@ describe CachedFile do
       end
     end
 
+    let(:name_error) do
+      test2.cached_files.find do |cached_file|
+        cached_file.path.basename == Pathname.new('name_errors.rb')
+      end
+    end
+
     let(:no_method_error) do
       test2.cached_files.find do |cached_file|
         cached_file.path.basename == Pathname.new('no_method_errors.rb')
@@ -134,6 +140,11 @@ describe CachedFile do
     it "should store LoadError exceptions" do
       load_error.cache_exception.should_not be_nil
       load_error.cache_exception.class.should == LoadError
+    end
+
+    it "should store NameError exceptions" do
+      name_error.cache_exception.should_not be_nil
+      name_error.cache_exception.class.should == NameError
     end
 
     it "should store NoMethodError exceptions" do
