@@ -20,7 +20,7 @@
 require 'ronin/support/inflector'
 require 'ronin/model'
 
-require 'contextify'
+require 'object_loader'
 
 module Ronin
   autoload :Repository, 'ronin/repository'
@@ -119,15 +119,13 @@ module Ronin
     def fresh_object
       begin
         # load the first found context
-        blocks = Contextify.load_blocks(self.path)
+        blocks = ObjectLoader.load_blocks(self.path)
       rescue Exception => e
         @cache_exception = e
         return nil
       end
 
-      blocks.each do |name,block|
-        model = Contextify.contexts[name]
-
+      blocks.each do |model,block|
         if model < Cacheable
           # create the fresh object
           object = model.new()

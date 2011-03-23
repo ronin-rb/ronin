@@ -1,6 +1,6 @@
 require 'model/models/cacheable_model'
 
-onin_cacheable_model do
+CacheableModel.object do
 
   cache do
     self.content = 'this is a NoMethodError test'

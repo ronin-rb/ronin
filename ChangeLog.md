@@ -17,7 +17,7 @@
 * Require open_namespace ~> 0.3.
 * Require parameters ~> 0.2, >= 0.2.3.
 * Require data_paths ~> 0.2, >= 0.2.1.
-* Require contextify ~> 0.2.
+* Require object_loader ~> 1.0.
 * Require env ~> 0.1, >= 0.1.2.
 * Require pullr ~> 0.1, >= 0.1.2.
 * Require hexdump ~> 0.1.

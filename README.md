@@ -157,8 +157,8 @@ Remove a Database:
   ~> 0.2, >= 0.2.3
 * [data_paths](http://github.com/postmodern/data_paths#readme)
   ~> 0.2, >= 0.2.1
-* [contextify](http://github.com/postmodern/contextify#readme)
-  ~> 0.2
+* [object_loader](http://github.com/postmodern/object_loader#readme)
+  ~> 1.0
 * [env](http://github.com/postmodern/env#readme)
   ~> 0.1, >= 0.1.2
 * [pullr](http://github.com/postmodern/pullr#readme)

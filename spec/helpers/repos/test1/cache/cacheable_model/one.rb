@@ -1,6 +1,6 @@
 require 'model/models/cacheable_model'
 
-ronin_cacheable_model do
+CacheableModel.object do
 
   @var = 1
 

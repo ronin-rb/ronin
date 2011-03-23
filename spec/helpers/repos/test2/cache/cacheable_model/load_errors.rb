@@ -1,6 +1,6 @@
 require 'totally/does/not/exist'
 
-ronin_cacheable_model do
+CacheableModel.object do
 
   cache do
     self.content = 'this is a LoadError test'

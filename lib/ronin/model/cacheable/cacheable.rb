@@ -21,7 +21,7 @@ require 'ronin/model/cacheable/class_methods'
 require 'ronin/model/model'
 require 'ronin/cached_file'
 
-require 'contextify'
+require 'object_loader'
 require 'set'
 
 module Ronin
@@ -38,17 +38,11 @@ module Ronin
     #
     # # Making a Model cacheable
     #
-    # In order to make a Model cacheable, one must include the {Cacheable}
-    # module and contextifying the model. Contextifying a model involves
-    # calling the `contextify` method, which defines a top-level method
-    # used for loading model instances from files.
+    # In order to make a Model cacheable, one must include the {Cacheable}.
     #
     #     class MyModel
     #
     #         include Ronin::Model::Cacheable
-    #
-    #         # Defines the my_model method for loading instances from files
-    #         contextify :my_model
     #
     #         # Primary key of the model
     #         property :id, Serial
@@ -104,7 +98,7 @@ module Ronin
       @models = Set[]
 
       def self.included(base)
-        base.send :include, Contextify, Model
+        base.send :include, ObjectLoader, Model
         base.send :extend, ClassMethods
 
         base.module_eval do
@@ -151,7 +145,7 @@ module Ronin
       #
       def Cacheable.load_from(path)
         path = File.expand_path(path)
-        obj = Contextify.load_contexts(path).find do |obj|
+        obj = ObjectLoader.load_objects(path).find do |obj|
           obj.class < Cacheable
         end
 

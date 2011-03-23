@@ -54,7 +54,7 @@ dependencies:
   open_namespace: ~> 0.3
   parameters: ~> 0.2, >= 0.2.3
   data_paths: ~> 0.2, >= 0.2.1
-  contextify: ~> 0.2
+  object_loader: ~> 1.0
   env: ~> 0.1, >= 0.1.2
   pullr: ~> 0.1, >= 0.1.2
   hexdump: ~> 0.1
@@ -70,7 +70,6 @@ dependencies:
 development_dependencies:
   bundler: ~> 1.0.10
   yard: ~> 0.6.4
-  yard-contextify: ~> 0.1.0
   yard-parameters: ~> 0.1.0
   yard-dm: ~> 0.1.1
   yard-dm-is-predefined: ~> 0.2.0

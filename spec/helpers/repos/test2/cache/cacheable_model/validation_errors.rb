@@ -1,6 +1,6 @@
 require 'model/models/cacheable_model'
 
-ronin_cacheable_model do
+CacheableModel.object do
 
   cache do
     # intentionally do not set the content property
