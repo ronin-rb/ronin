@@ -7,7 +7,7 @@ require 'ronin/repository'
 describe Repository do
   include Helpers::Repositories
 
-  subject { Repository }
+  subject { described_class }
 
   describe "find" do
     it "should be able to retrieve an Repository by name" do
