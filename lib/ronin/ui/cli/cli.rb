@@ -90,10 +90,6 @@ module Ronin
       def CLI.command(name)
         name = name.to_s
 
-        # eventually someone is going to use a space or - which is going
-        # mess things up we will take care of this ahead of time here
-        name = name.gsub(/[\s_-]+/, '_')
-
         unless (command = Commands.require_const(name))
           raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
         end
