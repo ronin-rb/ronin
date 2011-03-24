@@ -21,6 +21,8 @@ require 'ronin/ui/cli/exceptions/unknown_command'
 require 'ronin/ui/cli/commands'
 require 'ronin/installation'
 
+require 'set'
+
 module Ronin
   module UI
     #
@@ -32,7 +34,7 @@ module Ronin
       # Name of the default to run
       DEFAULT_COMMAND = 'console'
 
-      @commands = {}
+      @commands = SortedSet[]
 
       #
       # All command-line names of Commands available to the {CLI}.
@@ -46,18 +48,15 @@ module Ronin
         if @commands.empty?
           commands_dir = File.join('lib',Commands.namespace_root)
 
-          Installation.each_file(commands_dir) do |path|
+          Installation.each_file_in(commands_dir,:rb) do |path|
             # remove the .rb file extension
             name = path.chomp('.rb')
 
             # replace any file separators with a ':', to mimic the
             # naming convention of Rake/Thor.
             name.tr!(File::SEPARATOR,':')
-            
-            # replace all '_' and '-' characters with a single '_' character
-            name.gsub!(/[_-]+/,'_')
 
-            @commands[name] = path
+            @commands << name
           end
         end
 

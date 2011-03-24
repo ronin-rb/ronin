@@ -24,7 +24,6 @@ module Ronin
   #
   module Installation
     @gems = {}
-    @paths = {}
 
     #
     # Finds the installed Ronin libraries via RubyGems.
@@ -35,7 +34,7 @@ module Ronin
     # @since 1.0.0
     #
     def Installation.gems
-      Installation.load_gemspecs! if @gems.empty?
+      load_gemspecs! if @gems.empty?
       return @gems
     end
 
@@ -48,20 +47,7 @@ module Ronin
     # @since 1.0.0
     #
     def Installation.libraries
-      Installation.gems.keys
-    end
-
-    #
-    # The installation paths of installed Ronin libraries.
-    #
-    # @return [Hash{String => String}]
-    #   The paths to the installed Ronin libraries.
-    #
-    # @since 1.0.0
-    #
-    def Installation.paths
-      Installation.load_gemspecs! if @paths.empty?
-      return @paths
+      gems.keys
     end
 
     #
@@ -82,17 +68,16 @@ module Ronin
     #
     # @since 1.0.0
     #
-    def Installation.each_file(directory)
-      return enum_for(:each_file,directory) unless block_given?
-
-      directory = File.join(directory,'')
+    def Installation.each_file(pattern)
+      return enum_for(:each_file,pattern) unless block_given?
 
       # query the installed gems
-      Installation.gems.each_value do |gem|
-        gem.files.each do |file|
-          if file[0...directory.length] == directory
-            yield file[directory.length..-1]
-          end
+      gems.each_value do |gem|
+        gem_root = gem.full_gem_path
+        slice_index = gem_root.length + 1
+
+        Dir.glob(File.join(gem_root,pattern)) do |path|
+          yield path[slice_index..-1]
         end
       end
 
@@ -100,25 +85,36 @@ module Ronin
     end
 
     #
-    # Requires all files within the given directory.
+    # Enumerates over every file in a directory.
     #
     # @param [String] directory
-    #   A directory that resides within `lib/`.
+    #   The directory to search within.
     #
-    # @return [Boolean]
-    #   Specifies whether any files were successfully required.
+    # @param [String, Symbol] ext
+    #   The optional file extension to search for.
+    #
+    # @yield [name]
+    #   The given block will be passed each matching file-name.
+    #
+    # @yieldparam [String] name
+    #   The basename of the matching path within the directory.
+    #
+    # @return [Enumerator]
+    #   If no block is given, an Enumerator will be returned.
     #
     # @since 1.0.0
     #
-    def Installation.require_all(directory)
-      lib_dir = File.join('lib',directory)
-      result = false
+    def Installation.each_file_in(directory,ext=nil)
+      return enum_for(:each_file_in,directory,ext) unless block_given?
 
-      Installation.each_file(lib_dir) do |name|
-        result |= (require File.join(directory,name))
+      pattern = File.join(directory,'**','*')
+      pattern << ".#{ext}" if ext
+
+      slice_index = directory.length + 1
+
+      each_file(pattern) do |path|
+        yield path[slice_index..-1]
       end
-
-      return result
     end
 
     protected
@@ -136,13 +132,10 @@ module Ronin
 
       if ronin_gem
         @gems['ronin'] = ronin_gem
-        @paths['ronin'] = ronin_gem.full_gem_path
 
         ronin_gem.dependent_gems.each do |gems|
           gem = gems.first
-
           @gems[gem.name] = gem
-          @paths[gem.name] = gem.full_gem_path
         end
       else
         # if we cannot find an installed ronin gem, search the $LOAD_PATH
@@ -153,9 +146,7 @@ module Ronin
 
           if gemspec_path
             gem = Gem::SourceIndex.load_specification(gemspec_path)
-
             @gems[gem.name] = gem
-            @paths[gem.name] = root_dir
           end
         end
       end

@@ -43,8 +43,7 @@ module Ronin
                 print_error "unknown command #{command.dump}"
               end
             else
-              print_array CLI.commands.keys.sort,
-                          :title => 'Available commands'
+              print_array CLI.commands, :title => 'Available commands'
             end
           end
 
