@@ -34,6 +34,7 @@ module Ronin
       # Name of the default to run
       DEFAULT_COMMAND = 'console'
 
+      # The loaded command names
       @commands = SortedSet[]
 
       #

@@ -23,6 +23,7 @@ module Ronin
   # installation of Ronin on the system.
   #
   module Installation
+    # The loaded gemspecs of all installed ronin libraries
     @gems = {}
 
     #
