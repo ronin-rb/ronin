@@ -32,7 +32,7 @@ module Ronin
             column :id, Integer, :serial => true
             column :type, String, :not_null => true
             column :version, Integer
-            column :address, String, :not_null => true
+            column :address, String, :length => 256, :not_null => true
             column :organization_id, Integer
             column :created_at, Time, :not_null => true
           end
