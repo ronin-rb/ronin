@@ -33,7 +33,9 @@ module Ronin
   class HostName < Address
 
     # The address of the host name
-    property :address, String, :length => 256
+    property :address, String, :length => 256,
+                               :required => true,
+                               :unique => true,
 
     # The IP Address associations
     has 0..n, :host_name_ip_addresses, :model => 'HostNameIPAddress'
