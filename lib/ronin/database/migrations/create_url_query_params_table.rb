@@ -26,7 +26,7 @@ module Ronin
         up do
           create_table :ronin_url_query_params do
             column :id, Integer, :serial => true
-            column :name, String, :not_null => true
+            column :name, String, :length => 256, :not_null => true
             column :value, Text
             column :url_id, Integer, :not_null => true
           end

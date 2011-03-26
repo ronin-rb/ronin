@@ -34,6 +34,10 @@ module Ronin
     # The primary-key of the URL query param
     property :id, Serial
 
+    property :name, String, :length => 256,
+                            :required => true,
+                            :index => true
+
     # The value of the URL query param
     property :value, Text
 
