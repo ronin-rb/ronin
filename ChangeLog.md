@@ -1,4 +1,4 @@
-### 1.0.0 / 2011-03-20
+### 1.0.0 / 2011-03-25
 
 * Upgraded to the GPL-3 license.
 * Require Ruby >= 1.8.7.
