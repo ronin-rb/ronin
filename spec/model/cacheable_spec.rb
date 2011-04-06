@@ -70,8 +70,8 @@ describe Model::Cacheable do
       subject.cache_path.should be_file
     end
 
-    it "should load the context block" do
-      subject.class.load_context_block(subject.cache_path).should_not be_nil
+    it "should load the object block" do
+      subject.class.load_object_block(subject.cache_path).should_not be_nil
     end
 
     it "should be able to load the original object" do

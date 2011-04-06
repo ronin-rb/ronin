@@ -204,7 +204,7 @@ module Ronin
       #
       def load_original!
         if (cached? && !(original_loaded?))
-          block = self.class.load_context_block(self.cache_path)
+          block = self.class.load_object_block(self.cache_path)
 
           @original_loaded = true
           instance_eval(&block) if block
@@ -258,7 +258,7 @@ module Ronin
       end
 
       #
-      # Will load the context from the cached file and attempt to call the
+      # Will load the object from the cached file and attempt to call the
       # method again.
       #
       def method_missing(name,*arguments,&block)

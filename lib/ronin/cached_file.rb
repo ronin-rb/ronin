@@ -118,7 +118,7 @@ module Ronin
     #   
     def fresh_object
       begin
-        # load the first found context
+        # load the first found object
         blocks = ObjectLoader.load_blocks(self.path)
       rescue Exception => e
         @cache_exception = e
