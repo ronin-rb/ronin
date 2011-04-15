@@ -23,6 +23,9 @@ require 'ronin/model/has_unique_name'
 require 'dm-timestamps'
 
 module Ronin
+  autoload :Credential, 'ronin/credential'
+  autoload :EmailAddress, 'ronin/email_address'
+
   #
   # Represents a user name that can be stored in the {Database}.
   #
