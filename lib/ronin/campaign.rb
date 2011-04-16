@@ -21,6 +21,8 @@ require 'ronin/model'
 require 'ronin/model/has_unique_name'
 require 'ronin/model/has_description'
 
+require 'dm-timestamps'
+
 module Ronin
   autoload :Target, 'ronin/target'
 
@@ -32,9 +34,13 @@ module Ronin
     include Model
     include Model::HasUniqueName
     include Model::HasDescription
+    include DataMapper::Timestamps
 
     # Primary key of the campaign
     property :id, Serial
+
+    # Defines the `created_at` and `updated_at` timestamps
+    timestamps :at
 
     # The targets of the campaign
     has 0..n, :targets
