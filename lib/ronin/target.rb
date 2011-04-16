@@ -19,6 +19,7 @@
 
 require 'ronin/model'
 
+require 'dm-timestamps'
 require 'fileutils'
 
 module Ronin
@@ -31,6 +32,7 @@ module Ronin
   class Target
 
     include Model
+    include DataMapper::Timestamps
 
     # Primary key of the target
     property :id, Serial
@@ -40,6 +42,9 @@ module Ronin
 
     # The host being targeted
     belongs_to :address
+
+    # Defines the `created_at` timestamp
+    timestamps :created_at
 
     # The organization that is being targeted
     has 1, :organization, :through => :address
