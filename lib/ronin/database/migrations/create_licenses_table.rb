@@ -28,7 +28,7 @@ module Ronin
             column :id, Integer, :serial => true
             column :name, String, :not_null => true
             column :description, Text, :not_null => true
-            column :url, String
+            column :url, String, :length => 256
           end
 
           create_index :ronin_licenses, :name, :unique => true

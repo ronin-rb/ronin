@@ -26,7 +26,7 @@ module Ronin
         up do
           create_table :ronin_passwords do
             column :id, Integer, :serial => true
-            column :clear_text, String, :not_null => true
+            column :clear_text, String, :length => 256, :not_null => true
           end
 
           create_index :ronin_passwords, :clear_text, :unique => true

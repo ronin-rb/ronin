@@ -42,7 +42,7 @@ module Ronin
     property :description, Text, :required => true
 
     # URL of the License document
-    property :url, String
+    property :url, String, :length => 256
 
     # Berkeley Software Distribution License
     predefine :bsd,

@@ -35,7 +35,8 @@ module Ronin
     property :id, Serial
 
     # The clear-text of the password
-    property :clear_text, String, :required => true,
+    property :clear_text, String, :length => 256,
+                                  :required => true,
                                   :unique => true
 
     # The credentials which use the password
