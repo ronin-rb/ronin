@@ -136,22 +136,6 @@ module Ronin
     protected
 
     #
-    # Finds the installed Ronin libraries.
-    #
-    # @return [true]
-    #   All Ronin libraries were successfully found.
-    #
-    # @since 1.0.1
-    #
-    def Installation.load!
-      if Gem.loaded_specs.has_key?('ronin')
-        load_gems!
-      else
-        load_gemspecs!
-      end
-    end
-
-    #
     # Finds the installed Ronin gems.
     #
     # @return [true]
@@ -206,6 +190,22 @@ module Ronin
       end
 
       return true
+    end
+
+    #
+    # Finds the installed Ronin libraries.
+    #
+    # @return [true]
+    #   All Ronin libraries were successfully found.
+    #
+    # @since 1.0.1
+    #
+    def Installation.load!
+      if Gem.loaded_specs.has_key?('ronin')
+        load_gems!
+      else
+        load_gemspecs!
+      end
     end
   end
 end
