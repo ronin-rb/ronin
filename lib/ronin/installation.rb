@@ -38,7 +38,7 @@ module Ronin
     # @since 1.0.0
     #
     def Installation.gems
-      load_gemspecs! if @gems.empty?
+      load! if @gems.empty?
       return @gems
     end
 
@@ -51,7 +51,7 @@ module Ronin
     # @since 1.0.1
     #
     def Installation.paths
-      load_gemspecs! if @paths.empty?
+      load! if @paths.empty?
       return @paths
     end
 
@@ -136,45 +136,71 @@ module Ronin
     protected
 
     #
-    # Loads the gemspecs for any installed Ronin libraries.
+    # Finds the installed Ronin libraries.
     #
     # @return [true]
     #   All Ronin libraries were successfully found.
     #
+    # @since 1.0.1
+    #
+    def Installation.load!
+      if Gem.loaded_specs.has_key?('ronin')
+        load_gems!
+      else
+        load_gemspecs!
+      end
+    end
+
+    #
+    # Finds the installed Ronin gems.
+    #
+    # @return [true]
+    #   All Ronin libraries were successfully found.
+    #
+    # @since 1.0.1
+    #
+    def Installation.load_gems!
+      register_gem = lambda { |gem|
+        @gems[gem.name] = gem
+        @paths << gem.full_gem_path
+      }
+
+      ronin_gem = Gem.loaded_specs['ronin']
+
+      # add the main ronin gem
+      register_gem[ronin_gem]
+
+      # add any dependent gems
+      ronin_gem.dependent_gems.each do |gems|
+        register_gem[gems[0]]
+      end
+
+      return true
+    end
+
+    #
+    # Loads the gemspecs of Ronin libraries from the `$LOAD_PATH`.
+    #
+    # @return [true]
+    #   All Ronin gemspecs were successfully found.
+    #
     # @since 1.0.0
     #
     def Installation.load_gemspecs!
-      ronin_gem = Gem.loaded_specs['ronin']
+      $LOAD_PATH.each do |lib_dir|
+        root_dir = File.expand_path(File.join(lib_dir,'..'))
+        gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')][0]
 
-      if ronin_gem
-        register_gem = lambda { |gem|
-          @gems[gem.name] = gem
-          @paths << gem.full_gem_path
-        }
+        if gemspec_path
+          # switch into the gem directory, before loading the gemspec
+          gem = Dir.chdir(root_dir) do
+            Gem::Specification.load(gemspec_path)
+          end
 
-        # add the main ronin gem
-        register_gem[ronin_gem]
-
-        # add any dependent gems
-        ronin_gem.dependent_gems.each do |gems|
-          register_gem[gems[0]]
-        end
-      else
-        $LOAD_PATH.each do |lib_dir|
-          root_dir = File.expand_path(File.join(lib_dir,'..'))
-          gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')][0]
-
-          if gemspec_path
-            # switch into the gem directory, before loading the gemspec
-            gem = Dir.chdir(root_dir) do
-                    Gem::Specification.load(gemspec_path)
-                  end
-
-            # do not add duplicate ronin gems
-            unless @gems.has_key?(gem.name)
-              @gems[gem.name] = gem
-              @paths << root_dir
-            end
+          # do not add duplicate ronin gems
+          unless @gems.has_key?(gem.name)
+            @gems[gem.name] = gem
+            @paths << root_dir
           end
         end
       end
