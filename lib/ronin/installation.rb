@@ -17,6 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'set'
+
 module Ronin
   #
   # The {Installation} module provides methods which help reflect on the
@@ -25,6 +27,7 @@ module Ronin
   module Installation
     # The loaded gemspecs of all installed ronin libraries
     @gems = {}
+    @paths = Set[]
 
     #
     # Finds the installed Ronin libraries via RubyGems.
@@ -37,6 +40,19 @@ module Ronin
     def Installation.gems
       load_gemspecs! if @gems.empty?
       return @gems
+    end
+
+    #
+    # The paths of the installed Ronin libraries.
+    #
+    # @return [Set<String>]
+    #   The paths of the Ronin libraries.
+    #
+    # @since 1.0.1
+    #
+    def Installation.paths
+      load_gemspecs! if @paths.empty?
+      return @paths
     end
 
     #
@@ -73,11 +89,10 @@ module Ronin
       return enum_for(:each_file,pattern) unless block_given?
 
       # query the installed gems
-      gems.each_value do |gem|
-        gem_root = gem.full_gem_path
-        slice_index = gem_root.length + 1
+      paths.each do |gem_path|
+        slice_index = gem_path.length + 1
 
-        Dir.glob(File.join(gem_root,pattern)) do |path|
+        Dir.glob(File.join(gem_path,pattern)) do |path|
           yield path[slice_index..-1]
         end
       end
@@ -132,22 +147,34 @@ module Ronin
       ronin_gem = Gem.loaded_specs['ronin']
 
       if ronin_gem
-        @gems['ronin'] = ronin_gem
-
-        ronin_gem.dependent_gems.each do |gems|
-          gem = gems.first
+        register_gem = lambda { |gem|
           @gems[gem.name] = gem
+          @paths << gem.full_gem_path
+        }
+
+        # add the main ronin gem
+        register_gem[ronin_gem]
+
+        # add any dependent gems
+        ronin_gem.dependent_gems.each do |gems|
+          register_gem[gems[0]]
         end
       else
-        # if we cannot find an installed ronin gem, search the $LOAD_PATH
-        # for ronin gemspecs and load those
         $LOAD_PATH.each do |lib_dir|
           root_dir = File.expand_path(File.join(lib_dir,'..'))
-          gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')].first
+          gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')][0]
 
           if gemspec_path
-            gem = Gem::Specification.load(gemspec_path)
-            @gems[gem.name] = gem
+            # switch into the gem directory, before loading the gemspec
+            gem = Dir.chdir(root_dir) do
+                    Gem::Specification.load(gemspec_path)
+                  end
+
+            # do not add duplicate ronin gems
+            unless @gems.has_key?(gem.name)
+              @gems[gem.name] = gem
+              @paths << root_dir
+            end
           end
         end
       end
