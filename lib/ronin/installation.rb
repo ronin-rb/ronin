@@ -146,7 +146,7 @@ module Ronin
           gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')].first
 
           if gemspec_path
-            gem = Gem::SourceIndex.load_specification(gemspec_path)
+            gem = Gem::Specification.load(gemspec_path)
             @gems[gem.name] = gem
           end
         end
