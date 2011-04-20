@@ -445,7 +445,7 @@ module Ronin
     #
     def activate!
       # add the data/ directory
-      register_data_dir(@data_dir) if File.directory?(@data_dir)
+      register_data_path(@data_dir) if File.directory?(@data_dir)
 
       if File.directory?(@lib_dir)
         $LOAD_PATH << @lib_dir unless $LOAD_PATH.include?(@lib_dir)
@@ -464,7 +464,7 @@ module Ronin
     # `$LOAD_PATH` global variable.
     #
     def deactivate!
-      unregister_data_dirs!
+      unregister_data_paths
 
       $LOAD_PATH.delete(@lib_dir)
 
