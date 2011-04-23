@@ -17,9 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/network/mixins/mixin'
 require 'ronin/network/http'
-
-require 'parameters'
 
 module Ronin
   module Network
@@ -28,7 +27,7 @@ module Ronin
       # Adds HTTP convenience methods and connection parameters to a class.
       #
       module HTTP
-        include Parameters
+        include Mixin
 
         # HTTP host
         parameter :host,
@@ -37,7 +36,7 @@ module Ronin
 
         # HTTP port
         parameter :port,
-                  :type => Integer,
+                  :default => Net::HTTP.default_port,
                   :description => 'HTTP port'
 
         # HTTP `Host` header to send
@@ -109,8 +108,17 @@ module Ronin
         # @return [Net::HTTP]
         #   The HTTP session object.
         #
-        def http_session(options={},&block)
-          Net.http_session(http_merge_options(options),&block)
+        def http_session(options={})
+          options = http_merge_options(options)
+          host_port = "#{options[:host]}:#{options[:port]}"
+
+          Net.http_session(options) do |http|
+            print_info "Starting HTTP Session with #{host_port}"
+
+            yield http
+
+            print_info "Closing HTTP Session with #{host_port}"
+          end
         end
 
         #
@@ -141,7 +149,10 @@ module Ronin
         # @see http_session
         #
         def http_request(options={},&block)
-          Net.http_request(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP #{options[:method]} #{http_options_to_s(options)}"
+
+          return Net.http_request(options,&block)
         end
 
         #
@@ -160,7 +171,10 @@ module Ronin
         # @see http_request
         #
         def http_copy(options={},&block)
-          Net.http_copy(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP COPY #{http_options_to_s(options)}"
+
+          return Net.http_copy(options,&block)
         end
 
         #
@@ -179,7 +193,10 @@ module Ronin
         # @see http_request
         #
         def http_delete(options={},&block)
-          Net.http_delete(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP DELETE #{http_options_to_s(options)}"
+
+          return Net.http_delete(options,&block)
         end
 
         #
@@ -198,7 +215,10 @@ module Ronin
         # @see http_request
         #
         def http_get(options={},&block)
-          Net.http_get(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP GET #{http_options_to_s(options)}"
+
+          return Net.http_get(options,&block)
         end
 
         #
@@ -217,7 +237,10 @@ module Ronin
         # @see http_get
         #
         def http_get_body(options={},&block)
-          Net.http_get_body(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP GET #{http_options_to_s(options)}"
+
+          return Net.http_get_body(options,&block)
         end
 
         #
@@ -236,7 +259,10 @@ module Ronin
         # @see http_request
         #
         def http_head(options={},&block)
-          Net.http_head(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP HEAD #{http_options_to_s(options)}"
+
+          return Net.http_head(options,&block)
         end
 
         #
@@ -255,7 +281,10 @@ module Ronin
         # @see http_request
         #
         def http_lock(options={},&block)
-          Net.http_lock(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP LOCK #{http_options_to_s(options)}"
+
+          return Net.http_lock(options,&block)
         end
 
         #
@@ -274,7 +303,10 @@ module Ronin
         # @see http_request
         #
         def http_mkcol(options={},&block)
-          Net.http_mkcol(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP MKCOL #{http_options_to_s(options)}"
+
+          return Net.http_mkcol(options,&block)
         end
 
         #
@@ -293,7 +325,10 @@ module Ronin
         # @see http_request
         #
         def http_move(options={},&block)
-          Net.http_move(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP MOVE #{http_options_to_s(options)}"
+
+          return Net.http_move(options,&block)
         end
 
         #
@@ -312,7 +347,10 @@ module Ronin
         # @see http_request
         #
         def http_options(options={},&block)
-          Net.http_options(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP OPTIONS #{http_options_to_s(options)}"
+
+          return Net.http_options(options,&block)
         end
 
         #
@@ -337,7 +375,10 @@ module Ronin
         # @see http_request
         #
         def http_post(options={},&block)
-          Net.http_post(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP POST #{http_options_to_s(options)}"
+
+          return Net.http_post(options,&block)
         end
 
         #
@@ -356,7 +397,10 @@ module Ronin
         # @see http_post
         #
         def http_post_body(options={},&block)
-          Net.http_post_body(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP POST #{http_options_to_s(options)}"
+
+          return Net.http_post_body(options,&block)
         end
 
         #
@@ -375,7 +419,10 @@ module Ronin
         # @see http_request
         #
         def http_prop_find(options={},&block)
-          Net.http_prop_find(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP PROPFIND #{http_options_to_s(options)}"
+
+          return Net.http_prop_find(options,&block)
         end
 
         #
@@ -394,7 +441,10 @@ module Ronin
         # @see http_request
         #
         def http_prop_patch(options={},&block)
-          Net.http_prop_patch(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP PROPPATCH #{http_options_to_s(options)}"
+
+          return Net.http_prop_patch(options,&block)
         end
 
         #
@@ -413,7 +463,10 @@ module Ronin
         # @see http_request
         #
         def http_trace(options={},&block)
-          Net.http_trace(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP TRACE #{http_options_to_s(options)}"
+
+          return Net.http_trace(options,&block)
         end
 
         #
@@ -432,28 +485,76 @@ module Ronin
         # @see http_request
         #
         def http_unlock(options={},&block)
-          Net.http_unlock(http_merge_options(options),&block)
+          options = http_merge_options(options)
+          print_info "HTTP UNLOCK #{http_options_to_s(options)}"
+
+          return Net.http_unlock(options,&block)
         end
 
         private
 
+        #
+        # Merges the http parameters into the HTTP options.
+        #
+        # @param [Hash] options
+        #   The HTTP options to merge into.
+        #
+        # @return [Hash]
+        #   The merged HTTP options.
+        #
+        # @since 1.0.0
+        #
         def http_merge_options(options={})
           options[:host] ||= self.host if self.host
           options[:port] ||= self.port if self.port
 
-          options[:headers] ||= {}
-          headers = options[:headers]
+          if (self.http_vhost || self.http_user_agent)
+            headers = options.fetch(:headers,{})
 
-          headers[:host] ||= self.http_vhost if self.http_vhost
+            headers[:host] ||= self.http_vhost if self.http_vhost
+            headers[:user_agent] ||= self.http_user_agent if self.http_user_agent
+
+            options[:headers] = headers
+          end
 
           options[:user] ||= self.http_user if self.http_user
           options[:password] ||= self.http_password if self.http_password
 
           options[:proxy] ||= self.http_proxy if self.http_proxy
-          options[:user_agent] ||= self.http_user_agent if self.http_user_agent
 
           return options
         end
+
+        #
+        # Converts the HTTP options to a printable String.
+        #
+        # @param [Hash] options
+        #   HTTP options.
+        #
+        # @return [String]
+        #   The printable String.
+        #
+        # @since 1.1.0
+        #
+        def http_options_to_s(options)
+          fields = ["#{options[:host]}:#{options[:port]}"]
+
+          if (options[:user] || options[:password])
+            fields << "#{options[:user]}:#{options[:password]}"
+          end
+
+          path = options[:path]
+          path += "?#{options[:query]}" if options[:query]
+
+          fields << path
+
+          if options[:headers]
+            fields << ("%p" % options[:headers])
+          end
+
+          return fields.join(' ')
+        end
+
       end
     end
   end
