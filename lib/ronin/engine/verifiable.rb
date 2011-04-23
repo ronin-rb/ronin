@@ -18,6 +18,7 @@
 #
 
 require 'ronin/engine/exceptions/verification_failed'
+require 'ronin/ui/output/helpers'
 
 module Ronin
   module Engine
@@ -25,6 +26,8 @@ module Ronin
     # Adds verification methods to an {Engine}.
     #
     module Verifiable
+      include UI::Output::Helpers
+
       #
       # Initializes the verifiable engine.
       #

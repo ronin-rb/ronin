@@ -19,6 +19,7 @@
 
 require 'ronin/engine/exceptions/deploy_failed'
 require 'ronin/engine/verifiable'
+require 'ronin/ui/output/helpers'
 
 module Ronin
   module Engine
@@ -26,7 +27,8 @@ module Ronin
     # Adds deployment methods to an {Engine}.
     #
     module Deployable
-      include Verifiable
+      include Verifiable,
+              UI::Output::Helpers
 
       #
       # Initializes the deployable engine.

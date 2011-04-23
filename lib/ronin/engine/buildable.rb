@@ -19,6 +19,7 @@
 
 require 'ronin/engine/exceptions/not_built'
 require 'ronin/engine/verifiable'
+require 'ronin/ui/output/helpers'
 
 module Ronin
   module Engine
@@ -26,7 +27,8 @@ module Ronin
     # Adds building methods to an {Engine}.
     #
     module Buildable
-      include Verifiable
+      include Verifiable,
+              UI::Output::Helpers
 
       #
       # Initializes the buildable engine.
