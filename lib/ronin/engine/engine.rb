@@ -28,6 +28,7 @@ require 'ronin/model/has_authors'
 require 'ronin/model/cacheable'
 require 'ronin/ui/output/helpers'
 
+require 'data_paths/finders'
 require 'parameters'
 
 module Ronin
@@ -45,6 +46,7 @@ module Ronin
     # * {Model::HasLicense}
     # * {Model::HasAuthors}
     # * {Model::Cacheable}
+    # * [DataPaths::Finders](http://rubydoc.info/gems/data_paths)
     # * [Parameters](http://rubydoc.info/gems/parameters)
     # * {ClassMethods}
     #
@@ -57,6 +59,7 @@ module Ronin
                           Model::HasLicense,
                           Model::HasAuthors,
                           Model::Cacheable,
+                          DataPaths::Finders,
                           Parameters
 
       base.send :extend, ClassMethods
