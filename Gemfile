@@ -24,7 +24,7 @@ gem 'data_paths', '~> 0.3.0', :git => 'git://github.com/postmodern/data_paths.gi
 # gem 'dm-timestamps',      DM_VERSION, :git => "#{DM_URI}/dm-timestamps.git"
 
 # Library dependencies
-gem 'ronin-support',	'~> 0.1.0', :git => "#{RONIN_URI}/ronin-support.git"
+gem 'ronin-support',	'~> 0.2', :git => "#{RONIN_URI}/ronin-support.git"
 
 group :development do
   gem 'rake',         '~> 0.8.7'
