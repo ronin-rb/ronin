@@ -17,9 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/network/mixins/mixin'
 require 'ronin/network/imap'
-
-require 'parameters'
 
 module Ronin
   module Network
@@ -28,7 +27,7 @@ module Ronin
       # Adds IMAP convenience methods and connection parameters to a class.
       #
       module IMAP
-        include Parameters
+        include Mixin
 
         # IMAP host
         parameter :host,

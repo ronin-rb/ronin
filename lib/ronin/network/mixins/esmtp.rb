@@ -17,9 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/network/mixins/mixin'
 require 'ronin/network/esmtp'
-
-require 'parameters'
 
 module Ronin
   module Network
@@ -28,7 +27,7 @@ module Ronin
       # Adds ESMTP convenience methods and connection parameters to a class.
       #
       module ESMTP
-        include Parameters
+        include Mixin
 
         # ESMTP host
         parameter :host,

@@ -17,9 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/network/mixins/mixin'
 require 'ronin/network/pop3'
-
-require 'parameters'
 
 module Ronin
   module Network
@@ -28,7 +27,7 @@ module Ronin
       # Adds POP3 convenience methods and connection parameters to a class.
       #
       module POP3
-        include Parameters
+        include Mixin
 
         # POP3 host
         parameter :host,

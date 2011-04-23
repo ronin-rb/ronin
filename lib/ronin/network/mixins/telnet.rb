@@ -17,9 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/network/mixins/mixin'
 require 'ronin/network/telnet'
-
-require 'parameters'
 
 module Ronin
   module Network
@@ -29,7 +28,7 @@ module Ronin
       # class.
       #
       module Telnet
-        include Parameters
+        include Mixin
 
         # Telnet host
         parameter :host,
