@@ -18,7 +18,7 @@
 #
 
 require 'ronin/engine/exceptions/deploy_failed'
-require 'ronin/engine/verifiable'
+require 'ronin/engine/testable'
 require 'ronin/ui/output/helpers'
 
 module Ronin
@@ -27,7 +27,7 @@ module Ronin
     # Adds deployment methods to an {Engine}.
     #
     module Deployable
-      include Verifiable,
+      include Testable,
               UI::Output::Helpers
 
       #
@@ -61,7 +61,7 @@ module Ronin
       end
 
       #
-      # Verifies then deploys the exploit. If a payload has been set,
+      # Tests and then deploys the exploit. If a payload has been set,
       # the payload will also be deployed.
       #
       # @yield []
@@ -75,7 +75,7 @@ module Ronin
       # @since 1.0.0
       #
       def deploy!
-        verify!
+        test!
 
         print_info "Deploying #{engine_name} #{self} ..."
 

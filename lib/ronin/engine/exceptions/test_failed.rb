@@ -19,7 +19,7 @@
 
 module Ronin
   module Engine
-    class VerificationFailed < RuntimeError
+    class TestFailed < RuntimeError
     end
   end
 end

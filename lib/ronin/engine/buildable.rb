@@ -18,7 +18,7 @@
 #
 
 require 'ronin/engine/exceptions/not_built'
-require 'ronin/engine/verifiable'
+require 'ronin/engine/testable'
 require 'ronin/ui/output/helpers'
 
 module Ronin
@@ -27,7 +27,7 @@ module Ronin
     # Adds building methods to an {Engine}.
     #
     module Buildable
-      include Verifiable,
+      include Testable,
               UI::Output::Helpers
 
       #
@@ -87,19 +87,19 @@ module Ronin
       end
 
       #
-      # Verifies that the engine has been built and is properly configured.
+      # Tests that the engine has been built and is properly configured.
       #
       # @return [true]
-      #   The engine has been verified.
+      #   The engine has been tested.
       #
       # @raise [NotBuilt]
       #   The engine has not been built, and cannot be verified.
       #
-      # @see #verify
+      # @see #test
       #
       # @since 1.0.0
       #
-      def verify!
+      def test!
         unless built?
           raise(NotBuilt,"cannot verify an unbuilt #{engine_name}")
         end

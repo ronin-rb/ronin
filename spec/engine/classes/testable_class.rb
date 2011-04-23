@@ -1,10 +1,10 @@
 require 'ronin/engine'
-require 'ronin/engine/verifiable'
+require 'ronin/engine/testable'
 
-class VerifiableClass
+class TestableClass
 
   include Ronin::Engine
-  include Ronin::Engine::Verifiable
+  include Ronin::Engine::Testable
 
   property :id, Serial
 

@@ -17,19 +17,19 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/engine/exceptions/verification_failed'
+require 'ronin/engine/exceptions/test_failed'
 require 'ronin/ui/output/helpers'
 
 module Ronin
   module Engine
     #
-    # Adds verification methods to an {Engine}.
+    # Adds testing methods to an {Engine}.
     #
-    module Verifiable
+    module Testable
       include UI::Output::Helpers
 
       #
-      # Initializes the verifiable engine.
+      # Initializes the testable engine.
       #
       # @param [Hash] attributes
       #   Additional attributes for the engine.
@@ -39,63 +39,63 @@ module Ronin
       def initialize(attributes={})
         super(attributes)
 
-        @verify_blocks = []
+        @test_blocks = []
       end
 
       #
-      # Verifies that the engine is properly configured.
+      # Tests that the engine is properly configured.
       #
       # @return [true]
       #   The exploit is built and ready for deployment.
       #
-      # @see verify
+      # @see test
       #
       # @since 1.0.0
       #
-      def verify!
-        print_info "Verifying #{engine_name} ..."
+      def test!
+        print_info "Testing #{engine_name} ..."
 
-        @verify_blocks.each { |block| block.call() }
+        @test_blocks.each { |block| block.call() }
 
-        print_info "#{engine_name} verified!"
+        print_info "#{engine_name} tested!"
         return true
       end
 
       protected
 
       #
-      # Flunks the verification.
+      # Flunks the testing process.
       #
       # @param [String] message
-      #   The message on why the verification failed.
+      #   The message on why the testing failed.
       #
-      # @raise [VerificationFailed]
-      #   The verification failure message.
+      # @raise [TestFailed]
+      #   The testing failure message.
       #
       # @since 1.0.0
       #
       def flunk(message)
-        raise(VerificationFailed,message)
+        raise(TestFailed,message)
       end
 
       #
-      # Registers a given block to be called when the engine is verified.
+      # Registers a given block to be called when the engine is tested.
       #
       # @yield []
-      #   The given block will be called when the engine is being verified.
+      #   The given block will be called when the engine is being tested.
       #
       # @return [Engine]
       #   The engine.
       #
       # @since 1.0.0
       #
-      def verify(&block)
-        @verify_blocks << block
+      def test(&block)
+        @test_blocks << block
         return self
       end
 
       #
-      # Verifies an expression is true.
+      # Tests whether an expression is true.
       #
       # @param [String] message
       #   The failure message if the expression was not true.
@@ -106,17 +106,17 @@ module Ronin
       # @return [true]
       #   The expression was true.
       #
-      # @raise [VerificationFailed]
+      # @raise [TestFailed]
       #   The expression was not true.
       #
       # @since 1.0.0
       #
-      def verify?(message,&block)
-        verify { flunk(message) unless block.call() }
+      def test?(message,&block)
+        test { flunk(message) unless block.call() }
       end
 
       #
-      # Verifies a method has the expected value.
+      # Tests whether a method has the expected value.
       #
       # @param [Symbol] name
       #   The method to call.
@@ -130,15 +130,15 @@ module Ronin
       # @return [true]
       #   The method returned the expected value.
       #
-      # @raise [VerificationFailed]
+      # @raise [TestFailed]
       #   The method did not return the expected value.
       #
       # @since 1.0.0
       #
-      def verify_equal(name,expected_value,message=nil)
+      def test_equal(name,expected_value,message=nil)
         name = name.to_sym
 
-        verify do
+        test do
           actual_value = self.send(name)
           message ||= "#{name} (#{actual_value.inspect}) must equal #{expected_value.inspect}"
 
@@ -147,7 +147,7 @@ module Ronin
       end
 
       #
-      # Verifies a method does not have the unexpected value.
+      # Tests whether a method does not have the unexpected value.
       #
       # @param [Symbol] name
       #   The method to call.
@@ -161,15 +161,15 @@ module Ronin
       # @return [true]
       #   The method did not return the unexpected value.
       #
-      # @raise [VerificationFailed]
+      # @raise [TestFailed]
       #   The method did return the unexpected value.
       #
       # @since 1.0.0
       #
-      def verify_not_equal(name,unexpected_value,message=nil)
+      def test_not_equal(name,unexpected_value,message=nil)
         name = name.to_sym
 
-        verify do
+        test do
           actual_value = self.send(name)
           message ||= "#{name} (#{actual_value.inspect}) cannot equal #{unexpected_value.inspect}"
 
@@ -178,7 +178,7 @@ module Ronin
       end
 
       #
-      # Verifies a method returns a non-`nil` value.
+      # Tests whether a method returns a non-`nil` value.
       #
       # @param [Symbol] name
       #   The method to call.
@@ -189,15 +189,15 @@ module Ronin
       # @return [true]
       #   The method returned a non-`nil` value.
       #
-      # @raise [VerificationFailed]
+      # @raise [TestFailed]
       #   The method returned `nil`.
       #
       # @since 1.0.0
       #
-      def verify_set(name,message=nil)
+      def test_set(name,message=nil)
         name = name.to_sym
 
-        verify do
+        test do
           actual_value = self.send(name)
           message ||= "#{name} is not set"
 
@@ -212,7 +212,7 @@ module Ronin
       end
 
       #
-      # Verifies a method matches the pattern.
+      # Tests whether a method matches the pattern.
       #
       # @param [Symbol] name
       #   The method to call.
@@ -226,15 +226,15 @@ module Ronin
       # @return [true]
       #   The method matched the pattern.
       #
-      # @raise [VerificationFailed]
+      # @raise [TestFailed]
       #   The method did not match the pattern.
       #
       # @since 1.0.0
       #
-      def verify_match(name,pattern,message=nil)
+      def test_match(name,pattern,message=nil)
         name = name.to_sym
 
-        verify do
+        test do
           actual_value = self.send(name)
           message ||= "#{name} (#{actual_value.inspect}) must match #{pattern.inspect}"
 
@@ -243,7 +243,7 @@ module Ronin
       end
 
       #
-      # Verifies a method does not matches the pattern.
+      # Tests whether a method does not matches the pattern.
       #
       # @param [Symbol] name
       #   The method to call.
@@ -257,15 +257,15 @@ module Ronin
       # @return [true]
       #   The method matched the pattern.
       #
-      # @raise [VerificationFailed]
+      # @raise [TestFailed]
       #   The method did not match the pattern.
       #
       # @since 1.0.0
       #
-      def verify_no_match(name,pattern,message=nil)
+      def test_no_match(name,pattern,message=nil)
         name = name.to_sym
 
-        verify do
+        test do
           actual_value = self.send(name)
           message ||= "#{name} (#{actual_value.inspect}) cannot match #{pattern.inspect}"
 
@@ -274,7 +274,7 @@ module Ronin
       end
 
       #
-      # Verify a method has a value in the expected values.
+      # Tests a method has a value in the expected values.
       #
       # @param [Symbol] name
       #   The method name.
@@ -288,15 +288,15 @@ module Ronin
       # @return [true]
       #   The method returned one of the expected values.
       #
-      # @raise [VerificationFailed]
+      # @raise [TestFailed]
       #   The method did not return one of the expected values.
       #
       # @since 1.0.0
       #
-      def verify_in(name,expected_values,message=nil)
+      def test_in(name,expected_values,message=nil)
         name = name.to_sym
 
-        verify do
+        test do
           actual_value = self.send(name)
           message ||= "#{name} (#{actual_value.inspect}) must be one of #{expected_values.inspect}"
 
@@ -305,7 +305,7 @@ module Ronin
       end
 
       #
-      # Verify a method does not have a value in the unexpected values.
+      # Tests a method does not have a value in the unexpected values.
       #
       # @param [Symbol] name
       #   The method name.
@@ -319,15 +319,15 @@ module Ronin
       # @return [true]
       #   The method did not return one of the unexpected values.
       #
-      # @raise [VerificationFailed]
+      # @raise [TestFailed]
       #   The method did return one of the unexpected values.
       #
       # @since 1.0.0
       #
-      def verify_not_in(name,unexpected_values,message=nil)
+      def test_not_in(name,unexpected_values,message=nil)
         name = name.to_sym
 
-        verify do
+        test do
           actual_value = self.send(name)
           message ||= "#{name} (#{actual_value.inspect}) cannot be one of #{unexpected_values.inspect}"
 

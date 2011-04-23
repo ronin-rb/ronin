@@ -16,8 +16,8 @@ describe Engine::Buildable do
     subject.should_not be_built
   end
 
-  it "should include Verifiable" do
-    subject.class.included_modules.should include(Engine::Verifiable)
+  it "should include Testable" do
+    subject.class.included_modules.should include(Engine::Testable)
   end
 
   describe "#build!" do
@@ -44,7 +44,7 @@ describe Engine::Buildable do
   describe "#verify!" do
     it "should raise a NotBuilt exception when verifying unbuilt engines" do
       lambda {
-        subject.verify!
+        subject.test!
       }.should raise_error(Engine::NotBuilt)
     end
   end

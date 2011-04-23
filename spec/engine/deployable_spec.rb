@@ -5,7 +5,7 @@ describe Engine::Deployable do
   subject do
     obj = DeployableClass.new
     obj.instance_eval do
-      verify do
+      test do
         unless @var > 0
           raise "engine failed verification"
         end
@@ -15,8 +15,8 @@ describe Engine::Deployable do
     obj
   end
 
-  it "should include Verifiable" do
-    subject.class.included_modules.should include(Engine::Verifiable)
+  it "should include Testable" do
+    subject.class.included_modules.should include(Engine::Testable)
   end
 
   it "should not be deployed by default" do
@@ -24,7 +24,7 @@ describe Engine::Deployable do
   end
 
   describe "#deploy!" do
-    it "should verify! the engine before deploying it" do
+    it "should test! the engine before deploying it" do
       subject.var = -1
 
       lambda {
