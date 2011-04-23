@@ -25,6 +25,8 @@ module Ronin
     #
     # Adds testing methods to an {Engine}.
     #
+    # @since 1.1.0
+    #
     module Testable
       include UI::Output::Helpers
 
@@ -34,7 +36,7 @@ module Ronin
       # @param [Hash] attributes
       #   Additional attributes for the engine.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def initialize(attributes={})
         super(attributes)
@@ -50,7 +52,7 @@ module Ronin
       #
       # @see test
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test!
         print_info "Testing #{engine_name} ..."
@@ -72,7 +74,7 @@ module Ronin
       # @raise [TestFailed]
       #   The testing failure message.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def flunk(message)
         raise(TestFailed,message)
@@ -87,7 +89,7 @@ module Ronin
       # @return [Engine]
       #   The engine.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test(&block)
         @test_blocks << block
@@ -109,7 +111,7 @@ module Ronin
       # @raise [TestFailed]
       #   The expression was not true.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test?(message,&block)
         test { flunk(message) unless block.call() }
@@ -133,7 +135,7 @@ module Ronin
       # @raise [TestFailed]
       #   The method did not return the expected value.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test_equal(name,expected_value,message=nil)
         name = name.to_sym
@@ -164,7 +166,7 @@ module Ronin
       # @raise [TestFailed]
       #   The method did return the unexpected value.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test_not_equal(name,unexpected_value,message=nil)
         name = name.to_sym
@@ -192,7 +194,7 @@ module Ronin
       # @raise [TestFailed]
       #   The method returned `nil`.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test_set(name,message=nil)
         name = name.to_sym
@@ -229,7 +231,7 @@ module Ronin
       # @raise [TestFailed]
       #   The method did not match the pattern.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test_match(name,pattern,message=nil)
         name = name.to_sym
@@ -260,7 +262,7 @@ module Ronin
       # @raise [TestFailed]
       #   The method did not match the pattern.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test_no_match(name,pattern,message=nil)
         name = name.to_sym
@@ -291,7 +293,7 @@ module Ronin
       # @raise [TestFailed]
       #   The method did not return one of the expected values.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test_in(name,expected_values,message=nil)
         name = name.to_sym
@@ -322,7 +324,7 @@ module Ronin
       # @raise [TestFailed]
       #   The method did return one of the unexpected values.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       def test_not_in(name,unexpected_values,message=nil)
         name = name.to_sym
