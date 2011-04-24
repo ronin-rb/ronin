@@ -1,4 +1,3 @@
 --markup markdown --title 'Ronin Documentation' --protected
---plugin yard-parameters
 --plugin yard-dm
 --plugin yard-dm-is-predefined
