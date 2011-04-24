@@ -166,6 +166,110 @@ module Ronin
         end
 
         #
+        # Returns the Status Code of the Response.
+        #
+        # @param [Hash] options
+        #   Additional options.
+        #
+        # @option options [Symbol, String] :method (:head)
+        #   The method to use for the request.
+        #
+        # @return [Integer]
+        #   The HTTP Response Status.
+        #
+        # @see #http_request
+        #
+        # @since 1.1.0
+        #
+        def http_status(options={})
+          options = http_merge_options(options)
+
+          if (result = Net.http_status(options))
+            print_debug "HTTP #{result} #{http_options_to_s(options)}"
+          end
+
+          return result
+        end
+
+        #
+        # Checks if the response has an HTTP OK status code.
+        #
+        # @param [Hash] options
+        #   Additional options.
+        #
+        # @option options [Symbol, String] :method (:head)
+        #   The method to use for the request.
+        #
+        # @return [Boolean]
+        #   Specifies wether the response had an HTTP OK status code or not.
+        #
+        # @see #http_status
+        #
+        # @since 1.1.0
+        #
+        def http_ok?(options={})
+          options = http_merge_options(options)
+
+          if (result = Net.http_ok?(options))
+            print_debug "HTTP 200 OK #{http_options_to_s(options)}"
+          end
+
+          return result
+        end
+
+        #
+        # Sends a HTTP Head request and returns the HTTP Server header.
+        #
+        # @param [Hash] options
+        #   Additional options.
+        #
+        # @option options [Symbol, String] :method (:head)
+        #   The method to use for the request.
+        #
+        # @return [String]
+        #   The HTTP `Server` header.
+        #
+        # @see #http_request
+        #
+        # @since 1.1.0
+        #
+        def http_server(options={})
+          options = http_merge_options(options)
+
+          if (result = Net.http_server(options))
+            print_debug "HTTP Server: #{result}"
+          end
+
+          return result
+        end
+
+        #
+        # Sends an HTTP Head request and returns the HTTP X-Powered-By header.
+        #
+        # @param [Hash] options
+        #   Additional options.
+        #
+        # @option options [Symbol, String] :method (:get)
+        #   The method to use for the request.
+        #
+        # @return [String]
+        #   The HTTP `X-Powered-By` header.
+        #
+        # @see #http_request
+        #
+        # @since 1.1.0
+        #
+        def http_powered_by(options={})
+          options = http_merge_options(options)
+
+          if (result = Net.http_powered_by(options))
+            print_debug "HTTP X-Powered-By: #{result}"
+          end
+
+          return result
+        end
+
+        #
         # Performs an HTTP Copy request.
         #
         # @yield [response]
@@ -273,75 +377,6 @@ module Ronin
           print_info "HTTP HEAD #{http_options_to_s(options)}"
 
           return Net.http_head(options,&block)
-        end
-
-        #
-        # Checks if the response has an HTTP OK status code.
-        #
-        # @param [Hash] options
-        #   Additional options.
-        #
-        # @return [Boolean]
-        #   Specifies wether the response had an HTTP OK status code or not.
-        #
-        # @see #http_request
-        #
-        # @since 1.1.0
-        #
-        def http_ok?(options={})
-          options = http_merge_options(options)
-
-          if (result = Net.http_ok?(options))
-            print_debug "HTTP 200 OK #{http_options_to_s(options)}"
-          end
-
-          return result
-        end
-
-        #
-        # Sends a HTTP Head request and returns the HTTP Server header.
-        #
-        # @param [Hash] options
-        #   Additional options.
-        #
-        # @return [String]
-        #   The HTTP `Server` header.
-        #
-        # @see #http_request
-        #
-        # @since 1.1.0
-        #
-        def http_server(options={})
-          options = http_merge_options(options)
-
-          if (result = Net.http_server(options))
-            print_debug "HTTP Server: #{result}"
-          end
-
-          return result
-        end
-
-        #
-        # Sends an HTTP Head request and returns the HTTP X-Powered-By header.
-        #
-        # @param [Hash] options
-        #   Additional options.
-        #
-        # @return [String]
-        #   The HTTP `X-Powered-By` header.
-        #
-        # @see #http_request
-        #
-        # @since 1.1.0
-        #
-        def http_powered_by(options={})
-          options = http_merge_options(options)
-
-          if (result = Net.http_powered_by(options))
-            print_debug "HTTP X-Powered-By: #{result}"
-          end
-
-          return result
         end
 
         #
