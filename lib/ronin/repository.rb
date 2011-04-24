@@ -447,8 +447,11 @@ module Ronin
       # add the data/ directory
       register_data_path(@data_dir) if File.directory?(@data_dir)
 
-      if File.directory?(@lib_dir)
-        $LOAD_PATH << @lib_dir unless $LOAD_PATH.include?(@lib_dir)
+      if @lib_dir.directory?
+        # ensure all paths added to $LOAD_PATH are Strings
+        path = @lib_dir.to_s
+
+        $LOAD_PATH << path unless $LOAD_PATH.include?(path)
       end
 
       # load the lib/init.rb file
@@ -466,7 +469,7 @@ module Ronin
     def deactivate!
       unregister_data_paths
 
-      $LOAD_PATH.delete(@lib_dir)
+      $LOAD_PATH.delete(@lib_dir.to_s)
 
       @activated = false
       return true
