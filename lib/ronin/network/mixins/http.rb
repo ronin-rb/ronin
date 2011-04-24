@@ -282,7 +282,53 @@ module Ronin
           options = http_merge_options(options)
 
           if (result = Net.http_ok?(options))
-            print_info "HTTP 200 OK #{http_options_to_s(options)}"
+            print_debug "HTTP 200 OK #{http_options_to_s(options)}"
+          end
+
+          return result
+        end
+
+        #
+        # Sends a HTTP Head request and returns the HTTP Server header.
+        #
+        # @param [Hash] options
+        #   Additional options.
+        #
+        # @return [String]
+        #   The HTTP `Server` header.
+        #
+        # @see http_request
+        #
+        # @since 1.1.0
+        #
+        def http_server(options={})
+          options = http_merge_options(options)
+
+          if (result = Net.http_server(options))
+            print_debug "HTTP Server: #{result}"
+          end
+
+          return result
+        end
+
+        #
+        # Sends an HTTP Head request and returns the HTTP X-Powered-By header.
+        #
+        # @param [Hash] options
+        #   Additional options.
+        #
+        # @return [String]
+        #   The HTTP `X-Powered-By` header.
+        #
+        # @see http_request
+        #
+        # @since 1.1.0
+        #
+        def http_powered_by(options={})
+          options = http_merge_options(options)
+
+          if (result = Net.http_powered_by(options))
+            print_debug "HTTP X-Powered-By: #{result}"
           end
 
           return result
