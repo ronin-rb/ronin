@@ -266,6 +266,29 @@ module Ronin
         end
 
         #
+        # Checks if the response has an HTTP OK status code.
+        #
+        # @param [Hash] options
+        #   Additional options.
+        #
+        # @return [Boolean]
+        #   Specifies wether the response had an HTTP OK status code or not.
+        #
+        # @see http_request
+        #
+        # @since 1.1.0
+        #
+        def http_ok?(options={})
+          options = http_merge_options(options)
+
+          if (result = Net.http_ok?(options))
+            print_info "HTTP 200 OK #{http_options_to_s(options)}"
+          end
+
+          return result
+        end
+
+        #
         # Performs an HTTP Lock request.
         #
         # @yield [response]
