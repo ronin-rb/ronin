@@ -66,8 +66,8 @@ module Ronin
         end
 
         #
-        # Creates a connection to the SMTP server. The {#host}, {#port},
-        # {#smtp_login}, {#smtp_user} and {#smtp_password} parameters
+        # Creates a connection to the SMTP server. The `host`, `port`,
+        # `smtp_login`, `smtp_user` and `smtp_password` parameters
         # will also be used to connect to the server.
         #
         # @param [Hash] options
@@ -114,8 +114,8 @@ module Ronin
         end
 
         #
-        # Starts a session with the SMTP server. The {#host}, {#port},
-        # {#smtp_login}, {#smtp_user} and {#smtp_password} parameters
+        # Starts a session with the SMTP server. The `host`, `port`,
+        # `smtp_login`, `smtp_user` and `smtp_password` parameters
         # will also be used to connect to the server.
         #
         # @yield [session]

@@ -66,8 +66,8 @@ module Ronin
         end
 
         #
-        # Creates a connection to the ESMTP server. The {#host}, {#port},
-        # {#esmtp_login}, {#esmtp_user} and {#esmtp_password} parameters
+        # Creates a connection to the ESMTP server. The `host`, `port`,
+        # `esmtp_login`, `esmtp_user` and `esmtp_password` parameters
         # will also be used to connect to the ESMTP server.
         #
         # @param [Hash] options
@@ -115,8 +115,8 @@ module Ronin
         end
 
         #
-        # Starts a session with the ESMTP server. The {#host}, {#port},
-        # {#esmtp_login}, {#esmtp_user} and {#esmtp_password} parameters
+        # Starts a session with the ESMTP server. The `host`, `port`,
+        # `esmtp_login`, `esmtp_user` and `esmtp_password` parameters
         # will also be used to connect to the ESMTP server.
         #
         # @param [Hash] options
