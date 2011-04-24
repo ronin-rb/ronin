@@ -17,8 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/network/mixins/mixin'
 require 'ronin/network/http'
+require 'ronin/ui/output/helpers'
+require 'ronin/mixin'
+
+require 'parameters'
 
 module Ronin
   module Network
@@ -29,39 +32,36 @@ module Ronin
       module HTTP
         include Mixin
 
-        # HTTP host
-        parameter :host,
-                  :type => String,
-                  :description => 'HTTP host'
+        mixin UI::Output::Helpers, Parameters
 
-        # HTTP port
-        parameter :port,
-                  :default => Net::HTTP.default_port,
-                  :description => 'HTTP port'
+        mixin do
+          # HTTP host
+          parameter :host, :type => String,
+                           :description => 'HTTP host'
 
-        # HTTP `Host` header to send
-        parameter :http_vhost,
-                  :type => String,
-                  :description => 'HTTP Host header to send'
+          # HTTP port
+          parameter :port, :default => Net::HTTP.default_port,
+                           :description => 'HTTP port'
 
-        # HTTP user to authenticate as
-        parameter :http_user,
-                  :type => String,
-                  :description => 'HTTP user to authenticate as'
+          # HTTP `Host` header to send
+          parameter :http_vhost, :type => String,
+                                 :description => 'HTTP Host header to send'
 
-        # HTTP password to authenticate with
-        parameter :http_password,
-                  :type => String,
-                  :description => 'HTTP password to authenticate with'
+          # HTTP user to authenticate as
+          parameter :http_user, :type => String,
+                                :description => 'HTTP user to authenticate as'
 
-        # HTTP proxy information
-        parameter :http_proxy,
-                  :description => 'HTTP proxy information'
+          # HTTP password to authenticate with
+          parameter :http_password, :type => String,
+                                    :description => 'HTTP password to authenticate with'
 
-        # HTTP `User-Agent` header to send
-        parameter :http_user_agent,
-                  :type => String,
-                  :description => 'HTTP User-Agent header to send'
+          # HTTP proxy information
+          parameter :http_proxy, :description => 'HTTP proxy information'
+
+          # HTTP `User-Agent` header to send
+          parameter :http_user_agent, :type => String,
+                                      :description => 'HTTP User-Agent header to send'
+        end
 
         protected
 

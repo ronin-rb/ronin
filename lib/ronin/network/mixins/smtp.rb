@@ -17,8 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/network/mixins/mixin'
 require 'ronin/network/smtp'
+require 'ronin/ui/output/helpers'
+require 'ronin/mixin'
+
+require 'parameters'
 
 module Ronin
   module Network
@@ -27,31 +30,31 @@ module Ronin
       # Adds SMTP convenience methods and connection parameters to a class.
       #
       module SMTP
+        include Mixin
 
-        # SMTP host
-        parameter :host,
-                  :type => String,
-                  :description => 'SMTP host'
+        mixin UI::Output::Helpers, Parameters
 
-        # SMTP port
-        parameter :port,
-                  :type => Integer,
-                  :description => 'SMTP port'
+        mixin do
+          # SMTP host
+          parameter :host, :type => String,
+                           :description => 'SMTP host'
 
-        # SMTP authentication method
-        parameter :smtp_login,
-                  :type => String,
-                  :description => 'SMTP authentication method'
+          # SMTP port
+          parameter :port, :type => Integer,
+                           :description => 'SMTP port'
 
-        # SMTP user to login as
-        parameter :smtp_user,
-                  :type => String,
-                  :description => 'SMTP user to login as'
+          # SMTP authentication method
+          parameter :smtp_login, :type => String,
+                                 :description => 'SMTP authentication method'
 
-        # SMTP user to login with
-        parameter :smtp_password,
-                  :type => String,
-                  :description => 'SMTP password to login with'
+          # SMTP user to login as
+          parameter :smtp_user, :type => String,
+                                :description => 'SMTP user to login as'
+
+          # SMTP user to login with
+          parameter :smtp_password, :type => String,
+                                    :description => 'SMTP password to login with'
+        end
 
         protected
 

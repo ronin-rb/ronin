@@ -17,8 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/network/mixins/mixin'
 require 'ronin/network/telnet'
+require 'ronin/ui/output/helpers'
+require 'ronin/mixin'
+
+require 'parameters'
 
 module Ronin
   module Network
@@ -30,34 +33,32 @@ module Ronin
       module Telnet
         include Mixin
 
-        # Telnet host
-        parameter :host,
-                  :type => String,
-                  :description => 'Telnet host'
+        mixin UI::Output::Helpers, Parameters
 
-        # Telnet port
-        parameter :port,
-                  :type => Integer,
-                  :description => 'Telnet port'
+        mixin do
+          # Telnet host
+          parameter :host, :type => String,
+                           :description => 'Telnet host'
 
-        # Telnet user
-        parameter :telnet_user,
-                  :type => String,
-                  :description => 'Telnet user to login as'
+          # Telnet port
+          parameter :port, :type => Integer,
+                           :description => 'Telnet port'
 
-        # Telnet password
-        parameter :telnet_password,
-                  :type => String,
-                  :description => 'Telnet password to login with'
+          # Telnet user
+          parameter :telnet_user, :type => String,
+                                  :description => 'Telnet user to login as'
 
-        # Telnet proxy
-        parameter :telnet_proxy,
-                  :description => 'Telnet proxy'
+          # Telnet password
+          parameter :telnet_password, :type => String,
+                                      :description => 'Telnet password to login with'
 
-        # Enable Telnet SSL
-        parameter :telnet_ssl,
-                  :type => true,
-                  :description => 'Enable Telnet over SSL'
+          # Telnet proxy
+          parameter :telnet_proxy, :description => 'Telnet proxy'
+
+          # Enable Telnet SSL
+          parameter :telnet_ssl, :type => true,
+                                 :description => 'Enable Telnet over SSL'
+        end
 
         protected
 

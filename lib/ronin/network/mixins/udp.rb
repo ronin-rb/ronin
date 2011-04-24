@@ -17,8 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/network/mixins/mixin'
 require 'ronin/network/udp'
+require 'ronin/ui/output/helpers'
+require 'ronin/mixin'
+
+require 'parameters'
 
 module Ronin
   module Network
@@ -29,35 +32,33 @@ module Ronin
       module UDP
         include Mixin
 
-        # UDP host
-        parameter :host,
-                  :type => String,
-                  :description => 'UDP host'
+        mixin UI::Output::Helpers, Parameters
 
-        # UDP port
-        parameter :port,
-                  :type => Integer,
-                  :description => 'UDP port'
+        mixin do
+          # UDP host
+          parameter :host, :type => String,
+                           :description => 'UDP host'
 
-        # UDP local host
-        parameter :local_host,
-                  :type => String,
-                  :description => 'UDP local host'
+          # UDP port
+          parameter :port, :type => Integer,
+                           :description => 'UDP port'
 
-        # UDP local port
-        parameter :local_port,
-                  :type => Integer,
-                  :description => 'UDP local port'
+          # UDP local host
+          parameter :local_host, :type => String,
+                                 :description => 'UDP local host'
 
-        # UDP server host
-        parameter :server_host,
-                  :type => String,
-                  :description => 'UDP server host'
+          # UDP local port
+          parameter :local_port, :type => Integer,
+                                 :description => 'UDP local port'
 
-        # UDP server port
-        parameter :server_port,
-                  :type => Integer,
-                  :description => 'UDP server port'
+          # UDP server host
+          parameter :server_host, :type => String,
+                                  :description => 'UDP server host'
+
+          # UDP server port
+          parameter :server_port, :type => Integer,
+                                  :description => 'UDP server port'
+        end
 
         protected
 

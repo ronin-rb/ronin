@@ -17,8 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/network/mixins/mixin'
 require 'ronin/network/pop3'
+require 'ronin/ui/output/helpers'
+require 'ronin/mixin'
+
+require 'parameters'
 
 module Ronin
   module Network
@@ -29,25 +32,25 @@ module Ronin
       module POP3
         include Mixin
 
-        # POP3 host
-        parameter :host,
-                  :type => String,
-                  :description => 'POP3 host'
+        mixin UI::Output::Helpers, Parameters
 
-        # POP3 port
-        parameter :port,
-                  :type => Integer,
-                  :description => 'POP3 port'
+        mixin do
+          # POP3 host
+          parameter :host, :type => String,
+                           :description => 'POP3 host'
 
-        # POP3 user
-        parameter :pop3_user,
-                  :type => String,
-                  :description => 'POP3 user to login as'
+          # POP3 port
+          parameter :port, :type => Integer,
+                           :description => 'POP3 port'
 
-        # POP3 password
-        parameter :pop3_password,
-                  :type => String,
-                  :description => 'POP3 password to login with'
+          # POP3 user
+          parameter :pop3_user, :type => String,
+                                :description => 'POP3 user to login as'
+
+          # POP3 password
+          parameter :pop3_password, :type => String,
+                                    :description => 'POP3 password to login with'
+        end
 
         protected
 

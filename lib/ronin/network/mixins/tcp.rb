@@ -17,8 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/network/mixins/mixin'
 require 'ronin/network/tcp'
+require 'ronin/ui/output/helpers'
+require 'ronin/mixin'
+
+require 'parameters'
 
 module Ronin
   module Network
@@ -29,35 +32,33 @@ module Ronin
       module TCP
         include Mixin
 
-        # TCP host
-        parameter :host,
-                  :type => String,
-                  :description => 'TCP host'
+        mixin UI::Output::Helpers, Parameters
 
-        # TCP port
-        parameter :port,
-                  :type => Integer,
-                  :description => 'TCP port'
+        mixin do
+          # TCP host
+          parameter :host, :type => String,
+                           :description => 'TCP host'
 
-        # TCP local host
-        parameter :local_host,
-                  :type => String,
-                  :description => 'TCP local host'
+          # TCP port
+          parameter :port, :type => Integer,
+                           :description => 'TCP port'
 
-        # TCP local port
-        parameter :local_port,
-                  :type => Integer,
-                  :description => 'TCP local port'
+          # TCP local host
+          parameter :local_host, :type => String,
+                                 :description => 'TCP local host'
 
-        # TCP server host
-        parameter :server_host,
-                  :type => String,
-                  :description => 'TCP server host'
+          # TCP local port
+          parameter :local_port, :type => Integer,
+                                 :description => 'TCP local port'
 
-        # TCP server port
-        parameter :server_port,
-                  :type => Integer,
-                  :description => 'TCP server port'
+          # TCP server host
+          parameter :server_host, :type => String,
+                                  :description => 'TCP server host'
+
+          # TCP server port
+          parameter :server_port, :type => Integer,
+                                  :description => 'TCP server port'
+        end
 
         protected
 

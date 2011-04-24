@@ -17,8 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/network/mixins/mixin'
 require 'ronin/network/esmtp'
+require 'ronin/ui/output/helpers'
+require 'ronin/mixin'
+
+require 'parameters'
 
 module Ronin
   module Network
@@ -29,30 +32,29 @@ module Ronin
       module ESMTP
         include Mixin
 
-        # ESMTP host
-        parameter :host,
-                  :type => String,
-                  :description => 'ESMTP host'
+        mixin UI::Output::Helpers, Parameters
 
-        # ESMTP port
-        parameter :port,
-                  :type => Integer,
-                  :description => 'ESMTP port'
+        mixin do
+          # ESMTP host
+          parameter :host, :type => String,
+                           :description => 'ESMTP host'
 
-        # ESMTP authentication method to use
-        parameter :esmtp_login,
-                  :type => String,
-                  :description => 'ESMTP authentication method to use'
+          # ESMTP port
+          parameter :port, :type => Integer,
+                           :description => 'ESMTP port'
 
-        # ESMTP user to login as
-        parameter :esmtp_user,
-                  :type => String,
-                  :description => 'ESMTP user to login as'
+          # ESMTP authentication method to use
+          parameter :esmtp_login, :type => String,
+                                  :description => 'ESMTP authentication method to use'
 
-        # ESMTP password to login with
-        parameter :esmtp_password,
-                  :type => String,
-                  :description => 'ESMTP password to login with'
+          # ESMTP user to login as
+          parameter :esmtp_user, :type => String,
+                                 :description => 'ESMTP user to login as'
+
+          # ESMTP password to login with
+          parameter :esmtp_password, :type => String,
+                                     :description => 'ESMTP password to login with'
+        end
 
         protected
 

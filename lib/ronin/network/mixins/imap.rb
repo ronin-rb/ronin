@@ -17,8 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/network/mixins/mixin'
 require 'ronin/network/imap'
+require 'ronin/ui/output/helpers'
+require 'ronin/mixin'
+
+require 'parameters'
 
 module Ronin
   module Network
@@ -29,30 +32,29 @@ module Ronin
       module IMAP
         include Mixin
 
-        # IMAP host
-        parameter :host,
-                  :type => String,
-                  :description => 'IMAP host'
+        mixin UI::Output::Helpers, Parameters
 
-        # IMAP port
-        parameter :port,
-                  :type => Integer,
-                  :description => 'IMAP port'
+        mixin do
+          # IMAP host
+          parameter :host, :type => String,
+                           :description => 'IMAP host'
 
-        # IMAP auth
-        parameter :imap_auth,
-                  :type => String,
-                  :description => 'IMAP authentication method'
+          # IMAP port
+          parameter :port, :type => Integer,
+                           :description => 'IMAP port'
 
-        # IMAP user to login as
-        parameter :imap_user,
-                  :type => String,
-                  :description => 'IMAP user to login as'
+          # IMAP auth
+          parameter :imap_auth, :type => String,
+                                :description => 'IMAP authentication method'
 
-        # IMAP password to login with
-        parameter :imap_password,
-                  :type => String,
-                  :description => 'IMAP password to login with'
+          # IMAP user to login as
+          parameter :imap_user, :type => String,
+                                :description => 'IMAP user to login as'
+
+          # IMAP password to login with
+          parameter :imap_password, :type => String,
+                                    :description => 'IMAP password to login with'
+        end
 
         protected
 
