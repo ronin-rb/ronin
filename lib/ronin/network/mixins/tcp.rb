@@ -29,6 +29,15 @@ module Ronin
       #
       # Adds TCP convenience methods and connection parameters to a class.
       #
+      # Defines the following parameters:
+      #
+      # * `host` (`String`) - TCP host.
+      # * `port` (`Integer`) - TCP port.
+      # * `local_host` (`String`) - TCP local host.
+      # * `local_port` (`Integer`) - TCP local port.
+      # * `server_host` (`String`) - TCP server host.
+      # * `server_port` (`Integer`) - TCP server port.
+      #
       module TCP
         include Mixin
 

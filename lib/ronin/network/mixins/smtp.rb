@@ -29,6 +29,14 @@ module Ronin
       #
       # Adds SMTP convenience methods and connection parameters to a class.
       #
+      # Defines the following parameters:
+      #
+      # * `host` (`String`) - SMTP host.
+      # * `port` (`Integer`) - SMTP port.
+      # * `smtp_login` (`String`) - SMTP authentication method.
+      # * `smtp_user` (`String`) - SMTP user to login as.
+      # * `smtp_password` (`String`) - SMTP password to login with.
+      #
       module SMTP
         include Mixin
 

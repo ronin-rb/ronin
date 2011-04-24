@@ -29,6 +29,13 @@ module Ronin
       #
       # Adds POP3 convenience methods and connection parameters to a class.
       #
+      # Defines the following parameters:
+      #
+      # * `host` (`String`) - POP3 host.
+      # * `port` (`Integer`) - POP3 port.
+      # * `pop3_user` (`String`) - POP3 user to login as.
+      # * `pop3_password` (`String`) - POP3 password to login with.
+      #
       module POP3
         include Mixin
 

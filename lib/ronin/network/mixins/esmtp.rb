@@ -29,6 +29,14 @@ module Ronin
       #
       # Adds ESMTP convenience methods and connection parameters to a class.
       #
+      # Defines the following parameters:
+      #
+      # * `host` (`String`) - ESMTP host.
+      # * `port` (`Integer`) - ESMTP port.
+      # * `esmtp_login` (`String`) - ESMTP authentication method to use.
+      # * `esmtp_user` (`String`) - ESMTP user to login as.
+      # * `esmtp_password` (`String`) - ESMTP password to login with.
+      #
       module ESMTP
         include Mixin
 

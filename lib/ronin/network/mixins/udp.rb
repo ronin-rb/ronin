@@ -29,6 +29,15 @@ module Ronin
       #
       # Adds UDP convenience methods and connection parameters to a class.
       #
+      # Defines the following parameters:
+      #
+      # * `host` (`String`) - UDP host.
+      # * `port` (`Integer`) - UDP port.
+      # * `local_host` (`String`) - UDP local host.
+      # * `local_port` (`Integer`) - UDP local port.
+      # * `server_host` (`String`) - UDP server host.
+      # * `server_port` (`Integer`) - UDP server port.
+      #
       module UDP
         include Mixin
 

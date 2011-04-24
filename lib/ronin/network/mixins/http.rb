@@ -29,6 +29,16 @@ module Ronin
       #
       # Adds HTTP convenience methods and connection parameters to a class.
       #
+      # Defines the following parameters:
+      #
+      # * `host` (`String`) - HTTP host.
+      # * `port` (`Integer`) - HTTP port. Defaults to `Net::HTTP.default_port`.
+      # * `http_vhost` (`String`) - HTTP Host header to send.
+      # * `http_user` (`String`) - HTTP user to authenticate as.
+      # * `http_password` (`String`) - HTTP password to authenticate with.
+      # * `http_proxy` - HTTP proxy information.
+      # * `http_user_agent` (`String`) - HTTP User-Agent header to send.
+      #
       module HTTP
         include Mixin
 

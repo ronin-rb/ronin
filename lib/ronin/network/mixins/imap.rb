@@ -29,6 +29,14 @@ module Ronin
       #
       # Adds IMAP convenience methods and connection parameters to a class.
       #
+      # Defines the following parameters:
+      #
+      # * `host` (`String`) - IMAP host.
+      # * `port` (`Integer`) - IMAP port.
+      # * `imap_auth` (`String`) - IMAP authentication method.
+      # * `imap_user` (`String`) - IMAP user to login as.
+      # * `imap_password` (`String`) - IMAP password to login with.
+      #
       module IMAP
         include Mixin
 
