@@ -147,10 +147,8 @@ module Ronin
         require 'ripl/short_errors' if @@short_errors
 
         require 'ronin'
+        require 'ronin/repositories'
         require 'pp'
-
-        # activates all installed or added repositories
-        Repository.activate!
 
         # append the current directory to $LOAD_PATH for Ruby 1.9.
         $LOAD_PATH << '.' unless $LOAD_PATH.include?('.')
