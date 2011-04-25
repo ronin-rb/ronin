@@ -58,7 +58,7 @@ module Ronin
             :needs => []
           )
 
-          @needs = Set[*options[:needs]]
+          @needs = Array(options[:needs]).uniq
 
           super(0,name,options,&block)
         end
