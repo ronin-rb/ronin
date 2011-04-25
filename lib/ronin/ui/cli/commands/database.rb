@@ -131,23 +131,7 @@ module Ronin
             end
 
             Ronin::Database.save do
-              if options[:uri]
-                Ronin::Database.repositories[name] = repository_uri
-              else
-                uri = Ronin::Database.repositories[name]
-
-                uri.scheme = options[:adapter] if options[:adapter]
-                uri.host = options[:host] if options[:host]
-                uri.port = options[:port] if options[:port]
-                uri.user = options[:user] if options[:user]
-                uri.password = options[:password] if options[:password]
-
-                if options[:database]
-                  uri.path = options[:database]
-                elsif options[:path]
-                  uri.path = options[:path]
-                end
-              end
+              Ronin::Database.repositories[name] = repository_uri
             end
 
             print_info "Database repository #{name} updated."
