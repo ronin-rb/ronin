@@ -272,20 +272,6 @@ module Ronin
 
         return false
       end
-
-      #
-      # Will load the object from the cached file and attempt to call the
-      # method again.
-      #
-      # @api semipublic
-      #
-      def method_missing(name,*arguments,&block)
-        if load_code!
-          return self.send(name,*arguments,&block)
-        else
-          return super(name,*arguments,&block)
-        end
-      end
     end
   end
 end
