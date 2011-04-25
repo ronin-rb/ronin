@@ -53,12 +53,9 @@ module Ronin
         # @api private
         #
         def initialize(name,options={},&block)
-          options = options.merge(
-            :verbose => UI::Output.verbose?,
-            :needs => []
-          )
+          options[:verbose] = UI::Output.verbose?
 
-          @needs = Array(options[:needs]).uniq
+          @needs = Array(options.delete(:needs)).uniq
 
           super(0,name,options,&block)
         end
