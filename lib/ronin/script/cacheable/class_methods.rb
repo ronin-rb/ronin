@@ -18,7 +18,7 @@
 #
 
 module Ronin
-  module Model
+  module Script
     module Cacheable
       module ClassMethods
         #

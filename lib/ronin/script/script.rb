@@ -17,23 +17,25 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/script/class_methods'
 require 'ronin/script/instance_methods'
+require 'ronin/script/cacheable'
 require 'ronin/model/model'
 require 'ronin/model/has_name'
 require 'ronin/model/has_description'
 require 'ronin/model/has_version'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
-require 'ronin/model/cacheable'
 require 'ronin/ui/output/helpers'
 
 require 'data_paths/finders'
 require 'parameters'
+require 'set'
 
 module Ronin
   module Script
     include UI::Output::Helpers
+
+    @classes = Set[]
 
     #
     # Adds the following to the Class.
@@ -60,11 +62,9 @@ module Ronin
                           Model::HasVersion,
                           Model::HasLicense,
                           Model::HasAuthors,
-                          Model::Cacheable,
+                          Cacheable,
                           DataPaths::Finders,
                           Parameters
-
-      base.send :extend, ClassMethods
     end
 
     # 
@@ -76,14 +76,28 @@ module Ronin
     # @return [Script]
     #   The loaded script.
     #
-    # @see Model::Cacheable.load_from
-    #
     # @since 1.0.0
     #
     # @api public
     #
     def Script.load_from(path)
-      Model::Cacheable.load_from(path)
+      path = File.expand_path(path)
+      script = ObjectLoader.load_objects(path).find do |obj|
+        obj.class < Script
+      end
+
+      unless script
+        raise("No Script object defined in #{path.dump}")
+      end
+
+      script.instance_variable_set('@original_loaded',true)
+      script.cached_file = CachedFile.new(
+        :path => path,
+        :timestamp => File.mtime(path),
+        :model_name => obj.class.to_s
+      )
+
+      return obj
     end
   end
 end

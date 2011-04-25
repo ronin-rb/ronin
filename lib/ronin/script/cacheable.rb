@@ -17,5 +17,5 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/model/cacheable/class_methods'
-require 'ronin/model/cacheable/cacheable'
+require 'ronin/script/cacheable/class_methods'
+require 'ronin/script/cacheable/cacheable'
