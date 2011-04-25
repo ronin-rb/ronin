@@ -152,9 +152,9 @@ module Ronin
     # @api private
     #
     def Database.setup_log(options={})
-      path = (options[:path] || DEFAULT_LOG_PATH)
-      stream = (options[:stream] || File.new(path,'w+'))
-      level = (options[:level] || DEFAULT_LOG_LEVEL)
+      path = options.fetch(:path,DEFAULT_LOG_PATH)
+      stream = options.fetch(:stream,File.new(path,'w+'))
+      level = options(:level,DEFAULT_LOG_LEVEL)
 
       @log = DataMapper::Logger.new(stream,level)
       return true
