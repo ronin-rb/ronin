@@ -61,7 +61,7 @@ module Ronin
     #
     #     require 'ronin/my_model'
     #
-    #     my_model do
+    #     MyModel.object do
     #
     #       cache do
     #         self.title = 'My model in a file'
@@ -74,10 +74,8 @@ module Ronin
     #     end
     #
     # The above example shows a typical cacheable file for `MyModel`. The
-    # file defines the ruby code to evaluate within a new instance of
-    # `MyModel` within a `my_model` block. Since the contents of the
-    # `my_model` block is simply evaluated within new instances, once can
-    # set instance variables or define new methods.
+    # file defines the Ruby code to evaluate within a new instance of
+    # `MyModel`, using the `MyModel.object` method.
     #
     # Any cacheable data is set within a `cache` block, so the cacheable
     # data is only set before caching.
