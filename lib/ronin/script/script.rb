@@ -76,28 +76,14 @@ module Ronin
     # @return [Script]
     #   The loaded script.
     #
+    # @see Cacheable.load_from
+    #
     # @since 1.0.0
     #
     # @api public
     #
     def Script.load_from(path)
-      path = File.expand_path(path)
-      script = ObjectLoader.load_objects(path).find do |obj|
-        obj.class < Script
-      end
-
-      unless script
-        raise("No Script object defined in #{path.dump}")
-      end
-
-      script.instance_variable_set('@original_loaded',true)
-      script.cached_file = CachedFile.new(
-        :path => path,
-        :timestamp => File.mtime(path),
-        :model_name => obj.class.to_s
-      )
-
-      return obj
+      Cacheable.load_from(path)
     end
   end
 end
