@@ -212,7 +212,7 @@ module Ronin
       #
       # @api private
       #
-      def load_original!
+      def load_code!
         if (cached? && !(original_loaded?))
           block = self.class.load_object_block(self.cache_path)
 
@@ -280,7 +280,7 @@ module Ronin
       # @api semipublic
       #
       def method_missing(name,*arguments,&block)
-        if load_original!
+        if load_code!
           return self.send(name,*arguments,&block)
         else
           return super(name,*arguments,&block)
