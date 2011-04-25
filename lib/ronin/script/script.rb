@@ -19,13 +19,13 @@
 
 require 'ronin/script/instance_methods'
 require 'ronin/script/class_methods'
+require 'ronin/script/path'
 require 'ronin/model/model'
 require 'ronin/model/has_name'
 require 'ronin/model/has_description'
 require 'ronin/model/has_version'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
-require 'ronin/cached_file'
 require 'ronin/ui/output/helpers'
 
 require 'object_loader'
@@ -72,11 +72,10 @@ module Ronin
         property :type, DataMapper::Property::Discriminator
 
         # The cached file of the object
-        belongs_to :cached_file, :required => false,
-                                 :model => 'Ronin::CachedFile'
+        belongs_to :script_path, Ronin::Script::Path, :required => false
       end
 
-      CachedFile.has 1, base.relationship_name, base
+      Path.has 1, base.relationship_name, base, :child_key => [:script_path_id]
     end
 
     # 
@@ -105,10 +104,10 @@ module Ronin
       end
 
       script.instance_variable_set('@source_loaded',true)
-      script.cached_file = CachedFile.new(
+      script.script_path = Path.new(
         :path => path,
         :timestamp => File.mtime(path),
-        :model_name => script.class.to_s
+        :class_name => script.class.to_s
       )
 
       return script

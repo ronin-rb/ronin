@@ -24,21 +24,21 @@ module Ronin
   module Database
     module Migrations
       migration(
-        :create_cached_files_table,
+        :create_script_paths_table,
         :needs => :create_repositories_table
       ) do
         up do
-          create_table :ronin_cached_files do
+          create_table :ronin_script_paths do
             column :id, Integer, :serial => true
             column :path, FilePath, :not_null => true
             column :timestamp, Time, :not_null => true
-            column :model_name, String, :not_null => true
+            column :class_name, String, :not_null => true
             column :repository_id, Integer, :not_null => true
           end
         end
 
         down do
-          drop_table :ronin_cached_files
+          drop_table :ronin_script_paths
         end
       end
     end

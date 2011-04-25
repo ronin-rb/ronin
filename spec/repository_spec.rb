@@ -178,106 +178,106 @@ describe Repository do
     end
   end
 
-  describe "#cache_paths" do
+  describe "#each_script" do
     subject { repository('test1') }
 
     it "should list the contents of the 'cache/' directory" do
-      subject.cache_paths.to_a.should_not be_empty
+      subject.each_script.to_a.should_not be_empty
     end
 
     it "should only list '.rb' files" do
-      subject.cache_paths.map { |path|
+      subject.each_script.map { |path|
         path.extname
       }.uniq.should == ['.rb']
     end
   end
 
-  describe "#cached_files" do
+  describe "#script_paths" do
     let(:test1) { repository('test1') }
     let(:test2) { repository('test2') }
 
-    describe "#cache_files!" do
+    describe "#cache_scripts!" do
       before(:all) do
-        test1.cache_files!
-        test2.cache_files!
+        test1.cache_scripts!
+        test2.cache_scripts!
       end
 
-      it "should be populated cached_files" do
-        test1.cached_files.should_not be_empty
+      it "should be populated script_paths" do
+        test1.script_paths.should_not be_empty
       end
 
       it "should recover from files that contain syntax errors" do
-        test2.cached_files.any? { |cached_file|
-          cached_file.path.basename == Pathname.new('syntax_errors.rb')
+        test2.script_paths.any? { |script_path|
+          script_path.path.basename == Pathname.new('syntax_errors.rb')
         }.should == true
       end
 
       it "should recover from files that raised exceptions" do
-        test2.cached_files.any? { |cached_file|
-          cached_file.path.basename == Pathname.new('exceptions.rb')
+        test2.script_paths.any? { |script_path|
+          script_path.path.basename == Pathname.new('exceptions.rb')
         }.should == true
       end
 
       it "should recover from files that raise NoMethodError" do
-        test2.cached_files.any? { |cached_file|
-          cached_file.path.basename == Pathname.new('no_method_errors.rb')
+        test2.script_paths.any? { |script_path|
+          script_path.path.basename == Pathname.new('no_method_errors.rb')
         }.should == true
       end
 
       it "should recover from files that have validation errors" do
-        test2.cached_files.any? { |cached_file|
-          cached_file.path.basename == Pathname.new('validation_errors.rb')
+        test2.script_paths.any? { |script_path|
+          script_path.path.basename == Pathname.new('validation_errors.rb')
         }.should == true
       end
 
-      it "should clear cached_files before re-populate them" do
-        test1_files = test1.cached_files.length
-        test1.cache_files!
+      it "should clear script_paths before re-populate them" do
+        test1_files = test1.script_paths.length
+        test1.cache_scripts!
 
-        test1.cached_files.length.should == test1_files
+        test1.script_paths.length.should == test1_files
       end
 
       it "should be populated using the paths in the 'cache/' directory" do
-        test1.cached_files.map { |file|
+        test1.script_paths.map { |file|
           file.path
-        }.should == test1.cache_paths.to_a
+        }.should == test1.each_script.to_a
       end
     end
 
-    describe "#sync_cached_files!" do
+    describe "#sync_scripts!" do
       before(:all) do
-        test1.cache_files!
-        test2.cache_files!
+        test1.cache_scripts!
+        test2.cache_scripts!
 
-        file1 = test1.cached_files.first
+        file1 = test1.script_paths.first
 
         file1.timestamp -= 10
         file1.save
 
-        test2.cached_files.clear
+        test2.script_paths.clear
 
-        test1.sync_cached_files!
-        test2.sync_cached_files!
+        test1.sync_scripts!
+        test2.sync_scripts!
       end
 
       it "should update stale cached files" do
-        cached_file = test1.cached_files.first
+        script_path = test1.script_paths.first
 
-        cached_file.timestamp.should == File.mtime(cached_file.path)
+        script_path.timestamp.should == File.mtime(script_path.path)
       end
 
       it "should cache new files" do
-        test2.cached_files.should_not be_empty
+        test2.script_paths.should_not be_empty
       end
     end
 
-    describe "#clean_cached_files!" do
+    describe "#clean_scripts!" do
       before(:all) do
-        test1.clean_cached_files!
+        test1.clean_scripts!
       end
 
-      it "should clear the cached_files" do
-        test1.cached_files.should be_empty
+      it "should clear the script_paths" do
+        test1.script_paths.should be_empty
       end
     end
   end

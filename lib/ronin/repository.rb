@@ -19,6 +19,7 @@
 
 require 'ronin/exceptions/duplicate_repository'
 require 'ronin/exceptions/repository_not_found'
+require 'ronin/script/path'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
 require 'ronin/model'
@@ -29,8 +30,6 @@ require 'data_paths'
 require 'yaml'
 
 module Ronin
-  autoload :CachedFile, 'ronin/cached_file'
-
   class Repository
 
     include Model
@@ -95,8 +94,8 @@ module Ronin
     # Description of the repository
     property :description, Text
 
-    # The cached files from the repository
-    has 0..n, :cached_files
+    # The script paths from the repository
+    has 0..n, :script_paths, :model => 'Script::Path'
 
     # The `bin/` directory
     attr_reader :bin_dir
@@ -238,7 +237,7 @@ module Ronin
       if repo.save
         # cache any files from within the `cache/` directory of the
         # repository
-        repo.cache_files!
+        repo.cache_scripts!
       end
 
       return repo
@@ -309,7 +308,7 @@ module Ronin
       if repo.save
         # cache any files from within the `cache/` directory of the
         # repository
-        repo.cache_files!
+        repo.cache_scripts!
       end
 
       return repo
@@ -455,8 +454,8 @@ module Ronin
     #
     # @api private
     #
-    def cache_paths(&block)
-      return enum_for(:cache_paths) unless block
+    def each_script(&block)
+      return enum_for(:each_script) unless block
 
       Pathname.glob(@cache_dir.join('**','*.rb'),&block)
     end
@@ -514,7 +513,7 @@ module Ronin
     end
 
     #
-    # Clears the {#cached_files} and re-saves the cached files within the
+    # Clears the {#script_paths} and re-saves the cached files within the
     # `cache/` directory.
     #
     # @return [Repository]
@@ -524,18 +523,18 @@ module Ronin
     #
     # @api private
     #
-    def cache_files!
-      clean_cached_files!
+    def cache_scripts!
+      clean_scripts!
 
-      cache_paths do |path|
-        self.cached_files.new(:path => path).cache
+      each_script do |path|
+        self.script_paths.new(:path => path).cache
       end
 
       return self
     end
 
     #
-    # Syncs the {#cached_files} of the repository, and adds any new cached
+    # Syncs the {#script_paths} of the repository, and adds any new cached
     # files.
     #
     # @return [Repository]
@@ -545,23 +544,23 @@ module Ronin
     #
     # @api private
     #
-    def sync_cached_files!
+    def sync_scripts!
       # activates the repository before caching it's objects
       activate!
 
-      new_paths = cache_paths.to_a
+      new_paths = each_script.to_a
 
-      self.cached_files.each do |cached_file|
+      self.script_paths.each do |script_path|
         # filter out pre-existing paths within the `cached/` directory
-        new_paths.delete(cached_file.path)
+        new_paths.delete(script_path.path)
 
         # sync the cached file and catch any exceptions
-        cached_file.sync
+        script_path.sync
       end
 
       # cache the new paths within the `cache/` directory
       new_paths.each do |path|
-        self.cached_files.new(:path => path).cache
+        self.script_paths.new(:path => path).cache
       end
 
       # deactivates the repository
@@ -571,7 +570,7 @@ module Ronin
     end
 
     #
-    # Deletes any {#cached_files} associated with the repository.
+    # Deletes any {#script_paths} associated with the repository.
     #
     # @return [Repository]
     #   The cleaned repository.
@@ -580,8 +579,8 @@ module Ronin
     #
     # @api private
     #
-    def clean_cached_files!
-      self.cached_files.clear
+    def clean_scripts!
+      self.script_paths.clear
       return self
     end
 
@@ -618,7 +617,7 @@ module Ronin
       # save the repository
       if save
         # syncs the cached files of the repository
-        sync_cached_files!
+        sync_scripts!
       end
 
       yield self if block_given?
@@ -648,7 +647,7 @@ module Ronin
       FileUtils.rm_rf(self.path) if self.installed?
 
       # destroy any cached files first
-      clean_cached_files!
+      clean_scripts!
 
       # remove the repository from the database
       destroy if saved?

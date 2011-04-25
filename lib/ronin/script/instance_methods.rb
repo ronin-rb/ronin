@@ -59,18 +59,6 @@ module Ronin
       end
 
       #
-      # The file the object was cached from.
-      #
-      # @return [Pathname]
-      #   The path property from the `cached_file` resource.
-      #
-      # @api private
-      #
-      def script_path
-        self.cached_file.path if self.cached_file
-      end
-
-      #
       # Determines if the original code, from the cache file, has been
       # loaded into the object.
       #
@@ -95,7 +83,7 @@ module Ronin
       #
       def load_source!
         if (cached? && !source_loaded?)
-          block = self.class.load_object_block(script_path)
+          block = self.class.load_object_block(self.script_path.path)
 
           @source_loaded = true
           instance_eval(&block) if block
@@ -124,7 +112,7 @@ module Ronin
       # @api private
       #
       def cached?
-        (saved? && self.cached_file)
+        (saved? && self.script_path)
       end
 
       #

@@ -2,23 +2,24 @@ require 'spec_helper'
 require 'helpers/repositories'
 require 'classes/my_script'
 
-require 'ronin/cached_file'
+require 'ronin/script/path'
 
-describe CachedFile do
+describe Script::Path do
   include Helpers::Repositories
 
   let(:test1) { repository('test1') }
   let(:test2) { repository('test2') }
 
-  let(:cacheable_model) { MyScript }
+  let(:script_class) { MyScript }
+  let(:path) { test1.each_script.first }
 
   before(:all) do
-    test1.cache_files!
-    test2.cache_files!
+    test1.cache_scripts!
+    test2.cache_scripts!
   end
 
   describe "cached file" do
-    subject { test1.cached_files.first }
+    subject { described_class.first(:path => path) }
 
     it "should be saved" do
       subject.should be_saved
@@ -45,80 +46,80 @@ describe CachedFile do
     end
 
     it "should have the model name of the cached object" do
-      subject.model_name.should == cacheable_model.name
+      subject.class_name.should == script_class.name
     end
 
     it "should have the model path of the cached object" do
-      subject.model_path.should == 'my_script'
+      subject.class_path.should == 'my_script'
     end
 
     it "should be able to load the Model of the cached object" do
-      subject.cached_model.should == cacheable_model
+      subject.script_class.should == script_class
     end
 
     it "should be able to load a fresh model from the cached file" do
-      obj = subject.fresh_object
+      obj = subject.load_script
 
       obj.should_not be_nil
-      obj.class.should == cacheable_model
+      obj.class.should == script_class
     end
 
     it "should cache the loaded object along with the cached file" do
-      obj = cacheable_model.first(:cached_file => subject)
+      obj = script_class.first(:script_path => subject)
       
       obj.should_not be_nil
     end
 
     it "should be able to load the cached object" do
-      subject.cached_object.should_not be_nil
-      subject.cached_object.class.should == cacheable_model
+      subject.cached_script.should_not be_nil
+      subject.cached_script.class.should == script_class
     end
 
     it "should call the cache method before saving the new object" do
-      subject.cached_object.content.should == 'this is test one'
+      subject.cached_script.content.should == 'this is test one'
     end
 
     it "should delete the cached object along with the cached file" do
       subject.destroy
 
-      cacheable_model.first(:cached_file => subject).should be_nil
+      script_class.first(:script_path => subject).should be_nil
     end
   end
 
   describe "failed cached files" do
     let(:syntax_error) do
-      test2.cached_files.find do |cached_file|
-        cached_file.path.basename == Pathname.new('syntax_errors.rb')
+      test2.script_paths.find do |script_path|
+        script_path.path.basename == Pathname.new('syntax_errors.rb')
       end
     end
 
     let(:load_error) do
-      test2.cached_files.find do |cached_file|
-        cached_file.path.basename == Pathname.new('load_errors.rb')
+      test2.script_paths.find do |script_path|
+        script_path.path.basename == Pathname.new('load_errors.rb')
       end
     end
 
     let(:name_error) do
-      test2.cached_files.find do |cached_file|
-        cached_file.path.basename == Pathname.new('name_errors.rb')
+      test2.script_paths.find do |script_path|
+        script_path.path.basename == Pathname.new('name_errors.rb')
       end
     end
 
     let(:no_method_error) do
-      test2.cached_files.find do |cached_file|
-        cached_file.path.basename == Pathname.new('no_method_errors.rb')
+      test2.script_paths.find do |script_path|
+        script_path.path.basename == Pathname.new('no_method_errors.rb')
       end
     end
 
     let(:exception) do
-      test2.cached_files.find do |cached_file|
-        cached_file.path.basename == Pathname.new('exceptions.rb')
+      test2.script_paths.find do |script_path|
+        script_path.path.basename == Pathname.new('exceptions.rb')
       end
     end
 
     let(:validation_error) do
-      test2.cached_files.find do |cached_file|
-        cached_file.path.basename == Pathname.new('validation_errors.rb')
+      test2.script_paths.find do |script_path|
+        script_path.path.basename == Pathname.new('validation_errors.rb')
       end
     end
 
@@ -162,7 +163,7 @@ describe CachedFile do
   end
 
   describe "unmodified cached file" do
-    subject { test1.cached_files.first }
+    subject { described_class.first(:path => path) }
 
     it "should not have updated code" do
       should_not be_updated
@@ -178,13 +179,10 @@ describe CachedFile do
   end
 
   describe "modified cached file" do
-    subject do
-      test1.reload
+    subject { described_class.first(:path => path) }
 
-      cached_file = test1.cached_files.first
-      cached_file.update(:timestamp => (cached_file.timestamp - 10))
-
-      cached_file
+    before(:all) do
+      subject.update(:timestamp => (subject.timestamp - 10))
     end
 
     it "should not have updated code" do
@@ -201,22 +199,20 @@ describe CachedFile do
   end
 
   describe "missing cached file" do
-    subject do
-      test1.reload
+    subject { described_class.first(:path => path) }
 
-      cached_file = test1.cached_files.first
-      cached_file.update(:path => File.join('','missing','file.rb'))
-      cached_file.sync
+    before(:all) do
+      subject.update(:path => File.join('','missing','file.rb'))
 
-      cached_file
+      subject.sync
     end
 
     it "should delete the cached files" do
-      CachedFile.count(:id => subject.id).should == 0
+      described_class.count(:id => subject.id).should == 0
     end
 
     it "should delete cached objects for missing files" do
-      cacheable_model.count(:cached_file => subject).should == 0
+      script_class.count(:script_path => subject).should == 0
     end
   end
 end

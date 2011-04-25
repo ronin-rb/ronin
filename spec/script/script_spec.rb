@@ -11,7 +11,7 @@ describe Script do
 
   let(:repo) { repository('test1') }
 
-  before(:all) { repo.cache_files! }
+  before(:all) { repo.cache_scripts! }
 
   it "should be a Model" do
     subject.included_modules.should include(Model)
@@ -49,8 +49,8 @@ describe Script do
     subject.properties.should be_named(:type)
   end
 
-  it "should add a relation between CachedFile and the model" do
-    subject.relationships.should be_named(:cached_file)
+  it "should add a relation between Script::Path and the script" do
+    subject.relationships.should be_named(:script_path)
   end
 
   describe "#initialize" do
@@ -80,16 +80,12 @@ describe Script do
   end
 
   describe "load_from" do
-    let(:path) { repo.cached_files.first.path }
+    let(:path) { repo.script_paths.first.path }
 
     subject { Script.load_from(path) }
 
-    it "should have a cached_file resource" do
-      subject.cached_file.should_not be_nil
-    end
-
-    it "should have a script_path" do
-      subject.script_path.should == path
+    it "should have a script_path resource" do
+      subject.script_path.should_not be_nil
     end
 
     it "should prepare the object to be cached" do
@@ -113,11 +109,7 @@ describe Script do
     subject { MyScript.first(:name => 'one') }
 
     it "should have a cached_file resource" do
-      subject.cached_file.should_not be_nil
-    end
-
-    it "should have a script_path" do
-      subject.script_path.should be_file
+      subject.script_path.should_not be_nil
     end
 
     it "should be able to load the script source" do
