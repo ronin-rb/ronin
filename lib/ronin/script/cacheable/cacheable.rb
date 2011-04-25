@@ -155,7 +155,7 @@ module Ronin
           raise(RuntimeError,"No cacheable object defined in #{path.dump}")
         end
 
-        obj.instance_variable_set('@original_loaded',true)
+        obj.instance_variable_set('@code_loaded',true)
         obj.cached_file = CachedFile.new(
           :path => path,
           :timestamp => File.mtime(path),
@@ -171,7 +171,7 @@ module Ronin
       # @api semipublic
       #
       def initialize(*arguments,&block)
-        @original_loaded = false
+        @code_loaded = false
         @cache_prepared = false
 
         super(*arguments,&block)
@@ -199,8 +199,8 @@ module Ronin
       #
       # @api private
       #
-      def original_loaded?
-        @original_loaded == true
+      def code_loaded?
+        @code_loaded == true
       end
 
       #
@@ -213,10 +213,10 @@ module Ronin
       # @api private
       #
       def load_code!
-        if (cached? && !(original_loaded?))
+        if (cached? && !code_loaded?)
           block = self.class.load_object_block(self.cache_path)
 
-          @original_loaded = true
+          @code_loaded = true
           instance_eval(&block) if block
           return true
         end
