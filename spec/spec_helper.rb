@@ -7,6 +7,8 @@ include Ronin
 
 RSpec.configure do |spec|
   spec.before(:suite) do
+    MyScript.auto_migrate!
+
     Repository.create(
       :path => File.join(Helpers::Repositories::DIR,'hello'),
       :name => 'hello',

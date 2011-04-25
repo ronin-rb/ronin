@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'helpers/repositories'
-require 'model/models/cacheable_model'
+require 'classes/my_script'
 
 require 'ronin/cached_file'
 
@@ -10,7 +10,7 @@ describe CachedFile do
   let(:test1) { repository('test1') }
   let(:test2) { repository('test2') }
 
-  let(:cacheable_model) { CacheableModel }
+  let(:cacheable_model) { MyScript }
 
   before(:all) do
     test1.cache_files!
@@ -49,7 +49,7 @@ describe CachedFile do
     end
 
     it "should have the model path of the cached object" do
-      subject.model_path.should == 'cacheable_model'
+      subject.model_path.should == 'my_script'
     end
 
     it "should be able to load the Model of the cached object" do

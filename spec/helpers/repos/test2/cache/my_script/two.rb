@@ -1,10 +1,11 @@
 require 'model/models/cacheable_model'
 
-CacheableModel.object do
+MyScript.object do
 
-  @var = 2
+  @y = @x * 2
 
   cache do
+    self.name = 'two'
     self.content = 'this is test two'
   end
 

@@ -18,24 +18,23 @@
 #
 
 require 'ronin/script/instance_methods'
-require 'ronin/script/cacheable'
+require 'ronin/script/class_methods'
 require 'ronin/model/model'
 require 'ronin/model/has_name'
 require 'ronin/model/has_description'
 require 'ronin/model/has_version'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
+require 'ronin/cached_file'
 require 'ronin/ui/output/helpers'
 
+require 'object_loader'
 require 'data_paths/finders'
 require 'parameters'
-require 'set'
 
 module Ronin
   module Script
     include UI::Output::Helpers
-
-    @classes = Set[]
 
     #
     # Adds the following to the Class.
@@ -47,7 +46,7 @@ module Ronin
     # * {Model::HasVersion}
     # * {Model::HasLicense}
     # * {Model::HasAuthors}
-    # * {Model::Cacheable}
+    # * [ObjectLoader](http://rubydoc.info/gems/object_loader)
     # * [DataPaths::Finders](http://rubydoc.info/gems/data_paths)
     # * [Parameters](http://rubydoc.info/gems/parameters)
     # * {ClassMethods}
@@ -55,16 +54,29 @@ module Ronin
     # @api semipublic
     #
     def self.included(base)
-      base.send :include, Script::InstanceMethods,
+      base.send :include, InstanceMethods,
                           Model,
                           Model::HasName,
                           Model::HasDescription,
                           Model::HasVersion,
                           Model::HasLicense,
                           Model::HasAuthors,
-                          Cacheable,
+                          ObjectLoader,
                           DataPaths::Finders,
                           Parameters
+
+      base.send :extend, ClassMethods
+
+      base.module_eval do
+        # The class-name of the cached object
+        property :type, DataMapper::Property::Discriminator
+
+        # The cached file of the object
+        belongs_to :cached_file, :required => false,
+                                 :model => 'Ronin::CachedFile'
+      end
+
+      CachedFile.has 1, base.relationship_name, base
     end
 
     # 
@@ -83,7 +95,23 @@ module Ronin
     # @api public
     #
     def Script.load_from(path)
-      Cacheable.load_from(path)
+      path = File.expand_path(path)
+      script = ObjectLoader.load_objects(path).find do |obj|
+        obj.class < Script
+      end
+
+      unless script
+        raise("No cacheable object defined in #{path.dump}")
+      end
+
+      script.instance_variable_set('@source_loaded',true)
+      script.cached_file = CachedFile.new(
+        :path => path,
+        :timestamp => File.mtime(path),
+        :model_name => script.class.to_s
+      )
+
+      return script
     end
   end
 end

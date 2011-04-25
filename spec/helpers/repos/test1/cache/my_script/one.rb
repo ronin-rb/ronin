@@ -1,10 +1,11 @@
-require 'model/models/cacheable_model'
+require 'classes/my_script'
 
-CacheableModel.object do
+MyScript.object do
 
-  @var = 1
+  @var = 2
 
   cache do
+    self.name = 'one'
     self.content = 'this is test one'
   end
 

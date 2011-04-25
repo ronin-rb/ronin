@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'helpers/repositories'
-require 'model/models/cacheable_model'
 
 require 'ronin/repository'
 
@@ -194,10 +193,6 @@ describe Repository do
   end
 
   describe "#cached_files" do
-    before(:all) do
-      CacheableModel.auto_migrate!
-    end
-
     let(:test1) { repository('test1') }
     let(:test2) { repository('test2') }
 

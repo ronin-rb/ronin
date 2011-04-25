@@ -26,17 +26,22 @@ module Ronin
       #
       # Initializes the Ronin Script.
       #
-      # @param [Hash] attributes
-      #   The attributes or parameter values to initialize the script with.
+      # @param [Array] arguments
+      #   Arguments for initializing the Script.
       #
       # @since 1.0.0
       #
       # @api semipublic
       #
-      def initialize(attributes={})
-        super(attributes)
+      def initialize(*arguments,&block)
+        @source_loaded = false
+        @cache_prepared = false
 
-        initialize_params(attributes)
+        if arguments.first.kind_of?(Hash)
+          initialize_params(arguments.first)
+        end
+
+        super(*arguments,&block)
       end
 
       #
@@ -50,7 +55,76 @@ module Ronin
       # @api semipublic
       #
       def script_type
-        @ngine_type ||= self.class.base_model.name.split('::').last
+        @script_type ||= self.class.base_model.name.split('::').last
+      end
+
+      #
+      # The file the object was cached from.
+      #
+      # @return [Pathname]
+      #   The path property from the `cached_file` resource.
+      #
+      # @api private
+      #
+      def script_path
+        self.cached_file.path if self.cached_file
+      end
+
+      #
+      # Determines if the original code, from the cache file, has been
+      # loaded into the object.
+      #
+      # @return [Boolean]
+      #   Specifies whether the original code has been loaded into the
+      #   object.
+      #
+      # @api private
+      #
+      def source_loaded?
+        @source_loaded == true
+      end
+
+      #
+      # Loads the code from the cached file for the object, and instance
+      # evaluates it into the object.
+      #
+      # @return [Boolean]
+      #   Indicates the original code was successfully loaded.
+      #
+      # @api private
+      #
+      def load_source!
+        if (cached? && !source_loaded?)
+          block = self.class.load_object_block(script_path)
+
+          @source_loaded = true
+          instance_eval(&block) if block
+          return true
+        end
+
+        return false
+      end
+
+      #
+      # @return [Boolean]
+      #   Specifies whether the object has been prepared to be cached,
+      #
+      # @api private
+      #
+      def prepared_for_cache?
+        @cache_prepared == true
+      end
+
+      #
+      # Indicates whether the object has been cached.
+      #
+      # @return [Boolean]
+      #   Specifies whether the object has been previously cached.
+      #
+      # @api private
+      #
+      def cached?
+        (saved? && self.cached_file)
       end
 
       #
@@ -99,6 +173,33 @@ module Ronin
         body << "params: {#{param_pairs.join(', ')}}"
 
         return "#<#{self.class}: #{body.join(', ')}>"
+      end
+
+      protected
+
+      #
+      # Will call the given block only once, in order to prepare the
+      # object for caching.
+      #
+      # @yield []
+      #   The block will be ran inside the object when the object is to be
+      #   prepared for caching.
+      #
+      # @return [Boolean]
+      #   Specifies whether the object was successfully prepared for
+      #   caching.
+      #
+      # @api public
+      #
+      def cache
+        if (block_given? && !(cached? || prepared_for_cache?))
+          @cache_prepared = true
+
+          yield
+          return true
+        end
+
+        return false
       end
     end
   end

@@ -19,6 +19,7 @@
 
 require 'ronin/support/inflector'
 require 'ronin/model'
+require 'ronin/script'
 
 require 'object_loader'
 
@@ -27,8 +28,7 @@ module Ronin
 
   #
   # The {CachedFile} model stores information in the {Database} about
-  # files that {Cacheable} Models were cached from. {CachedFile} also
-  # manages the {Cacheable} objects that were saved in the {Database}.
+  # cached files containing {Script} objects.
   #
   # @api private
   #
@@ -94,8 +94,8 @@ module Ronin
                 return nil
               end
 
-      # filter out non-Cacheable models
-      return model if model < Cacheable
+      # filter out non-script classes
+      return model if model < Script
     end
 
     #
@@ -111,10 +111,10 @@ module Ronin
     end
 
     #
-    # A freshly loaded Cacheable object from the cache file.
+    # A freshly loaded {Script} object from the cache file.
     #
-    # @return [Cacheable, nil]
-    #   The first Cacheable object loaded from the cache file.
+    # @return [Script, nil]
+    #   The first {Script} object loaded from the cache file.
     #   If `nil` is returned, the file did not contain any cacheable
     #   objects or the cache file contained a syntax error.
     #   
@@ -128,7 +128,7 @@ module Ronin
       end
 
       blocks.each do |model,block|
-        if model < Cacheable
+        if model < Script
           # create the fresh object
           object = model.new()
 
