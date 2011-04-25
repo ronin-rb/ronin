@@ -183,15 +183,13 @@ describe Repository do
     subject { repository('test1') }
 
     it "should list the contents of the 'cache/' directory" do
-      subject.cache_paths.should_not be_empty
+      subject.cache_paths.to_a.should_not be_empty
     end
 
     it "should only list '.rb' files" do
-      subject.cache_paths.should_not be_empty
-
-      subject.cache_paths.all? { |path|
-        path.extname.should == '.rb'
-      }.should == true
+      subject.cache_paths.map { |path|
+        path.extname
+      }.uniq.should == ['.rb']
     end
   end
 
@@ -247,7 +245,7 @@ describe Repository do
       it "should be populated using the paths in the 'cache/' directory" do
         test1.cached_files.map { |file|
           file.path
-        }.should == test1.cache_paths
+        }.should == test1.cache_paths.to_a
       end
     end
 

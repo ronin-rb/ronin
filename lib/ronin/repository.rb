@@ -442,15 +442,23 @@ module Ronin
     #
     # All paths within the `cache/` directory of the repository.
     #
-    # @return [Array<Pathname>]
-    #   The paths within the `cache/` directory.
+    # @yield [path]
+    #   If a block is given, it will be passed each matching path.
+    #
+    # @yieldparam [Pathname] path
+    #   A matching path.
+    #
+    # @return [Enumerator]
+    #   If no block is given, an Enumerator object will be returned.
     #
     # @since 1.0.0
     #
     # @api private
     #
-    def cache_paths
-      Pathname.glob(@cache_dir.join('**','*.rb'))
+    def cache_paths(&block)
+      return enum_for(:cache_paths) unless block
+
+      Pathname.glob(@cache_dir.join('**','*.rb'),&block)
     end
 
     #
@@ -519,7 +527,7 @@ module Ronin
     def cache_files!
       clean_cached_files!
 
-      cache_paths.each do |path|
+      cache_paths do |path|
         self.cached_files.new(:path => path).cache
       end
 
@@ -541,7 +549,7 @@ module Ronin
       # activates the repository before caching it's objects
       activate!
 
-      new_paths = cache_paths
+      new_paths = cache_paths.to_a
 
       self.cached_files.each do |cached_file|
         # filter out pre-existing paths within the `cached/` directory
