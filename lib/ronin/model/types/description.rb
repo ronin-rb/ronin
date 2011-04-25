@@ -43,6 +43,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api private
+        #
         def typecast(value)
           case value
           when nil

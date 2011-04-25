@@ -33,6 +33,8 @@ module Ronin
       # @param [Class] base
       #   The model.
       #
+      # @api semipublic
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, ClassMethods
@@ -58,6 +60,8 @@ module Ronin
       #   license! :mit
       #
       # @since 1.0.0
+      #
+      # @api public
       #
       def license!(name)
         self.license = Ronin::License.predefined_resource(name)

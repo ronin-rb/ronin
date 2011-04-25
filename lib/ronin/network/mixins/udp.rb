@@ -95,6 +95,8 @@ module Ronin
         #     puts sock.readlines
         #   end
         #
+        # @api public
+        #
         def udp_connect(&block)
           print_info "Connecting to #{self.host}:#{self.port} ..."
 
@@ -119,6 +121,8 @@ module Ronin
         # @return [UDPSocket]
         #   The newly created UDPSocket object.
         #
+        # @api public
+        #
         def udp_connect_and_send(data,&block)
           print_info "Connecting to #{self.host}:#{self.port} ..."
           print_debug "Sending data: #{data.inspect}"
@@ -140,6 +144,8 @@ module Ronin
         #   The newly created UDPSocket object.
         #
         # @return [nil]
+        #
+        # @api public
         #
         def udp_session(&block)
           print_info "Connecting to #{self.host}:#{self.port} ..."
@@ -165,6 +171,8 @@ module Ronin
         #
         # @example
         #   udp_server
+        #
+        # @api public
         #
         def udp_server(&block)
           if self.server_host
@@ -193,6 +201,8 @@ module Ronin
         #   udp_server_session do |server|
         #     data, sender = server.recvfrom(1024)
         #   end
+        #
+        # @api public
         #
         def udp_server_session(&block)
           if self.server_host

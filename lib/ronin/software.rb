@@ -47,6 +47,8 @@ module Ronin
     # @return [String]
     #   The software vendor, name and version.
     #
+    # @api public
+    #
     def to_s
       [self.vendor, self.name, self.version].compact.join(' ')
     end

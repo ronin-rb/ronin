@@ -86,6 +86,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.v4
       all(:version => 4)
     end
@@ -97,6 +99,8 @@ module Ronin
     #   The IPv6 addresses.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.v6
       all(:version => 6)
@@ -113,6 +117,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.with_macs(macs)
       all(:mac_addresses => {:address => macs})
     end
@@ -127,6 +133,8 @@ module Ronin
     #   The matching IP addresses.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.with_hosts(names)
       all(:host_names => {:address => names})
@@ -143,6 +151,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.with_ports(numbers)
       all(:ports => {:number => numbers})
     end
@@ -157,6 +167,8 @@ module Ronin
     #   The new or previously saved IP Addresses for the host name.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.lookup(name)
       host = HostName.first_or_new(:address => name)
@@ -184,6 +196,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def lookup!
       hosts = begin
                 Resolv.getnames(self.address.to_s)
@@ -209,6 +223,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def recent_mac_address
       self.ip_address_mac_addresses.all(
         :order => [:created_at.desc]
@@ -222,6 +238,8 @@ module Ronin
     #   The host-name that most recently used by the IP Address.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def recent_host_name
       self.host_name_ip_addresses.all(
@@ -238,6 +256,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def recent_os_guess
       self.os_guesses.all(:order => [:created_at.desc]).oses.first
     end
@@ -249,6 +269,8 @@ module Ronin
     #   The time the IP address was last scanned at.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def last_scanned_at
       last_scanned_port = self.open_ports.first(
@@ -266,6 +288,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_ip
       self.address
     end
@@ -277,6 +301,8 @@ module Ronin
     #   The network representation of the IP address.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def to_i
       self.address.to_i

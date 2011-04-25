@@ -34,6 +34,8 @@ module Ronin
       #
       # @since 0.3.0
       #
+      # @api semipublic
+      #
       def Output.verbose?
         @mode == :verbose
       end
@@ -44,6 +46,8 @@ module Ronin
       #
       # @since 0.3.0
       #
+      # @api semipublic
+      #
       def Output.quiet?
         @mode == :quiet
       end
@@ -53,6 +57,8 @@ module Ronin
       #   Specifies whether silent output is enabled.
       #
       # @since 0.3.0
+      #
+      # @api semipublic
       #
       def Output.silent?
         @mode == :silent
@@ -65,6 +71,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def Output.verbose!
         @mode = :verbose
         return self
@@ -76,6 +84,8 @@ module Ronin
       # @return [Output]
       #
       # @since 1.0.0
+      #
+      # @api semipublic
       #
       def Output.quiet!
         @mode = :quiet
@@ -100,6 +110,8 @@ module Ronin
       #
       # @since 0.3.0
       #
+      # @api semipublic
+      #
       def Output.handler
         @handler
       end
@@ -113,6 +125,8 @@ module Ronin
       #   class methods.
       #
       # @since 0.3.0
+      #
+      # @api semipublic
       #
       def Output.handler=(new_handler)
         @handler = new_handler

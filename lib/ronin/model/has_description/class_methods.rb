@@ -38,6 +38,8 @@ module Ronin
         # @example
         #   Exploit.describing 'bypass'
         #
+        # @api public
+        #
         def describing(fragment)
           all(:description.like => "%#{fragment}%")
         end

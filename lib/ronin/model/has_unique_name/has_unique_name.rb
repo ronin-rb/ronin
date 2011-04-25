@@ -33,6 +33,8 @@ module Ronin
       # @param [Class] base
       #   The model.
       #
+      # @api semipublic
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, HasName::ClassMethods,
@@ -52,6 +54,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api public
+      #
       def to_s
         self.name.to_s
       end
@@ -63,6 +67,8 @@ module Ronin
       #   The inspected resource.
       #
       # @since 1.0.0
+      #
+      # @api public
       #
       def inspect
         "#<#{self.class}:#{self.name}>"

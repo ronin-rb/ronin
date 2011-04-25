@@ -46,6 +46,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def load_all(options={})
         resources = custom_query(options)
         
@@ -75,6 +77,8 @@ module Ronin
       #   The Ronin Engine with the matching attributes.
       #
       # @since 1.0.0
+      #
+      # @api semipublic
       #
       def load_first(options={})
         if (resource = custom_query(options).first)
@@ -108,6 +112,8 @@ module Ronin
       #   The custom query for the Ronin Engine.
       #
       # @since 1.0.0
+      #
+      # @api private
       #
       def custom_query(options)
         query = all

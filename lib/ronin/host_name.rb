@@ -67,6 +67,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.with_ips(ips)
       all(:ip_addresses => {:address => ips})
     end
@@ -81,6 +83,8 @@ module Ronin
     #   The matching host names.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.with_ports(numbers)
       all(:ports => {:number => numbers})
@@ -97,6 +101,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.tld(name)
       all(:address.like => "%.#{name}")
     end
@@ -111,6 +117,8 @@ module Ronin
     #   The matching host names.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.domain(name)
       all(:address.like => "#{name}.%") |
@@ -127,6 +135,8 @@ module Ronin
     #   The host names associated with the IP address.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.lookup(addr)
       addr = addr.to_s
@@ -157,6 +167,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def lookup!
       ips = begin
               Resolv.getaddresses(self.address)
@@ -182,6 +194,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def recent_ip_address
       self.host_name_ip_addresses.all(
         :order => [:created_at.desc]
@@ -195,6 +209,8 @@ module Ronin
     #   The time the host was last scanned at.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def last_scanned_at
       last_scanned_url = self.urls.first(

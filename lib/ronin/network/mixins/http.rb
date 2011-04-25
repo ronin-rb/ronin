@@ -78,6 +78,8 @@ module Ronin
         #
         # Resets the HTTP proxy settings.
         #
+        # @api public
+        #
         def disable_http_proxy
           @http_proxy = nil
         end
@@ -117,6 +119,8 @@ module Ronin
         #
         # @return [Net::HTTP]
         #   The HTTP session object.
+        #
+        # @api public
         #
         def http_session(options={})
           options = http_merge_options(options)
@@ -158,6 +162,8 @@ module Ronin
         #
         # @see #http_session
         #
+        # @api public
+        #
         def http_request(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP #{options[:method]} #{http_options_to_s(options)}"
@@ -180,6 +186,8 @@ module Ronin
         # @see #http_request
         #
         # @since 1.1.0
+        #
+        # @api public
         #
         def http_status(options={})
           options = http_merge_options(options)
@@ -207,6 +215,8 @@ module Ronin
         #
         # @since 1.1.0
         #
+        # @api public
+        #
         def http_ok?(options={})
           options = http_merge_options(options)
 
@@ -232,6 +242,8 @@ module Ronin
         # @see #http_request
         #
         # @since 1.1.0
+        #
+        # @api public
         #
         def http_server(options={})
           options = http_merge_options(options)
@@ -259,6 +271,8 @@ module Ronin
         #
         # @since 1.1.0
         #
+        # @api public
+        #
         def http_powered_by(options={})
           options = http_merge_options(options)
 
@@ -284,6 +298,8 @@ module Ronin
         #
         # @see #http_request
         #
+        # @api public
+        #
         def http_copy(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP COPY #{http_options_to_s(options)}"
@@ -305,6 +321,8 @@ module Ronin
         #   The response of the HTTP request.
         #
         # @see #http_request
+        #
+        # @api public
         #
         def http_delete(options={},&block)
           options = http_merge_options(options)
@@ -328,6 +346,8 @@ module Ronin
         #
         # @see #http_request
         #
+        # @api public
+        #
         def http_get(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP GET #{http_options_to_s(options)}"
@@ -349,6 +369,8 @@ module Ronin
         #   The body of the HTTP Get request.
         #
         # @see #http_get
+        #
+        # @api public
         #
         def http_get_body(options={},&block)
           options = http_merge_options(options)
@@ -372,6 +394,8 @@ module Ronin
         #
         # @see #http_request
         #
+        # @api public
+        #
         def http_head(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP HEAD #{http_options_to_s(options)}"
@@ -393,6 +417,8 @@ module Ronin
         #   The response of the HTTP request.
         #
         # @see #http_request
+        #
+        # @api public
         #
         def http_lock(options={},&block)
           options = http_merge_options(options)
@@ -416,6 +442,8 @@ module Ronin
         #
         # @see #http_request
         #
+        # @api public
+        #
         def http_mkcol(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP MKCOL #{http_options_to_s(options)}"
@@ -438,6 +466,8 @@ module Ronin
         #
         # @see #http_request
         #
+        # @api public
+        #
         def http_move(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP MOVE #{http_options_to_s(options)}"
@@ -459,6 +489,8 @@ module Ronin
         #   The response of the HTTP request.
         #
         # @see #http_request
+        #
+        # @api public
         #
         def http_options(options={},&block)
           options = http_merge_options(options)
@@ -488,6 +520,8 @@ module Ronin
         #
         # @see #http_request
         #
+        # @api public
+        #
         def http_post(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP POST #{http_options_to_s(options)}"
@@ -509,6 +543,8 @@ module Ronin
         #   The body of the Post request.
         #
         # @see #http_post
+        #
+        # @api public
         #
         def http_post_body(options={},&block)
           options = http_merge_options(options)
@@ -532,6 +568,8 @@ module Ronin
         #
         # @see #http_request
         #
+        # @api public
+        #
         def http_prop_find(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP PROPFIND #{http_options_to_s(options)}"
@@ -553,6 +591,8 @@ module Ronin
         #   The response of the HTTP request.
         #
         # @see #http_request
+        #
+        # @api public
         #
         def http_prop_patch(options={},&block)
           options = http_merge_options(options)
@@ -576,6 +616,8 @@ module Ronin
         #
         # @see #http_request
         #
+        # @api public
+        #
         def http_trace(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP TRACE #{http_options_to_s(options)}"
@@ -598,6 +640,8 @@ module Ronin
         #
         # @see #http_request
         #
+        # @api public
+        #
         def http_unlock(options={},&block)
           options = http_merge_options(options)
           print_info "HTTP UNLOCK #{http_options_to_s(options)}"
@@ -617,6 +661,8 @@ module Ronin
         #   The merged HTTP options.
         #
         # @since 1.0.0
+        #
+        # @api private
         #
         def http_merge_options(options={})
           options[:host] ||= self.host if self.host
@@ -649,6 +695,8 @@ module Ronin
         #   The printable String.
         #
         # @since 1.1.0
+        #
+        # @api private
         #
         def http_options_to_s(options)
           fields = ["#{options[:host]}:#{options[:port]}"]

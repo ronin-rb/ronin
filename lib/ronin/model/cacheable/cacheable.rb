@@ -125,6 +125,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api private
+      #
       def Cacheable.models
         @models
       end
@@ -142,6 +144,8 @@ module Ronin
       #   There were no cacheable objects defined in the file.
       #
       # @since 1.0.0
+      #
+      # @api private
       #
       def Cacheable.load_from(path)
         path = File.expand_path(path)
@@ -166,6 +170,8 @@ module Ronin
       #
       # Initializes the cacheable object.
       #
+      # @api semipublic
+      #
       def initialize(*arguments,&block)
         @original_loaded = false
         @cache_prepared = false
@@ -179,6 +185,8 @@ module Ronin
       # @return [Pathname]
       #   The path property from the `cached_file` resource.
       #
+      # @api private
+      #
       def cache_path
         self.cached_file.path if self.cached_file
       end
@@ -191,6 +199,8 @@ module Ronin
       #   Specifies whether the original code has been loaded into the
       #   object.
       #
+      # @api private
+      #
       def original_loaded?
         @original_loaded == true
       end
@@ -201,6 +211,8 @@ module Ronin
       #
       # @return [Boolean]
       #   Indicates the original code was successfully loaded.
+      #
+      # @api private
       #
       def load_original!
         if (cached? && !(original_loaded?))
@@ -218,6 +230,8 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the object has been prepared to be cached,
       #
+      # @api private
+      #
       def prepared_for_cache?
         @cache_prepared == true
       end
@@ -227,6 +241,8 @@ module Ronin
       #
       # @return [Boolean]
       #   Specifies whether the object has been previously cached.
+      #
+      # @api private
       #
       def cached?
         (saved? && self.cached_file)
@@ -246,6 +262,8 @@ module Ronin
       #   Specifies whether the object was successfully prepared for
       #   caching.
       #
+      # @api public
+      #
       def cache
         if (block_given? && !(cached? || prepared_for_cache?))
           @cache_prepared = true
@@ -260,6 +278,8 @@ module Ronin
       #
       # Will load the object from the cached file and attempt to call the
       # method again.
+      #
+      # @api semipublic
       #
       def method_missing(name,*arguments,&block)
         if load_original!

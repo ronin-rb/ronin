@@ -37,6 +37,8 @@ module Ronin
         # @example
         #   Vuln.titled 'bypass'
         #
+        # @api public
+        #
         def titled(fragment)
           all(:title.like => "%#{fragment}%")
         end

@@ -90,6 +90,8 @@ module Ronin
         # @return [Net::POP3]
         #   The newly created POP3 session.
         #
+        # @api public
+        #
         def pop3_connect(options={},&block)
           options[:port] ||= self.port
           options[:user] ||= self.pop3_user
@@ -118,6 +120,8 @@ module Ronin
         #   The newly created POP3 session.
         #
         # @see pop3_connect
+        #
+        # @api public
         #
         def pop3_session(options={})
           pop3_connect(options) do |sess|

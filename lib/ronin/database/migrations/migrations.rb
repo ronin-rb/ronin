@@ -34,7 +34,7 @@ module Ronin
       #
       # @since 1.0.1
       #
-      # @api public
+      # @api private
       #
       def self.migrations
         @migrations ||= Graph.new
@@ -146,7 +146,7 @@ module Ronin
       #
       # @since 1.0.1
       #
-      # @api public
+      # @api private
       #
       def self.migrate_up!(position_or_name=nil)
         self.migrations.upto(position_or_name) do |migration|
@@ -171,7 +171,7 @@ module Ronin
       #
       # @since 1.0.1
       #
-      # @api public
+      # @api private
       #
       def self.migrate_down!(position_or_name=nil)
         self.migrations.downto(position_or_name) do |migration|

@@ -37,6 +37,8 @@ module Ronin
         # @example
         #   Exploit.named 'ProFTP'
         #
+        # @api public
+        #
         def named(fragment)
           all(:name.like => "%#{fragment}%")
         end

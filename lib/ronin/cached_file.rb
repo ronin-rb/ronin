@@ -30,6 +30,8 @@ module Ronin
   # files that {Cacheable} Models were cached from. {CachedFile} also
   # manages the {Cacheable} objects that were saved in the {Database}.
   #
+  # @api private
+  #
   class CachedFile
 
     include Model

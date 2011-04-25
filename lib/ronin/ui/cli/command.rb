@@ -134,12 +134,16 @@ module Ronin
         # @param [Class] super_class
         #   The new {Command} class.
         #
+        # @api private
+        #
         def self.inherited(super_class)
           super_class.namespace(super_class.command_name)
         end
 
         #
         # Returns the name of the command.
+        #
+        # @api semipublic
         #
         def self.command_name
           Support::Inflector.underscore(self.name.split('::').last)
@@ -158,6 +162,8 @@ module Ronin
         #   The executed command.
         #
         # @since 1.0.0
+        #
+        # @api public
         #
         def self.run(options={},arguments=[])
           command = self.new(arguments,options)
@@ -178,6 +184,8 @@ module Ronin
         # @param [Hash] config
         #   Additional configuration.
         #
+        # @api semipublic
+        #
         def initialize(arguments=[],opts={},config={})
           super(arguments,opts,config)
 
@@ -197,6 +205,8 @@ module Ronin
         #
         # Default method to call after the options have been parsed.
         #
+        # @api semipublic
+        #
         def execute
         end
 
@@ -209,6 +219,8 @@ module Ronin
         #   The banner string.
         #
         # @since 1.0.0
+        #
+        # @api private
         #
         def self.banner
           "ronin #{self_task.formatted_usage(self,false,true)}"
@@ -227,6 +239,8 @@ module Ronin
         #
         # @return [nil]
         #
+        # @api semipublic
+        #
         def indent(n=2)
           @indent += n
 
@@ -242,6 +256,8 @@ module Ronin
         # @param [Array] messages
         #   The messages to print, one per-line.
         #
+        # @api semipublic
+        #
         def puts(*messages)
           super(*(messages.map { |mesg| (' ' * @indent) + mesg.to_s }))
         end
@@ -251,6 +267,8 @@ module Ronin
         #
         # @param [String] title
         #   The title to print.
+        #
+        # @api semipublic
         #
         def print_title(title)
           puts "[ #{title} ]\n"
@@ -264,6 +282,8 @@ module Ronin
         #   and indentation increased.
         #
         # @since 1.0.0
+        #
+        # @api semipublic
         #
         def print_section(title,&block)
           print_title(title)
@@ -283,6 +303,8 @@ module Ronin
         #   The optional title to print before the contents of the Array.
         #
         # @return [nil]
+        #
+        # @api semipublic
         #
         def print_array(array,options={})
           print_title(options[:title]) if options[:title]
@@ -309,6 +331,8 @@ module Ronin
         #
         # @return [nil]
         #
+        # @api semipublic
+        #
         def print_hash(hash,options={})
           align = hash.keys.map { |name|
             name.to_s.length
@@ -334,6 +358,8 @@ module Ronin
         #   The exception to print.
         #
         # @since 1.0.0
+        #
+        # @api semipublic
         #
         def print_exception(exception)
           print_error exception.message

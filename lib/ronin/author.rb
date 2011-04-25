@@ -54,6 +54,8 @@ module Ronin
     # @return [String]
     #   The name of the author.
     #
+    # @api public
+    #
     def to_s
       if self.email
         "#{self.name} <#{self.email}>"

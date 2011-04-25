@@ -34,6 +34,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def relationship_name
         name = Support::Inflector.underscore(self.name.split('::').last)
 
@@ -42,6 +44,8 @@ module Ronin
 
       #
       # Loads and initialize the resources.
+      #
+      # @api private
       #
       def load(records,query)
         resources = super(records,query)

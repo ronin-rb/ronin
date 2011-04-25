@@ -52,6 +52,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_s
       URI::QueryParams.dump(self.name => self.value)
     end
@@ -63,6 +65,8 @@ module Ronin
     #   The inspected URL query param.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def inspect
       "#<#{self.class}: #{self}>"

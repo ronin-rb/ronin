@@ -43,6 +43,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api semipublic
+        #
         def self.model
           @model
         end
@@ -55,6 +57,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api semipublic
+        #
         def self.query_options
           @query_options ||= Set[]
         end
@@ -63,6 +67,8 @@ module Ronin
         # Default method performs the query and prints the found resources.
         #
         # @since 1.0.0
+        #
+        # @api semipublic
         #
         def execute
           Database.setup
@@ -83,6 +89,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api semipublic
+        #
         def self.model=(model)
           @model = model
         end
@@ -97,6 +105,8 @@ module Ronin
         #   Additional options.
         #
         # @since 1.0.0
+        #
+        # @api semipublic
         #
         def self.query_option(name,options={})
           query_options << name
@@ -119,6 +129,8 @@ module Ronin
         #   The modified query.
         #
         # @since 1.0.0
+        #
+        # @api private
         #
         def query_method(query,name,arguments=[])
           query_method = begin
@@ -151,6 +163,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api semipublic
+        #
         def query
           new_query = self.class.model.all
 
@@ -176,6 +190,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api semipublic
+        #
         def print_resource(resource)
           puts resource
         end
@@ -187,6 +203,8 @@ module Ronin
         #   The query to print.
         #
         # @since 1.0.0
+        #
+        # @api semipublic
         #
         def print_resources(resources)
           if options.csv?

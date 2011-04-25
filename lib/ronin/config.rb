@@ -61,6 +61,8 @@ module Ronin
     #   Config.load :sql
     #   # => true
     #
+    # @api semipublic
+    #
     def Config.load(name=nil)
       path = if name
                CONFIG_DIR.join("#{name}.rb").expand_path
@@ -79,6 +81,8 @@ module Ronin
     #
     # @return [Pathname]
     #   The full path within {TMP_DIR}.
+    #
+    # @api semipublic
     #
     def Config.tmp_dir(sub_path=nil)
       if sub_path

@@ -36,6 +36,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api semipublic
+    #
     def const_missing(name)
       Ronin.send(:const_missing,name) || super(name)
     end

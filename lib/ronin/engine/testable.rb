@@ -38,6 +38,8 @@ module Ronin
       #
       # @since 1.1.0
       #
+      # @api semipublic
+      #
       def initialize(attributes={})
         super(attributes)
 
@@ -53,6 +55,8 @@ module Ronin
       # @see test
       #
       # @since 1.1.0
+      #
+      # @api semipublic
       #
       def test!
         print_info "Testing #{engine_name} ..."
@@ -76,6 +80,8 @@ module Ronin
       #
       # @since 1.1.0
       #
+      # @api public
+      #
       def flunk(message)
         raise(TestFailed,message)
       end
@@ -90,6 +96,8 @@ module Ronin
       #   The engine.
       #
       # @since 1.1.0
+      #
+      # @api public
       #
       def test(&block)
         @test_blocks << block
@@ -112,6 +120,8 @@ module Ronin
       #   The expression was not true.
       #
       # @since 1.1.0
+      #
+      # @api public
       #
       def test?(message,&block)
         test { flunk(message) unless block.call() }
@@ -136,6 +146,8 @@ module Ronin
       #   The method did not return the expected value.
       #
       # @since 1.1.0
+      #
+      # @api public
       #
       def test_equal(name,expected_value,message=nil)
         name = name.to_sym
@@ -168,6 +180,8 @@ module Ronin
       #
       # @since 1.1.0
       #
+      # @api public
+      #
       def test_not_equal(name,unexpected_value,message=nil)
         name = name.to_sym
 
@@ -195,6 +209,8 @@ module Ronin
       #   The method returned `nil`.
       #
       # @since 1.1.0
+      #
+      # @api public
       #
       def test_set(name,message=nil)
         name = name.to_sym
@@ -233,6 +249,8 @@ module Ronin
       #
       # @since 1.1.0
       #
+      # @api public
+      #
       def test_match(name,pattern,message=nil)
         name = name.to_sym
 
@@ -263,6 +281,8 @@ module Ronin
       #   The method did not match the pattern.
       #
       # @since 1.1.0
+      #
+      # @api public
       #
       def test_no_match(name,pattern,message=nil)
         name = name.to_sym
@@ -295,6 +315,8 @@ module Ronin
       #
       # @since 1.1.0
       #
+      # @api public
+      #
       def test_in(name,expected_values,message=nil)
         name = name.to_sym
 
@@ -325,6 +347,8 @@ module Ronin
       #   The method did return one of the unexpected values.
       #
       # @since 1.1.0
+      #
+      # @api public
       #
       def test_not_in(name,unexpected_values,message=nil)
         name = name.to_sym

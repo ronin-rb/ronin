@@ -59,6 +59,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def recent_ip_address
       relation = self.os_guesses.first(:order => [:created_at.desc])
 
@@ -76,6 +78,8 @@ module Ronin
     # @example
     #   os = OS.new(:name => 'Linux', :version => '2.6.11')
     #   os.to_s # => "Linux 2.6.11"
+    #
+    # @api public
     #
     def to_s
       if self.version
@@ -102,6 +106,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_ary
       [self.name, self.version]
     end
@@ -119,6 +125,8 @@ module Ronin
     #
     # @example
     #   OS.predefine :freebsd, 'FreeBSD'
+    #
+    # @api private
     #
     def OS.predefine(name,os_name)
       os_name = os_name.to_s

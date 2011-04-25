@@ -32,6 +32,8 @@ module Ronin
         #
         # @since 1.0.0
         #   
+        # @api public
+        #
         def [](key)
           case key
           when String, Symbol

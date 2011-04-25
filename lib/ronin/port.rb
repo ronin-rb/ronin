@@ -56,6 +56,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_i
       self.number.to_i
     end
@@ -68,6 +70,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_s
       "#{self.number}/#{self.protocol}"
     end
@@ -79,6 +83,8 @@ module Ronin
     #   The inspected port.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def inspect
       "#<#{self.class}: #{self}>"

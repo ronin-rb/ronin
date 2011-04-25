@@ -38,6 +38,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def initialize(attributes={})
         super(attributes)
 
@@ -56,6 +58,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def deployed?
         @deployed == true
       end
@@ -73,6 +77,8 @@ module Ronin
       # @see deploy
       #
       # @since 1.0.0
+      #
+      # @api semipublic
       #
       def deploy!
         test!
@@ -98,6 +104,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def evacuated?
         @evacuated == true
       end
@@ -115,6 +123,8 @@ module Ronin
       # @see #evacuate
       #
       # @since 1.0.0
+      #
+      # @api semipublic
       #
       def evacuate!
         yield if block_given?
@@ -140,6 +150,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api public
+      #
       def deploy_failed!(message)
         raise(DeployFailed,message)
       end
@@ -156,6 +168,8 @@ module Ronin
       #   The engine.
       #
       # @since 1.0.0
+      #
+      # @api public
       #
       def deploy(&block)
         @deploy_blocks << block
@@ -174,6 +188,8 @@ module Ronin
       #   The engine.
       #
       # @since 1.0.0
+      #
+      # @api public
       #
       def evacuate(&block)
         @evacuate_blocks.unshift(block)

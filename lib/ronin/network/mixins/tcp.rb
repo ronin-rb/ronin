@@ -96,6 +96,8 @@ module Ronin
         #     sock.close
         #   end
         #
+        # @api public
+        #
         def tcp_connect(&block)
           print_info "Connecting to #{self.host}:#{self.port} ..."
 
@@ -118,6 +120,8 @@ module Ronin
         # @return [TCPSocket]
         #   The newly created TCPSocket object.
         #
+        # @api public
+        #
         def tcp_connect_and_send(data,&block)
           print_info "Connecting to #{self.host}:#{self.port} ..."
           print_debug "Sending data: #{data.inspect}"
@@ -137,6 +141,8 @@ module Ronin
         #   The newly created TCPSocket object.
         #
         # @return [nil]
+        #
+        # @api public
         #
         def tcp_session(&block)
           print_info "Connecting to #{self.host}:#{self.port} ..."
@@ -164,6 +170,8 @@ module Ronin
         #   tcp_banner
         #   # => "220 mx.google.com ESMTP c20sm3096959rvf.1"
         #
+        # @api public
+        #
         def tcp_banner(&block)
           print_debug "Grabbing banner from #{self.host}:#{self.port}"
 
@@ -181,6 +189,8 @@ module Ronin
         #   buffer = "GET /" + ('A' * 4096) + "\n\r"
         #   Net.tcp_send(buffer)
         #   # => true
+        #
+        # @api public
         #
         def tcp_send(data)
           print_info "Connecting to #{self.host}:#{self.port} ..."
@@ -207,6 +217,8 @@ module Ronin
         #
         # @example
         #   tcp_server
+        #
+        # @api public
         #
         def tcp_server(&block)
           if self.server_host
@@ -241,6 +253,8 @@ module Ronin
         #     client1.close
         #     client2.close
         #   end
+        #
+        # @api public
         #
         def tcp_server_session(&block)
           if self.server_host
@@ -281,6 +295,8 @@ module Ronin
         #   tcp_single_server do |client|
         #     client.puts 'lol'
         #   end
+        #
+        # @api public
         #
         def tcp_single_server(&block)
           if self.server_host

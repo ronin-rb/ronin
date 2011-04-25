@@ -132,6 +132,8 @@ module Ronin
     # @yieldparam [Repository] repo
     #   The newly created repository.
     #
+    # @api private
+    #
     def initialize(attributes={})
       super(attributes)
 
@@ -168,6 +170,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def Repository.find(name)
       name, domain = name.to_s.split('/',2)
 
@@ -201,6 +205,8 @@ module Ronin
     #   The repository was already added or installed.
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def Repository.add!(options={})
       unless options.has_key?(:path)
@@ -263,6 +269,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def Repository.install!(options={})
       unless options[:uri]
         raise(ArgumentError,":uri must be passed to Repository.install")
@@ -318,6 +326,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def Repository.update!
       Repository.each do |repo|
         # update the repositories contents
@@ -341,6 +351,8 @@ module Ronin
     # @example Uninstall the repository with the given name and domain.
     #   Repository.uninstall!('postmodern-repo/github.com')
     #
+    # @api private
+    #
     def Repository.uninstall!(name)
       Repository.find(name).uninstall!
     end
@@ -354,6 +366,8 @@ module Ronin
     # @see #activate!
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def Repository.activate!
       Repository.each { |repo| repo.activate! }
@@ -369,6 +383,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def Repository.deactivate!
       Repository.reverse_each { |repo| repo.deactivate! }
     end
@@ -380,6 +396,8 @@ module Ronin
     #   Specifies whether the repository was added locally.
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def local?
       self.domain == LOCAL_DOMAIN
@@ -393,6 +411,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def remote?
       self.domain != LOCAL_DOMAIN
     end
@@ -404,6 +424,8 @@ module Ronin
     #   The executable script names.
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def executables
       scripts = []
@@ -425,6 +447,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def cache_paths
       Pathname.glob(@cache_dir.join('**','*.rb'))
     end
@@ -435,6 +459,8 @@ module Ronin
     # @return [Boolean]
     #   Specifies whether the repository has been activated.
     #
+    # @api private
+    #
     def activated?
       @activated == true
     end
@@ -442,6 +468,8 @@ module Ronin
     #
     # Activates the repository by adding the {#lib_dir} to the `$LOAD_PATH`
     # global variable.
+    #
+    # @api private
     #
     def activate!
       # add the data/ directory
@@ -466,6 +494,8 @@ module Ronin
     # De-activates the repository by removing the {#lib_dir} from the
     # `$LOAD_PATH` global variable.
     #
+    # @api private
+    #
     def deactivate!
       unregister_data_paths
 
@@ -483,6 +513,8 @@ module Ronin
     #   The cleaned repository.
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def cache_files!
       clean_cached_files!
@@ -502,6 +534,8 @@ module Ronin
     #   The cleaned repository.
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def sync_cached_files!
       # activates the repository before caching it's objects
@@ -536,6 +570,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def clean_cached_files!
       self.cached_files.clear
       return self
@@ -556,6 +592,8 @@ module Ronin
     #   The updated repository.
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def update!
       local_repo = Pullr::LocalRepository.new(
@@ -594,6 +632,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def uninstall!
       deactivate!
 
@@ -623,6 +663,8 @@ module Ronin
 
     #
     # Loads the metadata from {METADATA_FILE} within the repository.
+    #
+    # @api private
     #
     def initialize_metadata
       metadata_path = self.path.join(METADATA_FILE)

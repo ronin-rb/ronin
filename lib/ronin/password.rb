@@ -80,6 +80,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def digest(algorithm,options={})
       digest_class = begin
                        Digest.const_get(algorithm.to_s.upcase)
@@ -110,6 +112,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def count
       self.credentials.count
     end
@@ -122,6 +126,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_s
       self.clear_text
     end
@@ -133,6 +139,8 @@ module Ronin
     #   The inspected password.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def inspect
       "#<#{self.class}: #{self.clear_text}>"

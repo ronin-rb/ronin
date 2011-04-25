@@ -34,6 +34,8 @@ module Ronin
           #
           # @since 1.0.0
           #
+          # @api private
+          #
           def self.write(data)
             STDOUT.write(data)
           end
@@ -45,6 +47,8 @@ module Ronin
           #   The message to print.
           #
           # @since 1.0.0
+          #
+          # @api private
           #
           def self.print_info(message)
             puts "[-] #{message}"
@@ -58,6 +62,8 @@ module Ronin
           #
           # @since 1.0.0
           #
+          # @api private
+          #
           def self.print_debug(message)
             puts "[=] #{message}"
           end
@@ -70,6 +76,8 @@ module Ronin
           #
           # @since 1.0.0
           #
+          # @api private
+          #
           def self.print_warning(message)
             puts "[*] #{message}"
           end
@@ -81,6 +89,8 @@ module Ronin
           #   The message to print.
           #
           # @since 1.0.0
+          #
+          # @api private
           #
           def self.print_error(message)
             puts "[!] #{message}"

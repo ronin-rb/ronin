@@ -48,6 +48,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api public
+        #
         def licensed_under(license)
           license = case license
                     when License

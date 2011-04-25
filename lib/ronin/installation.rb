@@ -37,6 +37,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api semipublic
+    #
     def Installation.gems
       load! if @gems.empty?
       return @gems
@@ -50,6 +52,8 @@ module Ronin
     #
     # @since 1.0.1
     #
+    # @api semipublic
+    #
     def Installation.paths
       load! if @paths.empty?
       return @paths
@@ -62,6 +66,8 @@ module Ronin
     #   The library names.
     #
     # @since 1.0.0
+    #
+    # @api semipublic
     #
     def Installation.libraries
       gems.keys
@@ -84,6 +90,8 @@ module Ronin
     #   Returns an Enumerator if no block is given.
     #
     # @since 1.0.0
+    #
+    # @api semipublic
     #
     def Installation.each_file(pattern)
       return enum_for(:each_file,pattern) unless block_given?
@@ -120,6 +128,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api semipublic
+    #
     def Installation.each_file_in(directory,ext=nil)
       return enum_for(:each_file_in,directory,ext) unless block_given?
 
@@ -142,6 +152,8 @@ module Ronin
     #   All Ronin libraries were successfully found.
     #
     # @since 1.0.1
+    #
+    # @api private
     #
     def Installation.load_gems!
       register_gem = lambda { |gem|
@@ -169,6 +181,8 @@ module Ronin
     #   All Ronin gemspecs were successfully found.
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def Installation.load_gemspecs!
       $LOAD_PATH.each do |lib_dir|
@@ -199,6 +213,8 @@ module Ronin
     #   All Ronin libraries were successfully found.
     #
     # @since 1.0.1
+    #
+    # @api private
     #
     def Installation.load!
       if Gem.loaded_specs.has_key?('ronin')

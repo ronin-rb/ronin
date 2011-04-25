@@ -49,6 +49,8 @@ module Ronin
           #
           # @since 1.0.0
           #
+          # @api private
+          #
           def self.write(data)
             STDOUT.write(data)
           end
@@ -60,6 +62,8 @@ module Ronin
           #   The message to print.
           #
           # @since 1.0.0
+          #
+          # @api private
           #
           def self.print_info(message)
             puts "#{GREEN}[-] #{message}#{CLEAR}"
@@ -73,6 +77,8 @@ module Ronin
           #
           # @since 1.0.0
           #
+          # @api private
+          #
           def self.print_debug(message)
             puts "#{CYAN}[=] #{message}#{CLEAR}"
           end
@@ -85,6 +91,8 @@ module Ronin
           #
           # @since 1.0.0
           #
+          # @api private
+          #
           def self.print_warning(message)
             puts "#{YELLOW}[*] #{message}#{CLEAR}"
           end
@@ -96,6 +104,8 @@ module Ronin
           #   The message to print.
           #
           # @since 1.0.0
+          #
+          # @api private
           #
           def self.print_error(message)
             puts "#{RED}[!] #{message}#{CLEAR}"

@@ -38,6 +38,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def initialize(attributes={})
         super(attributes)
 
@@ -52,6 +54,8 @@ module Ronin
       #   Specifies whether the engine is built.
       #
       # @since 1.0.0
+      #
+      # @api semipublic
       #
       def built?
         @built == true
@@ -69,6 +73,8 @@ module Ronin
       # @see #build
       #
       # @since 1.0.0
+      #
+      # @api semipublic
       #
       def build!(options={})
         self.params = options
@@ -99,6 +105,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def test!
         unless built?
           raise(NotBuilt,"cannot verify an unbuilt #{engine_name}")
@@ -119,6 +127,8 @@ module Ronin
       #   The engine.
       #
       # @since 1.0.0
+      #
+      # @api public
       #
       def build(&block)
         @build_blocks << block

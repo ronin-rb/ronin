@@ -45,6 +45,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def CLI.commands
         if @commands.empty?
           commands_dir = File.join('lib',Commands.namespace_root)
@@ -88,6 +90,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def CLI.command(name)
         name = name.to_s
 
@@ -116,6 +120,8 @@ module Ronin
       #   The command was successfully ran.
       #
       # @since 1.0.0
+      #
+      # @api semipublic
       #
       def CLI.start(argv=ARGV)
         name = argv.first

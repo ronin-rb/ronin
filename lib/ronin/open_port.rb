@@ -64,6 +64,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def address
       self.ip_address.address
     end
@@ -75,6 +77,8 @@ module Ronin
     #   The port number.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def number
       self.port.number
@@ -88,6 +92,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_i
       self.port.to_i
     end
@@ -99,6 +105,8 @@ module Ronin
     #   The information of the open port.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def to_s
       if self.service

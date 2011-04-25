@@ -57,6 +57,8 @@ module Ronin
       # @example
       #   Shell.start(:prompt => '$') { |shell,line| system(line) }
       #
+      # @api semipublic
+      #
       def Shell.start(options={},&block)
         name = (options[:name] || '')
         prompt = (options[:prompt] || DEFAULT_PROMPT)

@@ -78,6 +78,8 @@ module Ronin
     # @return [Hash{String => String}]
     #   A hash of the humanly readable names and values of the attributes.
     #
+    # @api semipublic
+    #
     def humanize_attributes(options={})
       exclude = [:id, :type]
 

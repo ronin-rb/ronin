@@ -29,6 +29,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api public
+        #
         def load_all(attributes={})
           resources = all(attributes)
           resources.each { |resource| resource.load_original! }
@@ -46,6 +48,8 @@ module Ronin
         #   The loaded cached objects.
         #
         # @since 1.0.0
+        #
+        # @api public
         #
         def load_first(attributes={})
           if (resource = first(attributes))

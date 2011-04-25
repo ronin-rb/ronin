@@ -52,6 +52,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api semipublic
+        #
         def self.engine_class
           model
         end
@@ -72,6 +74,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api semipublic
+        #
         def self.engine_class=(engine)
           unless engine.included_modules.include?(Engine)
             raise(ArgumentError,"#{engine} does not include Ronin::Engine")
@@ -91,6 +95,8 @@ module Ronin
         #   query options.
         #
         # @since 1.0.0
+        #
+        # @api semipublic
         #
         def load_engine
           if options[:file]

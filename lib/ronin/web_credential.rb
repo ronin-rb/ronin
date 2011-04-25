@@ -47,6 +47,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.with_email(email)
       unless email.include?('@')
         raise("invalid email address #{email.dump}")
@@ -67,6 +69,8 @@ module Ronin
     #   The user name, clear-text password and the optional email address.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def to_s
       if self.email_address

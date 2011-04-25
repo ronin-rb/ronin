@@ -34,6 +34,8 @@ module Ronin
         # @return [Array<Model>]
         #   The resources written by the author.
         #
+        # @api public
+        #
         def written_by(name)
           all('authors.name.like' => "%#{name}%")
         end
@@ -46,6 +48,8 @@ module Ronin
         #
         # @return [Array<Model>]
         #   The resources associated with the organization.
+        #
+        # @api public
         #
         def written_for(name)
           all('authors.organization.like' => "%#{name}%")

@@ -50,6 +50,8 @@ module Ronin
     # * [Parameters](http://rubydoc.info/gems/parameters)
     # * {ClassMethods}
     #
+    # @api semipublic
+    #
     def self.included(base)
       base.send :include, Engine::InstanceMethods,
                           Model,
@@ -77,6 +79,8 @@ module Ronin
     # @see Model::Cacheable.load_from
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def Engine.load_from(path)
       Model::Cacheable.load_from(path)

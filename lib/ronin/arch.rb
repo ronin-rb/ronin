@@ -61,6 +61,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_ary
       [self.endian, self.address_length]
     end
@@ -85,6 +87,8 @@ module Ronin
     #
     # @example Retrieving a predefined Arch
     #   Arch.alpha
+    #
+    # @api private
     #
     def self.predefine(name,options={})
       super(name,options.merge(:name => name))

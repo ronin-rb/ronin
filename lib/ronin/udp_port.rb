@@ -31,6 +31,8 @@ module Ronin
     # @param [Hash] attributes
     #   The attribute names and values to initialize the UDP port with.
     #
+    # @api public
+    #
     def initialize(attributes={})
       super(attributes.merge(:protocol => 'udp'))
     end

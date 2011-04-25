@@ -69,6 +69,8 @@ module Ronin
         #
         # @see Ronin::Network::SMTP.message.
         #
+        # @api public
+        #
         def esmtp_message(options={},&block)
           Network::SMTP.message(options,&block)
         end
@@ -107,6 +109,8 @@ module Ronin
         # @return [Net::SMTP]
         #   The ESMTP enabled session.
         #
+        # @api public
+        #
         def esmtp_connect(options={},&block)
           options[:port] ||= self.port
           options[:login] ||= self.esmtp_login
@@ -139,6 +143,8 @@ module Ronin
         #   The ESMTP session.
         #
         # @see esmtp_connect
+        #
+        # @api public
         #
         def esmtp_session(options={})
           esmtp_connect(options) do |sess|

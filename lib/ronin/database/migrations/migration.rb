@@ -50,7 +50,7 @@ module Ronin
         # @option options [Array, Symbol] :needs ([])
         #   Other migrations that are dependencies of the migration.
         #
-        # @api semipublic
+        # @api private
         #
         def initialize(name,options={},&block)
           options = options.merge(

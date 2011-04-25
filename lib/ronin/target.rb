@@ -60,6 +60,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api semipublic
+    #
     def directory
       if self.campaign
         path = File.join(self.campaign.directory,self.address.address)
@@ -76,6 +78,8 @@ module Ronin
     #   The address of the target.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def to_s
       self.address.to_s

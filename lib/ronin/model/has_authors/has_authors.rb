@@ -33,6 +33,8 @@ module Ronin
       # @param [Class] base
       #   The model.
       #
+      # @api semipublic
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, ClassMethods
@@ -57,6 +59,8 @@ module Ronin
       #   author :name => 'Anonymous',
       #          :email => 'anon@example.com',
       #          :organization => 'Anonymous LLC'
+      #
+      # @api public
       #
       def author(attributes)
         self.authors.new(attributes)

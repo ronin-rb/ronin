@@ -62,6 +62,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.targeting(addr)
       all(:addresses => {:address => addr})
     end
@@ -77,6 +79,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.targeting_orgs(names)
       all(:organizations => {:name => names})
     end
@@ -91,6 +95,8 @@ module Ronin
     #   Specifies whether the address is targeted.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def targets?(addr)
       self.addresses.include?(address)
@@ -109,6 +115,8 @@ module Ronin
     #   The given address could not be found.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def target!(addr)
       unless (address = Address.first(:address => addr))

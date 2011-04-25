@@ -37,6 +37,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api public
+        #
         def write(data)
           unless Output.silent?
             data = data.to_s
@@ -57,6 +59,8 @@ module Ronin
         #
         # @since 1.0.0
         #
+        # @api public
+        #
         def putc(data)
           char = data.chr if data.kind_of?(Integer)
 
@@ -74,6 +78,8 @@ module Ronin
         #   puts 'some data'
         #
         # @since 0.3.0
+        #
+        # @api public
         #
         def puts(*messages)
           unless messages.empty?
@@ -98,6 +104,8 @@ module Ronin
         # 
         # @since 1.0.0
         #
+        # @api public
+        #
         def printf(format,*data)
           write(format % data)
           return nil
@@ -119,6 +127,8 @@ module Ronin
         #   print_info "Connected to %s", host
         #
         # @since 0.3.0
+        #
+        # @api public
         #
         def print_info(*message)
           unless Output.silent?
@@ -142,6 +152,8 @@ module Ronin
         #   print_debug "vars: %p %p", vars[0], vars[1]
         #
         # @since 0.3.0
+        #
+        # @api public
         #
         def print_debug(*message)
           if (Output.verbose? && !(Output.silent?))
@@ -169,6 +181,8 @@ module Ronin
         #
         # @since 0.3.0
         #
+        # @api public
+        #
         def print_warning(*message)
           if (Output.verbose? && !(Output.silent?))
             Output.handler.print_warning(format_message(message))
@@ -195,6 +209,8 @@ module Ronin
         #
         # @since 0.3.0
         #
+        # @api public
+        #
         def print_error(*message)
           unless Output.silent?
             Output.handler.print_error(format_message(message))
@@ -216,6 +232,8 @@ module Ronin
         #   The formatted message.
         #
         # @since 1.0.0
+        #
+        # @api private
         #
         def format_message(message)
           if message.length == 1

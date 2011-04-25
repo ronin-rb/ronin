@@ -49,6 +49,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def recent_ip_address
       self.ip_address_mac_addresses.all(
         :order => [:created_at.desc]
@@ -62,6 +64,8 @@ module Ronin
     #   The network representation of the MAC address.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def to_i
       self.address.split(':').inject(0) do |bits,char|

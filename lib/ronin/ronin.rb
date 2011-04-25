@@ -32,6 +32,8 @@ module Ronin
   #
   # @since 1.0.0
   #
+  # @api private
+  #
   def self.included(base)
     base.send :extend, ClassMethods
   end

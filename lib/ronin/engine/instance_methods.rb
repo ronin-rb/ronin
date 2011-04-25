@@ -31,6 +31,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def initialize(attributes={})
         super(attributes)
 
@@ -45,6 +47,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def engine_name
         @ngine_name ||= self.class.base_model.name.split('::').last
       end
@@ -56,6 +60,8 @@ module Ronin
       #   The name and version of the engine.
       #
       # @since 1.0.0
+      #
+      # @api public
       #
       def to_s
         if (self.name && self.version)
@@ -74,6 +80,8 @@ module Ronin
       #   The inspected Ronin Engine.
       #
       # @since 1.0.0
+      #
+      # @api public
       #
       def inspect
         body = []

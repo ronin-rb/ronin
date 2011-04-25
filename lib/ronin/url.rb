@@ -85,6 +85,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.http
       all(:scheme => {:name => 'http'})
     end
@@ -96,6 +98,8 @@ module Ronin
     #   The matching URLs.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.https
       all(:scheme => {:name => 'https'})
@@ -112,6 +116,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.hosts(names)
       all(:host => {:address => names})
     end
@@ -126,6 +132,8 @@ module Ronin
     #   The matching URLs.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.ports(numbers)
       all(:port => {:number => numbers})
@@ -142,6 +150,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.directory(sub_dir)
       all(:path => sub_dir) | all(:path.like => "#{sub_dir}/%")
     end
@@ -156,6 +166,8 @@ module Ronin
     #   The URLs with the common file-extension.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.extension(ext)
       all(:path => "%.#{ext}")
@@ -172,6 +184,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.query_param(name)
       all(:query_params => {:name => name})
     end
@@ -187,6 +201,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.query_value(value)
       all(:query_params => {:value => value})
     end
@@ -201,6 +217,8 @@ module Ronin
     #   The matching URL.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.[](url)
       return super(url) if url.kind_of?(Integer)
@@ -249,6 +267,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.from(uri)
       # find or create the URL scheme, host_name and port
       scheme = self.scheme.model.first_or_new(:name => uri.scheme)
@@ -296,6 +316,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.parse(url)
       from(::URI.parse(url))
     end
@@ -307,6 +329,8 @@ module Ronin
     #   The address of host name.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def host
       self.host_name.address
@@ -320,6 +344,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def port_number
       self.port.number if self.port
     end
@@ -331,6 +357,8 @@ module Ronin
     #   The URI query string.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def query_string
       params = {}
@@ -353,6 +381,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def query_string=(query)
       self.query_params.clear
 
@@ -370,6 +400,8 @@ module Ronin
     #   The URI object created from the URL attributes.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def to_uri
       # map the URL scheme to a URI class
@@ -405,6 +437,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_s
       self.to_uri.to_s
     end
@@ -421,6 +455,8 @@ module Ronin
     #   The normalized path.
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def self.normalized_path(uri)
       case uri

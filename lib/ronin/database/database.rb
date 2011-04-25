@@ -62,6 +62,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def Database.repositories
       if @repositories.empty?
         @repositories[:default] = DEFAULT_REPOSITORY
@@ -93,6 +95,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api semipublic
+    #
     def Database.repository?(name)
       Database.repositories.has_key?(name.to_sym)
     end
@@ -107,6 +111,8 @@ module Ronin
     # @return [true]
     #
     # @since 1.0.0
+    #
+    # @api private
     #
     def Database.save
       yield if block_given?
@@ -143,6 +149,8 @@ module Ronin
     # @return [true]
     #   Specifies that the log has been setup.
     #
+    # @api private
+    #
     def Database.setup_log(options={})
       path = (options[:path] || DEFAULT_LOG_PATH)
       stream = (options[:stream] || File.new(path,'w+'))
@@ -161,6 +169,8 @@ module Ronin
     # @return [Boolean]
     #   Specifies wether or not the Database is setup.
     #
+    # @api semipublic
+    #
     def Database.setup?(name=:default)
       repository = DataMapper.repository(name)
 
@@ -175,6 +185,8 @@ module Ronin
     #   Specifies whether the Database was migrated or is currently
     #   not setup.
     #
+    # @api semipublic
+    #
     def Database.upgrade!
       if Database.setup?
         Migrations.migrate_up!
@@ -187,6 +199,8 @@ module Ronin
     # Sets up the Database.
     #
     # @see Database.upgrade!
+    #
+    # @api semipublic
     #
     def Database.setup
       # setup the database log
@@ -215,6 +229,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def Database.repository(name,&block)
       name = name.to_sym
 
@@ -242,6 +258,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api private
+    #
     def Database.clear(name)
       name = name.to_sym
 
@@ -267,6 +285,8 @@ module Ronin
     #   The results from each database transaction.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def Database.map
       results = []

@@ -50,6 +50,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.for_user(name)
       all('user_name.name' => name)
     end
@@ -65,6 +67,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.with_password(password)
       all('password.clear_text' => password)
     end
@@ -76,6 +80,8 @@ module Ronin
     #   The user name.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def user
       self.user_name.name if self.user_name
@@ -89,6 +95,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def clear_text
       self.password.clear_text if self.password
     end
@@ -100,6 +108,8 @@ module Ronin
     #   The user name and the password.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def to_s
       "#{self.user_name}:#{self.password}"
@@ -120,6 +130,8 @@ module Ronin
     #   # => "secret"
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def to_ary
       [self.user_name.name, self.password.clear_text]

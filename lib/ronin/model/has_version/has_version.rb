@@ -32,6 +32,8 @@ module Ronin
       # @param [Class] base
       #   The model.
       #
+      # @api semipublic
+      #
       def self.included(base)
         base.send :include, Model
         base.send :extend, ClassMethods

@@ -65,6 +65,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.with_hosts(names)
       all(:host_name => {:address => names})
     end
@@ -80,6 +82,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.with_ips(ips)
       all(:ip_addresses => {:address => ips})
     end
@@ -94,6 +98,8 @@ module Ronin
     #   The matching email addresses.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def self.with_users(names)
       all(:user_name => {:name => names})
@@ -112,6 +118,8 @@ module Ronin
     #   The email address did not have a user name or a host name.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def EmailAddress.parse(email)
       user, host = email.split('@',2)
@@ -142,6 +150,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def user
       self.user_name.name if self.user_name
     end
@@ -153,6 +163,8 @@ module Ronin
     #   The host name.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def host
       self.host_name.address if self.host_name
@@ -166,6 +178,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_s
       "#{self.user_name}@#{self.host_name}"
     end
@@ -177,6 +191,8 @@ module Ronin
     #   The inspected email address.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def inspect
       "#<#{self.class}: #{self}>"
@@ -198,6 +214,8 @@ module Ronin
     #   # => "example.com"
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def to_ary
       [self.user_name.name, self.host_name.address]

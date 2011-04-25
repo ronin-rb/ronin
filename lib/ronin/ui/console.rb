@@ -44,6 +44,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def Console.color?
         @@color
       end
@@ -59,6 +61,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def Console.color=(mode)
         @@color = mode
       end
@@ -71,6 +75,8 @@ module Ronin
       #   The Console short-errors setting.
       #
       # @since 1.0.0
+      #
+      # @api semipublic
       #
       def Console.short_errors?
         @@short_errors
@@ -87,6 +93,8 @@ module Ronin
       #
       # @since 1.0.0
       #
+      # @api semipublic
+      #
       def Console.short_errors=(mode)
         @@short_errors = mode
       end
@@ -96,6 +104,8 @@ module Ronin
       #
       # @return [Array]
       #   The files to require when the Console starts.
+      #
+      # @api semipublic
       #
       def Console.auto_load
         @@auto_load
@@ -107,6 +117,8 @@ module Ronin
       #
       # @yield []
       #   The block to be ran from within the Console.
+      #
+      # @api semipublic
       #
       def Console.setup(&block)
         @@setup_blocks << block if block
@@ -137,6 +149,8 @@ module Ronin
       #   Console.start { @var = 'hello' }
       #   # >> @var
       #   # # => "hello"
+      #
+      # @api semipublic
       #
       def Console.start(variables={},&block)
         require 'ripl'
@@ -191,6 +205,8 @@ module Ronin
         #   The inspected console.
         #
         # @since 1.0.0
+        #
+        # @api semipublic
         #
         def inspect
           "#<Ronin::UI::Console>"

@@ -69,6 +69,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def self.[](key)
       if key.kind_of?(String)
         first(:address => key)
@@ -85,6 +87,8 @@ module Ronin
     #
     # @since 1.0.0
     #
+    # @api public
+    #
     def to_s
       self.address.to_s
     end
@@ -96,6 +100,8 @@ module Ronin
     #   The inspected address.
     #
     # @since 1.0.0
+    #
+    # @api public
     #
     def inspect
       "#<#{self.class}: #{self.address}>"

@@ -34,12 +34,16 @@ module Ronin
         # @return [Array]
         #   The models with the specific version.
         #
+        # @api public
+        #
         def revision(version)
           all(:version => version.to_s)
         end
 
         #
         # Finds latest version of the model.
+        #
+        # @api public
         #
         def latest
           first(:order => [:version.desc])
