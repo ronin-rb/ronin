@@ -22,7 +22,7 @@ describe Script do
   end
 
   it "should include Model::Cacheable" do
-    subject.included_modules.should include(Model::Cacheable)
+    subject.included_modules.should include(Script::Cacheable)
   end
 
   it "should include Parameters" do
@@ -50,6 +50,6 @@ describe Script do
   it "should have an script-name" do
     resource = subject.new
 
-    resource.script_name.should == 'ScriptClass'
+    resource.script_type.should == 'ScriptClass'
   end
 end
