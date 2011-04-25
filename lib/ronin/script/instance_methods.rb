@@ -18,16 +18,16 @@
 #
 
 module Ronin
-  module Engine
+  module Script
     #
-    # Instance methods for an {Engine}.
+    # Instance methods for an {Script}.
     #
     module InstanceMethods
       #
-      # Initializes the Ronin Engine.
+      # Initializes the Ronin Script.
       #
       # @param [Hash] attributes
-      #   The attributes or parameter values to initialize the engine with.
+      #   The attributes or parameter values to initialize the script with.
       #
       # @since 1.0.0
       #
@@ -40,24 +40,24 @@ module Ronin
       end
 
       #
-      # The engine type.
+      # The script type.
       #
       # @return [String]
-      #   The name of the engine class.
+      #   The name of the script class.
       #
       # @since 1.0.0
       #
       # @api semipublic
       #
-      def engine_name
+      def script_name
         @ngine_name ||= self.class.base_model.name.split('::').last
       end
 
       #
-      # Converts the engine to a String.
+      # Converts the script to a String.
       #
       # @return [String]
-      #   The name and version of the engine.
+      #   The name and version of the script.
       #
       # @since 1.0.0
       #
@@ -74,10 +74,10 @@ module Ronin
       end
 
       #
-      # Inspects both the properties and parameters of the Ronin Engine.
+      # Inspects both the properties and parameters of the Ronin Script.
       #
       # @return [String]
-      #   The inspected Ronin Engine.
+      #   The inspected Ronin Script.
       #
       # @since 1.0.0
       #

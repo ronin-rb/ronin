@@ -1,13 +1,13 @@
 require 'spec_helper'
-require 'engine/classes/deployable_class'
+require 'script/classes/deployable_class'
 
-describe Engine::Deployable do
+describe Script::Deployable do
   subject do
     obj = DeployableClass.new
     obj.instance_eval do
       test do
         unless @var > 0
-          raise "engine failed verification"
+          raise "script failed verification"
         end
       end
     end
@@ -16,7 +16,7 @@ describe Engine::Deployable do
   end
 
   it "should include Testable" do
-    subject.class.included_modules.should include(Engine::Testable)
+    subject.class.included_modules.should include(Script::Testable)
   end
 
   it "should not be deployed by default" do
@@ -24,7 +24,7 @@ describe Engine::Deployable do
   end
 
   describe "#deploy!" do
-    it "should test! the engine before deploying it" do
+    it "should test! the script before deploying it" do
       subject.var = -1
 
       lambda {
@@ -32,13 +32,13 @@ describe Engine::Deployable do
       }.should raise_error
     end
 
-    it "should mark the engine deployed" do
+    it "should mark the script deployed" do
       subject.deploy!
 
       subject.should be_deployed
     end
 
-    it "should not mark the engine as evacuated" do
+    it "should not mark the script as evacuated" do
       subject.deploy!
 
       subject.should_not be_evacuated
@@ -46,7 +46,7 @@ describe Engine::Deployable do
   end
 
   describe "#evacuate!" do
-    it "should mark the engine as evacuated" do
+    it "should mark the script as evacuated" do
       subject.evacuate!
 
       subject.should be_evacuated

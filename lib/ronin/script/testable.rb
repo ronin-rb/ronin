@@ -17,13 +17,13 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/engine/exceptions/test_failed'
+require 'ronin/script/exceptions/test_failed'
 require 'ronin/ui/output/helpers'
 
 module Ronin
-  module Engine
+  module Script
     #
-    # Adds testing methods to an {Engine}.
+    # Adds testing methods to an {Script}.
     #
     # @since 1.1.0
     #
@@ -31,10 +31,10 @@ module Ronin
       include UI::Output::Helpers
 
       #
-      # Initializes the testable engine.
+      # Initializes the testable script.
       #
       # @param [Hash] attributes
-      #   Additional attributes for the engine.
+      #   Additional attributes for the script.
       #
       # @since 1.1.0
       #
@@ -47,7 +47,7 @@ module Ronin
       end
 
       #
-      # Tests that the engine is properly configured.
+      # Tests that the script is properly configured.
       #
       # @return [true]
       #   The exploit is built and ready for deployment.
@@ -59,11 +59,11 @@ module Ronin
       # @api semipublic
       #
       def test!
-        print_info "Testing #{engine_name} ..."
+        print_info "Testing #{script_name} ..."
 
         @test_blocks.each { |block| block.call() }
 
-        print_info "#{engine_name} tested!"
+        print_info "#{script_name} tested!"
         return true
       end
 
@@ -87,13 +87,13 @@ module Ronin
       end
 
       #
-      # Registers a given block to be called when the engine is tested.
+      # Registers a given block to be called when the script is tested.
       #
       # @yield []
-      #   The given block will be called when the engine is being tested.
+      #   The given block will be called when the script is being tested.
       #
-      # @return [Engine]
-      #   The engine.
+      # @return [Script]
+      #   The script.
       #
       # @since 1.1.0
       #

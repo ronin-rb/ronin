@@ -17,24 +17,24 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/engine/exceptions/deploy_failed'
-require 'ronin/engine/testable'
+require 'ronin/script/exceptions/deploy_failed'
+require 'ronin/script/testable'
 require 'ronin/ui/output/helpers'
 
 module Ronin
-  module Engine
+  module Script
     #
-    # Adds deployment methods to an {Engine}.
+    # Adds deployment methods to an {Script}.
     #
     module Deployable
       include Testable,
               UI::Output::Helpers
 
       #
-      # Initializes the deployable engine.
+      # Initializes the deployable script.
       #
       # @param [Hash] attributes
-      #   Additional attributes for the engine.
+      #   Additional attributes for the script.
       #
       # @since 1.0.0
       #
@@ -51,10 +51,10 @@ module Ronin
       end
 
       #
-      # Determines whether the engine was deployed.
+      # Determines whether the script was deployed.
       #
       # @return [Boolean]
-      #   Specifies whether the engine was previously deployed.
+      #   Specifies whether the script was previously deployed.
       #
       # @since 1.0.0
       #
@@ -69,10 +69,10 @@ module Ronin
       # the payload will also be deployed.
       #
       # @yield []
-      #   If a block is given, it will be passed the deployed engine.
+      #   If a block is given, it will be passed the deployed script.
       #
-      # @return [Engine]
-      #   The deployed engine.
+      # @return [Script]
+      #   The deployed script.
       #
       # @see deploy
       #
@@ -83,24 +83,24 @@ module Ronin
       def deploy!
         test!
 
-        print_info "Deploying #{engine_name} #{self} ..."
+        print_info "Deploying #{script_name} #{self} ..."
 
         @deployed = false
         @deploy_blocks.each { |block| block.call() }
         @deployed = true
         @evacuated = false
 
-        print_info "#{engine_name} #{self} deployed!"
+        print_info "#{script_name} #{self} deployed!"
 
         yield if block_given?
         return self
       end
 
       #
-      # Determines whether the engine was evacuated.
+      # Determines whether the script was evacuated.
       #
       # @return [Boolean]
-      #   Specifies whether the engine has been evacuated.
+      #   Specifies whether the script has been evacuated.
       #
       # @since 1.0.0
       #
@@ -111,14 +111,14 @@ module Ronin
       end
 
       #
-      # Evacuates the deployed engine.
+      # Evacuates the deployed script.
       #
       # @yield []
-      #   If a block is given, it will be called before the engine is
+      #   If a block is given, it will be called before the script is
       #   evacuated.
       #
-      # @return [Engine]
-      #   The evacuated engine.
+      # @return [Script]
+      #   The evacuated script.
       #
       # @see #evacuate
       #
@@ -129,14 +129,14 @@ module Ronin
       def evacuate!
         yield if block_given?
 
-        print_info "Evauating #{engine_name} #{self} ..."
+        print_info "Evauating #{script_name} #{self} ..."
 
         @evacuated = false
         @evacuate_blocks.each { |block| block.call() }
         @evacuated = true
         @deployed = false
 
-        print_info "#{engine_name} #{self} evacuated."
+        print_info "#{script_name} #{self} evacuated."
         return self
       end
 
@@ -157,15 +157,15 @@ module Ronin
       end
 
       #
-      # Registers a given block to be called when the engine is being
+      # Registers a given block to be called when the script is being
       # deployed.
       #
       # @yield []
-      #   The given block will be called when the engine is being
+      #   The given block will be called when the script is being
       #   deployed.
       #
-      # @return [Engine]
-      #   The engine.
+      # @return [Script]
+      #   The script.
       #
       # @since 1.0.0
       #
@@ -177,15 +177,15 @@ module Ronin
       end
 
       #
-      # Registers a given block to be called when the engine is being
+      # Registers a given block to be called when the script is being
       # evacuated.
       #
       # @yield []
-      #   The given block will be called when the engine is being
+      #   The given block will be called when the script is being
       #   evacuated.
       #
-      # @return [Engine]
-      #   The engine.
+      # @return [Script]
+      #   The script.
       #
       # @since 1.0.0
       #

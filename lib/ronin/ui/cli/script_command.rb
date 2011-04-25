@@ -18,15 +18,15 @@
 #
 
 require 'ronin/ui/cli/model_command'
-require 'ronin/engine'
+require 'ronin/script'
 
 module Ronin
   module UI
     module CLI
       #
-      # A base-command for querying and loading {Engine}s.
+      # A base-command for querying and loading {Script}s.
       #
-      class EngineCommand < ModelCommand
+      class ScriptCommand < ModelCommand
 
         class_option :file, :type => :string, :aliases => '-f'
 
@@ -45,62 +45,62 @@ module Ronin
                                :method => :licensed_under
 
         #
-        # The class to load engines from.
+        # The class to load scripts from.
         #
-        # @return [Engine]
-        #   The engine class.
+        # @return [Script]
+        #   The script class.
         #
         # @since 1.0.0
         #
         # @api semipublic
         #
-        def self.engine_class
+        def self.script_class
           model
         end
 
         protected
 
         #
-        # Defines the class to load engines from.
+        # Defines the class to load scripts from.
         #
-        # @param [Engine] engine
-        #   The engine class.
+        # @param [Script] script
+        #   The script class.
         #
-        # @return [Engine]
-        #   The new engine class.
+        # @return [Script]
+        #   The new script class.
         #
         # @raise [ArgumentError]
-        #   The given engine class does not include {Ronin::Engine}.
+        #   The given script class does not include {Ronin::Script}.
         #
         # @since 1.0.0
         #
         # @api semipublic
         #
-        def self.engine_class=(engine)
-          unless engine.included_modules.include?(Engine)
-            raise(ArgumentError,"#{engine} does not include Ronin::Engine")
+        def self.script_class=(script)
+          unless script.included_modules.include?(Script)
+            raise(ArgumentError,"#{script} does not include Ronin::Script")
           end
 
-          self.model = engine
+          self.model = script
         end
 
         #
-        # Loads an engine using the commands options.
+        # Loads an script using the commands options.
         #
-        # @return [Engine, nil]
-        #   The newly loaded engine.
+        # @return [Script, nil]
+        #   The newly loaded script.
         #
         # @raise [RuntimeError]
-        #   The engine class did not define the query method for one of the
+        #   The script class did not define the query method for one of the
         #   query options.
         #
         # @since 1.0.0
         #
         # @api semipublic
         #
-        def load_engine
+        def load_script
           if options[:file]
-            self.class.engine_class.load_from(options[:file])
+            self.class.script_class.load_from(options[:file])
           else
             new_query.load_first
           end

@@ -17,8 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/engine/class_methods'
-require 'ronin/engine/instance_methods'
+require 'ronin/script/class_methods'
+require 'ronin/script/instance_methods'
 require 'ronin/model/model'
 require 'ronin/model/has_name'
 require 'ronin/model/has_description'
@@ -32,13 +32,13 @@ require 'data_paths/finders'
 require 'parameters'
 
 module Ronin
-  module Engine
+  module Script
     include UI::Output::Helpers
 
     #
     # Adds the following to the Class.
     #
-    # * {Engine::InstanceMethods}
+    # * {Script::InstanceMethods}
     # * {Model}
     # * {Model::HasName}
     # * {Model::HasDescription}
@@ -53,7 +53,7 @@ module Ronin
     # @api semipublic
     #
     def self.included(base)
-      base.send :include, Engine::InstanceMethods,
+      base.send :include, Script::InstanceMethods,
                           Model,
                           Model::HasName,
                           Model::HasDescription,
@@ -68,13 +68,13 @@ module Ronin
     end
 
     # 
-    # Loads a engine from a file.
+    # Loads a script from a file.
     #
     # @param [String] path
     #   The path to the file.
     #
-    # @return [Engine]
-    #   The loaded engine.
+    # @return [Script]
+    #   The loaded script.
     #
     # @see Model::Cacheable.load_from
     #
@@ -82,7 +82,7 @@ module Ronin
     #
     # @api public
     #
-    def Engine.load_from(path)
+    def Script.load_from(path)
       Model::Cacheable.load_from(path)
     end
   end

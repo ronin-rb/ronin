@@ -17,24 +17,24 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/engine/exceptions/not_built'
-require 'ronin/engine/testable'
+require 'ronin/script/exceptions/not_built'
+require 'ronin/script/testable'
 require 'ronin/ui/output/helpers'
 
 module Ronin
-  module Engine
+  module Script
     #
-    # Adds building methods to an {Engine}.
+    # Adds building methods to an {Script}.
     #
     module Buildable
       include Testable,
               UI::Output::Helpers
 
       #
-      # Initializes the buildable engine.
+      # Initializes the buildable script.
       #
       # @param [Hash] attributes
-      #   Additional attributes for the engine.
+      #   Additional attributes for the script.
       #
       # @since 1.0.0
       #
@@ -48,10 +48,10 @@ module Ronin
       end
 
       #
-      # Determines whether the engine has been built.
+      # Determines whether the script has been built.
       #
       # @return [Boolean]
-      #   Specifies whether the engine is built.
+      #   Specifies whether the script is built.
       #
       # @since 1.0.0
       #
@@ -62,13 +62,13 @@ module Ronin
       end
 
       #
-      # Builds the engine.
+      # Builds the script.
       #
       # @param [Hash] options
       #   Additional options to also use as parameters.
       #
       # @yield []
-      #   The given block will be called after the engine has been built.
+      #   The given block will be called after the script has been built.
       #
       # @see #build
       #
@@ -78,28 +78,28 @@ module Ronin
       #
       def build!(options={})
         self.params = options
-        print_debug "#{engine_name} #{self} parameters: #{self.params.inspect}"
+        print_debug "#{script_name} #{self} parameters: #{self.params.inspect}"
 
-        print_info "Building #{engine_name} #{self} ..."
+        print_info "Building #{script_name} #{self} ..."
 
         @built = false
         @build_blocks.each { |block| block.call() }
         @built = true
 
-        print_info "#{engine_name} #{self} built!"
+        print_info "#{script_name} #{self} built!"
 
         yield if block_given?
         return self
       end
 
       #
-      # Tests that the engine has been built and is properly configured.
+      # Tests that the script has been built and is properly configured.
       #
       # @return [true]
-      #   The engine has been tested.
+      #   The script has been tested.
       #
       # @raise [NotBuilt]
-      #   The engine has not been built, and cannot be verified.
+      #   The script has not been built, and cannot be verified.
       #
       # @see #test
       #
@@ -109,7 +109,7 @@ module Ronin
       #
       def test!
         unless built?
-          raise(NotBuilt,"cannot verify an unbuilt #{engine_name}")
+          raise(NotBuilt,"cannot verify an unbuilt #{script_name}")
         end
 
         super
@@ -118,13 +118,13 @@ module Ronin
       protected
 
       #
-      # Registers a given block to be called when the engine is built.
+      # Registers a given block to be called when the script is built.
       #
       # @yield []
-      #   The given block will be called when the engine is being built.
+      #   The given block will be called when the script is being built.
       #
-      # @return [Engine]
-      #   The engine.
+      # @return [Script]
+      #   The script.
       #
       # @since 1.0.0
       #

@@ -1,9 +1,9 @@
 require 'spec_helper'
-require 'ronin/engine'
-require 'engine/classes/engine_class'
+require 'ronin/script'
+require 'script/classes/script_class'
 
-describe Engine do
-  subject { EngineClass }
+describe Script do
+  subject { ScriptClass }
 
   it "should be a Model" do
     subject.included_modules.should include(Model)
@@ -47,9 +47,9 @@ describe Engine do
     resource.y.should == 2
   end
 
-  it "should have an engine-name" do
+  it "should have an script-name" do
     resource = subject.new
 
-    resource.engine_name.should == 'EngineClass'
+    resource.script_name.should == 'ScriptClass'
   end
 end

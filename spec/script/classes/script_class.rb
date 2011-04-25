@@ -1,8 +1,8 @@
-require 'ronin/engine'
+require 'ronin/script'
 
-class EngineClass
+class ScriptClass
 
-  include Ronin::Engine
+  include Ronin::Script
 
   property :id, Serial
 

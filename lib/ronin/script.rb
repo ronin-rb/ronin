@@ -17,9 +17,4 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-module Ronin
-  module Engine
-    class TestFailed < RuntimeError
-    end
-  end
-end
+require 'ronin/script/script'

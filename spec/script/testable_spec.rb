@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'ronin/engine/testable'
-require 'engine/classes/testable_class'
+require 'ronin/script/testable'
+require 'script/classes/testable_class'
 
-describe Engine::Testable do
+describe Script::Testable do
   subject { TestableClass }
 
   it "should allow for custom verifications" do
@@ -17,7 +17,7 @@ describe Engine::Testable do
     end
 
     obj.var = 20
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 4
     obj.test!.should == true
@@ -31,7 +31,7 @@ describe Engine::Testable do
     end
 
     obj.var = 1
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 2
     obj.test!.should == true
@@ -40,7 +40,7 @@ describe Engine::Testable do
   it "should test a method returns an expected value" do
     obj = subject.new { test_equal :var, 5 }
 
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 5
     obj.test!.should == true
@@ -50,7 +50,7 @@ describe Engine::Testable do
     obj = subject.new { test_not_equal :var, 5 }
 
     obj.var = 5
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 2
     obj.test!.should == true
@@ -59,7 +59,7 @@ describe Engine::Testable do
   it "should test a method returns a non-nil value" do
     obj = subject.new { test_set :var }
 
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 2
     obj.test!.should == true
@@ -69,7 +69,7 @@ describe Engine::Testable do
     obj = subject.new { test_set :var }
 
     obj.var = ''
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 'hello'
     obj.test!.should == true
@@ -79,7 +79,7 @@ describe Engine::Testable do
     obj = subject.new { test_match :var, /lo/ }
 
     obj.var = 'goodbye'
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 'hello'
     obj.test!.should == true
@@ -89,7 +89,7 @@ describe Engine::Testable do
     obj = subject.new { test_no_match :var, /lo/ }
 
     obj.var = 'hello'
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 'goodbye'
     obj.test!.should == true
@@ -99,7 +99,7 @@ describe Engine::Testable do
     obj = subject.new { test_in :var, [0, 2, 4, 8] }
 
     obj.var = 3
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 2
     obj.test!.should == true
@@ -109,7 +109,7 @@ describe Engine::Testable do
     obj = subject.new { test_not_in :var, [0, 2, 4, 8] }
 
     obj.var = 2
-    lambda { obj.test! }.should raise_error(Engine::TestFailed)
+    lambda { obj.test! }.should raise_error(Script::TestFailed)
 
     obj.var = 3
     obj.test!.should == true

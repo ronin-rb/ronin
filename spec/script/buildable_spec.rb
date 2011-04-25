@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'ronin/engine/buildable'
-require 'engine/classes/buildable_class'
+require 'ronin/script/buildable'
+require 'script/classes/buildable_class'
 
-describe Engine::Buildable do
+describe Script::Buildable do
   subject do
     obj = BuildableClass.new
     obj.instance_eval do
@@ -17,7 +17,7 @@ describe Engine::Buildable do
   end
 
   it "should include Testable" do
-    subject.class.included_modules.should include(Engine::Testable)
+    subject.class.included_modules.should include(Script::Testable)
   end
 
   describe "#build!" do
@@ -27,7 +27,7 @@ describe Engine::Buildable do
       subject.output.should == "hello world"
     end
 
-    it "should mark the engine as built" do
+    it "should mark the script as built" do
       subject.build!
 
       subject.should be_built
@@ -42,10 +42,10 @@ describe Engine::Buildable do
   end
 
   describe "#verify!" do
-    it "should raise a NotBuilt exception when verifying unbuilt engines" do
+    it "should raise a NotBuilt exception when verifying unbuilt scripts" do
       lambda {
         subject.test!
-      }.should raise_error(Engine::NotBuilt)
+      }.should raise_error(Script::NotBuilt)
     end
   end
 end

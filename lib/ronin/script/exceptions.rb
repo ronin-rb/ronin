@@ -17,6 +17,6 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/engine/exceptions/not_built'
-require 'ronin/engine/exceptions/verification_failed'
-require 'ronin/engine/exceptions/deploy_failed'
+require 'ronin/script/exceptions/not_built'
+require 'ronin/script/exceptions/verification_failed'
+require 'ronin/script/exceptions/deploy_failed'

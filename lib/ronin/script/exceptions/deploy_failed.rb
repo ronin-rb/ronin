@@ -17,4 +17,9 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/engine/engine'
+module Ronin
+  module Script
+    class DeployFailed < RuntimeError
+    end
+  end
+end

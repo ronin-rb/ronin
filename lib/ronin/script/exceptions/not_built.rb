@@ -18,8 +18,8 @@
 #
 
 module Ronin
-  module Engine
-    class DeployFailed < RuntimeError
+  module Script
+    class NotBuilt < RuntimeError
     end
   end
 end

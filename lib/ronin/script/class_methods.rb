@@ -18,13 +18,13 @@
 #
 
 module Ronin
-  module Engine
+  module Script
     #
-    # Class methods for an {Engine}.
+    # Class methods for an {Script}.
     #
     module ClassMethods
       #
-      # Finds and loads all matching Ronin Engines.
+      # Finds and loads all matching Ronin Scripts.
       #
       # @param [Hash] options
       #   Query options.
@@ -41,8 +41,8 @@ module Ronin
       # @option options [String] :license
       #   The license to search for.
       #
-      # @return [Array<Engine>]
-      #   The Ronin Engine with the matching attributes.
+      # @return [Array<Script>]
+      #   The Ronin Script with the matching attributes.
       #
       # @since 1.0.0
       #
@@ -56,7 +56,7 @@ module Ronin
       end
 
       #
-      # Finds and loads a specific Ronin Engine.
+      # Finds and loads a specific Ronin Script.
       #
       # @param [Hash] options
       #   Query options.
@@ -73,8 +73,8 @@ module Ronin
       # @option options [String] :license
       #   The license to search for.
       #
-      # @return [Array<Engine>]
-      #   The Ronin Engine with the matching attributes.
+      # @return [Array<Script>]
+      #   The Ronin Script with the matching attributes.
       #
       # @since 1.0.0
       #
@@ -91,7 +91,7 @@ module Ronin
       protected
 
       #
-      # Creates a custom query for the Ronin Engine.
+      # Creates a custom query for the Ronin Script.
       #
       # @param [Hash] options
       #   Query options.
@@ -109,7 +109,7 @@ module Ronin
       #   The license to search for.
       #
       # @return [DataMapper::Collection]
-      #   The custom query for the Ronin Engine.
+      #   The custom query for the Ronin Script.
       #
       # @since 1.0.0
       #
