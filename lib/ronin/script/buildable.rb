@@ -78,15 +78,15 @@ module Ronin
       #
       def build!(options={})
         self.params = options
-        print_debug "#{script_name} #{self} parameters: #{self.params.inspect}"
+        print_debug "#{script_type} #{self} parameters: #{self.params.inspect}"
 
-        print_info "Building #{script_name} #{self} ..."
+        print_info "Building #{script_type} #{self} ..."
 
         @built = false
         @build_blocks.each { |block| block.call() }
         @built = true
 
-        print_info "#{script_name} #{self} built!"
+        print_info "#{script_type} #{self} built!"
 
         yield if block_given?
         return self
@@ -109,7 +109,7 @@ module Ronin
       #
       def test!
         unless built?
-          raise(NotBuilt,"cannot verify an unbuilt #{script_name}")
+          raise(NotBuilt,"cannot verify an unbuilt #{script_type}")
         end
 
         super

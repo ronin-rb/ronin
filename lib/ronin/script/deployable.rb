@@ -83,14 +83,14 @@ module Ronin
       def deploy!
         test!
 
-        print_info "Deploying #{script_name} #{self} ..."
+        print_info "Deploying #{script_type} #{self} ..."
 
         @deployed = false
         @deploy_blocks.each { |block| block.call() }
         @deployed = true
         @evacuated = false
 
-        print_info "#{script_name} #{self} deployed!"
+        print_info "#{script_type} #{self} deployed!"
 
         yield if block_given?
         return self
@@ -129,14 +129,14 @@ module Ronin
       def evacuate!
         yield if block_given?
 
-        print_info "Evauating #{script_name} #{self} ..."
+        print_info "Evauating #{script_type} #{self} ..."
 
         @evacuated = false
         @evacuate_blocks.each { |block| block.call() }
         @evacuated = true
         @deployed = false
 
-        print_info "#{script_name} #{self} evacuated."
+        print_info "#{script_type} #{self} evacuated."
         return self
       end
 

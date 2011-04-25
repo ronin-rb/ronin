@@ -49,8 +49,8 @@ module Ronin
       #
       # @api semipublic
       #
-      def script_name
-        @ngine_name ||= self.class.base_model.name.split('::').last
+      def script_type
+        @ngine_type ||= self.class.base_model.name.split('::').last
       end
 
       #
