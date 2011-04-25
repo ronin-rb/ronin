@@ -30,6 +30,9 @@ module Ronin
       #
       class ModelCommand < Command
 
+        class_option :database, :type => :string,
+                                :aliases => '-D'
+
         class_option :csv, :type => :boolean
         class_option :xml, :type => :boolean
         class_option :yaml, :type => :boolean
@@ -61,6 +64,28 @@ module Ronin
         #
         def self.query_options
           @query_options ||= Set[]
+        end
+
+        #
+        # Creates a new Model Command object.
+        #
+        # @param [Array] arguments
+        #   Command-line arguments.
+        #
+        # @param [Array] opts
+        #   Additional command-line options.
+        #
+        # @param [Hash] config
+        #   Additional configuration.
+        #
+        # @api semipublic
+        #
+        def initialize(arguments=[],opts={},config={})
+          super(arguments,opts,config)
+
+          if self.options[:database]
+            Database.repositories[:default] = options[:database]
+          end
         end
 
         #
