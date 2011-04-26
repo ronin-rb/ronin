@@ -22,6 +22,8 @@ module Ronin
     #
     # Instance methods for an {Script}.
     #
+    # @since 1.1.0
+    #
     module InstanceMethods
       #
       # Initializes the Ronin Script.
@@ -29,7 +31,7 @@ module Ronin
       # @param [Array] arguments
       #   Arguments for initializing the Script.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -50,7 +52,7 @@ module Ronin
       # @return [String]
       #   The name of the script class.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -66,6 +68,8 @@ module Ronin
       #   Specifies whether the original code has been loaded into the
       #   object.
       #
+      # @since 1.1.0
+      #
       # @api private
       #
       def source_loaded?
@@ -78,6 +82,8 @@ module Ronin
       #
       # @return [Boolean]
       #   Indicates the original code was successfully loaded.
+      #
+      # @since 1.1.0
       #
       # @api private
       #
@@ -97,6 +103,8 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the object has been prepared to be cached,
       #
+      # @since 1.1.0
+      #
       # @api private
       #
       def prepared_for_cache?
@@ -108,6 +116,8 @@ module Ronin
       #
       # @return [Boolean]
       #   Specifies whether the object has been previously cached.
+      #
+      # @since 1.1.0
       #
       # @api private
       #
@@ -121,7 +131,7 @@ module Ronin
       # @return [String]
       #   The name and version of the script.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api public
       #
@@ -141,7 +151,7 @@ module Ronin
       # @return [String]
       #   The inspected Ronin Script.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api public
       #
@@ -176,6 +186,8 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the object was successfully prepared for
       #   caching.
+      #
+      # @since 1.1.0
       #
       # @api public
       #

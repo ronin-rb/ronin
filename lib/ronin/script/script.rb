@@ -33,6 +33,9 @@ require 'data_paths/finders'
 require 'parameters'
 
 module Ronin
+  #
+  # @since 1.1.0
+  #
   module Script
     include UI::Output::Helpers
 
@@ -89,7 +92,7 @@ module Ronin
     #
     # @see Cacheable.load_from
     #
-    # @since 1.0.0
+    # @since 1.1.0
     #
     # @api public
     #

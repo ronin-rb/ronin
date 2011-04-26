@@ -26,6 +26,8 @@ module Ronin
     #
     # Adds deployment methods to an {Script}.
     #
+    # @since 1.1.0
+    #
     module Deployable
       include Testable,
               UI::Output::Helpers
@@ -36,7 +38,7 @@ module Ronin
       # @param [Hash] attributes
       #   Additional attributes for the script.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -56,7 +58,7 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the script was previously deployed.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -76,7 +78,7 @@ module Ronin
       #
       # @see deploy
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -102,7 +104,7 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the script has been evacuated.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -122,7 +124,7 @@ module Ronin
       #
       # @see #evacuate
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -148,7 +150,7 @@ module Ronin
       # @raise [DeployFailed]
       #   The deployment of the exploit failed.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api public
       #
@@ -167,7 +169,7 @@ module Ronin
       # @return [Script]
       #   The script.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api public
       #
@@ -187,7 +189,7 @@ module Ronin
       # @return [Script]
       #   The script.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api public
       #

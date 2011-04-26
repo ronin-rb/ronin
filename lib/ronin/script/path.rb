@@ -31,7 +31,7 @@ module Ronin
     # The {Path} model stores information in the {Database} about
     # cached {Script} objects.
     #
-    # @api private
+    # @since 1.1.0
     #
     class Path
 
@@ -64,6 +64,8 @@ module Ronin
       # @return [String]
       #   The possible path inferred from the class name.
       #
+      # @since 1.1.0
+      #
       def class_path
         if self.class_name
           Support::Inflector.underscore(self.class_name)
@@ -76,6 +78,8 @@ module Ronin
       # @return [Class, nil]
       #   Returns the Model of the cached object, or `nil` if the class
       #   could not be loaded or found.
+      #
+      # @since 1.1.0
       #
       def script_class
         return unless self.class_name
@@ -105,6 +109,8 @@ module Ronin
       # @return [Model]
       #   The previously cached object connected to the cache file.
       #
+      # @since 1.1.0
+      #
       def cached_script
         if (cached_class = script_class)
           return cached_class.first(:script_path => self)
@@ -119,6 +125,8 @@ module Ronin
       #   If `nil` is returned, the file did not contain any cacheable
       #   objects or the cache file contained a syntax error.
       #   
+      # @since 1.1.0
+      #
       def load_script
         begin
           # load the first found object
@@ -153,6 +161,8 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the cache file was updated.
       #
+      # @since 1.1.0
+      #
       def updated?
         # assume updates if there is no timestamp
         return true unless self.timestamp
@@ -171,6 +181,8 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the cache file was deleted.
       #
+      # @since 1.1.0
+      #
       def missing?
         !(self.path.file?)
       end
@@ -181,6 +193,8 @@ module Ronin
       #
       # @return [Boolean]
       #   Specifies whether the object was successfully cached.
+      #
+      # @since 1.1.0
       #
       def cache
         if (new_script = load_script)
@@ -211,6 +225,8 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the cached object was successfully synced.
       #
+      # @since 1.1.0
+      #
       def sync
         if missing?
           # destroy the cached file, if the actual file is missing
@@ -232,6 +248,8 @@ module Ronin
       #
       # Before destroying the cached file object, also destroy the
       # associated cached object.
+      #
+      # @since 1.1.0
       #
       def destroy
         unless destroyed?

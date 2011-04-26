@@ -19,6 +19,9 @@
 
 module Ronin
   module Script
+    #
+    # @since 1.1.0
+    #
     module ClassMethods
       #
       # Loads the {Script} of the same class.
@@ -45,7 +48,7 @@ module Ronin
       # @param [Hash] attributes
       #   Attributes to search for.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api public
       #
@@ -65,7 +68,7 @@ module Ronin
       # @return [Cacheable]
       #   The loaded cached objects.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api public
       #

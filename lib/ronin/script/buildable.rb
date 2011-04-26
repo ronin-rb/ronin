@@ -26,6 +26,8 @@ module Ronin
     #
     # Adds building methods to an {Script}.
     #
+    # @since 1.1.0
+    #
     module Buildable
       include Testable,
               UI::Output::Helpers
@@ -36,7 +38,7 @@ module Ronin
       # @param [Hash] attributes
       #   Additional attributes for the script.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -53,7 +55,7 @@ module Ronin
       # @return [Boolean]
       #   Specifies whether the script is built.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -72,7 +74,7 @@ module Ronin
       #
       # @see #build
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -103,7 +105,7 @@ module Ronin
       #
       # @see #test
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api semipublic
       #
@@ -126,7 +128,7 @@ module Ronin
       # @return [Script]
       #   The script.
       #
-      # @since 1.0.0
+      # @since 1.1.0
       #
       # @api public
       #
