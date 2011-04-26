@@ -481,7 +481,7 @@ module Ronin
     #
     def activate!
       # add the data/ directory
-      register_data_path(@data_dir) if File.directory?(@data_dir)
+      register_data_path(@data_dir) if @data_dir.directory?
 
       if @lib_dir.directory?
         # ensure all paths added to $LOAD_PATH are Strings
