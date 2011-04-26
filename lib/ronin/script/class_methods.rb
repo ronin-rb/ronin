@@ -21,6 +21,25 @@ module Ronin
   module Script
     module ClassMethods
       #
+      # Loads the {Script} of the same class.
+      #
+      # @param [String] path
+      #   The path to load the script from.
+      #
+      # @return [Script]
+      #   The loaded script.
+      #
+      # @example
+      #   Exploits::HTTP.load_from('mod_php_exploit.rb')
+      #   # => #<Ronin::Exploits::HTTP: ...>
+      #
+      # @since 1.1.0
+      #
+      def load_from(path)
+        load_object(path)
+      end
+
+      #
       # Loads all objects with the matching attributes.
       #
       # @param [Hash] attributes
