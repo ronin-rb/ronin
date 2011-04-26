@@ -71,7 +71,7 @@ module Ronin
       # @api public
       #
       def inspect
-        "#<#{self.class}:#{self.name}>"
+        "#<#{self.class}: #{self.name}>"
       end
     end
   end
