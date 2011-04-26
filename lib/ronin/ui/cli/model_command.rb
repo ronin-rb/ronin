@@ -67,28 +67,6 @@ module Ronin
         end
 
         #
-        # Creates a new Model Command object.
-        #
-        # @param [Array] arguments
-        #   Command-line arguments.
-        #
-        # @param [Array] opts
-        #   Additional command-line options.
-        #
-        # @param [Hash] config
-        #   Additional configuration.
-        #
-        # @api semipublic
-        #
-        def initialize(arguments=[],opts={},config={})
-          super(arguments,opts,config)
-
-          if self.options[:database]
-            Database.repositories[:default] = options[:database]
-          end
-        end
-
-        #
         # Default method performs the query and prints the found resources.
         #
         # @since 1.0.0
@@ -96,8 +74,6 @@ module Ronin
         # @api semipublic
         #
         def execute
-          Database.setup
-
           print_resources(query)
         end
 
@@ -136,6 +112,23 @@ module Ronin
         def self.query_option(name,options={})
           query_options << name
           class_option(name,options)
+        end
+
+        #
+        # Sets up the {Database}.
+        #
+        # @since 1.1.0
+        #
+        # @api semipublic
+        #
+        def setup
+          super
+
+          if self.options[:database]
+            Database.repositories[:default] = options[:database]
+          end
+
+          Database.setup
         end
 
         #

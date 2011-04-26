@@ -167,8 +167,8 @@ module Ronin
         #
         def self.run(options={},arguments=[])
           command = self.new(arguments,options)
-          command.invoke_all()
 
+          command.invoke_all()
           return command
         end
 
@@ -187,19 +187,10 @@ module Ronin
         # @api semipublic
         #
         def initialize(arguments=[],opts={},config={})
-          super(arguments,opts,config)
-
           @indent = 0
 
-          UI::Output.verbose! if self.options.verbose?
-          UI::Output.quiet! if self.options.quiet?
-          UI::Output.silent! if self.options.silent?
-
-          if self.options.no_color?
-            UI::Output.handler = UI::Output::Terminal::Raw
-          elsif self.options.color?
-            UI::Output.handler = UI::Output::Terminal::Color
-          end
+          super(arguments,opts,config)
+          setup
         end
 
         #
@@ -224,6 +215,25 @@ module Ronin
         #
         def self.banner
           "ronin #{self_task.formatted_usage(self,false,true)}"
+        end
+
+        #
+        # Default method to call before {#execute}.
+        #
+        # @since 1.1.0
+        #
+        # @api semipublic
+        #
+        def setup
+          UI::Output.verbose! if self.options.verbose?
+          UI::Output.quiet! if self.options.quiet?
+          UI::Output.silent! if self.options.silent?
+
+          if self.options.no_color?
+            UI::Output.handler = UI::Output::Terminal::Raw
+          elsif self.options.color?
+            UI::Output.handler = UI::Output::Terminal::Color
+          end
         end
 
         #
