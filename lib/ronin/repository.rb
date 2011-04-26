@@ -55,8 +55,8 @@ module Ronin
     # Repository `data/` directory
     DATA_DIR = 'data'
 
-    # Repository `cache/` directory
-    CACHE_DIR = 'cache'
+    # Directories containing {Script}s
+    SCRIPT_DIRS = %w[scripts cache]
 
     # The primary key of the repository
     property :id, Serial
@@ -106,8 +106,8 @@ module Ronin
     # The `data/` directory
     attr_reader :data_dir
 
-    # The `cache/` directory
-    attr_reader :cache_dir
+    # Directories containing {Script}s.
+    attr_reader :script_dirs
 
     #
     # Creates a new {Repository} object.
@@ -139,7 +139,7 @@ module Ronin
       @bin_dir = self.path.join(BIN_DIR)
       @lib_dir = self.path.join(LIB_DIR)
       @data_dir = self.path.join(DATA_DIR)
-      @cache_dir = self.path.join(CACHE_DIR)
+      @script_dirs = SCRIPT_DIRS.map { |dir| self.path.join(dir) }
 
       @activated = false
 
@@ -457,7 +457,9 @@ module Ronin
     def each_script(&block)
       return enum_for(:each_script) unless block
 
-      Pathname.glob(@cache_dir.join('**','*.rb'),&block)
+      @script_dirs.each do |dir|
+        Pathname.glob(dir.join('**','*.rb'),&block)
+      end
     end
 
     #
