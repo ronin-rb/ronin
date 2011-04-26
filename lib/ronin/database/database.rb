@@ -154,7 +154,7 @@ module Ronin
     def Database.setup_log(options={})
       path = options.fetch(:path,DEFAULT_LOG_PATH)
       stream = options.fetch(:stream,File.new(path,'w+'))
-      level = options(:level,DEFAULT_LOG_LEVEL)
+      level = options.fetch(:level,DEFAULT_LOG_LEVEL)
 
       @log = DataMapper::Logger.new(stream,level)
       return true
@@ -204,7 +204,13 @@ module Ronin
     #
     def Database.setup
       # setup the database log
-      Database.setup_log unless @log
+      unless @log
+        if ENV['DEBUG']
+          Database.setup_log(:stream => STDERR, :level => :debug)
+        else
+          Database.setup_log
+        end
+      end
 
       # setup the database repositories
       Database.repositories.each do |name,uri|
