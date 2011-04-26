@@ -85,8 +85,6 @@ module Ronin
           # @since 1.0.0
           #
           def lookup(host)
-            Database.setup
-
             print_info "Looking up #{host} ..."
 
             IPAddress.lookup(host).each do |ip|
@@ -105,8 +103,6 @@ module Ronin
           # @since 1.0.0
           #
           def import(path)
-            Database.setup
-
             File.open(options[:import]) do |file|
               file.each_line do |line|
                 IPAddr.extract(line) do |match|
