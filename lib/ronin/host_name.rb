@@ -214,7 +214,7 @@ module Ronin
     #
     def last_scanned_at
       last_scanned_url = self.urls.first(
-        :order_by => [:last_scanned_at.desc]
+        :order => [:last_scanned_at.desc]
       )
 
       return last_scanned_url.last_scanned_at if last_scanned_url
