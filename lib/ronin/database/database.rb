@@ -98,7 +98,7 @@ module Ronin
     # @api semipublic
     #
     def Database.repository?(name)
-      Database.repositories.has_key?(name.to_sym)
+      repositories.has_key?(name.to_sym)
     end
 
     #
@@ -120,7 +120,7 @@ module Ronin
       File.open(CONFIG_FILE,'w') do |file|
         hash = {}
         
-        Database.repositories.each do |name,value|
+        repositories.each do |name,value|
           hash[name.to_s] = value.to_s
         end
 
@@ -188,7 +188,7 @@ module Ronin
     # @api semipublic
     #
     def Database.upgrade!
-      if Database.setup?
+      if setup?
         Migrations.migrate_up!
       else
         false
@@ -206,19 +206,19 @@ module Ronin
       # setup the database log
       unless @log
         if ENV['DEBUG']
-          Database.setup_log(:stream => STDERR, :level => :debug)
+          setup_log(:stream => STDERR, :level => :debug)
         else
-          Database.setup_log
+          setup_log
         end
       end
 
       # setup the database repositories
-      Database.repositories.each do |name,uri|
+      repositories.each do |name,uri|
         DataMapper.setup(name,uri)
       end
 
       # apply any new migrations to the database
-      Database.upgrade!
+      upgrade!
     end
 
     #
@@ -240,7 +240,7 @@ module Ronin
     def Database.repository(name,&block)
       name = name.to_sym
 
-      unless Database.repository?(name)
+      unless repository?(name)
         raise(UnknownRepository,"unknown database repository #{name}")
       end
 
@@ -269,7 +269,7 @@ module Ronin
     def Database.clear(name)
       name = name.to_sym
 
-      unless Database.repository?(name)
+      unless repository?(name)
         raise(UnknownRepository,"unknown database repository #{name}")
       end
 
@@ -297,7 +297,7 @@ module Ronin
     def Database.map
       results = []
 
-      Database.repositories.each_key do |name|
+      repositories.each_key do |name|
         DataMapper.repository(name) do
           result = yield
           results << result unless result.nil?
