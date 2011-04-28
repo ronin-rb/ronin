@@ -37,15 +37,13 @@ group :development do
   gem 'dm-visualizer',  '~> 0.2.0'
 end
 
-group :test do
-  adapters = (ENV['ADAPTER'] || ENV['ADAPTERS'])
-  adapters = adapters.to_s.gsub(',',' ').split(' ') - ['in_memory']
+require 'set'
 
-  DM_ADAPTERS = %w[sqlite3 postgres mysql oracle sqlserver]
+DM_ADAPTERS = Set['postgres', 'mysql', 'oracle', 'sqlserver']
 
-  unless (DM_ADAPTERS & adapters).empty?
-    adapters.each do |adapter|
-      gem "dm-#{adapter}-adapter", DM_VERSION, :git => "#{DM_URI}/dm-#{adapter}-adapter.git"
-    end
-  end
+adapters = (ENV['ADAPTER'] || ENV['ADAPTERS']).to_s
+adapters = Set.new(adapters.to_s.tr(',',' ').split)
+
+(DM_ADAPTERS & adapters).each do |adapter|
+  gem "dm-#{adapter}-adapter", DM_VERSION #, :git => "#{DM_URI}/dm-#{adapter}-adapter.git"
 end
