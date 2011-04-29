@@ -7,7 +7,7 @@ RONIN_URI = 'http://github.com/ronin-ruby'
 
 gemspec
 
-gem 'data_paths', '~> 0.3.0', :git => 'git://github.com/postmodern/data_paths.git'
+gem 'data_paths', '~> 0.3.0', :git => 'http://github.com/postmodern/data_paths.git'
 
 # DataMapper dependencies
 # gem 'data_objects',       DO_VERSION, :git => "#{DM_URI}/do.git"
@@ -37,6 +37,16 @@ group :development do
   gem 'dm-visualizer',  '~> 0.2.0'
 end
 
+#
+# To enable additional DataMapper adapters for development work or for
+# testing purposes, simple set the ADAPTER or ADAPTERS environment
+# variable:
+#
+#     export ADAPTER="postgres"
+#     bundle install
+#
+#     ./bin/ronin --database postgres://ronin@localhost/ronin
+#
 require 'set'
 
 DM_ADAPTERS = Set['postgres', 'mysql', 'oracle', 'sqlserver']
