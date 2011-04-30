@@ -27,6 +27,7 @@ module Ronin
   #
   module Config
     include DataPaths
+    extend DataPaths::Finders
 
     # The users home directory
     HOME = Env.home
