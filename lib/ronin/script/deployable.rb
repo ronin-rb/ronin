@@ -71,7 +71,8 @@ module Ronin
       # the payload will also be deployed.
       #
       # @yield []
-      #   If a block is given, it will be passed the deployed script.
+      #   If a block is given, it will be passed the deployed script
+      #   after a successful deploy.
       #
       # @return [Script]
       #   The deployed script.
