@@ -30,19 +30,10 @@ module Ronin
 
         class_option :file, :type => :string, :aliases => '-f'
 
-        query_option :name, :type => :string,
-                            :aliases => '-n',
-                            :method => :named
-
+        query_option :named, :type => :string, :aliases => '-n'
         query_option :describing, :type => :string, :aliases => '-d'
-
-        query_option :version, :type => :string,
-                               :aliases => '-V',
-                               :method => :revision
-
-        query_option :license, :type => :string,
-                               :aliases => '-L',
-                               :method => :licensed_under
+        query_option :revision, :type => :string, :aliases => '-V'
+        query_option :licensed_under, :type => :string, :aliases => '-L'
 
         #
         # The class to load scripts from.
