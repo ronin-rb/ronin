@@ -163,8 +163,6 @@ Remove a Database:
   ~> 0.1, >= 0.1.2
 * [pullr](http://github.com/postmodern/pullr#readme)
   ~> 0.1, >= 0.1.2
-* [hexdump](http://github.com/postmodern/hexdump#readme)
-  ~> 0.1
 * [thor](http://github.com/wycats/thor#readme)
   ~> 0.14.3
 * [ronin-support](http://github.com/ronin-ruby/ronin-support#readme)

@@ -26,9 +26,6 @@ require 'ronin/formatting/extensions'
 require 'ronin/network/extensions'
 require 'ronin/ui/output/helpers'
 
-require 'chars/extensions'
-require 'hexdump/extensions'
-
 #
 # Includes the Ronin namespace and output helper methods.
 #
