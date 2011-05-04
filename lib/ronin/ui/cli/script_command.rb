@@ -28,12 +28,16 @@ module Ronin
       #
       class ScriptCommand < ModelCommand
 
-        class_option :file, :type => :string, :aliases => '-f'
-
         query_option :named, :type => :string, :aliases => '-n'
         query_option :describing, :type => :string, :aliases => '-d'
         query_option :revision, :type => :string, :aliases => '-V'
         query_option :licensed_under, :type => :string, :aliases => '-L'
+
+        class_option :file, :type => :string, :aliases => '-f'
+        class_option :params, :type => :hash,
+                              :default => {},
+                              :banner => 'NAME:VALUE ...',
+                              :aliases => '-p'
 
         #
         # The class to load scripts from.
@@ -47,6 +51,20 @@ module Ronin
         #
         def self.script_class
           model
+        end
+
+        #
+        # Loads the script, sets its parameters and runs the script.
+        #
+        # @since 1.0.0.
+        #
+        # @api semipublic
+        #
+        def execute
+          script = load_script
+          script.params = options[:params]
+
+          script.run
         end
 
         protected
