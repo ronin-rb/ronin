@@ -10,8 +10,8 @@ describe Ronin do
     version.should_not be_empty
   end
 
-  it "should include OpenNamespace" do
-    subject.should include(OpenNamespace)
+  it "should include Autoload" do
+    subject.should include(Autoload)
   end
 
   it "should add a const_missing method when included" do
