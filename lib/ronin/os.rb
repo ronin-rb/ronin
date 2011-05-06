@@ -19,12 +19,11 @@
 
 require 'ronin/model'
 require 'ronin/model/has_name'
+require 'ronin/os_guess'
+require 'ronin/ip_address'
 require 'ronin/extensions/meta'
 
 module Ronin
-  autoload :OSGuess, 'ronin/os_guess'
-  autoload :IPAddress, 'ronin/ip_address'
-
   #
   # Represents an Operating System and pre-defines other common ones
   # ({linux}, {freebsd}, {openbsd}, {netbsd}, {osx}, {solaris}, {windows}

@@ -17,19 +17,16 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/model'
 require 'ronin/address'
+require 'ronin/ip_address_mac_address'
+require 'ronin/host_name_ip_address'
+require 'ronin/os'
+require 'ronin/open_port'
 
 require 'ipaddr'
 require 'resolv'
 
 module Ronin
-  autoload :IPAddressMACAddress, 'ronin/ip_address_mac_address'
-  autoload :HostNameIPAddress, 'ronin/host_name_ip_address'
-  autoload :OSGuess, 'ronin/os_guess'
-  autoload :OS, 'ronin/os'
-  autoload :OpenPort, 'ronin/open_port'
-
   #
   # Represents IP addresses that can be stored in the {Database}.
   #

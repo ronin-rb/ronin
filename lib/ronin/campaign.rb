@@ -20,12 +20,11 @@
 require 'ronin/model'
 require 'ronin/model/has_unique_name'
 require 'ronin/model/has_description'
+require 'ronin/target'
 
 require 'dm-timestamps'
 
 module Ronin
-  autoload :Target, 'ronin/target'
-
   #
   # Represents a grouping of targeted {Address}es.
   #

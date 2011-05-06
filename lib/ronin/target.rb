@@ -18,14 +18,13 @@
 #
 
 require 'ronin/model'
+require 'ronin/campaign'
+require 'ronin/address'
 
 require 'dm-timestamps'
 require 'fileutils'
 
 module Ronin
-  autoload :Campaign, 'ronin/campaign'
-  autoload :Address, 'ronin/address'
-
   #
   # Represents an {Address} targeted by a {Campaign}.
   #

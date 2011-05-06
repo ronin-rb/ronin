@@ -18,13 +18,12 @@
 #
 
 require 'ronin/model'
+require 'ronin/user_name'
+require 'ronin/host_name'
 
 require 'dm-timestamps'
 
 module Ronin
-  autoload :UserName, 'ronin/user_name'
-  autoload :HostName, 'ronin/host_name'
-
   #
   # Represents email addresses that can be stored in the {Database}.
   #

@@ -18,13 +18,12 @@
 #
 
 require 'ronin/model'
+require 'ronin/ip_address'
+require 'ronin/mac_address'
 
 require 'dm-timestamps'
 
 module Ronin
-  autoload :IPAddress, 'ronin/ip_address'
-  autoload :MACAddress, 'ronin/mac_address'
-
   #
   # Associates an {IPAddress} with a {MACAddress}.
   #
