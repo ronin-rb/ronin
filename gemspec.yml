@@ -55,7 +55,7 @@ dependencies:
   parameters: ~> 0.2, >= 0.2.3
   # data_paths: ~> 0.3
   object_loader: ~> 1.0
-  env: ~> 0.1, >= 0.1.2
+  env: ~> 0.2
   pullr: ~> 0.1, >= 0.1.2
   ripl: ~> 0.3
   ripl-multi_line: ~> 0.2
