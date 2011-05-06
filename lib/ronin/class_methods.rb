@@ -39,7 +39,11 @@ module Ronin
     # @api semipublic
     #
     def const_missing(name)
-      Ronin.send(:const_missing,name) || super(name)
+      begin
+        Ronin.send(:const_missing,name)
+      rescue NameError
+        super(name)
+      end
     end
   end
 end
