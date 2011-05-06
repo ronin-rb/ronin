@@ -18,13 +18,12 @@
 #
 
 require 'ronin/model'
+require 'ronin/host_name'
+require 'ronin/ip_address'
 
 require 'dm-timestamps'
 
 module Ronin
-  autoload :HostName, 'ronin/host_name'
-  autoload :IPAddress, 'ronin/ip_address'
-
   #
   # Associates a {HostName} with an {IPAddress}.
   #

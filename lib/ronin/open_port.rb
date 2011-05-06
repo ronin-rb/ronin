@@ -18,15 +18,14 @@
 #
 
 require 'ronin/model'
+require 'ronin/ip_address'
+require 'ronin/port'
+require 'ronin/service'
+require 'ronin/service_credential'
 
 require 'dm-timestamps'
 
 module Ronin
-  autoload :ServiceCredential, 'ronin/service_credential'
-  autoload :Port, 'ronin/port'
-  autoload :Service, 'ronin/service'
-  autoload :IPAddress, 'ronin/ip_address'
-
   #
   # Represents a open port at a specified IP address.
   #

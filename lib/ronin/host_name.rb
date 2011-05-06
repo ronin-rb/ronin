@@ -18,15 +18,13 @@
 #
 
 require 'ronin/address'
-require 'ronin/model'
+require 'ronin/host_name_ip_address'
+require 'ronin/url'
+require 'ronin/email_address'
 
 require 'resolv'
 
 module Ronin
-  autoload :HostNameIPAddress, 'ronin/host_name_ip_address'
-  autoload :URL, 'ronin/url'
-  autoload :EmailAddress, 'ronin/email_address'
-
   #
   # Represents host names that can be stored in the {Database}.
   #

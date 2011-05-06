@@ -18,10 +18,9 @@
 #
 
 require 'ronin/model'
+require 'ronin/open_port'
 
 module Ronin
-  autoload :OpenPort, 'ronin/open_port'
-
   #
   # Represents a TCP or UDP port.
   #

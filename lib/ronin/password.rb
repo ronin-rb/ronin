@@ -18,12 +18,11 @@
 #
 
 require 'ronin/model'
+require 'ronin/credential'
 
 require 'digest'
 
 module Ronin
-  autoload :Credential, 'ronin/credential'
-
   #
   # Represents a password that can be stored in the {Database}.
   #

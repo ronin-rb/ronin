@@ -18,10 +18,9 @@
 #
 
 require 'ronin/credential'
+require 'ronin/open_port'
 
 module Ronin
-  autoload :OpenPort, 'ronin/open_port'
-
   #
   # Represents Credentials used to access a TCP/UDP {Service}.
   #

@@ -18,11 +18,10 @@
 #
 
 require 'ronin/model'
+require 'ronin/user_name'
+require 'ronin/password'
 
 module Ronin
-  autoload :UserName, 'ronin/user_name'
-  autoload :Password, 'ronin/password'
-
   #
   # Represents Credentials used to access services or websites.
   #

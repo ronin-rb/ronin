@@ -18,10 +18,9 @@
 #
 
 require 'ronin/port'
+require 'ronin/url'
 
 module Ronin
-  autoload :URL, 'ronin/url'
-
   #
   # Represents a TCP {Port}.
   #
