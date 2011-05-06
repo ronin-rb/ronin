@@ -18,11 +18,10 @@
 #
 
 require 'ronin/class_methods'
-
-require 'open_namespace'
+require 'ronin/autoload'
 
 module Ronin
-  include OpenNamespace
+  include Autoload
 
   #
   # Includes {ClassMethods} when {Ronin} is included.
