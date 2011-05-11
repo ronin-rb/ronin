@@ -49,7 +49,9 @@ module Ronin
         # @api semipublic
         #
         def self.model
-          @model
+          @model ||= if self.superclass < ModelCommand
+                       self.superclass.model
+                     end
         end
 
         #
