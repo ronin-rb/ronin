@@ -149,12 +149,6 @@ module Ronin
         #
         # Builds a new query using the options of the command.
         #
-        # @yield [query]
-        #   If a block is given, it will be passed the new query.
-        #
-        # @yieldparam [DataMapper::Collection] query
-        #   The new query.
-        #
         # @return [DataMapper::Collection]
         #   The new query.
         #
