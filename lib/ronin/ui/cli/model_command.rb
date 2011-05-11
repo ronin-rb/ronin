@@ -146,6 +146,10 @@ module Ronin
         # @return [DataMapper::Collection]
         #   The modified query.
         #
+        # @raise [RuntimeError]
+        #   The given name does not map to a query method or property,
+        #   of the queried Model.
+        #
         # @since 1.0.0
         #
         # @api private
