@@ -136,5 +136,15 @@ module Ronin
     # The ARM (big-endian) Architecture
     predefine :arm_be, :endian => :big, :address_length => 4
 
+    #
+    # @see mips_be
+    #
+    def self.mips; mips_be; end
+
+    #
+    # @see arm_be
+    #
+    def self.arm; arm_be; end
+
   end
 end
