@@ -111,7 +111,7 @@ module Ronin
           if options[:file]
             self.class.script_class.load_from(options[:file])
           else
-            new_query.load_first
+            query.load_first
           end
         end
 
