@@ -22,7 +22,7 @@ require 'open_namespace'
 module Ronin
   #
   # When included into other namespaces, it allows for auto-loading Classes
-  # or Modules via {const_missing}.
+  # or Modules via {#const_missing}.
   #
   # @since 1.1.0
   #

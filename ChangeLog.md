@@ -52,7 +52,7 @@
 * Added {Ronin::Organization}.
 * Added {Ronin::Campaign}.
 * Added {Ronin::Target}.
-* Added {Ronin::Engine}.
+* Added `Ronin::Engine`.
 * Added {Ronin::UI::Output::Terminal::Raw}.
 * Added {Ronin::UI::Output::Terminal::Color}.
 * Added the `ronin-repos` command for listing, adding, installing and
@@ -74,8 +74,8 @@
 * Renamed `Ronin::Product` to {Ronin::Software}.
 * Renamed `Ronin::UI::CommandLine` to {Ronin::UI::CLI}.
 * Renamed `Ronin::Platform::Overlay` to {Ronin::Repository}.
-* Renamed `Ronin::Platform::CachedFile` to {Ronin::CachedFile}.
-* Renamed `Ronin::Platform::Cacheable` to {Ronin::Model::Cacheable}.
+* Renamed `Ronin::Platform::CachedFile` to `Ronin::CachedFile`.
+* Renamed `Ronin::Platform::Cacheable` to `Ronin::Model::Cacheable`.
 * Removed `Ronin::Platform::Extension`.
 * Removed `Ronin::Platform`.
 * Moved the `ronin-add`, `ronin-install`, `ronin-list` and `ronin-uninstall`
