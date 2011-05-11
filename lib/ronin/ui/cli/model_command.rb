@@ -63,7 +63,7 @@ module Ronin
         # @api semipublic
         #
         def self.query_options
-          @query_options ||= Set[]
+          @query_options ||= {}
         end
 
         #
@@ -105,12 +105,25 @@ module Ronin
         # @param [Hash] options
         #   Additional options.
         #
+        # @raise [RuntimeError]
+        #   The query option does not map to a query-method or property
+        #   defined in the Model.
+        #
         # @since 1.0.0
         #
         # @api semipublic
         #
         def self.query_option(name,options={})
-          query_options << name
+          if model.properties.named?(name)
+            query_options[name] = model.properties[name]
+          else
+            begin
+              query_options[name] = model.method(name)
+            rescue NameError
+              raise("Unknown query method or property #{name} for #{model}")
+            end
+          end
+
           class_option(name,options)
         end
 
@@ -132,41 +145,6 @@ module Ronin
         end
 
         #
-        # Invokes a query method on a query.
-        #
-        # @param [DataMapper::Collection] query
-        #   The query.
-        #
-        # @param [Symbol] name
-        #   The method name to call.
-        #
-        # @param [Array] arguments
-        #   Additional arguments to pass to the query method.
-        #
-        # @return [DataMapper::Collection]
-        #   The modified query.
-        #
-        # @raise [RuntimeError]
-        #   The given name does not map to a query method or property,
-        #   of the queried Model.
-        #
-        # @since 1.0.0
-        #
-        # @api private
-        #
-        def query_method(query,name,arguments=[])
-          query_model = query.model
-
-          if query_model.method_defined?(name)
-            query_model.method(name).call(*arguments)
-          elsif query_model.properties.named?(name)
-            query_model.all(name => arguments)
-          else
-            raise("Unknown query method or property #{name} for #{query_model}")
-          end
-        end
-
-        #
         # Builds a new query using the options of the command.
         #
         # @yield [query]
@@ -183,20 +161,33 @@ module Ronin
         # @api semipublic
         #
         def query
-          new_query = self.class.model.all
+          query = self.class.model.all
 
           self.class.ancestors.each do |ancestor|
             if ancestor < ModelCommand
-              ancestor.query_options.each do |name|
-                unless options[name].nil?
-                  new_query = query_method(new_query,name,options[name])
+              ancestor.query_options.each do |name,query_method|
+                value = options[name]
+
+                unless value.nil?
+                  case query_method
+                  when Method
+                    query = case query_method.arity
+                            when 0
+                              query.send(name)
+                            when 1
+                              query.send(name,value)
+                            else
+                              query.send(name,*value)
+                            end
+                  when DataMapper::Property
+                    query = query.all(name => value)
+                  end
                 end
               end
             end
           end
 
-          new_query = yield(new_query) if block_given?
-          return new_query
+          return query
         end
 
         #
