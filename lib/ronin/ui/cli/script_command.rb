@@ -18,6 +18,7 @@
 #
 
 require 'ronin/ui/cli/model_command'
+require 'ronin/ui/console'
 require 'ronin/script'
 
 module Ronin
@@ -38,6 +39,7 @@ module Ronin
                               :default => {},
                               :banner => 'NAME:VALUE ...',
                               :aliases => '-p'
+        class_option :console, :type => :boolean, :default => false
 
         #
         # The class to load scripts from.
@@ -64,7 +66,13 @@ module Ronin
           script = load_script
           script.params = options[:params]
 
-          script.run
+          if options.console?
+            print_info "Starting the console with @script set ..."
+
+            UI::Console.start(:script => script)
+          else
+            script.run
+          end
         end
 
         protected
