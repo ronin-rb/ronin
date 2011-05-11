@@ -151,19 +151,14 @@ module Ronin
         # @api private
         #
         def query_method(query,name,arguments=[])
-          query_method = begin
-                           query.model.method(name)
-                         rescue NameError
-                           raise("Undefined query method #{query.model}.#{name}")
-                         end
+          query_model = query.model
 
-          case query_method.arity
-          when 0
-            query.send(name)
-          when 1
-            query.send(name,arguments)
+          if query_model.method_defined?(name)
+            query_model.method(name).call(*arguments)
+          elsif query_model.properties.named?(name)
+            query_model.all(name => arguments)
           else
-            query.send(name,*arguments)
+            raise("Unknown query method or property #{name} for #{query_model}")
           end
         end
 
