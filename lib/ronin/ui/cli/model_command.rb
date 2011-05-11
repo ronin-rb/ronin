@@ -55,7 +55,7 @@ module Ronin
         #
         # The query options for the command.
         #
-        # @return [Set]
+        # @return [Hash{Symbol => Method,DataMapper::Property}]
         #   The query options and their query method names.
         #
         # @since 1.0.0
