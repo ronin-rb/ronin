@@ -59,9 +59,9 @@ describe Arch do
   end
 
   it "should implicitly splat the endian and address length" do
-    endian, address_length = Arch.i386
+    endian, address_length = Arch.x86
 
-    endian.should == Arch.i386.endian
-    address_length.should == Arch.i386.address_length
+    endian.should == Arch.x86.endian
+    address_length.should == Arch.x86.address_length
   end
 end

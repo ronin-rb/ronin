@@ -94,17 +94,8 @@ module Ronin
       super(name,options.merge(:name => name))
     end
 
-    # The i386 Architecture
-    predefine :i386, :endian => :little, :address_length => 4
-
-    # The i486 Architecture
-    predefine :i486, :endian => :little, :address_length => 4
-
-    # The i686 Architecture
-    predefine :i686, :endian => :little, :address_length => 4
-
-    # The i986 Architecture
-    predefine :i986, :endian => :little, :address_length => 4
+    # The x86 Architecture
+    predefine :x86, :endian => :little, :address_length => 4
 
     # The x86_64 Architecture
     predefine :x86_64, :endian => :little, :address_length => 8
@@ -135,6 +126,26 @@ module Ronin
 
     # The ARM (big-endian) Architecture
     predefine :arm_be, :endian => :big, :address_length => 4
+
+    #
+    # @see x86
+    #
+    def self.i386; x86; end
+
+    #
+    # @see x86
+    #
+    def self.i486; x86; end
+
+    #
+    # @see x86
+    #
+    def self.i686; x86; end
+
+    #
+    # @see x86
+    #
+    def self.i986; x86; end
 
     #
     # @see mips_be
