@@ -42,23 +42,9 @@ module Ronin
         class_option :console, :type => :boolean, :default => false
 
         #
-        # The class to load scripts from.
-        #
-        # @return [Script]
-        #   The script class.
-        #
-        # @since 1.0.0
-        #
-        # @api semipublic
-        #
-        def self.script_class
-          query_model
-        end
-
-        #
         # Loads the script, sets its parameters and runs the script.
         #
-        # @since 1.0.0.
+        # @since 1.1.0.
         #
         # @api semipublic
         #
@@ -89,11 +75,11 @@ module Ronin
         # @raise [ArgumentError]
         #   The given script class does not include {Ronin::Script}.
         #
-        # @since 1.0.0
+        # @since 1.1.0
         #
         # @api semipublic
         #
-        def self.script(script)
+        def self.script_class(script)
           unless script.included_modules.include?(Script)
             raise(ArgumentError,"#{script} does not include Ronin::Script")
           end
@@ -111,13 +97,13 @@ module Ronin
         #   The script class did not define the query method for one of the
         #   query options.
         #
-        # @since 1.0.0
+        # @since 1.1.0
         #
         # @api semipublic
         #
         def load_script
           if options[:file]
-            self.class.script_class.load_from(options[:file])
+            self.class.query_model.load_from(options[:file])
           else
             query.load_first
           end
