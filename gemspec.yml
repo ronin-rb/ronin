@@ -66,6 +66,7 @@ dependencies:
   thor: ~> 0.14.3
   # Ronin dependencies:
   # ronin-support: ~> 0.2
+  ronin-support: ~> 0.2.0.rc1
 
 development_dependencies:
   bundler: ~> 1.0.10
