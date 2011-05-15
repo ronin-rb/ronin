@@ -7,8 +7,6 @@ RONIN_URI = 'http://github.com/ronin-ruby'
 
 gemspec
 
-gem 'data_paths', '~> 0.3.0', :git => 'http://github.com/postmodern/data_paths.git'
-
 # DataMapper dependencies
 # gem 'data_objects',       DO_VERSION, :git => "#{DM_URI}/do.git"
 # gem 'do_sqlite3',         DO_VERSION, :git => "#{DM_URI}/do.git"
