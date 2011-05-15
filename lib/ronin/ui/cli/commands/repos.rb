@@ -143,19 +143,10 @@ module Ronin
                 if repo.verbose?
                   putc "\n"
 
-                  if repo.title
-                    puts "Title: #{repo.title}"
-                  end
-
+                  puts "Title: #{repo.title}" if repo.title
                   puts "URI: #{repo.uri}" if repo.uri
-
-                  if repo.source
-                    puts "Source URI: #{repo.source}"
-                  end
-
-                  if repo.website
-                    puts "Website: #{repo.website}"
-                  end
+                  puts "Source URI: #{repo.source}" if repo.source
+                  puts "Website: #{repo.website}" if repo.website
 
                   executables = repo.executables
 
