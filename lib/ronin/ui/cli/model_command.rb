@@ -57,7 +57,7 @@ module Ronin
         #
         # The query options for the command.
         #
-        # @return [Hash{Symbol => Method,DataMapper::Property}]
+        # @return [Array<Symbol>]
         #   The query options and their query method names.
         #
         # @since 1.0.0
@@ -65,7 +65,31 @@ module Ronin
         # @api semipublic
         #
         def self.query_options
-          @query_options ||= {}
+          @query_options ||= []
+        end
+
+        #
+        # Iterates over the query options for the command.
+        #
+        # @yield [name]
+        #   The given block will be passed the names of the query options.
+        #
+        # @yieldparam [Symbol] name
+        #   The name of a query option.
+        #
+        # @return [Enumerator]
+        #   If no block is given, an Enumerator object will be returned.
+        #
+        # @since 1.1.0
+        #
+        def self.each_query_option(&block)
+          return enum_for(:each_query_option) unless block
+
+          self.class.ancestors.each do |ancestor|
+            if ancestor < ModelCommand
+              ancestor.query_options.each(&block)
+            end
+          end
         end
 
         #
@@ -107,25 +131,12 @@ module Ronin
         # @param [Hash] options
         #   Additional options.
         #
-        # @raise [RuntimeError]
-        #   The query option does not map to a query-method or property
-        #   defined in the Model.
-        #
         # @since 1.0.0
         #
         # @api semipublic
         #
         def self.query_option(name,options={})
-          if query_model.properties.named?(name)
-            query_options[name] = query_model.properties[name]
-          else
-            begin
-              query_options[name] = query_model.method(name)
-            rescue NameError
-              raise("unknown query method or property #{name} for #{query_model}")
-            end
-          end
-
+          query_options << name
           class_option(name,options)
         end
 
@@ -152,6 +163,10 @@ module Ronin
         # @return [DataMapper::Collection]
         #   The new query.
         #
+        # @raise [RuntimeError]
+        #   The query option does not map to a query-method or property
+        #   defined in the Model.
+        #
         # @since 1.0.0
         #
         # @api semipublic
@@ -159,27 +174,27 @@ module Ronin
         def query
           query = self.class.query_model.all
 
-          self.class.ancestors.each do |ancestor|
-            if ancestor < ModelCommand
-              ancestor.query_options.each do |name,query_method|
-                value = options[name]
+          self.class.each_query_option do |name|
+            value = options[name]
 
-                unless value.nil?
-                  case query_method
-                  when Method
-                    query = case query_method.arity
-                            when 0
-                              query.send(name)
-                            when 1
-                              query.send(name,value)
-                            else
-                              query.send(name,*value)
-                            end
-                  when DataMapper::Property
-                    query = query.all(name => value)
-                  end
-                end
-              end
+            # skip unset options
+            next if value.nil?
+
+            if query_model.properties.named?(name)
+              query = query.all(name => value)
+            elsif query_model.respond_to?(name)
+              query_method = query_model.method(name)
+
+              query = case query_method.arity
+                      when 0
+                        query.send(name)
+                      when 1
+                        query.send(name,value)
+                      else
+                        query.send(name,*value)
+                      end
+            else
+              raise("unknown query method or property #{name} for #{query_model}")
             end
           end
 
