@@ -172,7 +172,7 @@ module Ronin
         # @api semipublic
         #
         def query
-          unless query_model
+          unless self.class.query_model
             raise("query model not defined for #{self.class}")
           end
 
