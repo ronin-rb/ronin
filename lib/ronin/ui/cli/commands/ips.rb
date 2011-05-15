@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ui/cli/model_command'
+require 'ronin/ui/cli/resource_command'
 require 'ronin/extensions/ip_addr'
 require 'ronin/ip_address'
 
@@ -28,7 +28,7 @@ module Ronin
         #
         # The `ronin-ips` command.
         #
-        class IPs < ModelCommand
+        class IPs < ResourceCommand
 
           model IPAddress
 

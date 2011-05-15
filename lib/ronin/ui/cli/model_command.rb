@@ -20,23 +20,16 @@
 require 'ronin/ui/cli/command'
 require 'ronin/database'
 
-require 'set'
-
 module Ronin
   module UI
     module CLI
       #
-      # A base-command for querying and exporting {Model}s.
+      # A base-command for querying {Model}s.
       #
       class ModelCommand < Command
 
         class_option :database, :type => :string,
                                 :aliases => '-D'
-
-        class_option :csv, :type => :boolean
-        class_option :xml, :type => :boolean
-        class_option :yaml, :type => :boolean
-        class_option :json, :type => :boolean
 
         #
         # The model to query.
@@ -90,17 +83,6 @@ module Ronin
               ancestor.query_options.each(&block)
             end
           end
-        end
-
-        #
-        # Default method performs the query and prints the found resources.
-        #
-        # @since 1.0.0
-        #
-        # @api semipublic
-        #
-        def execute
-          print_resources(query)
         end
 
         protected
@@ -203,44 +185,6 @@ module Ronin
           end
 
           return query
-        end
-
-        #
-        # Default method which will print every queried resource.
-        #
-        # @param [DataMapper::Resource] resource
-        #   A queried resource from the Database.
-        #
-        # @since 1.0.0
-        #
-        # @api semipublic
-        #
-        def print_resource(resource)
-          puts resource
-        end
-
-        #
-        # Prints multiple resources.
-        #
-        # @param [DataMapper::Collection, Array<DataMapper::Resource>] resources
-        #   The query to print.
-        #
-        # @since 1.0.0
-        #
-        # @api semipublic
-        #
-        def print_resources(resources)
-          if options.csv?
-            print resources.to_csv
-          elsif options.xml?
-            print resources.to_xml
-          elsif options.yaml?
-            print resources.to_yaml
-          elsif options.json?
-            print resources.to_json
-          else
-            resources.each { |resource| print_resource(resource) }
-          end
         end
 
       end

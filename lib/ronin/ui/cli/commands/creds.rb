@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ui/cli/model_command'
+require 'ronin/ui/cli/resource_command'
 require 'ronin/credential'
 require 'ronin/service_credential'
 require 'ronin/web_credential'
@@ -29,7 +29,7 @@ module Ronin
         #
         # The `ronin-creds` command.
         #
-        class Creds < ModelCommand
+        class Creds < ResourceCommand
 
           model Credential
 

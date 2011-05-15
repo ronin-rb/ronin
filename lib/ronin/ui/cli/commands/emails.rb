@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ui/cli/model_command'
+require 'ronin/ui/cli/resource_command'
 require 'ronin/email_address'
 
 module Ronin
@@ -27,7 +27,7 @@ module Ronin
         #
         # The `ronin-emails` command.
         #
-        class Emails < ModelCommand
+        class Emails < ResourceCommand
 
           model EmailAddress
 
