@@ -17,6 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/ui/output/terminal/raw'
 require 'ronin/ui/output/terminal/color'
 
 module Ronin
@@ -26,7 +27,11 @@ module Ronin
     #
     module Output
       @mode = :quiet
-      @handler = Terminal::Color
+      @handler = if STDOUT.tty?
+                   Terminal::Color
+                 else
+                   Terminal::Raw
+                 end
 
       #
       # @return [Boolean]
