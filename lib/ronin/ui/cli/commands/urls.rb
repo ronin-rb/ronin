@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ui/cli/resource_command'
+require 'ronin/ui/cli/resources_command'
 require 'ronin/url'
 
 module Ronin
@@ -27,7 +27,7 @@ module Ronin
         #
         # The `ronin-urls` command.
         #
-        class URLs < ResourceCommand
+        class URLs < ResourcesCommand
 
           model URL
 

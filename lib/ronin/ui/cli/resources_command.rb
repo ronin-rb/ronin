@@ -25,7 +25,7 @@ module Ronin
       #
       # A base-command class for listing Database Resources.
       #
-      class ResourceCommand < ModelCommand
+      class ResourcesCommand < ModelCommand
 
         class_option :csv, :type => :boolean
         class_option :xml, :type => :boolean
