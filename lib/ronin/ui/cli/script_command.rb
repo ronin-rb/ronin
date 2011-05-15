@@ -52,7 +52,7 @@ module Ronin
         # @api semipublic
         #
         def self.script_class
-          model
+          query_model
         end
 
         #
@@ -93,12 +93,12 @@ module Ronin
         #
         # @api semipublic
         #
-        def self.script_class=(script)
+        def self.script(script)
           unless script.included_modules.include?(Script)
             raise(ArgumentError,"#{script} does not include Ronin::Script")
           end
 
-          self.model = script
+          model(script)
         end
 
         #
