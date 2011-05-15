@@ -29,7 +29,7 @@ module Ronin
         #
         class URLs < ModelCommand
 
-          self.model = URL
+          model URL
 
           query_option :http, :type => :boolean
           query_option :https, :type => :boolean

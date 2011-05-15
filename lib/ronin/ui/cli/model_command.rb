@@ -44,13 +44,13 @@ module Ronin
         # @return [DataMapper::Resource]
         #   The model that will be queried.
         #
-        # @since 1.0.0
+        # @since 1.1.0
         #
         # @api semipublic
         #
-        def self.model
-          @model ||= if self.superclass < ModelCommand
-                       self.superclass.model
+        def self.query_model
+          @query_model ||= if self.superclass < ModelCommand
+                       self.superclass.query_model
                      end
         end
 
@@ -90,12 +90,12 @@ module Ronin
         # @return [DataMapper::Resource]
         #   The model that will be queried.
         #
-        # @since 1.0.0
+        # @since 1.1.0
         #
         # @api semipublic
         #
-        def self.model=(model)
-          @model = model
+        def self.model(model)
+          @query_model = model
         end
 
         #
@@ -116,13 +116,13 @@ module Ronin
         # @api semipublic
         #
         def self.query_option(name,options={})
-          if model.properties.named?(name)
-            query_options[name] = model.properties[name]
+          if query_model.properties.named?(name)
+            query_options[name] = query_model.properties[name]
           else
             begin
-              query_options[name] = model.method(name)
+              query_options[name] = query_model.method(name)
             rescue NameError
-              raise("Unknown query method or property #{name} for #{model}")
+              raise("unknown query method or property #{name} for #{query_model}")
             end
           end
 
@@ -157,7 +157,7 @@ module Ronin
         # @api semipublic
         #
         def query
-          query = self.class.model.all
+          query = self.class.query_model.all
 
           self.class.ancestors.each do |ancestor|
             if ancestor < ModelCommand

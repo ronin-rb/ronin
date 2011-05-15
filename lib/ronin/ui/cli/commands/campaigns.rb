@@ -29,7 +29,7 @@ module Ronin
         #
         class Campaigns < ModelCommand
 
-          self.model = Campaign 
+          model Campaign 
 
           query_option :named, :type => :string,
                                :aliases => '-n'

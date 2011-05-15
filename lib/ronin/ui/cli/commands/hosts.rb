@@ -29,7 +29,7 @@ module Ronin
         #
         class Hosts < ModelCommand
 
-          self.model = HostName
+          model HostName
 
           query_option :with_ips, :type => :array,
                                   :aliases => '-I',

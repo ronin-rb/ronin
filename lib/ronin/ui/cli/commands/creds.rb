@@ -31,7 +31,7 @@ module Ronin
         #
         class Creds < ModelCommand
 
-          self.model = Credential
+          model Credential
 
           query_option :for_user, :type => :string,
                                   :aliases => '-u',

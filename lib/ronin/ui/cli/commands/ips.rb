@@ -30,7 +30,7 @@ module Ronin
         #
         class IPs < ModelCommand
 
-          self.model = IPAddress
+          model IPAddress
 
           query_option :v4, :type => :boolean, :aliases => '-4'
           query_option :v6, :type => :boolean, :aliases => '-6'

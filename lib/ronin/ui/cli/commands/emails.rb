@@ -29,7 +29,7 @@ module Ronin
         #
         class Emails < ModelCommand
 
-          self.model = EmailAddress
+          model EmailAddress
 
           query_option :with_hosts, :type => :array,
                                     :aliases => '-H',
