@@ -17,9 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ui/cli/command'
+require 'ronin/ui/cli/model_command'
 require 'ronin/repository'
-require 'ronin/database'
 
 module Ronin
   module UI
@@ -28,7 +27,7 @@ module Ronin
         #
         # The `ronin repos` command.
         #
-        class Repos < Command
+        class Repos < ModelCommand
 
           desc 'Manages Ronin repositories'
           class_option :add, :type => :string,
@@ -57,8 +56,6 @@ module Ronin
           # Executes the command.
           #
           def execute
-            Database.setup
-
             if options[:add]
               add options[:add]
             elsif options[:install]
