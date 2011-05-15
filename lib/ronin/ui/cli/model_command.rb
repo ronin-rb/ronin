@@ -172,6 +172,10 @@ module Ronin
         # @api semipublic
         #
         def query
+          unless query_model
+            raise("query model not defined for #{self.class}")
+          end
+
           query = self.class.query_model.all
 
           self.class.each_query_option do |name|
