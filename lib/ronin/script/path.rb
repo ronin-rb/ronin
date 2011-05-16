@@ -131,7 +131,7 @@ module Ronin
         begin
           # load the first found object
           blocks = ObjectLoader.load_blocks(self.path)
-        rescue Exception => e
+        rescue ::Exception => e
           @cache_exception = e
           return nil
         end
@@ -146,7 +146,7 @@ module Ronin
 
               @cache_exception = nil
               return object
-            rescue Exception => e
+            rescue ::Exception => e
               @cache_exception = e
             end
           end
