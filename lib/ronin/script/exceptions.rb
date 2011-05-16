@@ -18,5 +18,5 @@
 #
 
 require 'ronin/script/exceptions/not_built'
-require 'ronin/script/exceptions/verification_failed'
+require 'ronin/script/exceptions/test_failed'
 require 'ronin/script/exceptions/deploy_failed'
