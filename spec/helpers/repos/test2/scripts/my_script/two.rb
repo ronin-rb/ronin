@@ -1,4 +1,4 @@
-require 'model/models/cacheable_model'
+require 'classes/my_script'
 
 MyScript.object do
 
