@@ -17,7 +17,9 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/script/exceptions/exception'
-require 'ronin/script/exceptions/not_built'
-require 'ronin/script/exceptions/test_failed'
-require 'ronin/script/exceptions/deploy_failed'
+module Ronin
+  module Script
+    class Exception < RuntimeError
+    end
+  end
+end

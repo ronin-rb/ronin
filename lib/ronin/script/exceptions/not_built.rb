@@ -17,9 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/script/exceptions/exception'
+
 module Ronin
   module Script
-    class NotBuilt < RuntimeError
+    class NotBuilt < Exception
     end
   end
 end
