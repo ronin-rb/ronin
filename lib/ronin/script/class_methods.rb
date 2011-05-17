@@ -54,7 +54,7 @@ module Ronin
       #
       def load_all(attributes={})
         resources = all(attributes)
-        resources.each { |resource| resource.load_code! }
+        resources.each { |resource| resource.load_script! }
 
         return resources
       end
@@ -74,7 +74,7 @@ module Ronin
       #
       def load_first(attributes={})
         if (resource = first(attributes))
-          resource.load_code!
+          resource.load_script!
         end
 
         return resource

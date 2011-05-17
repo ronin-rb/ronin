@@ -113,16 +113,16 @@ describe Script do
     end
 
     it "should be able to load the script source" do
-      subject.load_source!
+      subject.load_script!
 
       subject.greeting.should == 'hello'
     end
 
     it "should only load the script source once" do
-      subject.load_source!
+      subject.load_script!
 
       subject.var = false
-      subject.load_source!
+      subject.load_script!
 
       subject.var.should == false
     end

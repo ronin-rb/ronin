@@ -87,7 +87,7 @@ module Ronin
       #
       # @api private
       #
-      def load_source!
+      def load_script!
         if (cached? && !source_loaded?)
           block = self.class.load_object_block(self.script_path.path)
 
