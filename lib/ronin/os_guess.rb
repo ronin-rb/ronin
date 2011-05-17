@@ -18,13 +18,12 @@
 #
 
 require 'ronin/model'
+require 'ronin/os'
+require 'ronin/ip_address'
 
 require 'dm-timestamps'
 
 module Ronin
-  autoload :IPAddress, 'ronin/ip_address'
-  autoload :OS, 'ronin/os'
-
   #
   # Represents a guess about what {OS} an {IPAddress} might be running.
   #

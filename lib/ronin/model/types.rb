@@ -17,10 +17,4 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-module Ronin
-  module Model
-    module Types
-      autoload :Description, 'ronin/model/types/description'
-    end
-  end
-end
+require 'ronin/model/types/description'

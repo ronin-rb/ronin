@@ -17,15 +17,14 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/support/inflector'
 require 'ronin/model'
-require 'ronin/script'
+require 'ronin/repository'
+require 'ronin/script/script'
+require 'ronin/support/inflector'
 
 require 'object_loader'
 
 module Ronin
-  autoload :Repository, 'ronin/repository'
-
   module Script
     #
     # The {Path} model stores information in the {Database} about
