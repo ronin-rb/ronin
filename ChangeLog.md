@@ -4,7 +4,7 @@
 * Require data_paths ~> 0.3.
 * Require ronin-support ~> 0.2.
 * Added `ronin/repositories`, for quickly loading all repositories.
-* Added {Ronin::Autoload}.
+* Added {Ronin::AutoLoad}.
 * Added {Ronin::Arch.arm}.
 * Added {Ronin::Arch.mips}.
 * Added {Ronin::Arch.x86}.

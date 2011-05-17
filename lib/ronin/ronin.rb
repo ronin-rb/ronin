@@ -18,10 +18,10 @@
 #
 
 require 'ronin/class_methods'
-require 'ronin/autoload'
+require 'ronin/auto_load'
 
 module Ronin
-  include Autoload
+  include AutoLoad
 
   #
   # Includes {ClassMethods} when {Ronin} is included.

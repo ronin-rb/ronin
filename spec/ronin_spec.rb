@@ -10,8 +10,8 @@ describe Ronin do
     version.should_not be_empty
   end
 
-  it "should include Autoload" do
-    subject.should include(Autoload)
+  it "should include AutoLoad" do
+    subject.should include(AutoLoad)
   end
 
   it "should add a const_missing method when included" do

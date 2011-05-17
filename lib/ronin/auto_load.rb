@@ -26,7 +26,7 @@ module Ronin
   #
   # @since 1.1.0
   #
-  module Autoload
+  module AutoLoad
     def self.included(base)
       base.send :include, OpenNamespace
       base.send :extend, self
