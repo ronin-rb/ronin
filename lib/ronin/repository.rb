@@ -520,7 +520,7 @@ module Ronin
     # @param [String] sub_path
     #   The sub-path within the repository to search for.
     #
-    # @retunr [Script::Path, nil]
+    # @return [Script::Path, nil]
     #   The matching script path.
     #
     # @since 1.1.0
