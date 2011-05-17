@@ -10,30 +10,30 @@ RSpec.configure do |spec|
     MyScript.auto_migrate!
 
     Repository.create(
-      :path => File.join(Helpers::Repositories::DIR,'hello'),
-      :name => 'hello',
+      :path => File.join(Helpers::Repositories::DIR,'local'),
+      :name => 'local',
       :domain => Repository::LOCAL_DOMAIN
     )
 
     Repository.create(
-      :path => File.join(Helpers::Repositories::DIR,'random'),
-      :uri => 'git@github.com/path/to/random.git',
+      :path => File.join(Helpers::Repositories::DIR,'remote'),
+      :uri => 'git@example.com/path/to/remote.git',
+      :name => 'remote',
+      :domain => 'example.com'
+    )
+
+    Repository.create(
+      :path => File.join(Helpers::Repositories::DIR,'installed'),
+      :uri => 'git@github.com/path/to/installed.git',
       :installed => true,
-      :name => 'random',
+      :name => 'installed',
       :domain => 'github.com'
     )
 
     Repository.create(
-      :path => File.join(Helpers::Repositories::DIR,'test1'),
-      :uri => 'git@github.com/path/to/test1.git',
-      :name => 'test1',
-      :domain => 'github.com'
-    )
-
-    Repository.create(
-      :path => File.join(Helpers::Repositories::DIR,'test2'),
-      :uri => 'git@github.com/path/to/test2.git',
-      :name => 'test2',
+      :path => File.join(Helpers::Repositories::DIR,'scripts'),
+      :uri => 'git@github.com/path/to/scripts.git',
+      :name => 'scripts',
       :domain => 'github.com'
     )
   end

@@ -9,7 +9,7 @@ describe Script do
 
   subject { MyScript }
 
-  let(:repo) { repository('test1') }
+  let(:repo) { repository('scripts') }
 
   before(:all) { repo.cache_scripts! }
 
@@ -80,7 +80,7 @@ describe Script do
   end
 
   describe "load_from" do
-    let(:path) { repo.script_paths.first.path }
+    let(:path) { repo.find_script('my_scripts/test.rb').path }
 
     subject { Script.load_from(path) }
 
@@ -89,7 +89,7 @@ describe Script do
     end
 
     it "should prepare the object to be cached" do
-      subject.content.should == 'this is test one'
+      subject.content.should == 'this is a test'
     end
 
     it "should preserve instance variables" do
@@ -106,7 +106,7 @@ describe Script do
   end
 
   context "when previously cached" do
-    subject { MyScript.first(:name => 'one') }
+    subject { MyScript.first(:name => 'test') }
 
     it "should have a cached_file resource" do
       subject.script_path.should_not be_nil

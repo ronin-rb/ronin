@@ -7,19 +7,13 @@ require 'ronin/script/path'
 describe Script::Path do
   include Helpers::Repositories
 
-  let(:test1) { repository('test1') }
-  let(:test2) { repository('test2') }
-
+  let(:repo) { repository('scripts') }
   let(:script_class) { MyScript }
-  let(:path) { test1.each_script.first }
 
-  before(:all) do
-    test1.cache_scripts!
-    test2.cache_scripts!
-  end
+  before(:all) { repo.cache_scripts! }
 
   describe "cached file" do
-    subject { described_class.first(:path => path) }
+    subject { repo.find_script('cached/cached.rb') }
 
     it "should be saved" do
       subject.should be_saved
@@ -76,7 +70,7 @@ describe Script::Path do
     end
 
     it "should call the cache method before saving the new object" do
-      subject.cached_script.content.should == 'this is test one'
+      subject.cached_script.name.should == 'cached'
     end
 
     it "should delete the cached object along with the cached file" do
@@ -87,41 +81,12 @@ describe Script::Path do
   end
 
   describe "failed cached files" do
-    let(:syntax_error) do
-      test2.script_paths.find do |script_path|
-        script_path.path.basename == Pathname.new('syntax_errors.rb')
-      end
-    end
-
-    let(:load_error) do
-      test2.script_paths.find do |script_path|
-        script_path.path.basename == Pathname.new('load_errors.rb')
-      end
-    end
-
-    let(:name_error) do
-      test2.script_paths.find do |script_path|
-        script_path.path.basename == Pathname.new('name_errors.rb')
-      end
-    end
-
-    let(:no_method_error) do
-      test2.script_paths.find do |script_path|
-        script_path.path.basename == Pathname.new('no_method_errors.rb')
-      end
-    end
-
-    let(:exception) do
-      test2.script_paths.find do |script_path|
-        script_path.path.basename == Pathname.new('exceptions.rb')
-      end
-    end
-
-    let(:validation_error) do
-      test2.script_paths.find do |script_path|
-        script_path.path.basename == Pathname.new('validation_errors.rb')
-      end
-    end
+    let(:syntax_error) { repo.find_script('failures/syntax_errors.rb') }
+    let(:load_error) { repo.find_script('failures/load_errors.rb') }
+    let(:name_error) { repo.find_script('failures/name_errors.rb') }
+    let(:no_method_error) { repo.find_script('failures/no_method_errors.rb') }
+    let(:exception) { repo.find_script('failures/exceptions.rb') }
+    let(:validation_error) { repo.find_script('failures/validation_errors.rb') }
 
     it "should not save new cached files that raised exceptions" do
       syntax_error.should_not be_saved
@@ -163,7 +128,7 @@ describe Script::Path do
   end
 
   describe "unmodified cached file" do
-    subject { described_class.first(:path => path) }
+    subject { repo.find_script('cached/unmodified.rb') }
 
     it "should not have updated code" do
       should_not be_updated
@@ -179,7 +144,7 @@ describe Script::Path do
   end
 
   describe "modified cached file" do
-    subject { described_class.first(:path => path) }
+    subject { repo.find_script('cached/modified.rb') }
 
     before(:all) do
       subject.update(:timestamp => (subject.timestamp - 10))
@@ -199,7 +164,7 @@ describe Script::Path do
   end
 
   describe "missing cached file" do
-    subject { described_class.first(:path => path) }
+    subject { repo.find_script('cached/missing.rb') }
 
     before(:all) do
       subject.update(:path => File.join('','missing','file.rb'))

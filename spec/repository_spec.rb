@@ -10,16 +10,16 @@ describe Repository do
 
   describe "find" do
     it "should be able to retrieve an Repository by name" do
-      repo = subject.find('hello')
+      repo = subject.find('local')
 
-      repo.name.should == 'hello'
+      repo.name.should == 'local'
     end
 
     it "should be able to retrieve an Repository by name and domain" do
-      repo = subject.find('hello/localhost')
+      repo = subject.find('installed/github.com')
 
-      repo.name.should == 'hello'
-      repo.domain.should == 'localhost'
+      repo.name.should == 'installed'
+      repo.domain.should == 'github.com'
     end
 
     it "should raise RepositoryNotFound for unknown Repository names" do
@@ -50,13 +50,13 @@ describe Repository do
 
     it "should not allow adding an Repository from the same path twice" do
       lambda {
-        subject.add!(:path => repository('hello').path)
+        subject.add!(:path => repository('local').path)
       }.should raise_error(DuplicateRepository)
     end
 
     it "should not allow adding an Repository that was already installed" do
       lambda {
-        subject.add!(:path => repository('random').path)
+        subject.add!(:path => repository('installed').path)
       }.should raise_error(DuplicateRepository)
     end
   end
@@ -70,46 +70,46 @@ describe Repository do
 
     it "should not allow installing an Repository that was already added" do
       lambda {
-        subject.install!(:uri => repository('test1').uri)
+        subject.install!(:uri => repository('remote').uri)
       }.should raise_error(DuplicateRepository)
     end
 
     it "should not allow installing an Repository from the same URI twice" do
       lambda {
-        subject.install!(:uri => repository('random').uri)
+        subject.install!(:uri => repository('installed').uri)
       }.should raise_error(DuplicateRepository)
     end
   end
 
   describe "#domain" do
     it "should be considered local for 'localhost' domains" do
-      hello = repository('hello')
+      repo = repository('local')
 
-      hello.should be_local
-      hello.should_not be_remote
+      repo.should be_local
+      repo.should_not be_remote
     end
 
     it "should be considered remote for non 'localhost' domains" do
-      random = repository('random')
+      repo = repository('installed')
 
-      random.should be_remote
-      random.should_not be_local
+      repo.should be_remote
+      repo.should_not be_local
     end
   end
 
   describe "#initialize" do
     it "should default the 'name' property to the name of the Repository directory" do
       repo = subject.new(
-        :path => File.join(Helpers::Repositories::DIR,'hello')
+        :path => File.join(Helpers::Repositories::DIR,'local')
       )
 
-      repo.name.should == 'hello'
+      repo.name.should == 'local'
     end
 
     it "should default the 'installed' property to false" do
       repo = subject.new(
-        :path => File.join(Helpers::Repositories::DIR,'hello'),
-        :uri => 'git://github.com/path/to/hello.git'
+        :path => File.join(Helpers::Repositories::DIR,'local'),
+        :uri => 'git://github.com/path/to/local.git'
       )
 
       repo.installed.should == false
@@ -117,10 +117,10 @@ describe Repository do
   end
 
   describe "#initialize_metadata" do
-    subject { repository('hello') }
+    subject { repository('installed') }
 
     it "should load the title" do
-      subject.title.should == 'Hello World'
+      subject.title.should == 'Installed Repo'
     end
 
     it "should load the website" do
@@ -149,14 +149,14 @@ describe Repository do
   end
 
   describe "#activate!" do
-    subject { repository('hello') }
+    subject { repository('local') }
 
     before(:all) do
       subject.activate!
     end
 
     it "should load the init.rb file if present" do
-      $hello_repo_loaded.should == true
+      $local_repo_loaded.should == true
     end
 
     it "should make the lib directory accessible to Kernel#require" do
@@ -165,7 +165,7 @@ describe Repository do
   end
 
   describe "#deactivate!" do
-    subject { repository('hello') }
+    subject { repository('local') }
 
     before(:all) do
       subject.deactivate!
@@ -179,7 +179,7 @@ describe Repository do
   end
 
   describe "#each_script" do
-    subject { repository('test1') }
+    subject { repository('scripts') }
 
     it "should list the contents of the 'cache/' directory" do
       subject.each_script.to_a.should_not be_empty
@@ -193,91 +193,78 @@ describe Repository do
   end
 
   describe "#script_paths" do
-    let(:test1) { repository('test1') }
-    let(:test2) { repository('test2') }
+    subject { repository('scripts') }
 
     describe "#cache_scripts!" do
-      before(:all) do
-        test1.cache_scripts!
-        test2.cache_scripts!
-      end
+      before(:all) { subject.cache_scripts! }
 
       it "should be populated script_paths" do
-        test1.script_paths.should_not be_empty
+        subject.script_paths.should_not be_empty
       end
 
       it "should recover from files that contain syntax errors" do
-        test2.script_paths.any? { |script_path|
-          script_path.path.basename == Pathname.new('syntax_errors.rb')
-        }.should == true
+        subject.find_script('failures/syntax_errors.rb').should_not be_nil
       end
 
       it "should recover from files that raised exceptions" do
-        test2.script_paths.any? { |script_path|
-          script_path.path.basename == Pathname.new('exceptions.rb')
-        }.should == true
+        subject.find_script('failures/exceptions.rb').should_not be_nil
       end
 
       it "should recover from files that raise NoMethodError" do
-        test2.script_paths.any? { |script_path|
-          script_path.path.basename == Pathname.new('no_method_errors.rb')
-        }.should == true
+        subject.find_script('failures/no_method_errors.rb').should_not be_nil
       end
 
       it "should recover from files that have validation errors" do
-        test2.script_paths.any? { |script_path|
-          script_path.path.basename == Pathname.new('validation_errors.rb')
-        }.should == true
+        subject.find_script('failures/validation_errors.rb').should_not be_nil
       end
 
       it "should clear script_paths before re-populate them" do
-        test1_files = test1.script_paths.length
-        test1.cache_scripts!
+        paths = subject.script_paths.length
+        subject.cache_scripts!
 
-        test1.script_paths.length.should == test1_files
+        subject.script_paths.length.should == paths
       end
 
       it "should be populated using the paths in the 'cache/' directory" do
-        test1.script_paths.map { |file|
+        subject.script_paths.map { |file|
           file.path
-        }.should == test1.each_script.to_a
+        }.should == subject.each_script.to_a
       end
     end
 
     describe "#sync_scripts!" do
       before(:all) do
-        test1.cache_scripts!
-        test2.cache_scripts!
+        subject.cache_scripts!
 
-        file1 = test1.script_paths.first
+        script_path = subject.find_script('cached/modified.rb')
 
-        file1.timestamp -= 10
-        file1.save
+        script_path.timestamp -= 10
+        script_path.save
 
-        test2.script_paths.clear
+        script_path = subject.find_script('cached/cached.rb')
+        script_path.destroy!
 
-        test1.sync_scripts!
-        test2.sync_scripts!
+        subject.sync_scripts!
       end
 
       it "should update stale cached files" do
-        script_path = test1.script_paths.first
+        script_path = subject.find_script('cached/modified.rb')
 
         script_path.timestamp.should == File.mtime(script_path.path)
       end
 
       it "should cache new files" do
-        test2.script_paths.should_not be_empty
+        subject.find_script('cached/cached.rb').should_not be_nil
       end
     end
 
     describe "#clean_scripts!" do
       before(:all) do
-        test1.clean_scripts!
+        subject.clean_scripts!
       end
 
       it "should clear the script_paths" do
-        test1.script_paths.should be_empty
+        subject.script_paths.should be_empty
       end
     end
   end

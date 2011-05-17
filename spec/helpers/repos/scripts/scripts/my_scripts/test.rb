@@ -2,11 +2,11 @@ require 'classes/my_script'
 
 MyScript.object do
 
-  @y = @x * 2
+  @var = 2
 
   cache do
-    self.name = 'two'
-    self.content = 'this is test two'
+    self.name = 'test'
+    self.content = 'this is a test'
   end
 
   def greeting
