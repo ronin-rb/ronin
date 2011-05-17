@@ -652,7 +652,7 @@ module Ronin
         private
 
         #
-        # Merges the http parameters into the HTTP options.
+        # Merges the HTTP parameters into the HTTP options.
         #
         # @param [Hash] options
         #   The HTTP options to merge into.

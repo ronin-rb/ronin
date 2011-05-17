@@ -173,13 +173,13 @@ module Ronin
     end
 
     #
-    # Searches for URLs with the given query-param.
+    # Searches for URLs with the given query param.
     #
     # @param [Array<String>, String] name
-    #   The query-param name to search for.
+    #   The query param name to search for.
     #
     # @return [Array<URL>]
-    #   The URLs with the given query-param.
+    #   The URLs with the given query param.
     #
     # @since 1.0.0
     #
@@ -190,13 +190,13 @@ module Ronin
     end
 
     #
-    # Search for all URLs with a given query-param value.
+    # Search for all URLs with a given query param value.
     #
     # @param [Array<String>, String] value
-    #   The query-param value to search for.
+    #   The query param value to search for.
     #
     # @return [Array<URL>]
-    #   The URLs with the given query-param value.
+    #   The URLs with the given query param value.
     #
     # @since 1.0.0
     #

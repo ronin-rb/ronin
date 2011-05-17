@@ -40,13 +40,13 @@ module Ronin
     has 0..n, :urls, :model => 'URL',
                      :child_key => [:scheme_id]
 
-    # Predefines the HTTP URL Scheme
+    # Pre-defines the HTTP URL Scheme
     predefine :http, :name => 'http'
 
-    # Predefines the HTTPS URL Scheme
+    # Pre-defines the HTTPS URL Scheme
     predefine :https, :name => 'https'
 
-    # Predefines the FTP URL Scheme
+    # Pre-defines the FTP URL Scheme
     predefine :ftp, :name => 'ftp'
 
   end
