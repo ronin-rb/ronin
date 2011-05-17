@@ -1,3 +1,67 @@
+### 1.1.0 / 2011-05-17
+
+* Require env ~> 0.2.
+* Require data_paths ~> 0.3.
+* Require ronin-support ~> 0.2.
+* Added `ronin/repositories`, for quickly loading all repositories.
+* Added {Ronin::Autoload}.
+* Added {Ronin::Arch.arm}.
+* Added {Ronin::Arch.mips}.
+* Added {Ronin::Arch.x86}.
+* Added timestamps to {Ronin::Campaign}.
+* Added the `created_at` timestamp to {Ronin::Target}.
+* Added {Ronin::Network::Mixins::HTTP#http_status}.
+* Added {Ronin::Network::Mixins::HTTP#http_ok?}.
+* Added {Ronin::Network::Mixins::HTTP#http_server}.
+* Added {Ronin::Network::Mixins::HTTP#http_powered_by}.
+* Added `print_info` method calls to {Ronin::Network::Mixins::HTTP}.
+* Added {Ronin::Script::InstanceMethods#run}.
+* Added {Ronin::Script::Exception}.
+* Added {Ronin::Script::Path#to_s}.
+* Added {Ronin::Script::ClassMethods#load_from}.
+* Added {Ronin::Repository#find_script}.
+* Added {Ronin::UI::CLI::Command#setup}.
+* Added {Ronin::UI::CLI::ResourcesCommand}.
+* Added {Ronin::UI::CLI::ScriptCommand}.
+* Added the `--database` option to {Ronin::UI::CLI::ModelCommand}.
+* Renamed `Ronin::Engine` to {Ronin::Script}.
+* Renamed `Ronin::Engine::Verifiable` to {Ronin::Script::Testable}.
+* Renamed `Ronin::Engine#engine_name` to
+  {Ronin::Script::InstanceMethods#script_type}.
+* Renamed `Ronin::Engine::InstanceMethods#load_original!` to
+  {Ronin::Script::InstanceMethods#load_script!}.
+* Renamed `Ronin::CachedFile` to {Ronin::Script::Path}.
+* Renamed `Ronin::UI::CLI::ModelCommand.model=` to
+  {Ronin::UI::CLI::ModelCommand.model}.
+* Renamed `Ronin::UI::CLI::ModelCommand#model` to
+  {Ronin::UI::CLI::ModelCommand.query_model}.
+* Renamed `Ronin::UI::CLI::ModelCommand#new_query` to
+  {Ronin::UI::CLI::ModelCommand#query}.
+* Renamed `Ronin::UI::CLI::ModelCommand#print_resource` to
+  {Ronin::UI::CLI::ResourcesCommand#print_resource}.
+* Renamed `Ronin::UI::CLI::ModelCommand#print_resources` to
+  {Ronin::UI::CLI::ResourcesCommand#print_resources}.
+* Removed `Ronin::Engine#method_missing`.
+* Extend `DataPaths::Finders` into {Ronin::Config}.
+* Fixed a RubyGems deprecation in {Ronin::Installation}.
+* Enabled verbose DataMapper logging if the `DEBUG` environment variable is
+  set.
+* Fixed a bug in {Ronin::Database::Migrations::Migration#initialize}, where
+  `:needs` was being overridden.
+* Ensure that {Ronin::Database::Migrations} preserves the order of loaded
+  migrations.
+* Set the length of {Ronin::Password.clear_text} to 256.
+* Set the length of {Ronin::License.url} to 256.
+* Merged `Ronin::Model::Cacheable` into {Ronin::Script}.
+* Repositories can now cache/load scripts from the `scripts/` directory.
+* Set {Ronin::UI::Output.handler} to {Ronin::UI::Output::Terminal::Raw},
+  when `STDOUT` is not a tty.
+* {Ronin::UI::CLI::ModelCommand#setup} now automatically calls
+  {Ronin::Database.setup}, before executing the command.
+* Merged `query_method` into {Ronin::UI::CLI::ModelCommand#query}.
+* Allow {Ronin::UI::CLI::ModelCommand.query_option} to map to Model
+  properties.
+
 ### 1.0.0 / 2011-03-25
 
 * Upgraded to the GPL-3 license.
