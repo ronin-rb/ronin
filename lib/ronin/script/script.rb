@@ -106,7 +106,7 @@ module Ronin
         raise("No cacheable object defined in #{path.dump}")
       end
 
-      script.instance_variable_set('@source_loaded',true)
+      script.instance_variable_set('@script_loaded',true)
       script.script_path = Path.new(
         :path => path,
         :timestamp => File.mtime(path),

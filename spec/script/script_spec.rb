@@ -101,7 +101,7 @@ describe Script do
     end
 
     it "should load the script source" do
-      subject.should be_source_loaded
+      subject.should be_script_loaded
     end
   end
 

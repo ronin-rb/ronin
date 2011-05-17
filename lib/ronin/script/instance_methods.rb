@@ -36,7 +36,7 @@ module Ronin
       # @api semipublic
       #
       def initialize(*arguments,&block)
-        @source_loaded = false
+        @script_loaded = false
         @cache_prepared = false
 
         if arguments.first.kind_of?(Hash)
@@ -72,8 +72,8 @@ module Ronin
       #
       # @api private
       #
-      def source_loaded?
-        @source_loaded == true
+      def script_loaded?
+        @script_loaded == true
       end
 
       #
@@ -88,10 +88,10 @@ module Ronin
       # @api private
       #
       def load_script!
-        if (cached? && !source_loaded?)
+        if (cached? && !script_loaded?)
           block = self.class.load_object_block(self.script_path.path)
 
-          @source_loaded = true
+          @script_loaded = true
           instance_eval(&block) if block
           return true
         end
