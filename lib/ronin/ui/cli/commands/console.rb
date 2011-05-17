@@ -38,8 +38,9 @@ module Ronin
                                  :default => [],
                                  :aliases => '-r',
                                  :banner => 'PATH'
-          class_option :verbose, :type => :boolean, :aliases => '-v'
           class_option :backtrace, :type => :boolean
+          class_option :verbose, :type => :boolean, :aliases => '-v'
+          class_option :version, :type => :boolean, :aliases => '-V'
 
           #
           # Starts the Ronin Console.
