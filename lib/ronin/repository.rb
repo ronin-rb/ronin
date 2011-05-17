@@ -515,6 +515,25 @@ module Ronin
     end
 
     #
+    # Finds a cached script.
+    #
+    # @param [String] sub_path
+    #   The sub-path within the repository to search for.
+    #
+    # @retunr [Script::Path, nil]
+    #   The matching script path.
+    #
+    # @since 1.1.0
+    #
+    # @api private
+    #
+    def find_script(sub_path)
+      paths = @script_dirs.map { |dir| File.join(dir,sub_path) }
+
+      return script_paths.first(:path => paths)
+    end
+
+    #
     # Clears the {#script_paths} and re-saves the cached files within the
     # `cache/` directory.
     #
