@@ -261,6 +261,18 @@ module Ronin
         super
       end
 
+      #
+      # Converts the script path to a String.
+      #
+      # @return [String]
+      #   The path of the script path.
+      #
+      # @since 1.1.0
+      #
+      def to_s
+        self.path.to_s
+      end
+
     end
   end
 end
