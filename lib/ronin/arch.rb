@@ -91,14 +91,16 @@ module Ronin
     # @api private
     #
     def self.predefine(name,options={})
-      super(name,options.merge(:name => name))
+      super(name,{:name => name}.merge(options))
     end
 
     # The x86 Architecture
     predefine :x86, :endian => :little, :address_length => 4
 
     # The x86_64 Architecture
-    predefine :x86_64, :endian => :little, :address_length => 8
+    predefine :x86_64, :name => 'x86-64',
+                       :endian => :little,
+                       :address_length => 8
 
     # The ia64 Architecture
     predefine :ia64, :endian => :little, :address_length => 8
