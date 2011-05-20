@@ -163,6 +163,16 @@ Remove a Database:
   ~> 0.2
 * [pullr](http://github.com/postmodern/pullr#readme)
   ~> 0.1, >= 0.1.2
+* [ripl](https://github.com/cldwalker/ripl#readme)
+  ~> 0.3:
+* [ripl-multi_line](https://github.com/janlelis/ripl-multi_line#readme)
+  ~> 0.2
+* [ripl-auto_indent](https://github.com/janlelis/ripl-auto_indent#readme)
+  ~> 0.1
+* [ripl-short_errors](http://rubygems.org/gems/ripl-short_errors)
+  ~> 0.1
+* [ripl-color_result](https://github.com/janlelis/ripl-color_result#readme)
+  ~> 0.3
 * [thor](http://github.com/wycats/thor#readme)
   ~> 0.14.3
 * [ronin-support](http://github.com/ronin-ruby/ronin-support#readme)
