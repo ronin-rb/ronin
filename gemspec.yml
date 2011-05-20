@@ -36,7 +36,6 @@ required_ruby_version: ">= 1.8.7"
 
 dependencies:
   # DataMapper adapters
-  dm-do-adapter: ~> 1.1.0
   dm-sqlite-adapter: ~> 1.1.0
   # DataMapper dependencies
   dm-core: ~> 1.1.0

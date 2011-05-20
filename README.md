@@ -130,8 +130,6 @@ Remove a Database:
 
 * [Ruby](http://www.ruby-lang.org/) >= 1.8.7
 * [DataMapper](http://datamapper.org/):
-  * [dm-do-adapter](http://github.com/datamapper/dm-do-adapter#readme)
-    ~> 1.1.0
   * [dm-sqlite-adapter](http://github.com/datamapper/dm-sqlite-adapter#readme)
     ~> 1.1.0
     * [libsqlite3](http://sqlite.org/)
