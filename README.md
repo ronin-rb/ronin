@@ -170,7 +170,7 @@ Remove a Database:
 
 ## Install
 
-    $ sudo gem install ronin
+    $ gem install ronin
 
 ## Additional Libraries
 
