@@ -58,6 +58,10 @@ describe Arch do
     Arch.i386.should_not be_nil
   end
 
+  it "should allow custom names for built-in archs" do
+    Arch.x86_64.name.should == 'x86-64'
+  end
+
   it "should implicitly splat the endian and address length" do
     endian, address_length = Arch.x86
 
