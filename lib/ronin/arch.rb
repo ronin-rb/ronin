@@ -97,6 +97,26 @@ module Ronin
     # The x86 Architecture
     predefine :x86, :endian => :little, :address_length => 4
 
+    # Alias to {x86}.
+    predefine :i386, :name => 'x86',
+                     :endian => :little,
+                     :address_length => 4
+
+    # Alias to {x86}.
+    predefine :i486, :name => 'x86',
+                     :endian => :little,
+                     :address_length => 4
+
+    # Alias to {x86}.
+    predefine :i686, :name => 'x86',
+                     :endian => :little,
+                     :address_length => 4
+
+    # Alias to {x86}.
+    predefine :i986, :name => 'x86',
+                     :endian => :little,
+                     :address_length => 4
+
     # The x86_64 Architecture
     predefine :x86_64, :name => 'x86-64',
                        :endian => :little,
@@ -123,41 +143,17 @@ module Ronin
     # The MIPS (big-endian) Architecture
     predefine :mips_be, :endian => :big, :address_length => 4
 
+    # Alias to {mips_be}.
+    predefine :mips, :name => 'mips_be', :endian => :big, :address_length => 4
+
     # The ARM (little-endian) Architecture
     predefine :arm_le, :endian => :little, :address_length => 4
 
     # The ARM (big-endian) Architecture
     predefine :arm_be, :endian => :big, :address_length => 4
 
-    #
-    # @see x86
-    #
-    def self.i386; x86; end
-
-    #
-    # @see x86
-    #
-    def self.i486; x86; end
-
-    #
-    # @see x86
-    #
-    def self.i686; x86; end
-
-    #
-    # @see x86
-    #
-    def self.i986; x86; end
-
-    #
-    # @see mips_be
-    #
-    def self.mips; mips_be; end
-
-    #
-    # @see arm_be
-    #
-    def self.arm; arm_be; end
+    # Alias to {arm_be}.
+    predefine :arm, :name => 'arn_be', :endian => :big, :address_length => 4
 
   end
 end
