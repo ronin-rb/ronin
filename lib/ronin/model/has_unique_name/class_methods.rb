@@ -20,6 +20,9 @@
 module Ronin
   module Model
     module HasUniqueName
+      #
+      # Class methods that will be added when {HasUniqueName} is included.
+      #
       module ClassMethods
         #
         # Searches for models with the unique name.

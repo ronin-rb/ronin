@@ -30,6 +30,12 @@ require 'data_paths'
 require 'yaml'
 
 module Ronin
+  #
+  # Represents a container for user scripts and miscallaneous code,
+  # that can be distributed over common SCMs ([Git](http://git-scm.com/),
+  # [Mercurial (Hg)](http://mercurial.selenic.com/),
+  # [SubVersion (SVN)](http://subversion.tigris.org/), Rsync).
+  #
   class Repository
 
     include Model
