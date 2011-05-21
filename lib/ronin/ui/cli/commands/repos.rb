@@ -25,7 +25,7 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin repos` command.
+        # The `ronin-repos` command.
         #
         class Repos < ModelCommand
 
