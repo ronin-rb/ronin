@@ -90,8 +90,6 @@ module Ronin
     # @return [Script]
     #   The loaded script.
     #
-    # @see Cacheable.load_from
-    #
     # @since 1.1.0
     #
     # @api public
