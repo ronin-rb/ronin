@@ -92,7 +92,7 @@ module Ronin
     #
     # @since 1.1.0
     #
-    # @api public
+    # @api semipublic
     #
     def Script.load_from(path)
       path = File.expand_path(path)
