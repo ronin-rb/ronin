@@ -26,7 +26,12 @@ module Ronin
     # Controls {Output} from Ronin.
     #
     module Output
-      @mode = :quiet
+      @mode = if ENV['VERBOSE']
+                :verbose
+              else
+                :quiet
+              end
+
       @handler = if STDOUT.tty?
                    Terminal::Color
                  else
