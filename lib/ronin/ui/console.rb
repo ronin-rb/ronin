@@ -31,18 +31,8 @@ module Ronin
       # The history file for the Console session
       HISTORY_FILE = File.join(Config::PATH,'console.log')
 
-      @@color = if STDOUT.tty?
-                  false
-                else
-                  true
-                end
-
-      @@short_errors = if ENV['VERBOSE']
-                         false
-                       else
-                         true
-                       end
-
+      @@color = !(STDOUT.tty?)
+      @@short_errors = !(ENV.has_key?('VERBOSE'))
       @@auto_load = []
       @@setup_blocks = []
 
