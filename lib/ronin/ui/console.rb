@@ -32,7 +32,11 @@ module Ronin
       HISTORY_FILE = File.join(Config::PATH,'console.log')
 
       @@color = true
-      @@short_errors = true
+      @@short_errors = if ENV['VERBOSE']
+                         false
+                       else
+                         true
+                       end
       @@auto_load = []
       @@setup_blocks = []
 
