@@ -51,8 +51,8 @@ module Ronin
               return
             end
 
-            UI::Console.color = false if options.nocolor?
-            UI::Console.short_errors = false if options.backtrace?
+            UI::Console.color = !(options.color?)
+            UI::Console.short_errors = !(options.backtrace?)
 
             options[:require].each do |path|
               UI::Console.auto_load << path
