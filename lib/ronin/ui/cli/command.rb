@@ -126,7 +126,6 @@ module Ronin
                               :aliases => '-Q'
 
         class_option :color, :type => :boolean, :default => true
-        class_option :no_color, :type => :boolean, :default => false
 
         #
         # Sets the namespace of a new {Command} class.
@@ -225,15 +224,15 @@ module Ronin
         # @api semipublic
         #
         def setup
-          UI::Output.verbose! if self.options.verbose?
-          UI::Output.quiet! if self.options.quiet?
-          UI::Output.silent! if self.options.silent?
+          Output.verbose! if self.options.verbose?
+          Output.quiet! if self.options.quiet?
+          Output.silent! if self.options.silent?
 
-          if self.options.no_color?
-            UI::Output.handler = UI::Output::Terminal::Raw
-          elsif self.options.color?
-            UI::Output.handler = UI::Output::Terminal::Color
-          end
+          Output.handler = if self.options.color?
+                             Output::Terminal::Color
+                           else
+                             Output::Terminal::Raw
+                           end
         end
 
         #
