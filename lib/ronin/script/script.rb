@@ -34,6 +34,15 @@ require 'parameters'
 
 module Ronin
   #
+  # {Script} is a high-level module that enables a Class to load
+  # instances from files and cache them into the {Database}.
+  # Classes that include {Script}, may also include Script sub-modules
+  # that define behaviors of the Script Class:
+  #
+  # * {Buildable}
+  # * {Testable}
+  # * {Deployable}
+  #
   # @since 1.1.0
   #
   module Script
