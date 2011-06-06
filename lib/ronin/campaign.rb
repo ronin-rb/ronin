@@ -64,7 +64,7 @@ module Ronin
     # @api public
     #
     def self.targeting(addr)
-      all(:addresses => {:address => addr})
+      all('addresses.address' => addr)
     end
 
     #
@@ -81,7 +81,7 @@ module Ronin
     # @api public
     #
     def self.targeting_orgs(names)
-      all(:organizations => {:name => names})
+      all('organizations.name' => names)
     end
 
     #

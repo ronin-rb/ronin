@@ -87,7 +87,7 @@ module Ronin
     # @api public
     #
     def self.http
-      all(:scheme => {:name => 'http'})
+      all('scheme.name' => 'http')
     end
 
     #
@@ -101,7 +101,7 @@ module Ronin
     # @api public
     #
     def self.https
-      all(:scheme => {:name => 'https'})
+      all('scheme.name' => 'https')
     end
 
     #
@@ -118,7 +118,7 @@ module Ronin
     # @api public
     #
     def self.hosts(names)
-      all(:host => {:address => names})
+      all('host.address' => names)
     end
 
     #
@@ -135,7 +135,7 @@ module Ronin
     # @api public
     #
     def self.ports(numbers)
-      all(:port => {:number => numbers})
+      all('port.number' => numbers)
     end
 
     #
@@ -186,7 +186,7 @@ module Ronin
     # @api public
     #
     def self.query_param(name)
-      all(:query_params => {:name => name})
+      all('query_params.name' => name)
     end
 
     #
@@ -203,7 +203,7 @@ module Ronin
     # @api public
     #
     def self.query_value(value)
-      all(:query_params => {:value => value})
+      all('query_params.value' => value)
     end
 
     #

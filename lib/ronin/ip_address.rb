@@ -117,7 +117,7 @@ module Ronin
     # @api public
     #
     def self.with_macs(macs)
-      all(:mac_addresses => {:address => macs})
+      all('mac_addresses.address' => macs)
     end
 
     #
@@ -134,7 +134,7 @@ module Ronin
     # @api public
     #
     def self.with_hosts(names)
-      all(:host_names => {:address => names})
+      all('host_names.address' => names)
     end
 
     #
@@ -151,7 +151,7 @@ module Ronin
     # @api public
     #
     def self.with_ports(numbers)
-      all(:ports => {:number => numbers})
+      all('ports.number' => numbers)
     end
 
     #

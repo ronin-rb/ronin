@@ -51,16 +51,16 @@ module Ronin
         # @api public
         #
         def licensed_under(license)
-          license = case license
-                    when License
-                      license
-                    when Symbol
-                      License.predefined_resource(license)
-                    else
-                      {:name => license.to_s}
-                    end
+          query = case license
+                  when License
+                    {:license => license}
+                  when Symbol
+                    {:license => License.predefined_resource(license)}
+                  else
+                    {'license.name' => license.to_s}
+                  end
 
-          all(:license => license)
+          all(query)
         end
       end
     end

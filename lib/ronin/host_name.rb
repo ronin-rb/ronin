@@ -68,7 +68,7 @@ module Ronin
     # @api public
     #
     def self.with_ips(ips)
-      all(:ip_addresses => {:address => ips})
+      all('ip_addresses.address' => ips)
     end
 
     #
@@ -85,7 +85,7 @@ module Ronin
     # @api public
     #
     def self.with_ports(numbers)
-      all(:ports => {:number => numbers})
+      all('ports.number' => numbers)
     end
 
     #
