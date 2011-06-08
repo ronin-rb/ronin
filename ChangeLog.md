@@ -4,6 +4,7 @@
 * Require data_paths ~> 0.3.
 * Require ronin-support ~> 0.2.
 * Added `ronin/repositories`, for quickly loading all repositories.
+* Added {Ronin#script}.
 * Added {Ronin::AutoLoad}.
 * Added {Ronin::Arch.arm}.
 * Added {Ronin::Arch.mips}.
@@ -54,6 +55,9 @@
 * Set the length of {Ronin::License.url} to 256.
 * Merged `Ronin::Model::Cacheable` into {Ronin::Script}.
 * Repositories can now cache/load scripts from the `scripts/` directory.
+* Disable {Ronin::UI::Console.short_errors} if the `VERBOSE` environment
+  variable is set.
+* Disable {Ronin::UI::Console.color} if the `STDOUT` is a tty.
 * Set {Ronin::UI::Output.handler} to {Ronin::UI::Output::Terminal::Raw},
   when `STDOUT` is not a tty.
 * {Ronin::UI::CLI::ModelCommand#setup} now automatically calls
@@ -61,6 +65,7 @@
 * Merged `query_method` into {Ronin::UI::CLI::ModelCommand#query}.
 * Allow {Ronin::UI::CLI::ModelCommand.query_option} to map to Model
   properties.
+* Use DataMapper query-paths to improve performance of query-helper methods.
 
 ### 1.0.0 / 2011-03-25
 
