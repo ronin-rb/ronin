@@ -55,9 +55,9 @@
 * Set the length of {Ronin::License.url} to 256.
 * Merged `Ronin::Model::Cacheable` into {Ronin::Script}.
 * Repositories can now cache/load scripts from the `scripts/` directory.
-* Disable {Ronin::UI::Console.short_errors} if the `VERBOSE` environment
+* Disable {Ronin::UI::Console.short_errors?} if the `VERBOSE` environment
   variable is set.
-* Disable {Ronin::UI::Console.color} if the `STDOUT` is a tty.
+* Disable {Ronin::UI::Console.color?} if the `STDOUT` is a tty.
 * Set {Ronin::UI::Output.handler} to {Ronin::UI::Output::Terminal::Raw},
   when `STDOUT` is not a tty.
 * {Ronin::UI::CLI::ModelCommand#setup} now automatically calls
