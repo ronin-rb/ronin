@@ -22,7 +22,6 @@ require 'ronin/database/exceptions/unknown_repository'
 require 'ronin/database/migrations'
 require 'ronin/config'
 
-require 'addressable/uri'
 require 'yaml'
 require 'dm-core'
 
@@ -43,10 +42,10 @@ module Ronin
     DEFAULT_LOG_LEVEL = :info
 
     # Default database repository
-    DEFAULT_REPOSITORY = Addressable::URI.new(
-      :scheme => 'sqlite3',
-      :path => File.join(Config::PATH,'database.sqlite3')
-    )
+    DEFAULT_REPOSITORY = {
+      :adapter => 'sqlite3',
+      :database => File.join(Config::PATH,'database.sqlite3')
+    }
 
     @repositories = {}
     @log = nil
@@ -54,7 +53,7 @@ module Ronin
     #
     # Returns the Database repositories to use.
     #
-    # @return [Hash{Symbol => Addressable::URI}]
+    # @return [Hash{Symbol => Hash}]
     #   The database repository names and URIs.
     #
     # @raise [InvalidConfig]
@@ -69,14 +68,14 @@ module Ronin
         @repositories[:default] = DEFAULT_REPOSITORY
 
         if File.file?(CONFIG_FILE)
-          conf = YAML.load_file(CONFIG_FILE)
+          config = YAML.load_file(CONFIG_FILE)
 
-          unless conf.kind_of?(Hash)
+          unless config.kind_of?(Hash)
             raise(InvalidConfig,"#{CONFIG_FILE} must contain a YAML Hash of repositories")
           end
 
-          conf.each do |name,uri|
-            @repositories[name.to_sym] = Addressable::URI.parse(uri)
+          config.each do |name,uri|
+            @repositories[name.to_sym] = uri
           end
         end
       end
@@ -121,7 +120,7 @@ module Ronin
         hash = {}
         
         repositories.each do |name,value|
-          hash[name.to_s] = value.to_s
+          hash[name.to_sym] = value
         end
 
         YAML.dump(hash,file)
