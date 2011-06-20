@@ -52,25 +52,6 @@ module Ronin
     validates_uniqueness_of :address, :scope => [:campaign]
 
     #
-    # The directory to store files related to the target.
-    #
-    # @return [String]
-    #   The path to the directory.
-    #
-    # @since 1.0.0
-    #
-    # @api semipublic
-    #
-    def directory
-      if self.campaign
-        path = File.join(self.campaign.directory,self.address.address)
-
-        FileUtils.mkdir(path) unless File.directory?(path)
-        return path
-      end
-    end
-
-    #
     # Converts the target to a String.
     #
     # @return [String]
