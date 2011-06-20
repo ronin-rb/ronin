@@ -20,6 +20,8 @@
 require 'ronin/ui/cli/command'
 require 'ronin/database'
 
+require 'addressable/uri'
+
 module Ronin
   module UI
     module CLI
@@ -68,10 +70,8 @@ module Ronin
             elsif options[:delete]
               delete_repository
             else
-              indent do
-                Ronin::Database.repositories.each do |name,uri|
-                  puts "#{name}: #{uri}"
-                end
+              Ronin::Database.repositories.each do |name,uri|
+                print_hash uri, :title => name
               end
             end
           end
@@ -85,25 +85,18 @@ module Ronin
           #   The repository URI.
           #
           def repository_uri
-            uri = if options[:uri]
-                    Addressable::URI.parse(options[:uri])
-                  else
-                    Addressable::URI.new()
-                  end
-
-            uri.scheme = options[:adapter] if options[:adapter]
-            uri.host = options[:host] if options[:host]
-            uri.port = options[:port] if options[:port]
-            uri.user = options[:user] if options[:user]
-            uri.password = options[:password] if options[:password]
-
-            if options[:database]
-              uri.path = options[:database]
-            elsif options[:path]
-              uri.path = options[:path]
+            if options[:uri]
+              Addressable::URI.parse(options[:uri]).to_hash
+            else
+              {
+                :adapter => options[:adapter],
+                :host => options[:host],
+                :port => options[:port],
+                :user => options[:user],
+                :password => options[:password],
+                :database => (options[:database] || options[:path])
+              }
             end
-
-            return uri
           end
 
           #
