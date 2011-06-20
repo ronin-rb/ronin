@@ -17,14 +17,32 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/database/migrations/create_targets_table'
-require 'ronin/database/migrations/migrations'
+require 'ronin/database/migrations/1.0.0'
 require 'ronin/campaign'
 require 'ronin/target'
 
 module Ronin
   module Database
     module Migrations
+      migration(
+        :add_updated_at_column_to_campaigns_table,
+        :needs => :create_campaigns_table
+      ) do
+        up do
+          modify_table :ronin_campaigns do
+            add_column :updated_at, Time
+          end
+
+          # set the updated_at column to created_at
+          Campaign.each do |campaign|
+            campaign.update(:updated_at => campaign.created_at)
+          end
+        end
+
+        down do
+        end
+      end
+
       migration(
         :add_created_at_column_to_targets_table,
         :needs => :create_targets_table
