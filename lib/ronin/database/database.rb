@@ -205,7 +205,7 @@ module Ronin
       # setup the database log
       unless @log
         if ENV['DEBUG']
-          setup_log(:stream => STDERR, :level => :debug)
+          setup_log(:stream => $stderr, :level => :debug)
         else
           setup_log
         end
