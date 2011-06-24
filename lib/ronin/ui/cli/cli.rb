@@ -136,7 +136,7 @@ module Ronin
         begin
           CLI.command(name).start(argv)
         rescue UnknownCommand => e
-          warn e.message
+          $stderr.puts e.message
           exit -1
         end
 
