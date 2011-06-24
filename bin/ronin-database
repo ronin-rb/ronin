@@ -10,8 +10,8 @@ if File.directory?(File.join(root_dir,'.git'))
     begin
       Bundler.setup(:default)
     rescue Bundler::BundlerError => e
-      STDERR.puts e.message
-      STDERR.puts "Run `bundle install` to install missing gems"
+      warn e.message
+      warn "Run `bundle install` to install missing gems"
       exit e.status_code
     end
   end

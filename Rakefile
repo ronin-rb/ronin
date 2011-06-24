@@ -3,16 +3,16 @@ require 'rubygems'
 begin
   require 'bundler'
 rescue LoadError => e
-  STDERR.puts e.message
-  STDERR.puts "Run `gem install bundler` to install Bundler."
+  warn e.message
+  warn "Run `gem install bundler` to install Bundler."
   exit e.status_code
 end
 
 begin
   Bundler.setup(:development)
 rescue Bundler::BundlerError => e
-  STDERR.puts e.message
-  STDERR.puts "Run `bundle install` to install missing gems"
+  warn e.message
+  warn "Run `bundle install` to install missing gems"
   exit e.status_code
 end
 
