@@ -24,10 +24,8 @@ require 'ronin/target'
 module Ronin
   module Database
     module Migrations
-      migration(
-        :add_updated_at_column_to_campaigns_table,
-        :needs => :create_campaigns_table
-      ) do
+      migration :add_updated_at_column_to_campaigns_table,
+                :needs => :create_campaigns_table do
         up do
           modify_table :ronin_campaigns do
             add_column :updated_at, Time
@@ -38,15 +36,10 @@ module Ronin
             campaign.update(:updated_at => campaign.created_at)
           end
         end
-
-        down do
-        end
       end
 
-      migration(
-        :add_created_at_column_to_targets_table,
-        :needs => :create_targets_table
-      ) do
+      migration :add_created_at_column_to_targets_table,
+                :needs => :create_targets_table do
         up do
           modify_table :ronin_targets do
             add_column :created_at, Time
@@ -56,9 +49,6 @@ module Ronin
           Target.each do |target|
             target.update(:created_at => target.campaign.created_at)
           end
-        end
-
-        down do
         end
       end
     end
