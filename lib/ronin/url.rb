@@ -266,10 +266,10 @@ module Ronin
     #
     def self.from(uri)
       # find or create the URL scheme, host_name and port
-      scheme = self.scheme.model.first_or_new(:name => uri.scheme)
-      host_name = self.host_name.model.first_or_new(:address => uri.host)
+      scheme = URLScheme.first_or_new(:name => uri.scheme)
+      host_name = HostName.first_or_new(:address => uri.host)
       port = if uri.port
-               self.port.model.first_or_new(:number => uri.port)
+               TCPPort.first_or_new(:number => uri.port)
              end
 
       path = normalized_path(uri)
@@ -280,10 +280,10 @@ module Ronin
       if uri.respond_to?(:query_params)
         # find or create the URL query params
         uri.query_params.each do |name,value|
-          query_params << URLQueryParam.new(
+          query_params << {
             :name => URLQueryParamName.first_or_new(:name => name),
             :value => value
-          )
+          }
         end
       end
 
