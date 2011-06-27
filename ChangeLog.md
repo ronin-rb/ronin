@@ -9,6 +9,7 @@
 * Added {Ronin::Arch.arm}.
 * Added {Ronin::Arch.mips}.
 * Added {Ronin::Arch.x86}.
+* Added {Ronin::URLQueryParamName}.
 * Added timestamps to {Ronin::Campaign}.
 * Added the `created_at` timestamp to {Ronin::Target}.
 * Added {Ronin::Network::Mixins::HTTP#http_status}.
@@ -45,10 +46,12 @@
 * Removed `Ronin::Engine#method_missing`.
 * Extend `DataPaths::Finders` into {Ronin::Config}.
 * Fixed a RubyGems deprecation in {Ronin::Installation}.
-* Enabled verbose DataMapper logging if the `DEBUG` environment variable is
-  set.
+* Enabled verbose DataMapper logging if `$DEBUG` or the `DEBUG`
+  environment variable are set.
+* Switched from DataMapper URIs to Hashes.
 * Fixed a bug in {Ronin::Database::Migrations::Migration#initialize}, where
   `:needs` was being overridden.
+* Group Database migration files by {Ronin::VERSION}.
 * Ensure that {Ronin::Database::Migrations} preserves the order of loaded
   migrations.
 * Set the length of {Ronin::Password.clear_text} to 256.
@@ -60,12 +63,14 @@
 * Disable {Ronin::UI::Console.color?} if the `STDOUT` is a tty.
 * Set {Ronin::UI::Output.handler} to {Ronin::UI::Output::Terminal::Raw},
   when `STDOUT` is not a tty.
+* Enable {Ronin::UI::Output.verbose?} if `$VERBOSE` or `$DEBUG` are set.
 * {Ronin::UI::CLI::ModelCommand#setup} now automatically calls
   {Ronin::Database.setup}, before executing the command.
 * Merged `query_method` into {Ronin::UI::CLI::ModelCommand#query}.
 * Allow {Ronin::UI::CLI::ModelCommand.query_option} to map to Model
   properties.
 * Use DataMapper query-paths to improve performance of query-helper methods.
+* Removed `Ronin::Target#directory`.
 
 ### 1.0.0 / 2011-03-25
 
