@@ -225,21 +225,18 @@ module Ronin
       # optionally parse the URL
       url = ::URI.parse(url.to_s) unless url.kind_of?(::URI)
 
-      port = if url.port
-               {:number => url.port}
-             end
-
-      path = normalized_path(url)
-      fragment = url.fragment
-
       # create the initial query
       query = all(
-        :scheme => {:name => url.scheme},
-        :host_name => {:address => url.host},
-        :port => port,
-        :path => path,
-        :fragment => fragment
+        'scheme.name' => url.scheme,
+        'host_name.address' => url.host,
+        :path => normalized_path(url),
+        :fragment => url.fragment
       )
+
+      if url.port
+        # query the port
+        query = query.all('port.number' => url.port)
+      end
 
       if url.query
         # add the query params to the query
