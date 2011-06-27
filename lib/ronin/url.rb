@@ -186,7 +186,7 @@ module Ronin
     # @api public
     #
     def self.query_param(name)
-      all('query_params.name' => name)
+      all('query_params.name.name' => name)
     end
 
     #
@@ -247,7 +247,8 @@ module Ronin
         # add the query params to the query
         URI::QueryParams.parse(url.query).each do |name,value|
           query = query.all(
-            :query_params => {:name => name, :value => value}
+            'query_params.name.name' => name,
+            'query_params.value' => value 
           )
         end
       end
@@ -284,8 +285,8 @@ module Ronin
       if uri.respond_to?(:query_params)
         # find or create the URL query params
         uri.query_params.each do |name,value|
-          query_params << self.query_params.model.first_or_new(
-            :name => name,
+          query_params << URLQueryParam.new(
+            :name => URLQueryParamName.first_or_new(:name => name),
             :value => value
           )
         end
@@ -386,7 +387,10 @@ module Ronin
       self.query_params.clear
 
       URI::QueryParams.parse(query).each do |name,value|
-        self.query_params.new(:name => name, :value => value)
+        self.query_params.new(
+          :name => URLQueryParamName.first_or_new(:name => name),
+          :value => value
+        )
       end
 
       return query

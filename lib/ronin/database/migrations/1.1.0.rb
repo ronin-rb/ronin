@@ -51,6 +51,52 @@ module Ronin
           end
         end
       end
+
+      migration :create_url_query_param_names_table,
+                :needs => :create_url_query_params_table do
+        up do
+          create_table :ronin_url_query_param_names do
+            column :id, Integer, :serial => true
+            column :name, String, :length => 256, :not_null => true
+          end
+
+          create_index :ronin_url_query_param_names, :name, :unique => true
+
+          # select any previous URLQueryParam entries before recreating the table
+          query_params = adapter.select('SELECT id,name,value,url_id FROM ronin_url_query_params')
+
+          # recreate the `ronin_url_query_params` table
+          drop_table :ronin_url_query_params
+          create_table :ronin_url_query_params do
+            column :id, Integer, :serial => true
+            column :name_id, Integer, :not_null => true
+            column :value, Text
+            column :url_id, Integer, :not_null => true
+          end
+
+          name_ids = {}
+
+          query_params.each do |param|
+            unless name_ids.has_key?(param.name)
+              result = adapter.execute(
+                'INSERT INTO ronin_url_query_param_names (name) VALUES (?)',
+                param.name
+              )
+
+              name_ids[param.name] = result.insert_id
+            end
+
+            adapter.execute(
+              'INSERT INTO ronin_url_query_params (id,name_id,value,url_id) VALUES (?,?,?,?)',
+              param.id, name_ids[param.name], param.value, param.url_id
+            )
+          end
+        end
+
+        down do
+          drop_table :ronin_url_query_param_names
+        end
+      end
     end
   end
 end

@@ -21,17 +21,22 @@ describe URL do
       :fragment => fragment
     )
 
-    @url = URL.create(
-      :scheme => {:name => scheme},
-      :host_name => {:address => host_name},
-      :port => {:number => port},
+    @url = URL.new(
+      :scheme => URLScheme.first_or_create(:name => scheme),
+      :host_name => HostName.first_or_create(:address => host_name),
+      :port => TCPPort.first_or_create(:number => port),
       :path => path,
-      :fragment => fragment,
-      :query_params => [{
-        :name => query_params.keys[0],
-        :value => query_params.values[0]
-      }]
+      :fragment => fragment
     )
+
+    @url.query_params.new(
+      :name => URLQueryParamName.first_or_create(
+        :name => query_params.keys[0]
+      ),
+      :value => query_params.values[0]
+    )
+
+    @url.save
   end
 
   it "should have a host String" do

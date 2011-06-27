@@ -17,52 +17,67 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/url_query_param_name'
+require 'ronin/model/has_unique_name'
 require 'ronin/model'
-
-require 'uri/query_params'
 
 module Ronin
   #
-  # Represents a query param that belongs to a {URL}.
+  # Represents the name of a {URLQueryParam}.
   #
-  class URLQueryParam
+  class URLQueryParamName
 
     include Model
+    include Model::HasUniqueName
 
     # The primary-key of the URL query param
     property :id, Serial
 
     # The name of the URL query param
-    belongs_to :name, :model => 'URLQueryParamName'
+    property :name, String, :length => 256,
+                            :required => true,
+                            :unique => true
 
-    # The value of the URL query param
-    property :value, Text
-
-    # The URL
-    belongs_to :url, :model => 'URL'
+    # The URL query params
+    has 0..n, :query_params, :model => 'URLQueryParam',
+                             :child_key => [:name_id]
 
     #
-    # Converts the URL query param to a String.
+    # Specifies when the URL query param name was first seen.
+    #
+    # @return [Time]
+    #   The timestamp that the query param name was first seen.
+    #
+    # @since 1.1.0
+    #
+    # @api public
+    #
+    def created_at
+      if (url = self.query_params.urls.first(:fields => [:created_at]))
+        url.created_at
+      end
+    end
+
+    #
+    # Converts the URL query param name to a String.
     #
     # @return [String]
-    #   The dumped URL query param.
+    #   The name of the URL query param
     #
-    # @since 1.0.0
+    # @since 1.1.0
     #
     # @api public
     #
     def to_s
-      URI::QueryParams.dump(self.name.to_s => self.value)
+      self.name.to_s
     end
 
     #
-    # Inspects the URL query param.
+    # Inspects the URL query param name.
     #
     # @return [String]
-    #   The inspected URL query param.
+    #   The inspected URL query param name.
     #
-    # @since 1.0.0
+    # @since 1.1.0
     #
     # @api public
     #
