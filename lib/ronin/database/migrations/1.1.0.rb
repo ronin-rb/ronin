@@ -76,24 +76,47 @@ module Ronin
 
           name_ids = {}
 
-          query_params.each do |param|
-            unless name_ids.has_key?(param.name)
+          query_params.each do |row|
+            unless name_ids.has_key?(row.name)
               result = adapter.execute(
                 'INSERT INTO ronin_url_query_param_names (name) VALUES (?)',
-                param.name
+                row.name
               )
 
-              name_ids[param.name] = result.insert_id
+              name_ids[row.name] = result.insert_id
             end
 
             adapter.execute(
               'INSERT INTO ronin_url_query_params (id,name_id,value,url_id) VALUES (?,?,?,?)',
-              param.id, name_ids[param.name], param.value, param.url_id
+              row.id, name_ids[row.name], row.value, row.url_id
             )
           end
         end
 
         down do
+          id_names = {}
+
+          adapter.select('SELECT id,name FROM ronin_url_query_param_names').each do |row|
+            id_names[row.id] = row.name
+          end
+
+          query_params = adapter.select('SELECT id,name_id,value,url_id FROM ronin_url_query_params')
+
+          drop_table :ronin_url_query_params
+          create_table :ronin_url_query_params do
+            column :id, Integer, :serial => true
+            column :name, String, :length => 256, :not_null => true
+            column :value, Text
+            column :url_id, Integer, :not_null => true
+          end
+
+          query_params.each do |row|
+            adapter.execute(
+              'INSERT INTO ronin_url_query_params (id,name,value,url_id) VALUES (?,?,?,?)',
+              row.id, id_names[row.name_id], row.value, row.url_id
+            )
+          end
+
           drop_table :ronin_url_query_param_names
         end
       end
