@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'ronin/ip_address'
 
 describe IPAddress do
-  let(:example_domain) { 'www.example.com' }
-  let(:example_ip) { '192.0.32.10' }
+  let(:example_domain) { 'localhost' }
+  let(:example_ip) { '127.0.0.1' }
 
   subject { IPAddress.new(:address => example_ip) }
 
@@ -67,7 +67,7 @@ describe IPAddress do
   end
 
   describe "#version" do
-    let(:ipv4) { IPAddress.new(:address => '192.168.1.1') }
+    let(:ipv4) { IPAddress.new(:address => '127.0.0.1') }
     let(:ipv6) { IPAddress.new(:address => '::1') }
 
     it "should only accept 4 or 6" do
