@@ -19,8 +19,6 @@
 
 require 'ronin/model'
 require 'ronin/model/has_unique_name'
-require 'ronin/credential'
-require 'ronin/email_address'
 
 require 'dm-timestamps'
 
