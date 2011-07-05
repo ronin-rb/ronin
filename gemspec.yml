@@ -52,8 +52,7 @@ dependencies:
   uri-query_params: ~> 0.5, >= 0.5.2
   open_namespace: ~> 0.3
   parameters: ~> 0.2, >= 0.2.3
-  # data_paths: ~> 0.3
-  data_paths: ~> 0.3.0.rc1
+  data_paths: ~> 0.3
   object_loader: ~> 1.0
   env: ~> 0.2
   pullr: ~> 0.1, >= 0.1.2
@@ -64,8 +63,7 @@ dependencies:
   ripl-color_result: ~> 0.3
   thor: ~> 0.14.3
   # Ronin dependencies:
-  # ronin-support: ~> 0.2
-  ronin-support: ~> 0.2.0.rc2
+  ronin-support: ~> 0.2
 
 development_dependencies:
   bundler: ~> 1.0.10
