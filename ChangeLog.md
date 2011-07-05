@@ -3,7 +3,6 @@
 * Require env ~> 0.2.
 * Require data_paths ~> 0.3.
 * Require ronin-support ~> 0.2.
-* Require ripl-fresh ~> 0.2.
 * Added `ronin/repositories`, for quickly loading all repositories.
 * Added {Ronin#script}.
 * Added {Ronin::AutoLoad}.

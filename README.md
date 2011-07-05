@@ -171,8 +171,6 @@ Remove a Database:
   ~> 0.1
 * [ripl-color_result](https://github.com/janlelis/ripl-color_result#readme)
   ~> 0.3
-* [ripl-fresh](https://github.com/janlelis/fresh#readme)
-  ~> 0.2
 * [thor](http://github.com/wycats/thor#readme)
   ~> 0.14.3
 * [ronin-support](http://github.com/ronin-ruby/ronin-support#readme)
