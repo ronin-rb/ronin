@@ -35,6 +35,7 @@ module Ronin
       @@short_errors = !(ENV.has_key?('VERBOSE'))
       @@auto_load = []
       @@setup_blocks = []
+      @@completions = []
 
       #
       # Determines whether colorized output will be enabled.
@@ -97,6 +98,30 @@ module Ronin
       #
       def Console.short_errors=(mode)
         @@short_errors = mode
+      end
+
+      #
+      # Adds a tab-completion rule to the Console.
+      #
+      # @param [Hash] options
+      #   Pattern matching options.
+      #
+      # @yield [(match)]
+      #   The given block will be passed the matched pattern,
+      #   and will return an Array of possible completions.
+      #
+      # @yieldparam [String] match
+      #   The pattern match.
+      #
+      # @return [true]
+      #   Specifies whether the complete rule was successfully added.
+      #
+      # @since 1.2.0
+      #
+      # @api semipublic
+      #
+      def Console.complete(options,&block)
+        @@completions << [options, block]
       end
 
       #
@@ -184,6 +209,10 @@ module Ronin
 
         # run the supplied configuration block is given
         context.instance_eval(&block) if block
+
+        @@completions.each do |options,block|
+          Bond.complete(options,&block)
+        end
 
         # Start the Ripl console
         Ripl.start(
