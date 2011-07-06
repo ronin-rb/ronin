@@ -5,6 +5,9 @@ DM_VERSION = '~> 1.1.0'
 DO_VERSION = '~> 0.10.3'
 RONIN_URI = 'http://github.com/ronin-ruby'
 
+gem 'ripl', '~> 0.4.2', :git => "#{RONIN_URI}/ripl.git",
+                        :branch => 'completions'
+
 gemspec
 
 # DataMapper dependencies
