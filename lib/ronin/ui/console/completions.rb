@@ -21,6 +21,7 @@ require 'ronin/address'
 require 'ronin/ip_address'
 require 'ronin/host_name'
 require 'ronin/email_address'
+require 'ronin/url'
 
 require 'ripl'
 require 'ripl/completion'
@@ -58,8 +59,8 @@ module Ronin
       # 
       #     http://www.example.com/in[TAB][TAB] => http://www.example.com/index.html
       #
-      Console.complete(:anywhere => /[a-z]+:\/\/([^:\/\?]+(:\d+)?(\/[^\?;]*)?)?/) do |url|
-        match = url.match(/([a-z]+):\/\/([^:\/\?]+)(:\d+)?(\/[^\?;]*)?/)
+      Console.complete(:anywhere => /[a-z]+:\/\/([^:\/\?]+(:\d+)?(\/[^\?;]*(\?[^\?;]*)?)?)?/) do |url|
+        match = url.match(/([a-z]+):\/\/([^:\/\?]+)(:\d+)?(\/[^\?;]*)?(\?[^\?;]*)?/)
 
         query = URL.all('scheme.name' => match[1])
 
@@ -80,6 +81,28 @@ module Ronin
             query = query.all(:path.like => "#{match[4]}%")
           else
             query = query.all(:path => match[4])
+          end
+        end
+
+        if match[5]
+          params = URI::QueryParams.parse(match[5][1..-1]).to_a
+          
+          params[0..-2].each do |name,value|
+            query = query.all(
+              'query_params.name.name' => name,
+              'query_params.value' => value
+            )
+          end
+
+          if (param = params.last)
+            if param[1].empty?
+              query = query.all('query_params.name.name.like' => "#{param[0]}%")
+            else
+              query = query.all(
+                'query_params.name.name' => param[0],
+                'query_params.value.like' => "#{param[1]}%"
+              )
+            end
           end
         end
 
