@@ -72,9 +72,9 @@ Mercurial or Git.
   [ronin-support](http://github.com/ronin-ruby/ronin-support#readme).
 * Provides a customized Ruby Console with:
   * Syntax highlighting.
-  * Tab-completion enabled.
-  * Auto-indentation enabled.
-  * Pretty-Print loaded.
+  * Tab-completion.
+  * Auto-indentation.
+  * Pretty-Printing (`pp`).
   * `print_info`, `print_error`, `print_warning` and `print_debug`
     output helper methods with color-output.
 * Provides an extensible command-line interface based on
