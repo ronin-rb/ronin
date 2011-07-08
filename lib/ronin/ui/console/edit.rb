@@ -18,6 +18,7 @@
 #
 
 require 'tempfile'
+require 'env'
 
 module Ronin
   module UI
@@ -28,8 +29,6 @@ module Ronin
       # @since 1.2.0
       #
       module Edit
-        EDITOR = ENV['EDITOR']
-
         #
         # Detects the edit command.
         #
@@ -39,11 +38,10 @@ module Ronin
         # @api private
         #
         def loop_eval(input)
-          if (input == 'edit' || input == EDITOR)
+          if input == 'edit'
             return edit(Tempfile.new(['ronin-console', '.rb']).path)
-          elsif (input.start_with?('edit ') ||
-                 (EDITOR && input.start_with?("#{EDITOR} ")))
-            return edit(input.split(' ',2)[1])
+          elsif input.start_with?('edit ')
+            return edit(input.split(' ',2).last)
           end
 
           super(input)
@@ -63,8 +61,8 @@ module Ronin
         # @api private
         #
         def edit(path)
-          if EDITOR
-            system(EDITOR,path) && load(path)
+          if Env.editor
+            system(Env.editor,path) && load(path)
           else
             print_error "Please set the EDITOR env variable"
             return false
