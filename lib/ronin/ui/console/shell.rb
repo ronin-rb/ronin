@@ -17,8 +17,6 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'env'
-
 module Ronin
   module UI
     module Console

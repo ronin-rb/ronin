@@ -66,7 +66,8 @@ module Ronin
           if EDITOR
             system(EDITOR,path) && load(path)
           else
-            raise("Please set the EDITOR env variable")
+            print_error "Please set the EDITOR env variable"
+            return false
           end
         end
       end
