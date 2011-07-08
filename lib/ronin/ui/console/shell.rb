@@ -28,6 +28,23 @@ module Ronin
       # @since 1.2.0
       #
       module Shell
+        # Names and statuses of executables.
+        EXECUTABLES = Hash.new do |hash,key|
+          hash[key] = Env.paths.any? do |dir|
+            path = dir.join(key)
+
+            (path.file? && path.executable?)
+          end
+        end
+
+        # Blacklist of known commands that conflict with Ruby keywords.
+        BLACKLIST = Set[
+          '[', 'ap', 'begin', 'case', 'class', 'def', 'fail', 'false',
+          'for', 'if', 'lambda', 'load', 'loop', 'module', 'p', 'pp',
+          'print', 'proc', 'puts', 'raise', 'require', 'true', 'undef',
+          'unless', 'until', 'warn', 'while'
+        ]
+
         #
         # Dynamically execute shell commands, instead of Ruby.
         #
@@ -41,7 +58,7 @@ module Ronin
             command = input[1..-1]
             name = command.split(' ',2).first
 
-            if program?(name)
+            if executable?(name)
               return system(command)
             end
           end
@@ -52,22 +69,21 @@ module Ronin
         protected
 
         #
-        # Determines if a program exists.
+        # Determines if an executable exists on the system.
         #
         # @param [String] name
-        #   The name of the program to search for.
+        #   The program name or path.
         #
         # @return [Boolean]
-        #   Specifies whether the program exists.
+        #   Specifies whether the executable exists.
         #
-        def program?(name)
-          executable = lambda { |path|
-            (File.file?(path) && File.executable?(path))
-          }
-
-          executable[name] || Env.paths.any? { |dir|
-            executable[dir.join(name)]
-          }
+        # @api private
+        #
+        def executable?(name)
+          !BLACKLIST.include?(name) && (
+            (File.file?(name) && File.executable?(name)) ||
+            EXECUTABLES[name]
+          )
         end
       end
     end
