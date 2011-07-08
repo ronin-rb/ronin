@@ -18,5 +18,4 @@
 #
 
 require 'ronin/ui/console/console'
-require 'ronin/ui/console/edit'
-require 'ronin/ui/console/shell'
+require 'ronin/ui/console/commands'
