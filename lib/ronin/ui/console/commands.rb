@@ -57,11 +57,13 @@ module Ronin
         def loop_eval(input)
           if input[0,1] == '!'
             command = input[1..-1]
-            name, arguments = command.split(' ',2)
+            name, arguments = command.split(' ')
 
             unless BLACKLIST.include?(name)
               if Commands.singleton_class.method_defined?(name)
-                return Commands.send(name,arguments)
+                arguments ||= []
+
+                return Commands.send(name,*arguments)
               elsif executable?(name)
                 return system(command)
               end
@@ -74,7 +76,7 @@ module Ronin
         #
         # Equivalent of the `cd` command, using `Dir.chdir`.
         #
-        # @param [String] arguments
+        # @param [Array<String>] arguments
         #   The arguments of the command.
         #
         # @return [Boolean]
@@ -82,12 +84,12 @@ module Ronin
         #
         # @api semipublic
         #
-        def Commands.cd(arguments)
+        def Commands.cd(*arguments)
           old_pwd = Dir.pwd
 
           new_cwd = if arguments.empty?
                       Env.home
-                    elsif arguments == '-'
+                    elsif arguments.first == '-'
                       unless ENV['OLDPWD']
                         print_warning 'cd: OLDPWD not set'
                         return false
@@ -95,7 +97,7 @@ module Ronin
 
                       ENV['OLDPWD']
                     else
-                      arguments
+                      arguments.first
                     end
 
           Dir.chdir(new_cwd)
@@ -106,15 +108,15 @@ module Ronin
         #
         # Equivalent of the `export` or `set` commands.
         #
-        # @param [String] arguments
+        # @param [Array<String>] arguments
         #   The arguments of the command.
         #
         # @return [true]
         #
         # @api semipublic
         #
-        def Commands.export(arguments)
-          arguments.split(' ').each do |pair|
+        def Commands.export(*arguments)
+          arguments.each do |pair|
             name, value = pair.split('=',2)
 
             ENV[name] = value
@@ -124,7 +126,7 @@ module Ronin
         #
         # Edits a path and re-loads the code.
         #
-        # @param [String] path 
+        # @param [Array<String>] path 
         #   The path of the file to re-load.
         #
         # @return [Boolean]
@@ -132,7 +134,9 @@ module Ronin
         #
         # @api private
         #
-        def Commands.edit(path=nil)
+        def Commands.edit(*arguments)
+          path = arguments.first
+
           if Env.editor
             path ||= Tempfile.new(['ronin-console', '.rb']).path
 
