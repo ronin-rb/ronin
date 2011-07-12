@@ -46,7 +46,7 @@ DataMapper::Visualizer::Rake::GraphVizTask.new(
     ronin/organization
     ronin/os_guess
     ronin/os
-    ronin/cached_file
+    ronin/script/path
     ronin/repository
     ronin/port
     ronin/service
@@ -58,6 +58,7 @@ DataMapper::Visualizer::Rake::GraphVizTask.new(
     ronin/tcp_port
     ronin/udp_port
     ronin/url_scheme
+    ronin/url_query_param_name
     ronin/url_query_param
     ronin/url
     ronin/user_name
