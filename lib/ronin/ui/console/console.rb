@@ -171,7 +171,7 @@ module Ronin
         # require any of the auto-load paths
         @@auto_load.each { |path| require path }
 
-        context = class << Context.new; self; end
+        context = Context.new
         context.instance_variables = variables
 
         # run any setup-blocks

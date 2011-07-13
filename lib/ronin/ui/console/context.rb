@@ -25,6 +25,16 @@ module Ronin
       #
       class Context
 
+        #
+        # Creates a new {Console} context.
+        #
+        # @return [Class<Context>]
+        #   A new context for the {Console}.
+        #
+        def self.new
+          class << super; self; end
+        end
+
         class << self
           #
           # Catches missing constants and searches the {Ronin} namespace.
