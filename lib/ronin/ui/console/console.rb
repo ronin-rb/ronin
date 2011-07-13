@@ -186,7 +186,7 @@ module Ronin
         Ripl.start(
           :argv => [],
           :name => 'ronin',
-          :binding => context.instance_eval { binding },
+          :binding => context.instance_eval('binding'),
           :history => HISTORY_FILE,
           :irbrc => false
         )
