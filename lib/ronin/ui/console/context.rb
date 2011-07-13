@@ -69,7 +69,13 @@ module Ronin
           # @api semipublic
           #
           def inspect
-            "#<Ronin::UI::Console::Context>"
+            body = unless instance_variables.empty?
+                     ': ' << instance_variables.map { |name|
+                       "#{name}=#{instance_variable_get(name).inspect}"
+                     }.join(', ')
+                   end
+
+            return "#<Ronin::UI::Console#{body}>"
           end
         end
 
