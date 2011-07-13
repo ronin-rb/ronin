@@ -27,6 +27,26 @@ module Ronin
 
         class << self
           #
+          # Catches missing constants and searches the {Ronin} namespace.
+          #
+          # @param [Symbol] name
+          #   The constant name.
+          #
+          # @return [Object]
+          #   The found constant.
+          #
+          # @raise [NameError]
+          #   The constant could not be found within {Ronin}.
+          #
+          # @since 1.0.0
+          #
+          # @api semipublic
+          #
+          def self.const_missing(name)
+            Ronin.send(:const_missing,name)
+          end
+
+          #
           # Populates the instance variables.
           #
           # @param [Hash] variables
@@ -49,7 +69,7 @@ module Ronin
           # @api semipublic
           #
           def inspect
-            "#<Ronin::UI::Console>"
+            "#<Ronin::UI::Console::Context>"
           end
         end
 

@@ -17,25 +17,10 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/class_methods'
 require 'ronin/auto_load'
 
 module Ronin
   include AutoLoad
-
-  #
-  # Includes {ClassMethods} when {Ronin} is included.
-  #
-  # @param [Class, Module] base
-  #   The class or module that {Ronin} is being included into.
-  #
-  # @since 1.0.0
-  #
-  # @api private
-  #
-  def self.included(base)
-    base.send :extend, ClassMethods
-  end
 
   #
   # Convenience method for loading Ronin {Script}s.
