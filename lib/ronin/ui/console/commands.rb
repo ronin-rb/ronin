@@ -28,6 +28,8 @@ module Ronin
       #
       # @since 1.2.0
       #
+      # @api private
+      #
       module Commands
         # Names and statuses of executables.
         EXECUTABLES = Hash.new do |hash,key|
@@ -51,8 +53,6 @@ module Ronin
         #
         # @param [String] input
         #   The input from the console.
-        #
-        # @api private
         #
         def loop_eval(input)
           if input[0,1] == '!'
@@ -81,8 +81,6 @@ module Ronin
         #
         # @return [Boolean]
         #   Specifies whether the directory change was successful.
-        #
-        # @api semipublic
         #
         def Commands.cd(*arguments)
           old_pwd = Dir.pwd
@@ -113,8 +111,6 @@ module Ronin
         #
         # @return [true]
         #
-        # @api semipublic
-        #
         def Commands.export(*arguments)
           arguments.each do |pair|
             name, value = pair.split('=',2)
@@ -131,8 +127,6 @@ module Ronin
         #
         # @return [Boolean]
         #   Specifies whether the code was successfully re-loaded.
-        #
-        # @api private
         #
         def Commands.edit(*arguments)
           path = arguments.first
@@ -157,8 +151,6 @@ module Ronin
         #
         # @return [Boolean]
         #   Specifies whether the executable exists.
-        #
-        # @api private
         #
         def executable?(name)
           (File.file?(name) && File.executable?(name)) || EXECUTABLES[name]
