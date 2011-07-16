@@ -28,7 +28,7 @@ module Ronin
         #
         # Finds all models associated with a given license.
         #
-        # @param [License, Symbol, String] license
+        # @param [License, Symbol, #to_s] license
         #   The license which models are associated with.
         #
         # @return [Array<Model>]
