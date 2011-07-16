@@ -17,8 +17,6 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/script/instance_methods'
-require 'ronin/script/class_methods'
 require 'ronin/script/path'
 require 'ronin/model/model'
 require 'ronin/model/has_name'
@@ -88,6 +86,263 @@ module Ronin
       end
 
       Path.has 1, base.relationship_name, base, :child_key => [:script_path_id]
+    end
+
+    #
+    # @since 1.1.0
+    #
+    module ClassMethods
+      #
+      # Loads the {Script} of the same class.
+      #
+      # @param [String] path
+      #   The path to load the script from.
+      #
+      # @return [Script]
+      #   The loaded script.
+      #
+      # @example
+      #   Exploits::HTTP.load_from('mod_php_exploit.rb')
+      #   # => #<Ronin::Exploits::HTTP: ...>
+      #
+      # @since 1.1.0
+      #
+      def load_from(path)
+        load_object(path)
+      end
+
+      #
+      # Loads all objects with the matching attributes.
+      #
+      # @param [Hash] attributes
+      #   Attributes to search for.
+      #
+      # @since 1.1.0
+      #
+      # @api public
+      #
+      def load_all(attributes={})
+        resources = all(attributes)
+        resources.each { |resource| resource.load_script! }
+
+        return resources
+      end
+
+      #
+      # Loads the first object with matching attributes.
+      #
+      # @param [Hash] attributes
+      #   Attributes to search for.
+      #
+      # @return [Cacheable]
+      #   The loaded cached objects.
+      #
+      # @since 1.1.0
+      #
+      # @api public
+      #
+      def load_first(attributes={})
+        if (resource = first(attributes))
+          resource.load_script!
+        end
+
+        return resource
+      end
+    end
+
+    #
+    # Instance methods for an {Script}.
+    #
+    # @since 1.1.0
+    #
+    module InstanceMethods
+      #
+      # Initializes the Ronin Script.
+      #
+      # @param [Array] arguments
+      #   Arguments for initializing the Script.
+      #
+      # @since 1.1.0
+      #
+      # @api semipublic
+      #
+      def initialize(*arguments,&block)
+        @script_loaded = false
+        @cache_prepared = false
+
+        if arguments.first.kind_of?(Hash)
+          initialize_params(arguments.first)
+        end
+
+        super(*arguments,&block)
+      end
+
+      #
+      # The script type.
+      #
+      # @return [String]
+      #   The name of the script class.
+      #
+      # @since 1.1.0
+      #
+      # @api semipublic
+      #
+      def script_type
+        @script_type ||= self.class.base_model.name.split('::').last
+      end
+
+      #
+      # Determines if the original code, from the cache file, has been
+      # loaded into the object.
+      #
+      # @return [Boolean]
+      #   Specifies whether the original code has been loaded into the
+      #   object.
+      #
+      # @since 1.1.0
+      #
+      # @api private
+      #
+      def script_loaded?
+        @script_loaded == true
+      end
+
+      #
+      # Loads the code from the cached file for the object, and instance
+      # evaluates it into the object.
+      #
+      # @return [Boolean]
+      #   Indicates the original code was successfully loaded.
+      #
+      # @since 1.1.0
+      #
+      # @api private
+      #
+      def load_script!
+        if (cached? && !script_loaded?)
+          block = self.class.load_object_block(self.script_path.path)
+
+          @script_loaded = true
+          instance_eval(&block) if block
+          return true
+        end
+
+        return false
+      end
+
+      #
+      # @return [Boolean]
+      #   Specifies whether the object has been prepared to be cached,
+      #
+      # @since 1.1.0
+      #
+      # @api private
+      #
+      def prepared_for_cache?
+        @cache_prepared == true
+      end
+
+      #
+      # Indicates whether the object has been cached.
+      #
+      # @return [Boolean]
+      #   Specifies whether the object has been previously cached.
+      #
+      # @since 1.1.0
+      #
+      # @api private
+      #
+      def cached?
+        (saved? && self.script_path)
+      end
+
+      #
+      # Default method which invokes the script.
+      #
+      # @param [Array] arguments
+      #   Optional arguments.
+      #
+      # @since 1.1.0
+      #
+      def run(*arguments)
+      end
+
+      #
+      # Converts the script to a String.
+      #
+      # @return [String]
+      #   The name and version of the script.
+      #
+      # @since 1.1.0
+      #
+      # @api public
+      #
+      def to_s
+        if (self.name && self.version)
+          "#{self.name} #{self.version}"
+        elsif self.name
+          super
+        elsif self.version
+          self.version.to_s
+        end
+      end
+
+      #
+      # Inspects both the properties and parameters of the Ronin Script.
+      #
+      # @return [String]
+      #   The inspected Ronin Script.
+      #
+      # @since 1.1.0
+      #
+      # @api public
+      #
+      def inspect
+        body = []
+
+        self.attributes.each do |name,value|
+          body << "#{name}: #{value.inspect}"
+        end
+
+        param_pairs = []
+
+        self.params.each do |name,param|
+          param_pairs << "#{name}: #{param.value.inspect}"
+        end
+
+        body << "params: {#{param_pairs.join(', ')}}"
+
+        return "#<#{self.class}: #{body.join(', ')}>"
+      end
+
+      protected
+
+      #
+      # Will call the given block only once, in order to prepare the
+      # object for caching.
+      #
+      # @yield []
+      #   The block will be ran inside the object when the object is to be
+      #   prepared for caching.
+      #
+      # @return [Boolean]
+      #   Specifies whether the object was successfully prepared for
+      #   caching.
+      #
+      # @since 1.1.0
+      #
+      # @api public
+      #
+      def cache
+        if (block_given? && !(cached? || prepared_for_cache?))
+          @cache_prepared = true
+
+          yield
+          return true
+        end
+
+        return false
+      end
     end
 
     # 

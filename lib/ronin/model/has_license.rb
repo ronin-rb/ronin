@@ -17,5 +17,104 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/model/has_license/class_methods'
-require 'ronin/model/has_license/has_license'
+require 'ronin/model'
+require 'ronin/license'
+
+module Ronin
+  module Model
+    #
+    # Adds a `license` relationship between a model and the {License} model.
+    #
+    module HasLicense
+      #
+      # Adds the `license` relationship and {ClassMethods} to the model.
+      #
+      # @param [Class] base
+      #   The model.
+      #
+      # @api semipublic
+      #
+      def self.included(base)
+        base.send :include, Model, InstanceMethods
+        base.send :extend, ClassMethods
+
+        base.module_eval do
+          # The license
+          belongs_to :license, Ronin::License, :required => false
+
+          Ronin::License.has 0..n, self.relationship_name, :model => self
+        end
+      end
+
+      #
+      # Class methods that are added when {HasLicense} is included into a
+      # model.
+      #
+      module ClassMethods
+        #
+        # Finds all models associated with a given license.
+        #
+        # @param [License, Symbol, #to_s] license
+        #   The license which models are associated with.
+        #
+        # @return [Array<Model>]
+        #   The models associated with a given license.
+        #
+        # @example Query using a predefined {License} resource.
+        #   LicensedModel.licensed_under(License.mit)
+        #   # => [#<Ronin::LicensedModel: ...>, ...]
+        #
+        # @example Query using the name of a predefined {License}.
+        #   LicensedModel.licensed_under(:cc_by_nc)
+        #   # => [#<Ronin::LicensedModel: ...>, ...]
+        #
+        # @example Query using the name of a {License}.
+        #   LicensedModel.licensed_under('GPL-2')
+        #   # => [#<Ronin::LicensedModel: ...>, ...]
+        #
+        # @since 1.0.0
+        #
+        # @api public
+        #
+        def licensed_under(license)
+          query = case license
+                  when License
+                    {:license => license}
+                  when Symbol
+                    {:license => License.predefined_resource(license)}
+                  else
+                    {'license.name' => license.to_s}
+                  end
+
+          all(query)
+        end
+      end
+
+      #
+      # Instance methods that are added when {HasLicense} is included into a
+      # model.
+      #
+      module InstanceMethods
+        #
+        # Sets the license of the model.
+        #
+        # @param [Symbol, String] name
+        #   The name of the license to use.
+        #
+        # @return [License]
+        #   The new license of the model.
+        #
+        # @example
+        #   license! :mit
+        #
+        # @since 1.0.0
+        #
+        # @api public
+        #
+        def license!(name)
+          self.license = Ronin::License.predefined_resource(name)
+        end
+      end
+    end
+  end
+end

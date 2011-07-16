@@ -29,39 +29,41 @@ module Ronin
   module AutoLoad
     def self.included(base)
       base.send :include, OpenNamespace
-      base.send :extend, self
+      base.send :extend, ClassMethods
     end
 
-    protected
+    module ClassMethods
+      protected
 
-    #
-    # Transparently auto-loads Classes and Modules from their respective
-    # files using [OpenNamespace](http://rubydoc.info/gems/open_namespace).
-    #
-    # @param [String, Symbol] name
-    #   The name of the Class or Module to auto-load.
-    #
-    # @return [Class, Module]
-    #   The loaded Class or Module.
-    #
-    # @raise [NameError]
-    #   The Class or Module could not be found.
-    #
-    # @since 1.1.0
-    #
-    # @api public
-    #
-    def const_missing(name)
-      const = super(name)
+      #
+      # Transparently auto-loads Classes and Modules from their respective
+      # files using [OpenNamespace](http://rubydoc.info/gems/open_namespace).
+      #
+      # @param [String, Symbol] name
+      #   The name of the Class or Module to auto-load.
+      #
+      # @return [Class, Module]
+      #   The loaded Class or Module.
+      #
+      # @raise [NameError]
+      #   The Class or Module could not be found.
+      #
+      # @since 1.1.0
+      #
+      # @api public
+      #
+      def const_missing(name)
+        const = super(name)
 
-      if Object.const_defined?('DataMapper')
-        # if the loaded Class is a DataMapper Resource, re-finalize
-        if const < DataMapper::Resource
-          DataMapper.finalize
+        if Object.const_defined?('DataMapper')
+          # if the loaded Class is a DataMapper Resource, re-finalize
+          if const < DataMapper::Resource
+            DataMapper.finalize
+          end
         end
-      end
 
-      return const
+        return const
+      end
     end
   end
 end

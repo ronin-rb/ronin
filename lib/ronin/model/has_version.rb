@@ -17,5 +17,61 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/model/has_version/class_methods'
-require 'ronin/model/has_version/has_version'
+require 'ronin/model'
+
+module Ronin
+  module Model
+    #
+    # Adds a `version` property to a model.
+    #
+    module HasVersion
+      #
+      # Adds the `version` property and {ClassMethods} to the model.
+      #
+      # @param [Class] base
+      #   The model.
+      #
+      # @api semipublic
+      #
+      def self.included(base)
+        base.send :include, Model
+        base.send :extend, ClassMethods
+
+        base.module_eval do
+          # The version of the model
+          property :version, String, :default => '0.1', :index => true
+        end
+      end
+
+      #
+      # Class methods that are added when {HasVersion} is included into a
+      # model.
+      #
+      module ClassMethods
+        #
+        # Finds all models with a specific version.
+        #
+        # @param [String] version
+        #   The specific version to search for.
+        #
+        # @return [Array]
+        #   The models with the specific version.
+        #
+        # @api public
+        #
+        def revision(version)
+          all(:version => version.to_s)
+        end
+
+        #
+        # Finds latest version of the model.
+        #
+        # @api public
+        #
+        def latest
+          first(:order => [:version.desc])
+        end
+      end
+    end
+  end
+end

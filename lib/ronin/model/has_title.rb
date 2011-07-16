@@ -17,5 +17,55 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/model/has_title/class_methods'
-require 'ronin/model/has_title/has_title'
+require 'ronin/model'
+
+module Ronin
+  module Model
+    #
+    # Adds a `title` property to a model.
+    #
+    module HasTitle
+      #
+      # Adds the `title` property and {ClassMethods} to the model.
+      #
+      # @param [Class] base
+      #   The model.
+      #
+      # @api semipublic
+      #
+      def self.included(base)
+        base.send :include, Model
+        base.send :extend, ClassMethods
+
+        base.module_eval do
+          # The title of the model
+          property :title, String
+        end
+      end
+
+      #
+      # Class methods that are added when {HasTitle} are included into a
+      # model.
+      #
+      module ClassMethods
+        #
+        # Finds models with titles containing a given fragment of text.
+        #
+        # @param [String] fragment
+        #   The fragment of text to match titles with.
+        #
+        # @return [Array<Model>]
+        #   The found models.
+        #
+        # @example
+        #   Vuln.titled 'bypass'
+        #
+        # @api public
+        #
+        def titled(fragment)
+          all(:title.like => "%#{fragment}%")
+        end
+      end
+    end
+  end
+end

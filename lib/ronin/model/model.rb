@@ -17,7 +17,6 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/model/class_methods'
 require 'ronin/model/types'
 require 'ronin/support/inflector'
 
@@ -51,74 +50,114 @@ module Ronin
       base.send :include, DataMapper,
                           DataMapper::Migrations,
                           DataMapper::Serialize,
-                          Model::Types
-      base.send :extend, Model::ClassMethods
+                          Model::Types,
+                          InstanceMethods
+      base.send :extend, ClassMethods
     end
 
     #
-    # Formats the attributes of the model into human readable names
-    # and values.
+    # Class methods that are added when {Model} is included into a class.
     #
-    # @param [Hash] options
-    #   Additional options.
-    #
-    # @option options [Array<Symbol>] :exclude ([])
-    #   A list of attribute names to exclude.
-    #
-    # @yield [name, value]
-    #   If a block is given, it will be passed the name and humanized
-    #   value of each attribute.
-    #
-    # @yieldparam [String] name
-    #   The humanized name of the attribute.
-    #
-    # @yieldparam [String] value
-    #   The human readable value of the attribute.
-    #
-    # @return [Hash{String => String}]
-    #   A hash of the humanly readable names and values of the attributes.
-    #
-    # @api semipublic
-    #
-    def humanize_attributes(options={})
-      exclude = [:id, :type]
+    module ClassMethods
+      #
+      # The default name to use when defining relationships with the
+      # model.
+      #
+      # @return [Symbol]
+      #   The name to use in relationships.
+      #
+      # @since 1.0.0
+      #
+      # @api semipublic
+      #
+      def relationship_name
+        name = Support::Inflector.underscore(self.name.split('::').last)
 
-      if options[:exclude]
-        exclude += options[:exclude]
+        return Support::Inflector.pluralize(name).to_sym
       end
 
-      formatter = lambda { |value|
-        if value.kind_of?(Array)
-          value.map(&formatter).join(', ')
-        elsif value.kind_of?(Symbol)
-          Support::Inflector.humanize(value)
-        else
-          value.to_s
+      #
+      # Loads and initialize the resources.
+      #
+      # @api private
+      #
+      def load(records,query)
+        resources = super(records,query)
+        resources.each { |resource| resource.send :initialize }
+
+        return resources
+      end
+    end
+
+    #
+    # Instance methods that are added when {Model} is included into a class.
+    #
+    module InstanceMethods
+      #
+      # Formats the attributes of the model into human readable names
+      # and values.
+      #
+      # @param [Hash] options
+      #   Additional options.
+      #
+      # @option options [Array<Symbol>] :exclude ([])
+      #   A list of attribute names to exclude.
+      #
+      # @yield [name, value]
+      #   If a block is given, it will be passed the name and humanized
+      #   value of each attribute.
+      #
+      # @yieldparam [String] name
+      #   The humanized name of the attribute.
+      #
+      # @yieldparam [String] value
+      #   The human readable value of the attribute.
+      #
+      # @return [Hash{String => String}]
+      #   A hash of the humanly readable names and values of the attributes.
+      #
+      # @api semipublic
+      #
+      def humanize_attributes(options={})
+        exclude = [:id, :type]
+
+        if options[:exclude]
+          exclude += options[:exclude]
         end
-      }
 
-      formatted = {}
+        formatter = lambda { |value|
+          if value.kind_of?(Array)
+            value.map(&formatter).join(', ')
+          elsif value.kind_of?(Symbol)
+            Support::Inflector.humanize(value)
+          else
+            value.to_s
+          end
+        }
 
-      self.attributes.each do |name,value|
-        next if (value.nil? || (value.respond_to?(:empty?) && value.empty?))
+        formatted = {}
 
-        unless (exclude.include?(name) || value.nil?)
-          name = name.to_s
+        self.attributes.each do |name,value|
+          next if (value.nil? || (value.respond_to?(:empty?) && value.empty?))
 
-          unless name[-3..-1] == '_id'
-            name = Support::Inflector.humanize(name)
-            value = formatter.call(value)
+          unless (exclude.include?(name) || value.nil?)
+            name = name.to_s
 
-            if block_given?
-              yield name, value
+            unless name[-3..-1] == '_id'
+              name = Support::Inflector.humanize(name)
+              value = formatter.call(value)
+
+              if block_given?
+                yield name, value
+              end
+
+              formatted[name] = value
             end
-
-            formatted[name] = value
           end
         end
-      end
 
-      return formatted
+        return formatted
+      end
     end
   end
 end
