@@ -18,6 +18,7 @@
 #
 
 require 'env'
+require 'set'
 require 'tempfile'
 
 module Ronin
