@@ -130,6 +130,22 @@ module Ronin
       end
 
       #
+      # The list of completions files to require.
+      #
+      # @return [Array<String>]
+      #   The sub-paths to require within `bond/completions/`.
+      #
+      # @since 1.2.0
+      #
+      # @api semipublic
+      #
+      def Console.completions
+        (Ripl.config[:completion][:gems] ||= [])
+      end
+
+      Console.completions << 'ronin'
+
+      #
       # Starts a Console.
       #
       # @param [Hash{Symbol => Object}] variables

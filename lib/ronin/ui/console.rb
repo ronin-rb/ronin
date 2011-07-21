@@ -18,4 +18,3 @@
 #
 
 require 'ronin/ui/console/console'
-require 'ronin/ui/console/completions'
