@@ -17,11 +17,36 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/ui/console/commands'
 require 'ronin/address'
 require 'ronin/ip_address'
 require 'ronin/host_name'
 require 'ronin/email_address'
 require 'ronin/url'
+
+require 'set'
+
+Bond.complete(:on => /^\![a-zA-Z]\w*/) do |cmd|
+  prefix = cmd[1..-1]
+  glob   = "#{prefix}*"
+  paths  = Set[]
+
+  # search through $PATH for similar program names
+  Env.paths.each do |dir|
+    Pathname.glob(dir.join(glob)) do |path|
+      if (path.file? && path.executable?)
+        paths << "!#{path.basename}"
+      end
+    end
+  end
+
+  # add the black-listed keywords last
+  Ronin::UI::Console::Commands::BLACKLIST.each do |keyword|
+    paths << "!#{keyword}" if keyword.start_with?(prefix)
+  end
+
+  paths
+end
 
 #
 # {URL} completion in the context of URLs.
