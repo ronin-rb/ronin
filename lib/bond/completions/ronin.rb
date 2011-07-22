@@ -25,6 +25,7 @@ require 'ronin/email_address'
 require 'ronin/url'
 
 require 'set'
+require 'env'
 
 Bond.complete(:on => /^\![a-zA-Z]\w*/) do |cmd|
   prefix = cmd[1..-1]
