@@ -27,7 +27,7 @@ require 'ronin/url'
 require 'set'
 require 'env'
 
-Bond.complete(:on => /^\![a-zA-Z]\w*/) do |cmd|
+complete(:on => /^\![a-zA-Z]\w*/) do |cmd|
   prefix = cmd[1..-1]
   glob   = "#{prefix}*"
   paths  = Set[]
@@ -55,7 +55,7 @@ end
 # 
 #     http://www.example.com/in[TAB][TAB] => http://www.example.com/index.html
 #
-Bond.complete(:anywhere => /[a-z]+:\/\/([^:\/\?]+(:\d+)?(\/[^\?;]*(\?[^\?;]*)?)?)?/) do |url|
+complete(:anywhere => /[a-z]+:\/\/([^:\/\?]+(:\d+)?(\/[^\?;]*(\?[^\?;]*)?)?)?/) do |url|
   match = url.match(/([a-z]+):\/\/([^:\/\?]+)(:\d+)?(\/[^\?;]*)?(\?[^\?;]*)?/)
 
   query = Ronin::URL.all('scheme.name' => match[1])
@@ -110,7 +110,7 @@ end
 #
 #     192.168.[TAB][TAB] => 192.168.0.1
 #
-Bond.complete(:anywhere => /(\d{1,3}\.){1,3}\d{,2}/) do |addr|
+complete(:anywhere => /(\d{1,3}\.){1,3}\d{,2}/) do |addr|
   Ronin::Address.all(:address.like => "#{addr}%")
 end
 
@@ -119,7 +119,7 @@ end
 #
 #     www.[TAB][TAB] => www.example.com
 #
-Bond.complete(:anywhere => /[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]*/) do |host|
+complete(:anywhere => /[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]*/) do |host|
   Ronin::HostName.all(:address.like => "#{host}%")
 end
 
@@ -128,7 +128,7 @@ end
 #
 #     alice@[TAB][TAB] => alice@example.com
 #
-Bond.complete(:anywhere => /[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]*/) do |email|
+complete(:anywhere => /[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]*/) do |email|
   user, host = email.split('@',2)
 
   Ronin::EmailAddress.all(
@@ -142,6 +142,6 @@ end
 #
 #     /etc/pa[TAB][TAB] => /etc/passwd
 #
-Bond.complete(:anywhere => /\/([^\/]+\/)*[^\/]*/) do |path|
+complete(:anywhere => /\/([^\/]+\/)*[^\/]*/) do |path|
   Dir["#{path}*"]
 end
