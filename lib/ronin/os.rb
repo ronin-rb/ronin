@@ -131,11 +131,11 @@ module Ronin
       os_name = os_name.to_s
 
       meta_def(name) do |*arguments|
-        if (version = arguments.first)
-          OS.first_or_create(:name => os_name, :version => version.to_s)
-        else
-          OS.new(:name => os_name)
-        end
+        version = if arguments.first
+                    arguments.first.to_s
+                  end
+
+        OS.first_or_create(:name => os_name, :version => version)
       end
 
       return nil
