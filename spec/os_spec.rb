@@ -6,20 +6,26 @@ describe OS do
     OS.new(:name => 'Linux', :version => '2.6.11')
   end
 
+  describe "predefine" do
+    it "should provide methods for built-in OSes" do
+      os = OS.linux
+
+      os.name.should == 'Linux'
+    end
+
+    it "should provide methods for creating OSes with versions" do
+      os = OS.linux('2.6.11')
+
+      os.version.should == '2.6.11'
+    end
+  end
+
   it "should require a name" do
     os = OS.new
     os.should_not be_valid
 
     os.name = 'test'
     os.should be_valid
-  end
-
-  it "should provide methods for built-in OSes" do
-    OS.linux.should_not be_nil
-  end
-
-  it "should provide methods for creating OSes with versions" do
-    OS.linux('2.6.11').should be_valid
   end
 
   it "should implicitly splat the name and version" do
