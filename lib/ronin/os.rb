@@ -23,6 +23,8 @@ require 'ronin/os_guess'
 require 'ronin/ip_address'
 require 'ronin/extensions/meta'
 
+require 'dm-is-predefined'
+
 module Ronin
   #
   # Represents an Operating System and pre-defines other common ones
@@ -33,6 +35,8 @@ module Ronin
 
     include Model
     include Model::HasName
+
+    is :predefined
 
     # Primary key
     property :id, Serial
@@ -127,43 +131,54 @@ module Ronin
     #
     # @api private
     #
-    def OS.predefine(name,os_name)
-      os_name = os_name.to_s
+    def OS.predefine(name,attributes)
+      unless attributes[:name]
+        raise(ArgumentError,"must specify the :name attribute")
+      end
 
-      meta_def(name) do |*arguments|
-        version = if arguments.first
-                    arguments.first.to_s
-                  end
+      super(name,attributes)
 
-        OS.first_or_create(:name => os_name, :version => version)
+      # if no version was predefined, allow the predefined helper-methods
+      # to accept a version argument
+      unless attributes[:version]
+        os_name = attributes[:name]
+
+        meta_def(name) do |*arguments|
+          attributes = predefined_attributes[name]
+          version = if arguments.first
+                      arguments.first.to_s
+                    end
+
+          OS.first_or_create(attributes.merge(:version => version))
+        end
       end
 
       return nil
     end
 
     # The Linux OS
-    predefine :linux, 'Linux'
+    predefine :linux, :name => 'Linux'
 
     # The FreeBSD OS
-    predefine :freebsd, 'FreeBSD'
+    predefine :freebsd, :name => 'FreeBSD'
 
     # The OpenBSD OS
-    predefine :openbsd, 'OpenBSD'
+    predefine :openbsd, :name => 'OpenBSD'
 
     # The NetBSD OS
-    predefine :netbsd, 'NetBSD'
+    predefine :netbsd, :name => 'NetBSD'
 
     # OSX
-    predefine :osx, 'OSX'
+    predefine :osx, :name => 'OSX'
 
     # The Solaris OS
-    predefine :solaris, 'Solaris'
+    predefine :solaris, :name => 'Solaris'
 
     # The Windows OS
-    predefine :windows, 'Windows'
+    predefine :windows, :name => 'Windows'
 
     # The family UNIX OSes
-    predefine :unix, 'UNIX'
+    predefine :unix, :name => 'UNIX'
 
   end
 end
