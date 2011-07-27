@@ -301,6 +301,7 @@ module Ronin
           end
 
           create_index :ronin_os, :name
+          create_index :ronin_os, :version
         end
 
         down do
