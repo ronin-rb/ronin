@@ -723,7 +723,7 @@ module Ronin
         end
 
         if (license = metadata['license'])
-          self.license = License.predefined_resource_with(:name => license)
+          self.license = License.first_or_predefined(:name => license)
         end
 
         if (uri = metadata['uri'])
