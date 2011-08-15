@@ -23,70 +23,21 @@ module Ronin
   include AutoLoad
 
   #
-  # Includes {ClassMethods} when {Ronin} is included.
+  # Convenience method for loading Ronin {Script}s.
   #
-  # @param [Class, Module] base
-  #   The class or module that {Ronin} is being included into.
+  # @param [String] path
+  #   The path to the file.
   #
-  # @since 1.0.0
+  # @return [Script]
+  #   The loaded script.
   #
-  # @api private
+  # @see Script.load_from
   #
-  def self.included(base)
-    base.send :extend, ClassMethods
-    base.send :include, InstanceMethods
-  end
-
+  # @since 1.1.0
   #
-  # Class methods that are included when {Ronin} is included.
+  # @api public
   #
-  module ClassMethods
-    #
-    # Catches missing constants and searches the {Ronin} namespace.
-    #
-    # @param [Symbol] name
-    #   The constant name.
-    #
-    # @return [Object]
-    #   The found constant.
-    #
-    # @raise [NameError]
-    #   The constant could not be found within {Ronin}.
-    #
-    # @since 1.0.0
-    #
-    # @api semipublic
-    #
-    def const_missing(name)
-      begin
-        Ronin.send(:const_missing,name)
-      rescue NameError
-        super(name)
-      end
-    end
-  end
-
-  #
-  # Instance methods that are included when {Ronin} is included.
-  #
-  module InstanceMethods
-    #
-    # Convenience method for loading Ronin {Script}s.
-    #
-    # @param [String] path
-    #   The path to the file.
-    #
-    # @return [Script]
-    #   The loaded script.
-    #
-    # @see Script.load_from
-    #
-    # @since 1.1.0
-    #
-    # @api public
-    #
-    def script(path)
-      Script.load_from(path)
-    end
+  def script(path)
+    Script.load_from(path)
   end
 end
