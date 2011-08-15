@@ -1,3 +1,25 @@
+### 1.2.0 / 2011-08-15
+
+* Require dm-is-predefined ~> 0.4.
+* Added {Ronin::UI::Console::Context}.
+* Added custom tab-completion to {Ronin::UI::Console} for:
+  * {Ronin::IPAddress}
+  * {Ronin::HostName}
+  * {Ronin::EmailAddress}
+  * {Ronin::URL}
+  * Paths
+  * Commands
+* Added the ability to run commands in Ronin Console, via the
+  `!command --args` syntax.
+* Added custom `!command`s to the Ronin Console:
+  * `!edit` - Edits a Ruby tempfile and loads the contents afterwards.
+  * `!cd` - Changes the current working directory and updates `ENV['OLDPWD']`.
+  * `!export` - Sets `ENV` variables.
+* Added an index to {Ronin::OS.version}.
+* Refactored {Ronin::OS.predefine} using dm-is-predefined.
+* Fixed a bug in {Ronin::UI::Console.setup} where the wrong binding was being
+  passed to Ripl.
+
 ### 1.1.0 / 2011-07-04
 
 * Require env ~> 0.2.
