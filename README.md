@@ -205,6 +205,12 @@ functionality.
 [Ronin Gen](http://github.com/ronin-ruby/ronin-gen#readme) is a Ruby library
 for Ronin that provides various generators.
 
+### Ronin Scanners
+
+[Ronin Scanners](http://github.com/ronin-ruby/ronin-scanners#readme)
+is a Ruby library for Ronin that provides Ruby interfaces to
+various third-party security scanners.
+
 ### Ronin SQL
 
 [Ronin SQL](http://github.com/ronin-ruby/ronin-sql#readme) is a Ruby library
