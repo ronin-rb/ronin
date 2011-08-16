@@ -162,7 +162,7 @@ Remove a Database:
 * [pullr](http://github.com/postmodern/pullr#readme)
   ~> 0.1, >= 0.1.2
 * [ripl](https://github.com/cldwalker/ripl#readme)
-  ~> 0.3:
+  ~> 0.3
 * [ripl-multi_line](https://github.com/janlelis/ripl-multi_line#readme)
   ~> 0.2
 * [ripl-auto_indent](https://github.com/janlelis/ripl-auto_indent#readme)
