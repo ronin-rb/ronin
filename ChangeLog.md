@@ -13,12 +13,13 @@
   `!command --args` syntax.
 * Added custom `!command`s to the Ronin Console:
   * `!edit` - Edits a Ruby tempfile and loads the contents afterwards.
-  * `!cd` - Changes the current working directory and updates `ENV['OLDPWD']`.
+  * `!cd` - Changes the current working directory and updates
+    `ENV['OLDPWD']`.
   * `!export` - Sets `ENV` variables.
 * Added an index to {Ronin::OS.version}.
 * Refactored {Ronin::OS.predefine} using dm-is-predefined.
-* Fixed a bug in {Ronin::UI::Console.setup} where the wrong binding was being
-  passed to Ripl.
+* Fixed a bug in {Ronin::UI::Console.setup} where the wrong binding was
+  being passed to Ripl.
 
 ### 1.1.0 / 2011-07-04
 
