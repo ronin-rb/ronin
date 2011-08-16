@@ -131,20 +131,20 @@ Remove a Database:
 * [Ruby](http://www.ruby-lang.org/) >= 1.8.7
 * [DataMapper](http://datamapper.org/):
   * [dm-sqlite-adapter](http://github.com/datamapper/dm-sqlite-adapter#readme)
-    ~> 1.1.0
+    ~> 1.1
     * [libsqlite3](http://sqlite.org/)
   * [dm-core](http://github.com/datamapper/dm-core#readme)
-    ~> 1.1.0
+    ~> 1.1
   * [dm-types](http://github.com/datamapper/dm-types#readme)
-    ~> 1.1.0
+    ~> 1.1
   * [dm-migrations](http://github.com/datamapper/dm-migrations#readme)
-    ~> 1.1.0
+    ~> 1.1
   * [dm-validations](http://github.com/datamapper/dm-validations#readme)
-    ~> 1.1.0
+    ~> 1.1
   * [dm-aggregates](http://github.com/datamapper/dm-aggregates#readme)
-     ~> 1.1.0
+     ~> 1.1
   * [dm-timestamps](http://github.com/datamapper/dm-timestamps#readme)
-    ~> 1.1.0
+    ~> 1.1
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined#readme)
   ~> 0.4
 * [uri-query_params](http://github.com/postmodern/uri-query_params#readme)

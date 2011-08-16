@@ -36,16 +36,16 @@ required_ruby_version: ">= 1.8.7"
 
 dependencies:
   # DataMapper adapters
-  dm-sqlite-adapter: ~> 1.1.0
+  dm-sqlite-adapter: ~> 1.1
   # DataMapper dependencies
-  dm-core: ~> 1.1.0
-  dm-types: ~> 1.1.0
-  dm-constraints: ~> 1.1.0
-  dm-migrations: ~> 1.1.0
-  dm-validations: ~> 1.1.0
-  dm-serializer: ~> 1.1.0
-  dm-aggregates: ~> 1.1.0
-  dm-timestamps: ~> 1.1.0
+  dm-core: ~> 1.1
+  dm-types: ~> 1.1
+  dm-constraints: ~> 1.1
+  dm-migrations: ~> 1.1
+  dm-validations: ~> 1.1
+  dm-serializer: ~> 1.1
+  dm-aggregates: ~> 1.1
+  dm-timestamps: ~> 1.1
   # DataMapper plugins
   dm-is-predefined: ~> 0.4
   # Library dependencies
