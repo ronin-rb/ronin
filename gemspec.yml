@@ -13,8 +13,9 @@ has_yard: true
 post_install_message: |
   *************************************************************************
 
-    Thank you for installing Ronin, a Ruby platform for exploit development
-    and security research. To list the available commands:
+    Thank you for installing Ronin!
+
+    To list the available commands:
 
         $ ronin help
 
