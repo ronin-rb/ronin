@@ -110,7 +110,7 @@ Update a specific Repositories:
 
     $ ronin repos --update repo-name
 
-Uninstall a Repositories:
+Uninstall a specific Repositories:
 
     $ ronin repos --uninstall repo-name
 
