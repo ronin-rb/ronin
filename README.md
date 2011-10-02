@@ -174,7 +174,7 @@ Remove a Database:
 * [thor](http://github.com/wycats/thor#readme)
   ~> 0.14.3
 * [ronin-support](http://github.com/ronin-ruby/ronin-support#readme)
-  ~> 0.2
+  ~> 0.3
 
 ## Install
 

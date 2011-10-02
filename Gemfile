@@ -22,7 +22,8 @@ gemspec
 # gem 'dm-timestamps',      DM_VERSION, :git => "#{DM_URI}/dm-timestamps.git"
 
 # Library dependencies
-# gem 'ronin-support',	'~> 0.2', :git => "#{RONIN_URI}/ronin-support.git"
+gem 'ronin-support',	'~> 0.3', :git => "#{RONIN_URI}/ronin-support.git",
+                                :branch => '0.3.0'
 
 group :development do
   gem 'rake',         '~> 0.8'
