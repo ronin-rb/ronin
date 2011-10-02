@@ -68,3 +68,6 @@ DataMapper::Visualizer::Rake::GraphVizTask.new(
 
 require 'yard'
 YARD::Rake::YardocTask.new
+
+desc "Generates all documentation"
+task :docs => [:yard, 'dm:doc:graphviz']
