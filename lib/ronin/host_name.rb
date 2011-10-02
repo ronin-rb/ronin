@@ -17,6 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/extensions/resolv'
 require 'ronin/address'
 require 'ronin/host_name_ip_address'
 require 'ronin/url'
@@ -129,6 +130,9 @@ module Ronin
     # @param [IPAddr, String] addr
     #   The IP address to lookup.
     #
+    # @param [String] nameserver
+    #   The optional nameserver to query.
+    #
     # @return [Array<HostName>]
     #   The host names associated with the IP address.
     #
@@ -136,11 +140,13 @@ module Ronin
     #
     # @api public
     #
-    def self.lookup(addr)
+    def self.lookup(addr,nameserver=nil)
       addr = addr.to_s
       ip = IPAddress.first_or_new(:address => addr)
+
+      resolver = Resolv.resolver(nameserver)
       hosts = begin
-                Resolv.getnames(addr)
+                resolver.getnames(addr)
               rescue
                 []
               end
@@ -160,6 +166,9 @@ module Ronin
     #
     # Looks up all IP Addresses for the host name.
     #
+    # @param [String] nameserver
+    #   The optional nameserver to query.
+    #
     # @return [Array<IPAddress>]
     #   The IP Addresses for the host name.
     #
@@ -167,9 +176,10 @@ module Ronin
     #
     # @api public
     #
-    def lookup!
+    def lookup!(nameserver=nil)
+      resolver = Resolv.resolver(nameserver)
       ips = begin
-              Resolv.getaddresses(self.address)
+              resolver.getaddresses(self.address)
             rescue
               []
             end
