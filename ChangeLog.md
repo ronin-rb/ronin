@@ -84,9 +84,9 @@
 * Disable {Ronin::UI::Console.short_errors?} if the `VERBOSE` environment
   variable is set.
 * Disable {Ronin::UI::Console.color?} if the `STDOUT` is a tty.
-* Set {Ronin::UI::Output.handler} to {Ronin::UI::Output::Terminal::Raw},
+* Set `Ronin::UI::Output.handler` to `Ronin::UI::Output::Terminal::Raw`,
   when `STDOUT` is not a tty.
-* Enable {Ronin::UI::Output.verbose?} if `$VERBOSE` or `$DEBUG` are set.
+* Enable `Ronin::UI::Output.verbose?` if `$VERBOSE` or `$DEBUG` are set.
 * {Ronin::UI::CLI::ModelCommand#setup} now automatically calls
   {Ronin::Database.setup}, before executing the command.
 * Merged `query_method` into {Ronin::UI::CLI::ModelCommand#query}.
@@ -150,8 +150,8 @@
 * Added {Ronin::Campaign}.
 * Added {Ronin::Target}.
 * Added `Ronin::Engine`.
-* Added {Ronin::UI::Output::Terminal::Raw}.
-* Added {Ronin::UI::Output::Terminal::Color}.
+* Added `Ronin::UI::Output::Terminal::Raw`.
+* Added `Ronin::UI::Output::Terminal::Color`.
 * Added the `ronin-repos` command for listing, adding, installing and
   uninstalling Repositories.
 * Added the `ronin-exec` command for running Ruby scripts (local files
