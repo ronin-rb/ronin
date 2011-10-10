@@ -8,9 +8,9 @@ describe IPAddress do
   subject { IPAddress.new(:address => example_ip) }
 
   it "should require an address" do
-    ip = IPAddress.new
+    ip_address = IPAddress.new
 
-    ip.should_not be_valid
+    ip_address.should_not be_valid
   end
 
   describe "lookup" do
@@ -19,24 +19,23 @@ describe IPAddress do
     let(:bad_domain) { '.bad.domain.com.' }
 
     it "should lookup host-names to IP Addresses" do
-      ips = subject.lookup(example_domain)
-
-      ips.should_not be_empty
-      ips[0].address.should == example_ip
+      ip_addresses = subject.lookup(example_domain)
+      addresses    = ip_addresses.map { |ip| ip.address }
+      
+      addresses.should include(example_ip)
     end
 
     it "should associate the IP addresses with the original host name" do
-      ips = subject.lookup(example_domain)
-
-      ips.each do |ip|
-        ip.host_names[0].address.should == example_domain
-      end
+      ip_addresses = subject.lookup(example_domain)
+      host_names   = ip_addresses.map { |ip| ip.host_names[0].address }
+      
+      host_names.should include(example_domain)
     end
 
     it "should return an empty Array for unknown domain names" do
-      ips = subject.lookup(bad_domain)
+      ip_addresses = subject.lookup(bad_domain)
       
-      ips.should be_empty
+      ip_addresses.should be_empty
     end
   end
 
@@ -45,24 +44,25 @@ describe IPAddress do
 
     it "should reverse lookup the host-name for an IP Address" do
       host_names = subject.lookup!
+      addresses  = host_names.map { |host_name| host_name.address }
       
-      host_names.should_not be_empty
-      host_names[0].address.should == example_domain
+      addresses.should include(example_domain)
     end
 
     it "should associate the host names with the original IP address" do
-      host_names = subject.lookup!
-
-      host_names.each do |host_name|
-        host_name.ip_addresses[0].address.should == subject
+      host_names   = subject.lookup!
+      ip_addresses = host_names.map do |host_name|
+        host_name.ip_addresses[0].address
       end
+
+      ip_addresses.should include(subject)
     end
 
     it "should return an empty Array for unknown domain names" do
-      ip = IPAddress.new(:address => bad_ip)
-      host_names = ip.lookup!
+      ip_address = IPAddress.new(:address => bad_ip)
+      host_names = ip_address.lookup!
 
-      host_names.should be_nil
+      host_names.should be_empty
     end
   end
 
@@ -71,9 +71,9 @@ describe IPAddress do
     let(:ipv6) { IPAddress.new(:address => '::1') }
 
     it "should only accept 4 or 6" do
-      ip = IPAddress.new(:address => '1.1.1.1', :version => 7)
+      ip_address = IPAddress.new(:address => '1.1.1.1', :version => 7)
 
-      ip.should_not be_valid
+      ip_address.should_not be_valid
     end
 
     it "should default to the version of the address" do
