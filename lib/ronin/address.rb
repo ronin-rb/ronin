@@ -58,6 +58,23 @@ module Ronin
     timestamps :created_at
 
     #
+    # Parses the address.
+    #
+    # @param [String] address
+    #   The address to parse.
+    #
+    # @return [Address]
+    #   The parsed address.
+    #
+    # @since 1.3.0
+    #
+    # @api public
+    #
+    def self.parse(address)
+      first_or_new(:address => address)
+    end
+
+    #
     # Finds an address.
     #
     # @param [String, Integer] key

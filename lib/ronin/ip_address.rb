@@ -17,6 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/extensions/ip_addr'
 require 'ronin/extensions/resolv'
 require 'ronin/address'
 require 'ronin/ip_address_mac_address'
@@ -74,6 +75,37 @@ module Ronin
     has 0..n, :oses, :through => :os_guesses,
                      :model => 'OS',
                      :via => :os
+
+    #
+    # Extracts and parses IP addresses from text.
+    #
+    # @param [String] text
+    #   The text to parse.
+    #
+    # @param [Symbol, Integer] version
+    #   Specifies whether to parse IPv4 or IPv6 addresses.
+    #
+    # @yield [ip]
+    #   The given block will be passed each extracted IP address.
+    #
+    # @yieldparam [IPAddress] ip
+    #   An extracted IP Address from the text.
+    #
+    # @see http://ronin-ruby.github.com/docs/ronin-support/IPAddr.html#extract-class_method
+    #
+    # @since 1.3.0
+    #
+    # @api public
+    #
+    def self.extract(text,version=nil)
+      return enum_for(:extract,text,version).to_a unless block_given?
+
+      IPAddr.extract(text,version) do |ip|
+        yield parse(ip)
+      end
+
+      return nil
+    end
 
     #
     # Searches for all IPv4 addresses.

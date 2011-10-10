@@ -13,6 +13,26 @@ describe IPAddress do
     ip_address.should_not be_valid
   end
 
+  describe "extract" do
+    subject { IPAddress }
+
+    let(:ip1)  { subject.parse('127.0.0.1') }
+    let(:ip2)  { subject.parse('10.1.1.1') }
+    let(:text) { "Hosts: #{ip1}, #{ip2}" }
+
+    it "should extract multiple IP Addresses from text" do
+      subject.extract(text).should == [ip1, ip2]
+    end
+
+    it "should yield the extracted IPs if a block is given" do
+      ip_addresses = []
+
+      subject.extract(text) { |ip| ip_addresses << ip }
+
+      ip_addresses.should == [ip1, ip2]
+    end
+  end
+
   describe "lookup" do
     subject { IPAddress }
 
