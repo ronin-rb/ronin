@@ -62,45 +62,7 @@ module Ronin
                                 :aliases => '-i',
                                 :banner => 'FILE'
 
-          #
-          # Queries the {Ronin::URL} model.
-          #
-          # @since 1.0.0
-          #
-          def execute
-            if options[:import]
-              import options[:import]
-            elsif options.list?
-              super
-            end
-          end
-
           protected
-
-          #
-          # Imports URLs from a file.
-          #
-          # @param [String] path
-          #   The path to the file.
-          #
-          # @since 1.0.0
-          #
-          def import(path)
-            File.open(path) do |file|
-              file.each_line do |line|
-                line.strip!
-                next if line.empty?
-
-                url = URL.parse(line)
-
-                if url.save
-                  print_info "Imported #{url}"
-                else
-                  print_error "Could not import #{line.dump}."
-                end
-              end
-            end
-          end
 
           #
           # Prints a URL.

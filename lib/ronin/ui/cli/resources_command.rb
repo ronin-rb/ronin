@@ -18,6 +18,7 @@
 #
 
 require 'ronin/ui/cli/model_command'
+require 'ronin/model/importable'
 
 module Ronin
   module UI
@@ -40,10 +41,33 @@ module Ronin
         # @api semipublic
         #
         def execute
-          print_resources(query)
+          if options[:import]
+            self.class.query_model.import(options[:import]) do |resource|
+              print_info "Imported #{resource}"
+            end
+          else
+            print_resources(query)
+          end
         end
 
         protected
+
+        #
+        # Sets the model used by the command.
+        #
+        # @see ModelCommand.model
+        #
+        # @since 1.3.0
+        #
+        def self.model(model)
+          if model < Model::Importable
+            class_option :import, :type => :string,
+                                  :aliases => '-i',
+                                  :banner => 'FILE'
+          end
+
+          return super(model)
+        end
 
         #
         # Default method which will print every queried resource.

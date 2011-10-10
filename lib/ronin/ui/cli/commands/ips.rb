@@ -65,11 +65,9 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if options[:import]
-              import options[:import]
-            elsif options[:lookup]
+            if options[:lookup]
               lookup options[:lookup]
-            elsif options.list?
+            else
               super
             end
           end
@@ -92,30 +90,6 @@ module Ronin
             end
 
             print_info "Looked up #{host}"
-          end
-
-          #
-          # Extracts and saves IP Addresses from a file.
-          #
-          # @param [String] path
-          #   The path of the file.
-          #
-          # @since 1.0.0
-          #
-          def import(path)
-            File.open(options[:import]) do |file|
-              file.each_line do |line|
-                IPAddr.extract(line) do |match|
-                  ip = IPAddress.new(:address => match)
-
-                  if ip.save
-                    print_info "Imported #{ip}"
-                  else
-                    print_error "Unable to import #{match.dump}."
-                  end
-                end
-              end
-            end
           end
 
           #
