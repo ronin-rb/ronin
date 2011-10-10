@@ -19,6 +19,7 @@
 
 require 'ronin/extensions/ip_addr'
 require 'ronin/extensions/resolv'
+require 'ronin/model/importable'
 require 'ronin/address'
 require 'ronin/ip_address_mac_address'
 require 'ronin/host_name_ip_address'
@@ -32,6 +33,8 @@ module Ronin
   # Represents IP addresses that can be stored in the {Database}.
   #
   class IPAddress < Address
+
+    include Model::Importable
 
     # The IP Address
     property :address, Property::IPAddress, :required => true,

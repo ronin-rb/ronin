@@ -18,6 +18,7 @@
 #
 
 require 'ronin/model'
+require 'ronin/model/importable'
 require 'ronin/url_scheme'
 require 'ronin/url_query_param'
 require 'ronin/host_name'
@@ -38,6 +39,7 @@ module Ronin
   class URL
 
     include Model
+    include Model::Importable
     include DataMapper::Timestamps
 
     # Mapping of URL Schemes and URI classes
