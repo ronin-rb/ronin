@@ -49,6 +49,30 @@ describe URL do
     @url.to_s.should == @uri.to_s
   end
 
+  describe "extract" do
+    subject { described_class }
+
+    let(:url1) { subject.parse("http://example.com/page.php?x=1&y=2") }
+    let(:url2) { subject.parse("ssh://alice@example.com") }
+    let(:text) { "URIs: #{url1}, #{url2}" }
+
+    it "should extract multiple URLs from text" do
+      subject.extract(text).should == [url1, url2]
+    end
+
+    it "should yield the extracted URLs if a block is given" do
+      urls = []
+
+      subject.extract(text) { |url| urls << url }
+
+      urls.should == [url1, url2]
+    end
+
+    it "should ignore non-absolute URIs" do
+      subject.extract('foo: bar').should be_empty
+    end
+  end
+
   describe "[]" do
     it "should query URLs using URIs" do
       URL[@uri].should == @url

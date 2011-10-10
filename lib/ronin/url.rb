@@ -25,6 +25,7 @@ require 'ronin/tcp_port'
 require 'ronin/web_credential'
 
 require 'dm-timestamps'
+require 'uri/generic'
 require 'uri/http'
 require 'uri/https'
 require 'uri/ftp'
@@ -75,6 +76,45 @@ module Ronin
 
     # Defines the created_at timestamp
     timestamps :created_at
+
+    #
+    # Extracts URLs from the given text.
+    #
+    # @param [String] text
+    #   The text to parse.
+    #
+    # @yield [url]
+    #   The given block will be passed each extracted URL.
+    #
+    # @yieldparam [URL] url
+    #   An extracted URL from the text.
+    #
+    # @return [Array<URL>]
+    #   If no block is given, an Array of the extracted URLs is returned.
+    #
+    # @see http://rubydoc.info/stdlib/uri/URI#extract-class_method
+    # @see URL.parse
+    #
+    # @since 1.3.0
+    #
+    # @api public
+    #
+    def self.extract(text)
+      return enum_for(:extract,text).to_a unless block_given?
+
+      ::URI.extract(text) do |uri|
+        uri = begin
+                ::URI.parse(uri)
+              rescue URI::InvalidURIError
+                # URI.extract can parse URIs that URI.parse cannot handle
+                next
+              end
+
+        yield from(uri)
+      end
+
+      return nil
+    end
 
     #
     # Searches for all URLs using HTTP.
