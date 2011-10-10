@@ -26,30 +26,36 @@ module Ronin
     # @since 1.3.0
     #
     module Importable
-      #
-      # Extracts and imports resources from the given file.
-      #
-      # @param [String] path
-      #   The path of the file.
-      #
-      # @yield [resource]
-      #   The given block will be passed every imported resource.
-      #
-      # @yieldparam [Model] resource
-      #   A successfully imported resource.
-      #
-      # @return [Array<Model>]
-      #   If no block is given, an Array of imported resources is returned.
-      #
-      # @api public
-      #
-      def self.import(path)
-        return enum_for(:import,path).to_a unless block_given?
+      def self.included(base)
+        base.extend ClassMethods
+      end
 
-        File.open(path) do |file|
-          file.each_line do |line|
-            extract(line) do |resource|
-              yield(resource) if resource.save
+      module ClassMethods
+        #
+        # Extracts and imports resources from the given file.
+        #
+        # @param [String] path
+        #   The path of the file.
+        #
+        # @yield [resource]
+        #   The given block will be passed every imported resource.
+        #
+        # @yieldparam [Model] resource
+        #   A successfully imported resource.
+        #
+        # @return [Array<Model>]
+        #   If no block is given, an Array of imported resources is returned.
+        #
+        # @api public
+        #
+        def import(path)
+          return enum_for(:import,path).to_a unless block_given?
+
+          File.open(path) do |file|
+            file.each_line do |line|
+              extract(line) do |resource|
+                yield(resource) if resource.save
+              end
             end
           end
         end
