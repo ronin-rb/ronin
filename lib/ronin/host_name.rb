@@ -37,7 +37,7 @@ module Ronin
     include Model::Importable
 
     # Regular expression used to find host-names in text
-    REGEXP = /([a-zA-Z0-9]+([_-][a-zA-Z0-9]+)*\.)+[a-z]{2,4}/
+    REGEXP = /(?:[a-zA-Z0-9]+(?:[_-][a-zA-Z0-9]+)*\.)+[a-z]{2,4}/
 
     # The address of the host name
     property :address, String, :length => 256,
