@@ -21,8 +21,6 @@ require 'ronin/extensions/resolv'
 require 'ronin/model/importable'
 require 'ronin/address'
 require 'ronin/host_name_ip_address'
-require 'ronin/url'
-require 'ronin/email_address'
 
 require 'uri/generic'
 require 'strscan'
