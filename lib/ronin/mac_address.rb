@@ -27,10 +27,17 @@ module Ronin
   #
   class MACAddress < Address
 
+    # Regular expression for finding MAC addresses in text
+    REGEXP = /[0-9a-fA-F]{2}(?::[0-9a-fA-F]{2}){5}/
+
     # The MAC address
     property :address, String, :length => 17..17,
                                :required => true,
-                               :unique => true
+                               :unique => true,
+                               :format => /^#{REGEXP}$/,
+                               :messages => {
+                                 :format => 'Must be a valid MAC address'
+                               }
 
     # The IP Addresses the MAC Address hosts
     has 0..n, :ip_address_mac_addresses, :model => 'IPAddressMACAddress'
