@@ -65,11 +65,9 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if options[:import]
-              import options[:import]
-            elsif options[:lookup]
+            if options[:lookup]
               lookup options[:lookup]
-            elsif options.list?
+            else
               super
             end
           end
@@ -92,31 +90,6 @@ module Ronin
             end
 
             print_info "Looked up #{ip}"
-          end
-
-          #
-          # Imports host names from a file.
-          #
-          # @param [String] path
-          #   The path to the file.
-          #
-          # @since 1.0.0
-          #
-          def import(path)
-            File.open(path) do |file|
-              file.each_line do |line|
-                line.strip!
-                next if line.empty?
-
-                host = HostName.new(:address => line)
-
-                if host.save
-                  print_info "Imported #{host}"
-                else
-                  print_error "Unable to import #{line.dump}."
-                end
-              end
-            end
           end
 
           #

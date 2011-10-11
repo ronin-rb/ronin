@@ -17,6 +17,26 @@ describe HostName do
     subject.name.should == subject.address
   end
 
+  describe "extract" do
+    subject { described_class }
+
+    let(:host1) { subject.parse('www.example.com') }
+    let(:host2) { subject.parse('1.2.3.4.in-addr.arpa') }
+    let(:text)  { "Hosts: #{host1}, #{host2}." }
+
+    it "should extract multiple host-names from text" do
+      subject.extract(text).should == [host1, host2]
+    end
+
+    it "should yield the extracted host-names if a block is given" do
+      hosts = []
+
+      subject.extract(text) { |host| hosts << host }
+
+      hosts.should == [host1, host2]
+    end
+  end
+
   describe "lookup" do
     subject { HostName }
 

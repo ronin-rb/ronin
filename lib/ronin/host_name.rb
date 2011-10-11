@@ -18,11 +18,14 @@
 #
 
 require 'ronin/extensions/resolv'
+require 'ronin/model/importable'
 require 'ronin/address'
 require 'ronin/host_name_ip_address'
 require 'ronin/url'
 require 'ronin/email_address'
 
+require 'uri/generic'
+require 'strscan'
 require 'resolv'
 
 module Ronin
@@ -30,6 +33,11 @@ module Ronin
   # Represents host names that can be stored in the {Database}.
   #
   class HostName < Address
+
+    include Model::Importable
+
+    # Regular expression used to find host-names in text
+    REGEXP = /([a-zA-Z0-9]+([_-][a-zA-Z0-9]+)*\.)+[a-z]{2,4}/
 
     # The address of the host name
     property :address, String, :length => 256,
@@ -54,6 +62,37 @@ module Ronin
 
     # URLs that point to this host name
     has 0..n, :urls, :model => 'URL'
+
+    #
+    # Extracts host-names from the given text.
+    #
+    # @param [String] text
+    #   The text to parse.
+    #
+    # @yield [host]
+    #   The given block will be passed each extracted host-name.
+    #
+    # @yieldparam [HostName] host
+    #   An extracted host-name.
+    #
+    # @return [Array<HostName>]
+    #   If no block is given, an Array of host-names will be returned.
+    #
+    # @see 1.3.0
+    #
+    # @api public
+    #
+    def self.extract(text)
+      return enum_for(:extract,text).to_a unless block_given?
+
+      scanner = StringScanner.new(text)
+
+      while scanner.skip_until(REGEXP)
+        yield parse(scanner.matched)
+      end
+
+      return nil
+    end
 
     #
     # Searches for host names associated with the given IP address(es).
