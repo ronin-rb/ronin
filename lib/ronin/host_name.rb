@@ -72,7 +72,11 @@ module Ronin
     # The address of the host name
     property :address, String, :length => 256,
                                :required => true,
-                               :unique => true
+                               :unique => true,
+                               :format => /^#{REGEXP}$/,
+                               :messages => {
+                                 :format => 'Must be a valid host-name'
+                               }
 
     # The IP Address associations
     has 0..n, :host_name_ip_addresses, :model => 'HostNameIPAddress'
