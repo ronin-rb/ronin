@@ -105,14 +105,23 @@ module Ronin
         #   The new license of the model.
         #
         # @example
-        #   license! :mit
+        #   licensed_under :mit
         #
-        # @since 1.0.0
+        # @since 1.3.0
         #
         # @api public
         #
-        def license!(name)
+        def licensed_under(name)
           self.license = Ronin::License.predefined_resource(name)
+        end
+
+        #
+        # @deprecated `license!` was deprecated in favor of {#licensed_under}.
+        #
+        # @since 1.0.0
+        #
+        def license!(name)
+          licensed_under(name)
         end
       end
     end
