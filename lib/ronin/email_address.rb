@@ -18,6 +18,7 @@
 #
 
 require 'ronin/model'
+require 'ronin/model/importable'
 require 'ronin/user_name'
 require 'ronin/host_name'
 
@@ -30,6 +31,12 @@ module Ronin
   class EmailAddress
 
     include Model
+
+    # Regular expression to match a word in the username of an email address
+    NAME_REGEXP = /[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+/
+
+    # Regular expression to find email addresses in text
+    REGEXP = /#{NAME_REGEXP}(?:\.#{NAME_REGEXP})*\@#{HostName::REGEXP}/
 
     # The primary key of the email address.
     property :id, Serial
@@ -52,6 +59,37 @@ module Ronin
 
     # Validates the uniqueness of the user-name and the host-name.
     validates_uniqueness_of :user_name, :scope => [:host_name]
+
+    #
+    # Extracts email addresses from the given text.
+    #
+    # @param [String] text
+    #   The text to parse.
+    #
+    # @yield [email]
+    #   The given block will be passed each extracted email address.
+    #
+    # @yieldparam [EmailAddress] email
+    #   An extracted host-name.
+    #
+    # @return [Array<EmailAddress>]
+    #   If no block is given, an Array of email address will be returned.
+    #
+    # @see 1.3.0
+    #
+    # @api public
+    #
+    def self.extract(text)
+      return enum_for(:extract,text).to_a unless block_given?
+
+      scanner = StringScanner.new(text)
+
+      while scanner.skip_until(REGEXP)
+        yield parse(scanner.matched)
+      end
+
+      return nil
+    end
 
     #
     # Searches for email addresses associated with the given host names.

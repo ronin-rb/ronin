@@ -13,6 +13,26 @@ describe EmailAddress do
     )
   }
 
+  describe "extract" do
+    subject { described_class }
+
+    let(:email1) { subject.parse('foo@bar.com') }
+    let(:email2) { subject.parse('foo!bar@baz.com') }
+    let(:text)  { "To: #{email1}, #{email2}." }
+
+    it "should extract multiple email addresses from text" do
+      subject.extract(text).should == [email1, email2]
+    end
+
+    it "should yield the extracted email addresses if a block is given" do
+      emails = []
+
+      subject.extract(text) { |email| emails << email }
+
+      emails.should == [email1, email2]
+    end
+  end
+
   describe "parse" do
     it "should parse email addresses" do
       email_address = EmailAddress.parse(email)
