@@ -26,10 +26,10 @@ post_install_message: |
     Additional functionality can be added to Ronin by installing additional
     libraries:
 
-        * ronin-asm             * ronin-php
-        * ronin-dorks           * ronin-scanners
-        * ronin-exploits        * ronin-sql
-        * ronin-gen             * ronin-web
+        * ronin-gen
+        * ronin-web
+        * ronin-exploits
+        * ronin-scanners
 
   *************************************************************************
 
