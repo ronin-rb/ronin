@@ -25,17 +25,8 @@ module Ronin
   #
   class UDPPort < Port
 
-    #
-    # Creates a new {UDPPort} resource.
-    #
-    # @param [Hash] attributes
-    #   The attribute names and values to initialize the UDP port with.
-    #
-    # @api public
-    #
-    def initialize(attributes={})
-      super(attributes.merge(:protocol => 'udp'))
-    end
+    # The protocol used for the port
+    property :protocol, String, :default => 'tcp'
 
   end
 end

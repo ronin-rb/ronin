@@ -26,21 +26,12 @@ module Ronin
   #
   class TCPPort < Port
 
+    # The protocol used for the port
+    property :protocol, String, :default => 'tcp'
+
     # The URLs that use the port
     has 0..n, :urls, :model => 'URL',
                      :child_key => [:port_id]
-
-    #
-    # Creates a new {TCPPort} resource.
-    #
-    # @param [Hash] attributes
-    #   The attribute names and values to initialize the TCP port with.
-    #
-    # @api public
-    #
-    def initialize(attributes={})
-      super(attributes.merge(:protocol => 'tcp'))
-    end
 
   end
 end
