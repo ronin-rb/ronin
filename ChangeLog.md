@@ -35,11 +35,11 @@
 * Added {Ronin::URLQueryParamName}.
 * Added timestamps to {Ronin::Campaign}.
 * Added the `created_at` timestamp to {Ronin::Target}.
-* Added {Ronin::Network::Mixins::HTTP#http_status}.
-* Added {Ronin::Network::Mixins::HTTP#http_ok?}.
-* Added {Ronin::Network::Mixins::HTTP#http_server}.
-* Added {Ronin::Network::Mixins::HTTP#http_powered_by}.
-* Added `print_info` method calls to {Ronin::Network::Mixins::HTTP}.
+* Added `Ronin::Network::Mixins::HTTP#http_status`.
+* Added `Ronin::Network::Mixins::HTTP#http_ok?`.
+* Added `Ronin::Network::Mixins::HTTP#http_server`.
+* Added `Ronin::Network::Mixins::HTTP#http_powered_by`.
+* Added `print_info` method calls to `Ronin::Network::Mixins::HTTP`.
 * Added {Ronin::Script::InstanceMethods#run}.
 * Added {Ronin::Script::Exception}.
 * Added {Ronin::Script::Path#to_s}.
