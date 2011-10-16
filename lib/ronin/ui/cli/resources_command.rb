@@ -42,7 +42,7 @@ module Ronin
         #
         def execute
           if options[:import]
-            self.class.query_model.import(options[:import]) do |resource|
+            self.class.model.import(options[:import]) do |resource|
               print_info "Imported #{resource}"
             end
           else
@@ -59,8 +59,8 @@ module Ronin
         #
         # @since 1.3.0
         #
-        def self.model(model)
-          if model < Model::Importable
+        def self.model(model=nil)
+          if (model && model < Model::Importable)
             class_option :import, :type => :string,
                                   :aliases => '-i',
                                   :banner => 'FILE'

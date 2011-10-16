@@ -103,7 +103,7 @@ module Ronin
         #
         def load_script
           if options[:file]
-            self.class.query_model.load_from(options[:file])
+            self.class.model.load_from(options[:file])
           else
             query.load_first
           end

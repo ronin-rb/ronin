@@ -32,22 +32,6 @@ module Ronin
                                 :aliases => '-D'
 
         #
-        # The model to query.
-        #
-        # @return [DataMapper::Resource]
-        #   The model that will be queried.
-        #
-        # @since 1.1.0
-        #
-        # @api semipublic
-        #
-        def self.query_model
-          @query_model ||= if self.superclass < ModelCommand
-                       self.superclass.query_model
-                     end
-        end
-
-        #
         # The query options for the command.
         #
         # @return [Array<Symbol>]
@@ -88,9 +72,9 @@ module Ronin
         protected
 
         #
-        # Sets the model to query.
+        # Sets or gets the model to query.
         #
-        # @param [DataMapper::Resource] model
+        # @param [DataMapper::Resource, nil] model
         #   The model class.
         #
         # @return [DataMapper::Resource]
@@ -100,8 +84,14 @@ module Ronin
         #
         # @api semipublic
         #
-        def self.model(model)
-          @query_model = model
+        def self.model(model=nil)
+          if model
+            @model = model
+          else
+            @model ||= if superclass < ModelCommand
+                         superclass.model
+                       end
+          end
         end
 
         #
@@ -119,7 +109,7 @@ module Ronin
         #
         def self.query_option(name,options={})
           query_options << name
-          class_option(name,options)
+          class_option name, options
         end
 
         #
@@ -154,11 +144,11 @@ module Ronin
         # @api semipublic
         #
         def query
-          unless self.class.query_model
+          unless self.class.model
             raise("query model not defined for #{self.class}")
           end
 
-          query = self.class.query_model.all
+          query = self.class.model.all
 
           self.class.each_query_option do |name|
             value = options[name]
@@ -166,10 +156,10 @@ module Ronin
             # skip unset options
             next if value.nil?
 
-            if query_model.properties.named?(name)
+            if model.properties.named?(name)
               query = query.all(name => value)
-            elsif query_model.respond_to?(name)
-              query_method = query_model.method(name)
+            elsif model.respond_to?(name)
+              query_method = model.method(name)
 
               query = case query_method.arity
                       when 0
@@ -180,7 +170,7 @@ module Ronin
                         query.send(name,*value)
                       end
             else
-              raise("unknown query method or property #{name} for #{query_model}")
+              raise("unknown query method or property #{name} for #{model}")
             end
           end
 
