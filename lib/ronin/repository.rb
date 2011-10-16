@@ -125,8 +125,12 @@ module Ronin
     #   The path to the repository.
     #
     # @param [Symbol] scm
-    #   The SCM used by the repository. Can be either `:git`, `:mercurial`,
-    #   `:sub_version` or `:rsync`.
+    #   The SCM used by the repository. Can be either:
+    #
+    #   * `:git`
+    #   * `:mercurial`
+    #   * `:sub_version`
+    #   * `:rsync`
     #
     # @param [String, URI::HTTP, URI::HTTPS] uri
     #   The URI the repository resides at.
@@ -259,8 +263,12 @@ module Ronin
     #   The URI to the repository.
     #
     # @option options [Symbol] :scm
-    #   The SCM used by the repository. May be either `:git`, `:mercurial`,
-    #   `:sub_version` or `:rsync`.
+    #   The SCM used by the repository. May be either:
+    #
+    #   * `:git`
+    #   * `:mercurial`,
+    #   * `:sub_version`
+    #   * `:rsync`.
     #
     # @return [Repository]
     #   The newly installed repository.

@@ -142,8 +142,13 @@ module Ronin
     #   The stream to use for the log.
     #
     # @option options [Symbol] :level
-    #   The level of messages to log.
-    #   May be either `:fatal`, `:error`, `:warn`, `:info` or `:debug`.
+    #   The level of messages to log. May one of:
+    #
+    #   * `:fatal`
+    #   * `:error`
+    #   * `:warn`
+    #   * `:info`
+    #   * `:debug`
     #
     # @return [true]
     #   Specifies that the log has been setup.
