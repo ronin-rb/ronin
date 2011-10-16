@@ -128,8 +128,8 @@ module Ronin
     #   The SCM used by the repository. Can be either:
     #
     #   * `:git`
-    #   * `:mercurial`
-    #   * `:sub_version`
+    #   * `:mercurial` / `:hg`
+    #   * `:sub_version` / `:svn`
     #   * `:rsync`
     #
     # @param [String, URI::HTTP, URI::HTTPS] uri
@@ -266,9 +266,9 @@ module Ronin
     #   The SCM used by the repository. May be either:
     #
     #   * `:git`
-    #   * `:mercurial`,
-    #   * `:sub_version`
-    #   * `:rsync`.
+    #   * `:mercurial` / `:hg`
+    #   * `:sub_version` / `:svn`
+    #   * `:rsync`
     #
     # @return [Repository]
     #   The newly installed repository.
