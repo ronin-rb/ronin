@@ -445,7 +445,7 @@ module Ronin
     #
     def to_uri
       # map the URL scheme to a URI class
-      url_class = (SCHEMES[self.scheme.name] || ::URI::Generic)
+      url_class = SCHEMES.fetch(self.scheme.name,::URI::Generic)
 
       host = if self.host_name
                self.host_name.address
