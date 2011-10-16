@@ -107,11 +107,11 @@ module Ronin
 
             indent do
               if (org = ip.organization)
-                print_hash('Organization' => org)
+                print_hash 'Organization' => org
               end
 
               if (last_scanned_at = ip.last_scanned_at)
-                print_hash('Last Scanned' => last_scanned_at)
+                print_hash 'Last Scanned' => last_scanned_at
               end
 
               unless ip.mac_addresses.empty?

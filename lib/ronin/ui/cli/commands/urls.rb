@@ -78,13 +78,11 @@ module Ronin
             print_title url
 
             indent do
-              print_hash(
-                'Host' => url.host_name,
-                'Port' => url.port.number,
-                'Path' => url.path,
-                'Fragment' => url.fragment,
-                'Last Scanned' => url.last_scanned_at
-              )
+              print_hash 'Host' => url.host_name,
+                         'Port' => url.port.number,
+                         'Path' => url.path,
+                         'Fragment' => url.fragment,
+                         'Last Scanned' => url.last_scanned_at
 
               unless url.query_params.empty?
                 params = {}
