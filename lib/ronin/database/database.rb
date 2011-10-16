@@ -216,6 +216,9 @@ module Ronin
         DataMapper.setup(name,uri)
       end
 
+      # finalize the Models
+      DataMapper.finalize
+
       # apply any new migrations to the database
       upgrade!
     end
