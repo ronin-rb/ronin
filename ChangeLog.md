@@ -1,3 +1,23 @@
+### 1.3.0 / 2011-10-15
+
+* Require DataMapper ~> 1.2.
+* Require ronin-support ~> 0.3.
+* Added {Ronin::Model::Importable}.
+* Added {Ronin::MACAddress::REGEXP}.
+* Added {Ronin::MACAddress.extract}.
+* Added {Ronin::IPAddress::REGEXP}.
+* Added {Ronin::IPAddress.extract}.
+* Added {Ronin::HostName::TLDS}.
+* Added {Ronin::HostName::REGEXP}.
+* Added {Ronin::HostName.extract}.
+* Added {Ronin::URL.extract}.
+* Added {Ronin::EmailAddress.extract}.
+* Renamed `license!` to `licensed_under` in
+  {Ronin::Model::HasLicense::InstanceMethods}.
+* Moved {Ronin::UI::Output}, {Ronin::UI::Shell} and {Ronin::Network::Mixins}
+  into ronin-support.
+* {Ronin::Author.site} and {Ronin::License.url} now use the URI property.
+
 ### 1.2.0 / 2011-08-15
 
 * Require dm-is-predefined ~> 0.4.
