@@ -25,7 +25,7 @@ require 'tempfile'
 RSpec.configure do |spec|
   spec.before(:suite) do
     database_file = Tempfile.new('ronin_database').path
-    database_uri = {:adapter => 'sqlite3', :database => database_file}
+    database_uri  = {:adapter => 'sqlite3', :database => database_file}
 
     Ronin::Database.repositories[:default] = database_uri
 
