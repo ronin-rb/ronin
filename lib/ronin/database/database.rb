@@ -171,7 +171,7 @@ module Ronin
     #   The database repository name.
     #
     # @return [Boolean]
-    #   Specifies wether or not the Database is setup.
+    #   Specifies whether or not the Database is setup.
     #
     # @api semipublic
     #

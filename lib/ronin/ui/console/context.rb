@@ -60,7 +60,7 @@ module Ronin
           # Populates the instance variables.
           #
           # @param [Hash] variables
-          #   The variable naems and values.
+          #   The variable names and values.
           #
           def instance_variables=(variables)
             variables.each do |name,value|
