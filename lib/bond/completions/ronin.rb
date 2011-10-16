@@ -18,11 +18,6 @@
 #
 
 require 'ronin/ui/console/commands'
-require 'ronin/address'
-require 'ronin/ip_address'
-require 'ronin/host_name'
-require 'ronin/email_address'
-require 'ronin/url'
 
 require 'set'
 require 'env'
