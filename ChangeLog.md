@@ -10,9 +10,11 @@
 * Added {Ronin::EmailAddress.extract}.
 * Renamed `license!` to `licensed_under` in
   {Ronin::Model::HasLicense::InstanceMethods}.
-* Moved {Ronin::UI::Output}, {Ronin::UI::Shell} and {Ronin::Network::Mixins}
+* Moved `Ronin::UI::Output`, `Ronin::UI::Shell` and `Ronin::Network::Mixins`
   into ronin-support.
 * {Ronin::Author.site} and {Ronin::License.url} now use the URI property.
+* Merged `Ronin::UI::CLI::ModelCommand.query_model` into
+  {Ronin::UI::CLI::ModelCommand.model}.
 
 ### 1.2.0 / 2011-08-15
 
@@ -75,7 +77,7 @@
 * Renamed `Ronin::UI::CLI::ModelCommand.model=` to
   {Ronin::UI::CLI::ModelCommand.model}.
 * Renamed `Ronin::UI::CLI::ModelCommand#model` to
-  {Ronin::UI::CLI::ModelCommand.query_model}.
+  `Ronin::UI::CLI::ModelCommand.query_model`.
 * Renamed `Ronin::UI::CLI::ModelCommand#new_query` to
   {Ronin::UI::CLI::ModelCommand#query}.
 * Renamed `Ronin::UI::CLI::ModelCommand#print_resource` to
