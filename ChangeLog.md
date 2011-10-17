@@ -3,12 +3,8 @@
 * Require DataMapper ~> 1.2.
 * Require ronin-support ~> 0.3.
 * Added {Ronin::Model::Importable}.
-* Added {Ronin::MACAddress::REGEXP}.
 * Added {Ronin::MACAddress.extract}.
-* Added {Ronin::IPAddress::REGEXP}.
 * Added {Ronin::IPAddress.extract}.
-* Added {Ronin::HostName::TLDS}.
-* Added {Ronin::HostName::REGEXP}.
 * Added {Ronin::HostName.extract}.
 * Added {Ronin::URL.extract}.
 * Added {Ronin::EmailAddress.extract}.
