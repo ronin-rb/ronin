@@ -17,6 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/extensions/regexp'
 require 'ronin/address'
 require 'ronin/ip_address'
 require 'ronin/ip_address_mac_address'
@@ -27,14 +28,11 @@ module Ronin
   #
   class MACAddress < Address
 
-    # Regular expression for finding MAC addresses in text
-    REGEXP = /[0-9a-fA-F]{2}(?::[0-9a-fA-F]{2}){5}/
-
     # The MAC address
     property :address, String, :length => 17..17,
                                :required => true,
                                :unique => true,
-                               :format => /^#{REGEXP}$/,
+                               :format => /^#{Regexp::MAC}$/,
                                :messages => {
                                  :format => 'Must be a valid MAC address'
                                }

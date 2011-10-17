@@ -17,10 +17,13 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/extensions/regexp'
 require 'ronin/extensions/resolv'
 require 'ronin/model/importable'
 require 'ronin/address'
 require 'ronin/host_name_ip_address'
+require 'ronin/email_address'
+require 'ronin/url'
 
 require 'uri/generic'
 require 'strscan'
@@ -34,46 +37,11 @@ module Ronin
 
     include Model::Importable
 
-    # List of valid TLDs
-    TLDS = %w[
-      aero arpa asia biz cat com coop edu gov info int jobs mil mobi museum net
-      org pro tel travel xxx
-
-      ac ad ae af ag ai al am an ao aq ar as at au aw ax az
-      ba bb bd be bf bg bh bi bj bm bn bo br bs bt bv bw by bz
-      ca cc cd cf cg ch ci ck cl cm cn co cr cs cu cv cx cy cz
-      dd de dj dk dm do dz
-      ec ee eg eh er es et eu
-      fi fj fk fm fo fr
-      ga gb gd ge gf gg gh gi gl gm gn gp gq gr gs gt gu gw gy
-      hk hm hn hr ht hu
-      id ie il im in io iq ir is it
-      je jm jo jp
-      ke kg kh ki km kn kp kr kw ky kz
-      la lb lc li lk lr ls lt lu lv ly
-      ma mc md me mg mh mk ml mm mn mo mp mq mr ms mt mu mv mw mx my mz
-      na nc ne nf ng ni nl no np nr nu nz
-      om
-      pa pe pf pg ph pk pl pm pn pr ps pt pw py
-      qa
-      re ro rs ru rw
-      sa sb sc sd se sg sh si sj sk sl sm sn so sr ss st su sv sy sz
-      tc td tf tg th tj tk tl tm tn to tp tr tt tv tw tz
-      ua ug ak us uy uz
-      va vc ve vg vi vn vu
-      wf ws
-      ye yt
-      za zm zw
-    ]
-
-    # Regular expression used to find host-names in text
-    REGEXP = /(?:[a-zA-Z0-9]+(?:[_-][a-zA-Z0-9]+)*\.)+(?:#{TLDS.join('|')})/
-
     # The address of the host name
     property :address, String, :length => 256,
                                :required => true,
                                :unique => true,
-                               :format => /^#{REGEXP}$/,
+                               :format => /^#{Regexp::HOST_NAME}$/,
                                :messages => {
                                  :format => 'Must be a valid host-name'
                                }
@@ -121,7 +89,7 @@ module Ronin
 
       scanner = StringScanner.new(text)
 
-      while scanner.skip_until(REGEXP)
+      while scanner.skip_until(Regexp::HOST_NAME)
         yield parse(scanner.matched)
       end
 

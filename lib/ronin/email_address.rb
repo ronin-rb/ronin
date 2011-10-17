@@ -17,6 +17,7 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/extensions/regexp'
 require 'ronin/model'
 require 'ronin/model/importable'
 require 'ronin/user_name'
@@ -31,12 +32,6 @@ module Ronin
   class EmailAddress
 
     include Model
-
-    # Regular expression to match a word in the username of an email address
-    NAME_REGEXP = /[a-z0-9!#\$%&'*+\/=?^_`{|}~-]+/
-
-    # Regular expression to find email addresses in text
-    REGEXP = /#{NAME_REGEXP}(?:\.#{NAME_REGEXP})*\@#{HostName::REGEXP}/
 
     # The primary key of the email address.
     property :id, Serial
@@ -84,7 +79,7 @@ module Ronin
 
       scanner = StringScanner.new(text)
 
-      while scanner.skip_until(REGEXP)
+      while scanner.skip_until(Regexp::EMAIL_ADDR)
         yield parse(scanner.matched)
       end
 
