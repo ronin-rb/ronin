@@ -67,8 +67,7 @@ module Ronin
       end
 
       #
-      # Tests and then deploys the exploit. If a payload has been set,
-      # the payload will also be deployed.
+      # Tests and then deploys the script.
       #
       # @yield []
       #   If a block is given, it will be passed the deployed script
@@ -146,10 +145,10 @@ module Ronin
       protected
 
       #
-      # Indicates the deployment of the exploit has failed.
+      # Indicates the deployment of the script has failed.
       #
       # @raise [DeployFailed]
-      #   The deployment of the exploit failed.
+      #   The deployment of the script failed.
       #
       # @since 1.1.0
       #

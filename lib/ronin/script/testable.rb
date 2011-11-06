@@ -50,7 +50,7 @@ module Ronin
       # Tests that the script is properly configured.
       #
       # @return [true]
-      #   The exploit is built and ready for deployment.
+      #   The script is built and ready for deployment.
       #
       # @see test
       #
