@@ -18,6 +18,7 @@
 #
 
 require 'ronin/script/exceptions/not_built'
+require 'ronin/script/exceptions/build_failed'
 require 'ronin/script/testable'
 require 'ronin/ui/output/helpers'
 
@@ -118,6 +119,20 @@ module Ronin
       end
 
       protected
+
+      #
+      # Indicates the build has failed.
+      #
+      # @raise [BuildFailed]
+      #   The building of the script failed.
+      #
+      # @since 1.4.0
+      #
+      # @api public
+      #
+      def build_failed!(message)
+        raise(BuildFailed,message)
+      end
 
       #
       # Registers a given block to be called when the script is built.

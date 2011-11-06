@@ -18,7 +18,10 @@
 #
 
 require 'ronin/script/exceptions/exception'
-require 'ronin/script/exceptions/not_built'
-require 'ronin/script/exceptions/build_failed'
-require 'ronin/script/exceptions/test_failed'
-require 'ronin/script/exceptions/deploy_failed'
+
+module Ronin
+  module Script
+    class BuildFailed < Exception
+    end
+  end
+end
