@@ -99,13 +99,13 @@ module Ronin
           #   The repository that was updated.
           #
           def print_cache_errors(repo)
-            repo.cached_files.each do |cached_file|
-              if cached_file.cache_exception
-                print_exception cached_file.cache_exception
+            repo.script_paths.each do |script_path|
+              if script_path.cache_exception
+                print_exception script_path.cache_exception
               end
 
-              if cached_file.cache_errors
-                cached_file.cache_errors.each do |error|
+              if script_path.cache_errors
+                script_path.cache_errors.each do |error|
                   print_error error
                 end
               end
@@ -153,12 +153,12 @@ module Ronin
 
                   putc "\n"
 
-                  unless repo.cached_files.empty?
+                  unless repo.script_paths.empty?
                     print_title 'Cached Files'
 
                     indent do
-                      repo.cached_files.each do |cached_file|
-                        puts cached_file.path
+                      repo.script_paths.each do |script_path|
+                        puts script_path.path
                       end
                     end
                   end
