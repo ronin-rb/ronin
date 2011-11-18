@@ -48,6 +48,23 @@ module Ronin
     validates_uniqueness_of :number, :scope => [:protocol]
 
     #
+    # Parses a port number.
+    #
+    # @param [String, Integer] number
+    #   The port number to parse.
+    #
+    # @return [Port]
+    #   The new or previously saved port.
+    #
+    # @since 1.4.0
+    #
+    # @api public
+    #
+    def self.parse(number)
+      first_or_new(:number => number)
+    end
+
+    #
     # Converts the port to an integer.
     #
     # @return [Integer]
