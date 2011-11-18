@@ -52,6 +52,23 @@ module Ronin
       #
       module ClassMethods
         #
+        # Parses a unique name.
+        #
+        # @param [String] name
+        #   The name to parse.
+        #
+        # @return [Model]
+        #   A new or previously saved resource.
+        #
+        # @since 1.4.0
+        #
+        # @api public
+        #
+        def parse(name)
+          first_or_new(:name => name.strip)
+        end
+
+        #
         # Searches for models with the unique name.
         #
         # @param [String, Symbol, Integer] key
