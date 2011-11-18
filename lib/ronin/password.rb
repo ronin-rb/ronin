@@ -57,7 +57,7 @@ module Ronin
     #
     # @api public
     #
-    def Password.parse(password)
+    def self.parse(password)
       first_or_new(:clear_text => password.to_s)
     end
 
