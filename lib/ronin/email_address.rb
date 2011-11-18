@@ -153,7 +153,7 @@ module Ronin
     #
     # @api public
     #
-    def EmailAddress.parse(email)
+    def self.parse(email)
       user, host = email.split('@',2)
 
       user.strip!
@@ -168,7 +168,7 @@ module Ronin
         raise("email address #{email.dump} must have a host name")
       end
 
-      return EmailAddress.first_or_new(
+      return first_or_new(
         :user_name => UserName.first_or_new(:name => user),
         :host_name => HostName.first_or_new(:address => host)
       )
