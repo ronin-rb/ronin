@@ -18,7 +18,6 @@
 #
 
 require 'ronin/credential'
-require 'ronin/email_address'
 require 'ronin/url'
 
 module Ronin
@@ -26,9 +25,6 @@ module Ronin
   # Represents Credentials used to access websites at specified {URL}s.
   #
   class WebCredential < Credential
-
-    # The optional email address the credential is associated with.
-    belongs_to :email_address, :required => false
 
     # The URL the credential can be used with.
     belongs_to :url, :required => false,
