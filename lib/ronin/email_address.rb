@@ -23,6 +23,7 @@ require 'ronin/model/importable'
 require 'ronin/user_name'
 require 'ronin/host_name'
 
+require 'uri/mailto'
 require 'dm-timestamps'
 
 module Ronin
@@ -172,6 +173,30 @@ module Ronin
         :user_name => UserName.first_or_new(:name => user),
         :host_name => HostName.first_or_new(:address => host)
       )
+    end
+
+    #
+    # Creates a new Email Address.
+    #
+    # @param [URI::MailTo, #to_s] email
+    #   The URI or String to create the Email Address from.
+    #
+    # @return [EmailAddress]
+    #   The new Email Address.
+    #
+    # @since 1.4.0
+    #
+    # @api public
+    #
+    def self.from(email)
+      email = case email
+              when URI::MailTo
+                email.to
+              else
+                email.to_s
+              end
+
+      return parse(email)
     end
 
     #

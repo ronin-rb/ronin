@@ -49,6 +49,23 @@ describe EmailAddress do
     end
   end
 
+  describe "from" do
+    it "should accept Strings" do
+      email_address = described_class.from(email)
+
+      email_address.user_name.name.should == user
+      email_address.host_name.address.should == host
+    end
+
+    it "should accept URI::MailTo objects" do
+      uri = URI("mailto:#{email}")
+      email_address = described_class.from(uri)
+
+      email_address.user_name.name.should == user
+      email_address.host_name.address.should == host
+    end
+  end
+
   it "should provide the user-name" do
     subject.user.should == user
   end
