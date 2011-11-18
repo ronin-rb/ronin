@@ -176,11 +176,11 @@ Remove a Database:
 
 ## Install
 
-Stable:
+### Stable
 
     $ gem install ronin
 
-Edge:
+### Edge
 
     $ git clone git://github.com/ronin-ruby/ronin.git
     $ cd ronin/
