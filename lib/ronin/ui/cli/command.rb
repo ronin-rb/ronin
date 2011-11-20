@@ -145,7 +145,9 @@ module Ronin
         # @api semipublic
         #
         def self.command_name
-          Support::Inflector.underscore(self.name.split('::').last)
+          Support::Inflector.underscore(
+            name.sub('Ronin::UI::CLI::Commands::','').gsub('::',':')
+          )
         end
 
         #
