@@ -18,9 +18,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/user_name'
-require 'ronin/email_address'
-require 'ronin/password'
 
 module Ronin
   #

@@ -18,7 +18,6 @@
 #
 
 require 'ronin/credential'
-require 'ronin/url'
 
 module Ronin
   #

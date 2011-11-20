@@ -20,7 +20,6 @@
 require 'ronin/model'
 require 'ronin/model/has_unique_name'
 require 'ronin/model/has_description'
-require 'ronin/address'
 
 require 'dm-timestamps'
 

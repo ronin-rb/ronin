@@ -18,7 +18,6 @@
 #
 
 require 'ronin/port'
-require 'ronin/url'
 
 module Ronin
   #

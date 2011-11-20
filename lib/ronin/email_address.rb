@@ -22,7 +22,6 @@ require 'ronin/model'
 require 'ronin/model/importable'
 require 'ronin/user_name'
 require 'ronin/host_name'
-require 'ronin/credential'
 
 require 'uri/mailto'
 require 'dm-timestamps'

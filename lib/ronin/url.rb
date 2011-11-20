@@ -23,7 +23,6 @@ require 'ronin/url_scheme'
 require 'ronin/url_query_param'
 require 'ronin/host_name'
 require 'ronin/tcp_port'
-require 'ronin/web_credential'
 
 require 'dm-timestamps'
 require 'uri/generic'

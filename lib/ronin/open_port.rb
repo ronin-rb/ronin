@@ -18,10 +18,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/ip_address'
-require 'ronin/port'
-require 'ronin/service'
-require 'ronin/service_credential'
 
 require 'dm-timestamps'
 

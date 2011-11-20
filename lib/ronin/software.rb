@@ -18,7 +18,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/vendor'
 
 module Ronin
   #

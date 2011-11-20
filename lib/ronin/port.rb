@@ -18,7 +18,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/open_port'
 
 module Ronin
   #

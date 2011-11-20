@@ -19,7 +19,6 @@
 
 require 'ronin/exceptions/duplicate_repository'
 require 'ronin/exceptions/repository_not_found'
-require 'ronin/script/path'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
 require 'ronin/model'

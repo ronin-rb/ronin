@@ -19,8 +19,6 @@
 
 require 'ronin/extensions/regexp'
 require 'ronin/address'
-require 'ronin/ip_address'
-require 'ronin/ip_address_mac_address'
 
 require 'strscan'
 

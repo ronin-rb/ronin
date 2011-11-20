@@ -18,7 +18,6 @@
 #
 
 require 'ronin/credential'
-require 'ronin/open_port'
 
 module Ronin
   #

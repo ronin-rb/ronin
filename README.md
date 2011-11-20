@@ -150,7 +150,7 @@ Remove a Database:
 * [uri-query_params](http://github.com/postmodern/uri-query_params#readme)
   ~> 0.5, >= 0.5.2
 * [open_namespace](http://github.com/postmodern/open_namespace#readme)
-  ~> 0.3
+  ~> 0.4
 * [data_paths](http://github.com/postmodern/data_paths#readme)
   ~> 0.3
 * [object_loader](http://github.com/postmodern/object_loader#readme)

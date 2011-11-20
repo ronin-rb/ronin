@@ -21,10 +21,7 @@ require 'ronin/extensions/ip_addr'
 require 'ronin/extensions/resolv'
 require 'ronin/model/importable'
 require 'ronin/address'
-require 'ronin/ip_address_mac_address'
-require 'ronin/host_name_ip_address'
-require 'ronin/os'
-require 'ronin/open_port'
+require 'ronin/host_name'
 
 require 'ipaddr'
 

@@ -19,7 +19,6 @@
 
 require 'ronin/model'
 require 'ronin/model/has_unique_name'
-require 'ronin/open_port'
 
 module Ronin
   #
