@@ -58,7 +58,7 @@ module Ronin
         if Object.const_defined?('DataMapper')
           # if the loaded Class is a DataMapper Resource, re-finalize
           if const < DataMapper::Resource
-            DataMapper.finalize
+            const.finalize
           end
         end
 
