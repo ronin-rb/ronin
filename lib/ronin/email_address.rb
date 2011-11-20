@@ -22,6 +22,7 @@ require 'ronin/model'
 require 'ronin/model/importable'
 require 'ronin/user_name'
 require 'ronin/host_name'
+require 'ronin/credential'
 
 require 'uri/mailto'
 require 'dm-timestamps'
@@ -48,7 +49,7 @@ module Ronin
                              :model => 'IPAddress'
 
     # Any web credentials that are associated with the email address.
-    has 0..n, :web_credentials
+    has 0..n, :credentials
 
     # Tracks when the email address was created at.
     timestamps :created_at
