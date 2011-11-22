@@ -36,7 +36,7 @@ module Ronin
           class_option :hg,    :type => :boolean
           class_option :git,   :type => :boolean
 
-          argument :uri, :type => :string,
+          argument :uri, :type     => :string,
                          :required => true,
                          :banner   => '[URI|PATH]'
 
