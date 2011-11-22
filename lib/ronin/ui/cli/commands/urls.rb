@@ -46,13 +46,13 @@ module Ronin
                                    :aliases => '-d',
                                    :banner => 'SUBDIR'
 
-          query_option :query_param, :type => :array,
-                                     :aliases => '-q',
-                                     :banner => 'NAME'
+          query_option :with_query_param, :type => :array,
+                                          :aliases => '-q',
+                                          :banner => 'NAME'
 
-          query_option :query_value, :type => :array,
-                                     :aliases => '-Q',
-                                     :banner => 'VALUE'
+          query_option :with_query_value, :type => :array,
+                                          :aliases => '-Q',
+                                          :banner => 'VALUE'
 
           class_option :list, :type => :boolean,
                               :default => true,

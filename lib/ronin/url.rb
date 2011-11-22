@@ -222,11 +222,11 @@ module Ronin
     # @return [Array<URL>]
     #   The URLs with the given query param.
     #
-    # @since 1.0.0
+    # @since 1.4.0
     #
     # @api public
     #
-    def self.query_param(name)
+    def self.with_query_param(name)
       all('query_params.name.name' => name)
     end
 
@@ -239,12 +239,32 @@ module Ronin
     # @return [Array<URL>]
     #   The URLs with the given query param value.
     #
-    # @since 1.0.0
+    # @since 1.4.0
     #
     # @api public
     #
-    def self.query_value(value)
+    def self.with_query_value(value)
       all('query_params.value' => value)
+    end
+
+    #
+    # @deprecated
+    #   Deprecated as of 1.4.0 and will be removed in 2.0.0.
+    #
+    # @see with_query_param
+    #
+    def self.query_param(name)
+      with_query_param(name)
+    end
+
+    #
+    # @deprecated
+    #   Deprecated as of 1.4.0 and will be removed in 2.0.0.
+    #
+    # @see with_query_value
+    #
+    def self.query_value(value)
+      with_query_value(name)
     end
 
     #
