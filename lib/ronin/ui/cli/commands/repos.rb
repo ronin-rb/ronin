@@ -30,6 +30,28 @@ module Ronin
         class Repos < ModelCommand
 
           desc 'Lists Ronin Repositories'
+
+          model Repository
+
+          query_option :domain, :type => :string,
+                                :desc => 'Domain to filter by'
+
+          query_option :named, :type    => :string,
+                               :aliases => '-n',
+                               :desc    => 'Name to filter by'
+
+          query_option :titled, :type    => :string,
+                                :aliases => '-t',
+                                :desc    => 'Title to filter by'
+
+          query_option :describing, :type    => :string,
+                                    :aliases => '-d',
+                                    :desc    => 'Description to filter by'
+
+          query_option :licensed_under, :type    => :string,
+                                        :aliases => '-L',
+                                        :desc    => 'License to filter by'
+
           argument :name, :type     => :string,
                           :required => false
 
@@ -47,7 +69,7 @@ module Ronin
 
               print_repository(repository)
             else
-              print_array Repository.all
+              print_array query
             end
           end
 
