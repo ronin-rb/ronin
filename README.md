@@ -198,31 +198,6 @@ Remove a Database:
     $ bundle install
     $ ./bin/ronin
 
-## Additional Libraries
-
-### Ronin Gen
-
-[Ronin Gen](http://github.com/ronin-ruby/ronin-gen#readme) is a Ruby library
-for Ronin that provides various generators.
-
-### Ronin Web
-
-[Ronin Web](http://github.com/ronin-ruby/ronin-web#readme) is a Ruby library
-for Ronin that provides support for web scraping and spidering
-functionality.
-
-### Ronin Exploits
-
-[Ronin Exploits](http://github.com/ronin-ruby/ronin-exploits#readme) is a
-Ruby library for Ronin that provides exploitation and payload crafting
-functionality.
-
-### Ronin Scanners
-
-[Ronin Scanners](http://github.com/ronin-ruby/ronin-scanners#readme)
-is a Ruby library for Ronin that provides Ruby interfaces to
-various third-party security scanners.
-
 ## License
 
 Copyright (c) 2006-2011 Hal Brodigan (postmodern.mod3 at gmail.com)
