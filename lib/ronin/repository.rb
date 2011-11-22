@@ -19,6 +19,9 @@
 
 require 'ronin/exceptions/duplicate_repository'
 require 'ronin/exceptions/repository_not_found'
+require 'ronin/model/has_name'
+require 'ronin/model/has_title'
+require 'ronin/model/has_description'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
 require 'ronin/model'
@@ -38,6 +41,9 @@ module Ronin
   class Repository
 
     include Model
+    include Model::HasName
+    include Model::HasTitle
+    include Model::HasDescription
     include Model::HasAuthors
     include Model::HasLicense
     include DataPaths
