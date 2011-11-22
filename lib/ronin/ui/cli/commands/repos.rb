@@ -185,7 +185,7 @@ module Ronin
           #
           def add(path)
             repo = begin
-                     Repository.add!(:path => path, :scm => @scm)
+                     Repository.add(:path => path, :scm => @scm)
                    rescue DuplicateRepository => e
                      print_error e.message
                      exit -1
@@ -202,7 +202,7 @@ module Ronin
           #
           def install(uri)
             repo = begin
-                     Repository.install!(:uri => uri, :scm => scm)
+                     Repository.install(:uri => uri, :scm => scm)
                    rescue DuplicateRepository => e
                      print_error e.message
                      exit -1
@@ -244,7 +244,7 @@ module Ronin
           #   The name of the repository.
           #
           def uninstall(name)
-            repo = Repository.uninstall!(name)
+            repo = Repository.uninstall(name)
 
             print_info "Uninstalling repository #{repo} ..."
           end

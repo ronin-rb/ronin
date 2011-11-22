@@ -216,7 +216,7 @@ module Ronin
     #
     # @api private
     #
-    def Repository.add!(options={})
+    def Repository.add(options={})
       unless options.has_key?(:path)
         raise(ArgumentError,"the :path option was not given")
       end
@@ -283,7 +283,7 @@ module Ronin
     #
     # @api private
     #
-    def Repository.install!(options={})
+    def Repository.install(options={})
       unless options[:uri]
         raise(ArgumentError,":uri must be passed to Repository.install")
       end
@@ -358,14 +358,14 @@ module Ronin
     # @return [nil]
     #
     # @example Uninstall the repository with the given name
-    #   Repository.uninstall!('postmodern-repo')
+    #   Repository.uninstall('postmodern-repo')
     #
     # @example Uninstall the repository with the given name and domain.
-    #   Repository.uninstall!('postmodern-repo/github.com')
+    #   Repository.uninstall('postmodern-repo/github.com')
     #
     # @api private
     #
-    def Repository.uninstall!(name)
+    def Repository.uninstall(name)
       Repository.find(name).uninstall!
     end
 
