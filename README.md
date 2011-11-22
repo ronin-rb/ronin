@@ -13,24 +13,35 @@ Ronin is a Ruby platform for exploit development and security research.
 Ronin allows for the rapid development and distribution of code, exploits
 or payloads over many common Source-Code-Management (SCM) systems.
 
-### Hack with Ruby
+### Customized Console
 
-Ronin combines the flexibility of Ruby with countless convenience methods
-and libraries, to make Ruby usable for Offensive Security or Research work.
+Ronin provides users with a customized Ruby Console, pre-loaded with powerful
+convenience methods. In the Console one can work with data and automate
+complex tasks, with greater ease than the command-line.
 
-### Organize Your Data
+    >> File.read('data').base64_decode
 
-Ronin comes with a Database designed for Security data and accessible from
-Ruby using [DataMapper](http://datamapper.org). With Ronin, storing or
-querying IP addresses, Hosts, Ports, URLs, Passwords is as simple as a
-single line of Ruby.
+### Integrated Database
 
-### Share Code
+Ronin ships with a preconfigured Database, that one can interact with from Ruby,
+without having to write any SQL.
 
-Ronin allows sharing code with the community, or just your friends, via
-Ronin Repositories. Ronin Repositories are like lazier versions of
-[RubyGems](http://rubygems.org/), that can be hosted with SubVersion,
-Mercurial or Git.
+    >> HostName.tld('eu').urls.with_query_param('id')
+
+### Repositories
+
+Ronin supports a Repository system, allowing users to organize and share
+miscallaneous Data, Code, Exploits, Payloads, Scanners, etc.
+
+    $ ronin install git://github.com/user/exploits.git
+
+### Libraries
+
+Ronin provides libraries with additional functionality, such as
+[Exploitation](http://github.com/ronin-ruby/ronin-exploits#readme)
+and [Scanning](http://github.com/ronin-ruby/ronin-scanners#readme).
+
+    $ gem install ronin-exploits
 
 ## Features
 
