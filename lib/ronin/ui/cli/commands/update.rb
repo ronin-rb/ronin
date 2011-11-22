@@ -31,7 +31,8 @@ module Ronin
         class Update < Command
 
           desc 'Updates Ronin Repositories'
-          argument :name, :type => :string
+          argument :name, :type     => :string,
+                          :required => false
 
           #
           # Executes the command.
