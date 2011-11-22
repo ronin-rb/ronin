@@ -35,48 +35,48 @@ describe Repository do
     end
   end
 
-  describe "add!" do
+  describe "add" do
     it "should not add Repositorys without a path property" do
       lambda {
-        subject.add!
+        subject.add
       }.should raise_error(ArgumentError)
     end
 
     it "should not add Repositorys that do not point to a directory" do
       lambda {
-        subject.add!(:path => 'path/to/nowhere')
+        subject.add(:path => 'path/to/nowhere')
       }.should raise_error(RepositoryNotFound)
     end
 
     it "should not allow adding an Repository from the same path twice" do
       lambda {
-        subject.add!(:path => repository('local').path)
+        subject.add(:path => repository('local').path)
       }.should raise_error(DuplicateRepository)
     end
 
     it "should not allow adding an Repository that was already installed" do
       lambda {
-        subject.add!(:path => repository('installed').path)
+        subject.add(:path => repository('installed').path)
       }.should raise_error(DuplicateRepository)
     end
   end
 
-  describe "install!" do
+  describe "install" do
     it "should not allow installing an Repository with no URI" do
       lambda {
-        subject.install!
+        subject.install
       }.should raise_error(ArgumentError)
     end
 
     it "should not allow installing an Repository that was already added" do
       lambda {
-        subject.install!(:uri => repository('remote').uri)
+        subject.install(:uri => repository('remote').uri)
       }.should raise_error(DuplicateRepository)
     end
 
     it "should not allow installing an Repository from the same URI twice" do
       lambda {
-        subject.install!(:uri => repository('installed').uri)
+        subject.install(:uri => repository('installed').uri)
       }.should raise_error(DuplicateRepository)
     end
   end
