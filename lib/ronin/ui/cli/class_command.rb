@@ -31,6 +31,9 @@ module Ronin
 
         protected
 
+        # The object created from the Class
+        attr_reader :object
+
         #
         # Sets or gets the class namespace.
         #
