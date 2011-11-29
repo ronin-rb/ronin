@@ -83,6 +83,9 @@ module Ronin
 
         # The cached file of the object
         belongs_to :script_path, Ronin::Script::Path, :required => false
+
+        # Validations
+        validates_uniqueness_of :version, :scope => [:name]
       end
 
       Path.has 1, base.relationship_name, base, :child_key => [:script_path_id]
