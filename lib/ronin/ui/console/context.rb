@@ -64,7 +64,7 @@ module Ronin
           #
           def instance_variables=(variables)
             variables.each do |name,value|
-              instance_variable_set("@#{name}".to_sym,value)
+              instance_variable_set(:"@#{name}",value)
             end
           end
 
