@@ -159,7 +159,7 @@ Remove a Database:
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined#readme)
   ~> 0.4
 * [uri-query_params](http://github.com/postmodern/uri-query_params#readme)
-  ~> 0.5, >= 0.5.2
+  ~> 0.6
 * [open_namespace](http://github.com/postmodern/open_namespace#readme)
   ~> 0.4
 * [data_paths](http://github.com/postmodern/data_paths#readme)
