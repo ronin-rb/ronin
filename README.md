@@ -166,6 +166,8 @@ Remove a Database:
   ~> 0.3
 * [object_loader](http://github.com/postmodern/object_loader#readme)
   ~> 1.0
+* [parameters](http://github.com/postmodern/parameters#readme)
+  ~> 0.3
 * [env](http://github.com/postmodern/env#readme)
   ~> 0.2
 * [pullr](http://github.com/postmodern/pullr#readme)

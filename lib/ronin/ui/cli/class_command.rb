@@ -146,7 +146,7 @@ module Ronin
           # populate additional parameters that map to arguments
           self.class.arguments.each do |argument|
             if @object.has_param?(argument.name)
-              @object.get_param(argument.name).value = send(argument.name)
+              @object.set_param(argument.name,send(argument.name))
             end
           end
         end
