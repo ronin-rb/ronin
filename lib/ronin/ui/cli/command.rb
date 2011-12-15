@@ -195,8 +195,7 @@ module Ronin
           self.class.each_argument do |name|
             param = get_param(name)
 
-            if (param.type <= Parameters::Types::Array) ||
-               (param.type <= Parameters::Types::Set)
+            if param.type <= Parameters::Types::Array
               # allow Array/Set arguments to collect all remaining args
               param.value = arguments.shift(arguments.length)
             else
