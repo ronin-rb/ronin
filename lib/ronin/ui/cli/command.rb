@@ -193,7 +193,15 @@ module Ronin
 
           # set additional arguments
           self.class.each_argument do |name|
-            set_param(name,arguments.shift)
+            param = get_param(name)
+
+            if (param.type <= Parameters::Types::Array) ||
+               (param.type <= Parameters::Types::Set)
+              # allow Array/Set arguments to collect all remaining args
+              param.value = arguments.shift(arguments.length)
+            else
+              param.value = arguments.shift
+            end
           end
 
           run
