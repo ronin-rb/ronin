@@ -29,39 +29,43 @@ module Ronin
         #
         class Repos < ModelCommand
 
-          desc 'Lists Ronin Repositories'
+          summary 'Lists Ronin Repositories'
 
           model Repository
 
-          query_option :domain, :type => :string,
-                                :desc => 'Domain to filter by'
+          query_option :domain, :type        => String,
+                                :description => 'Domain to filter by'
 
-          query_option :named, :type    => :string,
-                               :aliases => '-n',
-                               :desc    => 'Name to filter by'
+          query_option :named, :type        => String,
+                               :flag        => '-n',
+                               :usage       => 'NAME',
+                               :description => 'Name to filter by'
 
-          query_option :titled, :type    => :string,
-                                :aliases => '-t',
-                                :desc    => 'Title to filter by'
+          query_option :titled, :type        => String,
+                                :flag        => '-t',
+                                :usage       => 'TITLE',
+                                :description => 'Title to filter by'
 
-          query_option :describing, :type    => :string,
-                                    :aliases => '-d',
+          query_option :describing, :type    => String,
+                                    :flag    => '-d',
+                                    :usage   => 'DESC',
                                     :desc    => 'Description to filter by'
 
-          query_option :licensed_under, :type    => :string,
-                                        :aliases => '-L',
-                                        :desc    => 'License to filter by'
+          query_option :licensed_under, :type        => String,
+                                        :flag        => '-L',
+                                        :usage       => 'LICENSE',
+                                        :description => 'License to filter by'
 
-          argument :name, :type     => :string,
-                          :required => false
+          argument :repo, :type        => String,
+                          :description => 'Repository to list'
 
           #
           # Executes the command.
           #
           def execute
-            if name
+            if @repo
               repository = begin
-                             Repository.find(name)
+                             Repository.find(@repo)
                            rescue RepositoryNotFound => e
                              print_error e.message
                              exit -1

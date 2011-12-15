@@ -31,29 +31,37 @@ module Ronin
 
           model Campaign 
 
-          query_option :named, :type => :string,
-                               :aliases => '-n'
+          query_option :named, :type => String,
+                               :flag => '-n',
+                               :description => 'Name to search for'
 
-          query_option :describing, :type => :string, :aliases => '-d'
+          query_option :describing, :type => String,
+                                    :flag => '-d',
+                                    :description => 'Description to search for'
 
-          query_option :targeting, :type => :array,
-                                   :aliases => '-T',
-                                   :banner => 'ADDR [...]'
+          query_option :targeting, :type  => Array,
+                                   :flag  => '-T',
+                                   :usage => 'ADDR [...]',
+                                   :description => 'Addresses to search for'
 
-          query_option :targeting_orgs, :type => :array,
-                                        :aliases => '-O',
-                                        :banner => 'NAME [...]'
+          query_option :targeting_orgs, :type  => Array,
+                                        :flag  => '-O',
+                                        :usage => 'NAME [...]',
+                                        :description => 'Orgs to search for'
 
-          class_option :list, :type => :boolean,
-                              :default => true,
-                              :aliases => '-l'
+          option :list, :type    => true,
+                        :default => true,
+                        :flag    => '-l',
+                        :description => 'List all Campaigns'
 
-          class_option :add, :type => :string,
-                             :aliases => '-a',
-                             :banner => 'NAME'
+          option :add, :type  => String,
+                       :flag  => '-a',
+                       :usage => 'NAME',
+                       :description => 'Create a new Campaign'
 
-          class_option :targets, :type => :array,
-                                 :banner => 'ADDR [...]'
+          option :targets, :type  => Array,
+                           :usage => 'ADDR [...]',
+                           :description => 'Addresses to target'
 
           #
           # Queries the {Campaign} model.
@@ -61,9 +69,9 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if options[:add]
-              add options[:add]
-            elsif options.list?
+            if @add
+              add(@add)
+            elsif @list
               super
             end
           end
@@ -81,8 +89,10 @@ module Ronin
           def add(name)
             campaign = Campaign.new(:name => name)
 
-            # add targets to the campaign
-            options[:targets].each { |target| campaign.target!(target) }
+            if @targets
+              # add targets to the campaign
+              @targets.each { |target| campaign.target!(target) }
+            end
 
             if campaign.save
               print_info "Added campaign #{campaign}"
@@ -100,7 +110,7 @@ module Ronin
           # @since 1.0.0
           #
           def print_resource(campaign)
-            return super(campaign) unless options.verbose?
+            return super(campaign) unless @verbose
 
             print_title campaign.name
 

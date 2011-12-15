@@ -31,43 +31,66 @@ module Ronin
         #
         class Database < Command
 
-          desc "Manages the Ronin Database"
-          class_option :add, :type => :string, :banner => 'NAME', :aliases => '-a'
-          class_option :set, :type => :string, :banner => 'NAME', :aliases => '-s'
-          class_option :remove, :type => :string, :banner => 'NAME', :aliases => '-r'
-          class_option :clear, :type => :string, :banner => 'NAME', :aliases => '-C'
+          summary "Manages the Ronin Database"
+
+          option :add, :type => Symbol,
+                       :flag => '-a',
+                       :usage => 'NAME'
+
+          option :set, :type  => Symbol,
+                       :flag  => '-s',
+                       :usage => 'NAME'
+
+          option :remove, :type  => Symbol,
+                          :flag => '-r',
+                          :usage => 'NAME'
+
+          option :clear, :type  => Symbol,
+                         :flag  => '-C',
+                         :usage => 'NAME'
           
           # repository options
-          class_option :uri, :type => :string, :banner => 'sqlite3:///path'
-          class_option :adapter, :type => :string, :banner => 'sqlite3'
-          class_option :host, :type => :string, :banner => 'www.example.com'
-          class_option :port, :type => :numeric, :banner => '9999'
-          class_option :user, :type => :string
-          class_option :password, :type => :string
-          class_option :database, :type => :string, :banner => 'NAME'
-          class_option :path, :type => :string, :banner => '/path/file.db'
+          option :uri, :type  => String,
+                       :usage => 'sqlite3:///path'
+
+          option :adapter, :type  => String,
+                           :usage => 'DB'
+
+          option :host, :type  => String,
+                        :usage => 'HOST'
+
+          option :port, :type  => Integer,
+                        :usage => 'PORT'
+
+          option :user, :type => String
+
+          option :password, :type => String
+
+          option :database, :type  => String,
+                            :usage => 'NAME'
+
+          option :path, :type  => String,
+                        :usage => 'PATH'
 
           #
           # Displays or modifies the Ronin Database configuration.
           #
           def execute
-            if options[:clear]
-              name = options[:clear].to_sym
+            if @clear
+              print_info "Clearing the Database repository #{@clear} ..."
 
-              print_info "Clearing the Database repository #{name} ..."
-
-              Ronin::Database.clear(name) do
-                print_info "Database repository #{name} cleared."
+              Ronin::Database.clear(@clear) do
+                print_info "Database repository #{@clear} cleared."
               end
 
               return
             end
 
-            if options[:add]
+            if @add
               add_repository
-            elsif options[:set]
+            elsif @set
               set_repository
-            elsif options[:delete]
+            elsif @delete
               delete_repository
             else
               Ronin::Database.repositories.each do |name,uri|
@@ -85,16 +108,16 @@ module Ronin
           #   The repository URI.
           #
           def repository_uri
-            if options[:uri]
-              Addressable::URI.parse(options[:uri]).to_hash
+            if @uri
+              Addressable::URI.parse(@uri).to_hash
             else
               {
-                :adapter => options[:adapter],
-                :host => options[:host],
-                :port => options[:port],
-                :user => options[:user],
-                :password => options[:password],
-                :database => (options[:database] || options[:path])
+                :adapter  => @adapter,
+                :host     => @host,
+                :port     => @port,
+                :user     => @user,
+                :password => @password,
+                :database => (@database || @path)
               }
             end
           end
@@ -103,49 +126,43 @@ module Ronin
           # Adds a new Database repository.
           #
           def add_repository
-            name = options[:add].to_sym
-
             Ronin::Database.save do
-              Ronin::Database.repositories[name] = repository_uri
+              Ronin::Database.repositories[@add] = repository_uri
             end
 
-            print_info "Database repository #{name} added."
+            print_info "Database repository #{@add} added."
           end
 
           #
           # Sets the URI for an existing Database repository.
           #
           def set_repository
-            name = options[:set].to_sym
-
-            unless Ronin::Database.repository?(name)
-              print_error "Unknown Database repository #{name}"
+            unless Ronin::Database.repository?(@set)
+              print_error "Unknown Database repository #{@set}"
               return
             end
 
             Ronin::Database.save do
-              Ronin::Database.repositories[name] = repository_uri
+              Ronin::Database.repositories[@set] = repository_uri
             end
 
-            print_info "Database repository #{name} updated."
+            print_info "Database repository #{@set} updated."
           end
 
           #
           # Removes an existing Database repository.
           #
           def remove_repository
-            name = options[:remove].to_sym
-
-            unless Ronin::Database.repository?(name)
-              print_error "Unknown Database repository #{name}"
+            unless Ronin::Database.repository?(@remove)
+              print_error "Unknown Database repository #{@remove}"
               return
             end
 
             Ronin::Database.save do
-              Ronin::Database.repositories.delete(name)
+              Ronin::Database.repositories.delete(@remove)
             end
 
-            print_info "Database repository #{name} removed."
+            print_info "Database repository #{@remove} removed."
           end
 
         end

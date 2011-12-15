@@ -30,17 +30,27 @@ module Ronin
         #
         class Update < Command
 
-          desc 'Updates Ronin Repositories'
-          argument :name, :type     => :string,
-                          :required => false
+          summary 'Updates Ronin Repositories'
+
+          argument :repo, :type        => String,
+                          :description => 'Repository to update'
+
+          #
+          # Sets up the install command.
+          #
+          def setup
+            super
+
+            Database.setup
+          end
 
           #
           # Executes the command.
           #
           def execute
-            if name
+            if @repo
               repository = begin
-                             Repository.find(name)
+                             Repository.find(@repo)
                            rescue RepositoryNotFound => e
                              print_error e.message
                              exit -1
@@ -61,15 +71,6 @@ module Ronin
           end
 
           protected
-
-          #
-          # Sets up the install command.
-          #
-          def setup
-            super
-
-            Database.setup
-          end
 
           #
           # Print out any exceptions or validation errors encountered

@@ -29,17 +29,30 @@ module Ronin
       #
       class ScriptCommand < ModelCommand
 
-        query_option :named, :type => :string, :aliases => '-n'
-        query_option :describing, :type => :string, :aliases => '-d'
-        query_option :revision, :type => :string, :aliases => '-V'
-        query_option :licensed_under, :type => :string, :aliases => '-L'
+        query_option :named, :type  => String,
+                             :flag  => '-n',
+                             :usage => 'NAME'
 
-        class_option :file, :type => :string, :aliases => '-f'
-        class_option :params, :type => :hash,
-                              :default => {},
-                              :banner => 'NAME:VALUE ...',
-                              :aliases => '-p'
-        class_option :console, :type => :boolean, :default => false
+        query_option :describing, :type  => String,
+                                  :flag  => '-d',
+                                  :usage => 'DESC'
+
+        query_option :revision, :type  => String,
+                                :flag  => '-V',
+                                :usage => 'REV'
+
+        query_option :licensed_under, :type  => String,
+                                      :flag  => '-L',
+                                      :usage => 'LICENSE'
+
+        option :file, :type  => String,
+                      :flag  => '-f',
+                      :usage => 'FILE'
+
+        option :params, :type => Hash[Symbol => String],
+                        :flag => '-p'
+
+        option :console, :type => true
 
         #
         # Loads the script, sets its parameters and runs the script.
@@ -50,9 +63,9 @@ module Ronin
         #
         def execute
           script = load_script
-          script.params = options[:params]
+          script.params = @params if @params
 
-          if options.console?
+          if @console
             print_info "Starting the console with @script set ..."
 
             UI::Console.start(:script => script)
@@ -102,8 +115,8 @@ module Ronin
         # @api semipublic
         #
         def load_script
-          if options[:file]
-            self.class.model.load_from(options[:file])
+          if @file
+            self.class.model.load_from(@file)
           else
             query.load_first
           end

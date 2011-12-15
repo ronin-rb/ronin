@@ -31,36 +31,36 @@ module Ronin
 
           model URL
 
-          query_option :http, :type => :boolean
-          query_option :https, :type => :boolean
+          query_option :http, :type => true
+          query_option :https, :type => true
 
-          query_option :hosts, :type => :array,
-                               :aliases => '-H',
-                               :banner => 'HOST [...]'
+          query_option :hosts, :type  => Array,
+                               :flag  => '-H',
+                               :usage => 'HOST [...]'
 
-          query_option :ports, :type => :array,
-                               :aliases => '-P',
-                               :banner => 'PORT [...]'
+          query_option :ports, :type  => Array[Integer],
+                               :flag  => '-P',
+                               :usage => 'PORT [...]'
 
-          query_option :directory, :type => :string, 
-                                   :aliases => '-d',
-                                   :banner => 'SUBDIR'
+          query_option :directory, :type  => String, 
+                                   :flag  => '-d',
+                                   :usage => 'SUBDIR'
 
-          query_option :with_query_param, :type => :array,
-                                          :aliases => '-q',
-                                          :banner => 'NAME'
+          query_option :with_query_param, :type  => Array,
+                                          :flag  => '-q',
+                                          :usage => 'NAME [...]'
 
-          query_option :with_query_value, :type => :array,
-                                          :aliases => '-Q',
-                                          :banner => 'VALUE'
+          query_option :with_query_value, :type   => Array,
+                                          :flag   => '-Q',
+                                          :usage  => 'VALUE [...]'
 
-          class_option :list, :type => :boolean,
-                              :default => true,
-                              :aliases => '-l'
+          option :list, :type    => true,
+                        :default => true,
+                        :flag    => '-l'
 
-          class_option :import, :type => :string,
-                                :aliases => '-i',
-                                :banner => 'FILE'
+          option :import, :type  => String,
+                          :flag  => '-i',
+                          :usage => 'FILE'
 
           protected
 
@@ -73,7 +73,7 @@ module Ronin
           # @since 1.0.0
           #
           def print_resource(url)
-            return super(url) unless options.verbose?
+            return super(url) unless @verbose?
 
             print_title url
 

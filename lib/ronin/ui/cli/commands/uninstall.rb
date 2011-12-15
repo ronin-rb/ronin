@@ -30,20 +30,10 @@ module Ronin
         #
         class Uninstall < Command
 
-          desc 'Uninstalls Ronin Repositories'
-          argument :name, :type     => :string,
-                          :required => true
+          summary 'Uninstalls Ronin Repositories'
 
-          #
-          # Executes the command.
-          #
-          def execute
-            repository = Repository.uninstall(name)
-
-            print_info "Repository #{repository} uninstalled."
-          end
-
-          protected
+          argument :repo, :type => String,
+                          :description => 'Repository to uninstall'
 
           #
           # Sets up the install command.
@@ -52,6 +42,20 @@ module Ronin
             super
 
             Database.setup
+          end
+
+          #
+          # Executes the command.
+          #
+          def execute
+            unless @repo
+              print_error "Must specify the REPO argument"
+              exit -1
+            end
+
+            repository = Repository.uninstall(@repo)
+
+            print_info "Repository #{repository} uninstalled."
           end
 
         end

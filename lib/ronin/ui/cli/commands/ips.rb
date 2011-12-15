@@ -32,32 +32,32 @@ module Ronin
 
           model IPAddress
 
-          query_option :v4, :type => :boolean, :aliases => '-4'
-          query_option :v6, :type => :boolean, :aliases => '-6'
+          query_option :v4, :type => true, :flag => '-4'
+          query_option :v6, :type => true, :flag => '-6'
 
-          query_option :with_ports, :type => :array,
-                                    :aliases => '-p',
-                                    :banner => 'PORT [...]'
+          query_option :with_ports, :type  => Array[Integer],
+                                    :flag  => '-p',
+                                    :usage => 'PORT [...]'
 
-          query_option :with_macs, :type => :array,
-                                   :aliases => '-M',
-                                   :banner => 'MAC [...]'
+          query_option :with_macs, :type  => Array,
+                                   :flag  => '-M',
+                                   :usage => 'MAC [...]'
 
-          query_option :with_hosts, :type => :array,
-                                    :aliases => '-H',
-                                    :banner => 'HOST [...]'
+          query_option :with_hosts, :type  => Array,
+                                    :flag  => '-H',
+                                    :usage => 'HOST [...]'
 
-          class_option :list, :type => :boolean,
-                              :default => true,
-                              :aliases => '-l'
+          option :list, :type    => true,
+                        :default => true,
+                        :aliases => '-l'
 
-          class_option :lookup, :type => :string,
-                                :aliases => '-L',
-                                :banner => 'HOST'
+          option :lookup, :type  => String,
+                          :flag  => '-L',
+                          :usage => 'HOST'
 
-          class_option :import, :type => :string,
-                                :aliases => '-i',
-                                :banner => 'FILE'
+          option :import, :type  => String,
+                          :flag  => '-i',
+                          :usage => 'FILE'
 
           #
           # Queries the {IPAddress} model.
@@ -65,8 +65,8 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if options[:lookup]
-              lookup options[:lookup]
+            if @lookup
+              lookup(@lookup)
             else
               super
             end
@@ -101,7 +101,7 @@ module Ronin
           # @since 1.0.0
           #
           def print_resource(ip)
-            return super(ip) unless options.verbose?
+            return super(ip) unless @verbose
 
             print_title ip.address
 

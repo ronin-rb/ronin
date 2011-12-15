@@ -10,14 +10,10 @@ describe UI::CLI::Command do
     subject.command_name.should == 'test_command'
   end
 
-  it "should have a default execute task" do
-    subject.start([]).should == ['default task']
-  end
-
-  it "should allow running the task with options" do
+  it "should allow running the command with options" do
     command = subject.run({:foo => true})
 
-    command.options.foo.should == true
+    command.foo.should == true
   end
 
   it "should have zero indentation by default" do

@@ -2,12 +2,12 @@ require 'ronin/ui/cli/command'
 
 class TestCommand < Ronin::UI::CLI::Command
 
-  desc 'Tests the default task'
+  summary 'Tests the default task'
 
-  class_option :foo, :type => :boolean
+  option :foo, :type => true
 
   def execute
-    if options.foo?
+    if @foo
       'foo task'
     else
       'default task'

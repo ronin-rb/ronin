@@ -167,7 +167,7 @@ Remove a Database:
 * [object_loader](http://github.com/postmodern/object_loader#readme)
   ~> 1.0
 * [parameters](http://github.com/postmodern/parameters#readme)
-  ~> 0.3
+  ~> 0.4
 * [env](http://github.com/postmodern/env#readme)
   ~> 0.2
 * [pullr](http://github.com/postmodern/pullr#readme)
@@ -182,8 +182,6 @@ Remove a Database:
   ~> 0.1
 * [ripl-color_result](https://github.com/janlelis/ripl-color_result#readme)
   ~> 0.3
-* [thor](http://github.com/wycats/thor#readme)
-  ~> 0.14.3
 * [ronin-support](http://github.com/ronin-ruby/ronin-support#readme)
   ~> 0.3
 

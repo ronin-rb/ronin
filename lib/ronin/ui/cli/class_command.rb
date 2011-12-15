@@ -29,10 +29,21 @@ module Ronin
       #
       class ClassCommand < Command
 
-        protected
-
         # The object created from the Class
         attr_reader :object
+
+        def initialize(options={})
+          super(options)
+
+          unless self.class.command_class < Parameters
+            raise(TypeError,"#{command_class} does not include Parameters")
+          end
+
+          @object = self.class.command_class.new()
+          @object.params = options
+        end
+
+        protected
 
         #
         # Sets or gets the class namespace.
@@ -86,68 +97,30 @@ module Ronin
           @command_class ||= class_namespace.const_get(class_name)
         end
 
-        # Mapping of parameter type Classes to Command option types
-        PARAM_TYPES = {
-          TrueClass  => :boolean,
-          FalseClass => :boolean,
-
-          Integer => :numeric,
-          Fixnum  => :numeric,
-          Float   => :numeric,
-
-          String => :string,
-
-          Array => :array,
-          Hash  => :hash
-        }
-
         #
-        # Defines an option that maps to a parameter in the Class.
+        # Creates an OptionParser for the class command.
         #
-        # @param [Symbol] name
-        #   The name of the option.
+        # @yield [opts]
+        #   The given block will be passed the newly created OptionParser,
+        #   after options for the class have been defined.
         #
-        # @param [Hash] options
-        #   Additional options for the option.
+        # @yieldparam [OptionParser] opts
+        #   The newly created OptionParser.
+        #
+        # @return [OptionParser]
+        #   The fully configured OptionParser.
+        #
+        # @since 1.4.0
         #
         # @api semipublic
         #
-        def self.param_option(name,options={})
-          unless command_class < Parameters
-            raise(TypeError,"#{command_class} does not include Parameters")
-          end
-
-          param   = command_class.get_param(name)
-          options = options.dup
-
-          options[:type]    ||= PARAM_TYPES[param.type || param.value.class]
-          options[:default] ||= param.value
-          options[:desc]    ||= param.description
-
-          class_option(name,options)
-        end
-
-        #
-        # Sets up the Class command.
-        #
-        # @param [Array] arguments
-        #   Additional arguments for the Class.
-        #
-        # @api semipublic
-        #
-        def setup(*arguments)
-          super()
-
-          @object = self.class.command_class.new(*arguments)
-
-          # populate parameters with command options
-          @object.params = options
-
-          # populate additional parameters that map to arguments
-          self.class.arguments.each do |argument|
-            if @object.has_param?(argument.name)
-              @object.set_param(argument.name,send(argument.name))
+        def option_parser
+          super do |opts|
+            @object.each_params do |param|
+              Parameters::Options.define(opts,param)
             end
+
+            yield opts if block_given?
           end
         end
 

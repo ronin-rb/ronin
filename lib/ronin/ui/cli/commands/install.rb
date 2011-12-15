@@ -30,37 +30,51 @@ module Ronin
         #
         class Install < Command
 
-          desc 'Installs Ronin Repositories'
-          class_option :rsync, :type => :boolean
-          class_option :svn,   :type => :boolean
-          class_option :hg,    :type => :boolean
-          class_option :git,   :type => :boolean
+          summary 'Installs Ronin Repositories'
 
-          argument :uri, :type     => :string,
-                         :required => true,
+          option :rsync, :type => true
+          option :svn,   :type => true
+          option :hg,    :type => true
+          option :git,   :type => true
+
+          argument :uri, :type     => String,
                          :banner   => '[URI|PATH]'
+
+          #
+          # Sets up the install command.
+          #
+          def setup
+            super
+
+            Database.setup
+          end
 
           #
           # Executes the command.
           #
           def execute
-            scm = if options.rsync?
+            unless @uri
+              print_error "Must specify the URI argument"
+              exit -1
+            end
+
+            scm = if @rsync
                     :rsync
-                  elsif options.svn?
+                  elsif @svn
                     :sub_version
-                  elsif options.hg?
+                  elsif @hg
                     :mercurial
-                  elsif options.git?
+                  elsif @git
                     :git
                   end
 
             repository = begin
-                           if File.directory?(uri)
+                           if File.directory?(@uri)
                              # add local repositories
-                             Repository.add(:path => uri, :scm => scm)
+                             Repository.add(:path => @uri, :scm => scm)
                            else
                              # install remote repositories
-                             Repository.install(:uri => uri, :scm => scm)
+                             Repository.install(:uri => @uri, :scm => scm)
                            end
                          rescue DuplicateRepository => e
                            print_error e.message
@@ -81,17 +95,6 @@ module Ronin
                 end
               end
             end
-          end
-
-          protected
-
-          #
-          # Sets up the install command.
-          #
-          def setup
-            super
-
-            Database.setup
           end
 
         end
