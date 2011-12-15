@@ -354,7 +354,7 @@ module Ronin
         #
         # @api semipublic
         #
-        def self.option(name,options)
+        def self.option(name,options={})
           options = {:type => String}.merge(options)
 
           self.options[name] = {
