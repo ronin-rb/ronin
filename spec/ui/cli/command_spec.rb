@@ -11,9 +11,41 @@ describe UI::CLI::Command do
   end
 
   it "should allow running the command with options" do
-    command = subject.run({:foo => true})
+    value = 'bar'
+    command = subject.run(:foo => value)
 
-    command.foo.should == true
+    command.foo.should == value
+  end
+
+  describe "#start" do
+    subject { TestCommand.new }
+
+    it "should parse options" do
+      value = 'baz'
+      subject.start(['--foo', value])
+
+      subject.foo.should == value
+    end
+
+    it "should parse additional arguments" do
+      path = 'to/file.txt'
+
+      subject.start([path])
+
+      subject.path.should == path
+    end
+
+    it "should parse additional arguments into an Array/Set argument" do
+      value = 'bax'
+      path  = 'to/file.txt'
+      files = ['one.txt', 'two.txt']
+
+      subject.start(['--foo', value, path, *files])
+
+      subject.foo.should == value
+      subject.path.should == path
+      subject.files.should == files
+    end
   end
 
   it "should have zero indentation by default" do

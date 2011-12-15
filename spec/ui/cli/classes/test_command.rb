@@ -4,7 +4,11 @@ class TestCommand < Ronin::UI::CLI::Command
 
   summary 'Tests the default task'
 
-  option :foo, :type => true
+  option :foo
+
+  argument :path
+
+  argument :files, :type => Array
 
   def execute
     if @foo
