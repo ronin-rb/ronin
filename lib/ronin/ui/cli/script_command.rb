@@ -21,6 +21,8 @@ require 'ronin/ui/cli/model_command'
 require 'ronin/ui/console'
 require 'ronin/script'
 
+require 'parameters/options'
+
 module Ronin
   module UI
     module CLI
@@ -28,6 +30,8 @@ module Ronin
       # A base-command for querying and loading {Script}s.
       #
       class ScriptCommand < ModelCommand
+
+        usage '[options] -- SCRIPT_ARGS ...'
 
         query_option :named, :type  => String,
                              :flag  => '-n',
@@ -49,10 +53,11 @@ module Ronin
                       :flag  => '-f',
                       :usage => 'FILE'
 
-        option :params, :type => Hash[Symbol => String],
-                        :flag => '-p'
-
         option :console, :type => true
+
+        argument :script_args, :type        => Array,
+                               :default     => [],
+                               :description => 'Additional script arguments'
 
         #
         # Loads the script, sets its parameters and runs the script.
@@ -63,7 +68,9 @@ module Ronin
         #
         def execute
           script = load_script
-          script.params = @params if @params
+
+          script_opts = Parameters::Options.parser(script)
+          script_opts.parse(@script_args)
 
           if @console
             print_info "Starting the console with @script set ..."
