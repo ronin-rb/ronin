@@ -59,6 +59,17 @@ module Ronin
                                :default     => [],
                                :description => 'Additional script arguments'
 
+        def initialize
+          @command_args = []
+        end
+
+        def start(argv=ARGV)
+          # capture the command options, upto the -- separator
+          @command_args = argv[0,argv.index('--') || argv.length]
+
+          super(argv)
+        end
+
         #
         # Loads the script, sets its parameters and runs the script.
         #
@@ -69,8 +80,7 @@ module Ronin
         def execute
           script = load_script
 
-          script_opts = Parameters::Options.parser(script)
-          script_opts.parse(@script_args)
+          script_options(script).parse(@script_args)
 
           if @console
             print_info "Starting the console with @script set ..."
@@ -126,6 +136,44 @@ module Ronin
             self.class.model.load_from(@file)
           else
             query.load_first
+          end
+        end
+
+        #
+        # Creates an OptionParser based on the parameters of one or more
+        # scripts.
+        #
+        # @param [Array<Script>] scripts
+        #   The scripts.
+        #
+        # @yield [opts]
+        #   If a block is given, it will be passed the newly created
+        #   OptionParser.
+        #
+        # @yieldparam [OptionParser] opts
+        #   The newly created OptionParser for the script parameters.
+        #
+        # @return [OptionParser]
+        #   The configured OptionParser for the script parameters.
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def script_options(*scripts)
+          OptionParser.new do |opts|
+            opts.banner = "usage: #{self.class.command_name} #{@command_args.join(' ')} -- [script_options]"
+            
+            opts.separator ''
+            opts.separator 'Script Options:'
+
+            scripts.each do |script|
+              script.each_param do |param|
+                Parameters::Options.define(opts,param)
+              end
+            end
+
+            yield opts if block_given?
           end
         end
 
