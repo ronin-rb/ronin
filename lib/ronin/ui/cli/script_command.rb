@@ -78,16 +78,16 @@ module Ronin
         # @api semipublic
         #
         def execute
-          script = load_script
+          @script = load_script
 
-          script_options(script).parse(@script_args)
+          script_options(@script).parse(@script_args)
 
           if @console
             print_info "Starting the console with @script set ..."
 
-            UI::Console.start(:script => script)
+            UI::Console.start(:script => @script)
           else
-            script.run
+            @script.run
           end
         end
 
