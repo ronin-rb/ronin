@@ -31,7 +31,7 @@ module Ronin
       #
       class ScriptCommand < ModelCommand
 
-        usage '[options] -- SCRIPT_ARGS ...'
+        usage '[options] --'
 
         query_option :named, :type  => String,
                              :flag  => '-n',
