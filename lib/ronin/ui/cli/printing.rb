@@ -30,6 +30,9 @@ module Ronin
       module Printing
         include Output::Helpers
 
+        #
+        # Initializes Printing settings.
+        #
         def initialize
           @indent = 0
         end
