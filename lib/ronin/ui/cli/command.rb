@@ -377,7 +377,7 @@ module Ronin
                         :description  => 'Silence all output'
 
         option :color, :type        => true,
-                       :default     => true,
+                       :default     => proc { !$stdout.tty? },
                        :description => 'Enables color output'
 
         #
