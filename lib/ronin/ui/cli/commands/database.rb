@@ -76,7 +76,7 @@ module Ronin
           # Displays or modifies the Ronin Database configuration.
           #
           def execute
-            if @clear
+            if clear?
               print_info "Clearing the Database repository #{@clear} ..."
 
               Ronin::Database.clear(@clear) do
@@ -86,11 +86,11 @@ module Ronin
               return
             end
 
-            if @add
+            if add?
               add_repository
-            elsif @set
+            elsif set?
               set_repository
-            elsif @delete
+            elsif delete?
               delete_repository
             else
               Ronin::Database.repositories.each do |name,uri|
@@ -108,7 +108,7 @@ module Ronin
           #   The repository URI.
           #
           def repository_uri
-            if @uri
+            if uri?
               Addressable::URI.parse(@uri).to_hash
             else
               {

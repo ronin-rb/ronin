@@ -65,7 +65,7 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if @lookup
+            if lookup?
               lookup(@lookup)
             else
               super
@@ -101,7 +101,7 @@ module Ronin
           # @since 1.0.0
           #
           def print_resource(host)
-            return super(host) unless @verbose
+            return super(host) unless verbose?
 
             print_title host.address
 

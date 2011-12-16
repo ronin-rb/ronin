@@ -48,7 +48,7 @@ module Ronin
           # Executes the command.
           #
           def execute
-            unless @repo
+            unless repo?
               print_error "Must specify the REPO argument"
               exit -1
             end

@@ -48,7 +48,7 @@ module Ronin
           # Executes the command.
           #
           def execute
-            if @repo
+            if repo?
               repository = begin
                              Repository.find(@repo)
                            rescue RepositoryNotFound => e

@@ -73,7 +73,7 @@ module Ronin
           # @since 1.0.0
           #
           def print_resource(url)
-            return super(url) unless @verbose?
+            return super(url) unless verbose?
 
             print_title url
 

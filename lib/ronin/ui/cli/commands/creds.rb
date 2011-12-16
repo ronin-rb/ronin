@@ -55,7 +55,7 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            super if @list
+            super if list?
           end
 
           protected

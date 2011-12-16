@@ -53,18 +53,18 @@ module Ronin
           # Executes the command.
           #
           def execute
-            unless @uri
+            unless uri?
               print_error "Must specify the URI argument"
               exit -1
             end
 
-            scm = if @rsync
+            scm = if rsync?
                     :rsync
-                  elsif @svn
+                  elsif svn?
                     :sub_version
-                  elsif @hg
+                  elsif hg?
                     :mercurial
-                  elsif @git
+                  elsif git?
                     :git
                   end
 

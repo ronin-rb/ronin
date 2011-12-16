@@ -37,7 +37,7 @@ module Ronin
           # Lists the available commands.
           #
           def execute
-            if @command
+            if command?
               begin
                 CLI.command(@command).start(['--help'])
               rescue UnknownCommand

@@ -69,9 +69,9 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if @add
+            if add?
               add(@add)
-            elsif @list
+            elsif list?
               super
             end
           end
@@ -89,7 +89,7 @@ module Ronin
           def add(name)
             campaign = Campaign.new(:name => name)
 
-            if @targets
+            if targets?
               # add targets to the campaign
               @targets.each { |target| campaign.target!(target) }
             end
@@ -110,7 +110,7 @@ module Ronin
           # @since 1.0.0
           #
           def print_resource(campaign)
-            return super(campaign) unless @verbose
+            return super(campaign) unless verbose?
 
             print_title campaign.name
 

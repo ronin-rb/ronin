@@ -70,13 +70,13 @@ module Ronin
       #               # Executes the command.
       #               #
       #               def execute
-      #                 print_info "Stuff enabled" if @enable
+      #                 print_info "Stuff enabled" if enable?
       #
-      #                 if @syntax
+      #                 if syntax?
       #                   print_info "Using syntax #{@syntax}"
       #                 end
       #
-      #                 if @includes
+      #                 if includes?
       #                   print_info "Including:"
       #                   print_array @includes
       #                 end
@@ -234,11 +234,11 @@ module Ronin
         # @api semipublic
         #
         def setup
-          Output.verbose! if @verbose
-          Output.quiet!   if @quiet
-          Output.silent!  if @silent
+          Output.verbose! if verbose?
+          Output.quiet!   if quiet?
+          Output.silent!  if silent?
 
-          Output.handler = if @color
+          Output.handler = if color?
                              Output::Terminal::Color
                            else
                              Output::Terminal::Raw

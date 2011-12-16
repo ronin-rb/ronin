@@ -55,19 +55,19 @@ module Ronin
           # Starts the Ronin Console.
           #
           def execute
-            if @version
+            if version?
               puts "ronin #{Ronin::VERSION}"
               return
             end
 
-            UI::Console.color = !(@color)
-            UI::Console.short_errors = !(@backtrace)
+            UI::Console.color = color?
+            UI::Console.short_errors = !backtrace?
 
             @require.each do |path|
               UI::Console.auto_load << path
             end
 
-            if @database
+            if database?
               Database.repositories[:default] = @database
             end
 
