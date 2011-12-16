@@ -17,8 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/ui/cli/printing'
 require 'ronin/ui/output'
-require 'ronin/ui/output/terminal'
 require 'ronin/support/inflector'
 
 require 'parameters'
@@ -116,7 +116,7 @@ module Ronin
       class Command
 
         include Parameters
-        include Output::Helpers
+        include Printing
 
         #
         # Creates a new Command object.
@@ -124,9 +124,9 @@ module Ronin
         # @api semipublic
         #
         def initialize(params={})
-          initialize_params(params)
+          super()
 
-          @indent = 0
+          initialize_params(params)
         end
 
         #
@@ -531,131 +531,6 @@ module Ronin
               opts.separator self.class.summary
             end
           end
-        end
-
-        #
-        # Increases the indentation out output temporarily.
-        #
-        # @param [Integer] n
-        #   The number of spaces to increase the indentation by.
-        #
-        # @yield []
-        #   The block will be called after the indentation has been
-        #   increased. After the block has returned, the indentation will
-        #   be returned to normal.
-        #
-        # @return [nil]
-        #
-        # @api semipublic
-        #
-        def indent(n=2)
-          @indent += n
-
-          yield
-
-          @indent -= n
-          return nil
-        end
-
-        #
-        # Print the given messages with indentation.
-        #
-        # @param [Array] messages
-        #   The messages to print, one per-line.
-        #
-        # @api semipublic
-        #
-        def puts(*messages)
-          super(*(messages.map { |mesg| (' ' * @indent) + mesg.to_s }))
-        end
-
-        #
-        # Prints a given title.
-        #
-        # @param [String] title
-        #   The title to print.
-        #
-        # @api semipublic
-        #
-        def print_title(title)
-          puts "[ #{title} ]\n"
-        end
-
-        #
-        # Prints a section with a title.
-        #
-        # @yield []
-        #   The block will be called after the title has been printed
-        #   and indentation increased.
-        #
-        # @since 1.0.0
-        #
-        # @api semipublic
-        #
-        def print_section(title,&block)
-          print_title(title)
-          indent(&block)
-        end
-
-        #
-        # Prints a given Array.
-        #
-        # @param [Array] array 
-        #   The Array to print.
-        #
-        # @param [Hash] options
-        #   Additional options.
-        #
-        # @option options [String] :title
-        #   The optional title to print before the contents of the Array.
-        #
-        # @return [nil]
-        #
-        # @api semipublic
-        #
-        def print_array(array,options={})
-          print_title(options[:title]) if options[:title]
-
-          indent do
-            array.each { |value| puts value }
-          end
-
-          puts if options[:title]
-          return nil
-        end
-
-        #
-        # Prints a given Hash.
-        #
-        # @param [Hash] hash
-        #   The Hash to print.
-        #
-        # @param [Hash] options
-        #   Additional options.
-        #
-        # @option options [String] :title
-        #   The optional title to print before the contents of the Hash.
-        #
-        # @return [nil]
-        #
-        # @api semipublic
-        #
-        def print_hash(hash,options={})
-          align = hash.keys.map { |name|
-            name.to_s.length
-          }.max
-
-          print_title(options[:title]) if options[:title]
-
-          indent do
-            hash.each do |name,value|
-              name = "#{name}:".ljust(align)
-              puts "#{name}\t#{value}"
-            end
-          end
-
-          puts if options[:title]
-          return nil
         end
 
       end
