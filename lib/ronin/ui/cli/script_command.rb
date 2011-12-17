@@ -91,6 +91,21 @@ module Ronin
         end
 
         #
+        # Sets up the script command, loads the script and parses additional
+        # options for the script.
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def setup
+          super
+
+          load!
+          params_option_parser.parse(@param_options)
+        end
+
+        #
         # Loads the script, sets its parameters and runs the script.
         #
         # @since 1.1.0.
@@ -98,10 +113,6 @@ module Ronin
         # @api semipublic
         #
         def execute
-          @script = load_script
-
-          params_option_parser(@script).parse(@param_options)
-
           if @console
             print_info "Starting the console with @script set ..."
 
@@ -151,12 +162,12 @@ module Ronin
         #
         # @api semipublic
         #
-        def load_script
-          if @file
-            self.class.model.load_from(@file)
-          else
-            query.load_first
-          end
+        def load!
+          @script = if @file
+                      self.class.model.load_from(@file)
+                    else
+                      query.load_first
+                    end
         end
 
         #
@@ -180,17 +191,15 @@ module Ronin
         #
         # @api semipublic
         #
-        def params_option_parser(*objects)
+        def params_option_parser
           OptionParser.new do |opts|
             opts.banner = "usage: #{self.class.command_name} #{@script_options.join(' ')} -- [script_options]"
             
             opts.separator ''
             opts.separator 'Param Options:'
 
-            scripts.each do |script|
-              script.each_param do |param|
-                Parameters::Options.define(opts,param)
-              end
+            @script.each_param do |param|
+              Parameters::Options.define(opts,param)
             end
 
             yield opts if block_given?
