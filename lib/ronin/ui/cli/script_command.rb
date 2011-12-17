@@ -55,9 +55,9 @@ module Ronin
 
         option :console, :type => true
 
-        argument :script_args, :type        => Array,
-                               :default     => [],
-                               :description => 'Additional script arguments'
+        argument :param_options, :type        => Array,
+                                 :default     => [],
+                                 :description => 'Additional options'
 
         #
         # Intializes the Script command.
@@ -100,7 +100,7 @@ module Ronin
         def execute
           @script = load_script
 
-          params_option_parser(@script).parse(@script_args)
+          params_option_parser(@script).parse(@param_options)
 
           if @console
             print_info "Starting the console with @script set ..."
@@ -185,7 +185,7 @@ module Ronin
             opts.banner = "usage: #{self.class.command_name} #{@command_args.join(' ')} -- [script_options]"
             
             opts.separator ''
-            opts.separator 'Additional Options:'
+            opts.separator 'Param Options:'
 
             scripts.each do |script|
               script.each_param do |param|
