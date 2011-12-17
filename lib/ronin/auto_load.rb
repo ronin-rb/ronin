@@ -17,8 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/database'
 require 'open_namespace'
+require 'dm-core'
 
 module Ronin
   #
