@@ -116,7 +116,7 @@ module Ronin
         #
         def option_parser
           super do |opts|
-            @object.each_params do |param|
+            @object.each_param do |param|
               Parameters::Options.define(opts,param)
             end
 
