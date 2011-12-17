@@ -185,7 +185,7 @@ module Ronin
             opts.banner = "usage: #{self.class.command_name} #{@command_args.join(' ')} -- [script_options]"
             
             opts.separator ''
-            opts.separator 'Script Options:'
+            opts.separator 'Additional Options:'
 
             scripts.each do |script|
               script.each_param do |param|
