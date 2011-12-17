@@ -102,7 +102,7 @@ module Ronin
           super
 
           load!
-          params_option_parser.parse(@param_options)
+          param_option_parser.parse(@param_options)
         end
 
         #
@@ -191,7 +191,7 @@ module Ronin
         #
         # @api semipublic
         #
-        def params_option_parser
+        def param_option_parser
           OptionParser.new do |opts|
             opts.banner = "usage: #{self.class.command_name} #{@script_options.join(' ')} -- [script_options]"
             
