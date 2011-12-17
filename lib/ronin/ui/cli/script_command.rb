@@ -140,12 +140,12 @@ module Ronin
         #
         # @api semipublic
         #
-        def self.script_class(script)
-          unless script.included_modules.include?(Script)
+        def self.script_class(script=nil)
+          if (script && !script.included_modules.include?(Script))
             raise(ArgumentError,"#{script} does not include Ronin::Script")
           end
 
-          model(script)
+          return model(script)
         end
 
         #
