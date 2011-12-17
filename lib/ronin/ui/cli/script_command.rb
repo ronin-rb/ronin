@@ -59,7 +59,17 @@ module Ronin
                                :default     => [],
                                :description => 'Additional script arguments'
 
-        def initialize
+        #
+        # Intializes the Script command.
+        #
+        # @param [Hash{Symbol => Object}] options
+        #   Options for the script command.
+        #
+        # @api semipublic
+        #
+        def initialize(options={})
+          super(options)
+
           @command_args = []
         end
 
