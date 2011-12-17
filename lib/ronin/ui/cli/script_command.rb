@@ -168,6 +168,11 @@ module Ronin
                     else
                       query.load_first
                     end
+
+          unless @script
+            print_error "Could not find or load the #{self.class.script_class.short_name}"
+            exit -1
+          end
         end
 
         #

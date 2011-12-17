@@ -195,20 +195,6 @@ module Ronin
       end
 
       #
-      # The script type.
-      #
-      # @return [String]
-      #   The name of the script class.
-      #
-      # @since 1.1.0
-      #
-      # @api semipublic
-      #
-      def script_type
-        @script_type ||= self.class.base_model.name.split('::').last
-      end
-
-      #
       # Determines if the original code, from the cache file, has been
       # loaded into the object.
       #
