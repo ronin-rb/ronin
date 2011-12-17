@@ -73,8 +73,18 @@ module Ronin
           @command_args = []
         end
 
+        #
+        # Starts the script command.
+        #
+        # @param [Array<String>] argv
+        #   Command-line arguments for the script command.
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
         def start(argv=ARGV)
-          # capture the command options, upto the -- separator
+          # collect the command options, upto the -- separator
           @command_args = argv[0,argv.index('--') || argv.length]
 
           super(argv)
