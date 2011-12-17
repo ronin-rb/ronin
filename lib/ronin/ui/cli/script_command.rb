@@ -70,7 +70,7 @@ module Ronin
         def initialize(options={})
           super(options)
 
-          @command_args = []
+          @script_options = []
         end
 
         #
@@ -84,8 +84,8 @@ module Ronin
         # @api semipublic
         #
         def start(argv=ARGV)
-          # collect the command options, upto the -- separator
-          @command_args = argv[0,argv.index('--') || argv.length]
+          # collect the script options, upto the -- separator
+          @script_options = argv[0,argv.index('--') || argv.length]
 
           super(argv)
         end
@@ -182,7 +182,7 @@ module Ronin
         #
         def params_option_parser(*objects)
           OptionParser.new do |opts|
-            opts.banner = "usage: #{self.class.command_name} #{@command_args.join(' ')} -- [script_options]"
+            opts.banner = "usage: #{self.class.command_name} #{@script_options.join(' ')} -- [script_options]"
             
             opts.separator ''
             opts.separator 'Param Options:'
