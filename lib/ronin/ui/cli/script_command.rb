@@ -100,7 +100,7 @@ module Ronin
         def execute
           @script = load_script
 
-          script_options(@script).parse(@script_args)
+          params_option_parser(@script).parse(@script_args)
 
           if @console
             print_info "Starting the console with @script set ..."
@@ -161,26 +161,26 @@ module Ronin
 
         #
         # Creates an OptionParser based on the parameters of one or more
-        # scripts.
+        # objects.
         #
-        # @param [Array<Script>] scripts
-        #   The scripts.
+        # @param [Array<Parameters>] objects
+        #   The objects that have parameters.
         #
         # @yield [opts]
         #   If a block is given, it will be passed the newly created
         #   OptionParser.
         #
         # @yieldparam [OptionParser] opts
-        #   The newly created OptionParser for the script parameters.
+        #   The newly created OptionParser for the parameters.
         #
         # @return [OptionParser]
-        #   The configured OptionParser for the script parameters.
+        #   The configured OptionParser for the parameters.
         #
         # @since 1.4.0
         #
         # @api semipublic
         #
-        def script_options(*scripts)
+        def params_option_parser(*objects)
           OptionParser.new do |opts|
             opts.banner = "usage: #{self.class.command_name} #{@command_args.join(' ')} -- [script_options]"
             
