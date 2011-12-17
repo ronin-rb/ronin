@@ -119,14 +119,17 @@ module Ronin
         include Printing
 
         #
-        # Creates a new Command object.
+        # Initializes the command object.
+        #
+        # @param [Hash{Symbol => Object}] options
+        #   Options for the command.
         #
         # @api semipublic
         #
-        def initialize(params={})
+        def initialize(options={})
           super()
 
-          initialize_params(params)
+          initialize_params(options)
         end
 
         #
