@@ -149,8 +149,12 @@ module Ronin
         # @param [Array<String>] argv
         #   The arguments for the command to parse.
         #
-        # @return [Command]
-        #   The executed command.
+        # @return [true]
+        #   Specifies that the command successfully executed.
+        #
+        # @note
+        #   If the command raises an Exception, the process will exit with
+        #   status code `-1`.
         #
         # @since 1.0.0
         #
@@ -159,8 +163,11 @@ module Ronin
         def self.start(argv=ARGV)
           command = new()
 
-          command.start(argv)
-          return command
+          unless command.start(argv)
+            exit -1
+          end
+
+          return true
         end
 
         #
@@ -169,16 +176,18 @@ module Ronin
         # @param [Hash{Symbol => Object}] options
         #   Options for the command.
         #
-        # @return [Command]
-        #   The executed command.
+        # @return [true]
+        #   Specifies that the command successfully executed.
+        #
+        # @raise [Exception]
+        #   An exception raised within the command.
         #
         # @api public
         #
         def self.run(options={})
           command = new()
           
-          command.run(options)
-          return command
+          return command.run(options)
         end
 
         #
@@ -186,6 +195,13 @@ module Ronin
         #
         # @param [Array<String>] argv
         #   The given command-line arguments.
+        #
+        # @return [true]
+        #   Specifies whether the command executed successfully.
+        #
+        # @note
+        #   If the command raises an Exception, the process will exit with
+        #   status code `-1`.
         #
         # @since 1.4.0
         #
@@ -206,7 +222,14 @@ module Ronin
             end
           end
 
-          run
+          begin
+            run
+          rescue => error
+            print_exception(error)
+            exit -1
+          end
+
+          return true
         end
 
         #
@@ -215,8 +238,8 @@ module Ronin
         # @param [Hash{Symbol => Object}] options
         #   Additional options to run the command with.
         #
-        # @return [Boolean]
-        #   Specifies whether the command executed successfully.
+        # @return [true]
+        #   Specifies that the command exited successfully.
         #
         # @see #setup
         # @see #execute
@@ -229,14 +252,7 @@ module Ronin
           self.params = options
 
           setup
-
-          begin
-            execute
-          rescue => error
-            print_exception(error)
-            return false
-          end
-
+          execute
           return true
         end
 
