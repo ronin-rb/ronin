@@ -215,6 +215,9 @@ module Ronin
         # @param [Hash{Symbol => Object}] options
         #   Additional options to run the command with.
         #
+        # @return [Boolean]
+        #   Specifies whether the command executed successfully.
+        #
         # @see #setup
         # @see #execute
         #
@@ -226,7 +229,15 @@ module Ronin
           self.params = options
 
           setup
-          execute
+
+          begin
+            execute
+          rescue => error
+            print_exception(error)
+            return false
+          end
+
+          return true
         end
 
         #
