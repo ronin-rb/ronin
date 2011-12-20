@@ -10,11 +10,15 @@ describe UI::CLI::Command do
     subject.command_name.should == 'test_command'
   end
 
-  it "should allow running the command with options" do
-    value = 'bar'
-    command = subject.run(:foo => value)
+  describe "#run" do
+    it "should allow running the command with options" do
+      command = subject.new
+      value   = 'bar'
 
-    command.foo.should == value
+      command.run(:foo => value)
+
+      command.foo.should == value
+    end
   end
 
   describe "#start" do
