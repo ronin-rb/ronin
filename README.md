@@ -183,7 +183,7 @@ Remove a Database:
 * [ripl-color_result](https://github.com/janlelis/ripl-color_result#readme)
   ~> 0.3
 * [ronin-support](http://github.com/ronin-ruby/ronin-support#readme)
-  ~> 0.3
+  ~> 0.4
 
 ## Install
 
