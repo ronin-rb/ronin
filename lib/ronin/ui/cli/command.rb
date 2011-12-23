@@ -205,7 +205,7 @@ module Ronin
         #
         # @since 1.4.0
         #
-        # @semipublic
+        # @api semipublic
         #
         def start(argv=ARGV)
           arguments = option_parser.parse(argv)
