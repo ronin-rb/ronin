@@ -39,7 +39,7 @@ complete(:on => /^[\!\.][a-zA-Z]\w*/) do |cmd|
 
   # add the black-listed keywords last
   Ronin::UI::Console::Commands::BLACKLIST.each do |keyword|
-    paths << "!#{keyword}" if keyword.start_with?(prefix)
+    paths << "#{prefix}#{keyword}" if keyword.start_with?(name)
   end
 
   paths
