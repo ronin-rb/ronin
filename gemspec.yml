@@ -54,7 +54,7 @@ dependencies:
   open_namespace: ~> 0.4
   data_paths: ~> 0.3
   object_loader: ~> 1.0
-  # parameters: ~> 0.4
+  parameters: ~> 0.4
   env: ~> 0.2
   pullr: ~> 0.1, >= 0.1.2
   ripl: ~> 0.3
