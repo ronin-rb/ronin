@@ -28,8 +28,9 @@ module Ronin
       #
       class ModelCommand < Command
 
-        class_option :database, :type => :string,
-                                :aliases => '-D'
+        option :database, :type => URI,
+                          :flag => '-D',
+                          :description => 'The Database URI'
 
         #
         # The query options for the command.
@@ -109,7 +110,8 @@ module Ronin
         #
         def self.query_option(name,options={})
           query_options << name
-          class_option name, options
+
+          return option(name,options)
         end
 
         #
@@ -122,8 +124,8 @@ module Ronin
         def setup
           super
 
-          if self.options[:database]
-            Database.repositories[:default] = options[:database]
+          if @database
+            Database.repositories[:default] = @database
           end
 
           Database.setup
@@ -151,7 +153,7 @@ module Ronin
           query = self.class.model.all
 
           self.class.each_query_option do |name|
-            value = options[name]
+            value = get_param(name).value
 
             # skip unset options
             next if value.nil?

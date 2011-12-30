@@ -18,34 +18,44 @@
 #
 
 require 'ronin/ui/cli/command'
-require 'ronin/ui/cli/cli'
+require 'ronin/repository'
+require 'ronin/database'
 
 module Ronin
   module UI
     module CLI
       module Commands
         #
-        # The `ronin help` command.
+        # The `ronin-uninstall` command.
         #
-        class Help < Command
+        class Uninstall < Command
 
-          summary 'Displays the list of available commands or prints information on a specific command'
+          summary 'Uninstalls Ronin Repositories'
 
-          argument :command, :type => Symbol
+          argument :repo, :type => String,
+                          :description => 'Repository to uninstall'
 
           #
-          # Lists the available commands.
+          # Sets up the install command.
+          #
+          def setup
+            super
+
+            Database.setup
+          end
+
+          #
+          # Executes the command.
           #
           def execute
-            if command?
-              begin
-                CLI.command(@command).start(['--help'])
-              rescue UnknownCommand
-                print_error "unknown command: #{@command}"
-              end
-            else
-              print_array CLI.commands, :title => 'Available commands'
+            unless repo?
+              print_error "Must specify the REPO argument"
+              exit -1
             end
+
+            repository = Repository.uninstall(@repo)
+
+            print_info "Repository #{repository} uninstalled."
           end
 
         end

@@ -17,7 +17,6 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/url_query_param_name'
 require 'ronin/model'
 
 require 'uri/query_params'

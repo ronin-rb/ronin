@@ -24,6 +24,7 @@ require 'ronin/ronin'
 require 'ronin/support'
 
 #
-# Includes the Ronin namespace and output helper methods.
+# Includes the Ronin namespace and additional helper methods.
 #
 include Ronin
+include Ronin::Support

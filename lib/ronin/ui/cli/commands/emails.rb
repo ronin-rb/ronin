@@ -31,25 +31,25 @@ module Ronin
 
           model EmailAddress
 
-          query_option :with_hosts, :type => :array,
-                                    :aliases => '-H',
-                                    :banner => 'HOST [...]'
+          query_option :with_hosts, :type  => Array,
+                                    :flag  => '-H',
+                                    :usage => 'HOST [...]'
 
-          query_option :with_ips, :type => :array,
-                                  :aliases => '-I',
-                                  :banner => 'IP [...]'
+          query_option :with_ips, :type  => Array,
+                                  :flag  => '-I',
+                                  :usage => 'IP [...]'
 
-          query_option :with_users, :type => :array,
-                                    :aliases => '-u',
-                                    :banner => 'NAME [...]'
+          query_option :with_users, :type  => Array,
+                                    :flag  => '-u',
+                                    :usage => 'NAME [...]'
 
-          class_option :list, :type => :boolean,
-                              :default => true,
-                              :aliases => '-l'
+          option :list, :type    => true,
+                        :default => true,
+                        :flag    => '-l'
 
-          class_option :import, :type => :string,
-                                :aliases => '-i',
-                                :banner => 'FILE'
+          option :import, :type  => String,
+                          :flag  => '-i',
+                          :usage => 'FILE'
 
         end
       end

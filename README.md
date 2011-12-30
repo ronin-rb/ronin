@@ -13,24 +13,35 @@ Ronin is a Ruby platform for exploit development and security research.
 Ronin allows for the rapid development and distribution of code, exploits
 or payloads over many common Source-Code-Management (SCM) systems.
 
-### Hack with Ruby
+### Customized Console
 
-Ronin combines the flexibility of Ruby with countless convenience methods
-and libraries, to make Ruby usable for Offensive Security or Research work.
+Ronin provides users with a customized Ruby Console, pre-loaded with powerful
+convenience methods. In the Console one can work with data and automate
+complex tasks, with greater ease than the command-line.
 
-### Organize Your Data
+    >> File.read('data').base64_decode
 
-Ronin comes with a Database designed for Security data and accessible from
-Ruby using [DataMapper](http://datamapper.org). With Ronin, storing or
-querying IP addresses, Hosts, Ports, URLs, Passwords is as simple as a
-single line of Ruby.
+### Integrated Database
 
-### Share Code
+Ronin ships with a preconfigured Database, that one can interact with from Ruby,
+without having to write any SQL.
 
-Ronin allows sharing code with the community, or just your friends, via
-Ronin Repositories. Ronin Repositories are like lazier versions of
-[RubyGems](http://rubygems.org/), that can be hosted with SubVersion,
-Mercurial or Git.
+    >> HostName.tld('eu').urls.with_query_param('id')
+
+### Repositories
+
+Ronin supports a Repository system, allowing users to organize and share
+miscallaneous Data, Code, Exploits, Payloads, Scanners, etc.
+
+    $ ronin install git://github.com/user/exploits.git
+
+### Libraries
+
+Ronin provides libraries with additional functionality, such as
+[Exploitation](http://github.com/ronin-ruby/ronin-exploits#readme)
+and [Scanning](http://github.com/ronin-ruby/ronin-scanners#readme).
+
+    $ gem install ronin-exploits
 
 ## Features
 
@@ -148,13 +159,15 @@ Remove a Database:
 * [dm-is-predefined](http://github.com/postmodern/dm-is-predefined#readme)
   ~> 0.4
 * [uri-query_params](http://github.com/postmodern/uri-query_params#readme)
-  ~> 0.5, >= 0.5.2
+  ~> 0.6
 * [open_namespace](http://github.com/postmodern/open_namespace#readme)
-  ~> 0.3
+  ~> 0.4
 * [data_paths](http://github.com/postmodern/data_paths#readme)
   ~> 0.3
 * [object_loader](http://github.com/postmodern/object_loader#readme)
   ~> 1.0
+* [parameters](http://github.com/postmodern/parameters#readme)
+  ~> 0.4
 * [env](http://github.com/postmodern/env#readme)
   ~> 0.2
 * [pullr](http://github.com/postmodern/pullr#readme)
@@ -169,10 +182,8 @@ Remove a Database:
   ~> 0.1
 * [ripl-color_result](https://github.com/janlelis/ripl-color_result#readme)
   ~> 0.3
-* [thor](http://github.com/wycats/thor#readme)
-  ~> 0.14.3
 * [ronin-support](http://github.com/ronin-ruby/ronin-support#readme)
-  ~> 0.3
+  ~> 0.4
 
 ## Install
 
@@ -186,31 +197,6 @@ Remove a Database:
     $ cd ronin/
     $ bundle install
     $ ./bin/ronin
-
-## Additional Libraries
-
-### Ronin Gen
-
-[Ronin Gen](http://github.com/ronin-ruby/ronin-gen#readme) is a Ruby library
-for Ronin that provides various generators.
-
-### Ronin Web
-
-[Ronin Web](http://github.com/ronin-ruby/ronin-web#readme) is a Ruby library
-for Ronin that provides support for web scraping and spidering
-functionality.
-
-### Ronin Exploits
-
-[Ronin Exploits](http://github.com/ronin-ruby/ronin-exploits#readme) is a
-Ruby library for Ronin that provides exploitation and payload crafting
-functionality.
-
-### Ronin Scanners
-
-[Ronin Scanners](http://github.com/ronin-ruby/ronin-scanners#readme)
-is a Ruby library for Ronin that provides Ruby interfaces to
-various third-party security scanners.
 
 ## License
 

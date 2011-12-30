@@ -41,6 +41,9 @@ module Ronin
           end
         end
 
+        # Prefixes that denote a command, instead of Ruby code.
+        PREFIXES = Set['!', '.']
+
         # Blacklist of known commands that conflict with Ruby keywords.
         BLACKLIST = Set[
           '[', 'ap', 'begin', 'case', 'class', 'def', 'fail', 'false',
@@ -56,7 +59,7 @@ module Ronin
         #   The input from the console.
         #
         def loop_eval(input)
-          if input[0,1] == '!'
+          if PREFIXES.include?(input[0,1])
             command = input[1..-1]
             name, arguments = command.split(' ')
 

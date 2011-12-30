@@ -31,33 +31,33 @@ module Ronin
 
           model HostName
 
-          query_option :with_ips, :type => :array,
-                                  :aliases => '-I',
-                                  :banner => 'IP [...]'
+          query_option :with_ips, :type  => Array,
+                                  :flag  => '-I',
+                                  :usage => 'IP [...]'
 
-          query_option :with_ports, :type => :array,
-                                    :aliases => '-p',
-                                    :banner => 'PORT [...]'
+          query_option :with_ports, :type  => Array[Integer],
+                                    :flag  => '-p',
+                                    :usage => 'PORT [...]'
 
-          query_option :domain, :type => :string,
-                                :aliases => '-D',
-                                :banner => 'DOMAIN'
+          query_option :domain, :type  => String,
+                                :flag  => '-D',
+                                :usage => 'DOMAIN'
 
-          query_option :tld, :type => :string,
-                             :aliases => '-T',
-                             :banner => 'TLD'
+          query_option :tld, :type  => String,
+                             :flag  => '-T',
+                             :usage => 'TLD'
 
-          class_option :list, :type => :boolean,
-                              :default => true,
-                              :aliases => '-l'
+          option :list, :type    => true,
+                        :default => true,
+                        :flag    => '-l'
 
-          class_option :lookup, :type => :string,
-                                :aliases => '-L',
-                                :banner => 'IP'
+          option :lookup, :type  => String,
+                          :flag  => '-L',
+                          :usage => 'IP'
 
-          class_option :import, :type => :string,
-                                :aliases => '-i',
-                                :banner => 'FILE'
+          option :import, :type  => String,
+                          :flag  => '-i',
+                          :usage => 'FILE'
 
           #
           # Queries the {HostName} model.
@@ -65,8 +65,8 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if options[:lookup]
-              lookup options[:lookup]
+            if lookup?
+              lookup(@lookup)
             else
               super
             end
@@ -101,7 +101,7 @@ module Ronin
           # @since 1.0.0
           #
           def print_resource(host)
-            return super(host) unless options.verbose?
+            return super(host) unless verbose?
 
             print_title host.address
 

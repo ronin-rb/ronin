@@ -10,14 +10,46 @@ describe UI::CLI::Command do
     subject.command_name.should == 'test_command'
   end
 
-  it "should have a default execute task" do
-    subject.start([]).should == ['default task']
+  describe "#run" do
+    it "should allow running the command with options" do
+      command = subject.new
+      value   = 'bar'
+
+      command.run(:foo => value)
+
+      command.foo.should == value
+    end
   end
 
-  it "should allow running the task with options" do
-    command = subject.run({:foo => true})
+  describe "#start" do
+    subject { TestCommand.new }
 
-    command.options.foo.should == true
+    it "should parse options" do
+      value = 'baz'
+      subject.start(['--foo', value])
+
+      subject.foo.should == value
+    end
+
+    it "should parse additional arguments" do
+      path = 'to/file.txt'
+
+      subject.start([path])
+
+      subject.path.should == path
+    end
+
+    it "should parse additional arguments into an Array/Set argument" do
+      value = 'bax'
+      path  = 'to/file.txt'
+      files = ['one.txt', 'two.txt']
+
+      subject.start(['--foo', value, path, *files])
+
+      subject.foo.should == value
+      subject.path.should == path
+      subject.files.should == files
+    end
   end
 
   it "should have zero indentation by default" do

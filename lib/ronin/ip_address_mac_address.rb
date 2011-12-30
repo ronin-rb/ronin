@@ -18,8 +18,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/ip_address'
-require 'ronin/mac_address'
 
 require 'dm-timestamps'
 

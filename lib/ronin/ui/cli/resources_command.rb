@@ -28,10 +28,17 @@ module Ronin
       #
       class ResourcesCommand < ModelCommand
 
-        class_option :csv, :type => :boolean
-        class_option :xml, :type => :boolean
-        class_option :yaml, :type => :boolean
-        class_option :json, :type => :boolean
+        option :csv, :type => true,
+                     :description => 'CSV output'
+
+        option :xml, :type => true,
+                     :description => 'XML output'
+
+        option :yaml, :type => true,
+                      :description => 'YAML output'
+
+        option :json, :type => true,
+                      :description => 'JSON output'
 
         #
         # Default method performs the query and prints the found resources.
@@ -41,8 +48,8 @@ module Ronin
         # @api semipublic
         #
         def execute
-          if options[:import]
-            self.class.model.import(options[:import]) do |resource|
+          if @import
+            self.class.model.import(@import) do |resource|
               print_info "Imported #{resource}"
             end
           else
@@ -61,9 +68,10 @@ module Ronin
         #
         def self.model(model=nil)
           if (model && model < Model::Importable)
-            class_option :import, :type => :string,
-                                  :aliases => '-i',
-                                  :banner => 'FILE'
+            option :import, :type  => String,
+                            :flag  => '-i',
+                            :usage => 'FILE',
+                            :description => 'The file to import'
           end
 
           return super(model)
@@ -94,13 +102,13 @@ module Ronin
         # @api semipublic
         #
         def print_resources(resources)
-          if options.csv?
+          if @csv
             print resources.to_csv
-          elsif options.xml?
+          elsif @xml
             print resources.to_xml
-          elsif options.yaml?
+          elsif @yaml
             print resources.to_yaml
-          elsif options.json?
+          elsif @json
             print resources.to_json
           else
             resources.each { |resource| print_resource(resource) }

@@ -17,15 +17,11 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/credential'
+require 'ronin/script/exceptions/exception'
 
 module Ronin
-  #
-  # Represents Credentials used to access a TCP/UDP {Service}.
-  #
-  class ServiceCredential < Credential
-
-    belongs_to :open_port, :required => false
-
+  module Script
+    class BuildFailed < Exception
+    end
   end
 end

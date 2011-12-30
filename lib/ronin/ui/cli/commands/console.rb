@@ -32,34 +32,43 @@ module Ronin
         #
         class Console < Command
 
-          desc 'start the Ronin Console'
-          class_option :database, :type => :string, :aliases => '-D'
-          class_option :require, :type => :array,
-                                 :default => [],
-                                 :aliases => '-r',
-                                 :banner => 'PATH'
-          class_option :backtrace, :type => :boolean
-          class_option :verbose, :type => :boolean, :aliases => '-v'
-          class_option :version, :type => :boolean, :aliases => '-V'
+          summary 'Start the Ronin Console'
+
+          option :database, :type => URI,
+                            :flag => '-D',
+                            :description => 'The database to URI'
+
+          option :require, :type        => Array,
+                           :default     => [],
+                           :flag        => '-r',
+                           :usage       => 'PATH',
+                           :description => 'Ruby files to require'
+
+          option :backtrace, :type        => true,
+                             :description => 'Enable long backtraces'
+
+          option :version, :type        => true,
+                           :flag        => '-V',
+                           :description => 'Print the Ronin version'
 
           #
           # Starts the Ronin Console.
           #
           def execute
-            if options.version?
+            if version?
               puts "ronin #{Ronin::VERSION}"
               return
             end
 
-            UI::Console.color = !(options.color?)
-            UI::Console.short_errors = !(options.backtrace?)
+            UI::Console.color = color?
+            UI::Console.short_errors = !backtrace?
 
-            options[:require].each do |path|
+            @require.each do |path|
               UI::Console.auto_load << path
             end
 
-            if options[:database]
-              Database.repositories[:default] = options[:database]
+            if database?
+              Database.repositories[:default] = @database
             end
 
             UI::Console.start

@@ -18,7 +18,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/credential'
 
 require 'digest'
 
@@ -43,6 +42,23 @@ module Ronin
 
     # The user names which use the password
     has 0..n, :user_names, :through => :credentials
+
+    #
+    # Parses a password.
+    #
+    # @param [#to_s] password
+    #   The password to parse.
+    #
+    # @return [Password]
+    #   The parsed password.
+    #
+    # @since 1.4.0
+    #
+    # @api public
+    #
+    def self.parse(password)
+      first_or_new(:clear_text => password.to_s)
+    end
 
     #
     # Hashes the password.

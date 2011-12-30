@@ -96,6 +96,20 @@ module Ronin
     #
     module ClassMethods
       #
+      # The shortened name of the Script class.
+      #
+      # @return [String]
+      #   The shortened name.
+      #
+      # @since 1.4.0
+      #
+      # @api semipublic
+      #
+      def short_name
+        @short_name ||= self.name.split('::').last
+      end
+
+      #
       # Loads the {Script} of the same class.
       #
       # @param [String] path
@@ -178,20 +192,6 @@ module Ronin
         end
 
         super(*arguments,&block)
-      end
-
-      #
-      # The script type.
-      #
-      # @return [String]
-      #   The name of the script class.
-      #
-      # @since 1.1.0
-      #
-      # @api semipublic
-      #
-      def script_type
-        @script_type ||= self.class.base_model.name.split('::').last
       end
 
       #

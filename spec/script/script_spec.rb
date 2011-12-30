@@ -73,10 +73,8 @@ describe Script do
     end
   end
 
-  it "should have an script-type" do
-    resource = subject.new
-
-    resource.script_type.should == 'MyScript'
+  it "should have an short-name" do
+    subject.short_name.should == 'MyScript'
   end
 
   describe "load_from" do

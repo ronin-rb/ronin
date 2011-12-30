@@ -70,7 +70,7 @@
 * Renamed `Ronin::Engine` to {Ronin::Script}.
 * Renamed `Ronin::Engine::Verifiable` to {Ronin::Script::Testable}.
 * Renamed `Ronin::Engine#engine_name` to
-  {Ronin::Script::InstanceMethods#script_type}.
+  `Ronin::Script::InstanceMethods#script_type`.
 * Renamed `Ronin::Engine::InstanceMethods#load_original!` to
   {Ronin::Script::InstanceMethods#load_script!}.
 * Renamed `Ronin::CachedFile` to {Ronin::Script::Path}.

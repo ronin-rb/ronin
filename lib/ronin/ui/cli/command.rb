@@ -17,19 +17,18 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/ui/cli/printing'
 require 'ronin/ui/output'
-require 'ronin/ui/output/terminal'
 require 'ronin/support/inflector'
 
-require 'thor'
-require 'thor/group'
+require 'parameters'
+require 'parameters/options'
 
 module Ronin
   module UI
     module CLI
       #
-      # The {Command} class inherits `Thor::Group` to provide a base-class
-      # for defining commands for the {CLI}.
+      # The {Command} provides a base-class for defining commands for the {CLI}.
       #
       # # Extending
       #
@@ -45,29 +44,41 @@ module Ronin
       #           module Commands
       #             class MyCommand < Command
       #
-      #               desc 'My command'
+      #               summary 'My command'
       #
-      #               # command options
-      #               class_option :stuff, :type => :boolean
-      #               class_option :syntax, :type => :string
-      #               class_option :includes, :type => :array
+      #               option :enable, :type => true,
+      #                               :flag => '-e',
+      #                               :description => 'Enables stuff'
       #
-      #               # command arguments
+      #               option :syntax, :type => Symbol,
+      #                               :flag => '-S',
+      #                               :description => 'Syntax to use'
+      #
+      #               option :includes, :type    => Array[String],
+      #                                 :default => [],
+      #                                 :flag    => '-I',
+      #                                 :usage   => 'FILE [...]',
+      #                                 :description => 'Files to include'
+      #
+      #               option :params, :type => Hash[Symbol => Object],
+      #                               :flag => '-P',
+      #                               :description => 'Additional params'
+      #
       #               argument :path
       #
       #               #
       #               # Executes the command.
       #               #
       #               def execute
-      #                 print_info "Stuff enabled" if options.stuff?
+      #                 print_info "Stuff enabled" if enable?
       #
-      #                 if options[:syntax]
-      #                   print_info "Using syntax #{options[:syntax]}"
+      #                 if syntax?
+      #                   print_info "Using syntax #{@syntax}"
       #                 end
       #
-      #                 if options[:includes]
+      #                 if includes?
       #                   print_info "Including:"
-      #                   print_array options[:includes]
+      #                   print_array @includes
       #                 end
       #               end
       #
@@ -78,14 +89,6 @@ module Ronin
       #     end
       #
       # # Running
-      #
-      # To run the command from Ruby, one can call the {run} class method
-      # with the options and arguments to run the command with:
-      #
-      #     MyCommand.run(
-      #       {:stuff => true, :syntax => 'bla', :includes => ['other']},
-      #       ['some/file.txt']
-      #     )
       #
       # To run the command from Ruby, with raw command-line options, one
       # can call the `start` class method:
@@ -110,33 +113,23 @@ module Ronin
       #     ronin my_command some/file.txt --stuff --syntax bla \
       #       --includes one two
       #
-      class Command < Thor::Group
+      class Command
 
-        include Thor::Actions
-        include Output::Helpers
-
-        class_option :verbose, :type => :boolean,
-                               :default => false,
-                               :aliases => '-v'
-        class_option :quiet, :type => :boolean,
-                             :default => false,
-                             :aliases => '-q'
-        class_option :silent, :type => :boolean,
-                              :default => false,
-                              :aliases => '-Q'
-
-        class_option :color, :type => :boolean, :default => true
+        include Parameters
+        include Printing
 
         #
-        # Sets the namespace of a new {Command} class.
+        # Initializes the command object.
         #
-        # @param [Class] super_class
-        #   The new {Command} class.
+        # @param [Hash{Symbol => Object}] options
+        #   Options for the command.
         #
-        # @api private
+        # @api semipublic
         #
-        def self.inherited(super_class)
-          super_class.namespace(super_class.command_name)
+        def initialize(options={})
+          super()
+
+          initialize_params(options)
         end
 
         #
@@ -145,53 +138,141 @@ module Ronin
         # @api semipublic
         #
         def self.command_name
-          Support::Inflector.underscore(
-            name.sub('Ronin::UI::CLI::Commands::','').gsub('::',':')
+          @command_name ||= Support::Inflector.underscore(
+            self.name.sub('Ronin::UI::CLI::Commands::','').gsub('::',':')
           )
         end
 
         #
         # Runs the command.
         #
-        # @param [Hash{String,Symbol => Object}] options
-        #   Option values for the command.
+        # @param [Array<String>] argv
+        #   The arguments for the command to parse.
         #
-        # @param [Array<String>] arguments
-        #   Additional arguments for the command.
+        # @return [true]
+        #   Specifies that the command successfully executed.
         #
-        # @return [Command]
-        #   The executed command.
+        # @note
+        #   If the command raises an Exception, the process will exit with
+        #   status code `-1`.
         #
         # @since 1.0.0
         #
         # @api public
         #
-        def self.run(options={},arguments=[])
-          command = self.new(arguments,options)
+        def self.start(argv=ARGV)
+          command = new()
 
-          command.invoke_all()
-          return command
+          unless command.start(argv)
+            exit -1
+          end
+
+          return true
         end
 
         #
-        # Creates a new Command object.
+        # Runs the command with the given options.
         #
-        # @param [Array] arguments
-        #   Command-line arguments.
+        # @param [Hash{Symbol => Object}] options
+        #   Options for the command.
         #
-        # @param [Array] opts
-        #   Additional command-line options.
+        # @return [true]
+        #   Specifies that the command successfully executed.
         #
-        # @param [Hash] config
-        #   Additional configuration.
+        # @raise [Exception]
+        #   An exception raised within the command.
+        #
+        # @api public
+        #
+        def self.run(options={})
+          command = new()
+          
+          return command.run(options)
+        end
+
+        #
+        # Starts the command with the given command-line arguments.
+        #
+        # @param [Array<String>] argv
+        #   The given command-line arguments.
+        #
+        # @return [true]
+        #   Specifies whether the command executed successfully.
+        #
+        # @note
+        #   If the command raises an Exception, the process will exit with
+        #   status code `-1`.
+        #
+        # @since 1.4.0
         #
         # @api semipublic
         #
-        def initialize(arguments=[],opts={},config={})
-          @indent = 0
+        def start(argv=ARGV)
+          arguments = option_parser.parse(argv)
 
-          super(arguments,opts,config)
+          # set additional arguments
+          self.class.each_argument do |name|
+            param = get_param(name)
+
+            if param.type <= Parameters::Types::Array
+              # allow Array/Set arguments to collect all remaining args
+              param.value = arguments.shift(arguments.length)
+            else
+              param.value = arguments.shift
+            end
+          end
+
+          begin
+            run
+          rescue => error
+            print_exception(error)
+            exit -1
+          end
+
+          return true
+        end
+
+        #
+        # Sets up and executes the command.
+        #
+        # @param [Hash{Symbol => Object}] options
+        #   Additional options to run the command with.
+        #
+        # @return [true]
+        #   Specifies that the command exited successfully.
+        #
+        # @see #setup
+        # @see #execute
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def run(options={})
+          self.params = options
+
           setup
+          execute
+          return true
+        end
+
+        #
+        # Default method to call before {#execute}.
+        #
+        # @since 1.1.0
+        #
+        # @api semipublic
+        #
+        def setup
+          Output.verbose! if verbose?
+          Output.quiet!   if quiet?
+          Output.silent!  if silent?
+
+          Output.handler = if color?
+                             Output::Terminal::Color
+                           else
+                             Output::Terminal::Raw
+                           end
         end
 
         #
@@ -205,178 +286,280 @@ module Ronin
         protected
 
         #
-        # The banner for the command.
+        # The usage for the command.
+        #
+        # @param [String] new_usage
+        #   The new usage for the command.
         #
         # @return [String]
+        #   The usage string.
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def self.usage(new_usage=nil)
+          if new_usage
+            @usage = new_usage
+          else
+            @usage ||= if superclass < Command
+                         superclass.usage
+                       else
+                         '[options]'
+                       end
+          end
+        end
+
+        #
+        # The summary for the command.
+        #
+        # @param [String] new_summary
+        #   The new summary for the command.
+        #
+        # @return [String]
+        #   The summary string.
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def self.summary(new_summary=nil)
+          if new_summary
+            @summary = new_summary
+          else
+            @summary ||= if superclass < Command
+                           superclass.summary
+                         end
+          end
+        end
+
+        #
+        # The options for the parameters.
+        #
+        # @return [Hash{Symbol => Hash}]
         #   The banner string.
         #
-        # @since 1.0.0
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def self.options
+          @options ||= {}
+        end
+
+        #
+        # Defines an option for the command.
+        #
+        # @param [Symbol] name
+        #   The name of the option.
+        #
+        # @param [Hash] options
+        #   Additional options for the option.
+        #
+        # @option options [Hash{Class => Class}, Set<Class>, Array<Class>, Class, true] :type (String)
+        #   The type of the options.
+        #
+        # @option options [Object, Proc] :default
+        #   The default value for the options.
+        #
+        # @option options [String] :flag
+        #   The short-flag for the option.
+        #
+        # @option options [String] :usage
+        #   The usage for the option.
+        #
+        # @option options [String] :description
+        #   The description of the option.
+        #
+        # @return [Parameters::ClassParam]
+        #   The parameter that will contain the value of the option.
+        #
+        # @example
+        #   option :output, :type        => String,
+        #                   :flag        => '-f',
+        #                   :usage       => 'PATH',
+        #                   :description => 'The path to write the output to'
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def self.option(name,options={})
+          options = {:type => String}.merge(options)
+
+          self.options[name] = {
+            :flag  => options[:flag],
+            :usage => options[:usage],
+          }
+
+          return parameter(name,options)
+        end
+
+        option :verbose, :type        => true,
+                         :flag        => '-v',
+                         :description => 'Enable verbose output'
+
+        option :quiet, :type        => true,
+                       :flag        => '-q',
+                       :description => 'Disable verbose output'
+
+        option :silent, :type         => true,
+                        :description  => 'Silence all output'
+
+        option :color, :type        => true,
+                       :default     => proc { !$stdout.tty? },
+                       :description => 'Enables color output'
+
+        #
+        # Enumerates through the options define by every sub-class.
+        #
+        # @yield [name,options]
+        #   The given block will be passed each option.
+        #
+        # @yieldparam [Symbol] name
+        #   The name of the option.
+        #
+        # @yieldparam [Hash] options
+        #   Additional options associated with the option.
+        #
+        # @return [Enumerator]
+        #   If no block is given, an Enumerator will be returned.
+        #
+        # @since 1.4.0
         #
         # @api private
         #
-        def self.banner
-          "ronin #{self_task.formatted_usage(self,false,true)}"
-        end
+        def self.each_option(&block)
+          return enum_for(:each_option) unless block
 
-        #
-        # Default method to call before {#execute}.
-        #
-        # @since 1.1.0
-        #
-        # @api semipublic
-        #
-        def setup
-          Output.verbose! if self.options.verbose?
-          Output.quiet! if self.options.quiet?
-          Output.silent! if self.options.silent?
-
-          Output.handler = if self.options.color?
-                             Output::Terminal::Color
-                           else
-                             Output::Terminal::Raw
-                           end
-        end
-
-        #
-        # Increases the indentation out output temporarily.
-        #
-        # @param [Integer] n
-        #   The number of spaces to increase the indentation by.
-        #
-        # @yield []
-        #   The block will be called after the indentation has been
-        #   increased. After the block has returned, the indentation will
-        #   be returned to normal.
-        #
-        # @return [nil]
-        #
-        # @api semipublic
-        #
-        def indent(n=2)
-          @indent += n
-
-          yield
-
-          @indent -= n
-          return nil
-        end
-
-        #
-        # Print the given messages with indentation.
-        #
-        # @param [Array] messages
-        #   The messages to print, one per-line.
-        #
-        # @api semipublic
-        #
-        def puts(*messages)
-          super(*(messages.map { |mesg| (' ' * @indent) + mesg.to_s }))
-        end
-
-        #
-        # Prints a given title.
-        #
-        # @param [String] title
-        #   The title to print.
-        #
-        # @api semipublic
-        #
-        def print_title(title)
-          puts "[ #{title} ]\n"
-        end
-
-        #
-        # Prints a section with a title.
-        #
-        # @yield []
-        #   The block will be called after the title has been printed
-        #   and indentation increased.
-        #
-        # @since 1.0.0
-        #
-        # @api semipublic
-        #
-        def print_section(title,&block)
-          print_title(title)
-          indent(&block)
-        end
-
-        #
-        # Prints a given Array.
-        #
-        # @param [Array] array 
-        #   The Array to print.
-        #
-        # @param [Hash] options
-        #   Additional options.
-        #
-        # @option options [String] :title
-        #   The optional title to print before the contents of the Array.
-        #
-        # @return [nil]
-        #
-        # @api semipublic
-        #
-        def print_array(array,options={})
-          print_title(options[:title]) if options[:title]
-
-          indent do
-            array.each { |value| puts value }
-          end
-
-          puts if options[:title]
-          return nil
-        end
-
-        #
-        # Prints a given Hash.
-        #
-        # @param [Hash] hash
-        #   The Hash to print.
-        #
-        # @param [Hash] options
-        #   Additional options.
-        #
-        # @option options [String] :title
-        #   The optional title to print before the contents of the Hash.
-        #
-        # @return [nil]
-        #
-        # @api semipublic
-        #
-        def print_hash(hash,options={})
-          align = hash.keys.map { |name|
-            name.to_s.length
-          }.max
-
-          print_title(options[:title]) if options[:title]
-
-          indent do
-            hash.each do |name,value|
-              name = "#{name}:".ljust(align)
-              puts "#{name}\t#{value}"
+          ancestors.reverse_each do |ancestor|
+            if ancestor <= Command
+              ancestor.options.each(&block)
             end
           end
-
-          puts if options[:title]
-          return nil
         end
 
         #
-        # Prints an exception and a shortened backtrace.
+        # The additional arguments of the command.
         #
-        # @param [Exception] exception
-        #   The exception to print.
+        # @return [Array<Symbol>]
+        #   The names of the arguments.
         #
-        # @since 1.0.0
+        # @since 1.4.0
         #
         # @api semipublic
         #
-        def print_exception(exception)
-          print_error exception.message
+        def self.arguments
+          @arguments ||= []
+        end
 
-          (0..5).each do |i|
-            print_error '  ' + exception.backtrace[i]
+        #
+        # Defines an argument for the command.
+        #
+        # @param [Symbol] name
+        #   The name of the argument.
+        #
+        # @param [Hash] options
+        #   Additional options for the argument.
+        #
+        # @option options [Hash{Class => Class}, Set<Class>, Array<Class>, Class, true] :type (String)
+        #   The type of the argument.
+        #
+        # @option options [Object, Proc] :default
+        #   The default value for the argument.
+        #
+        # @return [Parameters::ClassParam]
+        #   The parameter that will contain the value of the argument.
+        #
+        # @example
+        #   argument :file, :type        => String,
+        #                   :description => "The file to process"
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def self.argument(name,options={})
+          self.arguments << name.to_sym
+
+          return parameter(name,options)
+        end
+
+        #
+        # Enumerates through the arguments define by every sub-class.
+        #
+        # @yield [name]
+        #   The given block will be passed each argument name.
+        #
+        # @yieldparam [Symbol] name
+        #   The name of the argument.
+        #
+        # @return [Enumerator]
+        #   If no block is given, an Enumerator will be returned.
+        #
+        # @since 1.4.0
+        #
+        # @api private
+        #
+        def self.each_argument(&block)
+          return enum_for(:each_argument) unless block
+
+          ancestors.reverse_each do |ancestor|
+            if ancestor <= Command
+              ancestor.arguments.each(&block)
+            end
+          end
+        end
+
+        #
+        # Creates an OptionParser for the command.
+        #
+        # @yield [opts]
+        #   The given block will be passed the new OptionParser, after
+        #   all options have been defined, but before the Arguments have
+        #   been listed.
+        #
+        # @yieldparam [OptionParser] opts
+        #   The newly created OptionParser.
+        #
+        # @return [OptionParser]
+        #   The new configured OptionParser.
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def option_parser
+          OptionParser.new do |opts|
+            opts.banner = "Usage: ronin #{self.class.command_name} #{self.class.usage}"
+
+            # append the arguments to the banner
+            self.class.each_argument do |name|
+              opts.banner << " #{name.to_s.upcase}"
+            end
+
+            opts.separator ''
+            opts.separator 'Options:'
+
+            self.class.each_option do |name,options|
+              Parameters::Options.define(opts,get_param(name),options)
+            end
+
+            yield opts if block_given?
+
+            opts.separator ''
+            opts.separator 'Arguments:'
+
+            self.class.each_argument do |name|
+              param = get_param(name)
+
+              opts.separator "\t#{name.to_s.upcase}\t#{param.description}"
+            end
+
+            if self.class.summary
+              opts.separator ''
+              opts.separator self.class.summary
+            end
           end
         end
 

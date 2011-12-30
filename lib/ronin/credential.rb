@@ -18,8 +18,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/user_name'
-require 'ronin/password'
 
 module Ronin
   #
@@ -32,11 +30,14 @@ module Ronin
     # Primary key of the credential
     property :id, Serial
 
-    # Password of the credential
-    belongs_to :password
-
     # User name of the credential
     belongs_to :user_name
+
+    # The optional email address associated with the Credential
+    belongs_to :email_address, :required => false
+
+    # Password of the credential
+    belongs_to :password
 
     #
     # Searches for all credentials for a specific user.

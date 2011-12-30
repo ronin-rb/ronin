@@ -19,7 +19,9 @@
 
 require 'ronin/exceptions/duplicate_repository'
 require 'ronin/exceptions/repository_not_found'
-require 'ronin/script/path'
+require 'ronin/model/has_name'
+require 'ronin/model/has_title'
+require 'ronin/model/has_description'
 require 'ronin/model/has_license'
 require 'ronin/model/has_authors'
 require 'ronin/model'
@@ -39,6 +41,9 @@ module Ronin
   class Repository
 
     include Model
+    include Model::HasName
+    include Model::HasTitle
+    include Model::HasDescription
     include Model::HasAuthors
     include Model::HasLicense
     include DataPaths
@@ -217,7 +222,7 @@ module Ronin
     #
     # @api private
     #
-    def Repository.add!(options={})
+    def Repository.add(options={})
       unless options.has_key?(:path)
         raise(ArgumentError,"the :path option was not given")
       end
@@ -284,7 +289,7 @@ module Ronin
     #
     # @api private
     #
-    def Repository.install!(options={})
+    def Repository.install(options={})
       unless options[:uri]
         raise(ArgumentError,":uri must be passed to Repository.install")
       end
@@ -359,14 +364,14 @@ module Ronin
     # @return [nil]
     #
     # @example Uninstall the repository with the given name
-    #   Repository.uninstall!('postmodern-repo')
+    #   Repository.uninstall('postmodern-repo')
     #
     # @example Uninstall the repository with the given name and domain.
-    #   Repository.uninstall!('postmodern-repo/github.com')
+    #   Repository.uninstall('postmodern-repo/github.com')
     #
     # @api private
     #
-    def Repository.uninstall!(name)
+    def Repository.uninstall(name)
       Repository.find(name).uninstall!
     end
 

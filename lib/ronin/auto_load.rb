@@ -18,6 +18,7 @@
 #
 
 require 'open_namespace'
+require 'dm-core'
 
 module Ronin
   #
@@ -55,11 +56,9 @@ module Ronin
       def const_missing(name)
         const = super(name)
 
-        if Object.const_defined?('DataMapper')
-          # if the loaded Class is a DataMapper Resource, re-finalize
-          if const < DataMapper::Resource
-            const.finalize
-          end
+        # if the loaded Class is a DataMapper Resource, re-finalize
+        if const < DataMapper::Resource
+          const.finalize
         end
 
         return const

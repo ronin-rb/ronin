@@ -59,11 +59,11 @@ module Ronin
       # @api semipublic
       #
       def test!
-        print_info "Testing #{script_type} ..."
+        print_info "Testing #{self.class.short_name} ..."
 
         @test_blocks.each { |block| block.call() }
 
-        print_info "#{script_type} tested!"
+        print_info "#{self.class.short_name} tested!"
         return true
       end
 

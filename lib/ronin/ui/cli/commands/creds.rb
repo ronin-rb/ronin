@@ -18,6 +18,7 @@
 #
 
 require 'ronin/ui/cli/resources_command'
+
 require 'ronin/credential'
 require 'ronin/service_credential'
 require 'ronin/web_credential'
@@ -33,17 +34,20 @@ module Ronin
 
           model Credential
 
-          query_option :for_user, :type => :string,
-                                  :aliases => '-u',
-                                  :banner => 'USER'
+          query_option :for_user, :type  => String,
+                                  :flag  => '-u',
+                                  :usage => 'USER',
+                                  :description => 'Username to search for'
 
-          query_option :with_password, :type => :string,
-                                       :aliases => '-p',
-                                       :banner => 'PASS'
+          query_option :with_password, :type  => String,
+                                       :flag  => '-p',
+                                       :usage => 'PASS',
+                                       :description => 'Password to search for'
 
-          class_option :list, :type => :boolean,
-                              :default => true,
-                              :aliases => '-l'
+          option :list, :type    => true,
+                        :default => true,
+                        :flag    => '-l',
+                        :description => 'List all Credentials'
 
           #
           # Queries the {Credential} model.
@@ -51,9 +55,7 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if options.list?
-              super
-            end
+            super if list?
           end
 
           protected

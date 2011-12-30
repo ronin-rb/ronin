@@ -50,10 +50,11 @@ dependencies:
   # DataMapper plugins:
   dm-is-predefined: ~> 0.4
   # Library dependencies:
-  uri-query_params: ~> 0.5, >= 0.5.2
-  open_namespace: ~> 0.3
+  uri-query_params: ~> 0.6
+  open_namespace: ~> 0.4
   data_paths: ~> 0.3
   object_loader: ~> 1.0
+  # parameters: ~> 0.4
   env: ~> 0.2
   pullr: ~> 0.1, >= 0.1.2
   ripl: ~> 0.3
@@ -61,9 +62,8 @@ dependencies:
   ripl-auto_indent: ~> 0.1
   ripl-short_errors: ~> 0.1
   ripl-color_result: ~> 0.3
-  thor: ~> 0.14.3
   # Ronin dependencies:
-  ronin-support: ~> 0.3
+  # ronin-support: ~> 0.4
 
 development_dependencies:
   bundler: ~> 1.0.10

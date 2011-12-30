@@ -18,7 +18,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/repository'
 require 'ronin/script/script'
 require 'ronin/support/inflector'
 

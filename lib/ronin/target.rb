@@ -18,8 +18,6 @@
 #
 
 require 'ronin/model'
-require 'ronin/campaign'
-require 'ronin/address'
 
 require 'dm-timestamps'
 require 'fileutils'
