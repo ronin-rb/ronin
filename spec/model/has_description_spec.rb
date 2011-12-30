@@ -1,4 +1,4 @@
-require 'model/spec_helper'
+require 'spec_helper'
 require 'model/models/described_model'
 
 require 'ronin/model/has_description'

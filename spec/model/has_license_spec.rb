@@ -1,4 +1,4 @@
-require 'model/spec_helper'
+require 'spec_helper'
 require 'model/models/licensed_model'
 
 require 'ronin/model/has_license'

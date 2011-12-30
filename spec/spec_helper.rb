@@ -1,4 +1,11 @@
 require 'rspec'
+require 'model/models/basic_model'
+require 'model/models/custom_model'
+require 'model/models/authored_model'
+require 'model/models/described_model'
+require 'model/models/licensed_model'
+require 'model/models/named_model'
+require 'model/models/titled_model'
 require 'helpers/repositories'
 
 require 'ronin/spec/database'
@@ -7,8 +14,17 @@ include Ronin
 
 RSpec.configure do |spec|
   spec.before(:suite) do
+    BasicModel.auto_migrate!
+    CustomModel.auto_migrate!
+    AuthoredModel.auto_migrate!
+    DescribedModel.auto_migrate!
+    LicensedModel.auto_migrate!
+    NamedModel.auto_migrate!
+    TitledModel.auto_migrate!
     MyScript.auto_migrate!
+  end
 
+  spec.before(:suite) do
     Repository.create(
       :path => File.join(Helpers::Repositories::DIR,'local'),
       :name => 'local',

@@ -1,4 +1,4 @@
-require 'model/spec_helper'
+require 'spec_helper'
 require 'model/models/authored_model'
 
 require 'ronin/model/has_authors'
