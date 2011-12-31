@@ -620,7 +620,7 @@ module Ronin
     # @api private
     #
     def clean_scripts!
-      self.script_paths.clear
+      self.script_paths.destroy
       return self
     end
 
