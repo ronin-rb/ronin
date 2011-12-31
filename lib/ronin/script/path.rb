@@ -230,10 +230,8 @@ module Ronin
           # destroy the cached file, if the actual file is missing
           return destroy
         elsif updated?
-          if (script = cached_script)
-            # destroy the previously cached object
-            script.destroy!
-          end
+          # clean the previously cached file
+          clean
 
           # if we couldn't cache anything, self-destruct
           destroy unless cache
@@ -244,19 +242,39 @@ module Ronin
       end
 
       #
+      # Cleans the cached file from the Database.
+      #
+      # @since 1.4.0
+      #
+      def clean
+        if (script = cached_script)
+          # destroy the previously cached object
+          script.destroy!
+        end
+      end
+
+      #
       # Before destroying the cached file object, also destroy the
       # associated cached object.
       #
       # @since 1.1.0
       #
       def destroy
-        unless destroyed?
-          if (script = cached_script)
-            script.destroy!
-          end
-        end
+        clean unless destroyed?
 
-        super
+        return super
+      end
+
+      #
+      # Before forcibly destroying the cached file object, also destroy the
+      # associated cached object.
+      #
+      # @since 1.4.0
+      #
+      def destroy!
+        clean unless destroyed?
+
+        return super
       end
 
       #
