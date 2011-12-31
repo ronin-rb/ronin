@@ -86,7 +86,7 @@ module Ronin
     property :installed, Boolean, :default => false
 
     # Name of the repository
-    property :name, String, :default => lambda { |repo,name|
+    property :name, String, :default => proc { |repo,name|
       repo.path.basename
     }
 
@@ -151,14 +151,14 @@ module Ronin
     def initialize(attributes={})
       super(attributes)
 
-      @bin_dir = self.path.join(BIN_DIR)
-      @lib_dir = self.path.join(LIB_DIR)
-      @data_dir = self.path.join(DATA_DIR)
+      @bin_dir     = self.path.join(BIN_DIR)
+      @lib_dir     = self.path.join(LIB_DIR)
+      @data_dir    = self.path.join(DATA_DIR)
       @script_dirs = SCRIPT_DIRS.map { |dir| self.path.join(dir) }
 
-      @activated = false
-
       initialize_metadata
+
+      @activated = false
 
       yield self if block_given?
     end
@@ -239,9 +239,9 @@ module Ronin
 
       # create the repository
       repo = Repository.new(options.merge(
-        :path => path,
+        :path      => path,
         :installed => false,
-        :domain => LOCAL_DOMAIN
+        :domain    => LOCAL_DOMAIN
       ))
 
       if Repository.count(:name => repo.name, :domain => repo.domain) > 0
@@ -295,7 +295,8 @@ module Ronin
       end
 
       remote_repo = Pullr::RemoteRepository.new(options)
-      name = remote_repo.name
+
+      name   = remote_repo.name
       domain = if remote_repo.uri.scheme
                  remote_repo.uri.host
                else
@@ -315,12 +316,12 @@ module Ronin
 
       # add the new remote repository
       repo = Repository.new(
-        :path => path,
-        :scm => local_repo.scm,
-        :uri => remote_repo.uri,
+        :path      => path,
+        :scm       => local_repo.scm,
+        :uri       => remote_repo.uri,
         :installed => true,
-        :name => name,
-        :domain => domain
+        :name      => name,
+        :domain    => domain
       )
 
       # save the repository 
@@ -605,7 +606,6 @@ module Ronin
 
       # deactivates the repository
       deactivate!
-
       return self
     end
 
@@ -646,7 +646,7 @@ module Ronin
     def update!
       local_repo = Pullr::LocalRepository.new(
         :path => self.path,
-        :scm => self.scm
+        :scm  => self.scm
       )
 
       # only update if we have a repository
@@ -717,11 +717,11 @@ module Ronin
     def initialize_metadata
       metadata_path = self.path.join(METADATA_FILE)
 
-      self.title = self.name
+      self.title       = self.name
       self.description = nil
-      self.license = nil
+      self.license     = nil
 
-      self.source = self.uri
+      self.source  = self.uri
       self.website = self.source
       self.authors.clear
 
