@@ -1,3 +1,53 @@
+### 1.4.0 / 2012-01-01
+
+* Require open_namespace ~> 0.4.
+* Require parameters ~> 0.4.
+* Require uri-query_params ~> 0.6.
+* Require ronin-support ~> 0.4.
+* Added {Ronin::Port.parse}.
+* Added {Ronin::Port.from}.
+* Added {Ronin::EmailAddress.from}.
+* Added {Ronin::Password.parse}.
+* Added {Ronin::Model::HasUniqueName::ClassMethods#parse}.
+* Added {Ronin::Script::ClassMethods#short_name}.
+* Added {Ronin::Script::Buildable#build_failed!}.
+* Added {Ronin::Script::Path#clean}.
+* Added {Ronin::Script::Path#destroy!}.
+* Added {Ronin::UI::CLI::Printing}.
+* Added {Ronin::UI::CLI::ClassCommand}.
+* Added {Ronin::UI::CLI::ScriptCommand#setup}.
+* Re-added the `ronin install` command.
+* Re-added the `ronin uninstall` command.
+* Re-added the `ronin update` command.
+* Renamed `Ronin::URL.query_param` to {Ronin::URL.with_query_param}.
+* Renamed `Ronin::URL.query_value` to {Ronin::URL.with_query_value}.
+* Renamed `Ronin::Repository.add!` to {Ronin::Repository.add}.
+* Renamed `Ronin::Repository.install!` to {Ronin::Repository.install}.
+* Renamed `Ronin::Repository.uninstall!` to {Ronin::Repository.uninstall}.
+* Renamed `Ronin::UI::CLI::ScriptCommand#load_script` to
+  {Ronin::UI::CLI::ScriptCommand#load!}.
+* Removed `Ronin::Script::InstanceMethods#script_type` in favor of
+  {Ronin::Script::ClassMethods#short_name}.
+* Have {Ronin::AutoLoad} call `finalize` directly on the newly auto-loaded
+  model.
+* Associate {Ronin::EmailAddress} with {Ronin::Credential}.
+* Ensure that all {Ronin::Script}s have unique name/version properties.
+* Refactored {Ronin::UI::CLI::Command} to use
+  [Parameters::Options](http://rubydoc.info/gems/parameters/0.4.0/Parameters/Options)
+  from parameters 0.4.0.
+* {Ronin::UI::CLI::Command#start} now rescues and prints exceptions, then
+  exits with status `-1`.
+* {Ronin::UI::CLI::ScriptCommand} may now accept additional options for the
+  loaded script after `--`:
+
+      ronin exploit -f myexploit.rb -- --host victim.com --port 1337
+
+* Fixed a typo in the `ronin repos` command.
+* The `ronin repos` command now only lists installed Repositories.
+* `Ronin::Support` is now included into {Ronin}, making all support methods
+  accessible in the `ronin` console.
+* Allow `ronin` console commands to be prefixed with a `.`.
+
 ### 1.3.0 / 2011-10-16
 
 * Require DataMapper ~> 1.2.
