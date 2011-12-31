@@ -60,7 +60,7 @@ module Ronin
                                  :description => 'Additional options'
 
         #
-        # Intializes the Script command.
+        # Initializes the Script command.
         #
         # @param [Hash{Symbol => Object}] options
         #   Options for the script command.

@@ -88,7 +88,7 @@ module Ronin
       end
 
       #
-      # Enables or disables the printing of one-lin errors.
+      # Enables or disables the printing of one-line errors.
       #
       # @param [Boolean] mode
       #   The new Console short-errors setting.
