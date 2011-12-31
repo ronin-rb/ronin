@@ -26,12 +26,15 @@
 * Renamed `Ronin::Repository.uninstall!` to {Ronin::Repository.uninstall}.
 * Renamed `Ronin::UI::CLI::ScriptCommand#load_script` to
   {Ronin::UI::CLI::ScriptCommand#load!}.
+* Removed thor from the dependencies.
 * Removed `Ronin::Script::InstanceMethods#script_type` in favor of
   {Ronin::Script::ClassMethods#short_name}.
 * Have {Ronin::AutoLoad} call `finalize` directly on the newly auto-loaded
   model.
 * Associate {Ronin::EmailAddress} with {Ronin::Credential}.
 * Ensure that all {Ronin::Script}s have unique name/version properties.
+* Include {Ronin::Model::HasName}, {Ronin::Model::HasTitle},
+  {Ronin::Model::HasDescription} into {Ronin::Repository}.
 * Refactored {Ronin::UI::CLI::Command} to use
   [Parameters::Options](http://rubydoc.info/gems/parameters/0.4.0/Parameters/Options)
   from parameters 0.4.0.
