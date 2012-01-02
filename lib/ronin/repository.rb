@@ -180,14 +180,14 @@ module Ronin
     #   Repository.find('postmodern-repo')
     #
     # @example Load the repository with the given name and domain.
-    #   Repository.find('postmodern-repo/github.com')
+    #   Repository.find('postmodern-repo@github.com')
     #
     # @since 1.0.0
     #
     # @api private
     #
     def Repository.find(name)
-      name, domain = name.to_s.split('/',2)
+      name, domain = name.to_s.split('@',2)
 
       query = {:name => name}
       query[:domain] = domain if domain
