@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2006-2011 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2012 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # This file is part of Ronin.
 #
