@@ -222,6 +222,11 @@ module Ronin
             end
           end
 
+          unless arguments.empty?
+            print_error "Too many arguments. Please consult --help"
+            exit -1
+          end
+
           begin
             run
           rescue => error
