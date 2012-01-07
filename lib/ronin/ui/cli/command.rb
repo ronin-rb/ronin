@@ -212,6 +212,9 @@ module Ronin
 
           # set additional arguments
           self.class.each_argument do |name|
+            # no more arguments left
+            break if arguments.empty?
+
             param = get_param(name)
 
             if param.type <= Parameters::Types::Array
