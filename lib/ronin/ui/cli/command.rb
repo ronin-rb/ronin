@@ -520,6 +520,20 @@ module Ronin
         end
 
         #
+        # Determines if there are any arguments defined by the command.
+        #
+        # @return [Boolean]
+        #   Specifies if there are any arguments defined by the command.
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def self.arguments?
+          each_argument.any?
+        end
+
+        #
         # Creates an OptionParser for the command.
         #
         # @yield [opts]
@@ -555,13 +569,15 @@ module Ronin
 
             yield opts if block_given?
 
-            opts.separator ''
-            opts.separator 'Arguments:'
+            if self.class.arguments?
+              opts.separator ''
+              opts.separator 'Arguments:'
 
-            self.class.each_argument do |name|
-              param = get_param(name)
+              self.class.each_argument do |name|
+                param = get_param(name)
 
-              opts.separator "\t#{name.to_s.upcase}\t#{param.description}"
+                opts.separator "\t#{name.to_s.upcase}\t#{param.description}"
+              end
             end
 
             if self.class.summary
