@@ -27,6 +27,7 @@ describe Installation do
       update.rb
       urls.rb
       uninstall.rb
+      wordlist.rb
     ]
   }
 
