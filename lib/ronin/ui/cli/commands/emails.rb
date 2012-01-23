@@ -25,7 +25,7 @@ module Ronin
     module CLI
       module Commands
         #
-        # Manages Email addresses.
+        # Manages {EmailAddress EmailAddresses}.
         #
         # ## Usage
         #

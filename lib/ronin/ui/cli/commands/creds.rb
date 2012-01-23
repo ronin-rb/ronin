@@ -28,7 +28,7 @@ module Ronin
     module CLI
       module Commands
         #
-        # Lists Credentials.
+        # Lists {Credential Credentials}.
         #
         # ## Usage
         #

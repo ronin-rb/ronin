@@ -25,7 +25,7 @@ module Ronin
     module CLI
       module Commands
         #
-        # Manages {URL}s.
+        # Manages {URL URLs}.
         #
         # ## Usage
         #

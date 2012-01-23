@@ -26,7 +26,7 @@ module Ronin
     module CLI
       module Commands
         #
-        # Updates Ronin Repositories.
+        # Updates Ronin {Repository Repositories}.
         #
         # ## Usage
         #

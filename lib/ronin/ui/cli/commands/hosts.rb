@@ -25,7 +25,7 @@ module Ronin
     module CLI
       module Commands
         #
-        # Manages {HostName}s.
+        # Manages {HostName HostNames}.
         #
         # ## Usage
         #

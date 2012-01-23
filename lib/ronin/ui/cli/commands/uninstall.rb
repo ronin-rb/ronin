@@ -26,7 +26,7 @@ module Ronin
     module CLI
       module Commands
         #
-        # Uninstalls Ronin Repositories.
+        # Uninstalls Ronin {Repository Repositories}.
         #
         # ## Usage
         #

@@ -25,7 +25,7 @@ module Ronin
     module CLI
       module Commands
         #
-        # Manages {Campaign}s.
+        # Manages {Campaign Campaigns}.
         #
         # ## Usage
         # 
