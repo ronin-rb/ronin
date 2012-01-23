@@ -26,8 +26,27 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-install` command.
+        # Installs Ronin {Repository Repositories}.
         #
+        # ## Usage
+        #
+        #     ronin install [options] URI
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #          --[no-]rsync
+        #          --[no-]svn
+        #          --[no-]hg
+        #          --[no-]git
+        #
+        # ## Arguments
+        #
+        #      URI                              The URI of the Repository
+        # 
         class Install < Command
 
           summary 'Installs Ronin Repositories'
@@ -37,8 +56,8 @@ module Ronin
           option :hg,    :type => true
           option :git,   :type => true
 
-          argument :uri, :type     => String,
-                         :banner   => '[URI|PATH]'
+          argument :uri, :type        => String,
+                         :description => 'The URI of the Repository'
 
           #
           # Sets up the install command.

@@ -25,13 +25,30 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin help` command.
+        # Displays the list of available commands or prints information on a
+        # specific command.
+        #
+        # ## Usage
+        #
+        #     ronin help [options] COMMAND
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #
+        # ## Arguments
+        #
+        #      COMMAND                          The command to display
         #
         class Help < Command
 
           summary 'Displays the list of available commands or prints information on a specific command'
 
-          argument :command, :type => Symbol
+          argument :command, :type        => Symbol,
+                             :description => 'The command to display'
 
           #
           # Lists the available commands.

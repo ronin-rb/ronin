@@ -25,11 +25,40 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-urls` command.
+        # Manages {URL}s.
+        #
+        # ## Usage
+        #
+        #     ronin urls [options]
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #          --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #      -D, --database [URI]             The Database URI.
+        #          --[no-]csv                   CSV output.
+        #          --[no-]xml                   XML output.
+        #          --[no-]yaml                  YAML output.
+        #          --[no-]json                  JSON output.
+        #      -i, --import [FILE]
+        #          --[no-]http
+        #          --[no-]https
+        #      -H, --hosts [HOST [...]]
+        #      -P, --ports [PORT [...]]
+        #      -d, --directory [SUBDIR]
+        #      -q [NAME [...]],
+        #          --with-query-param
+        #      -Q [VALUE [...]],
+        #          --with-query-value
+        #      -l, --[no-]list                  Default: true
         #
         class URLs < ResourcesCommand
 
           model URL
+
+          summary 'Manages URLs'
 
           query_option :http, :type => true
           query_option :https, :type => true

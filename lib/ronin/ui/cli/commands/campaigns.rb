@@ -25,11 +25,38 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-campaigns` command.
+        # Manages {Campaign}s.
+        #
+        # ## Usage
+        # 
+        #     ronin campaigns [options]
+        #
+        # ## Options
+        # 
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #      -D, --database [URI]             The Database URI.
+        #          --[no-]csv                   CSV output.
+        #          --[no-]xml                   XML output.
+        #          --[no-]yaml                  YAML output.
+        #          --[no-]json                  JSON output.
+        #      -n, --named [NAMED]              Name to search for.
+        #      -d, --describing [DESCRIBING]    Description to search for.
+        #      -T, --targeting [ADDR [...]]     Addresses to search for.
+        #      -O [NAME [...]],                 Orgs to search for.
+        #          --targeting-orgs
+        #      -l, --[no-]list                  List all Campaigns.
+        #                                       Default: true
+        #      -a, --add [NAME]                 Create a new Campaign.
+        #          --targets [ADDR [...]]       Addresses to target.
         #
         class Campaigns < ResourcesCommand
 
-          model Campaign 
+          model Campaign
+
+          summary 'Managed Campaigns'
 
           query_option :named, :type => String,
                                :flag => '-n',

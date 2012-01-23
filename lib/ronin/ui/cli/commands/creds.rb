@@ -28,11 +28,33 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-creds` command.
+        # Lists Credentials.
+        #
+        # ## Usage
+        #
+        #     ronin creds [options]
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #      -D, --database [URI]             The Database URI.
+        #          --[no-]csv                   CSV output.
+        #          --[no-]xml                   XML output.
+        #          --[no-]yaml                  YAML output.
+        #          --[no-]json                  JSON output.
+        #      -u, --for-user [USER]            Username to search for.
+        #      -p, --with-password [PASS]       Password to search for.
+        #      -l, --[no-]list                  List all Credentials.
+        #                                       Default: true
         #
         class Creds < ResourcesCommand
 
           model Credential
+
+          summary 'Lists Credentials'
 
           query_option :for_user, :type  => String,
                                   :flag  => '-u',

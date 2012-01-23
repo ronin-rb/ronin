@@ -25,11 +25,31 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-wordlist` command.
+        # Builds and/or mutates Wordlists.
+        #
+        # ## Usage
+        #
+        #     ronin wordlist [options] [TEMPLATE]
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #      -i, --input [FILE]               Input file.
+        #      -o, --output [PATH]              Output wordlist file.
+        #      -m, --mutations [STRING:SUB]     Default: {}
+        #
+        # ## Arguments
+        #
+        #       TEMPLATE                         Options word template
         #
         # @since 1.4.0
         #
         class Wordlist < Command
+
+          summary 'Builds and/or mutates Wordlists'
 
           option :input, :type => String,
                          :flag => '-i',
@@ -47,7 +67,8 @@ module Ronin
                              :usage   => 'STRING:SUB',
                              :descriptions => 'Mutations rules'
 
-          argument :template, :type => Array
+          argument :template, :type        => Array,
+                              :description => 'Options word template'
 
           #
           # Executes the wordlist command.

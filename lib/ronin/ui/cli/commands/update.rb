@@ -26,7 +26,22 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-update` command.
+        # Updates Ronin Repositories.
+        #
+        # ## Usage
+        #
+        #     ronin update [options] REPO
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #
+        # ## Arguments
+        #
+        #       REPO                             Repository to update
         #
         class Update < Command
 

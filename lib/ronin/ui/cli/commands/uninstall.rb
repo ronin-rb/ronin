@@ -26,7 +26,22 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-uninstall` command.
+        # Uninstalls Ronin Repositories.
+        #
+        # ## Usage
+        #
+        #     ronin uninstall [options] REPO
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #
+        # ## Arguments
+        #
+        #       REPO                             Repository to uninstall
         #
         class Uninstall < Command
 

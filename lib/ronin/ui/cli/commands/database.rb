@@ -27,11 +27,34 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin database` command.
+        # Manages the Ronin Database.
+        #
+        # ## Usage
+        #
+        #     ronin database [options]
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #      -a, --add [NAME]
+        #      -s, --set [NAME]
+        #      -r, --remove [NAME]
+        #      -C, --clear [NAME]
+        #          --uri [sqlite3:///path]
+        #          --adapter [DB]
+        #          --host [HOST]
+        #          --port [PORT]
+        #          --user [USER]
+        #          --password [PASSWORD]
+        #          --database [NAME]
+        #          --path [PATH]
         #
         class Database < Command
 
-          summary "Manages the Ronin Database"
+          summary 'Manages the Ronin Database'
 
           option :add, :type => Symbol,
                        :flag => '-a',

@@ -28,7 +28,23 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin console` command.
+        # Starts the Ronin Console.
+        #
+        # ## Usage
+        #
+        #     ronin console [options]
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #      --[no-]silent                    Silence all output.
+        #      --[no-]color                     Enables color output.
+        #      -D, --database [URI]             The database to URI.
+        #      -r, --require [PATH]             Ruby files to require.
+        #                                       Default: []
+        #          --[no-]backtrace             Enable long backtraces.
+        #      -V, --[no-]version               Print the Ronin version.
         #
         class Console < Command
 

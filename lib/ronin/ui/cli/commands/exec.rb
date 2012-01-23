@@ -26,7 +26,11 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin exec` command.
+        # Runs a Ruby script in the Ronin environment.
+        #
+        # ## Usage
+        #
+        #     ronin exec SCRIPT [ARGS...]
         #
         class Exec
 

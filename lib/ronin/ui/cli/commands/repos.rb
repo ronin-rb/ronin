@@ -25,7 +25,28 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-repos` command.
+        # Lists Ronin {Repository Repositories}.
+        #
+        # ## Usage
+        #
+        #     ronin repos [options] REPO
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #      -D, --database [URI]             The Database URI.
+        #          --domain [DOMAIN]            Domain to filter by.
+        #      -n, --named [NAME]               Name to filter by.
+        #      -t, --titled [TITLE]             Title to filter by.
+        #      -d, --describing [DESC]
+        #      -L, --licensed-under [LICENSE]   License to filter by.
+        #
+        # ## Arguments
+        #
+        #      REPO                             Repository to list
         #
         class Repos < ModelCommand
 

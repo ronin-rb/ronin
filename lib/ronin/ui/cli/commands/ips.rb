@@ -26,11 +26,37 @@ module Ronin
     module CLI
       module Commands
         #
-        # The `ronin-ips` command.
+        # Manages {IPAddress}es.
+        #
+        # ## Usage
+        #
+        #     ronin ips [options]
+        #
+        # ## Options
+        #
+        #      -v, --[no-]verbose               Enable verbose output.
+        #      -q, --[no-]quiet                 Disable verbose output.
+        #          --[no-]silent                Silence all output.
+        #          --[no-]color                 Enables color output.
+        #      -D, --database [URI]             The Database URI.
+        #          --[no-]csv                   CSV output.
+        #          --[no-]xml                   XML output.
+        #          --[no-]yaml                  YAML output.
+        #          --[no-]json                  JSON output.
+        #      -i, --import [FILE]
+        #      -4, --[no-]v4
+        #      -6, --[no-]v6
+        #      -p, --with-ports [PORT [...]]
+        #      -M, --with-macs [MAC [...]]
+        #      -H, --with-hosts [HOST [...]]
+        #          --[no-]list                  Default: true
+        #      -L, --lookup [HOST]
         #
         class IPs < ResourcesCommand
 
           model IPAddress
+
+          summary 'Manages IPAddresses'
 
           query_option :v4, :type => true, :flag => '-4'
           query_option :v6, :type => true, :flag => '-6'
