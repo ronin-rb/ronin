@@ -575,8 +575,10 @@ module Ronin
 
               self.class.each_argument do |name|
                 param = get_param(name)
+                name  = name.to_s.upcase
+                desc  = param.description
 
-                opts.separator "\t#{name.to_s.upcase}\t#{param.description}"
+                opts.separator "    #{name.ljust(33)}#{desc}"
               end
             end
 
