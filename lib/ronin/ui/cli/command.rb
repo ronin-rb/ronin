@@ -507,7 +507,7 @@ module Ronin
         #
         # @since 1.4.0
         #
-        # @api private
+        # @api semipublic
         #
         def self.each_argument(&block)
           return enum_for(:each_argument) unless block
