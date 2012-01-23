@@ -16,7 +16,7 @@ describe Repository do
     end
 
     it "should be able to retrieve an Repository by name and domain" do
-      repo = subject.find('installed/github.com')
+      repo = subject.find('installed@github.com')
 
       repo.name.should == 'installed'
       repo.domain.should == 'github.com'
