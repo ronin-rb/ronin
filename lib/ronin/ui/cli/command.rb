@@ -138,8 +138,8 @@ module Ronin
         # @api semipublic
         #
         def self.command_name
-          @command_name ||= Support::Inflector.underscore(
-            self.name.sub('Ronin::UI::CLI::Commands::','').gsub('::',':')
+          @command_name ||= (
+            self.name.sub("#{Commands}::",'').gsub('::',':').downcase
           )
         end
 
