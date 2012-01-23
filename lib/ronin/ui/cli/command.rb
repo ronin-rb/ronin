@@ -448,6 +448,20 @@ module Ronin
         end
 
         #
+        # Determines if there are any options defined by the command.
+        #
+        # @return [Boolean]
+        #   Specifies if there are any options defined by the command.
+        #
+        # @since 1.4.0
+        #
+        # @api semipublic
+        #
+        def self.options?
+          each_option.any?
+        end
+
+        #
         # The additional arguments of the command.
         #
         # @return [Array<Symbol>]
