@@ -52,7 +52,7 @@ module Ronin
         #          --[no-]list                  Default: true
         #      -L, --lookup [HOST]
         #
-        class IPs < ResourcesCommand
+        class Ips < ResourcesCommand
 
           model IPAddress
 

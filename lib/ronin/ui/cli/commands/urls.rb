@@ -54,7 +54,7 @@ module Ronin
         #          --with-query-value
         #      -l, --[no-]list                  Default: true
         #
-        class URLs < ResourcesCommand
+        class Urls < ResourcesCommand
 
           model URL
 
