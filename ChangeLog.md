@@ -22,7 +22,7 @@
 * Added {Ronin::UI::CLI::Command.argument}.
 * Added {Ronin::UI::CLI::Command.arguments}.
 * Added {Ronin::UI::CLI::Command.arguments?}.
-* Added {Ronin::UI::CLI::Command.each_argumen}.
+* Added {Ronin::UI::CLI::Command.each_argument}.
 * Added {Ronin::UI::CLI::Command#start}.
 * Added {Ronin::UI::CLI::Command#run}.
 * Added {Ronin::UI::CLI::Command#option_parser}.
@@ -39,6 +39,10 @@
 * Renamed `Ronin::Repository.uninstall!` to {Ronin::Repository.uninstall}.
 * Renamed `Ronin::UI::CLI::ScriptCommand#load_script` to
   {Ronin::UI::CLI::ScriptCommand#load!}.
+* Renamed `Ronin::UI::CLI::Commands::IPs` to
+  {Ronin::UI::CLI::Commands::Ips}.
+* Renamed `Ronin::UI::CLI::Commands::URLs` to
+  {Ronin::UI::CLI::Commands::Urls}.
 * Removed thor from the dependencies.
 * Removed `Ronin::Script::InstanceMethods#script_type` in favor of
   {Ronin::Script::ClassMethods#short_name}.
