@@ -159,14 +159,18 @@ describe URL do
   end
 
   describe "#to_s" do
+    subject { @url.to_s }
+
     it "should convert the URL back into a String URI" do
-      @url.to_s.should == @uri.to_s
+      subject.should == @uri.to_s
     end
   end
 
   describe "#inspect" do
+    subject { @url.inspect }
+
     it "should include the full URL" do
-      @url.inspect.should include(@uri.to_s)
+      subject.should include(@uri.to_s)
     end
   end
 end
