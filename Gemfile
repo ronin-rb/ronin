@@ -7,6 +7,10 @@ RONIN_URI = 'http://github.com/ronin-ruby'
 
 gemspec
 
+platforms :jruby do
+  gem 'jruby-openssl',	'~> 0.7.0'
+end
+
 # DataMapper dependencies
 # gem 'data_objects',       DO_VERSION, :git => "#{DM_URI}/do.git"
 # gem 'do_sqlite3',         DO_VERSION, :git => "#{DM_URI}/do.git"
