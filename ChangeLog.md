@@ -8,6 +8,7 @@
 * Added {Ronin::Port.from}.
 * Added {Ronin::EmailAddress.from}.
 * Added {Ronin::Password.parse}.
+* Added {Ronin::URL#inspect}.
 * Added {Ronin::Model::HasUniqueName::ClassMethods#parse}.
 * Added {Ronin::Script::ClassMethods#short_name}.
 * Added {Ronin::Script::Buildable#build_failed!}.
