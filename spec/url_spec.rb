@@ -157,4 +157,16 @@ describe URL do
       subject.fragment.should == fragment
     end
   end
+
+  describe "#to_s" do
+    it "should convert the URL back into a String URI" do
+      @url.to_s.should == @uri.to_s
+    end
+  end
+
+  describe "#inspect" do
+    it "should include the full URL" do
+      @url.inspect.should include(@uri.to_s)
+    end
+  end
 end
