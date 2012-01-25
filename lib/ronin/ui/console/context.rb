@@ -57,6 +57,15 @@ module Ronin
           end
 
           #
+          # @note
+          #   Ruby 1.8.x requires {const_missing} to be defined as an
+          #   instance-method.
+          #
+          def const_missing(name)
+            Ronin.send(:const_missing,name)
+          end
+
+          #
           # Populates the instance variables.
           #
           # @param [Hash] variables
