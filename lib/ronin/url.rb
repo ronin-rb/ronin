@@ -502,6 +502,20 @@ module Ronin
       self.to_uri.to_s
     end
 
+    #
+    # Inspects the URL.
+    #
+    # @return [String]
+    #   The inspected URL.
+    #
+    # @since 1.4.0
+    #
+    # @api public
+    #
+    def inspect
+      "#<#{self.class}: #{self}>"
+    end
+
     protected
 
     #
