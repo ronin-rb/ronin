@@ -39,7 +39,6 @@ module Ronin
 
     include Model
     include Model::Importable
-    include DataMapper::Timestamps
 
     # Mapping of URL Schemes and URI classes
     SCHEMES = {

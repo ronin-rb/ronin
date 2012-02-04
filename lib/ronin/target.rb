@@ -29,7 +29,6 @@ module Ronin
   class Target
 
     include Model
-    include DataMapper::Timestamps
 
     # Primary key of the target
     property :id, Serial

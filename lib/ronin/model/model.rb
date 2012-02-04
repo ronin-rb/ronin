@@ -26,6 +26,7 @@ require 'dm-migrations'
 require 'dm-validations'
 require 'dm-aggregates'
 require 'dm-serializer'
+require 'dm-timestamps'
 
 module Ronin
   #
@@ -47,12 +48,15 @@ module Ronin
         base.send :include, DataMapper::Resource
       end
 
-      base.send :include, DataMapper,
-                          DataMapper::Migrations,
+      # include DataMapper plugins
+      base.send :include, DataMapper::Migrations,
                           DataMapper::Serialize,
-                          Model::Types,
-                          InstanceMethods
-      base.send :extend, ClassMethods
+                          DataMapper::Timestamps
+
+      # include Model types / methods
+      base.send :include, Model::Types
+      base.send :include, InstanceMethods
+      base.send :extend,  ClassMethods
     end
 
     #

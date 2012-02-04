@@ -34,8 +34,8 @@ module Ronin
     include Model::Importable
 
     # The IP Address
-    property :address, Property::IPAddress, :required => true,
-                                            :unique => true
+    property :address, IPAddress, :required => true,
+                                  :unique => true
 
     # Type of the address
     property :version, Integer, :set => [4, 6],

@@ -28,7 +28,6 @@ module Ronin
   class OpenPort
 
     include Model
-    include DataMapper::Timestamps
 
     # The primary key of the open port
     property :id, Serial

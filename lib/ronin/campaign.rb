@@ -34,7 +34,6 @@ module Ronin
     include Model
     include Model::HasUniqueName
     include Model::HasDescription
-    include DataMapper::Timestamps
 
     # Primary key of the campaign
     property :id, Serial
