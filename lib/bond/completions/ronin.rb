@@ -106,7 +106,7 @@ end
 #
 #     192.168.[TAB][TAB] => 192.168.0.1
 #
-complete(:anywhere => /(\d{1,3}\.){1,3}\d{,2}/) do |addr|
+complete(:anywhere => /(\d{1,3}\.){1,3}\d{0,2}/) do |addr|
   Ronin::Address.all(:address.like => "#{addr}%")
 end
 
