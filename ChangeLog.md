@@ -1,4 +1,4 @@
-### 1.4.0 / 2012-01-01
+### 1.4.0 / 2012-02-12
 
 * Require open_namespace ~> 0.4.
 * Require parameters ~> 0.4.
