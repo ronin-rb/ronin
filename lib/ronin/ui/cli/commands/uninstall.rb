@@ -47,7 +47,7 @@ module Ronin
 
           summary 'Uninstalls Ronin Repositories'
 
-          argument :repo, :type => String,
+          argument :repo, :type        => String,
                           :description => 'Repository to uninstall'
 
           #

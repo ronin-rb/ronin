@@ -56,8 +56,8 @@ module Ronin
 
           summary 'Manages the Ronin Database'
 
-          option :add, :type => Symbol,
-                       :flag => '-a',
+          option :add, :type  => Symbol,
+                       :flag  => '-a',
                        :usage => 'NAME'
 
           option :set, :type  => Symbol,
@@ -65,7 +65,7 @@ module Ronin
                        :usage => 'NAME'
 
           option :remove, :type  => Symbol,
-                          :flag => '-r',
+                          :flag  => '-r',
                           :usage => 'NAME'
 
           option :clear, :type  => Symbol,

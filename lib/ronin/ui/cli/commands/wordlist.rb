@@ -51,20 +51,20 @@ module Ronin
 
           summary 'Builds and/or mutates Wordlists'
 
-          option :input, :type => String,
-                         :flag => '-i',
-                         :usage => 'FILE',
+          option :input, :type        => String,
+                         :flag        => '-i',
+                         :usage       => 'FILE',
                          :description => 'Input file'
 
-          option :output, :type => String,
-                          :flag => '-o',
-                          :usage => 'PATH',
+          option :output, :type        => String,
+                          :flag        => '-o',
+                          :usage       => 'PATH',
                           :description => 'Output wordlist file'
 
-          option :mutations, :type    => Hash[String => Array],
-                             :default => {},
-                             :flag    => '-m',
-                             :usage   => 'STRING:SUB',
+          option :mutations, :type         => Hash[String => Array],
+                             :default      => {},
+                             :flag         => '-m',
+                             :usage        => 'STRING:SUB',
                              :descriptions => 'Mutations rules'
 
           argument :template, :type        => Array,

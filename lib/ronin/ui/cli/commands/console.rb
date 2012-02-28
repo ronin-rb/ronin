@@ -50,8 +50,8 @@ module Ronin
 
           summary 'Start the Ronin Console'
 
-          option :database, :type => URI,
-                            :flag => '-D',
+          option :database, :type        => URI,
+                            :flag        => '-D',
                             :description => 'The database to URI'
 
           option :require, :type        => Array,

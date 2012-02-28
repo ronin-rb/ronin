@@ -58,36 +58,36 @@ module Ronin
 
           summary 'Managed Campaigns'
 
-          query_option :named, :type => String,
-                               :flag => '-n',
+          query_option :named, :type        => String,
+                               :flag        => '-n',
                                :description => 'Name to search for'
 
-          query_option :describing, :type => String,
-                                    :flag => '-d',
+          query_option :describing, :type        => String,
+                                    :flag        => '-d',
                                     :description => 'Description to search for'
 
-          query_option :targeting, :type  => Array,
-                                   :flag  => '-T',
-                                   :usage => 'ADDR [...]',
+          query_option :targeting, :type        => Array,
+                                   :flag        => '-T',
+                                   :usage       => 'ADDR [...]',
                                    :description => 'Addresses to search for'
 
-          query_option :targeting_orgs, :type  => Array,
-                                        :flag  => '-O',
-                                        :usage => 'NAME [...]',
+          query_option :targeting_orgs, :type        => Array,
+                                        :flag        => '-O',
+                                        :usage       => 'NAME [...]',
                                         :description => 'Orgs to search for'
 
-          option :list, :type    => true,
-                        :default => true,
-                        :flag    => '-l',
+          option :list, :type        => true,
+                        :default     => true,
+                        :flag        => '-l',
                         :description => 'List all Campaigns'
 
-          option :add, :type  => String,
-                       :flag  => '-a',
-                       :usage => 'NAME',
+          option :add, :type        => String,
+                       :flag        => '-a',
+                       :usage       => 'NAME',
                        :description => 'Create a new Campaign'
 
-          option :targets, :type  => Array,
-                           :usage => 'ADDR [...]',
+          option :targets, :type        => Array,
+                           :usage       => 'ADDR [...]',
                            :description => 'Addresses to target'
 
           #
