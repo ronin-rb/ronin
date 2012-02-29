@@ -46,22 +46,22 @@ module Ronin
       #
       #               summary 'My command'
       #
-      #               option :enable, :type => true,
-      #                               :flag => '-e',
+      #               option :enable, :type        => true,
+      #                               :flag        => '-e',
       #                               :description => 'Enables stuff'
       #
-      #               option :syntax, :type => Symbol,
-      #                               :flag => '-S',
+      #               option :syntax, :type        => Symbol,
+      #                               :flag        => '-S',
       #                               :description => 'Syntax to use'
       #
-      #               option :includes, :type    => Array[String],
-      #                                 :default => [],
-      #                                 :flag    => '-I',
-      #                                 :usage   => 'FILE [...]',
+      #               option :includes, :type        => Array[String],
+      #                                 :default     => [],
+      #                                 :flag        => '-I',
+      #                                 :usage       => 'FILE [...]',
       #                                 :description => 'Files to include'
       #
-      #               option :params, :type => Hash[Symbol => Object],
-      #                               :flag => '-P',
+      #               option :params, :type        => Hash[Symbol => Object],
+      #                               :flag        => '-P',
       #                               :description => 'Additional params'
       #
       #               argument :path
