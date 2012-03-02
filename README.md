@@ -11,7 +11,8 @@
 
 Ronin is a [Ruby](http://www.ruby-lang.org) platform for
 [exploit development](http://www.exploit-db.com) and security research.
-Ronin allows for the rapid development and distribution of code, exploits
+Ronin allows for the rapid development and distribution of code,
+[exploits](https://github.com/postmodern/postmodern/blob/master/scripts/exploits/http/oracle/dav_bypass.rb)
 or [payloads](https://gist.github.com/1403961) via
 [Repositories](https://github.com/postmodern/postmodern).
 
