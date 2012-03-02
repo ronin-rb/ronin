@@ -3,7 +3,7 @@ summary: A Ruby platform for exploit development and security research.
 description:
   Ronin is a Ruby platform for exploit development and security research.
   Ronin allows for the rapid development and distribution of code, exploits
-  or payloads over many common Source-Code-Management (SCM) systems.
+  or payloads via Repositories.
 
 license: GPL-3
 authors: Postmodern
