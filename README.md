@@ -9,9 +9,11 @@
 
 ## Description
 
-Ronin is a Ruby platform for exploit development and security research.
+Ronin is a [Ruby](http://www.ruby-lang.org) platform for
+[exploit development](http://www.exploit-db.com) and security research.
 Ronin allows for the rapid development and distribution of code, exploits
-or payloads over many common Source-Code-Management (SCM) systems.
+or [payloads](https://gist.github.com/1403961) via
+[Repositories](https://github.com/postmodern/postmodern).
 
 ### Customized Console
 
