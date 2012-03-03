@@ -34,7 +34,28 @@ module Ronin
     end
 
     module ClassMethods
-      protected
+      #
+      # Requires the file that should contain the constant.
+      #
+      # @param [String, Symbol] name
+      #   The name of the constant.
+      #
+      # @return [Class, Module, nil]
+      #   The loaded constant.
+      #
+      # @since 1.5.0
+      #
+      # @api public
+      #
+      def require_const(name)
+        const = super(name)
+
+        if (const && const < DataMapper::Resource)
+          const.finalize
+        end
+
+        return const
+      end
 
       #
       # Transparently auto-loads Classes and Modules from their respective
