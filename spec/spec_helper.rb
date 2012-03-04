@@ -14,14 +14,16 @@ include Ronin
 
 RSpec.configure do |spec|
   spec.before(:suite) do
-    BasicModel.auto_migrate!
-    CustomModel.auto_migrate!
-    AuthoredModel.auto_migrate!
-    DescribedModel.auto_migrate!
-    LicensedModel.auto_migrate!
-    NamedModel.auto_migrate!
-    TitledModel.auto_migrate!
-    MyScript.auto_migrate!
+    [
+      BasicModel,
+      CustomModel,
+      AuthoredModel,
+      DescribedModel,
+      LicensedModel,
+      NamedModel,
+      TitledModel,
+      MyScript
+    ].each(&:auto_migrate!)
   end
 
   spec.before(:suite) do
