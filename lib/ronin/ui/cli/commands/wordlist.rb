@@ -43,7 +43,7 @@ module Ronin
         #
         # ## Arguments
         #
-        #       TEMPLATE                         Options word template
+        #       TEMPLATE                         Options word template (alpha:7 numeric:1-3)
         #
         # @since 1.4.0
         #
@@ -68,7 +68,7 @@ module Ronin
                              :descriptions => 'Mutations rules'
 
           argument :template, :type        => Array,
-                              :description => 'Options word template'
+                              :description => 'Options word template (alpha:7 numeric:1-3)'
 
           #
           # Executes the wordlist command.
