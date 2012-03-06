@@ -263,7 +263,10 @@ module Ronin
 
           setup
           execute
+
           return true
+        ensure
+          cleanup
         end
 
         #
@@ -291,6 +294,16 @@ module Ronin
         # @api semipublic
         #
         def execute
+        end
+
+        #
+        # Default method to call after the command has finished.
+        #
+        # @since 1.5.0
+        #
+        # @api semipublic
+        #
+        def cleanup
         end
 
         protected
