@@ -232,6 +232,8 @@ module Ronin
 
           begin
             run
+          rescue Interrupt
+            exit
           rescue => error
             print_exception(error)
             exit -1
