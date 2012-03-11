@@ -184,7 +184,7 @@ module Ronin
                         
           arguments.each do |argument|
             # evaluate embedded Ruby expressions
-            argument.gsub!(/\#\{[^\}]*\}/) do |expression|
+            argument.gsub!(/\#\{[^\s\}]*\}/) do |expression|
               eval(expression[2..-2],Ripl.config[:binding]).to_s
             end
           end
