@@ -62,7 +62,7 @@ module Ronin
         def loop_eval(input)
           if PREFIXES.include?(input[0,1])
             command = input[1..-1]
-            name, arguments = command.split(' ')
+            name, arguments = parse_command(command)
 
             unless BLACKLIST.include?(name)
               if Commands.singleton_class.method_defined?(name)
@@ -70,12 +70,27 @@ module Ronin
 
                 return Commands.send(name,*arguments)
               elsif executable?(name)
-                return system(command)
+                return Commands.exec(name,*arguments)
               end
             end
           end
 
           super(input)
+        end
+
+        #
+        # Default command which executes a command in the shell.
+        #
+        # @param [Array<String>] arguments
+        #   The arguments of the command.
+        #
+        # @return [Boolean]
+        #   Specifies whether the command exited successfully.
+        #
+        # @since 1.5.0
+        #
+        def Commands.exec(*arguments)
+          system(arguments.join(' '))
         end
 
         #
@@ -147,6 +162,35 @@ module Ronin
         end
 
         protected
+
+        #
+        # Parses a Console command.
+        #
+        # @param [String] command
+        #   The Console command to parse.
+        #
+        # @return [String, Array<String>]
+        #   The command name and additional arguments.
+        #
+        # @since 1.5.0
+        #
+        def parse_command(command)
+          name, arguments = command.split(' ',2)
+          arguments       = if arguments
+                              arguments.split(' ')
+                            else
+                              []
+                            end
+                        
+          arguments.each do |argument|
+            # evaluate embedded Ruby expressions
+            argument.gsub!(/\#\{[^\}]*\}/) do |expression|
+              eval(expression[2..-2],Ripl.config[:binding]).to_s
+            end
+          end
+
+          return name, arguments
+        end
 
         #
         # Determines if an executable exists on the system.
