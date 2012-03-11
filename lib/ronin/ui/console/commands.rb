@@ -20,6 +20,7 @@
 require 'ronin/config'
 
 require 'set'
+require 'shellwords'
 require 'tempfile'
 
 module Ronin
@@ -90,7 +91,7 @@ module Ronin
         # @since 1.5.0
         #
         def Commands.exec(*arguments)
-          system(arguments.join(' '))
+          system(Shellwords.shelljoin(arguments))
         end
 
         #
@@ -175,19 +176,13 @@ module Ronin
         # @since 1.5.0
         #
         def parse_command(command)
-          name, arguments = command.split(' ',2)
-          arguments       = if arguments
-                              arguments.split(' ')
-                            else
-                              []
-                            end
-                        
-          arguments.each do |argument|
-            # evaluate embedded Ruby expressions
-            argument.gsub!(/\#\{[^\s\}]*\}/) do |expression|
-              eval(expression[2..-2],Ripl.config[:binding]).to_s
-            end
+          # evaluate embedded Ruby expressions
+          command = command.gsub(/\#\{[^\}]*\}/) do |expression|
+            eval(expression[2..-2],Ripl.config[:binding]).to_s.dump
           end
+
+          arguments = Shellwords.shellsplit(command)
+          name      = arguments.shift
 
           return name, arguments
         end
