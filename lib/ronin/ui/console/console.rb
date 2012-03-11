@@ -36,9 +36,9 @@ module Ronin
       # The history file for the Console session
       HISTORY_FILE = File.join(Config::PATH,'console.log')
 
-      @@color = !(STDOUT.tty?)
+      @@color        = !(STDOUT.tty?)
       @@short_errors = !(ENV.has_key?('VERBOSE'))
-      @@auto_load = []
+      @@auto_load    = []
       @@setup_blocks = []
 
       #
@@ -200,11 +200,11 @@ module Ronin
 
         # Start the Ripl console
         Ripl.start(
-          :argv => [],
-          :name => 'ronin',
+          :argv    => [],
+          :name    => 'ronin',
           :binding => context.instance_eval('binding'),
           :history => HISTORY_FILE,
-          :irbrc => false
+          :irbrc   => false
         )
 
         return context
