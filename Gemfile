@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-DM_URI = 'http://github.com/datamapper'
+DM_URI     = 'http://github.com/datamapper'
 DM_VERSION = '~> 1.1.0'
 DO_VERSION = '~> 0.10.3'
-RONIN_URI = 'http://github.com/ronin-ruby'
+RONIN_URI  = 'http://github.com/ronin-ruby'
 
 gemspec
 
