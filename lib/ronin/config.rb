@@ -24,6 +24,8 @@ module Ronin
   #
   # Configuration information for Ronin.
   #
+  # @api semipublic
+  #
   module Config
     include DataPaths
     extend DataPaths::Finders
