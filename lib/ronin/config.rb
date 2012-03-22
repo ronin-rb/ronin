@@ -67,12 +67,13 @@ module Ronin
     # @api semipublic
     #
     def Config.load(name=nil)
-      path = if name
-               File.expand_path(File.join(CONFIG_DIR,"#{name}.rb"))
-             else
-               File.join(PATH,'config.rb')
-             end
+      dir, file = if name
+                    [CONFIG_DIR, "#{name}.rb"]
+                  else
+                    [PATH, 'config.rb']
+                  end
 
+      path = File.expand_path(File.join(dir,file))
       require path if File.file?(path)
     end
 
