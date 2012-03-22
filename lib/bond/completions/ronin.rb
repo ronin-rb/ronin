@@ -17,10 +17,10 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+require 'ronin/config'
 require 'ronin/ui/console/commands'
 
 require 'set'
-require 'env'
 
 complete(:on => /^[\!\.][a-zA-Z]\w*/) do |cmd|
   prefix = cmd[0,1]
@@ -29,10 +29,10 @@ complete(:on => /^[\!\.][a-zA-Z]\w*/) do |cmd|
   paths  = Set[]
 
   # search through $PATH for similar program names
-  Env.paths.each do |dir|
-    Pathname.glob(dir.join(glob)) do |path|
-      if (path.file? && path.executable?)
-        paths << "#{prefix}#{path.basename}"
+  Ronin::Config::BIN_DIRS.each do |dir|
+    Dir.glob(File.join(dir,glob)) do |path|
+      if (File.file?(path) && File.executable?(path))
+        paths << "#{prefix}#{File.basename(path)}"
       end
     end
   end

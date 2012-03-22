@@ -171,8 +171,6 @@ Remove a Database:
   ~> 1.0
 * [parameters](http://github.com/postmodern/parameters#readme)
   ~> 0.4
-* [env](http://github.com/postmodern/env#readme)
-  ~> 0.2
 * [pullr](http://github.com/postmodern/pullr#readme)
   ~> 0.1, >= 0.1.2
 * [ripl](https://github.com/cldwalker/ripl#readme)

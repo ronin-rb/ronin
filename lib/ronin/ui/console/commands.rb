@@ -17,7 +17,8 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'env'
+require 'ronin/config'
+
 require 'set'
 require 'tempfile'
 
@@ -34,10 +35,10 @@ module Ronin
       module Commands
         # Names and statuses of executables.
         EXECUTABLES = Hash.new do |hash,key|
-          hash[key] = Env.paths.any? do |dir|
-            path = dir.join(key)
+          hash[key] = Config::BIN_DIRS.any? do |dir|
+            path = File.join(dir,key)
 
-            (path.file? && path.executable?)
+            (File.file?(path) && File.executable?(path))
           end
         end
 
@@ -90,7 +91,7 @@ module Ronin
           old_pwd = Dir.pwd
 
           new_cwd = if arguments.empty?
-                      Env.home
+                      Config::HOME
                     elsif arguments.first == '-'
                       unless ENV['OLDPWD']
                         print_warning 'cd: OLDPWD not set'
@@ -135,10 +136,10 @@ module Ronin
         def Commands.edit(*arguments)
           path = arguments.first
 
-          if Env.editor
+          if ENV['EDITOR']
             path ||= Tempfile.new(['ronin-console', '.rb']).path
 
-            system(Env.editor,path) && load(path)
+            system(ENV['EDITOR'],path) && load(path)
           else
             print_error "Please set the EDITOR env variable"
             return false

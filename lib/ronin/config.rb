@@ -17,7 +17,6 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'env'
 require 'data_paths'
 require 'fileutils'
 
@@ -30,23 +29,26 @@ module Ronin
     extend DataPaths::Finders
 
     # The users home directory
-    HOME = Env.home
+    HOME = Gem.user_home
 
     # Ronin home directory
-    PATH = HOME.join('.ronin')
+    PATH = File.join(HOME,'.ronin')
 
     # Configuration files directory
-    CONFIG_DIR = PATH.join('config')
+    CONFIG_DIR = File.join(PATH,'config')
 
     # Directory which repositories are installed into
-    REPOS_DIR = PATH.join('repos')
+    REPOS_DIR = File.join(PATH,'repos')
 
     # Temporary file directory
-    TMP_DIR = PATH.join('tmp')
+    TMP_DIR = File.join(PATH,'tmp')
 
-    PATH.mkdir unless PATH.directory?
-    CONFIG_DIR.mkdir unless PATH.directory?
-    TMP_DIR.mkdir unless TMP_DIR.directory?
+    # Directories which contain binaries
+    BIN_DIRS = ENV.fetch('PATH','').split(File::PATH_SEPARATOR)
+
+    [PATH, CONFIG_DIR, TMP_DIR].each do |dir|
+      FileUtils.mkdir(dir) unless File.directory?(dir)
+    end
 
     #
     # Loads the Ronin configuration file.
@@ -66,12 +68,12 @@ module Ronin
     #
     def Config.load(name=nil)
       path = if name
-               CONFIG_DIR.join("#{name}.rb").expand_path
+               File.expand_path(File.join(CONFIG_DIR,"#{name}.rb"))
              else
-               PATH.join('config.rb')
+               File.join(PATH,'config.rb')
              end
 
-      require path if path.file?
+      require path if File.file?(path)
     end
 
     #
@@ -80,7 +82,7 @@ module Ronin
     # @param [String] sub_path
     #   The sub-path within {TMP_DIR}.
     #
-    # @return [Pathname]
+    # @return [String]
     #   The full path within {TMP_DIR}.
     #
     # @api semipublic
@@ -88,9 +90,9 @@ module Ronin
     def Config.tmp_dir(sub_path=nil)
       if sub_path
         sub_path = File.expand_path(File.join('',sub_path))
-        path = TMP_DIR.join(sub_path)
+        path     = File.join(TMP_DIR,sub_path)
 
-        path.mkpath unless path.exist?
+        FileUtils.mkdir_p(path) unless File.exist?(path)
         return path
       end
 
