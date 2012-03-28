@@ -23,11 +23,4 @@ describe Credential do
   it "should be convertable to a String" do
     subject.to_s.should == "#{name}:#{secret}"
   end
-
-  it "should implicitly splat the user-name and password" do
-    user_name, password = subject
-
-    user_name.should == name
-    password.should == secret
-  end
 end

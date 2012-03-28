@@ -77,11 +77,4 @@ describe EmailAddress do
   it "should convert to a String" do
     subject.to_s.should == email
   end
-
-  it "should implicitly splat the user-name and host-name" do
-    user_name, host_name = subject
-
-    user_name.should == user
-    host_name.should == host
-  end
 end

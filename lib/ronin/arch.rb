@@ -45,28 +45,6 @@ module Ronin
     property :address_length, Integer, :required => true
 
     #
-    # Splats the architecture into multiple variables.
-    #
-    # @return [Array]
-    #   The {#endian} and {#address_length} of the architecture.
-    #
-    # @example
-    #   endian, address_length = Arch.x86
-    #
-    #   endian
-    #   # => 'little'
-    #   address_length
-    #   # => 4
-    #
-    # @since 1.0.0
-    #
-    # @api public
-    #
-    def to_ary
-      [self.endian, self.address_length]
-    end
-
-    #
     # Defines a new pre-defined Arch.
     #
     # @param [Symbol, String] name

@@ -115,27 +115,5 @@ module Ronin
       "#{self.user_name}:#{self.password}"
     end
 
-    #
-    # Splits the credential to multiple variables.
-    #
-    # @return [Array<String>]
-    #   The user and the password.
-    #
-    # @example
-    #   user, password = cred
-    #
-    #   user
-    #   # => "alice"
-    #   password
-    #   # => "secret"
-    #
-    # @since 1.0.0
-    #
-    # @api public
-    #
-    def to_ary
-      [self.user_name.name, self.password.clear_text]
-    end
-
   end
 end

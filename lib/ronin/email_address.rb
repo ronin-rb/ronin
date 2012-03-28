@@ -255,28 +255,5 @@ module Ronin
       "#<#{self.class}: #{self}>"
     end
 
-    #
-    # Splats the email address into multiple variables.
-    #
-    # @return [Array]
-    #   The user-name and the host-name within the email address.
-    #
-    # @example
-    #   email = EmailAddress.parse('alice@example.com')
-    #   user, host = email
-    #   
-    #   user
-    #   # => "alice"
-    #   host
-    #   # => "example.com"
-    #
-    # @since 1.0.0
-    #
-    # @api public
-    #
-    def to_ary
-      [self.user_name.name, self.host_name.address]
-    end
-
   end
 end

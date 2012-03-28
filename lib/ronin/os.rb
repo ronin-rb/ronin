@@ -91,29 +91,6 @@ module Ronin
     end
 
     #
-    # Splits the Operating System into multiple variables.
-    #
-    # @return [Array<String>]
-    #   The name and version of the Operating System.
-    #
-    # @example
-    #   os = OS.linux('2.6.31')
-    #   name, version = os
-    #
-    #   name
-    #   # => "Linux"
-    #   version
-    #   # => "2.6.31"
-    #
-    # @since 1.0.0
-    #
-    # @api public
-    #
-    def to_ary
-      [self.name, self.version]
-    end
-
-    #
     # Defines a new predefined OS.
     #
     # @param [Symbol, String] name

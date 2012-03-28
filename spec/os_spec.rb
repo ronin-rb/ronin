@@ -28,13 +28,6 @@ describe OS do
     os.should be_valid
   end
 
-  it "should implicitly splat the name and version" do
-    name, version = subject
-
-    name.should == subject.name
-    version.should == subject.version
-  end
-
   describe "#to_s" do
     it "should convert both the name and version" do
       os = OS.new(:name => 'Linux', :version => '2.6.23')
