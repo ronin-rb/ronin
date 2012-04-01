@@ -109,7 +109,7 @@ View available commands:
 
 Install a Repository:
 
-    $ ronin repos --install svn://example.com/path/to/repo
+    $ ronin install svn://example.com/path/to/repo
 
 List installed Repositories:
 
@@ -117,15 +117,15 @@ List installed Repositories:
 
 Update all installed Repositories:
 
-    $ ronin repos --update
+    $ ronin update
 
 Update a specific Repositories:
 
-    $ ronin repos --update repo-name
+    $ ronin update repo-name
 
 Uninstall a specific Repositories:
 
-    $ ronin repos --uninstall repo-name
+    $ ronin uninstall repo-name
 
 List available Databases:
 
