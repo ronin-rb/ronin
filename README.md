@@ -85,7 +85,7 @@ and [Scanning](https://github.com/ronin-ruby/ronin-scanners#readme).
 * Convenience methods provided by
   [ronin-support](https://github.com/ronin-ruby/ronin-support#readme).
 * Provides a customized Ruby Console using
-  [Ripl](https://github.com/cldwalker/ripl#readme):
+  [Ripl](https://github.com/cldwalker/ripl#readme) with:
   * Syntax highlighting.
   * Tab completion.
   * Auto indentation.
