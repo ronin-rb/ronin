@@ -3,7 +3,7 @@
 * [Website](http://ronin-ruby.github.com)
 * [Source](https://github.com/ronin-ruby/ronin)
 * [Issues](https://github.com/ronin-ruby/ronin/issues)
-* [Documentation](http://ronin-ruby.github.com/docs/ronin)
+* [Documentation](http://ronin-ruby.github.com/docs/ronin/frames)
 * [Mailing List](http://groups.google.com/group/ronin-ruby)
 * [irc.freenode.net #ronin](http://webchat.freenode.net/?channels=ronin&uio=Mj10cnVldd)
 
