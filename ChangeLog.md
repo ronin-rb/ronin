@@ -1,3 +1,11 @@
+### 1.4.1 / 2012-03-31
+
+* Removed dependencey on env.
+* Removed `#to_ary` methods from Ronin Models that were causing
+  `SystemStackError: stack level too deep` exceptions. Fixes issue #4.
+* Ensure that {Ronin::AutoLoad} will finalize models loaded via `require_const`.
+* {Ronin::UI::CLI::Command#start} now rescues Interupts.
+
 ### 1.4.0 / 2012-02-12
 
 * Require open_namespace ~> 0.4.
