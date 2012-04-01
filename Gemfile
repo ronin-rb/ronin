@@ -35,8 +35,8 @@ group :development do
   gem 'rspec',        '~> 2.4'
 
   gem 'kramdown',       '~> 0.12'
-  gem 'ruby-graphviz',  '~> 0.9.10'
-  gem 'dm-visualizer',  '~> 0.2.0'
+  gem 'ruby-graphviz',  '~> 0.9'
+  gem 'dm-visualizer',  '~> 0.2'
 end
 
 #
