@@ -75,8 +75,8 @@ and [Scanning](http://github.com/ronin-ruby/ronin-scanners#readme).
   * {Ronin::URL}
   * {Ronin::EmailAddress}
   * {Ronin::Credential}
-  * {Ronin::ServiceCredential}
-  * {Ronin::WebCredential}
+    * {Ronin::ServiceCredential}
+    * {Ronin::WebCredential}
   * {Ronin::Organization}
   * {Ronin::Campaign}
   * {Ronin::Target}
