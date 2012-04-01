@@ -1,4 +1,4 @@
-### 1.4.1 / 2012-03-31
+### 1.4.1 / 2012-04-01
 
 * Removed dependencey on env.
 * Removed `#to_ary` methods from Ronin Models that were causing
