@@ -92,6 +92,7 @@ and [Scanning](https://github.com/ronin-ruby/ronin-scanners#readme).
   * Pretty Printing (`pp`).
   * `print_info`, `print_error`, `print_warning` and `print_debug`
     output helper methods with color-output.
+  * Inline commands (`!nmap -v -sT victim.com`)
 * Provides an extensible command-line interface.
 
 ## Synopsis
