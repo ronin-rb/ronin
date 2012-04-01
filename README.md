@@ -91,8 +91,7 @@ and [Scanning](http://github.com/ronin-ruby/ronin-scanners#readme).
   * Pretty-Printing (`pp`).
   * `print_info`, `print_error`, `print_warning` and `print_debug`
     output helper methods with color-output.
-* Provides an extensible command-line interface based on
-  [Thor](http://github.com/wycats/thor#readme).
+* Provides an extensible command-line interface.
 
 ## Synopsis
 
