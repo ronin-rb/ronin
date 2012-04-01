@@ -87,9 +87,9 @@ and [Scanning](http://github.com/ronin-ruby/ronin-scanners#readme).
 * Provides a customized Ruby Console using
   [Ripl](https://github.com/cldwalker/ripl#readme):
   * Syntax highlighting.
-  * Tab-completion.
-  * Auto-indentation.
-  * Pretty-Printing (`pp`).
+  * Tab completion.
+  * Auto indentation.
+  * Pretty Printing (`pp`).
   * `print_info`, `print_error`, `print_warning` and `print_debug`
     output helper methods with color-output.
 * Provides an extensible command-line interface.
