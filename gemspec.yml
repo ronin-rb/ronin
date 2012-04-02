@@ -15,13 +15,13 @@ post_install_message: |
 
     Thank you for installing Ronin!
 
-    To list the available commands:
-
-        $ ronin help
-
     To start the Ronin Console:
 
         $ ronin
+
+    To list the available commands:
+
+        $ ronin help
 
     Additional functionality can be added to Ronin by installing additional
     libraries:
