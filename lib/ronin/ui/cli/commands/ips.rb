@@ -58,32 +58,43 @@ module Ronin
 
           summary 'Manages IPAddresses'
 
-          query_option :v4, :type => true, :flag => '-4'
-          query_option :v6, :type => true, :flag => '-6'
+          query_option :v4, :type => true,
+                            :flag => '-4',
+                            :description => 'Searches for IPv4 addresses'
 
-          query_option :with_ports, :type  => Array[Integer],
-                                    :flag  => '-p',
-                                    :usage => 'PORT [...]'
+          query_option :v6, :type => true,
+                            :flag => '-6',
+                            :description => 'Searches for IPv6 addresses'
 
-          query_option :with_macs, :type  => Array,
-                                   :flag  => '-M',
-                                   :usage => 'MAC [...]'
+          query_option :with_ports, :type        => Array[Integer],
+                                    :flag        => '-p',
+                                    :usage       => 'PORT [...]',
+                                    :description => 'Searches for the associated PORT(s)'
 
-          query_option :with_hosts, :type  => Array,
-                                    :flag  => '-H',
-                                    :usage => 'HOST [...]'
+          query_option :with_macs, :type        => Array,
+                                   :flag        => '-M',
+                                   :usage       => 'MAC [...]',
+                                   :description => 'Searches for the associated MAC address(es)'
 
-          option :list, :type    => true,
-                        :default => true,
-                        :aliases => '-l'
+          query_option :with_hosts, :type        => Array,
+                                    :flag        => '-H',
+                                    :usage       => 'HOST [...]',
+                                    :description => 'Searches for the associated HOST(s)'
 
-          option :lookup, :type  => String,
-                          :flag  => '-L',
-                          :usage => 'HOST'
+          option :list, :type        => true,
+                        :default     => true,
+                        :flag        => '-l',
+                        :description => 'Lists the IP addresses'
+
+          option :lookup, :type        => String,
+                          :flag        => '-L',
+                          :usage       => 'HOST',
+                          :description => 'Looks up the IP addresses for the HOST'
 
           option :import, :type  => String,
                           :flag  => '-i',
-                          :usage => 'FILE'
+                          :usage => 'FILE',
+                          :description => 'Imports IP addresses from the FILE'
 
           #
           # Queries the {IPAddress} model.

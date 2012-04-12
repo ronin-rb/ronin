@@ -69,7 +69,7 @@ module Ronin
           option :list, :type        => true,
                         :default     => true,
                         :flag        => '-l',
-                        :description => 'List all Credentials'
+                        :description => 'List the Credentials'
 
           #
           # Queries the {Credential} model.

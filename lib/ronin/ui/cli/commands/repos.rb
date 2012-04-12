@@ -67,10 +67,10 @@ module Ronin
                                 :usage       => 'TITLE',
                                 :description => 'Title to filter by'
 
-          query_option :describing, :type    => String,
-                                    :flag    => '-d',
-                                    :usage   => 'DESC',
-                                    :desc    => 'Description to filter by'
+          query_option :describing, :type        => String,
+                                    :flag        => '-d',
+                                    :usage       => 'DESC',
+                                    :description => 'Description to filter by'
 
           query_option :licensed_under, :type        => String,
                                         :flag        => '-L',

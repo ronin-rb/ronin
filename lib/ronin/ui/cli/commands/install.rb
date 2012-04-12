@@ -51,10 +51,17 @@ module Ronin
 
           summary 'Installs Ronin Repositories'
 
-          option :rsync, :type => true
-          option :svn,   :type => true
-          option :hg,    :type => true
-          option :git,   :type => true
+          option :rsync, :type        => true,
+                         :description => 'Install via rsync'
+
+          option :svn, :type        => true,
+                       :description => 'Install via SubVersion (SVN)'
+
+          option :hg, :type        => true,
+                      :description => 'Install via Mercurial (Hg)'
+
+          option :git, :type        => true,
+                       :description => 'Install via Git'
 
           argument :uri, :type        => String,
                          :description => 'The URI of the Repository'

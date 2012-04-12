@@ -56,44 +56,56 @@ module Ronin
 
           summary 'Manages the Ronin Database'
 
-          option :add, :type  => Symbol,
-                       :flag  => '-a',
-                       :usage => 'NAME'
+          option :add, :type        => Symbol,
+                       :flag        => '-a',
+                       :usage       => 'NAME',
+                       :description => 'Adds a Database Repository'
 
-          option :set, :type  => Symbol,
-                       :flag  => '-s',
-                       :usage => 'NAME'
+          option :set, :type        => Symbol,
+                       :flag        => '-s',
+                       :usage       => 'NAME',
+                       :description => 'Sets the information for a Database Repository'
 
-          option :remove, :type  => Symbol,
-                          :flag  => '-r',
-                          :usage => 'NAME'
+          option :remove, :type        => Symbol,
+                          :flag        => '-r',
+                          :usage       => 'NAME',
+                          :description => 'Removes a Database Repository'
 
-          option :clear, :type  => Symbol,
-                         :flag  => '-C',
-                         :usage => 'NAME'
+          option :clear, :type        => Symbol,
+                         :flag        => '-C',
+                         :usage       => 'NAME',
+                         :description => 'WARNING: Clears a Database Repository'
           
           # repository options
-          option :uri, :type  => String,
-                       :usage => 'sqlite3:///path'
+          option :uri, :type        => String,
+                       :usage       => 'sqlite3:///path',
+                       :description => 'The URI for the Database Repository'
 
-          option :adapter, :type  => String,
-                           :usage => 'DB'
+          option :adapter, :type        => String,
+                           :usage       => 'sqlite3|mysql|postgres',
+                           :description => 'The Database Adapter'
 
-          option :host, :type  => String,
-                        :usage => 'HOST'
+          option :host, :type        => String,
+                        :usage       => 'HOST',
+                        :description => 'The host running the Database'
 
-          option :port, :type  => Integer,
-                        :usage => 'PORT'
+          option :port, :type        => Integer,
+                        :usage       => 'PORT',
+                        :description => 'The port the Database is listening on'
 
-          option :user, :type => String
+          option :user, :type        => String,
+                        :description => 'User to authenticate with'
 
-          option :password, :type => String
+          option :password, :type        => String,
+                            :description => 'Password to authenticate with'
 
-          option :database, :type  => String,
-                            :usage => 'NAME'
+          option :database, :type        => String,
+                            :usage       => 'NAME',
+                            :description => 'Database name'
 
-          option :path, :type  => String,
-                        :usage => 'PATH'
+          option :path, :type        => String,
+                        :usage       => 'PATH',
+                        :description => 'Path to the Database file.'
 
           #
           # Displays or modifies the Ronin Database configuration.

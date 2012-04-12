@@ -56,33 +56,40 @@ module Ronin
 
           summary 'Manages HostNames'
 
-          query_option :with_ips, :type  => Array,
-                                  :flag  => '-I',
-                                  :usage => 'IP [...]'
+          query_option :with_ips, :type        => Array,
+                                  :flag        => '-I',
+                                  :usage       => 'IP [...]',
+                                  :description => 'Searches for the associated IP(s)'
 
-          query_option :with_ports, :type  => Array[Integer],
-                                    :flag  => '-p',
-                                    :usage => 'PORT [...]'
+          query_option :with_ports, :type        => Array[Integer],
+                                    :flag        => '-p',
+                                    :usage       => 'PORT [...]',
+                                    :description => 'Searches for the associated PORT(s)'
 
-          query_option :domain, :type  => String,
-                                :flag  => '-D',
-                                :usage => 'DOMAIN'
+          query_option :domain, :type        => String,
+                                :flag        => '-D',
+                                :usage       => 'DOMAIN',
+                                :description => 'Searches for the associated parent DOMAIN'
 
-          query_option :tld, :type  => String,
-                             :flag  => '-T',
-                             :usage => 'TLD'
+          query_option :tld, :type        => String,
+                             :flag        => '-T',
+                             :usage       => 'TLD',
+                             :description => 'Searches for the associated TLD'
 
-          option :list, :type    => true,
-                        :default => true,
-                        :flag    => '-l'
+          option :list, :type        => true,
+                        :default     => true,
+                        :flag        => '-l',
+                        :description => 'Lists the HostNames'
 
-          option :lookup, :type  => String,
-                          :flag  => '-L',
-                          :usage => 'IP'
+          option :lookup, :type        => String,
+                          :flag        => '-L',
+                          :usage       => 'IP',
+                          :description => 'Looks up HostNames for the IP'
 
-          option :import, :type  => String,
-                          :flag  => '-i',
-                          :usage => 'FILE'
+          option :import, :type        => String,
+                          :flag        => '-i',
+                          :usage       => 'FILE',
+                          :description => 'Imports HostNames from the FILE'
 
           #
           # Queries the {HostName} model.
