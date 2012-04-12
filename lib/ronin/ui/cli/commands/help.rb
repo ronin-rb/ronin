@@ -19,6 +19,7 @@
 
 require 'ronin/ui/cli/command'
 require 'ronin/ui/cli/cli'
+require 'ronin/installation'
 
 module Ronin
   module UI
@@ -55,11 +56,16 @@ module Ronin
           #
           def execute
             if command?
-              begin
-                CLI.command(@command).start(['--help'])
-              rescue UnknownCommand
-                print_error "unknown command: #{@command}"
+              Installation.paths.each do |path|
+                man_page = File.join(path,'man',"#{@command}.1")
+
+                if File.file?(man_page)
+                  system('man',man_page)
+                  return
+                end
               end
+
+              print_error "No man-page for the command: #{@command}"
             else
               print_array CLI.commands, :title => 'Available commands'
             end
