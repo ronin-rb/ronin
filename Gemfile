@@ -32,9 +32,10 @@ group :development do
   gem 'rake',           '~> 0.8'
   gem 'rubygems-tasks', '~> 0.1'
   gem 'rspec',          '~> 2.4'
-  gem 'kramdown',       '~> 0.12'
-  gem 'ruby-graphviz',  '~> 0.9'
-  gem 'dm-visualizer',  '~> 0.2'
+  gem 'redcarpet',      '~> 2.1'
+  gem 'md2man',         '~> 1.2'
+  gem 'ruby-graphviz',  '~> 0.9.10'
+  gem 'dm-visualizer',  '~> 0.2.0'
 end
 
 #
