@@ -1,8 +1,8 @@
-# ronin-exec 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-exec 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin exec SCRIPT [ARGS ...]`
+`ronin exec` *SCRIPT* [*ARGS* ...]
 
 ## DESCRIPTION
 
@@ -10,11 +10,11 @@ Runs a script from a Ronin Repository.
 
 ## ARGUMENTS
 
-`SCRIPT`
+*SCRIPT*
   The name of the script to search for within the `bin/` directories within the
   Repositories.
 
-`ARGS`
+*ARGS*
   Additional arguments to pass to the SCRIPT.
 
 ## FILES
@@ -39,17 +39,17 @@ Runs a script from a Ronin Repository.
 
 ## ENVIRONMENT
 
-`HOME`
+HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
   configuration directory within the home directory.
 
-`EDITOR`
+EDITOR
   Specifies the editor to use when invoking the `!edit` console command.
 
-`VERBOSE`
+VERBOSE
   Enables verbose output within the Ronin Console.
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

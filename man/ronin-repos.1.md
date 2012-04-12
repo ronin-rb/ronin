@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin repos [options] [REPO]`
+`ronin repos` [*options*] [*REPO*]
 
 ## DESCRIPTION
 
@@ -10,7 +10,7 @@ Lists Ronin Repositories.
 
 ## ARGUMENTS
 
-`REPO`
+*REPO*
   The name of the Repository to list.
 
 ## OPTIONS
@@ -27,22 +27,22 @@ Lists Ronin Repositories.
 `--[no-]color`
   Enables color output.
 
-`-D`, `--database URI`
+`-D`, `--database` *URI*
   The database to URI (`mysql://user:password@host/ronin`).
 
-`--domain DOMAIN`
+`--domain` *DOMAIN*
   Searches for Repositories installed from the DOMAIN.
 
-`-n`, `--named NAME`
+`-n`, `--named` *NAME*
   Searches for Repositories with the given NAME.
 
-`-t`, `--titled TITLE`
+`-t`, `--titled` *TITLE*
   Searches for Repositories with the similar TITLE.
 
-`-d`, `--describing DESCRIPTION`
+`-d`, `--describing` *DESCRIPTION*
   Searches for Repositories with the similar DESCRIPTION.
 
-`-L`, `--licensed-under LICENSE`
+`-L`, `--licensed-under` *LICENSE*
   Searches for Repositories with the given LICENSE (`MIT`).
 
 ## FILES
@@ -64,11 +64,11 @@ Lists Ronin Repositories.
 
 ## ENVIRONMENT
 
-`HOME`
+HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
   configuration directory within the home directory.
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

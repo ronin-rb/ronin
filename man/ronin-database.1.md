@@ -1,8 +1,8 @@
-# ronin-database 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-database 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin database [options]`
+`ronin database` [*options*]
 
 ## DESCRIPTION
 
@@ -22,44 +22,44 @@ Manages the Ronin Database.
 `--[no-]color`
   Enables color output.
 
-`-a`, `--add NAME`
+`-a`, `--add` *NAME*
   Adds a new Database Repository.
 
-`-s`, `--set NAME`
+`-s`, `--set` *NAME*
   Sets the configure information for a Database Repository.
 
-`-r`, `--remove NAME`
+`-r`, `--remove` *NAME*
   Removes a Database Repository.
 
-`-C`, `--clear NAME`
+`-C`, `--clear` *NAME*
   `WARNING:` This will delete all database within a Database Repository.
 
-`--uri URI`
+`--uri` *URI*
   The URI of a Database Repository (`sqlite3:///path/to/db`).
 
-`--adapter ADAPTER`
+`--adapter` *ADAPTER*
   The Database ADAPTER to use:
 
   * `sqlite3`
   * `mysql`
   * `postgres`
 
-`--host HOST`
+`--host` *HOST*
   The HOST that the Database is running on.
 
-`--port PORT`
+`--port` *PORT*
   The PORT that the Database is listening on.
 
-`--user USER`
+`--user` *USER*
   The USER to login as.
 
-`--password PASSWORD`
+`--password` *PASSWORD*
   The PASSWORD to use while authenticating.
 
-`--database NAME`
+`--database` *NAME*
   The name of the Database.
 
-`--path PATH`
+`--path` *PATH*
   The path to the Database. Only valid with `sqlite3` Databases.
 
 ## FILES
@@ -76,9 +76,9 @@ Manages the Ronin Database.
 *~/.ronin/database.yml*
   Optional Database configuration.
 
-## ENVIRONMENT
+## ENVIRONMENT VARIABLES
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

@@ -1,8 +1,8 @@
-# ronin-console 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-console 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin console [options]`
+`ronin console` [*options*]
 
 ## DESCRIPTION
 
@@ -22,7 +22,7 @@ Start the Ronin Console.
 `-v`, `--[no-]verbose`
   Enable verbose output.
 
-`-D`, `--database [URI]`
+`-D`, `--database` [*URI*]
   The database to URI (`mysql://user:password@host/ronin`).
 
 `--[no-]backtrace`
@@ -31,7 +31,7 @@ Start the Ronin Console.
 `-V`, `--[no-]version`
   Print the Ronin version.
 
-`-r`, `--require [PATH]`
+`-r`, `--require` [*PATH*]
   Ruby files to require.
 
 ## FILES
@@ -54,19 +54,19 @@ Start the Ronin Console.
 *~/.ronin/database.yml*
   Optional Database configuration.
 
-## ENVIRONMENT
+## ENVIRONMENT VARIABLES
 
-`HOME`
+HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
   configuration directory within the home directory.
 
-`EDITOR`
+EDITOR
   Specifies the editor to use when invoking the `!edit` console command.
 
-`VERBOSE`
+VERBOSE
   Enables verbose output within the Ronin Console.
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

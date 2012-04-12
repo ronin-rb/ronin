@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin install [options] URI`
+`ronin install` [*options*] *URI*
 
 ## DESCRIPTION
 
@@ -10,7 +10,7 @@ Installs Ronin Repositories.
 
 ## ARGUMENTS
 
-`URI`
+*URI*
   The URI of the Repository to be installed.
 
 ## OPTIONS
@@ -58,11 +58,11 @@ Installs Ronin Repositories.
 
 ## ENVIRONMENT
 
-`HOME`
+HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
   configuration directory within the home directory.
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

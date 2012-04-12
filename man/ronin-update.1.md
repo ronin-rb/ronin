@@ -1,8 +1,8 @@
-# ronin-update 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-update 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin update [options] [REPO]`
+`ronin update` [*options*] [*REPO*]
 
 ## DESCRIPTION
 
@@ -10,7 +10,7 @@ Updates Ronin Repositories.
 
 ## ARGUMENTS
 
-`REPO`
+*REPO*
   The name of the Repository to update.
 
 ## OPTIONS
@@ -46,11 +46,11 @@ Updates Ronin Repositories.
 
 ## ENVIRONMENT
 
-`HOME`
+HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
   configuration directory within the home directory.
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

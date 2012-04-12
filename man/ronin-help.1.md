@@ -1,8 +1,8 @@
-# ronin-help 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-help 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin help [options] [COMMAND]`
+`ronin help` [*options*] [*COMMAND*]
 
 ## DESCRIPTION
 
@@ -11,7 +11,7 @@ COMMAND.
 
 ## ARGUMENTS
 
-`COMMAND`
+*COMMAND*
   The optional command to get detailed help information on.
 
 ## OPTIONS

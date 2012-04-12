@@ -1,8 +1,8 @@
-# ronin-emails 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-emails 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin emails [options]`
+`ronin emails` [*options*]
 
 ## DESCRIPTION
 
@@ -22,7 +22,7 @@ Manages EmailAddresses.
 `--[no-]color`
   Enables color output.
 
-`-D`, `--database [URI]`
+`-D`, `--database` [*URI*]
   The database to URI (`mysql://user:password@host/ronin`).
 
 `--[no-]csv`
@@ -37,19 +37,19 @@ Manages EmailAddresses.
 `--[no-]json`
   JSON output.
 
-`-H`, `--with-hosts HOST [...]`
+`-H`, `--with-hosts` *HOST* [...]
   Searches for EmailAddresses associated with the HOST(s).
 
-`-I`, `--with-ips IP [...]`
+`-I`, `--with-ips` *IP* [...]
   Searches for EmailAddresses associated with the IP Address(es).
 
-`-u`, `--with-users NAME [...]`
+`-u`, `--with-users` *NAME* [...]
   Searches for EmailAddresses associated with the user NAME(s).
 
 `-l`, `--[no-]list`
   Lists the EmailAddresses.
 
-`-i`, `--import FILE`
+`-i`, `--import` *FILE*
   Imports EmailAddresses from the FILE.
 
 ## FILES
@@ -68,7 +68,7 @@ Manages EmailAddresses.
 
 ## ENVIRONMENT
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

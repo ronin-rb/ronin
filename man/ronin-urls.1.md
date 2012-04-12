@@ -1,8 +1,8 @@
-# ronin-urls 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-urls 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin urls [options]`
+`ronin urls` [*options*]
 
 ## DESCRIPTION
 
@@ -22,7 +22,7 @@ Manages URLs.
 `--[no-]color`
   Enables color output.
 
-`-D`, `--database [URI]`
+`-D`, `--database` *URI*
   The database to URI (`mysql://user:password@host/ronin`).
 
 `--[no-]csv`
@@ -37,7 +37,7 @@ Manages URLs.
 `--[no-]json`
   JSON output.
 
-`-i`, `--import FILE`
+`-i`, `--import` *FILE*
   Imports HostNames from the FILE.
 
 `--[no-]http`
@@ -46,19 +46,19 @@ Manages URLs.
 `--[no-]https`
   Searches for `https://` URLs.
 
-`-H`, `--hosts HOST [...]`
+`-H`, `--hosts` *HOST* [...]
   Searches for URLs with the given HOST name(s).
 
-`-p`, `--with-ports PORT [...]`
+`-p`, `--with-ports` *PORT* [...]
   Searches for URLs associated with the PORT(s).
 
-`-d`, `--directory DIRECTORY`
+`-d`, `--directory` *DIRECTORY*
   Searches for URLs sharing the DIRECTORY.
 
-`-q`, `--with-query-param NAME [...]`
+`-q`, `--with-query-param` *NAME* [...]
   Searches for URLs containing the query-param NAME.
 
-`-Q`, `--with-query-value VALUE [...]`
+`-Q`, `--with-query-value` *VALUE* [...]
   Searches for URLs containing the query-param VALUE.
 
 `-l`, `--[no-]list`
@@ -80,7 +80,7 @@ Manages URLs.
 
 ## ENVIRONMENT
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

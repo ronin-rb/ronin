@@ -1,8 +1,8 @@
-# ronin-campaigns 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-campaigns 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin campaigns [options]`
+`ronin campaigns` *[options]*
 
 ## DESCRIPTION
 
@@ -22,7 +22,7 @@ Manages Campaigns.
 `--[no-]color`
   Enables color output.
 
-`-D`, `--database [URI]`
+`-D`, `--database` [*URI*]
   The database to URI (`mysql://user:password@host/ronin`).
 
 `--[no-]csv`
@@ -37,25 +37,25 @@ Manages Campaigns.
 `--[no-]json`
   JSON output.
 
-`-n`, `--named NAME`
+`-n`, `--named` *NAME*
   Searches for Campaigns with the similar NAME.
 
-`-d`, `--describing DESCRIPTION`
+`-d`, `--describing` *DESCRIPTION*
   Searches for Campaigns with the similar DESCRIPTION.
 
-`-T`, `--targeting ADDRESS [...]`
+`-T`, `--targeting` *ADDRESS* [...]
   Searches for Campaigns targetting the given ADDRESSes.
 
-`-O`, `--targeting-orgs NAME [...]`
+`-O`, `--targeting-orgs` *NAME* [...]
   Searches for Campaigns targetting the NAMEed Organizations.
 
 `-l`, `--[no-]list`
   Lists the Campaigns.
 
-`-a`, `--add NAME`
+`-a`, `--add` *NAME*
   Creates a new Campaign with the given NAME.
 
-`--targets ADDRESS [...]`
+`--targets` *ADDRESS* [...]
   ADDRESSes for the Campaign to target.
 
 ## FILES

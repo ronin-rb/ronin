@@ -1,8 +1,8 @@
-# ronin-wordlist 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-wordlist 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin wordlist [options] [TEMPLATE]`
+`ronin wordlist` [*options*] [*TEMPLATE*]
 
 ## DESCRIPTION
 
@@ -10,7 +10,7 @@ Builds and/or mutates Wordlists.
 
 ## ARGUMENTS
 
-`TEMPLATE`
+*TEMPLATE*
   Options word template to generate the wordlist with (`alpha:7 numeric:1-3`).
 
 ## OPTIONS
@@ -27,13 +27,13 @@ Builds and/or mutates Wordlists.
 `--[no-]color`
   Enables color output.
 
-`-i`, `--input FILE`
+`-i`, `--input` *FILE*
   The input text FILE to parse.
 
-`-o`, `--output PATH`
+`-o`, `--output` *PATH*
   The output PATH to write the wordlist to.
 
-`-m`, `--mutations STRING:SUBSTITUTE`
+`-m`, `--mutations` *STRING*:*SUBSTITUTE*
   Mutations to apply to the words. If STRING is found within a word, it will be
   replaced with SUBSTITUTE.
 

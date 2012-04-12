@@ -1,8 +1,8 @@
-# ronin 1 "APRIL 2012" Ronin "User Manuals"
+# ronin 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin [COMMAND] [options]`
+`ronin` [*COMMAND*] [*options*]
 
 ## DESCRIPTION
 
@@ -10,7 +10,7 @@ Runs a Ronin COMMAND or the starts Ronin Console.
 
 ## ARGUMENTS
 
-`COMMAND`
+*COMMAND*
   The Ronin command to execute.
 
 ## OPTIONS

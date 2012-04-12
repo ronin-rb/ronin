@@ -1,8 +1,8 @@
-# ronin-uninstall 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-uninstall 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin uninstall [options] REPO`
+`ronin uninstall` [*options*] *REPO*
 
 ## DESCRIPTION
 
@@ -10,7 +10,7 @@ Uninstalls a Ronin Repositories.
 
 ## ARGUMENTS
 
-`REPO`
+*REPO*
   The name of the Repository to uninstall.
 
 ## OPTIONS
@@ -46,11 +46,11 @@ Uninstalls a Ronin Repositories.
 
 ## ENVIRONMENT
 
-`HOME`
+HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
   configuration directory within the home directory.
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

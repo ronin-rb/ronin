@@ -1,8 +1,8 @@
-# ronin-creds 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-creds 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin creds [options]`
+`ronin creds` [*options*]
 
 ## DESCRIPTION
 
@@ -22,7 +22,7 @@ Lists Credentials.
 `--[no-]color`
   Enables color output.
 
-`-D`, `--database URI`
+`-D`, `--database` *URI*
   The database to URI (`mysql://user:password@host/ronin`).
 
 `--[no-]csv`
@@ -37,10 +37,10 @@ Lists Credentials.
 `--[no-]json`
   JSON output.
 
-`-u`, `--for-user USER`
+`-u`, `--for-user` *USER*
   Searches for Credentials associated with the USER.
 
-`-p`, `--with-password PASSWORD`
+`-p`, `--with-password` *PASSWORD*
   Searches for Credentials that have the PASSWORD.
 
 `-l`, `--[no-]list`
@@ -62,7 +62,7 @@ Lists Credentials.
 
 ## ENVIRONMENT
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

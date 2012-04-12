@@ -1,8 +1,8 @@
-# ronin-hosts 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-hosts 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin hosts [options]`
+`ronin hosts` [*options*]
 
 ## DESCRIPTION
 
@@ -22,7 +22,7 @@ Manages HostNames.
 `--[no-]color`
   Enables color output.
 
-`-D`, `--database [URI]`
+`-D`, `--database` *URI*
   The database to URI (`mysql://user:password@host/ronin`).
 
 `--[no-]csv`
@@ -37,25 +37,25 @@ Manages HostNames.
 `--[no-]json`
   JSON output.
 
-`-i`, `--import FILE`
+`-i`, `--import` *FILE*
   Imports HostNames from the FILE.
 
-`-I`, `--with-ips IP [...]`
+`-I`, `--with-ips` *IP* [...]
   Searches for HostNames associated with the IP Address(es).
 
-`-p`, `--with-ports PORT [...]`
+`-p`, `--with-ports` *PORT* [...]
   Searches for HostNames associated with the PORT(s).
 
-`-D`, `--domain DOMAIN`
+`-D`, `--domain` *DOMAIN*
   Searches for HostNames belonging to the DOMAIN (`co.uk`).
 
-`-T`, `--tld TLD`
+`-T`, `--tld` *TLD*
   Searches for HostNames with the Top-Level-Domain (TLD) (`ru`).
 
 `-l`, `--[no-]list`
   Lists the HostNames.
 
-`-L`, `--lookup IP`
+`-L`, `--lookup` *IP*
   Looks the HostNames associated with the IP Address.
 
 ## FILES
@@ -74,7 +74,7 @@ Manages HostNames.
 
 ## ENVIRONMENT
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR

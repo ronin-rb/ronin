@@ -1,12 +1,12 @@
-# ronin-ips 1 "APRIL 2012" Ronin "User Manuals"
+# ronin-ips 1 "April 2012" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin ips [options]`
+`ronin ips` [*options*]
 
 ## DESCRIPTION
 
-
+Manages IPAddresses.
 
 ## OPTIONS
 
@@ -22,7 +22,7 @@
 `--[no-]color`
   Enables color output.
 
-`-D`, `--database [URI]`
+`-D`, `--database` *URI*
   The database to URI (`mysql://user:password@host/ronin`).
 
 `--[no-]csv`
@@ -37,7 +37,7 @@
 `--[no-]json`
   JSON output.
 
-`-i`, `--import FILE`
+`-i`, `--import` *FILE*
   Imports HostNames from the FILE.
 
 `-4`, `--[no-]v4`
@@ -46,19 +46,19 @@
 `-6`, `--[no-]v6`
   Searches for IPv6 addresses.
 
-`-p`, `--with-ports PORT [...]`
+`-p`, `--with-ports` *PORT* [...]
   Searches for IPAddresses associated with the user PORT(s).
 
-`-I`, `--with-macs MAC [...]`
+`-I`, `--with-macs` *MAC* [...]
   Searches for IPAddresses associated with the MAC Address(es).
 
-`-I`, `--with-hosts HOST [...]`
+`-I`, `--with-hosts` *HOST* [...]
   Searches for IPAddresses associated with the HOST(s).
 
 `-l`, `--[no-]list`
   Lists the IPAddresses.
 
-`-L`, `--lookup IP`
+`-L`, `--lookup` *IP*
   Looks the IPAddresses associated with the IP Address.
 
 ## FILES
@@ -77,7 +77,7 @@
 
 ## ENVIRONMENT
 
-`DEBUG`
+DEBUG
   Enables verbose debugging output.
 
 ## AUTHOR
