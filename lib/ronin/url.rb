@@ -181,7 +181,7 @@ module Ronin
     #
     # Searches for all URLs sharing a common sub-directory.
     #
-    # @param [String] sub_dir
+    # @param [String] root_dir
     #   The sub-directory to search for.
     #
     # @return [Array<URL>]
@@ -191,8 +191,8 @@ module Ronin
     #
     # @api public
     #
-    def self.directory(sub_dir)
-      all(:path => sub_dir) | all(:path.like => "#{sub_dir}/%")
+    def self.directory(root_dir)
+      all(:path => root_dir) | all(:path.like => "#{root_dir}/%")
     end
 
     #
