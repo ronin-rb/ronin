@@ -33,6 +33,24 @@ post_install_message: |
 
   *************************************************************************
 
+generated_files:
+ - man/ronin.1
+ - man/ronin-campaigns.1
+ - man/ronin-console.1
+ - man/ronin-creds.1
+ - man/ronin-database.1
+ - man/ronin-emails.1
+ - man/ronin-exec.1
+ - man/ronin-help.1
+ - man/ronin-hosts.1
+ - man/ronin-install.1
+ - man/ronin-ips.1
+ - man/ronin-repos.1
+ - man/ronin-uninstall.1
+ - man/ronin-update.1
+ - man/ronin-urls.1
+ - man/ronin-wordlist.1
+
 required_ruby_version: ">= 1.8.7"
 
 dependencies:
