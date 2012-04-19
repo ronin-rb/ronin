@@ -76,7 +76,25 @@ Gem::Specification.new do |gemspec|
     gemspec.require_path = metadata['require_paths']
   end
 
-  gemspec.files = filter_files[metadata['files']]
+  gemspec.files  = filter_files[metadata['files']]
+  gemspec.files += %w[
+    man/ronin.1
+    man/ronin-campaigns.1
+    man/ronin-console.1
+    man/ronin-creds.1
+    man/ronin-database.1
+    man/ronin-emails.1
+    man/ronin-exec.1
+    man/ronin-help.1
+    man/ronin-hosts.1
+    man/ronin-install.1
+    man/ronin-ips.1
+    man/ronin-repos.1
+    man/ronin-uninstall.1
+    man/ronin-update.1
+    man/ronin-urls.1
+    man/ronin-wordlist.1
+  ]
 
   gemspec.executables = metadata['executables']
   gemspec.extensions = metadata['extensions']
