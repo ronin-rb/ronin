@@ -18,8 +18,16 @@ end
 
 require 'rake'
 
-require 'ore/tasks'
-Ore::Tasks.new
+require 'rubygems/tasks'
+Gem::Tasks.new(:sign => {:checksum => true, :pgp => true}) do |tasks|
+  tasks.scm.tag.format  = 'v%s'
+  tasks.console.command = 'ripl'
+  tasks.console.options = %w[
+    -rripl/multi_line
+    -rripl/auto_indent
+    -rripl/color_result
+  ]
+end
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new

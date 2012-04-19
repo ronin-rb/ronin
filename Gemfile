@@ -29,11 +29,9 @@ end
 # gem 'ronin-support',	'~> 0.4.0.rc1', :git => "#{RONIN_URI}/ronin-support.git"
 
 group :development do
-  gem 'rake',         '~> 0.8'
-
-  gem 'ore-tasks',    '~> 0.4'
-  gem 'rspec',        '~> 2.4'
-
+  gem 'rake',           '~> 0.8'
+  gem 'rubygems-tasks', '0.1.0.pre1'
+  gem 'rspec',          '~> 2.4'
   gem 'kramdown',       '~> 0.12'
   gem 'ruby-graphviz',  '~> 0.9'
   gem 'dm-visualizer',  '~> 0.2'
