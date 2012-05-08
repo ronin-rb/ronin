@@ -636,11 +636,6 @@ module Ronin
               end
             end
 
-            if self.class.summary
-              opts.separator ''
-              opts.separator self.class.summary
-            end
-
             unless self.class.examples.empty?
               opts.separator ''
               opts.separator 'Examples:'
@@ -648,6 +643,11 @@ module Ronin
               self.class.examples.each do |example|
                 opts.separator "  #{example}"
               end
+            end
+
+            if self.class.summary
+              opts.separator ''
+              opts.separator self.class.summary
             end
           end
         end
