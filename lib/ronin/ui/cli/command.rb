@@ -640,6 +640,15 @@ module Ronin
               opts.separator ''
               opts.separator self.class.summary
             end
+
+            unless self.class.examples.empty?
+              opts.separator ''
+              opts.separator 'Examples:'
+
+              self.class.examples.each do |example|
+                opts.separator "  #{example}"
+              end
+            end
           end
         end
 
