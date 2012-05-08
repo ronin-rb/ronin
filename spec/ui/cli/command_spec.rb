@@ -76,8 +76,45 @@ describe UI::CLI::Command do
 
       subject { Class.new(superclass).summary }
 
-      it "should default to the usage of the superclass" do
+      it "should default to the summary of the superclass" do
         subject.should == superclass.summary
+      end
+    end
+  end
+
+  describe "examples" do
+    context "without an argument" do
+      it "should return the set summary" do
+        # subject.example.should == 'Tests the default task'
+      end
+    end
+
+    context "with an argument" do
+      let(:expected) do
+        {'Performs foo' => '--foo PATH'}
+      end
+
+      subject { Class.new(described_class) }
+      before  { subject.examples expected }
+
+      it "should set the usage" do
+        subject.examples.should == expected
+      end
+    end
+
+    context "default" do
+      subject { Class.new(described_class).examples }
+
+      it { should == {} }
+    end
+
+    context "inherited" do
+      let(:superclass) { TestCommand }
+
+      subject { Class.new(superclass).examples }
+
+      it "should default to the examples of the superclass" do
+        subject.should == superclass.examples
       end
     end
   end

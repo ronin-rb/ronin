@@ -357,6 +357,31 @@ module Ronin
         end
 
         #
+        # Example usages for the command.
+        #
+        # @param [Hash{String => String}] new_examples
+        #   The new exanmples for the command.
+        #
+        # @return [Hash]
+        #   Example commands.
+        #
+        # @since 1.5.0
+        #
+        # @api semipublic
+        #
+        def self.examples(new_examples=nil)
+          if new_examples
+            @examples = new_examples
+          else
+            @examples ||= if superclass < Command
+                            superclass.examples.dup
+                          else
+                            {}
+                          end
+          end
+        end
+
+        #
         # The options for the parameters.
         #
         # @return [Hash{Symbol => Hash}]
