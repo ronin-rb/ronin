@@ -359,10 +359,10 @@ module Ronin
         #
         # Example usages for the command.
         #
-        # @param [Hash{String => String}] new_examples
+        # @param [Array<String>] new_examples
         #   The new exanmples for the command.
         #
-        # @return [Hash]
+        # @return [Array]
         #   Example commands.
         #
         # @since 1.5.0
@@ -376,7 +376,7 @@ module Ronin
             @examples ||= if superclass < Command
                             superclass.examples.dup
                           else
-                            {}
+                            []
                           end
           end
         end

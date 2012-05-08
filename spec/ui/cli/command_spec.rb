@@ -91,7 +91,7 @@ describe UI::CLI::Command do
 
     context "with an argument" do
       let(:expected) do
-        {'Performs foo' => '--foo PATH'}
+        ['--foo PATH', '--foo PATH FILE ...']
       end
 
       subject { Class.new(described_class) }
@@ -105,7 +105,7 @@ describe UI::CLI::Command do
     context "default" do
       subject { Class.new(described_class).examples }
 
-      it { should == {} }
+      it { should == [] }
     end
 
     context "inherited" do

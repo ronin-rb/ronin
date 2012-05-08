@@ -6,9 +6,10 @@ class TestCommand < Ronin::UI::CLI::Command
 
   usage '[options] PATH FILE [..]'
 
-  examples(
-    'Performs foo' => '--foo PATH'
-  )
+  examples [
+    '--foo PATH',
+    '--foo PATH FILE ...',
+  ]
 
   option :foo
 
