@@ -226,9 +226,4 @@ describe UI::CLI::Command do
       subject.files.should == files
     end
   end
-
-  it "should have zero indentation by default" do
-    command = subject.new
-    command.instance_variable_get('@indent').should == 0
-  end
 end
