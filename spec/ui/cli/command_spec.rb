@@ -91,7 +91,7 @@ describe UI::CLI::Command do
 
     context "with an argument" do
       let(:expected) do
-        ['--foo PATH', '--foo PATH FILE ...']
+        ['test_command --foo PATH', 'test_command --foo PATH FILE ...']
       end
 
       subject { Class.new(described_class) }
