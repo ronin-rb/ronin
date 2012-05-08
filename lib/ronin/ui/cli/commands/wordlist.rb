@@ -68,7 +68,11 @@ module Ronin
                              :descriptions => 'Mutations rules'
 
           argument :template, :type        => Array,
-                              :description => 'Options word template (alpha:7 numeric:1-3)'
+                              :description => 'Options word template [CHARSET:[LENGTH|RANGE] ...]'
+
+          examples [
+            'ronin wordlist alpha:7 numeric:1-3'
+          ]
 
           #
           # Executes the wordlist command.
