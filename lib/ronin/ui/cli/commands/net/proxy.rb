@@ -77,18 +77,18 @@ module Ronin
                              :usage       => 'STRING:REPLACE',
                              :description => 'Rewrite rules'
 
-            option :drop_client, :type        => Set[String],
-                                 :default     => Set[],
-                                 :description => 'Client drop rules'
+            option :ignore_client, :type        => Set[String],
+                                   :default     => Set[],
+                                   :description => 'Client ignore rules'
 
-            option :drop_server, :type        => Set[String],
-                                 :default     => Set[],
-                                 :description => 'Server drop rules'
+            option :ignore_server, :type        => Set[String],
+                                   :default     => Set[],
+                                   :description => 'Server ignore rules'
 
-            option :drop, :type        => Set[String],
-                          :default     => Set[],
-                          :flag        => '-d',
-                          :description => 'Drop rules'
+            option :ignore, :type        => Set[String],
+                            :default     => Set[],
+                            :flag        => '-d',
+                            :description => 'Drop rules'
 
             def setup
               super
@@ -128,9 +128,9 @@ module Ronin
                 end
               end
 
-              @drop_client.each do |string|
+              @ignore_client.each do |string|
                 proxy.on_client_data do |client,server,data|
-                  proxy.drop! if data.include?(string)
+                  proxy.ignore! if data.include?(string)
                 end
               end
 
@@ -140,9 +140,9 @@ module Ronin
                 end
               end
 
-              @drop_server.each do |string|
+              @ignore_server.each do |string|
                 proxy.on_server_data do |client,server,data|
-                  proxy.drop! if data.include?(string)
+                  proxy.ignore! if data.include?(string)
                 end
               end
 
@@ -152,9 +152,9 @@ module Ronin
                 end
               end
 
-              @drop.each do |string|
+              @ignore.each do |string|
                 proxy.on_data do |client,server,data|
-                  proxy.drop! if data.include?(string)
+                  proxy.ignore! if data.include?(string)
                 end
               end
 
