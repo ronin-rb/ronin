@@ -87,8 +87,8 @@ module Ronin
 
             option :ignore, :type        => Set[String],
                             :default     => Set[],
-                            :flag        => '-d',
-                            :description => 'Drop rules'
+                            :flag        => '-i',
+                            :description => 'Ignore rules'
 
             def setup
               super
@@ -100,81 +100,83 @@ module Ronin
                                @port
                              end
 
-              @hexdumper = Hexdump::Dumper.new
+              if hexdump?
+                @hexdumper = Hexdump::Dumper.new
+              end
             end
 
             def execute
-              proxy = proxy_class.new(
+              @proxy = proxy_class.new(
                 :port   => @port,
                 :host   => @host,
                 :server => [@server_host, @server_port]
               )
 
               if tcp?
-                proxy.on_client_connect do |client|
-                  print_outgoing client, server, '[connected]'
+                @proxy.on_client_connect do |client|
+                  print_outgoing client, '[connecting]'
                 end
 
-                proxy.on_client_disconnect do |client,server|
-                  print_outgoing client, server, '[disconnected]'
+                @proxy.on_client_disconnect do |client,server|
+                  print_outgoing client, '[disconnecting]'
                 end
 
-                proxy.on_server_connect do |client,server|
-                  print_incoming client, server, '[connected]'
+                @proxy.on_server_connect do |client,server|
+                  print_incoming client, '[connected]'
                 end
 
-                proxy.on_server_disconnect do |client,server|
-                  print_incoming client, server, '[disconnected]'
+                @proxy.on_server_disconnect do |client,server|
+                  print_incoming client, '[disconnected]'
                 end
               end
 
               @ignore_client.each do |string|
-                proxy.on_client_data do |client,server,data|
-                  proxy.ignore! if data.include?(string)
+                @proxy.on_client_data do |client,server,data|
+                  @proxy.ignore! if data.include?(string)
                 end
               end
 
               @rewrite_client.each do |string,replace|
-                proxy.on_client_data do |client,server,data|
+                @proxy.on_client_data do |client,server,data|
                   data.gsub!(string,replace)
                 end
               end
 
               @ignore_server.each do |string|
-                proxy.on_server_data do |client,server,data|
-                  proxy.ignore! if data.include?(string)
+                @proxy.on_server_data do |client,server,data|
+                  @proxy.ignore! if data.include?(string)
                 end
               end
 
               @rewrite_server.each do |string,replace|
-                proxy.on_server_data do |client,server,data|
+                @proxy.on_server_data do |client,server,data|
                   data.gsub!(string,replace)
                 end
               end
 
               @ignore.each do |string|
-                proxy.on_data do |client,server,data|
-                  proxy.ignore! if data.include?(string)
+                @proxy.on_data do |client,server,data|
+                  @proxy.ignore! if data.include?(string)
                 end
               end
 
               @rewrite.each do |string,replace|
-                proxy.on_data do |client,server,data|
+                @proxy.on_data do |client,server,data|
                   data.gsub!(string,replace)
                 end
               end
 
-              proxy.on_client_data do |client,server,data|
-                print_outgoing client, server
+              @proxy.on_client_data do |client,server,data|
+                print_outgoing client
                 print_data data
               end
 
-              proxy.on_server_data do |client,server,data|
-                print_incoming client, server
+              @proxy.on_server_data do |client,server,data|
+                print_incoming client
                 print_data data
               end
 
-              proxy.start
+              @proxy.start
             end
 
             protected
@@ -197,17 +199,15 @@ module Ronin
                 addrinfo = connection.peeraddr
 
                 "#{addrinfo[3]}:#{addrinfo[1]}"
-              when nil
-                "#{@server_host}:#{@server_port}"
               end
             end
 
-            def print_incoming(client,server,type=nil)
-              print_info "#{address(client)} <- #{address(server)} #{type}"
+            def print_incoming(client,type=nil)
+              print_info "#{address(client)} <- #{@proxy} #{type}"
             end
 
-            def print_outgoing(client,server,type=nil)
-              print_info "#{address(client)} -> #{address(server)} #{type}"
+            def print_outgoing(client,type=nil)
+              print_info "#{address(client)} -> #{@proxy} #{type}"
             end
 
             def print_data(data)
