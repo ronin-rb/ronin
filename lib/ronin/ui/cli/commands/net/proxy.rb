@@ -61,6 +61,22 @@ module Ronin
                             :usage       => 'HOST[:PORT]',
                             :description => 'Server to forward connections to'
 
+            option :rewrite_client, :type        => Hash[String => String],
+                                    :default     => {},
+                                    :usage       => 'STRING:REPLACE',
+                                    :description => 'Client rewrite rules'
+
+            option :rewrite_server, :type        => Hash[String => String],
+                                    :default     => {},
+                                    :usage       => 'STRING:REPLACE',
+                                    :description => 'Server rewrite rules'
+
+            option :rewrite, :type        => Hash[String => String],
+                             :default     => {},
+                             :flag        => '-r',
+                             :usage       => 'STRING:REPLACE',
+                             :description => 'Rewrite rules'
+
             def setup
               super
 
@@ -99,6 +115,24 @@ module Ronin
                 end
               end
 
+              @rewrite_client.each do |string,replace|
+                proxy.on_client_data do |client,server,data|
+                  data.gsub!(string,replace)
+                end
+              end
+
+              @rewrite_server.each do |string,replace|
+                proxy.on_server_data do |client,server,data|
+                  data.gsub!(string,replace)
+                end
+              end
+
+              @rewrite.each do |string,replace|
+                proxy.on_data do |client,server,data|
+                  data.gsub!(string,replace)
+                end
+              end
+
               proxy.on_client_data do |client,server,data|
                 print_outgoing client, server
                 print_data data
@@ -107,9 +141,6 @@ module Ronin
               proxy.on_server_data do |client,server,data|
                 print_incoming client, server
                 print_data data
-              end
-
-              proxy.on_data do |client,server,data|
               end
 
               proxy.start
