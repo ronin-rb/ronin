@@ -46,7 +46,7 @@ module Ronin
                              :description => 'Enable hexdump output'
 
             option :host, :type        => String,
-                          :default     => '0.0.0.0',
+                          :default     => Network::Proxy::DEFAULT_HOST,
                           :flag        => '-H',
                           :usage       => 'HOST',
                           :description => 'Host to listen on'
