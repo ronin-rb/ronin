@@ -50,26 +50,26 @@ module Ronin
           #                                      Default: "0.0.0.0"
           #     -p, --port [PORT]                Port to listen on.
           #     -s, --server [HOST[:PORT]]       Server to forward connections to.
-          #         --rewrite-client [STRING:REPLACE]
+          #         --rewrite-client [/REGEXP/:REPLACE]
           #                                      Client rewrite rules.
-          #         --rewrite-server [STRING:REPLACE]
+          #         --rewrite-server [/REGEXP/:REPLACE]
           #                                      Server rewrite rules.
-          #     -r, --rewrite [STRING:REPLACE]   Rewrite rules.
-          #         --ignore-client [STRING [...]]
+          #     -r, --rewrite [/REGEXP/:REPLACE] Rewrite rules.
+          #         --ignore-client [/REGEXP/ [...]]
           #                                      Client ignore rules.
-          #         --ignore-server [STRING [...]]
+          #         --ignore-server [/REGEXP/ [...]]
           #                                      Server ignore rules.
-          #     -i, --ignore [STRING [...]]      Ignore rules.
-          #         --close-client [STRING [...]]
+          #     -i, --ignore [/REGEXP/ [...]]    Ignore rules.
+          #         --close-client [/REGEXP/ [...]]
           #                                      Client close rules.
-          #         --close-server [STRING [...]]
+          #         --close-server [/REGEXP/ [...]]
           #                                      Server close rules.
-          #     -C, --close [STRING [...]]       Close rules.
-          #         --reset-client [STRING [...]]
+          #     -C, --close [/REGEXP/ [...]]     Close rules.
+          #         --reset-client [/REGEXP/ [...]]
           #                                      Client reset rules.
-          #         --reset-server [STRING [...]]
+          #         --reset-server [/REGEXP/ [...]]
           #                                      Server reset rules.
-          #     -R, --reset [STRING [...]]       Reset rules.
+          #     -R, --reset [/REGEXP/ [...]]     Reset rules.
           #
           # @since 1.5.0
           # 
@@ -106,56 +106,56 @@ module Ronin
                             :usage       => 'HOST[:PORT]',
                             :description => 'Server to forward connections to'
 
-            option :rewrite_client, :type        => Hash[String => String],
-                                    :usage       => 'STRING:REPLACE',
+            option :rewrite_client, :type        => Hash[Regexp => String],
+                                    :usage       => '/REGEXP/:REPLACE',
                                     :description => 'Client rewrite rules'
 
-            option :rewrite_server, :type        => Hash[String => String],
-                                    :usage       => 'STRING:REPLACE',
+            option :rewrite_server, :type        => Hash[Regexp => String],
+                                    :usage       => '/REGEXP/:REPLACE',
                                     :description => 'Server rewrite rules'
 
-            option :rewrite, :type        => Hash[String => String],
+            option :rewrite, :type        => Hash[Regexp => String],
                              :flag        => '-r',
-                             :usage       => 'STRING:REPLACE',
+                             :usage       => '/REGEXP/:REPLACE',
                              :description => 'Rewrite rules'
 
-            option :ignore_client, :type        => Set[String],
-                                   :usage       => 'STRING [...]',
+            option :ignore_client, :type        => Set[Regexp],
+                                   :usage       => '/REGEXP/ [...]',
                                    :description => 'Client ignore rules'
 
             option :ignore_server, :type        => Set[String],
-                                   :usage       => 'STRING [...]',
+                                   :usage       => '/REGEXP/ [...]',
                                    :description => 'Server ignore rules'
 
-            option :ignore, :type        => Set[String],
+            option :ignore, :type        => Set[Regexp],
                             :flag        => '-i',
-                            :usage       => 'STRING [...]',
+                            :usage       => '/REGEXP/ [...]',
                             :description => 'Ignore rules'
 
-            option :close_client, :type        => Set[String],
-                                  :usage       => 'STRING [...]',
+            option :close_client, :type        => Set[Regexp],
+                                  :usage       => '/REGEXP/ [...]',
                                   :description => 'Client close rules'
 
-            option :close_server, :type        => Set[String],
-                                  :usage       => 'STRING [...]',
+            option :close_server, :type        => Set[Regexp],
+                                  :usage       => '/REGEXP/ [...]',
                                   :description => 'Server close rules'
 
-            option :close, :type        => Set[String],
+            option :close, :type        => Set[Regexp],
                            :flag        => '-C',
-                           :usage       => 'STRING [...]',
+                           :usage       => '/REGEXP/ [...]',
                            :description => 'Close rules'
 
-            option :reset_client, :type        => Set[String],
-                                  :usage       => 'STRING [...]',
+            option :reset_client, :type        => Set[Regexp],
+                                  :usage       => '/REGEXP/ [...]',
                                   :description => 'Client reset rules'
 
-            option :reset_server, :type        => Set[String],
-                                  :usage       => 'STRING [...]',
+            option :reset_server, :type        => Set[Regexp],
+                                  :usage       => '/REGEXP/ [...]',
                                   :description => 'Server reset rules'
 
-            option :reset, :type        => Set[String],
+            option :reset, :type        => Set[Regexp],
                            :flag        => '-R',
-                           :usage       => 'STRING [...]',
+                           :usage       => '/REGEXP/ [...]',
                            :description => 'Reset rules'
 
             #
@@ -203,97 +203,97 @@ module Ronin
               end
 
               if @reset_client
-                @reset_client.each do |string|
+                @reset_client.each do |pattern|
                   @proxy.on_client_data do |client,server,data|
-                    @proxy.reset! if data.include?(string)
+                    @proxy.reset! if data =~ pattern
                   end
                 end
               end
 
               if @close_client
-                @close_client.each do |string|
+                @close_client.each do |pattern|
                   @proxy.on_client_data do |client,server,data|
-                    @proxy.close! if data.include?(string)
+                    @proxy.close! if data =~ pattern
                   end
                 end
               end
 
               if @ignore_client
-                @ignore_client.each do |string|
+                @ignore_client.each do |pattern|
                   @proxy.on_client_data do |client,server,data|
-                    @proxy.ignore! if data.include?(string)
+                    @proxy.ignore! if data =~ pattern
                   end
                 end
               end
 
               if @rewrite_client
-                @rewrite_client.each do |string,replace|
+                @rewrite_client.each do |pattern,replace|
                   @proxy.on_client_data do |client,server,data|
-                    data.gsub!(string,replace)
+                    data.gsub!(pattern,replace)
                   end
                 end
               end
 
               if @reset_server
-                @reset_server.each do |string|
+                @reset_server.each do |pattern|
                   @proxy.on_server_data do |client,server,data|
-                    @proxy.reset! if data.include?(string)
+                    @proxy.reset! if data =~ pattern
                   end
                 end
               end
 
               if @close_server
-                @close_server.each do |string|
+                @close_server.each do |pattern|
                   @proxy.on_server_data do |client,server,data|
-                    @proxy.close! if data.include?(string)
+                    @proxy.close! if data =~ pattern
                   end
                 end
               end
 
               if @ignore_server
-                @ignore_server.each do |string|
+                @ignore_server.each do |pattern|
                   @proxy.on_server_data do |client,server,data|
-                    @proxy.ignore! if data.include?(string)
+                    @proxy.ignore! if data =~ pattern
                   end
                 end
               end
 
               if @rewrite_server
-                @rewrite_server.each do |string,replace|
+                @rewrite_server.each do |pattern,replace|
                   @proxy.on_server_data do |client,server,data|
-                    data.gsub!(string,replace)
+                    data.gsub!(pattern,replace)
                   end
                 end
               end
 
               if @reset
-                @reset.each do |string|
+                @reset.each do |pattern|
                   @proxy.on_data do |client,server,data|
-                    @proxy.reset! if data.include?(string)
+                    @proxy.reset! if data =~ pattern
                   end
                 end
               end
 
               if @close
-                @close.each do |string|
+                @close.each do |pattern|
                   @proxy.on_data do |client,server,data|
-                    @proxy.close! if data.include?(string)
+                    @proxy.close! if data =~ pattern
                   end
                 end
               end
 
               if @ignore
-                @ignore.each do |string|
+                @ignore.each do |pattern|
                   @proxy.on_data do |client,server,data|
-                    @proxy.ignore! if data.include?(string)
+                    @proxy.ignore! if data =~ pattern
                   end
                 end
               end
 
               if @rewrite
-                @rewrite.each do |string,replace|
+                @rewrite.each do |pattern,replace|
                   @proxy.on_data do |client,server,data|
-                    data.gsub!(string,replace)
+                    data.gsub!(pattern,replace)
                   end
                 end
               end
