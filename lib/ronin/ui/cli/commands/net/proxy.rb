@@ -28,6 +28,51 @@ module Ronin
     module CLI
       module Commands
         module Net
+          #
+          # Starts a TCP/UDP intercept proxy.
+          #
+          # ## Usage
+          #
+          #     ronin net:proxy [options]
+          #
+          # ## Options
+          #
+          #    -v, --[no-]verbose               Enable verbose output.
+          #    -q, --[no-]quiet                 Disable verbose output.
+          #        --[no-]silent                Silence all output.
+          #        --[no-]color                 Enables color output.
+          #                                     Default: true
+          #    -t, --[no-]tcp                   TCP Proxy.
+          #                                     Default: true
+          #    -u, --[no-]udp                   UDP Proxy.
+          #    -x, --[no-]hexdump               Enable hexdump output.
+          #    -H, --host [HOST]                Host to listen on.
+          #                                     Default: "0.0.0.0"
+          #    -p, --port [PORT]                Port to listen on.
+          #    -s, --server [HOST[:PORT]]       Server to forward connections to.
+          #        --rewrite-client [STRING:REPLACE]
+          #                                     Client rewrite rules.
+          #        --rewrite-server [STRING:REPLACE]
+          #                                     Server rewrite rules.
+          #    -r, --rewrite [STRING:REPLACE]   Rewrite rules.
+          #        --ignore-client [STRING [...]]
+          #                                     Client ignore rules.
+          #        --ignore-server [STRING [...]]
+          #                                     Server ignore rules.
+          #    -i, --ignore [STRING [...]]      Ignore rules.
+          #        --close-client [STRING [...]]
+          #                                     Client close rules.
+          #        --close-server [STRING [...]]
+          #                                     Server close rules.
+          #    -C, --close [STRING [...]]       Close rules.
+          #        --reset-client [STRING [...]]
+          #                                     Client reset rules.
+          #        --reset-server [STRING [...]]
+          #                                     Server reset rules.
+          #    -R, --reset [STRING [...]]       Reset rules.
+          #
+          # @since 1.5.0
+          # 
           class Proxy < Command
 
             summary 'Starts a TCP/UDP intercept proxy'
@@ -113,6 +158,9 @@ module Ronin
                            :usage       => 'STRING [...]',
                            :description => 'Reset rules'
 
+            #
+            # Sets up the proxy command.
+            #
             def setup
               super
 
@@ -126,6 +174,9 @@ module Ronin
               end
             end
 
+            #
+            # Executes the proxy command.
+            #
             def execute
               @proxy = proxy_class.new(
                 :port   => @port,
@@ -262,6 +313,13 @@ module Ronin
 
             protected
 
+            #
+            # Determines the Proxy class based on the `--tcp` or `--udp`
+            # options.
+            #
+            # @return [Network::TCP::Proxy, Network::UDP::Proxy]
+            #   The proxy class.
+            #
             def proxy_class
               if udp?
                 Network::UDP::Proxy
@@ -270,6 +328,15 @@ module Ronin
               end
             end
 
+            #
+            # Returns the address for the connection.
+            #
+            # @param [(UDPSocket,(host, port)), TCPSocket, UDPSocket] connection
+            #   The connection.
+            #
+            # @return [String]
+            #   The address of the connection.
+            #
             def address(connection)
               case connection
               when Array
@@ -283,14 +350,38 @@ module Ronin
               end
             end
 
-            def print_incoming(client,type=nil)
-              print_info "#{address(client)} <- #{@proxy} #{type}"
+            #
+            # Prints a connection header for an incoming event.
+            #
+            # @param [(UDPSocket,(host, port)), TCPSocket, UDPSocket] client
+            #   The client.
+            #
+            # @param [String] event
+            #   The optional name of the event.
+            #
+            def print_incoming(client,event=nil)
+              print_info "#{address(client)} <- #{@proxy} #{event}"
             end
 
+            #
+            # Prints a connection header for an outgoing event.
+            #
+            # @param [(UDPSocket,(host, port)), TCPSocket, UDPSocket] client
+            #   The client.
+            #
+            # @param [String] event
+            #   The optional name of the event.
+            #
             def print_outgoing(client,type=nil)
               print_info "#{address(client)} -> #{@proxy} #{type}"
             end
 
+            #
+            # Prints data from a message.
+            #
+            # @param [String] data
+            #   The data from a message.
+            #
             def print_data(data)
               if hexdump?
                 @hexdumper.dump(data)
