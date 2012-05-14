@@ -37,39 +37,39 @@ module Ronin
           #
           # ## Options
           #
-          #    -v, --[no-]verbose               Enable verbose output.
-          #    -q, --[no-]quiet                 Disable verbose output.
-          #        --[no-]silent                Silence all output.
-          #        --[no-]color                 Enables color output.
-          #                                     Default: true
-          #    -t, --[no-]tcp                   TCP Proxy.
-          #                                     Default: true
-          #    -u, --[no-]udp                   UDP Proxy.
-          #    -x, --[no-]hexdump               Enable hexdump output.
-          #    -H, --host [HOST]                Host to listen on.
-          #                                     Default: "0.0.0.0"
-          #    -p, --port [PORT]                Port to listen on.
-          #    -s, --server [HOST[:PORT]]       Server to forward connections to.
-          #        --rewrite-client [STRING:REPLACE]
-          #                                     Client rewrite rules.
-          #        --rewrite-server [STRING:REPLACE]
-          #                                     Server rewrite rules.
-          #    -r, --rewrite [STRING:REPLACE]   Rewrite rules.
-          #        --ignore-client [STRING [...]]
-          #                                     Client ignore rules.
-          #        --ignore-server [STRING [...]]
-          #                                     Server ignore rules.
-          #    -i, --ignore [STRING [...]]      Ignore rules.
-          #        --close-client [STRING [...]]
-          #                                     Client close rules.
-          #        --close-server [STRING [...]]
-          #                                     Server close rules.
-          #    -C, --close [STRING [...]]       Close rules.
-          #        --reset-client [STRING [...]]
-          #                                     Client reset rules.
-          #        --reset-server [STRING [...]]
-          #                                     Server reset rules.
-          #    -R, --reset [STRING [...]]       Reset rules.
+          #     -v, --[no-]verbose               Enable verbose output.
+          #     -q, --[no-]quiet                 Disable verbose output.
+          #         --[no-]silent                Silence all output.
+          #         --[no-]color                 Enables color output.
+          #                                      Default: true
+          #     -t, --[no-]tcp                   TCP Proxy.
+          #                                      Default: true
+          #     -u, --[no-]udp                   UDP Proxy.
+          #     -x, --[no-]hexdump               Enable hexdump output.
+          #     -H, --host [HOST]                Host to listen on.
+          #                                      Default: "0.0.0.0"
+          #     -p, --port [PORT]                Port to listen on.
+          #     -s, --server [HOST[:PORT]]       Server to forward connections to.
+          #         --rewrite-client [STRING:REPLACE]
+          #                                      Client rewrite rules.
+          #         --rewrite-server [STRING:REPLACE]
+          #                                      Server rewrite rules.
+          #     -r, --rewrite [STRING:REPLACE]   Rewrite rules.
+          #         --ignore-client [STRING [...]]
+          #                                      Client ignore rules.
+          #         --ignore-server [STRING [...]]
+          #                                      Server ignore rules.
+          #     -i, --ignore [STRING [...]]      Ignore rules.
+          #         --close-client [STRING [...]]
+          #                                      Client close rules.
+          #         --close-server [STRING [...]]
+          #                                      Server close rules.
+          #     -C, --close [STRING [...]]       Close rules.
+          #         --reset-client [STRING [...]]
+          #                                      Client reset rules.
+          #         --reset-server [STRING [...]]
+          #                                      Server reset rules.
+          #     -R, --reset [STRING [...]]       Reset rules.
           #
           # @since 1.5.0
           # 
