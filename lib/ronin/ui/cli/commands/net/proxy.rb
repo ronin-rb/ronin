@@ -62,57 +62,45 @@ module Ronin
                             :description => 'Server to forward connections to'
 
             option :rewrite_client, :type        => Hash[String => String],
-                                    :default     => {},
                                     :usage       => 'STRING:REPLACE',
                                     :description => 'Client rewrite rules'
 
             option :rewrite_server, :type        => Hash[String => String],
-                                    :default     => {},
                                     :usage       => 'STRING:REPLACE',
                                     :description => 'Server rewrite rules'
 
             option :rewrite, :type        => Hash[String => String],
-                             :default     => {},
                              :flag        => '-r',
                              :usage       => 'STRING:REPLACE',
                              :description => 'Rewrite rules'
 
             option :ignore_client, :type        => Set[String],
-                                   :default     => Set[],
                                    :description => 'Client ignore rules'
 
             option :ignore_server, :type        => Set[String],
-                                   :default     => Set[],
                                    :description => 'Server ignore rules'
 
             option :ignore, :type        => Set[String],
-                            :default     => Set[],
                             :flag        => '-i',
                             :description => 'Ignore rules'
 
             option :close_client, :type        => Set[String],
-                                  :default     => Set[],
                                   :description => 'Client close rules'
 
             option :close_server, :type        => Set[String],
-                                  :default     => Set[],
                                   :description => 'Server close rules'
 
             option :close, :type        => Set[String],
-                           :default     => Set[],
                            :flag        => '-C',
                            :description => 'Close rules'
 
             option :reset_client, :type        => Set[String],
-                                  :default     => Set[],
                                   :description => 'Client reset rules'
 
             option :reset_server, :type        => Set[String],
-                                  :default     => Set[],
                                   :description => 'Server reset rules'
 
             option :reset, :type        => Set[String],
-                           :default     => Set[],
                            :flag        => '-R',
                            :description => 'Reset rules'
 
@@ -156,75 +144,99 @@ module Ronin
                 end
               end
 
-              @reset_client.each do |string|
-                @proxy.on_client_data do |client,server,data|
-                  @proxy.reset! if data.include?(string)
+              if @reset_client
+                @reset_client.each do |string|
+                  @proxy.on_client_data do |client,server,data|
+                    @proxy.reset! if data.include?(string)
+                  end
                 end
               end
 
-              @close_client.each do |string|
-                @proxy.on_client_data do |client,server,data|
-                  @proxy.close! if data.include?(string)
+              if @close_client
+                @close_client.each do |string|
+                  @proxy.on_client_data do |client,server,data|
+                    @proxy.close! if data.include?(string)
+                  end
                 end
               end
 
-              @ignore_client.each do |string|
-                @proxy.on_client_data do |client,server,data|
-                  @proxy.ignore! if data.include?(string)
+              if @ignore_client
+                @ignore_client.each do |string|
+                  @proxy.on_client_data do |client,server,data|
+                    @proxy.ignore! if data.include?(string)
+                  end
                 end
               end
 
-              @rewrite_client.each do |string,replace|
-                @proxy.on_client_data do |client,server,data|
-                  data.gsub!(string,replace)
+              if @rewrite_client
+                @rewrite_client.each do |string,replace|
+                  @proxy.on_client_data do |client,server,data|
+                    data.gsub!(string,replace)
+                  end
                 end
               end
 
-              @reset_server.each do |string|
-                @proxy.on_server_data do |client,server,data|
-                  @proxy.reset! if data.include?(string)
+              if @reset_server
+                @reset_server.each do |string|
+                  @proxy.on_server_data do |client,server,data|
+                    @proxy.reset! if data.include?(string)
+                  end
                 end
               end
 
-              @close_server.each do |string|
-                @proxy.on_server_data do |client,server,data|
-                  @proxy.close! if data.include?(string)
+              if @close_server
+                @close_server.each do |string|
+                  @proxy.on_server_data do |client,server,data|
+                    @proxy.close! if data.include?(string)
+                  end
                 end
               end
 
-              @ignore_server.each do |string|
-                @proxy.on_server_data do |client,server,data|
-                  @proxy.ignore! if data.include?(string)
+              if @ignore_server
+                @ignore_server.each do |string|
+                  @proxy.on_server_data do |client,server,data|
+                    @proxy.ignore! if data.include?(string)
+                  end
                 end
               end
 
-              @rewrite_server.each do |string,replace|
-                @proxy.on_server_data do |client,server,data|
-                  data.gsub!(string,replace)
+              if @rewrite_server
+                @rewrite_server.each do |string,replace|
+                  @proxy.on_server_data do |client,server,data|
+                    data.gsub!(string,replace)
+                  end
                 end
               end
 
-              @reset.each do |string|
-                @proxy.on_data do |client,server,data|
-                  @proxy.reset! if data.include?(string)
+              if @reset
+                @reset.each do |string|
+                  @proxy.on_data do |client,server,data|
+                    @proxy.reset! if data.include?(string)
+                  end
                 end
               end
 
-              @close.each do |string|
-                @proxy.on_data do |client,server,data|
-                  @proxy.close! if data.include?(string)
+              if @close
+                @close.each do |string|
+                  @proxy.on_data do |client,server,data|
+                    @proxy.close! if data.include?(string)
+                  end
                 end
               end
 
-              @ignore.each do |string|
-                @proxy.on_data do |client,server,data|
-                  @proxy.ignore! if data.include?(string)
+              if @ignore
+                @ignore.each do |string|
+                  @proxy.on_data do |client,server,data|
+                    @proxy.ignore! if data.include?(string)
+                  end
                 end
               end
 
-              @rewrite.each do |string,replace|
-                @proxy.on_data do |client,server,data|
-                  data.gsub!(string,replace)
+              if @rewrite
+                @rewrite.each do |string,replace|
+                  @proxy.on_data do |client,server,data|
+                    data.gsub!(string,replace)
+                  end
                 end
               end
 
