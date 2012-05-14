@@ -119,8 +119,6 @@ module Ronin
               @server_host, @server_port = server.split(':',2)
               @server_port = if @server_port
                                @server_port.to_i
-                             else
-                               @port
                              end
 
               if hexdump?
