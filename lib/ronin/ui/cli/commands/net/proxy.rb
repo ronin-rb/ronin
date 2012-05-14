@@ -100,8 +100,21 @@ module Ronin
 
             option :close, :type        => Set[String],
                            :default     => Set[],
-                           :flag        => '-c',
+                           :flag        => '-C',
                            :description => 'Close rules'
+
+            option :reset_client, :type        => Set[String],
+                                  :default     => Set[],
+                                  :description => 'Client reset rules'
+
+            option :reset_server, :type        => Set[String],
+                                  :default     => Set[],
+                                  :description => 'Server reset rules'
+
+            option :reset, :type        => Set[String],
+                           :default     => Set[],
+                           :flag        => '-R',
+                           :description => 'Reset rules'
 
             def setup
               super
@@ -143,6 +156,12 @@ module Ronin
                 end
               end
 
+              @reset_client.each do |string|
+                @proxy.on_client_data do |client,server,data|
+                  @proxy.reset! if data.include?(string)
+                end
+              end
+
               @close_client.each do |string|
                 @proxy.on_client_data do |client,server,data|
                   @proxy.close! if data.include?(string)
@@ -161,6 +180,12 @@ module Ronin
                 end
               end
 
+              @reset_server.each do |string|
+                @proxy.on_server_data do |client,server,data|
+                  @proxy.reset! if data.include?(string)
+                end
+              end
+
               @close_server.each do |string|
                 @proxy.on_server_data do |client,server,data|
                   @proxy.close! if data.include?(string)
@@ -176,6 +201,12 @@ module Ronin
               @rewrite_server.each do |string,replace|
                 @proxy.on_server_data do |client,server,data|
                   data.gsub!(string,replace)
+                end
+              end
+
+              @reset.each do |string|
+                @proxy.on_data do |client,server,data|
+                  @proxy.reset! if data.include?(string)
                 end
               end
 
