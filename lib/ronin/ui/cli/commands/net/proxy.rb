@@ -75,33 +75,42 @@ module Ronin
                              :description => 'Rewrite rules'
 
             option :ignore_client, :type        => Set[String],
+                                   :usage       => 'STRING [...]',
                                    :description => 'Client ignore rules'
 
             option :ignore_server, :type        => Set[String],
+                                   :usage       => 'STRING [...]',
                                    :description => 'Server ignore rules'
 
             option :ignore, :type        => Set[String],
                             :flag        => '-i',
+                            :usage       => 'STRING [...]',
                             :description => 'Ignore rules'
 
             option :close_client, :type        => Set[String],
+                                  :usage       => 'STRING [...]',
                                   :description => 'Client close rules'
 
             option :close_server, :type        => Set[String],
+                                  :usage       => 'STRING [...]',
                                   :description => 'Server close rules'
 
             option :close, :type        => Set[String],
                            :flag        => '-C',
+                           :usage       => 'STRING [...]',
                            :description => 'Close rules'
 
             option :reset_client, :type        => Set[String],
+                                  :usage       => 'STRING [...]',
                                   :description => 'Client reset rules'
 
             option :reset_server, :type        => Set[String],
+                                  :usage       => 'STRING [...]',
                                   :description => 'Server reset rules'
 
             option :reset, :type        => Set[String],
                            :flag        => '-R',
+                           :usage       => 'STRING [...]',
                            :description => 'Reset rules'
 
             def setup
