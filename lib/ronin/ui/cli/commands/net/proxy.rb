@@ -90,6 +90,19 @@ module Ronin
                             :flag        => '-i',
                             :description => 'Ignore rules'
 
+            option :close_client, :type        => Set[String],
+                                  :default     => Set[],
+                                  :description => 'Client close rules'
+
+            option :close_server, :type        => Set[String],
+                                  :default     => Set[],
+                                  :description => 'Server close rules'
+
+            option :close, :type        => Set[String],
+                           :default     => Set[],
+                           :flag        => '-c',
+                           :description => 'Close rules'
+
             def setup
               super
 
@@ -130,6 +143,12 @@ module Ronin
                 end
               end
 
+              @close_client.each do |string|
+                @proxy.on_client_data do |client,server,data|
+                  @proxy.close! if data.include?(string)
+                end
+              end
+
               @ignore_client.each do |string|
                 @proxy.on_client_data do |client,server,data|
                   @proxy.ignore! if data.include?(string)
@@ -142,6 +161,12 @@ module Ronin
                 end
               end
 
+              @close_server.each do |string|
+                @proxy.on_server_data do |client,server,data|
+                  @proxy.close! if data.include?(string)
+                end
+              end
+
               @ignore_server.each do |string|
                 @proxy.on_server_data do |client,server,data|
                   @proxy.ignore! if data.include?(string)
@@ -151,6 +176,12 @@ module Ronin
               @rewrite_server.each do |string,replace|
                 @proxy.on_server_data do |client,server,data|
                   data.gsub!(string,replace)
+                end
+              end
+
+              @close.each do |string|
+                @proxy.on_data do |client,server,data|
+                  @proxy.close! if data.include?(string)
                 end
               end
 
