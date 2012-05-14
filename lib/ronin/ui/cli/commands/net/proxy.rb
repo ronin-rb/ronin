@@ -50,26 +50,26 @@ module Ronin
           #                                      Default: "0.0.0.0"
           #     -p, --port [PORT]                Port to listen on.
           #     -s, --server [HOST[:PORT]]       Server to forward connections to.
+          #     -r, --rewrite [/REGEXP/:REPLACE] Rewrite rules.
           #         --rewrite-client [/REGEXP/:REPLACE]
           #                                      Client rewrite rules.
           #         --rewrite-server [/REGEXP/:REPLACE]
           #                                      Server rewrite rules.
-          #     -r, --rewrite [/REGEXP/:REPLACE] Rewrite rules.
+          #     -i, --ignore [/REGEXP/ [...]]    Ignore rules.
           #         --ignore-client [/REGEXP/ [...]]
           #                                      Client ignore rules.
           #         --ignore-server [/REGEXP/ [...]]
           #                                      Server ignore rules.
-          #     -i, --ignore [/REGEXP/ [...]]    Ignore rules.
+          #     -C, --close [/REGEXP/ [...]]     Close rules.
           #         --close-client [/REGEXP/ [...]]
           #                                      Client close rules.
           #         --close-server [/REGEXP/ [...]]
           #                                      Server close rules.
-          #     -C, --close [/REGEXP/ [...]]     Close rules.
+          #     -R, --reset [/REGEXP/ [...]]     Reset rules.
           #         --reset-client [/REGEXP/ [...]]
           #                                      Client reset rules.
           #         --reset-server [/REGEXP/ [...]]
           #                                      Server reset rules.
-          #     -R, --reset [/REGEXP/ [...]]     Reset rules.
           #
           # @since 1.5.0
           # 
@@ -106,6 +106,11 @@ module Ronin
                             :usage       => 'HOST[:PORT]',
                             :description => 'Server to forward connections to'
 
+            option :rewrite, :type        => Hash[Regexp => String],
+                             :flag        => '-r',
+                             :usage       => '/REGEXP/:REPLACE',
+                             :description => 'Rewrite rules'
+
             option :rewrite_client, :type        => Hash[Regexp => String],
                                     :usage       => '/REGEXP/:REPLACE',
                                     :description => 'Client rewrite rules'
@@ -114,10 +119,10 @@ module Ronin
                                     :usage       => '/REGEXP/:REPLACE',
                                     :description => 'Server rewrite rules'
 
-            option :rewrite, :type        => Hash[Regexp => String],
-                             :flag        => '-r',
-                             :usage       => '/REGEXP/:REPLACE',
-                             :description => 'Rewrite rules'
+            option :ignore, :type        => Set[Regexp],
+                            :flag        => '-i',
+                            :usage       => '/REGEXP/ [...]',
+                            :description => 'Ignore rules'
 
             option :ignore_client, :type        => Set[Regexp],
                                    :usage       => '/REGEXP/ [...]',
@@ -127,10 +132,10 @@ module Ronin
                                    :usage       => '/REGEXP/ [...]',
                                    :description => 'Server ignore rules'
 
-            option :ignore, :type        => Set[Regexp],
-                            :flag        => '-i',
-                            :usage       => '/REGEXP/ [...]',
-                            :description => 'Ignore rules'
+            option :close, :type        => Set[Regexp],
+                           :flag        => '-C',
+                           :usage       => '/REGEXP/ [...]',
+                           :description => 'Close rules'
 
             option :close_client, :type        => Set[Regexp],
                                   :usage       => '/REGEXP/ [...]',
@@ -140,10 +145,10 @@ module Ronin
                                   :usage       => '/REGEXP/ [...]',
                                   :description => 'Server close rules'
 
-            option :close, :type        => Set[Regexp],
-                           :flag        => '-C',
+            option :reset, :type        => Set[Regexp],
+                           :flag        => '-R',
                            :usage       => '/REGEXP/ [...]',
-                           :description => 'Close rules'
+                           :description => 'Reset rules'
 
             option :reset_client, :type        => Set[Regexp],
                                   :usage       => '/REGEXP/ [...]',
@@ -152,11 +157,6 @@ module Ronin
             option :reset_server, :type        => Set[Regexp],
                                   :usage       => '/REGEXP/ [...]',
                                   :description => 'Server reset rules'
-
-            option :reset, :type        => Set[Regexp],
-                           :flag        => '-R',
-                           :usage       => '/REGEXP/ [...]',
-                           :description => 'Reset rules'
 
             #
             # Sets up the proxy command.
