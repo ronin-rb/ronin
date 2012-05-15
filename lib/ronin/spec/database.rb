@@ -24,13 +24,11 @@ require 'tempfile'
 
 RSpec.configure do |spec|
   spec.before(:suite) do
-    database_file = Tempfile.new('ronin_database').path
-    database_uri  = {:adapter => 'sqlite3', :database => database_file}
-
-    Ronin::Database.repositories[:default] = database_uri
-
     # setup the database
-    Ronin::Database.setup
+    Ronin::Database.setup(
+      :adapter  => 'sqlite3',
+      :database => Tempfile.new('ronin_database').path
+    )
 
     # auto-migrate any models defined in the specs
     DataMapper.finalize.auto_migrate!
