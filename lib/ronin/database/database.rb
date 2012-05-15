@@ -131,7 +131,7 @@ module Ronin
     end
 
     #
-    # Setup the Database log.
+    # Returns or sets up the Database log.
     #
     # @param [Hash] options
     #   Additional options.
@@ -151,8 +151,8 @@ module Ronin
     #   * `:info`
     #   * `:debug`
     #
-    # @return [true]
-    #   Specifies that the log has been setup.
+    # @return [DataMapper::Logger]
+    #   The Database Logger.
     #
     # @api semipublic
     #
