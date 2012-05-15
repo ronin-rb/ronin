@@ -206,11 +206,14 @@ module Ronin
     #
     # Sets up the Database.
     #
+    # @param [String, Hash] uri
+    #   The optional default repository to setup instead of {repositories}.
+    #
     # @see Database.upgrade!
     #
     # @api semipublic
     #
-    def self.setup
+    def self.setup(uri=nil)
       # setup the database log
       unless @log
         if ($DEBUG || ENV['DEBUG'])
@@ -220,9 +223,14 @@ module Ronin
         end
       end
 
-      # setup the database repositories
-      repositories.each do |name,uri|
-        DataMapper.setup(name,uri)
+      if uri
+        # only setup the default database repositories
+        DataMapper.setup(:default,uri)
+      else
+        # setup the database repositories
+        repositories.each do |name,uri|
+          DataMapper.setup(name,uri)
+        end
       end
 
       # finalize the Models
