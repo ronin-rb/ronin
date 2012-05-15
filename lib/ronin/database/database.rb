@@ -154,15 +154,18 @@ module Ronin
     # @return [true]
     #   Specifies that the log has been setup.
     #
-    # @api private
+    # @api semipublic
     #
-    def Database.setup_log(options={})
-      path = options.fetch(:path,DEFAULT_LOG_PATH)
-      stream = options.fetch(:stream,File.new(path,'w+'))
-      level = options.fetch(:level,DEFAULT_LOG_LEVEL)
+    def Database.log(options={})
+      unless (@log && options.empty?)
+        path   = options.fetch(:path,DEFAULT_LOG_PATH)
+        stream = options.fetch(:stream,File.new(path,'w+'))
+        level  = options.fetch(:level,DEFAULT_LOG_LEVEL)
 
-      @log = DataMapper::Logger.new(stream,level)
-      return true
+        @log = DataMapper::Logger.new(stream,level)
+      end
+
+      return @log
     end
 
     #
@@ -211,9 +214,9 @@ module Ronin
       # setup the database log
       unless @log
         if ($DEBUG || ENV['DEBUG'])
-          setup_log(:stream => $stderr, :level => :debug)
+          log(:stream => $stderr, :level => :debug)
         else
-          setup_log
+          log
         end
       end
 
