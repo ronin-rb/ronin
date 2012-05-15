@@ -64,7 +64,7 @@ module Ronin
     #
     # @api private
     #
-    def Database.repositories
+    def self.repositories
       if @repositories.empty?
         @repositories[:default] = DEFAULT_REPOSITORY
 
@@ -97,7 +97,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Database.repository?(name)
+    def self.repository?(name)
       repositories.has_key?(name.to_sym)
     end
 
@@ -114,7 +114,7 @@ module Ronin
     #
     # @api private
     #
-    def Database.save
+    def self.save
       yield if block_given?
 
       File.open(CONFIG_FILE,'w') do |file|
@@ -156,7 +156,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Database.log(options={})
+    def self.log(options={})
       unless (@log && options.empty?)
         path   = options.fetch(:path,DEFAULT_LOG_PATH)
         stream = options.fetch(:stream,File.new(path,'w+'))
@@ -179,7 +179,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Database.setup?(name=:default)
+    def self.setup?(name=:default)
       repository = DataMapper.repository(name)
 
       return repository.class.adapters.has_key?(repository.name)
@@ -195,7 +195,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Database.upgrade!
+    def self.upgrade!
       if setup?
         Migrations.migrate_up!
       else
@@ -210,7 +210,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Database.setup
+    def self.setup
       # setup the database log
       unless @log
         if ($DEBUG || ENV['DEBUG'])
@@ -248,7 +248,7 @@ module Ronin
     #
     # @api public
     #
-    def Database.repository(name,&block)
+    def self.repository(name,&block)
       name = name.to_sym
 
       unless repository?(name)
@@ -277,7 +277,7 @@ module Ronin
     #
     # @api private
     #
-    def Database.clear(name)
+    def self.clear(name)
       name = name.to_sym
 
       unless repository?(name)
@@ -305,7 +305,7 @@ module Ronin
     #
     # @api public
     #
-    def Database.map
+    def self.map
       results = []
 
       repositories.each_key do |name|
