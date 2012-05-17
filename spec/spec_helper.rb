@@ -10,6 +10,7 @@ require 'classes/my_script'
 require 'helpers/repositories'
 
 require 'ronin/spec/database'
+require 'ronin/spec/ui/output'
 
 include Ronin
 
