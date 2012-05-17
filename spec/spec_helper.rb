@@ -9,6 +9,7 @@ require 'model/models/titled_model'
 require 'helpers/repositories'
 
 require 'ronin/spec/database'
+require 'ronin/spec/ui/output'
 
 include Ronin
 
