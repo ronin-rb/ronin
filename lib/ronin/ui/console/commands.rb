@@ -35,6 +35,9 @@ module Ronin
       # @api private
       #
       module Commands
+        # Regexp to recognize `.commands`.
+        PATTERN = /^\.[a-z][a-z0-9_]*/
+
         #
         # Check for the `.` prefix, and attempt to call the Console command.
         #
@@ -42,7 +45,7 @@ module Ronin
         #   The input from the console.
         #
         def loop_eval(input)
-          if (@buffer.nil? && input.start_with?('.'))
+          if (@buffer.nil? && input =~ PATTERN)
             command = input[1..-1]
             name, arguments = Shellwords.shellsplit(command)
 

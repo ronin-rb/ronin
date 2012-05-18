@@ -42,6 +42,9 @@ module Ronin
           end
         end
 
+        # Regexp to recognize `!commands`.
+        PATTERN = /^![a-zA-Z][a-zA-Z0-9\._-]*/
+
         # Blacklist of known commands that conflict with Ruby keywords.
         BLACKLIST = Set[
           '[', 'ap', 'begin', 'case', 'class', 'def', 'fail', 'false',
@@ -57,7 +60,7 @@ module Ronin
         #   The input from the console.
         #
         def loop_eval(input)
-          if (@buffer.nil? && input.start_with?('!'))
+          if (@buffer.nil? && input =~ PATTERN)
             command = input[1..-1]
             name, arguments = parse_command(command)
 

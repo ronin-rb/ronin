@@ -23,7 +23,7 @@ require 'ronin/ui/console/shell'
 
 require 'set'
 
-complete(:on => /^\.[a-zA-Z][a-zA-Z0-9_]*/) do |cmd|
+complete(:on => Ronin::UI::Console::Commands::PATTERN) do |cmd|
   name     = cmd[1..-1]
   commands = Set[]
   
@@ -34,7 +34,7 @@ complete(:on => /^\.[a-zA-Z][a-zA-Z0-9_]*/) do |cmd|
   commands
 end
 
-complete(:on => /^![a-zA-Z]\w*/) do |cmd|
+complete(:on => Ronin::UI::Console::Shell::PATTERN) do |cmd|
   name   = cmd[1..-1]
   glob   = "#{name}*"
   paths  = Set[]
