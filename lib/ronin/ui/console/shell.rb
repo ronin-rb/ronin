@@ -57,7 +57,7 @@ module Ronin
         #   The input from the console.
         #
         def loop_eval(input)
-          if input.start_with?('!')
+          if (@buffer.nil? && input.start_with?('!'))
             command = input[1..-1]
             name, arguments = parse_command(command)
 
