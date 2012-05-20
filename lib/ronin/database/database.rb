@@ -216,7 +216,7 @@ module Ronin
     def self.setup(uri=nil)
       # setup the database log
       unless @log
-        if ($DEBUG || ENV['DEBUG'])
+        if $DEBUG
           log(:stream => $stderr, :level => :debug)
         else
           log
