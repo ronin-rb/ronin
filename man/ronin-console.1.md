@@ -54,7 +54,7 @@ Start the Ronin Console.
 *~/.ronin/database.yml*
   Optional Database configuration.
 
-## ENVIRONMENT VARIABLES
+## ENVIRONMENT
 
 HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
