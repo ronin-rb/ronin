@@ -75,11 +75,6 @@ Manages IPAddresses.
 *~/.ronin/database.yml*
   Optional Database configuration.
 
-## ENVIRONMENT
-
-DEBUG
-  Enables verbose debugging output.
-
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>

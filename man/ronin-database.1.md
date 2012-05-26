@@ -76,11 +76,6 @@ Manages the Ronin Database.
 *~/.ronin/database.yml*
   Optional Database configuration.
 
-## ENVIRONMENT VARIABLES
-
-DEBUG
-  Enables verbose debugging output.
-
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>

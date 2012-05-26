@@ -43,15 +43,6 @@ HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
   configuration directory within the home directory.
 
-EDITOR
-  Specifies the editor to use when invoking the `!edit` console command.
-
-VERBOSE
-  Enables verbose output within the Ronin Console.
-
-DEBUG
-  Enables verbose debugging output.
-
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>

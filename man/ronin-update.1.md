@@ -50,9 +50,6 @@ HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
   configuration directory within the home directory.
 
-DEBUG
-  Enables verbose debugging output.
-
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
