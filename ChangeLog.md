@@ -1,3 +1,41 @@
+### 1.5.0 / 2012-05-28
+
+* Require ronin-support ~> 0.5.
+* Added {Ronin::UI::CLI::Command#setup}.
+* Added {Ronin::UI::CLI::Command#cleanup}.
+* Added {Ronin::UI::CLI::Command.examples}.
+* Added the {Ronin::UI::CLI::Commands::Net::Proxy net:proxy} ronin command.
+* Added man-pages for each `ronin` command.
+* Added more specs for the {Ronin::UI::CLI::Command} DSL methods.
+* Added {Ronin::AutoLoad::ClassMethods#require_const}, to also
+  finalize auto-loaded DataMapper models.
+* Renamed `Ronin::Database.setup_log` to {Ronin::Database.log}.
+* Allow {Ronin::Database.setup} to accept a URI for the `default` repository.
+* Allow `ronin/spec/database` to test against other Databases,
+  specified by the `ADAPTER` environment variable.
+  * If `ADAPTER` is set to `mysql` or `postgres`, then `ronin/spec/database`
+    will connect to the `ronin_test` database with username/password
+    `ronin_test`.
+  * By default `ronin/spec/database` will test against a temporary sqlite3
+    database.
+* Allow console `!command`s to embed Ruby expressions:
+
+        >> !ncat #{ip} #{port}
+
+* Moved console `!command` logic into {Ronin::UI::Console::Shell}.
+  * `!command`s now only execute shell commands.
+* Moved console `.command` logic into {Ronin::UI::Console::Commands}.
+  * `.command`s are now reserved only for special console commands
+    (ex: `.edit`).
+* Improved recognition of console `!command`s and `.command`s.
+* Do not allow executing console commands while in multi-line mode!
+* Fixed bug in {Ronin::UI::CLI::Command} that was disabling colour output.
+* Improved `--help` output of `ronin` commands by adding `examples` and more
+  `:description`s to options.
+* Changed `ronin help COMMAND` to display the man-page for the given command.
+* No longer honor the `DEBUG` environment variable. Use `ruby -w` or `ruby -d`
+  instead.
+
 ### 1.4.1 / 2012-04-01
 
 * Removed dependencey on env.
