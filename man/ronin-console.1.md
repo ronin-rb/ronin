@@ -61,7 +61,7 @@ HOME
   configuration directory within the home directory.
 
 EDITOR
-  Specifies the editor to use when invoking the `!edit` console command.
+  Specifies the editor to use when invoking the `.edit` console command.
 
 ## AUTHOR
 
