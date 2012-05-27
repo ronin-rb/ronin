@@ -19,7 +19,6 @@
 
 require 'ronin/model'
 require 'ronin/script/script'
-require 'ronin/support/inflector'
 
 require 'object_loader'
 
@@ -66,7 +65,7 @@ module Ronin
       #
       def class_path
         if self.class_name
-          Support::Inflector.underscore(self.class_name)
+          DataMapper::Inflector.underscore(self.class_name)
         end
       end
 
