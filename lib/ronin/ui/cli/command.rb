@@ -360,7 +360,7 @@ module Ronin
         # Example usages for the command.
         #
         # @param [Array<String>] new_examples
-        #   The new exanmples for the command.
+        #   The new examples for the command.
         #
         # @return [Array]
         #   Example commands.

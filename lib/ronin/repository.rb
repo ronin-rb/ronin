@@ -393,10 +393,10 @@ module Ronin
     end
 
     #
-    # De-activates all installed or added repositories.
+    # Deactivates all installed or added repositories.
     #
     # @return [Array<Repository>]
-    #   The de-activated repositories.
+    #   The deactivated repositories.
     #
     # @see #deactivate!
     #
@@ -520,7 +520,7 @@ module Ronin
     end
 
     #
-    # De-activates the repository by removing the {#lib_dir} from the
+    # Deactivates the repository by removing the {#lib_dir} from the
     # `$LOAD_PATH` global variable.
     #
     # @api private

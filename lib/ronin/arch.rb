@@ -24,7 +24,7 @@ require 'dm-is-predefined'
 
 module Ronin
   #
-  # Represents a Computer Architecture and pre-defines many other common
+  # Represents a Computer Architecture and predefines many other common
   # architectures ({x86}, {x86_64}, {ia64}, {ppc}, {ppc64}, {sparc},
   # {sparc64}, {mips} and {arm}).
   #
@@ -114,19 +114,19 @@ module Ronin
     # The 64-bit SPARC Architecture
     predefine :sparc64, :endian => :big, :address_length => 8
 
-    # The MIPS (little-endian) Architecture
+    # The MIPS (little endian) Architecture
     predefine :mips_le, :endian => :little, :address_length => 4
 
-    # The MIPS (big-endian) Architecture
+    # The MIPS (big endian) Architecture
     predefine :mips_be, :endian => :big, :address_length => 4
 
     # Alias to {mips_be}.
     predefine :mips, :name => 'mips_be', :endian => :big, :address_length => 4
 
-    # The ARM (little-endian) Architecture
+    # The ARM (little endian) Architecture
     predefine :arm_le, :endian => :little, :address_length => 4
 
-    # The ARM (big-endian) Architecture
+    # The ARM (big endian) Architecture
     predefine :arm_be, :endian => :big, :address_length => 4
 
     # Alias to {arm_be}.
