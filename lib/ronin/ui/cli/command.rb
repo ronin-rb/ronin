@@ -402,7 +402,7 @@ module Ronin
         # @param [Hash] options
         #   Additional options for the option.
         #
-        # @option options [Hash{Class => Class}, Set<Class>, Array<Class>, Class, true] :type (String)
+        # @option options [Hash{Class => Class}, Set<Class>, Array<Class>, Class, true] :type
         #   The type of the options.
         #
         # @option options [Object, Proc] :default
@@ -431,8 +431,6 @@ module Ronin
         # @api semipublic
         #
         def self.option(name,options={})
-          options = {:type => String}.merge(options)
-
           self.options[name] = {
             :flag  => options[:flag],
             :usage => options[:usage],
