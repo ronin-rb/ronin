@@ -56,8 +56,10 @@ module Ronin
           #
           def execute
             if command?
+              sub_path = command.gsub(':',File::SEPARATOR)
+
               Installation.paths.each do |path|
-                man_page = File.join(path,'man',"#{@command}.1")
+                man_page = File.join(path,'man',"#{sub_path}.1")
 
                 if File.file?(man_page)
                   system('man',man_page)
