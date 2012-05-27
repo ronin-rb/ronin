@@ -51,7 +51,7 @@ module Ronin
         if @commands.empty?
           commands_dir = File.join('lib',Commands.namespace_root)
 
-          Installation.each_file_in(commands_dir,:rb) do |path|
+          Installation.each_file_in(commands_dir,'rb') do |path|
             # remove the .rb file extension
             name = path.chomp('.rb')
 
