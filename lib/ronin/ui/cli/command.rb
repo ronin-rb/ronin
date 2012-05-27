@@ -185,9 +185,7 @@ module Ronin
         # @api public
         #
         def self.run(options={})
-          command = new()
-          
-          return command.run(options)
+          new().run(options)
         end
 
         #
