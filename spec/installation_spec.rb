@@ -23,6 +23,7 @@ describe Installation do
       hosts.rb
       install.rb
       ips.rb
+      net/proxy.rb
       repos.rb
       update.rb
       urls.rb
@@ -32,7 +33,7 @@ describe Installation do
   }
 
   describe "each_file" do
-    let(:pattern)  { File.join(directory,'*.rb') }
+    let(:pattern)  { File.join(directory,'**','*.rb') }
     let(:expected) { files.map { |name| File.join(directory,name) } }
 
     it "should enumerate over the files which match a glob pattern" do
