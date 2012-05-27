@@ -61,10 +61,10 @@ module Ronin
                 return false
               end
 
-              sub_path = command.tr(':',File::SEPARATOR)
+              sub_path = command.tr(':','-')
 
               Installation.paths.each do |path|
-                man_page = File.join(path,'man',"#{sub_path}.1")
+                man_page = File.join(path,'man',"ronin-#{sub_path}.1")
 
                 if File.file?(man_page)
                   return system('man',man_page)
