@@ -48,7 +48,7 @@ module Ronin
 
           summary 'Displays the list of available commands or prints information on a specific command'
 
-          argument :command, :type        => Symbol,
+          argument :command, :type        => String,
                              :description => 'The command to display'
 
           #
@@ -56,18 +56,23 @@ module Ronin
           #
           def execute
             if command?
+              unless CLI.commands.include?(command)
+                print_error "Unknown command: #{command.dump}"
+                return false
+              end
+
               sub_path = command.tr(':',File::SEPARATOR)
 
               Installation.paths.each do |path|
                 man_page = File.join(path,'man',"#{sub_path}.1")
 
                 if File.file?(man_page)
-                  system('man',man_page)
-                  return
+                  return system('man',man_page)
                 end
               end
 
               print_error "No man-page for the command: #{@command}"
+              return false
             else
               print_array CLI.commands, :title => 'Available commands'
             end
