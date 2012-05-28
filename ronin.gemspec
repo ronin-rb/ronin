@@ -2,104 +2,59 @@
 
 require 'yaml'
 
-Gem::Specification.new do |gemspec|
-  root    = File.dirname(__FILE__)
-  lib_dir = File.join(root,'lib')
-  files   = `git ls-files`.split($/)
+Gem::Specification.new do |gem|
+  gemspec = YAML.load_file('gemspec.yml')
 
-  filter_files = lambda { |paths|
-    files & case paths
-            when Array
-              paths
-            when String
-              Dir[paths]
-            end
-  }
+  gem.name    = gemspec.fetch('name')
+  gem.version = gemspec.fetch('version') do
+                  lib_dir = File.join(File.dirname(__FILE__),'lib')
+                  $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
 
-  version = {
-    :file     => 'ronin/version',
-    :constant => 'Ronin::VERSION'
-  }
+                  require 'ronin/version'
+                  Ronin::VERSION
+                end
 
-  defaults = {
-    'name'            => File.basename(root),
-    'files'           => files,
-    'require_paths'   => ['ext', 'lib'].select { |dir| File.directory?(dir) },
-    'executables'     => filter_files['bin/*'].map { |path| File.basename(path) },
-    'test_files'      => filter_files['{test/{**/}*_test.rb,spec/{**/}*_spec.rb}'],
-    'doc_files'       => filter_files['*.{txt,rdoc,md,markdown,tt,textile}'],
-    'extra_doc_files' => filter_files['*.{txt,rdoc,md,markdown,tt,textile}']
-  }
+  gem.summary     = gemspec['summary']
+  gem.description = gemspec['description']
+  gem.licenses    = Array(gemspec['license'])
+  gem.authors     = Array(gemspec['authors'])
+  gem.email       = gemspec['email']
+  gem.homepage    = gemspec['homepage']
 
-  metadata = defaults.merge(YAML.load_file('gemspec.yml'))
+  glob = lambda { |patterns| gem.files & Dir[*patterns] }
 
-  gemspec.name    = metadata['name']
-  gemspec.version = if metadata['version']
-                      metadata['version']
-                    else
-                      $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
+  gem.files = `git ls-files`.split($/)
+  gem.files = glob[gemspec['files']] if gemspec['files']
 
-                      require version[:file]
-                      eval(version[:constant])
-                    end
-
-  gemspec.summary     = metadata.fetch('summary',metadata['description'])
-  gemspec.description = metadata.fetch('description',metadata['summary'])
-
-  gemspec.licenses = Array(metadata['license'])
-  gemspec.authors  = Array(metadata['authors'])
-
-  gemspec.email    = metadata['email']
-  gemspec.homepage = metadata['homepage']
-
-  gemspec.require_paths = Array(metadata['require_paths'])
-  gemspec.files         = filter_files[metadata['files']]
-  gemspec.files        += Array(metadata['generated_files'])
-  gemspec.executables   = metadata['executables']
-  gemspec.extensions    = metadata['extensions']
-
-  if Gem::VERSION < '1.7.'
-    gemspec.default_executable = gemspec.executables.first
+  gem.executables = gemspec.fetch('executables') do
+    glob['bin/*'].map { |path| File.basename(path) }
   end
+  gem.default_executable = gem.executables.first if Gem::VERSION < '1.7.'
 
-  gemspec.test_files       = filter_files[metadata['test_files']]
-  gemspec.extra_rdoc_files = Array(metadata['extra_doc_files'])
+  gem.extensions       = glob[gemspec['extensions'] || 'ext/**/extconf.rb']
+  gem.test_files       = glob[gemspec['test_files'] || '{test/{**/}*_test.rb']
+  gem.extra_rdoc_files = glob[gemspec['extra_doc_files'] || '*.{txt,md}']
 
-  gemspec.post_install_message = metadata['post_install_message']
-  gemspec.requirements         = metadata['requirements']
+  gem.require_paths = Array(gemspec.fetch('require_paths') {
+    %w[ext lib].select { |dir| File.directory?(dir) }
+  })
 
-  if gemspec.respond_to?(:required_ruby_version=)
-    gemspec.required_ruby_version = metadata['required_ruby_version']
-  end
+  gem.requirements              = gemspec['requirements']
+  gem.required_ruby_version     = gemspec['required_ruby_version']
+  gem.required_rubygems_version = gemspec['required_rubygems_version']
+  gem.post_install_message      = gemspec['post_install_message']
 
-  if gemspec.respond_to?(:required_rubygems_version=)
-    gemspec.required_rubygems_version = metadata['required_ruby_version']
-  end
+  split = lambda { |string| string.split(/,\s*/) }
 
-  parse_versions = lambda { |versions|
-    case versions
-    when Array
-      versions.map { |v| v.to_s }
-    when String
-      versions.split(/,\s*/)
-    end
-  }
-
-  if metadata['dependencies']
-    metadata['dependencies'].each do |name,versions|
-      gemspec.add_dependency(name,parse_versions[versions])  
+  if gemspec['dependencies']
+    gemspec['dependencies'].each do |name,versions|
+      gem.add_dependency(name,split[versions])
     end
   end
 
-  if metadata['runtime_dependencies']
-    metadata['runtime_dependencies'].each do |name,versions|
-      gemspec.add_runtime_dependency(name,parse_versions[versions])  
-    end
-  end
-
-  if metadata['development_dependencies']
-    metadata['development_dependencies'].each do |name,versions|
-      gemspec.add_development_dependency(name,parse_versions[versions])  
+  if gemspec['development_dependencies']
+    gemspec['development_dependencies'].each do |name,versions|
+      gem.add_development_dependency(name,split[versions])
     end
   end
 end
