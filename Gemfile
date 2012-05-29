@@ -33,8 +33,10 @@ group :development do
   gem 'rake',           '~> 0.8'
   gem 'rubygems-tasks', '~> 0.1'
   gem 'rspec',          '~> 2.4'
+
   gem 'redcarpet',      '~> 2.1'
   gem 'md2man',         '~> 1.2', :git => 'http://github.com/postmodern/md2man.git', :branch => 'rake_task'
+
   gem 'ruby-graphviz',  '~> 0.9.10'
   gem 'dm-visualizer',  '~> 0.2.0'
 end
