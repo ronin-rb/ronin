@@ -97,7 +97,7 @@ module Ronin
     #
     # @api public
     #
-    def targets?(addr)
+    def targets?(address)
       self.addresses.include?(address)
     end
 

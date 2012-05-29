@@ -126,10 +126,10 @@ module Ronin
     # @param [Hash] attributes
     #   The attributes of the repository.
     #
-    # @param [String] path
+    # @option attributes [String] :path
     #   The path to the repository.
     #
-    # @param [Symbol] scm
+    # @option attributes [Symbol] :scm
     #   The SCM used by the repository. Can be either:
     #
     #   * `:git`
@@ -137,7 +137,7 @@ module Ronin
     #   * `:sub_version` / `:svn`
     #   * `:rsync`
     #
-    # @param [String, URI::HTTP, URI::HTTPS] uri
+    # @option attributes [String, URI] :uri
     #   The URI the repository resides at.
     #
     # @yield [repo]

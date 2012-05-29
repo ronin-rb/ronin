@@ -77,8 +77,8 @@ module Ronin
     # Enumerates over all files within a given directory found in any
     # of the installed Ronin libraries.
     #
-    # @param [String] directory
-    #   The directory path to search within.
+    # @param [String] pattern
+    #   The glob pattern to search for.
     #
     # @yield [file]
     #   The given block will be passed each file found within the directory.

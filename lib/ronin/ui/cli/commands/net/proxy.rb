@@ -369,7 +369,7 @@ module Ronin
             # @param [(UDPSocket,(host, port)), TCPSocket, UDPSocket] client
             #   The client.
             #
-            # @param [String] event
+            # @param [String] type
             #   The optional name of the event.
             #
             def print_outgoing(client,type=nil)

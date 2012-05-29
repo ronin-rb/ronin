@@ -96,8 +96,8 @@ module Ronin
     # @param [Symbol, String] name
     #   The method name to define for the predefined OS.
     #
-    # @param [String] os_name
-    #   The name of the OS.
+    # @param [Hash{Symbol => Object}] attributes
+    #   Additional attributes for the OS.
     #
     # @return [nil]
     #

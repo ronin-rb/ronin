@@ -35,9 +35,6 @@ module Ronin
         # @param [Object] value
         #   The text of the description.
         #
-        # @param [DataMapper::Property] property
-        #   The description property.
-        #
         # @return [String, nil]
         #   The type-casted description.
         #

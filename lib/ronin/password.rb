@@ -63,7 +63,7 @@ module Ronin
     #
     # Hashes the password.
     #
-    # @param [Symbol, String] digest
+    # @param [Symbol, String] algorithm
     #   The digest algorithm to use.
     #
     # @param [Hash] options

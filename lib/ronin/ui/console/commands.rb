@@ -62,15 +62,13 @@ module Ronin
         #
         # Edits a path and re-loads the code.
         #
-        # @param [Array<String>] path 
+        # @param [String] path 
         #   The path of the file to re-load.
         #
         # @return [Boolean]
         #   Specifies whether the code was successfully re-loaded.
         #
-        def self.edit(*arguments)
-          path = arguments.first
-
+        def self.edit(path=nil)
           if ENV['EDITOR']
             path ||= Tempfile.new(['ronin-console', '.rb']).path
 
