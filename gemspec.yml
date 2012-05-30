@@ -45,6 +45,7 @@ generated_files:
  - man/ronin-hosts.1
  - man/ronin-install.1
  - man/ronin-ips.1
+ - man/ronin-net-proxy.1
  - man/ronin-repos.1
  - man/ronin-uninstall.1
  - man/ronin-update.1
