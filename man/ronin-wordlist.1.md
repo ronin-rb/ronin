@@ -37,6 +37,12 @@ Builds and/or mutates Wordlists.
   Mutations to apply to the words. If STRING is found within a word, it will be
   replaced with SUBSTITUTE.
 
+## EXAMPLES
+
+`ronin wordlist alpha:7 numeric:1-3`
+  Enumerates through every possible word, with each word beginning with seven
+  alphabetic characters and ending in 1-3 numeric characters.
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
