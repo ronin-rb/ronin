@@ -27,6 +27,14 @@ Updates Ronin Repositories.
 `--[no-]color`
   Enables color output.
 
+## EXAMPLES
+
+`ronin update repo`
+  Updates the repository with with the name `repo`.
+
+`ronin update repo@github.com`
+  Updates the repository with the name `repo` and from `github.com`.
+
 ## FILES
 
 *~/.ronin/*

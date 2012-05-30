@@ -43,12 +43,22 @@ module Ronin
         #
         #       REPO                             Repository to update
         #
+        # ## Examples
+        #
+        #       ronin update repo
+        #       ronin update repo@github.com
+        #
         class Update < Command
 
           summary 'Updates Ronin Repositories'
 
           argument :repo, :type        => String,
                           :description => 'Repository to update'
+
+          examples [
+            "ronin update repo",
+            "ronin update repo@github.com"
+          ]
 
           #
           # Sets up the install command.
