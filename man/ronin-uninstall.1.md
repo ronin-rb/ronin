@@ -27,6 +27,14 @@ Uninstalls a Ronin Repositories.
 `--[no-]color`
   Enables color output.
 
+## EXAMPLES
+
+`ronin uninstall repo`
+  Uninstalls the repository with with the name `repo`.
+
+`ronin uninstall repo@github.com`
+  Uninstalls the repository with the name `repo` and from `github.com`.
+
 ## FILES
 
 *~/.ronin/*
