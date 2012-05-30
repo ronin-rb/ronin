@@ -48,6 +48,7 @@ module Ronin
         # ## Examples
         #
         #       ronin wordlist alpha:7 numeric:1-3
+        #       ronin wordlist --input text.txt -m e:3 -m a:@ -m o:0
         #
         # @since 1.4.0
         #
@@ -75,7 +76,8 @@ module Ronin
                               :description => 'Options word template [CHARSET:[LENGTH|RANGE] ...]'
 
           examples [
-            'ronin wordlist alpha:7 numeric:1-3'
+            "ronin wordlist alpha:7 numeric:1-3",
+            "ronin wordlist --input text.txt -m e:3 -m a:@ -m o:0"
           ]
 
           #
