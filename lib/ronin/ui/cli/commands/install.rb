@@ -46,6 +46,11 @@ module Ronin
         # ## Arguments
         #
         #      URI                              The URI of the Repository
+        #
+        # ## Examples
+        #
+        #      ronin install git://github.com/user/repo.git
+        #      ronin install --git git@example.com:/home/secret/repo
         # 
         class Install < Command
 

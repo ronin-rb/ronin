@@ -45,6 +45,10 @@ module Ronin
         #
         #       TEMPLATE                         Options word template (alpha:7 numeric:1-3)
         #
+        # ## Examples
+        #
+        #       ronin wordlist alpha:7 numeric:1-3
+        #
         # @since 1.4.0
         #
         class Wordlist < Command
