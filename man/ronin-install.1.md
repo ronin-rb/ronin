@@ -62,6 +62,14 @@ HOME
   Specifies the home directory of the user. Ronin will search for the `.ronin`
   configuration directory within the home directory.
 
+## EXAMPLES
+
+`ronin install git://github.com/user/repo.git`
+  Installs a Ronin Repository using git.
+
+`ronin install --git git@example.com:/home/secret/repo`
+  Installs a Ronin Repository using git over ssh.
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>

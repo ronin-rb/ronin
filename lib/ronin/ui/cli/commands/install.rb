@@ -66,6 +66,11 @@ module Ronin
           argument :uri, :type        => String,
                          :description => 'The URI of the Repository'
 
+          examples [
+            "ronin install git://github.com/user/repo.git",
+            "ronin install --git git@example.com:/home/secret/repo"
+          ]
+
           #
           # Sets up the install command.
           #
