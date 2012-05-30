@@ -84,6 +84,6 @@ dependencies:
 
 development_dependencies:
   bundler: ~> 1.0
-  yard: ~> 0.7
+  yard: ~> 0.8
   yard-dm: ~> 0.1
   yard-dm-is-predefined: ~> 0.2
