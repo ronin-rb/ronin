@@ -50,10 +50,10 @@ module Ronin
           #                                      Default: "0.0.0.0"
           #     -p, --port [PORT]                Port to listen on.
           #     -s, --server [HOST[:PORT]]       Server to forward connections to.
-          #     -r, --rewrite [/REGEXP/:REPLACE] Rewrite rules.
-          #         --rewrite-client [/REGEXP/:REPLACE]
+          #     -r, --rewrite [/REGEXP/:STRING] Rewrite rules.
+          #         --rewrite-client [/REGEXP/:STRING]
           #                                      Client rewrite rules.
-          #         --rewrite-server [/REGEXP/:REPLACE]
+          #         --rewrite-server [/REGEXP/:STRING]
           #                                      Server rewrite rules.
           #     -i, --ignore [/REGEXP/ [...]]    Ignore rules.
           #         --ignore-client [/REGEXP/ [...]]
@@ -108,15 +108,15 @@ module Ronin
 
             option :rewrite, :type        => Hash[Regexp => String],
                              :flag        => '-r',
-                             :usage       => '/REGEXP/:REPLACE',
+                             :usage       => '/REGEXP/:STRING',
                              :description => 'Rewrite rules'
 
             option :rewrite_client, :type        => Hash[Regexp => String],
-                                    :usage       => '/REGEXP/:REPLACE',
+                                    :usage       => '/REGEXP/:STRING',
                                     :description => 'Client rewrite rules'
 
             option :rewrite_server, :type        => Hash[Regexp => String],
-                                    :usage       => '/REGEXP/:REPLACE',
+                                    :usage       => '/REGEXP/:STRING',
                                     :description => 'Server rewrite rules'
 
             option :ignore, :type        => Set[Regexp],
@@ -163,6 +163,11 @@ module Ronin
             #
             def setup
               super
+
+              unless server?
+                print_error "Must specify the SERVER argument"
+                exit -1
+              end
 
               @server_host, @server_port = server.split(':',2)
               @server_port = if @server_port
