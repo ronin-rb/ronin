@@ -167,7 +167,10 @@ module Ronin
             if @output
               File.open(@output,'w',&block)
             else
-              yield $stdout
+              begin
+                yield $stdout
+              rescue Errno::EPIPE
+              end
             end
           end
 
