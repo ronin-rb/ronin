@@ -16,7 +16,6 @@ gem 'jruby-openssl',	'~> 0.7', :platforms => :jruby
 # gem 'dm-sqlite-adapter',  DM_VERSION, :git => "#{DM_URI}/dm-sqlite-adapter.git"
 # gem 'dm-core',            DM_VERSION, :git => "#{DM_URI}/dm-core.git"
 # gem 'dm-types',           DM_VERSION, :git => "#{DM_URI}/dm-types.git"
-# gem 'dm-constraints',     DM_VERSION, :git => "#{DM_URI}/dm-constraints.git"
 # gem 'dm-migrations',      DM_VERSION, :git => "#{DM_URI}/dm-migrations.git"
 # gem 'dm-validations',     DM_VERSION, :git => "#{DM_URI}/dm-validations.git"
 # gem 'dm-serializer',      DM_VERSION, :git => "#{DM_URI}/dm-serializer.git"

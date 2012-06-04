@@ -60,7 +60,6 @@ dependencies:
   # DataMapper dependencies:
   dm-core: ~> 1.2
   dm-types: ~> 1.2
-  dm-constraints: ~> 1.2
   dm-migrations: ~> 1.2
   dm-validations: ~> 1.2
   dm-serializer: ~> 1.2

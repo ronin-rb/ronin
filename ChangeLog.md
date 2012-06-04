@@ -35,6 +35,7 @@
 * Changed `ronin help COMMAND` to display the man-page for the given command.
 * No longer honor the `DEBUG` environment variable. Use `ruby -w` or `ruby -d`
   instead.
+* Removed dm-constraints from the dependencies.
 
 ### 1.4.1 / 2012-04-01
 
