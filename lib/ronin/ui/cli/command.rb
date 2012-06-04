@@ -232,6 +232,8 @@ module Ronin
             run
           rescue Interrupt
             exit
+          rescue Errno::EPIPE
+            # STDOUT was closed
           rescue => error
             print_exception(error)
             exit -1
