@@ -167,7 +167,7 @@ module Ronin
             if @output
               File.open(@output,'w',&block)
             else
-              yield STDOUT
+              yield $stdout
             end
           end
 
