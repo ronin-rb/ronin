@@ -231,7 +231,7 @@ module Ronin
           begin
             run
           rescue Interrupt
-            exit
+            # Ctrl^C
           rescue Errno::EPIPE
             # STDOUT was closed
           rescue => error
