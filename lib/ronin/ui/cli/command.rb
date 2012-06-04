@@ -161,13 +161,7 @@ module Ronin
         # @api public
         #
         def self.start(argv=ARGV)
-          command = new()
-
-          unless command.start(argv)
-            exit -1
-          end
-
-          return true
+          new().start(argv)
         end
 
         #
