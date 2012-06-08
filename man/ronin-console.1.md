@@ -57,8 +57,8 @@ Start the Ronin Console.
 ## ENVIRONMENT
 
 HOME
-  Specifies the home directory of the user. Ronin will search for the `.ronin`
-  configuration directory within the home directory.
+  Specifies the home directory of the user. Ronin will search for the
+  *~/.ronin/* configuration directory within the home directory.
 
 EDITOR
   Specifies the editor to use when invoking the `.edit` console command.

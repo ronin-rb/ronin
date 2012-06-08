@@ -44,7 +44,7 @@ Installs Ronin Repositories.
 *~/.ronin/*
   Ronin configuration directory.
 
-*~/.ronin/repos*
+*~/.ronin/repos/*
   Installation directory for Ronin Repositories.
 
 *~/.ronin/database.log*
@@ -59,8 +59,8 @@ Installs Ronin Repositories.
 ## ENVIRONMENT
 
 HOME
-  Specifies the home directory of the user. Ronin will search for the `.ronin`
-  configuration directory within the home directory.
+  Specifies the home directory of the user. Ronin will search for the
+  *~/.ronin/* configuration directory within the home directory.
 
 ## EXAMPLES
 

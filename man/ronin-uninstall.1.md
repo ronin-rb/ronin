@@ -40,7 +40,7 @@ Uninstalls a Ronin Repositories.
 *~/.ronin/*
   Ronin configuration directory.
 
-*~/.ronin/repos*
+*~/.ronin/repos/*
   Installation directory for Ronin Repositories.
 
 *~/.ronin/database.log*
@@ -55,8 +55,8 @@ Uninstalls a Ronin Repositories.
 ## ENVIRONMENT
 
 HOME
-  Specifies the home directory of the user. Ronin will search for the `.ronin`
-  configuration directory within the home directory.
+  Specifies the home directory of the user. Ronin will search for the
+  *~/.ronin/* configuration directory within the home directory.
 
 ## AUTHOR
 

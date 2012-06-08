@@ -40,8 +40,8 @@ Runs a script from a Ronin Repository.
 ## ENVIRONMENT
 
 HOME
-  Specifies the home directory of the user. Ronin will search for the `.ronin`
-  configuration directory within the home directory.
+  Specifies the home directory of the user. Ronin will search for the
+  *~/.ronin* configuration directory within the home directory.
 
 ## AUTHOR
 
