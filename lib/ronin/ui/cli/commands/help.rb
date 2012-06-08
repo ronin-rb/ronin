@@ -58,7 +58,7 @@ module Ronin
             if command?
               unless CLI.commands.include?(command)
                 print_error "Unknown command: #{command.dump}"
-                return false
+                exit -1
               end
 
               man_page = "ronin-#{command.tr(':','-')}.1"
@@ -72,10 +72,10 @@ module Ronin
               end
 
               print_error "No man-page for the command: #{@command}"
-              return false
-            else
-              print_array CLI.commands, :title => 'Available commands'
+              exit -1
             end
+
+            print_array CLI.commands, :title => 'Available commands'
           end
 
         end
