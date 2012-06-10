@@ -18,6 +18,7 @@
 #
 
 require 'ronin/ui/cli/command'
+require 'ronin/fuzzing/template'
 require 'ronin/wordlist'
 
 module Ronin
@@ -146,7 +147,9 @@ module Ronin
           #
           def wordlist
             if template?
-              Ronin::Wordlist.new(String.generate(*parse_template),@mutations)
+              generator = Fuzzing::Template.new(parse_template)
+
+              Ronin::Wordlist.new(generator,@mutations)
             elsif input?
               Ronin::Wordlist.build(File.open(@input),@mutations)
             else
