@@ -56,12 +56,14 @@ module Ronin
           #
           def execute
             if command?
-              unless CLI.commands.include?(command)
-                print_error "Unknown command: #{command.dump}"
+              name = command.gsub(/^ronin-/,'')
+
+              unless CLI.commands.include?(name)
+                print_error "Unknown command: #{@command.dump}"
                 exit -1
               end
 
-              man_page = "ronin-#{command.tr(':','-')}.1"
+              man_page = "ronin-#{name.tr(':','-')}.1"
 
               Installation.paths.each do |path|
                 man_path = File.join(path,'man',man_page)
@@ -71,7 +73,7 @@ module Ronin
                 end
               end
 
-              print_error "No man-page for the command: #{@command}"
+              print_error "No man-page for the command: #{@command.dump}"
               exit -1
             end
 
