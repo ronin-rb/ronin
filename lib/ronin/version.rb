@@ -19,5 +19,5 @@
 
 module Ronin
   # Ronin version 
-  VERSION = '1.5.0.rc2'
+  VERSION = '1.5.0.rc3'
 end
