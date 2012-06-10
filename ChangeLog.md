@@ -30,9 +30,12 @@
 * Improved recognition of console `!command`s and `.command`s.
 * Do not allow executing console commands while in multi-line mode!
 * Fixed bug in {Ronin::UI::CLI::Command} that was disabling colour output.
+* When {Ronin::UI::CLI::Command#start} catches an Interrupt, it will exit
+  with status 130.
+* Rescue `Errno::EPIPE` in {Ronin::UI::CLI::Command#start}.
 * Improved `--help` output of `ronin` commands by adding `examples` and more
   `:description`s to options.
-* Changed `ronin help COMMAND` to display the man-page for the given command.
+* Changed `ronin-help COMMAND` to display the man-page for the given command.
 * No longer honor the `DEBUG` environment variable. Use `ruby -w` or `ruby -d`
   instead.
 * Removed dm-constraints from the dependencies.
