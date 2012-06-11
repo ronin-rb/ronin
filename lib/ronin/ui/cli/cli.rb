@@ -96,7 +96,7 @@ module Ronin
         name = name.to_s
         path = name.tr(':','/')
 
-        unless (command = Commands.require_const(name))
+        unless (command = Commands.require_const(path))
           raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
         end
 
