@@ -287,10 +287,10 @@ module Ronin
 
       # create the initial query
       query = all(
-        'scheme.name' => url.scheme,
+        'scheme.name'       => url.scheme,
         'host_name.address' => url.host,
-        :path => normalized_path(url),
-        :fragment => url.fragment
+        :path               => normalized_path(url),
+        :fragment           => url.fragment
       )
 
       if url.port
@@ -303,7 +303,7 @@ module Ronin
         ::URI::QueryParams.parse(url.query).each do |name,value|
           query = query.all(
             'query_params.name.name' => name,
-            'query_params.value' => value 
+            'query_params.value'     => value 
           )
         end
       end
@@ -341,7 +341,7 @@ module Ronin
         # find or create the URL query params
         uri.query_params.each do |name,value|
           query_params << {
-            :name => URLQueryParamName.first_or_new(:name => name),
+            :name  => URLQueryParamName.first_or_new(:name => name),
             :value => value
           }
         end
