@@ -43,8 +43,8 @@ module Ronin
     # Mapping of URL Schemes and URI classes
     SCHEMES = {
       'https' => ::URI::HTTPS,
-      'http' => ::URI::HTTP,
-      'ftp' => ::URI::FTP
+      'http'  => ::URI::HTTP,
+      'ftp'   => ::URI::FTP
     }
 
     # Primary key of the URL
@@ -326,13 +326,13 @@ module Ronin
     #
     def self.from(uri)
       # find or create the URL scheme, host_name and port
-      scheme = URLScheme.first_or_new(:name => uri.scheme)
+      scheme    = URLScheme.first_or_new(:name => uri.scheme)
       host_name = HostName.first_or_new(:address => uri.host)
-      port = if uri.port
-               TCPPort.first_or_new(:number => uri.port)
-             end
+      port      = if uri.port
+                    TCPPort.first_or_new(:number => uri.port)
+                  end
 
-      path = normalized_path(uri)
+      path     = normalized_path(uri)
       fragment = uri.fragment
 
       query_params = []
@@ -349,11 +349,11 @@ module Ronin
 
       # find or create the URL
       return first_or_new(
-        :scheme => scheme,
-        :host_name => host_name,
-        :port => port,
-        :path => path,
-        :fragment => fragment,
+        :scheme       => scheme,
+        :host_name    => host_name,
+        :port         => port,
+        :path         => path,
+        :fragment     => fragment,
         :query_params => query_params
       )
     end
@@ -443,7 +443,7 @@ module Ronin
 
       URI::QueryParams.parse(query).each do |name,value|
         self.query_params.new(
-          :name => URLQueryParamName.first_or_new(:name => name),
+          :name  => URLQueryParamName.first_or_new(:name => name),
           :value => value
         )
       end
@@ -478,11 +478,11 @@ module Ronin
 
       # build the URI
       return url_class.build(
-        :scheme => self.scheme.name,
-        :host => host,
-        :port => port,
-        :path => self.path,
-        :query => query,
+        :scheme   => self.scheme.name,
+        :host     => host,
+        :port     => port,
+        :path     => self.path,
+        :query    => query,
         :fragment => self.fragment
       )
     end
