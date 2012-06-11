@@ -283,7 +283,7 @@ module Ronin
       return super(url) if url.kind_of?(Integer)
 
       # optionally parse the URL
-      url = ::URI(url)
+      url = ::URI.parse(url.to_s) unless url.kind_of?(::URI)
 
       # create the initial query
       query = all(
