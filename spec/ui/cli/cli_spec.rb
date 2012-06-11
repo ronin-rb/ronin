@@ -13,13 +13,13 @@ describe UI::CLI do
   end
 
   describe "command" do
-    it "should load classes from Commands" do
+    it "should load classes from 'ronin/ui/cli/commands/'" do
       command = subject.command('help')
       
       command.name.should == 'Ronin::UI::CLI::Commands::Help'
     end
 
-    it "should load classes from namespaces within Commands" do
+    it "should load classes from namespaces within 'ronin/ui/cli/commands/'" do
       command = subject.command('net:proxy')
       
       command.name.should == 'Ronin::UI::CLI::Commands::Net::Proxy'
