@@ -25,6 +25,8 @@ module Ronin
   # When included into other namespaces, it allows for auto-loading Classes
   # or Modules via {ClassMethods#const_missing}.
   #
+  # @api semipublic
+  #
   # @since 1.1.0
   #
   module AutoLoad
