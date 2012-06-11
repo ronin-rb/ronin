@@ -94,6 +94,7 @@ module Ronin
       #
       def CLI.command(name)
         name = name.to_s
+        path = name.tr(':','/')
 
         unless (command = Commands.require_const(name))
           raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
