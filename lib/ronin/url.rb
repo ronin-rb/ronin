@@ -300,7 +300,7 @@ module Ronin
 
       if url.query
         # add the query params to the query
-        URI::QueryParams.parse(url.query).each do |name,value|
+        ::URI::QueryParams.parse(url.query).each do |name,value|
           query = query.all(
             'query_params.name.name' => name,
             'query_params.value' => value 
@@ -422,7 +422,7 @@ module Ronin
         params[param.name] = param.value
       end
 
-      return URI::QueryParams.dump(params)
+      return ::URI::QueryParams.dump(params)
     end
 
     #
@@ -441,7 +441,7 @@ module Ronin
     def query_string=(query)
       self.query_params.clear
 
-      URI::QueryParams.parse(query).each do |name,value|
+      ::URI::QueryParams.parse(query).each do |name,value|
         self.query_params.new(
           :name  => URLQueryParamName.first_or_new(:name => name),
           :value => value
@@ -532,7 +532,7 @@ module Ronin
     #
     def self.normalized_path(uri)
       case uri
-      when URI::HTTP
+      when ::URI::HTTP
         # map empty HTTP paths to '/'
         unless uri.path.empty?
           uri.path
