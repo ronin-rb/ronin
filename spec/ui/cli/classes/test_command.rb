@@ -4,6 +4,13 @@ class TestCommand < Ronin::UI::CLI::Command
 
   summary 'Tests the default task'
 
+  usage '[options] PATH FILE [..]'
+
+  examples [
+    'test_command --foo PATH',
+    'test_command --foo PATH FILE ...'
+  ]
+
   option :foo
 
   argument :path

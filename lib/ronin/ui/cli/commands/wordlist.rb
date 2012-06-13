@@ -18,6 +18,7 @@
 #
 
 require 'ronin/ui/cli/command'
+require 'ronin/fuzzing/template'
 require 'ronin/wordlist'
 
 module Ronin
@@ -45,6 +46,11 @@ module Ronin
         #
         #       TEMPLATE                         Options word template (alpha:7 numeric:1-3)
         #
+        # ## Examples
+        #
+        #       ronin wordlist alpha:7 numeric:1-3
+        #       ronin wordlist --input text.txt -m e:3 -m a:@ -m o:0
+        #
         # @since 1.4.0
         #
         class Wordlist < Command
@@ -68,7 +74,12 @@ module Ronin
                              :descriptions => 'Mutations rules'
 
           argument :template, :type        => Array,
-                              :description => 'Options word template (alpha:7 numeric:1-3)'
+                              :description => 'Options word template [CHARSET:[LENGTH|RANGE] ...]'
+
+          examples [
+            "ronin wordlist alpha:7 numeric:1-3",
+            "ronin wordlist --input text.txt -m e:3 -m a:@ -m o:0"
+          ]
 
           #
           # Executes the wordlist command.
@@ -136,7 +147,9 @@ module Ronin
           #
           def wordlist
             if template?
-              Ronin::Wordlist.new(String.generate(*parse_template),@mutations)
+              generator = Fuzzing::Template.new(parse_template)
+
+              Ronin::Wordlist.new(generator,@mutations)
             elsif input?
               Ronin::Wordlist.build(File.open(@input),@mutations)
             else
@@ -157,7 +170,7 @@ module Ronin
             if @output
               File.open(@output,'w',&block)
             else
-              yield STDOUT
+              yield $stdout
             end
           end
 

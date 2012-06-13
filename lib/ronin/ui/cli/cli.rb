@@ -51,7 +51,7 @@ module Ronin
         if @commands.empty?
           commands_dir = File.join('lib',Commands.namespace_root)
 
-          Installation.each_file_in(commands_dir,:rb) do |path|
+          Installation.each_file_in(commands_dir,'rb') do |path|
             # remove the .rb file extension
             name = path.chomp('.rb')
 
@@ -94,8 +94,9 @@ module Ronin
       #
       def CLI.command(name)
         name = name.to_s
+        path = name.tr(':','/')
 
-        unless (command = Commands.require_const(name))
+        unless (command = Commands.require_const(path))
           raise(UnknownCommand,"unable to load the command #{name.dump}",caller)
         end
 

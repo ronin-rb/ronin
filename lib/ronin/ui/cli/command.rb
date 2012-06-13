@@ -161,13 +161,7 @@ module Ronin
         # @api public
         #
         def self.start(argv=ARGV)
-          command = new()
-
-          unless command.start(argv)
-            exit -1
-          end
-
-          return true
+          new().start(argv)
         end
 
         #
@@ -185,9 +179,7 @@ module Ronin
         # @api public
         #
         def self.run(options={})
-          command = new()
-          
-          return command.run(options)
+          new().run(options)
         end
 
         #
@@ -233,7 +225,10 @@ module Ronin
           begin
             run
           rescue Interrupt
-            exit
+            # Ctrl^C
+            exit 130
+          rescue Errno::EPIPE
+            # STDOUT was closed
           rescue => error
             print_exception(error)
             exit -1
@@ -263,7 +258,10 @@ module Ronin
 
           setup
           execute
+
           return true
+        ensure
+          cleanup
         end
 
         #
@@ -291,6 +289,16 @@ module Ronin
         # @api semipublic
         #
         def execute
+        end
+
+        #
+        # Default method to call after the command has finished.
+        #
+        # @since 1.5.0
+        #
+        # @api semipublic
+        #
+        def cleanup
         end
 
         protected
@@ -344,6 +352,31 @@ module Ronin
         end
 
         #
+        # Example usages for the command.
+        #
+        # @param [Array<String>] new_examples
+        #   The new examples for the command.
+        #
+        # @return [Array]
+        #   Example commands.
+        #
+        # @since 1.5.0
+        #
+        # @api semipublic
+        #
+        def self.examples(new_examples=nil)
+          if new_examples
+            @examples = new_examples
+          else
+            @examples ||= if superclass < Command
+                            superclass.examples.dup
+                          else
+                            []
+                          end
+          end
+        end
+
+        #
         # The options for the parameters.
         #
         # @return [Hash{Symbol => Hash}]
@@ -366,7 +399,7 @@ module Ronin
         # @param [Hash] options
         #   Additional options for the option.
         #
-        # @option options [Hash{Class => Class}, Set<Class>, Array<Class>, Class, true] :type (String)
+        # @option options [Hash{Class => Class}, Set<Class>, Array<Class>, Class, true] :type
         #   The type of the options.
         #
         # @option options [Object, Proc] :default
@@ -395,8 +428,6 @@ module Ronin
         # @api semipublic
         #
         def self.option(name,options={})
-          options = {:type => String}.merge(options)
-
           self.options[name] = {
             :flag  => options[:flag],
             :usage => options[:usage],
@@ -595,6 +626,15 @@ module Ronin
                 desc  = param.description
 
                 opts.separator "    #{name.ljust(33)}#{desc}"
+              end
+            end
+
+            unless self.class.examples.empty?
+              opts.separator ''
+              opts.separator 'Examples:'
+
+              self.class.examples.each do |example|
+                opts.separator "  #{example}"
               end
             end
 

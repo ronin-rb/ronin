@@ -68,13 +68,12 @@ module Ronin
                            :description => 'Print the Ronin version'
 
           #
-          # Starts the Ronin Console.
+          # Sets up the Ronin Console.
           #
-          def execute
-            if version?
-              puts "ronin #{Ronin::VERSION}"
-              return
-            end
+          # @since 1.5.0
+          #
+          def setup
+            super
 
             UI::Console.color = color?
             UI::Console.short_errors = !backtrace?
@@ -85,6 +84,16 @@ module Ronin
 
             if database?
               Database.repositories[:default] = @database
+            end
+          end
+
+          #
+          # Starts the Ronin Console.
+          #
+          def execute
+            if version?
+              puts "ronin #{Ronin::VERSION}"
+              return
             end
 
             UI::Console.start

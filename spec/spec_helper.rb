@@ -6,6 +6,7 @@ require 'model/models/described_model'
 require 'model/models/licensed_model'
 require 'model/models/named_model'
 require 'model/models/titled_model'
+require 'classes/my_script'
 require 'helpers/repositories'
 
 require 'ronin/spec/database'

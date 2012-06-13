@@ -7,9 +7,7 @@ RONIN_URI  = 'http://github.com/ronin-ruby'
 
 gemspec
 
-platforms :jruby do
-  gem 'jruby-openssl',	'~> 0.7'
-end
+gem 'jruby-openssl',	'~> 0.7', :platforms => :jruby
 
 # DataMapper dependencies
 # gem 'data_objects',       DO_VERSION, :git => "#{DM_URI}/do.git"
@@ -18,7 +16,6 @@ end
 # gem 'dm-sqlite-adapter',  DM_VERSION, :git => "#{DM_URI}/dm-sqlite-adapter.git"
 # gem 'dm-core',            DM_VERSION, :git => "#{DM_URI}/dm-core.git"
 # gem 'dm-types',           DM_VERSION, :git => "#{DM_URI}/dm-types.git"
-# gem 'dm-constraints',     DM_VERSION, :git => "#{DM_URI}/dm-constraints.git"
 # gem 'dm-migrations',      DM_VERSION, :git => "#{DM_URI}/dm-migrations.git"
 # gem 'dm-validations',     DM_VERSION, :git => "#{DM_URI}/dm-validations.git"
 # gem 'dm-serializer',      DM_VERSION, :git => "#{DM_URI}/dm-serializer.git"
@@ -26,15 +23,19 @@ end
 # gem 'dm-timestamps',      DM_VERSION, :git => "#{DM_URI}/dm-timestamps.git"
 
 # Library dependencies
-# gem 'ronin-support',	'~> 0.4.0.rc1', :git => "#{RONIN_URI}/ronin-support.git"
+# gem 'ronin-support',	'~> 0.5.0.rc1', :git => "#{RONIN_URI}/ronin-support.git",
+#                                       :branch => '0.5.0'
 
 group :development do
   gem 'rake',           '~> 0.8'
   gem 'rubygems-tasks', '~> 0.1'
   gem 'rspec',          '~> 2.4'
-  gem 'kramdown',       '~> 0.12'
-  gem 'ruby-graphviz',  '~> 0.9'
-  gem 'dm-visualizer',  '~> 0.2'
+
+  gem 'redcarpet',      '~> 2.1'
+  gem 'md2man',         '~> 1.2', :git => 'http://github.com/postmodern/md2man.git', :branch => 'rake_task'
+
+  gem 'ruby-graphviz',  '~> 0.9.10'
+  gem 'dm-visualizer',  '~> 0.2.0'
 end
 
 #

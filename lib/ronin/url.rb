@@ -43,8 +43,8 @@ module Ronin
     # Mapping of URL Schemes and URI classes
     SCHEMES = {
       'https' => ::URI::HTTPS,
-      'http' => ::URI::HTTP,
-      'ftp' => ::URI::FTP
+      'http'  => ::URI::HTTP,
+      'ftp'   => ::URI::FTP
     }
 
     # Primary key of the URL
@@ -287,10 +287,10 @@ module Ronin
 
       # create the initial query
       query = all(
-        'scheme.name' => url.scheme,
+        'scheme.name'       => url.scheme,
         'host_name.address' => url.host,
-        :path => normalized_path(url),
-        :fragment => url.fragment
+        :path               => normalized_path(url),
+        :fragment           => url.fragment
       )
 
       if url.port
@@ -300,10 +300,10 @@ module Ronin
 
       if url.query
         # add the query params to the query
-        URI::QueryParams.parse(url.query).each do |name,value|
+        ::URI::QueryParams.parse(url.query).each do |name,value|
           query = query.all(
             'query_params.name.name' => name,
-            'query_params.value' => value 
+            'query_params.value'     => value 
           )
         end
       end
@@ -326,13 +326,13 @@ module Ronin
     #
     def self.from(uri)
       # find or create the URL scheme, host_name and port
-      scheme = URLScheme.first_or_new(:name => uri.scheme)
+      scheme    = URLScheme.first_or_new(:name => uri.scheme)
       host_name = HostName.first_or_new(:address => uri.host)
-      port = if uri.port
-               TCPPort.first_or_new(:number => uri.port)
-             end
+      port      = if uri.port
+                    TCPPort.first_or_new(:number => uri.port)
+                  end
 
-      path = normalized_path(uri)
+      path     = normalized_path(uri)
       fragment = uri.fragment
 
       query_params = []
@@ -341,7 +341,7 @@ module Ronin
         # find or create the URL query params
         uri.query_params.each do |name,value|
           query_params << {
-            :name => URLQueryParamName.first_or_new(:name => name),
+            :name  => URLQueryParamName.first_or_new(:name => name),
             :value => value
           }
         end
@@ -349,11 +349,11 @@ module Ronin
 
       # find or create the URL
       return first_or_new(
-        :scheme => scheme,
-        :host_name => host_name,
-        :port => port,
-        :path => path,
-        :fragment => fragment,
+        :scheme       => scheme,
+        :host_name    => host_name,
+        :port         => port,
+        :path         => path,
+        :fragment     => fragment,
         :query_params => query_params
       )
     end
@@ -422,7 +422,7 @@ module Ronin
         params[param.name] = param.value
       end
 
-      return URI::QueryParams.dump(params)
+      return ::URI::QueryParams.dump(params)
     end
 
     #
@@ -441,9 +441,9 @@ module Ronin
     def query_string=(query)
       self.query_params.clear
 
-      URI::QueryParams.parse(query).each do |name,value|
+      ::URI::QueryParams.parse(query).each do |name,value|
         self.query_params.new(
-          :name => URLQueryParamName.first_or_new(:name => name),
+          :name  => URLQueryParamName.first_or_new(:name => name),
           :value => value
         )
       end
@@ -478,11 +478,11 @@ module Ronin
 
       # build the URI
       return url_class.build(
-        :scheme => self.scheme.name,
-        :host => host,
-        :port => port,
-        :path => self.path,
-        :query => query,
+        :scheme   => self.scheme.name,
+        :host     => host,
+        :port     => port,
+        :path     => self.path,
+        :query    => query,
         :fragment => self.fragment
       )
     end
@@ -532,7 +532,7 @@ module Ronin
     #
     def self.normalized_path(uri)
       case uri
-      when URI::HTTP
+      when ::URI::HTTP
         # map empty HTTP paths to '/'
         unless uri.path.empty?
           uri.path

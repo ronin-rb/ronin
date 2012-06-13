@@ -17,61 +17,42 @@
 # along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'ronin/config'
-
-require 'set'
+require 'shellwords'
 require 'tempfile'
 
 module Ronin
   module UI
     module Console
       #
-      # Allows for executing shell commands prefixed by a `!`.
+      # Allows for calling {Console} commands via the `.` prefix.
+      #
+      # ## Commands
+      #
+      # * {edit .edit}
       #
       # @since 1.2.0
       #
       # @api private
       #
       module Commands
-        # Names and statuses of executables.
-        EXECUTABLES = Hash.new do |hash,key|
-          hash[key] = Config::BIN_DIRS.any? do |dir|
-            path = File.join(dir,key)
-
-            (File.file?(path) && File.executable?(path))
-          end
-        end
-
-        # Prefixes that denote a command, instead of Ruby code.
-        PREFIXES = Set['!', '.']
-
-        # Blacklist of known commands that conflict with Ruby keywords.
-        BLACKLIST = Set[
-          '[', 'ap', 'begin', 'case', 'class', 'def', 'fail', 'false',
-          'for', 'if', 'lambda', 'load', 'loop', 'module', 'p', 'pp',
-          'print', 'proc', 'puts', 'raise', 'require', 'true', 'undef',
-          'unless', 'until', 'warn', 'while'
-        ]
+        # Regexp to recognize `.commands`.
+        PATTERN = /^\.[a-z][a-z0-9_]*/
 
         #
-        # Dynamically execute shell commands, instead of Ruby.
+        # Check for the `.` prefix, and attempt to call the Console command.
         #
         # @param [String] input
         #   The input from the console.
         #
         def loop_eval(input)
-          if PREFIXES.include?(input[0,1])
+          if (@buffer.nil? && input =~ PATTERN)
             command = input[1..-1]
-            name, arguments = command.split(' ')
+            name, arguments = Shellwords.shellsplit(command)
 
-            unless BLACKLIST.include?(name)
-              if Commands.singleton_class.method_defined?(name)
-                arguments ||= []
+            if Commands.singleton_class.method_defined?(name)
+              arguments ||= []
 
-                return Commands.send(name,*arguments)
-              elsif executable?(name)
-                return system(command)
-              end
+              return Commands.send(name,*arguments)
             end
           end
 
@@ -79,63 +60,15 @@ module Ronin
         end
 
         #
-        # Equivalent of the `cd` command, using `Dir.chdir`.
-        #
-        # @param [Array<String>] arguments
-        #   The arguments of the command.
-        #
-        # @return [Boolean]
-        #   Specifies whether the directory change was successful.
-        #
-        def Commands.cd(*arguments)
-          old_pwd = Dir.pwd
-
-          new_cwd = if arguments.empty?
-                      Config::HOME
-                    elsif arguments.first == '-'
-                      unless ENV['OLDPWD']
-                        print_warning 'cd: OLDPWD not set'
-                        return false
-                      end
-
-                      ENV['OLDPWD']
-                    else
-                      arguments.first
-                    end
-
-          Dir.chdir(new_cwd)
-          ENV['OLDPWD'] = old_pwd
-          return true
-        end
-
-        #
-        # Equivalent of the `export` or `set` commands.
-        #
-        # @param [Array<String>] arguments
-        #   The arguments of the command.
-        #
-        # @return [true]
-        #
-        def Commands.export(*arguments)
-          arguments.each do |pair|
-            name, value = pair.split('=',2)
-
-            ENV[name] = value
-          end
-        end
-
-        #
         # Edits a path and re-loads the code.
         #
-        # @param [Array<String>] path 
+        # @param [String] path 
         #   The path of the file to re-load.
         #
         # @return [Boolean]
         #   Specifies whether the code was successfully re-loaded.
         #
-        def Commands.edit(*arguments)
-          path = arguments.first
-
+        def self.edit(path=nil)
           if ENV['EDITOR']
             path ||= Tempfile.new(['ronin-console', '.rb']).path
 
@@ -144,21 +77,6 @@ module Ronin
             print_error "Please set the EDITOR env variable"
             return false
           end
-        end
-
-        protected
-
-        #
-        # Determines if an executable exists on the system.
-        #
-        # @param [String] name
-        #   The program name or path.
-        #
-        # @return [Boolean]
-        #   Specifies whether the executable exists.
-        #
-        def executable?(name)
-          (File.file?(name) && File.executable?(name)) || EXECUTABLES[name]
         end
       end
     end

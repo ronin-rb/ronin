@@ -18,7 +18,6 @@
 #
 
 require 'ronin/model/types'
-require 'ronin/support/inflector'
 
 require 'dm-core'
 require 'dm-types'
@@ -75,9 +74,9 @@ module Ronin
       # @api semipublic
       #
       def relationship_name
-        name = Support::Inflector.underscore(self.name.split('::').last)
-
-        return Support::Inflector.pluralize(name).to_sym
+        DataMapper::Inflector.pluralize(
+          DataMapper::Inflector.underscore(self.name.split('::').last)
+        ).to_sym
       end
 
       #
@@ -133,7 +132,7 @@ module Ronin
           if value.kind_of?(Array)
             value.map(&formatter).join(', ')
           elsif value.kind_of?(Symbol)
-            Support::Inflector.humanize(value)
+            DataMapper::Inflector.humanize(value)
           else
             value.to_s
           end
@@ -148,7 +147,7 @@ module Ronin
             name = name.to_s
 
             unless name[-3..-1] == '_id'
-              name = Support::Inflector.humanize(name)
+              name = DataMapper::Inflector.humanize(name)
               value = formatter.call(value)
 
               if block_given?

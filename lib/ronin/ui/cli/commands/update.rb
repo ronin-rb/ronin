@@ -43,12 +43,22 @@ module Ronin
         #
         #       REPO                             Repository to update
         #
+        # ## Examples
+        #
+        #       ronin update repo
+        #       ronin update repo@github.com
+        #
         class Update < Command
 
           summary 'Updates Ronin Repositories'
 
           argument :repo, :type        => String,
                           :description => 'Repository to update'
+
+          examples [
+            "ronin update repo",
+            "ronin update repo@github.com"
+          ]
 
           #
           # Sets up the install command.
@@ -94,7 +104,7 @@ module Ronin
           # @param [Repository] repository
           #   The repository that was updated.
           #
-          def print_cache_errors(repo)
+          def print_cache_errors(repository)
             repository.script_paths.each do |script_path|
               if script_path.cache_exception
                 print_exception script_path.cache_exception

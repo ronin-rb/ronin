@@ -64,7 +64,7 @@ module Ronin
     #
     # @api private
     #
-    def Database.repositories
+    def self.repositories
       if @repositories.empty?
         @repositories[:default] = DEFAULT_REPOSITORY
 
@@ -97,7 +97,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Database.repository?(name)
+    def self.repository?(name)
       repositories.has_key?(name.to_sym)
     end
 
@@ -114,7 +114,7 @@ module Ronin
     #
     # @api private
     #
-    def Database.save
+    def self.save
       yield if block_given?
 
       File.open(CONFIG_FILE,'w') do |file|
@@ -131,7 +131,7 @@ module Ronin
     end
 
     #
-    # Setup the Database log.
+    # Returns or sets up the Database log.
     #
     # @param [Hash] options
     #   Additional options.
@@ -151,18 +151,21 @@ module Ronin
     #   * `:info`
     #   * `:debug`
     #
-    # @return [true]
-    #   Specifies that the log has been setup.
+    # @return [DataMapper::Logger]
+    #   The Database Logger.
     #
-    # @api private
+    # @api semipublic
     #
-    def Database.setup_log(options={})
-      path = options.fetch(:path,DEFAULT_LOG_PATH)
-      stream = options.fetch(:stream,File.new(path,'w+'))
-      level = options.fetch(:level,DEFAULT_LOG_LEVEL)
+    def self.log(options={})
+      unless (@log && options.empty?)
+        path   = options.fetch(:path,DEFAULT_LOG_PATH)
+        stream = options.fetch(:stream,File.new(path,'w+'))
+        level  = options.fetch(:level,DEFAULT_LOG_LEVEL)
 
-      @log = DataMapper::Logger.new(stream,level)
-      return true
+        @log = DataMapper::Logger.new(stream,level)
+      end
+
+      return @log
     end
 
     #
@@ -176,7 +179,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Database.setup?(name=:default)
+    def self.setup?(name=:default)
       repository = DataMapper.repository(name)
 
       return repository.class.adapters.has_key?(repository.name)
@@ -192,7 +195,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Database.upgrade!
+    def self.upgrade!
       if setup?
         Migrations.migrate_up!
       else
@@ -203,23 +206,31 @@ module Ronin
     #
     # Sets up the Database.
     #
+    # @param [String, Hash] uri
+    #   The optional default repository to setup instead of {repositories}.
+    #
     # @see Database.upgrade!
     #
     # @api semipublic
     #
-    def Database.setup
+    def self.setup(uri=nil)
       # setup the database log
       unless @log
-        if ($DEBUG || ENV['DEBUG'])
-          setup_log(:stream => $stderr, :level => :debug)
+        if $DEBUG
+          log(:stream => $stderr, :level => :debug)
         else
-          setup_log
+          log
         end
       end
 
-      # setup the database repositories
-      repositories.each do |name,uri|
-        DataMapper.setup(name,uri)
+      if uri
+        # only setup the default database repositories
+        DataMapper.setup(:default,uri)
+      else
+        # setup the database repositories
+        repositories.each do |name,uri|
+          DataMapper.setup(name,uri)
+        end
       end
 
       # finalize the Models
@@ -245,7 +256,7 @@ module Ronin
     #
     # @api public
     #
-    def Database.repository(name,&block)
+    def self.repository(name,&block)
       name = name.to_sym
 
       unless repository?(name)
@@ -274,7 +285,7 @@ module Ronin
     #
     # @api private
     #
-    def Database.clear(name)
+    def self.clear(name)
       name = name.to_sym
 
       unless repository?(name)
@@ -302,7 +313,7 @@ module Ronin
     #
     # @api public
     #
-    def Database.map
+    def self.map
       results = []
 
       repositories.each_key do |name|

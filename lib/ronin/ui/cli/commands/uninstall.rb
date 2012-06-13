@@ -43,12 +43,22 @@ module Ronin
         #
         #       REPO                             Repository to uninstall
         #
+        # ## Examples
+        # 
+        #       ronin uninstall repo
+        #       ronin uninstall repo@github.com
+        #
         class Uninstall < Command
 
           summary 'Uninstalls Ronin Repositories'
 
           argument :repo, :type        => String,
                           :description => 'Repository to uninstall'
+
+          examples [
+            "ronin uninstall repo",
+            "ronin uninstall repo@github.com"
+          ]
 
           #
           # Sets up the install command.

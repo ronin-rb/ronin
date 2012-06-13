@@ -19,6 +19,7 @@
 
 require 'ronin/ui/cli/command'
 require 'ronin/ui/cli/cli'
+require 'ronin/installation'
 
 module Ronin
   module UI
@@ -47,7 +48,7 @@ module Ronin
 
           summary 'Displays the list of available commands or prints information on a specific command'
 
-          argument :command, :type        => Symbol,
+          argument :command, :type        => String,
                              :description => 'The command to display'
 
           #
@@ -55,14 +56,28 @@ module Ronin
           #
           def execute
             if command?
-              begin
-                CLI.command(@command).start(['--help'])
-              rescue UnknownCommand
-                print_error "unknown command: #{@command}"
+              name = command.gsub(/^ronin-/,'')
+
+              unless CLI.commands.include?(name)
+                print_error "Unknown command: #{@command.dump}"
+                exit -1
               end
-            else
-              print_array CLI.commands, :title => 'Available commands'
+
+              man_page = "ronin-#{name.tr(':','-')}.1"
+
+              Installation.paths.each do |path|
+                man_path = File.join(path,'man',man_page)
+
+                if File.file?(man_path)
+                  return system('man',man_path)
+                end
+              end
+
+              print_error "No man-page for the command: #{@command.dump}"
+              exit -1
             end
+
+            print_array CLI.commands, :title => 'Available commands'
           end
 
         end
