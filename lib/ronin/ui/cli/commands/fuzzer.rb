@@ -28,6 +28,33 @@ module Ronin
   module UI
     module CLI
       module Commands
+        #
+        # Performs basic fuzzing of files, commands or TCP/UDP services.
+        #
+        # ## Usage
+        #
+        #     ronin fuzzer [options]
+        #
+        # ## Options
+        #
+        #    -v, --[no-]verbose               Enable verbose output.
+        #    -q, --[no-]quiet                 Disable verbose output.
+        #        --[no-]silent                Silence all output.
+        #        --[no-]color                 Enables color output.
+        #                                     Default: true
+        #    -F [[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]],
+        #        --fuzz                       Fuzzing rules.
+        #    -i, --input [FILE]               Input file to fuzz.
+        #    -f, --file [FILE]                Output file path.
+        #    -c [PROGRAM [OPTIONS|#string#|#path#] ...],
+        #        --command                    Template command to run.
+        #    -t, --tcp [HOST:PORT]            TCP service to fuzz.
+        #    -u, --udp [HOST:PORT]            UDP service to fuzz.
+        #
+        # ## Examples
+        #
+        #     ronin fuzzer -i request.txt -F unix_path:bad_strings -f bad.txt
+        #
         class Fuzzer < Command
 
           summary 'Performs basic fuzzing of files'
