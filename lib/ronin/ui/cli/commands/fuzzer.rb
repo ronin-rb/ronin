@@ -32,34 +32,34 @@ module Ronin
 
           summary 'Performs basic fuzzing of files'
 
-          option :fuzz, :type => Hash[String => String],
-                        :flag => '-F',
-                        :usage => '[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]',
+          option :fuzz, :type        => Hash[String => String],
+                        :flag        => '-F',
+                        :usage       => '[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]',
                         :description => 'Fuzzing rules'
 
-          option :input, :type => String,
-                         :flag => '-i',
-                         :usage => 'FILE',
+          option :input, :type        => String,
+                         :flag        => '-i',
+                         :usage       => 'FILE',
                          :description => 'Input file to fuzz'
 
-          option :file, :type => String,
-                        :flag => '-f',
-                        :usgae => 'PATH',
+          option :file, :type        => String,
+                        :flag        => '-f',
+                        :usgae       => 'PATH',
                         :description => 'Output file path'
 
-          option :command, :type => String,
-                           :flag => '-c',
-                           :usage => 'PROGRAM [OPTIONS|#string#|#path#] ...',
+          option :command, :type        => String,
+                           :flag        => '-c',
+                           :usage       => 'PROGRAM [OPTIONS|#string#|#path#] ...',
                            :description => 'Template command to run'
 
-          option :tcp, :type => String,
-                       :flag => '-t',
-                       :usage => 'HOST:PORT',
+          option :tcp, :type        => String,
+                       :flag        => '-t',
+                       :usage       => 'HOST:PORT',
                        :description => 'TCP service to fuzz'
 
-          option :udp, :type => String,
-                       :flag => '-u',
-                       :usage => 'HOST:PORT',
+          option :udp, :type        => String,
+                       :flag        => '-u',
+                       :usage       => 'HOST:PORT',
                        :description => 'UDP service to fuzz'
 
           examples [
