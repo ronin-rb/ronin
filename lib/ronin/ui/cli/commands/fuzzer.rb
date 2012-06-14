@@ -18,7 +18,7 @@
 #
 
 require 'ronin/ui/cli/command'
-require 'ronin/fuzzing'
+require 'ronin/fuzzing/fuzzer'
 
 require 'shellwords'
 require 'tempfile'
@@ -69,16 +69,18 @@ module Ronin
           def setup
             super
 
+            @fuzz = Hash[@fuzz.map { |pattern,substitution|
+              [parse_pattern(pattern), parse_substitution(substitution)]
+            }]
+
             if file?
               @file_ext  = File.extname(@file)
               @file_name = @file.chomp(@file_ext)
             elsif command?
               @command = shellwords(@command)
             elsif (tcp? || udp?)
-              @socket_class = if tcp?
-                                TCPSocket
-                              elsif udp?
-                                UDPSocket
+              @socket_class = if    tcp? then TCPSocket
+                              elsif udp? then UDPSocket
                               end
 
               @host, @port = (tcp || udp).split(':',2)
@@ -88,13 +90,14 @@ module Ronin
 
           def execute
             data   = File.read(@input)
-            method = if file?             then method(:fuzz_file)
+            method = if    file?          then method(:fuzz_file)
                      elsif command?       then method(:fuzz_command)
                      elsif (tcp? || udp?) then method(:fuzz_service)
                      else                      method(:fuzz_stdout)
                      end
 
-            data.fuzz(parse_rules).each_with_index do |string,index|
+            fuzzer = Fuzzing::Fuzzer.new(@fuzz)
+            fuzzer.each(data).each_with_index do |string,index|
               index = index + 1
 
               method.call(string,index)
@@ -165,39 +168,33 @@ module Ronin
             puts string
           end
 
-          def parse_rules
-            rules = {}
+          def parse_pattern(string)
+            if string =~ /^\/.+\/$/
+              Regexp.new(string[1..-2])
+            elsif (Regexp.const_defined?(string.upcase) &&
+                   Regexp.const_get(string.upcase).kind_of?(Regexp))
+              Regexp.const_get(string.upcase)
+            else
+              string
+            end
+          end
 
-            @fuzz.each do |key,value|
-              pattern = if key =~ /^\/.+\/$/
-                          Regexp.new(key[1..-2])
-                        elsif (Regexp.const_defined?(key.upcase) &&
-                               Regexp.const_get(key.upcase).kind_of?(Regexp))
-                          Regexp.const_get(key.upcase)
+          def parse_substitution(string)
+            if string.include?('*')
+              string, lengths = string.split('*',2)
+
+              lengths = if lengths.include?('-')
+                          min, max = lengths.split('-',2)
+
+                          (min.to_i .. max.to_i)
                         else
-                          key
+                          lengths.to_i
                         end
 
-              substitution = if value.include?('*')
-                               string, lengths = value.split('*',2)
-
-                               lengths = if lengths.include?('-')
-                                          min, max = lengths.split('-',2)
-
-                                          (min.to_i .. max.to_i)
-                                        else
-                                          lengths.to_i
-                                        end
-
-                               string.repeating(lengths)
-                             else
-                               Fuzzing[value]
-                             end
-
-              rules[pattern] = substitution
+              string.repeating(lengths)
+            else
+              Fuzzing[string]
             end
-
-            return rules
           end
 
         end
