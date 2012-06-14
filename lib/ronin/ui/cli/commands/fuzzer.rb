@@ -52,31 +52,48 @@ module Ronin
                            :usage => 'PROGRAM [OPTIONS|#string#|#path#] ...',
                            :description => 'Template command to run'
 
-          option :server, :type => String,
-                          :flag => '-s',
-                          :usage => 'HOST:PORT',
-                          :description => 'Server to send the fuzzed data to'
+          option :tcp, :type => String,
+                       :flag => '-t',
+                       :usage => 'HOST:PORT',
+                       :description => 'TCP service to fuzz'
+
+          option :udp, :type => String,
+                       :flag => '-u',
+                       :usage => 'HOST:PORT',
+                       :description => 'UDP service to fuzz'
 
           examples [
             "ronin fuzzer -i request.txt -F unix_path:bad_strings -f bad.txt"
           ]
 
+          def setup
+            super
+
+            if file?
+              @file_ext  = File.extname(@file)
+              @file_name = @file.chomp(@file_ext)
+            elsif command?
+              @command = shellwords(@command)
+            elsif (tcp? || udp?)
+              @socket_class = if tcp?
+                                TCPSocket
+                              elsif udp?
+                                UDPSocket
+                              end
+
+              @host, @port = (tcp || udp).split(':',2)
+              @port = @port.to_i
+            end
+          end
+
           def execute
             data   = File.read(@input)
             method = if file?
-                       @file_ext  = File.extname(@file)
-                       @file_name = @file.chomp(@file_ext)
-
                        method(:fuzz_file)
                      elsif command?
-                       @command = shellwords(@command)
-
                        method(:fuzz_command)
-                     elsif server?
-                       @server_host, @server_port = @server.split(':',2)
-                       @server_port = @server_port.to_i
-
-                       method(:fuzz_server)
+                     elsif (tcp? || udp?)
+                       method(:fuzz_service)
                      else
                        method(:fuzz_stdout)
                      end
@@ -134,15 +151,15 @@ module Ronin
             end
           end
 
-          def fuzz_server(string,index)
-            print_debug "Connecting to #{@server_host}:#{@server_port} ..."
-
-            socket = TCPSocket.new(@server_host,@server_port)
+          def fuzz_service(string,index)
+            print_debug "Connecting to #{@host}:#{@port} ..."
+            socket = @socket_class.new(@host,@port)
 
             print_info "Sending message ##{index}: #{string.inspect} ..."
             socket.write(string)
-
             socket.flush
+
+            print_debug "Disconnecting from #{@host}:#{@port} ..."
             socket.close
           end
 
