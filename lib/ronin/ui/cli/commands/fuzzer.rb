@@ -88,14 +88,10 @@ module Ronin
 
           def execute
             data   = File.read(@input)
-            method = if file?
-                       method(:fuzz_file)
-                     elsif command?
-                       method(:fuzz_command)
-                     elsif (tcp? || udp?)
-                       method(:fuzz_service)
-                     else
-                       method(:fuzz_stdout)
+            method = if file?             then method(:fuzz_file)
+                     elsif command?       then method(:fuzz_command)
+                     elsif (tcp? || udp?) then method(:fuzz_service)
+                     else                      method(:fuzz_stdout)
                      end
 
             data.fuzz(parse_rules).each_with_index do |string,index|
