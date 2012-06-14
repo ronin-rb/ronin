@@ -34,7 +34,7 @@ module Ronin
 
           option :fuzz, :type => Hash[String => String],
                         :flag => '-F',
-                        :usage => '[PATTERN|/REGEXP/]:[METHOD|STR*N[-M]]',
+                        :usage => '[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]',
                         :description => 'Fuzzing rules'
 
           option :input, :type => String,
@@ -83,7 +83,7 @@ module Ronin
                               elsif udp? then UDPSocket
                               end
 
-              @host, @port = (tcp || udp).split(':',2)
+              @host, @port = (@tcp || @udp).split(':',2)
               @port = @port.to_i
             end
           end
