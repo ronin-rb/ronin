@@ -67,7 +67,7 @@ module Ronin
 
           option :rules, :type        => Hash[String => String],
                          :flag        => '-r',
-                         :usage       => '[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]',
+                         :usage       => '[PATTERN|/REGEXP/|STRING]:[METHOD|STRING*N[-M]]',
                          :description => 'Fuzzing rules'
 
           option :output, :type        => String,
