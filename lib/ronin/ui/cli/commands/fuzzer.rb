@@ -116,8 +116,8 @@ module Ronin
           end
 
           def execute
-            data   = if @input == '-' then STDIN.read
-                     else                  File.read(@input)
+            data   = if input? then File.read(@input)
+                     else           $stdin.read
                      end
 
             method = if    file?          then method(:fuzz_file)
