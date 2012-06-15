@@ -41,6 +41,7 @@ generated_files:
  - man/ronin-database.1
  - man/ronin-emails.1
  - man/ronin-exec.1
+ - man/ronin-fuzzer.1
  - man/ronin-help.1
  - man/ronin-hosts.1
  - man/ronin-install.1
