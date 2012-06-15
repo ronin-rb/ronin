@@ -171,7 +171,7 @@ module Ronin
           def set_repository
             unless Ronin::Database.repository?(@set)
               print_error "Unknown Database repository #{@set}"
-              return
+              exit -1
             end
 
             Ronin::Database.save do
@@ -187,7 +187,7 @@ module Ronin
           def remove_repository
             unless Ronin::Database.repository?(@remove)
               print_error "Unknown Database repository #{@remove}"
-              return
+              exit -1
             end
 
             Ronin::Database.save do
