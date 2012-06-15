@@ -116,7 +116,10 @@ module Ronin
           end
 
           def execute
-            data   = File.read(@input)
+            data   = if @input == '-' then STDIN.read
+                     else                  File.read(@input)
+                     end
+
             method = if    file?          then method(:fuzz_file)
                      elsif command?       then method(:fuzz_command)
                      elsif (tcp? || udp?) then method(:fuzz_service)
