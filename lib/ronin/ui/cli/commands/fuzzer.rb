@@ -43,10 +43,10 @@ module Ronin
         #        --[no-]silent                Silence all output.
         #        --[no-]color                 Enables color output.
         #                                     Default: true
-        #    -F [[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]],
-        #        --fuzz                       Fuzzing rules.
+        #    -r [[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]],
+        #        --rule                       Fuzzing rules.
         #    -i, --input [FILE]               Input file to fuzz.
-        #    -f, --file [FILE]                Output file path.
+        #    -o, --output [FILE]              Output file path.
         #    -c [PROGRAM [OPTIONS|#string#|#path#] ...],
         #        --command                    Template command to run.
         #    -t, --tcp [HOST:PORT]            TCP service to fuzz.
@@ -54,26 +54,26 @@ module Ronin
         #
         # ## Examples
         #
-        #     ronin fuzzer -i request.txt -F unix_path:bad_strings -f bad.txt
+        #     ronin fuzzer -i request.txt -r unix_path:bad_strings -o bad.txt
         #
         class Fuzzer < Command
 
           summary 'Performs basic fuzzing of files'
-
-          option :fuzz, :type        => Hash[String => String],
-                        :flag        => '-F',
-                        :usage       => '[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]',
-                        :description => 'Fuzzing rules'
 
           option :input, :type        => String,
                          :flag        => '-i',
                          :usage       => 'FILE',
                          :description => 'Input file to fuzz'
 
-          option :file, :type        => String,
-                        :flag        => '-f',
-                        :usgae       => 'PATH',
-                        :description => 'Output file path'
+          option :rules, :type        => Hash[String => String],
+                         :flag        => '-r',
+                         :usage       => '[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]',
+                         :description => 'Fuzzing rules'
+
+          option :output, :type        => String,
+                          :flag        => '-o',
+                          :usgae       => 'PATH',
+                          :description => 'Output file path'
 
           option :command, :type        => String,
                            :flag        => '-c',
@@ -91,7 +91,7 @@ module Ronin
                        :description => 'UDP service to fuzz'
 
           examples [
-            "ronin fuzzer -i request.txt -F unix_path:bad_strings -f bad.txt"
+            "ronin fuzzer -i request.txt -o bad.txt -r unix_path:bad_strings"
           ]
 
           #
@@ -100,12 +100,17 @@ module Ronin
           def setup
             super
 
-            @fuzz = Hash[@fuzz.map { |pattern,substitution|
+            unless rules?
+              print_error "Must specify at least one fuzzing rule"
+              exit -1
+            end
+
+            @rules = Hash[@rules.map { |pattern,substitution|
               [parse_pattern(pattern), parse_substitution(substitution)]
             }]
 
-            if file?
-              @file_ext  = File.extname(@file)
+            if output?
+              @file_ext  = File.extname(@output)
               @file_name = @file.chomp(@file_ext)
             elsif command?
               @command = shellwords(@command)
@@ -124,13 +129,13 @@ module Ronin
                      else           $stdin.read
                      end
 
-            method = if    file?          then method(:fuzz_file)
+            method = if    output?        then method(:fuzz_file)
                      elsif command?       then method(:fuzz_command)
-                     elsif (tcp? || udp?) then method(:fuzz_service)
-                     else                      method(:fuzz_stdout)
+                     elsif (tcp? || udp?) then method(:fuzz_network)
+                     else                      method(:print_fuzz)
                      end
 
-            fuzzer = Fuzzing::Fuzzer.new(@fuzz)
+            fuzzer = Fuzzing::Fuzzer.new(@rules)
             fuzzer.each(data).each_with_index do |string,index|
               index = index + 1
 
@@ -211,7 +216,7 @@ module Ronin
           # @param [Integer] index
           #   The iteration number.
           #
-          def fuzz_service(string,index)
+          def fuzz_network(string,index)
             print_debug "Connecting to #{@host}:#{@port} ..."
             socket = @socket_class.new(@host,@port)
 
@@ -232,7 +237,7 @@ module Ronin
           # @param [Integer] index
           #   The iteration number.
           #
-          def fuzz_stdout(string,index)
+          def print_fuzz(string,index)
             print_debug "String ##{index} ..."
 
             puts string
