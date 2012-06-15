@@ -39,7 +39,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Installation.gems
+    def self.gems
       load! if @gems.empty?
       return @gems
     end
@@ -54,7 +54,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Installation.paths
+    def self.paths
       load! if @paths.empty?
       return @paths
     end
@@ -69,7 +69,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Installation.libraries
+    def self.libraries
       gems.keys
     end
 
@@ -93,7 +93,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Installation.each_file(pattern)
+    def self.each_file(pattern)
       return enum_for(:each_file,pattern) unless block_given?
 
       # query the installed gems
@@ -130,7 +130,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Installation.each_file_in(directory,ext=nil)
+    def self.each_file_in(directory,ext=nil)
       return enum_for(:each_file_in,directory,ext) unless block_given?
 
       directory = File.join(directory,File::SEPARATOR)
@@ -155,7 +155,7 @@ module Ronin
     #
     # @api private
     #
-    def Installation.load_gems!
+    def self.load_gems!
       register_gem = lambda { |gem|
         @gems[gem.name] = gem
         @paths << gem.full_gem_path
@@ -184,7 +184,7 @@ module Ronin
     #
     # @api private
     #
-    def Installation.load_gemspecs!
+    def self.load_gemspecs!
       $LOAD_PATH.each do |lib_dir|
         root_dir = File.expand_path(File.join(lib_dir,'..'))
         gemspec_path = Dir[File.join(root_dir,'ronin*.gemspec')][0]
@@ -216,7 +216,7 @@ module Ronin
     #
     # @api private
     #
-    def Installation.load!
+    def self.load!
       if Gem.loaded_specs.has_key?('ronin')
         load_gems!
       else
