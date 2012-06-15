@@ -133,13 +133,13 @@ module Ronin
     def Installation.each_file_in(directory,ext=nil)
       return enum_for(:each_file_in,directory,ext) unless block_given?
 
+      directory = File.join(directory,File::SEPARATOR)
+
       pattern = File.join(directory,'**','*')
       pattern << ".#{ext}" if ext
 
-      slice_index = directory.length + 1
-
       each_file(pattern) do |path|
-        yield path[slice_index..-1]
+        yield path.sub(directory,'')
       end
     end
 
