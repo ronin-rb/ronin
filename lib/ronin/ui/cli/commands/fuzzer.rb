@@ -18,6 +18,7 @@
 #
 
 require 'ronin/ui/cli/command'
+require 'ronin/fuzzing/repeater'
 require 'ronin/fuzzing/fuzzer'
 
 require 'shellwords'
@@ -221,7 +222,7 @@ module Ronin
                           lengths.to_i
                         end
 
-              string.repeating(lengths)
+              Fuzzing::Repeater.new(lengths).each(string)
             else
               Fuzzing[string]
             end
