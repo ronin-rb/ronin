@@ -94,6 +94,9 @@ module Ronin
             "ronin fuzzer -i request.txt -F unix_path:bad_strings -f bad.txt"
           ]
 
+          #
+          # Sets up the fuzz command.
+          #
           def setup
             super
 
@@ -139,6 +142,15 @@ module Ronin
 
           include Shellwords
 
+          #
+          # Writes the fuzzed string to a file.
+          #
+          # @param [String] string
+          #   The fuzzed string.
+          #
+          # @param [Integer] index
+          #   The iteration number.
+          #
           def fuzz_file(string,index)
             path = "#{@file_name}-#{index}#{@file_ext}"
 
@@ -149,6 +161,15 @@ module Ronin
             end
           end
 
+          #
+          # Runs the fuzzed string in a command.
+          #
+          # @param [String] string
+          #   The fuzzed string.
+          #
+          # @param [Integer] index
+          #   The iteration number.
+          #
           def fuzz_command(string,index)
             Tempfile.open("ronin-fuzzer-#{index}") do |tempfile|
               tempfile.write(string)
@@ -181,6 +202,15 @@ module Ronin
             end
           end
 
+          #
+          # Sends the fuzzed string to a TCP/UDP Service.
+          #
+          # @param [String] string
+          #   The fuzzed string.
+          #
+          # @param [Integer] index
+          #   The iteration number.
+          #
           def fuzz_service(string,index)
             print_debug "Connecting to #{@host}:#{@port} ..."
             socket = @socket_class.new(@host,@port)
@@ -193,12 +223,30 @@ module Ronin
             socket.close
           end
 
+          #
+          # Prints the fuzzed string to STDOUT.
+          #
+          # @param [String] string
+          #   The fuzzed string.
+          #
+          # @param [Integer] index
+          #   The iteration number.
+          #
           def fuzz_stdout(string,index)
             print_debug "String ##{index} ..."
 
             puts string
           end
 
+          #
+          # Parses a fuzz pattern.
+          #
+          # @param [String] string
+          #   The string to parse.
+          #
+          # @return [Regexp, String]
+          #   The parsed pattern.
+          #
           def parse_pattern(string)
             if string =~ /^\/.+\/$/
               Regexp.new(string[1..-2])
@@ -210,6 +258,15 @@ module Ronin
             end
           end
 
+          #
+          # Parses a fuzz substitution Enumerator.
+          #
+          # @param [String] string
+          #   The string to parse.
+          #
+          # @return [Enumerator]
+          #   The parsed substitution Enumerator.
+          #
           def parse_substitution(string)
             if string.include?('*')
               string, lengths = string.split('*',2)
