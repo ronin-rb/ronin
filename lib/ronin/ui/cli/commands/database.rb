@@ -121,12 +121,9 @@ module Ronin
               return
             end
 
-            if add?
-              add_repository
-            elsif set?
-              set_repository
-            elsif remove?
-              remove_repository
+            if    add?    then add_repository
+            elsif set?    then set_repository
+            elsif remove? then remove_repository
             else
               Ronin::Database.repositories.each do |name,uri|
                 print_hash uri, :title => name
