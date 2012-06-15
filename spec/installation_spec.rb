@@ -10,40 +10,18 @@ describe Installation do
     subject.libraries.should include('ronin')
   end
 
-  let(:directory) { 'lib/ronin/ui/cli/commands' }
-  let(:files) {
-    %w[
-      campaigns.rb
-      console.rb
-      creds.rb
-      database.rb
-      emails.rb
-      exec.rb
-      help.rb
-      hosts.rb
-      install.rb
-      ips.rb
-      net/proxy.rb
-      repos.rb
-      update.rb
-      urls.rb
-      uninstall.rb
-      wordlist.rb
-    ]
-  }
+  let(:directory) { 'lib/ronin/ui/cli/commands/'                }
+  let(:pattern)   { File.join(directory,'**','*.rb')            }
+  let(:paths)     { Dir[pattern]                                }
+  let(:files)     { paths.map { |path| path.sub(directory,'') } }
 
   describe "each_file" do
-    let(:pattern)  { File.join(directory,'**','*.rb') }
-    let(:expected) { files.map { |name| File.join(directory,name) } }
-
     it "should enumerate over the files which match a glob pattern" do
-      subject.each_file(pattern).to_a.should =~ expected
+      subject.each_file(pattern).to_a.should =~ paths
     end
 
     it "should return an Enumerator when no block is given" do
-      subject.each_file(pattern).all? { |file|
-        expected.include?(file)
-      }.should == true
+      subject.each_file(pattern).to_a.should == paths
     end
   end
 
