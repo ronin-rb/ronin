@@ -28,10 +28,16 @@ to output files, run in commands or sent to TCP/UDP services.
 
 `-r`, `--rule` [*PATTERN*|*/REGEXP/*|STRING]:[*METHOD*|*STRING***N*[-*M*]]
   The rule to apply to the *INPUT*. Fuzzer rules consist of a pattern and 
-  substitution. Patterns may be the name of a Ronin Regular Expression
-  (ex: `unix_path`), a custom Regular Expression or a String.
-  Substitutions may be a method from `Ronin::Fuzzing` (ex: `bad_strings`) or a
-  *STRING*, repeated *N* to *M* times (ex: `A*100-200`).
+  substitution. Patterns may be one of the following:
+
+  * A name of a Ronin Regular Expression (ex: `unix_path`)
+  * A custom Regular Expression (ex: `/\d+/`)
+  * A plain String (ex: `example.com`).
+
+    Substitutions may be one of the following:
+
+  * A method from `Ronin::Fuzzing` (ex: `bad_strings`)
+  * A *STRING*, repeated *N* or *M* times (ex: `A*100-200`).
 
 `-o`, `--output` *PATH*
   The output PATH to write the fuzzer to.
