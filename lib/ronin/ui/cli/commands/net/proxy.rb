@@ -313,6 +313,7 @@ module Ronin
                 print_data data
               end
 
+              print_info "Listening on #{@host}:#{@port} ..."
               @proxy.start
             end
 
