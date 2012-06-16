@@ -109,6 +109,10 @@ View available commands:
 
     $ ronin help
 
+View a man-page for a command:
+
+    $ ronin help wordlist
+
 Install a Repository:
 
     $ ronin install svn://example.com/path/to/repo
