@@ -253,11 +253,18 @@ module Ronin
           #   The parsed pattern.
           #
           def parse_pattern(string)
-            if string =~ /^\/.+\/$/
+            case string
+            when /^\/.+\/$/
               Regexp.new(string[1..-2])
-            elsif (Regexp.const_defined?(string.upcase) &&
-                   Regexp.const_get(string.upcase).kind_of?(Regexp))
-              Regexp.const_get(string.upcase)
+            when /^[a-z][a-z_]+$/
+              const = string.upcase
+
+              if (Regexp.const_defined?(const) &&
+                  Regexp.const_get(const).kind_of?(Regexp))
+                Regexp.const_get(const)
+              else
+                string
+              end
             else
               string
             end
