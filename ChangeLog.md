@@ -1,4 +1,4 @@
-### 1.5.0 / 2012-05-28
+### 1.5.0 / 2012-06-16
 
 * Require ronin-support ~> 0.5.
 * Added {Ronin::UI::CLI::Command#setup}.
