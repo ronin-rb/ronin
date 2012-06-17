@@ -98,7 +98,7 @@ module Ronin
     # @api public
     #
     def self.extract(text,version=nil)
-      return enum_for(:extract,text,version).to_a unless block_given?
+      return enum_for(__method__,text,version).to_a unless block_given?
 
       IPAddr.extract(text,version) do |ip|
         yield parse(ip)

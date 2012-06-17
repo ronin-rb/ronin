@@ -471,7 +471,7 @@ module Ronin
         # @api private
         #
         def self.each_option(&block)
-          return enum_for(:each_option) unless block
+          return enum_for(__method__) unless block
 
           ancestors.reverse_each do |ancestor|
             if ancestor <= Command
@@ -557,7 +557,7 @@ module Ronin
         # @api semipublic
         #
         def self.each_argument(&block)
-          return enum_for(:each_argument) unless block
+          return enum_for(__method__) unless block
 
           ancestors.reverse_each do |ancestor|
             if ancestor <= Command

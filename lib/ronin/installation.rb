@@ -94,7 +94,7 @@ module Ronin
     # @api semipublic
     #
     def self.each_file(pattern)
-      return enum_for(:each_file,pattern) unless block_given?
+      return enum_for(__method__,pattern) unless block_given?
 
       # query the installed gems
       paths.each do |gem_path|
@@ -131,7 +131,7 @@ module Ronin
     # @api semipublic
     #
     def self.each_file_in(directory,ext=nil)
-      return enum_for(:each_file_in,directory,ext) unless block_given?
+      return enum_for(__method__,directory,ext) unless block_given?
 
       directory = File.join(directory,File::SEPARATOR)
 

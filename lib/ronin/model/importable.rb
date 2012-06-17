@@ -49,7 +49,7 @@ module Ronin
         # @api public
         #
         def import(path)
-          return enum_for(:import,path).to_a unless block_given?
+          return enum_for(__method__,path).to_a unless block_given?
 
           File.open(path) do |file|
             file.each_line do |line|

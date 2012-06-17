@@ -61,7 +61,7 @@ module Ronin
         # @since 1.1.0
         #
         def self.each_query_option(&block)
-          return enum_for(:each_query_option) unless block
+          return enum_for(__method__) unless block
 
           self.class.ancestors.each do |ancestor|
             if ancestor < ModelCommand

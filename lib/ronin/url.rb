@@ -100,7 +100,7 @@ module Ronin
     # @api public
     #
     def self.extract(text)
-      return enum_for(:extract,text).to_a unless block_given?
+      return enum_for(__method__,text).to_a unless block_given?
 
       ::URI.extract(text) do |uri|
         uri = begin

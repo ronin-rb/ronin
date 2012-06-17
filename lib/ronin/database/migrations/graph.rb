@@ -212,7 +212,7 @@ module Ronin
         # @api semipublic
         #
         def upto(position_or_name=nil)
-          return enum_for(:upto,position_or_name) unless block_given?
+          return enum_for(__method__,position_or_name) unless block_given?
 
           name = name_of(position_or_name)
 
@@ -250,7 +250,7 @@ module Ronin
         # @api semipublic
         #
         def downto(position_or_name=nil)
-          return enum_for(:downto,position_or_name) unless block_given?
+          return enum_for(__method__,position_or_name) unless block_given?
 
           name = name_of(position_or_name)
 

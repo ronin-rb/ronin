@@ -475,7 +475,7 @@ module Ronin
     # @api private
     #
     def each_script(&block)
-      return enum_for(:each_script) unless block
+      return enum_for(__method__) unless block
 
       @script_dirs.each do |dir|
         Pathname.glob(dir.join('**','*.rb'),&block)
