@@ -21,7 +21,7 @@ describe Installation do
     end
 
     it "should return an Enumerator when no block is given" do
-      subject.each_file(pattern).to_a.should == paths
+      subject.each_file(pattern).should respond_to(:each)
     end
   end
 
@@ -34,9 +34,7 @@ describe Installation do
     end
 
     it "should return an Enumerator when no block is given" do
-      subject.each_file_in(directory,ext).all? { |file|
-        expected.include?(file)
-      }.should == true
+      subject.each_file_in(directory,ext).should respond_to(:each)
     end
   end
 end
