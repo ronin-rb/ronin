@@ -56,6 +56,8 @@ module Ronin
         #
         #     ronin fuzzer -i request.txt -r unix_path:bad_strings -o bad.txt
         #
+        # @since 1.5.0
+        #
         class Fuzzer < Command
 
           summary 'Performs basic fuzzing of files'
