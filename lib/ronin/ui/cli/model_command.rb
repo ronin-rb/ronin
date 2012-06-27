@@ -164,12 +164,9 @@ module Ronin
               query_method = model.method(name)
 
               query = case query_method.arity
-                      when 0
-                        query.send(name)
-                      when 1
-                        query.send(name,value)
-                      else
-                        query.send(name,*value)
+                      when 0 then query.send(name)
+                      when 1 then query.send(name,value)
+                      else        query.send(name,*value)
                       end
             else
               raise("unknown query method or property #{name} for #{model}")

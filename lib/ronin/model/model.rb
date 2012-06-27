@@ -129,9 +129,10 @@ module Ronin
         end
 
         formatter = lambda { |value|
-          if value.kind_of?(Array)
+          case value
+          when Array
             value.map(&formatter).join(', ')
-          elsif value.kind_of?(Symbol)
+          when Symbol
             DataMapper::Inflector.humanize(value)
           else
             value.to_s
@@ -150,9 +151,7 @@ module Ronin
               name = DataMapper::Inflector.humanize(name)
               value = formatter.call(value)
 
-              if block_given?
-                yield name, value
-              end
+              yield name, value if block_given?
 
               formatted[name] = value
             end

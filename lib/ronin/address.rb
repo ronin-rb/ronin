@@ -86,10 +86,9 @@ module Ronin
     # @api public
     #
     def self.[](key)
-      if key.kind_of?(String)
-        first(:address => key)
-      else
-        super(key)
+      case key
+      when String then first(:address => key)
+      else             super(key)
       end
     end
 

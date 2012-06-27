@@ -196,11 +196,9 @@ module Ronin
     # @api semipublic
     #
     def self.upgrade!
-      if setup?
-        Migrations.migrate_up!
-      else
-        false
-      end
+      return false unless setup?
+
+      Migrations.migrate_up!
     end
 
     #
@@ -216,10 +214,8 @@ module Ronin
     def self.setup(uri=nil)
       # setup the database log
       unless @log
-        if $DEBUG
-          log(:stream => $stderr, :level => :debug)
-        else
-          log
+        if $DEBUG then log(:stream => $stderr, :level => :debug)
+        else           log
         end
       end
 

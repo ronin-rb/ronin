@@ -534,10 +534,8 @@ module Ronin
       case uri
       when ::URI::HTTP
         # map empty HTTP paths to '/'
-        unless uri.path.empty?
-          uri.path
-        else
-          '/'
+        unless uri.path.empty? then uri.path
+        else                        '/'
         end
       else
         uri.path

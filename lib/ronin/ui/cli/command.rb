@@ -276,10 +276,8 @@ module Ronin
           Output.quiet!   if quiet?
           Output.silent!  if silent?
 
-          Output.handler = if color?
-                             Output::Terminal::Color
-                           else
-                             Output::Terminal::Raw
+          Output.handler = if color? then Output::Terminal::Color
+                           else           Output::Terminal::Raw
                            end
         end
 

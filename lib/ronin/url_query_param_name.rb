@@ -33,12 +33,12 @@ module Ronin
     property :id, Serial
 
     # The name of the URL query param
-    property :name, String, :length => 256,
+    property :name, String, :length   => 256,
                             :required => true,
-                            :unique => true
+                            :unique   => true
 
     # The URL query params
-    has 0..n, :query_params, :model => 'URLQueryParam',
+    has 0..n, :query_params, :model     => 'URLQueryParam',
                              :child_key => [:name_id]
 
     #

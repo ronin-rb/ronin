@@ -327,10 +327,8 @@ module Ronin
             #   The proxy class.
             #
             def proxy_class
-              if udp?
-                Network::UDP::Proxy
-              elsif tcp?
-                Network::TCP::Proxy
+              if    udp? then Network::UDP::Proxy
+              elsif tcp? then Network::TCP::Proxy
               end
             end
 
@@ -389,10 +387,8 @@ module Ronin
             #   The data from a message.
             #
             def print_data(data)
-              if hexdump?
-                @hexdumper.dump(data)
-              else
-                puts data
+              if hexdump? then @hexdumper.dump(data)
+              else             puts data
               end
             end
 

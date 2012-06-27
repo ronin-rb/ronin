@@ -102,10 +102,8 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if lookup?
-              lookup(@lookup)
-            else
-              super
+            if lookup? then lookup(@lookup)
+            else            super
             end
           end
 

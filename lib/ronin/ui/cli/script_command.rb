@@ -163,10 +163,8 @@ module Ronin
         # @api semipublic
         #
         def load!
-          @script = if @file
-                      self.class.model.load_from(@file)
-                    else
-                      query.load_first
+          @script = if @file then self.class.model.load_from(@file)
+                    else          query.load_first
                     end
 
           unless @script

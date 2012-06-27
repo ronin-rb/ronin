@@ -68,11 +68,11 @@ complete(:anywhere => /[a-z]+:\/\/([^:\/\?]+(:\d+)?(\/[^\?;]*(\?[^\?;]*)?)?)?/) 
   query = Ronin::URL.all('scheme.name' => match[1])
 
   if match[2]
-    unless (match[4] || match[3])
-      query = query.all('host_name.address.like' => "#{match[2]}%")
-    else
-      query = query.all('host_name.address' => match[2])
-    end
+    query = unless (match[4] || match[3])
+              query.all('host_name.address.like' => "#{match[2]}%")
+            else
+              query.all('host_name.address' => match[2])
+            end
   end
 
   if match[3]
@@ -80,11 +80,11 @@ complete(:anywhere => /[a-z]+:\/\/([^:\/\?]+(:\d+)?(\/[^\?;]*(\?[^\?;]*)?)?)?/) 
   end
 
   if match[4]
-    unless match[5]
-      query = query.all(:path.like => "#{match[4]}%")
-    else
-      query = query.all(:path => match[4])
-    end
+    query = unless match[5]
+              query.all(:path.like => "#{match[4]}%")
+            else
+              query.all(:path => match[4])
+            end
   end
 
   if match[5]
@@ -93,19 +93,19 @@ complete(:anywhere => /[a-z]+:\/\/([^:\/\?]+(:\d+)?(\/[^\?;]*(\?[^\?;]*)?)?)?/) 
     params[0..-2].each do |name,value|
       query = query.all(
         'query_params.name.name' => name,
-        'query_params.value' => value
+        'query_params.value'     => value
       )
     end
 
     if (param = params.last)
-      if param[1].empty?
-        query = query.all('query_params.name.name.like' => "#{param[0]}%")
-      else
-        query = query.all(
-          'query_params.name.name' => param[0],
-          'query_params.value.like' => "#{param[1]}%"
-        )
-      end
+      query = if param[1].empty?
+                query.all('query_params.name.name.like' => "#{param[0]}%")
+              else
+                query.all(
+                  'query_params.name.name'  => param[0],
+                  'query_params.value.like' => "#{param[1]}%"
+                )
+              end
     end
   end
 
@@ -139,7 +139,7 @@ complete(:anywhere => /[a-zA-Z0-9\._-]+@[a-zA-Z0-9\._-]*/) do |email|
   user, host = email.split('@',2)
 
   Ronin::EmailAddress.all(
-    'user_name.name' => user,
+    'user_name.name'         => user,
     'host_name.address.like' => "#{host}%"
   )
 end

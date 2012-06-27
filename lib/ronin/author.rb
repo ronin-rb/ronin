@@ -57,10 +57,8 @@ module Ronin
     # @api public
     #
     def to_s
-      if self.email
-        "#{self.name} <#{self.email}>"
-      else
-        super
+      if self.email then "#{self.name} <#{self.email}>"
+      else               super
       end
     end
 

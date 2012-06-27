@@ -102,14 +102,10 @@ module Ronin
         # @api semipublic
         #
         def print_resources(resources)
-          if @csv
-            print resources.to_csv
-          elsif @xml
-            print resources.to_xml
-          elsif @yaml
-            print resources.to_yaml
-          elsif @json
-            print resources.to_json
+          if    csv?  then print resources.to_csv
+          elsif xml?  then print resources.to_xml
+          elsif yaml? then print resources.to_yaml
+          elsif json? then print resources.to_json
           else
             resources.each { |resource| print_resource(resource) }
           end

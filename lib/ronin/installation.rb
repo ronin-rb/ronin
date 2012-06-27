@@ -217,10 +217,8 @@ module Ronin
     # @api private
     #
     def self.load!
-      if Gem.loaded_specs.has_key?('ronin')
-        load_gems!
-      else
-        load_gemspecs!
+      if Gem.loaded_specs.has_key?('ronin') then load_gems!
+      else                                       load_gemspecs!
       end
     end
   end

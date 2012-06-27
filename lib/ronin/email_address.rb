@@ -190,10 +190,8 @@ module Ronin
     #
     def self.from(email)
       email = case email
-              when URI::MailTo
-                email.to
-              else
-                email.to_s
+              when URI::MailTo then email.to
+              else                  email.to_s
               end
 
       return parse(email)

@@ -83,10 +83,8 @@ module Ronin
     # @api public
     #
     def to_s
-      if self.version
-        "#{self.name} #{self.version}"
-      else
-        super
+      if self.version then "#{self.name} #{self.version}"
+      else                 super
       end
     end
 

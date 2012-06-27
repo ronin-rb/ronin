@@ -18,10 +18,8 @@ class TestCommand < Ronin::UI::CLI::Command
   argument :files, :type => Array
 
   def execute
-    if @foo
-      'foo task'
-    else
-      'default task'
+    if @foo then 'foo task'
+    else         'default task'
     end
   end
 

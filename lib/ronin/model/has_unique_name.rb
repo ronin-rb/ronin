@@ -83,10 +83,8 @@ module Ronin
         #
         def [](key)
           case key
-          when String, Symbol
-            first(:name => key.to_s)
-          else
-            super(key)
+          when String, Symbol then first(:name => key.to_s)
+          else                     super(key)
           end
         end
       end

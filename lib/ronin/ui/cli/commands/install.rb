@@ -94,14 +94,10 @@ module Ronin
               exit -1
             end
 
-            scm = if rsync?
-                    :rsync
-                  elsif svn?
-                    :sub_version
-                  elsif hg?
-                    :mercurial
-                  elsif git?
-                    :git
+            scm = if    rsync? then :rsync
+                  elsif svn?   then :sub_version
+                  elsif hg?    then :mercurial
+                  elsif git?   then :git
                   end
 
             repository = begin

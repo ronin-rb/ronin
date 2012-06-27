@@ -41,10 +41,8 @@ module Ronin
     property :version, Integer, :set => [4, 6],
                                 :default => lambda { |ip_addr,version|
                                   if ip_addr.address
-                                    if ip_addr.address.ipv6?
-                                      6
-                                    else
-                                      4
+                                    if ip_addr.address.ipv6? then 6
+                                    else                          4
                                     end
                                   end
                                 }

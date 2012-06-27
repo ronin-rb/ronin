@@ -43,18 +43,15 @@ module Ronin
         # @api private
         #
         def typecast(value)
-          case value
-          when nil
-            nil
-          else
-            sanitized_lines = []
+          return nil if value.nil?
 
-            value.to_s.each_line do |line|
-              sanitized_lines << line.strip
-            end
+          sanitized_lines = []
 
-            return sanitized_lines.join("\n").strip
+          value.to_s.each_line do |line|
+            sanitized_lines << line.strip
           end
+
+          return sanitized_lines.join("\n").strip
         end
 
       end

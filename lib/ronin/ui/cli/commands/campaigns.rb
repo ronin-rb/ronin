@@ -96,10 +96,8 @@ module Ronin
           # @since 1.0.0
           #
           def execute
-            if add?
-              add(@add)
-            elsif list?
-              super
+            if    add?  then add(@add)
+            elsif list? then super
             end
           end
 

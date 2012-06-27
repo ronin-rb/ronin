@@ -103,10 +103,8 @@ module Ronin
     # @api public
     #
     def to_s
-      if self.service
-        "#{self.port} (#{self.service})"
-      else
-        self.port.to_s
+      if self.service then "#{self.port} (#{self.service})"
+      else                 "#{self.port}"
       end
     end
 
