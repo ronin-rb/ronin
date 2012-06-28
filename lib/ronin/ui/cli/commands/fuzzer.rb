@@ -38,19 +38,19 @@ module Ronin
         #
         # ## Options
         #
-        #    -v, --[no-]verbose               Enable verbose output.
-        #    -q, --[no-]quiet                 Disable verbose output.
-        #        --[no-]silent                Silence all output.
-        #        --[no-]color                 Enables color output.
-        #                                     Default: true
-        #    -r [[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]],
-        #        --rule                       Fuzzing rules.
-        #    -i, --input [FILE]               Input file to fuzz.
-        #    -o, --output [FILE]              Output file path.
-        #    -c [PROGRAM [OPTIONS|#string#|#path#] ...],
-        #        --command                    Template command to run.
-        #    -t, --tcp [HOST:PORT]            TCP service to fuzz.
-        #    -u, --udp [HOST:PORT]            UDP service to fuzz.
+        #     -v, --[no-]verbose               Enable verbose output.
+        #     -q, --[no-]quiet                 Disable verbose output.
+        #         --[no-]silent                Silence all output.
+        #         --[no-]color                 Enables color output.
+        #                                      Default: true
+        #     -r [[PATTERN|/REGEXP/]:[METHOD|STRING*N[-M]]],
+        #         --rule                       Fuzzing rules.
+        #     -i, --input [FILE]               Input file to fuzz.
+        #     -o, --output [FILE]              Output file path.
+        #     -c [PROGRAM [OPTIONS|#string#|#path#] ...],
+        #         --command                    Template command to run.
+        #     -t, --tcp [HOST:PORT]            TCP service to fuzz.
+        #     -u, --udp [HOST:PORT]            UDP service to fuzz.
         #
         # ## Examples
         #
