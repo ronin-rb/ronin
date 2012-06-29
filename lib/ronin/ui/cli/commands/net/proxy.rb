@@ -158,6 +158,11 @@ module Ronin
                                   :usage       => '/REGEXP/ [...]',
                                   :description => 'Server reset rules'
 
+            examples [
+              "ronin net:proxy --port 8080 --server google.com:80",
+              "ronin net:proxy --port 53 --server 4.2.2.1 --udp --hexdump"
+            ]
+
             #
             # Sets up the proxy command.
             #
