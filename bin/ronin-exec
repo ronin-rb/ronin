@@ -2,23 +2,18 @@
 
 require 'rubygems'
 
-root_dir = File.expand_path(File.join(File.dirname(__FILE__),'..'))
-if File.directory?(File.join(root_dir,'.git'))
-  Dir.chdir(root_dir) do |path|
-    require 'bundler'
-
+root = File.expand_path(File.join(File.dirname(__FILE__),'..'))
+if File.directory?(File.join(root,'.git'))
+  Dir.chdir(root) do |path|
     begin
-      Bundler.setup(:default)
-    rescue Bundler::BundlerError => e
+      require 'bundler/setup'
+    rescue LoadError => e
       warn e.message
-      warn "Run `bundle install` to install missing gems"
-      exit e.status_code
+      warn "Run `gem install bundler` to install Bundler"
+      exit -1
     end
   end
 end
-
-lib_dir = File.join(root_dir,'lib')
-$LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
 
 require 'ronin/ui/cli/commands/exec'
 
