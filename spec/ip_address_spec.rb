@@ -1,20 +1,21 @@
 require 'spec_helper'
+
 require 'ronin/ip_address'
 
 describe IPAddress do
   let(:example_domain) { 'localhost' }
   let(:example_ip) { '127.0.0.1' }
 
-  subject { IPAddress.new(:address => example_ip) }
+  subject { described_class.new(:address => example_ip) }
 
   it "should require an address" do
-    ip_address = IPAddress.new
+    ip_address = described_class.new
 
     ip_address.should_not be_valid
   end
 
   describe "extract" do
-    subject { IPAddress }
+    subject { described_class }
 
     let(:ip1)  { subject.parse('127.0.0.1') }
     let(:ip2)  { subject.parse('10.1.1.1') }
@@ -34,7 +35,7 @@ describe IPAddress do
   end
 
   describe "lookup" do
-    subject { IPAddress }
+    subject { described_class }
 
     let(:bad_domain) { '.bad.domain.com.' }
 
@@ -79,7 +80,7 @@ describe IPAddress do
     end
 
     it "should return an empty Array for unknown domain names" do
-      ip_address = IPAddress.new(:address => bad_ip)
+      ip_address = described_class.new(:address => bad_ip)
       host_names = ip_address.lookup!
 
       host_names.should be_empty
@@ -87,18 +88,22 @@ describe IPAddress do
   end
 
   describe "#version" do
-    let(:ipv4) { IPAddress.new(:address => '127.0.0.1') }
-    let(:ipv6) { IPAddress.new(:address => '::1') }
-
     it "should only accept 4 or 6" do
-      ip_address = IPAddress.new(:address => '1.1.1.1', :version => 7)
+      ip_address = described_class.new(:address => '1.1.1.1', :version => 7)
 
       ip_address.should_not be_valid
     end
 
-    it "should default to the version of the address" do
-      ipv4.version.should == 4
-      ipv6.version.should == 6
+    context "with IPv4 address" do
+      subject { described_class.new(:address => '127.0.0.1') }
+
+      its(:version) { should == 4 }
+    end
+
+    context "with IPv6 address" do
+      subject { described_class.new(:address => '::1') }
+
+      its(:version) { should == 6 }
     end
   end
 end

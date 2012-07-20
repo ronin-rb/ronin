@@ -1,14 +1,15 @@
 require 'spec_helper'
+
 require 'ronin/credential'
 
 describe Credential do
-  let(:name) { 'alice' }
-  let(:secret) { 'secret' }
+  let(:name)     { 'alice'  }
+  let(:password) { 'secret' }
 
   subject do
-    Credential.new(
+    described_class.new(
       :user_name => {:name => name},
-      :password => {:clear_text => secret}
+      :password  => {:clear_text => password}
     )
   end
 
@@ -17,10 +18,12 @@ describe Credential do
   end
 
   it "should provide the clear-text password" do
-    subject.clear_text.should == secret
+    subject.clear_text.should == password
   end
 
-  it "should be convertable to a String" do
-    subject.to_s.should == "#{name}:#{secret}"
+  describe "#to_s" do
+    it "should include the user name and password" do
+      subject.to_s.should == "#{name}:#{password}"
+    end
   end
 end

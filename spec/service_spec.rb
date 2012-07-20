@@ -1,18 +1,24 @@
 require 'spec_helper'
+
 require 'ronin/service'
 
 describe Service do
-  before(:all) { @service = Service.create(:name => 'Apache') }
+  let(:name) { 'Apache' }
 
-  it "should require a name" do
-    service = Service.new
+  subject { described_class.new(:name => name) }
+  before  { subject.save }
 
-    service.should_not be_valid
-  end
+  describe "validations" do
+    it "should require a name" do
+      service = described_class.new
 
-  it "should require a unique name" do
-    service = Service.new(:name => 'Apache')
+      service.should_not be_valid
+    end
 
-    service.should_not be_valid
+    it "should require a unique name" do
+      service = described_class.new(:name => name)
+
+      service.should_not be_valid
+    end
   end
 end

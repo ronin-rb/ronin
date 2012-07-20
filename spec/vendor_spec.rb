@@ -3,16 +3,23 @@ require 'spec_helper'
 require 'ronin/vendor'
 
 describe Vendor do
-  it "should require name attribute" do
-    product = Vendor.new
-    product.should_not be_valid
+  let(:name) { 'TestCo' }
 
-    product.name = 'TestCo'
-    product.should be_valid
+  subject { described_class.new(:name => name) }
+
+  describe "validations" do
+    it "should require name attribute" do
+      product = described_class.new
+      product.should_not be_valid
+
+      product.name = name
+      product.should be_valid
+    end
   end
 
-  it "should be convertable to a String" do
-    vendor = Vendor.new(:name => 'TestCo')
-    vendor.to_s.should == 'TestCo'
+  describe "#to_s" do
+    it "should include the vendor name" do
+      subject.to_s.should == name
+    end
   end
 end

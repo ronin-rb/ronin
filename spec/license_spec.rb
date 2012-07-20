@@ -1,19 +1,25 @@
 require 'spec_helper'
+
 require 'ronin/license'
 
 describe License do
-  it "should require name and description attributes" do
-    license = License.new
-    license.should_not be_valid
+  describe "validations" do
+    it "should require name and description attributes" do
+      subject.should_not be_valid
 
-    license.name = 'joke'
-    license.should_not be_valid
+      subject.name = 'joke'
+      subject.should_not be_valid
 
-    license.description = "yep, it's a joke."
-    license.should be_valid
+      subject.description = "yep, it's a joke."
+      subject.should be_valid
+    end
   end
 
-  it "should provide built-in licenses"do
-    License.cc_by.should_not be_nil
+  describe "predefined licenses" do
+    subject { described_class }
+
+    it "should provide built-in licenses"do
+      subject.cc_by.should_not be_nil
+    end
   end
 end

@@ -1,43 +1,51 @@
 require 'spec_helper'
+
 require 'ronin/port'
 
 describe Port do
   let(:protocol) { 'tcp' }
-  let(:number) { 80 }
+  let(:number)   { 80    }
 
-  before(:all) do
-    @port = Port.create(:protocol => protocol, :number => number)
+  subject do
+    described_class.new(:protocol => protocol, :number => number)
   end
 
-  it "should require a protocol" do
-    port = Port.new(:number => 1111)
+  before { subject.save }
 
-    port.should_not be_valid
+  describe "validations" do
+    it "should require a protocol" do
+      port = described_class.new(:number => port)
+
+      port.should_not be_valid
+    end
+
+    it "should require a port number" do
+      port = described_class.new(:protocol => protocol)
+
+      port.should_not be_valid
+    end
+
+    it "should only allow 'tcp' and 'udp' as protocols" do
+      port = described_class.new(:protocol => 'foo', :number => port)
+
+      port.should_not be_valid
+    end
+
+    it "should require unique protocol/port-number combinations" do
+      port = described_class.new(:protocol => protocol, :number => number)
+      port.should_not be_valid
+    end
   end
 
-  it "should require a port number" do
-    port = Port.new(:protocol => 'tcp')
-
-    port.should_not be_valid
+  describe "#to_i" do
+    it "should be convertable to an Integer" do
+      subject.to_i.should == number
+    end
   end
 
-  it "should only allow 'tcp' and 'udp' as protocols" do
-    port = Port.new(:protocol => 'foo', :number => 1111)
-
-    port.should_not be_valid
-  end
-
-  it "should require unique protocol/port-number combinations" do
-    port = Port.new(:protocol => protocol, :number => number)
-
-    port.should_not be_valid
-  end
-
-  it "should be convertable to an Integer" do
-    @port.to_i.should == number
-  end
-
-  it "should be convertable to a String" do
-    @port.to_s.should == "#{number}/#{protocol}"
+  describe "#to_s" do
+    it "should include the number and protocol" do
+      subject.to_s.should == "#{number}/#{protocol}"
+    end
   end
 end

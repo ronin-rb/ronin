@@ -1,10 +1,11 @@
 require 'spec_helper'
+
 require 'ronin/mac_address'
 
 describe MACAddress do
   let(:address) { '00:01:02:03:04:05' }
 
-  subject { MACAddress.new(:address => address) }
+  subject { described_class.new(:address => address) }
 
   describe "extract" do
     subject { described_class }
@@ -26,13 +27,21 @@ describe MACAddress do
     end
   end
 
-  it "should require an address" do
-    mac = MACAddress.new
+  describe "validations" do
+    it "should require an address" do
+      mac = described_class.new
+      mac.should_not be_valid
 
-    mac.should_not be_valid
+      mac.address = address
+      mac.should be_valid
+    end
   end
 
-  it "should convert the MAC Address to an Integer" do
-    subject.to_i.should == 0x000102030405
+  describe "#to_i" do
+    let(:integer) { 0x000102030405 }
+
+    it "should convert the MAC Address to an Integer" do
+      subject.to_i.should == integer
+    end
   end
 end

@@ -13,20 +13,20 @@ describe URL do
 
   before(:all) do
     @uri = URI::HTTPS.build(
-      :scheme => scheme,
-      :host => host_name,
-      :port => port,
-      :path => path,
-      :query => query_string,
+      :scheme   => scheme,
+      :host     => host_name,
+      :port     => port,
+      :path     => path,
+      :query    => query_string,
       :fragment => fragment
     )
 
     @url = URL.new(
-      :scheme => URLScheme.first_or_create(:name => scheme),
+      :scheme    => URLScheme.first_or_create(:name => scheme),
       :host_name => HostName.first_or_create(:address => host_name),
-      :port => TCPPort.first_or_create(:number => port),
-      :path => path,
-      :fragment => fragment
+      :port      => TCPPort.first_or_create(:number => port),
+      :path      => path,
+      :fragment  => fragment
     )
 
     @url.query_params.new(

@@ -1,14 +1,20 @@
 require 'spec_helper'
+
 require 'ronin/password'
 
 describe Password do
   let(:password) { 'secret' }
-  subject { Password.new(:clear_text => password) }
 
-  it "should require a clear-text password" do
-    pass = Password.new
+  subject { described_class.new(:clear_text => password) }
 
-    pass.should_not be_valid
+  describe "validations" do
+    it "should require a clear-text password" do
+      pass = described_class.new
+      pass.should_not be_valid
+
+      pass.clear_text = password
+      pass.should be_valid
+    end
   end
 
   describe "#digest" do
@@ -33,7 +39,9 @@ describe Password do
     end
   end
 
-  it "should be convertable to a String" do
-    subject.to_s.should == password
+  describe "#to_s" do
+    it "should include the password" do
+      subject.to_s.should == password
+    end
   end
 end

@@ -1,32 +1,41 @@
 require 'spec_helper'
+
 require 'ronin/url_query_param'
 
 describe URLQueryParam do
-  it "should require a name" do
-    param = URLQueryParam.new
+  let(:name)  { 'foo' }
+  let(:value) { 'bar' }
 
-    param.should_not be_valid
+  subject do
+    described_class.new(:name => {:name => name}, :value => value)
   end
 
   describe "#to_s" do
-    let(:name) { URLQueryParamName.new(:name => 'foo') }
-
     it "should dump a name and a value into a String" do
-      param = URLQueryParam.new(:name => name, :value => 'bar')
-
-      param.to_s.should == "foo=bar"
+      subject.to_s.should == "#{name}=#{value}"
     end
 
-    it "should ignore empty or nil values" do
-      param = URLQueryParam.new(:name => name)
+    context "with empty or nil values" do
+      subject do
+        described_class.new(:name => {:name => name})
+      end
 
-      param.to_s.should == "foo="
+      it "should ignore empty or nil values" do
+        subject.to_s.should == "#{name}="
+      end
     end
 
-    it "should escape special characters" do
-      param = URLQueryParam.new(:name => name, :value => 'bar baz')
+    context "with special characters" do
+      let(:value)         { 'bar baz'         }
+      let(:encoded_value) { URI.encode(value) }
 
-      param.to_s.should == "foo=bar%20baz"
+      subject do
+        described_class.new(:name => {:name => name}, :value => value)
+      end
+
+      it "should escape special characters" do
+        subject.to_s.should == "#{name}=#{encoded_value}"
+      end
     end
   end
 end
