@@ -11,8 +11,8 @@ describe URL do
   let(:query_string) { 'q=1' }
   let(:fragment) { 'frag' }
 
-  before(:all) do
-    @uri = URI::HTTPS.build(
+  let(:uri) do
+    URI::HTTPS.build(
       :scheme   => scheme,
       :host     => host_name,
       :port     => port,
@@ -20,33 +20,34 @@ describe URL do
       :query    => query_string,
       :fragment => fragment
     )
+  end
 
-    @url = URL.new(
+  let(:url) do
+    described_class.new(
       :scheme    => URLScheme.first_or_create(:name => scheme),
       :host_name => HostName.first_or_create(:address => host_name),
       :port      => TCPPort.first_or_create(:number => port),
       :path      => path,
-      :fragment  => fragment
+      :fragment  => fragment,
+      :query_params => [{
+        :name => URLQueryParamName.first_or_create(
+                   :name => query_params.keys[0]
+                 ),
+        :value => query_params.values[0]
+      }]
     )
-
-    @url.query_params.new(
-      :name => URLQueryParamName.first_or_create(
-        :name => query_params.keys[0]
-      ),
-      :value => query_params.values[0]
-    )
-
-    @url.save
   end
 
+  before(:all) { url.save }
+
   it "should have a host String" do
-    url = URL.new(:host_name => {:address => host_name})
+    url = described_class.new(:host_name => {:address => host_name})
 
     url.host.should == host_name
   end
 
   it "should be convertable to a String" do
-    @url.to_s.should == @uri.to_s
+    url.to_s.should == uri.to_s
   end
 
   describe "extract" do
@@ -75,20 +76,20 @@ describe URL do
 
   describe "[]" do
     it "should query URLs using URIs" do
-      URL[@uri].should == @url
+      described_class[uri].should == url
     end
 
     it "should query URLs using Strings" do
-      URL[@uri.to_s].should == @url
+      described_class[uri.to_s].should == url
     end
 
     it "should still treat Integer arguments as indexes" do
-      URL[0].should == @url
+      described_class[0].should == url
     end
   end
 
   describe "from" do
-    subject { URL.from(@uri) }
+    subject { described_class.from(uri) }
 
     it "should parse URL schemes" do
       subject.scheme.should_not be_nil
@@ -117,14 +118,14 @@ describe URL do
 
     it "should normalize the paths of HTTP URIs" do
       uri = URI('http://www.example.com')
-      url = URL.from(uri)
+      url = described_class.from(uri)
 
       url.path.should == '/'
     end
   end
 
   describe "#to_uri" do
-    subject { @url.to_uri }
+    subject { url.to_uri }
 
     it "should convert the scheme" do
       subject.scheme.should == scheme
@@ -147,7 +148,7 @@ describe URL do
     end
 
     it "should omit the query string if there are no query params" do
-      new_url = URL.parse('https://www.example.com:8080/path')
+      new_url = described_class.parse('https://www.example.com:8080/path')
       new_uri = new_url.to_uri
 
       new_uri.query.should be_nil
@@ -159,18 +160,18 @@ describe URL do
   end
 
   describe "#to_s" do
-    subject { @url.to_s }
+    subject { url.to_s }
 
     it "should convert the URL back into a String URI" do
-      subject.should == @uri.to_s
+      subject.should == uri.to_s
     end
   end
 
   describe "#inspect" do
-    subject { @url.inspect }
+    subject { url.inspect }
 
     it "should include the full URL" do
-      subject.should include(@uri.to_s)
+      subject.should include(uri.to_s)
     end
   end
 end
