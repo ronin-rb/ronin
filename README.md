@@ -9,12 +9,10 @@
 
 ## Description
 
-Ronin is a [Ruby](http://www.ruby-lang.org) platform for
-vulnerability research and [exploit development](http://www.exploit-db.com).
+Ronin is a [Ruby] platform for vulnerability research and [exploit development].
 Ronin allows for the rapid development and distribution of code,
-[exploits](https://github.com/postmodern/postmodern/blob/master/scripts/exploits/http/oracle/dav_bypass.rb)
-or [payloads](https://gist.github.com/1403961) via
-[Repositories](https://github.com/postmodern/postmodern).
+[Exploits][example-exploit], [Payloads][example-payload],
+[Scanners][example-scanner], etc, via [Repositories].
 
 ### Console
 
@@ -34,15 +32,15 @@ without having to write any SQL.
 ### Repositories
 
 Ronin provides a Repository system, allowing users to organize and share
-miscallaneous Data, Code, Exploits, Payloads, Scanners, etc.
+miscallaneous Data, Code, [Exploits][example-exploit],
+[Payloads][example-payload], [Scanners][example-scanner], etc.
 
     $ ronin install git://github.com/user/myexploits.git
 
 ### Libraries
 
 Ronin provides libraries with additional functionality, such as
-[Exploitation](https://github.com/ronin-ruby/ronin-exploits#readme)
-and [Scanning](https://github.com/ronin-ruby/ronin-scanners#readme).
+[Exploitation][ronin-exploits] and [Scanning][ronin-scanners]:
 
     $ gem install ronin-exploits
 
@@ -50,11 +48,11 @@ and [Scanning](https://github.com/ronin-ruby/ronin-scanners#readme).
 
 * Supports installing/updating/uninstalling of Repositories.
   * Supports installing Repositories from various media types:
-    * [Subversion (SVN)](http://subversion.tigris.org/)
-    * [Mercurial (Hg)](http://mercurial.selenic.com/)
-    * [Git](http://git-scm.com/)
+    * [Subversion (SVN)][svn]
+    * [Mercurial (Hg)][hg]
+    * [Git][git]
     * Rsync
-* Provides a Database using [DataMapper](http://datamapper.org) with:
+* Provides a Database using [DataMapper] with:
   * {Ronin::Author}
   * {Ronin::License}
   * {Ronin::Arch}
@@ -82,10 +80,8 @@ and [Scanning](https://github.com/ronin-ruby/ronin-scanners#readme).
   * {Ronin::Target}
 * Caches exploits, payloads, scanners, etc stored within Repositories
   into the Database.
-* Convenience methods provided by
-  [ronin-support](https://github.com/ronin-ruby/ronin-support#readme).
-* Provides a customized Ruby Console using
-  [Ripl](https://github.com/cldwalker/ripl#readme) with:
+* Convenience methods provided by [ronin-support].
+* Provides a customized Ruby Console using [Ripl] with:
   * Syntax highlighting.
   * Tab completion.
   * Auto indentation.
@@ -147,8 +143,8 @@ Remove a Database:
 
 ## Requirements
 
-* [Ruby](http://www.ruby-lang.org/) >= 1.8.7
-* [DataMapper](http://datamapper.org/):
+* [Ruby] >= 1.8.7
+* [DataMapper]:
   * [dm-sqlite-adapter](https://github.com/datamapper/dm-sqlite-adapter#readme)
     ~> 1.2
     * [libsqlite3](http://sqlite.org/)
@@ -222,3 +218,21 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
+
+[Ruby]: http://www.ruby-lang.org
+[exploit development]: http://www.exploit-db.com
+[example-exploit]: https://github.com/postmodern/postmodern/blob/master/scripts/exploits/http/oracle/dav_bypass.rb
+[example-payload]: https://gist.github.com/1403961
+[example-scanner]: https://github.com/postmodern/postmodern/blob/master/scripts/scanners/oracle_dad_scanner.rb
+[Repositories]: https://github.com/postmodern/postmodern
+
+[ronin-support]: https://github.com/ronin-ruby/ronin-support#readme
+[ronin-exploits]: https://github.com/ronin-ruby/ronin-exploits#readme
+[ronin-scanners]: https://github.com/ronin-ruby/ronin-scanners#readme
+
+[svn]: http://subversion.tigris.org/
+[hg]: http://mercurial.selenic.com/
+[git]: http://git-scm.com/
+
+[DataMapper]: http://datamapper.org
+[Ripl]: https://github.com/cldwalker/ripl#readme
