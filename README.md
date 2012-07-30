@@ -10,21 +10,21 @@
 ## Description
 
 Ronin is a [Ruby](http://www.ruby-lang.org) platform for
-[exploit development](http://www.exploit-db.com) and security research.
+vulnerability research and [exploit development](http://www.exploit-db.com).
 Ronin allows for the rapid development and distribution of code,
 [exploits](https://github.com/postmodern/postmodern/blob/master/scripts/exploits/http/oracle/dav_bypass.rb)
 or [payloads](https://gist.github.com/1403961) via
 [Repositories](https://github.com/postmodern/postmodern).
 
-### Customized Console
+### Console
 
-Ronin provides users with a customized Ruby Console, pre-loaded with powerful
+Ronin provides users with a powerful Ruby Console, pre-loaded with powerful
 convenience methods. In the Console one can work with data and automate
 complex tasks, with greater ease than the command-line.
 
     >> File.read('data').base64_decode
 
-### Integrated Database
+### Database
 
 Ronin ships with a preconfigured Database, that one can interact with from Ruby,
 without having to write any SQL.
@@ -33,10 +33,10 @@ without having to write any SQL.
 
 ### Repositories
 
-Ronin supports a Repository system, allowing users to organize and share
+Ronin provides a Repository system, allowing users to organize and share
 miscallaneous Data, Code, Exploits, Payloads, Scanners, etc.
 
-    $ ronin install git://github.com/user/exploits.git
+    $ ronin install git://github.com/user/myexploits.git
 
 ### Libraries
 
