@@ -81,7 +81,7 @@ Ronin provides libraries with additional functionality, such as
 * Caches exploits, payloads, scanners, etc stored within Repositories
   into the Database.
 * Convenience methods provided by [ronin-support].
-* Provides a customized Ruby Console using [Ripl] with:
+* Provides a customized Ruby Console using [Ripl][ripl] with:
   * Syntax highlighting.
   * Tab completion.
   * Auto indentation.
@@ -145,47 +145,27 @@ Remove a Database:
 
 * [Ruby] >= 1.8.7
 * [DataMapper]:
-  * [dm-sqlite-adapter](https://github.com/datamapper/dm-sqlite-adapter#readme)
-    ~> 1.2
-    * [libsqlite3](http://sqlite.org/)
-  * [dm-core](https://github.com/datamapper/dm-core#readme)
-    ~> 1.2
-  * [dm-types](https://github.com/datamapper/dm-types#readme)
-    ~> 1.2
-  * [dm-migrations](https://github.com/datamapper/dm-migrations#readme)
-    ~> 1.2
-  * [dm-validations](https://github.com/datamapper/dm-validations#readme)
-    ~> 1.2
-  * [dm-aggregates](https://github.com/datamapper/dm-aggregates#readme)
-     ~> 1.2
-  * [dm-timestamps](https://github.com/datamapper/dm-timestamps#readme)
-    ~> 1.2
-* [dm-is-predefined](https://github.com/postmodern/dm-is-predefined#readme)
-  ~> 0.4
-* [uri-query_params](https://github.com/postmodern/uri-query_params#readme)
-  ~> 0.6
-* [open_namespace](https://github.com/postmodern/open_namespace#readme)
-  ~> 0.4
-* [data_paths](https://github.com/postmodern/data_paths#readme)
-  ~> 0.3
-* [object_loader](https://github.com/postmodern/object_loader#readme)
-  ~> 1.0
-* [parameters](https://github.com/postmodern/parameters#readme)
-  ~> 0.4
-* [pullr](https://github.com/postmodern/pullr#readme)
-  ~> 0.1, >= 0.1.2
-* [ripl](https://github.com/cldwalker/ripl#readme)
-  ~> 0.3
-* [ripl-multi_line](https://github.com/janlelis/ripl-multi_line#readme)
-  ~> 0.2
-* [ripl-auto_indent](https://github.com/janlelis/ripl-auto_indent#readme)
-  ~> 0.1
-* [ripl-short_errors](https://rubygems.org/gems/ripl-short_errors)
-  ~> 0.1
-* [ripl-color_result](https://github.com/janlelis/ripl-color_result#readme)
-  ~> 0.3
-* [ronin-support](https://github.com/ronin-ruby/ronin-support#readme)
-  ~> 0.5
+  * [dm-sqlite-adapter] ~> 1.2
+    * [libsqlite3]
+  * [dm-core] ~> 1.2
+  * [dm-types] ~> 1.2
+  * [dm-migrations] ~> 1.2
+  * [dm-validations] ~> 1.2
+  * [dm-aggregates] ~> 1.2
+  * [dm-timestamps] ~> 1.2
+* [dm-is-predefined] ~> 0.4
+* [uri-query_params] ~> 0.6
+* [open_namespace] ~> 0.4
+* [data_paths] ~> 0.3
+* [object_loader] ~> 1.0
+* [parameters] ~> 0.4
+* [pullr] ~> 0.1, >= 0.1.2
+* [ripl] ~> 0.3
+* [ripl-multi_line] ~> 0.2
+* [ripl-auto_indent] ~> 0.1
+* [ripl-short_errors] ~> 0.1
+* [ripl-color_result] ~> 0.3
+* [ronin-support] ~> 0.5
 
 ## Install
 
@@ -235,4 +215,24 @@ along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 [git]: http://git-scm.com/
 
 [DataMapper]: http://datamapper.org
-[Ripl]: https://github.com/cldwalker/ripl#readme
+[dm-sqlite-adapter]: https://github.com/datamapper/dm-sqlite-adapter#readme
+[libsqlite3]: http://sqlite.org/
+[dm-core]: https://github.com/datamapper/dm-core#readme
+[dm-types]: https://github.com/datamapper/dm-types#readme
+[dm-migrations]: https://github.com/datamapper/dm-migrations#readme
+[dm-validations]: https://github.com/datamapper/dm-validations#readme
+[dm-aggregates]: https://github.com/datamapper/dm-aggregates#readme
+[dm-timestamps]: https://github.com/datamapper/dm-timestamps#readme
+[dm-is-predefined]: https://github.com/postmodern/dm-is-predefined#readme
+[uri-query_params]: https://github.com/postmodern/uri-query_params#readme
+[open_namespace]: https://github.com/postmodern/open_namespace#readme
+[data_paths]: https://github.com/postmodern/data_paths#readme
+[object_loader]: https://github.com/postmodern/object_loader#readme
+[parameters]: https://github.com/postmodern/parameters#readme
+[pullr]: https://github.com/postmodern/pullr#readme
+[ripl]: https://github.com/cldwalker/ripl#readme
+[ripl-multi_line]: https://github.com/janlelis/ripl-multi_line#readme
+[ripl-auto_indent]: https://github.com/janlelis/ripl-auto_indent#readme
+[ripl-short_errors]: https://rubygems.org/gems/ripl-short_errors
+[ripl-color_result]: https://github.com/janlelis/ripl-color_result#readme
+[ronin-support]: https://github.com/ronin-ruby/ronin-support#readme
