@@ -53,7 +53,7 @@ module Ronin
         const = super(name)
 
         if (const && const < DataMapper::Resource)
-          const.finalize
+          DataMapper.finalize
         end
 
         return const
@@ -81,7 +81,7 @@ module Ronin
 
         # if the loaded Class is a DataMapper Resource, re-finalize
         if const < DataMapper::Resource
-          const.finalize
+          DataMapper.finalize
         end
 
         return const
