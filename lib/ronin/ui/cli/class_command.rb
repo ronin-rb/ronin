@@ -78,10 +78,8 @@ module Ronin
         # @api semipublic
         #
         def self.class_name(name=nil)
-          if name
-            @class_name = name.to_sym
-          else
-            @class_name ||= self.name.split('::').last.to_sym
+          if name then @class_name = name.to_sym
+          else         @class_name ||= self.name.split('::').last.to_sym
           end
         end
 
