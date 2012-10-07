@@ -32,6 +32,15 @@ module Ronin
         # The object created from the Class
         attr_reader :object
 
+        #
+        # Initializes the class command.
+        #
+        # @param [Hash] options
+        #   Options for the class command and for the object.
+        #
+        # @raise [TypeError]
+        #   The class associated with the command does not support Parameters.
+        #
         def initialize(options={})
           super(options)
 
