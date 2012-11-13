@@ -26,7 +26,7 @@ gem 'jruby-openssl',	'~> 0.7', :platforms => :jruby
 # gem 'ronin-support',	'~> 0.5', :git => "#{RONIN_URI}/ronin-support.git"
 
 group :development do
-  gem 'rake',           '~> 0.8'
+  gem 'rake',           '~> 10.0'
   gem 'rubygems-tasks', '~> 0.1'
   gem 'rspec',          '~> 2.4'
 
