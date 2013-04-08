@@ -94,8 +94,10 @@ describe Script::Path do
       exception.should_not be_saved
     end
 
-    it "should not save new cached files that contain validation errors" do
-      validation_error.should_not be_saved
+    pending "https://github.com/ronin-ruby/ronin/issues/7" do
+      it "should not save new cached files that contain validation errors" do
+        validation_error.should_not be_saved
+      end
     end
 
     it "should store syntax errors" do
