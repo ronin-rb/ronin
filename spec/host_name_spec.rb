@@ -4,7 +4,7 @@ require 'ronin/host_name'
 
 describe HostName do
   let(:domain) { 'localhost' }
-  let(:ip) { '127.0.0.1' }
+  let(:ip)     { '127.0.0.1' }
 
   subject { described_class.new(:address => domain) }
 
@@ -72,8 +72,7 @@ describe HostName do
     it "should look up the IP Addresses for the host name" do
       ips = subject.lookup!
       
-      ips.should_not be_empty
-      ips[0].address.should == ip
+      ips.any? { |ip| ip.address == ip }.should be_true
     end
 
     it "should associate the IP addresses with the original host name" do
