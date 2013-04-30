@@ -1,5 +1,4 @@
 language: ruby
-before_install: gem install bundler
 rvm:
   - 1.8.7
   - 1.9.2
@@ -10,4 +9,4 @@ rvm:
 matrix:
   allow_failures:
     - rvm: jruby-19mode
-script: sudo rake test
+script: rake test
