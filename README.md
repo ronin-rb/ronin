@@ -7,6 +7,8 @@
 * [Mailing List](https://groups.google.com/group/ronin-ruby)
 * [irc.freenode.net #ronin](http://ronin-ruby.github.com/irc/)
 
+[![Build Status](https://secure.travis-ci.org/ronin-ruby/ronin.png?branch=master)](https://travis-ci.org/ronin-ruby/ronin)
+
 ## Description
 
 Ronin is a [Ruby] platform for vulnerability research and [exploit development].
