@@ -79,5 +79,5 @@ YARD::Rake::YardocTask.new
 desc "Generates all documentation"
 task :docs => [:yard, 'dm:doc:graphviz']
 
-require 'kramdown/man/tasks'
-Kramdown::Man::Tasks.new
+require 'kramdown/man/task'
+Kramdown::Man::Task.new
