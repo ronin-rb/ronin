@@ -11,64 +11,64 @@ Installs Ronin Repositories.
 ## ARGUMENTS
 
 *URI*
-  The URI of the Repository to be installed.
+	The URI of the Repository to be installed.
 
 ## OPTIONS
 
 `-v`, `--[no-]verbose`
-  Enable verbose output.
+	Enable verbose output.
 
 `-q`, `--[no-]quiet`
-  Disable verbose output.
+	Disable verbose output.
 
 `--[no-]silent`
-  Silence all output.
+	Silence all output.
 
 `--[no-]color`
-  Enables color output.
+	Enables color output.
 
 `--[no-]rsync`
-  Installs the Repository using Rsync.
+	Installs the Repository using Rsync.
 
 `--[no-]svn`
-  Installs the Repository using SubVersion (SVN).
+	Installs the Repository using SubVersion (SVN).
 
 `--[no-]hg`
-  Installs the Repository using Mercurial (Hg).
+	Installs the Repository using Mercurial (Hg).
 
 `--[no-]git`
-  Installs the Repository using Git.
+	Installs the Repository using Git.
 
 ## FILES
 
 *~/.ronin/*
-  Ronin configuration directory.
+	Ronin configuration directory.
 
 *~/.ronin/repos/*
-  Installation directory for Ronin Repositories.
+	Installation directory for Ronin Repositories.
 
 *~/.ronin/database.log*
-  Database log.
+	Database log.
 
 *~/.ronin/database.sqlite3*
-  The default sqlite3 Database file.
+	The default sqlite3 Database file.
 
 *~/.ronin/database.yml*
-  Optional Database configuration.
+	Optional Database configuration.
 
 ## ENVIRONMENT
 
 HOME
-  Specifies the home directory of the user. Ronin will search for the
-  *~/.ronin/* configuration directory within the home directory.
+	Specifies the home directory of the user. Ronin will search for the
+	*~/.ronin/* configuration directory within the home directory.
 
 ## EXAMPLES
 
 `ronin install git://github.com/user/repo.git`
-  Installs a Ronin Repository using git.
+	Installs a Ronin Repository using git.
 
 `ronin install --git git@example.com:/home/secret/repo`
-  Installs a Ronin Repository using git over ssh.
+	Installs a Ronin Repository using git over ssh.
 
 ## AUTHOR
 

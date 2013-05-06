@@ -11,60 +11,60 @@ Manages EmailAddresses.
 ## OPTIONS
 
 `-v`, `--[no-]verbose`
-  Enable verbose output.
+	Enable verbose output.
 
 `-q`, `--[no-]quiet`
-  Disable verbose output.
+	Disable verbose output.
 
 `--[no-]silent`
-  Silence all output.
+	Silence all output.
 
 `--[no-]color`
-  Enables color output.
+	Enables color output.
 
 `-D`, `--database` [*URI*]
-  The database to URI (`mysql://user:password@host/ronin`).
+	The database to URI (`mysql://user:password@host/ronin`).
 
 `--[no-]csv`
-  CSV output.
+	CSV output.
 
 `--[no-]xml`
-  XML output.
+	XML output.
 
 `--[no-]yaml`
-  YAML output.
+	YAML output.
 
 `--[no-]json`
-  JSON output.
+	JSON output.
 
 `-H`, `--with-hosts` *HOST* [...]
-  Searches for EmailAddresses associated with the HOST(s).
+	Searches for EmailAddresses associated with the HOST(s).
 
 `-I`, `--with-ips` *IP* [...]
-  Searches for EmailAddresses associated with the IP Address(es).
+	Searches for EmailAddresses associated with the IP Address(es).
 
 `-u`, `--with-users` *NAME* [...]
-  Searches for EmailAddresses associated with the user NAME(s).
+	Searches for EmailAddresses associated with the user NAME(s).
 
 `-l`, `--[no-]list`
-  Lists the EmailAddresses.
+	Lists the EmailAddresses.
 
 `-i`, `--import` *FILE*
-  Imports EmailAddresses from the FILE.
+	Imports EmailAddresses from the FILE.
 
 ## FILES
 
 *~/.ronin/*
-  Ronin configuration directory.
+	Ronin configuration directory.
 
 *~/.ronin/database.log*
-  Database log.
+	Database log.
 
 *~/.ronin/database.sqlite3*
-  The default sqlite3 Database file.
+	The default sqlite3 Database file.
 
 *~/.ronin/database.yml*
-  Optional Database configuration.
+	Optional Database configuration.
 
 ## AUTHOR
 

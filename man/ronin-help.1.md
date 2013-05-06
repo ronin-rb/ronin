@@ -12,21 +12,21 @@ COMMAND.
 ## ARGUMENTS
 
 *COMMAND*
-  The optional command to get detailed help information on.
+	The optional command to get detailed help information on.
 
 ## OPTIONS
 
 `-v`, `--[no-]verbose`
-  Enable verbose output.
+	Enable verbose output.
 
 `-q`, `--[no-]quiet`
-  Disable verbose output.
+	Disable verbose output.
 
 `--[no-]silent`
-  Silence all output.
+	Silence all output.
 
 `--[no-]color`
-  Enables color output.
+	Enables color output.
 
 ## AUTHOR
 

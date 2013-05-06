@@ -11,62 +11,62 @@ Lists Ronin Repositories.
 ## ARGUMENTS
 
 *REPO*
-  The name of the Repository to list.
+	The name of the Repository to list.
 
 ## OPTIONS
 
 `-v`, `--[no-]verbose`
-  Enable verbose output.
+	Enable verbose output.
 
 `-q`, `--[no-]quiet`
-  Disable verbose output.
+	Disable verbose output.
 
 `--[no-]silent`
-  Silence all output.
+	Silence all output.
 
 `--[no-]color`
-  Enables color output.
+	Enables color output.
 
 `-D`, `--database` *URI*
-  The database to URI (`mysql://user:password@host/ronin`).
+	The database to URI (`mysql://user:password@host/ronin`).
 
 `--domain` *DOMAIN*
-  Searches for Repositories installed from the DOMAIN.
+	Searches for Repositories installed from the DOMAIN.
 
 `-n`, `--named` *NAME*
-  Searches for Repositories with the given NAME.
+	Searches for Repositories with the given NAME.
 
 `-t`, `--titled` *TITLE*
-  Searches for Repositories with the similar TITLE.
+	Searches for Repositories with the similar TITLE.
 
 `-d`, `--describing` *DESCRIPTION*
-  Searches for Repositories with the similar DESCRIPTION.
+	Searches for Repositories with the similar DESCRIPTION.
 
 `-L`, `--licensed-under` *LICENSE*
-  Searches for Repositories with the given LICENSE (`MIT`).
+	Searches for Repositories with the given LICENSE (`MIT`).
 
 ## FILES
 
 *~/.ronin/*
-  Ronin configuration directory.
+	Ronin configuration directory.
 
 *~/.ronin/repos*
-  Installation directory for Ronin Repositories.
+	Installation directory for Ronin Repositories.
 
 *~/.ronin/database.log*
-  Database log.
+	Database log.
 
 *~/.ronin/database.sqlite3*
-  The default sqlite3 Database file.
+	The default sqlite3 Database file.
 
 *~/.ronin/database.yml*
-  Optional Database configuration.
+	Optional Database configuration.
 
 ## ENVIRONMENT
 
 HOME
-  Specifies the home directory of the user. Ronin will search for the
-  *~/.ronin/* configuration directory within the home directory.
+	Specifies the home directory of the user. Ronin will search for the
+	*~/.ronin/* configuration directory within the home directory.
 
 ## AUTHOR
 

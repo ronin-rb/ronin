@@ -11,7 +11,7 @@ Runs a Ronin COMMAND or the starts Ronin Console.
 ## ARGUMENTS
 
 *COMMAND*
-  The Ronin command to execute.
+	The Ronin command to execute.
 
 ## OPTIONS
 

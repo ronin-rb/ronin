@@ -11,66 +11,66 @@ Manages Campaigns.
 ## OPTIONS
 
 `-v`, `--[no-]verbose`
-  Enable verbose output.
+	Enable verbose output.
 
 `-q`, `--[no-]quiet`
-  Disable verbose output.
+	Disable verbose output.
 
 `--[no-]silent`
-  Silence all output.
+	Silence all output.
 
 `--[no-]color`
-  Enables color output.
+	Enables color output.
 
 `-D`, `--database` [*URI*]
-  The database to URI (`mysql://user:password@host/ronin`).
+	The database to URI (`mysql://user:password@host/ronin`).
 
 `--[no-]csv`
-  CSV output.
+	CSV output.
 
 `--[no-]xml`
-  XML output.
+	XML output.
 
 `--[no-]yaml`
-  YAML output.
+	YAML output.
 
 `--[no-]json`
-  JSON output.
+	JSON output.
 
 `-n`, `--named` *NAME*
-  Searches for Campaigns with the similar NAME.
+	Searches for Campaigns with the similar NAME.
 
 `-d`, `--describing` *DESCRIPTION*
-  Searches for Campaigns with the similar DESCRIPTION.
+	Searches for Campaigns with the similar DESCRIPTION.
 
 `-T`, `--targeting` *ADDRESS* [...]
-  Searches for Campaigns targetting the given ADDRESSes.
+	Searches for Campaigns targetting the given ADDRESSes.
 
 `-O`, `--targeting-orgs` *NAME* [...]
-  Searches for Campaigns targetting the NAMEed Organizations.
+	Searches for Campaigns targetting the NAMEed Organizations.
 
 `-l`, `--[no-]list`
-  Lists the Campaigns.
+	Lists the Campaigns.
 
 `-a`, `--add` *NAME*
-  Creates a new Campaign with the given NAME.
+	Creates a new Campaign with the given NAME.
 
 `--targets` *ADDRESS* [...]
-  ADDRESSes for the Campaign to target.
+	ADDRESSes for the Campaign to target.
 
 ## FILES
 
 *~/.ronin/*
-  Ronin configuration directory.
+	Ronin configuration directory.
 
 *~/.ronin/database.log*
-  Database log.
+	Database log.
 
 *~/.ronin/database.sqlite3*
-  The default sqlite3 Database file.
+	The default sqlite3 Database file.
 
 *~/.ronin/database.yml*
-  Optional Database configuration.
+	Optional Database configuration.
 
 ## AUTHOR
 
