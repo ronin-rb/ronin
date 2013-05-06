@@ -79,8 +79,5 @@ YARD::Rake::YardocTask.new
 desc "Generates all documentation"
 task :docs => [:yard, 'dm:doc:graphviz']
 
-begin
-  require 'md2man/task'
-  Md2Man::Task.new
-rescue LoadError
-end
+require 'kramdown/man/tasks'
+Kramdown::Man::Tasks.new

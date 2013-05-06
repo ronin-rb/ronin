@@ -30,10 +30,8 @@ group :development do
   gem 'rubygems-tasks', '~> 0.1'
   gem 'rspec',          '~> 2.4'
 
-  platforms :mri, :rbx do
-    gem 'redcarpet',      '~> 2.1'
-    gem 'md2man',         '~> 1.2', :git => 'http://github.com/postmodern/md2man.git', :branch => 'rake_task'
-  end
+  gem 'kramdown',      '~> 1.0'
+  gem 'kramdown-man',  '~> 0.1'
 
   gem 'ruby-graphviz',  '~> 0.9.10'
   gem 'dm-visualizer',  '~> 0.2.0'
