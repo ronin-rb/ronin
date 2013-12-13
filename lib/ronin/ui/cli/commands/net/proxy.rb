@@ -194,7 +194,8 @@ module Ronin
                 :server => [@server_host, @server_port]
               )
 
-              if tcp?
+              case @proxy
+              when Network::TCP::Proxy
                 @proxy.on_client_connect do |client|
                   print_outgoing client, '[connecting]'
                 end
