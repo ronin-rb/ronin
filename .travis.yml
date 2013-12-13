@@ -8,4 +8,4 @@ rvm:
   - jruby
   # - rbx
   # - 2.0.0
-script: rake test
+script: rake spec
