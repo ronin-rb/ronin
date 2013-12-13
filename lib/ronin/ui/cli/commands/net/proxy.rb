@@ -169,6 +169,11 @@ module Ronin
             def setup
               super
 
+              unless (tcp? || udp?)
+                print_error "Must specify --tcp or --udp"
+                exit -1
+              end
+
               unless server?
                 print_error "Must specify the SERVER argument"
                 exit -1
