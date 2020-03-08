@@ -84,7 +84,7 @@ dependencies:
   ronin-support: ~> 0.5
 
 development_dependencies:
-  bundler: ~> 1.0
+  bundler: ~> 2.0
   yard: ~> 0.8
   yard-dm: ~> 0.1
   yard-dm-is-predefined: ~> 0.2
