@@ -7,14 +7,14 @@ describe URLScheme do
 
   describe "validations" do
     it "should require a name" do
-      subject.should_not be_valid
+      expect(subject).not_to be_valid
     end
 
     describe "name" do
       subject { described_class.new(:name => 'http') }
 
       it "should require a unique name" do
-        subject.should_not be_valid
+        expect(subject).not_to be_valid
       end
     end
   end

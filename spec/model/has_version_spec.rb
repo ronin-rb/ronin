@@ -26,33 +26,33 @@ describe Model::HasVersion do
   end
 
   it "should include Ronin::Model" do
-    subject.ancestors.should include(Model)
+    expect(subject.ancestors).to include(Model)
   end
 
   it "should define a version property" do
-    subject.properties.should be_named(:version)
+    expect(subject.properties).to be_named(:version)
   end
 
   it "should default the version property to '1.0'" do
     resource = subject.new
 
-    resource.version.should == '0.1'
+    expect(resource.version).to eq('0.1')
   end
 
   it "should allow querying specific revisions" do
     resources = subject.revision('1.1')
 
-    resources.length.should == 2
-    resources[0].version.should == '1.1'
-    resources[0].content.should == 'Foo'
+    expect(resources.length).to eq(2)
+    expect(resources[0].version).to eq('1.1')
+    expect(resources[0].content).to eq('Foo')
 
-    resources[1].version.should == '1.1'
-    resources[1].content.should == 'Bar'
+    expect(resources[1].version).to eq('1.1')
+    expect(resources[1].content).to eq('Bar')
   end
 
   it "should allow querying the latest revision" do
     resource = subject.all(:content => 'Foo').latest
 
-    resource.version.should == '1.2'
+    expect(resource.version).to eq('1.2')
   end
 end

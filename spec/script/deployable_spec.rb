@@ -16,32 +16,32 @@ describe Script::Deployable do
   end
 
   it "should include Testable" do
-    subject.class.included_modules.should include(Script::Testable)
+    expect(subject.class.included_modules).to include(Script::Testable)
   end
 
   it "should not be deployed by default" do
-    subject.should_not be_deployed
+    expect(subject).not_to be_deployed
   end
 
   describe "#deploy!" do
     it "should test! the script before deploying it" do
       subject.var = -1
 
-      lambda {
+      expect {
         subject.deploy!
-      }.should raise_error
+      }.to raise_error
     end
 
     it "should mark the script deployed" do
       subject.deploy!
 
-      subject.should be_deployed
+      expect(subject).to be_deployed
     end
 
     it "should not mark the script as evacuated" do
       subject.deploy!
 
-      subject.should_not be_evacuated
+      expect(subject).not_to be_evacuated
     end
   end
 
@@ -49,7 +49,7 @@ describe Script::Deployable do
     it "should mark the script as evacuated" do
       subject.evacuate!
 
-      subject.should be_evacuated
+      expect(subject).to be_evacuated
     end
   end
 end

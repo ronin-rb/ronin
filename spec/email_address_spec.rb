@@ -22,7 +22,7 @@ describe EmailAddress do
     let(:text)   { "To: #{email1}, #{email2}." }
 
     it "should extract multiple email addresses from text" do
-      subject.extract(text).should == [email1, email2]
+      expect(subject.extract(text)).to eq([email1, email2])
     end
 
     it "should yield the extracted email addresses if a block is given" do
@@ -30,7 +30,7 @@ describe EmailAddress do
 
       subject.extract(text) { |email| emails << email }
 
-      emails.should == [email1, email2]
+      expect(emails).to eq([email1, email2])
     end
   end
 
@@ -38,15 +38,15 @@ describe EmailAddress do
     it "should parse email addresses" do
       email_address = described_class.parse(email)
 
-      email_address.user_name.name.should == user
-      email_address.host_name.address.should == host
+      expect(email_address.user_name.name).to eq(user)
+      expect(email_address.host_name.address).to eq(host)
     end
 
     it "should strip whitespace from emails" do
       email_address = described_class.parse("  #{email} ")
 
-      email_address.user_name.name.should == user
-      email_address.host_name.address.should == host
+      expect(email_address.user_name.name).to eq(user)
+      expect(email_address.host_name.address).to eq(host)
     end
   end
 
@@ -54,30 +54,30 @@ describe EmailAddress do
     it "should accept Strings" do
       email_address = described_class.from(email)
 
-      email_address.user_name.name.should == user
-      email_address.host_name.address.should == host
+      expect(email_address.user_name.name).to eq(user)
+      expect(email_address.host_name.address).to eq(host)
     end
 
     it "should accept URI::MailTo objects" do
       uri = URI("mailto:#{email}")
       email_address = described_class.from(uri)
 
-      email_address.user_name.name.should == user
-      email_address.host_name.address.should == host
+      expect(email_address.user_name.name).to eq(user)
+      expect(email_address.host_name.address).to eq(host)
     end
   end
 
   it "should provide the user-name" do
-    subject.user.should == user
+    expect(subject.user).to eq(user)
   end
 
   it "should provide the host-name" do
-    subject.host.should == host
+    expect(subject.host).to eq(host)
   end
 
   describe "#to_s" do
     it "should include the email address" do
-      subject.to_s.should == email
+      expect(subject.to_s).to eq(email)
     end
   end
 end

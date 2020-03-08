@@ -10,10 +10,10 @@ describe Password do
   describe "validations" do
     it "should require a clear-text password" do
       pass = described_class.new
-      pass.should_not be_valid
+      expect(pass).not_to be_valid
 
       pass.clear_text = password
-      pass.should be_valid
+      expect(pass).to be_valid
     end
   end
 
@@ -23,25 +23,25 @@ describe Password do
     it "should calculate the digest of the password" do
       digest = subject.digest(:sha1)
       
-      digest.should == Digest::SHA1.hexdigest(password)
+      expect(digest).to eq(Digest::SHA1.hexdigest(password))
     end
 
     it "should calculate the digest of the password and prepended salt" do
       digest = subject.digest(:sha1, :prepend_salt => salt)
       
-      digest.should == Digest::SHA1.hexdigest(salt + password)
+      expect(digest).to eq(Digest::SHA1.hexdigest(salt + password))
     end
 
     it "should calculate the digest of the password and appended salt" do
       digest = subject.digest(:sha1, :append_salt => salt)
       
-      digest.should == Digest::SHA1.hexdigest(password + salt)
+      expect(digest).to eq(Digest::SHA1.hexdigest(password + salt))
     end
   end
 
   describe "#to_s" do
     it "should include the password" do
-      subject.to_s.should == password
+      expect(subject.to_s).to eq(password)
     end
   end
 end

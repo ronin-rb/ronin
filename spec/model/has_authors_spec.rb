@@ -20,41 +20,41 @@ describe Model::HasAuthors do
   end
 
   it "should include Ronin::Model" do
-    subject.ancestors.should include(Model)
+    expect(subject.ancestors).to include(Model)
   end
 
   it "should define an authors relationship" do
     relationship = subject.relationships['authors']
 
-    relationship.should_not be_nil
-    relationship.child_model.should == Author
+    expect(relationship).not_to be_nil
+    expect(relationship.child_model).to eq(Author)
   end
 
   it "should define relationships with Author" do
     relationship = Author.relationships['authored_models']
     
-    relationship.should_not be_nil
-    relationship.child_model.should == subject
+    expect(relationship).not_to be_nil
+    expect(relationship.child_model).to eq(subject)
   end
 
   it "should allow adding authors to a resource" do
     resource = subject.new
     resource.author(:name => 'Alice', :email => 'alice@example.com')
 
-    resource.authors.should_not be_empty
+    expect(resource.authors).not_to be_empty
   end
 
   it "should allow querying resources based on their Author" do
     resources = subject.written_by('Alice')
 
-    resources.length.should == 1
-    resources[0].authors[0].name.should == 'Alice'
+    expect(resources.length).to eq(1)
+    expect(resources[0].authors[0].name).to eq('Alice')
   end
 
   it "should allow querying resources based on their Organization" do
     resources = subject.written_for('Crew')
 
-    resources.length.should == 1
-    resources[0].authors[0].organization.should == 'Crew'
+    expect(resources.length).to eq(1)
+    expect(resources[0].authors[0].organization).to eq('Crew')
   end
 end

@@ -13,39 +13,39 @@ describe Script::Buildable do
   end
 
   it "should not be built by default" do
-    subject.should_not be_built
+    expect(subject).not_to be_built
   end
 
   it "should include Testable" do
-    subject.class.included_modules.should include(Script::Testable)
+    expect(subject.class.included_modules).to include(Script::Testable)
   end
 
   describe "#build!" do
     it "should call the build block" do
       subject.build!
 
-      subject.output.should == "hello world"
+      expect(subject.output).to eq("hello world")
     end
 
     it "should mark the script as built" do
       subject.build!
 
-      subject.should be_built
+      expect(subject).to be_built
     end
 
     it "should accept parameters as options" do
       subject.build!(:var => 'dave')
 
-      subject.output.should == "hello dave"
-      subject.var.should == 'dave'
+      expect(subject.output).to eq("hello dave")
+      expect(subject.var).to eq('dave')
     end
   end
 
   describe "#verify!" do
     it "should raise a NotBuilt exception when verifying unbuilt scripts" do
-      lambda {
+      expect {
         subject.test!
-      }.should raise_error(Script::NotBuilt)
+      }.to raise_error(Script::NotBuilt)
     end
   end
 end

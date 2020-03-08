@@ -8,14 +8,14 @@ describe UI::CLI::Command do
 
   describe "command_name" do
     it "should be derived from the Class name" do
-      subject.command_name.should == 'test_command'
+      expect(subject.command_name).to eq('test_command')
     end
   end
 
   describe "usage" do
     context "without an argument" do
       it "should return the set usage" do
-        subject.usage.should == '[options] PATH FILE [..]'
+        expect(subject.usage).to eq('[options] PATH FILE [..]')
       end
     end
 
@@ -26,7 +26,7 @@ describe UI::CLI::Command do
       before  { subject.usage expected }
 
       it "should set the usage" do
-        subject.usage.should == expected
+        expect(subject.usage).to eq(expected)
       end
     end
 
@@ -42,7 +42,7 @@ describe UI::CLI::Command do
       subject { Class.new(superclass).usage }
 
       it "should default to the usage of the superclass" do
-        subject.should == superclass.usage
+        expect(subject).to eq(superclass.usage)
       end
     end
   end
@@ -50,7 +50,7 @@ describe UI::CLI::Command do
   describe "summary" do
     context "without an argument" do
       it "should return the set summary" do
-        subject.summary.should == 'Tests the default task'
+        expect(subject.summary).to eq('Tests the default task')
       end
     end
 
@@ -61,7 +61,7 @@ describe UI::CLI::Command do
       before  { subject.summary expected }
 
       it "should set the usage" do
-        subject.summary.should == expected
+        expect(subject.summary).to eq(expected)
       end
     end
 
@@ -77,7 +77,7 @@ describe UI::CLI::Command do
       subject { Class.new(superclass).summary }
 
       it "should default to the summary of the superclass" do
-        subject.should == superclass.summary
+        expect(subject).to eq(superclass.summary)
       end
     end
   end
@@ -98,7 +98,7 @@ describe UI::CLI::Command do
       before  { subject.examples expected }
 
       it "should set the usage" do
-        subject.examples.should == expected
+        expect(subject.examples).to eq(expected)
       end
     end
 
@@ -114,7 +114,7 @@ describe UI::CLI::Command do
       subject { Class.new(superclass).examples }
 
       it "should default to the examples of the superclass" do
-        subject.should == superclass.examples
+        expect(subject).to eq(superclass.examples)
       end
     end
   end
@@ -124,7 +124,7 @@ describe UI::CLI::Command do
 
     context "inherited" do
       it "should be {} by default" do
-        subject.should == {}
+        expect(subject).to eq({})
       end
     end
 
@@ -132,19 +132,19 @@ describe UI::CLI::Command do
       subject { described_class.options }
 
       it "should have a :verbose option" do
-        subject.should have_key(:verbose)
+        expect(subject).to have_key(:verbose)
       end
 
       it "should have a :quiet option" do
-        subject.should have_key(:quiet)
+        expect(subject).to have_key(:quiet)
       end
 
       it "should have a :silent option" do
-        subject.should have_key(:silent)
+        expect(subject).to have_key(:silent)
       end
 
       it "should have a :color option" do
-        subject.should have_key(:color)
+        expect(subject).to have_key(:color)
       end
 
       describe "color option" do
@@ -174,11 +174,11 @@ describe UI::CLI::Command do
     let(:name) { :foo }
 
     it "should define an option" do
-      subject.options[name].should be_kind_of(Hash)
+      expect(subject.options[name]).to be_kind_of(Hash)
     end
 
     it "should define a parameter" do
-      subject.should have_param(name)
+      expect(subject).to have_param(name)
     end
   end
 
@@ -192,13 +192,13 @@ describe UI::CLI::Command do
         names << name
       end
 
-      names.should =~ expected
+      expect(names).to match_array(expected)
     end
   end
 
   describe "options?" do
     it "should test if there are any defined options" do
-      subject.options?.should be_true
+      expect(subject.options?).to be_true
     end
   end
 
@@ -217,11 +217,11 @@ describe UI::CLI::Command do
     before  { subject.argument name      }
 
     it "should add to arguments" do
-      subject.arguments.should include(name)
+      expect(subject.arguments).to include(name)
     end
 
     it "should define a parameter" do
-      subject.should have_param(name)
+      expect(subject).to have_param(name)
     end
   end
 
@@ -233,13 +233,13 @@ describe UI::CLI::Command do
 
       subject.each_argument { |name| names << name }
 
-      names.should =~ expected
+      expect(names).to match_array(expected)
     end
   end
 
   describe "arguments?" do
     it "should test if there are any defined arguments" do
-      subject.arguments?.should be_true
+      expect(subject.arguments?).to be_true
     end
   end
 
@@ -250,7 +250,7 @@ describe UI::CLI::Command do
 
       command.run(:foo => value)
 
-      command.foo.should == value
+      expect(command.foo).to eq(value)
     end
   end
 
@@ -261,7 +261,7 @@ describe UI::CLI::Command do
       value = 'baz'
       subject.start(['--foo', value])
 
-      subject.foo.should == value
+      expect(subject.foo).to eq(value)
     end
 
     it "should parse additional arguments" do
@@ -269,7 +269,7 @@ describe UI::CLI::Command do
 
       subject.start([path])
 
-      subject.path.should == path
+      expect(subject.path).to eq(path)
     end
 
     it "should parse additional arguments into an Array/Set argument" do
@@ -279,9 +279,9 @@ describe UI::CLI::Command do
 
       subject.start(['--foo', value, path, *files])
 
-      subject.foo.should == value
-      subject.path.should == path
-      subject.files.should == files
+      expect(subject.foo).to eq(value)
+      expect(subject.path).to eq(path)
+      expect(subject.files).to eq(files)
     end
   end
 end

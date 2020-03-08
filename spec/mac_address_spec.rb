@@ -15,7 +15,7 @@ describe MACAddress do
     let(:text)  { "MACs: #{mac1}, #{mac2}." }
 
     it "should extract multiple MAC Addresses from text" do
-      subject.extract(text).should == [mac1, mac2]
+      expect(subject.extract(text)).to eq([mac1, mac2])
     end
 
     it "should yield the extracted MAC Addresses if a block is given" do
@@ -23,17 +23,17 @@ describe MACAddress do
 
       subject.extract(text) { |mac| macs << mac }
 
-      macs.should == [mac1, mac2]
+      expect(macs).to eq([mac1, mac2])
     end
   end
 
   describe "validations" do
     it "should require an address" do
       mac = described_class.new
-      mac.should_not be_valid
+      expect(mac).not_to be_valid
 
       mac.address = address
-      mac.should be_valid
+      expect(mac).to be_valid
     end
   end
 
@@ -41,7 +41,7 @@ describe MACAddress do
     let(:integer) { 0x000102030405 }
 
     it "should convert the MAC Address to an Integer" do
-      subject.to_i.should == integer
+      expect(subject.to_i).to eq(integer)
     end
   end
 end

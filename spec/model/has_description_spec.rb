@@ -9,11 +9,11 @@ describe Model::HasDescription do
   before(:all) { subject.auto_migrate! }
 
   it "should include Ronin::Model" do
-    subject.ancestors.should include(Model)
+    expect(subject.ancestors).to include(Model)
   end
 
   it "should define a description property" do
-    subject.properties.should be_named(:description)
+    expect(subject.properties).to be_named(:description)
   end
 
   describe "#description" do
@@ -21,13 +21,13 @@ describe Model::HasDescription do
 
     it "should allow the setting of the description" do
       resource.description = 'test one'
-      resource.description.should == 'test one'
+      expect(resource.description).to eq('test one')
     end
 
     it "should strip leading and tailing white-space" do
       resource.description = %{   test two    }
 
-      resource.description.should == 'test two'
+      expect(resource.description).to eq('test two')
     end
 
     it "should strip leading and tailing white-space from each line" do
@@ -36,7 +36,7 @@ describe Model::HasDescription do
         three
       }
 
-      resource.description.should == "test\nthree"
+      expect(resource.description).to eq("test\nthree")
     end
 
     it "should preserve non-bordering empty lines" do
@@ -46,7 +46,7 @@ describe Model::HasDescription do
         four
       }
 
-      resource.description.should == "test\n\nfour"
+      expect(resource.description).to eq("test\n\nfour")
     end
   end
 
@@ -56,8 +56,8 @@ describe Model::HasDescription do
 
     resources = subject.describing('foo')
 
-    resources.length.should == 2
-    resources[0].description.should == 'foo one'
-    resources[1].description.should == 'foo bar two'
+    expect(resources.length).to eq(2)
+    expect(resources[0].description).to eq('foo one')
+    expect(resources[1].description).to eq('foo bar two')
   end
 end

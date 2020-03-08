@@ -11,7 +11,7 @@ describe IPAddress do
   it "should require an address" do
     ip_address = described_class.new
 
-    ip_address.should_not be_valid
+    expect(ip_address).not_to be_valid
   end
 
   describe "extract" do
@@ -22,7 +22,7 @@ describe IPAddress do
     let(:text) { "Hosts: #{ip1}, #{ip2}" }
 
     it "should extract multiple IP Addresses from text" do
-      subject.extract(text).should == [ip1, ip2]
+      expect(subject.extract(text)).to eq([ip1, ip2])
     end
 
     it "should yield the extracted IPs if a block is given" do
@@ -30,7 +30,7 @@ describe IPAddress do
 
       subject.extract(text) { |ip| ip_addresses << ip }
 
-      ip_addresses.should == [ip1, ip2]
+      expect(ip_addresses).to eq([ip1, ip2])
     end
   end
 
@@ -43,20 +43,20 @@ describe IPAddress do
       ip_addresses = subject.lookup(example_domain)
       addresses    = ip_addresses.map { |ip| ip.address }
       
-      addresses.should include(example_ip)
+      expect(addresses).to include(example_ip)
     end
 
     it "should associate the IP addresses with the original host name" do
       ip_addresses = subject.lookup(example_domain)
       host_names   = ip_addresses.map { |ip| ip.host_names[0].address }
       
-      host_names.should include(example_domain)
+      expect(host_names).to include(example_domain)
     end
 
     it "should return an empty Array for unknown domain names" do
       ip_addresses = subject.lookup(bad_domain)
       
-      ip_addresses.should be_empty
+      expect(ip_addresses).to be_empty
     end
   end
 
@@ -67,7 +67,7 @@ describe IPAddress do
       host_names = subject.lookup!
       addresses  = host_names.map { |host_name| host_name.address }
       
-      addresses.should include(example_domain)
+      expect(addresses).to include(example_domain)
     end
 
     it "should associate the host names with the original IP address" do
@@ -76,14 +76,14 @@ describe IPAddress do
         host_name.ip_addresses[0].address
       end
 
-      ip_addresses.should include(subject)
+      expect(ip_addresses).to include(subject)
     end
 
     it "should return an empty Array for unknown domain names" do
       ip_address = described_class.new(:address => bad_ip)
       host_names = ip_address.lookup!
 
-      host_names.should be_empty
+      expect(host_names).to be_empty
     end
   end
 
@@ -91,7 +91,7 @@ describe IPAddress do
     it "should only accept 4 or 6" do
       ip_address = described_class.new(:address => '1.1.1.1', :version => 7)
 
-      ip_address.should_not be_valid
+      expect(ip_address).not_to be_valid
     end
 
     context "with IPv4 address" do

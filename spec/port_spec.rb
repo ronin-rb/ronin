@@ -16,36 +16,36 @@ describe Port do
     it "should require a protocol" do
       port = described_class.new(:number => port)
 
-      port.should_not be_valid
+      expect(port).not_to be_valid
     end
 
     it "should require a port number" do
       port = described_class.new(:protocol => protocol)
 
-      port.should_not be_valid
+      expect(port).not_to be_valid
     end
 
     it "should only allow 'tcp' and 'udp' as protocols" do
       port = described_class.new(:protocol => 'foo', :number => port)
 
-      port.should_not be_valid
+      expect(port).not_to be_valid
     end
 
     it "should require unique protocol/port-number combinations" do
       port = described_class.new(:protocol => protocol, :number => number)
-      port.should_not be_valid
+      expect(port).not_to be_valid
     end
   end
 
   describe "#to_i" do
     it "should be convertable to an Integer" do
-      subject.to_i.should == number
+      expect(subject.to_i).to eq(number)
     end
   end
 
   describe "#to_s" do
     it "should include the number and protocol" do
-      subject.to_s.should == "#{number}/#{protocol}"
+      expect(subject.to_s).to eq("#{number}/#{protocol}")
     end
   end
 end

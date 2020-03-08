@@ -6,12 +6,12 @@ describe Ronin do
   it "should have a version" do
     version = subject.const_get('VERSION')
 
-    version.should_not be_nil
-    version.should_not be_empty
+    expect(version).not_to be_nil
+    expect(version).not_to be_empty
   end
 
   it "should include AutoLoad" do
-    subject.should include(AutoLoad)
+    expect(subject).to include(AutoLoad)
   end
 
   it "should add a const_missing method when included" do
@@ -20,6 +20,6 @@ describe Ronin do
 
     subject.const_set('SOME_CONSTANT',1)
 
-    base_class.const_get('SOME_CONSTANT').should == 1
+    expect(base_class.const_get('SOME_CONSTANT')).to eq(1)
   end
 end

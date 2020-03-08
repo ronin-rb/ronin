@@ -12,7 +12,7 @@ describe URLQueryParam do
 
   describe "#to_s" do
     it "should dump a name and a value into a String" do
-      subject.to_s.should == "#{name}=#{value}"
+      expect(subject.to_s).to eq("#{name}=#{value}")
     end
 
     context "with empty or nil values" do
@@ -21,7 +21,7 @@ describe URLQueryParam do
       end
 
       it "should ignore empty or nil values" do
-        subject.to_s.should == "#{name}="
+        expect(subject.to_s).to eq("#{name}=")
       end
     end
 
@@ -34,7 +34,7 @@ describe URLQueryParam do
       end
 
       it "should escape special characters" do
-        subject.to_s.should == "#{name}=#{encoded_value}"
+        expect(subject.to_s).to eq("#{name}=#{encoded_value}")
       end
     end
   end

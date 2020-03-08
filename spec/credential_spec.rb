@@ -14,16 +14,16 @@ describe Credential do
   end
 
   it "should provide the user-name" do
-    subject.user.should == name
+    expect(subject.user).to eq(name)
   end
 
   it "should provide the clear-text password" do
-    subject.clear_text.should == password
+    expect(subject.clear_text).to eq(password)
   end
 
   describe "#to_s" do
     it "should include the user name and password" do
-      subject.to_s.should == "#{name}:#{password}"
+      expect(subject.to_s).to eq("#{name}:#{password}")
     end
   end
 end

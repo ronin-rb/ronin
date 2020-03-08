@@ -16,67 +16,67 @@ describe Script::Path do
     subject { repo.find_script('cached/cached.rb') }
 
     it "should be saved" do
-      subject.should be_saved
+      expect(subject).to be_saved
     end
 
     it "should have a path" do
-      subject.path.should_not be_nil
+      expect(subject.path).not_to be_nil
     end
 
     it "should have a timestamp" do
-      subject.timestamp.should_not be_nil
+      expect(subject.timestamp).not_to be_nil
     end
 
     it "should not have updated code" do
-      subject.should_not be_updated
+      expect(subject).not_to be_updated
     end
 
     it "should not have cache exceptions" do
-      subject.cache_exception.should be_nil
+      expect(subject.cache_exception).to be_nil
     end
 
     it "should not have cache errors" do
-      subject.cache_errors.should be_nil
+      expect(subject.cache_errors).to be_nil
     end
 
     it "should have the model name of the cached object" do
-      subject.class_name.should == script_class.name
+      expect(subject.class_name).to eq(script_class.name)
     end
 
     it "should have the model path of the cached object" do
-      subject.class_path.should == 'my_script'
+      expect(subject.class_path).to eq('my_script')
     end
 
     it "should be able to load the Model of the cached object" do
-      subject.script_class.should == script_class
+      expect(subject.script_class).to eq(script_class)
     end
 
     it "should be able to load a fresh model from the cached file" do
       obj = subject.load_script
 
-      obj.should_not be_nil
-      obj.class.should == script_class
+      expect(obj).not_to be_nil
+      expect(obj.class).to eq(script_class)
     end
 
     it "should cache the loaded object along with the cached file" do
       obj = script_class.first(:script_path => subject)
       
-      obj.should_not be_nil
+      expect(obj).not_to be_nil
     end
 
     it "should be able to load the cached object" do
-      subject.cached_script.should_not be_nil
-      subject.cached_script.class.should == script_class
+      expect(subject.cached_script).not_to be_nil
+      expect(subject.cached_script.class).to eq(script_class)
     end
 
     it "should call the cache method before saving the new object" do
-      subject.cached_script.name.should == 'cached'
+      expect(subject.cached_script.name).to eq('cached')
     end
 
     it "should delete the cached object along with the cached file" do
       subject.destroy
 
-      script_class.first(:script_path => subject).should be_nil
+      expect(script_class.first(:script_path => subject)).to be_nil
     end
   end
 
@@ -89,9 +89,9 @@ describe Script::Path do
     let(:validation_error) { repo.find_script('failures/validation_errors.rb') }
 
     it "should not save new cached files that raised exceptions" do
-      syntax_error.should_not be_saved
-      load_error.should_not be_saved
-      exception.should_not be_saved
+      expect(syntax_error).not_to be_saved
+      expect(load_error).not_to be_saved
+      expect(exception).not_to be_saved
     end
 
     pending "https://github.com/ronin-ruby/ronin/issues/7" do
@@ -101,31 +101,31 @@ describe Script::Path do
     end
 
     it "should store syntax errors" do
-      syntax_error.cache_exception.should_not be_nil
-      syntax_error.cache_exception.class.should == SyntaxError
+      expect(syntax_error.cache_exception).not_to be_nil
+      expect(syntax_error.cache_exception.class).to eq(SyntaxError)
     end
 
     it "should store LoadError exceptions" do
-      load_error.cache_exception.should_not be_nil
-      load_error.cache_exception.class.should == LoadError
+      expect(load_error.cache_exception).not_to be_nil
+      expect(load_error.cache_exception.class).to eq(LoadError)
     end
 
     it "should store NameError exceptions" do
-      name_error.cache_exception.should_not be_nil
-      name_error.cache_exception.class.should == NameError
+      expect(name_error.cache_exception).not_to be_nil
+      expect(name_error.cache_exception.class).to eq(NameError)
     end
 
     it "should store NoMethodError exceptions" do
-      no_method_error.cache_exception.should_not be_nil
-      no_method_error.cache_exception.class.should == NoMethodError
+      expect(no_method_error.cache_exception).not_to be_nil
+      expect(no_method_error.cache_exception.class).to eq(NoMethodError)
     end
 
     it "should store Exceptions raised when creating the fresh object" do
-      exception.cache_exception.should_not be_nil
+      expect(exception.cache_exception).not_to be_nil
     end
 
     it "should store validation errors" do
-      validation_error.cache_errors.should_not be_nil
+      expect(validation_error.cache_errors).not_to be_nil
     end
   end
 
@@ -137,11 +137,11 @@ describe Script::Path do
     end
 
     it "should not re-cache unmodified files" do
-      subject.sync.should == false
+      expect(subject.sync).to eq(false)
     end
 
     it "should not have cache errors" do
-      subject.cache_errors.should be_nil
+      expect(subject.cache_errors).to be_nil
     end
   end
 
@@ -157,11 +157,11 @@ describe Script::Path do
     end
 
     it "should re-cache modified files" do
-      subject.sync.should == true
+      expect(subject.sync).to eq(true)
     end
 
     it "should not have cache errors" do
-      subject.cache_errors.should be_nil
+      expect(subject.cache_errors).to be_nil
     end
   end
 
@@ -175,11 +175,11 @@ describe Script::Path do
     end
 
     it "should delete the cached files" do
-      described_class.count(:id => subject.id).should == 0
+      expect(described_class.count(:id => subject.id)).to eq(0)
     end
 
     it "should delete cached objects for missing files" do
-      script_class.count(:script_path => subject).should == 0
+      expect(script_class.count(:script_path => subject)).to eq(0)
     end
   end
 end

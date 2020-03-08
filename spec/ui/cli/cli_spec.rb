@@ -8,7 +8,7 @@ describe UI::CLI do
     it { should_not be_empty }
 
     it "should replace '/' characters with a ':'" do
-      subject.all? { |command| command.include?('/') }.should be_false
+      expect(subject.all? { |command| command.include?('/') }).to be_false
     end
   end
 
@@ -16,19 +16,19 @@ describe UI::CLI do
     it "should load classes from 'ronin/ui/cli/commands/'" do
       command = subject.command('help')
       
-      command.name.should == 'Ronin::UI::CLI::Commands::Help'
+      expect(command.name).to eq('Ronin::UI::CLI::Commands::Help')
     end
 
     it "should load classes from namespaces within 'ronin/ui/cli/commands/'" do
       command = subject.command('net:proxy')
       
-      command.name.should == 'Ronin::UI::CLI::Commands::Net::Proxy'
+      expect(command.name).to eq('Ronin::UI::CLI::Commands::Net::Proxy')
     end
 
     it "should raise UnknownCommand for unknown commands" do
-      lambda {
+      expect {
         subject.command('foo')
-      }.should raise_error(described_class::UnknownCommand)
+      }.to raise_error(described_class::UnknownCommand)
     end
   end
 end

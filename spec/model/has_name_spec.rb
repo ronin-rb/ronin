@@ -9,19 +9,19 @@ describe Model::HasName do
   before(:all) { subject.auto_migrate! }
 
   it "should include Ronin::Model" do
-    subject.ancestors.should include(Model)
+    expect(subject.ancestors).to include(Model)
   end
 
   it "should define a name property" do
-    subject.properties.should be_named(:name)
+    expect(subject.properties).to be_named(:name)
   end
 
   it "should require a name" do
     resource = subject.new
-    resource.should_not be_valid
+    expect(resource).not_to be_valid
 
     resource.name = 'foo'
-    resource.should be_valid
+    expect(resource).to be_valid
   end
 
   it "should be able to find resources with similar names" do
@@ -30,8 +30,8 @@ describe Model::HasName do
 
     resources = subject.named('foo')
 
-    resources.length.should == 2
-    resources[0].name.should == 'foo1'
-    resources[1].name.should == 'foo2'
+    expect(resources.length).to eq(2)
+    expect(resources[0].name).to eq('foo1')
+    expect(resources[1].name).to eq('foo2')
   end
 end

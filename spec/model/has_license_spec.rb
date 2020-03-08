@@ -16,27 +16,27 @@ describe Model::HasLicense do
   end
 
   it "should include Ronin::Model" do
-    subject.ancestors.should include(Model)
+    expect(subject.ancestors).to include(Model)
   end
 
   it "should define a license relationship" do
     relationship = subject.relationships['license']
 
-    relationship.should_not be_nil
-    relationship.parent_model.should == License
+    expect(relationship).not_to be_nil
+    expect(relationship.parent_model).to eq(License)
   end
 
   it "should define relationships with License" do
     relationship = License.relationships['licensed_models']
     
-    relationship.should_not be_nil
-    relationship.child_model.should == subject
+    expect(relationship).not_to be_nil
+    expect(relationship.child_model).to eq(subject)
   end
 
   it "should not require a license" do
     resource = subject.new(:content => 'bla')
 
-    resource.should be_valid
+    expect(resource).to be_valid
   end
 
   describe "licensed_under" do
@@ -45,19 +45,19 @@ describe Model::HasLicense do
     it "should accept License resources" do
       resource = subject.licensed_under(license).first
 
-      resource.license.should == license
+      expect(resource.license).to eq(license)
     end
 
     it "should accept the names of predefined Licenses" do
       resource = subject.licensed_under(:gpl2).first
 
-      resource.license.should == license
+      expect(resource.license).to eq(license)
     end
 
     it "should accept the names of licenses" do
       resource = subject.licensed_under('GPL-2').first
 
-      resource.license.should == license
+      expect(resource.license).to eq(license)
     end
   end
 end

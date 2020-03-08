@@ -17,10 +17,10 @@ describe Script::Testable do
     end
 
     obj.var = 20
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 4
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 
   it "should test an expression is true" do
@@ -31,87 +31,87 @@ describe Script::Testable do
     end
 
     obj.var = 1
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 2
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 
   it "should test a method returns an expected value" do
     obj = subject.new { test_equal :var, 5 }
 
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 5
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 
   it "should test a method does not return an expected value" do
     obj = subject.new { test_not_equal :var, 5 }
 
     obj.var = 5
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 2
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 
   it "should test a method returns a non-nil value" do
     obj = subject.new { test_set :var }
 
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 2
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 
   it "should test a method returns a non-empty value" do
     obj = subject.new { test_set :var }
 
     obj.var = ''
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 'hello'
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 
   it "should test a method matches a pattern" do
     obj = subject.new { test_match :var, /lo/ }
 
     obj.var = 'goodbye'
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 'hello'
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 
   it "should test a method does not match a pattern" do
     obj = subject.new { test_no_match :var, /lo/ }
 
     obj.var = 'hello'
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 'goodbye'
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 
   it "should test a method returns a value in a set of values" do
     obj = subject.new { test_in :var, [0, 2, 4, 8] }
 
     obj.var = 3
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 2
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 
   it "should test a method returns a value not in a set of values" do
     obj = subject.new { test_not_in :var, [0, 2, 4, 8] }
 
     obj.var = 2
-    lambda { obj.test! }.should raise_error(Script::TestFailed)
+    expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 3
-    obj.test!.should == true
+    expect(obj.test!).to eq(true)
   end
 end

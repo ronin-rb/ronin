@@ -9,11 +9,11 @@ describe Model::HasTitle do
   before(:all) { subject.auto_migrate! }
 
   it "should include Ronin::Model" do
-    subject.ancestors.should include(Model)
+    expect(subject.ancestors).to include(Model)
   end
 
   it "should define a title property" do
-    subject.properties.should be_named(:title)
+    expect(subject.properties).to be_named(:title)
   end
 
   it "should be able to find resources with similar titles" do
@@ -22,8 +22,8 @@ describe Model::HasTitle do
 
     resources = subject.titled('Foo')
 
-    resources.length.should == 2
-    resources[0].title.should == 'Foo one'
-    resources[1].title.should == 'Foo bar two'
+    expect(resources.length).to eq(2)
+    expect(resources[0].title).to eq('Foo one')
+    expect(resources[1].title).to eq('Foo bar two')
   end
 end

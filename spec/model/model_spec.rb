@@ -12,63 +12,63 @@ describe Model do
   before(:all) { subject.auto_migrate! }
 
   it "should have a default repository name" do
-    subject.default_repository_name.should == :default
+    expect(subject.default_repository_name).to eq(:default)
   end
 
   it "should allow creating new instances of the model" do
     resource = subject.new(:name => 'joe')
 
-    resource.name.should == 'joe'
+    expect(resource.name).to eq('joe')
   end
 
   it "should call initialize when creating new instances of the model" do
     resource = custom_model.new(:name => 'joe')
 
-    resource.name.should == 'joe'
-    resource.var.should == 2
+    expect(resource.name).to eq('joe')
+    expect(resource.var).to eq(2)
   end
 
   it "should call initialize when creating a new resource" do
     resource = custom_model.create!(:name => 'jim')
 
-    resource.name.should == 'jim'
-    resource.var.should == 2
+    expect(resource.name).to eq('jim')
+    expect(resource.var).to eq(2)
   end
 
   it "should call initialize when loading from the database" do
     custom_model.create!(:name => 'bob')
 
     resource = custom_model.first(:name => 'bob')
-    resource.name.should == 'bob'
-    resource.var.should == 2
+    expect(resource.name).to eq('bob')
+    expect(resource.var).to eq(2)
   end
 
   describe "humanize_attributes" do
     let(:resource) { subject.new(:name => 'joe', :age => 21) }
 
     it "should humanize the attributes of a model" do
-      resource.humanize_attributes.should == {
+      expect(resource.humanize_attributes).to eq({
         'Name' => 'joe',
         'Age' => '21'
-      }
+      })
     end
 
     it "should exclude certain attributes to humanize" do
-      resource.humanize_attributes(:exclude => [:name]).should == {
+      expect(resource.humanize_attributes(:exclude => [:name])).to eq({
         'Age' => '21'
-      }
+      })
     end
 
     it "should filter out nil values" do
       resource.age = nil
 
-      resource.humanize_attributes.should == {'Name' => 'joe'}
+      expect(resource.humanize_attributes).to eq({'Name' => 'joe'})
     end
 
     it "should filter out empty values" do
       resource.name = ''
 
-      resource.humanize_attributes.should == {'Age' => '21'}
+      expect(resource.humanize_attributes).to eq({'Age' => '21'})
     end
   end
 end

@@ -5,16 +5,16 @@ require 'ronin/arch'
 describe Arch do
   describe "validations" do
     it "should require a name, endian and address_length attributes" do
-      subject.should_not be_valid
+      expect(subject).not_to be_valid
 
       subject.name = 'future'
-      subject.should_not be_valid
+      expect(subject).not_to be_valid
 
       subject.endian = 'little'
-      subject.should_not be_valid
+      expect(subject).not_to be_valid
 
       subject.address_length = 4
-      subject.should be_valid
+      expect(subject).to be_valid
     end
 
     describe "name" do
@@ -35,7 +35,7 @@ describe Arch do
       end
 
       it "should require a unique name" do
-        subject.should_not be_valid
+        expect(subject).not_to be_valid
       end
     end
 
@@ -49,12 +49,12 @@ describe Arch do
 
       it "should accept 'little'" do
         subject.endian = 'little'
-        subject.should be_valid
+        expect(subject).to be_valid
       end
 
       it "should accept 'big'" do
         subject.endian = 'big'
-        subject.should be_valid
+        expect(subject).to be_valid
       end
 
       context "otherwise" do
@@ -67,11 +67,11 @@ describe Arch do
     subject { described_class }
 
     it "should provide built-in archs" do
-      subject.i386.should_not be_nil
+      expect(subject.i386).not_to be_nil
     end
 
     it "should allow custom names for built-in archs" do
-      subject.x86_64.name.should == 'x86-64'
+      expect(subject.x86_64.name).to eq('x86-64')
     end
   end
 end

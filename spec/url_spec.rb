@@ -43,11 +43,11 @@ describe URL do
   it "should have a host String" do
     url = described_class.new(:host_name => {:address => host_name})
 
-    url.host.should == host_name
+    expect(url.host).to eq(host_name)
   end
 
   it "should be convertable to a String" do
-    url.to_s.should == uri.to_s
+    expect(url.to_s).to eq(uri.to_s)
   end
 
   describe "extract" do
@@ -58,7 +58,7 @@ describe URL do
     let(:text) { "URIs: #{url1}, #{url2}" }
 
     it "should extract multiple URLs from text" do
-      subject.extract(text).should == [url1, url2]
+      expect(subject.extract(text)).to eq([url1, url2])
     end
 
     it "should yield the extracted URLs if a block is given" do
@@ -66,25 +66,25 @@ describe URL do
 
       subject.extract(text) { |url| urls << url }
 
-      urls.should == [url1, url2]
+      expect(urls).to eq([url1, url2])
     end
 
     it "should ignore non-absolute URIs" do
-      subject.extract('foo: bar').should be_empty
+      expect(subject.extract('foo: bar')).to be_empty
     end
   end
 
   describe "[]" do
     it "should query URLs using URIs" do
-      described_class[uri].should == url
+      expect(described_class[uri]).to eq(url)
     end
 
     it "should query URLs using Strings" do
-      described_class[uri.to_s].should == url
+      expect(described_class[uri.to_s]).to eq(url)
     end
 
     it "should still treat Integer arguments as indexes" do
-      described_class[0].should == url
+      expect(described_class[0]).to eq(url)
     end
   end
 
@@ -92,35 +92,35 @@ describe URL do
     subject { described_class.from(uri) }
 
     it "should parse URL schemes" do
-      subject.scheme.should_not be_nil
-      subject.scheme.name.should == scheme
+      expect(subject.scheme).not_to be_nil
+      expect(subject.scheme.name).to eq(scheme)
     end
 
     it "should parse host names" do
-      subject.host_name.address.should == host_name
+      expect(subject.host_name.address).to eq(host_name)
     end
 
     it "should parse port numbers" do
-      subject.port.number.should == port
+      expect(subject.port.number).to eq(port)
     end
 
     it "should parse paths" do
-      subject.path.should == path
+      expect(subject.path).to eq(path)
     end
 
     it "should parse query strings" do
-      subject.query_string.should == query_string
+      expect(subject.query_string).to eq(query_string)
     end
 
     it "should parse URL fragments" do
-      subject.fragment.should == fragment
+      expect(subject.fragment).to eq(fragment)
     end
 
     it "should normalize the paths of HTTP URIs" do
       uri = URI('http://www.example.com')
       url = described_class.from(uri)
 
-      url.path.should == '/'
+      expect(url.path).to eq('/')
     end
   end
 
@@ -128,34 +128,34 @@ describe URL do
     subject { url.to_uri }
 
     it "should convert the scheme" do
-      subject.scheme.should == scheme
+      expect(subject.scheme).to eq(scheme)
     end
     
     it "should convert the host name" do
-      subject.host.should == host_name
+      expect(subject.host).to eq(host_name)
     end
 
     it "should convert the port number" do
-      subject.port.should == port
+      expect(subject.port).to eq(port)
     end
 
     it "should convert the path" do
-      subject.path.should == path
+      expect(subject.path).to eq(path)
     end
 
     it "should convert the query string" do
-      subject.query.should == query_string
+      expect(subject.query).to eq(query_string)
     end
 
     it "should omit the query string if there are no query params" do
       new_url = described_class.parse('https://www.example.com:8080/path')
       new_uri = new_url.to_uri
 
-      new_uri.query.should be_nil
+      expect(new_uri.query).to be_nil
     end
 
     it "should convert the fragment" do
-      subject.fragment.should == fragment
+      expect(subject.fragment).to eq(fragment)
     end
   end
 
@@ -163,7 +163,7 @@ describe URL do
     subject { url.to_s }
 
     it "should convert the URL back into a String URI" do
-      subject.should == uri.to_s
+      expect(subject).to eq(uri.to_s)
     end
   end
 
@@ -171,7 +171,7 @@ describe URL do
     subject { url.inspect }
 
     it "should include the full URL" do
-      subject.should include(uri.to_s)
+      expect(subject).to include(uri.to_s)
     end
   end
 end

@@ -4,25 +4,25 @@ require 'ronin/database'
 describe Database do
   describe "repositories" do
     it "should not be empty" do
-      subject.repositories.should_not be_empty
+      expect(subject.repositories).not_to be_empty
     end
 
     it "should have a ':default' repository" do
-      subject.repositories[:default].should_not be_nil
+      expect(subject.repositories[:default]).not_to be_nil
     end
   end
 
   it "shold determine if a repository is defined" do
-    subject.repository?(:default).should == true
+    expect(subject.repository?(:default)).to eq(true)
   end
 
   it "should determine when a repository is setup" do
-    subject.setup?(:default).should == true
+    expect(subject.setup?(:default)).to eq(true)
   end
 
   it "should not allow switching to unknown repositories" do
-    lambda {
+    expect {
       subject.repository(:foo) { }
-    }.should raise_error(Database::UnknownRepository)
+    }.to raise_error(Database::UnknownRepository)
   end
 end

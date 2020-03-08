@@ -12,13 +12,13 @@ describe Service do
     it "should require a name" do
       service = described_class.new
 
-      service.should_not be_valid
+      expect(service).not_to be_valid
     end
 
     it "should require a unique name" do
       service = described_class.new(:name => name)
 
-      service.should_not be_valid
+      expect(service).not_to be_valid
     end
   end
 end
