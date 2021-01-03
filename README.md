@@ -1,4 +1,4 @@
-# Ronin
+# ronin
 
 * [Website](https://ronin-rb.dev)
 * [Source](https://github.com/ronin-rb/ronin)
