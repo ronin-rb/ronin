@@ -27,7 +27,7 @@ describe URLQueryParam do
 
     context "with special characters" do
       let(:value)         { 'bar baz'         }
-      let(:encoded_value) { URI.encode(value) }
+      let(:encoded_value) { URI::DEFAULT_PARSER.escape(value) }
 
       subject do
         described_class.new(:name => {:name => name}, :value => value)
