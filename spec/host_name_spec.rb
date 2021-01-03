@@ -72,14 +72,14 @@ describe HostName do
     it "should look up the IP Addresses for the host name" do
       ips = subject.lookup!
       
-      expect(ips.any? { |ip| ip.address == ip }).to be_true
+      expect(ips.any? { |ip_address| ip_address.address == ip }).to be(true)
     end
 
     it "should associate the IP addresses with the original host name" do
       ips = subject.lookup!
       
-      ips.each do |ip|
-        expect(ip.host_names[0].address).to eq(domain)
+      ips.each do |ip_address|
+        expect(ip_address.host_names[0].address).to eq(domain)
       end
     end
 
