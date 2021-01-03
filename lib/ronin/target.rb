@@ -1,7 +1,7 @@
 #
 # Copyright (c) 2006-2021 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
-# This file is part of Ronin.
+# This file is part of ronin.
 #
 # Ronin is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
