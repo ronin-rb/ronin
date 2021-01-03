@@ -35,7 +35,7 @@ module Ronin
       DEFAULT_COMMAND = 'console'
 
       # The loaded command names
-      @commands = SortedSet[]
+      @commands = Set[]
 
       #
       # All command-line names of Commands available to the {CLI}.
@@ -63,7 +63,7 @@ module Ronin
           end
         end
 
-        return @commands
+        return @commands.sort
       end
 
       #
