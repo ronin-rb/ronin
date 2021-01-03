@@ -4,55 +4,84 @@ require 'model/models/versioned_model'
 require 'ronin/model/has_version'
 
 describe Model::HasVersion do
-  subject { VersionedModel }
+  let(:model) { VersionedModel }
 
-  before(:all) do
-    subject.auto_migrate!
+  describe ".included" do
+    subject { model }
 
-    subject.create(
-      :version => '1.1',
-      :content => 'Foo'
-    )
+    it "should include Ronin::Model" do
+      expect(subject.ancestors).to include(Model)
+    end
 
-    subject.create(
-      :version => '1.1',
-      :content => 'Bar'
-    )
+    it "should define a version property" do
+      expect(subject.properties).to be_named(:version)
+    end
 
-    subject.create(
-      :version => '1.2',
-      :content => 'Foo'
-    )
+    it "should default the version property to '0.1'" do
+      resource = subject.new
+
+      expect(resource.version).to eq('0.1')
+    end
   end
 
-  it "should include Ronin::Model" do
-    expect(subject.ancestors).to include(Model)
+  describe ".revision" do
+    subject { model }
+
+    before do
+      subject.create(
+        :version => '1.1',
+        :content => 'one'
+      )
+
+      subject.create(
+        :version => '1.1',
+        :content => 'two'
+      )
+
+      subject.create(
+        :version => '1.2',
+        :content => 'three'
+      )
+    end
+
+    it "should allow querying specific revisions" do
+      resources = subject.revision('1.1')
+
+      expect(resources.length).to eq(2)
+      expect(resources[0].version).to eq('1.1')
+      expect(resources[0].content).to eq('one')
+
+      expect(resources[1].version).to eq('1.1')
+      expect(resources[1].content).to eq('two')
+    end
+
+    after { subject.destroy }
   end
 
-  it "should define a version property" do
-    expect(subject.properties).to be_named(:version)
-  end
+  describe ".latest" do
+    subject { model }
 
-  it "should default the version property to '1.0'" do
-    resource = subject.new
+    before do
+      subject.create(
+        :version => '1.0',
+        :content => 'foo'
+      )
 
-    expect(resource.version).to eq('0.1')
-  end
+      subject.create(
+        :version => '1.5',
+        :content => 'foo'
+      )
 
-  it "should allow querying specific revisions" do
-    resources = subject.revision('1.1')
+      subject.create(
+        :version => '1.1',
+        :content => 'foo'
+      )
+    end
 
-    expect(resources.length).to eq(2)
-    expect(resources[0].version).to eq('1.1')
-    expect(resources[0].content).to eq('Foo')
+    it "should allow querying the latest revision" do
+      resource = subject.all(:content => 'foo').latest
 
-    expect(resources[1].version).to eq('1.1')
-    expect(resources[1].content).to eq('Bar')
-  end
-
-  it "should allow querying the latest revision" do
-    resource = subject.all(:content => 'Foo').latest
-
-    expect(resource.version).to eq('1.2')
+      expect(resource.version).to eq('1.5')
+    end
   end
 end
