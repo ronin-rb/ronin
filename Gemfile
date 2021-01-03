@@ -30,7 +30,7 @@ group :development do
   gem 'rubygems-tasks', '~> 0.1'
   gem 'rspec',          '~> 3.0'
 
-  gem 'kramdown',      '~> 1.0'
+  gem 'kramdown',      '~> 2.0'
   gem 'kramdown-man',  '~> 0.1'
 
   gem 'ruby-graphviz',  '~> 0.9.10'
