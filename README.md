@@ -171,16 +171,18 @@ Remove a Database:
 
 ## Install
 
-### Stable
-
     $ gem install ronin
 
-### Edge
+## Development
 
-    $ git clone https://github.com/ronin-rb/ronin.git
-    $ cd ronin/
-    $ bundle install
-    $ ./bin/ronin
+1. [Fork It!](https://github.com/ronin-rb/ronin/fork)
+2. Clone It!
+3. `cd ronin`
+4. `bundle install`
+5. `git checkout -b my_feature`
+6. Code It!
+7. `bundle exec rake spec`
+8. `git push origin my_feature`
 
 ## License
 
