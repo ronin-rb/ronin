@@ -23,7 +23,7 @@ describe URL do
   end
 
   let(:url) do
-    described_class.new(
+    described_class.first_or_create(
       :scheme    => URLScheme.first_or_create(:name => scheme),
       :host_name => HostName.first_or_create(:address => host_name),
       :port      => TCPPort.first_or_create(:number => port),
@@ -37,8 +37,6 @@ describe URL do
       }]
     )
   end
-
-  before(:all) { url.save }
 
   it "should have a host String" do
     url = described_class.new(:host_name => {:address => host_name})
