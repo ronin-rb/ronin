@@ -96,7 +96,7 @@ describe Script::Path do
 
     pending "https://github.com/ronin-ruby/ronin/issues/7" do
       it "should not save new cached files that contain validation errors" do
-        validation_error.should_not be_saved
+        expect(validation_error).to_not be_saved
       end
     end
 
