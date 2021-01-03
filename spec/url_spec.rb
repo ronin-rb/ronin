@@ -38,16 +38,6 @@ describe URL do
     )
   end
 
-  it "should have a host String" do
-    url = described_class.new(:host_name => {:address => host_name})
-
-    expect(url.host).to be == host_name
-  end
-
-  it "should be convertable to a String" do
-    expect(url.to_s).to be == uri.to_s
-  end
-
   describe "extract" do
     subject { described_class }
 
@@ -119,6 +109,16 @@ describe URL do
       url = described_class.from(uri)
 
       expect(url.path).to be == '/'
+    end
+  end
+
+  describe "#host" do
+    subject do
+      described_class.new(:host_name => {:address => host_name})
+    end
+
+    it "should return the URI host String" do
+      expect(subject.host).to be == host_name
     end
   end
 
