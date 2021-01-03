@@ -38,10 +38,10 @@ describe Model do
   end
 
   describe ".create!" do
-    subject { injeroted_model }
+    subject { inherited_model }
 
     it "should call initialize when creating a new resource" do
-      resource = inherited_model.create!(:name => 'jim')
+      resource = subject.create!(:name => 'jim')
 
       expect(resource.name).to eq('jim')
       expect(resource.var).to eq(2)
