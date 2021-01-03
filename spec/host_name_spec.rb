@@ -81,7 +81,7 @@ describe HostName do
       end
     end
 
-    let(:bad_domain) { '.bad.domain.com.' }
+    let(:bad_domain) { 'foo' }
 
     it "should return an empty Array for unknown host names" do
       ips = described_class.new(:address => bad_domain).lookup!

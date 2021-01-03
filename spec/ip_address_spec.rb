@@ -37,7 +37,7 @@ describe IPAddress do
   describe "lookup" do
     subject { described_class }
 
-    let(:bad_domain) { '.bad.domain.com.' }
+    let(:bad_domain) { 'foo' }
 
     it "should lookup host-names to IP Addresses" do
       ip_addresses = subject.lookup(example_domain)
