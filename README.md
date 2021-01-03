@@ -1,8 +1,8 @@
 # Ronin
 
 * [Website](https://ronin-rb.dev)
-* [Source](https://github.com/ronin-ruby/ronin)
-* [Issues](https://github.com/ronin-ruby/ronin/issues)
+* [Source](https://github.com/ronin-rb/ronin)
+* [Issues](https://github.com/ronin-rb/ronin/issues)
 * [Documentation](https://ronin-rb.github.com/docs/ronin/frames)
 * [Slack](https://ronin-rb.slack.com) |
   [Discord](https://discord.gg/F5Ap9B2N) |
@@ -177,7 +177,7 @@ Remove a Database:
 
 ### Edge
 
-    $ git clone git://github.com/ronin-ruby/ronin.git
+    $ git clone https://github.com/ronin-rb/ronin.git
     $ cd ronin/
     $ bundle install
     $ ./bin/ronin
@@ -208,9 +208,9 @@ along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 [example-scanner]: https://github.com/postmodern/postmodern/blob/master/scripts/scanners/oracle_dad_scanner.rb
 [Repositories]: https://github.com/postmodern/postmodern
 
-[ronin-support]: https://github.com/ronin-ruby/ronin-support#readme
-[ronin-exploits]: https://github.com/ronin-ruby/ronin-exploits#readme
-[ronin-scanners]: https://github.com/ronin-ruby/ronin-scanners#readme
+[ronin-support]: https://github.com/ronin-rb/ronin-support#readme
+[ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
+[ronin-scanners]: https://github.com/ronin-rb/ronin-scanners#readme
 
 [svn]: http://subversion.tigris.org/
 [hg]: http://mercurial.selenic.com/
@@ -237,4 +237,4 @@ along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 [ripl-auto_indent]: https://github.com/janlelis/ripl-auto_indent#readme
 [ripl-short_errors]: https://rubygems.org/gems/ripl-short_errors
 [ripl-color_result]: https://github.com/janlelis/ripl-color_result#readme
-[ronin-support]: https://github.com/ronin-ruby/ronin-support#readme
+[ronin-support]: https://github.com/ronin-rb/ronin-support#readme
