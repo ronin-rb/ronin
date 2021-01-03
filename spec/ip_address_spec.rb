@@ -37,8 +37,6 @@ describe IPAddress do
   describe "lookup" do
     subject { described_class }
 
-    let(:bad_domain) { 'foo' }
-
     it "should lookup host-names to IP Addresses" do
       ip_addresses = subject.lookup(example_domain)
       addresses    = ip_addresses.map { |ip| ip.address }
@@ -53,6 +51,8 @@ describe IPAddress do
       expect(host_names).to include(example_domain)
     end
 
+    let(:bad_domain) { 'foo' }
+
     it "should return an empty Array for unknown domain names" do
       ip_addresses = subject.lookup(bad_domain)
       
@@ -61,8 +61,6 @@ describe IPAddress do
   end
 
   describe "#lookup!" do
-    let(:bad_ip) { '0.0.0.0' }
-
     it "should reverse lookup the host-name for an IP Address" do
       host_names = subject.lookup!
       addresses  = host_names.map { |host_name| host_name.address }
@@ -78,6 +76,8 @@ describe IPAddress do
 
       expect(ip_addresses).to include(subject)
     end
+
+    let(:bad_ip) { '0.0.0.0' }
 
     it "should return an empty Array for unknown domain names" do
       ip_address = described_class.new(:address => bad_ip)
