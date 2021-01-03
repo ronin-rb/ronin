@@ -4,60 +4,73 @@ require 'model/models/described_model'
 require 'ronin/model/has_description'
 
 describe Model::HasDescription do
-  subject { DescribedModel }
+  let(:model) { DescribedModel }
 
-  before(:all) { subject.auto_migrate! }
+  describe ".included" do
+    subject { model }
 
-  it "should include Ronin::Model" do
-    expect(subject.ancestors).to include(Model)
-  end
+    it "should include Ronin::Model" do
+      expect(subject.ancestors).to include(Model)
+    end
 
-  it "should define a description property" do
-    expect(subject.properties).to be_named(:description)
+    it "should define a description property" do
+      expect(subject.properties).to be_named(:description)
+    end
   end
 
   describe "#description" do
-    let(:resource) { DescribedModel.new }
+    subject { model.new }
 
     it "should allow the setting of the description" do
-      resource.description = 'test one'
-      expect(resource.description).to eq('test one')
+      subject.description = 'test one'
+      expect(subject.description).to eq('test one')
     end
 
     it "should strip leading and tailing white-space" do
-      resource.description = %{   test two    }
+      subject.description = %{   test two    }
 
-      expect(resource.description).to eq('test two')
+      expect(subject.description).to eq('test two')
     end
 
     it "should strip leading and tailing white-space from each line" do
-      resource.description = %{
+      subject.description = %{
         test
         three
       }
 
-      expect(resource.description).to eq("test\nthree")
+      expect(subject.description).to eq("test\nthree")
     end
 
     it "should preserve non-bordering empty lines" do
-      resource.description = %{
+      subject.description = %{
         test
 
         four
       }
 
-      expect(resource.description).to eq("test\n\nfour")
+      expect(subject.description).to eq("test\n\nfour")
     end
   end
 
-  it "should be able to find resources with similar descriptions" do
-    subject.create!(:description => 'foo one')
-    subject.create!(:description => 'foo bar two')
+  describe ".describing" do
+    subject { model }
 
-    resources = subject.describing('foo')
+    let(:description1) { 'foo one' }
+    let(:description2) { 'foo bar two' }
 
-    expect(resources.length).to eq(2)
-    expect(resources[0].description).to eq('foo one')
-    expect(resources[1].description).to eq('foo bar two')
+    before do
+      subject.create!(:description => description1)
+      subject.create!(:description => description2)
+    end
+
+    it "should be able to find resources with similar descriptions" do
+      resources = subject.describing('foo')
+
+      expect(resources.length).to be(2)
+      expect(resources[0].description).to be == description1
+      expect(resources[1].description).to be == description2
+    end
+
+    after { subject.destroy }
   end
 end
