@@ -151,7 +151,7 @@ describe UI::CLI::Command do
         subject { described_class.new.color }
 
         context "when $stdout is a TTY" do
-          it { should be_true }
+          it { expect(subject).to be(true) }
         end
 
         context "when $stdout is not a TTY" do
@@ -160,7 +160,7 @@ describe UI::CLI::Command do
             $stdout     = StringIO.new
           end
 
-          it { should be_false }
+          it { expect(subject).to be(false) }
 
           after do
             $stdout = @old_stdout
