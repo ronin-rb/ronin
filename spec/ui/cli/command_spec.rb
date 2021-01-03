@@ -151,7 +151,11 @@ describe UI::CLI::Command do
         subject { described_class.new.color }
 
         context "when $stdout is a TTY" do
-          it { expect(subject).to be(true) }
+          it do
+            skip "$stdout is not a TTY" unless $stdout.tty?
+
+            expect(subject).to be(true)
+          end
         end
 
         context "when $stdout is not a TTY" do
