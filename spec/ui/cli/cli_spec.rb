@@ -8,7 +8,7 @@ describe UI::CLI do
     it { should_not be_empty }
 
     it "should replace '/' characters with a ':'" do
-      expect(subject.all? { |command| command.include?('/') }).to be_false
+      expect(subject.all? { |command| command.include?('/') }).to be(false)
     end
   end
 
