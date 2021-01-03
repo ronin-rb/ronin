@@ -14,7 +14,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
+# along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
 require 'ronin/model'
@@ -97,19 +97,19 @@ module Ronin
     predefine :gpl2,
               :name => 'GPL-2',
               :description => 'GNU Public License v2.0',
-              :url => 'http://www.gnu.org/licenses/gpl-2.0.txt'
+              :url => 'https://www.gnu.org/licenses/gpl-2.0.txt'
 
     # General Public License, version 3
     predefine :gpl3,
               :name => 'GPL-3',
               :description => 'GNU Public License v3.0',
-              :url => 'http://www.gnu.org/licenses/gpl-3.0.txt'
+              :url => 'https://www.gnu.org/licenses/gpl-3.0.txt'
 
     # Lesser General Public License, version 3
     predefine :lgpl3,
               :name => 'LGPL-3',
               :description => 'GNU Lesser General Public License v3.0',
-              :url => 'http://www.gnu.org/licenses/lgpl-3.0.txt'
+              :url => 'https://www.gnu.org/licenses/lgpl-3.0.txt'
 
     # The MIT "as-is" License
     predefine :mit,

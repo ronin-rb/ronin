@@ -7,7 +7,7 @@
 * [Slack](https://ronin-rb.slack.com) |
   [Discord](https://discord.gg/F5Ap9B2N) |
   [Twitter](https://twitter.com/ronin_rb) |
-  [IRC](http://ronin-rb.dev/irc/)
+  [IRC](https://ronin-rb.dev/irc/)
 
 ## Description
 
@@ -199,10 +199,10 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
+along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 
-[Ruby]: http://www.ruby-lang.org
-[exploit development]: http://www.exploit-db.com
+[Ruby]: https://www.ruby-lang.org
+[exploit development]: https://www.exploit-db.com
 [example-exploit]: https://github.com/ronin-rb/example-repo/blob/master/scripts/exploits/http/oracle/dav_bypass.rb
 [example-payload]: https://gist.github.com/1403961
 [example-scanner]: https://github.com/ronin-rb/example-repo/blob/master/scripts/scanners/oracle_dad_scanner.rb
@@ -212,13 +212,13 @@ along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
 [ronin-scanners]: https://github.com/ronin-rb/ronin-scanners#readme
 
-[svn]: http://subversion.tigris.org/
-[hg]: http://mercurial.selenic.com/
-[git]: http://git-scm.com/
+[svn]: https://subversion.apache.org/
+[hg]: https://www.mercurial-scm.org/
+[git]: https://git-scm.com/
 
 [DataMapper]: http://datamapper.org
 [dm-sqlite-adapter]: https://github.com/datamapper/dm-sqlite-adapter#readme
-[libsqlite3]: http://sqlite.org/
+[libsqlite3]: https://sqlite.org/
 [dm-core]: https://github.com/datamapper/dm-core#readme
 [dm-types]: https://github.com/datamapper/dm-types#readme
 [dm-migrations]: https://github.com/datamapper/dm-migrations#readme
