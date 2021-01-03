@@ -29,7 +29,7 @@ describe Script::Deployable do
 
       expect {
         subject.deploy!
-      }.to raise_error
+      }.to raise_error(RuntimeError)
     end
 
     it "should mark the script deployed" do
