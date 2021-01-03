@@ -4,26 +4,39 @@ require 'model/models/titled_model'
 require 'ronin/model/has_title'
 
 describe Model::HasTitle do
-  subject { TitledModel }
+  let(:model) { TitledModel }
 
-  before(:all) { subject.auto_migrate! }
+  describe ".included" do
+    subject { model }
 
-  it "should include Ronin::Model" do
-    expect(subject.ancestors).to include(Model)
+    it "should include Ronin::Model" do
+      expect(subject.ancestors).to include(Model)
+    end
+
+    it "should define a title property" do
+      expect(subject.properties).to be_named(:title)
+    end
   end
 
-  it "should define a title property" do
-    expect(subject.properties).to be_named(:title)
-  end
+  describe ".titled" do
+    subject { model }
 
-  it "should be able to find resources with similar titles" do
-    subject.create!(:title => 'Foo one')
-    subject.create!(:title => 'Foo bar two')
+    let(:title1) { 'Foo one' }
+    let(:title2) { 'Foo bar two' }
 
-    resources = subject.titled('Foo')
+    before do
+      subject.create!(:title => title1)
+      subject.create!(:title => title2)
+    end
 
-    expect(resources.length).to eq(2)
-    expect(resources[0].title).to eq('Foo one')
-    expect(resources[1].title).to eq('Foo bar two')
+    it "should be able to find resources with similar titles" do
+      resources = subject.titled('Foo')
+
+      expect(resources.length).to eq(2)
+      expect(resources[0].title).to be == title1
+      expect(resources[1].title).to be == title2
+    end
+
+    after { subject.destroy }
   end
 end
