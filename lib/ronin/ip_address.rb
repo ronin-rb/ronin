@@ -89,7 +89,7 @@ module Ronin
     # @yieldparam [IPAddress] ip
     #   An extracted IP Address from the text.
     #
-    # @see http://ronin-ruby.github.com/docs/ronin-support/IPAddr.html#extract-class_method
+    # @see https://ronin-rb.dev/docs/ronin-support/IPAddr.html#extract-class_method
     #
     # @since 1.3.0
     #

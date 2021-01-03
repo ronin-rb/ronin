@@ -8,7 +8,7 @@ description:
 license: GPL-3
 authors: Postmodern
 email: postmodern.mod3@gmail.com
-homepage: http://ronin-ruby.github.com/
+homepage: https://ronin-rb.dev
 has_yard: true
 post_install_message: |
   *************************************************************************

@@ -62,10 +62,10 @@ to output files, run in commands or sent to TCP/UDP services.
 ## LINKS
 
 Ronin Regular Expressions
-	http://ronin-ruby.github.com/docs/ronin-support/Regexp.html
+	https://ronin-rb.dev/docs/ronin-support/Regexp.html
 
 `Ronin::Fuzzing`
-	http://ronin-ruby.github.com/docs/ronin-support/Ronin/Fuzzing.html
+	https://ronin-rb.dev/docs/ronin-support/Ronin/Fuzzing.html
 
 ## AUTHOR
 

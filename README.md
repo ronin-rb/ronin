@@ -1,9 +1,9 @@
 # Ronin
 
-* [Website](http://ronin-ruby.github.com)
+* [Website](https://ronin-rb.dev)
 * [Source](https://github.com/ronin-ruby/ronin)
 * [Issues](https://github.com/ronin-ruby/ronin/issues)
-* [Documentation](http://ronin-ruby.github.com/docs/ronin/frames)
+* [Documentation](https://ronin-rb.github.com/docs/ronin/frames)
 * [Slack](https://ronin-rb.slack.com) |
   [Discord](https://discord.gg/F5Ap9B2N) |
   [Twitter](https://twitter.com/ronin_rb) |
