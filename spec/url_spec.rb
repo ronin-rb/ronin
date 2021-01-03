@@ -53,7 +53,7 @@ describe URL do
 
     let(:url1) { subject.parse("http://example.com/page.php?x=1&y=2") }
     let(:url2) { subject.parse("ssh://alice@example.com") }
-    let(:text) { "URIs: #{url1}, #{url2}" }
+    let(:text) { "foo #{url1}, bar #{url2} baz" }
 
     it "should extract multiple URLs from text" do
       expect(subject.extract(text)).to be == [url1, url2]
@@ -68,7 +68,7 @@ describe URL do
     end
 
     it "should ignore non-absolute URIs" do
-      expect(subject.extract('foo: bar')).to be_empty
+      expect(subject.extract('foo : bar')).to be_empty
     end
   end
 
