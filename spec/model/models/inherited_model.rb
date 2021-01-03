@@ -1,8 +1,7 @@
 require 'ronin/model/model'
+require_relative 'base_model'
 
-require 'model/models/basic_model'
-
-class CustomModel < BasicModel
+class InheritedModel < BaseModel
 
   include Ronin::Model
 

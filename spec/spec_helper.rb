@@ -1,6 +1,6 @@
 require 'rspec'
-require 'model/models/basic_model'
-require 'model/models/custom_model'
+require 'model/models/base_model'
+require 'model/models/inherited_model'
 require 'model/models/authored_model'
 require 'model/models/described_model'
 require 'model/models/licensed_model'
@@ -17,8 +17,8 @@ include Ronin
 RSpec.configure do |spec|
   spec.before(:suite) do
     [
-      BasicModel,
-      CustomModel,
+      BaseModel,
+      InheritedModel,
       AuthoredModel,
       DescribedModel,
       LicensedModel,

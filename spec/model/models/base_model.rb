@@ -1,6 +1,6 @@
 require 'ronin/model/model'
 
-class BasicModel
+class BaseModel
 
   include Ronin::Model
 
