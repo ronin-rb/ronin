@@ -151,9 +151,7 @@ describe Repository do
   describe "#activate!" do
     subject { repository('local') }
 
-    before(:all) do
-      subject.activate!
-    end
+    before { subject.activate! }
 
     it "should load the init.rb file if present" do
       expect($local_repo_loaded).to eq(true)
@@ -162,12 +160,15 @@ describe Repository do
     it "should make the lib directory accessible to Kernel#require" do
       expect(require('stuff/test')).to eq(true)
     end
+
+    after { subject.deactivate! }
   end
 
   describe "#deactivate!" do
     subject { repository('local') }
 
-    before(:all) do
+    before do
+      subject.activate!
       subject.deactivate!
     end
 
@@ -196,7 +197,7 @@ describe Repository do
     subject { repository('scripts') }
 
     describe "#cache_scripts!" do
-      before(:all) { subject.cache_scripts! }
+      before { subject.cache_scripts! }
 
       it "should be populated script_paths" do
         expect(subject.script_paths).not_to be_empty
@@ -233,7 +234,7 @@ describe Repository do
     end
 
     describe "#sync_scripts!" do
-      before(:all) do
+      before do
         subject.cache_scripts!
 
         script_path = subject.find_script('cached/modified.rb')
@@ -259,9 +260,7 @@ describe Repository do
     end
 
     describe "#clean_scripts!" do
-      before(:all) do
-        subject.clean_scripts!
-      end
+      before { subject.clean_scripts! }
 
       it "should clear the script_paths" do
         expect(subject.script_paths).to be_empty

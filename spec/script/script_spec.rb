@@ -11,7 +11,7 @@ describe Script do
 
   let(:repo) { repository('scripts') }
 
-  before(:all) { repo.cache_scripts! }
+  before { repo.cache_scripts! }
 
   it "should be a Model" do
     expect(subject.included_modules).to include(Model)

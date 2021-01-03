@@ -10,7 +10,7 @@ describe Script::Path do
   let(:repo) { repository('scripts') }
   let(:script_class) { MyScript }
 
-  before(:all) { repo.cache_scripts! }
+  before { repo.cache_scripts! }
 
   describe "cached file" do
     subject { repo.find_script('cached/cached.rb') }
@@ -148,7 +148,7 @@ describe Script::Path do
   describe "modified cached file" do
     subject { repo.find_script('cached/modified.rb') }
 
-    before(:all) do
+    before do
       subject.update(:timestamp => (subject.timestamp - 10))
     end
 
@@ -168,7 +168,7 @@ describe Script::Path do
   describe "missing cached file" do
     subject { repo.find_script('cached/missing.rb') }
 
-    before(:all) do
+    before do
       subject.update(:path => File.join('','missing','file.rb'))
 
       subject.sync
