@@ -198,7 +198,7 @@ describe UI::CLI::Command do
 
   describe "options?" do
     it "should test if there are any defined options" do
-      expect(subject.options?).to be_true
+      expect(subject.options?).to be(true)
     end
   end
 
@@ -239,7 +239,7 @@ describe UI::CLI::Command do
 
   describe "arguments?" do
     it "should test if there are any defined arguments" do
-      expect(subject.arguments?).to be_true
+      expect(subject.arguments?).to be(true)
     end
   end
 
