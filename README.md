@@ -203,10 +203,10 @@ along with Ronin.  If not, see <http://www.gnu.org/licenses/>.
 
 [Ruby]: http://www.ruby-lang.org
 [exploit development]: http://www.exploit-db.com
-[example-exploit]: https://github.com/postmodern/postmodern/blob/master/scripts/exploits/http/oracle/dav_bypass.rb
+[example-exploit]: https://github.com/ronin-rb/example-repo/blob/master/scripts/exploits/http/oracle/dav_bypass.rb
 [example-payload]: https://gist.github.com/1403961
-[example-scanner]: https://github.com/postmodern/postmodern/blob/master/scripts/scanners/oracle_dad_scanner.rb
-[Repositories]: https://github.com/postmodern/postmodern
+[example-scanner]: https://github.com/ronin-rb/example-repo/blob/master/scripts/scanners/oracle_dad_scanner.rb
+[Repositories]: https://github.com/ronin-rb/example-repo
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
