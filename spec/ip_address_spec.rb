@@ -97,13 +97,13 @@ describe IPAddress do
     context "with IPv4 address" do
       subject { described_class.new(:address => '127.0.0.1') }
 
-      its(:version) { should == 4 }
+      it { expect(subject.version).to be == 4 }
     end
 
     context "with IPv6 address" do
       subject { described_class.new(:address => '::1') }
 
-      its(:version) { should == 6 }
+      it { expect(subject.version).to be == 6 }
     end
   end
 end
