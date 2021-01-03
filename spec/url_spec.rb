@@ -23,7 +23,7 @@ describe URL do
   end
 
   let(:url) do
-    described_class.first_or_create(
+    described_class.new(
       :scheme    => URLScheme.first_or_create(:name => scheme),
       :host_name => HostName.first_or_create(:address => host_name),
       :port      => TCPPort.first_or_create(:number => port),
@@ -63,6 +63,8 @@ describe URL do
   end
 
   describe "[]" do
+    before { url.save }
+
     it "should query URLs using URIs" do
       expect(described_class[uri]).to be == url
     end
@@ -74,6 +76,8 @@ describe URL do
     it "should still treat Integer arguments as indexes" do
       expect(described_class[0]).to be == url
     end
+
+    after { url.destroy }
   end
 
   describe "from" do
