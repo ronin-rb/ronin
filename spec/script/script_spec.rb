@@ -122,7 +122,7 @@ describe Script do
       subject.var = false
       subject.load_script!
 
-      expect(subject.var).to eq(false)
+      expect(subject.var).to be(false)
     end
   end
 end

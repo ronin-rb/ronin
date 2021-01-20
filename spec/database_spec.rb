@@ -13,11 +13,11 @@ describe Database do
   end
 
   it "shold determine if a repository is defined" do
-    expect(subject.repository?(:default)).to eq(true)
+    expect(subject.repository?(:default)).to be(true)
   end
 
   it "should determine when a repository is setup" do
-    expect(subject.setup?(:default)).to eq(true)
+    expect(subject.setup?(:default)).to be(true)
   end
 
   it "should not allow switching to unknown repositories" do

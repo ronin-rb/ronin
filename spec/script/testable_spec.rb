@@ -20,7 +20,7 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 4
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 
   it "should test an expression is true" do
@@ -34,7 +34,7 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 2
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 
   it "should test a method returns an expected value" do
@@ -43,7 +43,7 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 5
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 
   it "should test a method does not return an expected value" do
@@ -53,7 +53,7 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 2
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 
   it "should test a method returns a non-nil value" do
@@ -62,7 +62,7 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 2
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 
   it "should test a method returns a non-empty value" do
@@ -72,7 +72,7 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 'hello'
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 
   it "should test a method matches a pattern" do
@@ -82,7 +82,7 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 'hello'
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 
   it "should test a method does not match a pattern" do
@@ -92,7 +92,7 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 'goodbye'
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 
   it "should test a method returns a value in a set of values" do
@@ -102,7 +102,7 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 2
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 
   it "should test a method returns a value not in a set of values" do
@@ -112,6 +112,6 @@ describe Script::Testable do
     expect { obj.test! }.to raise_error(Script::TestFailed)
 
     obj.var = 3
-    expect(obj.test!).to eq(true)
+    expect(obj.test!).to be(true)
   end
 end

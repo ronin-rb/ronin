@@ -112,7 +112,7 @@ describe Repository do
         :uri => 'git://github.com/path/to/local.git'
       )
 
-      expect(repo.installed).to eq(false)
+      expect(repo.installed).to be(false)
     end
   end
 
@@ -154,11 +154,11 @@ describe Repository do
     before { subject.activate! }
 
     it "should load the init.rb file if present" do
-      expect($local_repo_loaded).to eq(true)
+      expect($local_repo_loaded).to be(true)
     end
 
     it "should make the lib directory accessible to Kernel#require" do
-      expect(require('stuff/test')).to eq(true)
+      expect(require('stuff/test')).to be(true)
     end
 
     after { subject.deactivate! }

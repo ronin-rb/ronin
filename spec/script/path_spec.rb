@@ -137,7 +137,7 @@ describe Script::Path do
     end
 
     it "should not re-cache unmodified files" do
-      expect(subject.sync).to eq(false)
+      expect(subject.sync).to be(false)
     end
 
     it "should not have cache errors" do
@@ -157,7 +157,7 @@ describe Script::Path do
     end
 
     it "should re-cache modified files" do
-      expect(subject.sync).to eq(true)
+      expect(subject.sync).to be(true)
     end
 
     it "should not have cache errors" do
