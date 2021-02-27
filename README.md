@@ -1,5 +1,7 @@
 # ronin
 
+[![CI](https://github.com/ronin-rb/ronin/actions/workflows/ruby.yml/badge.svg)](https://github.com/ronin-rb/ronin/actions/workflows/ruby.yml)
+
 * [Website](https://ronin-rb.dev)
 * [Source](https://github.com/ronin-rb/ronin)
 * [Issues](https://github.com/ronin-rb/ronin/issues)
