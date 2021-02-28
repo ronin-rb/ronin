@@ -7,23 +7,23 @@ RONIN_URI  = 'https://github.com/ronin-rb'
 
 gemspec
 
-gem 'jruby-openssl',	'~> 0.7', :platforms => :jruby
+gem 'jruby-openssl',	'~> 0.7', platforms: :jruby
 
 # DataMapper dependencies
-# gem 'data_objects',       DO_VERSION, :git => "#{DM_URI}/do.git"
-# gem 'do_sqlite3',         DO_VERSION, :git => "#{DM_URI}/do.git"
-# gem 'dm-do-adapter',      DM_VERSION, :git => "#{DM_URI}/dm-do-adapter.git"
-# gem 'dm-sqlite-adapter',  DM_VERSION, :git => "#{DM_URI}/dm-sqlite-adapter.git"
-# gem 'dm-core',            DM_VERSION, :git => "#{DM_URI}/dm-core.git"
-# gem 'dm-types',           DM_VERSION, :git => "#{DM_URI}/dm-types.git"
-# gem 'dm-migrations',      DM_VERSION, :git => "#{DM_URI}/dm-migrations.git"
-# gem 'dm-validations',     DM_VERSION, :git => "#{DM_URI}/dm-validations.git"
-# gem 'dm-serializer',      DM_VERSION, :git => "#{DM_URI}/dm-serializer.git"
-# gem 'dm-aggregates',      DM_VERSION, :git => "#{DM_URI}/dm-aggregates.git"
-# gem 'dm-timestamps',      DM_VERSION, :git => "#{DM_URI}/dm-timestamps.git"
+# gem 'data_objects',       DO_VERSION, git: "#{DM_URI}/do.git"
+# gem 'do_sqlite3',         DO_VERSION, git: "#{DM_URI}/do.git"
+# gem 'dm-do-adapter',      DM_VERSION, git: "#{DM_URI}/dm-do-adapter.git"
+# gem 'dm-sqlite-adapter',  DM_VERSION, git: "#{DM_URI}/dm-sqlite-adapter.git"
+# gem 'dm-core',            DM_VERSION, git: "#{DM_URI}/dm-core.git"
+# gem 'dm-types',           DM_VERSION, git: "#{DM_URI}/dm-types.git"
+# gem 'dm-migrations',      DM_VERSION, git: "#{DM_URI}/dm-migrations.git"
+# gem 'dm-validations',     DM_VERSION, git: "#{DM_URI}/dm-validations.git"
+# gem 'dm-serializer',      DM_VERSION, git: "#{DM_URI}/dm-serializer.git"
+# gem 'dm-aggregates',      DM_VERSION, git: "#{DM_URI}/dm-aggregates.git"
+# gem 'dm-timestamps',      DM_VERSION, git: "#{DM_URI}/dm-timestamps.git"
 
 # Library dependencies
-# gem 'ronin-support',	'~> 0.5', :git => "#{RONIN_URI}/ronin-support.git"
+# gem 'ronin-support',	'~> 0.5', git: "#{RONIN_URI}/ronin-support.git"
 
 group :development do
   gem 'rake'
@@ -55,5 +55,5 @@ adapters = (ENV['ADAPTER'] || ENV['ADAPTERS']).to_s
 adapters = Set.new(adapters.to_s.tr(',',' ').split)
 
 (DM_ADAPTERS & adapters).each do |adapter|
-  gem "dm-#{adapter}-adapter", DM_VERSION #, :git => "#{DM_URI}/dm-#{adapter}-adapter.git"
+  gem "dm-#{adapter}-adapter", DM_VERSION #, git: "#{DM_URI}/dm-#{adapter}-adapter.git"
 end
