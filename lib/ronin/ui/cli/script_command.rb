@@ -177,9 +177,6 @@ module Ronin
         # Creates an OptionParser based on the parameters of one or more
         # objects.
         #
-        # @param [Array<Parameters>] objects
-        #   The objects that have parameters.
-        #
         # @yield [opts]
         #   If a block is given, it will be passed the newly created
         #   OptionParser.
