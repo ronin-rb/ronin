@@ -1,6 +1,6 @@
 ### 1.5.1 / 2021-02-28
 
-* Require ronin-support ~> 0.5, >= 0.5.2.
+* Require [ronin-support] ~> 0.5, >= 0.5.2.
 * Activate bundler in `bin/ronin` if a `Gemfile.lock` file is present.
 * Re-finalize all DataMapper models in
   {Ronin::AutoLoad::ClassMethods#require_const}.
@@ -11,7 +11,7 @@
 
 ### 1.5.0 / 2012-06-16
 
-* Require ronin-support ~> 0.5.
+* Require [ronin-support] ~> 0.5.
 * Added {Ronin::UI::CLI::Command#setup}.
 * Added {Ronin::UI::CLI::Command#cleanup}.
 * Added {Ronin::UI::CLI::Command.examples}.
@@ -64,7 +64,7 @@
 * Require open_namespace ~> 0.4.
 * Require parameters ~> 0.4.
 * Require uri-query_params ~> 0.6.
-* Require ronin-support ~> 0.4.
+* Require [ronin-support] ~> 0.4.
 * Added {Ronin::Port.parse}.
 * Added {Ronin::Port.from}.
 * Added {Ronin::EmailAddress.from}.
@@ -133,7 +133,7 @@
 ### 1.3.0 / 2011-10-16
 
 * Require DataMapper ~> 1.2.
-* Require ronin-support ~> 0.3.
+* Require [ronin-support] ~> 0.3.
 * Added {Ronin::Model::Importable}.
 * Added {Ronin::MACAddress.extract}.
 * Added {Ronin::IPAddress.extract}.
@@ -143,7 +143,7 @@
 * Renamed `license!` to `licensed_under` in
   {Ronin::Model::HasLicense::InstanceMethods}.
 * Moved `Ronin::UI::Output`, `Ronin::UI::Shell` and `Ronin::Network::Mixins`
-  into ronin-support.
+  into [ronin-support].
 * {Ronin::Author.site} and {Ronin::License.url} now use the URI property.
 * Merged `Ronin::UI::CLI::ModelCommand.query_model` into
   {Ronin::UI::CLI::ModelCommand.model}.
@@ -175,7 +175,7 @@
 
 * Require env ~> 0.2.
 * Require data_paths ~> 0.3.
-* Require ronin-support ~> 0.2.
+* Require [ronin-support] ~> 0.2.
 * Added `ronin/repositories`, for quickly loading all repositories.
 * Added {Ronin#script}.
 * Added {Ronin::AutoLoad}.
@@ -274,7 +274,7 @@
 * Require ripl-short_errors ~> 0.1.
 * Require ripl-color_result ~> 0.2.
 * Require thor ~> 0.14.3.
-* Require ronin-support ~> 0.1.
+* Require [ronin-support] ~> 0.1.
 * Added `ronin/bootstrap` which only loads configuration and the Database.
 * Added {Ronin::Database::Migrations}.
 * Added {Ronin::Model::HasUniqueName}.
@@ -772,3 +772,4 @@
   * Auto-indentation enabled.
   * Pretty-Print loaded.
 
+[ronin-support]: https://github.com/ronin-rb/ronin-support
