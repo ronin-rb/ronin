@@ -1,14 +1,15 @@
 ### 1.5.1 / 2021-02-28
 
 * Require [ronin-support] ~> 0.5, >= 0.5.2.
+* Ruby 3.0 support:
+  * {Ronin::UI::CLI.commands} now uses `Set`, since Ruby 3.0 moved `SortedSet`
+    out of the stdlib.
 * Activate bundler in `bin/ronin` and `bin/ronin-*` commands, if a
   `Gemfile.lock` file is found.
 * Re-finalize all DataMapper models in
   {Ronin::AutoLoad::ClassMethods#require_const}.
 * Avoid calling `Ronin::Network::TCP::Proxy` specific methods in the
   `ronin net:proxy` command, if working with a UDP proxy.
-* {Ronin::UI::CLI.commands} now uses `Set`, since Ruby 3.0 moved `SortedSet`
-  out of the stdlib.
 
 ### 1.5.0 / 2012-06-16
 
