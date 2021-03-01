@@ -1,7 +1,7 @@
 ### 1.5.1 / 2021-02-28
 
 * Require [ronin-support] ~> 0.5, >= 0.5.2.
-* Ruby 3.0 support:
+* Support Ruby 3.0:
   * {Ronin::UI::CLI.commands} now uses `Set`, since Ruby 3.0 moved `SortedSet`
     out of the stdlib.
 * Activate bundler in `bin/ronin` and `bin/ronin-*` commands, if a
