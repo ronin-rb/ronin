@@ -1,7 +1,8 @@
 ### 1.5.1 / 2021-02-28
 
 * Require [ronin-support] ~> 0.5, >= 0.5.2.
-* Activate bundler in `bin/ronin` if a `Gemfile.lock` file is present.
+* Activate bundler in `bin/ronin` and `bin/ronin-*` commands, if a
+  `Gemfile.lock` file is found.
 * Re-finalize all DataMapper models in
   {Ronin::AutoLoad::ClassMethods#require_const}.
 * Avoid calling `Ronin::Network::TCP::Proxy` specific methods in the
