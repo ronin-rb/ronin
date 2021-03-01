@@ -81,7 +81,7 @@ dependencies:
   ripl-short_errors: ~> 0.1
   ripl-color_result: ~> 0.3
   # Ronin dependencies:
-  ronin-support: ~> 0.5
+  ronin-support: ~> 0.5, >= 0.5.2
 
 development_dependencies:
   bundler: ~> 2.0
