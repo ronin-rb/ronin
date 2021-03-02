@@ -6,7 +6,7 @@
 * [Website](https://ronin-rb.dev)
 * [Source](https://github.com/ronin-rb/ronin)
 * [Issues](https://github.com/ronin-rb/ronin/issues)
-* [Documentation](https://ronin-rb.github.com/docs/ronin/frames)
+* [Documentation](https://ronin-rb.dev/docs/ronin/frames)
 * [Slack](https://ronin-rb.slack.com) |
   [Discord](https://discord.gg/6WAb3PsVX9) |
   [Twitter](https://twitter.com/ronin_rb) |
