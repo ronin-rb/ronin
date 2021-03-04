@@ -6,6 +6,8 @@ require 'ronin/model/has_license'
 describe Model::HasLicense do
   let(:model) { LicensedModel }
 
+  before(:all) { LicensedModel.auto_migrate! }
+
   describe ".included" do
     subject { model }
 

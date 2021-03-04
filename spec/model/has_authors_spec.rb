@@ -6,6 +6,8 @@ require 'ronin/model/has_authors'
 describe Model::HasAuthors do
   let(:model) { AuthoredModel }
 
+  before(:all) { AuthoredModel.auto_migrate! }
+
   describe ".included" do
     subject { model }
 

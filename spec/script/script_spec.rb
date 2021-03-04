@@ -9,6 +9,8 @@ describe Script do
 
   subject { MyScript }
 
+  before(:all) { MyScript.auto_migrate! }
+
   let(:repo) { repository('scripts') }
 
   before { repo.cache_scripts! }

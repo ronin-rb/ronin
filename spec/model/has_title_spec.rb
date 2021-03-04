@@ -6,6 +6,8 @@ require 'ronin/model/has_title'
 describe Model::HasTitle do
   let(:model) { TitledModel }
 
+  before(:all) { TitledModel.auto_migrate! }
+
   describe ".included" do
     subject { model }
 

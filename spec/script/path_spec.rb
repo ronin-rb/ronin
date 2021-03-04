@@ -10,6 +10,8 @@ describe Script::Path do
   let(:repo) { repository('scripts') }
   let(:script_class) { MyScript }
 
+  before(:all) { MyScript.auto_migrate! }
+
   before { repo.cache_scripts! }
 
   describe "cached file" do

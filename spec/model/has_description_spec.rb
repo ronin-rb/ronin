@@ -6,6 +6,8 @@ require 'ronin/model/has_description'
 describe Model::HasDescription do
   let(:model) { DescribedModel }
 
+  before(:all) { DescribedModel.auto_migrate! }
+
   describe ".included" do
     subject { model }
 

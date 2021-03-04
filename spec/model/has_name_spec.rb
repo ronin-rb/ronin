@@ -6,6 +6,8 @@ require 'ronin/model/has_name'
 describe Model::HasName do
   let(:model) { NamedModel }
 
+  before(:all) { NamedModel.auto_migrate! }
+
   describe ".included" do
     subject { model }
 

@@ -6,6 +6,8 @@ require 'ronin/model/has_version'
 describe Model::HasVersion do
   let(:model) { VersionedModel }
 
+  before(:all) { VersionedModel.auto_migrate! }
+
   describe ".included" do
     subject { model }
 

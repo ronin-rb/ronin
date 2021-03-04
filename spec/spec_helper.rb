@@ -16,19 +16,6 @@ include Ronin
 
 RSpec.configure do |spec|
   spec.before(:suite) do
-    [
-      BaseModel,
-      InheritedModel,
-      AuthoredModel,
-      DescribedModel,
-      LicensedModel,
-      NamedModel,
-      TitledModel,
-      MyScript
-    ].each(&:auto_migrate!)
-  end
-
-  spec.before(:suite) do
     Repository.create(
       :path => File.join(Helpers::Repositories::DIR,'local'),
       :name => 'local',

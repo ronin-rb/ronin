@@ -8,6 +8,11 @@ describe Model do
   let(:base_model) { BaseModel }
   let(:inherited_model) { InheritedModel }
 
+  before(:all) do
+    BaseModel.auto_migrate!
+    InheritedModel.auto_migrate!
+  end
+
   describe ".included" do
     subject { base_model }
 
