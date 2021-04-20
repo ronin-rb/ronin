@@ -113,7 +113,7 @@ module Ronin
 
             if output?
               @file_ext  = File.extname(@output)
-              @file_name = @file.chomp(@file_ext)
+              @file_name = File.basename(@output,@file_ext)
             elsif command?
               @command = shellwords(@command)
             elsif (tcp? || udp?)
