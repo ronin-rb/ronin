@@ -9,8 +9,7 @@
 * [Documentation](https://ronin-rb.dev/docs/ronin/frames)
 * [Slack](https://ronin-rb.slack.com) |
   [Discord](https://discord.gg/6WAb3PsVX9) |
-  [Twitter](https://twitter.com/ronin_rb) |
-  [IRC](https://ronin-rb.dev/irc/)
+  [Twitter](https://twitter.com/ronin_rb)
 
 ## Description
 
