@@ -1,4 +1,5 @@
 require 'rspec'
+require 'simplvecov'
 require 'model/models/base_model'
 require 'model/models/inherited_model'
 require 'model/models/authored_model'
@@ -13,6 +14,8 @@ require 'ronin/spec/database'
 require 'ronin/spec/ui/output'
 
 include Ronin
+
+SimpleCov.start
 
 RSpec.configure do |spec|
   spec.before(:suite) do
