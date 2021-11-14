@@ -1,5 +1,5 @@
 require 'rspec'
-require 'simplvecov'
+require 'simplecov'
 require 'model/models/base_model'
 require 'model/models/inherited_model'
 require 'model/models/authored_model'
