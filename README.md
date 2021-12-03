@@ -13,96 +13,42 @@
 
 ## Description
 
-Ronin is a [Ruby] toolkit for security research and development.
+[Ronin][ronin-rb] is a [Ruby] toolkit for security research and development.
 
-### Console
+### Who is Ronin for?
 
-Ronin provides users with a powerful Ruby Console, pre-loaded with powerful
-convenience methods. In the Console one can work with data and automate
-complex tasks, with greater ease than the command-line.
+* CTF Players
+* Bug hunters
+* Security Researchers
+* Security Engineers
+* Developers
 
-    >> File.read('data').base64_decode
+### What does Ronin provide?
 
-### Database
+* A suite of useful commands.
+* A customized Ruby console.
+* A collection of additional high-quality Ruby libraries and commands:
+  * [ronin-support]
+  * [ronin-repos]
+  * [ronin-db]
+  * [ronin-web]
+  * [ronin-asm]
+  * [ronin-sql]
+  * [ronin-exploits]
+  * [ronin-scanners]
 
-Ronin ships with a preconfigured Database, that one can interact with from Ruby,
-without having to write any SQL.
+### What can you do with Ronin?
 
-    >> HostName.tld('eu').urls.with_query_param('id')
-
-### Repositories
-
-Ronin provides a Repository system, allowing users to organize and share
-miscallaneous Data, Code, [Exploits][example-exploit],
-[Payloads][example-payload], [Scanners][example-scanner], etc.
-
-    $ ronin install git://github.com/user/myexploits.git
-
-### Libraries
-
-Ronin provides libraries with additional functionality, such as
-[Exploitation][ronin-exploits] and [Scanning][ronin-scanners]:
-
-    $ gem install ronin-exploits
-
-## Features
-
-* Supports installing/updating/uninstalling of Repositories.
-  * Supports installing Repositories from various media types:
-    * [Subversion (SVN)][svn]
-    * [Mercurial (Hg)][hg]
-    * [Git][git]
-    * Rsync
-* Provides a Database using [DataMapper] with:
-  * {Ronin::Author}
-  * {Ronin::License}
-  * {Ronin::Arch}
-  * {Ronin::OS}
-  * {Ronin::Software}
-  * {Ronin::Vendor}
-  * {Ronin::Address}
-    * {Ronin::MACAddress}
-    * {Ronin::IPAddress}
-    * {Ronin::HostName}
-  * {Ronin::Port}
-    * {Ronin::TCPPort}
-    * {Ronin::UDPPort}
-  * {Ronin::Service}
-  * {Ronin::OpenPort}
-  * {Ronin::OSGuess}
-  * {Ronin::UserName}
-  * {Ronin::URL}
-  * {Ronin::EmailAddress}
-  * {Ronin::Credential}
-    * {Ronin::ServiceCredential}
-    * {Ronin::WebCredential}
-  * {Ronin::Organization}
-  * {Ronin::Campaign}
-  * {Ronin::Target}
-* Caches exploits, payloads, scanners, etc stored within Repositories
-  into the Database.
-* Convenience methods provided by [ronin-support].
-* Provides a customized Ruby Console using [Ripl][ripl] with:
-  * Syntax highlighting.
-  * Tab completion.
-  * Auto indentation.
-  * Pretty Printing (`pp`).
-  * `print_info`, `print_error`, `print_warning` and `print_debug`
-    output helper methods with color-output.
-  * Inline commands (`!nmap -v -sT victim.com`)
-* Provides an extensible command-line interface.
+* Rapidly prototype Ruby scripts using [ronin-support].
+* Effectively work with data in the `ronin console`.
+* Install 3rd-party [git] repositories of code/data using [ronin-repos].
+* Import and query data using [ronin-db].
+* Write/Run Exploits using [ronin-exploits].
+* Write/Run custom Scanners using [ronin-scanners].
 
 ## Synopsis
 
-Start the Ronin console:
-
-    $ ronin
-
-Run a Ruby script in Ronin:
-
-    $ ronin exec script.rb
-
-View available commands:
+List ronin commands:
 
     $ ronin help
 
@@ -110,37 +56,9 @@ View a man-page for a command:
 
     $ ronin help wordlist
 
-Install a Repository:
+Open the Ronin Ruby console:
 
-    $ ronin install svn://example.com/path/to/repo
-
-List installed Repositories:
-
-    $ ronin repos
-
-Update all installed Repositories:
-
-    $ ronin update
-
-Update a specific Repositories:
-
-    $ ronin update repo-name
-
-Uninstall a specific Repositories:
-
-    $ ronin uninstall repo-name
-
-List available Databases:
-
-    $ ronin database
-
-Add a new Database:
-
-    $ ronin database --add team --uri mysql://user:pass@vpn.example.com/db
-
-Remove a Database:
-
-    $ ronin database --remove team
+    $ ronin console
 
 ## Requirements
 
@@ -203,18 +121,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 
+[ronin-rb]: https://ronin-rb.dev/
 [Ruby]: https://www.ruby-lang.org
-[example-exploit]: https://github.com/ronin-rb/example-repo/blob/master/scripts/exploits/http/oracle/dav_bypass.rb
-[example-payload]: https://gist.github.com/1403961
-[example-scanner]: https://github.com/ronin-rb/example-repo/blob/master/scripts/scanners/oracle_dad_scanner.rb
-[Repositories]: https://github.com/ronin-rb/example-repo
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
+[ronin-support]: https://github.com/ronin-rb/ronin-support#readme
+[ronin-web]: https://github.com/ronin-rb/ronin-web#readme
+[ronin-asm]: https://github.com/ronin-rb/ronin-asm#readme
+[ronin-sql]: https://github.com/ronin-rb/ronin-sql#readme
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
 [ronin-scanners]: https://github.com/ronin-rb/ronin-scanners#readme
 
-[svn]: https://subversion.apache.org/
-[hg]: https://www.mercurial-scm.org/
 [git]: https://git-scm.com/
 
 [DataMapper]: http://datamapper.org
