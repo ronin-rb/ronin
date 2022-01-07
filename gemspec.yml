@@ -43,17 +43,6 @@ generated_files:
 required_ruby_version: ">= 2.6.0"
 
 dependencies:
-  # DataMapper adapters:
-  dm-sqlite-adapter: ~> 1.2
-  # DataMapper dependencies:
-  dm-core: ~> 1.2
-  dm-types: ~> 1.2
-  dm-migrations: ~> 1.2
-  dm-validations: ~> 1.2
-  dm-aggregates: ~> 1.2
-  dm-timestamps: ~> 1.2
-  dm-serializer: ~> 1.2
-  # DataMapper plugins:
   # Library dependencies:
   uri-query_params: ~> 0.6
   open_namespace: ~> 0.4

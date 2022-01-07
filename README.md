@@ -65,16 +65,6 @@ Open the Ronin Ruby console:
 ## Requirements
 
 * [Ruby] >= 2.6.0
-* [DataMapper]:
-  * [dm-sqlite-adapter] ~> 1.2
-    * [libsqlite3]
-  * [dm-core] ~> 1.2
-  * [dm-types] ~> 1.2
-  * [dm-migrations] ~> 1.2
-  * [dm-validations] ~> 1.2
-  * [dm-aggregates] ~> 1.2
-  * [dm-timestamps] ~> 1.2
-  * [dm-serializer] ~> 1.2
 * [uri-query_params] ~> 0.6
 * [open_namespace] ~> 0.4
 * [data_paths] ~> 0.3
@@ -141,16 +131,6 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 
 [git]: https://git-scm.com/
 
-[DataMapper]: http://datamapper.org
-[dm-sqlite-adapter]: https://github.com/datamapper/dm-sqlite-adapter#readme
-[libsqlite3]: https://sqlite.org/
-[dm-core]: https://github.com/datamapper/dm-core#readme
-[dm-types]: https://github.com/datamapper/dm-types#readme
-[dm-migrations]: https://github.com/datamapper/dm-migrations#readme
-[dm-validations]: https://github.com/datamapper/dm-validations#readme
-[dm-aggregates]: https://github.com/datamapper/dm-aggregates#readme
-[dm-timestamps]: https://github.com/datamapper/dm-timestamps#readme
-[dm-serializer]: https://github.com/datamapper/dm-serializer#readme
 [uri-query_params]: https://github.com/postmodern/uri-query_params#readme
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
 [data_paths]: https://github.com/postmodern/data_paths#readme
