@@ -125,6 +125,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [Ruby]: https://www.ruby-lang.org
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
+[ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
 [ronin-db]: https://github.com/ronin-rb/ronin-db#readme
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
 [ronin-asm]: https://github.com/ronin-rb/ronin-asm#readme
