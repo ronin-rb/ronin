@@ -89,6 +89,7 @@ Open the Ronin Ruby console:
 * [ripl-shell_commands] ~> 0.1
 * [ronin-support] ~> 0.6
 * [ronin-db] ~> 0.1
+* [ronin-repos] ~> 0.1
 
 ## Install
 
