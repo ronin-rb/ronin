@@ -36,6 +36,7 @@
   * [ronin-sql]
   * [ronin-payloads]
   * [ronin-exploits]
+  * [ronin-post_exploitation]
   * [ronin-scanners]
 
 ### What can you do with Ronin?
@@ -133,6 +134,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-sql]: https://github.com/ronin-rb/ronin-sql#readme
 [ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
+[ronin-post_exploitation]: https://github.com/ronin-rb/ronin-post_exploitation#readme
 [ronin-scanners]: https://github.com/ronin-rb/ronin-scanners#readme
 
 [git]: https://git-scm.com/
