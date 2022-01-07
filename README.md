@@ -125,7 +125,6 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [Ruby]: https://www.ruby-lang.org
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
-[ronin-support]: https://github.com/ronin-rb/ronin-support#readme
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
 [ronin-asm]: https://github.com/ronin-rb/ronin-asm#readme
 [ronin-sql]: https://github.com/ronin-rb/ronin-sql#readme
@@ -156,4 +155,3 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ripl-short_errors]: https://rubygems.org/gems/ripl-short_errors
 [ripl-color_result]: https://github.com/janlelis/ripl-color_result#readme
 [ripl-shell_commands]: https://github.com/postmodern/ripl-shell_commands#readme
-[ronin-support]: https://github.com/ronin-rb/ronin-support#readme
