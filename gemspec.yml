@@ -37,11 +37,7 @@ generated_files:
  - man/ronin-exec.1
  - man/ronin-fuzzer.1
  - man/ronin-help.1
- - man/ronin-install.1
  - man/ronin-net-proxy.1
- - man/ronin-repos.1
- - man/ronin-uninstall.1
- - man/ronin-update.1
  - man/ronin-wordlist.1
 
 required_ruby_version: ">= 2.6.0"

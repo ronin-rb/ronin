@@ -16,6 +16,3 @@
 # You should have received a copy of the GNU General Public License
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
-
-require 'ronin/exceptions/duplicate_repository'
-require 'ronin/exceptions/repository_not_found'
