@@ -20,9 +20,9 @@
 #
 # Loads up the full Ronin environment.
 #
-require 'ronin/environment'
-require 'ronin/version'
-
 require 'zeitwerk'
 loader = Zeitwerk::Loader.for_gem
 loader.setup
+
+require 'ronin/support'
+require 'ronin/version'
