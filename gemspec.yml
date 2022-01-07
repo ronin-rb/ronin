@@ -44,7 +44,7 @@ required_ruby_version: ">= 2.6.0"
 
 dependencies:
   # Library dependencies:
-  open_namespace: ~> 0.4
+  zeitwerk: ~> 2.0
   # Ronin dependencies:
   ronin-support: ~> 0.6
   # ronin-core: ~> 0.1

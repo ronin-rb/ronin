@@ -65,7 +65,7 @@ Open the Ronin Ruby console:
 ## Requirements
 
 * [Ruby] >= 2.6.0
-* [open_namespace] ~> 0.4
+* [zeitwerk] ~> 2.0
 * [ronin-support] ~> 0.6
 * [ronin-core] ~> 0.1
 * [ronin-db] ~> 0.1
@@ -107,6 +107,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 
 [ronin-rb]: https://ronin-rb.dev/
 [Ruby]: https://www.ruby-lang.org
+[zeitwerk]: https://github.com/fxn/zeitwerk#readme
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
 [ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
@@ -121,5 +122,3 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-scanners]: https://github.com/ronin-rb/ronin-scanners#readme
 
 [git]: https://git-scm.com/
-
-[open_namespace]: https://github.com/postmodern/open_namespace#readme
