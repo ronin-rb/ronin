@@ -26,7 +26,6 @@ group :development do
   gem 'kramdown-man',    '~> 0.1'
 
   gem 'yard',            '~> 0.9'
-  gem 'yard-dm',         '~> 0.1'
   gem 'yard-spellcheck', require: false
 
   gem 'dead_end',        require: false
