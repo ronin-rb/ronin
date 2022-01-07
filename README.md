@@ -66,7 +66,6 @@ Open the Ronin Ruby console:
 
 * [Ruby] >= 2.6.0
 * [open_namespace] ~> 0.4
-* [data_paths] ~> 0.3
 * [object_loader] ~> 1.0
 * [parameters] ~> 0.4
 * [pullr] ~> 0.1, >= 0.1.2
@@ -127,7 +126,6 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [git]: https://git-scm.com/
 
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
-[data_paths]: https://github.com/postmodern/data_paths#readme
 [object_loader]: https://github.com/postmodern/object_loader#readme
 [parameters]: https://github.com/postmodern/parameters#readme
 [pullr]: https://github.com/postmodern/pullr#readme
