@@ -66,7 +66,6 @@ Open the Ronin Ruby console:
 
 * [Ruby] >= 2.6.0
 * [open_namespace] ~> 0.4
-* [pullr] ~> 0.1, >= 0.1.2
 * [ronin-support] ~> 0.6
 * [ronin-core] ~> 0.1
 * [ronin-db] ~> 0.1
@@ -124,4 +123,3 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [git]: https://git-scm.com/
 
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
-[pullr]: https://github.com/postmodern/pullr#readme
