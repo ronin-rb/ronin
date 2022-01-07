@@ -20,7 +20,6 @@
 #
 # Loads up the full Ronin environment.
 #
-require 'ronin/bootstrap'
 require 'ronin/environment'
 require 'ronin/version'
 
