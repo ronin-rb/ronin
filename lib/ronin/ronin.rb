@@ -17,11 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/auto_load'
-
 module Ronin
-  include AutoLoad
-
   #
   # Convenience method for loading Ronin {Script}s.
   #
