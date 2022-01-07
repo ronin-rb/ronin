@@ -17,7 +17,6 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'data_paths'
 require 'fileutils'
 
 module Ronin
@@ -27,9 +26,6 @@ module Ronin
   # @api semipublic
   #
   module Config
-    include DataPaths
-    extend DataPaths::Finders
-
     # The users home directory
     HOME = Gem.user_home
 
