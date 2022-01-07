@@ -45,7 +45,6 @@ required_ruby_version: ">= 2.6.0"
 dependencies:
   # Library dependencies:
   open_namespace: ~> 0.4
-  parameters: ~> 0.4
   pullr: ~> 0.1, >= 0.1.2
   # Ronin dependencies:
   ronin-support: ~> 0.6
