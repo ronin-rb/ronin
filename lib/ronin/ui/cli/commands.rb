@@ -17,8 +17,6 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'open_namespace'
-
 module Ronin
   module UI
     module CLI
@@ -27,9 +25,6 @@ module Ronin
       # available to {CLI}.
       #
       module Commands
-        include OpenNamespace
-
-        self.namespace_root = File.join('ronin','ui','cli','commands')
       end
     end
   end
