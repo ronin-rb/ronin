@@ -71,12 +71,6 @@ Open the Ronin Ruby console:
 * [object_loader] ~> 1.0
 * [parameters] ~> 0.4
 * [pullr] ~> 0.1, >= 0.1.2
-* [ripl] ~> 0.3
-* [ripl-multi_line] ~> 0.2
-* [ripl-auto_indent] ~> 0.1
-* [ripl-short_errors] ~> 0.1
-* [ripl-color_result] ~> 0.3
-* [ripl-shell_commands] ~> 0.1
 * [ronin-support] ~> 0.6
 * [ronin-core] ~> 0.1
 * [ronin-db] ~> 0.1
@@ -139,9 +133,3 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [object_loader]: https://github.com/postmodern/object_loader#readme
 [parameters]: https://github.com/postmodern/parameters#readme
 [pullr]: https://github.com/postmodern/pullr#readme
-[ripl]: https://github.com/cldwalker/ripl#readme
-[ripl-multi_line]: https://github.com/janlelis/ripl-multi_line#readme
-[ripl-auto_indent]: https://github.com/janlelis/ripl-auto_indent#readme
-[ripl-short_errors]: https://rubygems.org/gems/ripl-short_errors
-[ripl-color_result]: https://github.com/janlelis/ripl-color_result#readme
-[ripl-shell_commands]: https://github.com/postmodern/ripl-shell_commands#readme
