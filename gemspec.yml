@@ -44,7 +44,6 @@ required_ruby_version: ">= 2.6.0"
 
 dependencies:
   # Library dependencies:
-  uri-query_params: ~> 0.6
   open_namespace: ~> 0.4
   data_paths: ~> 0.3
   object_loader: ~> 1.0

@@ -65,7 +65,6 @@ Open the Ronin Ruby console:
 ## Requirements
 
 * [Ruby] >= 2.6.0
-* [uri-query_params] ~> 0.6
 * [open_namespace] ~> 0.4
 * [data_paths] ~> 0.3
 * [object_loader] ~> 1.0
@@ -127,7 +126,6 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 
 [git]: https://git-scm.com/
 
-[uri-query_params]: https://github.com/postmodern/uri-query_params#readme
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
 [data_paths]: https://github.com/postmodern/data_paths#readme
 [object_loader]: https://github.com/postmodern/object_loader#readme
