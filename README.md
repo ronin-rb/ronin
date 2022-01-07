@@ -34,6 +34,7 @@
   * [ronin-web]
   * [ronin-asm]
   * [ronin-sql]
+  * [ronin-payloads]
   * [ronin-exploits]
   * [ronin-scanners]
 
@@ -130,6 +131,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
 [ronin-asm]: https://github.com/ronin-rb/ronin-asm#readme
 [ronin-sql]: https://github.com/ronin-rb/ronin-sql#readme
+[ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
 [ronin-scanners]: https://github.com/ronin-rb/ronin-scanners#readme
 
