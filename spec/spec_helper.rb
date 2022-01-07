@@ -2,17 +2,9 @@ require 'rspec'
 require 'simplecov'
 SimpleCov.start
 
-require 'model/models/base_model'
-require 'model/models/inherited_model'
-require 'model/models/authored_model'
-require 'model/models/described_model'
-require 'model/models/licensed_model'
-require 'model/models/named_model'
-require 'model/models/titled_model'
 require 'classes/my_script'
 require 'helpers/repositories'
 
-require 'ronin/spec/database'
 require 'ronin/spec/ui/printing'
 
 include Ronin
