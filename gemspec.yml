@@ -58,6 +58,7 @@ dependencies:
   ripl-shell_commands: ~> 0.1
   # Ronin dependencies:
   ronin-support: ~> 0.6
+  # ronin-core: ~> 0.1
   # ronin-repos: ~> 0.1
   # ronin-db: ~> 0.1
 

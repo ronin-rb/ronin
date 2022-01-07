@@ -78,6 +78,7 @@ Open the Ronin Ruby console:
 * [ripl-color_result] ~> 0.3
 * [ripl-shell_commands] ~> 0.1
 * [ronin-support] ~> 0.6
+* [ronin-core] ~> 0.1
 * [ronin-db] ~> 0.1
 * [ronin-repos] ~> 0.1
 
@@ -120,6 +121,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
 [ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
+[ronin-core]: https://github.com/ronin-rb/ronin-core#readme
 [ronin-db]: https://github.com/ronin-rb/ronin-db#readme
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
 [ronin-asm]: https://github.com/ronin-rb/ronin-asm#readme
