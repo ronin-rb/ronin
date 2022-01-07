@@ -23,3 +23,7 @@
 require 'ronin/bootstrap'
 require 'ronin/environment'
 require 'ronin/version'
+
+require 'zeitwerk'
+loader = Zeitwerk::Loader.for_gem
+loader.setup
