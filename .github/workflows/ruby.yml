@@ -11,6 +11,7 @@ jobs:
         ruby:
           - 2.7
           - '3.0'
+          - 3.1
           # - jruby
     name: Ruby ${{ matrix.ruby }}
     steps:
