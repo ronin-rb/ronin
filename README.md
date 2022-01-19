@@ -90,7 +90,7 @@ Open the Ronin Ruby console:
 
 ## License
 
-Copyright (c) 2006-2021 Hal Brodigan (postmodern.mod3 at gmail.com)
+Copyright (c) 2006-2022 Hal Brodigan (postmodern.mod3 at gmail.com)
 
 This file is part of ronin.
 
