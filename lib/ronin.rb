@@ -20,9 +20,11 @@
 #
 # Loads up the full Ronin environment.
 #
-require 'zeitwerk'
-loader = Zeitwerk::Loader.for_gem
-loader.setup
-
 require 'ronin/support/core_ext'
 require 'ronin/version'
+
+require 'open_namespace'
+
+module Ronin
+  include OpenNamespace
+end
