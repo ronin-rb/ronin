@@ -24,5 +24,5 @@ require 'zeitwerk'
 loader = Zeitwerk::Loader.for_gem
 loader.setup
 
-require 'ronin/support'
+require 'ronin/support/core_ext'
 require 'ronin/version'
