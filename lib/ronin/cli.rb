@@ -28,6 +28,8 @@ module Ronin
       dir:       "#{__dir__}/cli/commands",
       namespace: "#{self}::Commands"
     ) { |autoload|
+      autoload.command 'console',   'Console',    'console.rb'
+      autoload.command 'exec',      'Exec',       'exec.rb'
       autoload.command 'net-proxy', 'Net::Proxy', 'net_proxy.rb'
     }
 
