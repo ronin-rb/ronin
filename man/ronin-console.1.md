@@ -1,4 +1,4 @@
-# ronin-console 1 "April 2012" Ronin "User Manuals"
+# ronin-console 1 "2012-01-01" Ronin "User Manuals"
 
 ## SYNOPSIS
 
@@ -10,25 +10,10 @@ Start the Ronin Console.
 
 ## OPTIONS
 
-`-q`, `--[no-]quiet`
-	Disable verbose output.
+`-I`, `--include` *DIR*
+	Adds the `DIR` to `$LOAD_PATH`.
 
-`--[no-]silent`
-	Silence all output.
-
-`-v`, `--[no-]verbose`
-	Enable verbose output.
-
-`-D`, `--database` [*URI*]
-	The database to URI (`mysql://user:password@host/ronin`).
-
-`--[no-]backtrace`
-	Enable or disables long backtraces.
-
-`-V`, `--[no-]version`
-	Print the Ronin version.
-
-`-r`, `--require` [*PATH*]
+`-r`, `--require` *PATH*
 	Ruby files to require.
 
 ## FILES
