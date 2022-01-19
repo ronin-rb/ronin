@@ -220,7 +220,7 @@
   {Ronin::UI::CLI::ResourcesCommand#print_resources}.
 * Removed `Ronin::Engine#method_missing`.
 * Extend `DataPaths::Finders` into {Ronin::Config}.
-* Fixed a RubyGems deprecation in {Ronin::Installation}.
+* Fixed a RubyGems deprecation in `Ronin::Installation`.
 * Enabled verbose DataMapper logging if `$DEBUG` or the `DEBUG`
   environment variable are set.
 * Switched from DataMapper URIs to Hashes.
