@@ -102,7 +102,8 @@ module Ronin
             require(path)
           end
 
-          Core::CLI::Console.start
+          require 'ronin'
+          Core::CLI::Console.start(context: Ronin)
         end
 
       end
