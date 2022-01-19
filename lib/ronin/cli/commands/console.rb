@@ -17,13 +17,11 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ui/cli/command'
-require 'ronin/ui/console'
-require 'ronin/database'
-require 'ronin/version'
+require 'ronin/cli/command'
+require 'ronin/core/cli/console'
 
 module Ronin
-  module CLI
+  class CLI
     module Commands
       #
       # Starts the Ronin Console.
@@ -45,54 +43,60 @@ module Ronin
       #
       class Console < Command
 
-        summary 'Start the Ronin Console'
+        option :include, short: '-I',
+                         value: {
+                           type: String,
+                           usage: 'DIR'
+                         },
+                         desc: 'Directory to add to $LOAD_PATH'
 
-        option :database, type:        URI,
-                          flag:        '-D',
-                          description: 'The database to URI'
+        option :require, short: '-r',
+                         value: {
+                           type:  String,
+                           usage: 'PATH'
+                         },
+                         desc: 'Ruby files to require'
 
-        option :require, type:        Array,
-                         default:     [],
-                         flag:        '-r',
-                         usage:       'PATH',
-                         description: 'Ruby files to require'
+        description 'Start the Ronin Console'
 
-        option :backtrace, type:        true,
-                           description: 'Enable long backtraces'
+        # The additional directories to add to `$LOAD_PATH`.
+        #
+        # @return [Array<String>]
+        attr_reader :include_dirs
 
-        option :version, type:        true,
-                         flag:        '-V',
-                         description: 'Print the Ronin version'
+        # The additional paths to require before starting the console.
+        #
+        # @return [Array<String>]
+        attr_reader :require_paths
 
         #
-        # Sets up the Ronin Console.
+        # Initializes the {Console} command.
         #
-        # @since 1.5.0
+        # @param [Array<String>] include_dirs
+        #   Optional Array of directories to add to `$LOAD_PATH`.
         #
-        def setup
-          super
+        # @param [Array<String>] require_paths
+        #   Optional Array of paths to require before starting the console.
+        def initialize(include_dirs: [], require_paths: [], **kwargs)
+          super(**kwargs)
 
-          UI::Console.short_errors = !backtrace?
-
-          @require.each do |path|
-            UI::Console.auto_load << path
-          end
-
-          if database?
-            Database.repositories[:default] = @database
-          end
+          @include_dirs  = include_dirs
+          @require_paths = require_paths
         end
 
         #
-        # Starts the Ronin Console.
+        # Starts the console.
         #
-        def execute
-          if version?
-            puts "ronin #{Ronin::VERSION}"
-            return
+        def run(*argv)
+          @include_dirs.each do |dir|
+            $LOAD_PATH.unshift(dir)
           end
 
-          UI::Console.start
+          @require_paths.each do |path|
+            require(path)
+          end
+
+          Core::CLI::Console.start
         end
 
       end
