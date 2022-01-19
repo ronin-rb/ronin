@@ -17,12 +17,11 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/ui/cli/printing'
-require 'ronin/repository'
-require 'ronin/database'
+require 'ronin/cli/command'
+require 'ronin/repos'
 
 module Ronin
-  module CLI
+  class CLI
     module Commands
       #
       # Runs a Ruby script in the Ronin environment.
@@ -31,93 +30,22 @@ module Ronin
       #
       #     ronin exec SCRIPT [ARGS...]
       #
-      class Exec
+      class Exec < Command
 
-        include Printing
+        usage 'SCRIPT [ARGS ...]'
 
-        #
-        # Initializes the `exec` command.
-        #
-        # @param [String] script
-        #   The name or path of the script to run.
-        #
-        # @param [Array<String>] arguments
-        #   The arguments to the script with.
-        #
-        # @since 1.0.0
-        #
-        def initialize(script,arguments=[])
-          @script = script
-          @arguments = arguments
-        end
+        argument :script, desc: 'The executable file name'
 
-        #
-        # Runs the `exec` command.
-        #
-        # @param [Array<String>] argv
-        #   The arguments to run the `exec` command with.
-        #
-        def self.start(argv=ARGV)
-          case argv[0]
-          when '-h', '--help', nil
-            puts 'Usage:'
-            puts '  ronin-exec SCRIPT [ARGS...]'
-            puts 'Runs a script from a Ronin Repository'
-            return false
-          end
+        argument :args, required: false,
+                        repeats: true,
+                        desc: 'Additional arguments for the executable'
 
-          self.new(argv[0],argv[1..-1]).execute
-        end
+        man_page 'ronin-exec.1'
 
         #
         # Executes the `exec` command.
         #
-        # @since 1.0.0
-        #
-        def execute
-          if File.file?(@script)
-            require 'ronin'
-
-            setup_argv { load File.expand_path(@script) }
-            return true
-          end
-
-          Database.setup
-
-          Repository.each do |repo|
-            path = repo.path.join(Repository::BIN_DIR,@script)
-
-            if path.file?
-              require 'ronin'
-
-              repo.activate!
-
-              setup_argv { load path }
-              return true
-            end
-          end
-
-          print_error "Could not find the script #{@script.dump}."
-          return false
-        end
-
-        protected
-
-        #
-        # Temporarily populates the `ARGV` constant.
-        #
-        # @since 1.0.0
-        #
-        def setup_argv
-          original_argv = ARGV.dup
-          ARGV.clear
-          @arguments.each { |arg| ARGV << arg }
-
-          result = yield
-
-          ARGV.clear
-          original_argv.each { |arg| ARGV << arg }
-          return result
+        def run(script,*args)
         end
 
       end
