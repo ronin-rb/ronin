@@ -30,7 +30,7 @@ module Ronin
     ) { |autoload|
       autoload.command 'console',   'Console',    'console.rb'
       autoload.command 'exec',      'Exec',       'exec.rb'
-      autoload.command 'net-proxy', 'Net::Proxy', 'net_proxy.rb'
+      autoload.command 'net-proxy', 'NetProxy',   'net_proxy.rb'
     }
 
     command_name 'ronin'
