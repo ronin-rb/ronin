@@ -57,7 +57,7 @@ List ronin commands:
 
 View a man-page for a command:
 
-    $ ronin help wordlist
+    $ ronin help console
 
 Open the Ronin Ruby console:
 
