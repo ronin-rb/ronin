@@ -1,37 +1,40 @@
-# ronin-net-proxy 1 "April 2012" Ronin "User Manuals"
+# ronin-net-proxy 1 "2022-01-01" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin net:proxy` [*options*] SERVER
+`ronin net:proxy` [*options*] [*PROXY_HOST*:]*PROXY_PORT* *UPSTREAM_HOST*:*UPSTRAM_PORT*
 
 ## DESCRIPTION
 
-Starts the Ronin TCP/UDP Proxy.
+Starts the Ronin TCP/UDP/SSL Proxy.
 
 ## ARGUMENTS
 
-*SERVER*
-	The `host:port` of the server to proxy.
+*PROXY_HOST*
+	The local host to listen on.
+
+*PROXY_PORT*
+  The local port to bind to.
+
+*UPSTREAM_HOST*
+  The upstream host to proxy data to.
+
+*UPSTREAM_PORT*
+  The upstream port to proxy data to.
 
 ## OPTIONS
 
-`--[no-]tcp`
+`--tcp`
 	Enables or disables TCP mode.
 
-`--[no-]ssl`
+`--ssl`
   Enables or disables SSL mode.
 
-`--[no-]udp`
+`--udp`
 	Enables or disables UDP mode.
 
 `--[no-]hexdump`
 	Enables or disables hexdump mode.
-
-`--host` HOST
-	The HOST the proxy will listen on. Defaults to "0.0.0.0".
-
-`--port` PORT
-	The PORT the proxy will listen on.
 
 `--rewrite-client` */REGEXP/:STRING*
 	Replace REGEXP with STRING in every client message.
@@ -70,15 +73,6 @@ Starts the Ronin TCP/UDP Proxy.
 `--reset` */REGEXP/*
 	Reset the connection if the client or server sends a message matching
 	the REGEXP.
-
-`-v`, `--[no-]verbose`
-	Enable verbose output.
-
-`-q`, `--[no-]quiet`
-	Disable verbose output.
-
-`--[no-]silent`
-	Silence all output.
 
 ## AUTHOR
 
