@@ -46,7 +46,7 @@ module Ronin
       super
 
       puts
-      puts "Additional Commands:"
+      puts "Additional Ronin Commands:"
       ADDITIONAL_RONIN_COMMANDS.each do |name|
         puts "    $ #{name}"
       end
