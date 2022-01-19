@@ -31,5 +31,27 @@ module Ronin
 
     command_name 'ronin'
 
+    ADDITIONAL_RONIN_COMMANDS = %w[
+      ronin-repos
+      ronin-db
+      ronin-web
+      ronin-fuzzing
+    ]
+
+    #
+    # Prints the regular `--help` output but also lists other `ronin-*`
+    # commands.
+    #
+    def help
+      super
+
+      puts
+      puts "Additional Commands:"
+      ADDITIONAL_RONIN_COMMANDS.each do |name|
+        puts "    $ #{name}"
+      end
+      puts
+    end
+
   end
 end
