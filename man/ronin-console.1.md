@@ -6,7 +6,7 @@
 
 ## DESCRIPTION
 
-Start the Ronin Console.
+Start the ronin's interactive ruby console.
 
 ## OPTIONS
 

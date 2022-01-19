@@ -61,7 +61,7 @@ module Ronin
                            @require_paths << path
                          end
 
-        description 'Start the Ronin Console'
+        description "Start ronin's interactive ruby console"
 
         man_page 'ronin-console.1'
 
