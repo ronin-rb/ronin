@@ -1,12 +1,12 @@
-# ronin 1 "April 2012" Ronin "User Manuals"
+# ronin 1 "2012-01-01" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin` [*COMMAND*] [*options*]
+`ronin` [*options*] [*COMMAND* [...]]
 
 ## DESCRIPTION
 
-Runs a Ronin COMMAND or the starts Ronin Console.
+Runs a Ronin *COMMAND*.
 
 ## ARGUMENTS
 
@@ -15,7 +15,21 @@ Runs a Ronin COMMAND or the starts Ronin Console.
 
 ## OPTIONS
 
-Additional options for the COMMAND or the Ronin Console.
+Additional global options.
+
+## COMMANDS
+
+*console*
+  Starts ronin's interactive ruby console.
+
+*exec*
+  Executes a script or binary from a ronin repo.
+
+*help*
+  Lists available commands or shows help about a specific command.
+
+*net-proxy*
+  Starts a TCP/UDP intercept proxy.
 
 ## AUTHOR
 
@@ -23,4 +37,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-console(1)
+ronin-help(1)
