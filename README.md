@@ -31,6 +31,7 @@
   * [ronin-support]
   * [ronin-repos]
   * [ronin-db]
+  * [ronin-fuzzing]
   * [ronin-web]
   * [ronin-asm]
   * [ronin-sql]
