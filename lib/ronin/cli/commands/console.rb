@@ -48,14 +48,18 @@ module Ronin
                            type: String,
                            usage: 'DIR'
                          },
-                         desc: 'Directory to add to $LOAD_PATH'
+                         desc: 'Directory to add to $LOAD_PATH' do |dir|
+                           @include_dirs << dir
+                         end
 
         option :require, short: '-r',
                          value: {
                            type:  String,
                            usage: 'PATH'
                          },
-                         desc: 'Ruby files to require'
+                         desc: 'Ruby files to require' do |path|
+                           @require_paths << path
+                         end
 
         description 'Start the Ronin Console'
 
