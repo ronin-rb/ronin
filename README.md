@@ -66,7 +66,7 @@ Open the Ronin Ruby console:
 
 * [Ruby] >= 2.7.0
 * [zeitwerk] ~> 2.0
-* [ronin-support] ~> 0.6
+* [ronin-support] ~> 1.0
 * [ronin-core] ~> 0.1
 * [ronin-db] ~> 0.1
 * [ronin-fuzzing] ~> 0.1

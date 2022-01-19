@@ -15,8 +15,8 @@ if RUBY_VERSION >= '3.1.0'
 end
 
 # Library dependencies
-gem 'ronin-support',	'~> 0.6', git: "#{RONIN_URI}/ronin-support.git",
-                                branch: '0.6.0'
+gem 'ronin-support',	'~> 1.0', git: "#{RONIN_URI}/ronin-support.git",
+                                branch: '1.0.0'
 
 gem 'ronin-core', '~> 0.1', git: "#{RONIN_URI}/ronin-core.git",
                             branch: 'main'

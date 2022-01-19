@@ -45,7 +45,7 @@ dependencies:
   # Library dependencies:
   zeitwerk: ~> 2.0
   # Ronin dependencies:
-  ronin-support: ~> 0.6
+  ronin-support: ~> 1.0
   ronin-core: ~> 0.1
   ronin-repos: ~> 0.1
   ronin-db: ~> 0.1
