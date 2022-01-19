@@ -27,6 +27,9 @@ gem 'ronin-repos', '~> 0.1', git: "#{RONIN_URI}/ronin-repos.git",
 gem 'ronin-db', '~> 0.1', git: "#{RONIN_URI}/ronin-db.git",
                                 branch: 'main'
 
+gem 'ronin-fuzzing', '~> 0.1', git: "#{RONIN_URI}/ronin-fuzzing.git",
+                               branch: 'main'
+
 group :development do
   gem 'rake'
   gem 'rubygems-tasks',  '~> 0.1'
