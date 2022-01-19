@@ -27,7 +27,9 @@ module Ronin
     include CommandKit::Commands::AutoLoad.new(
       dir:       "#{__dir__}/cli/commands",
       namespace: "#{self}::Commands"
-    )
+    ) { |autoload|
+      autoload.command 'net-proxy', 'Net::Proxy', 'net_proxy.rb'
+    }
 
     command_name 'ronin'
 
