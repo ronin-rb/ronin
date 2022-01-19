@@ -63,6 +63,8 @@ module Ronin
 
         description 'Start the Ronin Console'
 
+        man_page 'ronin-console.1'
+
         # The additional directories to add to `$LOAD_PATH`.
         #
         # @return [Array<String>]
