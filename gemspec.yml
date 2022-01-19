@@ -35,7 +35,6 @@ generated_files:
  - man/ronin.1
  - man/ronin-console.1
  - man/ronin-exec.1
- - man/ronin-fuzzer.1
  - man/ronin-help.1
  - man/ronin-net-proxy.1
  - man/ronin-wordlist.1
