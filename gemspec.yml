@@ -28,6 +28,7 @@ metadata:
   source_code_uri:   https://github.com/ronin-rb/ronin
   bug_tracker_uri:   https://github.com/ronin-rb/ronin/issues
   changelog_uri:     https://github.com/ronin-rb/ronin/blob/master/ChangeLog.md
+  rubygems_mfa_required: 'true'
 
 generated_files:
  - man/ronin.1
