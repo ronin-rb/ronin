@@ -31,6 +31,14 @@ gem 'ronin-asm',             '~> 0.3', github: "ronin-rb/ronin-asm",
                                        branch: '0.3.0'
 gem 'ronin-sql',             '~> 1.2', github: "ronin-rb/ronin-sql",
                                        branch: '1.2.0'
+gem 'ronin-web-server',	     '~> 0.1', github: "ronin-rb/ronin-web-server",
+                                       branch: 'main'
+gem 'ronin-web-spider',	     '~> 0.1', github: "ronin-rb/ronin-web-spider",
+                                       branch: 'main'
+gem 'ronin-web-user_agents', '~> 0.1', github: "ronin-rb/ronin-web-user_agents",
+                                       branch: 'main'
+gem 'ronin-web',             '~> 1.0', github: "ronin-rb/ronin-web",
+                                       branch: '1.0.0'
 gem 'ronin-payloads',        '~> 0.1', github: "ronin-rb/ronin-payloads",
                                        branch: 'main'
 gem 'ronin-exploits',        '~> 1.0', github: "ronin-rb/ronin-exploits",

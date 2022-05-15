@@ -74,6 +74,7 @@ Open the Ronin Ruby console:
 * [ronin-fuzzer] ~> 0.1
 * [ronin-asm] ~> 0.3
 * [ronin-sql] ~> 1.2
+* [ronin-web] ~> 1.0
 * [ronin-payloads] ~> 0.1
 * [ronin-exploits] ~> 1.0
 
