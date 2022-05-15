@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-RONIN_URI  = 'https://github.com/ronin-rb'
-
 gemspec
 
 gem 'jruby-openssl',	'~> 0.7', platforms: :jruby
@@ -15,19 +13,19 @@ if RUBY_VERSION >= '3.1.0'
 end
 
 # Library dependencies
-gem 'ronin-support',	'~> 1.0', git: "#{RONIN_URI}/ronin-support.git",
+gem 'ronin-support',	'~> 1.0', github: "ronin-rb/ronin-support",
                                 branch: '1.0.0'
 
-gem 'ronin-core', '~> 0.1', git: "#{RONIN_URI}/ronin-core.git",
+gem 'ronin-core', '~> 0.1', github: "ronin-rb/ronin-core",
                             branch: 'main'
 
-gem 'ronin-repos', '~> 0.1', git: "#{RONIN_URI}/ronin-repos.git",
+gem 'ronin-repos', '~> 0.1', github: "ronin-rb/ronin-repos",
                              branch: 'main'
 
-gem 'ronin-db', '~> 0.1', git: "#{RONIN_URI}/ronin-db.git",
-                                branch: 'main'
+gem 'ronin-db', '~> 0.1', github: "ronin-rb/ronin-db",
+                          branch: 'main'
 
-gem 'ronin-fuzzer', '~> 0.1', git: "#{RONIN_URI}/ronin-fuzzer.git",
+gem 'ronin-fuzzer', '~> 0.1', github: "ronin-rb/ronin-fuzzer",
                               branch: 'main'
 
 group :development do
