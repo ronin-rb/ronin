@@ -53,15 +53,21 @@
 
 List ronin commands:
 
-    $ ronin help
+```shell
+$ ronin help
+```
 
 View a man-page for a command:
 
-    $ ronin help console
+```shell
+$ ronin help console
+```
 
 Open the Ronin Ruby console:
 
-    $ ronin console
+```shell
+$ ronin console
+```
 
 ## Requirements
 
@@ -80,7 +86,9 @@ Open the Ronin Ruby console:
 
 ## Install
 
-    $ gem install ronin
+```shell
+$ gem install ronin
+```
 
 ## Development
 
