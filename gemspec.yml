@@ -37,7 +37,7 @@ generated_files:
  - man/ronin-help.1
  - man/ronin-net-proxy.1
 
-required_ruby_version: ">= 2.7.0"
+required_ruby_version: ">= 3.0.0"
 
 dependencies:
   # Library dependencies:
