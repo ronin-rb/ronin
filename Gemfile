@@ -27,6 +27,8 @@ gem 'ronin-fuzzer',          '~> 0.1', github: "ronin-rb/ronin-fuzzer",
                                        branch: 'main'
 gem 'ronin-post_ex',         '~> 0.1', github: "ronin-rb/ronin-post_ex",
                                        branch: 'main'
+gem 'ronin-asm',             '~> 0.3', github: "ronin-rb/ronin-asm",
+                                       branch: '0.3.0'
 gem 'ronin-payloads',        '~> 0.1', github: "ronin-rb/ronin-payloads",
                                        branch: 'main'
 gem 'ronin-exploits',        '~> 1.0', github: "ronin-rb/ronin-exploits",
