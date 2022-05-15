@@ -69,9 +69,9 @@ Open the Ronin Ruby console:
 * [open_namespace] ~> 0.4
 * [ronin-support] ~> 1.0
 * [ronin-core] ~> 0.1
+* [ronin-repos] ~> 0.1
 * [ronin-db] ~> 0.1
 * [ronin-fuzzer] ~> 0.1
-* [ronin-repos] ~> 0.1
 
 ## Install
 
