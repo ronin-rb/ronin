@@ -15,18 +15,14 @@ end
 # Library dependencies
 gem 'ronin-support',	'~> 1.0', github: "ronin-rb/ronin-support",
                                 branch: '1.0.0'
-
-gem 'ronin-core', '~> 0.1', github: "ronin-rb/ronin-core",
-                            branch: 'main'
-
-gem 'ronin-repos', '~> 0.1', github: "ronin-rb/ronin-repos",
-                             branch: 'main'
-
-gem 'ronin-db', '~> 0.1', github: "ronin-rb/ronin-db",
-                          branch: 'main'
-
-gem 'ronin-fuzzer', '~> 0.1', github: "ronin-rb/ronin-fuzzer",
-                              branch: 'main'
+gem 'ronin-core',     '~> 0.1', github: "ronin-rb/ronin-core",
+                                branch: 'main'
+gem 'ronin-repos',    '~> 0.1', github: "ronin-rb/ronin-repos",
+                                branch: 'main'
+gem 'ronin-db',       '~> 0.1', github: "ronin-rb/ronin-db",
+                                branch: 'main'
+gem 'ronin-fuzzer',   '~> 0.1', github: "ronin-rb/ronin-fuzzer",
+                                branch: 'main'
 
 group :development do
   gem 'rake'
