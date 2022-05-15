@@ -72,6 +72,7 @@ Open the Ronin Ruby console:
 * [ronin-repos] ~> 0.1
 * [ronin-db] ~> 0.1
 * [ronin-fuzzer] ~> 0.1
+* [ronin-payloads] ~> 0.1
 
 ## Install
 

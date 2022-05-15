@@ -25,6 +25,10 @@ gem 'ronin-db-activerecord', '~> 0.1', github: "ronin-rb/ronin-db-activerecord",
                                        branch: 'main'
 gem 'ronin-fuzzer',          '~> 0.1', github: "ronin-rb/ronin-fuzzer",
                                        branch: 'main'
+gem 'ronin-post_ex',         '~> 0.1', github: "ronin-rb/ronin-post_ex",
+                                       branch: 'main'
+gem 'ronin-payloads',        '~> 0.1', github: "ronin-rb/ronin-payloads",
+                                       branch: 'main'
 
 group :development do
   gem 'rake'
