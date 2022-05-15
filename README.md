@@ -31,7 +31,7 @@
   * [ronin-support]
   * [ronin-repos]
   * [ronin-db]
-  * [ronin-fuzzing]
+  * [ronin-fuzzer]
   * [ronin-web]
   * [ronin-asm]
   * [ronin-sql]
@@ -128,7 +128,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
 [ronin-core]: https://github.com/ronin-rb/ronin-core#readme
 [ronin-db]: https://github.com/ronin-rb/ronin-db#readme
-[ronin-fuzzing]: https://github.com/ronin-rb/ronin-fuzzing#readme
+[ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
 [ronin-asm]: https://github.com/ronin-rb/ronin-asm#readme
 [ronin-sql]: https://github.com/ronin-rb/ronin-sql#readme
