@@ -349,10 +349,10 @@ module Ronin
         #
         def proxy_class
           case @protocol
-          when :tcp then Network::TCP::Proxy
-          when :udp then Network::UDP::Proxy
-          when :ssl then Network::SSL::Proxy
-          when :tls then Network::TLS::Proxy
+          when :tcp then Support::Network::TCP::Proxy
+          when :udp then Support::Network::UDP::Proxy
+          when :ssl then Support::Network::SSL::Proxy
+          when :tls then Support::Network::TLS::Proxy
           else
             raise(NotImplementedError,"#{@protocol.inspect} proxy value not supported")
           end
