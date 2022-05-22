@@ -41,6 +41,8 @@ module Ronin
       ronin-db
       ronin-web
       ronin-fuzzer
+      ronin-payloads
+      ronin-exploits
     ]
 
     #
