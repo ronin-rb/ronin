@@ -38,6 +38,7 @@ generated_files:
  - man/ronin-hexdump.1
  - man/ronin-proxy.1
  - man/ronin-tips.1
+ - man/ronin-unhexdump.1
 
 required_ruby_version: ">= 3.0.0"
 
