@@ -40,7 +40,7 @@ module Ronin
       ronin-repos
       ronin-db
       ronin-web
-      ronin-fuzzing
+      ronin-fuzzer
     ]
 
     #
