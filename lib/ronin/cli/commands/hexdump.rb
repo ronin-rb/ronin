@@ -51,6 +51,12 @@ module Ronin
       #        --style-index STYLE          ANSI styles the index column
       #        --style-numeric STYLE        ANSI styles the numeric columns
       #        --style-chars STYLE          ANSI styles the characters column
+      #        --highlight-index PATTERN:STYLE
+      #                                     Applies ANSI highlighting to the index column
+      #        --highlight-numeric PATTERN:STYLE
+      #                                     Applies ANSI highlighting to the numeric column
+      #        --highlight-chars PATTERN:STYLE
+      #                                     Applies ANSI highlighting to the characters column
       #    -h, --help                       Print help information
       #
       # ## Arguments
@@ -224,10 +230,60 @@ module Ronin
                                options[:style_chars] = parse_style(value)
                              end
 
+        option :highlight_index, value: {usage: 'PATTERN:STYLE'},
+                                   desc: 'Applies ANSI highlighting to the index column' do |value|
+                                     pattern, style = parse_highlight(value)
+
+                                     @highlight_index[pattern] = style
+                                   end
+
+        option :highlight_numeric, value: {usage: 'PATTERN:STYLE'},
+                                   desc: 'Applies ANSI highlighting to the numeric column' do |value|
+                                     pattern, style = parse_highlight(value)
+
+                                     @highlight_numeric[pattern] = style
+                                   end
+
+        option :highlight_chars, value: {usage: 'PATTERN:STYLE'},
+                                 desc: 'Applies ANSI highlighting to the characters column' do |value|
+                                   pattern, style = parse_highlight(value)
+
+                                   @highlight_chars[pattern] = style
+                                 end
+
         argument :file, required: false,
                         desc: 'Optional file to hexdump'
 
         description 'Hexdumps data in a variaty of encodings and formats'
+
+        # The highlighting rules to apply to the index column.
+        #
+        # @return [Array<(Regexp, Array<Symbol>)>,
+        #          Array<(String, Array<Symbol>)>]
+        attr_reader :highlight_index
+
+        # The highlighting rules to apply to the numeric column.
+        #
+        # @return [Array<(Regexp, Array<Symbol>)>,
+        #          Array<(String, Array<Symbol>)>]
+        attr_reader :highlight_numeric
+
+        # The highlighting rules to apply to the characters column.
+        #
+        # @return [Array<(Regexp, Array<Symbol>)>,
+        #          Array<(String, Array<Symbol>)>]
+        attr_reader :highlight_chars
+
+        #
+        # Initializes the `hexdump` command.
+        #
+        def initialize(**kwargs)
+          super(**kwargs)
+
+          @highlight_index   = {}
+          @highlight_numeric = {}
+          @highlight_chars   = {}
+        end
 
         #
         # Runs the `hexdump` command.
@@ -317,6 +373,39 @@ module Ronin
           end
         end
 
+        #
+        # Parses a highlight rule of the form `/REGEXP/:STYLE` or
+        # `STRING:STYLE`.
+        #
+        # @param [String] value
+        #   The raw string value to parse.
+        #
+        # @return [(Regexp, Array<Symbol>), (String, Array<Symbol>)]
+        #   The Regexp or String pattern to match and the style rules to apply
+        #   to it.
+        #
+        def parse_highlight(value)
+          if value.start_with?('/')
+            unless (index = value.rindex('/:'))
+              raise(OptionParser::InvalidArgument,"argument must be of the form /REGEXP/:STYLE but was: #{value}")
+            end
+
+            regexp = Regexp.new(value[1...index])
+            style  = parse_style(value[index+2..])
+
+            return [regexp, style]
+          else
+            unless (index = value.rindex(':'))
+              raise(OptionParser::InvalidArgument,"argument must be of the form STRING:STYLE but was: #{value}")
+            end
+
+            pattern = value[0...index]
+            style   = parse_style(value[index+1..])
+
+            return [pattern, style]
+          end
+        end
+
         # List of command `options` that directly map to the keyword arguments
         # of `Hexdump.hexdump`.
         HEXDUMP_OPTIONS = [
@@ -355,6 +444,24 @@ module Ronin
             kwargs[:style][:index]   = index_style   if index_style
             kwargs[:style][:numeric] = numeric_style if numeric_style
             kwargs[:style][:chars]   = chars_style   if chars_style
+          end
+
+          if !@highlight_index.empty?   ||
+             !@highlight_numeric.empty? ||
+             !@highlight_chars.empty?
+            kwargs[:highlights] = {}
+
+            unless @highlight_index.empty?
+              kwargs[:highlights][:index] = @highlight_index
+            end
+
+            unless @highlight_numeric.empty?
+              kwargs[:highlights][:numeric] = @highlight_numeric
+            end
+
+            unless @highlight_chars.empty?
+              kwargs[:highlights][:chars] = @highlight_chars
+            end
           end
 
           return kwargs

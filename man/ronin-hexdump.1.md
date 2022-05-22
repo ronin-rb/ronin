@@ -134,6 +134,21 @@ Hexdumps data in a variety of encodings and formats.
 `--style-chars` *STYLE*
   Applies ANSI styling to the characters column. See the *ANSI STYLES* section.
 
+`--highlight-index` *PATTERN*:*STYLE*
+  Applies ANSI highlighting to the index column.
+  *PATTERN* may be either a literal *STRING* value or a /*REGEXP*/ value.
+  See the *ANSI STYLES* section for all possible style names.
+
+`--highlight-numeric` *PATTERN*:*STYLE*
+  Applies ANSI highlighting to the numeric column
+  *PATTERN* may be either a literal *STRING* value or a /*REGEXP*/ value.
+  See the *ANSI STYLES* section for all possible style names.
+
+`--highlight-chars` *PATTERN*:*STYLE*
+  Applies ANSI highlighting to the characters column
+  *PATTERN* may be either a literal *STRING* value or a /*REGEXP*/ value.
+  See the *ANSI STYLES* section for all possible style names.
+
 `-h`, `--help`
   Prints help information.
 
