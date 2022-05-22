@@ -83,6 +83,7 @@ module Ronin
         #
         # @param [Array<String>] require_paths
         #   Optional Array of paths to require before starting the console.
+        #
         def initialize(include_dirs: [], require_paths: [], **kwargs)
           super(**kwargs)
 
