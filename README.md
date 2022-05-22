@@ -63,6 +63,12 @@ View a man-page for a command:
 $ ronin help console
 ```
 
+Get a random tip on how to use ronin:
+
+```shell
+$ ronin tips
+```
+
 Open the Ronin Ruby console:
 
 ```shell
