@@ -103,10 +103,6 @@ module Ronin
 
         option :hexdump, short: '-x',
                          long: '--[no-]hexdump',
-                         value: {
-                           type:     TrueClass,
-                           required: false
-                         },
                          desc: 'Enable hexdump output'
 
         option :rewrite, short: '-r',
