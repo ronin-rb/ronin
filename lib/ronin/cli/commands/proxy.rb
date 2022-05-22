@@ -168,13 +168,19 @@ module Ronin
 
         option :reset, short: '-R',
                        value: {type: Regexp},
-                       desc: 'Reset rules'
+                       desc: 'Reset rules' do |regexp|
+                         @reset << regexp
+                       end
 
         option :reset_client, value: {type: Regexp},
-                              desc: 'Client reset rules'
+                              desc: 'Client reset rules' do |regexp|
+                                @reset_client << regexp
+                              end
 
         option :reset_server, value: {type: Regexp},
-                              desc: 'Server reset rules'
+                              desc: 'Server reset rules' do |regexp|
+                                @reset_server << regexp
+                              end
 
         argument :proxy, usage: '[PROXY_HOST:]PROXY_PORT',
                          desc:  'The host and/or port to listen on'
