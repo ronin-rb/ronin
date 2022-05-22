@@ -21,6 +21,9 @@ require 'command_kit/commands'
 require 'command_kit/commands/auto_load'
 
 module Ronin
+  #
+  # @api private
+  #
   class CLI
 
     include CommandKit::Commands
