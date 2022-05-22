@@ -48,10 +48,6 @@ module Ronin
       #     -T, --[no-]tls                   TLS Proxy.
       #     -u, --[no-]udp                   UDP Proxy.
       #     -x, --[no-]hexdump               Enable hexdump output.
-      #     -H, --host [HOST]                Host to listen on.
-      #                                      Default: "0.0.0.0"
-      #     -p, --port [PORT]                Port to listen on.
-      #     -s, --server [HOST[:PORT]]       Server to forward connections to.
       #     -r, --rewrite [/REGEXP/:STRING] Rewrite rules.
       #         --rewrite-client [/REGEXP/:STRING]
       #                                      Client rewrite rules.
