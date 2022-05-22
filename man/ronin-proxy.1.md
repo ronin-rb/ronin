@@ -1,8 +1,8 @@
-# ronin-net-proxy 1 "2022-01-01" Ronin "User Manuals"
+# ronin-proxy 1 "2022-01-01" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin net:proxy` [*options*] [*PROXY_HOST*:]*PROXY_PORT* *UPSTREAM_HOST*:*UPSTRAM_PORT*
+`ronin proxy` [*options*] [*PROXY_HOST*:]*PROXY_PORT* *UPSTREAM_HOST*:*UPSTRAM_PORT*
 
 ## DESCRIPTION
 

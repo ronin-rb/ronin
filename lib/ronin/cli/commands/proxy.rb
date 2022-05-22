@@ -34,7 +34,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin net:proxy [options]
+      #     ronin proxy [options]
       #
       # ## Options
       #
@@ -77,7 +77,7 @@ module Ronin
       #                                      listen on.
       #     REMOTE_HOST:REMOTE_PORT          The remote server to proxy data to.
       #
-      class NetProxy < Command
+      class Proxy < Command
 
         include Core::CLI::Logging
 
@@ -170,7 +170,7 @@ module Ronin
           "--udp --hexdump 0.0.0.0:53 4.2.2.1:53"
         ]
 
-        man_page 'ronin-net-proxy.1'
+        man_page 'ronin-proxy.1'
 
         # The proxy protocol to use.
         #
