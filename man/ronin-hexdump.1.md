@@ -126,13 +126,16 @@ Hexdumps data in a variety of encodings and formats.
   The character encoding to display the characters in. Default to `ascii`.
 
 `--style-index` *STYLE*
-  Applies ANSI styling to the index column. See the *ANSI STYLES* section.
+  Applies ANSI styling to the index column.
+  See the *ANSI STYLES* section for all possible style names.
 
 `--style-numeric` *STYLE*
-  Applies ANSI styling to the numeric column. See the *ANSI STYLES* section.
+  Applies ANSI styling to the numeric column.
+  See the *ANSI STYLES* section for all possible style names.
 
 `--style-chars` *STYLE*
-  Applies ANSI styling to the characters column. See the *ANSI STYLES* section.
+  Applies ANSI styling to the characters column.
+  See the *ANSI STYLES* section for all possible style names.
 
 `--highlight-index` *PATTERN*:*STYLE*
   Applies ANSI highlighting to the index column.
