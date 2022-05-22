@@ -22,6 +22,8 @@ require 'command_kit/commands/auto_load'
 
 module Ronin
   #
+  # The main CLI logic for the `ronin` command.
+  #
   # @api private
   #
   class CLI
