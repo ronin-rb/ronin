@@ -1,0 +1,12 @@
+Get a list of all ronin commands:
+
+    $ ronin help
+
+Get help information for a specific command:
+
+    $ ronin help 
+
+Get a list of all commands available from another ronin-* command:
+
+    $ ronin-repos help
+

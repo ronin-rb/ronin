@@ -36,6 +36,7 @@ generated_files:
  - man/ronin-exec.1
  - man/ronin-help.1
  - man/ronin-net-proxy.1
+ - man/ronin-tips.1
 
 required_ruby_version: ">= 3.0.0"
 
