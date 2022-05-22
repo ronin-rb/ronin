@@ -24,20 +24,23 @@ Starts the Ronin TCP/UDP/SSL Proxy.
 
 ## OPTIONS
 
-`--tcp`
+`-t`, `--tcp`
 	Enables or disables TCP mode.
 
-`--ssl`
+`-S`, `--ssl`
   Enables or disables SSL mode.
 
-`--tls`
+`-T`, `--tls`
   Enables or disables TLS mode.
 
-`--udp`
+`-u`, `--udp`
 	Enables or disables UDP mode.
 
-`--[no-]hexdump`
+`-x`, `--[no-]hexdump`
 	Enables or disables hexdump mode.
+
+`-r`, `--rewrite` */REGEXP/:STRING*
+	Replace REGEXP with STRING in every message.
 
 `--rewrite-client` */REGEXP/:STRING*
 	Replace REGEXP with STRING in every client message.
@@ -45,8 +48,8 @@ Starts the Ronin TCP/UDP/SSL Proxy.
 `--rewrite-server` */REGEXP/:STRING*
 	Replace REGEXP with STRING in every server message.
 
-`--rewrite` */REGEXP/:STRING*
-	Replace REGEXP with STRING in every message.
+`-i`, `--ignore` */REGEXP/*
+	Ignore messages matching the REGEXP.
 
 `--ignore-client` */REGEXP/*
 	Ignore messages from the client matching the REGEXP.
@@ -54,8 +57,9 @@ Starts the Ronin TCP/UDP/SSL Proxy.
 `--ignore-server` */REGEXP/*
 	Ignore messages from the server matching the REGEXP.
 
-`--ignore` */REGEXP/*
-	Ignore messages matching the REGEXP.
+`-C`, `--close` */REGEXP/*
+	Closes the connection if the client or server sends a message matching
+	the REGEXP.
 
 `--close-client` */REGEXP/*
 	Closes the connection if the client sends a message matching the REGEXP.
@@ -63,8 +67,8 @@ Starts the Ronin TCP/UDP/SSL Proxy.
 `--close-server` */REGEXP/*
 	Closes the connection if the server sends a message matching the REGEXP.
 
-`--close` */REGEXP/*
-	Closes the connection if the client or server sends a message matching
+`-R`, `--reset` */REGEXP/*
+	Reset the connection if the client or server sends a message matching
 	the REGEXP.
 
 `--reset-client` */REGEXP/*
@@ -72,10 +76,6 @@ Starts the Ronin TCP/UDP/SSL Proxy.
 
 `--reset-server` */REGEXP/*
 	Reset the connection if the server sends a message matching the REGEXP.
-
-`--reset` */REGEXP/*
-	Reset the connection if the client or server sends a message matching
-	the REGEXP.
 
 ## AUTHOR
 
