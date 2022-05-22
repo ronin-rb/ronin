@@ -152,13 +152,19 @@ module Ronin
 
         option :close, short: '-C',
                        value: {type:  Regexp},
-                       desc: 'Close rules'
+                       desc: 'Close rules' do |regexp|
+                         @close << regexp
+                       end
 
         option :close_client, value: {type: Regexp},
-                              desc: 'Client close rules'
+                              desc: 'Client close rules' do |regexp|
+                                @close_client << regexp
+                              end
 
         option :close_server, value: {type: Regexp},
-                              desc: 'Server close rules'
+                              desc: 'Server close rules' do |regexp|
+                                @close_server << regexp
+                              end
 
         option :reset, short: '-R',
                        value: {type: Regexp},
