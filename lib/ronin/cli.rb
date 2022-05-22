@@ -26,6 +26,8 @@ module Ronin
   #
   # @api private
   #
+  # @since 2.0.0
+  #
   class CLI
 
     include CommandKit::Commands
