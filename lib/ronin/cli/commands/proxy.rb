@@ -202,6 +202,66 @@ module Ronin
         # @return [:tcp, :udp, :ssl, :tls]
         attr_reader :protocol
 
+        # The client reset rules.
+        #
+        # @return [Array<Regexp>]
+        attr_reader :reset_client
+
+        # The client close rules.
+        #
+        # @return [Array<Regexp>]
+        attr_reader :close_client
+
+        # The client ignore rules.
+        #
+        # @return [Array<Regexp>]
+        attr_reader :ignore_client
+
+        # The client rewrite rules.
+        #
+        # @return [Array<(Regexp,String)>]
+        attr_reader :rewrite_client
+
+        # The server reset rules.
+        #
+        # @return [Array<Regexp>]
+        attr_reader :reset_server
+
+        # The server close rules.
+        #
+        # @return [Array<Regexp>]
+        attr_reader :close_server
+
+        # The server ignore rules.
+        #
+        # @return [Array<Regexp>]
+        attr_reader :ignore_server
+
+        # The server rewrite rules.
+        #
+        # @return [Array<(Regexp,String)>]
+        attr_reader :rewrite_server
+
+        # The client/server reset rules.
+        #
+        # @return [Array<Regexp>]
+        attr_reader :reset
+
+        # The client/server close rules.
+        #
+        # @return [Array<Regexp>]
+        attr_reader :close
+
+        # The client/server ignore rules.
+        #
+        # @return [Array<Regexp>]
+        attr_reader :ignore
+
+        # The client/server rewrite rules.
+        #
+        # @return [Array<(Regexp,String)>]
+        attr_reader :rewrite
+
         #
         # Initializes the proxy command.
         #
