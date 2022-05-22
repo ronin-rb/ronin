@@ -77,6 +77,16 @@ Starts the Ronin TCP/UDP/SSL/TLS Proxy.
 `--reset-server` */REGEXP/*
 	Reset the connection if the server sends a message matching the REGEXP.
 
+## EXAMPLES
+
+`ronin proxy 8080 google.com:80`
+  Starts a TCP proxy listening on `localhost` port 8080 that forwards all data
+  to `google.com` port 80.
+
+`sudo ronin proxy --udp --hexdump 0.0.0.0:53 4.2.2.1:53`
+  Starts a UDP proxy listening on `0.8.0.0` port 53 that forwards all data to
+  `4.2.2.1` port 53.
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
