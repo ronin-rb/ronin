@@ -48,6 +48,9 @@ module Ronin
       #    -I, --index-offset INT           Starting number for the index addresses
       #    -C, --[no-]chars-column          Enables/disables the characters column
       #    -E, --encoding ascii|utf8        Encoding to display the characters in (Default: ascii)
+      #        --style-index STYLE          ANSI styles the index column
+      #        --style-numeric STYLE        ANSI styles the numeric columns
+      #        --style-chars STYLE          ANSI styles the characters column
       #    -h, --help                       Print help information
       #
       # ## Arguments
@@ -206,6 +209,21 @@ module Ronin
                           },
                           desc: 'Encoding to display the characters in'
 
+        option :style_index, value: {usage: 'STYLE'},
+                             desc: 'ANSI styles the index column' do |value|
+                               options[:style_index] = parse_style(value)
+                             end
+
+        option :style_numeric, value: {usage: 'STYLE'},
+                               desc: 'ANSI styles the numeric columns' do |value|
+                                 options[:style_numeric] = parse_style(value)
+                               end
+
+        option :style_chars, value: {usage: 'STYLE'},
+                             desc: 'ANSI styles the characts column' do |value|
+                               options[:style_chars] = parse_style(value)
+                             end
+
         argument :file, required: false,
                         desc: 'Optional file to hexdump'
 
@@ -251,6 +269,54 @@ module Ronin
           end
         end
 
+        # Mapping of style names to Symbols.
+        STYLES = {
+          # font styling
+          'bold'      => :bold,
+          'faint'     => :faint,
+          'italic'    => :italic,
+          'underline' => :underline,
+          'invert'    => :invert,
+          'strike'    => :strike,
+
+          # foreground colors
+          'black'   => :black,
+          'red'     => :red,
+          'green'   => :green,
+          'yellow'  => :yellow,
+          'blue'    => :blue,
+          'magenta' => :magenta,
+          'cyan'    => :cyan,
+          'white'   => :white,
+
+          # background colors
+          'on_black'   => :on_black,
+          'on_red'     => :on_red,
+          'on_green'   => :on_green,
+          'on_yellow'  => :on_yellow,
+          'on_blue'    => :on_blue,
+          'on_magenta' => :on_magenta,
+          'on_cyan'    => :on_cyan,
+          'on_white'   => :on_white
+        }
+
+        #
+        # Parses a style string.
+        #
+        # @param [String] value
+        #   The comma-separated list of style names.
+        #
+        # @return [Array<Symbol>]
+        #   The array of parsed style names.
+        #
+        def parse_style(value)
+          value.split(/\s*,\s*/).map do |style_name|
+            STYLES.fetch(style_name) do
+              raise(OptionParser::InvalidArgument,"unknown style name: #{style_name}")
+            end
+          end
+        end
+
         # List of command `options` that directly map to the keyword arguments
         # of `Hexdump.hexdump`.
         HEXDUMP_OPTIONS = [
@@ -280,6 +346,15 @@ module Ronin
 
           HEXDUMP_OPTIONS.each do |key|
             kwargs[key] = options[key] if options.has_key?(key)
+          end
+
+          if (index_style   = options[:style_index]) ||
+             (numeric_style = options[:style_numeric]) ||
+             (chars_style   = options[:style_chars])
+            kwargs[:style] = {}
+            kwargs[:style][:index]   = index_style   if index_style
+            kwargs[:style][:numeric] = numeric_style if numeric_style
+            kwargs[:style][:chars]   = chars_style   if chars_style
           end
 
           return kwargs

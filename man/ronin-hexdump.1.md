@@ -125,8 +125,53 @@ Hexdumps data in a variety of encodings and formats.
 `-E`, `--encoding` `ascii`|`utf8`
   The character encoding to display the characters in. Default to `ascii`.
 
+`--style-index` *STYLE*
+  Applies ANSI styling to the index column. See the *ANSI STYLES* section.
+
+`--style-numeric` *STYLE*
+  Applies ANSI styling to the numeric column. See the *ANSI STYLES* section.
+
+`--style-chars` *STYLE*
+  Applies ANSI styling to the characters column. See the *ANSI STYLES* section.
+
 `-h`, `--help`
   Prints help information.
+
+## ANSI STYLES
+
+An ANSI style string is comma-separated list of one or more ANSI style names
+(ex: `gray,bold`).
+
+Font styles:
+
+* `bold`
+* `faint`
+* `italic`
+* `underline`
+* `invert`
+* `strike`
+
+Foreground colors:
+
+* `black`
+* `red`
+* `green`
+* `yellow`
+* `blue`
+* `magenta`
+* `cyan`
+* `white`
+
+Background colors:
+
+* `on_black`
+* `on_red`
+* `on_green`
+* `on_yellow`
+* `on_blue`
+* `on_magenta`
+* `on_cyan`
+* `on_white`
 
 ## AUTHOR
 
