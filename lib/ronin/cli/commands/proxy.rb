@@ -136,13 +136,19 @@ module Ronin
 
         option :ignore, short: '-i',
                         value: {type:  Regexp},
-                        desc: 'Ignore rules'
+                        desc: 'Ignore rules' do |regexp|
+                          @ignore << regexp
+                        end
 
         option :ignore_client, value: {type: Regexp},
-                               desc: 'Client ignore rules'
+                               desc: 'Client ignore rules' do |regexp|
+                                 @ignore_client << regexp
+                               end
 
         option :ignore_server, value: {type: Regexp},
-                               desc: 'Server ignore rules'
+                               desc: 'Server ignore rules' do |regexp|
+                                 @ignore_server << regexp
+                               end
 
         option :close, short: '-C',
                        value: {type:  Regexp},
