@@ -115,6 +115,7 @@ module Ronin
                            usage: '/REGEXP/:STRING'
                          },
                          desc: 'Rewrite rules' do |value|
+                           @rewrite << parse_rewrite_rule(value)
                          end
 
         option :rewrite_client, value: {
@@ -122,13 +123,16 @@ module Ronin
                                   usage: '/REGEXP/:STRING',
                                 },
                                 desc: 'Client rewrite rules' do |value|
+                                  @rewrite_client << parse_rewrite_rule(value)
                                 end
 
         option :rewrite_server, value: {
                                   type:  String,
                                   usage: '/REGEXP/:STRING',
                                 },
-                                desc: 'Server rewrite rules'
+                                desc: 'Server rewrite rules' do |value|
+                                  @rewrite_server << parse_rewrite_rule(value)
+                                end
 
         option :ignore, short: '-i',
                         value: {type:  Regexp},
@@ -339,6 +343,17 @@ module Ronin
         end
 
         protected
+
+        def parse_rewrite_rule(string)
+          unless (index = string.rindex('/:'))
+            raise(OptionParser::InvalidArgument,"invalid rewrite rule: #{string}")
+          end
+
+          regexp  = Regexp.new(string[1...index])
+          pattern = string[index+2..]
+
+          return regexp, pattern
+        end
 
         #
         # Determines the Proxy class based on the `--tcp` or `--udp`
