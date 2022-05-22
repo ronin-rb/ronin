@@ -299,23 +299,23 @@ module Ronin
           local, upstream = *args
 
           if local.include?(':')
-            @proxy_host, @proxy_port = local.split(':',2)
-            @proxy_port = @proxy_port.to_i
+            proxy_host, proxy_port = local.split(':',2)
+            proxy_port = proxy_port.to_i
           else
-            @proxy_port = local.to_i
+            proxy_port = local.to_i
           end
 
-          @upstream_host, @upstream_port = upstream.split(':',2)
-          @upstream_port = @upstream_port.to_i
+          upstream_host, upstream_port = upstream.split(':',2)
+          upstream_port = upstream_port.to_i
 
           if options[:hexdump]
             @hexdumper = Hexdump::Hexdump.new
           end
 
           @proxy = proxy_class.new(
-            port:   @proxy_port,
-            host:   @proxy_host,
-            server: [@upstream_host, @upstream_port]
+            port:   proxy_port,
+            host:   proxy_host,
+            server: [upstream_host, upstream_port]
           )
 
           case @protocol
@@ -423,7 +423,7 @@ module Ronin
             print_data data
           end
 
-          log_info "Listening on #{@proxy_host}:#{@proxy_port} ..."
+          log_info "Listening on #{proxy_host}:#{proxy_port} ..."
           @proxy.start
         end
 
