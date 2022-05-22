@@ -20,9 +20,9 @@
 require 'ronin/cli/command'
 require 'ronin/core/cli/logging'
 
-require 'ronin/network/tcp/proxy'
-require 'ronin/network/ssl/proxy'
-require 'ronin/network/udp/proxy'
+require 'ronin/support/network/tcp/proxy'
+require 'ronin/support/network/ssl/proxy'
+require 'ronin/support/network/udp/proxy'
 
 require 'hexdump/hexdump'
 
