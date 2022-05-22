@@ -83,9 +83,9 @@ Starts the Ronin TCP/UDP/SSL/TLS Proxy.
   Starts a TCP proxy listening on `localhost` port 8080 that forwards all data
   to `google.com` port 80.
 
-`sudo ronin proxy --udp --hexdump 0.0.0.0:53 4.2.2.1:53`
+`sudo ronin proxy --udp --hexdump 0.0.0.0:53 8.8.8.8:53`
   Starts a UDP proxy listening on `0.8.0.0` port 53 that forwards all data to
-  `4.2.2.1` port 53.
+  `8.8.8.8` port 53.
 
 ## AUTHOR
 

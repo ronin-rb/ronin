@@ -192,7 +192,7 @@ module Ronin
 
         examples [
           "8080 google.com:80",
-          "--udp --hexdump 0.0.0.0:53 4.2.2.1:53"
+          "--udp --hexdump 0.0.0.0:53 8.8.8.8:53"
         ]
 
         man_page 'ronin-proxy.1'
