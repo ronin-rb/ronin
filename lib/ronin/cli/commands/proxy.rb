@@ -513,8 +513,8 @@ module Ronin
         #   The data from a message.
         #
         def print_data(data)
-          if options[:hexdump] then @hexdumper.dump(data)
-          else                      puts data
+          if @hexdumper then @hexdumper.dump(data)
+          else               puts data
           end
         end
 
