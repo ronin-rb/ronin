@@ -30,6 +30,9 @@ Starts the Ronin TCP/UDP/SSL Proxy.
 `--ssl`
   Enables or disables SSL mode.
 
+`--tls`
+  Enables or disables TLS mode.
+
 `--udp`
 	Enables or disables UDP mode.
 

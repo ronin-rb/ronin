@@ -22,6 +22,7 @@ require 'ronin/core/cli/logging'
 
 require 'ronin/support/network/tcp/proxy'
 require 'ronin/support/network/ssl/proxy'
+require 'ronin/support/network/tls/proxy'
 require 'ronin/support/network/udp/proxy'
 
 require 'hexdump/hexdump'
@@ -44,6 +45,7 @@ module Ronin
       #     -t, --[no-]tcp                   TCP Proxy.
       #                                      Default: true
       #     -S, --[no-]ssl                   SSL Proxy.
+      #     -T, --[no-]tls                   TLS Proxy.
       #     -u, --[no-]udp                   UDP Proxy.
       #     -x, --[no-]hexdump               Enable hexdump output.
       #     -H, --host [HOST]                Host to listen on.
@@ -91,6 +93,11 @@ module Ronin
         option :ssl, short: '-S',
                      desc: 'SSL Proxy' do
                        @protocol = :ssl
+                     end
+
+        option :tls, short: '-T',
+                     desc: 'TLS Proxy' do
+                       @protocol = :tls
                      end
 
         option :udp, short: '-u',
@@ -174,13 +181,13 @@ module Ronin
 
         # The proxy protocol to use.
         #
-        # @return [:tcp, :udp, :ssl]
+        # @return [:tcp, :udp, :ssl, :tls]
         attr_reader :protocol
 
         #
         # Initializes the proxy command.
         #
-        # @param [:tcp, :udp, :ssl] protocol
+        # @param [:tcp, :udp, :ssl, :tls] protocol
         #   The protocol to use.
         #
         def initialize(protocol: :tcp, **kwargs)
@@ -231,7 +238,7 @@ module Ronin
           )
 
           case @protocol
-          when :tcp, :ssl
+          when :tcp, :ssl, :tls
             @proxy.on_client_connect do |client|
               print_outgoing client, '[connecting]'
             end
@@ -349,6 +356,7 @@ module Ronin
           when :tcp then Network::TCP::Proxy
           when :udp then Network::UDP::Proxy
           when :ssl then Network::SSL::Proxy
+          when :tls then Network::TLS::Proxy
           else
             raise(NotImplementedError,"#{@protocol.inspect} proxy value not supported")
           end
