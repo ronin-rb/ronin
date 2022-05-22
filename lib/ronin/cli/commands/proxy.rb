@@ -213,16 +213,19 @@ module Ronin
 
           @protocol = protocol
 
+          # client rules
           @reset_client   = []
           @close_client   = []
           @ignore_client  = []
           @rewrite_client = []
 
+          # server rules
           @reset_server   = []
           @close_server   = []
           @ignore_server  = []
           @rewrite_server = []
 
+          # client/server rules
           @reset   = []
           @close   = []
           @ignore  = []
@@ -274,6 +277,7 @@ module Ronin
             end
           end
 
+          # configure the client rules
           @reset_client.each do |pattern|
             @proxy.on_client_data do |client,server,data|
               @proxy.reset! if data =~ pattern
@@ -298,6 +302,7 @@ module Ronin
             end
           end
 
+          # configure the server rules
           @reset_server.each do |pattern|
             @proxy.on_server_data do |client,server,data|
               @proxy.reset! if data =~ pattern
@@ -322,6 +327,7 @@ module Ronin
             end
           end
 
+          # configure the client/server rules
           @reset.each do |pattern|
             @proxy.on_data do |client,server,data|
               @proxy.reset! if data =~ pattern
@@ -346,6 +352,7 @@ module Ronin
             end
           end
 
+          # printing rules
           @proxy.on_client_data do |client,server,data|
             print_outgoing client
             print_data data
