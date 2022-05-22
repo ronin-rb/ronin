@@ -56,6 +56,7 @@ module Ronin
       # 
       class Hexdump < Command
 
+        # Supported types for the `-t,--type` option.
         TYPES = [
           :int8,
           :uint8,
@@ -179,6 +180,7 @@ module Ronin
                            long: '--[no-]repeating',
                            desc: 'Allows repeating lines in hexdump output'
 
+        # Mapping of supported values for the `-b,--base` option.
         BASES = {'2' => 2, '8' => 8, '10' => 10, '16' => 16}
 
         option :base, short: '-b',
