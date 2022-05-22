@@ -54,6 +54,8 @@ module Ronin
                         short: '-s',
                         desc:  'Searches all tip files for the text'
 
+        description 'Prints a random tip on how to use ronin'
+
         man_page 'ronin-tips.1'
 
         #
