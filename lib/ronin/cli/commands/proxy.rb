@@ -188,7 +188,7 @@ module Ronin
         argument :upstream, usage: 'UPSTREAM_HOST:UPSTREAM_PORT',
                             desc:  'The upstream server to proxy data to'
 
-        description 'Starts a TCP/UDP/SSL intercept proxy'
+        description 'Starts a TCP/UDP/SSL/TLS intercept proxy'
 
         examples [
           "8080 google.com:80",
