@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin hexdump` [*options*] [*FILE*]`
+`ronin hexdump` [*options*] [*FILE*]
 
 ## DESCRIPTION
 
