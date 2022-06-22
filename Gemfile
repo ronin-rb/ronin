@@ -36,6 +36,8 @@ gem 'ronin-sql',             '~> 1.2', github: "ronin-rb/ronin-sql",
                                        branch: '1.2.0'
 gem 'ronin-web-server',	     '~> 0.1', github: "ronin-rb/ronin-web-server",
                                        branch: 'main'
+gem 'ronin-web-proxy',	     '~> 0.1', github: "ronin-rb/ronin-web-proxy",
+                                       branch: 'main'
 gem 'ronin-web-spider',	     '~> 0.1', github: "ronin-rb/ronin-web-spider",
                                        branch: 'main'
 gem 'ronin-web-user_agents', '~> 0.1', github: "ronin-rb/ronin-web-user_agents",
