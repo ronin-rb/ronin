@@ -34,6 +34,7 @@ generated_files:
  - man/ronin.1
  - man/ronin-console.1
  - man/ronin-exec.1
+ - man/ronin-extract.1
  - man/ronin-help.1
  - man/ronin-hexdump.1
  - man/ronin-proxy.1
