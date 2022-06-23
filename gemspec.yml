@@ -37,6 +37,7 @@ generated_files:
  - man/ronin-help.1
  - man/ronin-hexdump.1
  - man/ronin-proxy.1
+ - man/ronin-strings.1
  - man/ronin-tips.1
  - man/ronin-unhexdump.1
 
