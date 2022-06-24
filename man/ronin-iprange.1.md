@@ -10,6 +10,11 @@ Enumerates over the given IP range(s). The IP range(s) can given from either
 command-line arguments, the `--start` and `--stop` options, or from a *FILE*
 via the `--input` option.
 
+## ARGUMENTS
+
+*IP_RANGE*
+  An IP range argument given in either CIDR or glob notation.
+
 ## OPTIONS
 
 `-i`, `--input` *FILE*
