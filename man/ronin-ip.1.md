@@ -39,6 +39,9 @@ Queries or processes IP addresses.
 `-p`, `--port` *PORT*
   Appends the port number to each IP.
 
+`-U`, `--uri` *SCHEME*
+  Converts the IP address into a URI with the given *SCHEME*.
+
 `-h`, `--help`
   Print help information.
 

@@ -19,6 +19,7 @@
 
 require 'ronin/cli/command'
 require 'ronin/support/network/ip'
+require 'uri'
 
 require 'command_kit/options/input'
 
@@ -42,6 +43,7 @@ module Ronin
       #     -C, --cidr NETMASK               Converts the IP address into a CIDR range
       #     -H, --host                       Converts the IP address to a host name
       #     -p, --port PORT                  Appends the port number to each IP
+      #     -U, --uri SCHEME                 Converts the IP address into a URI.
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -90,6 +92,13 @@ module Ronin
                         usage: 'PORT'
                       },
                       desc:  'Appends the port number to each IP'
+
+        option :uri, short: '-U',
+                     value: {
+                       type:  String,
+                       usage: 'SCHEME'
+                     },
+                     desc: 'Converts the IP address into a URI'
 
         argument :ip, required: false,
                       repeats:  true,
@@ -150,6 +159,8 @@ module Ronin
             puts ip.host
           elsif options[:port]
             puts "#{ip}:#{options[:port]}"
+          elsif options[:uri]
+            puts URI::Generic.build(scheme: options[:uri], host: ip.to_s)
           else
             print_error "must specify --reverse, --uint, --cidr, --host, --port"
             exit(1)
