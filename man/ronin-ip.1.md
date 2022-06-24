@@ -1,0 +1,70 @@
+# ronin-ip 1 "May 2022" Ronin "User Manuals"
+
+## SYNOPSIS
+
+`ronin ip` [*options*] {*IP* ... \| `--input` *FILE*}
+
+## DESCRIPTION
+
+Queries or processes IP addresses.
+
+## ARGUMENTS
+
+*IP*
+  An IP address argument to process.
+
+## OPTIONS
+
+`-i`, `--input` *FILE*
+  Optional input file to read the IP ranges from.
+
+`-P`, `--public`
+  Gets the public IP address.
+
+`-L`, `--local`
+  Gets the local IP address.
+
+`-r`, `--reverse`
+  Prints the IP address in reverse name format.
+
+`-u`, `--uint`
+  Converts the IP address to an unsigned integer.
+
+`-C`, `--cidr` *NETMASK*
+  Converts the IP address into a CIDR range.
+
+`-H`, `--host`
+  Converts the IP address to a host name.
+
+`-h`, `--help`
+  Print help information.
+
+## EXAMPLES
+
+Gets the machine's public IP address:
+
+    $ ronin ip --public
+
+Gets the machine's local network IP address:
+
+    $ ronin ip --local
+
+Converts the IP address(es) into unsigned integers:
+
+    $ ronin ip --uint 1.2.3.4
+    16909060
+
+Converts the IP address(es) into CIDR ranges:
+
+    $ ronin ip --cidr 20 1.2.3.4
+    1.2.0.0/20
+
+Converts the IP address(es) into host names:
+
+    $ ronin ip --host 192.30.255.113
+    lb-192-30-255-113-sea.github.com
+
+## AUTHOR
+
+Postmodern <postmodern.mod3@gmail.com>
+
