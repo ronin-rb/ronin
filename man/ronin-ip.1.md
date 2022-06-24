@@ -36,6 +36,9 @@ Queries or processes IP addresses.
 `-H`, `--host`
   Converts the IP address to a host name.
 
+`-p`, `--port` *PORT*
+  Appends the port number to each IP.
+
 `-h`, `--help`
   Print help information.
 
