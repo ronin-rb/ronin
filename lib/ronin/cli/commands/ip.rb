@@ -43,7 +43,9 @@ module Ronin
       #     -C, --cidr NETMASK               Converts the IP address into a CIDR range
       #     -H, --host                       Converts the IP address to a host name
       #     -p, --port PORT                  Appends the port number to each IP
-      #     -U, --uri SCHEME                 Converts the IP address into a URI.
+      #     -U, --uri SCHEME                 Converts the IP address into a URI
+      #         --http                       Converts the IP address into a http:// URI
+      #         --https                      Converts the IP address into a https:// URI
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -99,6 +101,9 @@ module Ronin
                        usage: 'SCHEME'
                      },
                      desc: 'Converts the IP address into a URI'
+
+        option :http, desc: 'Converts the IP address into a http:// URI'
+        option :https, desc: 'Converts the IP address into a https:// URI'
 
         argument :ip, required: false,
                       repeats:  true,
@@ -161,8 +166,12 @@ module Ronin
             puts "#{ip}:#{options[:port]}"
           elsif options[:uri]
             puts URI::Generic.build(scheme: options[:uri], host: ip.to_s)
+          elsif options[:http]
+            puts URI::HTTP.build(host: ip.to_s)
+          elsif options[:https]
+            puts URI::HTTPS.build(host: ip.to_s)
           else
-            print_error "must specify --reverse, --uint, --cidr, --host, --port"
+            print_error "must specify --reverse, --uint, --cidr, --host, --port, --uri, --http, or --https"
             exit(1)
           end
         end

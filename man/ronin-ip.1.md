@@ -42,6 +42,12 @@ Queries or processes IP addresses.
 `-U`, `--uri` *SCHEME*
   Converts the IP address into a URI with the given *SCHEME*.
 
+`--http`
+  Converts the IP address into a http:// URI.
+
+`--https`
+  Converts the IP address into a https:// URI.
+
 `-h`, `--help`
   Print help information.
 
