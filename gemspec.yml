@@ -43,6 +43,7 @@ generated_files:
  - man/ronin-strings.1
  - man/ronin-tips.1
  - man/ronin-unhexdump.1
+ - man/ronin-url.1
 
 required_ruby_version: ">= 3.0.0"
 
