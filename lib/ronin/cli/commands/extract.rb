@@ -46,8 +46,15 @@ module Ronin
       #     -U, --url                        Extract all URLs
       #         --user-name                  Extract all user names
       #     -E, --email-addr                 Extract all email addresses
+      #         --obfuscated-email-addr      Extract all obfuscated email addresses
       #         --phone-number               Extract all phone numbers
       #         --ssn                        Extract all Social Security Numbers (SSNs)
+      #         --amex-cc                    Extract all AMEX Credit Card numbers
+      #         --discover-cc                Extract all Discord Card numbers
+      #         --mastercard-cc              Extract all MasterCard numbers
+      #         --visa-cc                    Extract all VISA Credit Card numbers
+      #         --visa-mastercard-cc         Extract all VISA MasterCard numbers
+      #         --cc                         Extract all Credit Card numbers
       #         --file-name                  Extract all file names
       #         --dir-name                   Extract all directory names
       #         --relative-unix-path         Extract all relative UNIX paths
@@ -149,12 +156,40 @@ module Ronin
                                @pattern = EMAIL_ADDRESS
                              end
 
+        option :obfuscated_email_addr, desc: 'Extract all obfuscated email addresses' do
+                               @pattern = OBFUSCATED_EMAIL_ADDRESS
+                             end
+
         option :phone_number, desc: 'Extract all phone numbers' do
           @pattern = PHONE_NUMBER
         end
 
         option :ssn, desc: 'Extract all Social Security Numbers (SSNs)' do
           @pattern = SSN
+        end
+
+        option :amex_cc, desc: 'Extract all AMEX Credit Card numbers' do
+          @pattern = AMEX_CC
+        end
+
+        option :discover_cc, desc: 'Extract all Discord Card numbers' do
+          @pattern = DISCOVER_CC
+        end
+
+        option :mastercard_cc, desc: 'Extract all MasterCard numbers' do
+          @pattern = MASTERCARD_CC
+        end
+
+        option :visa_cc, desc: 'Extract all VISA Credit Card numbers' do
+          @pattern = VISA_CC
+        end
+
+        option :visa_mastercard_cc, desc: 'Extract all VISA MasterCard numbers' do
+          @pattern = VISA_MASTERCARD_CC
+        end
+
+        option :cc, desc: 'Extract all Credit Card numbers' do
+          @pattern = CC
         end
 
         option :file_name, desc: 'Extract all file names' do

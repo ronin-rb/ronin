@@ -49,6 +49,12 @@ module Ronin
       #     -E, --email-addr                 Grep for all email addresses
       #         --phone-number               Grep for all phone numbers
       #         --ssn                        Grep for all Social Security Numbers (SSNs)
+      #         --amex-cc                    Grep for all AMEX Credit Card numbers
+      #         --discover-cc                Grep for all Discord Card numbers
+      #         --mastercard-cc              Grep for all MasterCard numbers
+      #         --visa-cc                    Grep for all VISA Credit Card numbers
+      #         --visa-mastercard-cc         Grep for all VISA MasterCard numbers
+      #         --cc                         Grep for all Credit Card numbers
       #         --file-name                  Grep for all file names
       #         --dir-name                   Grep for all directory names
       #         --relative-unix-path         Grep for all relative UNIX paths
@@ -160,6 +166,30 @@ module Ronin
 
         option :ssn, desc: 'Grep for all Social Security Numbers (SSNs)' do
           @pattern = SSN
+        end
+
+        option :amex_cc, desc: 'Grep for all AMEX Credit Card numbers' do
+          @pattern = AMEX_CC
+        end
+
+        option :discover_cc, desc: 'Grep for all Discord Card numbers' do
+          @pattern = DISCOVER_CC
+        end
+
+        option :mastercard_cc, desc: 'Grep for all MasterCard numbers' do
+          @pattern = MASTERCARD_CC
+        end
+
+        option :visa_cc, desc: 'Grep for all VISA Credit Card numbers' do
+          @pattern = VISA_CC
+        end
+
+        option :visa_mastercard_cc, desc: 'Grep for all VISA MasterCard numbers' do
+          @pattern = VISA_MASTERCARD_CC
+        end
+
+        option :cc, desc: 'Grep for all Credit Card numbers' do
+          @pattern = CC
         end
 
         option :file_name, desc: 'Grep for all file names' do

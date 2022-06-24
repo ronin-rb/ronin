@@ -52,11 +52,32 @@ Extract common patterns in the given file(s) or input stream.
 `-E`, `--email-addr`
   Extract all email addresses.
 
+`--obfuscated-email-addr`
+  Extract all obfuscated email addresses.
+
 `--phone-number`
   Extract all phone numbers.
 
 `--ssn`
   Extract all Social Security Numbers (SSNs).
+
+`--amex-cc`
+  Extract all AMEX Credit Card numbers.
+
+`--discover-cc`
+  Extract all Discord Card numbers.
+
+`--mastercard-cc`
+  Extract all MasterCard numbers.
+
+`--visa-cc`
+  Extract all VISA Credit Card numbers.
+
+`--visa-mastercard-cc`
+  Extract all VISA MasterCard numbers.
+
+`--cc`
+  Extract all Credit Card numbers.
 
 `--file-name`
   Extract all file names.

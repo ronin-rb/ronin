@@ -58,6 +58,24 @@ Greps for common patterns in the given file(s) or input stream.
 `--ssn`
   Grep for all Social Security Numbers (SSNs).
 
+`--amex-cc`
+  Grep for all AMEX Credit Card numbers.
+
+`--discover-cc`
+  Grep for all Discord Card numbers.
+
+`--mastercard-cc`
+  Grep for all MasterCard numbers.
+
+`--visa-cc`
+  Grep for all VISA Credit Card numbers.
+
+`--visa-mastercard-cc`
+  Grep for all VISA MasterCard numbers.
+
+`--cc`
+  Grep for all Credit Card numbers.
+
 `--file-name`
   Grep for all file names.
 
