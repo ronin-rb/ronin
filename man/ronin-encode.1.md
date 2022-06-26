@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin encode ` [*options*] {*STRING* ... \| `-i` *FILE*}
+`ronin encode ` [*options*] [*STRING* ... \| `-i` *FILE*]
 
 ## DESCRIPTION
 

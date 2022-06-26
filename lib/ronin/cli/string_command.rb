@@ -34,7 +34,7 @@ module Ronin
       include CommandKit::Options::Output
       include MethodOptions
 
-      usage '[options] {-i FILE | STRING ...}'
+      usage '[options] [STRING ... | -i FILE]'
 
       option :multiline, short: '-M',
                          desc: 'Process each line separately'

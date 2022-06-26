@@ -28,7 +28,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin decode [options] {-i FILE | STRING ...}
+      #     ronin decode [options] [STRING ... | -i FILE]
       #
       # ## Options
       #
