@@ -34,6 +34,7 @@ generated_files:
  - man/ronin.1
  - man/ronin-asn.1
  - man/ronin-console.1
+ - man/ronin-dns.1
  - man/ronin-exec.1
  - man/ronin-extract.1
  - man/ronin-grep.1
