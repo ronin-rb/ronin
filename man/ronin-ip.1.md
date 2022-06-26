@@ -55,26 +55,26 @@ Queries or processes IP addresses.
 
 Gets the machine's public IP address:
 
-    $ ronin ip --public
+        $ ronin ip --public
 
 Gets the machine's local network IP address:
 
-    $ ronin ip --local
+        $ ronin ip --local
 
 Converts the IP address(es) into unsigned integers:
 
-    $ ronin ip --uint 1.2.3.4
-    16909060
+        $ ronin ip --uint 1.2.3.4
+        16909060
 
 Converts the IP address(es) into CIDR ranges:
 
-    $ ronin ip --cidr 20 1.2.3.4
-    1.2.0.0/20
+        $ ronin ip --cidr 20 1.2.3.4
+        1.2.0.0/20
 
 Converts the IP address(es) into host names:
 
-    $ ronin ip --host 192.30.255.113
-    lb-192-30-255-113-sea.github.com
+        $ ronin ip --host 192.30.255.113
+        lb-192-30-255-113-sea.github.com
 
 ## AUTHOR
 
