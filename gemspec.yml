@@ -37,6 +37,7 @@ generated_files:
  - man/ronin-decode.1
  - man/ronin-dns.1
  - man/ronin-encode.1
+ - man/ronin-escape.1
  - man/ronin-exec.1
  - man/ronin-extract.1
  - man/ronin-grep.1
