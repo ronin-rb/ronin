@@ -113,13 +113,13 @@ module Ronin
         option :shell, short: '-S',
                        desc: 'Encodes the data as a Shell String' do
                          require 'ronin/support/format/shell'
-                         @method << :shell_encode
+                         @method_calls << :shell_encode
                        end
 
         option :powershell, short: '-P',
                             desc: 'Encodes the data as a PowerShell String' do
                               require 'ronin/support/format/powershell'
-                              @method << :powershell_encode
+                              @method_calls << :powershell_encode
                             end
 
         option :xml, short: '-x',

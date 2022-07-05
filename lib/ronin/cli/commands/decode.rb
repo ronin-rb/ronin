@@ -113,13 +113,13 @@ module Ronin
         option :shell, short: '-S',
                        desc: 'Decodes the data as a Shell String' do
                          require 'ronin/support/format/shell'
-                         @method << :shell_decode
+                         @method_calls << :shell_decode
                        end
 
         option :powershell, short: '-P',
                             desc: 'Decodes the data as a PowerShell String' do
                               require 'ronin/support/format/powershell'
-                              @method << :powershell_decode
+                              @method_calls << :powershell_decode
                             end
 
         option :xml, short: '-x',
