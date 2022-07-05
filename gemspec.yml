@@ -46,10 +46,12 @@ generated_files:
  - man/ronin-ip.1
  - man/ronin-iprange.1
  - man/ronin-proxy.1
+ - man/ronin-quote.1
  - man/ronin-strings.1
  - man/ronin-tips.1
  - man/ronin-unescape.1
  - man/ronin-unhexdump.1
+ - man/ronin-unquote.1
  - man/ronin-url.1
 
 required_ruby_version: ">= 3.0.0"
