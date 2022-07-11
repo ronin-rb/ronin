@@ -15,7 +15,8 @@ Runs a Ronin *COMMAND*.
 
 ## OPTIONS
 
-Additional global options.
+`-h`, `--help`
+  Print help information
 
 ## COMMANDS
 
