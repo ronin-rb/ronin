@@ -97,7 +97,7 @@ module Ronin
       #   The output file or `stdout`.
       #
       def print_string(string,output)
-        if options[:multiline] || output.tty?
+        if options[:multiline] || input_files.length > 1 || output.tty?
           output.puts string
         else
           output.write(string)
