@@ -54,14 +54,14 @@ module Ronin
       #
       def run(*strings)
         if !strings.empty?
-          open_output_stream do |output|
+          open_output_stream(options[:output]) do |output|
             strings.each do |data|
               print_string(process_string(data),output)
             end
           end
         else
-          open_input_stream do |input|
-            open_output_stream do |output|
+          open_output_stream(options[:output]) do |output|
+            open_input_stream(*input_files) do |input|
               if options[:multiline]
                 input.each_line(chomp: !options[:keep_newlines]) do |line|
                   print_string(process_string(line),output)
