@@ -47,8 +47,8 @@ module Ronin
       #
       # Runs the command.
       #
-      # @param [String, nil] args
-      #   The strings to process.
+      # @param [Array<String>] strings
+      #   The string(s) to process.
       #
       def run(*strings)
         if !strings.empty?
