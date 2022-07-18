@@ -51,6 +51,7 @@ generated_files:
  - man/ronin-new-script.1
  - man/ronin-proxy.1
  - man/ronin-quote.1
+ - man/ronin-sha1.1
  - man/ronin-strings.1
  - man/ronin-tips.1
  - man/ronin-unescape.1
