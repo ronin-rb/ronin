@@ -53,6 +53,7 @@ generated_files:
  - man/ronin-quote.1
  - man/ronin-sha1.1
  - man/ronin-sha256.1
+ - man/ronin-sha512.1
  - man/ronin-strings.1
  - man/ronin-tips.1
  - man/ronin-unescape.1
