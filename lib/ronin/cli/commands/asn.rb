@@ -154,7 +154,7 @@ module Ronin
               exit -1
             end
           else
-            print_asn_records(query_records)
+            print_asn_records(search_asn_records)
           end
         end
 
@@ -219,7 +219,7 @@ module Ronin
         #
         # @return [Ronin::Support::Network::ASN::RecordSet]
         #
-        def query_records
+        def search_asn_records
           records = Support::Network::ASN::RecordSet.new(list_file)
 
           if    options[:ipv4]  then records = records.ipv4
