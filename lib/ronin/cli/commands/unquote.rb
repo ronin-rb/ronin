@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_command'
+require 'ronin/cli/string_methods_command'
 require 'ronin/support/format'
 
 module Ronin
@@ -47,7 +47,7 @@ module Ronin
       #
       #     [STRING ...]                     Optional string value(s) to process
       #
-      class Unquote < StringCommand
+      class Unquote < StringMethodsCommand
 
         option :c, short: '-c',
                    desc: 'Unquotes the C string' do

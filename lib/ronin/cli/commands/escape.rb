@@ -17,7 +17,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_command'
+require 'ronin/cli/string_methods_command'
+
 require 'ronin/support/format'
 
 module Ronin
@@ -52,7 +53,7 @@ module Ronin
       #
       #     [STRING ...]                     Optional string value(s) to process
       #
-      class Escape < StringCommand
+      class Escape < StringMethodsCommand
 
         option :c, short: '-c',
                    desc: 'Escapes the data as a C string' do

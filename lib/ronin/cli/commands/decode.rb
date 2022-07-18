@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_command'
+require 'ronin/cli/string_methods_command'
 require 'ronin/support/format'
 
 module Ronin
@@ -53,7 +53,7 @@ module Ronin
       #
       #     [STRING ...]                     Optional string value(s) to process
       #
-      class Decode < StringCommand
+      class Decode < StringMethodsCommand
 
         option :base32, desc: 'Base32 decodes the data' do
                           require 'ronin/support/format/base32'

@@ -18,7 +18,6 @@
 #
 
 require 'ronin/cli/command'
-require 'ronin/cli/method_options'
 
 require 'command_kit/options/input'
 require 'command_kit/options/output'
@@ -32,7 +31,6 @@ module Ronin
 
       include CommandKit::Options::Input
       include CommandKit::Options::Output
-      include MethodOptions
 
       usage '[options] [STRING ... | -i FILE]'
 
@@ -89,8 +87,10 @@ module Ronin
       # @return [String]
       #   The end result string.
       #
+      # @abstract
+      #
       def process_string(string)
-        apply_method_options(string)
+        raise(NotImplementedError,"#{self.class}##{__method__} method not implemented")
       end
 
     end
