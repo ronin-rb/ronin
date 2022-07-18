@@ -45,6 +45,7 @@ generated_files:
  - man/ronin-hexdump.1
  - man/ronin-ip.1
  - man/ronin-iprange.1
+ - man/ronin-md5.1
  - man/ronin-new.1
  - man/ronin-new-project.1
  - man/ronin-new-script.1
