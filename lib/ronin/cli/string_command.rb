@@ -56,18 +56,24 @@ module Ronin
         if !strings.empty?
           open_output_stream(options[:output]) do |output|
             strings.each do |data|
-              print_string(process_string(data),output)
+              output.puts(process_string(data))
             end
           end
         else
           open_output_stream(options[:output]) do |output|
+            print_newline = (output.tty? || input_files.length > 1)
+
             open_input_stream(*input_files) do |input|
               if options[:multiline]
                 input.each_line(chomp: !options[:keep_newlines]) do |line|
-                  print_string(process_string(line),output)
+                  output.puts(process_string(line))
                 end
               else
-                print_string(process_string(input.read),output)
+                string = process_string(input.read)
+
+                if print_newline then output.puts(string)
+                else                  output.print(string)
+                end
               end
             end
           end
@@ -85,23 +91,6 @@ module Ronin
       #
       def process_string(string)
         apply_method_options(string)
-      end
-
-      #
-      # Prints the given string to output file or `stdout`.
-      #
-      # @param [String] string
-      #   The string to print.
-      #
-      # @param [IO, File] output
-      #   The output file or `stdout`.
-      #
-      def print_string(string,output)
-        if options[:multiline] || input_files.length > 1 || output.tty?
-          output.puts string
-        else
-          output.write(string)
-        end
       end
 
     end
