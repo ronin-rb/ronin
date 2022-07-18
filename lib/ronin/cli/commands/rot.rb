@@ -93,13 +93,13 @@ module Ronin
         end
 
         #
-        # XORs the string.
+        # Rotates each character in the string.
         #
         # @param [String] string
         #   The input string.
         #
         # @return [String]
-        #   The XORed string.
+        #   The rotated string.
         #
         def process_string(string)
           if !@alphabets.empty?
