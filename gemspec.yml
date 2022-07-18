@@ -60,6 +60,7 @@ generated_files:
  - man/ronin-unhexdump.1
  - man/ronin-unquote.1
  - man/ronin-url.1
+ - man/ronin-xor.1
 
 required_ruby_version: ">= 3.0.0"
 
