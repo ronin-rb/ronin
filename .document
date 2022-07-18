@@ -2,4 +2,3 @@ lib/**/*.rb
 - 
 ChangeLog.md
 COPYING.txt
-man/*.md
