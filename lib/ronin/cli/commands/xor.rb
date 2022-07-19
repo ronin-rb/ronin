@@ -18,6 +18,7 @@
 #
 
 require 'ronin/cli/string_command'
+require 'ronin/cli/key_options'
 
 require 'ronin/support/crypto'
 
@@ -37,8 +38,8 @@ module Ronin
       #     -o, --output FILE                Optional output file
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
-      #     -k, --key STRING                 The XOR key String
-      #     -K, --key-file FILE              The XOR key file
+      #     -k, --key STRING                 The key String
+      #     -K, --key-file FILE              The key file
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -47,42 +48,11 @@ module Ronin
       #
       class Xor < StringCommand
 
-        option :key, short: '-k',
-                     value: {
-                       type:  String,
-                       usage: 'STRING'
-                     },
-                     desc: 'The XOR key String' do |string|
-                       @key = string
-                     end
-
-        option :key_file, short: '-K',
-                          value: {
-                            type:  String,
-                            usage: 'FILE'
-                          },
-                          desc: 'The XOR key file' do |path|
-                            @key = File.binread(path)
-                          end
+        include KeyOptions
 
         description "XORs each character of data with a key."
 
         man_page 'ronin-xor.1'
-
-        #
-        # Runs the `ronin xor` command.
-        #
-        # @param [Array<String>] args
-        #   Additional arguments.
-        #
-        def run(*args)
-          unless @key
-            print_error "must specify --key or --key-file"
-            exit(-1)
-          end
-
-          super(*args)
-        end
 
         #
         # XORs the string.
