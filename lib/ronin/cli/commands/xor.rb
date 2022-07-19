@@ -52,14 +52,18 @@ module Ronin
                        type:  String,
                        usage: 'STRING'
                      },
-                     desc: 'The XOR key String'
+                     desc: 'The XOR key String' do |string|
+                       @key = string
+                     end
 
         option :key_file, short: '-K',
                           value: {
                             type:  String,
                             usage: 'FILE'
                           },
-                          desc: 'The XOR key file'
+                          desc: 'The XOR key file' do |path|
+                            @key = File.binread(path)
+                          end
 
         description "XORs each character of data with a key."
 
@@ -72,11 +76,7 @@ module Ronin
         #   Additional arguments.
         #
         def run(*args)
-          if options[:key]
-            @key = options[:key]
-          elsif options[:key_file]
-            @key = File.binread(options[:key_file])
-          else
+          unless @key
             print_error "must specify --key or --key-file"
             exit(-1)
           end
