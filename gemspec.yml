@@ -43,6 +43,7 @@ generated_files:
  - man/ronin-grep.1
  - man/ronin-help.1
  - man/ronin-hexdump.1
+ - man/ronin-hmac.1
  - man/ronin-ip.1
  - man/ronin-iprange.1
  - man/ronin-md5.1
