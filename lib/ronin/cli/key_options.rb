@@ -49,6 +49,11 @@ module Ronin
                                   end
       end
 
+      # The key string.
+      #
+      # @return [String]
+      attr_reader :key
+
       #
       # Runs the command, but requires that `--key` or `--key-file` were given.
       #
