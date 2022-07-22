@@ -69,6 +69,7 @@ required_ruby_version: ">= 3.0.0"
 dependencies:
   # Library dependencies:
   open_namespace: ~> 0.4
+  rouge: ~> 3.0
   # Ronin dependencies:
   ronin-support: ~> 1.0
   ronin-core: ~> 0.1
