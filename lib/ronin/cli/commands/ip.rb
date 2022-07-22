@@ -17,11 +17,9 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
+require 'ronin/cli/value_command'
 require 'ronin/support/network/ip'
 require 'uri'
-
-require 'command_kit/options/input'
 
 module Ronin
   class CLI
@@ -60,9 +58,7 @@ module Ronin
       #     ronin ip --cidr 20 1.2.3.4
       #     ronin ip --host 192.30.255.113
       #
-      class Ip < Command
-
-        include CommandKit::Options::Input
+      class Ip < ValueCommand
 
         usage '[options] {[IP ...] | --public | --local}'
 
@@ -135,12 +131,8 @@ module Ronin
             end
           elsif options[:local]
             puts Support::Network::IP.local_address
-          elsif !ips.empty?
-            ips.each(&method(:process_ip))
-          elsif !input_files.empty?
-            open_input_stream(*input_files) do |input|
-              input.each_line(chomp: true, &method(:process_ip))
-            end
+          else
+            super(*ips)
           end
         end
 
@@ -149,7 +141,7 @@ module Ronin
         #
         # @param [String] ip
         #
-        def process_ip(ip)
+        def process_value(ip)
           ip = Support::Network::IP.new(ip)
 
           if options[:reverse]

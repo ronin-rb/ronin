@@ -17,10 +17,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
+require 'ronin/cli/value_command'
 require 'ronin/support/network/dns'
-
-require 'command_kit/options/input'
 
 module Ronin
   class CLI
@@ -43,9 +41,7 @@ module Ronin
       #
       #     HOST                             The host name to query
       #
-      class Dns < Command
-
-        include CommandKit::Options::Input
+      class Dns < ValueCommand
 
         usage '[options] HOST'
 
@@ -79,16 +75,6 @@ module Ronin
         end
 
         #
-        # Runs the `ronin dns` command.
-        # 
-        # @param [String] host
-        #   The hostname to query.
-        #
-        def run(host)
-          print_records(query_records(host))
-        end
-
-        #
         # The resolver to use.
         #
         # @return [Ronin::Network::DNS::Resolver]
@@ -100,6 +86,15 @@ module Ronin
                         else
                           Support::Network::DNS.resolver
                         end
+        end
+
+        #
+        # Queries the given host.
+        #
+        # @param [String] host
+        #
+        def process_value(host)
+          print_records(query_records(host))
         end
 
         #

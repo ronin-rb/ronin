@@ -17,8 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
-require 'command_kit/options/input'
+require 'ronin/cli/value_command'
 
 require 'uri'
 require 'uri/query_params'
@@ -61,9 +60,7 @@ module Ronin
       #     ronin url --host-port https://example.com:8080/foo
       #     ronin url --param id https://example.com/page?id=100
       #
-      class Url < Command
-
-        include CommandKit::Options::Input
+      class Url < ValueCommand
 
         usage '[options] {URL ... | --input FILE}'
 
@@ -113,27 +110,11 @@ module Ronin
         ]
 
         #
-        # Runs the `ronin url` command.
-        #
-        def run(*urls)
-          if !urls.empty?
-            urls.each(&method(:parse_url))
-          elsif !input_files.empty?
-            open_input_stream(*input_files) do |input|
-              input.each_line(chomp: true, &method(:parse_url))
-            end
-          else
-            print_error "must specify either URL arguments or --input FILE"
-            exit(1)
-          end
-        end
-
-        #
-        # Parses an individual URL.
+        # Processes an individual URL.
         #
         # @param [String] url
         #
-        def parse_url(url)
+        def process_value(url)
           uri = URI(url)
 
           if options[:user]

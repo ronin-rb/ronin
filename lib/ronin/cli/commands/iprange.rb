@@ -17,10 +17,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
+require 'ronin/cli/value_command'
 require 'ronin/support/network/ip_range'
-
-require 'command_kit/options/input'
 
 module Ronin
   class CLI
@@ -51,9 +49,7 @@ module Ronin
       #    ronin iprange --start 1.1.1.10 --stop 1.1.4.100
       #    ronin iprange --input list.txt
       # 
-      class Iprange < Command
-
-        include CommandKit::Options::Input
+      class Iprange < ValueCommand
 
         usage '[options] {IP_RANGE ... | --start IP --stop IP | --input FILE}'
 
@@ -104,11 +100,7 @@ module Ronin
         #   Optional list of IP ranges to enumerate.
         #
         def run(*ip_ranges)
-          if !ip_ranges.empty?
-            ip_ranges.each do |ip_range|
-              print_ip_range ip_range
-            end
-          elsif !@start.empty? && !@stop.empty?
+          if !@start.empty? && !@stop.empty?
             unless @start.length == @stop.length
               print_error "must specify an equal number of --start and --stop options"
               exit -1
@@ -121,24 +113,17 @@ module Ronin
                 puts ip
               end
             end
-          elsif !input_files.empty?
-            open_input_stream(*input_files) do |io|
-              io.each_line(chomp: true) do |line|
-                print_ip_range line
-              end
-            end
           else
-            print_error "must specify either IP range arguments or --start and --stop options"
-            exit -1
+            super(*ip_ranges)
           end
         end
 
         #
-        # Prints an IP range.
+        # Processes an IP range.
         #
         # @param [String] ip_range
         #
-        def print_ip_range(ip_range)
+        def process_value(ip_range)
           ip_range = Support::Network::IPRange.new(ip_range)
 
           ip_range.each do |ip|
