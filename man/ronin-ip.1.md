@@ -16,7 +16,7 @@ Queries or processes IP addresses.
 ## OPTIONS
 
 `-i`, `--input` *FILE*
-  Optional input file to read the IP ranges from.
+  Optional input file to read the IP addresses from.
 
 `-P`, `--public`
   Gets the public IP address.
