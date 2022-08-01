@@ -36,6 +36,7 @@ generated_files:
  - man/ronin-console.1
  - man/ronin-decode.1
  - man/ronin-dns.1
+ - man/ronin-email-addr.1
  - man/ronin-encode.1
  - man/ronin-escape.1
  - man/ronin-exec.1
