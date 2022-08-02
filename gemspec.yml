@@ -52,6 +52,7 @@ generated_files:
  - man/ronin-new-project.1
  - man/ronin-new-script.1
  - man/ronin-proxy.1
+ - man/ronin-public-suffix.1
  - man/ronin-quote.1
  - man/ronin-rot.1
  - man/ronin-sha1.1
