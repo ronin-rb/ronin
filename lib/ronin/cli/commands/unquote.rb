@@ -63,7 +63,7 @@ module Ronin
         option :shell, short: '-S',
                        desc: 'Unquotes the Shell String' do
                          require 'ronin/support/encoding/shell'
-                         @method_calls << :shell_unquotes
+                         @method_calls << :shell_unquote
                        end
 
         option :powershell, short: '-P',

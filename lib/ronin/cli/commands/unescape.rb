@@ -91,13 +91,13 @@ module Ronin
         option :shell, short: '-S',
                        desc: 'Unescapes the data as a Shell String' do
                          require 'ronin/support/encoding/shell'
-                         @method_calls << :shell_unescapes
+                         @method_calls << :shell_unescape
                        end
 
         option :powershell, short: '-P',
                             desc: 'Unescapes the data as a PowerShell String' do
                               require 'ronin/support/encoding/powershell'
-                              @method_calls << :powershell_unescapes
+                              @method_calls << :powershell_unescape
                             end
 
         option :xml, short: '-x',
