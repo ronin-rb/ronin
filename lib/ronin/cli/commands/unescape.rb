@@ -19,13 +19,11 @@
 
 require 'ronin/cli/string_methods_command'
 
-require 'ronin/support/format'
-
 module Ronin
   class CLI
     module Commands
       #
-      # Unescapes each escaped character from a variety of formats.
+      # Unescapes each escaped character from a variety of encodings.
       #
       # ## Usage
       #
@@ -57,64 +55,64 @@ module Ronin
 
         option :c, short: '-c',
                    desc: 'Unescapes the data as a C string' do
-                     require 'ronin/support/format/c'
+                     require 'ronin/support/encoding/c'
                      @method_calls << :c_unescape
                    end
 
         option :hex, short: '-X',
                      desc: 'Unescape the data as a hex string (ex: ABC\x01\x02\x03...)' do
-                       require 'ronin/support/format/hex'
+                       require 'ronin/support/encoding/hex'
                        @method_calls << :hex_unescape
                      end
 
         option :html, short: '-H',
                       desc: 'HTML unescapes the data' do
-                        require 'ronin/support/format/html'
+                        require 'ronin/support/encoding/html'
                         @method_calls << :html_unescape
                       end
 
         option :uri, short: '-u',
                      desc: 'URI unescapes the data' do
-                       require 'ronin/support/format/uri'
+                       require 'ronin/support/encoding/uri'
                        @method_calls << :uri_unescape
                      end
 
         option :http, desc: 'HTTP unescapes the data' do
-          require 'ronin/support/format/http'
+          require 'ronin/support/encoding/http'
           @method_calls << :http_unescape
         end
 
         option :js, short: '-j',
                     desc: 'JavaScript unescapes the data' do
-                      require 'ronin/support/format/js'
+                      require 'ronin/support/encoding/js'
                       @method_calls << :js_unescape
                     end
 
         option :shell, short: '-S',
                        desc: 'Unescapes the data as a Shell String' do
-                         require 'ronin/support/format/shell'
+                         require 'ronin/support/encoding/shell'
                          @method_calls << :shell_unescapes
                        end
 
         option :powershell, short: '-P',
                             desc: 'Unescapes the data as a PowerShell String' do
-                              require 'ronin/support/format/powershell'
+                              require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_unescapes
                             end
 
         option :xml, short: '-x',
                      desc: 'XML unescapes the data' do
-                       require 'ronin/support/format/xml'
+                       require 'ronin/support/encoding/xml'
                        @method_calls << :xml_unescape
                      end
 
         option :string, short: '-s',
                         desc: 'Unescapes the data as a Ruby String' do
-                          require 'ronin/support/format/text'
+                          require 'ronin/support/encoding/text'
                           @method_calls << :unescape
                         end
 
-        description 'Unescapes each escaped character from a variety of formats'
+        description 'Unescapes each escaped character from a variety of encodings'
 
       end
     end

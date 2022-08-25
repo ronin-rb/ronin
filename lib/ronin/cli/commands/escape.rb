@@ -19,13 +19,11 @@
 
 require 'ronin/cli/string_methods_command'
 
-require 'ronin/support/format'
-
 module Ronin
   class CLI
     module Commands
       #
-      # Escapes each special character for a  variety of formats.
+      # Escapes each special character for a variety of encodings.
       #
       # ## Usage
       #
@@ -57,64 +55,64 @@ module Ronin
 
         option :c, short: '-c',
                    desc: 'Escapes the data as a C string' do
-                     require 'ronin/support/format/c'
+                     require 'ronin/support/encoding/c'
                      @method_calls << :c_escape
                    end
 
         option :hex, short: '-X',
                      desc: 'Escapes the data as a hex string (ex: "ABC\x01\x02\x03...")' do
-                       require 'ronin/support/format/hex'
+                       require 'ronin/support/encoding/hex'
                        @method_calls << :hex_escape
                      end
 
         option :html, short: '-H',
                       desc: 'HTML escapes the data' do
-                        require 'ronin/support/format/html'
+                        require 'ronin/support/encoding/html'
                         @method_calls << :html_escape
                       end
 
         option :uri, short: '-u',
                      desc: 'URI escapes the data' do
-                       require 'ronin/support/format/uri'
+                       require 'ronin/support/encoding/uri'
                        @method_calls << :uri_escape
                      end
 
         option :http, desc: 'HTTP escapes the data' do
-          require 'ronin/support/format/http'
+          require 'ronin/support/encoding/http'
           @method_calls << :http_escape
         end
 
         option :js, short: '-j',
                     desc: 'JavaScript escapes the data' do
-                      require 'ronin/support/format/js'
+                      require 'ronin/support/encoding/js'
                       @method_calls << :js_escape
                     end
 
         option :shell, short: '-S',
                        desc: 'Escapes the data as a Shell String' do
-                         require 'ronin/support/format/shell'
+                         require 'ronin/support/encoding/shell'
                          @method_calls << :shell_escapes
                        end
 
         option :powershell, short: '-P',
                             desc: 'Escapes the data as a PowerShell String' do
-                              require 'ronin/support/format/powershell'
+                              require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_escapes
                             end
 
         option :xml, short: '-x',
                      desc: 'XML escapes the data' do
-                       require 'ronin/support/format/xml'
+                       require 'ronin/support/encoding/xml'
                        @method_calls << :xml_escape
                      end
 
         option :string, short: '-s',
                         desc: 'Escapes the data as a Ruby String' do
-                          require 'ronin/support/format/text'
+                          require 'ronin/support/encoding/text'
                           @method_calls << :escape
                         end
 
-        description 'Escapes each special character for a variety of formats'
+        description 'Escapes each special character for a variety of encodings'
 
       end
     end

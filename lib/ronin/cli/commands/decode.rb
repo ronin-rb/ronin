@@ -18,13 +18,12 @@
 #
 
 require 'ronin/cli/string_methods_command'
-require 'ronin/support/format'
 
 module Ronin
   class CLI
     module Commands
       #
-      # Decode each character of data from a variety of formats.
+      # Decode each character of data from a variety of encodings.
       #
       # ## Usage
       #
@@ -56,7 +55,7 @@ module Ronin
       class Decode < StringMethodsCommand
 
         option :base32, desc: 'Base32 decodes the data' do
-                          require 'ronin/support/format/base32'
+                          require 'ronin/support/encoding/base32'
                           @method_calls << :base32_decode
                         end
 
@@ -67,7 +66,7 @@ module Ronin
                           required: false
                         },
                         desc: 'Base64 decodes the data' do |mode=nil|
-                          require 'ronin/support/format/base64'
+                          require 'ronin/support/encoding/base64'
                           if mode
                             @method_calls << [:base64_decode, [mode]]
                           else
@@ -77,58 +76,58 @@ module Ronin
 
         option :c, short: '-c',
                    desc: 'Decodes the data as a C string' do
-                     require 'ronin/support/format/c'
+                     require 'ronin/support/encoding/c'
                      @method_calls << :c_decode
                    end
 
         option :hex, short: '-X',
                      desc: 'Hex decode the data (ex: "414141...")' do
-                       require 'ronin/support/format/hex'
+                       require 'ronin/support/encoding/hex'
                        @method_calls << :hex_decode
                      end
 
         option :html, short: '-H',
                       desc: 'HTML decodes the data' do
-                        require 'ronin/support/format/html'
+                        require 'ronin/support/encoding/html'
                         @method_calls << :html_decode
                       end
 
         option :uri, short: '-u',
                      desc: 'URI decodes the data' do
-                       require 'ronin/support/format/uri'
+                       require 'ronin/support/encoding/uri'
                        @method_calls << :uri_decode
                      end
 
         option :http, desc: 'HTTP decodes the data' do
-                        require 'ronin/support/format/http'
+                        require 'ronin/support/encoding/http'
                         @method_calls << :http_decode
                       end
 
         option :js, short: '-j',
                     desc: 'JavaScript decodes the data' do
-                      require 'ronin/support/format/js'
+                      require 'ronin/support/encoding/js'
                       @method_calls << :js_decode
                     end
 
         option :shell, short: '-S',
                        desc: 'Decodes the data as a Shell String' do
-                         require 'ronin/support/format/shell'
+                         require 'ronin/support/encoding/shell'
                          @method_calls << :shell_decode
                        end
 
         option :powershell, short: '-P',
                             desc: 'Decodes the data as a PowerShell String' do
-                              require 'ronin/support/format/powershell'
+                              require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_decode
                             end
 
         option :xml, short: '-x',
                      desc: 'XML decodes the data' do
-                       require 'ronin/support/format/xml'
+                       require 'ronin/support/encoding/xml'
                        @method_calls << :xml_decode
                      end
 
-        description 'Decodes each character of data from a variety of formats'
+        description 'Decodes each character of data from a variety of encodings'
 
       end
     end

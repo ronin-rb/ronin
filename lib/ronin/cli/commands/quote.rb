@@ -18,7 +18,6 @@
 #
 
 require 'ronin/cli/string_methods_command'
-require 'ronin/support/format'
 
 module Ronin
   class CLI
@@ -51,31 +50,31 @@ module Ronin
 
         option :c, short: '-c',
                    desc: 'Quotes the data as a C string' do
-                     require 'ronin/support/format/c'
+                     require 'ronin/support/encoding/c'
                      @method_calls << :c_string
                    end
 
         option :js, short: '-j',
                     desc: 'JavaScript quotes the data' do
-                      require 'ronin/support/format/js'
+                      require 'ronin/support/encoding/js'
                       @method_calls << :js_string
                     end
 
         option :shell, short: '-S',
                        desc: 'Quotes the data as a Shell String' do
-                         require 'ronin/support/format/shell'
+                         require 'ronin/support/encoding/shell'
                          @method_calls << :shell_string
                        end
 
         option :powershell, short: '-P',
                             desc: 'Quotes the data as a PowerShell String' do
-                              require 'ronin/support/format/powershell'
+                              require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_string
                             end
 
         option :string, short: '-s',
                         desc: 'Quotes the data as a Ruby String' do
-                          require 'ronin/support/format/text'
+                          require 'ronin/support/encoding/text'
                           @method_calls << :inspect
                         end
 

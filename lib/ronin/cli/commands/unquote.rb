@@ -18,7 +18,6 @@
 #
 
 require 'ronin/cli/string_methods_command'
-require 'ronin/support/format'
 
 module Ronin
   class CLI
@@ -51,31 +50,31 @@ module Ronin
 
         option :c, short: '-c',
                    desc: 'Unquotes the C string' do
-                     require 'ronin/support/format/c'
+                     require 'ronin/support/encoding/c'
                      @method_calls << :c_unquote
                    end
 
         option :js, short: '-j',
                     desc: 'Unquotes the JavaScript String' do
-                      require 'ronin/support/format/js'
+                      require 'ronin/support/encoding/js'
                       @method_calls << :js_unquote
                     end
 
         option :shell, short: '-S',
                        desc: 'Unquotes the Shell String' do
-                         require 'ronin/support/format/shell'
+                         require 'ronin/support/encoding/shell'
                          @method_calls << :shell_unquotes
                        end
 
         option :powershell, short: '-P',
                             desc: 'Unquotes the PowerShell String' do
-                              require 'ronin/support/format/powershell'
+                              require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_unquote
                             end
 
         option :string, short: '-s',
                         desc: 'Unquotes the Ruby String' do
-                          require 'ronin/support/format/text'
+                          require 'ronin/support/encoding/text'
                           @method_calls << :unquote
                         end
 
