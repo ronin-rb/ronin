@@ -23,21 +23,20 @@ require 'command_kit/options/input'
 
 module Ronin
   class CLI
-    module Commands
-      #
-      # Represents a command which accepts one or more values from the
-      # command-line or a file.
-      #
-      class ValueProcessorCommand < Command
+    #
+    # Represents a command which accepts one or more values from the
+    # command-line or a file.
+    #
+    class ValueProcessorCommand < Command
 
-        option :file, short: '-f',
-                      value: {
-                        type:  String,
-                        usage: 'FILE'
-                      },
-                      desc: 'Optional file to read values from' do |path|
-                        @files << path
-                      end
+      option :file, short: '-f',
+        value: {
+          type:  String,
+          usage: 'FILE'
+        },
+        desc: 'Optional file to read values from' do |path|
+          @files << path
+        end
 
         # 
         # Initializes the command.
@@ -91,7 +90,6 @@ module Ronin
           raise(NotImplementedError,"#{self.class}##{__method__} was not implemented")
         end
 
-      end
     end
   end
 end
