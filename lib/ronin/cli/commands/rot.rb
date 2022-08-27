@@ -25,7 +25,7 @@ module Ronin
   class CLI
     module Commands
       #
-      # Rotates each character in a String.
+      # Rotates each character of data within an alphabet.
       #
       # ## Usage
       #
@@ -64,7 +64,7 @@ module Ronin
                           @n = num
                         end
 
-        description "Rotates each character in the String"
+        description "Rotates each character of data within an alphabet"
 
         man_page 'ronin-rot.1'
 

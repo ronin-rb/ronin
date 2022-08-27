@@ -6,7 +6,7 @@
 
 ## DESCRIPTION
 
-XORs each character of data with a key.
+Rotates each character of data with an alphabet.
 
 ## ARGUMENTS
 
