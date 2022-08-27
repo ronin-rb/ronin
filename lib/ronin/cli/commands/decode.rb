@@ -27,12 +27,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin decode [options] [STRING ... | -i FILE]
+      #     ronin decode [options] [FILE ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
-      #     -o, --output FILE                Optional output file
+      #     -f, --file FILE                  Optional file to process.
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #         --base32                     Base32 decodes the data

@@ -27,11 +27,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin encode [options] [STRING ... | -i FILE]
+      #     ronin encode [options] [FILE ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
+      #     -f, --file FILE                  Optional file to process.
       #     -o, --output FILE                Optional output file
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line

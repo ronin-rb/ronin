@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin xor` [*options*] [*STRING* ... \| `-i` *FILE*]
+`ronin xor` [*options*] [*FILE* ...]
 
 ## DESCRIPTION
 
@@ -10,17 +10,14 @@ XORs each character of data with a key.
 
 ## ARGUMENTS
 
-*STRING*
-  The optional input string value to XOR. If no *STRING* values are given,
-  input will be read from `-i`,`--input` *FILE* or from `stdin`.
+*FILE*
+  The optional file to read and process. If no *FILE* arguments are given,
+  input will be read from `stdin`.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
-  Optional input file to read from.
-
-`-o`, `--output` *FILE*
-  Optional output file to write encoded values to.
+`-f`, `--file` *FILE*
+  Optional file to process.
 
 `-M`, `--multiline`
   Process each line of input separately.

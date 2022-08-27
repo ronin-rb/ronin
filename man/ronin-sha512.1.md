@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin sha512` [*options*] [*STRING* ... \| `-i` *FILE*]
+`ronin sha512` [*options*] [*FILE* ...]
 
 ## DESCRIPTION
 
@@ -10,17 +10,14 @@ Calculates SHA512 hashes of data.
 
 ## ARGUMENTS
 
-*STRING*
-  The optional input string value to hash. If no *STRING* values are given,
-  input will be read from `-i`,`--input` *FILE* or from `stdin`.
+*FILE*
+  The optional file to read and process. If no *FILE* arguments are given,
+  input will be read from `stdin`.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
-  Optional input file to read from.
-
-`-o`, `--output` *FILE*
-  Optional output file to write encoded values to.
+`-f`, `--file` *FILE*
+  Optional file to process.
 
 `-M`, `--multiline`
   Process each line of input separately.

@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin md5` [*options*] [*STRING* ... \| `-i` *FILE*]
+`ronin md5` [*options*] [*FILE* ...]
 
 ## DESCRIPTION
 
@@ -10,14 +10,14 @@ Calculates MD5 hashes of data.
 
 ## ARGUMENTS
 
-*STRING*
-  The optional input string value to hash. If no *STRING* values are given,
-  input will be read from `-i`,`--input` *FILE* or from `stdin`.
+*FILE*
+  The optional file to read and process. If no *FILE* arguments are given,
+  input will be read from `stdin`.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
-  Optional input file to read from.
+`-f`, `--file` *FILE*
+  Optional file to process.
 
 `-o`, `--output` *FILE*
   Optional output file to write encoded values to.

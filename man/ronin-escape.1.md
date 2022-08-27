@@ -2,15 +2,15 @@
 
 ## SYNOPSIS
 
-`ronin escape` [*options*] [*STRING* ... \| `-i` *FILE*]
+`ronin escape` [*options*] [*FILE* ...]
 
 ## DESCRIPTION
 
 ## ARGUMENTS
 
-*STRING*
-  The optional string value to escape. If no *STRING* values are given,
-  input will be read from `-i`,`--input` *FILE* or from `stdin`.
+*FILE*
+  The optional file to read and process. If no *FILE* arguments are given,
+  input will be read from `stdin`.
 
 ## OPTIONS
 

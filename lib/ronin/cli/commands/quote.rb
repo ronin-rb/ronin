@@ -27,12 +27,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin quote [options] [STRING ... | -i FILE]
+      #     ronin quote [options] [FILE ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
-      #     -o, --output FILE                Optional output file
+      #     -f, --file FILE                  Optional file to process.
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -c, --c                          Quotes the data as a C string

@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_methods_command'
+require 'ronin/cli/string_processor_command'
 require 'ronin/cli/key_options'
 
 require 'ronin/support/crypto'
@@ -33,12 +33,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin hmac [options] [STRING ... | -i FILE]
+      #     ronin hmac [options] [FILE ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
-      #     -o, --output FILE                Optional output file
+      #     -f, --file FILE                  Optional file to process.
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -H md5|sha1|sha256|sha512,       Hash algorithm to use (Default: sha1)
@@ -51,7 +50,7 @@ module Ronin
       #
       #     [STRING ...]                     Optional string value(s) to process
       #
-      class Hmac < StringCommand
+      class Hmac < StringProcessorCommand
 
         include KeyOptions
 

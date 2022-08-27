@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_command'
+require 'ronin/cli/string_processor_command'
 
 require 'digest'
 
@@ -29,12 +29,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin md5 [options] [STRING ... | -i FILE]
+      #     ronin md5 [options] [FILE ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
-      #     -o, --output FILE                Optional output file
+      #     -i, --file FILE                  Optional file to process.
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -h, --help                       Print help information
@@ -43,7 +42,7 @@ module Ronin
       #
       #     [STRING ...]                     Optional string value(s) to process
       #
-      class Md5 < StringCommand
+      class Md5 < StringProcessorCommand
 
         description "Calculates MD5 hashes of data"
 

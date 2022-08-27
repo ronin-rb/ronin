@@ -48,7 +48,7 @@ Processes URL(s) and prints individual components of the URL(s).
 `-q`, `--query-param` *NAME*
   Print the query param from the URL's query string.
 
-`-f`, `--fragment`
+`-F`, `--fragment`
   Print the URL's fragment component.
 
 `-S`, `--status`

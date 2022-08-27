@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin quote` [*options*] [*STRING* ... \| `-i` *FILE*]
+`ronin quote` [*options*] [*FILE* ...]
 
 ## DESCRIPTION
 
@@ -10,17 +10,14 @@ Produces quoted a string for a variety of programming languages.
 
 ## ARGUMENTS
 
-*STRING*
-  The optional string value to quote. If no *STRING* values are given,
-  input will be read from `-i`,`--input` *FILE* or from `stdin`.
+*FILE*
+  The optional file to read and process. If no *FILE* arguments are given,
+  input will be read from `stdin`.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
-  Optional input file to read from.
-
-`-o`, `--output` *FILE*
-  Optional output file to write quoted strings to.
+`-f`, `--file` *FILE*
+  Optional file to process.
 
 `-M`, `--multiline`
   Process each line separately.

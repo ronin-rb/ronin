@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin encode ` [*options*] [*STRING* ... \| `-i` *FILE*]
+`ronin encode ` [*options*] [*FILE* ...]
 
 ## DESCRIPTION
 
@@ -10,17 +10,14 @@ Encodes each character of the given data into a variety of formats.
 
 ## ARGUMENTS
 
-*STRING*
-  The optional string value to encode. If no *STRING* values are given,
-  input will be read from `-i`,`--input` *FILE* or from `stdin`.
+*FILE*
+  The optional file to read and process. If no *FILE* arguments are given,
+  input will be read from `stdin`.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
-  Optional input file to read from.
-
-`-o`, `--output` *FILE*
-  Optional output file to write encoded values to.
+`-f`, `--file` *FILE*
+  Optional file to process.
 
 `-M`, `--multiline`
   Process each line of input separately.

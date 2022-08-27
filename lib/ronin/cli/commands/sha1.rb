@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_command'
+require 'ronin/cli/string_processor_command'
 
 require 'digest'
 
@@ -29,12 +29,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin sha1 [options] [STRING ... | -i FILE]
+      #     ronin sha1 [options] [FILE ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
-      #     -o, --output FILE                Optional output file
+      #     -f, --file FILE                  Optional file to process.
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -h, --help                       Print help information
@@ -43,7 +42,7 @@ module Ronin
       #
       #     [STRING ...]                     Optional string value(s) to process
       #
-      class Sha1 < StringCommand
+      class Sha1 < StringProcessorCommand
 
         description "Calculates SHA1 hashes of data"
 

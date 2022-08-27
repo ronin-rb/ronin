@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_command'
+require 'ronin/cli/string_processor_command'
 
 require 'ronin/support/crypto'
 
@@ -29,12 +29,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin rot [options] [STRING ... | -i FILE]
+      #     ronin rot [options] [FILE ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
-      #     -o, --output FILE                Optional output file
+      #     -f, --file FILE                  Optional file to process.
       #     -M, --multiline                  Process each line separately
       #         --keep-newlines              Preserves newlines at the end of each line
       #     -A, --alphabet ABC...            Alphabet characters
@@ -45,7 +44,7 @@ module Ronin
       #
       #     [STRING ...]                     Optional string value(s) to process
       #
-      class Rot < StringCommand
+      class Rot < StringProcessorCommand
 
         option :alphabet, short: '-A',
                           value: {

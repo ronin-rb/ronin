@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_command'
+require 'ronin/cli/string_processor_command'
 require 'ronin/cli/key_options'
 
 require 'ronin/support/crypto'
@@ -30,12 +30,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin xor [options] [STRING ... | -i FILE]
+      #     ronin xor [options] [FILE ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
-      #     -o, --output FILE                Optional output file
+      #     -f, --file FILE                  Optional file to process.
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -k, --key STRING                 The key String
@@ -46,7 +45,7 @@ module Ronin
       #
       #     [STRING ...]                     Optional string value(s) to process
       #
-      class Xor < StringCommand
+      class Xor < StringProcessorCommand
 
         include KeyOptions
 

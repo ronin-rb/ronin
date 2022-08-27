@@ -46,7 +46,7 @@ module Ronin
       #         --path-query                 Print the URL's path and query string
       #     -Q, --query                      Print the URL's query string
       #     -q, --query-param NAME           Print the query param from the URL's query string
-      #     -f, --fragment                   Print the URL's fragment
+      #     -F, --fragment                   Print the URL's fragment
       #     -S, --status                     Print the HTTP status of each URL
       #     -h, --help                       Print help information
       #
@@ -93,7 +93,7 @@ module Ronin
                              },
                              desc: "Print the query param from the URL's query string"
 
-        option :fragment, short: '-f',
+        option :fragment, short: '-F',
                           desc:  "Print the URL's fragment"
 
         option :status, short: '-S',

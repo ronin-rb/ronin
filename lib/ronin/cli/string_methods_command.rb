@@ -17,15 +17,16 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_command'
+require 'ronin/cli/string_processor_command'
 require 'ronin/cli/method_options'
 
 module Ronin
   class CLI
     #
-    # Base class for all commands that process strings.
+    # Base class for all commands that process strings by calling one or more
+    # methods on them.
     #
-    class StringMethodsCommand < StringCommand
+    class StringMethodsCommand < StringProcessorCommand
 
       include MethodOptions
 
