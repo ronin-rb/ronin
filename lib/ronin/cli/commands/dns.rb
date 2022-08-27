@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_command'
+require 'ronin/cli/value_processor_command'
 require 'ronin/support/network/dns'
 
 module Ronin
@@ -42,7 +42,7 @@ module Ronin
       #
       #     HOST                             The host name to query
       #
-      class Dns < ValueCommand
+      class Dns < ValueProcessorCommand
 
         usage '[options] HOST'
 

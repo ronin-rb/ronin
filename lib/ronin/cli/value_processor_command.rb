@@ -28,7 +28,7 @@ module Ronin
       # Represents a command which accepts one or more values from the
       # command-line or a file.
       #
-      class ValueCommand < Command
+      class ValueProcessorCommand < Command
 
         option :file, short: '-f',
                       value: {

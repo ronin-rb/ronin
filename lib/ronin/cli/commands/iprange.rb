@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_command'
+require 'ronin/cli/value_processor_command'
 require 'ronin/support/network/ip_range'
 
 module Ronin
@@ -49,7 +49,7 @@ module Ronin
       #    ronin iprange --start 1.1.1.10 --stop 1.1.4.100
       #    ronin iprange --file list.txt
       # 
-      class Iprange < ValueCommand
+      class Iprange < ValueProcessorCommand
 
         usage '[options] [IP_RANGE ... | --start IP --stop IP]'
 

@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_command'
+require 'ronin/cli/value_processor_command'
 require 'ronin/support/network/ip'
 require 'uri'
 
@@ -58,7 +58,7 @@ module Ronin
       #     ronin ip --cidr 20 1.2.3.4
       #     ronin ip --host 192.30.255.113
       #
-      class Ip < ValueCommand
+      class Ip < ValueProcessorCommand
 
         usage '[options] {IP ... | --public | --local}'
 

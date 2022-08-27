@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_command'
+require 'ronin/cli/value_processor_command'
 
 require 'uri'
 require 'uri/query_params'
@@ -60,7 +60,7 @@ module Ronin
       #     ronin url --host-port https://example.com:8080/foo
       #     ronin url --param id https://example.com/page?id=100
       #
-      class Url < ValueCommand
+      class Url < ValueProcessorCommand
 
         usage '[options] [URL ...]'
 

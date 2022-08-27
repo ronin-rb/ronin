@@ -17,7 +17,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_command'
+require 'ronin/cli/value_processor_command'
 require 'ronin/cli/printing/http'
 require 'ronin/cli/http_shell'
 require 'ronin/support/network/http'
@@ -74,7 +74,7 @@ module Ronin
       #
       #     [URL ...]                        The URL(s) to request
       #
-      class Http < ValueCommand
+      class Http < ValueProcessorCommand
 
         include CommandKit::Options::Verbose
         include CommandKit::Options::Output
