@@ -17,16 +17,12 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'command_kit/options'
-
 module Ronin
   class CLI
     #
     # Allows adding options which call methods on a given object.
     #
     module MethodOptions
-
-      include CommandKit::Options
 
       # The method calls to apply to an object.
       #
