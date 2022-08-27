@@ -28,10 +28,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin dns [options] HOST
+      #     ronin dns [options] [HOST [...]]
       #
       # ## Options
       #
+      #     -f, --file FILE                  Optional file to read values from
       #     -N, --nameserver IP              Send DNS queries to the nameserver
       #     -t A|AAAA|ANY|CNAME|HINFO|LOC|MINFO|MX|NS|PTR|SOA|SRV|TXT|WKS,
       #         --type                       Queries a specific type of DNS record

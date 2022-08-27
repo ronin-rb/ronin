@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin ip` [*options*] {*IP* ... \| `--input` *FILE*}
+`ronin ip` [*options*] [*IP* ...]
 
 ## DESCRIPTION
 
@@ -15,8 +15,8 @@ Queries or processes IP addresses.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
-  Optional input file to read the IP addresses from.
+`-f`, `--file` *FILE*
+  The optional file to read values from.
 
 `-P`, `--public`
   Gets the public IP address.

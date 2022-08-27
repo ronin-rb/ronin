@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin dns` [*options*] *HOST*
+`ronin dns` [*options*] [*HOST*]
 
 ## DESCRIPTION
 
@@ -11,9 +11,12 @@ Queries DNS records for the given host name.
 ## ARGUMENTS
 
 *HOST*
-  The host name to query.
+  A host name argument to query.
 
 ## OPTIONS
+
+`-f`, `--file` *FILE*
+  The optional file to read values from.
 
 `-N`, `--nameserver` *HOST*|*IP*
   Send DNS queries to the nameserver.

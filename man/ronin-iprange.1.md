@@ -2,13 +2,12 @@
 
 ## SYNOPSIS
 
-`ronin iprange` [*options*] {*IP_RANGE* ... \| `--start` *IP* `--stop` *IP* \| `--input` *FILE*}
+`ronin iprange` [*options*] [*IP_RANGE* ... \| `--start` *IP* `--stop` *IP*]
 
 ## DESCRIPTION
 
 Enumerates over the given IP range(s). The IP range(s) can given from either
-command-line arguments, the `--start` and `--stop` options, or from a *FILE*
-via the `--input` option.
+command-line arguments or read from a file via the `--file` option.
 
 ## ARGUMENTS
 
@@ -17,8 +16,8 @@ via the `--input` option.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
-  Optional input file to read the IP ranges from.
+`-f`, `--file` *FILE*
+  The optional file to read values from.
 
 `--start` *IP*
   The starting IP address for the range.

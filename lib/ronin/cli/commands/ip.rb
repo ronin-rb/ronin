@@ -29,11 +29,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin ip [options] {[IP ...] | --public | --local}
+      #     ronin ip [options] [IP ... | --public | --local]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
+      #     -f, --file FILE                  Optional file to read values from
       #     -P, --public                     Gets the machine's public IP address
       #     -L, --local                      Gets the machine's local IP address
       #     -r, --reverse                    Prints the IP address in reverse name format
@@ -60,7 +60,7 @@ module Ronin
       #
       class Ip < ValueCommand
 
-        usage '[options] {[IP ...] | --public | --local}'
+        usage '[options] {IP ... | --public | --local}'
 
         option :public, short: '-P',
                         desc: "Gets the machine's public IP address"

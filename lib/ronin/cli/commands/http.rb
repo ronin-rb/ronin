@@ -40,7 +40,7 @@ module Ronin
       # ## Options
       #
       #     -v, --verbose                    Enables verbose output
-      #     -i, --input FILE                 Optional input file
+      #     -f, --file FILE                  Optional file to read values from
       #     -o, --output FILE                Optional output file
       #         --method HTTP_METHOD         Send the HTTP request method
       #         --get                        Send a GET request
@@ -80,7 +80,7 @@ module Ronin
         include CommandKit::Options::Output
         include Printing::HTTP
 
-        usage '[options] [URL [...] | --shell URL]'
+        usage '[options] {URL [...] | --shell URL}'
 
         option :method, value: {
                           type: {

@@ -31,11 +31,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin url [options] {URL ... | --input FILE}
+      #     ronin url [options] [URL ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
+      #     -f, --file FILE                  Optional file to read values from
       #     -u, --user                       Print the URL's user name
       #         --password                   Print the URL's password
       #         --user-password              Print the URL's user name and password
@@ -62,7 +62,7 @@ module Ronin
       #
       class Url < ValueCommand
 
-        usage '[options] {URL ... | --input FILE}'
+        usage '[options] [URL ...]'
 
         option :user, short: '-u',
                       desc:  "Print the URL's user name"

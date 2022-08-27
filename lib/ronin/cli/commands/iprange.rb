@@ -28,14 +28,14 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin iprange [options] {IP_RANGE ... | --start IP --stop IP | --input FILE}
+      #     ronin iprange [options] [IP_RANGE ... | --start IP --stop IP]
       #
       # ## Options
       #
-      #    -i, --input FILE                 Optional input file
-      #        --start IP                   Starting IP address
-      #        --stop IP                    Stopping IP address
-      #    -h, --help                       Print help information
+      #     -f, --file FILE                  Optional file to read values from
+      #         --start IP                   Starting IP address
+      #         --stop IP                    Stopping IP address
+      #     -h, --help                       Print help information
       #
       # ## Arguments
       #
@@ -47,11 +47,11 @@ module Ronin
       #    ronin iprange 1.1.1.*
       #    ronin iprange 1.1.2-4.10-50
       #    ronin iprange --start 1.1.1.10 --stop 1.1.4.100
-      #    ronin iprange --input list.txt
+      #    ronin iprange --file list.txt
       # 
       class Iprange < ValueCommand
 
-        usage '[options] {IP_RANGE ... | --start IP --stop IP | --input FILE}'
+        usage '[options] [IP_RANGE ... | --start IP --stop IP]'
 
         option :start, value: {
                          type: String,

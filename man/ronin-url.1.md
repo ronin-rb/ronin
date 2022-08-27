@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin url` [*options*] {*URL* ... \| `--input` *FILE*}
+`ronin url` [*options*] [*URL* ...]
 
 ## DESCRIPTION
 
@@ -15,8 +15,8 @@ Processes URL(s) and prints individual components of the URL(s).
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
-  Optional input file to read URLs from.
+`-f`, `--file` *FILE*
+  The optional file to read values from.
 
 `-u`, `--user`
   Print the URL's user name component.
