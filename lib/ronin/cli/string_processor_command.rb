@@ -208,7 +208,7 @@ module Ronin
       # @abstract
       #
       def process_string(string)
-        raise(NotImplementedError,"#{self.class}##{__method__} method not implemented")
+        raise(NotImplementedError,"#{self.class}##{__method__} method was not implemented")
       end
 
     end

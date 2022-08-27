@@ -38,6 +38,11 @@ module Ronin
           @files << path
         end
 
+        # The additional files to process.
+        #
+        # @return [Array<String>]
+        attr_reader :files
+
         # 
         # Initializes the command.
         #
@@ -87,7 +92,7 @@ module Ronin
         # @abstract
         #
         def process_value(value)
-          raise(NotImplementedError,"#{self.class}##{__method__} was not implemented")
+          raise(NotImplementedError,"#{self.class}##{__method__} method was not implemented")
         end
 
     end
