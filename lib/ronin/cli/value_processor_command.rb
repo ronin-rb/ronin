@@ -30,70 +30,70 @@ module Ronin
     class ValueProcessorCommand < Command
 
       option :file, short: '-f',
-        value: {
-          type:  String,
-          usage: 'FILE'
-        },
-        desc: 'Optional file to read values from' do |path|
-          @files << path
+                    value: {
+                      type:  String,
+                      usage: 'FILE'
+                    },
+                    desc: 'Optional file to read values from' do |path|
+                      @files << path
+                    end
+
+      # The additional files to process.
+      #
+      # @return [Array<String>]
+      attr_reader :files
+
+      # 
+      # Initializes the command.
+      #
+      # @param [Hash{Symbol => Object}] kwargs
+      #   Additional keyword arguments.
+      #
+      def initialize(**kwargs)
+        super(**kwargs)
+
+        @files = []
+      end
+
+      #
+      # Runs the command
+      #
+      # @param [Array<String>] args.
+      #   Additional arguments to process.
+      #
+      def run(*values)
+        if (values.empty? && @files.empty?)
+          print_error "must specify one or more arguments, or the --file option"
+          exit(1)
         end
 
-        # The additional files to process.
-        #
-        # @return [Array<String>]
-        attr_reader :files
+        @files.each(&method(:process_file))
+        values.each(&method(:process_value))
+      end
 
-        # 
-        # Initializes the command.
-        #
-        # @param [Hash{Symbol => Object}] kwargs
-        #   Additional keyword arguments.
-        #
-        def initialize(**kwargs)
-          super(**kwargs)
-
-          @files = []
+      #
+      # Reads and processes each line of the file.
+      #
+      # @param [String] path
+      #   The path to the file.
+      #
+      def process_file(path)
+        File.open(path) do |file|
+          file.each_line(chomp: true, &method(:process_value))
         end
+      end
 
-        #
-        # Runs the command
-        #
-        # @param [Array<String>] args.
-        #   Additional arguments to process.
-        #
-        def run(*values)
-          if (values.empty? && @files.empty?)
-            print_error "must specify one or more arguments, or the --file option"
-            exit(1)
-          end
-
-          @files.each(&method(:process_file))
-          values.each(&method(:process_value))
-        end
-
-        #
-        # Reads and processes each line of the file.
-        #
-        # @param [String] path
-        #   The path to the file.
-        #
-        def process_file(path)
-          File.open(path) do |file|
-            file.each_line(chomp: true, &method(:process_value))
-          end
-        end
-
-        #
-        # Processes an individual value.
-        #
-        # @param [String] value
-        #   The string value to process.
-        #
-        # @abstract
-        #
-        def process_value(value)
-          raise(NotImplementedError,"#{self.class}##{__method__} method was not implemented")
-        end
+      #
+      # Processes an individual value.
+      #
+      # @param [String] value
+      #   The string value to process.
+      #
+      # @abstract
+      #
+      def process_value(value)
+        raise(NotImplementedError,"#{self.class}##{__method__} method was not implemented")
+      end
 
     end
   end
