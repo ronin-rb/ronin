@@ -128,7 +128,7 @@ module Ronin
         else
           @input_values.each do |value|
             case value
-            when StrinValue
+            when StringValue
               print_string(process_string(value.string))
             when FileValue
               process_file(value.file)
@@ -167,7 +167,7 @@ module Ronin
       #   The path to the file to read and process.
       #
       def process_file(path)
-        open_file(path,&mehtod(:process_input))
+        open_file(path,&method(:process_input))
       end
 
       #
