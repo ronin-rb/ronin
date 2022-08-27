@@ -70,7 +70,7 @@ module Ronin
 
       end
 
-      usage '[options] [STRING ... | -i FILE]'
+      usage '[options] [FILE ...]'
 
       option :file, short: '-f',
                     value: {
