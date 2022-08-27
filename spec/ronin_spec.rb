@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'ronin'
+require 'ronin/version'
 
 describe Ronin do
   it "should have a version" do
