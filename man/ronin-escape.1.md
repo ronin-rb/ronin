@@ -6,6 +6,8 @@
 
 ## DESCRIPTION
 
+Escapes each special character for a variety of encodings.
+
 ## ARGUMENTS
 
 *FILE*

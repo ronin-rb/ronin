@@ -6,6 +6,8 @@
 
 ## DESCRIPTION
 
+Unescapes each escaped character from a variety of encodings.
+
 ## ARGUMENTS
 
 *FILE*
