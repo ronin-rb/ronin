@@ -17,6 +17,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+require 'command_kit/options'
+
 module Ronin
   class CLI
     #
