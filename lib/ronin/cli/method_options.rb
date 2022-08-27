@@ -47,11 +47,18 @@ module Ronin
       # @return [Object]
       #   The final object.
       #
+      # @raise [ArgumentError]
+      #   One of the method calls in {#method_calls} attempted to call a
+      #   private/protected or global method on the object.
+      #
       def apply_method_options(object)
+        common_object_methods = Object.public_instance_methods
+
         @method_calls.each do |method,arguments,kwargs={}|
-          unless object.respond_to?(method)
-            print_error "cannot call method #{method} on a #{object.class} object: #{object.inspect}"
-            exit(-1)
+          allowed_methods = object.public_methods - common_object_methods
+
+          unless allowed_methods.include?(method)
+            raise(ArgumentError,"cannot call method Object##{method} on object #{object.inspect}")
           end
 
           object = object.public_send(method,*arguments,**kwargs)
