@@ -34,6 +34,7 @@ module Ronin
       #     -f, --file FILE                  Optional file to process.
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
+      #     -X, --hex                        Unquotes the Hex string
       #     -c, --c                          Unquotes the C string
       #     -j, --js                         Unquotes the JavaScript String
       #     -S, --shell                      Unquotes the Shell String
@@ -46,6 +47,12 @@ module Ronin
       #     [STRING ...]                     Optional string value(s) to process
       #
       class Unquote < StringMethodsCommand
+
+        option :hex, short: '-X',
+                     desc: 'Unquotes the Hex string' do
+                       require 'ronin/support/encoding/hex'
+                       @method_calls << :hex_unquote
+                     end
 
         option :c, short: '-c',
                    desc: 'Unquotes the C string' do

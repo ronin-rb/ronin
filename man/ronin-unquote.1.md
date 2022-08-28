@@ -25,6 +25,9 @@ Unquotes a double/single quoted string.
 `-n`, `--keep-newlines`
   Preserves newlines at the end of each line.
 
+`-X`, `--hex`
+  Unquotes the Hex string.
+
 `-c`, `--c`
   Unquotes the C string.
 

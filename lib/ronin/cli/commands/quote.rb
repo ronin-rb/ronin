@@ -34,6 +34,7 @@ module Ronin
       #     -f, --file FILE                  Optional file to process.
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
+      #     -X, --hex                        Quotes the data as a Hex string
       #     -c, --c                          Quotes the data as a C string
       #     -j, --js                         JavaScript quotes the data
       #     -S, --shell                      Quotes the data as a Shell String
@@ -46,6 +47,12 @@ module Ronin
       #     [STRING ...]                     Optional string value(s) to process
       #
       class Quote < StringMethodsCommand
+
+        option :hex, short: '-X',
+                     desc: 'Quotes the data as a Hex string' do
+                       require 'ronin/support/encoding/hex'
+                       @method_calls << :hex_string
+                     end
 
         option :c, short: '-c',
                    desc: 'Quotes the data as a C string' do

@@ -25,6 +25,9 @@ Produces quoted a string for a variety of programming languages.
 `-n`, `--keep-newlines`
   Preserves newlines at the end of each line.
 
+`-X`, `--hex`
+  Quotes the data as a Hex string.
+
 `-c`, `--c`
   Quotes the data as a C string.
 
