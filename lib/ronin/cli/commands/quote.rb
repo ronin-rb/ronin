@@ -73,7 +73,6 @@ module Ronin
 
         option :string, short: '-s',
                         desc: 'Quotes the data as a Ruby String' do
-                          require 'ronin/support/encoding/text'
                           @method_calls << :inspect
                         end
 
