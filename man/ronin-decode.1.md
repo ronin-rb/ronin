@@ -59,6 +59,9 @@ Decodes each character of the given data from a variety of formats.
 `-P`, `--powershell`
   Decodes the data as a PowerShell String.
 
+`-R`, `--ruby`
+  Ruby decodes the data.
+
 `-x`, `--xml`
   XML decodes the data.
 

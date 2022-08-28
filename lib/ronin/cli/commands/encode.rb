@@ -45,6 +45,7 @@ module Ronin
       #     -j, --js                         JavaScript encodes the data
       #     -S, --shell                      Encodes the data as a Shell String
       #     -P, --powershell                 Encodes the data as a PowerShell String
+      #     -R, --ruby                       Encodes the data as a Ruby String
       #     -x, --xml                        XML encodes the data
       #     -h, --help                       Print help information
       #
@@ -120,6 +121,12 @@ module Ronin
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_encode
                             end
+
+        option :ruby, short: '-R',
+                      desc: 'Encodes the data as a Ruby String' do
+                        require 'ronin/support/encoding/ruby'
+                        @method_calls << :ruby_encode
+                      end
 
         option :xml, short: '-x',
                      desc: 'XML encodes the data' do

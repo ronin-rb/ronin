@@ -125,6 +125,18 @@ describe Ronin::CLI::Commands::Encode do
       end
     end
 
+    describe "--ruby" do
+      let(:argv) { %w[--ruby] }
+
+      it "must require 'ronin/support/encoding/ruby'" do
+        expect(require 'ronin/support/encoding/ruby').to be(false)
+      end
+
+      it "must add :ruby_encode to #method_calls" do
+        expect(subject.method_calls.last).to eq(:ruby_encode)
+      end
+    end
+
     describe "--xml" do
       let(:argv) { %w[--xml] }
 

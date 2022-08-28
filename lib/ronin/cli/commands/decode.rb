@@ -45,6 +45,7 @@ module Ronin
       #     -j, --js                         JavaScript decodes the data
       #     -S, --shell                      Encodes the data as a Shell String
       #     -P, --powershell                 Encodes the data as a PowerShell String
+      #     -R, --ruby                       Ruby decodes the data
       #     -x, --xml                        XML decodes the data
       #     -h, --help                       Print help information
       #
@@ -120,6 +121,12 @@ module Ronin
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_decode
                             end
+
+        option :ruby, short: '-R',
+                      desc: 'Ruby decodes the data' do
+                        require 'ronin/support/encoding/ruby'
+                        @method_calls << :ruby_decode
+                      end
 
         option :xml, short: '-x',
                      desc: 'XML decodes the data' do
