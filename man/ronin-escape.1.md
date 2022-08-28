@@ -19,6 +19,9 @@ Escapes each special character for a variety of encodings.
 `-i`, `--input` *FILE*
   Optional input file to read from.
 
+`--string` *STRING*
+  Optional string to process.
+
 `-M`, `--multiline`
   Process each line separately.
 
@@ -49,11 +52,11 @@ Escapes each special character for a variety of encodings.
 `-P`, `--powershell`
   Escapes the data as a PowerShell String.
 
+`-R`, `--ruby`
+  Escapes the data as a Ruby String.
+
 `-x`, `--xml`
   XML escapes the data.
-
-`-s`, `--string`
-  Escapes the data as a Ruby String.
 
 `-h`, `--help`
   Print help information.

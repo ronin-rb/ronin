@@ -65,11 +65,11 @@ describe Ronin::CLI::Commands::Quote do
       end
     end
 
-    describe "--string" do
-      let(:argv) { %w[--string] }
+    describe "--ruby" do
+      let(:argv) { %w[--ruby] }
 
-      it "must add :inspect to #method_calls" do
-        expect(subject.method_calls.last).to eq(:inspect)
+      it "must add :ruby_string to #method_calls" do
+        expect(subject.method_calls.last).to eq(:ruby_string)
       end
     end
   end

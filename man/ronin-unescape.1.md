@@ -19,6 +19,9 @@ Unescapes each escaped character from a variety of encodings.
 `-f`, `--file ` *FILE*
   Optional file to process.
 
+`--string` *STRING*
+  Optional string to process.
+
 `-M`, `--multiline`
   Process each line separately.
 
@@ -49,11 +52,11 @@ Unescapes each escaped character from a variety of encodings.
 `-P`, `--powershell`
   Unescapes the data as a PowerShell String.
 
+`-R`, `--ruby`
+  Unescapes the data as a Ruby String.
+
 `-x`, `--xml`
   XML unescapes the data.
-
-`-s`, `--string`
-  Unescapes the data as a Ruby String.
 
 `-h`, `--help`
   Print help information.

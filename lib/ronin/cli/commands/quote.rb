@@ -32,6 +32,7 @@ module Ronin
       # ## Options
       #
       #     -f, --file FILE                  Optional file to process
+      #         --string STRING              Optional string to process
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -X, --hex                        Quotes the data as a Hex string
@@ -39,7 +40,7 @@ module Ronin
       #     -j, --js                         JavaScript quotes the data
       #     -S, --shell                      Quotes the data as a Shell String
       #     -P, --powershell                 Quotes the data as a PowerShell String
-      #     -s, --string                     Quotes the data as a Ruby String
+      #     -R, --ruby                       Quotes the data as a Ruby String
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -78,10 +79,11 @@ module Ronin
                               @method_calls << :powershell_string
                             end
 
-        option :string, short: '-s',
-                        desc: 'Quotes the data as a Ruby String' do
-                          @method_calls << :inspect
-                        end
+        option :ruby, short: '-R',
+                      desc: 'Quotes the data as a Ruby String' do
+                        require 'ronin/support/encoding/ruby'
+                        @method_calls << :ruby_string
+                      end
 
         description 'Produces quoted a string for a variety of programming languages'
 

@@ -32,6 +32,7 @@ module Ronin
       # ## Options
       #
       #     -f, --file FILE                  Optional file to process
+      #         --string STRING              Optional string to process
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -X, --hex                        Unquotes the Hex string
@@ -39,7 +40,7 @@ module Ronin
       #     -j, --js                         Unquotes the JavaScript String
       #     -S, --shell                      Unquotes the Shell String
       #     -P, --powershell                 Unquotes the PowerShell String
-      #     -s, --string                     Unquotes the Ruby String
+      #     -R, --ruby                       Unquotes the Ruby String
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -78,11 +79,11 @@ module Ronin
                               @method_calls << :powershell_unquote
                             end
 
-        option :string, short: '-s',
-                        desc: 'Unquotes the Ruby String' do
-                          require 'ronin/support/encoding/core_ext/string'
-                          @method_calls << :unquote
-                        end
+        option :ruby, short: '-R',
+                      desc: 'Unquotes the Ruby String' do
+                        require 'ronin/support/encoding/ruby'
+                        @method_calls << :ruby_unquote
+                      end
 
         description 'Unquotes a double/single quoted string'
 

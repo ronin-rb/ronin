@@ -32,6 +32,7 @@ module Ronin
       # ## Options
       #
       #     -f, --file FILE                  Optional file to process
+      #         --string STRING              Optional string to process
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -c, --c                          Escapes the data as a C string
@@ -42,8 +43,8 @@ module Ronin
       #     -j, --js                         JavaScript escapes the data
       #     -S, --shell                      Escapes the data as a Shell String
       #     -P, --powershell                 Escapes the data as a PowerShell String
+      #     -R, --ruby                       Escapes the data as a Ruby String
       #     -x, --xml                        XML escapes the data
-      #     -s, --string                     Escapes the data as a Ruby String
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -99,17 +100,17 @@ module Ronin
                               @method_calls << :powershell_escape
                             end
 
+        option :ruby, short: '-R',
+                      desc: 'Escapes the data as a Ruby String' do
+                        require 'ronin/support/encoding/ruby'
+                        @method_calls << :ruby_escape
+                      end
+
         option :xml, short: '-x',
                      desc: 'XML escapes the data' do
                        require 'ronin/support/encoding/xml'
                        @method_calls << :xml_escape
                      end
-
-        option :string, short: '-s',
-                        desc: 'Escapes the data as a Ruby String' do
-                          require 'ronin/support/encoding/core_ext/string'
-                          @method_calls << :escape
-                        end
 
         description 'Escapes each special character for a variety of encodings'
 

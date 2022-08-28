@@ -19,6 +19,9 @@ Unquotes a double/single quoted string.
 `-f`, `--file` *FILE*
   Optional file to process.
 
+`--string` *STRING*
+  Optional string to process.
+
 `-M`, `--multiline`
   Process each line separately.
 
@@ -40,7 +43,7 @@ Unquotes a double/single quoted string.
 `-P`, `--powershell`
   Unquotes the PowerShell String.
 
-`-s`, `--string`
+`-R`, `--ruby`
   Unquotes the Ruby String.
 
 `-h`, `--help`

@@ -19,6 +19,9 @@ Produces quoted a string for a variety of programming languages.
 `-f`, `--file` *FILE*
   Optional file to process.
 
+`--string` *STRING*
+  Optional string to process.
+
 `-M`, `--multiline`
   Process each line separately.
 
@@ -40,7 +43,7 @@ Produces quoted a string for a variety of programming languages.
 `-P`, `--powershell`
   Quotes the data as a PowerShell String.
 
-`-s`, `--string`
+`-R`, `--ruby`
   Quotes the data as a Ruby String.
 
 `-h`, `--help`

@@ -32,6 +32,7 @@ module Ronin
       # ## Options
       #
       #     -f, --file FILE                  Optional file to process
+      #         --string STRING              Optional string to process
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -c, --c                          Unescapes the data as a C string
@@ -42,8 +43,8 @@ module Ronin
       #     -j, --js                         JavaScript unescapes the data
       #     -S, --shell                      Unescapes the data as a Shell String
       #     -P, --powershell                 Unescapes the data as a PowerShell String
+      #     -R, --ruby                       Unescapes the data as a Ruby String
       #     -x, --xml                        XML unescapes the data
-      #     -s, --string                     Unescapes the data as a Ruby String
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -99,17 +100,17 @@ module Ronin
                               @method_calls << :powershell_unescape
                             end
 
+        option :ruby, short: '-R',
+                      desc: 'Unescapes the data as a Ruby String' do
+                        require 'ronin/support/encoding/ruby'
+                        @method_calls << :ruby_unescape
+                      end
+
         option :xml, short: '-x',
                      desc: 'XML unescapes the data' do
                        require 'ronin/support/encoding/xml'
                        @method_calls << :xml_unescape
                      end
-
-        option :string, short: '-s',
-                        desc: 'Unescapes the data as a Ruby String' do
-                          require 'ronin/support/encoding/core_ext/string'
-                          @method_calls << :unescape
-                        end
 
         description 'Unescapes each escaped character from a variety of encodings'
 
