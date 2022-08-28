@@ -95,9 +95,9 @@ module Ronin
       option :keep_newlines, short: '-n',
                              desc: 'Preserves newlines at the end of each line'
 
-      argument :string, required: false,
-                        repeats:  true,
-                        desc:     'Optional string value(s) to process'
+      argument :file, required: false,
+                      repeats:  true,
+                      desc:     'Optional file(s) to process'
 
       # The input values to process.
       #
