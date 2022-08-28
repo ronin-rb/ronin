@@ -49,7 +49,7 @@ module Ronin
       #
       # ## Arguments
       #
-      #     [STRING ...]                     Optional string value(s) to process
+      #     [FILE ...]                       Optional file(s) to process
       #
       class Decode < StringMethodsCommand
 
