@@ -19,6 +19,9 @@ Encodes each character of the given data into a variety of formats.
 `-f`, `--file` *FILE*
   Optional file to process.
 
+`--string` *STRING*
+  Optional string to process.
+
 `-M`, `--multiline`
   Process each line of input separately.
 

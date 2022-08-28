@@ -19,6 +19,9 @@ XORs each character of data with a key.
 `-f`, `--file` *FILE*
   Optional file to process.
 
+`--string` *STRING*
+  Optional string to process.
+
 `-M`, `--multiline`
   Process each line of input separately.
 

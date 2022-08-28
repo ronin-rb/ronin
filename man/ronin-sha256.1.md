@@ -19,8 +19,8 @@ Calculates SHA256 hashes of data.
 `-i`, `--input` *FILE*
   Optional input file to read from.
 
-`-o`, `--output` *FILE*
-  Optional output file to write encoded values to.
+`--string` *STRING*
+  Optional string to process.
 
 `-M`, `--multiline`
   Process each line of input separately.

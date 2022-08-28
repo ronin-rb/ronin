@@ -29,12 +29,12 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin sha256 [options] [STRING ... | -i FILE]
+      #     ronin sha256 [options] [FILE ...]
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
-      #     -o, --output FILE                Optional output file
+      #     -f, --file FILE                  Optional file to process
+      #         --string STRING              Optional string to process
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -h, --help                       Print help information
@@ -43,7 +43,7 @@ module Ronin
       #
       #     [STRING ...]                     Optional string value(s) to process
       #
-      class Sha256 < Command
+      class Sha256 < StringProcessorCommand
 
         description "Calculates SHA256 hashes of data"
 

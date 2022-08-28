@@ -19,8 +19,8 @@ Calculates MD5 hashes of data.
 `-f`, `--file` *FILE*
   Optional file to process.
 
-`-o`, `--output` *FILE*
-  Optional output file to write encoded values to.
+`--string` *STRING*
+  Optional string to process.
 
 `-M`, `--multiline`
   Process each line of input separately.

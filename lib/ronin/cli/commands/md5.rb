@@ -33,7 +33,8 @@ module Ronin
       #
       # ## Options
       #
-      #     -i, --file FILE                  Optional file to process.
+      #     -f, --file FILE                  Optional file to process
+      #         --string STRING              Optional string to process
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -h, --help                       Print help information

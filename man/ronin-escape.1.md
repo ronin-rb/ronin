@@ -19,9 +19,6 @@ Escapes each special character for a variety of encodings.
 `-i`, `--input` *FILE*
   Optional input file to read from.
 
-`-o`, `--output` *FILE*
-  Optional output file to write escaped strings to.
-
 `-M`, `--multiline`
   Process each line separately.
 

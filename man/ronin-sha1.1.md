@@ -19,6 +19,9 @@ Calculates SHA1 hashes of data.
 `-f`, `--file` *FILE*
   Optional file to process.
 
+`--string` *STRING*
+  Optional string to process.
+
 `-M`, `--multiline`
   Process each line of input separately.
 
