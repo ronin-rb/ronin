@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin sha256` [*options*] [*STRING* ... \| `-i` *FILE*]
+`ronin sha256` [*options*] [*FILE* ...]
 
 ## DESCRIPTION
 
@@ -10,9 +10,9 @@ Calculates SHA256 hashes of data.
 
 ## ARGUMENTS
 
-*STRING*
-  The optional input string value to hash. If no *STRING* values are given,
-  input will be read from `-i`,`--input` *FILE* or from `stdin`.
+*FILE*
+  The optional file to read and process. If no *FILE* arguments are given,
+  input will be read from `stdin`.
 
 ## OPTIONS
 
