@@ -107,7 +107,7 @@ module Ronin
 
         option :string, short: '-s',
                         desc: 'Escapes the data as a Ruby String' do
-                          require 'ronin/support/encoding/text'
+                          require 'ronin/support/encoding/core_ext/string'
                           @method_calls << :escape
                         end
 
