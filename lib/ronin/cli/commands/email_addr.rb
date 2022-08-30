@@ -15,7 +15,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_processor_command'
+require 'ronin/cli/value_processor_command'
 
 require 'ronin/support/network/email_address'
 
@@ -31,7 +31,7 @@ module Ronin
       #
       # ## Options
       #
-      #     -i, --input FILE                 Optional input file
+      #     -f, --file FILE                  Optional file to read values from
       #     -O, --obfuscate                  Obfuscates the email address(es)
       #         --enum-obfuscations          Enumerate over every obfuscation
       #     -D, --deobfuscate                Deobfuscates the email address(es)
@@ -50,9 +50,7 @@ module Ronin
       #     ronin email-addr --deobfuscate "john{DOT}smith{AT}example{DOT}com"
       #     ronin email-addr --input emails.txt --domain
       #
-      class EmailAddr < Command
-
-        include CommandKit::Options::Input
+      class EmailAddr < ValueProcessorCommand
 
         command_name 'email-addr'
 
@@ -92,28 +90,12 @@ module Ronin
         man_page 'ronin-email-addr.1'
 
         #
-        # Runs the `ronin email-addr` command.
-        #
-        # @param [Array<String>] email_addrs
-        #   Optional list of email address arguments.
-        #
-        def run(*email_addrs)
-          if !email_addrs.empty?
-            email_addrs.each(&method(:process_email_addr))
-          elsif !input_files.empty?
-            open_input_stream(*input_files) do |input|
-              input.each_line(chomp: true, &method(:process_email_addr))
-            end
-          end
-        end
-
-        #
         # Processes an individual email address.
         #
         # @parma [String] string
         #   An individual email address.
         #
-        def process_email_addr(string)
+        def process_value(string)
           if options[:deobfuscate]
             string = Support::Network::EmailAddress.deobfuscate(string)
           end

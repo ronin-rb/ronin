@@ -21,7 +21,6 @@ require 'ronin/cli/http_shell'
 require 'ronin/support/network/http'
 
 require 'command_kit/options/verbose'
-require 'command_kit/options/output'
 
 require 'rouge'
 
@@ -39,7 +38,6 @@ module Ronin
       #
       #     -v, --verbose                    Enables verbose output
       #     -f, --file FILE                  Optional file to read values from
-      #     -o, --output FILE                Optional output file
       #         --method HTTP_METHOD         Send the HTTP request method
       #         --get                        Send a GET request
       #         --head                       Send a HEAD request
@@ -75,7 +73,6 @@ module Ronin
       class Http < ValueProcessorCommand
 
         include CommandKit::Options::Verbose
-        include CommandKit::Options::Output
         include Printing::HTTP
 
         usage '[options] {URL [...] | --shell URL}'
