@@ -173,7 +173,7 @@ module Ronin
 
         option :user_agent, short: '-u',
                             value: {
-                              type: Support::Network::HTTP::USER_AGENTS.keys
+                              type: Support::Network::HTTP::UserAgents::ALIASES.keys
                             },
                             desc: 'The User-Agent to use' do |name|
                               @user_agent = name
