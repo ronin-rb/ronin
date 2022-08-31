@@ -36,6 +36,9 @@ module Ronin
 
     command_name 'ronin'
 
+    command_aliases['enc'] = 'encode'
+    command_aliases['dec'] = 'decode'
+
     ADDITIONAL_RONIN_COMMANDS = %w[
       ronin-repos
       ronin-db
