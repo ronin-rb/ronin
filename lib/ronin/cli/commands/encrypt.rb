@@ -16,7 +16,6 @@
 #
 
 require 'ronin/cli/command'
-require 'ronin/cli/key_options'
 
 require 'ronin/support/crypto/cipher'
 
@@ -49,8 +48,6 @@ module Ronin
       #     [FILE ...]                       The file(s) to encrypt
       #
       class Encrypt < Command
-
-        include KeyOptions
 
         option :cipher, short: '-c',
                         value: {
