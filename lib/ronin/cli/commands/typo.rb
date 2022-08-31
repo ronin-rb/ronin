@@ -87,20 +87,30 @@ module Ronin
         end
 
         #
+        # Runs the `ronin typo` command.
+        #
+        # @param [Array<String>] words
+        #   The words to typo.
+        #
+        def run(*words)
+          @generator = Support::Text::Typo.generator(**@typo_kwargs)
+
+          super(*words)
+        end
+
+        #
         # Processes each word.
         #
         # @param [String] word
         #   A word argument to typo.
         #
         def process_value(word)
-          generator = Support::Text::Typo.generator(**@typo_kwargs)
-
           if options[:enumerate]
-            generator.each_substitution(word) do |typo|
+            @generator.each_substitution(word) do |typo|
               puts typo
             end
           else
-            puts generator.substitute(word)
+            puts @generator.substitute(word)
           end
         end
 
