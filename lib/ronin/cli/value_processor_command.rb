@@ -17,8 +17,6 @@
 
 require 'ronin/cli/command'
 
-require 'command_kit/options/input'
-
 module Ronin
   class CLI
     #
