@@ -60,6 +60,7 @@ generated_files:
  - man/ronin-sha512.1
  - man/ronin-strings.1
  - man/ronin-tips.1
+ - man/ronin-typo.1
  - man/ronin-unescape.1
  - man/ronin-unhexdump.1
  - man/ronin-unquote.1
