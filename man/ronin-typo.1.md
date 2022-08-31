@@ -18,12 +18,6 @@ Generates typos in words.
 `-f`, `--file` *FILE*
   Optional file to process.
 
-`-M`, `--multiline`
-  Process each line of input separately.
-
-`-n`, `--keep-newlines`
-  Preserves newlines at the end of each line.
-
 `--omit-chars`
   Toggles whether to omit repeated characters.
 
