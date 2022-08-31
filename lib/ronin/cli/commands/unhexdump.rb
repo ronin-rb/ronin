@@ -159,8 +159,15 @@ module Ronin
                      **hexdump_parser_options
                    )
 
-          input = if file then File.open(file)
-                  else         stdin
+          input = if file
+                    begin
+                      File.open(file)
+                    rescue Errno::ENOENT
+                      print_error "no such file or directory: #{file}"
+                      exit(1)
+                    end
+                  else
+                    stdin
                   end
 
           data = parser.unhexdump(input)

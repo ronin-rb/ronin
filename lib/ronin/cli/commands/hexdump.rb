@@ -290,8 +290,15 @@ module Ronin
         #   Optional input file.
         #
         def run(file=nil)
-          input = if file then File.open(file,'rb')
-                  else         stdin
+          input = if file
+                    begin
+                      File.open(file,'rb')
+                    rescue Errno::ENOENT
+                      print_error "no such file or directory: #{file}"
+                      exit(1)
+                    end
+                  else
+                    stdin
                   end
 
           output = if options[:output]

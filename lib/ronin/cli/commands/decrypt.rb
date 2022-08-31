@@ -131,8 +131,13 @@ module Ronin
 
           unless files.empty?
             files.each do |path|
-              File.open(path,'rb') do |file|
-                cipher.stream(file, output: stdout)
+              begin
+                File.open(path,'rb') do |file|
+                  cipher.stream(file, output: stdout)
+                end
+              rescue Errno::ENOENT
+                print_error "no such file or directory: #{path}"
+                exit(1)
               end
             end
           else
