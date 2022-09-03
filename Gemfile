@@ -30,10 +30,10 @@ gem 'ronin-fuzzer',          '~> 0.1', github: "ronin-rb/ronin-fuzzer",
                                        branch: 'main'
 gem 'ronin-post_ex',         '~> 0.1', github: "ronin-rb/ronin-post_ex",
                                        branch: 'main'
-gem 'ronin-asm',             '~> 0.3', github: "ronin-rb/ronin-asm",
-                                       branch: '0.3.0'
-gem 'ronin-sql',             '~> 1.2', github: "ronin-rb/ronin-sql",
-                                       branch: '1.2.0'
+gem 'ronin-code-asm',        '~> 1.0', github: "ronin-rb/ronin-code-asm",
+                                       branch: '1.0.0'
+gem 'ronin-code-sql',        '~> 2.0', github: "ronin-rb/ronin-code-sql",
+                                       branch: '2.0.0'
 gem 'ronin-web-server',	     '~> 0.1', github: "ronin-rb/ronin-web-server",
                                        branch: 'main'
 gem 'ronin-web-spider',	     '~> 0.1', github: "ronin-rb/ronin-web-spider",

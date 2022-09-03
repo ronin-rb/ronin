@@ -33,8 +33,8 @@
   * [ronin-db]
   * [ronin-fuzzer]
   * [ronin-web]
-  * [ronin-asm]
-  * [ronin-sql]
+  * [ronin-code-asm]
+  * [ronin-code-sql]
   * [ronin-payloads]
   * [ronin-exploits]
   * [ronin-post_exploitation]
@@ -84,9 +84,9 @@ $ ronin console
 * [ronin-repos] ~> 0.1
 * [ronin-db] ~> 0.1
 * [ronin-fuzzer] ~> 0.1
-* [ronin-asm] ~> 0.3
-* [ronin-sql] ~> 1.2
 * [ronin-web] ~> 1.0
+* [ronin-code-asm] ~> 1.0
+* [ronin-code-sql] ~> 2.0
 * [ronin-payloads] ~> 0.1
 * [ronin-exploits] ~> 1.0
 
@@ -134,8 +134,8 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-db]: https://github.com/ronin-rb/ronin-db#readme
 [ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
-[ronin-asm]: https://github.com/ronin-rb/ronin-asm#readme
-[ronin-sql]: https://github.com/ronin-rb/ronin-sql#readme
+[ronin-code-asm]: https://github.com/ronin-rb/ronin-code-asm#readme
+[ronin-code-sql]: https://github.com/ronin-rb/ronin-code-sql#readme
 [ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
 [ronin-post_exploitation]: https://github.com/ronin-rb/ronin-post_exploitation#readme
