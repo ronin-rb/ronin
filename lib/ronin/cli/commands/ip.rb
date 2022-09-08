@@ -42,7 +42,11 @@ module Ronin
       #     -C, --cidr NETMASK               Converts the IP address into a CIDR range
       #     -H, --host                       Converts the IP address to a host name
       #     -p, --port PORT                  Appends the port number to each IP
-      #     -U, --uri SCHEME                 Converts the IP address into a URI
+      #     -U, --uri                        Converts the IP address into a URI
+      #         --uri-scheme SCHEME          The scheme for the URI (Default: http)
+      #         --uri-port PORT              The port for the URI
+      #         --uri-path /PATH             The path for the URI (Default: /)
+      #         --uri-query STRING           The query string for the URI
       #         --http                       Converts the IP address into a http:// URI
       #         --https                      Converts the IP address into a https:// URI
       #     -h, --help                       Print help information
@@ -101,15 +105,43 @@ module Ronin
                       },
                       desc:  'Appends the port number to each IP'
 
-        option :uri, short: '-U',
-                     value: {
-                       type:  String,
-                       usage: 'SCHEME'
-                     },
-                     desc: 'Converts the IP address into a URI'
+        option :uri, short: '-U', desc: 'Converts the IP address into a URI'
 
-        option :http, desc: 'Converts the IP address into a http:// URI'
-        option :https, desc: 'Converts the IP address into a https:// URI'
+        option :uri_scheme, value: {
+                              type:    String,
+                              default: 'http',
+                              usage:   'SCHEME'
+                            },
+                            desc: 'The scheme for the URI'
+
+        option :uri_port, value: {
+                            type:  Integer,
+                            usage: 'PORT'
+                          },
+                          desc: 'The port for the URI'
+
+        option :uri_path, value: {
+                            type:    %r{\A/.+},
+                            default: '/',
+                            usage:   '/PATH'
+                          },
+                          desc: 'The path for the URI'
+
+        option :uri_query, value: {
+                             type:  String,
+                             usage: 'STRING'
+                           },
+                           desc: 'The query string for the URI'
+
+        option :http, desc: 'Converts the IP address into a http:// URI' do
+          options[:uri] = true
+          options[:uri_scheme] = 'http'
+        end
+
+        option :https, desc: 'Converts the IP address into a https:// URI' do
+          options[:uri] = true
+          options[:uri_scheme] = 'https'
+        end
 
         argument :ip, required: false,
                       repeats:  true,
@@ -167,13 +199,12 @@ module Ronin
             puts "#{format_ip(ip)}:#{options[:port]}"
           elsif options[:uri]
             puts URI::Generic.build(
-              scheme: options[:uri],
-              host:   format_ip(ip)
+              scheme: options[:uri_scheme],
+              host:   format_ip(ip),
+              port:   options[:uri_port],
+              path:   options[:uri_path],
+              query:  options[:uri_query]
             )
-          elsif options[:http]
-            puts URI::HTTP.build(host: format_ip(ip))
-          elsif options[:https]
-            puts URI::HTTPS.build(host: format_ip(ip))
           else
             puts format_ip(ip)
           end

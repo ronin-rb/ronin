@@ -48,8 +48,20 @@ Queries or processes IP addresses.
 `-p`, `--port` *PORT*
   Appends the port number to each IP.
 
-`-U`, `--uri` *SCHEME*
-  Converts the IP address into a URI with the given *SCHEME*.
+`-U`, `--uri`
+  Converts the IP address into a URI.
+
+`--uri-scheme` *SCHEME*
+  The scheme for the URI. Defaults to `http` if not given.
+
+`--uri-port` *PORT*
+  The port for the URI.
+
+`--uri-path` /*PATH*
+  The absolute path for the URI. Defaults to `/` if not given.
+
+`--uri-query` *STRING*
+  The query string for the URI.
 
 `--http`
   Converts the IP address into a http:// URI.
