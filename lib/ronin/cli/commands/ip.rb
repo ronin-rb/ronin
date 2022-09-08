@@ -163,28 +163,42 @@ module Ronin
           elsif options[:host]
             puts ip.host
           elsif options[:port]
-            puts "#{ip}:#{options[:port]}"
+            puts "#{format_ip(ip)}:#{options[:port]}"
           elsif options[:uri]
-            puts URI::Generic.build(scheme: options[:uri], host: ip.to_s)
+            puts URI::Generic.build(
+              scheme: options[:uri],
+              host:   format_ip(ip)
+            )
           elsif options[:http]
-            puts URI::HTTP.build(host: ip.to_s)
+            puts URI::HTTP.build(host: format_ip(ip))
           elsif options[:https]
-            puts URI::HTTPS.build(host: ip.to_s)
-          elsif options[:hex]
-            puts("0x%x" % ip.to_i)
-          elsif options[:decimal]
-            puts ip.to_i
-          elsif options[:octal]
-            puts("0%o" % ip.to_i)
-          elsif options[:binary]
-            puts("%b" % ip.to_i)
+            puts URI::HTTPS.build(host: format_ip(ip))
           else
-            print_error "must specify --reverse, --hex, --decimal, --octal, --binary, --cidr, --host, --port, --uri, --http, or --https"
-            exit(1)
+            puts format_ip(ip)
           end
         end
 
+        #
+        # Formats an IP address.
+        #
+        # @param [Ronin::Support::Network::IP] ip
+        #   The IP address to format.
+        #
+        # @return [String]
+        #   The formatted IP address.
+        #
         def format_ip(ip)
+          if options[:hex]
+            "0x%x" % ip.to_i
+          elsif options[:decimal]
+            "%u" % ip.to_i
+          elsif options[:octal]
+            "0%o" % ip.to_i
+          elsif options[:binary]
+            "%b" % ip.to_i
+          else
+            ip.to_s
+          end
         end
 
       end
