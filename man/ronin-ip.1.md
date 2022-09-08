@@ -27,8 +27,8 @@ Queries or processes IP addresses.
 `-r`, `--reverse`
   Prints the IP address in reverse name format.
 
-`-u`, `--uint`
-  Converts the IP address to an unsigned integer.
+`-d`, `--decimal`
+  Converts the IP address to decimal format.
 
 `-C`, `--cidr` *NETMASK*
   Converts the IP address into a CIDR range.

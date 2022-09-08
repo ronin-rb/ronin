@@ -35,7 +35,7 @@ module Ronin
       #     -P, --public                     Gets the machine's public IP address
       #     -L, --local                      Gets the machine's local IP address
       #     -r, --reverse                    Prints the IP address in reverse name format
-      #     -u, --uint                       Converts the IP address to an unsigned integer
+      #     -d, --decimal                    Converts the IP address to decimal format
       #     -C, --cidr NETMASK               Converts the IP address into a CIDR range
       #     -H, --host                       Converts the IP address to a host name
       #     -p, --port PORT                  Appends the port number to each IP
@@ -52,7 +52,7 @@ module Ronin
       #
       #     ronin ip --public
       #     ronin ip --local
-      #     ronin ip --uint 1.2.3.4
+      #     ronin ip --decimal 1.2.3.4
       #     ronin ip --cidr 20 1.2.3.4
       #     ronin ip --host 192.30.255.113
       #
@@ -69,8 +69,8 @@ module Ronin
         option :reverse, short: '-r',
                          desc:  'Prints the IP address in reverse name format'
 
-        option :uint, short: '-u',
-                      desc:  'Converts the IP address to an unsigned integer'
+        option :decimal, short: '-d',
+                         desc:  'Converts the IP address to decimal format'
 
         option :cidr, short: '-C',
                       value: {
@@ -108,7 +108,7 @@ module Ronin
         examples [
           '--public',
           '--local',
-          '--uint 1.2.3.4',
+          '--decimal 1.2.3.4',
           '--cidr 20 1.2.3.4',
           '--host 192.30.255.113'
         ]
@@ -144,7 +144,7 @@ module Ronin
 
           if options[:reverse]
             puts ip.reverse
-          elsif options[:uint]
+          elsif options[:decimal]
             puts ip.to_i
           elsif options[:cidr]
             ip = Support::Network::IP.new("#{ip}/#{options[:cidr]}")
@@ -161,7 +161,7 @@ module Ronin
           elsif options[:https]
             puts URI::HTTPS.build(host: ip.to_s)
           else
-            print_error "must specify --reverse, --uint, --cidr, --host, --port, --uri, --http, or --https"
+            print_error "must specify --reverse, --decimal, --cidr, --host, --port, --uri, --http, or --https"
             exit(1)
           end
         end
