@@ -28,7 +28,7 @@ module Ronin
   class CLI
     module Commands
       #
-      # A HTTP command and shell.
+      # Send HTTP requests or spawn an interactive HTTP shell.
       #
       # ## Usage
       #
@@ -233,6 +233,10 @@ module Ronin
         argument :url, required: false,
                        repeats:  true,
                        desc:     'The URL(s) to request'
+
+        description "Send HTTP requests or spawn an interactive HTTP shell"
+
+        man_page 'ronin-http.1'
 
         # The optional proxy to use.
         #
