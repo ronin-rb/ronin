@@ -35,7 +35,10 @@ module Ronin
       #     -P, --public                     Gets the machine's public IP address
       #     -L, --local                      Gets the machine's local IP address
       #     -r, --reverse                    Prints the IP address in reverse name format
-      #     -d, --decimal                    Converts the IP address to decimal format
+      #     -X, --hex                        Converts the IP address to hexadecimal format
+      #     -D, --decimal                    Converts the IP address to decimal format
+      #     -O, --octal                      Converts the IP address to octal format
+      #     -B, --binary                     Converts the IP address to binary format
       #     -C, --cidr NETMASK               Converts the IP address into a CIDR range
       #     -H, --host                       Converts the IP address to a host name
       #     -p, --port PORT                  Appends the port number to each IP
@@ -69,8 +72,17 @@ module Ronin
         option :reverse, short: '-r',
                          desc:  'Prints the IP address in reverse name format'
 
-        option :decimal, short: '-d',
+        option :hex, short: '-X',
+                     desc:  'Converts the IP address to hexadecimal format'
+
+        option :decimal, short: '-D',
                          desc:  'Converts the IP address to decimal format'
+
+        option :octal, short: '-O',
+                       desc:  'Converts the IP address to octal format'
+
+        option :binary, short: '-B',
+                        desc:  'Converts the IP address to binary format'
 
         option :cidr, short: '-C',
                       value: {
@@ -144,8 +156,6 @@ module Ronin
 
           if options[:reverse]
             puts ip.reverse
-          elsif options[:decimal]
-            puts ip.to_i
           elsif options[:cidr]
             ip = Support::Network::IP.new("#{ip}/#{options[:cidr]}")
 
@@ -160,10 +170,21 @@ module Ronin
             puts URI::HTTP.build(host: ip.to_s)
           elsif options[:https]
             puts URI::HTTPS.build(host: ip.to_s)
+          elsif options[:hex]
+            puts("0x%x" % ip.to_i)
+          elsif options[:decimal]
+            puts ip.to_i
+          elsif options[:octal]
+            puts("0%o" % ip.to_i)
+          elsif options[:binary]
+            puts("%b" % ip.to_i)
           else
-            print_error "must specify --reverse, --decimal, --cidr, --host, --port, --uri, --http, or --https"
+            print_error "must specify --reverse, --hex, --decimal, --octal, --binary, --cidr, --host, --port, --uri, --http, or --https"
             exit(1)
           end
+        end
+
+        def format_ip(ip)
         end
 
       end

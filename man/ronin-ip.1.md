@@ -27,8 +27,17 @@ Queries or processes IP addresses.
 `-r`, `--reverse`
   Prints the IP address in reverse name format.
 
-`-d`, `--decimal`
+`-X`, `--hex`
+  Converts the IP address to hexadecimal format.
+
+`-D`, `--decimal`
   Converts the IP address to decimal format.
+
+`-O`, `--octal`
+  Converts the IP address to octal format.
+
+`-B`, `--binary`
+  Converts the IP address to binary format.
 
 `-C`, `--cidr` *NETMASK*
   Converts the IP address into a CIDR range.
