@@ -150,6 +150,7 @@ module Ronin
         # Processes an individual IP address.
         #
         # @param [String] ip
+        #   The IP address string to process.
         #
         def process_value(ip)
           ip = Support::Network::IP.new(ip)
