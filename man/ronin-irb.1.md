@@ -6,7 +6,7 @@
 
 ## DESCRIPTION
 
-Start ronin's interactive ruby shell.
+Start ronin's interactive Ruby shell.
 
 ## OPTIONS
 

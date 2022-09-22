@@ -53,7 +53,7 @@ module Ronin
                            @require_paths << path
                          end
 
-        description "Start ronin's interactive ruby shell"
+        description "Start ronin's interactive Ruby shell"
 
         man_page 'ronin-irb.1'
 
