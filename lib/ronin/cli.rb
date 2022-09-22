@@ -46,6 +46,7 @@ module Ronin
       ronin-fuzzer
       ronin-payloads
       ronin-exploits
+      ronin-vulns
     ]
 
     #

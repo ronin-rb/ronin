@@ -37,6 +37,7 @@
   * [ronin-code-sql]
   * [ronin-payloads]
   * [ronin-exploits]
+  * [ronin-vulns]
 
 ### What can you do with Ronin?
 
@@ -45,6 +46,7 @@
 * Install 3rd-party [git] repositories of code/data using [ronin-repos].
 * Import and query data using [ronin-db].
 * Write/Run Exploits using [ronin-exploits].
+* Scan for web vulnerabilities using [ronin-vulns].
 
 ## Synopsis
 
@@ -86,6 +88,7 @@ $ ronin console
 * [ronin-code-sql] ~> 2.0
 * [ronin-payloads] ~> 0.1
 * [ronin-exploits] ~> 1.0
+* [ronin-vulns] ~> 0.1
 
 ## Install
 
@@ -135,5 +138,6 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-code-sql]: https://github.com/ronin-rb/ronin-code-sql#readme
 [ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
+[ronin-vulns]: https://github.com/ronin-rb/ronin-vulns#readme
 
 [git]: https://git-scm.com/

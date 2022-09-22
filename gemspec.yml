@@ -88,6 +88,7 @@ dependencies:
   ronin-code-sql: ~> 2.0
   ronin-payloads: ~> 0.1
   ronin-exploits: ~> 1.0
+  ronin-vulns: ~> 0.1
 
 development_dependencies:
   bundler: ~> 2.0
