@@ -50,6 +50,13 @@ module Ronin
 
           option :git, desc: 'Initializes a git repo'
 
+          option :ruby_version, value: {
+                                  type:    String,
+                                  usage:   'VERSION',
+                                  default: RUBY_VERSION
+                                },
+                                desc: 'The desired ruby version for the project'
+
           option :rakefile, desc: 'Creates a Rakefile'
 
           argument :path, required: true,
@@ -65,10 +72,12 @@ module Ronin
           #
           def run(path)
             @project_name = File.basename(path)
+            @ruby_version = options[:ruby_version]
 
             mkdir path
             mkdir File.join(path,'lib')
 
+            erb '.ruby-version.erb', File.join(path,'.ruby-version')
             erb 'Gemfile.erb', File.join(path,'Gemfile')
             cp 'Rakefile', path if options[:rakefile]
 
