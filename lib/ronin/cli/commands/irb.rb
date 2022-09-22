@@ -29,15 +29,9 @@ module Ronin
       #     ronin irb [options]
       #
       # ## Options
-      #
-      #      -v, --[no-]verbose               Enable verbose output.
-      #      -q, --[no-]quiet                 Disable verbose output.
-      #      --[no-]silent                    Silence all output.
-      #      -D, --database [URI]             The database to URI.
-      #      -r, --require [PATH]             Ruby files to require.
-      #                                       Default: []
-      #          --[no-]backtrace             Enable long backtraces.
-      #      -V, --[no-]version               Print the Ronin version.
+      #     -I, --include DIR                Directory to add to $LOAD_PATH
+      #     -r, --require PATH               Ruby files to require
+      #     -h, --help                       Print help information
       #
       class Irb < Command
 
