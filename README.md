@@ -37,7 +37,6 @@
   * [ronin-code-sql]
   * [ronin-payloads]
   * [ronin-exploits]
-  * [ronin-scanners]
 
 ### What can you do with Ronin?
 
@@ -46,7 +45,6 @@
 * Install 3rd-party [git] repositories of code/data using [ronin-repos].
 * Import and query data using [ronin-db].
 * Write/Run Exploits using [ronin-exploits].
-* Write/Run custom Scanners using [ronin-scanners].
 
 ## Synopsis
 
@@ -137,6 +135,5 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-code-sql]: https://github.com/ronin-rb/ronin-code-sql#readme
 [ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
-[ronin-scanners]: https://github.com/ronin-rb/ronin-scanners#readme
 
 [git]: https://git-scm.com/
