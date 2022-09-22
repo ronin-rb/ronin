@@ -1,0 +1,15 @@
+/Gemfile.lock
+/vendor/bundle
+/.bundle
+.DS_Store
+*.db
+*.log
+*.swp
+*~
+*.sqlite3
+*.db
+*.gz
+*.bz2
+*.xz
+*.tar
+*.zip
