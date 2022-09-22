@@ -1,12 +1,12 @@
-# ronin-console 1 "2012-01-01" Ronin "User Manuals"
+# ronin-irb 1 "2012-01-01" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin console` [*options*]
+`ronin irb` [*options*]
 
 ## DESCRIPTION
 
-Start the ronin's interactive ruby console.
+Start ronin's interactive ruby shell.
 
 ## OPTIONS
 

@@ -16,17 +16,17 @@
 #
 
 require 'ronin/cli/command'
-require 'ronin/core/cli/console'
+require 'ronin/core/cli/ruby_shell'
 
 module Ronin
   class CLI
     module Commands
       #
-      # Starts the Ronin Console.
+      # Starts ronin's interactive Ruby shell.
       #
       # ## Usage
       #
-      #     ronin console [options]
+      #     ronin irb [options]
       #
       # ## Options
       #
@@ -39,7 +39,7 @@ module Ronin
       #          --[no-]backtrace             Enable long backtraces.
       #      -V, --[no-]version               Print the Ronin version.
       #
-      class Console < Command
+      class Irb < Command
 
         option :include, short: '-I',
                          value: {
@@ -59,28 +59,28 @@ module Ronin
                            @require_paths << path
                          end
 
-        description "Start ronin's interactive ruby console"
+        description "Start ronin's interactive ruby shell"
 
-        man_page 'ronin-console.1'
+        man_page 'ronin-irb.1'
 
         # The additional directories to add to `$LOAD_PATH`.
         #
         # @return [Array<String>]
         attr_reader :include_dirs
 
-        # The additional paths to require before starting the console.
+        # The additional paths to require before starting the Ruby shell.
         #
         # @return [Array<String>]
         attr_reader :require_paths
 
         #
-        # Initializes the {Console} command.
+        # Initializes the {Irb} command.
         #
         # @param [Array<String>] include_dirs
         #   Optional Array of directories to add to `$LOAD_PATH`.
         #
         # @param [Array<String>] require_paths
-        #   Optional Array of paths to require before starting the console.
+        #   Optional Array of paths to require before starting the Ruby shell.
         #
         def initialize(include_dirs: [], require_paths: [], **kwargs)
           super(**kwargs)
@@ -90,7 +90,7 @@ module Ronin
         end
 
         #
-        # Starts the console.
+        # Runs the `ronin irb` command.
         #
         def run(*argv)
           @include_dirs.each do |dir|
@@ -102,7 +102,7 @@ module Ronin
           end
 
           require 'ronin'
-          Core::CLI::Console.start(context: Ronin)
+          Core::CLI::RubyShell.start(context: Ronin)
         end
 
       end
