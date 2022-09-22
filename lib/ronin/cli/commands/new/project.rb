@@ -79,7 +79,10 @@ module Ronin
 
             erb '.ruby-version.erb', File.join(path,'.ruby-version')
             erb 'Gemfile.erb', File.join(path,'Gemfile')
-            cp 'Rakefile', path if options[:rakefile]
+
+            if options[:rakefile]
+              cp 'Rakefile', path
+            end
 
             project_file = File.join(path,"#{@project_name}.rb")
 
