@@ -32,7 +32,9 @@ module Ronin
       # ## Options
       #
       #         --git                        Initializes a git repo
+      #         --ruby-version VERSION       The desired ruby version for the project
       #         --rakefile                   Creates a Rakefile
+      #     -D, --dockerfile                 Adds a Dockerfile to the new project
       #     -h, --help                       Print help information
       #
       # ## Arguments

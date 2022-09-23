@@ -18,8 +18,15 @@ Creates a new project directory.
 `--git`
   Initializes a git repo.
 
+`--ruby-version` *VERSION*
+  The desired ruby version for the project. Defaults to the current `ruby`
+  version if not specified.
+
 `--rakefile`
   Creates a `Rakefile`.
+
+`--dockerfile`
+  Adds a `Dockerfile` to the new project.
 
 `-h`, `--help`
   Print help information
