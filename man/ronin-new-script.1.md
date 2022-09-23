@@ -22,3 +22,6 @@ Creates a new standalone Ruby script.
 
 Postmodern <postmodern.mod3@gmail.com>
 
+## SEE ALSO
+
+ronin-new-project(1)

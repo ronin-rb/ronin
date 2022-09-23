@@ -35,3 +35,6 @@ Creates a new project directory.
 
 Postmodern <postmodern.mod3@gmail.com>
 
+## SEE ALSO
+
+ronin-new-script(1)

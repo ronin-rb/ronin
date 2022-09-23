@@ -33,3 +33,6 @@ Creates a new project or script.
 
 Postmodern <postmodern.mod3@gmail.com>
 
+## SEE ALSO
+
+ronin-new-script(1) ronin-new-project(1)
