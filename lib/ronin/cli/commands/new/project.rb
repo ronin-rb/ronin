@@ -59,6 +59,9 @@ module Ronin
 
           option :rakefile, desc: 'Creates a Rakefile'
 
+          option :dockerfile, short: '-D',
+                              desc: 'Adds a Dockerfile to the new project'
+
           argument :path, required: true,
                           desc:     'The directory to create'
 
@@ -82,6 +85,10 @@ module Ronin
 
             if options[:rakefile]
               cp 'Rakefile', path
+            end
+
+            if options[:dockerfile]
+              erb 'Dockerfile.erb', File.join(path,'Dockerfile')
             end
 
             project_file = File.join(path,"#{@project_name}.rb")
