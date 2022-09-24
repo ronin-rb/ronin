@@ -45,6 +45,9 @@ module Ronin
       # @param [Stirng] path
       #   The path to the file to open.
       #
+      # @param [String] mode
+      #   The mode to open the file with.
+      #
       # @yield [file]
       #   If a block is given, the newly opened file will be yielded.
       #   Once the block returns the file will automatically be closed.
@@ -56,8 +59,8 @@ module Ronin
       #   If no block is given, the newly opened file object will be returned.
       #   If no block was given, then `nil` will be returned.
       #
-      def open_file(path,&block)
-        File.open(path,&block)
+      def open_file(path,mode='r',&block)
+        File.open(path,mode,&block)
       rescue Errno::ENOENT
         print_error "no such file or directory: #{path}"
         exit(1)
