@@ -15,9 +15,6 @@ Hexdumps data in a variety of encodings and formats.
 
 ## OPTIONS
 
-`-o`, `--output` *FILE*
-  Optional path to the output file.
-
 `-t`, `--type` *TYPE*
   The binary data type to decode the data as. Must be one of the following:
 
