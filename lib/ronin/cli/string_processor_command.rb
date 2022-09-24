@@ -15,14 +15,14 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
+require 'ronin/cli/file_processor_command'
 
 module Ronin
   class CLI
     #
     # Base class for all commands that process strings.
     #
-    class StringProcessorCommand < Command
+    class StringProcessorCommand < FileProcessorCommand
 
       #
       # A value object that represents a literal String input value.
@@ -135,37 +135,6 @@ module Ronin
 
           files.each(&method(:process_file))
         end
-      end
-
-      #
-      # Opens a file for reading.
-      #
-      # @param [Stirng] path
-      #   The path to the file to open.
-      #
-      # @yield [file]
-      #   If a block is given, the newly opened file will be yielded.
-      #   Once the block returns the file will automatically be closed.
-      #
-      # @yieldparam [File] file
-      #   The newly opened file.
-      #
-      # @return [File, nil]
-      #   If no block is given, the newly opened file object will be returned.
-      #   If no block was given, then `nil` will be returned.
-      #
-      def open_file(path,&block)
-        File.open(path,&block)
-      end
-
-      #
-      # Processes a file.
-      #
-      # @param [String] path
-      #   The path to the file to read and process.
-      #
-      def process_file(path)
-        open_file(path,&method(:process_input))
       end
 
       #
