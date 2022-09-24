@@ -15,7 +15,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
+require 'ronin/cli/file_processor_command'
 
 require 'hexdump'
 
@@ -27,7 +27,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin hexdump [options] [FILE]
+      #     ronin hexdump [options] [FILE ...]
       #
       # ## Options
       #
@@ -60,7 +60,7 @@ module Ronin
       #
       #    [FILE]                           Optional file to hexdump
       # 
-      class Hexdump < Command
+      class Hexdump < FileProcessorCommand
 
         # Supported types for the `-t,--type` option.
         TYPES = [
@@ -241,9 +241,6 @@ module Ronin
                                    @highlight_chars[pattern] = style
                                  end
 
-        argument :file, required: false,
-                        desc: 'Optional file to hexdump'
-
         description 'Hexdumps data in a variaty of encodings and formats'
 
         # The highlighting rules to apply to the index column.
@@ -276,23 +273,30 @@ module Ronin
         end
 
         #
-        # Runs the `hexdump` command.
+        # Opens the file in binary mode.
         #
-        # @param [String, nil] file
-        #   Optional input file.
+        # @yield [file]
+        #   If a block is given, the newly opened file will be yielded.
+        #   Once the block returns the file will automatically be closed.
         #
-        def run(file=nil)
-          input = if file
-                    begin
-                      File.open(file,'rb')
-                    rescue Errno::ENOENT
-                      print_error "no such file or directory: #{file}"
-                      exit(1)
-                    end
-                  else
-                    stdin
-                  end
+        # @yieldparam [File] file
+        #   The newly opened file.
+        #
+        # @return [File, nil]
+        #   If no block is given, the newly opened file object will be returned.
+        #   If no block was given, then `nil` will be returned.
+        #
+        def open_file(file,&block)
+          File.open(file,'rb',&block)
+        end
 
+        #
+        # Hexdumps the input stream.
+        #
+        # @param [IO, StringIO] input
+        #   The input stream to hexdump.
+        #
+        def process_input(input)
           Hexdump.hexdump(input, **hexdump_options)
         end
 
