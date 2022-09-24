@@ -58,6 +58,9 @@ module Ronin
       #
       def open_file(path,&block)
         File.open(path,&block)
+      rescue Errno::ENOENT
+        print_error "no such file or directory: #{path}"
+        exit(1)
       end
 
       #
