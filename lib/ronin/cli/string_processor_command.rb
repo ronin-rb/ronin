@@ -20,7 +20,8 @@ require 'ronin/cli/file_processor_command'
 module Ronin
   class CLI
     #
-    # Base class for all commands that process strings.
+    # Similar to {FileProcessorCommand}, but also accept raw strings via the
+    # `--string STR` option and files via the `--file FILE` option.
     #
     class StringProcessorCommand < FileProcessorCommand
 
