@@ -15,9 +15,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
-
-require 'ronin/support/crypto/cipher'
+require 'ronin/cli/cipher_command'
 
 module Ronin
   class CLI
@@ -47,102 +45,19 @@ module Ronin
       #
       #     [FILE ...]                       The file(s) to encrypt
       #
-      class Encrypt < Command
-
-        option :cipher, short: '-c',
-                        value: {
-                          type:    String,
-                          usage:   'NAME',
-                          default: 'aes-256-cbc'
-                        },
-                        desc: 'The cipher to encrypt with. See --list-ciphers'
-
-        option :password, short: '-P',
-                          value: {
-                            type:  String,
-                            usage: 'PASSWORD'
-                          },
-                          desc: 'The password to encrypt with'
-
-        option :hash, short: '-H',
-                      value: {
-                        type:    [:md5, :sha1, :sha256, :sha512],
-                        default: :sha256
-                      },
-                      desc: 'The hash algorithm to use for the password'
-
-        option :iv, value: {
-                      type:  String,
-                      usage: 'STRING'
-                    },
-                    desc: 'Sets the Initial Vector (IV) value of the cipher'
-
-        option :padding, value: {
-                           type:  Integer,
-                           usage: 'NUM'
-                         },
-                         desc: 'Sets the padding of the encryption cipher'
-
-        option :block_size, short: '-b',
-                            value: {
-                              type:    Integer,
-                              usage:   'NUM',
-                              default: 16384
-                            },
-                            desc: 'The size in bytes to read data in'
-
-        option :list_ciphers, desc: 'List the supported ciphers'
-
-        argument :file, required: false,
-                        repeats:  true,
-                        desc:     'The file(s) to encrypt'
+      class Encrypt < CipherCommand
 
         description 'Encrypts data'
 
         man_page 'ronin-encrypt.1'
 
         #
-        # Runs the `ronin encrypt` command.
+        # Creates a new encryption cipher.
         #
-        # @param [Array<String>] files
-        #   Optional files to encrypt.
+        # @return [Ronin::Support::Crypto::Cipher]
         #
-        def run(*files)
-          if options[:list_ciphers]
-            puts Support::Crypto::Cipher.supported
-            return
-          end
-
-          unless (options[:key] || options[:key_file] || options[:password])
-            print_error "must specify --password, --key, or --key-file"
-            exit(1)
-          end
-
-          key = if    options[:key]      then options[:key]
-                elsif options[:key_file] then File.binread(options[:key_file])
-                end
-
-          cipher = Support::Crypto::Cipher.new(
-            options[:cipher], direction: :encrypt,
-                              key:       key,
-                              hash:      options[:hash],
-                              password:  options[:password]
-          )
-
-          unless files.empty?
-            files.each do |path|
-              begin
-                File.open(path,'rb') do |file|
-                  cipher.stream(file, output: stdout)
-                end
-              rescue Errno::ENOENT
-                print_error "no such file or directory: #{path}"
-                exit(1)
-              end
-            end
-          else
-            cipher.stream(stdin, output: stdout)
-          end
+        def cipher
+          super(direction: :encrypt)
         end
 
       end
