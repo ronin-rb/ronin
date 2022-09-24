@@ -17,154 +17,154 @@ Extract common patterns in the given file(s) or input stream.
 ## OPTIONS
 
 `-N`, `--number`
-  Extract all numbers.
+  Searches for all numbers.
 
 `-X`, `--hex-number`
-  Extract all numbers.
+  Searches for all numbers.
 
 `-w`, `--word`
-  Extract all words.
+  Searches for all words.
 
 `--mac-addr`
-  Extract all MAC addresses.
+  Searches for all MAC addresses.
 
 `-4`, `--ipv4-addr`
-  Extract all IPv4 addresses.
+  Searches for all IPv4 addresses.
 
 `-6`, `--ipv6-addr`
-  Extract all IPv6 addresses.
+  Searches for all IPv6 addresses.
 
 `-I`, `--ip`
-  Extract all IP addresses.
+  Searches for all IP addresses.
 
 `-H`, `--host`
-  Extract all host names.
+  Searches for all host names.
 
 `-D`, `--domain`
-  Extract all domain names.
+  Searches for all domain names.
 
 `-U`, `--url`
-  Extract all URLs.
+  Searches for all URLs.
 
 `--user-name`
-  Extract all user names.
+  Searches for all user names.
 
 `-E`, `--email-addr`
-  Extract all email addresses.
+  Searches for all email addresses.
 
 `--obfuscated-email-addr`
-  Extract all obfuscated email addresses.
+  Searches for all obfuscated email addresses.
 
 `--phone-number`
-  Extract all phone numbers.
+  Searches for all phone numbers.
 
 `--ssn`
-  Extract all Social Security Numbers (SSNs).
+  Searches for all Social Security Numbers (SSNs).
 
 `--amex-cc`
-  Extract all AMEX Credit Card numbers.
+  Searches for all AMEX Credit Card numbers.
 
 `--discover-cc`
-  Extract all Discord Card numbers.
+  Searches for all Discord Card numbers.
 
 `--mastercard-cc`
-  Extract all MasterCard numbers.
+  Searches for all MasterCard numbers.
 
 `--visa-cc`
-  Extract all VISA Credit Card numbers.
+  Searches for all VISA Credit Card numbers.
 
 `--visa-mastercard-cc`
-  Extract all VISA MasterCard numbers.
+  Searches for all VISA MasterCard numbers.
 
 `--cc`
-  Extract all Credit Card numbers.
+  Searches for all Credit Card numbers.
 
 `--file-name`
-  Extract all file names.
+  Searches for all file names.
 
 `--dir-name`
-  Extract all directory names.
+  Searches for all directory names.
 
 `--relative-unix-path`
-  Extract all relative UNIX paths.
+  Searches for all relative UNIX paths.
 
 `--absolute-unix-path`
-  Extract all absolute UNIX paths.
+  Searches for all absolute UNIX paths.
 
 `--unix-path`
-  Extract all UNIX paths.
+  Searches for all UNIX paths.
 
 `--relative-windows-path`
-  Extract all relative Windows paths.
+  Searches for all relative Windows paths.
 
 `--absolute-windows-path`
-  Extract all absolute Windows paths.
+  Searches for all absolute Windows paths.
 
 `--windows-path`
-  Extract all Windows paths.
+  Searches for all Windows paths.
 
 `--relative-path`
-  Extract all relative paths.
+  Searches for all relative paths.
 
 `--absolute-path`
-  Extract all absolute paths.
+  Searches for all absolute paths.
 
 `-P`, `--path`
-  Extract all paths.
+  Searches for all paths.
 
 `--variable-name`
-  Extract all variable names.
+  Searches for all variable names.
 
 `--function-name`
-  Extract all function names.
+  Searches for all function names.
 
 `--md5`
-  Extract all MD5 hashes.
+  Searches for all MD5 hashes.
 
 `--sha1`
-  Extract all SHA1 hashes.
+  Searches for all SHA1 hashes.
 
 `--sha256`
-  Extract all SHA256 hashes.
+  Searches for all SHA256 hashes.
 
 `--sha512`
-  Extract all SHA512 hashes.
+  Searches for all SHA512 hashes.
 
 `--hash`
-  Extract all hashes.
+  Searches for all hashes.
 
 `--ssh-private-key`
-  Extract all SSH private key data.
+  Searches for all SSH private key data.
 
 `--ssh-public-key`
-  Extract all SSH public key data.
+  Searches for all SSH public key data.
 
 `--private-key`
-  Extract all private key data.
+  Searches for all private key data.
 
 `--rsa-public-key`
-  Extract all RSA public key data.
+  Searches for all RSA public key data.
 
 `--dsa-public-key`
-  Extract all DSA public key data.
+  Searches for all DSA public key data.
 
 `--ec-public-key`
-  Extract all EC public key data.
+  Searches for all EC public key data.
 
 `--public-key`
-  Extract all public key data.
+  Searches for all public key data.
 
 `--single-quoted-string`
-  Extract all single-quoted strings.
+  Searches for all single-quoted strings.
 
 `--double-quoted-string`
-  Extract all double-quoted strings.
+  Searches for all double-quoted strings.
 
 `-S`, `--string`
-  Extract all quoted strings.
+  Searches for all quoted strings.
 
 `-B`, `--base64`
-  Extract all Base64 strings.
+  Searches for all Base64 strings.
 
 `-e`, `--regexp` /*REGEXP*/
   Custom regular expression to search for.
