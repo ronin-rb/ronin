@@ -15,10 +15,9 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
+require 'ronin/cli/file_processor_command'
 require 'ronin/support/text/patterns'
 
-require 'command_kit/arguments/files'
 require 'command_kit/colors'
 
 module Ronin
@@ -92,9 +91,8 @@ module Ronin
       #
       #     [FILE ...]                       Optional input file(s)
       #
-      class Grep < Command
+      class Grep < FileProcessorCommand
 
-        include CommandKit::Arguments::Files
         include CommandKit::Colors
         include Support::Text::Patterns
 
@@ -343,12 +341,20 @@ module Ronin
             exit -1
           end
 
-          open_input_stream(*files) do |input|
-            filename = filename_of(input)
+          super(*files)
+        end
 
-            input.each_line(chomp: true).each_with_index do |line,index|
-              match_line(line, filename: filename, line_number: index+1)
-            end
+        #
+        # Greps the input stream.
+        #
+        # @param [IO, StringIO] input
+        #   The input stream to grep.
+        #
+        def process_input(input)
+          filename = filename_of(input)
+
+          input.each_line(chomp: true).each_with_index do |line,index|
+            match_line(line, filename: filename, line_number: index+1)
           end
         end
 
