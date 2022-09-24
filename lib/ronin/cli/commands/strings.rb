@@ -15,10 +15,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
-
-require 'command_kit/arguments/files'
-require 'chars'
+require 'ronin/cli/file_processor_command'
+require 'ronin/cli/char_set_options'
 
 module Ronin
   class CLI
@@ -62,119 +60,11 @@ module Ronin
       #
       #     ronin strings --hex -n 32 file.bin
       #
-      class Strings < Command
+      class Strings < FileProcessorCommand
 
-        include CommandKit::Arguments::Files
+        include CharSetOptions
 
         usage '[options] [FILE ...]'
-
-        option :numeric, short: '-N',
-                         desc: 'Searches for numeric characters (0-9)' do
-                           @char_set = Chars::NUMERIC
-                         end
-
-        option :octal, short: '-O',
-                       desc: 'Searches for octal characters (0-7)' do
-                         @char_set = Chars::OCTAL
-                       end
-
-        option :upper_hex, short: '-X',
-                           desc: 'Searches for uppercase hexadecimal (0-9, A-F)' do
-                             @char_set = Chars::UPPERCASE_HEXADECIMAL
-                           end
-
-        option :lower_hex, short: '-x',
-                           desc: 'Searches for lowercase hexadecimal (0-9, a-f)' do
-                             @char_set = Chars::LOWERCASE_HEXADECIMAL
-                           end
-
-        option :hex, short: '-H',
-                     desc: 'Searches for hexadecimal chars (0-9, a-f, A-F)' do
-                       @char_set = Chars::HEXADECIMAL
-                     end
-
-        option :upper_alpha, desc: 'Searches for uppercase alpha chars (A-Z)' do
-          @char_set = Chars::UPPERCASE_ALPHA
-        end
-
-        option :lower_alpha, desc: 'Searches for lowercase alpha chars (a-z)' do
-          @char_set = Chars::LOWERCASE_ALPHA
-        end
-
-        option :alpha, short: '-A',
-                       desc: 'Searches for alpha chars (a-z, A-Z)' do
-                         @char_set = Chars::ALPHA
-                       end
-
-        option :alpha_num, desc: 'Searches for alpha-numeric chars (a-z, A-Z, 0-9)' do
-          @char_set = Chars::ALPHA_NUMERIC
-        end
-
-        option :punct, short: '-P',
-                       desc: 'Searches for punctuation chars' do
-                         @char_set = Chars::PUNCTUATION
-                       end
-
-        option :symbols, short: '-S',
-                         desc: 'Searches for symbolic chars' do
-                           @char_set = Chars::SYMBOLS
-                         end
-
-        option :space, short: '-s',
-                       desc: 'Searches for all whitespace chars' do
-                         @char_set = Chars::SPACE
-                       end
-
-        option :visible, short: '-v',
-                         desc: 'Searches for all visible chars' do
-          @char_set = Chars::VISIBLE
-        end
-
-        option :printable, short: '-p',
-                           desc: 'Searches for all printable chars' do
-                             @char_set = Chars::PRINTABLE
-                           end
-
-        option :control, short: '-C',
-                         desc: 'Searches for all control chars (\x00-\x1f, \x7f)' do
-                           @char_set = Chars::CONTROL
-                         end
-
-        option :signed_ascii, short: '-a',
-                              desc: 'Searches for all signed ASCII chars (\x00-\x7f)' do
-                                @char_set = Chars::SIGNED_ASCII
-                              end
-
-        option :ascii, desc: 'Searches for all ASCII chars (\x00-\xff)' do
-                         @char_set = Chars::ASCII
-                       end
-
-        option :chars, short: '-c',
-                        value: {
-                          type:  String,
-                          usage: 'CHARS'
-                        },
-                        desc: 'Searches for all chars in the custom char-set' do |string|
-                          @char_set = Chars::CharSet.new(*string.chars)
-                        end
-
-        option :include_chars, short: '-i',
-                               value: {
-                                 type: String,
-                                 usage: 'CHARS',
-                               },
-                               desc: 'Include the additional chars to the char-set' do |string|
-                                 @char_set += Chars::CharSet.new(*string.chars)
-                               end
-
-        option :exclude_chars, short: '-e',
-                               value: {
-                                 type:  String,
-                                 usage: 'CHARS'
-                               },
-                               desc: 'Exclude the additional chars from the char-set' do |string|
-                                 @char_set -= Chars::CharSet.new(*string.chars)
-                               end
 
         option :min_length, short: '-n',
                             value: {
@@ -198,41 +88,44 @@ module Ronin
         ]
 
         #
-        # Initializes the `ronin strings` command.
+        # Opens the file in binary mode.
         #
-        def initialize(**kwargs)
-          super(**kwargs)
-
-          @char_set = Chars::VISIBLE
+        # @yield [file]
+        #   If a block is given, the newly opened file will be yielded.
+        #   Once the block returns the file will automatically be closed.
+        #
+        # @yieldparam [File] file
+        #   The newly opened file.
+        #
+        # @return [File, nil]
+        #   If no block is given, the newly opened file object will be returned.
+        #   If no block was given, then `nil` will be returned.
+        #
+        def open_file(file,&block)
+          super(file,'rb',&block)
         end
 
         #
-        # Runs the `ronin strings` command.
+        # Scans the input stream for printable strings.
         #
-        # @param [Array<String>] files
-        #   The optional files to process. If no files are given, then input
-        #   will be read from `STDIN`.
+        # @param [IO, StringIO] input
+        #   The input string.
         #
-        def run(*files)
+        def process_input(input)
           buffer     = String.new
           min_length = options[:min_length]
 
-          open_input_stream(*files) do |input|
-            input.each_char do |char|
-              if @char_set.include_char?(char)
-                buffer << char
-              else
-                print_buffer(buffer) if buffer.length >= min_length
-                buffer.clear
-              end
+          input.each_char do |char|
+            if @char_set.include_char?(char)
+              buffer << char
+            else
+              print_buffer(buffer) if buffer.length >= min_length
+              buffer.clear
             end
-
-            # print any remaining chars
-            print_buffer(buffer) if buffer.length >= min_length
-
-            # clear the buffer before going to the next file
-            buffer.clear
           end
+
+          # print any remaining chars
+          print_buffer(buffer) if buffer.length >= min_length
         end
 
         #
