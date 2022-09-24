@@ -33,4 +33,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-typo(1)
+ronin-bitflip(1) ronin-typo(1)

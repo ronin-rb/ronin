@@ -42,4 +42,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-homoglyph(1)
+ronin-bitflip(1) ronin-homoglyph(1)
