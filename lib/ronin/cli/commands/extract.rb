@@ -15,10 +15,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
+require 'ronin/cli/file_processor_command'
 require 'ronin/support/text/patterns'
-
-require 'command_kit/arguments/files'
 
 module Ronin
   class CLI
@@ -89,9 +87,8 @@ module Ronin
       #
       #     [FILE ...]                       Optional input file(s)
       #
-      class Extract < Command
+      class Extract < FileProcessorCommand
 
-        include CommandKit::Arguments::Files
         include Support::Text::Patterns
 
         usage '[options] [FILE ...]'
@@ -335,11 +332,19 @@ module Ronin
             exit -1
           end
 
-          open_input_stream(*files) do |input|
-            input.each_line(chomp: true) do |line|
-              line.scan(@pattern) do |match|
-                puts match
-              end
+          super(*files)
+        end
+
+        #
+        # Extracts the pattern from the input stream.
+        #
+        # @parma [IO, StringIO] input
+        #   The input stream to process.
+        #
+        def process_input(input)
+          input.each_line(chomp: true) do |line|
+            line.scan(@pattern) do |match|
+              puts match
             end
           end
         end
