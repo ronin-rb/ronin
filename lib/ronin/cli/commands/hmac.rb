@@ -65,6 +65,21 @@ module Ronin
         man_page 'ronin-hmac.1'
 
         #
+        # Runs the `ronin hmac` command.
+        #
+        # @param [Array<String>] files
+        #   Additional files to process.
+        #
+        def run(*files)
+          unless @key
+            print_error "must specify --key or --key-file"
+            exit(-1)
+          end
+
+          super(*files)
+        end
+
+        #
         # Calculates the Hash-based Message Authentication Code (HMAC) for the
         # given string.
         #

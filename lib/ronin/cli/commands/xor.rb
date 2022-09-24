@@ -53,6 +53,21 @@ module Ronin
         man_page 'ronin-xor.1'
 
         #
+        # Runs the `ronin xor` command.
+        #
+        # @param [Array<String>] files
+        #   Additional files to process.
+        #
+        def run(*files)
+          unless @key
+            print_error "must specify --key or --key-file"
+            exit(-1)
+          end
+
+          super(*files)
+        end
+
+        #
         # XORs the string.
         #
         # @param [String] string

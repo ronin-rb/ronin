@@ -55,21 +55,6 @@ module Ronin
       #
       # @return [String]
       attr_reader :key
-
-      #
-      # Runs the command, but requires that `--key` or `--key-file` were given.
-      #
-      # @param [Array<String>] args
-      #   Additional arguments.
-      #
-      def run(*args)
-        unless @key
-          print_error "must specify --key or --key-file"
-          exit(-1)
-        end
-
-        super(*args)
-      end
     end
   end
 end
