@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin hexdump` [*options*] [*FILE*]
+`ronin hexdump` [*options*] [*FILE* ...]
 
 ## DESCRIPTION
 
@@ -11,7 +11,7 @@ Hexdumps data in a variety of encodings and formats.
 ## ARGUMENTS
 
 *FILE*
-  The optional path to the file to hexdump.
+  The optional path to the file(s) to hexdump.
 
 ## OPTIONS
 
