@@ -272,6 +272,12 @@ module Ronin
           @highlight_chars   = {}
         end
 
+        def run(*files)
+          @hexdump = ::Hexdump::Hexdump.new(**hexdump_options)
+
+          super(*files)
+        end
+
         #
         # Opens the file in binary mode.
         #
@@ -297,7 +303,7 @@ module Ronin
         #   The input stream to hexdump.
         #
         def process_input(input)
-          Hexdump.hexdump(input, **hexdump_options)
+          @hexdump.hexdump(input)
         end
 
         #
