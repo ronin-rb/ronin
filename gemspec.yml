@@ -53,6 +53,7 @@ generated_files:
  - man/ronin-iprange.1
  - man/ronin-irb.1
  - man/ronin-md5.1
+ - man/ronin-netcat.1
  - man/ronin-new.1
  - man/ronin-new-project.1
  - man/ronin-new-script.1
@@ -78,6 +79,7 @@ dependencies:
   # Library dependencies:
   open_namespace: ~> 0.4
   rouge: ~> 3.0
+  async-io: ~> 1.0
   # Ronin dependencies:
   ronin-support: ~> 1.0
   ronin-core: ~> 0.1

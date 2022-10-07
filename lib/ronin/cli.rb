@@ -38,6 +38,7 @@ module Ronin
 
     command_aliases['enc'] = 'encode'
     command_aliases['dec'] = 'decode'
+    command_aliases['nc']  = 'netcat'
 
     ADDITIONAL_RONIN_COMMANDS = %w[
       ronin-repos
