@@ -303,39 +303,45 @@ module Ronin
           buffer_size = options[:buffer_size]
 
           Async do |task|
-            socket = endpoint.connect
+            socket = begin
+                       endpoint.connect
+                     rescue => error
+                       print_error(error.message)
+                       exit(1)
+                     end
+
             stream = Async::IO::Stream.new(socket)
 
-            client = task.async do
-              begin
-                while (data = stream.read_partial(buffer_size))
-                  print_data(data)
+            begin
+              client = task.async do
+                begin
+                  while (data = stream.read_partial(buffer_size))
+                    print_data(data)
+                  end
+                rescue EOFError
+                ensure
+                  finished.signal
                 end
-              rescue EOFError
-              ensure
-                finished.signal
               end
-            end
 
-            user = task.async do
-              begin
-                while (data = stdin.read_partial(buffer_size))
-                  socket.write(data)
+              user = task.async do
+                begin
+                  while (data = stdin.read_partial(buffer_size))
+                    socket.write(data)
+                  end
+                rescue EOFError
+                ensure
+                  finished.signal
                 end
-              rescue EOFError
-              ensure
-                finished.signal
               end
-            end
 
-            finished.wait
-          ensure
-            client.stop
-            user.stop
-            socket.close
+              finished.wait
+            ensure
+              client.stop
+              user.stop
+              socket.close
+            end
           end
-        rescue => error
-          print_error(error.message)
         end
 
         #
@@ -384,11 +390,11 @@ module Ronin
             end
 
             finished.wait
+          rescue => error
+            print_error(error.message)
           ensure
             clients.each(&:close)
           end
-        rescue => error
-          print_error(error.message)
         end
 
         #
