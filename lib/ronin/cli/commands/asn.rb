@@ -70,9 +70,7 @@ module Ronin
                        usage:   'URI',
                        default: Support::Network::ASN::List::URL
                      },
-                     desc: 'Overrides the default ASN list URL' do |uri|
-                       @url = uri
-                     end
+                     desc: 'Overrides the default ASN list URL'
 
         option :file, short: '-f',
                       value: {
@@ -80,9 +78,7 @@ module Ronin
                         usage:   'FILE',
                         default: Support::Network::ASN::List::PATH
                       },
-                      desc: 'Overrides the default ASN list file' do |path|
-                        @file = path
-                      end
+                      desc: 'Overrides the default ASN list file'
 
         option :update, short: '-u',
                         desc: 'Updates the ASN list file'
