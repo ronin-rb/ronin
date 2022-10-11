@@ -183,7 +183,10 @@ module Ronin
             log_info "Updating ASN list file #{options[:file]} ..."
           end
 
-          Support::Network::ASN::List.update(path: options[:file])
+          Support::Network::ASN::List.update(
+            url:  options[:url],
+            path: options[:file]
+          )
         end
 
         #
