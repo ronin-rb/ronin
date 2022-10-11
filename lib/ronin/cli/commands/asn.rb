@@ -134,6 +134,8 @@ module Ronin
           '--enum-ips -N EDGECAST'
         ]
 
+        man_page 'ronin-asn.1'
+
         #
         # Runs the `ronin asn` command.
         #
