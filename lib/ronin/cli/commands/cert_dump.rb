@@ -203,15 +203,13 @@ module Ronin
             case public_key
             when OpenSSL::PKey::RSA
               fields['Type'] = 'RSA'
-              fields['Size'] = public_key.n.num_bits
             when OpenSSL::PKey::EC
               fields['Type'] = 'EC'
             end
 
             print_fields(fields)
-            puts
 
-            public_key.to_pem.each_line do |line|
+            public_key.to_text.each_line do |line|
               puts line
             end
           end
