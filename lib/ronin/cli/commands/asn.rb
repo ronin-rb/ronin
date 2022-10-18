@@ -38,7 +38,7 @@ module Ronin
       #     -U, --url URI                    Overrides the default ASN list URL (Default: https://iptoasn.com/data/ip2asn-combined.tsv.gz)
       #     -f, --file FILE                  Overrides the default ASN list file (Default: /home/postmodern/.local/share/ronin/ronin-support/ip2asn-combined.tsv.gz)
       #     -u, --update                     Updates the ASN list file
-      #     -n, --number INT                 Searches for all ASN records with the AS number
+      #     -n, --number NUM|AS...           Searches for all ASN records with the AS number
       #     -C XX|None|Uknown,               Searches for all ASN records with the country code
       #         --country-code
       #     -N, --name NAME                  Searches for all ASN records with the matching name
@@ -85,9 +85,12 @@ module Ronin
 
         option :number, short: '-n',
                         value: {
-                          type: Integer,
+                          type:  /(?:AS)\d+/,
+                          usage: 'NUM|AS...'
                         },
-                        desc: 'Searches for all ASN records with the AS number'
+                        desc: 'Searches for all ASN records with the AS number' do |asn|
+                          options[:number] = asn.sub('AS','').to_i
+                        end
 
         option :country_code, short: '-C',
                               value: {

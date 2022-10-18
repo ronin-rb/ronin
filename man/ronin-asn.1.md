@@ -25,7 +25,7 @@ the given *NUMBER*, *NAME*, or *COUNTRY* code.
 `-u`, `--update`
   Updates the ASN list file.
 
-`-n`, `--number` *INT*
+`-n`, `--number` *NUM*\|AS*NUM*
   Searches for all ASN records with the AS number.
 
 `-C`, `--country-code` *XX*|`None`|`Uknown`
