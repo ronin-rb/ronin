@@ -33,6 +33,7 @@ module Ronin
     #     -I, --ip                         Searches for all IP addresses
     #     -H, --host                       Searches for all host names
     #     -D, --domain                     Searches for all domain names
+    #         --uri                        Searches for all URIs
     #     -U, --url                        Searches for all URLs
     #         --user-name                  Searches for all user names
     #     -E, --email-addr                 Searches for all email addresses
@@ -129,6 +130,10 @@ module Ronin
                          desc: 'Searches for all domain names' do
                            @pattern = DOMAIN
                          end
+
+        command.option :uri, desc: 'Searches for all URIs' do
+                               @pattern = URI
+                             end
 
         command.option :url, short: '-U',
                       desc: 'Searches for all URLs' do

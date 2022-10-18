@@ -43,6 +43,9 @@ Extract common patterns in the given file(s) or input stream.
 `-D`, `--domain`
   Searches for all domain names.
 
+`--uri`
+  Searches for all URIs.
+
 `-U`, `--url`
   Searches for all URLs.
 

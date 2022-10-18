@@ -41,6 +41,7 @@ module Ronin
       #     -I, --ip                         Searches for all IP addresses
       #     -H, --host                       Searches for all host names
       #     -D, --domain                     Searches for all domain names
+      #         --uri                        Searches for all URIs
       #     -U, --url                        Searches for all URLs
       #         --user-name                  Searches for all user names
       #     -E, --email-addr                 Searches for all email addresses
