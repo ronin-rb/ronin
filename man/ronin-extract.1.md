@@ -157,6 +157,16 @@ Extract common patterns in the given file(s) or input stream.
 `--public-key`
   Searches for all public key data.
 
+`--aws-access-key-id`
+  Searches for all AWS access key IDs.
+
+`--aws-secret-access-key`
+  Searches for all AWS secret access key.
+
+`--api-key`
+  Searches for all API keys (MD5, SHA1, SHA256, SHA512, AWS access key ID, or
+  AWS secret access key).
+
 `--single-quoted-string`
   Searches for all single-quoted strings.
 
