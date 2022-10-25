@@ -238,7 +238,7 @@ module Ronin
         end
 
         command.option :function_name, desc: 'Searches for all function names' do
-          @pattern = FUNCTION_NAMES
+          @pattern = FUNCTION_NAME
         end
 
         command.option :md5, desc: 'Searches for all MD5 hashes' do
