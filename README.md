@@ -17,38 +17,96 @@
 
 ### Who is Ronin for?
 
-* CTF Players
-* Bug hunters
+* CTF players
+* Bug bounty hunters
 * Security Researchers
 * Security Engineers
 * Developers
 
 ### What does Ronin provide?
 
-* A suite of useful commands.
-* A customized Ruby console.
-* A collection of additional high-quality Ruby libraries and commands:
-  * [ronin-support]
-  * [ronin-repos]
-  * [ronin-db]
-  * [ronin-fuzzer]
-  * [ronin-web]
-  * [ronin-code-asm]
-  * [ronin-code-sql]
-  * [ronin-payloads]
-  * [ronin-exploits]
-  * [ronin-vulns]
+* A toolkit of useful commands.
+* A fully-loaded Ruby REPL.
+* An ecosystem of high-quality security related Ruby libraries and commands.
 
 ### What can you do with Ronin?
 
-* Rapidly prototype Ruby scripts using [ronin-support].
-* Effectively work with data in the `ronin console`.
-* Install 3rd-party [git] repositories of code/data using [ronin-repos].
-* Import and query data using [ronin-db].
-* Write/Run Exploits using [ronin-exploits].
+* Quickly process and query various data using the `ronin` commands.
+* Efficiently work with code and data in the `ronin irb` Ruby REPL.
+* Rapidly prototype Ruby scripts using [ronin-support] and other `ronin`
+  libraries.
+* Install 3rd-party [git] repositories of exploits, payloads, or other code,
+  using [ronin-repos].
+* Import and query data using the [ronin-db] database.
+* Fuzz data using [ronin-fuzzer].
+* Use common payloads or write your own using [ronin-payloads].
+* Write/run exploits using [ronin-exploits].
 * Scan for web vulnerabilities using [ronin-vulns].
 
 ## Synopsis
+
+```
+Usage: ronin [options] [COMMAND [ARGS...]]
+
+Options:
+    -h, --help                       Print help information
+
+Arguments:
+    [COMMAND]                        The command name to run
+    [ARGS ...]                       Additional arguments for the command
+
+Commands:
+    asn
+    bitflip
+    cert-dump
+    cert-gen
+    cert-grab
+    decode, dec
+    decrypt
+    dns
+    email-addr
+    encode, enc
+    encrypt
+    entropy
+    escape
+    extract
+    grep
+    help
+    hexdump
+    hmac
+    homoglyph
+    http
+    ip
+    iprange
+    irb
+    md5
+    netcat, nc
+    new
+    proxy
+    public-suffix
+    quote
+    rot
+    sha1
+    sha256
+    sha512
+    strings
+    tips
+    typo
+    unescape
+    unhexdump
+    unquote
+    url
+    xor
+
+Additional Ronin Commands:
+    $ ronin-repos
+    $ ronin-db
+    $ ronin-web
+    $ ronin-fuzzer
+    $ ronin-payloads
+    $ ronin-exploits
+    $ ronin-vulns
+```
 
 List ronin commands:
 
@@ -59,19 +117,19 @@ $ ronin help
 View a man-page for a command:
 
 ```shell
-$ ronin help console
+$ ronin help COMMAND
 ```
 
-Get a random tip on how to use ronin:
+Get a random tip on how to use `ronin`:
 
 ```shell
 $ ronin tips
 ```
 
-Open the Ronin Ruby console:
+Open the Ronin Ruby REPL:
 
 ```shell
-$ ronin console
+$ ronin irb
 ```
 
 ## Requirements
