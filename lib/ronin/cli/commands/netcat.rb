@@ -392,6 +392,7 @@ module Ronin
             finished.wait
           rescue => error
             print_error(error.message)
+            exit(1)
           ensure
             clients.each(&:close)
           end
