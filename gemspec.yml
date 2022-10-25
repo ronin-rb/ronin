@@ -45,7 +45,6 @@ generated_files:
  - man/ronin-encode.1
  - man/ronin-entropy.1
  - man/ronin-escape.1
- - man/ronin-exec.1
  - man/ronin-extract.1
  - man/ronin-grep.1
  - man/ronin-help.1
