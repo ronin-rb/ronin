@@ -43,6 +43,7 @@ generated_files:
  - man/ronin-email-addr.1
  - man/ronin-encrypt.1
  - man/ronin-encode.1
+ - man/ronin-entropy.1
  - man/ronin-escape.1
  - man/ronin-exec.1
  - man/ronin-extract.1
