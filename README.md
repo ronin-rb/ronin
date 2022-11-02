@@ -22,6 +22,7 @@
 * Security Researchers
 * Security Engineers
 * Developers
+* Students
 
 ### What does Ronin provide?
 
