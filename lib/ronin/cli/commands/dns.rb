@@ -55,7 +55,22 @@ module Ronin
 
         option :type, short: '-t',
                       value: {
-                        type: [:A, :AAAA, :ANY, :CNAME, :HINFO, :LOC, :MINFO, :MX, :NS, :PTR, :SOA, :SRV, :TXT, :WKS]
+                        type: {
+                          A:     :a,
+                          AAAA:  :aaaa,
+                          ANY:   :any,
+                          CNAME: :cname,
+                          HINFO: :hinfo,
+                          LOC:   :loc,
+                          MINFO: :minfo,
+                          MX:    :mx,
+                          NS:    :ns,
+                          PTR:   :ptr,
+                          SOA:   :soa,
+                          SRV:   :srv,
+                          TXT:   :txt,
+                          WKS:   :wks
+                        }
                       },
                       desc: 'Queries a specific type of DNS record'
 
