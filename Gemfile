@@ -12,8 +12,8 @@ if RUBY_VERSION >= '3.1.0'
   gem 'net-imap',   '~> 0.1', group: :net, platform: :mri
 end
 
-gem 'command_kit', '~> 0.4', github: 'postmodern/command_kit.rb',
-                             branch: '0.4.0'
+# gem 'command_kit', '~> 0.4', github: 'postmodern/command_kit.rb',
+#                              branch: '0.4.0'
 
 # Library dependencies
 gem 'ronin-support',	       '~> 1.0', github: "ronin-rb/ronin-support",
