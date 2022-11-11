@@ -58,6 +58,7 @@ Arguments:
 
 Commands:
     asn
+    banner-grab
     bitflip
     cert-dump
     cert-gen

@@ -33,6 +33,7 @@ metadata:
 generated_files:
  - man/ronin.1
  - man/ronin-asn.1
+ - man/ronin-banner-grab.1
  - man/ronin-bitflip.1
  - man/ronin-cert-dump.1
  - man/ronin-cert-gen.1
