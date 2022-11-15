@@ -33,6 +33,9 @@ Processes hostname(s) and performs DNS queries.
 `-N`, `--nameserver` *HOST*|*IP*
   Send DNS queries to the nameserver.
 
+`-I`, `--ips`
+  Converts the hostname to it's IP addresses.
+
 `-A`, `--has-addresses`
   Filters hostnames that have addresses.
 

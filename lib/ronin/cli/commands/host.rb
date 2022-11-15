@@ -36,6 +36,7 @@ module Ronin
       #     -S, --change-suffix SUFFIX       Changes the suffix of each hostname
       #         --enum-suffixes              Enumerates over every public suffix
       #     -N, --nameserver HOST|IP         Send DNS queries to the nameserver
+      #     -I, --ips                        Converts the hostname to it's IP addresses
       #     -A, --has-addresses              Filters hostnames that have addresses
       #     -T A|AAAA|ANY|CNAME|HINFO|LOC|MINFO|MX|NS|PTR|SOA|SRV|TXT|WKS,
       #         --has-records                Filters hostnames that have a certain DNS record type
@@ -74,6 +75,9 @@ module Ronin
                             desc: 'Send DNS queries to the nameserver' do |ip|
                               @nameservers << ip
                             end
+
+        option :ips, short: '-I',
+                     desc:  "Converts the hostname to it's IP addresses"
 
         option :has_addresses, short: '-A',
                                desc:  'Filters hostnames that have addresses'
@@ -156,6 +160,8 @@ module Ronin
             puts host.domain
           elsif options[:suffix]
             puts host.suffix
+          elsif options[:ips]
+            puts host.get_addresses
           elsif options[:has_addresses]
             puts host unless host.get_addresses.empty?
           elsif options[:has_records]
