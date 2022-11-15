@@ -52,6 +52,7 @@ generated_files:
  - man/ronin-hexdump.1
  - man/ronin-hmac.1
  - man/ronin-homoglyph.1
+ - man/ronin-host.1
  - man/ronin-http.1
  - man/ronin-ip.1
  - man/ronin-iprange.1

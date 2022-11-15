@@ -77,6 +77,7 @@ Commands:
     hexdump
     hmac
     homoglyph
+    host
     http
     ip
     iprange
