@@ -71,7 +71,9 @@ module Ronin
         #   recognized.
         #
         def syntax_lexer(content_type)
-          Rouge::Lexer.guess(mimetype: content_type).new
+          mime_type = content_type.sub(/;.*/,'')
+
+          return Rouge::Lexer.guess(mimetype: mime_type).new
         end
 
         #
