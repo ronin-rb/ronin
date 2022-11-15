@@ -77,6 +77,11 @@ module Ronin
       end
 
       #
+      # Processes an input stream.
+      #
+      # @param [File, IO] input
+      #   The opened file or the `stdin` input stream.
+      #
       # @abstract
       #
       def process_input(input)
