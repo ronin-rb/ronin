@@ -79,18 +79,16 @@ module Ronin
         # @param [String] content_type
         #   The HTTP `Content-Type` header value.
         #
-        # @return [Rouge::Lexers::HTML, Rouge::Lexers::XML,
-        #          Rouge::Lexers::JavaScript, Rouge::Lexers::JSON, nil]
+        # @return [Rouge::Lexers::HTML,
+        #          Rouge::Lexers::XML,
+        #          Rouge::Lexers::JavaScript,
+        #          Rouge::Lexers::JSON,
+        #          Rouge::Lexers::PlainText]
         #   The specific syntax lexer or `nil` if the `Content-Type` was not
         #   recognized.
         #
         def syntax_lexer(content_type)
-          case content_type
-          when %r{^text/html}        then Rouge::Lexers::HTML.new
-          when %r{^text/xml}         then Rouge::Lexers::XML.new
-          when %r{^text/javascript}  then Rouge::Lexers::JavaScript.new
-          when %r{^application/json} then Rouge::Lexers::JSON.new
-          end
+          Rouge::Lexer.guess(mimetype: content_type).new
         end
 
         #
@@ -101,13 +99,9 @@ module Ronin
         #
         def print_highlighted_body(response)
           content_type = response['Content-Type']
+          is_utf8      = content_type && content_type.include?('charset=utf-8')
 
-          unless (lexer = syntax_lexer(content_type))
-            print_plain_body(response)
-            return
-          end
-
-          is_utf8    = content_type && content_type.include?('charset=utf-8')
+          lexer      = syntax_lexer(content_type)
           last_chunk = nil
 
           response.read_body do |chunk|
