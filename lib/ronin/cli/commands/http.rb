@@ -22,8 +22,6 @@ require 'ronin/support/network/http'
 
 require 'command_kit/options/verbose'
 
-require 'rouge'
-
 module Ronin
   class CLI
     module Commands
