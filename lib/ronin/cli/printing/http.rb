@@ -15,8 +15,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'command_kit/colors'
-require 'rouge'
+require 'ronin/cli/printing/syntax_highlighting'
 
 module Ronin
   class CLI
@@ -25,23 +24,7 @@ module Ronin
       # Common methods for {Commands::Http} and {HTTPShell}.
       #
       module HTTP
-        include CommandKit::Colors
-
-        #
-        # Initializes the syntax highlighter.
-        #
-        # @param [Hash{Symbol => Object}] kwargs
-        #   Additional keyword arguments.
-        #
-        def initialize(**kwargs)
-          super(**kwargs)
-
-          if ansi?
-            @formatter = Rouge::Formatters::Terminal256.new(
-              Rouge::Themes::Molokai.new
-            )
-          end
-        end
+        include SyntaxHighlighting
 
         #
         # Ensures that a final new-line is printed after the given text.
