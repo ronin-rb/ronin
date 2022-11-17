@@ -50,6 +50,7 @@ generated_files:
  - man/ronin-grep.1
  - man/ronin-help.1
  - man/ronin-hexdump.1
+ - man/ronin-highlight.1
  - man/ronin-hmac.1
  - man/ronin-homoglyph.1
  - man/ronin-host.1

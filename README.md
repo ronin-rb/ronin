@@ -75,6 +75,7 @@ Commands:
     grep
     help
     hexdump
+    highlight
     hmac
     homoglyph
     host
