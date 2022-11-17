@@ -34,10 +34,60 @@ module Ronin
           super(**kwargs)
 
           if ansi?
-            @formatter = Rouge::Formatters::Terminal256.new(
-              Rouge::Themes::Molokai.new
-            )
+            @syntax_formatter = syntax_formatter
           end
+        end
+
+        #
+        # Loads the syntax lexer for the filename, mimetype, or source code.
+        #
+        # @param [String] filename
+        #   The filename to infer the syntax from.
+        #
+        # @param [String] mimetype
+        #   The MIME-type to infer the syntax from.
+        #
+        # @param [String] source
+        #   The source code to infer the syntax from.
+        #
+        # @return [Rouge::Lexer]
+        #
+        def syntax_lexer_for(filename: nil, mimetype: nil, source: nil)
+          Rouge::Lexer.guess(
+            filename: filename,
+            mimetype: mimetype,
+            source:   source
+          )
+        end
+
+        #
+        # Looks up the syntax lexer class.
+        #
+        # @param [String] name
+        #   The syntax name.
+        #
+        # @return [Class<Rouge::Lexer>, nil]
+        #
+        def syntax_lexer(name)
+          Rouge::Lexer.find(name)
+        end
+
+        #
+        # The syntax highlighter theme.
+        #
+        # @return [Rouge::Theme]
+        #
+        def syntax_theme
+          Rouge::Themes::Molokai.new
+        end
+
+        #
+        # The syntax formatter.
+        #
+        # @return [Rouge::Formatters::Terminal256]
+        #
+        def syntax_formatter
+          Rouge::Formatters::Terminal256.new(syntax_theme)
         end
       end
     end

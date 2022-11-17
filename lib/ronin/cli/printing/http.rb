@@ -70,10 +70,8 @@ module Ronin
         #   The specific syntax lexer or `nil` if the `Content-Type` was not
         #   recognized.
         #
-        def syntax_lexer(content_type)
-          mime_type = content_type.sub(/;.*$/,'')
-
-          return Rouge::Lexer.guess(mimetype: mime_type).new
+        def syntax_lexer_for_content_type(content_type)
+          syntax_lexer_for(mimetype: content_type.sub(/;.*$/,''))
         end
 
         #
@@ -86,13 +84,13 @@ module Ronin
           content_type = response['Content-Type']
           is_utf8      = content_type && content_type.include?('charset=utf-8')
 
-          lexer      = syntax_lexer(content_type)
+          lexer      = syntax_lexer_for_content_type(content_type)
           last_chunk = nil
 
           response.read_body do |chunk|
             chunk.force_encoding(Encoding::UTF_8) if is_utf8
 
-            print @formatter.format(lexer.lex(chunk))
+            print @syntax_formatter.format(lexer.lex(chunk))
 
             last_chunk = chunk
           end
