@@ -96,6 +96,7 @@ Commands:
     strings
     tips
     typo
+    typo-squat
     unescape
     unhexdump
     unquote
