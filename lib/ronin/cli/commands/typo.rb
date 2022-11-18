@@ -16,8 +16,7 @@
 #
 
 require 'ronin/cli/value_processor_command'
-
-require 'ronin/support/text/typo'
+require 'ronin/cli/typo_options'
 
 module Ronin
   class CLI
@@ -45,21 +44,7 @@ module Ronin
       #
       class Typo < ValueProcessorCommand
 
-        option :omit_chars, desc: 'Toggles whether to omit repeated characters' do
-          @typo_kwargs[:emit_chars] = true
-        end
-
-        option :repeat_chars, desc: 'Toggles whether to repeat single characters' do
-          @typo_kwargs[:repeat_chars] = true
-        end
-
-        option :swap_chars, desc: 'Toggles whether to swap certain common character pairs' do
-          @typo_kwargs[:swap_chars] = true
-        end
-
-        option :change_suffix, desc: 'Toggles whether to change the suffix of words' do
-          @typo_kwargs[:change_suffix] = true
-        end
+        include TypoOptions
 
         option :enumerate, short: '-E',
                            desc:  'Enumerates over every possible typo of a word'
@@ -73,30 +58,6 @@ module Ronin
         man_page 'ronin-typo.1'
 
         #
-        # Initializes the command.
-        #
-        # @param [Hash{Symbol => Object}] kwargs
-        #   Additional keyword arguments.
-        #
-        def initialize(**kwargs)
-          super(**kwargs)
-
-          @typo_kwargs = {}
-        end
-
-        #
-        # Runs the `ronin typo` command.
-        #
-        # @param [Array<String>] words
-        #   The words to typo.
-        #
-        def run(*words)
-          @generator = Support::Text::Typo.generator(**@typo_kwargs)
-
-          super(*words)
-        end
-
-        #
         # Processes each word.
         #
         # @param [String] word
@@ -104,11 +65,11 @@ module Ronin
         #
         def process_value(word)
           if options[:enumerate]
-            @generator.each_substitution(word) do |typo|
+            typo_generator.each_substitution(word) do |typo|
               puts typo
             end
           else
-            puts @generator.substitute(word)
+            puts typo_generator.substitute(word)
           end
         end
 
