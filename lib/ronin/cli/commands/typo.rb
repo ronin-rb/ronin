@@ -35,7 +35,7 @@ module Ronin
       #         --repeat-chars               Toggles whether to repeat single characters
       #         --swap-chars                 Toggles whether to swap certain common character pairs
       #         --change-suffix              Toggles whether to change the suffix of words
-      #     -E, --enumerate                  Enumerates over every possible typo of a word
+      #     -E, --enum                       Enumerates over every possible typo of a word
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -46,8 +46,8 @@ module Ronin
 
         include TypoOptions
 
-        option :enumerate, short: '-E',
-                           desc:  'Enumerates over every possible typo of a word'
+        option :enum, short: '-E',
+                      desc:  'Enumerates over every possible typo of a word'
 
         argument :word, repeats:  true,
                         required: false,
@@ -64,7 +64,7 @@ module Ronin
         #   A word argument to typo.
         #
         def process_value(word)
-          if options[:enumerate]
+          if options[:enum]
             typo_generator.each_substitution(word) do |typo|
               puts typo
             end

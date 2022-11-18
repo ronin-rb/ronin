@@ -21,7 +21,7 @@ Generates homoglyph equivalent words.
 `-C`, `--char-set` `ascii`\|`greek`\|`cyrillic`\|`punctuation`\|`latin_numbers`\|`full_width`
   Selects the homoglyph character set.
 
-`-E`, `--enumerate`
+`-E`, `--enum`
   Enumerates over every possible typo of a word.
 
 `-h`, `--help`

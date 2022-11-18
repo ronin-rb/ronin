@@ -34,7 +34,7 @@ module Ronin
       #     -f, --file FILE                  Optional file to process
       #     -C ascii|greek|cyrillic|punctuation|latin_numbers|full_width,
       #         --char-set                   Selects the homoglyph character set
-      #     -E, --enumerate                  Enumerates over every possible typo of a word
+      #     -E, --enum                       Enumerates over every possible typo of a word
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -52,8 +52,8 @@ module Ronin
                           },
                           desc: 'Selects the homoglyph character set'
 
-        option :enumerate, short: '-E',
-                           desc:  'Enumerates over every possible typo of a word'
+        option :enum, short: '-E',
+                      desc:  'Enumerates over every possible typo of a word'
 
         argument :word, repeats:  true,
                         required: false,
@@ -82,7 +82,7 @@ module Ronin
         #   A word argument to homoglyph.
         #
         def process_value(word)
-          if options[:enumerate]
+          if options[:enum]
             @table.each_substitution(word) do |homoglyphed_word|
               puts homoglyphed_word
             end

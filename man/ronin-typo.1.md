@@ -30,7 +30,7 @@ Generates typos in words.
 `--change-suffix`
   Toggles whether to change the suffix of words.
 
-`-E`, `--enumerate`
+`-E`, `--enum`
   Enumerates over every possible typo of a word.
 
 `-h`, `--help`
