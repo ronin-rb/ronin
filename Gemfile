@@ -2,7 +2,10 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'jruby-openssl',	'~> 0.7', platforms: :jruby
+platform :jruby do
+  gem 'jruby-openssl',	'~> 0.7'
+  gem 'time', '~> 0.1.0'
+end
 
 gem 'net-telnet', '~> 0.1', group: :net
 if RUBY_VERSION >= '3.1.0'
