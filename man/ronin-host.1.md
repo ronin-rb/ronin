@@ -30,6 +30,9 @@ Processes hostname(s) and performs DNS queries.
 `-S`, `--change-suffix` *SUFFIX*
   Changes the suffix of each hostname.
 
+`--enum-tlds`
+  Enumerates over every TLD.
+
 `--enum-suffixes`
   Enumerates over every public suffix.
 

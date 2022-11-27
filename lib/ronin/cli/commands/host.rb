@@ -35,6 +35,7 @@ module Ronin
       #     -T, --tld                        Converts the hostname to it's TLD 
       #     -s, --suffix                     Converts the hostname to it's suffix
       #     -S, --change-suffix SUFFIX       Changes the suffix of each hostname
+      #         --enum-tlds                  Enumerates over every TLD 
       #         --enum-suffixes              Enumerates over every public suffix
       #     -N, --nameserver HOST|IP         Send DNS queries to the nameserver
       #     -I, --ips                        Converts the hostname to it's IP addresses
@@ -68,6 +69,8 @@ module Ronin
                                  usage: 'SUFFIX'
                                },
                                desc: 'Changes the suffix of each hostname'
+
+        option :enum_tlds, desc: 'Enumerates over every TLD'
 
         option :enum_suffixes, desc: 'Enumerates over every public suffix'
 
@@ -146,6 +149,8 @@ module Ronin
 
           if options[:change_suffix]
             process_host(host.change_suffix(options[:change_suffix]))
+          elsif options[:enum_tlds]
+            host.each_tld(&method(:process_hostname))
           elsif options[:enum_suffixes]
             host.each_suffix(&method(:process_hostname))
           else
