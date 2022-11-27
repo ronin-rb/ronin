@@ -31,3 +31,6 @@ Updates and parses the public suffix list file.
 
 Postmodern <postmodern.mod3@gmail.com>
 
+## SEE ALSO
+
+ronin-tld(1)

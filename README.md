@@ -94,6 +94,7 @@ Commands:
     sha256
     sha512
     strings
+    tld
     tips
     typo
     typo-squat
