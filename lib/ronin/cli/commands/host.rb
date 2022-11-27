@@ -32,13 +32,14 @@ module Ronin
       #
       #     -f, --file FILE                  Optional file to read values from
       #     -d, --domain                     Converts the hostname to a domain
+      #     -T, --tld                        Converts the hostname to it's TLD 
       #     -s, --suffix                     Converts the hostname to it's suffix
       #     -S, --change-suffix SUFFIX       Changes the suffix of each hostname
       #         --enum-suffixes              Enumerates over every public suffix
       #     -N, --nameserver HOST|IP         Send DNS queries to the nameserver
       #     -I, --ips                        Converts the hostname to it's IP addresses
       #     -A, --has-addresses              Filters hostnames that have addresses
-      #     -T A|AAAA|ANY|CNAME|HINFO|LOC|MINFO|MX|NS|PTR|SOA|SRV|TXT|WKS,
+      #     -H A|AAAA|ANY|CNAME|HINFO|LOC|MINFO|MX|NS|PTR|SOA|SRV|TXT|WKS,
       #         --has-records                Filters hostnames that have a certain DNS record type
       #     -t A|AAAA|ANY|CNAME|HINFO|LOC|MINFO|MX|NS|PTR|SOA|SRV|TXT|WKS,
       #         --query                      Queries a specific type of DNS record
@@ -54,6 +55,9 @@ module Ronin
 
         option :domain, short: '-d',
                         desc:  'Converts the hostname to a domain'
+
+        option :tld, short: '-T',
+                     desc: "Converts the hostname to it's TLD"
 
         option :suffix, short: '-s',
                         desc: "Converts the hostname to it's suffix"
@@ -82,7 +86,7 @@ module Ronin
         option :has_addresses, short: '-A',
                                desc:  'Filters hostnames that have addresses'
 
-        option :has_records, short: '-T',
+        option :has_records, short: '-H',
                              value: {
                                type: {
                                  A: :a,
@@ -158,6 +162,8 @@ module Ronin
         def process_hostname(host)
           if options[:domain]
             puts host.domain
+          elsif options[:tld]
+            puts host.tld
           elsif options[:suffix]
             puts host.suffix
           elsif options[:ips]

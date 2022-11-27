@@ -21,6 +21,9 @@ Processes hostname(s) and performs DNS queries.
 `-d`, `--domain`
   Converts the hostname to a domain.
 
+`-T`, `--tld`
+  Converts the hostname to it's TLD.
+
 `-s`, `--suffix`
   Converts the hostname to it's suffix.
 
@@ -39,7 +42,7 @@ Processes hostname(s) and performs DNS queries.
 `-A`, `--has-addresses`
   Filters hostnames that have addresses.
 
-`-T`, `--has-records`  `A`\|`AAAA`\|`ANY`\|`CNAME`\|`HINFO`\|`LOC`\|`MINFO`\|`MX`\|`NS`\|`PTR`\|`SOA`\|`SRV`\|`TXT`\|`WKS`
+`-H`, `--has-records`  `A`\|`AAAA`\|`ANY`\|`CNAME`\|`HINFO`\|`LOC`\|`MINFO`\|`MX`\|`NS`\|`PTR`\|`SOA`\|`SRV`\|`TXT`\|`WKS`
   Filters hostnames that have a certain DNS record type.
 
 `-t`, `--query` `A`\|`AAAA`\|`ANY`\|`CNAME`\|`HINFO`\|`LOC`\|`MINFO`\|`MX`\|`NS`\|`PTR`\|`SOA`\|`SRV`\|`TXT`\|`WKS`
