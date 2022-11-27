@@ -71,7 +71,7 @@ generated_files:
  - man/ronin-sha256.1
  - man/ronin-sha512.1
  - man/ronin-strings.1
- - man/ronin-tld.1
+ - man/ronin-tld-list.1
  - man/ronin-tips.1
  - man/ronin-typo.1
  - man/ronin-typo-squat.1

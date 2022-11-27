@@ -29,7 +29,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin tld [options]
+      #     ronin tld-list [options]
       #
       # ## Options
       #
@@ -39,7 +39,7 @@ module Ronin
       #     -p, --path FILE                  Path to the TLD list file (Default: ~/.cache/ronin/ronin-support/tlds-alpha-by-domain.txt)
       #     -h, --help                       Print help information
       #
-      class Tld < Command
+      class TldList < Command
 
         include Ronin::Support::Network::TLD
         include CommandKit::Options::Verbose
@@ -66,7 +66,7 @@ module Ronin
 
         description "Updates and parses the TLD list file"
 
-        man_page 'ronin-tld.1'
+        man_page 'ronin-tld-list.1'
 
         def run(*args)
           if !File.file?(options[:path])

@@ -1,8 +1,8 @@
-# ronin-tld 1 "May 2022" Ronin "User Manuals"
+# ronin-tld-list 1 "May 2022" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin tld` [*options*]
+`ronin tld-list` [*options*]
 
 ## DESCRIPTION
 

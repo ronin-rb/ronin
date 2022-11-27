@@ -33,4 +33,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-tld(1)
+ronin-tld-list(1)
