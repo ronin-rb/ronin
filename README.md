@@ -87,7 +87,7 @@ Commands:
     netcat, nc
     new
     proxy
-    public-suffix
+    public-suffix-list
     quote
     rot
     sha1

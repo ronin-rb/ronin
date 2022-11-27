@@ -29,7 +29,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin public-suffix [options]
+      #     ronin public-suffix-list [options]
       #
       # ## Options
       #
@@ -39,13 +39,11 @@ module Ronin
       #     -p, --path FILE                  Path to the public suffix list file (Default: /home/postmodern/.local/share/ronin/ronin-support/public_suffix_list.dat)
       #     -h, --help                       Print help information
       #
-      class PublicSuffix < Command
+      class PublicSuffixList < Command
 
         include Ronin::Support::Network::PublicSuffix
         include CommandKit::Options::Verbose
         include Core::CLI::Logging
-
-        command_name 'public-suffix'
 
         option :update, short: '-u',
                         desc: 'Updates the public suffix list file'
@@ -68,7 +66,7 @@ module Ronin
 
         description "Updates and parses the public suffix list file"
 
-        man_page 'ronin-public-suffix.1'
+        man_page 'ronin-public-suffix-list.1'
 
         def run(*args)
           if !File.file?(options[:path])

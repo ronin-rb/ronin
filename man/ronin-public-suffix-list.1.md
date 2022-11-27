@@ -1,8 +1,8 @@
-# ronin-public-suffix 1 "May 2022" Ronin "User Manuals"
+# ronin-public-suffix-list 1 "May 2022" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin public-suffix` [*options*]
+`ronin public-suffix-list` [*options*]
 
 ## DESCRIPTION
 

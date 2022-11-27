@@ -33,4 +33,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-public-suffix(1)
+ronin-public-suffix-list(1)
