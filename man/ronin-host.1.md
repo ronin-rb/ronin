@@ -48,7 +48,7 @@ Processes hostname(s) and performs DNS queries.
 `-A`, `--has-addresses`
   Filters hostnames that have addresses.
 
-`-H`, `--has-records`  `A`\|`AAAA`\|`ANY`\|`CNAME`\|`HINFO`\|`LOC`\|`MINFO`\|`MX`\|`NS`\|`PTR`\|`SOA`\|`SRV`\|`TXT`\|`WKS`
+`-H`, `--has-records` `A`\|`AAAA`\|`ANY`\|`CNAME`\|`HINFO`\|`LOC`\|`MINFO`\|`MX`\|`NS`\|`PTR`\|`SOA`\|`SRV`\|`TXT`\|`WKS`
   Filters hostnames that have a certain DNS record type.
 
 `-t`, `--query` `A`\|`AAAA`\|`ANY`\|`CNAME`\|`HINFO`\|`LOC`\|`MINFO`\|`MX`\|`NS`\|`PTR`\|`SOA`\|`SRV`\|`TXT`\|`WKS`
