@@ -36,8 +36,9 @@ Processes hostname(s) and performs DNS queries.
 `--enum-tlds`
   Enumerates over every TLD.
 
-`--enum-suffixes`
-  Enumerates over every public suffix.
+`--enum-suffixes`[`=``icann`|`private`]
+  Enumerates over every public suffix. An optional value of `icann` or `private`
+  can be given to only enumerate ICANN suffixes or private suffixes.
 
 `-N`, `--nameserver` *HOST*|*IP*
   Send DNS queries to the nameserver.

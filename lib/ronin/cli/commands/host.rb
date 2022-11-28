@@ -37,7 +37,8 @@ module Ronin
       #     -s, --suffix                     Converts the hostname to it's suffix
       #     -S, --change-suffix SUFFIX       Changes the suffix of each hostname
       #         --enum-tlds                  Enumerates over every TLD 
-      #         --enum-suffixes              Enumerates over every public suffix
+      #         --enum-suffixes[={icann|private}]
+      #                                      Enumerates over every domain suffix
       #     -N, --nameserver HOST|IP         Send DNS queries to the nameserver
       #     -I, --ips                        Converts the hostname to it's IP addresses
       #     -A, --has-addresses              Filters hostnames that have addresses
@@ -79,7 +80,12 @@ module Ronin
 
         option :enum_tlds, desc: 'Enumerates over every TLD'
 
-        option :enum_suffixes, desc: 'Enumerates over every public suffix'
+        option :enum_suffixes, equals: true,
+                               value: {
+                                 type:     [:icann, :private],
+                                 required: false
+                               },
+                               desc: 'Enumerates over every domain suffix'
 
         option :nameserver, short: '-N',
                             value: {
@@ -158,8 +164,10 @@ module Ronin
             process_host(host.change_suffix(options[:change_suffix]))
           elsif options[:enum_tlds]
             host.each_tld(&method(:process_hostname))
-          elsif options[:enum_suffixes]
-            host.each_suffix(&method(:process_hostname))
+          elsif options.has_key?(:enum_suffixes)
+            host.each_suffix(
+              type: options[:enum_suffixes], &method(:process_hostname)
+            )
           else
             process_hostname(host)
           end
