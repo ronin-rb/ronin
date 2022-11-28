@@ -20,7 +20,7 @@ the given *NUMBER*, *NAME*, or *COUNTRY* code.
 
 `-f`, `--file` *FILE*
   Overrides the default ASN list file. Defaults to
-  `~/.local/share/ronin/ronin-support/ip2asn-combined.tsv.gz`.
+  `~/.cache/ronin/ronin-support/ip2asn-combined.tsv.gz`.
 
 `-u`, `--update`
   Updates the ASN list file.

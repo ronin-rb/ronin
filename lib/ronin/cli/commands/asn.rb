@@ -36,7 +36,7 @@ module Ronin
       #
       #     -v, --verbose                    Enables verbose output
       #     -U, --url URI                    Overrides the default ASN list URL (Default: https://iptoasn.com/data/ip2asn-combined.tsv.gz)
-      #     -f, --file FILE                  Overrides the default ASN list file (Default: /home/postmodern/.local/share/ronin/ronin-support/ip2asn-combined.tsv.gz)
+      #     -f, --file FILE                  Overrides the default ASN list file (Default: ~/.cache/ronin/ronin-support/ip2asn-combined.tsv.gz)
       #     -u, --update                     Updates the ASN list file
       #     -n, --number NUM|AS...           Searches for all ASN records with the AS number
       #     -C XX|None|Uknown,               Searches for all ASN records with the country code
