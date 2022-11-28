@@ -22,7 +22,7 @@ Updates and parses the public suffix list file.
 
 `-p`, `--path` *FILE*
   The Path to the public suffix list file. Defaults to
-  `~/.local/share/ronin/ronin-support/public_suffix_list.dat` if not given.
+  `~/.cache/ronin/ronin-support/public_suffix_list.dat` if not given.
 
 `-h`, `--help`
   Print help information
