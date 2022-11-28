@@ -31,6 +31,7 @@ module Ronin
       # ## Options
       #
       #     -f, --file FILE                  Optional file to read values from
+      #         --subdomain                  Converts the hostname to a sub-domain
       #     -d, --domain                     Converts the hostname to a domain
       #     -T, --tld                        Converts the hostname to it's TLD 
       #     -s, --suffix                     Converts the hostname to it's suffix
@@ -53,6 +54,12 @@ module Ronin
       class Host < ValueProcessorCommand
 
         usage '[options] [HOST ...]'
+
+        option :subdomain, value: {
+                             type:  String,
+                             usage: 'SUBNAME'
+                           },
+                           desc: 'Converts the hostname to a sub-domain'
 
         option :domain, short: '-d',
                         desc:  'Converts the hostname to a domain'
@@ -165,7 +172,9 @@ module Ronin
         #   The host object to process.
         #
         def process_hostname(host)
-          if options[:domain]
+          if options[:subdomain]
+            puts host.subdomain(options[:subdomain])
+          elsif options[:domain]
             puts host.domain
           elsif options[:tld]
             puts host.tld

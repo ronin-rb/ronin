@@ -18,6 +18,9 @@ Processes hostname(s) and performs DNS queries.
 `-f`, `--file` *FILE*
   Optional file to read values from.
 
+`--subdomain` *SUBNAME*
+  Converts the hostname to a sub-domain.
+
 `-d`, `--domain`
   Converts the hostname to a domain.
 
