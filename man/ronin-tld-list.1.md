@@ -27,6 +27,11 @@ Updates and parses the TLD list file.
 `-h`, `--help`
   Print help information
 
+## FILES
+
+`~/.cache/ronin/ronin-support/tlds-alpha-by-domain.txt`
+  The location of the downloaded TLD list.
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>

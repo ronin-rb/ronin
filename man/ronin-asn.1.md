@@ -75,6 +75,11 @@ Enumerate over all IP addresses for all ASN records belonging to the given ISP:
 
         ronin asn --enum-ips -N EDGECAST
 
+## FILES
+
+`~/.cache/ronin/ronin-support/ip2asn-combined.tsv.gz`
+  The location of the downloaded ASN list.
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>

@@ -27,6 +27,11 @@ Updates and parses the public suffix list file.
 `-h`, `--help`
   Print help information
 
+## FILES
+
+`~/.cache/ronin/ronin-support/public_suffix_list.dat`
+  The location of the downloaded public suffix list.
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
