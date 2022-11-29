@@ -22,6 +22,9 @@ Extract common patterns in the given file(s) or input stream.
 `-X`, `--hex-number`
   Searches for all numbers.
 
+`-V`, `--version-number`
+  Searches for all version numbers.
+
 `-w`, `--word`
   Searches for all words.
 

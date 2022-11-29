@@ -26,6 +26,7 @@ module Ronin
     #
     #     -N, --number                     Searches for all numbers
     #     -X, --hex-number                 Searches for all numbers
+    #     -V, --version-number             Searches for all version numbers
     #     -w, --word                       Searches for all words
     #         --mac-addr                   Searches for all MAC addresses
     #     -4, --ipv4-addr                  Searches for all IPv4 addresses
@@ -99,6 +100,11 @@ module Ronin
                              desc: 'Searches for all numbers' do
                                @pattenr = NUMBER
                              end
+
+        command.option :version_number, short: '-V',
+                                        desc: 'Searches for all version numbers' do
+                                          @pattern = VERSION_NUMBER
+                                        end
 
         command.option :word, short: '-w',
                        desc: 'Searches for all words' do
