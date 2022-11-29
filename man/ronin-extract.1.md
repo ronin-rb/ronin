@@ -145,7 +145,7 @@ Extract common patterns in the given file(s) or input stream.
 `--ssh-public-key`
   Searches for all SSH public key data.
 
-`--private-key`
+`-K`, `--private-key`
   Searches for all private key data.
 
 `--rsa-public-key`

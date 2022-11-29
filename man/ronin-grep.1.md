@@ -145,7 +145,7 @@ Greps for common patterns in the given file(s) or input stream.
 `--ssh-public-key`
   Searches for all SSH public key data.
 
-`--private-key`
+`-K`, `--private-key`
   Searches for all private key data.
 
 `--rsa-public-key`
@@ -166,7 +166,7 @@ Greps for common patterns in the given file(s) or input stream.
 `--aws-secret-access-key`
   Searches for all AWS secret access key.
 
-`--api-key`
+`-A`, `--api-key`
   Searches for all API keys (MD5, SHA1, SHA256, SHA512, AWS access key ID, or
   AWS secret access key).
 

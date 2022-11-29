@@ -275,9 +275,10 @@ module Ronin
           @pattern = SSH_PUBLIC_KEY
         end
 
-        command.option :private_key, desc: 'Searches for all private key data' do
-          @pattern = PRIVATE_KEY
-        end
+        command.option :private_key, short: '-K',
+                                     desc: 'Searches for all private key data' do
+                                       @pattern = PRIVATE_KEY
+                                     end
 
         command.option :rsa_public_key, desc: 'Searches for all RSA public key data' do
           @pattern = RSA_PUBLIC_KEY
