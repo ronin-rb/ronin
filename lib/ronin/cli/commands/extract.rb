@@ -80,7 +80,7 @@ module Ronin
       #         --public-key                 Searches for all public key data
       #         --aws-access-key-id          Searches for all AWS access key IDs
       #         --aws-secret-access-key      Searches for all AWS secret access key
-      #         --api-key                    Secretes for all API keys
+      #     -A, --api-key                    Secretes for all API keys
       #         --single-quoted-string       Searches for all single-quoted strings
       #         --double-quoted-string       Searches for all double-quoted strings
       #     -S, --string                     Searches for all quoted strings

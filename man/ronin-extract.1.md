@@ -166,7 +166,7 @@ Extract common patterns in the given file(s) or input stream.
 `--aws-secret-access-key`
   Searches for all AWS secret access key.
 
-`--api-key`
+`-A`, `--api-key`
   Searches for all API keys (MD5, SHA1, SHA256, SHA512, AWS access key ID, or
   AWS secret access key).
 
