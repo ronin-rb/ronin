@@ -93,12 +93,12 @@ module Ronin
       def self.included(command)
         command.option :number, short: '-N',
                          desc: 'Searches for all numbers' do
-                           @pattenr = NUMBER
+                           @pattern = NUMBER
                          end
 
         command.option :hex_number, short: '-X',
                              desc: 'Searches for all hexadecimal numbers' do
-                               @pattenr = NUMBER
+                               @pattern = NUMBER
                              end
 
         command.option :version_number, short: '-V',
