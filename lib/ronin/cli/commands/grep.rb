@@ -33,7 +33,7 @@ module Ronin
       # ## Options
       #
       #     -N, --number                     Searches for all numbers
-      #     -X, --hex-number                 Searches for all numbers
+      #     -X, --hex-number                 Searches for all hexadecimal numbers
       #     -V, --version-number             Searches for all version numbers
       #     -w, --word                       Searches for all words
       #         --mac-addr                   Searches for all MAC addresses

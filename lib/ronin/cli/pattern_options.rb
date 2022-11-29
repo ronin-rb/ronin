@@ -25,7 +25,7 @@ module Ronin
     # ## Options
     #
     #     -N, --number                     Searches for all numbers
-    #     -X, --hex-number                 Searches for all numbers
+    #     -X, --hex-number                 Searches for all hexadecimal numbers
     #     -V, --version-number             Searches for all version numbers
     #     -w, --word                       Searches for all words
     #         --mac-addr                   Searches for all MAC addresses
@@ -97,7 +97,7 @@ module Ronin
                          end
 
         command.option :hex_number, short: '-X',
-                             desc: 'Searches for all numbers' do
+                             desc: 'Searches for all hexadecimal numbers' do
                                @pattenr = NUMBER
                              end
 

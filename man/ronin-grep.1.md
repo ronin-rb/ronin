@@ -20,7 +20,7 @@ Greps for common patterns in the given file(s) or input stream.
   Searches for all numbers.
 
 `-X`, `--hex-number`
-  Searches for all numbers.
+  Searches for all hexadecimal numbers.
 
 `-V`, `--version-number`
   Searches for all version numbers.
