@@ -46,6 +46,12 @@ Processes hostname(s) and performs DNS queries.
 `-I`, `--ips`
   Converts the hostname to it's IP addresses.
 
+`-r`, `--registered`
+  Filters hostnames that are registered.
+
+`-u`, `--unreigstered`
+  Filters hostnames that are unregistered.
+
 `-A`, `--has-addresses`
   Filters hostnames that have addresses.
 

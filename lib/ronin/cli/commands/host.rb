@@ -41,6 +41,8 @@ module Ronin
       #                                      Enumerates over every domain suffix
       #     -N, --nameserver HOST|IP         Send DNS queries to the nameserver
       #     -I, --ips                        Converts the hostname to it's IP addresses
+      #     -r, --registered                 Filters hostnames that are registered
+      #     -u, --unregistered               Filters hostnames that are unregistered
       #     -A, --has-addresses              Filters hostnames that have addresses
       #     -H A|AAAA|ANY|CNAME|HINFO|LOC|MINFO|MX|NS|PTR|SOA|SRV|TXT|WKS,
       #         --has-records                Filters hostnames that have a certain DNS record type
@@ -98,6 +100,12 @@ module Ronin
 
         option :ips, short: '-I',
                      desc:  "Converts the hostname to it's IP addresses"
+
+        option :registered, short: '-r',
+                            desc: 'Filters hostnames that are registered'
+
+        option :unregistered, short: '-u',
+                              desc: 'Filters hostnames that are unregistered'
 
         option :has_addresses, short: '-A',
                                desc:  'Filters hostnames that have addresses'
@@ -190,6 +198,10 @@ module Ronin
             puts host.suffix
           elsif options[:ips]
             puts host.get_addresses
+          elsif options[:registered]
+            puts host if host.registered?
+          elsif options[:unregistered]
+            puts host if host.unregistered?
           elsif options[:has_addresses]
             puts host unless host.get_addresses.empty?
           elsif options[:has_records]
