@@ -205,7 +205,7 @@ module Ronin
           elsif options[:has_addresses]
             puts host if host.has_addresses?
           elsif options[:has_records]
-            puts host unless host.get_records(options[:has_records])
+            puts host unless host.get_records(options[:has_records]).empty?
           elsif options[:query]
             print_records(query_records(host))
           else
