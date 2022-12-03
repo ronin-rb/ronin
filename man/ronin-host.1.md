@@ -40,6 +40,10 @@ Processes hostname(s) and performs DNS queries.
   Enumerates over every public suffix. An optional value of `icann` or `private`
   can be given to only enumerate ICANN suffixes or private suffixes.
 
+`--enum-subdomains` *FILE*
+  Enumerates over every subdomain from the given *FILE* and for the given
+  hostname.
+
 `-N`, `--nameserver` *HOST*|*IP*
   Send DNS queries to the nameserver.
 

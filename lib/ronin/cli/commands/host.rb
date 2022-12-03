@@ -39,6 +39,7 @@ module Ronin
       #         --enum-tlds                  Enumerates over every TLD 
       #         --enum-suffixes[={icann|private}]
       #                                      Enumerates over every domain suffix
+      #         --enum-subdomains FILE       Enumerates over every subdomain in the wordlist
       #     -N, --nameserver HOST|IP         Send DNS queries to the nameserver
       #     -I, --ips                        Converts the hostname to it's IP addresses
       #     -r, --registered                 Filters hostnames that are registered
@@ -88,6 +89,12 @@ module Ronin
                                  required: false
                                },
                                desc: 'Enumerates over every domain suffix'
+
+        option :enum_subdomains, value: {
+                                   type:  String,
+                                   usage: 'FILE'
+                                 },
+                                 desc: 'Enumerates over every subdomain in the wordlist'
 
         option :nameserver, short: '-N',
                             value: {
@@ -176,6 +183,12 @@ module Ronin
             host.each_suffix(
               type: options[:enum_suffixes], &method(:process_hostname)
             )
+          elsif options[:enum_subdomains]
+            File.open(options[:enum_subdomains]) do |file|
+              file.each_line(chomp: true) do |subname|
+                process_hostname(host.subdomain(subname))
+              end
+            end
           else
             process_hostname(host)
           end
