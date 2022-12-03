@@ -203,7 +203,7 @@ module Ronin
           elsif options[:unregistered]
             puts host if host.unregistered?
           elsif options[:has_addresses]
-            puts host unless host.get_addresses.empty?
+            puts host if host.has_addresses?
           elsif options[:has_records]
             puts host unless host.get_records(options[:has_records])
           elsif options[:query]
