@@ -31,7 +31,7 @@ module Ronin
       # ## Options
       #
       #     -f, --file FILE                  Optional file to read values from
-      #         --subdomain                  Converts the hostname to a sub-domain
+      #         --subdomain SUBNAME          Converts the hostname to a sub-domain
       #     -d, --domain                     Converts the hostname to a domain
       #     -T, --tld                        Converts the hostname to it's TLD 
       #     -s, --suffix                     Converts the hostname to it's suffix
