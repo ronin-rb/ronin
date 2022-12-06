@@ -27,13 +27,13 @@ Finds typo squatted domains.
 `--change-suffix`
   Toggles whether to change the suffix of words.
 
-`--has-addresses`
+`-A`, `--has-addresses`
   Print typo squat domains with addresses.
 
-`--registered`
+`-r`, `--registered`
   Print typo squat domains that are already registered.
 
-`--unregistered`
+`-u`, `--unregistered`
   Print typo squat domains that can be registered.
 
 `-h`, `--help`
