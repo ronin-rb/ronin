@@ -36,6 +36,9 @@ module Ronin
       #         --repeat-chars               Toggles whether to repeat single characters
       #         --swap-chars                 Toggles whether to swap certain common character pairs
       #         --change-suffix              Toggles whether to change the suffix of words
+      #         --has-addresses              Print typo squat domains with addresse
+      #         --registered                 Print typo squat domains that are already registered
+      #         --unregistered               Print typo squat domains that can be registered
       #     -h, --help                       Print help information
       #
       # ## Arguments
