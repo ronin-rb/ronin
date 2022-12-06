@@ -28,7 +28,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin typo-squat [options] DOMAIN
+      #     ronin typosquat [options] DOMAIN
       #
       # ## Options
       #
@@ -42,7 +42,7 @@ module Ronin
       #
       #     DOMAIN                           The domain to typo squat
       #
-      class TypoSquat < ValueProcessorCommand
+      class Typosquat < ValueProcessorCommand
 
         include TypoOptions
 
@@ -55,7 +55,7 @@ module Ronin
 
         description 'Finds typo squatted domains'
 
-        man_page 'ronin-typo-squat.1'
+        man_page 'ronin-typosquat.1'
 
         #
         # Processes each word.

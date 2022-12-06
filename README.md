@@ -97,7 +97,7 @@ Commands:
     tld-list
     tips
     typo
-    typo-squat
+    typosquat
     unescape
     unhexdump
     unquote

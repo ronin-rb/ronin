@@ -74,7 +74,7 @@ generated_files:
  - man/ronin-tld-list.1
  - man/ronin-tips.1
  - man/ronin-typo.1
- - man/ronin-typo-squat.1
+ - man/ronin-typosquat.1
  - man/ronin-unescape.1
  - man/ronin-unhexdump.1
  - man/ronin-unquote.1

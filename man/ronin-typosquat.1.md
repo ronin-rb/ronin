@@ -1,8 +1,8 @@
-# ronin-typo-squat 1 "May 2022" Ronin "User Manuals"
+# ronin-typosquat 1 "May 2022" Ronin "User Manuals"
 
 ## SYNOPSIS
 
-`ronin typo-squat` [*options*] DOMAIN
+`ronin typosquat` [*options*] DOMAIN
 
 ## DESCRIPTION
 
