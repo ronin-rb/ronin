@@ -48,6 +48,8 @@ module Ronin
 
         option :has_addresses, desc: 'Print typo squat domains with addresse'
 
+        option :registered, desc: 'Print typo squat domains that are already registered'
+
         option :unregistered, desc: 'Print typo squat domains that can be registered'
 
         argument :domain, required: true,
@@ -67,6 +69,12 @@ module Ronin
           if options[:has_addresses]
             each_typo_squat(domain) do |typo_domain|
               if typo_domain.has_addresses?
+                puts typo_domain
+              end
+            end
+          elsif options[:registered]
+            each_typo_squat(domain) do |typo_domain|
+              if typo_domain.registered?
                 puts typo_domain
               end
             end
