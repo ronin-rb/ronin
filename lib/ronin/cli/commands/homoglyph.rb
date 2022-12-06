@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Copyright (c) 2006-2022 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
