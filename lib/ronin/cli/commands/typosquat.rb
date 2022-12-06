@@ -72,9 +72,7 @@ module Ronin
             end
           elsif options[:available]
             each_typo_squat(domain) do |typo_domain|
-              unless (typo_domain.has_addresses? ||
-                      typo_domain.has_mailservers? ||
-                      typo_domain.has_mailservers?)
+              if typo_domain.unregistered?
                 puts typo_domain
               end
             end
