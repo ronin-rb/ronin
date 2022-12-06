@@ -48,7 +48,7 @@ module Ronin
 
         option :has_addresses, desc: 'Print typo squat domains with addresse'
 
-        option :available, desc: 'Print typo squat domains that can be registered'
+        option :unregistered, desc: 'Print typo squat domains that can be registered'
 
         argument :domain, required: true,
                           desc:     'The domain to typo squat'
@@ -70,7 +70,7 @@ module Ronin
                 puts typo_domain
               end
             end
-          elsif options[:available]
+          elsif options[:unregistered]
             each_typo_squat(domain) do |typo_domain|
               if typo_domain.unregistered?
                 puts typo_domain
