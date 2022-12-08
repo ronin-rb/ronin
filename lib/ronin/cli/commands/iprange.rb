@@ -82,6 +82,8 @@ module Ronin
           "--input list.txt"
         ]
 
+        man_page 'ronin-iprange.1'
+
         #
         # Initializes the `ronin iprange` command.
         #

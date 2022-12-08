@@ -158,6 +158,8 @@ module Ronin
           '--host 192.30.255.113'
         ]
 
+        man_page 'ronin-ip.1'
+
         #
         # Runs the `ronin ip` command.
         #

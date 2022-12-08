@@ -244,6 +244,8 @@ module Ronin
 
         description 'Hexdumps data in a variaty of encodings and formats'
 
+        man_page 'ronin-hexdump.1'
+
         # The highlighting rules to apply to the index column.
         #
         # @return [Array<(Regexp, Array<Symbol>)>,

@@ -88,6 +88,8 @@ module Ronin
           '--hex -n 32 file.bin',
         ]
 
+        man_page 'ronin-strings.1'
+
         #
         # Opens the file in binary mode.
         #

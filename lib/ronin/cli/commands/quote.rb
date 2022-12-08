@@ -86,6 +86,8 @@ module Ronin
 
         description 'Produces quoted a string for a variety of programming languages'
 
+        man_page 'ronin-quote.1'
+
         #
         # Quotes the String.
         #

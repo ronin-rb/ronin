@@ -113,6 +113,8 @@ module Ronin
 
         description 'Unescapes each escaped character from a variety of encodings'
 
+        man_page 'ronin-unescape.1'
+
       end
     end
   end

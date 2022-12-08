@@ -135,6 +135,8 @@ module Ronin
 
         description 'Encodes each character of data into a variety of encodings'
 
+        man_page 'ronin-encode.1'
+
       end
     end
   end

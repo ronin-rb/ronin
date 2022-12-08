@@ -135,6 +135,8 @@ module Ronin
 
         description 'Decodes each character of data from a variety of encodings'
 
+        man_page 'ronin-decode.1'
+
       end
     end
   end

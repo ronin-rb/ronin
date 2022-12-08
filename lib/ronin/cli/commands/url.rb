@@ -108,6 +108,8 @@ module Ronin
           "--param id https://example.com/page?id=100"
         ]
 
+        man_page 'ronin-url.1'
+
         #
         # Processes an individual URL.
         #

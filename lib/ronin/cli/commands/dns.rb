@@ -80,6 +80,8 @@ module Ronin
 
         description 'Performs a variety of DNS queries'
 
+        man_page 'ronin-dns.1'
+
         #
         # Initializes the `ronin dns` command.
         #

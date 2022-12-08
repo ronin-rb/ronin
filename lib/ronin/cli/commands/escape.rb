@@ -113,6 +113,8 @@ module Ronin
 
         description 'Escapes each special character for a variety of encodings'
 
+        man_page 'ronin-escape.1'
+
       end
     end
   end

@@ -86,6 +86,8 @@ module Ronin
 
         description 'Unquotes a double/single quoted string'
 
+        man_page 'ronin-unquote.1'
+
         #
         # Unquotes the String.
         #
