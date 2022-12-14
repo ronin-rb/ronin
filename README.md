@@ -142,6 +142,8 @@ $ ronin irb
 
 * [Ruby] >= 3.0.0
 * [open_namespace] ~> 0.4
+* [rouge] ~> 3.0
+* [async-io] ~> 1.0
 * [ronin-support] ~> 1.0
 * [ronin-core] ~> 0.1
 * [ronin-repos] ~> 0.1
@@ -191,6 +193,8 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-rb]: https://ronin-rb.dev/
 [Ruby]: https://www.ruby-lang.org
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
+[rouge]: https://github.com/rouge-ruby/rouge#readme
+[async-io]: https://github.com/socketry/async-io#readme
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
 [ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
