@@ -187,7 +187,14 @@ module Ronin
               type: options[:enum_suffixes], &method(:process_hostname)
             )
           elsif options[:enum_subdomains]
-            Wordlist::File.open(options[:enum_subdomains]) do |wordlist|
+            path = options[:enum_subdomains]
+
+            unless File.file?(path)
+              print_error "wordlist file not found: #{path.inspect}"
+              exit(-1)
+            end
+
+            Wordlist::File.open(path) do |wordlist|
               wordlist.each do |subname|
                 process_hostname(host.subdomain(subname))
               end
