@@ -19,6 +19,8 @@
 require 'ronin/cli/value_processor_command'
 require 'ronin/support/network/host'
 
+require 'wordlist/file'
+
 module Ronin
   class CLI
     module Commands
@@ -185,8 +187,8 @@ module Ronin
               type: options[:enum_suffixes], &method(:process_hostname)
             )
           elsif options[:enum_subdomains]
-            File.open(options[:enum_subdomains]) do |file|
-              file.each_line(chomp: true) do |subname|
+            Wordlist::File.open(options[:enum_subdomains]) do |wordlist|
+              wordlist.each do |subname|
                 process_hostname(host.subdomain(subname))
               end
             end
