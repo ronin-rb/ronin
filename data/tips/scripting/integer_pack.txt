@@ -1,0 +1,5 @@
+Packing an Integer:
+
+    0x1337.pack(:uint32_le)
+    # => "7\x13\0\0"
+

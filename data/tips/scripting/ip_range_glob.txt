@@ -1,0 +1,6 @@
+Enumerate through an nmap range of IP addresses:
+
+    Ronin::Support::Network::IPRange.each('10.1.*.1-128') do |ip|
+      # ...
+    end
+

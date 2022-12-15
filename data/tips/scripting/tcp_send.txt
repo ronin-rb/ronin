@@ -1,0 +1,5 @@
+Send data to a TCP server:
+
+    buffer = 'A' * 1024
+    tcp_send(buffer,'example.com',1212)
+

@@ -1,0 +1,7 @@
+Opens a UNIX Socket and accepts one connection:
+
+    buffer = 'A' * 1024
+    unix_accept('/tmp/race_condition.socket') do |socket|
+      sockets.puts(buffer)
+    end
+

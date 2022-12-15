@@ -1,0 +1,7 @@
+Listen on a port and receive UDP messages, infinitely:
+
+    udp_server_loop(1337) do |server,(host,port),mesg|
+      print_info "#{host}:#{port}"
+      puts mesg
+    end
+

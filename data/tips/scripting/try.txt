@@ -1,0 +1,4 @@
+Run a block of Ruby code, and ignore any exceptions:
+
+    try { Resolv.getaddress(readline) }
+

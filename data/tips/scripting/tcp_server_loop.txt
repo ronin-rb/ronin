@@ -1,0 +1,6 @@
+Listen on a TCP port and accept connections, infinitely:
+
+    tcp_server_loop(1337) do |client|
+      client.write(buffer)
+    end
+

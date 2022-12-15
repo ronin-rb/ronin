@@ -1,0 +1,5 @@
+Base64 decode a String:
+
+    "c2VjcmV0\n".base64_decode
+    # => "secret"
+

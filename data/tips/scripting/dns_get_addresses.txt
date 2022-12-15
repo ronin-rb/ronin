@@ -1,0 +1,5 @@
+Lookup all addresses of a Domain name:
+
+    dns_get_addresses 'example.com'
+    # => ["93.184.216.34"]
+

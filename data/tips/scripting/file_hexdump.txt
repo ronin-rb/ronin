@@ -1,0 +1,4 @@
+Hexdump a file:
+
+    File.hexdump('/bin/ls')
+

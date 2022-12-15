@@ -1,0 +1,7 @@
+Listen on a port, and receive only one UDP message:
+
+    udp_recv(1337) do |socket,(host,port),mesg|
+      print_info "#{host}:#{port}"
+      puts mesg
+    end
+

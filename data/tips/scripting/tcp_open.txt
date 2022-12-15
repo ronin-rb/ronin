@@ -1,0 +1,5 @@
+Test if a TCP port is open:
+
+    tcp_open?('example.com',80)
+    # => true
+

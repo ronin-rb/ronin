@@ -1,0 +1,5 @@
+Packing an Array:
+
+    [0x05, "hello"].pack(:uint16_be, :string)
+    # => "\x00\x05hello\x00"
+

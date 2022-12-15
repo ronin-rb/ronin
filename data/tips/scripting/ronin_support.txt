@@ -1,0 +1,5 @@
+Load the ronin-support library in a ruby script:
+
+    require 'ronin/support'
+    include Ronin::Support
+

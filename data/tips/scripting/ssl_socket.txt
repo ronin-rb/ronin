@@ -1,0 +1,12 @@
+Create a SSL Socket to a specified host and port:
+
+    socket = ssl_connect('github.com',443)
+    # => #<OpenSSL::SSL::SSLSocket:0x00000002f60458>
+
+Or create a temporary SSL Socket that automatically closes:
+
+    ssl_socket('github.com',443) do |socket|
+      socket.write("GET /\r\n")
+      puts socket.read
+    end
+

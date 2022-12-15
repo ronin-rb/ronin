@@ -1,0 +1,17 @@
+Return the response Headers from a HTTP GET Request:
+
+    http_get_headers 'http://example.com/'
+    # => {"Accept-Ranges"=>"bytes",
+    #     "Age"=>"283888",
+    #     "Cache-Control"=>"max-age=604800",
+    #     "Content-Type"=>"text/html; charset=UTF-8",
+    #     "Date"=>"Thu, 15 Dec 2022 22:29:04 GMT",
+    #     "Etag"=>"\"3147526947+ident\"",
+    #     "Expires"=>"Thu, 22 Dec 2022 22:29:04 GMT",
+    #     "Last-Modified"=>"Thu, 17 Oct 2019 07:18:26 GMT",
+    #     "Server"=>"ECS (sec/96DC)",
+    #     "Vary"=>"Accept-Encoding",
+    #     "X-Cache"=>"HIT",
+    #     "Content-Length"=>"1256",
+    #     "Connection"=>"close"}
+

@@ -1,0 +1,6 @@
+Extract IP addresses from text:
+
+    data = "One two 10.1.1.2 three ..."
+    data.scan(Regexp::IP)
+    # => ["10.1.1.2"]
+
