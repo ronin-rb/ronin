@@ -81,7 +81,7 @@ module Ronin
           xored_string = Support::Crypto.xor(string,@key)
 
           # escapes the String if outputing to a TTY
-          xored_string = xored_string.dump if output_stream.tty?
+          xored_string = xored_string.dump if stdout.tty?
           return xored_string
         end
 
