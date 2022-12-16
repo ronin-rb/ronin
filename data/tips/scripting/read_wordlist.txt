@@ -1,0 +1,7 @@
+Read a wordlist:
+
+    wordlist = Wordlist.open('path/to/wordlist.txt')
+    wordlist.each do |word|
+      # ...
+    end
+
