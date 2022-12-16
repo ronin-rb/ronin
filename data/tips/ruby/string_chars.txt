@@ -1,0 +1,17 @@
+Get the character in a String:
+
+    "hello".chars
+    # => ["h", "e", "l", "l", "o"]
+
+Get a character from a String:
+
+    str = "hello"
+    str[0]
+    # => "h"
+
+Set a character in a String:
+
+    str[0] = 'X'
+    str
+    # => "Xello"
+

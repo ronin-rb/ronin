@@ -1,0 +1,5 @@
+Convert a character to a byte:
+
+    'A'.ord
+    # => 65
+

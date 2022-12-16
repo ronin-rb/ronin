@@ -1,0 +1,10 @@
+Format an Integer as binary:
+
+    "0x%x" % 65535
+    # => "0xffff"
+
+Or even simpler:
+
+    65535.to_s(16)
+    # => "ffff"
+

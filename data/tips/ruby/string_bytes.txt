@@ -1,0 +1,17 @@
+Get the bytes of a String:
+
+    "hello".bytes
+    # => [104, 101, 108, 108, 111]
+
+Get a byte from a String:
+
+    str = "hello"
+    str.getbyte(0)
+    # => 104
+
+Sets a byte in a String:
+
+    str.setbyte(0,0x41)
+    str
+    # => "Aello"
+

@@ -1,0 +1,13 @@
+Split a comma separated String into an Array:
+
+    parts = "foo,bar,baz,qux".split(',')
+
+Split a comma separated String, but only into three parts:
+
+    a,b,c = "foo,bar,baz,qux".split(',',3)
+    # => ["foo", "bar", "baz,qux"]
+
+Split a comma separated String, but only capture the first and third fields:
+
+    a,_,c,_ = "foo,bar,baz,qux".split(',')
+
