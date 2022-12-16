@@ -1,0 +1,5 @@
+Load a SSL/TLS certificate from a file:
+
+    key  = Ronin::Support::Crypto::Key.load_file('cert.key')
+    cert = Ronin::Support::Crypto::Cert.load_file('cert.pem')
+
