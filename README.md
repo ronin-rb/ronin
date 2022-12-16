@@ -28,7 +28,8 @@
 
 * A toolkit of useful commands.
 * A fully-loaded Ruby REPL.
-* An ecosystem of high-quality security related Ruby libraries and commands.
+* An ecosystem of high-quality security related Ruby libraries, API, and
+  commands.
 
 ### What can you do with Ronin?
 
