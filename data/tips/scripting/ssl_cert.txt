@@ -1,0 +1,10 @@
+Get the SSL certificate from a port:
+
+    cert = ssl_cert('example.com',443)
+    # => #<Ronin::Support::Crypto::Cert
+    #     subject=#<Ronin::Support::Crypto::Cert::Name CN=www.example.org,O=Internet\C2\A0Corporation\C2\A0for\C2\A0Assigned\C2\A0Names\C2\A0and\C2\A0Numbers,L=Los Angeles,ST=California,C=US>,                                           
+    #     issuer=#<Ronin::Support::Crypto::Cert::Name CN=DigiCert TLS RSA SHA256 2020 CA1,O=DigiCert Inc,C=US>,                                 
+    #     serial=#<OpenSSL::BN 20823119674429668393338028820299337114>,
+    #     not_before=2022-03-14 00:00:00 UTC,        
+    #     not_after=2023-03-14 23:59:59 UTC>         
+
