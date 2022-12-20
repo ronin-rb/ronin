@@ -58,7 +58,7 @@ module Ronin
       #     -U, --user-agent-string STRING   The User-Agent string to use
       #     -u chrome_linux|chrome_macos|chrome_windows|chrome_iphone|chrome_ipad|chrome_android|firefox_linux|firefox_macos|firefox_windows|firefox_iphone|firefox_ipad|firefox_android|safari_macos|safari_iphone|safari_ipad|edge,
       #         --user-agent                 The User-Agent to use
-      #     -H, --header NAME=VALUE          Adds a header to the request
+      #     -H, --header "NAME: VALUE"       Adds a header to the request
       #     -B, --body STRING                The request body
       #     -F, --body-file FILE             Sends the file as the request body
       #     -f, --form-data NAME=VALUE       Adds a value to the form data
@@ -180,11 +180,11 @@ module Ronin
 
         option :header, short: '-H',
                         value: {
-                          type:  /[^=]+=.+/,
-                          usage: 'NAME=VALUE'
+                          type:  /[^\s:]+:.+/,
+                          usage: '\"NAME: VALUE\"'
                         },
                         desc: 'Adds a header to the request' do |str|
-                          name, value = str.split('=',2)
+                          name, value = str.split(/:\s*/,2)
 
                           @headers[name] = value
                         end
