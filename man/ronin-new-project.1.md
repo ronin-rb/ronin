@@ -6,7 +6,7 @@
 
 ## DESCRIPTION
 
-Creates a new project directory.
+Creates a new Ruby project directory.
 
 ## ARGUMENTS
 

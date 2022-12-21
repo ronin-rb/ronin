@@ -24,7 +24,7 @@ module Ronin
   class CLI
     module Commands
       #
-      # Creates new project directory.
+      # Creates new Ruby project directory.
       #
       # ## Usage
       #
@@ -67,6 +67,8 @@ module Ronin
 
           argument :path, required: true,
                           desc:     'The directory to create'
+
+          description 'Creates a new Ruby project directory'
 
           man_page 'ronin-new-project.1'
 

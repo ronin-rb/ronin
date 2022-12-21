@@ -24,7 +24,7 @@ module Ronin
   class CLI
     module Commands
       #
-      # Creates new standalone scripts.
+      # Creates a new standalone Ruby script.
       #
       # ## Usage
       #
@@ -45,6 +45,8 @@ module Ronin
 
           argument :path, required: true,
                           desc:     'The script file to create'
+
+          description 'Creates a new standalone Ruby script'
 
           man_page 'ronin-new-script.1'
 
