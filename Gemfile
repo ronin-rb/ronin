@@ -33,12 +33,18 @@ end
 #                                        branch: 'main'
 # gem 'ronin-fuzzer',          '~> 0.1', github: "ronin-rb/ronin-fuzzer",
 #                                        branch: 'main'
-gem 'ronin-post_ex',         '~> 0.1', github: "ronin-rb/ronin-post_ex",
-                                       branch: 'main'
+# gem 'ronin-post_ex',         '~> 0.1', github: "ronin-rb/ronin-post_ex",
+#                                        branch: 'main'
 gem 'ronin-code-asm',        '~> 1.0', github: "ronin-rb/ronin-code-asm",
-                                       branch: '1.0.0'
+                                       branch: 'main'
 gem 'ronin-code-sql',        '~> 2.0', github: "ronin-rb/ronin-code-sql",
-                                       branch: '2.0.0'
+                                       branch: 'main'
+gem 'ronin-payloads',        '~> 0.1', github: "ronin-rb/ronin-payloads",
+                                       branch: 'main'
+gem 'ronin-exploits',        '~> 1.0', github: "ronin-rb/ronin-exploits",
+                                       branch: '1.0.0'
+gem 'ronin-vulns',           '~> 0.1', github: "ronin-rb/ronin-vulns",
+                                       branch: 'main'
 gem 'ronin-web-server',	     '~> 0.1', github: "ronin-rb/ronin-web-server",
                                        branch: 'main'
 gem 'ronin-web-spider',	     '~> 0.1', github: "ronin-rb/ronin-web-spider",
@@ -47,12 +53,6 @@ gem 'ronin-web-user_agents', '~> 0.1', github: "ronin-rb/ronin-web-user_agents",
                                        branch: 'main'
 gem 'ronin-web',             '~> 1.0', github: "ronin-rb/ronin-web",
                                        branch: '1.0.0'
-gem 'ronin-payloads',        '~> 0.1', github: "ronin-rb/ronin-payloads",
-                                       branch: 'main'
-gem 'ronin-exploits',        '~> 1.0', github: "ronin-rb/ronin-exploits",
-                                       branch: '1.0.0'
-gem 'ronin-vulns',           '~> 0.1', github: "ronin-rb/ronin-vulns",
-                                       branch: 'main'
 
 group :development do
   gem 'rake'
