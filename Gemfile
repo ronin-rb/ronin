@@ -68,6 +68,6 @@ group :development do
   gem 'yard-spellcheck', require: false
 
   gem 'dead_end',        require: false
-  gem 'sord',            require: false
-  gem 'stackprof',       require: false
+  gem 'sord',            require: false, platform: :mri
+  gem 'stackprof',       require: false, platform: :mri
 end
