@@ -66,7 +66,7 @@ module Ronin
         #
         # Processes each word.
         #
-        # @param [String] word
+        # @param [String] domain
         #   A word argument to typo.
         #
         def run(domain)

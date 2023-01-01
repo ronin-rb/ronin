@@ -93,7 +93,7 @@ module Ronin
         #
         # Processes an individual email address.
         #
-        # @parma [String] string
+        # @param [String] string
         #   An individual email address.
         #
         def process_value(string)

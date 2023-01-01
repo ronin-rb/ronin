@@ -121,7 +121,7 @@ module Ronin
         #
         # Extracts the pattern from the input stream.
         #
-        # @parma [IO, StringIO] input
+        # @param [IO, StringIO] input
         #   The input stream to process.
         #
         def process_input(input)

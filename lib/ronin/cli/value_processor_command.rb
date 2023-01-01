@@ -55,7 +55,7 @@ module Ronin
       #
       # Runs the command
       #
-      # @param [Array<String>] args.
+      # @param [Array<String>] values
       #   Additional arguments to process.
       #
       def run(*values)
