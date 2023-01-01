@@ -1,3 +1,78 @@
+### 2.0.0 / 2023-XX-XX
+
+* Require `ruby` >= 3.0.0.
+* Require [rouge] ~> 3.0
+* Require [async-io] ~> 1.0
+* Require [wordlist] ~> 1.0
+* Require [ronin-support] ~> 1.0.0.
+* Require [ronin-core] ~> 0.1.
+* Require [ronin-repos] ~> 0.1.
+* Require [ronin-db] ~> 0.1.
+* Require [ronin-fuzzer] ~> 0.1.
+* Require [ronin-web] ~> 1.0.
+* Require [ronin-code-asm] ~> 1.0.
+* Require [ronin-code-sql] ~> 2.0.
+* Require [ronin-payloads] ~> 0.1.
+* Require [ronin-exploits] ~> 1.0.
+* Require [ronin-vulns] ~> 0.1.
+* Added new sub-commands to the `ronin` command:
+  * `asn`
+  * `banner-grab`
+  * `bitflip`
+  * `cert-dump`
+  * `cert-gen`
+  * `cert-grab`
+  * `decode, dec`
+  * `decrypt`
+  * `dns`
+  * `email-addr`
+  * `encode, enc`
+  * `encrypt`
+  * `entropy`
+  * `escape`
+  * `extract`
+  * `grep`
+  * `help`
+  * `hexdump`
+  * `highlight`
+  * `hmac`
+  * `homoglyph`
+  * `host`
+  * `http`
+  * `ip`
+  * `iprange`
+  * `irb`
+  * `md5`
+  * `netcat` / `nc`
+  * `new`
+  * `proxy`
+  * `public-suffix-list`
+  * `quote`
+  * `rot`
+  * `sha1`
+  * `sha256`
+  * `sha512`
+  * `string`
+  * `strings`
+  * `tips`
+  * `tld-list`
+  * `typo`
+  * `typosquat`
+  * `unescape`
+  * `unhexdump`
+  * `unquote`
+  * `url`
+  * `url-edit`
+  * `xor`
+* `ronin help <subcommand>` will now display a man page for that sub-command.
+* Renamed the `ronin console` command to `ronin irb`.
+* Moved and refactored all database code out into [ronin-db] and
+  [ronin-db-activerecord].
+* Replaced all repository management related code with [ronin-repos].
+* Replaced the CLI code with [command_kit] and [ronin-core].
+* Refactored the `ronin` gem to only provide a top-level CLI with sub-commands
+  and require the other `ronin-` gems.
+
 ### 1.5.1 / 2021-02-28
 
 * Require [ronin-support] ~> 0.5, >= 0.5.2.
@@ -774,4 +849,19 @@
   * Auto-indentation enabled.
   * Pretty-Print loaded.
 
-[ronin-support]: https://github.com/ronin-rb/ronin-support
+[open_namespace]: https://github.com/postmodern/open_namespace#readme
+[rouge]: https://github.com/rouge-ruby/rouge#readme
+[async-io]: https://github.com/socketry/async-io#readme
+[wordlist]: https://github.com/postmodern/wordlist.rb#readme
+
+[ronin-support]: https://github.com/ronin-rb/ronin-support#readme
+[ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
+[ronin-core]: https://github.com/ronin-rb/ronin-core#readme
+[ronin-db]: https://github.com/ronin-rb/ronin-db#readme
+[ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
+[ronin-web]: https://github.com/ronin-rb/ronin-web#readme
+[ronin-code-asm]: https://github.com/ronin-rb/ronin-code-asm#readme
+[ronin-code-sql]: https://github.com/ronin-rb/ronin-code-sql#readme
+[ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
+[ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
+[ronin-vulns]: https://github.com/ronin-rb/ronin-vulns#readme
