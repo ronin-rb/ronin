@@ -1,0 +1,6 @@
+Listen on a port and accept the first TCP connection:
+
+    tcp_accept(1337) do |client|
+      client.write(buffer)
+    end
+

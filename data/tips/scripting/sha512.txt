@@ -1,0 +1,5 @@
+Return the SHA512 checksum of a String:
+
+    "thunder growl".sha512
+    # => "b2a1e560a497514dafda024f9e6fc2dfbfb178483251a708f07a88d4e157e5561604460da313ebc88dde2814ae58a15ae4085d00efb6a825a62f5be3215f5cbf"
+

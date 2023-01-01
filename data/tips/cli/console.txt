@@ -1,0 +1,4 @@
+Open an interactive Ruby console with Ronin pre-loaded:
+
+    $ ronin console
+

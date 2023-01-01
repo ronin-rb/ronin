@@ -1,0 +1,9 @@
+FROM ruby:<%= @ruby_version -%>
+
+RUN apt-get update -qq -y && gem update bundler
+
+WORKDIR /app
+COPY . /app
+RUN bundle install
+
+CMD ["/app/<%= @project_name -%>.rb"]

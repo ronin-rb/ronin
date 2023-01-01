@@ -1,0 +1,4 @@
+Read a binary file:
+
+    data = File.binread('/bin/ls')
+

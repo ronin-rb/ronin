@@ -1,0 +1,5 @@
+Packing a Float:
+
+    0.02.pack(:double)
+    # => "{\x14\xAEG\xE1z\x94?"
+

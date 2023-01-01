@@ -1,0 +1,43 @@
+require 'rake'
+
+#
+# Example rake tasks:
+#
+#     task :foo do
+#       # code here
+#     end
+#
+# Namespaces:
+#
+#     namespace :foo do
+#       task :bar do
+#         # code here
+#       end
+#
+#       # other tasks ...
+#     end
+#
+# Task depenencies:
+#
+#     task :bar => :foo
+#     task :bar => 'foo:bar'
+#
+# Arguments:
+#
+#     task :foo, [:arg1, :arg2] do |t,args|
+#       puts "arg1=#{args[:arg1]}"
+#       puts "arg2=#{args[:arg2]}"
+#     end
+#
+# File tasks:
+#
+#     file 'foo.txt' do
+#       File.open('foo.txt','w') do |file|
+#         # code here
+#       end
+#     end
+#
+# Directory tasks:
+#
+#     directory 'dir'
+#

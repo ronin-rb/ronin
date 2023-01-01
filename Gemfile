@@ -1,63 +1,73 @@
 source 'https://rubygems.org'
 
-DM_URI     = 'https://github.com/datamapper'
-DM_VERSION = '~> 1.2'
-DO_VERSION = '~> 0.10.3'
-RONIN_URI  = 'https://github.com/ronin-rb'
-
 gemspec
 
 gem 'jruby-openssl',	'~> 0.7', platforms: :jruby
 
-# DataMapper dependencies
-# gem 'data_objects',       DO_VERSION, git: "#{DM_URI}/do.git"
-# gem 'do_sqlite3',         DO_VERSION, git: "#{DM_URI}/do.git"
-# gem 'dm-do-adapter',      DM_VERSION, git: "#{DM_URI}/dm-do-adapter.git"
-# gem 'dm-sqlite-adapter',  DM_VERSION, git: "#{DM_URI}/dm-sqlite-adapter.git"
-# gem 'dm-core',            DM_VERSION, git: "#{DM_URI}/dm-core.git"
-# gem 'dm-types',           DM_VERSION, git: "#{DM_URI}/dm-types.git"
-# gem 'dm-migrations',      DM_VERSION, git: "#{DM_URI}/dm-migrations.git"
-# gem 'dm-validations',     DM_VERSION, git: "#{DM_URI}/dm-validations.git"
-# gem 'dm-serializer',      DM_VERSION, git: "#{DM_URI}/dm-serializer.git"
-# gem 'dm-aggregates',      DM_VERSION, git: "#{DM_URI}/dm-aggregates.git"
-# gem 'dm-timestamps',      DM_VERSION, git: "#{DM_URI}/dm-timestamps.git"
+gem 'net-telnet', '~> 0.1', group: :net
+if RUBY_VERSION >= '3.1.0'
+  gem 'net-ftp',    '~> 0.1', group: :net, platform: :mri
+  gem 'net-smtp',   '~> 0.1', group: :net, platform: :mri
+  gem 'net-pop',    '~> 0.1', group: :net, platform: :mri
+  gem 'net-imap',   '~> 0.1', group: :net, platform: :mri
+end
+
+# gem 'command_kit', '~> 0.4', github: 'postmodern/command_kit.rb',
+#                              branch: '0.4.0'
+
+group :database do
+  gem 'sqlite3', '~> 1.0', platform: :mri
+  gem 'activerecord-jdbcsqlite3-adapter', '~> 70.0.pre', platform: :jruby
+end
 
 # Library dependencies
-# gem 'ronin-support',	'~> 0.5', git: "#{RONIN_URI}/ronin-support.git",
-#                                 branch: 'main'
+# gem 'ronin-support',	       '~> 1.0', github: "ronin-rb/ronin-support",
+#                                        branch: 'main'
+# gem 'ronin-core',            '~> 0.1', github: "ronin-rb/ronin-core",
+#                                        branch: 'main'
+# gem 'ronin-repos',           '~> 0.1', github: "ronin-rb/ronin-repos",
+#                                        branch: 'main'
+# gem 'ronin-db',              '~> 0.1', github: "ronin-rb/ronin-db",
+#                                        branch: 'main'
+# gem 'ronin-db-activerecord', '~> 0.1', github: "ronin-rb/ronin-db-activerecord",
+#                                        branch: 'main'
+# gem 'ronin-fuzzer',          '~> 0.1', github: "ronin-rb/ronin-fuzzer",
+#                                        branch: 'main'
+# gem 'ronin-post_ex',         '~> 0.1', github: "ronin-rb/ronin-post_ex",
+#                                        branch: 'main'
+# gem 'ronin-code-asm',        '~> 1.0', github: "ronin-rb/ronin-code-asm",
+#                                        branch: 'main'
+# gem 'ronin-code-sql',        '~> 2.0', github: "ronin-rb/ronin-code-sql",
+#                                        branch: 'main'
+# gem 'ronin-payloads',        '~> 0.1', github: "ronin-rb/ronin-payloads",
+#                                        branch: 'main'
+# gem 'ronin-exploits',        '~> 1.0', github: "ronin-rb/ronin-exploits",
+#                                        branch: 'main'
+# gem 'ronin-vulns',           '~> 0.1', github: "ronin-rb/ronin-vulns",
+#                                        branch: 'main'
+# gem 'ronin-web-server',	     '~> 0.1', github: "ronin-rb/ronin-web-server",
+#                                        branch: 'main'
+# gem 'ronin-web-spider',	     '~> 0.1', github: "ronin-rb/ronin-web-spider",
+#                                        branch: 'main'
+# gem 'ronin-web-user_agents', '~> 0.1', github: "ronin-rb/ronin-web-user_agents",
+#                                        branch: 'main'
+# gem 'ronin-web',             '~> 1.0', github: "ronin-rb/ronin-web",
+#                                        branch: 'main'
 
 group :development do
   gem 'rake'
-  gem 'rubygems-tasks', '~> 0.1'
-  gem 'rspec',          '~> 3.0'
-  gem 'simplecov',      '~> 0.20'
+  gem 'rubygems-tasks',  '~> 0.1'
+  gem 'rspec',           '~> 3.0'
+  gem 'simplecov',       '~> 0.20'
 
-  gem 'kramdown',      '~> 2.0'
-  gem 'kramdown-man',  '~> 0.1'
+  gem 'kramdown',        '~> 2.0'
+  gem 'kramdown-man',    '~> 0.1'
 
-  gem 'ruby-graphviz',  '~> 0.9.10'
-  gem 'dm-visualizer',  '~> 0.2.0'
+  gem 'redcarpet',       platform: :mri
+  gem 'yard',            '~> 0.9'
+  gem 'yard-spellcheck', require: false
 
-  gem 'dead_end', require: false
-end
-
-#
-# To enable additional DataMapper adapters for development work or for
-# testing purposes, simple set the ADAPTER or ADAPTERS environment
-# variable:
-#
-#     export ADAPTER="postgres"
-#     bundle install
-#
-#     ./bin/ronin --database postgres://ronin@localhost/ronin
-#
-require 'set'
-
-DM_ADAPTERS = Set['postgres', 'mysql', 'oracle', 'sqlserver']
-
-adapters = (ENV['ADAPTER'] || ENV['ADAPTERS']).to_s
-adapters = Set.new(adapters.to_s.tr(',',' ').split)
-
-(DM_ADAPTERS & adapters).each do |adapter|
-  gem "dm-#{adapter}-adapter", DM_VERSION #, git: "#{DM_URI}/dm-#{adapter}-adapter.git"
+  gem 'dead_end',        require: false
+  gem 'sord',            require: false
+  gem 'stackprof',       require: false
 end

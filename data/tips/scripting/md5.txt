@@ -1,0 +1,5 @@
+Return the MD5 checksum of a String:
+
+    "leet school".md5
+    # => "1b11ba66f5e9d40a7eef699cd812e362"
+

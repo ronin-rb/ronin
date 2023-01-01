@@ -1,4 +1,4 @@
-# ronin-help 1 "April 2012" Ronin "User Manuals"
+# ronin-help 1 "May 2022" Ronin "User Manuals"
 
 ## SYNOPSIS
 
@@ -16,17 +16,8 @@ COMMAND.
 
 ## OPTIONS
 
-`-v`, `--[no-]verbose`
-	Enable verbose output.
-
-`-q`, `--[no-]quiet`
-	Disable verbose output.
-
-`--[no-]silent`
-	Silence all output.
-
-`--[no-]color`
-	Enables color output.
+`-h`, `--help`
+  Print help information
 
 ## AUTHOR
 

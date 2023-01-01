@@ -1,0 +1,5 @@
+Base64 encode a String:
+
+    "hello\0world".base64_encode
+    # => "aGVsbG8Ad29ybGQ=\n"
+

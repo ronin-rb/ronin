@@ -1,0 +1,5 @@
+Lookup an address of a Domain name:
+
+    dns_get_address 'example.com'
+    # => "93.184.216.34"
+

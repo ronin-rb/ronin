@@ -1,0 +1,5 @@
+Return the SHA1 checksum of a String:
+
+    "lol train".sha1
+    # => "37f05f0cc2914615c580af396df5c66316112f48"
+

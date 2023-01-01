@@ -7,173 +7,162 @@
 * [Source](https://github.com/ronin-rb/ronin)
 * [Issues](https://github.com/ronin-rb/ronin/issues)
 * [Documentation](https://ronin-rb.dev/docs/ronin/frames)
-* [Slack](https://ronin-rb.slack.com) |
-  [Discord](https://discord.gg/6WAb3PsVX9) |
-  [Twitter](https://twitter.com/ronin_rb)
+* [Discord](https://discord.gg/6WAb3PsVX9) |
+  [Twitter](https://twitter.com/ronin_rb) |
+  [Mastodon](https://infosec.exchange/@ronin_rb)
 
 ## Description
 
-Ronin is a [Ruby] platform for vulnerability research and [exploit development].
-Ronin allows for the rapid development and distribution of code,
-[Exploits][example-exploit], [Payloads][example-payload],
-[Scanners][example-scanner], etc, via [Repositories].
+[Ronin][ronin-rb] is a [Ruby] toolkit for security research and development.
 
-### Console
+### Who is Ronin for?
 
-Ronin provides users with a powerful Ruby Console, pre-loaded with powerful
-convenience methods. In the Console one can work with data and automate
-complex tasks, with greater ease than the command-line.
+* CTF players
+* Bug bounty hunters
+* Security Researchers
+* Security Engineers
+* Developers
+* Students
 
-    >> File.read('data').base64_decode
+### What does Ronin provide?
 
-### Database
+* A toolkit of useful commands.
+* A fully-loaded Ruby REPL.
+* An ecosystem of high-quality security related Ruby libraries, API, and
+  commands.
 
-Ronin ships with a preconfigured Database, that one can interact with from Ruby,
-without having to write any SQL.
+### What can you do with Ronin?
 
-    >> HostName.tld('eu').urls.with_query_param('id')
-
-### Repositories
-
-Ronin provides a Repository system, allowing users to organize and share
-miscallaneous Data, Code, [Exploits][example-exploit],
-[Payloads][example-payload], [Scanners][example-scanner], etc.
-
-    $ ronin install git://github.com/user/myexploits.git
-
-### Libraries
-
-Ronin provides libraries with additional functionality, such as
-[Exploitation][ronin-exploits] and [Scanning][ronin-scanners]:
-
-    $ gem install ronin-exploits
-
-## Features
-
-* Supports installing/updating/uninstalling of Repositories.
-  * Supports installing Repositories from various media types:
-    * [Subversion (SVN)][svn]
-    * [Mercurial (Hg)][hg]
-    * [Git][git]
-    * Rsync
-* Provides a Database using [DataMapper] with:
-  * {Ronin::Author}
-  * {Ronin::License}
-  * {Ronin::Arch}
-  * {Ronin::OS}
-  * {Ronin::Software}
-  * {Ronin::Vendor}
-  * {Ronin::Address}
-    * {Ronin::MACAddress}
-    * {Ronin::IPAddress}
-    * {Ronin::HostName}
-  * {Ronin::Port}
-    * {Ronin::TCPPort}
-    * {Ronin::UDPPort}
-  * {Ronin::Service}
-  * {Ronin::OpenPort}
-  * {Ronin::OSGuess}
-  * {Ronin::UserName}
-  * {Ronin::URL}
-  * {Ronin::EmailAddress}
-  * {Ronin::Credential}
-    * {Ronin::ServiceCredential}
-    * {Ronin::WebCredential}
-  * {Ronin::Organization}
-  * {Ronin::Campaign}
-  * {Ronin::Target}
-* Caches exploits, payloads, scanners, etc stored within Repositories
-  into the Database.
-* Convenience methods provided by [ronin-support].
-* Provides a customized Ruby Console using [Ripl][ripl] with:
-  * Syntax highlighting.
-  * Tab completion.
-  * Auto indentation.
-  * Pretty Printing (`pp`).
-  * `print_info`, `print_error`, `print_warning` and `print_debug`
-    output helper methods with color-output.
-  * Inline commands (`!nmap -v -sT victim.com`)
-* Provides an extensible command-line interface.
+* Quickly process and query various data using the `ronin` commands.
+* Efficiently work with code and data in the `ronin irb` Ruby REPL.
+* Rapidly prototype Ruby scripts using [ronin-support] and other `ronin`
+  libraries.
+* Install 3rd-party [git] repositories of exploits, payloads, or other code,
+  using [ronin-repos].
+* Import and query data using the [ronin-db] database.
+* Fuzz data using [ronin-fuzzer].
+* Use common payloads or write your own using [ronin-payloads].
+* Write/run exploits using [ronin-exploits].
+* Scan for web vulnerabilities using [ronin-vulns].
 
 ## Synopsis
 
-Start the Ronin console:
+```
+Usage: ronin [options] [COMMAND [ARGS...]]
 
-    $ ronin
+Options:
+    -h, --help                       Print help information
 
-Run a Ruby script in Ronin:
+Arguments:
+    [COMMAND]                        The command name to run
+    [ARGS ...]                       Additional arguments for the command
 
-    $ ronin exec script.rb
+Commands:
+    asn
+    banner-grab
+    bitflip
+    cert-dump
+    cert-gen
+    cert-grab
+    decode, dec
+    decrypt
+    dns
+    email-addr
+    encode, enc
+    encrypt
+    entropy
+    escape
+    extract
+    grep
+    help
+    hexdump
+    highlight
+    hmac
+    homoglyph
+    host
+    http
+    ip
+    iprange
+    irb
+    md5
+    netcat, nc
+    new
+    proxy
+    public-suffix-list
+    quote
+    rot
+    sha1
+    sha256
+    sha512
+    strings
+    tld-list
+    tips
+    typo
+    typosquat
+    unescape
+    unhexdump
+    unquote
+    url
+    xor
 
-View available commands:
+Additional Ronin Commands:
+    $ ronin-repos
+    $ ronin-db
+    $ ronin-web
+    $ ronin-fuzzer
+    $ ronin-payloads
+    $ ronin-exploits
+    $ ronin-vulns
+```
 
-    $ ronin help
+List ronin commands:
+
+```shell
+$ ronin help
+```
 
 View a man-page for a command:
 
-    $ ronin help wordlist
+```shell
+$ ronin help COMMAND
+```
 
-Install a Repository:
+Get a random tip on how to use `ronin`:
 
-    $ ronin install svn://example.com/path/to/repo
+```shell
+$ ronin tips
+```
 
-List installed Repositories:
+Open the Ronin Ruby REPL:
 
-    $ ronin repos
-
-Update all installed Repositories:
-
-    $ ronin update
-
-Update a specific Repositories:
-
-    $ ronin update repo-name
-
-Uninstall a specific Repositories:
-
-    $ ronin uninstall repo-name
-
-List available Databases:
-
-    $ ronin database
-
-Add a new Database:
-
-    $ ronin database --add team --uri mysql://user:pass@vpn.example.com/db
-
-Remove a Database:
-
-    $ ronin database --remove team
+```shell
+$ ronin irb
+```
 
 ## Requirements
 
-* [Ruby] >= 1.8.7
-* [DataMapper]:
-  * [dm-sqlite-adapter] ~> 1.2
-    * [libsqlite3]
-  * [dm-core] ~> 1.2
-  * [dm-types] ~> 1.2
-  * [dm-migrations] ~> 1.2
-  * [dm-validations] ~> 1.2
-  * [dm-aggregates] ~> 1.2
-  * [dm-timestamps] ~> 1.2
-* [dm-is-predefined] ~> 0.4
-* [uri-query_params] ~> 0.6
+* [Ruby] >= 3.0.0
 * [open_namespace] ~> 0.4
-* [data_paths] ~> 0.3
-* [object_loader] ~> 1.0
-* [parameters] ~> 0.4
-* [pullr] ~> 0.1, >= 0.1.2
-* [ripl] ~> 0.3
-* [ripl-multi_line] ~> 0.2
-* [ripl-auto_indent] ~> 0.1
-* [ripl-short_errors] ~> 0.1
-* [ripl-color_result] ~> 0.3
-* [ronin-support] ~> 0.5
+* [rouge] ~> 3.0
+* [async-io] ~> 1.0
+* [wordlist] ~> 1.0
+* [ronin-support] ~> 1.0
+* [ronin-core] ~> 0.1
+* [ronin-repos] ~> 0.1
+* [ronin-db] ~> 0.1
+* [ronin-fuzzer] ~> 0.1
+* [ronin-web] ~> 1.0
+* [ronin-code-asm] ~> 1.0
+* [ronin-code-sql] ~> 2.0
+* [ronin-payloads] ~> 0.1
+* [ronin-exploits] ~> 1.0
+* [ronin-vulns] ~> 0.1
 
 ## Install
 
-    $ gem install ronin
+```shell
+$ gem install ronin
+```
 
 ## Development
 
@@ -188,9 +177,7 @@ Remove a Database:
 
 ## License
 
-Copyright (c) 2006-2021 Hal Brodigan (postmodern.mod3 at gmail.com)
-
-This file is part of ronin.
+Copyright (c) 2006-2023 Hal Brodigan (postmodern.mod3 at gmail.com)
 
 Ronin is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -205,40 +192,23 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 
+[ronin-rb]: https://ronin-rb.dev/
 [Ruby]: https://www.ruby-lang.org
-[exploit development]: https://www.exploit-db.com
-[example-exploit]: https://github.com/ronin-rb/example-repo/blob/master/scripts/exploits/http/oracle/dav_bypass.rb
-[example-payload]: https://gist.github.com/1403961
-[example-scanner]: https://github.com/ronin-rb/example-repo/blob/master/scripts/scanners/oracle_dad_scanner.rb
-[Repositories]: https://github.com/ronin-rb/example-repo
-
-[ronin-support]: https://github.com/ronin-rb/ronin-support#readme
-[ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
-[ronin-scanners]: https://github.com/ronin-rb/ronin-scanners#readme
-
-[svn]: https://subversion.apache.org/
-[hg]: https://www.mercurial-scm.org/
-[git]: https://git-scm.com/
-
-[DataMapper]: http://datamapper.org
-[dm-sqlite-adapter]: https://github.com/datamapper/dm-sqlite-adapter#readme
-[libsqlite3]: https://sqlite.org/
-[dm-core]: https://github.com/datamapper/dm-core#readme
-[dm-types]: https://github.com/datamapper/dm-types#readme
-[dm-migrations]: https://github.com/datamapper/dm-migrations#readme
-[dm-validations]: https://github.com/datamapper/dm-validations#readme
-[dm-aggregates]: https://github.com/datamapper/dm-aggregates#readme
-[dm-timestamps]: https://github.com/datamapper/dm-timestamps#readme
-[dm-is-predefined]: https://github.com/postmodern/dm-is-predefined#readme
-[uri-query_params]: https://github.com/postmodern/uri-query_params#readme
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
-[data_paths]: https://github.com/postmodern/data_paths#readme
-[object_loader]: https://github.com/postmodern/object_loader#readme
-[parameters]: https://github.com/postmodern/parameters#readme
-[pullr]: https://github.com/postmodern/pullr#readme
-[ripl]: https://github.com/cldwalker/ripl#readme
-[ripl-multi_line]: https://github.com/janlelis/ripl-multi_line#readme
-[ripl-auto_indent]: https://github.com/janlelis/ripl-auto_indent#readme
-[ripl-short_errors]: https://rubygems.org/gems/ripl-short_errors
-[ripl-color_result]: https://github.com/janlelis/ripl-color_result#readme
+[rouge]: https://github.com/rouge-ruby/rouge#readme
+[async-io]: https://github.com/socketry/async-io#readme
+[wordlist]: https://github.com/postmodern/wordlist.rb#readme
+
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
+[ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
+[ronin-core]: https://github.com/ronin-rb/ronin-core#readme
+[ronin-db]: https://github.com/ronin-rb/ronin-db#readme
+[ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
+[ronin-web]: https://github.com/ronin-rb/ronin-web#readme
+[ronin-code-asm]: https://github.com/ronin-rb/ronin-code-asm#readme
+[ronin-code-sql]: https://github.com/ronin-rb/ronin-code-sql#readme
+[ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
+[ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
+[ronin-vulns]: https://github.com/ronin-rb/ronin-vulns#readme
+
+[git]: https://git-scm.com/

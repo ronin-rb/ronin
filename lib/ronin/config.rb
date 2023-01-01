@@ -1,7 +1,6 @@
+# frozen_string_literal: true
 #
-# Copyright (c) 2006-2021 Hal Brodigan (postmodern.mod3 at gmail.com)
-#
-# This file is part of ronin.
+# Copyright (c) 2006-2023 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # Ronin is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +16,6 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'data_paths'
 require 'fileutils'
 
 module Ronin
@@ -27,9 +25,6 @@ module Ronin
   # @api semipublic
   #
   module Config
-    include DataPaths
-    extend DataPaths::Finders
-
     # The users home directory
     HOME = Gem.user_home
 
@@ -38,9 +33,6 @@ module Ronin
 
     # Configuration files directory
     CONFIG_DIR = File.join(PATH,'config')
-
-    # Directory which repositories are installed into
-    REPOS_DIR = File.join(PATH,'repos')
 
     # Temporary file directory
     TMP_DIR = File.join(PATH,'tmp')

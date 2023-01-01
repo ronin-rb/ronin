@@ -1,0 +1,5 @@
+Zlib inflate a String:
+
+    "x\x9c+NM.J-\x01\0\b\xd1\x02\x87AAAAAAA".zlib_inflate
+    # => "secret"
+

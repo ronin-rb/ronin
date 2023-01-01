@@ -1,0 +1,5 @@
+Escaping a directory:
+
+    Ronin::Support::Path.up(7) / 'etc' / 'passwd'
+    # => #<Ronin::Support::Path:../../../../../../../etc/passwd>
+

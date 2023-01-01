@@ -1,0 +1,14 @@
+Connecting to an FTP server:
+
+    ftp = ftp_connect('ftp.osuosl.org')
+    # => #<Net::FTP:...>
+    ftp.chdir('/pub')
+    puts ftp.list
+
+Or create a temporary FTP session that automatically closes:
+
+    ftp_connect('ftp.osuosl.org') do |ftp|
+      ftp.chdir('/pub')
+      puts ftp.list
+    end
+

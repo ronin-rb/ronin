@@ -1,0 +1,12 @@
+Connecting to a UNIX Socket:
+
+    unix_connect('/tmp/haproxy.stats.socket')
+    # => #<UNIXSocket:...>
+
+Or create a temporary UNIX Socket which will automatically be closed:
+
+    unix_session('/tmp/haproxy.stats.socket') do |socket|
+      socket.puts("command here")
+      puts socket.readline
+    end
+

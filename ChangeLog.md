@@ -1,29 +1,104 @@
+### 2.0.0 / 2023-XX-XX
+
+* Require `ruby` >= 3.0.0.
+* Require [rouge] ~> 3.0
+* Require [async-io] ~> 1.0
+* Require [wordlist] ~> 1.0
+* Require [ronin-support] ~> 1.0.0.
+* Require [ronin-core] ~> 0.1.
+* Require [ronin-repos] ~> 0.1.
+* Require [ronin-db] ~> 0.1.
+* Require [ronin-fuzzer] ~> 0.1.
+* Require [ronin-web] ~> 1.0.
+* Require [ronin-code-asm] ~> 1.0.
+* Require [ronin-code-sql] ~> 2.0.
+* Require [ronin-payloads] ~> 0.1.
+* Require [ronin-exploits] ~> 1.0.
+* Require [ronin-vulns] ~> 0.1.
+* Added new sub-commands to the `ronin` command:
+  * `asn`
+  * `banner-grab`
+  * `bitflip`
+  * `cert-dump`
+  * `cert-gen`
+  * `cert-grab`
+  * `decode, dec`
+  * `decrypt`
+  * `dns`
+  * `email-addr`
+  * `encode, enc`
+  * `encrypt`
+  * `entropy`
+  * `escape`
+  * `extract`
+  * `grep`
+  * `help`
+  * `hexdump`
+  * `highlight`
+  * `hmac`
+  * `homoglyph`
+  * `host`
+  * `http`
+  * `ip`
+  * `iprange`
+  * `irb`
+  * `md5`
+  * `netcat` / `nc`
+  * `new`
+  * `proxy`
+  * `public-suffix-list`
+  * `quote`
+  * `rot`
+  * `sha1`
+  * `sha256`
+  * `sha512`
+  * `string`
+  * `strings`
+  * `tips`
+  * `tld-list`
+  * `typo`
+  * `typosquat`
+  * `unescape`
+  * `unhexdump`
+  * `unquote`
+  * `url`
+  * `url-edit`
+  * `xor`
+* `ronin help <subcommand>` will now display a man page for that sub-command.
+* Renamed the `ronin console` command to `ronin irb`.
+* Moved and refactored all database code out into [ronin-db] and
+  [ronin-db-activerecord].
+* Replaced all repository management related code with [ronin-repos].
+* Replaced the CLI code with [command_kit] and [ronin-core].
+* Refactored the `ronin` gem to only provide a top-level CLI with sub-commands
+  and require the other `ronin-` gems.
+
 ### 1.5.1 / 2021-02-28
 
 * Require [ronin-support] ~> 0.5, >= 0.5.2.
 * Support Ruby 3.0:
-  * {Ronin::UI::CLI.commands} now uses `Set`, since Ruby 3.0 moved `SortedSet`
+  * `Ronin::UI::CLI.commands` now uses `Set`, since Ruby 3.0 moved `SortedSet`
     out of the stdlib.
 * Activate bundler in `bin/ronin` and `bin/ronin-*` commands, if a
   `Gemfile.lock` file is found.
 * Re-finalize all DataMapper models in
-  {Ronin::AutoLoad::ClassMethods#require_const}.
+  `Ronin::AutoLoad::ClassMethods#require_const`.
 * Avoid calling `Ronin::Network::TCP::Proxy` specific methods in the
   `ronin net:proxy` command, if working with a UDP proxy.
 
 ### 1.5.0 / 2012-06-16
 
 * Require [ronin-support] ~> 0.5.
-* Added {Ronin::UI::CLI::Command#setup}.
-* Added {Ronin::UI::CLI::Command#cleanup}.
-* Added {Ronin::UI::CLI::Command.examples}.
-* Added the {Ronin::UI::CLI::Commands::Net::Proxy net:proxy} ronin command.
+* Added `Ronin::UI::CLI::Command#setup`.
+* Added `Ronin::UI::CLI::Command#cleanup`.
+* Added `Ronin::UI::CLI::Command.examples`.
+* Added the `Ronin::UI::CLI::Commands::Net::Proxy net:proxy` ronin command.
 * Added man-pages for each `ronin` command.
-* Added more specs for the {Ronin::UI::CLI::Command} DSL methods.
-* Added {Ronin::AutoLoad::ClassMethods#require_const}, to also
+* Added more specs for the `Ronin::UI::CLI::Command` DSL methods.
+* Added `Ronin::AutoLoad::ClassMethods#require_const`, to also
   finalize auto-loaded DataMapper models.
-* Renamed `Ronin::Database.setup_log` to {Ronin::Database.log}.
-* Allow {Ronin::Database.setup} to accept a URI for the `default` repository.
+* Renamed `Ronin::Database.setup_log` to `Ronin::Database.log`.
+* Allow `Ronin::Database.setup` to accept a URI for the `default` repository.
 * Allow `ronin/spec/database` to test against other Databases,
   specified by the `ADAPTER` environment variable.
   * If `ADAPTER` is set to `mysql` or `postgres`, then `ronin/spec/database`
@@ -33,19 +108,19 @@
     database.
 * Allow console `!command`s to embed Ruby expressions:
 
-        >> !ncat #{ip} #{port}
+        >> !ncat #`ip` #`port`
 
-* Moved console `!command` logic into {Ronin::UI::Console::Shell}.
+* Moved console `!command` logic into `Ronin::UI::Console::Shell`.
   * `!command`s now only execute shell commands.
-* Moved console `.command` logic into {Ronin::UI::Console::Commands}.
+* Moved console `.command` logic into `Ronin::UI::Console::Commands`.
   * `.command`s are now reserved only for special console commands
     (ex: `.edit`).
 * Improved recognition of console `!command`s and `.command`s.
 * Do not allow execution of console commands while in multi-line mode!
-* Fixed a bug in {Ronin::UI::CLI::Command} which disabled colour output.
-* When {Ronin::UI::CLI::Command#start} catches an Interrupt, it should exit
+* Fixed a bug in `Ronin::UI::CLI::Command` which disabled colour output.
+* When `Ronin::UI::CLI::Command#start` catches an Interrupt, it should exit
   with status 130.
-* Rescue `Errno::EPIPE` in {Ronin::UI::CLI::Command#start}.
+* Rescue `Errno::EPIPE` in `Ronin::UI::CLI::Command#start`.
 * Improved `--help` output of `ronin` commands by adding `examples` and more
   `:description`s to their options.
 * Changed the `ronin-help COMMAND` to display the man-page for the given
@@ -59,7 +134,7 @@
 * Removed dependencey on env.
 * Removed `#to_ary` methods from Ronin Models that were causing
   `SystemStackError: stack level too deep` exceptions. Fixes issue #4.
-* {Ronin::UI::CLI::Command#start} now rescues Interupts.
+* `Ronin::UI::CLI::Command#start` now rescues Interupts.
 
 ### 1.4.0 / 2012-02-12
 
@@ -67,68 +142,68 @@
 * Require parameters ~> 0.4.
 * Require uri-query_params ~> 0.6.
 * Require [ronin-support] ~> 0.4.
-* Added {Ronin::Port.parse}.
-* Added {Ronin::Port.from}.
-* Added {Ronin::EmailAddress.from}.
-* Added {Ronin::Password.parse}.
-* Added {Ronin::URL#inspect}.
-* Added {Ronin::Model::HasUniqueName::ClassMethods#parse}.
-* Added {Ronin::Script::ClassMethods#short_name}.
-* Added {Ronin::Script::Buildable#build_failed!}.
-* Added {Ronin::Script::Path#clean}.
-* Added {Ronin::Script::Path#destroy!}.
-* Added {Ronin::UI::CLI::Command.usage}.
-* Added {Ronin::UI::CLI::Command.summary}.
-* Added {Ronin::UI::CLI::Command.option}.
-* Added {Ronin::UI::CLI::Command.options}.
-* Added {Ronin::UI::CLI::Command.options?}.
-* Added {Ronin::UI::CLI::Command.each_option}.
-* Added {Ronin::UI::CLI::Command.argument}.
-* Added {Ronin::UI::CLI::Command.arguments}.
-* Added {Ronin::UI::CLI::Command.arguments?}.
-* Added {Ronin::UI::CLI::Command.each_argument}.
-* Added {Ronin::UI::CLI::Command#start}.
-* Added {Ronin::UI::CLI::Command#run}.
-* Added {Ronin::UI::CLI::Command#option_parser}.
-* Added {Ronin::UI::CLI::Printing}.
-* Added {Ronin::UI::CLI::ClassCommand}.
-* Added {Ronin::UI::CLI::ScriptCommand#setup}.
+* Added `Ronin::Port.parse`.
+* Added `Ronin::Port.from`.
+* Added `Ronin::EmailAddress.from`.
+* Added `Ronin::Password.parse`.
+* Added `Ronin::URL#inspect`.
+* Added `Ronin::Model::HasUniqueName::ClassMethods#parse`.
+* Added `Ronin::Script::ClassMethods#short_name`.
+* Added `Ronin::Script::Buildable#build_failed!`.
+* Added `Ronin::Script::Path#clean`.
+* Added `Ronin::Script::Path#destroy!`.
+* Added `Ronin::UI::CLI::Command.usage`.
+* Added `Ronin::UI::CLI::Command.summary`.
+* Added `Ronin::UI::CLI::Command.option`.
+* Added `Ronin::UI::CLI::Command.options`.
+* Added `Ronin::UI::CLI::Command.options?`.
+* Added `Ronin::UI::CLI::Command.each_option`.
+* Added `Ronin::UI::CLI::Command.argument`.
+* Added `Ronin::UI::CLI::Command.arguments`.
+* Added `Ronin::UI::CLI::Command.arguments?`.
+* Added `Ronin::UI::CLI::Command.each_argument`.
+* Added `Ronin::UI::CLI::Command#start`.
+* Added `Ronin::UI::CLI::Command#run`.
+* Added `Ronin::UI::CLI::Command#option_parser`.
+* Added `Ronin::UI::CLI::Printing`.
+* Added `Ronin::UI::CLI::ClassCommand`.
+* Added `Ronin::UI::CLI::ScriptCommand#setup`.
 * Re-added the `ronin install` command.
 * Re-added the `ronin uninstall` command.
 * Re-added the `ronin update` command.
-* Renamed `Ronin::URL.query_param` to {Ronin::URL.with_query_param}.
-* Renamed `Ronin::URL.query_value` to {Ronin::URL.with_query_value}.
-* Renamed `Ronin::Repository.add!` to {Ronin::Repository.add}.
-* Renamed `Ronin::Repository.install!` to {Ronin::Repository.install}.
-* Renamed `Ronin::Repository.uninstall!` to {Ronin::Repository.uninstall}.
+* Renamed `Ronin::URL.query_param` to `Ronin::URL.with_query_param`.
+* Renamed `Ronin::URL.query_value` to `Ronin::URL.with_query_value`.
+* Renamed `Ronin::Repository.add!` to `Ronin::Repository.add`.
+* Renamed `Ronin::Repository.install!` to `Ronin::Repository.install`.
+* Renamed `Ronin::Repository.uninstall!` to `Ronin::Repository.uninstall`.
 * Renamed `Ronin::UI::CLI::ScriptCommand#load_script` to
-  {Ronin::UI::CLI::ScriptCommand#load!}.
+  `Ronin::UI::CLI::ScriptCommand#load!`.
 * Renamed `Ronin::UI::CLI::Commands::IPs` to
-  {Ronin::UI::CLI::Commands::Ips}.
+  `Ronin::UI::CLI::Commands::Ips`.
 * Renamed `Ronin::UI::CLI::Commands::URLs` to
-  {Ronin::UI::CLI::Commands::Urls}.
+  `Ronin::UI::CLI::Commands::Urls`.
 * Removed thor from the dependencies.
 * Removed `Ronin::Script::InstanceMethods#script_type` in favor of
-  {Ronin::Script::ClassMethods#short_name}.
-* Have {Ronin::AutoLoad} call `finalize` directly on the newly auto-loaded
+  `Ronin::Script::ClassMethods#short_name`.
+* Have `Ronin::AutoLoad` call `finalize` directly on the newly auto-loaded
   model.
-* Associate {Ronin::EmailAddress} with {Ronin::Credential}.
-* Ensure that all {Ronin::Script}s have unique name/version properties.
-* Include {Ronin::Model::HasName}, {Ronin::Model::HasTitle},
-  {Ronin::Model::HasDescription} into {Ronin::Repository}.
-* Refactored {Ronin::UI::CLI::Command} to use
+* Associate `Ronin::EmailAddress` with `Ronin::Credential`.
+* Ensure that all `Ronin::Script`s have unique name/version properties.
+* Include `Ronin::Model::HasName`, `Ronin::Model::HasTitle`,
+  `Ronin::Model::HasDescription` into `Ronin::Repository`.
+* Refactored `Ronin::UI::CLI::Command` to use
   [Parameters::Options](http://rubydoc.info/gems/parameters/0.4.0/Parameters/Options)
   from parameters 0.4.0.
-* {Ronin::UI::CLI::Command#start} now rescues and prints exceptions, then
+* `Ronin::UI::CLI::Command#start` now rescues and prints exceptions, then
   exits with status `-1`.
-* {Ronin::UI::CLI::ScriptCommand} may now accept additional options for the
+* `Ronin::UI::CLI::ScriptCommand` may now accept additional options for the
   loaded script after `--`:
 
       ronin exploit -f myexploit.rb -- --host victim.com --port 1337
 
 * Fixed a typo in the `ronin repos` command.
 * The `ronin repos` command now only lists installed Repositories.
-* `Ronin::Support` is now included into {Ronin}, making all support methods
+* `Ronin::Support` is now included into `Ronin`, making all support methods
   accessible in the `ronin` console.
 * Allow `ronin` console commands to be prefixed with a `.`.
 
@@ -136,29 +211,29 @@
 
 * Require DataMapper ~> 1.2.
 * Require [ronin-support] ~> 0.3.
-* Added {Ronin::Model::Importable}.
-* Added {Ronin::MACAddress.extract}.
-* Added {Ronin::IPAddress.extract}.
-* Added {Ronin::HostName.extract}.
-* Added {Ronin::URL.extract}.
-* Added {Ronin::EmailAddress.extract}.
+* Added `Ronin::Model::Importable`.
+* Added `Ronin::MACAddress.extract`.
+* Added `Ronin::IPAddress.extract`.
+* Added `Ronin::HostName.extract`.
+* Added `Ronin::URL.extract`.
+* Added `Ronin::EmailAddress.extract`.
 * Renamed `license!` to `licensed_under` in
-  {Ronin::Model::HasLicense::InstanceMethods}.
+  `Ronin::Model::HasLicense::InstanceMethods`.
 * Moved `Ronin::UI::Output`, `Ronin::UI::Shell` and `Ronin::Network::Mixins`
   into [ronin-support].
-* {Ronin::Author.site} and {Ronin::License.url} now use the URI property.
+* `Ronin::Author.site` and `Ronin::License.url` now use the URI property.
 * Merged `Ronin::UI::CLI::ModelCommand.query_model` into
-  {Ronin::UI::CLI::ModelCommand.model}.
+  `Ronin::UI::CLI::ModelCommand.model`.
 
 ### 1.2.0 / 2011-08-15
 
 * Require dm-is-predefined ~> 0.4.
-* Added {Ronin::UI::Console::Context}.
-* Added custom tab-completion to {Ronin::UI::Console} for:
-  * {Ronin::IPAddress}
-  * {Ronin::HostName}
-  * {Ronin::EmailAddress}
-  * {Ronin::URL}
+* Added `Ronin::UI::Console::Context`.
+* Added custom tab-completion to `Ronin::UI::Console` for:
+  * `Ronin::IPAddress`
+  * `Ronin::HostName`
+  * `Ronin::EmailAddress`
+  * `Ronin::URL`
   * Paths
   * Commands
 * Added the ability to run commands in Ronin Console, via the
@@ -168,9 +243,9 @@
   * `!cd` - Changes the current working directory and updates
     `ENV['OLDPWD']`.
   * `!export` - Sets `ENV` variables.
-* Added an index to {Ronin::OS.version}.
-* Refactored {Ronin::OS.predefine} using dm-is-predefined.
-* Fixed a bug in {Ronin::UI::Console.setup} where the wrong binding was
+* Added an index to `Ronin::OS.version`.
+* Refactored `Ronin::OS.predefine` using dm-is-predefined.
+* Fixed a bug in `Ronin::UI::Console.setup` where the wrong binding was
   being passed to Ripl.
 
 ### 1.1.0 / 2011-07-04
@@ -179,70 +254,70 @@
 * Require data_paths ~> 0.3.
 * Require [ronin-support] ~> 0.2.
 * Added `ronin/repositories`, for quickly loading all repositories.
-* Added {Ronin#script}.
-* Added {Ronin::AutoLoad}.
-* Added {Ronin::Arch.arm}.
-* Added {Ronin::Arch.mips}.
-* Added {Ronin::Arch.x86}.
-* Added {Ronin::URLQueryParamName}.
-* Added timestamps to {Ronin::Campaign}.
-* Added the `created_at` timestamp to {Ronin::Target}.
+* Added `Ronin#script`.
+* Added `Ronin::AutoLoad`.
+* Added `Ronin::Arch.arm`.
+* Added `Ronin::Arch.mips`.
+* Added `Ronin::Arch.x86`.
+* Added `Ronin::URLQueryParamName`.
+* Added timestamps to `Ronin::Campaign`.
+* Added the `created_at` timestamp to `Ronin::Target`.
 * Added `Ronin::Network::Mixins::HTTP#http_status`.
 * Added `Ronin::Network::Mixins::HTTP#http_ok?`.
 * Added `Ronin::Network::Mixins::HTTP#http_server`.
 * Added `Ronin::Network::Mixins::HTTP#http_powered_by`.
 * Added `print_info` method calls to `Ronin::Network::Mixins::HTTP`.
-* Added {Ronin::Script::InstanceMethods#run}.
-* Added {Ronin::Script::Exception}.
-* Added {Ronin::Script::Path#to_s}.
-* Added {Ronin::Script::ClassMethods#load_from}.
-* Added {Ronin::Repository#find_script}.
-* Added {Ronin::UI::CLI::Command#setup}.
-* Added {Ronin::UI::CLI::ResourcesCommand}.
-* Added {Ronin::UI::CLI::ScriptCommand}.
-* Added the `--database` option to {Ronin::UI::CLI::ModelCommand}.
-* Renamed `Ronin::Engine` to {Ronin::Script}.
-* Renamed `Ronin::Engine::Verifiable` to {Ronin::Script::Testable}.
+* Added `Ronin::Script::InstanceMethods#run`.
+* Added `Ronin::Script::Exception`.
+* Added `Ronin::Script::Path#to_s`.
+* Added `Ronin::Script::ClassMethods#load_from`.
+* Added `Ronin::Repository#find_script`.
+* Added `Ronin::UI::CLI::Command#setup`.
+* Added `Ronin::UI::CLI::ResourcesCommand`.
+* Added `Ronin::UI::CLI::ScriptCommand`.
+* Added the `--database` option to `Ronin::UI::CLI::ModelCommand`.
+* Renamed `Ronin::Engine` to `Ronin::Script`.
+* Renamed `Ronin::Engine::Verifiable` to `Ronin::Script::Testable`.
 * Renamed `Ronin::Engine#engine_name` to
   `Ronin::Script::InstanceMethods#script_type`.
 * Renamed `Ronin::Engine::InstanceMethods#load_original!` to
-  {Ronin::Script::InstanceMethods#load_script!}.
-* Renamed `Ronin::CachedFile` to {Ronin::Script::Path}.
+  `Ronin::Script::InstanceMethods#load_script!`.
+* Renamed `Ronin::CachedFile` to `Ronin::Script::Path`.
 * Renamed `Ronin::UI::CLI::ModelCommand.model=` to
-  {Ronin::UI::CLI::ModelCommand.model}.
+  `Ronin::UI::CLI::ModelCommand.model`.
 * Renamed `Ronin::UI::CLI::ModelCommand#model` to
   `Ronin::UI::CLI::ModelCommand.query_model`.
 * Renamed `Ronin::UI::CLI::ModelCommand#new_query` to
-  {Ronin::UI::CLI::ModelCommand#query}.
+  `Ronin::UI::CLI::ModelCommand#query`.
 * Renamed `Ronin::UI::CLI::ModelCommand#print_resource` to
-  {Ronin::UI::CLI::ResourcesCommand#print_resource}.
+  `Ronin::UI::CLI::ResourcesCommand#print_resource`.
 * Renamed `Ronin::UI::CLI::ModelCommand#print_resources` to
-  {Ronin::UI::CLI::ResourcesCommand#print_resources}.
+  `Ronin::UI::CLI::ResourcesCommand#print_resources`.
 * Removed `Ronin::Engine#method_missing`.
-* Extend `DataPaths::Finders` into {Ronin::Config}.
-* Fixed a RubyGems deprecation in {Ronin::Installation}.
+* Extend `DataPaths::Finders` into `Ronin::Config`.
+* Fixed a RubyGems deprecation in `Ronin::Installation`.
 * Enabled verbose DataMapper logging if `$DEBUG` or the `DEBUG`
   environment variable are set.
 * Switched from DataMapper URIs to Hashes.
-* Fixed a bug in {Ronin::Database::Migrations::Migration#initialize}, where
+* Fixed a bug in `Ronin::Database::Migrations::Migration#initialize`, where
   `:needs` was being overridden.
-* Group Database migration files by {Ronin::VERSION}.
-* Ensure that {Ronin::Database::Migrations} preserves the order of loaded
+* Group Database migration files by `Ronin::VERSION`.
+* Ensure that `Ronin::Database::Migrations` preserves the order of loaded
   migrations.
-* Set the length of {Ronin::Password.clear_text} to 256.
-* Set the length of {Ronin::License.url} to 256.
-* Merged `Ronin::Model::Cacheable` into {Ronin::Script}.
+* Set the length of `Ronin::Password.clear_text` to 256.
+* Set the length of `Ronin::License.url` to 256.
+* Merged `Ronin::Model::Cacheable` into `Ronin::Script`.
 * Repositories can now cache/load scripts from the `scripts/` directory.
-* Disable {Ronin::UI::Console.short_errors?} if the `VERBOSE` environment
+* Disable `Ronin::UI::Console.short_errors?` if the `VERBOSE` environment
   variable is set.
-* Disable {Ronin::UI::Console.color?} if the `STDOUT` is a tty.
+* Disable `Ronin::UI::Console.color?` if the `STDOUT` is a tty.
 * Set `Ronin::UI::Output.handler` to `Ronin::UI::Output::Terminal::Raw`,
   when `STDOUT` is not a tty.
 * Enable `Ronin::UI::Output.verbose?` if `$VERBOSE` or `$DEBUG` are set.
-* {Ronin::UI::CLI::ModelCommand#setup} now automatically calls
-  {Ronin::Database.setup}, before executing the command.
-* Merged `query_method` into {Ronin::UI::CLI::ModelCommand#query}.
-* Allow {Ronin::UI::CLI::ModelCommand.query_option} to map to Model
+* `Ronin::UI::CLI::ModelCommand#setup` now automatically calls
+  `Ronin::Database.setup`, before executing the command.
+* Merged `query_method` into `Ronin::UI::CLI::ModelCommand#query`.
+* Allow `Ronin::UI::CLI::ModelCommand.query_option` to map to Model
   properties.
 * Use DataMapper query-paths to improve performance of query-helper methods.
 * Removed `Ronin::Target#directory`.
@@ -278,29 +353,29 @@
 * Require thor ~> 0.14.3.
 * Require [ronin-support] ~> 0.1.
 * Added `ronin/bootstrap` which only loads configuration and the Database.
-* Added {Ronin::Database::Migrations}.
-* Added {Ronin::Model::HasUniqueName}.
-* Added {Ronin::Address}:
-  * Added {Ronin::MACAddress}.
-  * Added {Ronin::IPAddress}.
-  * Added {Ronin::HostName}.
-* Added {Ronin::Port}:
-  * Added {Ronin::TCPPort}.
-  * Added {Ronin::UDPPort}.
-* Added {Ronin::Service}.
-* Added {Ronin::OpenPort}.
-* Added {Ronin::OSGuess}.
-* Added {Ronin::UserName}.
-* Added {Ronin::URL}:
-  * Added {Ronin::URLScheme}.
-  * Added {Ronin::URLQueryParam}.
-* Added {Ronin::EmailAddress}.
-* Added {Ronin::Credential}.
-* Added {Ronin::ServiceCredential}.
-* Added {Ronin::WebCredential}.
-* Added {Ronin::Organization}.
-* Added {Ronin::Campaign}.
-* Added {Ronin::Target}.
+* Added `Ronin::Database::Migrations`.
+* Added `Ronin::Model::HasUniqueName`.
+* Added `Ronin::Address`:
+  * Added `Ronin::MACAddress`.
+  * Added `Ronin::IPAddress`.
+  * Added `Ronin::HostName`.
+* Added `Ronin::Port`:
+  * Added `Ronin::TCPPort`.
+  * Added `Ronin::UDPPort`.
+* Added `Ronin::Service`.
+* Added `Ronin::OpenPort`.
+* Added `Ronin::OSGuess`.
+* Added `Ronin::UserName`.
+* Added `Ronin::URL`:
+  * Added `Ronin::URLScheme`.
+  * Added `Ronin::URLQueryParam`.
+* Added `Ronin::EmailAddress`.
+* Added `Ronin::Credential`.
+* Added `Ronin::ServiceCredential`.
+* Added `Ronin::WebCredential`.
+* Added `Ronin::Organization`.
+* Added `Ronin::Campaign`.
+* Added `Ronin::Target`.
 * Added `Ronin::Engine`.
 * Added `Ronin::UI::Output::Terminal::Raw`.
 * Added `Ronin::UI::Output::Terminal::Color`.
@@ -320,9 +395,9 @@
   credentials from the Database.
 * Added the `ronin-campaigns` command for listing, importing and exporting
   Campaigns from the Database.
-* Renamed `Ronin::Product` to {Ronin::Software}.
-* Renamed `Ronin::UI::CommandLine` to {Ronin::UI::CLI}.
-* Renamed `Ronin::Platform::Overlay` to {Ronin::Repository}.
+* Renamed `Ronin::Product` to `Ronin::Software`.
+* Renamed `Ronin::UI::CommandLine` to `Ronin::UI::CLI`.
+* Renamed `Ronin::Platform::Overlay` to `Ronin::Repository`.
 * Renamed `Ronin::Platform::CachedFile` to `Ronin::CachedFile`.
 * Renamed `Ronin::Platform::Cacheable` to `Ronin::Model::Cacheable`.
 * Removed `Ronin::Platform::Extension`.
@@ -332,9 +407,9 @@
 * Switched from [Jeweler](https://github.com/technicalpickles/jeweler)
   to [Ore](http://github.com/ruby-ore/ore) and [Bundler](http://gembundler.com).
 * Use [OpenNamespace](http://github.com/postmodern/open_namespace) to auto-load
-  everything in the {Ronin} namespace.
+  everything in the `Ronin` namespace.
 * Switched from DataMapper auto-migrations to explicit-migrations.
-* Switched {Ronin::UI::Console} from IRB to
+* Switched `Ronin::UI::Console` from IRB to
   [Ripl](https://github.com/cldwalker/ripl):
   * Enabled result coloring with
     [ripl-color_result](https://github.com/janlelis/ripl-color_result).
@@ -774,4 +849,19 @@
   * Auto-indentation enabled.
   * Pretty-Print loaded.
 
-[ronin-support]: https://github.com/ronin-rb/ronin-support
+[open_namespace]: https://github.com/postmodern/open_namespace#readme
+[rouge]: https://github.com/rouge-ruby/rouge#readme
+[async-io]: https://github.com/socketry/async-io#readme
+[wordlist]: https://github.com/postmodern/wordlist.rb#readme
+
+[ronin-support]: https://github.com/ronin-rb/ronin-support#readme
+[ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
+[ronin-core]: https://github.com/ronin-rb/ronin-core#readme
+[ronin-db]: https://github.com/ronin-rb/ronin-db#readme
+[ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
+[ronin-web]: https://github.com/ronin-rb/ronin-web#readme
+[ronin-code-asm]: https://github.com/ronin-rb/ronin-code-asm#readme
+[ronin-code-sql]: https://github.com/ronin-rb/ronin-code-sql#readme
+[ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
+[ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
+[ronin-vulns]: https://github.com/ronin-rb/ronin-vulns#readme

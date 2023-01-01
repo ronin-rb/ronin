@@ -1,0 +1,5 @@
+Send data to a UDP Server:
+
+    buffer = 'A' * 1024
+    udp_send(buffer,'example.com',1212)
+

@@ -1,7 +1,6 @@
+# frozen_string_literal: true
 #
-# Copyright (c) 2006-2021 Hal Brodigan (postmodern.mod3 at gmail.com)
-#
-# This file is part of ronin.
+# Copyright (c) 2006-2023 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # Ronin is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,5 +18,5 @@
 
 module Ronin
   # ronin version 
-  VERSION = '1.5.2'
+  VERSION = '2.0.0.beta1'
 end

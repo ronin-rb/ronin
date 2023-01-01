@@ -1,0 +1,4 @@
+Define a binary String:
+
+    "\x00\xff\x01\xef".b
+

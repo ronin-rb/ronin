@@ -1,0 +1,5 @@
+Test if a UDP port is open:
+
+    udp_open?('4.2.2.1',53)
+    # => true
+

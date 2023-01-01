@@ -1,9 +1,7 @@
 name: ronin
-summary: A Ruby platform for vulnerability research and exploit development.
+summary: A Ruby toolkit for security research and development.
 description:
-  Ronin is a Ruby platform for vulnerability research and exploit development.
-  Ronin allows for the rapid development and distribution of code, Exploits
-  Payloads, Scanners, etc, via Repositories.
+  Ronin is a Ruby toolkit for security research and development.
 
 license: GPL-3.0
 authors: Postmodern
@@ -15,76 +13,94 @@ post_install_message: |
 
     Thank you for installing Ronin!
 
-    To start the Ronin Console:
-
-        $ ronin
-
     To list the available commands:
 
         $ ronin help
 
-    Additional functionality can be added to Ronin by installing additional
-    libraries:
+    To view help information about a command:
 
-        * ronin-gen
-        * ronin-web
-        * ronin-exploits
-        * ronin-scanners
+        $ ronin help COMMAND
 
   *************************************************************************
 
+metadata:
+  documentation_uri: https://rubydoc.info/gems/ronin
+  source_code_uri:   https://github.com/ronin-rb/ronin
+  bug_tracker_uri:   https://github.com/ronin-rb/ronin/issues
+  changelog_uri:     https://github.com/ronin-rb/ronin/blob/master/ChangeLog.md
+  rubygems_mfa_required: 'true'
+
 generated_files:
  - man/ronin.1
- - man/ronin-campaigns.1
- - man/ronin-console.1
- - man/ronin-creds.1
- - man/ronin-database.1
- - man/ronin-emails.1
- - man/ronin-exec.1
- - man/ronin-fuzzer.1
+ - man/ronin-asn.1
+ - man/ronin-banner-grab.1
+ - man/ronin-bitflip.1
+ - man/ronin-cert-dump.1
+ - man/ronin-cert-gen.1
+ - man/ronin-cert-grab.1
+ - man/ronin-decode.1
+ - man/ronin-decrypt.1
+ - man/ronin-dns.1
+ - man/ronin-email-addr.1
+ - man/ronin-encrypt.1
+ - man/ronin-encode.1
+ - man/ronin-entropy.1
+ - man/ronin-escape.1
+ - man/ronin-extract.1
+ - man/ronin-grep.1
  - man/ronin-help.1
- - man/ronin-hosts.1
- - man/ronin-install.1
- - man/ronin-ips.1
- - man/ronin-net-proxy.1
- - man/ronin-repos.1
- - man/ronin-uninstall.1
- - man/ronin-update.1
- - man/ronin-urls.1
- - man/ronin-wordlist.1
+ - man/ronin-hexdump.1
+ - man/ronin-highlight.1
+ - man/ronin-hmac.1
+ - man/ronin-homoglyph.1
+ - man/ronin-host.1
+ - man/ronin-http.1
+ - man/ronin-ip.1
+ - man/ronin-iprange.1
+ - man/ronin-irb.1
+ - man/ronin-md5.1
+ - man/ronin-netcat.1
+ - man/ronin-new.1
+ - man/ronin-new-project.1
+ - man/ronin-new-script.1
+ - man/ronin-proxy.1
+ - man/ronin-public-suffix-list.1
+ - man/ronin-quote.1
+ - man/ronin-rot.1
+ - man/ronin-sha1.1
+ - man/ronin-sha256.1
+ - man/ronin-sha512.1
+ - man/ronin-strings.1
+ - man/ronin-tld-list.1
+ - man/ronin-tips.1
+ - man/ronin-typo.1
+ - man/ronin-typosquat.1
+ - man/ronin-unescape.1
+ - man/ronin-unhexdump.1
+ - man/ronin-unquote.1
+ - man/ronin-url.1
+ - man/ronin-xor.1
 
-required_ruby_version: ">= 1.8.7"
+required_ruby_version: ">= 3.0.0"
 
 dependencies:
-  # DataMapper adapters:
-  dm-sqlite-adapter: ~> 1.2
-  # DataMapper dependencies:
-  dm-core: ~> 1.2
-  dm-types: ~> 1.2
-  dm-migrations: ~> 1.2
-  dm-validations: ~> 1.2
-  dm-serializer: ~> 1.2
-  dm-aggregates: ~> 1.2
-  dm-timestamps: ~> 1.2
-  # DataMapper plugins:
-  dm-is-predefined: ~> 0.4
   # Library dependencies:
-  uri-query_params: ~> 0.6
   open_namespace: ~> 0.4
-  data_paths: ~> 0.3
-  object_loader: ~> 1.0
-  parameters: ~> 0.4
-  pullr: ~> 0.1, >= 0.1.2
-  ripl: ~> 0.3
-  ripl-multi_line: ~> 0.2
-  ripl-auto_indent: ~> 0.1
-  ripl-short_errors: ~> 0.1
-  ripl-color_result: ~> 0.3
+  rouge: ~> 3.0
+  async-io: ~> 1.0
+  wordlist: ~> 1.0
   # Ronin dependencies:
-  ronin-support: ~> 0.5, >= 0.5.2
+  ronin-support: ~> 1.0.0.beta1
+  ronin-core: ~> 0.1.0.beta1
+  ronin-repos: ~> 0.1.0.beta1
+  ronin-db: ~> 0.1.0.beta1
+  ronin-fuzzer: ~> 0.1.0.beta1
+  ronin-web: ~> 1.0.0.beta1
+  ronin-code-asm: ~> 1.0.0.beta1
+  ronin-code-sql: ~> 2.0.0.beta1
+  ronin-payloads: ~> 0.1.0.beta1
+  ronin-exploits: ~> 1.0.0.beta1
+  ronin-vulns: ~> 0.1.0.beta1
 
 development_dependencies:
   bundler: ~> 2.0
-  yard: ~> 0.8
-  yard-dm: ~> 0.1
-  yard-dm-is-predefined: ~> 0.2

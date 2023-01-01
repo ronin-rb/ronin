@@ -1,0 +1,6 @@
+Process each line of a text-file:
+
+    File.each_line('wordlist.txt', chomp: true) do |word|
+      # ...
+    end
+

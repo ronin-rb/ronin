@@ -1,0 +1,6 @@
+Enumerate through CIDR IP ranges:
+
+    Ronin::Support::Network::IPRange.each('10.1.1.1/24') do |ip|
+      # ...
+    end
+

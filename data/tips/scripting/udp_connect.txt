@@ -1,0 +1,8 @@
+Creating a temporary UDP socket which will be automatically closed:
+
+    udp_connect('example.com',1212) do |socket|
+      socket.write("PING")
+      mesg, _ = socket.recv(1024)
+      puts mesg
+    end
+

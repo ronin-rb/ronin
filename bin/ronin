@@ -15,6 +15,5 @@ if File.file?(File.join(root,'Gemfile.lock'))
   end
 end
 
-require 'ronin/ui/cli'
-
-Ronin::UI::CLI.start
+require 'ronin/cli'
+Ronin::CLI.start

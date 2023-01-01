@@ -1,0 +1,5 @@
+Convert a byte to a character:
+
+    0x41.chr
+    # => "A"
+

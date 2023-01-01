@@ -1,0 +1,10 @@
+Format an Integer as binary:
+
+    "%b" % 0x41
+    # => "1000001"
+
+Or even simpler:
+
+    0x41.to_s(2)
+    # => "1000001"
+

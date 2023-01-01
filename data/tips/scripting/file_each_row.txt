@@ -1,0 +1,6 @@
+Process rows of data from a text file:
+
+    File.each_row('passwords.txt', ',') do |user,password|
+      # ...
+    end
+

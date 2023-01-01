@@ -1,0 +1,5 @@
+Hexdump a String:
+
+    "hello\x00\x90\a\b\t\r\n".hexdump
+    # 00000000  68 65 6c 6c 6f 00 90 07  08 09 0d 0a              |hello.......|
+

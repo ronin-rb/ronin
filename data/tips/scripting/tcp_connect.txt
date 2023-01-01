@@ -1,0 +1,12 @@
+Creating a TCP Socket to a specified host and port:
+
+    socket = tcp_connect('www.example.com',25)
+    # => #<TCPSocket:0xb7bbde6c>
+
+Or create a temporary TCP Socket that automatically closes:
+
+    tcp_connect('www.example.com',1212) do |socket|
+      socket.write("this is just a test\n")
+      puts socket.readline
+    end
+

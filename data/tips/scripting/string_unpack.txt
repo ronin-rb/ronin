@@ -1,0 +1,5 @@
+Unpacking a String:
+
+    "\x00\x05hello\x00".unpack(:uint16_be, :string)
+    # => [5, "hello"]
+

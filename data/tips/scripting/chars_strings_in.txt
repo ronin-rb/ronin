@@ -1,0 +1,12 @@
+Find alpha-numeric Strings from a file:
+
+    Chars.alpha_numeric.strings_in(File.binread('/bin/ls'))
+    # => ["lib64",
+    #     "linux",
+    #     "type",
+    #     "name",
+    #     "coreutils",
+    #     "version",
+    #     "fc36",
+    #     ...
+

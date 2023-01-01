@@ -1,0 +1,5 @@
+Randomize the case of a String:
+
+    "hello world".random_case
+    # => "HeLLO WoRLd"
+

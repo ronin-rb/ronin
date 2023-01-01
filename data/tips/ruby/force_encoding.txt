@@ -1,0 +1,4 @@
+Forcibly change the encoding of a String:
+
+    data.force_encoding!(Encoding::UTF_16)
+
