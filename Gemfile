@@ -25,8 +25,8 @@ end
 #                                        branch: 'main'
 # gem 'ronin-core',            '~> 0.1', github: "ronin-rb/ronin-core",
 #                                        branch: 'main'
-gem 'ronin-repos',           '~> 0.1', github: "ronin-rb/ronin-repos",
-                                       branch: 'main'
+# gem 'ronin-repos',           '~> 0.1', github: "ronin-rb/ronin-repos",
+#                                        branch: 'main'
 gem 'ronin-db',              '~> 0.1', github: "ronin-rb/ronin-db",
                                        branch: 'main'
 gem 'ronin-db-activerecord', '~> 0.1', github: "ronin-rb/ronin-db-activerecord",
