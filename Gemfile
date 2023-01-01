@@ -35,8 +35,8 @@ end
 #                                        branch: 'main'
 # gem 'ronin-post_ex',         '~> 0.1', github: "ronin-rb/ronin-post_ex",
 #                                        branch: 'main'
-gem 'ronin-code-asm',        '~> 1.0', github: "ronin-rb/ronin-code-asm",
-                                       branch: 'main'
+# gem 'ronin-code-asm',        '~> 1.0', github: "ronin-rb/ronin-code-asm",
+#                                        branch: 'main'
 gem 'ronin-code-sql',        '~> 2.0', github: "ronin-rb/ronin-code-sql",
                                        branch: 'main'
 gem 'ronin-payloads',        '~> 0.1', github: "ronin-rb/ronin-payloads",
