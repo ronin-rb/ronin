@@ -141,6 +141,12 @@ $ ronin irb
 
 ## Requirements
 
+* [gcc] / [clang]
+* [make]
+* [git]
+* [libsqlite3]
+* [libxml2]
+* [libxslt]
 * [Ruby] >= 3.0.0
 * [open_namespace] ~> 0.4
 * [rouge] ~> 3.0
@@ -193,6 +199,14 @@ You should have received a copy of the GNU General Public License
 along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 
 [ronin-rb]: https://ronin-rb.dev/
+
+[gcc]: http://gcc.gnu.org/
+[clang]: http://clang.llvm.org/
+[git]: https://git-scm.com/
+[make]: https://www.gnu.org/software/automake/
+[libxml2]: https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
+[libxslt]: http://xmlsoft.org/libxslt/index.html
+[libsqlite3]: https://www.sqlite.org/index.html
 [Ruby]: https://www.ruby-lang.org
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
 [rouge]: https://github.com/rouge-ruby/rouge#readme
@@ -210,5 +224,3 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
 [ronin-vulns]: https://github.com/ronin-rb/ronin-vulns#readme
-
-[git]: https://git-scm.com/
