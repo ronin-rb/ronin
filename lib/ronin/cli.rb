@@ -16,8 +16,11 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+require 'ronin/version'
+
 require 'command_kit/commands'
 require 'command_kit/commands/auto_load'
+require 'command_kit/options/version'
 
 module Ronin
   #
@@ -34,8 +37,10 @@ module Ronin
       dir:       "#{__dir__}/cli/commands",
       namespace: "#{self}::Commands"
     )
+    include CommandKit::Options::Version
 
     command_name 'ronin'
+    version Ronin::VERSION
 
     command_aliases['enc'] = 'encode'
     command_aliases['dec'] = 'decode'
