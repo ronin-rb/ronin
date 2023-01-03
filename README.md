@@ -14,11 +14,12 @@
 ## Description
 
 [Ronin][ronin-rb] is a [Ruby] toolkit for security research and development.
-Ronin contains many different CLI commands and Ruby libraries for a variety of
-security tasks, such as encoding/decoding data, filter IPs/hosts/URLs,
-querying ASNs, querying DNS, HTTP, scanning for web vulnerabilities,
-spidering websites, running exploits, generating new exploits, managing local 
-databases, fuzzing data, and much more.
+Ronin contains many different [CLI commands](#snopsis) and
+[Ruby libraries][GitHub] for a variety of security tasks, such as
+encoding/decoding data, filter IPs/hosts/URLs, querying ASNs, querying DNS,
+HTTP, scanning for web vulnerabilities, spidering websites, install 3rd party
+repositories of exploits and/or payloads, run exploits, generating new exploits,
+managing local databases, fuzzing data, and much more.
 
 ### Who is Ronin for?
 
@@ -204,6 +205,7 @@ You should have received a copy of the GNU General Public License
 along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 
 [ronin-rb]: https://ronin-rb.dev/
+[GitHub]: https://github.com/ronin-rb/
 
 [gcc]: http://gcc.gnu.org/
 [clang]: http://clang.llvm.org/
