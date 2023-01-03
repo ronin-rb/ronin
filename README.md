@@ -145,6 +145,16 @@ Open the Ronin Ruby REPL:
 $ ronin irb
 ```
 
+### See Also
+
+* [ronin-repos](https://github.com/ronin-rb/ronin-repos#synopsis)
+* [ronin-db](https://github.com/ronin-rb/ronin-db#synopsis)
+* [ronin-web](https://github.com/ronin-rb/ronin-web#synopsis)
+* [ronin-fuzzer](https://github.com/ronin-rb/ronin-fuzzer#synopsis)
+* [ronin-payloads](https://github.com/ronin-rb/ronin-payloads#synopsis)
+* [ronin-exploits](https://github.com/ronin-rb/ronin-exploits#synopsis)
+* [ronin-vulns](https://github.com/ronin-rb/ronin-vulns#synopsis)
+
 ## Requirements
 
 * [gcc] / [clang]
