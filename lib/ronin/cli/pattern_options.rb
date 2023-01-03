@@ -236,9 +236,9 @@ module Ronin
         end
 
         command.option :path, short: '-P',
-                      desc: 'Searches for all paths' do
-                        @pattern = PATH
-                      end
+                              desc: 'Searches for all paths' do
+                                @pattern = PATH
+                              end
 
         command.option :variable_name, desc: 'Searches for all variable names' do
           @pattern = VARIABLE_NAME
