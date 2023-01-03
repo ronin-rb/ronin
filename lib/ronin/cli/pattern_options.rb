@@ -232,7 +232,7 @@ module Ronin
         end
 
         command.option :absolute_path, desc: 'Searches for all absolute paths' do
-          @pattern = ABSOLUTE_PATHS
+          @pattern = ABSOLUTE_PATH
         end
 
         command.option :path, short: '-P',
