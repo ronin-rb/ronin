@@ -253,3 +253,4 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-exploits-synopsis]: https://github.com/ronin-rb/ronin-exploits#synopsis
 [ronin-exploits-examples]: https://github.com/ronin-rb/ronin-exploits#examples
 [ronin-vulns]: https://github.com/ronin-rb/ronin-vulns#readme
+[ronin-vulns-synopsis]: https://github.com/ronin-rb/ronin-vulns#synopsis
