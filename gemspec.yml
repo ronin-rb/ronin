@@ -30,7 +30,7 @@ post_install_message: |
   *************************************************************************
 
 metadata:
-  documentation_uri: https://rubydoc.info/gems/ronin
+  documentation_uri: https://ronin-rb.dev/docs/ronin
   source_code_uri:   https://github.com/ronin-rb/ronin
   bug_tracker_uri:   https://github.com/ronin-rb/ronin/issues
   changelog_uri:     https://github.com/ronin-rb/ronin/blob/master/ChangeLog.md
