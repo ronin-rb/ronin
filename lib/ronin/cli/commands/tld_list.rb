@@ -70,7 +70,7 @@ module Ronin
         man_page 'ronin-tld-list.1'
 
         def run(*args)
-          if !File.file?(options[:path])
+          if !downloaded?
             download
           elsif options[:update] || stale?
             update
@@ -81,6 +81,15 @@ module Ronin
           list_file.each do |tld|
             puts tld
           end
+        end
+
+        #
+        # Determines if the TLD list file has been downloaded already.
+        #
+        # @return [Boolean]
+        #
+        def downloaded?
+          List.downloaded?(options[:path])
         end
 
         #
