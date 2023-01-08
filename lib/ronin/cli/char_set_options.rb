@@ -53,6 +53,37 @@ module Ronin
       #   The command including {CharSetOptions}.
       #
       def self.included(command)
+        define_char_sets(command)
+
+        command.option :chars, short: '-c',
+                        value: {
+                          type:  String,
+                          usage: 'CHARS'
+                        },
+                        desc: 'Searches for all chars in the custom char-set' do |string|
+                          @char_set = Chars::CharSet.new(*string.chars)
+                        end
+
+        command.option :include_chars, short: '-i',
+                               value: {
+                                 type: String,
+                                 usage: 'CHARS',
+                               },
+                               desc: 'Include the additional chars to the char-set' do |string|
+                                 @char_set += Chars::CharSet.new(*string.chars)
+                               end
+
+        command.option :exclude_chars, short: '-e',
+                               value: {
+                                 type:  String,
+                                 usage: 'CHARS'
+                               },
+                               desc: 'Exclude the additional chars from the char-set' do |string|
+                                 @char_set -= Chars::CharSet.new(*string.chars)
+                               end
+      end
+
+      def self.define_char_sets(command)
         command.option :numeric, short: '-N',
                          desc: 'Searches for numeric characters (0-9)' do
                            @char_set = Chars::NUMERIC
@@ -133,33 +164,6 @@ module Ronin
         command.option :ascii, desc: 'Searches for all ASCII chars (\x00-\xff)' do
                          @char_set = Chars::ASCII
                        end
-
-        command.option :chars, short: '-c',
-                        value: {
-                          type:  String,
-                          usage: 'CHARS'
-                        },
-                        desc: 'Searches for all chars in the custom char-set' do |string|
-                          @char_set = Chars::CharSet.new(*string.chars)
-                        end
-
-        command.option :include_chars, short: '-i',
-                               value: {
-                                 type: String,
-                                 usage: 'CHARS',
-                               },
-                               desc: 'Include the additional chars to the char-set' do |string|
-                                 @char_set += Chars::CharSet.new(*string.chars)
-                               end
-
-        command.option :exclude_chars, short: '-e',
-                               value: {
-                                 type:  String,
-                                 usage: 'CHARS'
-                               },
-                               desc: 'Exclude the additional chars from the char-set' do |string|
-                                 @char_set -= Chars::CharSet.new(*string.chars)
-                               end
       end
 
       # The set character set.
