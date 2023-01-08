@@ -72,7 +72,7 @@ module Ronin
         #
         # Runs the `ronin public-suffix-list` command.
         #
-        def run(*args)
+        def run
           if !File.file?(options[:path])
             download
           elsif options[:update] || stale?
