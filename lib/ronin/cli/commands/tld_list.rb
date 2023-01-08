@@ -95,6 +95,8 @@ module Ronin
         #
         # Determines if the TLD list file is stale.
         #
+        # @return [Boolean]
+        #
         def stale?
           List.stale?(options[:path])
         end
