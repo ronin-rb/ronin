@@ -92,6 +92,23 @@ module Ronin
       #   The command including {PatternOptions}.
       #
       def self.included(command)
+        define_numeric_options(command)
+        define_language_options(command)
+        define_network_options(command)
+        define_pii_options(command)
+        define_file_system_options(command)
+        define_source_code_options(command)
+        define_crypto_options(command)
+        define_credentials_options(command)
+
+        command.option :regexp, short: '-e',
+                        value: {type: Regexp},
+                        desc: 'Custom regular expression to search for' do |regexp|
+                          @pattern = regexp
+                        end
+      end
+
+      def self.define_numeric_options(command)
         command.option :number, short: '-N',
                          desc: 'Searches for all numbers' do
                            @pattern = NUMBER
@@ -107,11 +124,16 @@ module Ronin
                                           @pattern = VERSION_NUMBER
                                         end
 
+      end
+
+      def self.define_language_options(command)
         command.option :word, short: '-w',
                        desc: 'Searches for all words' do
                          @pattern = WORD
                        end
+      end
 
+      def self.define_network_options(command)
         command.option :mac_addr, desc: 'Searches for all MAC addresses' do
           @pattern = MAC_ADDR
         end
@@ -150,6 +172,9 @@ module Ronin
                         @pattern = URL
                       end
 
+      end
+
+      def self.define_pii_options(command)
         command.option :user_name, desc: 'Searches for all user names' do
           @pattern = USER_NAME
         end
@@ -195,6 +220,9 @@ module Ronin
           @pattern = CC
         end
 
+      end
+
+      def self.define_file_system_options(command)
         command.option :file_name, desc: 'Searches for all file names' do
           @pattern = FILE_NAME
         end
@@ -239,7 +267,9 @@ module Ronin
                               desc: 'Searches for all paths' do
                                 @pattern = PATH
                               end
+      end
 
+      def self.define_source_code_options(command)
         command.option :variable_name, desc: 'Searches for all variable names' do
           @pattern = VARIABLE_NAME
         end
@@ -248,6 +278,26 @@ module Ronin
           @pattern = FUNCTION_NAME
         end
 
+        command.option :single_quoted_string,  desc: 'Searches for all single-quoted strings' do
+          @pattern = SINGLE_QUOTED_STRING
+        end
+
+        command.option :double_quoted_string,  desc: 'Searches for all double-quoted strings' do
+          @pattern = DOUBLE_QUOTED_STRING
+        end
+
+        command.option :string, short: '-S',
+                         desc: 'Searches for all quoted strings' do
+                           @pattern = STRING
+                         end
+
+        command.option :base64, short: '-B',
+                        desc: 'Searches for all Base64 strings' do
+                          @pattern = BASE64
+                        end
+      end
+
+      def self.define_crypto_options(command)
         command.option :md5, desc: 'Searches for all MD5 hashes' do
           @pattern = MD5
         end
@@ -268,18 +318,9 @@ module Ronin
           @pattern = HASH
         end
 
-        command.option :ssh_private_key, desc: 'Searches for all SSH private key data' do
-          @pattern = SSH_PRIVATE_KEY
-        end
-
         command.option :ssh_public_key, desc: 'Searches for all SSH public key data' do
           @pattern = SSH_PUBLIC_KEY
         end
-
-        command.option :private_key, short: '-K',
-                                     desc: 'Searches for all private key data' do
-                                       @pattern = PRIVATE_KEY
-                                     end
 
         command.option :rsa_public_key, desc: 'Searches for all RSA public key data' do
           @pattern = RSA_PUBLIC_KEY
@@ -300,6 +341,17 @@ module Ronin
         command.option :public_key, desc: 'Searches for all public key data' do
           @pattern = PUBLIC_KEY
         end
+      end
+
+      def self.define_credentials_options(command)
+        command.option :ssh_private_key, desc: 'Searches for all SSH private key data' do
+          @pattern = SSH_PRIVATE_KEY
+        end
+
+        command.option :private_key, short: '-K',
+                                     desc: 'Searches for all private key data' do
+                                       @pattern = PRIVATE_KEY
+                                     end
 
         command.option :aws_access_key_id, desc: 'Searches for all AWS access key IDs' do
           @pattern = AWS_ACCESS_KEY_ID
@@ -314,29 +366,6 @@ module Ronin
                                    @pattern = API_KEY
                                  end
 
-        command.option :single_quoted_string,  desc: 'Searches for all single-quoted strings' do
-          @pattern = SINGLE_QUOTED_STRING
-        end
-
-        command.option :double_quoted_string,  desc: 'Searches for all double-quoted strings' do
-          @pattern = DOUBLE_QUOTED_STRING
-        end
-
-        command.option :string, short: '-S',
-                         desc: 'Searches for all quoted strings' do
-                           @pattern = STRING
-                         end
-
-        command.option :base64, short: '-B',
-                        desc: 'Searches for all Base64 strings' do
-                          @pattern = BASE64
-                        end
-
-        command.option :regexp, short: '-e',
-                        value: {type: Regexp},
-                        desc: 'Custom regular expression to search for' do |regexp|
-                          @pattern = regexp
-                        end
       end
     end
   end
