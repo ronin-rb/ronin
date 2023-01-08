@@ -282,7 +282,7 @@ module Ronin
         #   Additional files to hexdump.
         #
         def run(*files)
-          @hexdump = ::Hexdump::Hexdump.new(**hexdump_options)
+          @hexdump = ::Hexdump::Hexdump.new(**hexdump_kwargs)
 
           super(*files)
         end
@@ -438,7 +438,7 @@ module Ronin
         #
         # @return [Hash{Symbol => Object}]
         #
-        def hexdump_options
+        def hexdump_kwargs
           kwargs = {}
 
           HEXDUMP_OPTIONS.each do |key|
