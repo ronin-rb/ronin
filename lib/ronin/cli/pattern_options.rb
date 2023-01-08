@@ -388,6 +388,18 @@ module Ronin
           @pattern = SSH_PRIVATE_KEY
         end
 
+        command.option :dsa_private_key, desc: 'Searches for all DSA private key data' do
+          @pattern = DSA_PRIVATE_KEY
+        end
+
+        command.option :ec_private_key, desc: 'Searches for all EC private key data' do
+          @pattern = EC_PRIVATE_KEY
+        end
+
+        command.option :rsa_private_key, desc: 'Searches for all RSA private key data' do
+          @pattern = RSA_PRIVATE_KEY
+        end
+
         command.option :private_key, short: '-K',
                                      desc: 'Searches for all private key data' do
                                        @pattern = PRIVATE_KEY

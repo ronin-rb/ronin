@@ -148,11 +148,20 @@ Greps for common patterns in the given file(s) or input stream.
 `--ssh-private-key`
   Searches for all SSH private key data.
 
-`--ssh-public-key`
-  Searches for all SSH public key data.
+`--dsa-private-key`
+  Searches for all DSA private key data.
+
+`--ec-private-key`
+  Searches for all EC private key data.
+
+`--rsa-private-key`
+  Searches for all RSA private key data.
 
 `-K`, `--private-key`
   Searches for all private key data.
+
+`--ssh-public-key`
+  Searches for all SSH public key data.
 
 `--rsa-public-key`
   Searches for all RSA public key data.
