@@ -69,6 +69,9 @@ module Ronin
 
         man_page 'ronin-public-suffix-list.1'
 
+        #
+        # Runs the `ronin public-suffix-list` command.
+        #
         def run(*args)
           if !File.file?(options[:path])
             download
