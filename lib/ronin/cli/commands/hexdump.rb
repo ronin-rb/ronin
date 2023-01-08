@@ -275,6 +275,12 @@ module Ronin
           @highlight_chars   = {}
         end
 
+        #
+        # Runs the `ronin hexdump` command.
+        #
+        # @param [Array<String>] files
+        #   Additional files to hexdump.
+        #
         def run(*files)
           @hexdump = ::Hexdump::Hexdump.new(**hexdump_options)
 
