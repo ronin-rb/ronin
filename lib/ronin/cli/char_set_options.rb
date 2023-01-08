@@ -83,6 +83,12 @@ module Ronin
                                end
       end
 
+      #
+      # Define options for each major character set.
+      #
+      # @param [Class<Command>] command
+      #   The command including {CharSetOptions}.
+      #
       def self.define_char_sets(command)
         command.option :numeric, short: '-N',
                          desc: 'Searches for numeric characters (0-9)' do

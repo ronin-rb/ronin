@@ -108,6 +108,12 @@ module Ronin
                         end
       end
 
+      #
+      # Defines numeric pattern options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
       def self.define_numeric_options(command)
         command.option :number, short: '-N',
                          desc: 'Searches for all numbers' do
@@ -126,6 +132,12 @@ module Ronin
 
       end
 
+      #
+      # Defines language pattern options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
       def self.define_language_options(command)
         command.option :word, short: '-w',
                        desc: 'Searches for all words' do
@@ -133,6 +145,12 @@ module Ronin
                        end
       end
 
+      #
+      # Defines network pattern options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
       def self.define_network_options(command)
         command.option :mac_addr, desc: 'Searches for all MAC addresses' do
           @pattern = MAC_ADDR
@@ -174,6 +192,12 @@ module Ronin
 
       end
 
+      #
+      # Defines PII pattern options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
       def self.define_pii_options(command)
         command.option :user_name, desc: 'Searches for all user names' do
           @pattern = USER_NAME
@@ -222,6 +246,12 @@ module Ronin
 
       end
 
+      #
+      # Defines File System pattern options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
       def self.define_file_system_options(command)
         command.option :file_name, desc: 'Searches for all file names' do
           @pattern = FILE_NAME
@@ -269,6 +299,12 @@ module Ronin
                               end
       end
 
+      #
+      # Defines source code pattern options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
       def self.define_source_code_options(command)
         command.option :identifier, desc: 'Searches for all identifier names' do
           @pattern = IDENTIFIER
@@ -337,6 +373,12 @@ module Ronin
         end
       end
 
+      #
+      # Defines cryptographic pattern options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
       def self.define_crypto_options(command)
         command.option :md5, desc: 'Searches for all MD5 hashes' do
           @pattern = MD5
@@ -367,6 +409,12 @@ module Ronin
         end
       end
 
+      #
+      # Defines credentials pattern options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
       def self.define_credentials_options(command)
         command.option :ssh_private_key, desc: 'Searches for all SSH private key data' do
           @pattern = SSH_PRIVATE_KEY
