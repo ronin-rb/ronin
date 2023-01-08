@@ -303,6 +303,38 @@ module Ronin
                         desc: 'Searches for all Base64 strings' do
                           @pattern = BASE64
                         end
+
+        command.option :c_comment, desc: 'Searches for all C comments' do
+          @pattern = C_COMMENT
+        end
+
+        command.option :cpp_comment, desc: 'Searches for all C++ comments' do
+          @pattern = CPP_COMMENT
+        end
+
+        command.option :java_comment, desc: 'Searches for all Java comments' do
+          @pattern = JAVA_COMMENT
+        end
+
+        command.option :javascript_comment, desc: 'Searches for all JavaScript comments' do
+          @pattern = JAVASCRIPT_COMMENT
+        end
+
+        command.option :shell_comment, desc: 'Searches for all Shell comments' do
+          @pattern = SHELL_COMMENT
+        end
+
+        command.option :ruby_comment, desc: 'Searches for all Ruby comments' do
+          @pattern = RUBY_COMMENT
+        end
+
+        command.option :python_comment, desc: 'Searches for all Python comments' do
+          @pattern = PYTHON_COMMENT
+        end
+
+        command.option :comment, desc: 'Searches for all comments' do
+          @pattern = COMMENT
+        end
       end
 
       def self.define_crypto_options(command)

@@ -88,6 +88,14 @@ module Ronin
       #         --double-quoted-string       Searches for all double-quoted strings
       #     -S, --string                     Searches for all quoted strings
       #     -B, --base64                     Searches for all Base64 strings
+      #         --c-comment                  Searches for all C comments
+      #         --cpp-comment                Searches for all C++ comments
+      #         --java-comment               Searches for all Java comments
+      #         --javascript-comment         Searches for all JavaScript comments
+      #         --shell-comment              Searches for all Shell comments
+      #         --ruby-comment               Searches for all Ruby comments
+      #         --python-comment             Searches for all Python comments
+      #         --comment                    Searches for all comments
       #     -e, --regexp /REGEXP/            Custom regular expression to search for
       #     -h, --help                       Print help information
       #
