@@ -82,9 +82,6 @@ module Ronin
       #         --rsa-private-key            Searches for all RSA private key data
       #     -K, --private-key                Searches for all private key data
       #         --ssh-public-key             Searches for all SSH public key data
-      #         --rsa-public-key             Searches for all RSA public key data
-      #         --dsa-public-key             Searches for all DSA public key data
-      #         --ec-public-key              Searches for all EC public key data
       #         --public-key                 Searches for all public key data
       #         --aws-access-key-id          Searches for all AWS access key IDs
       #         --aws-secret-access-key      Searches for all AWS secret access key

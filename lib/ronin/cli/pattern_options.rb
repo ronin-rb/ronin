@@ -362,22 +362,6 @@ module Ronin
           @pattern = SSH_PUBLIC_KEY
         end
 
-        command.option :rsa_public_key, desc: 'Searches for all RSA public key data' do
-          @pattern = RSA_PUBLIC_KEY
-        end
-
-        command.option :dsa_public_key, desc: 'Searches for all DSA public key data' do
-          @pattern = DSA_PUBLIC_KEY
-        end
-
-        command.option :ec_public_key, desc: 'Searches for all EC public key data' do
-          @pattern = EC_PUBLIC_KEY
-        end
-
-        command.option :ssh_public_key, desc: 'Searches for all SSH public key data' do
-          @pattern = SSH_PUBLIC_KEY
-        end
-
         command.option :public_key, desc: 'Searches for all public key data' do
           @pattern = PUBLIC_KEY
         end

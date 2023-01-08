@@ -163,15 +163,6 @@ Extract common patterns in the given file(s) or input stream.
 `--ssh-public-key`
   Searches for all SSH public key data.
 
-`--rsa-public-key`
-  Searches for all RSA public key data.
-
-`--dsa-public-key`
-  Searches for all DSA public key data.
-
-`--ec-public-key`
-  Searches for all EC public key data.
-
 `--public-key`
   Searches for all public key data.
 
