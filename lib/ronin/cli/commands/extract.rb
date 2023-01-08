@@ -67,6 +67,7 @@ module Ronin
       #     -P, --path                       Searches for all paths
       #         --identifier                 Searches for all identifier names
       #         --variable-name              Searches for all variable names
+      #         --variable-assignment        Searches for all variable assignments
       #         --function-name              Searches for all function names
       #         --md5                        Searches for all MD5 hashes
       #         --sha1                       Searches for all SHA1 hashes

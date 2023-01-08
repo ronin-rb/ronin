@@ -124,6 +124,9 @@ Greps for common patterns in the given file(s) or input stream.
 `--variable-name`
   Searches for all variable names.
 
+`--variable-assignment`
+  Searches for all variable assignments.
+
 `--function-name`
   Searches for all function names.
 

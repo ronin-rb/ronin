@@ -278,6 +278,10 @@ module Ronin
           @pattern = VARIABLE_NAME
         end
 
+        command.option :variable_assignment, desc: 'Searches for all variable assignments' do
+          @pattern = VARIABLE_ASSIGNMENT
+        end
+
         command.option :function_name, desc: 'Searches for all function names' do
           @pattern = FUNCTION_NAME
         end
