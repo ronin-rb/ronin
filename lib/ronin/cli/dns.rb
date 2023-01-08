@@ -131,7 +131,6 @@ module Ronin
           puts "#{record.address} #{record.protocol}"
         end
       end
-
     end
   end
 end
