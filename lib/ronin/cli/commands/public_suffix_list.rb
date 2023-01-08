@@ -73,7 +73,7 @@ module Ronin
         # Runs the `ronin public-suffix-list` command.
         #
         def run
-          if !File.file?(options[:path])
+          if !downloaded?
             download
           elsif options[:update] || stale?
             update
@@ -84,6 +84,15 @@ module Ronin
           list_file.each do |suffix|
             puts suffix
           end
+        end
+
+        #
+        # Determines if the public suffix list file has been downloaded yet.
+        #
+        # @return [Boolean]
+        #
+        def downloaded?
+          List.downloaded?(options[:path])
         end
 
         #
