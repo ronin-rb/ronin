@@ -69,7 +69,7 @@ module Ronin
 
         man_page 'ronin-tld-list.1'
 
-        def run(*args)
+        def run
           if !downloaded?
             download
           elsif options[:update] || stale?
