@@ -270,6 +270,10 @@ module Ronin
       end
 
       def self.define_source_code_options(command)
+        command.option :identifier, desc: 'Searches for all identifier names' do
+          @pattern = IDENTIFIER
+        end
+
         command.option :variable_name, desc: 'Searches for all variable names' do
           @pattern = VARIABLE_NAME
         end

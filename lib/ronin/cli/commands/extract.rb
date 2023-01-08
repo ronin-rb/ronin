@@ -65,6 +65,7 @@ module Ronin
       #         --relative-path              Searches for all relative paths
       #         --absolute-path              Searches for all absolute paths
       #     -P, --path                       Searches for all paths
+      #         --identifier                 Searches for all identifier names
       #         --variable-name              Searches for all variable names
       #         --function-name              Searches for all function names
       #         --md5                        Searches for all MD5 hashes

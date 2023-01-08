@@ -118,6 +118,9 @@ Greps for common patterns in the given file(s) or input stream.
 `-P`, `--path`
   Searches for all paths.
 
+`--identifier`
+  Searches for all identifier names.
+
 `--variable-name`
   Searches for all variable names.
 
