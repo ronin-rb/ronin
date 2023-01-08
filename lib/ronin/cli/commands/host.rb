@@ -17,6 +17,7 @@
 #
 
 require 'ronin/cli/value_processor_command'
+require 'ronin/cli/dns'
 require 'ronin/support/network/host'
 
 require 'wordlist/file'
@@ -60,6 +61,8 @@ module Ronin
       #
       class Host < ValueProcessorCommand
 
+        include DNS
+
         usage '[options] [HOST ...]'
 
         option :subdomain, value: {
@@ -98,15 +101,6 @@ module Ronin
                                    usage: 'FILE'
                                  },
                                  desc: 'Enumerates over every subdomain in the wordlist'
-
-        option :nameserver, short: '-N',
-                            value: {
-                              type: String,
-                              usage: 'HOST|IP'
-                            },
-                            desc: 'Send DNS queries to the nameserver' do |ip|
-                              @nameservers << ip
-                            end
 
         option :ips, short: '-I',
                      desc:  "Converts the hostname to it's IP addresses"
@@ -154,21 +148,6 @@ module Ronin
         description 'Processes hostname(s)'
 
         man_page 'ronin-host.1'
-
-        #
-        # Initializes the `ronin dns` command.
-        #
-        def initialize(**kwargs)
-          super(**kwargs)
-
-          @nameservers = []
-        end
-
-        def dns_options
-          kwargs = {}
-          kwargs[:nameservers] = @nameservers unless @nameservers.empty?
-          kwargs
-        end
 
         #
         # Queries the given host.
@@ -233,69 +212,6 @@ module Ronin
             print_records(query_records(host))
           else
             puts host.name
-          end
-        end
-
-        #
-        # Queries the records for the given host name.
-        #
-        # @param [String] host
-        #   The host name to query.
-        #
-        # @return [Array<Resolv::DNS::Resource>]
-        #   The returned DNS resource records.
-        #
-        def query_records(host)
-          if options[:type]
-            resolver.get_records(host,options[:type].downcase)
-          else
-            resolver.get_a_records(host) + resolver.get_aaaa_records(host)
-          end
-        end
-
-        #
-        # Prints multiple DNS records.
-        #
-        # @param [Array<Resolv::DNS::Resource>] records
-        #   The DNS resource records to print.
-        #
-        def print_records(records)
-          records.each do |record|
-            print_record(record)
-          end
-        end
-
-        #
-        # Prints a DNS record.
-        #
-        # @param [Resolv::DNS::Resource] record
-        #   The DNS resource record to print.
-        #
-        def print_record(record)
-          case record
-          when Resolv::DNS::Resource::IN::A,
-               Resolv::DNS::Resource::IN::AAAA
-            puts record.address
-          when Resolv::DNS::Resource::IN::NS,
-               Resolv::DNS::Resource::IN::CNAME,
-               Resolv::DNS::Resource::IN::PTR
-            puts record.name
-          when Resolv::DNS::Resource::IN::MX
-            puts record.exchange
-          when Resolv::DNS::Resource::IN::TXT
-            puts record.strings.join
-          when Resolv::DNS::Resource::IN::HINFO
-            puts "#{record.cpu} #{record.os}"
-          when Resolv::DNS::Resource::IN::LOC
-            puts "#{record.latitude} #{record.longitude}"
-          when Resolv::DNS::Resource::IN::MINFO
-            puts "#{record.emailbx}@#{record.rmailbx}"
-          when Resolv::DNS::Resource::IN::SOA
-            puts "#{record.mname} #{record.rname} #{record.serial} #{record.refresh} #{record.retry} #{record.expire} #{record.ttl}"
-          when Resolv::DNS::Resource::IN::SRV
-            puts "#{record.port} #{record.priority} #{record.weight} #{record.target}"
-          when Resolv::DNS::Resource::IN::WKS
-            puts "#{record.address} #{record.protocol}"
           end
         end
 
