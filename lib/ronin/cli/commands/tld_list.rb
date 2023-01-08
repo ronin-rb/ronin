@@ -69,6 +69,9 @@ module Ronin
 
         man_page 'ronin-tld-list.1'
 
+        #
+        # Runs the `ronin tld-list` command.
+        #
         def run
           if !downloaded?
             download
