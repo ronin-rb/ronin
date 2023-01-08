@@ -98,6 +98,8 @@ module Ronin
         #
         # Determines if the public suffix list file is stale.
         #
+        # @return [Boolean]
+        #
         def stale?
           List.stale?(options[:path])
         end
