@@ -56,31 +56,31 @@ module Ronin
         define_char_sets(command)
 
         command.option :chars, short: '-c',
-                        value: {
-                          type:  String,
-                          usage: 'CHARS'
-                        },
-                        desc: 'Searches for all chars in the custom char-set' do |string|
-                          @char_set = Chars::CharSet.new(*string.chars)
-                        end
-
-        command.option :include_chars, short: '-i',
-                               value: {
-                                 type: String,
-                                 usage: 'CHARS',
-                               },
-                               desc: 'Include the additional chars to the char-set' do |string|
-                                 @char_set += Chars::CharSet.new(*string.chars)
-                               end
-
-        command.option :exclude_chars, short: '-e',
                                value: {
                                  type:  String,
                                  usage: 'CHARS'
                                },
-                               desc: 'Exclude the additional chars from the char-set' do |string|
-                                 @char_set -= Chars::CharSet.new(*string.chars)
+                               desc: 'Searches for all chars in the custom char-set' do |string|
+                                 @char_set = Chars::CharSet.new(*string.chars)
                                end
+
+        command.option :include_chars, short: '-i',
+                                       value: {
+                                         type: String,
+                                         usage: 'CHARS',
+                                       },
+                                       desc: 'Include the additional chars to the char-set' do |string|
+                                         @char_set += Chars::CharSet.new(*string.chars)
+                                       end
+
+        command.option :exclude_chars, short: '-e',
+                                       value: {
+                                         type:  String,
+                                         usage: 'CHARS'
+                                       },
+                                       desc: 'Exclude the additional chars from the char-set' do |string|
+                                         @char_set -= Chars::CharSet.new(*string.chars)
+                                       end
       end
 
       #
@@ -91,29 +91,29 @@ module Ronin
       #
       def self.define_char_sets(command)
         command.option :numeric, short: '-N',
-                         desc: 'Searches for numeric characters (0-9)' do
-                           @char_set = Chars::NUMERIC
-                         end
+                                 desc: 'Searches for numeric characters (0-9)' do
+                                   @char_set = Chars::NUMERIC
+                                 end
 
         command.option :octal, short: '-O',
-                       desc: 'Searches for octal characters (0-7)' do
-                         @char_set = Chars::OCTAL
-                       end
+                               desc: 'Searches for octal characters (0-7)' do
+                                 @char_set = Chars::OCTAL
+                               end
 
         command.option :upper_hex, short: '-X',
-                           desc: 'Searches for uppercase hexadecimal (0-9, A-F)' do
-                             @char_set = Chars::UPPERCASE_HEXADECIMAL
-                           end
+                                   desc: 'Searches for uppercase hexadecimal (0-9, A-F)' do
+                                     @char_set = Chars::UPPERCASE_HEXADECIMAL
+                                   end
 
         command.option :lower_hex, short: '-x',
-                           desc: 'Searches for lowercase hexadecimal (0-9, a-f)' do
-                             @char_set = Chars::LOWERCASE_HEXADECIMAL
-                           end
+                                   desc: 'Searches for lowercase hexadecimal (0-9, a-f)' do
+                                     @char_set = Chars::LOWERCASE_HEXADECIMAL
+                                   end
 
         command.option :hex, short: '-H',
-                     desc: 'Searches for hexadecimal chars (0-9, a-f, A-F)' do
-                       @char_set = Chars::HEXADECIMAL
-                     end
+                             desc: 'Searches for hexadecimal chars (0-9, a-f, A-F)' do
+                               @char_set = Chars::HEXADECIMAL
+                             end
 
         command.option :upper_alpha, desc: 'Searches for uppercase alpha chars (A-Z)' do
           @char_set = Chars::UPPERCASE_ALPHA
@@ -124,52 +124,52 @@ module Ronin
         end
 
         command.option :alpha, short: '-A',
-                       desc: 'Searches for alpha chars (a-z, A-Z)' do
-                         @char_set = Chars::ALPHA
-                       end
+                               desc: 'Searches for alpha chars (a-z, A-Z)' do
+                                 @char_set = Chars::ALPHA
+                               end
 
         command.option :alpha_num, desc: 'Searches for alpha-numeric chars (a-z, A-Z, 0-9)' do
           @char_set = Chars::ALPHA_NUMERIC
         end
 
         command.option :punct, short: '-P',
-                       desc: 'Searches for punctuation chars' do
-                         @char_set = Chars::PUNCTUATION
-                       end
+                               desc: 'Searches for punctuation chars' do
+                                 @char_set = Chars::PUNCTUATION
+                               end
 
         command.option :symbols, short: '-S',
-                         desc: 'Searches for symbolic chars' do
-                           @char_set = Chars::SYMBOLS
-                         end
+                                 desc: 'Searches for symbolic chars' do
+                                   @char_set = Chars::SYMBOLS
+                                 end
 
         command.option :space, short: '-s',
-                       desc: 'Searches for all whitespace chars' do
-                         @char_set = Chars::SPACE
-                       end
+                               desc: 'Searches for all whitespace chars' do
+                                 @char_set = Chars::SPACE
+                               end
 
         command.option :visible, short: '-v',
-                         desc: 'Searches for all visible chars' do
-          @char_set = Chars::VISIBLE
-        end
+                                 desc: 'Searches for all visible chars' do
+                                   @char_set = Chars::VISIBLE
+                                 end
 
         command.option :printable, short: '-p',
-                           desc: 'Searches for all printable chars' do
-                             @char_set = Chars::PRINTABLE
-                           end
+                                   desc: 'Searches for all printable chars' do
+                                     @char_set = Chars::PRINTABLE
+                                   end
 
         command.option :control, short: '-C',
-                         desc: 'Searches for all control chars (\x00-\x1f, \x7f)' do
-                           @char_set = Chars::CONTROL
-                         end
+                                 desc: 'Searches for all control chars (\x00-\x1f, \x7f)' do
+                                   @char_set = Chars::CONTROL
+                                 end
 
         command.option :signed_ascii, short: '-a',
-                              desc: 'Searches for all signed ASCII chars (\x00-\x7f)' do
-                                @char_set = Chars::SIGNED_ASCII
-                              end
+                                      desc: 'Searches for all signed ASCII chars (\x00-\x7f)' do
+                                        @char_set = Chars::SIGNED_ASCII
+                                      end
 
         command.option :ascii, desc: 'Searches for all ASCII chars (\x00-\xff)' do
-                         @char_set = Chars::ASCII
-                       end
+          @char_set = Chars::ASCII
+        end
       end
 
       # The set character set.
