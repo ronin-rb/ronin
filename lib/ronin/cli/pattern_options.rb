@@ -74,7 +74,7 @@ module Ronin
     #         --ec-public-key              Searches for all EC public key data
     #         --public-key                 Searches for all public key data
     #         --aws-access-key-id          Searches for all AWS access key IDs
-    #         --aws-secret-access-key      Searches for all AWS secret access key
+    #         --aws-secret-access-key      Searches for all AWS secret access keys
     #     -A, --api-key                    Searches for all API keys
     #         --single-quoted-string       Searches for all single-quoted strings
     #         --double-quoted-string       Searches for all double-quoted strings
@@ -439,7 +439,7 @@ module Ronin
           @pattern = AWS_ACCESS_KEY_ID
         end
 
-        command.option :aws_secret_access_key, desc: 'Searches for all AWS secret access key' do
+        command.option :aws_secret_access_key, desc: 'Searches for all AWS secret access keys' do
           @pattern = AWS_SECRET_ACCESS_KEY
         end
 

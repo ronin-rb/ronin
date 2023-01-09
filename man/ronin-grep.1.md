@@ -170,7 +170,7 @@ Greps for common patterns in the given file(s) or input stream.
   Searches for all AWS access key IDs.
 
 `--aws-secret-access-key`
-  Searches for all AWS secret access key.
+  Searches for all AWS secret access keys.
 
 `-A`, `--api-key`
   Searches for all API keys (MD5, SHA1, SHA256, SHA512, AWS access key ID, or
