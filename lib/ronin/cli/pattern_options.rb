@@ -140,9 +140,9 @@ module Ronin
       #
       def self.define_language_options(command)
         command.option :word, short: '-w',
-                       desc: 'Searches for all words' do
-                         @pattern = WORD
-                       end
+                              desc: 'Searches for all words' do
+                                @pattern = WORD
+                              end
       end
 
       #
