@@ -191,6 +191,24 @@ $ ronin irb
 $ gem install ronin
 ```
 
+### Docker
+
+If you prefer using [Docker], there are also [Docker images] available:
+
+```shell
+docker pull roninrb/ronin
+docker run -it ronin
+```
+
+Additionally, if you want to mount your home directory into the docker image:
+
+```shell
+docker run --mount type=bind,source="$$HOME",target=/home/ronin -it ronin
+```
+
+[Docker]: https://www.docker.com/
+[Docker images]: https://hub.docker.com/r/roninrb/ronin
+
 ## Development
 
 1. [Fork It!](https://github.com/ronin-rb/ronin/fork)
