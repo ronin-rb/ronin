@@ -24,6 +24,7 @@ module Ronin
     # Adds common character set options to a command.
     #
     # ## Options
+    #
     #     -N, --numeric                    Searches for numeric characters (0-9)
     #     -O, --octal                      Searches for octal characters (0-7)
     #     -X, --upper-hex                  Searches for uppercase hexadecimal (0-9, A-F)
