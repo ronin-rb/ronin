@@ -4,14 +4,14 @@ require 'rake'
 # Example rake tasks:
 #
 #     task :foo do
-#       # code here
+#       # code goes here
 #     end
 #
 # Namespaces:
 #
 #     namespace :foo do
 #       task :bar do
-#         # code here
+#         # code goes here
 #       end
 #
 #       # other tasks ...
@@ -33,7 +33,7 @@ require 'rake'
 #
 #     file 'foo.txt' do
 #       File.open('foo.txt','w') do |file|
-#         # code here
+#         # code goes here
 #       end
 #     end
 #
