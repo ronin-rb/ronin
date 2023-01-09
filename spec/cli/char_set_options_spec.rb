@@ -278,5 +278,33 @@ describe Ronin::CLI::CharSetOptions do
 
     include_context "char-set option", '--numeric', :NUMERIC
     include_context "char-set option", '-N', :NUMERIC
+    include_context "char-set option", '--octal', :OCTAL
+    include_context "char-set option", '-O', :OCTAL
+    include_context "char-set option", '--upper-hex', :UPPERCASE_HEXADECIMAL
+    include_context "char-set option", '-X', :UPPERCASE_HEXADECIMAL
+    include_context "char-set option", '--lower-hex', :LOWERCASE_HEXADECIMAL
+    include_context "char-set option", '-x', :LOWERCASE_HEXADECIMAL
+    include_context "char-set option", '--hex', :HEXADECIMAL
+    include_context "char-set option", '-H', :HEXADECIMAL
+    include_context "char-set option", '--upper-alpha', :UPPERCASE_ALPHA
+    include_context "char-set option", '--lower-alpha', :LOWERCASE_ALPHA
+    include_context "char-set option", '--alpha', :ALPHA
+    include_context "char-set option", '-A', :ALPHA
+    include_context "char-set option", '--alpha-num', :ALPHA_NUMERIC
+    include_context "char-set option", '--punct', :PUNCTUATION
+    include_context "char-set option", '-P', :PUNCTUATION
+    include_context "char-set option", '--symbols', :SYMBOLS
+    include_context "char-set option", '-S', :SYMBOLS
+    include_context "char-set option", '--space', :SPACE
+    include_context "char-set option", '-s', :SPACE
+    include_context "char-set option", '--visible', :VISIBLE
+    include_context "char-set option", '-v', :VISIBLE
+    include_context "char-set option", '--printable', :PRINTABLE
+    include_context "char-set option", '-p', :PRINTABLE
+    include_context "char-set option", '--control', :CONTROL
+    include_context "char-set option", '-C', :CONTROL
+    include_context "char-set option", '--signed-ascii', :SIGNED_ASCII
+    include_context "char-set option", '-a', :SIGNED_ASCII
+    include_context "char-set option", '--ascii', :ASCII
   end
 end
