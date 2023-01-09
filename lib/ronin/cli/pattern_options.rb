@@ -116,14 +116,14 @@ module Ronin
       #
       def self.define_numeric_options(command)
         command.option :number, short: '-N',
-                         desc: 'Searches for all numbers' do
-                           @pattern = NUMBER
-                         end
+                                desc: 'Searches for all numbers' do
+                                  @pattern = NUMBER
+                                end
 
         command.option :hex_number, short: '-X',
-                             desc: 'Searches for all hexadecimal numbers' do
-                               @pattern = NUMBER
-                             end
+                                    desc: 'Searches for all hexadecimal numbers' do
+                                      @pattern = NUMBER
+                                    end
 
         command.option :version_number, short: '-V',
                                         desc: 'Searches for all version numbers' do
@@ -157,39 +157,38 @@ module Ronin
         end
 
         command.option :ipv4_addr, short: '-4',
-                            desc: 'Searches for all IPv4 addresses' do
-                              @pattern = IPV4_ADDR
-                            end
+                                   desc: 'Searches for all IPv4 addresses' do
+                                     @pattern = IPV4_ADDR
+                                   end
 
         command.option :ipv6_addr, short: '-6',
-                            desc: 'Searches for all IPv6 addresses' do
-                              @pattern = IPV6_ADDR
-                            end
+                                   desc: 'Searches for all IPv6 addresses' do
+                                     @pattern = IPV6_ADDR
+                                   end
 
         command.option :ip, short: '-I',
-                     desc: 'Searches for all IP addresses' do
-                       @pattern = IP
-                     end
+                            desc: 'Searches for all IP addresses' do
+                              @pattern = IP
+                            end
 
         command.option :host, short: '-H',
-                       desc: 'Searches for all host names' do
-                         @pattern = HOST_NAME
-                       end
+                              desc: 'Searches for all host names' do
+                                @pattern = HOST_NAME
+                              end
 
         command.option :domain, short: '-D',
-                         desc: 'Searches for all domain names' do
-                           @pattern = DOMAIN
-                         end
+                                desc: 'Searches for all domain names' do
+                                  @pattern = DOMAIN
+                                end
 
         command.option :uri, desc: 'Searches for all URIs' do
                                @pattern = URI
                              end
 
         command.option :url, short: '-U',
-                      desc: 'Searches for all URLs' do
-                        @pattern = URL
-                      end
-
+                             desc: 'Searches for all URLs' do
+                               @pattern = URL
+                            end
       end
 
       #
@@ -204,13 +203,13 @@ module Ronin
         end
 
         command.option :email_addr, short: '-E',
-                             desc: 'Searches for all email addresses' do
-                               @pattern = EMAIL_ADDRESS
-                             end
+                                    desc: 'Searches for all email addresses' do
+                                      @pattern = EMAIL_ADDRESS
+                                    end
 
         command.option :obfuscated_email_addr, desc: 'Searches for all obfuscated email addresses' do
-                               @pattern = OBFUSCATED_EMAIL_ADDRESS
-                             end
+          @pattern = OBFUSCATED_EMAIL_ADDRESS
+        end
 
         command.option :phone_number, desc: 'Searches for all phone numbers' do
           @pattern = PHONE_NUMBER
@@ -243,7 +242,6 @@ module Ronin
         command.option :cc, desc: 'Searches for all Credit Card numbers' do
           @pattern = CC
         end
-
       end
 
       #
@@ -331,14 +329,14 @@ module Ronin
         end
 
         command.option :string, short: '-S',
-                         desc: 'Searches for all quoted strings' do
-                           @pattern = STRING
-                         end
+                                desc: 'Searches for all quoted strings' do
+                                  @pattern = STRING
+                                end
 
         command.option :base64, short: '-B',
-                        desc: 'Searches for all Base64 strings' do
-                          @pattern = BASE64
-                        end
+                                desc: 'Searches for all Base64 strings' do
+                                  @pattern = BASE64
+                                end
 
         command.option :c_comment, desc: 'Searches for all C comments' do
           @pattern = C_COMMENT
@@ -449,7 +447,6 @@ module Ronin
                                  desc: 'Secretes for all API keys' do
                                    @pattern = API_KEY
                                  end
-
       end
     end
   end
