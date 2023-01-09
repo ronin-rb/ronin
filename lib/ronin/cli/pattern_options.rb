@@ -448,6 +448,11 @@ module Ronin
                                    @pattern = API_KEY
                                  end
       end
+
+      # The pattern to search for.
+      #
+      # @return [Regexp, nil]
+      attr_reader :pattern
     end
   end
 end
