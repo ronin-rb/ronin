@@ -122,7 +122,7 @@ module Ronin
 
         command.option :hex_number, short: '-X',
                                     desc: 'Searches for all hexadecimal numbers' do
-                                      @pattern = NUMBER
+                                      @pattern = HEX_NUMBER
                                     end
 
         command.option :version_number, short: '-V',
