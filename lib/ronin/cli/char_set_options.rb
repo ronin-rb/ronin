@@ -173,6 +173,8 @@ module Ronin
       end
 
       # The set character set.
+      #
+      # @return [Chars::CharSet, nil]
       attr_reader :char_set
 
       #
