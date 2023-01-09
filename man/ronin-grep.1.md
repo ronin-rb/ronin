@@ -71,7 +71,7 @@ Greps for common patterns in the given file(s) or input stream.
   Searches for all AMEX Credit Card numbers.
 
 `--discover-cc`
-  Searches for all Discord Card numbers.
+  Searches for all Discover Card numbers.
 
 `--mastercard-cc`
   Searches for all MasterCard numbers.

@@ -43,7 +43,7 @@ module Ronin
     #         --phone-number               Searches for all phone numbers
     #         --ssn                        Searches for all Social Security Numbers (SSNs)
     #         --amex-cc                    Searches for all AMEX Credit Card numbers
-    #         --discover-cc                Searches for all Discord Card numbers
+    #         --discover-cc                Searches for all Discover Card numbers
     #         --mastercard-cc              Searches for all MasterCard numbers
     #         --visa-cc                    Searches for all VISA Credit Card numbers
     #         --visa-mastercard-cc         Searches for all VISA MasterCard numbers
@@ -223,7 +223,7 @@ module Ronin
           @pattern = AMEX_CC
         end
 
-        command.option :discover_cc, desc: 'Searches for all Discord Card numbers' do
+        command.option :discover_cc, desc: 'Searches for all Discover Card numbers' do
           @pattern = DISCOVER_CC
         end
 
