@@ -166,8 +166,6 @@ $ ronin irb
 * [make]
 * [git]
 * [libsqlite3]
-* [libxml2]
-* [libxslt]
 * [Ruby] >= 3.0.0
 * [open_namespace] ~> 0.4
 * [rouge] ~> 3.0
@@ -252,8 +250,6 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [clang]: http://clang.llvm.org/
 [git]: https://git-scm.com/
 [make]: https://www.gnu.org/software/automake/
-[libxml2]: https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
-[libxslt]: http://xmlsoft.org/libxslt/index.html
 [libsqlite3]: https://www.sqlite.org/index.html
 [Ruby]: https://www.ruby-lang.org
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
