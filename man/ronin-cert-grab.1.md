@@ -28,15 +28,15 @@ Downloads SSL/TLS certificates for a SSL/TLS TCP or `https://` URL.
 
 Downloads the SSL/TLS certificate for a SSL/TLS service:
 
-    ronin cert-grab github.com:443
+        ronin cert-grab github.com:443
 
 Downloads the SSL/TLS certificate running on the IP and port:
 
-    ronin cert-grab 93.184.216.34:443
+        ronin cert-grab 93.184.216.34:443
 
 Downloads the SSL/TLS certificate used by the URL:
 
-    ronin cert-grab https://github.com/
+        ronin cert-grab https://github.com/
 
 ## AUTHOR
 
