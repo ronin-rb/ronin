@@ -84,7 +84,7 @@ Gets the machine's local network IP address:
 
 Converts the IP address(es) into unsigned integers:
 
-        $ ronin ip --uint 1.2.3.4
+        $ ronin ip --decimal 1.2.3.4
         16909060
 
 Converts the IP address(es) into CIDR ranges:
