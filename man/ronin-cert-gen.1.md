@@ -69,29 +69,29 @@ Generates a new X509 certificate.
 
 Generates self-signed certificate in `cert.crt` and a new private key in `key.pem`:
 
-        ronin cert_gen -c test.com -O "Test Co" -U "Test Dept" \
+        ronin cert-gen -c test.com -O "Test Co" -U "Test Dept" \
                        -L "Test City" -S NY -C US
 
 Generates a new self-signed certificate for `test.com` in `cert.crt` using the private key in
 `private.key`:
 
-        ronin cert_gen -c test.com -O "Test Co" -U "Test Dept" \
+        ronin cert-gen -c test.com -O "Test Co" -U "Test Dept" \
                        -L "Test City" -S NY -C US \
                        --key-file private.key
 
 Generates a new self-signed certificate with a alternative name `www.test.com`:
 
-        ronin cert_gen -c test.com -A www.test.com -O "Test Co" -U "Test Dept" \
+        ronin cert-gen -c test.com -A www.test.com -O "Test Co" -U "Test Dept" \
                        -L "Test City" -S NY -C US
 
 Generates a new CA certificate which can sign other certificates:
 
-        ronin cert_gen --ca -c "Test CA" -O "Test Co" -U "Test Dept" \
+        ronin cert-gen --ca -c "Test CA" -O "Test Co" -U "Test Dept" \
                        -L "Test City" -S NY -C US
 
 Generates a new sub-certificate using the CA certificate `ca.crt` and signing key `ca.key`:
 
-        ronin cert_gen -c test.com -O "Test Co" -U "Test Dept" \
+        ronin cert-gen -c test.com -O "Test Co" -U "Test Dept" \
                        -L "Test City" -S NY -C US \
                        --ca-key ca.key --ca-cert ca.crt
 
