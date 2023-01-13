@@ -68,6 +68,9 @@ Decodes each character of the given data from a variety of formats.
 `-R`, `--ruby`
   Ruby decodes the data.
 
+`--uudecode`
+  uudecodes the data.
+
 `-x`, `--xml`
   XML decodes the data.
 
