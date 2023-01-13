@@ -44,6 +44,7 @@ module Ronin
       #     -j, --js                         JavaScript decodes the data
       #     -S, --shell                      Encodes the data as a Shell String
       #     -P, --powershell                 Encodes the data as a PowerShell String
+      #         --punycode                   Decodes the data as Punycode
       #     -Q, --quoted-printable           Decodes the data as Quoted Printable
       #     -R, --ruby                       Ruby decodes the data
       #     -x, --xml                        XML decodes the data
@@ -121,6 +122,11 @@ module Ronin
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_decode
                             end
+
+        option :punycode, desc: 'Decodes the data as Punycode' do
+          require 'ronin/support/encoding/punycode'
+          @method_calls << :punycode_decode
+        end
 
         option :quoted_printable, short: '-Q',
                                   desc: 'Decodes the data as Quoted Printable' do
