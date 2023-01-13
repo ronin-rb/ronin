@@ -59,6 +59,9 @@ Decodes each character of the given data from a variety of formats.
 `-P`, `--powershell`
   Decodes the data as a PowerShell String.
 
+`-Q`, `--quoted-printable`
+  Decodes the data as Quoted Printable.
+
 `-R`, `--ruby`
   Ruby decodes the data.
 
