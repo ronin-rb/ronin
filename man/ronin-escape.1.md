@@ -52,6 +52,9 @@ Escapes each special character for a variety of encodings.
 `-P`, `--powershell`
   Escapes the data as a PowerShell String.
 
+`-Q`, `--quoted-printable`
+  Escapes the data as Quoted Printable.
+
 `-R`, `--ruby`
   Escapes the data as a Ruby String.
 
