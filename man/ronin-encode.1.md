@@ -65,6 +65,9 @@ Encodes each character of the given data into a variety of formats.
 `-Q`, `--quoted-printable`
   Decodes the data as Quoted Printable.
 
+`--uuencode`
+  uuencodes the data.
+
 `-R`, `--ruby`
   Encodes the data as a Ruby String.
 

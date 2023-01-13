@@ -47,6 +47,7 @@ module Ronin
       #         --punycode                   Encodes the data as Punycode
       #     -Q, --quoted-printable           Encodes the data as Quoted Printable
       #     -R, --ruby                       Encodes the data as a Ruby String
+      #         --uuencode                   uuencodes the data
       #     -x, --xml                        XML encodes the data
       #     -h, --help                       Print help information
       #
@@ -139,6 +140,11 @@ module Ronin
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_encode
                       end
+
+        option :uuencode, desc: 'uuencodes the data' do
+          require 'ronin/support/encoding/uuencoding'
+          @method_calls << :uuencode
+        end
 
         option :xml, short: '-x',
                      desc: 'XML encodes the data' do
