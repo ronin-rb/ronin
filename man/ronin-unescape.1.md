@@ -52,6 +52,9 @@ Unescapes each escaped character from a variety of encodings.
 `-P`, `--powershell`
   Unescapes the data as a PowerShell String.
 
+`-Q`, `--quoted-printable`
+  Unescapes the data as Quoted Printable.
+
 `-R`, `--ruby`
   Unescapes the data as a Ruby String.
 

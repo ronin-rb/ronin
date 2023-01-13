@@ -43,6 +43,7 @@ module Ronin
       #     -S, --shell                      Unescapes the data as a Shell String
       #     -P, --powershell                 Unescapes the data as a PowerShell String
       #     -R, --ruby                       Unescapes the data as a Ruby String
+      #     -Q, --quoted-printable           Unescapes the data as Quoted Printable
       #     -x, --xml                        XML unescapes the data
       #     -h, --help                       Print help information
       #
@@ -98,6 +99,12 @@ module Ronin
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_unescape
                             end
+
+        option :quoted_printable, short: '-Q',
+                                  desc: 'Unescapes the data as Quoted Printable' do
+                                    require 'ronin/support/encoding/quoted_printable'
+                                    @method_calls << :quoted_printable_unescape
+                                  end
 
         option :ruby, short: '-R',
                       desc: 'Unescapes the data as a Ruby String' do
