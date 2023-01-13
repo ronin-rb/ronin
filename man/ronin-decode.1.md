@@ -28,6 +28,9 @@ Decodes each character of the given data from a variety of formats.
 `-n`, `--keep-newlines`
   Preserves newlines at the end of each line.
 
+`--base16`
+  Base16 decodes the data.
+
 `--base32`
   Base32 decodes the data.
 

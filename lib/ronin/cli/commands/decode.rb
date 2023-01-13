@@ -34,6 +34,7 @@ module Ronin
       #         --string STRING              Optional string to process
       #     -M, --multiline                  Process each line separately
       #     -n, --keep-newlines              Preserves newlines at the end of each line
+      #         --base16                     Base16 decodes the data
       #         --base32                     Base32 decodes the data
       #     -b, --base64=[strict|url]        Base64 decodes the data
       #     -c, --c                          Encodes the data as a C string
@@ -56,6 +57,11 @@ module Ronin
       #     [FILE ...]                       Optional file(s) to process
       #
       class Decode < StringMethodsCommand
+
+        option :base16, desc: 'Base16 decodes the data' do
+                          require 'ronin/support/encoding/base16'
+                          @method_calls << :base16_decode
+                        end
 
         option :base32, desc: 'Base32 decodes the data' do
                           require 'ronin/support/encoding/base32'
