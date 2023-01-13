@@ -50,7 +50,7 @@ module Ronin
       #         --ssl-version 1|1.1|1.2      Specifies the required SSL version
       #         --ssl-cert FILE              Specifies the SSL certificate file
       #         --ssl-key FILE               Specifies the SSL key file
-      #         --ssl-verify none|peer|fail_if_no_peer_cert|client_once|true|false
+      #         --ssl-verify none|peer|fail-if-no-peer-cert|client-once|true|false
       #                                      SSL verification mode
       #         --ssl-ca-bundle PATH         Path to the file or directory of CA certificates
       #     -h, --help                       Print help information
@@ -137,7 +137,11 @@ module Ronin
                          desc: 'Specifies the SSL key file'
 
         option :ssl_verify, value: {
-                              type: Support::Network::SSL::VERIFY.keys
+                              type: Hash[
+                                Support::Network::SSL::VERIFY.keys.map { |key|
+                                  [key.to_s.tr('_','-'), key]
+                                }
+                              ]
                             },
                             desc: 'SSL verification mode'
 

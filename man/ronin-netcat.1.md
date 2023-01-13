@@ -64,7 +64,7 @@ Connects to or listens on a TCP/UDP/SSL/TLS/UNIX socket.
 `--ssl-key` *FILE*
   Specifies the SSL key file.
 
-`--ssl-verify` `none`\|`peer`\|`fail_if_no_peer_cert`\|`client_once`\|`true`\|`false`
+`--ssl-verify` `none`\|`peer`\|`fail-if-no-peer-cert`\|`client-once`\|`true`\|`false`
   SSL verification mode.
 
 `--ssl-ca-bundle` *PATH*
