@@ -25,5 +25,6 @@ require 'ronin/version'
 require 'open_namespace'
 
 module Ronin
+  include Ronin::Support
   include OpenNamespace
 end
