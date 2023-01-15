@@ -232,11 +232,11 @@ $ ronin encode --base64 --string "foo bar baz"
 Zm9vIGJhciBiYXo=
 ```
 
-Base64 encode and then URI encode a string:
+Zlib compresses, Base64 encodes, and then URI encode a string:
 
 ```shell
-$ ronin encode --base64 --uri --string "foo bar"
-5A%6D%39%76%49%47%4A%68%63%67%3D%3D%0A
+$ ronin encode --zlib --base64 --uri --string "foo bar"
+%65%4A%78%4C%79%38%39%58%53%45%6F%73%41%67%41%4B%63%41%4B%61%0A
 ```
 
 Base64 decode a string:
@@ -246,10 +246,10 @@ $ ronin decode --base64 --string "Zm9vIGJhciBiYXo="
 foo bar baz
 ```
 
-URI decode and then Base64 decode a string:
+URI decode, Base64 decode, and then zlib inflates a string:
 
 ```shell
-$ ronin decode --uri --base64 --string "%5A%6D%39%76%49%47%4A%68%63%67%3D%3D%0A"
+$ ronin decode --uri --base64 --zlib --string "%65%4A%78%4C%79%38%39%58%53%45%6F%73%41%67%41%4B%63%41%4B%61%0A"
 foo bar
 ```
 
