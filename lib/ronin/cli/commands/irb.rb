@@ -17,7 +17,7 @@
 #
 
 require 'ronin/cli/command'
-require 'ronin/core/cli/ruby_shell'
+require 'ronin/cli/ruby_shell'
 
 module Ronin
   class CLI
@@ -98,7 +98,7 @@ module Ronin
           end
 
           require 'ronin'
-          Core::CLI::RubyShell.start(context: Ronin)
+          RubyShell.start
         end
 
       end
