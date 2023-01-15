@@ -38,6 +38,12 @@ Decodes each character of the given data from a variety of formats.
   Base64 decodes the data. If the `strict` or `url` option value is given,
   it will enable `strict` or `url` Base64 encoding mode, respectively.
 
+`-z`, `--zlib`
+  Zlib uncompresses the data.
+
+`-g`, `--gzip`
+  gzip uncompresses the data.
+
 `-c, `--c`
   Decodes the data as a C string.
 
