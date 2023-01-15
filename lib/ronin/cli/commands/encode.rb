@@ -37,6 +37,8 @@ module Ronin
       #         --base16                     Base16 encodes the data
       #         --base32                     Base32 encodes the data
       #     -b, --base64=[strict|url]        Base64 encodes the data
+      #     -z, --zlib                       Zlib compresses the data
+      #     -g, --gzip                       gzip compresses the data
       #     -c, --c                          Encodes the data as a C string
       #     -X, --hex                        Hex encode the data (ex: "414141...")
       #     -H, --html                       HTML encodes the data
@@ -82,6 +84,18 @@ module Ronin
                             @method_calls << :base64_encode
                           end
                         end
+
+        option :zlib, short: '-z',
+                      desc:  'Zlib compresses the data' do
+                        require 'ronin/support/compression/core_ext'
+                        @method_calls << :zlib_deflate
+                      end
+
+        option :gzip, short: '-g',
+                      desc:  'gzip compresses the data' do
+                        require 'ronin/support/compression/core_ext'
+                        @method_calls << :gzip
+                      end
 
         option :c, short: '-c',
                    desc: 'Encodes the data as a C string' do

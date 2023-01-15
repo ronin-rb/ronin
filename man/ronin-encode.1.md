@@ -38,6 +38,12 @@ Encodes each character of the given data into a variety of formats.
   Base64 encodes the data. If the `strict` or `url` option value is given,
   it will enable `strict` or `url` Base64 encoding mode, respectively.
 
+`-z`, `--zlib`
+  Zlib compresses the data.
+
+`-g`, `--gzip`
+  gzip compresses the data.
+
 `-c, `--c`
   Encodes the data as a C string.
 
