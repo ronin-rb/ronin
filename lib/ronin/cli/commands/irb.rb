@@ -30,6 +30,7 @@ module Ronin
       #     ronin irb [options]
       #
       # ## Options
+      #
       #     -I, --include DIR                Directory to add to $LOAD_PATH
       #     -r, --require PATH               Ruby files to require
       #     -h, --help                       Print help information
