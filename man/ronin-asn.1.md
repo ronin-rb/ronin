@@ -14,7 +14,7 @@ the given *NUMBER*, *NAME*, or *COUNTRY* code.
 `-v`, `--verbose`
   Prints multi-line human readable output.
 
-`-U`, `--ur`l *URI*
+`-U`, `--url` *URI*
   Overrides the default ASN list URL. Defaults to
   `https://iptoasn.com/data/ip2asn-combined.tsv.gz`.
 
