@@ -101,6 +101,20 @@ Supports a variety of formats, bases, and encodings.
 `-h`, `--help`
   Prints help information.
 
+## EXAMPLES
+
+Unhexdump a `hexdump -C` hexdump:
+
+        ronin unhexdump -o raw.bin hexdump.txt
+
+Unhexdump a `hexdump` hexdump:
+
+        ronin unhexdump -o raw.bin -t uint16_le hexdump.txt
+
+Unhexdump an `od` hexdump:
+
+        ronin unhexdump -o raw.bin -f od od.txt
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
