@@ -85,7 +85,7 @@ module Ronin
         end
 
         #
-        # Syntax highlights an input strema.
+        # Syntax highlights an input stream.
         #
         # @param [File, IO] input
         #   The input file or `stdin`.

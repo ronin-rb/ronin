@@ -328,7 +328,7 @@ module Ronin
       # Sends an HTTP request.
       #
       # @param [Symbol] method
-      #   The HTTP request mehtod name.
+      #   The HTTP request method name.
       #
       # @param [String] path
       #   The path for the request.

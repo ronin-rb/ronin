@@ -107,7 +107,7 @@ module Ronin
         end
 
         #
-        # Formats a bit-fipped string.
+        # Formats a bit-flipped string.
         #
         # @param [String] string
         #   The bit-flipped String.

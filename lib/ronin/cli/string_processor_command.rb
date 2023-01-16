@@ -37,7 +37,7 @@ module Ronin
         attr_reader :string
 
         #
-        # Initializes the stirng value.
+        # Initializes the string value.
         #
         # @param [String] string
         #   The string value.
@@ -120,7 +120,7 @@ module Ronin
       # Runs the command.
       #
       # @param [Array<String>] files
-      #   Additional files to proceess.
+      #   Additional files to process.
       #
       def run(*files)
         if (files.empty? && @input_values.empty?)

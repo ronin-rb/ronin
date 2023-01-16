@@ -208,7 +208,7 @@ module Ronin
         end
 
         #
-        # Optionally prints the filename or linenumber prefix for a line.
+        # Optionally prints the filename or line-number prefix for a line.
         #
         # @param [String] filename
         #

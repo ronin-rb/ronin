@@ -76,7 +76,7 @@ module Ronin
         end
 
         #
-        # Prints a syntax highlgihted response body.
+        # Prints a syntax highlighted response body.
         #
         # @param [Net::HTTPResponse] response
         #   The HTTP response object.
@@ -114,7 +114,7 @@ module Ronin
         end
 
         #
-        # Prints the respnse headers.
+        # Prints the response headers.
         #
         # @param [Net::HTTPResponse] response
         #   The HTTP response object.

@@ -96,7 +96,7 @@ module Ronin
         end
 
         #
-        # Enumerates over each typo squate of the domain.
+        # Enumerates over each typosquat of the domain.
         #
         # @param [String] domain
         #   The domain to typo squat.

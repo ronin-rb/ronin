@@ -116,7 +116,7 @@ module Ronin
         end
 
         #
-        # Gets a path to a random tipe.
+        # Gets a path to a random tip.
         #
         # @param [String, nil] category
         #   The optional tips category to select the random tip from.
