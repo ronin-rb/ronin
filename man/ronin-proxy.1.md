@@ -79,13 +79,15 @@ Starts the Ronin TCP/UDP/SSL/TLS Proxy.
 
 ## EXAMPLES
 
-`ronin proxy 8080 google.com:80`
-  Starts a TCP proxy listening on `localhost` port 8080 that forwards all data
-  to `google.com` port 80.
+Starts a TCP proxy listening on `localhost` port 8080 that forwards all data
+to `google.com` port 80:
 
-`sudo ronin proxy --udp --hexdump 0.0.0.0:53 8.8.8.8:53`
-  Starts a UDP proxy listening on `0.8.0.0` port 53 that forwards all data to
-  `8.8.8.8` port 53.
+        ronin proxy 8080 google.com:80
+
+Starts a UDP proxy listening on `0.8.0.0` port 53 that forwards all data to
+`8.8.8.8` port 53:
+
+        sudo ronin proxy --udp --hexdump 0.0.0.0:53 8.8.8.8:53
 
 ## AUTHOR
 
