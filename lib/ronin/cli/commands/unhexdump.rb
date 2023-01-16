@@ -17,7 +17,7 @@
 #
 
 require 'ronin/cli/command'
-require 'ronin/support/binary/unhexdump/parser'
+require 'ronin/support/binary/hexdump/parser'
 
 module Ronin
   class CLI
@@ -158,7 +158,7 @@ module Ronin
         #   Optional input file.
         #
         def run(file=nil)
-          parser = Support::Binary::Unhexdump::Parser.new(
+          parser = Support::Binary::Hexdump::Parser.new(
                      **hexdump_parser_options
                    )
 
@@ -182,6 +182,9 @@ module Ronin
           end
         end
 
+        # Maps command-line options to
+        # `Ronin::Support::Binary::Hexdump::Parser#initialize` keyword
+        # arguments.
         HEXDUMP_PARSER_OPTIONS = [
           :format,
           :type,
