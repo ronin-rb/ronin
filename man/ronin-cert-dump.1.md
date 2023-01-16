@@ -51,7 +51,7 @@ Print the certificate information for a URL:
 
         ronin cert-dump https://github.com
 
-Only print the Common Nmae (CN) for a SSL/TLS service:
+Only print the Common Name (CN) for a SSL/TLS service:
 
         ronin cert-dump -C 93.184.216.34:443
 

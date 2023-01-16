@@ -28,7 +28,7 @@ the given *NUMBER*, *NAME*, or *COUNTRY* code.
 `-n`, `--number` *NUM*\|AS*NUM*
   Searches for all ASN records with the AS number.
 
-`-C`, `--country-code` *XX*|`None`|`Uknown`
+`-C`, `--country-code` *XX*|`None`|`Unknown`
   Searches for all ASN records with the country code.
 
 `-N`, `--name` *NAME*

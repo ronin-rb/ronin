@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin proxy` [*options*] [*PROXY_HOST*:]*PROXY_PORT* *UPSTREAM_HOST*:*UPSTRAM_PORT*
+`ronin proxy` [*options*] [*PROXY_HOST*:]*PROXY_PORT* *UPSTREAM_HOST*:*UPSTREAM_PORT*
 
 ## DESCRIPTION
 
