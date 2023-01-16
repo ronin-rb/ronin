@@ -41,23 +41,23 @@ Prints SSL/TLS certificate information for one or more SSL/TLS services,
 
 Print the certificate information for the cert file:
 
-    ronin cert-dump ssl.crt
+        ronin cert-dump ssl.crt
 
 Print the certificate information for a SSL/TLS service:
 
-    ronin cert-dump github.com:443
+        ronin cert-dump github.com:443
 
 Print the certificate information for a URL:
 
-    ronin cert-dump https://github.com
+        ronin cert-dump https://github.com
 
 Only print the Common Nmae (CN) for a SSL/TLS service:
 
-    ronin cert-dump -C 93.184.216.34:443
+        ronin cert-dump -C 93.184.216.34:443
 
 Only print the `subjectAltName`s for a SSL/TLS service:
 
-    ronin cert-dump -A wired.com:443
+        ronin cert-dump -A wired.com:443
 
 ## AUTHOR
 
