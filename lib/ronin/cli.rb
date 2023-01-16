@@ -46,6 +46,7 @@ module Ronin
     command_aliases['dec'] = 'decode'
     command_aliases['nc']  = 'netcat'
 
+    # Additional `ronin-` commands to checkout.
     ADDITIONAL_RONIN_COMMANDS = %w[
       ronin-repos
       ronin-db
