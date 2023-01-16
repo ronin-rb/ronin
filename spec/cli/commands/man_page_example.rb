@@ -1,5 +1,4 @@
 require 'rspec'
-require 'ronin/root'
 
 RSpec.shared_examples_for "man_page" do
   describe "man_page" do
