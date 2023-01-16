@@ -29,6 +29,16 @@ Creates a new project or script.
 *help*
   Lists available `ronin new` commands.
 
+## EXAMPLES
+
+Generate a new Ruby script:
+
+        ronin new script file.rb
+
+Generate a new Ruby project:
+
+        ronin new project path/to/dir
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>

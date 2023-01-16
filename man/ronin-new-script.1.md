@@ -18,6 +18,12 @@ Creates a new standalone Ruby script.
 `-h`, `--help`
   Print help information
 
+## EXAMPLES
+
+Generate a new Ruby script:
+
+    ronin new script file.rb
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>

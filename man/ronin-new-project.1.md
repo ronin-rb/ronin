@@ -31,6 +31,24 @@ Creates a new Ruby project directory.
 `-h`, `--help`
   Print help information
 
+## EXAMPLES
+
+Generate a new Ruby project:
+
+    ronin new project path/to/dir
+
+Set the desired ruby version for the project:
+
+    ronin new project --ruby-version 3.2.0 path/to/dir
+
+Add a `Rakefile` to the project for defining automated tasks:
+
+    ronin new project --rakefile path/to/dir
+
+Add a `Dockerfile` to the project:
+
+    ronin new project --dockerfile path/to/dir
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
