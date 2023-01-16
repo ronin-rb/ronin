@@ -1,7 +1,10 @@
 require 'spec_helper'
 require 'ronin/cli/commands/unquote'
+require_relative 'man_page_example'
 
 describe Ronin::CLI::Commands::Unquote do
+  include_examples "man_page"
+
   describe "options" do
     before { subject.parse_options(argv) }
 

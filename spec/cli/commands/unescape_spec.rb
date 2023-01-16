@@ -1,7 +1,10 @@
 require 'spec_helper'
 require 'ronin/cli/commands/unescape'
+require_relative 'man_page_example'
 
 describe Ronin::CLI::Commands::Unescape do
+  include_examples "man_page"
+
   describe "options" do
     before { subject.parse_options(argv) }
 
