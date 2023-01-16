@@ -40,7 +40,7 @@ module Ronin
       #     -f, --file FILE                  Overrides the default ASN list file (Default: ~/.cache/ronin/ronin-support/ip2asn-combined.tsv.gz)
       #     -u, --update                     Updates the ASN list file
       #     -n, --number NUM|AS...           Searches for all ASN records with the AS number
-      #     -C XX|None|Uknown,               Searches for all ASN records with the country code
+      #     -C XX|None|Unknown,              Searches for all ASN records with the country code
       #         --country-code
       #     -N, --name NAME                  Searches for all ASN records with the matching name
       #     -I, --ip IP                      Queries the ASN record for the IP
@@ -96,7 +96,7 @@ module Ronin
         option :country_code, short: '-C',
                               value: {
                                 type:  /[A-Z]{2}|None|Unknown/,
-                                usage: 'XX|None|Uknown'
+                                usage: 'XX|None|Unknown'
                               },
                               desc: 'Searches for all ASN records with the country code'
 
