@@ -19,6 +19,9 @@ Supports a variety of formats, bases, and encodings.
 `-o`, `--output` *FILE*
   Optional path to the output file.
 
+`-f`, `--format` [`hexdump`\|`od`]
+  Specifies the hexdump format to parse.
+
 `-t`, `--type` *TYPE*
   The binary data type to decode the data as. Must be one of the following:
 
