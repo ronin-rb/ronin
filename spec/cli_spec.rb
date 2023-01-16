@@ -2,6 +2,14 @@ require 'spec_helper'
 require 'ronin/cli'
 
 describe Ronin::CLI do
+  describe "command_name" do
+    subject { described_class }
+
+    it do
+      expect(subject.command_name).to eq('ronin')
+    end
+  end
+
   describe "version" do
     subject { described_class }
 
