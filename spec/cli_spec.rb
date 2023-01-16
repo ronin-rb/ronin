@@ -2,6 +2,14 @@ require 'spec_helper'
 require 'ronin/cli'
 
 describe Ronin::CLI do
+  describe "version" do
+    subject { described_class }
+
+    it "must define the version" do
+      expect(subject.version).to eq(Ronin::VERSION)
+    end
+  end
+
   describe "command_aliases" do
     subject { described_class }
 
