@@ -60,7 +60,7 @@ module Ronin
         #
         # Returns the syntax lexer for the given `Content-Type` header.
         #
-        # @param [String] content_type
+        # @param [String, nil] content_type
         #   The HTTP `Content-Type` header value.
         #
         # @return [Rouge::Lexers::HTML,
@@ -72,7 +72,9 @@ module Ronin
         #   recognized.
         #
         def syntax_lexer_for_content_type(content_type)
-          syntax_lexer_for(mimetype: content_type.sub(/;.*$/,''))
+          mimetype = content_type && content_type.sub(/;.*$/,'')
+
+          syntax_lexer_for(mimetype: mimetype)
         end
 
         #
