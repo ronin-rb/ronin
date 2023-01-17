@@ -15,7 +15,7 @@
 ## Description
 
 [Ronin][website] is a free and Open Source [Ruby] toolkit for security research
-and development. Ronin contains many different [CLI commands](#snopsis) and
+and development. Ronin contains many different [CLI commands](#synopsis) and
 [Ruby libraries][ronin-rb] for a variety of security tasks, such as
 encoding/decoding data, filter IPs/hosts/URLs, querying ASNs, querying DNS,
 HTTP, [scanning for web vulnerabilities][ronin-vulns-synopsis],
@@ -688,7 +688,7 @@ $ ronin typosquat --unregistered microsoft.com
 
 Dump information about a SSL/TLS certificate:
 
-```shrll
+```shell
 $ ronin cert-dump https://example.com/
 ```
 
