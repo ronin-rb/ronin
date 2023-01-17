@@ -49,7 +49,7 @@ module Ronin
           last_chunk = nil
 
           response.read_body do |chunk|
-            print chunk
+            stdout.write(chunk)
 
             last_chunk = chunk
           end
@@ -92,7 +92,7 @@ module Ronin
           response.read_body do |chunk|
             chunk.force_encoding(Encoding::UTF_8)
 
-            print @syntax_formatter.format(lexer.lex(chunk))
+            stdout.write(@syntax_formatter.format(lexer.lex(chunk)))
 
             last_chunk = chunk
           end
