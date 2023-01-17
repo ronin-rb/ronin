@@ -85,13 +85,12 @@ module Ronin
         #
         def print_highlighted_body(response)
           content_type = response['Content-Type']
-          is_utf8      = content_type && content_type.include?('charset=utf-8')
 
           lexer      = syntax_lexer_for_content_type(content_type)
           last_chunk = nil
 
           response.read_body do |chunk|
-            chunk.force_encoding(Encoding::UTF_8) if is_utf8
+            chunk.force_encoding(Encoding::UTF_8)
 
             print @syntax_formatter.format(lexer.lex(chunk))
 
