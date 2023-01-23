@@ -332,7 +332,11 @@ module Ronin
                                headers:      @headers,
                                body:         @body,
                                form_data:    @form_data
-          ) { |response| print_response(response) }
+          ) do |response|
+            # NOTE: we must call HTTP.request with a block to avoid causing
+            # #read_body to be called twice.
+            print_response(response)
+          end
         rescue => error
           print_error(error.message)
           exit(1)
