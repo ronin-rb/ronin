@@ -23,6 +23,13 @@ Gem::Tasks.new(sign: {checksum: true, pgp: true})
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new
+
+namespace :spec do
+  RSpec::Core::RakeTask.new(:integration) do |t|
+    t.rspec_opts = '--tag integration'
+  end
+end
+
 task :test    => :spec
 task :default => :spec
 
