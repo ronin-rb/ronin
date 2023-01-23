@@ -266,6 +266,11 @@ module Ronin
         # @return [Hash{String => String}]
         attr_reader :query_params
 
+        # The body to send with the request.
+        #
+        # @return [String, nil]
+        attr_reader :body
+
         # Form data.
         #
         # @return [Hash{String => String}]
