@@ -323,23 +323,23 @@ module Ronin
         def process_value(url)
           url = URI(url)
 
-          response = begin
-                       Support::Network::HTTP.request(
-                         @http_method, url, proxy:        @proxy,
-                                            user_agent:   @user_agent,
-                                            user:         url.user,
-                                            password:     url.password,
-                                            query_params: @query_params,
-                                            headers:      @headers,
-                                            body:         @body,
-                                            form_data:    @form_data
-                       )
-                     rescue => error
-                       print_error(error.message)
-                       exit(1)
-                     end
-
-          print_response(response)
+          begin
+            Support::Network::HTTP.request(
+              @http_method, url, proxy:        @proxy,
+                                 user_agent:   @user_agent,
+                                 user:         url.user,
+                                 password:     url.password,
+                                 query_params: @query_params,
+                                 headers:      @headers,
+                                 body:         @body,
+                                 form_data:    @form_data
+            ) do |response|
+              print_response(response)
+            end
+          rescue => error
+            print_error(error.message)
+            exit(1)
+          end
         end
 
         #
