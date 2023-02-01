@@ -100,7 +100,7 @@ dependencies:
   ronin-core: ~> 0.1
   ronin-repos: ~> 0.1
   ronin-db: ~> 0.1
-  ronin-fuzzer: ~> 0.1.0.beta2
+  ronin-fuzzer: ~> 0.1
   ronin-web: ~> 1.0.0.beta4
   ronin-code-asm: ~> 1.0.0.beta1
   ronin-code-sql: ~> 2.0.0.beta1
