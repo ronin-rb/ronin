@@ -53,7 +53,7 @@ Processes hostname(s) and performs DNS queries.
 `-r`, `--registered`
   Filters hostnames that are registered.
 
-`-u`, `--unreigstered`
+`-u`, `--unregistered`
   Filters hostnames that are unregistered.
 
 `-A`, `--has-addresses`
