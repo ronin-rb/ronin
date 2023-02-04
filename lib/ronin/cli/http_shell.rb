@@ -340,7 +340,7 @@ module Ronin
       def request(method,path,**kwargs)
         path = join(path)
 
-        @http.request(method,path) do |response|
+        @http.request(method,path,**kwargs) do |response|
           print_response(response)
         end
       end
