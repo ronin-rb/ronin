@@ -62,6 +62,18 @@ module Ronin
         "#{@base_url}"
       end
 
+      command :cd, usage:   'PATH',
+                   summary: 'Changes the base URL path'
+
+      #
+      # The `cd` shell command.
+      #
+      # @param [String] path
+      #
+      def cd(path)
+        @base_url.path = join(path)
+      end
+
       command :get, usage:   'PATH[?QUERY] [BODY]',
                     summary: 'Performs a GET request'
 
@@ -251,18 +263,6 @@ module Ronin
       #
       def unlock(path)
         request(:unlock,path)
-      end
-
-      command :cd, usage:   'PATH',
-                   summary: 'Changes the base URL path'
-
-      #
-      # The `cd` shell command.
-      #
-      # @param [String] path
-      #
-      def cd(path)
-        @base_url.path = join(path)
       end
 
       command :headers, usage:   '[{set | unset} NAME [VALUE]]',
