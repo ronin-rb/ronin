@@ -22,6 +22,7 @@ require 'ronin/cli/http_shell'
 require 'ronin/support/network/http'
 
 require 'command_kit/options/verbose'
+require 'addressable/uri'
 
 module Ronin
   class CLI
@@ -73,6 +74,9 @@ module Ronin
 
         include CommandKit::Options::Verbose
         include Printing::HTTP
+
+        # `http://` and `https://` URL validation regex.
+        URL_REGEX = URI.regexp(['http', 'https'])
 
         usage '[options] {URL [...] | --shell URL}'
 
@@ -147,10 +151,16 @@ module Ronin
         end
 
         option :shell, value: {
-                         type:  String,
+                         type:  URL_REGEX,
                          usage: 'URL'
                        },
-                       desc: 'Open an interactive HTTP shell'
+                       desc: 'Open an interactive HTTP shell' do |url|
+                         begin
+                           options[:shell] = Addressable::URI.parse(url)
+                         rescue Addressable::URI::InvalidURIError => error
+                           raise(OptionParser::InvalidArgument,"invalid URL: #{error.message}")
+                         end
+                       end
 
         option :proxy, short: '-P',
                        value: {
@@ -326,25 +336,36 @@ module Ronin
         #   The URL to request.
         #
         def process_value(url)
-          url = URI(url)
-
-          Support::Network::HTTP.request(
-            @http_method, url, proxy:        @proxy,
-                               user_agent:   @user_agent,
-                               user:         url.user,
-                               password:     url.password,
-                               query_params: @query_params,
-                               headers:      @headers,
-                               body:         @body,
-                               form_data:    @form_data
-          ) do |response|
-            # NOTE: we must call HTTP.request with a block to avoid causing
-            # #read_body to be called twice.
-            print_response(response)
+          unless url =~ URL_REGEX
+            print_error "invalid URL: #{url.inspect}"
+            return
           end
-        rescue => error
-          print_error(error.message)
-          exit(1)
+
+          uri = begin
+                  Addressable::URI.parse(url)
+                rescue Addressable::URI::InvalidURIError => error
+                  print_error "invalid URL: #{error.message}"
+                  return
+                end
+
+          begin
+            Support::Network::HTTP.request(
+              @http_method, uri, proxy:        @proxy,
+                                 user_agent:   @user_agent,
+                                 query_params: @query_params,
+                                 headers:      @headers,
+                                 body:         @body,
+                                 form_data:    @form_data
+            ) do |response|
+              # NOTE: we must call HTTP.request with a block to avoid causing
+              # #read_body to be called twice.
+              print_response(response)
+            end
+          rescue => error
+            if verbose? then print_exception(error)
+            else             print_error(error.message)
+            end
+          end
         end
 
         #

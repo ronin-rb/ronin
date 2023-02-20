@@ -43,14 +43,14 @@ module Ronin
       #
       # Initializes the HTTP Shell.
       #
-      # @param [URI::HTTP, String] base_url
+      # @param [Addressable::URI] base_url
       #   The base URL to connect to.
       #
       # @param [Hash{Symbol => Object}] kwargs
       #   Additional arguments for `Ronin::Support::Network::HTTP#connect_uri`.
       #
       def initialize(base_url, **kwargs)
-        @base_url = URI(base_url)
+        @base_url = base_url
         @http     = Support::Network::HTTP.connect_uri(@base_url,**kwargs)
 
         super()

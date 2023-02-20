@@ -37,16 +37,27 @@ describe Ronin::CLI::Commands::Http do
 
   subject { described_class.new(stdout: stdout) }
 
+  describe "#option_parser" do
+    context "when --shell is given a non-http URL" do
+      it do
+        expect {
+          subject.option_parser.parse(%w[--shell foo])
+        }.to raise_error(OptionParser::InvalidArgument)
+      end
+    end
+  end
+
   describe "#run" do
     context "when --shell is given" do
       let(:base_url) { 'https://example.com/' }
+      let(:base_uri) { Addressable::URI.parse(base_url) }
 
       before do
         subject.option_parser.parse(['--shell', base_url])
       end
 
       it "must call #start_shell with the --shell argument" do
-        expect(subject).to receive(:start_shell).with(base_url)
+        expect(subject).to receive(:start_shell).with(base_uri)
 
         subject.run
       end
@@ -101,7 +112,7 @@ describe Ronin::CLI::Commands::Http do
 
   describe "#process_value" do
     let(:url) { 'https://example.com/' }
-    let(:uri) { URI(url) }
+    let(:uri) { Addressable::URI.parse(url) }
 
     let(:response) { double('Net::HTTPResponse') }
 
@@ -112,8 +123,6 @@ describe Ronin::CLI::Commands::Http do
       expect(Ronin::Support::Network::HTTP).to receive(:request).with(
         subject.http_method, uri, proxy:        subject.proxy,
                                   user_agent:   subject.user_agent,
-                                  user:         uri.user,
-                                  password:     uri.password,
                                   query_params: subject.query_params,
                                   headers:      subject.headers,
                                   body:         subject.body,
