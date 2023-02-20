@@ -23,6 +23,9 @@ require 'ronin/support/network/http'
 
 module Ronin
   class CLI
+    #
+    # The interactive HTTP shell for the `ronin http --shell` command.
+    #
     class HTTPShell < Core::CLI::CommandShell
 
       include Printing::HTTP
@@ -163,7 +166,7 @@ module Ronin
       # The `delete` shell command.
       #
       # @param [String] path
-      #  
+      #
       def delete(path)
         request(:delete,path)
       end
