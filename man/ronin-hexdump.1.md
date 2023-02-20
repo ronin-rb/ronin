@@ -1,4 +1,4 @@
-# ronin-hexdump 1 "May 2022" Ronin "User Manuals"
+# ronin-hexdump 1 "2023-02-01" Ronin "User Manuals"
 
 ## SYNOPSIS
 
@@ -104,7 +104,7 @@ Hexdumps data in a variety of encodings and formats.
   will be used for the character grouping width.
 
 `-r`, `--[no-]repeating`
-  Allows consecutive repeating lines in hexdump output. By default consecutive 
+  Allows consecutive repeating lines in hexdump output. By default consecutive
   repeating lines of data are omitted by a single `*` line.
 
 `-b`, `--base` `2`|`8`|`10`|`16`

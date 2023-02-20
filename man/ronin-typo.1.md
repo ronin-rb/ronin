@@ -1,4 +1,4 @@
-# ronin-typo 1 "May 2022" Ronin "User Manuals"
+# ronin-typo 1 "2023-02-01" Ronin "User Manuals"
 
 ## SYNOPSIS
 

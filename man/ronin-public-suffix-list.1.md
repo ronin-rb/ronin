@@ -1,4 +1,4 @@
-# ronin-public-suffix-list 1 "May 2022" Ronin "User Manuals"
+# ronin-public-suffix-list 1 "2023-02-1" Ronin "User Manuals"
 
 ## SYNOPSIS
 

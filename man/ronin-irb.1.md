@@ -1,4 +1,4 @@
-# ronin-irb 1 "2012-01-01" Ronin "User Manuals"
+# ronin-irb 1 "2023-02-01" Ronin "User Manuals"
 
 ## SYNOPSIS
 
