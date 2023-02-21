@@ -47,9 +47,9 @@ describe Ronin::CLI::ValueProcessorCommand do
       end
 
       it "must process each argument and print output to stdout" do
-        expect {
+        expect do
           subject.run(*args)
-        }.to output(expected_output).to_stdout
+        end.to output(expected_output).to_stdout
       end
     end
 
@@ -62,9 +62,9 @@ describe Ronin::CLI::ValueProcessorCommand do
       before { subject.parse_options(argv) }
 
       it "must read and process each --file argument and print output to stdout" do
-        expect {
+        expect do
           subject.run()
-        }.to output(expected_output).to_stdout
+        end.to output(expected_output).to_stdout
       end
     end
 
@@ -80,9 +80,9 @@ describe Ronin::CLI::ValueProcessorCommand do
       before { subject.parse_options(argv) }
 
       it "must read and process the --file arguments then the arguments" do
-        expect {
+        expect do
           subject.run(*args)
-        }.to output(expected_output).to_stdout
+        end.to output(expected_output).to_stdout
       end
     end
 
@@ -92,9 +92,9 @@ describe Ronin::CLI::ValueProcessorCommand do
           "must specify one or more arguments, or the --file option"
         )
 
-        expect {
+        expect do
           subject.run()
-        }.to raise_error(SystemExit) do |error|
+        end.to raise_error(SystemExit) do |error|
           expect(error.status).to eq(1)
         end
       end
@@ -107,9 +107,9 @@ describe Ronin::CLI::ValueProcessorCommand do
     end
 
     it "must read and process each line of the file and print them to stdout" do
-      expect {
+      expect do
         subject.process_file(file)
-      }.to output(expected_output).to_stdout
+      end.to output(expected_output).to_stdout
     end
   end
 
@@ -119,9 +119,9 @@ describe Ronin::CLI::ValueProcessorCommand do
     let(:value) { "foo" }
 
     it do
-      expect {
+      expect do
         subject.process_value(value)
-      }.to raise_error(NotImplementedError,"#{subject.class}#process_value method was not implemented")
+      end.to raise_error(NotImplementedError,"#{subject.class}#process_value method was not implemented")
     end
   end
 end

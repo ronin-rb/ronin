@@ -379,13 +379,13 @@ module Ronin
         #
         def subject_alt_name_ext
           unless @subject_alt_names.empty?
-            @subject_alt_names.map { |name|
+            @subject_alt_names.map do |name|
               if name =~ IP_REGEXP
                 "IP: #{name}"
               else
                 "DNS: #{name}"
               end
-            }.join(', ')
+            end.join(', ')
           end
         end
 

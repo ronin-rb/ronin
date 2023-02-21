@@ -138,9 +138,9 @@ module Ronin
 
         option :ssl_verify, value: {
                               type: Hash[
-                                Support::Network::SSL::VERIFY.keys.map { |key|
+                                Support::Network::SSL::VERIFY.keys.map do |key|
                                   [key.to_s.tr('_','-'), key]
-                                }
+                                end
                               ]
                             },
                             desc: 'SSL verification mode'

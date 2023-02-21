@@ -198,23 +198,6 @@ Naming/MemoizedInstanceVariableName:
   Exclude:
     - 'lib/ronin/cli/typo_options.rb'
 
-# Offense count: 21
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, AllowedMethods, AllowedPatterns, AllowBracesOnProceduralOneLiners, BracesRequiredMethods.
-# SupportedStyles: line_count_based, semantic, braces_for_chaining, always_braces
-# ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object
-# FunctionalMethods: let, let!, subject, watch
-# AllowedMethods: lambda, proc, it
-Style/BlockDelimiters:
-  Exclude:
-    - 'lib/ronin/cli/commands/cert_gen.rb'
-    - 'lib/ronin/cli/commands/http.rb'
-    - 'lib/ronin/cli/commands/netcat.rb'
-    - 'ronin.gemspec'
-    - 'spec/cli/method_options_spec.rb'
-    - 'spec/cli/string_processor_command_spec.rb'
-    - 'spec/cli/value_processor_command_spec.rb'
-
 # Offense count: 8
 # Configuration parameters: AllowedConstants.
 Style/Documentation:

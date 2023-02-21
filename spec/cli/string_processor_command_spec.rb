@@ -97,9 +97,9 @@ describe Ronin::CLI::StringProcessorCommand do
       end
 
       it "must read and process each argument as a file in full" do
-        expect {
+        expect do
           subject.run(*args)
-        }.to output(expected_output).to_stdout
+        end.to output(expected_output).to_stdout
       end
 
       context "and when --file or --string options are given" do
@@ -116,9 +116,9 @@ describe Ronin::CLI::StringProcessorCommand do
         end
 
         it "must process the input from the --file and --string options then read and process the arguments" do
-          expect {
+          expect do
             subject.run(*args)
-          }.to output(expected_output).to_stdout
+          end.to output(expected_output).to_stdout
         end
       end
     end
@@ -136,9 +136,9 @@ describe Ronin::CLI::StringProcessorCommand do
         end
 
         it "must process the input from the --file and --string options in the order given" do
-          expect {
+          expect do
             subject.run()
-          }.to output(expected_output).to_stdout
+          end.to output(expected_output).to_stdout
         end
       end
 
@@ -149,9 +149,9 @@ describe Ronin::CLI::StringProcessorCommand do
         subject { test_class.new(stdin: stdin) }
 
         it "must read and process input from stdin in full" do
-          expect {
+          expect do
             subject.run()
-          }.to output(expected_output).to_stdout
+          end.to output(expected_output).to_stdout
         end
       end
     end
@@ -162,9 +162,9 @@ describe Ronin::CLI::StringProcessorCommand do
 
     context "when given a block" do
       it "must yield the newly opened File" do
-        expect { |b|
+        expect do |b|
           subject.open_file(path,&b)
-        }.to yield_with_args(File)
+        end.to yield_with_args(File)
       end
 
       it "must open the file in non-binary mode by default" do
@@ -199,9 +199,9 @@ describe Ronin::CLI::StringProcessorCommand do
     let(:expected_output) { File.read(file).reverse + $/ }
 
     it "must read the input stream and process the full String" do
-      expect {
+      expect do
         subject.process_input(input)
-      }.to output(expected_output).to_stdout
+      end.to output(expected_output).to_stdout
     end
 
     context "when the --multiline option is given" do
@@ -213,9 +213,9 @@ describe Ronin::CLI::StringProcessorCommand do
       before { subject.parse_options(argv) }
 
       it "must read and process each line of the input" do
-        expect {
+        expect do
           subject.process_input(input)
-        }.to output(expected_output).to_stdout
+        end.to output(expected_output).to_stdout
       end
 
       context "and the --keep-newlines option is given" do
@@ -226,9 +226,9 @@ describe Ronin::CLI::StringProcessorCommand do
         end
 
         it "must not omit the newline character at the end of each line" do
-          expect {
+          expect do
             subject.process_input(input)
-          }.to output(expected_output).to_stdout
+          end.to output(expected_output).to_stdout
         end
       end
     end
@@ -240,9 +240,9 @@ describe Ronin::CLI::StringProcessorCommand do
     let(:string) { "foo" }
 
     it do
-      expect {
+      expect do
         subject.process_string(string)
-      }.to raise_error(NotImplementedError,"#{subject.class}#process_string method was not implemented")
+      end.to raise_error(NotImplementedError,"#{subject.class}#process_string method was not implemented")
     end
   end
 

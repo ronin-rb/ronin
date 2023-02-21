@@ -48,9 +48,9 @@ describe Ronin::CLI::MethodOptions do
       end
 
       it do
-        expect {
+        expect do
           subject.apply_method_options(object)
-        }.to raise_error(ArgumentError,"cannot call method Object##{method_name} on object \"DLROW OLLEH\"")
+        end.to raise_error(ArgumentError,"cannot call method Object##{method_name} on object \"DLROW OLLEH\"")
       end
     end
 
@@ -62,9 +62,9 @@ describe Ronin::CLI::MethodOptions do
       end
 
       it do
-        expect {
+        expect do
           subject.apply_method_options(object)
-        }.to raise_error(ArgumentError,"cannot call method Object##{method_name} on object \"DLROW OLLEH\"")
+        end.to raise_error(ArgumentError,"cannot call method Object##{method_name} on object \"DLROW OLLEH\"")
       end
     end
   end
