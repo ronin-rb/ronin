@@ -290,13 +290,6 @@ Style/RedundantReturn:
     - 'lib/ronin/cli/method_options.rb'
     - 'lib/ronin/config.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/ronin/cli/commands/hmac.rb'
-    - 'lib/ronin/cli/commands/netcat.rb'
-
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.

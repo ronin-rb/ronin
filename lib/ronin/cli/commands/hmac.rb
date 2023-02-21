@@ -91,7 +91,7 @@ module Ronin
         #   The HMAC string.
         #
         def process_string(string)
-          hmac = Support::Crypto.hmac(string, key:    self.key,
+          hmac = Support::Crypto.hmac(string, key:,
                                               digest: options[:hash])
           hmac.hexdigest
         end

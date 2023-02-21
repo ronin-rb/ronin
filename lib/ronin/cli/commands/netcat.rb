@@ -292,7 +292,7 @@ module Ronin
         # @return [Async::IO::Stream]
         #
         def async_stdin
-          Async::IO::Stream.new(Async::IO::Generic.new(self.stdin))
+          Async::IO::Stream.new(Async::IO::Generic.new(stdin))
         end
 
         #
