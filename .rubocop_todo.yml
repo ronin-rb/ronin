@@ -208,19 +208,6 @@ Style/MutableConstant:
     - 'lib/ronin/cli/commands/hexdump.rb'
     - 'lib/ronin/cli/commands/unhexdump.rb'
 
-# Offense count: 55
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowedMethods.
-# AllowedMethods: be, be_a, be_an, be_between, be_falsey, be_kind_of, be_instance_of, be_truthy, be_within, eq, eql, end_with, include, match, raise_error, respond_to, start_with
-Style/NestedParenthesizedCalls:
-  Exclude:
-    - 'spec/cli/commands/decode_spec.rb'
-    - 'spec/cli/commands/encode_spec.rb'
-    - 'spec/cli/commands/escape_spec.rb'
-    - 'spec/cli/commands/quote_spec.rb'
-    - 'spec/cli/commands/unescape_spec.rb'
-    - 'spec/cli/commands/unquote_spec.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: Strict, AllowedNumbers, AllowedPatterns.
