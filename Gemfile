@@ -7,17 +7,17 @@ gem 'jruby-openssl',	'~> 0.7', platforms: :jruby
 gem 'net-telnet', '~> 0.1', group: :net
 if RUBY_VERSION >= '3.1.0'
   gem 'net-ftp',    '~> 0.1', group: :net, platform: :mri
-  gem 'net-smtp',   '~> 0.1', group: :net, platform: :mri
-  gem 'net-pop',    '~> 0.1', group: :net, platform: :mri
   gem 'net-imap',   '~> 0.1', group: :net, platform: :mri
+  gem 'net-pop',    '~> 0.1', group: :net, platform: :mri
+  gem 'net-smtp',   '~> 0.1', group: :net, platform: :mri
 end
 
 # gem 'command_kit', '~> 0.4', github: 'postmodern/command_kit.rb',
 #                              branch: '0.4.0'
 
 group :database do
-  gem 'sqlite3', '~> 1.0', platform: :mri
   gem 'activerecord-jdbcsqlite3-adapter', '~> 70.0.pre', platform: :jruby
+  gem 'sqlite3', '~> 1.0', platform: :mri
 end
 
 # Library dependencies
@@ -56,8 +56,8 @@ end
 
 group :development do
   gem 'rake'
-  gem 'rubygems-tasks',  '~> 0.1'
   gem 'rspec',           '~> 3.0'
+  gem 'rubygems-tasks',  '~> 0.1'
   gem 'simplecov',       '~> 0.20'
 
   gem 'kramdown',        '~> 2.0'
@@ -68,7 +68,7 @@ group :development do
   gem 'yard-spellcheck', require: false
 
   gem 'dead_end',        require: false
-  gem 'sord',            require: false, platform: :mri
-  gem 'stackprof',       require: false, platform: :mri
   gem 'rubocop'
+  gem 'sord', require: false, platform: :mri
+  gem 'stackprof', require: false, platform: :mri
 end
