@@ -104,7 +104,7 @@ module Ronin
           if !@start.empty? && !@stop.empty?
             unless @start.length == @stop.length
               print_error "must specify an equal number of --start and --stop options"
-              exit -1
+              exit(-1)
             end
 
             @start.zip(@stop).each do |(start,stop)|

@@ -151,7 +151,7 @@ module Ronin
               print_asn_record(record)
             else
               print_error "could not find a record for the IP: #{options[:ip]}"
-              exit -1
+              exit(-1)
             end
           else
             print_asn_records(search_asn_records)
