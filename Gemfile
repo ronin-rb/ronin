@@ -21,8 +21,8 @@ group :database do
 end
 
 # Library dependencies
-# gem 'ronin-support',	       '~> 1.0', github: "ronin-rb/ronin-support",
-#                                        branch: 'main'
+gem 'ronin-support',	       '~> 1.0', github: "ronin-rb/ronin-support",
+                                         branch: 'main'
 # gem 'ronin-core',            '~> 0.1', github: "ronin-rb/ronin-core",
 #                                        branch: 'main'
 # gem 'ronin-repos',           '~> 0.1', github: "ronin-rb/ronin-repos",
@@ -70,4 +70,5 @@ group :development do
   gem 'dead_end',        require: false
   gem 'sord',            require: false, platform: :mri
   gem 'stackprof',       require: false, platform: :mri
+  gem 'rubocop',         require: false
 end
