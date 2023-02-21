@@ -317,25 +317,21 @@ module Ronin
 
             begin
               client = task.async do
-                begin
-                  while (data = stream.read_partial(buffer_size))
-                    print_data(data)
-                  end
-                rescue EOFError
-                ensure
-                  finished.signal
+                while (data = stream.read_partial(buffer_size))
+                  print_data(data)
                 end
+              rescue EOFError
+              ensure
+                finished.signal
               end
 
               user = task.async do
-                begin
-                  while (data = stdin.read_partial(buffer_size))
-                    socket.write(data)
-                  end
-                rescue EOFError
-                ensure
-                  finished.signal
+                while (data = stdin.read_partial(buffer_size))
+                  socket.write(data)
                 end
+              rescue EOFError
+              ensure
+                finished.signal
               end
 
               finished.wait
@@ -382,14 +378,12 @@ module Ronin
             end
 
             task.async do
-              begin
-                while (data = stdin.read_partial(buffer_size))
-                  clients.each { |client| client.write(data) }
-                end
-              rescue EOFError
-              ensure
-                finished.signal
+              while (data = stdin.read_partial(buffer_size))
+                clients.each { |client| client.write(data) }
               end
+            rescue EOFError
+            ensure
+              finished.signal
             end
 
             finished.wait

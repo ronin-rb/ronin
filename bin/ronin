@@ -5,13 +5,11 @@ require 'rubygems'
 root = File.expand_path(File.join(File.dirname(__FILE__),'..'))
 if File.file?(File.join(root,'Gemfile.lock'))
   Dir.chdir(root) do
-    begin
-      require 'bundler/setup'
-    rescue LoadError => e
-      warn e.message
-      warn "Run `gem install bundler` to install Bundler"
-      exit -1
-    end
+    require 'bundler/setup'
+  rescue LoadError => e
+    warn e.message
+    warn "Run `gem install bundler` to install Bundler"
+    exit -1
   end
 end
 
