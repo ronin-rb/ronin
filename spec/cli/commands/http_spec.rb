@@ -183,11 +183,11 @@ describe Ronin::CLI::Commands::Http do
 
         expect(stdout.string).to eq(
           [
-          "HTTP/#{http_version} #{status}",
-          "#{header_name1}: #{header_value1}",
-          "#{header_name2}: #{header_value2}",
-          '',
-          "#{chunk1}#{chunk2}"
+            "HTTP/#{http_version} #{status}",
+            "#{header_name1}: #{header_value1}",
+            "#{header_name2}: #{header_value2}",
+            '',
+            "#{chunk1}#{chunk2}"
           ].join($/)
         )
       end
