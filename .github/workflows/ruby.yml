@@ -28,5 +28,7 @@ jobs:
           sudo apt install -y --no-install-recommends --no-install-suggests libsqlite3-dev
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
+      - name: Rubocop
+        run: bundle exec rubocop
       - name: Run tests
         run: bundle exec rake test
