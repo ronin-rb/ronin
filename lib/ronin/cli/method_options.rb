@@ -22,7 +22,6 @@ module Ronin
     # Allows adding options which call methods on a given object.
     #
     module MethodOptions
-
       # The method calls to apply to an object.
       #
       # @return [Array<Symbol, (Symbol, Array)>]
@@ -65,7 +64,6 @@ module Ronin
 
         return object
       end
-
     end
   end
 end
