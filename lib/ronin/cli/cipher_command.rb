@@ -142,7 +142,6 @@ module Ronin
           cipher.stream(input, block_size: @block_size, output: stdout)
         end
 
-
       end
     end
   end
