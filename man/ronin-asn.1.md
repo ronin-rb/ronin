@@ -75,6 +75,14 @@ Enumerate over all IP addresses for all ASN records belonging to the given ISP:
 
         ronin asn --enum-ips -N EDGECAST
 
+## ENVIRONMENT
+
+*HOME*
+  Alternate location for the user's home directory.
+
+*XDG_CONFIG_HOME*
+  Alternate location for the `~/.config` directory.
+
 ## FILES
 
 `~/.cache/ronin/ronin-support/ip2asn-combined.tsv.gz`

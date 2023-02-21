@@ -27,6 +27,14 @@ Updates and parses the TLD list file.
 `-h`, `--help`
   Print help information
 
+## ENVIRONMENT
+
+*HOME*
+  Alternate location for the user's home directory.
+
+*XDG_CONFIG_HOME*
+  Alternate location for the `~/.config` directory.
+
 ## FILES
 
 `~/.cache/ronin/ronin-support/tlds-alpha-by-domain.txt`
