@@ -44,12 +44,6 @@ Layout/EmptyLineAfterMagicComment:
 Layout/EmptyLinesAroundClassBody:
   Enabled: false
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLinesAroundMethodBody:
-  Exclude:
-    - 'lib/ronin/cli/pattern_options.rb'
-
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.

@@ -129,7 +129,6 @@ module Ronin
                                         desc: 'Searches for all version numbers' do
                                           @pattern = VERSION_NUMBER
                                         end
-
       end
 
       #
