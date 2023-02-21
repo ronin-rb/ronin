@@ -60,7 +60,7 @@ module Ronin
       # ## Arguments
       #
       #    [FILE]                           Optional file to hexdump
-      # 
+      #
       class Hexdump < FileProcessorCommand
 
         # Supported types for the `-t,--type` option.

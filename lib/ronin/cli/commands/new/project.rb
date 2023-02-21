@@ -39,7 +39,7 @@ module Ronin
       #     -h, --help                       Print help information
       #
       # ## Arguments
-      # 
+      #
       #     PATH                             The directory to create
       #
       class New < Command
@@ -110,7 +110,6 @@ module Ronin
               sh 'git', 'add', '.'
               sh 'git', 'commit', '-q', '-m', 'Initial commit.'
             end
-            
           end
 
         end

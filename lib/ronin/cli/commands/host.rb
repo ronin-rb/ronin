@@ -37,10 +37,10 @@ module Ronin
       #     -f, --file FILE                  Optional file to read values from
       #         --subdomain SUBNAME          Converts the hostname to a sub-domain
       #     -d, --domain                     Converts the hostname to a domain
-      #     -T, --tld                        Converts the hostname to it's TLD 
+      #     -T, --tld                        Converts the hostname to it's TLD
       #     -s, --suffix                     Converts the hostname to it's suffix
       #     -S, --change-suffix SUFFIX       Changes the suffix of each hostname
-      #         --enum-tlds                  Enumerates over every TLD 
+      #         --enum-tlds                  Enumerates over every TLD
       #         --enum-suffixes[={icann|private}]
       #                                      Enumerates over every domain suffix
       #         --enum-subdomains FILE       Enumerates over every subdomain in the wordlist
