@@ -12,7 +12,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--c] }
 
       it "must require 'ronin/support/encoding/c'" do
-        expect(require 'ronin/support/encoding/c').to be(false)
+        expect(require('ronin/support/encoding/c')).to be(false)
       end
 
       it "must add :c_unescape to #method_calls" do
@@ -24,7 +24,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--hex] }
 
       it "must require 'ronin/support/encoding/hex'" do
-        expect(require 'ronin/support/encoding/hex').to be(false)
+        expect(require('ronin/support/encoding/hex')).to be(false)
       end
 
       it "must add :hex_unescape to #method_calls" do
@@ -36,7 +36,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--html] }
 
       it "must require 'ronin/support/encoding/html'" do
-        expect(require 'ronin/support/encoding/html').to be(false)
+        expect(require('ronin/support/encoding/html')).to be(false)
       end
 
       it "must add :html_unescape to #method_calls" do
@@ -48,7 +48,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--uri] }
 
       it "must require 'ronin/support/encoding/uri'" do
-        expect(require 'ronin/support/encoding/uri').to be(false)
+        expect(require('ronin/support/encoding/uri')).to be(false)
       end
 
       it "must add :uri_unescape to #method_calls" do
@@ -60,7 +60,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--http] }
 
       it "must require 'ronin/support/encoding/http'" do
-        expect(require 'ronin/support/encoding/http').to be(false)
+        expect(require('ronin/support/encoding/http')).to be(false)
       end
 
       it "must add :http_unescape to #method_calls" do
@@ -72,7 +72,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--js] }
 
       it "must require 'ronin/support/encoding/js'" do
-        expect(require 'ronin/support/encoding/js').to be(false)
+        expect(require('ronin/support/encoding/js')).to be(false)
       end
 
       it "must add :js_unescape to #method_calls" do
@@ -84,7 +84,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--shell] }
 
       it "must require 'ronin/support/encoding/shell'" do
-        expect(require 'ronin/support/encoding/shell').to be(false)
+        expect(require('ronin/support/encoding/shell')).to be(false)
       end
 
       it "must add :shell_unescape to #method_calls" do
@@ -96,7 +96,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--powershell] }
 
       it "must require 'ronin/support/encoding/powershell'" do
-        expect(require 'ronin/support/encoding/powershell').to be(false)
+        expect(require('ronin/support/encoding/powershell')).to be(false)
       end
 
       it "must add :powershell_unescape to #method_calls" do
@@ -108,7 +108,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--xml] }
 
       it "must require 'ronin/support/encoding/xml'" do
-        expect(require 'ronin/support/encoding/xml').to be(false)
+        expect(require('ronin/support/encoding/xml')).to be(false)
       end
 
       it "must add :xml_unescape to #method_calls" do
@@ -120,7 +120,7 @@ describe Ronin::CLI::Commands::Unescape do
       let(:argv) { %w[--ruby] }
 
       it "must require 'ronin/support/encoding/ruby'" do
-        expect(require 'ronin/support/encoding/ruby').to be(false)
+        expect(require('ronin/support/encoding/ruby')).to be(false)
       end
 
       it "must add :ruby_unescape to #method_calls" do

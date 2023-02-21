@@ -12,7 +12,7 @@ describe Ronin::CLI::Commands::Unquote do
       let(:argv) { %w[--c] }
 
       it "must require 'ronin/support/encoding/c'" do
-        expect(require 'ronin/support/encoding/c').to be(false)
+        expect(require('ronin/support/encoding/c')).to be(false)
       end
 
       it "must add :c_unquote to #method_calls" do
@@ -24,7 +24,7 @@ describe Ronin::CLI::Commands::Unquote do
       let(:argv) { %w[--hex] }
 
       it "must require 'ronin/support/encoding/hex'" do
-        expect(require 'ronin/support/encoding/hex').to be(false)
+        expect(require('ronin/support/encoding/hex')).to be(false)
       end
 
       it "must add :hex_unquote to #method_calls" do
@@ -36,7 +36,7 @@ describe Ronin::CLI::Commands::Unquote do
       let(:argv) { %w[--js] }
 
       it "must require 'ronin/support/encoding/js'" do
-        expect(require 'ronin/support/encoding/js').to be(false)
+        expect(require('ronin/support/encoding/js')).to be(false)
       end
 
       it "must add :js_unquote to #method_calls" do
@@ -48,7 +48,7 @@ describe Ronin::CLI::Commands::Unquote do
       let(:argv) { %w[--shell] }
 
       it "must require 'ronin/support/encoding/shell'" do
-        expect(require 'ronin/support/encoding/shell').to be(false)
+        expect(require('ronin/support/encoding/shell')).to be(false)
       end
 
       it "must add :shell_unquote to #method_calls" do
@@ -60,7 +60,7 @@ describe Ronin::CLI::Commands::Unquote do
       let(:argv) { %w[--powershell] }
 
       it "must require 'ronin/support/encoding/powershell'" do
-        expect(require 'ronin/support/encoding/powershell').to be(false)
+        expect(require('ronin/support/encoding/powershell')).to be(false)
       end
 
       it "must add :powershell_unquote to #method_calls" do
@@ -72,7 +72,7 @@ describe Ronin::CLI::Commands::Unquote do
       let(:argv) { %w[--ruby] }
 
       it "must require 'ronin/support/encoding/ruby'" do
-        expect(require 'ronin/support/encoding/ruby').to be(false)
+        expect(require('ronin/support/encoding/ruby')).to be(false)
       end
 
       it "must add :ruby_unquote to #method_calls" do
