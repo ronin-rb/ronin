@@ -62,7 +62,7 @@ module Ronin
           object = object.public_send(method,*arguments,**kwargs)
         end
 
-        return object
+        object
       end
     end
   end

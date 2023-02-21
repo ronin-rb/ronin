@@ -90,7 +90,7 @@ module Ronin
         return path
       end
 
-      return TMP_DIR
+      TMP_DIR
     end
   end
 end

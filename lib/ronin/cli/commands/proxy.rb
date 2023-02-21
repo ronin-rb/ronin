@@ -432,7 +432,7 @@ module Ronin
           regexp  = Regexp.new(string[1...index])
           pattern = string[index + 2..]
 
-          return regexp, pattern
+          [regexp, pattern]
         end
 
         #

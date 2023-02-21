@@ -113,7 +113,7 @@ module Ronin
                            File.join(TIPS_DIR,'{*/}*.txt')
                          end
 
-          return Dir[glob_pattern]
+          Dir[glob_pattern]
         end
 
         #

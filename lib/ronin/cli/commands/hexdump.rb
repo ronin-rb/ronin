@@ -401,7 +401,7 @@ module Ronin
             regexp = Regexp.new(value[1...index])
             style  = parse_style(value[index + 2..])
 
-            return [regexp, style]
+            [regexp, style]
           else
             unless (index = value.rindex(':'))
               raise(OptionParser::InvalidArgument,"argument must be of the form STRING:STYLE but was: #{value}")
@@ -410,7 +410,7 @@ module Ronin
             pattern = value[0...index]
             style   = parse_style(value[index + 1..])
 
-            return [pattern, style]
+            [pattern, style]
           end
         end
 
@@ -472,7 +472,7 @@ module Ronin
             end
           end
 
-          return kwargs
+          kwargs
         end
 
       end

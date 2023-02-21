@@ -207,7 +207,7 @@ module Ronin
             kwargs[key] = options[key] if options.has_key?(key)
           end
 
-          return kwargs
+          kwargs
         end
 
       end

@@ -82,7 +82,7 @@ module Ronin
 
           # escapes the String if outputing to a TTY
           xored_string = xored_string.dump if stdout.tty?
-          return xored_string
+          xored_string
         end
 
       end

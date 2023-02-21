@@ -241,7 +241,7 @@ module Ronin
             records = records.name(options[:name])
           end
 
-          return records
+          records
         end
 
         #
