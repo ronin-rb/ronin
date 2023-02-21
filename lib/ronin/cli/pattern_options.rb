@@ -319,11 +319,11 @@ module Ronin
           @pattern = FUNCTION_NAME
         end
 
-        command.option :single_quoted_string,  desc: 'Searches for all single-quoted strings' do
+        command.option :single_quoted_string, desc: 'Searches for all single-quoted strings' do
           @pattern = SINGLE_QUOTED_STRING
         end
 
-        command.option :double_quoted_string,  desc: 'Searches for all double-quoted strings' do
+        command.option :double_quoted_string, desc: 'Searches for all double-quoted strings' do
           @pattern = DOUBLE_QUOTED_STRING
         end
 
