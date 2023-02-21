@@ -201,9 +201,9 @@ module Ronin
             index = match_stop
           end
 
-          unless options[:only_matching]
+          if !options[:only_matching] && (index > 0)
             # print the rest of the line, if we've had at least one match
-            puts(line[index..]) if index > 0
+            puts(line[index..])
           end
         end
 
