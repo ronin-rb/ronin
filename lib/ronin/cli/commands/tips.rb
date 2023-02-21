@@ -109,7 +109,8 @@ module Ronin
         #
         def tip_paths(category=nil)
           glob_pattern = if category then File.join(TIPS_DIR,category,'*.txt')
-                         else             File.join(TIPS_DIR,'{*/}*.txt')
+                         else
+                           File.join(TIPS_DIR,'{*/}*.txt')
                          end
 
           return Dir[glob_pattern]

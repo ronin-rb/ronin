@@ -145,15 +145,6 @@ Lint/ConstantDefinitionInBlock:
     - 'spec/cli/value_processor_command_spec.rb'
 
 # Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-Lint/ElseLayout:
-  Exclude:
-    - 'lib/ronin/cli/commands/proxy.rb'
-    - 'lib/ronin/cli/commands/tips.rb'
-    - 'lib/ronin/cli/printing/http.rb'
-    - 'lib/ronin/config.rb'
-
-# Offense count: 4
 # Configuration parameters: AllowComments, AllowNil.
 Lint/SuppressedException:
   Exclude:

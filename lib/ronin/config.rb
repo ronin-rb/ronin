@@ -62,7 +62,8 @@ module Ronin
     #
     def self.load(name=nil)
       dir, file = if name then [CONFIG_DIR, "#{name}.rb"]
-                  else         [PATH, 'config.rb']
+                  else
+                    [PATH, 'config.rb']
                   end
 
       path = File.expand_path(File.join(dir,file))

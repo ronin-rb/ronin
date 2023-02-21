@@ -123,7 +123,8 @@ module Ronin
         def print_headers(response)
           color = if    response.code < '300' then colors.green
                   elsif response.code < '400' then colors.yellow
-                  else                             colors.red
+                  else
+                    colors.red
                   end
 
           puts "#{colors.bold}#{color}HTTP/#{response.http_version} #{response.code}#{colors.reset}"

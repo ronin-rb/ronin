@@ -509,7 +509,8 @@ module Ronin
         #
         def print_data(data)
           if @hexdumper then @hexdumper.dump(data)
-          else               puts data
+          else
+            puts data
           end
         end
 
