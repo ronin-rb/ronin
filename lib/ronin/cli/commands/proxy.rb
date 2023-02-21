@@ -430,7 +430,7 @@ module Ronin
           end
 
           regexp  = Regexp.new(string[1...index])
-          pattern = string[index+2..]
+          pattern = string[index + 2..]
 
           return regexp, pattern
         end

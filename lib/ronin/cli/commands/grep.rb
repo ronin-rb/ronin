@@ -152,7 +152,7 @@ module Ronin
           filename = filename_of(input)
 
           input.each_line(chomp: true).each_with_index do |line,index|
-            match_line(line, filename: filename, line_number: index+1)
+            match_line(line, filename: filename, line_number: index + 1)
           end
         end
 
