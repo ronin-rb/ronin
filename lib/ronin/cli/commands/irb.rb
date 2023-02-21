@@ -88,7 +88,7 @@ module Ronin
         #
         # Runs the `ronin irb` command.
         #
-        def run(*argv)
+        def run(*_argv)
           @include_dirs.each do |dir|
             $LOAD_PATH.unshift(dir)
           end
