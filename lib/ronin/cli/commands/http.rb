@@ -76,7 +76,7 @@ module Ronin
         include Printing::HTTP
 
         # `http://` and `https://` URL validation regex.
-        URL_REGEX = URI.regexp(['http', 'https'])
+        URL_REGEX = URI::DEFAULT_PARSER.make_regexp(%w[http https])
 
         usage '[options] {URL [...] | --shell URL}'
 
@@ -155,11 +155,9 @@ module Ronin
                          usage: 'URL'
                        },
                        desc: 'Open an interactive HTTP shell' do |url|
-                         begin
-                           options[:shell] = Addressable::URI.parse(url)
-                         rescue Addressable::URI::InvalidURIError => error
-                           raise(OptionParser::InvalidArgument,"invalid URL: #{error.message}")
-                         end
+                         options[:shell] = Addressable::URI.parse(url)
+        rescue Addressable::URI::InvalidURIError => e
+          raise(OptionParser::InvalidArgument,"invalid URL: #{e.message}")
                        end
 
         option :proxy, short: '-P',
@@ -342,11 +340,11 @@ module Ronin
           end
 
           uri = begin
-                  Addressable::URI.parse(url)
-                rescue Addressable::URI::InvalidURIError => error
-                  print_error "invalid URL: #{error.message}"
-                  return
-                end
+            Addressable::URI.parse(url)
+          rescue Addressable::URI::InvalidURIError => e
+            print_error "invalid URL: #{e.message}"
+            return
+          end
 
           begin
             Support::Network::HTTP.request(
@@ -361,9 +359,10 @@ module Ronin
               # #read_body to be called twice.
               print_response(response)
             end
-          rescue => error
-            if verbose? then print_exception(error)
-            else             print_error(error.message)
+          rescue StandardError => e
+            if verbose? then print_exception(e)
+            else
+              print_error(e.message)
             end
           end
         rescue StandardError => e

@@ -40,9 +40,9 @@ describe Ronin::CLI::Commands::Http do
   describe "#option_parser" do
     context "when --shell is given a non-http URL" do
       it do
-        expect {
+        expect do
           subject.option_parser.parse(%w[--shell foo])
-        }.to raise_error(OptionParser::InvalidArgument)
+        end.to raise_error(OptionParser::InvalidArgument)
       end
     end
   end
