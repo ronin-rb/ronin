@@ -378,7 +378,7 @@ module Ronin
         # @return [String, nil]
         #
         def subject_alt_name_ext
-          if !@subject_alt_names.empty?
+          unless @subject_alt_names.empty?
             @subject_alt_names.map { |name|
               if name =~ IP_REGEXP
                 "IP: #{name}"

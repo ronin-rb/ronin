@@ -439,14 +439,6 @@ Style/MutableConstant:
     - 'lib/ronin/cli/commands/hexdump.rb'
     - 'lib/ronin/cli/commands/unhexdump.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Exclude:
-    - 'lib/ronin/cli/commands/cert_gen.rb'
-
 # Offense count: 55
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowedMethods.
