@@ -63,7 +63,7 @@ describe Ronin::CLI::ValueProcessorCommand do
 
       it "must read and process each --file argument and print output to stdout" do
         expect {
-          subject.run()
+          subject.run
         }.to output(expected_output).to_stdout
       end
     end
@@ -93,7 +93,7 @@ describe Ronin::CLI::ValueProcessorCommand do
         )
 
         expect {
-          subject.run()
+          subject.run
         }.to raise_error(SystemExit) do |error|
           expect(error.status).to eq(1)
         end
