@@ -213,12 +213,6 @@ Style/Documentation:
     - 'lib/ronin/cli/http_shell.rb'
     - 'lib/ronin/cli/printing/syntax_highlighting.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/Encoding:
-  Exclude:
-    - 'ronin.gemspec'
-
 # Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
