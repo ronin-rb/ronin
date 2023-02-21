@@ -61,14 +61,6 @@ Layout/ExtraSpacing:
     - 'lib/ronin/cli/commands/unhexdump.rb'
     - 'lib/ronin/cli/pattern_options.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: consistent, consistent_relative_to_receiver, special_for_inner_method_call, special_for_inner_method_call_in_parentheses
-Layout/FirstArgumentIndentation:
-  Exclude:
-    - 'lib/ronin/cli/commands/unhexdump.rb'
-
 # Offense count: 278
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowMultipleStyles, EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle.

@@ -159,8 +159,8 @@ module Ronin
         #
         def run(file=nil)
           parser = Support::Binary::Unhexdump::Parser.new(
-                     **hexdump_parser_options
-                   )
+            **hexdump_parser_options
+          )
 
           input = if file
                     begin
