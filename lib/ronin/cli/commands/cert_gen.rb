@@ -103,8 +103,8 @@ module Ronin
 
         option :subject_alt_name, short: '-A',
                                   value: {
-                                     type:  /[a-z0-9:\._-]+/,
-                                     usage: 'HOST|IP'
+                                    type:  /[a-z0-9:\._-]+/,
+                                    usage: 'HOST|IP'
                                   },
                                   desc: 'Adds HOST or IP to subjectAltName' do |value|
                                     @subject_alt_names << value
