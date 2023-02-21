@@ -73,7 +73,7 @@ module Ronin
             else
               puts banner
             end
-          rescue => error
+          rescue StandardError => error
             print_error("#{service}: #{error.message}")
           end
         end

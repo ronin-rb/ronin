@@ -361,7 +361,7 @@ module Ronin
               # #read_body to be called twice.
               print_response(response)
             end
-          rescue => error
+          rescue StandardError => error
             if verbose? then print_exception(error)
             else             print_error(error.message)
             end
