@@ -308,7 +308,7 @@ module Ronin
           Async do |task|
             socket = begin
               endpoint.connect
-            rescue => e
+            rescue StandardError => e
               print_error(e.message)
               exit(1)
             end
@@ -387,7 +387,7 @@ module Ronin
             end
 
             finished.wait
-          rescue => e
+          rescue StandardError => e
             print_error(e.message)
             exit(1)
           ensure

@@ -290,16 +290,6 @@ Style/RedundantReturn:
     - 'lib/ronin/cli/method_options.rb'
     - 'lib/ronin/config.rb'
 
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: implicit, explicit
-Style/RescueStandardError:
-  Exclude:
-    - 'lib/ronin/cli/commands/banner_grab.rb'
-    - 'lib/ronin/cli/commands/http.rb'
-    - 'lib/ronin/cli/commands/netcat.rb'
-
 # Offense count: 3
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: ConvertCodeThatCanStartToReturnNil, AllowedMethods, MaxChainLength.
