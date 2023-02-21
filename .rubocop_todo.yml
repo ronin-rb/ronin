@@ -604,13 +604,6 @@ Style/TrailingCommaInHashLiteral:
     - 'lib/ronin/cli/commands/netcat.rb'
     - 'lib/ronin/cli/commands/proxy.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Style/UnlessElse:
-  Exclude:
-    - 'lib/ronin/cli/dns.rb'
-    - 'lib/ronin/cli/http_shell.rb'
-
 # Offense count: 11
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, AllowedPatterns.

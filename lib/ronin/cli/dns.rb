@@ -60,12 +60,12 @@ module Ronin
       #   The DNS resolver.
       #
       def resolver
-        @resolver ||= unless @nameservers.empty?
+        @resolver ||= if @nameservers.empty?
+                        Support::Network::DNS.resolver
+                      else
                         Support::Network::DNS.resolver(
                           nameservers: @nameservers
                         )
-                      else
-                        Support::Network::DNS.resolver
                       end
       end
 

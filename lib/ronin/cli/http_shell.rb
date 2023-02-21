@@ -298,12 +298,12 @@ module Ronin
             puts "headers: must specify NAME argument"
           end
         when nil
-          unless @http.headers.empty?
+          if @http.headers.empty?
+            puts "No request headers set"
+          else
             @http.headers.each do |name,value|
               puts "#{colors.bold(name)}: #{value}"
             end
-          else
-            puts "No request headers set"
           end
         else
           puts "headers: unknown sub-command: #{subcommand.inspect}"
