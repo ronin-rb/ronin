@@ -226,12 +226,6 @@ Style/BlockDelimiters:
 
 # Offense count: 2
 # This cop supports safe autocorrection (--autocorrect).
-Style/ClassMethods:
-  Exclude:
-    - 'lib/ronin/config.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
 # SupportedStyles: assign_to_condition, assign_inside_condition
 Style/ConditionalAssignment:
