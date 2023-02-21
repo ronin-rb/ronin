@@ -21,14 +21,6 @@ Gemspec/DuplicatedAssignment:
   Exclude:
     - 'ronin.gemspec'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleAlignWith, Severity.
-# SupportedStylesAlignWith: start_of_line, begin
-Layout/BeginEndAlignment:
-  Exclude:
-    - 'lib/ronin/cli/commands/netcat.rb'
-
 # Offense count: 9
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyleAlignWith.

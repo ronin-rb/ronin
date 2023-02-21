@@ -309,11 +309,11 @@ module Ronin
 
           Async do |task|
             socket = begin
-                       endpoint.connect
-                     rescue => error
-                       print_error(error.message)
-                       exit(1)
-                     end
+              endpoint.connect
+            rescue => error
+              print_error(error.message)
+              exit(1)
+            end
 
             stream = Async::IO::Stream.new(socket)
 
