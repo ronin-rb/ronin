@@ -140,7 +140,7 @@ module Ronin
                       desc: 'Numerical base of the hexdumped numbers'
 
         option :address_base, short: '-A',
-                              value: {type:  BASES},
+                              value: {type: BASES},
                               desc: 'Numerical base of the address column'
 
         option :named_chars, long: '--[no-]named-chars',

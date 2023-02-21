@@ -130,7 +130,7 @@ module Ronin
                                 end
 
         option :ignore, short: '-i',
-                        value: {type:  Regexp},
+                        value: {type: Regexp},
                         desc: 'Ignore rules' do |regexp|
                           @ignore << regexp
                         end
@@ -146,7 +146,7 @@ module Ronin
                                end
 
         option :close, short: '-C',
-                       value: {type:  Regexp},
+                       value: {type: Regexp},
                        desc: 'Close rules' do |regexp|
                          @close << regexp
                        end
