@@ -41,7 +41,7 @@ module Ronin
 
           template_dir File.join(ROOT,'data','new')
 
-          usage' PATH'
+          usage ' PATH'
 
           argument :path, required: true,
                           desc:     'The script file to create'

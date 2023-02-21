@@ -130,13 +130,6 @@ Layout/SpaceAroundOperators:
     - 'lib/ronin/cli/commands/hexdump.rb'
     - 'lib/ronin/cli/commands/proxy.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment.
-Layout/SpaceBeforeFirstArg:
-  Exclude:
-    - 'lib/ronin/cli/commands/new/script.rb'
-
 # Offense count: 52
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces.
