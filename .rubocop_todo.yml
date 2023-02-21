@@ -248,13 +248,6 @@ Style/HashSyntax:
     - 'spec/cli/commands/http_spec.rb'
     - 'spec/cli/string_processor_command_spec.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowIfModifier.
-Style/IfInsideElse:
-  Exclude:
-    - 'lib/ronin/cli/commands/netcat.rb'
-
 # Offense count: 35
 # This cop supports safe autocorrection (--autocorrect).
 Style/IfUnlessModifier:

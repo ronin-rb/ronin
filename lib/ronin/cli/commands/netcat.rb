@@ -234,12 +234,10 @@ module Ronin
             if options[:verbose]
               if @protocol == :unix
                 log_info "Listening on #{options[:unix]} ..."
+              elsif @host
+                log_info "Listening #{@host}:#{@port} ..."
               else
-                if @host
-                  log_info "Listening #{@host}:#{@port} ..."
-                else
-                  log_info "Listening port #{@port} ..."
-                end
+                log_info "Listening port #{@port} ..."
               end
             end
 
