@@ -5,12 +5,12 @@ Gem::Specification.new do |gem|
 
   gem.name    = gemspec.fetch('name')
   gem.version = gemspec.fetch('version') do
-                  lib_dir = File.join(File.dirname(__FILE__),'lib')
-                  $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
+    lib_dir = File.join(File.dirname(__FILE__),'lib')
+    $LOAD_PATH << lib_dir unless $LOAD_PATH.include?(lib_dir)
 
-                  require 'ronin/version'
-                  Ronin::VERSION
-                end
+    require 'ronin/version'
+    Ronin::VERSION
+  end
 
   gem.summary     = gemspec['summary']
   gem.description = gemspec['description']

@@ -13,17 +13,6 @@ Gemspec/DuplicatedAssignment:
   Exclude:
     - 'ronin.gemspec'
 
-# Offense count: 9
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleAlignWith.
-# SupportedStylesAlignWith: either, start_of_block, start_of_line
-Layout/BlockAlignment:
-  Exclude:
-    - 'lib/ronin/cli/commands/decode.rb'
-    - 'lib/ronin/cli/commands/encode.rb'
-    - 'lib/ronin/cli/pattern_options.rb'
-    - 'ronin.gemspec'
-
 # Offense count: 69
 # This cop supports safe autocorrection (--autocorrect).
 Layout/EmptyLineAfterMagicComment:
