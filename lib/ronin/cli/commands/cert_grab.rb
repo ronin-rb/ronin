@@ -63,7 +63,7 @@ module Ronin
         examples [
           'github.com:443',
           '93.184.216.34:443',
-          'https://github.com/',
+          'https://github.com/'
         ]
 
         man_page 'ronin-cert-grab.1'
