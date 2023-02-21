@@ -45,12 +45,6 @@ Layout/BlockAlignment:
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Layout/EmptyLines:
-  Exclude:
-    - 'lib/ronin/cli/cipher_command.rb'
-
 # Offense count: 120
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
