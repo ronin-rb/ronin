@@ -57,7 +57,7 @@ module Ronin
         option :hash, short: '-H',
                       value: {
                         type:    [:md5, :sha1, :sha256, :sha512],
-                        default: :sha1,
+                        default: :sha1
                       },
                       desc: 'Hash algorithm to use'
 

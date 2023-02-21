@@ -277,18 +277,6 @@ Style/StringLiterals:
 Style/SymbolArray:
   EnforcedStyle: brackets
 
-# Offense count: 6
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInHashLiteral:
-  Exclude:
-    - 'lib/ronin/cli/char_set_options.rb'
-    - 'lib/ronin/cli/commands/hexdump.rb'
-    - 'lib/ronin/cli/commands/hmac.rb'
-    - 'lib/ronin/cli/commands/netcat.rb'
-    - 'lib/ronin/cli/commands/proxy.rb'
-
 # Offense count: 11
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, AllowedPatterns.

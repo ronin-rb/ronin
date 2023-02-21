@@ -132,7 +132,7 @@ module Ronin
 
         option :ssl_key, value: {
                            type: String,
-                           usage: 'FILE',
+                           usage: 'FILE'
                          },
                          desc: 'Specifies the SSL key file'
 

@@ -68,7 +68,7 @@ module Ronin
         command.option :include_chars, short: '-i',
                                        value: {
                                          type: String,
-                                         usage: 'CHARS',
+                                         usage: 'CHARS'
                                        },
                                        desc: 'Include the additional chars to the char-set' do |string|
                                          @char_set += Chars::CharSet.new(*string.chars)
