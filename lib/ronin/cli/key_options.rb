@@ -44,11 +44,9 @@ module Ronin
                                     usage: 'FILE'
                                   },
                                   desc: 'The key file' do |path|
-                                    begin
-                                      @key = File.binread(path)
-                                    rescue Errno::ENOENT
-                                      raise(OptionParser::InvalidArgument,"no such file or directory: #{path.inspect}")
-                                    end
+                                    @key = File.binread(path)
+                                  rescue Errno::ENOENT
+                                    raise(OptionParser::InvalidArgument,"no such file or directory: #{path.inspect}")
                                   end
       end
 
