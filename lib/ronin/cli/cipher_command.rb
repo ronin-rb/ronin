@@ -84,7 +84,7 @@ module Ronin
             return
           end
 
-          unless (options[:key] || options[:key_file] || options[:password])
+          unless options[:key] || options[:key_file] || options[:password]
             print_error "must specify --password, --key, or --key-file"
             exit(1)
           end

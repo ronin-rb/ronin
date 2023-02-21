@@ -59,7 +59,7 @@ module Ronin
       #   Additional arguments to process.
       #
       def run(*values)
-        if (values.empty? && @files.empty?)
+        if values.empty? && @files.empty?
           print_error "must specify one or more arguments, or the --file option"
           exit(1)
         end

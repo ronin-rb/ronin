@@ -34,7 +34,7 @@ module Ronin
         #   The previous text that was printed.
         #
         def print_last_newline(text)
-          return unless (stdout.tty? && text && !text.end_with?("\n"))
+          return unless stdout.tty? && text && !text.end_with?("\n")
 
           puts
         end

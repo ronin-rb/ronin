@@ -286,7 +286,7 @@ module Ronin
       def headers(subcommand=nil,name=nil,value=nil)
         case subcommand
         when 'set'
-          if (name && value)
+          if name && value
             @http.headers[name] = value
           else
             puts "headers: must specify both NAME and VALUE arguments"

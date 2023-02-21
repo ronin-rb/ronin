@@ -123,7 +123,7 @@ module Ronin
       #   Additional files to process.
       #
       def run(*files)
-        if (files.empty? && @input_values.empty?)
+        if files.empty? && @input_values.empty?
           process_input(stdin)
         else
           @input_values.each do |value|
