@@ -78,11 +78,11 @@ module Ronin
                         },
                         desc: 'Base64 encodes the data' do |mode=nil|
                           require 'ronin/support/encoding/base64'
-                          if mode
-                            @method_calls << [:base64_encode, [mode]]
-                          else
-                            @method_calls << :base64_encode
-                          end
+                          @method_calls << if mode
+                                             [:base64_encode, [mode]]
+                                           else
+                                             :base64_encode
+                                           end
                         end
 
         option :zlib, short: '-z',

@@ -224,15 +224,6 @@ Style/BlockDelimiters:
     - 'spec/cli/string_processor_command_spec.rb'
     - 'spec/cli/value_processor_command_spec.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, SingleLineConditionsOnly, IncludeTernaryExpressions.
-# SupportedStyles: assign_to_condition, assign_inside_condition
-Style/ConditionalAssignment:
-  Exclude:
-    - 'lib/ronin/cli/commands/decode.rb'
-    - 'lib/ronin/cli/commands/encode.rb'
-
 # Offense count: 8
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
