@@ -158,10 +158,10 @@ module Ronin
 
           puts contents
 
-          unless contents.end_with?("#{$/}#{$/}")
-            puts
-            puts
-          end
+          return if contents.end_with?("#{$/}#{$/}")
+
+          puts
+          puts
         end
 
         #

@@ -34,9 +34,9 @@ module Ronin
         def initialize(**kwargs)
           super(**kwargs)
 
-          if ansi?
-            @syntax_formatter = syntax_formatter
-          end
+          return unless ansi?
+
+          @syntax_formatter = syntax_formatter
         end
 
         #

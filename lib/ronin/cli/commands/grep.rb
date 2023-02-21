@@ -201,10 +201,10 @@ module Ronin
             index = match_stop
           end
 
-          if !options[:only_matching] && (index > 0)
-            # print the rest of the line, if we've had at least one match
-            puts(line[index..])
-          end
+          return unless !options[:only_matching] && (index > 0)
+
+          # print the rest of the line, if we've had at least one match
+          puts(line[index..])
         end
 
         #
@@ -220,10 +220,10 @@ module Ronin
             print colors.cyan(':')
           end
 
-          if options[:line_numbers]
-            print colors.green(line_number)
-            print colors.cyan(':')
-          end
+          return unless options[:line_numbers]
+
+          print colors.green(line_number)
+          print colors.cyan(':')
         end
 
         #

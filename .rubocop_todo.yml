@@ -228,18 +228,6 @@ Style/FormatString:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 10
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: MinBodyLength, AllowConsecutiveConditionals.
-Style/GuardClause:
-  Exclude:
-    - 'lib/ronin/cli/commands/cert_dump.rb'
-    - 'lib/ronin/cli/commands/cert_gen.rb'
-    - 'lib/ronin/cli/commands/grep.rb'
-    - 'lib/ronin/cli/commands/new/project.rb'
-    - 'lib/ronin/cli/commands/tips.rb'
-    - 'lib/ronin/cli/printing/http.rb'
-    - 'lib/ronin/cli/printing/syntax_highlighting.rb'
 
 # Offense count: 26
 # This cop supports safe autocorrection (--autocorrect).

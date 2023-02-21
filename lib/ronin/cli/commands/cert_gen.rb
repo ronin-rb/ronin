@@ -322,9 +322,9 @@ module Ronin
         # @return [Ronin::Support::Key::RSA, nil]
         #
         def ca_key
-          if options[:ca_key]
-            Support::Crypto::Key::RSA.load_file(options[:ca_key])
-          end
+          return unless options[:ca_key]
+
+          Support::Crypto::Key::RSA.load_file(options[:ca_key])
         end
 
         #
@@ -333,9 +333,9 @@ module Ronin
         # @return [Ronin::Support::Crypto::Cert, nil]
         #
         def ca_cert
-          if options[:ca_cert]
-            Support::Crypto::Cert.load_file(options[:ca_cert])
-          end
+          return unless options[:ca_cert]
+
+          Support::Crypto::Cert.load_file(options[:ca_cert])
         end
 
         #
@@ -378,15 +378,15 @@ module Ronin
         # @return [String, nil]
         #
         def subject_alt_name_ext
-          unless @subject_alt_names.empty?
-            @subject_alt_names.map do |name|
-              if name =~ IP_REGEXP
-                "IP: #{name}"
-              else
-                "DNS: #{name}"
-              end
-            end.join(', ')
-          end
+          return if @subject_alt_names.empty?
+
+          @subject_alt_names.map do |name|
+            if name =~ IP_REGEXP
+              "IP: #{name}"
+            else
+              "DNS: #{name}"
+            end
+          end.join(', ')
         end
 
       end

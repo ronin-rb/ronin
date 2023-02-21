@@ -101,15 +101,16 @@ module Ronin
             erb 'project.rb.erb', project_file
             chmod '+x',           project_file
 
-            if options[:git]
-              cp '.gitignore', path
+            return unless options[:git]
 
-              Dir.chdir(path) do
-                sh 'git', 'init', '-q', '-b', 'main'
-                sh 'git', 'add', '.'
-                sh 'git', 'commit', '-q', '-m', 'Initial commit.'
-              end
+            cp '.gitignore', path
+
+            Dir.chdir(path) do
+              sh 'git', 'init', '-q', '-b', 'main'
+              sh 'git', 'add', '.'
+              sh 'git', 'commit', '-q', '-m', 'Initial commit.'
             end
+            
           end
 
         end

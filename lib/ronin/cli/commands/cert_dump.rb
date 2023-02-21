@@ -180,11 +180,11 @@ module Ronin
 
           puts
 
-          if options[:extensions]
-            puts "Extensions:"
-            indent do
-              print_extensions(cert)
-            end
+          return unless options[:extensions]
+
+          puts "Extensions:"
+          indent do
+            print_extensions(cert)
           end
         end
 
