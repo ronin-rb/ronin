@@ -319,101 +319,101 @@ module Ronin
               print_outgoing client, '[connecting]'
             end
 
-            @proxy.on_client_disconnect do |client,server|
+            @proxy.on_client_disconnect do |client,_server|
               print_outgoing client, '[disconnecting]'
             end
 
-            @proxy.on_server_connect do |client,server|
+            @proxy.on_server_connect do |client,_server|
               print_incoming client, '[connected]'
             end
 
-            @proxy.on_server_disconnect do |client,server|
+            @proxy.on_server_disconnect do |client,_server|
               print_incoming client, '[disconnected]'
             end
           end
 
           # configure the client rules
           @reset_client.each do |pattern|
-            @proxy.on_client_data do |client,server,data|
+            @proxy.on_client_data do |_client,_server,data|
               @proxy.reset! if data =~ pattern
             end
           end
 
           @close_client.each do |pattern|
-            @proxy.on_client_data do |client,server,data|
+            @proxy.on_client_data do |_client,_server,data|
               @proxy.close! if data =~ pattern
             end
           end
 
           @ignore_client.each do |pattern|
-            @proxy.on_client_data do |client,server,data|
+            @proxy.on_client_data do |_client,_server,data|
               @proxy.ignore! if data =~ pattern
             end
           end
 
           @rewrite_client.each do |pattern,replace|
-            @proxy.on_client_data do |client,server,data|
+            @proxy.on_client_data do |_client,_server,data|
               data.gsub!(pattern,replace)
             end
           end
 
           # configure the server rules
           @reset_server.each do |pattern|
-            @proxy.on_server_data do |client,server,data|
+            @proxy.on_server_data do |_client,_server,data|
               @proxy.reset! if data =~ pattern
             end
           end
 
           @close_server.each do |pattern|
-            @proxy.on_server_data do |client,server,data|
+            @proxy.on_server_data do |_client,_server,data|
               @proxy.close! if data =~ pattern
             end
           end
 
           @ignore_server.each do |pattern|
-            @proxy.on_server_data do |client,server,data|
+            @proxy.on_server_data do |_client,_server,data|
               @proxy.ignore! if data =~ pattern
             end
           end
 
           @rewrite_server.each do |pattern,replace|
-            @proxy.on_server_data do |client,server,data|
+            @proxy.on_server_data do |_client,_server,data|
               data.gsub!(pattern,replace)
             end
           end
 
           # configure the client/server rules
           @reset.each do |pattern|
-            @proxy.on_data do |client,server,data|
+            @proxy.on_data do |_client,_server,data|
               @proxy.reset! if data =~ pattern
             end
           end
 
           @close.each do |pattern|
-            @proxy.on_data do |client,server,data|
+            @proxy.on_data do |_client,_server,data|
               @proxy.close! if data =~ pattern
             end
           end
 
           @ignore.each do |pattern|
-            @proxy.on_data do |client,server,data|
+            @proxy.on_data do |_client,_server,data|
               @proxy.ignore! if data =~ pattern
             end
           end
 
           @rewrite.each do |pattern,replace|
-            @proxy.on_data do |client,server,data|
+            @proxy.on_data do |_client,_server,data|
               data.gsub!(pattern,replace)
             end
           end
 
           # printing rules
-          @proxy.on_client_data do |client,server,data|
+          @proxy.on_client_data do |client,_server,data|
             print_outgoing client
             print_data data
           end
 
-          @proxy.on_server_data do |client,server,data|
+          @proxy.on_server_data do |client,_server,data|
             print_incoming client
             print_data data
           end

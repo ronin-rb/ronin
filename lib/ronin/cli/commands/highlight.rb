@@ -49,7 +49,7 @@ module Ronin
         usage '[options] [FILE ...]'
 
         option :syntax, short: '-s',
-                        desc:  'Specifies the syntax to highlight' do |syntax|
+                        desc:  'Specifies the syntax to highlight' do |_syntax|
                           unless (lexer = syntax_lexer(options[:syntax]))
                             raise(OptionParser::InvalidArgument,"unknown syntax: #{options[:syntax]}")
                           end

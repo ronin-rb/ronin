@@ -159,27 +159,6 @@ Lint/SuppressedException:
   Exclude:
     - 'lib/ronin/cli/commands/netcat.rb'
 
-# Offense count: 30
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
-Lint/UnusedBlockArgument:
-  Exclude:
-    - 'lib/ronin/cli/commands/highlight.rb'
-    - 'lib/ronin/cli/commands/proxy.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'lib/ronin/cli/commands/irb.rb'
-
-# Offense count: 2
-Lint/UselessAssignment:
-  Exclude:
-    - 'lib/ronin/cli/commands/cert_dump.rb'
-    - 'lib/ronin/cli/commands/proxy.rb'
-
 # Offense count: 26
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
 Metrics/AbcSize:
