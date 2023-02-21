@@ -306,8 +306,8 @@ module Ronin
             else
               begin
                 Support::Crypto::Key.load_file(options[:key_file])
-              rescue ArgumentError => error
-                print_error(error.message)
+              rescue ArgumentError => e
+                print_error(e.message)
                 exit(-1)
               end
             end

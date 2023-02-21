@@ -207,16 +207,6 @@ Naming/MemoizedInstanceVariableName:
   Exclude:
     - 'lib/ronin/cli/typo_options.rb'
 
-# Offense count: 5
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: PreferredName.
-Naming/RescuedExceptionsVariableName:
-  Exclude:
-    - 'lib/ronin/cli/commands/banner_grab.rb'
-    - 'lib/ronin/cli/commands/cert_gen.rb'
-    - 'lib/ronin/cli/commands/http.rb'
-    - 'lib/ronin/cli/commands/netcat.rb'
-
 # Offense count: 21
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, ProceduralMethods, FunctionalMethods, AllowedMethods, AllowedPatterns, AllowBracesOnProceduralOneLiners, BracesRequiredMethods.

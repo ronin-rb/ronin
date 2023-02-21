@@ -310,8 +310,8 @@ module Ronin
           Async do |task|
             socket = begin
               endpoint.connect
-            rescue => error
-              print_error(error.message)
+            rescue => e
+              print_error(e.message)
               exit(1)
             end
 
@@ -395,8 +395,8 @@ module Ronin
             end
 
             finished.wait
-          rescue => error
-            print_error(error.message)
+          rescue => e
+            print_error(e.message)
             exit(1)
           ensure
             clients.each(&:close)

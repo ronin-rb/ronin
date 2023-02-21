@@ -366,6 +366,9 @@ module Ronin
             else             print_error(error.message)
             end
           end
+        rescue => e
+          print_error(e.message)
+          exit(1)
         end
 
         #

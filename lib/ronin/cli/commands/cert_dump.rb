@@ -180,8 +180,6 @@ module Ronin
 
           puts
 
-          fields = {}
-
           if options[:extensions]
             puts "Extensions:"
             indent do
