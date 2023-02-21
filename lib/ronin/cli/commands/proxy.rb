@@ -115,7 +115,7 @@ module Ronin
 
         option :rewrite_client, value: {
                                   type:  String,
-                                  usage: '/REGEXP/:STRING',
+                                  usage: '/REGEXP/:STRING'
                                 },
                                 desc: 'Client rewrite rules' do |value|
                                   @rewrite_client << parse_rewrite_rule(value)
@@ -123,7 +123,7 @@ module Ronin
 
         option :rewrite_server, value: {
                                   type:  String,
-                                  usage: '/REGEXP/:STRING',
+                                  usage: '/REGEXP/:STRING'
                                 },
                                 desc: 'Server rewrite rules' do |value|
                                   @rewrite_server << parse_rewrite_rule(value)

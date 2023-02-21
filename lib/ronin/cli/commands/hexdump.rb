@@ -149,7 +149,7 @@ module Ronin
         option :length, short: '-L',
                         value: {
                           type: Integer,
-                          usage: 'LEN',
+                          usage: 'LEN'
                         },
                         desc: 'Length of data to hexdump'
 
