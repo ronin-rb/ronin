@@ -513,12 +513,6 @@ Style/RedundantInterpolation:
     - 'lib/ronin/cli/commands/new.rb'
     - 'lib/ronin/cli/http_shell.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantRegexpEscape:
-  Exclude:
-    - 'lib/ronin/cli/commands/cert_gen.rb'
-
 # Offense count: 10
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowMultipleReturnValues.
