@@ -277,7 +277,7 @@ module Ronin
           @not_after ||= if options[:not_after]
                            Time.parse(options[:not_after])
                          else
-                           not_before+Support::Crypto::Cert::ONE_YEAR
+                           not_before + Support::Crypto::Cert::ONE_YEAR
                          end
         end
 
