@@ -122,7 +122,7 @@ module Ronin
         def run(*files)
           unless @pattern
             print_error "must specify a pattern to search for"
-            exit -1
+            exit(-1)
           end
 
           super(*files)

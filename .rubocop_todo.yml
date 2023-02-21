@@ -59,17 +59,6 @@ Layout/SpaceInsideHashLiteralBraces:
     - 'lib/ronin/cli/commands/unhexdump.rb'
     - 'lib/ronin/cli/pattern_options.rb'
 
-# Offense count: 6
-# This cop supports safe autocorrection (--autocorrect).
-Lint/AmbiguousOperator:
-  Exclude:
-    - 'Rakefile'
-    - 'bin/ronin'
-    - 'lib/ronin/cli/commands/asn.rb'
-    - 'lib/ronin/cli/commands/extract.rb'
-    - 'lib/ronin/cli/commands/grep.rb'
-    - 'lib/ronin/cli/commands/iprange.rb'
-
 # Offense count: 8
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: enums
