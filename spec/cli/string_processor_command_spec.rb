@@ -137,7 +137,7 @@ describe Ronin::CLI::StringProcessorCommand do
 
         it "must process the input from the --file and --string options in the order given" do
           expect do
-            subject.run()
+            subject.run
           end.to output(expected_output).to_stdout
         end
       end
@@ -150,7 +150,7 @@ describe Ronin::CLI::StringProcessorCommand do
 
         it "must read and process input from stdin in full" do
           expect do
-            subject.run()
+            subject.run
           end.to output(expected_output).to_stdout
         end
       end

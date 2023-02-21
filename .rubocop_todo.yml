@@ -214,14 +214,6 @@ Style/Lambda:
   Exclude:
     - 'ronin.gemspec'
 
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowedMethods, AllowedPatterns.
-Style/MethodCallWithoutArgsParentheses:
-  Exclude:
-    - 'spec/cli/string_processor_command_spec.rb'
-    - 'spec/cli/value_processor_command_spec.rb'
-
 # Offense count: 1
 Style/MultilineBlockChain:
   Exclude:
