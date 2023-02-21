@@ -214,7 +214,7 @@ module Ronin
         #
         # @param [Integer] line_number
         #
-        def print_line_prefix(filename: , line_number: )
+        def print_line_prefix(filename:, line_number: )
           if options[:with_filename]
             print colors.magenta(filename)
             print colors.cyan(':')

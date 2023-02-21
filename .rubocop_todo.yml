@@ -132,12 +132,6 @@ Layout/SpaceAroundOperators:
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
-Layout/SpaceBeforeComma:
-  Exclude:
-    - 'lib/ronin/cli/commands/grep.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowForAlignment.
 Layout/SpaceBeforeFirstArg:
   Exclude:
