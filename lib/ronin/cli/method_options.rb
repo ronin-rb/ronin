@@ -55,9 +55,7 @@ module Ronin
         @method_calls.each do |method,arguments,kwargs={}|
           allowed_methods = object.public_methods - common_object_methods
 
-          unless allowed_methods.include?(method)
-            raise(ArgumentError,"cannot call method Object##{method} on object #{object.inspect}")
-          end
+          raise(ArgumentError,"cannot call method Object##{method} on object #{object.inspect}") unless allowed_methods.include?(method)
 
           object = object.public_send(method,*arguments,**kwargs)
         end

@@ -88,13 +88,9 @@ module Ronin
             erb '.ruby-version.erb', File.join(path,'.ruby-version')
             erb 'Gemfile.erb', File.join(path,'Gemfile')
 
-            if options[:rakefile]
-              cp 'Rakefile', path
-            end
+            cp 'Rakefile', path if options[:rakefile]
 
-            if options[:dockerfile]
-              erb 'Dockerfile.erb', File.join(path,'Dockerfile')
-            end
+            erb 'Dockerfile.erb', File.join(path,'Dockerfile') if options[:dockerfile]
 
             project_file = File.join(path,"#{@project_name}.rb")
 

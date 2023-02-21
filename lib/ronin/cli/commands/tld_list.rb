@@ -108,9 +108,7 @@ module Ronin
         # Downloads the TLD list file.
         #
         def download
-          if verbose?
-            log_info "Downloading TLD list from #{options[:url]} to #{options[:path]} ..."
-          end
+          log_info "Downloading TLD list from #{options[:url]} to #{options[:path]} ..." if verbose?
 
           List.download(url: options[:url], path: options[:path])
         end
@@ -119,9 +117,7 @@ module Ronin
         # Updates the TLD list file.
         #
         def update
-          if verbose?
-            log_info "Updating TLD list file #{options[:path]} ..."
-          end
+          log_info "Updating TLD list file #{options[:path]} ..." if verbose?
 
           List.update(path: options[:path])
         end

@@ -303,9 +303,7 @@ module Ronin
           upstream_host, upstream_port = upstream.split(':',2)
           upstream_port = upstream_port.to_i
 
-          if options[:hexdump]
-            @hexdumper = Hexdump::Hexdump.new
-          end
+          @hexdumper = Hexdump::Hexdump.new if options[:hexdump]
 
           @proxy = proxy_class.new(
             port:   proxy_port,

@@ -108,9 +108,7 @@ module Ronin
         # Downloads the public suffix list file.
         #
         def download
-          if verbose?
-            log_info "Downloading public suffix list from #{options[:url]} to #{options[:path]} ..."
-          end
+          log_info "Downloading public suffix list from #{options[:url]} to #{options[:path]} ..." if verbose?
 
           List.download(url: options[:url], path: options[:path])
         end
@@ -119,9 +117,7 @@ module Ronin
         # Updates the public suffix list file.
         #
         def update
-          if verbose?
-            log_info "Updating public suffix list file #{options[:path]} ..."
-          end
+          log_info "Updating public suffix list file #{options[:path]} ..." if verbose?
 
           List.update(path: options[:path])
         end

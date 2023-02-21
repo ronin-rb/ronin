@@ -169,9 +169,7 @@ module Ronin
         # Downloads the ASN list file.
         #
         def download
-          if verbose?
-            log_info "Downloading ASN list from #{options[:url]} to #{options[:file]} ..."
-          end
+          log_info "Downloading ASN list from #{options[:url]} to #{options[:file]} ..." if verbose?
 
           Support::Network::ASN::List.download(
             url:  options[:url],
@@ -183,9 +181,7 @@ module Ronin
         # Updates the ASN list file.
         #
         def update
-          if verbose?
-            log_info "Updating ASN list file #{options[:file]} ..."
-          end
+          log_info "Updating ASN list file #{options[:file]} ..." if verbose?
 
           Support::Network::ASN::List.update(
             url:  options[:url],
@@ -229,17 +225,11 @@ module Ronin
           elsif options[:ipv6]  then records = records.ipv6
           end
 
-          if options[:country_code]
-            records = records.country(options[:country_code])
-          end
+          records = records.country(options[:country_code]) if options[:country_code]
 
-          if options[:number]
-            records = records.number(options[:number])
-          end
+          records = records.number(options[:number]) if options[:number]
 
-          if options[:name]
-            records = records.name(options[:name])
-          end
+          records = records.name(options[:name]) if options[:name]
 
           records
         end

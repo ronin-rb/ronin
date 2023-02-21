@@ -100,9 +100,7 @@ module Ronin
         #
         def process_value(string)
           string.each_bit_flip do |bit_flipped|
-            if @char_set =~ bit_flipped
-              puts format_string(bit_flipped)
-            end
+            puts format_string(bit_flipped) if @char_set =~ bit_flipped
           end
         end
 

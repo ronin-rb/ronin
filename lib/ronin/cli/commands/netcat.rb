@@ -356,9 +356,7 @@ module Ronin
 
           Async do |task|
             endpoint.accept do |socket|
-              if options[:verbose]
-                log_info "Client #{socket} connected"
-              end
+              log_info "Client #{socket} connected" if options[:verbose]
 
               clients << socket
               stream = Async::IO::Stream.new(socket)
@@ -372,9 +370,7 @@ module Ronin
 
               clients.delete(socket)
 
-              if options[:verbose]
-                log_warn "Client #{socket} disconnected"
-              end
+              log_warn "Client #{socket} disconnected" if options[:verbose]
             end
 
             task.async do

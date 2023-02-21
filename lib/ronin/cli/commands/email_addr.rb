@@ -97,9 +97,7 @@ module Ronin
         #   An individual email address.
         #
         def process_value(string)
-          if options[:deobfuscate]
-            string = Support::Network::EmailAddress.deobfuscate(string)
-          end
+          string = Support::Network::EmailAddress.deobfuscate(string) if options[:deobfuscate]
 
           email_address = Support::Network::EmailAddress.parse(string)
           email_address = email_address.normalize if options[:normalize]

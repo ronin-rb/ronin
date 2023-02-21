@@ -222,29 +222,17 @@ module Ronin
         def print_cert_name(name)
           fields = {}
 
-          if name.common_name
-            fields["Common Name"] = name.common_name
-          end
+          fields["Common Name"] = name.common_name if name.common_name
 
-          if name.organization
-            fields["Organization"] = name.organization
-          end
+          fields["Organization"] = name.organization if name.organization
 
-          if name.organizational_unit
-            fields["Organizational Unit"] = name.organizational_unit
-          end
+          fields["Organizational Unit"] = name.organizational_unit if name.organizational_unit
 
-          if name.locality
-            fields["Locality"] = name.locality
-          end
+          fields["Locality"] = name.locality if name.locality
 
-          if name.state
-            fields["State"] = name.state
-          end
+          fields["State"] = name.state if name.state
 
-          if name.country
-            fields["Country"] = name.country
-          end
+          fields["Country"] = name.country if name.country
 
           print_fields(fields)
         end

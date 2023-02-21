@@ -459,17 +459,11 @@ module Ronin
              !@highlight_chars.empty?
             kwargs[:highlights] = {}
 
-            unless @highlight_index.empty?
-              kwargs[:highlights][:index] = @highlight_index
-            end
+            kwargs[:highlights][:index] = @highlight_index unless @highlight_index.empty?
 
-            unless @highlight_numeric.empty?
-              kwargs[:highlights][:numeric] = @highlight_numeric
-            end
+            kwargs[:highlights][:numeric] = @highlight_numeric unless @highlight_numeric.empty?
 
-            unless @highlight_chars.empty?
-              kwargs[:highlights][:chars] = @highlight_chars
-            end
+            kwargs[:highlights][:chars] = @highlight_chars unless @highlight_chars.empty?
           end
 
           kwargs

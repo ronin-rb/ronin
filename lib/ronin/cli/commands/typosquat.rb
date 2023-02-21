@@ -72,21 +72,15 @@ module Ronin
         def run(domain)
           if options[:has_addresses]
             each_typo_squat(domain) do |typo_domain|
-              if typo_domain.has_addresses?
-                puts typo_domain
-              end
+              puts typo_domain if typo_domain.has_addresses?
             end
           elsif options[:registered]
             each_typo_squat(domain) do |typo_domain|
-              if typo_domain.registered?
-                puts typo_domain
-              end
+              puts typo_domain if typo_domain.registered?
             end
           elsif options[:unregistered]
             each_typo_squat(domain) do |typo_domain|
-              if typo_domain.unregistered?
-                puts typo_domain
-              end
+              puts typo_domain if typo_domain.unregistered?
             end
           else
             each_typo_squat(domain) do |typo_domain|

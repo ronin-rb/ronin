@@ -222,9 +222,7 @@ module Ronin
         # Runs the `ronin cert-gen` command.
         #
         def run
-          if options[:generate_key]
-            log_info "Generating new #{options.fetch(:key_type,:rsa).upcase} key ..."
-          end
+          log_info "Generating new #{options.fetch(:key_type,:rsa).upcase} key ..." if options[:generate_key]
 
           key  = signing_key
           cert = Ronin::Support::Crypto::Cert.generate(

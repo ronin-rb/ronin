@@ -188,11 +188,6 @@ Style/HashSyntax:
     - 'spec/cli/commands/http_spec.rb'
     - 'spec/cli/string_processor_command_spec.rb'
 
-# Offense count: 35
-# This cop supports safe autocorrection (--autocorrect).
-Style/IfUnlessModifier:
-  Enabled: false
-
 # Offense count: 1
 Style/MultilineBlockChain:
   Exclude:

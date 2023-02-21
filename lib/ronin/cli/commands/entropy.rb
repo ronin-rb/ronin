@@ -63,9 +63,7 @@ module Ronin
           entropy = options[:entropy]
 
           input.each_line(chomp: true) do |line|
-            if Support::Text::Entropy.calculate(line) > entropy
-              puts line
-            end
+            puts line if Support::Text::Entropy.calculate(line) > entropy
           end
         end
 
