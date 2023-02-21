@@ -61,14 +61,14 @@ module Ronin
       class Decode < StringMethodsCommand
 
         option :base16, desc: 'Base16 decodes the data' do
-                          require 'ronin/support/encoding/base16'
-                          @method_calls << :base16_decode
-                        end
+          require 'ronin/support/encoding/base16'
+          @method_calls << :base16_decode
+        end
 
         option :base32, desc: 'Base32 decodes the data' do
-                          require 'ronin/support/encoding/base32'
-                          @method_calls << :base32_decode
-                        end
+          require 'ronin/support/encoding/base32'
+          @method_calls << :base32_decode
+        end
 
         option :base64, short: '-b',
                         equals: true,
@@ -122,9 +122,9 @@ module Ronin
                      end
 
         option :http, desc: 'HTTP decodes the data' do
-                        require 'ronin/support/encoding/http'
-                        @method_calls << :http_decode
-                      end
+          require 'ronin/support/encoding/http'
+          @method_calls << :http_decode
+        end
 
         option :js, short: '-j',
                     desc: 'JavaScript decodes the data' do

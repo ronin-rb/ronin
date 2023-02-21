@@ -181,8 +181,8 @@ module Ronin
                                 end
 
         command.option :uri, desc: 'Searches for all URIs' do
-                               @pattern = URI
-                             end
+          @pattern = URI
+        end
 
         command.option :url, short: '-U',
                              desc: 'Searches for all URLs' do
