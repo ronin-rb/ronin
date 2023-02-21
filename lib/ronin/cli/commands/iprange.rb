@@ -47,7 +47,7 @@ module Ronin
       #    ronin iprange 1.1.2-4.10-50
       #    ronin iprange --start 1.1.1.10 --stop 1.1.4.100
       #    ronin iprange --file list.txt
-      # 
+      #
       class Iprange < ValueProcessorCommand
 
         usage '[options] [IP_RANGE ... | --start IP --stop IP]'

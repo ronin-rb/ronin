@@ -40,7 +40,7 @@ module Ronin
       # @return [Array<String>]
       attr_reader :files
 
-      # 
+      #
       # Initializes the command.
       #
       # @param [Hash{Symbol => Object}] kwargs

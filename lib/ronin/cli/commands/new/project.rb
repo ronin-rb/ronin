@@ -39,7 +39,7 @@ module Ronin
       #     -h, --help                       Print help information
       #
       # ## Arguments
-      # 
+      #
       #     PATH                             The directory to create
       #
       class New < Command
