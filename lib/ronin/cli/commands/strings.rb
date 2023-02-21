@@ -85,7 +85,7 @@ module Ronin
         description 'Prints all strings within a file/stream belonging to the given character set'
 
         examples [
-          '--hex -n 32 file.bin',
+          '--hex -n 32 file.bin'
         ]
 
         man_page 'ronin-strings.1'

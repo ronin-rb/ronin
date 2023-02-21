@@ -592,15 +592,6 @@ Style/StringLiterals:
 Style/SymbolArray:
   EnforcedStyle: brackets
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyleForMultiline.
-# SupportedStylesForMultiline: comma, consistent_comma, no_comma
-Style/TrailingCommaInArrayLiteral:
-  Exclude:
-    - 'lib/ronin/cli/commands/cert_grab.rb'
-    - 'lib/ronin/cli/commands/strings.rb'
-
 # Offense count: 6
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyleForMultiline.
