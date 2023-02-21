@@ -94,19 +94,6 @@ Layout/FirstHashElementIndentation:
 Layout/HashAlignment:
   Enabled: false
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: Width, AllowedPatterns.
-Layout/IndentationWidth:
-  Exclude:
-    - 'lib/ronin/cli/pattern_options.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Layout/RescueEnsureAlignment:
-  Exclude:
-    - 'lib/ronin/cli/commands/netcat.rb'
-
 # Offense count: 193
 # This cop supports safe autocorrection (--autocorrect).
 Layout/SpaceAfterComma:
