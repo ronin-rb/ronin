@@ -60,7 +60,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Config.load(name=nil)
+    def self.load(name=nil)
       dir, file = if name then [CONFIG_DIR, "#{name}.rb"]
                   else         [PATH, 'config.rb']
                   end
@@ -80,7 +80,7 @@ module Ronin
     #
     # @api semipublic
     #
-    def Config.tmp_dir(sub_path=nil)
+    def self.tmp_dir(sub_path=nil)
       if sub_path
         sub_path = File.expand_path(File.join('',sub_path))
         path     = File.join(TMP_DIR,sub_path)
