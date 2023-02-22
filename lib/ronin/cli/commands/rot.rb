@@ -101,7 +101,7 @@ module Ronin
         #   The rotated string.
         #
         def process_string(string)
-          if !@alphabets.empty?
+          unless @alphabets.empty?
             Support::Crypto.rot(string,@n, alphabets: @alphabets)
           else
             Support::Crypto.rot(string,@n)
