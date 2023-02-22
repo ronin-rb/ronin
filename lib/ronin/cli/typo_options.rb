@@ -73,7 +73,7 @@ module Ronin
       # @return [Ronin::Support::Text::Typo::Generator]
       #
       def typo_generator
-        @type_generator ||= Support::Text::Typo.generator(**@typo_kwargs)
+        @typo_generator ||= Support::Text::Typo.generator(**@typo_kwargs)
       end
     end
   end
