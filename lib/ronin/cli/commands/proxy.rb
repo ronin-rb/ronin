@@ -465,7 +465,7 @@ module Ronin
         def address(connection)
           case connection
           when Array
-            socket, (host, port) = connection
+            _socket, (host, port) = connection
 
             "#{host}:#{port}"
           when TCPSocket, UDPSocket
