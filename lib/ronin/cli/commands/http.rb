@@ -76,7 +76,7 @@ module Ronin
         include Printing::HTTP
 
         # `http://` and `https://` URL validation regex.
-        URL_REGEX = URI.regexp(%w[http https])
+        URL_REGEX = URI::DEFAULT_PARSER.make_regexp(%w[http https])
 
         usage '[options] {URL [...] | --shell URL}'
 
