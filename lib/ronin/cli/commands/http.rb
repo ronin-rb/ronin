@@ -155,11 +155,9 @@ module Ronin
                          usage: 'URL'
                        },
                        desc: 'Open an interactive HTTP shell' do |url|
-                         begin
-                           options[:shell] = Addressable::URI.parse(url)
-                         rescue Addressable::URI::InvalidURIError => error
-                           raise(OptionParser::InvalidArgument,"invalid URL: #{error.message}")
-                         end
+                         options[:shell] = Addressable::URI.parse(url)
+                       rescue Addressable::URI::InvalidURIError => error
+                         raise(OptionParser::InvalidArgument,"invalid URL: #{error.message}")
                        end
 
         option :proxy, short: '-P',
