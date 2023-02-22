@@ -14,8 +14,7 @@ describe Ronin::CLI::Printing::SyntaxHighlighting do
   let(:test_command) { TestPrintingSyntaxHighlighting::TestCommand }
   subject { test_command.new }
 
-  describe "#initialize" do
-  end
+  pending "#initialize"
 
   describe "#syntax_lexer_for" do
     context "when given the filename: keyword argument" do
