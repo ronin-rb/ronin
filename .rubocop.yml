@@ -28,10 +28,17 @@ Style/Next: { Enabled: false }
 Style/HashSyntax: { Enabled: false }
 Naming/BlockForwarding: { Enabled: false }
 Lint/ReturnInVoidContext: { Enabled: false }
+Lint/NoReturnInBeginEndBlocks: { Enabled: false }
 Gemspec/DeprecatedAttributeAssignment: { Enabled: false }
 Layout/EmptyLineAfterMagicComment: { Enabled: false }
-Layout/FirstArgumentIndentation:
-  EnforcedStyle: consistent_relative_to_receiver
+Layout/FirstArgumentIndentation: { Enabled: false }
+Layout/BeginEndAlignment: { Enabled: false }
+Layout/RescueEnsureAlignment: { Enabled: false }
+Style/MultilineBlockChain: { Enabled: false }
+Style/NumericLiterals: { Enabled: false }
+Style/RedundantInterpolation: { Enabled: false }
+Style/FormatString: { Enabled: false }
+Style/RedundantSelf: { Enabled: false }
 
 #
 # rules that are in flux
