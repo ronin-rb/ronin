@@ -85,7 +85,7 @@ module Ronin
         sub_path = File.expand_path(File.join('',sub_path))
         path     = File.join(TMP_DIR,sub_path)
 
-        FileUtils.mkdir_p(path) unless File.exist?(path)
+        FileUtils.mkdir_p(path) unless File.directory?(path)
         return path
       end
 
