@@ -22,6 +22,9 @@ require 'rouge'
 module Ronin
   class CLI
     module Printing
+      #
+      # Mixin that adds syntax highlighting to commands.
+      #
       module SyntaxHighlighting
         include CommandKit::Colors
 
