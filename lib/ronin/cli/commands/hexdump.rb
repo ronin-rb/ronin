@@ -399,7 +399,7 @@ module Ronin
             end
 
             regexp = Regexp.new(value[1...index])
-            style  = parse_style(value[index+2..])
+            style  = parse_style(value[(index + 2)..])
 
             return [regexp, style]
           else
@@ -408,7 +408,7 @@ module Ronin
             end
 
             pattern = value[0...index]
-            style   = parse_style(value[index+1..])
+            style   = parse_style(value[(index + 1)..])
 
             return [pattern, style]
           end
