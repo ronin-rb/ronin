@@ -301,10 +301,9 @@ module Ronin
         # The client event loop.
         #
         def client_loop
-          endpoint = async_endpoint
-          stdin = async_stdin
-          finished = Async::Notification.new
-
+          finished    = Async::Notification.new
+          endpoint    = async_endpoint
+          stdin       = async_stdin
           buffer_size = options[:buffer_size]
 
           Async do |task|
@@ -351,12 +350,11 @@ module Ronin
         # The server event loop.
         #
         def server_loop
-          endpoint = async_endpoint
-          stdin = async_stdin
-          finished = Async::Notification.new
-
+          finished    = Async::Notification.new
+          endpoint    = async_endpoint
+          stdin       = async_stdin
+          clients     = []
           buffer_size = options[:buffer_size]
-          clients = []
 
           Async do |task|
             endpoint.accept do |socket|
