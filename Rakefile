@@ -1,5 +1,3 @@
-require 'rubygems'
-
 begin
   require 'bundler'
 rescue LoadError => e
