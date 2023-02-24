@@ -32,7 +32,8 @@ Rotates each character of data with an alphabet.
   Alphabet characters to rotate characters within.
 
 `-n`, `--modulu` *NUM*
-  Number of characters to rotate forwards or backwards.
+  Number of characters to rotate forwards or backwards. Defaults to 13 if not
+  given.
 
 `-h`, `--help`
   Print help information.
