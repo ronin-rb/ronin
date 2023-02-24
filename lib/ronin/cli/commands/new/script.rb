@@ -23,18 +23,18 @@ require 'ronin/root'
 module Ronin
   class CLI
     module Commands
-      #
-      # Creates a new standalone Ruby script.
-      #
-      # ## Usage
-      #
-      #     ronin new script PATH
-      #
-      # ## Arguments
-      #
-      #     PATH                             The script file to create
-      #
       class New < Command
+        #
+        # Creates a new standalone Ruby script.
+        #
+        # ## Usage
+        #
+        #     ronin new script PATH
+        #
+        # ## Arguments
+        #
+        #     PATH                             The script file to create
+        #
         class Script < Command
 
           include Core::CLI::Generator

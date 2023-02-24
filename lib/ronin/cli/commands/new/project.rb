@@ -23,26 +23,26 @@ require 'ronin/root'
 module Ronin
   class CLI
     module Commands
-      #
-      # Creates new Ruby project directory.
-      #
-      # ## Usage
-      #
-      #     ronin new project [options] DIR
-      #
-      # ## Options
-      #
-      #         --git                        Initializes a git repo
-      #         --ruby-version VERSION       The desired ruby version for the project
-      #         --rakefile                   Creates a Rakefile
-      #     -D, --dockerfile                 Adds a Dockerfile to the new project
-      #     -h, --help                       Print help information
-      #
-      # ## Arguments
-      #
-      #     PATH                             The directory to create
-      #
       class New < Command
+        #
+        # Creates new Ruby project directory.
+        #
+        # ## Usage
+        #
+        #     ronin new project [options] DIR
+        #
+        # ## Options
+        #
+        #         --git                        Initializes a git repo
+        #         --ruby-version VERSION       The desired ruby version for the project
+        #         --rakefile                   Creates a Rakefile
+        #     -D, --dockerfile                 Adds a Dockerfile to the new project
+        #     -h, --help                       Print help information
+        #
+        # ## Arguments
+        #
+        #     PATH                             The directory to create
+        #
         class Project < Command
 
           include Core::CLI::Generator
