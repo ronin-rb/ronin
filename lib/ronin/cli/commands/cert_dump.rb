@@ -105,7 +105,7 @@ module Ronin
 
             print_cert(ssl_cert(host,port))
           when /\Ahttps:/
-            uri = URI.parse(value)
+            uri  = URI.parse(value)
             host = uri.host
             port = uri.port
 
