@@ -445,34 +445,65 @@ module Ronin
             kwargs[key] = options[key] if options.has_key?(key)
           end
 
-          if (index_style   = options[:style_index]) ||
-             (numeric_style = options[:style_numeric]) ||
-             (chars_style   = options[:style_chars])
-            kwargs[:style] = {}
-            kwargs[:style][:index]   = index_style   if index_style
-            kwargs[:style][:numeric] = numeric_style if numeric_style
-            kwargs[:style][:chars]   = chars_style   if chars_style
+          if options.has_key?(:style_index)   ||
+             options.has_key?(:style_numeric) ||
+             options.has_key?(:style_chars)
+            kwargs[:style] = hexdump_style_kwargs
           end
 
           if !@highlight_index.empty?   ||
              !@highlight_numeric.empty? ||
              !@highlight_chars.empty?
-            kwargs[:highlights] = {}
-
-            unless @highlight_index.empty?
-              kwargs[:highlights][:index] = @highlight_index
-            end
-
-            unless @highlight_numeric.empty?
-              kwargs[:highlights][:numeric] = @highlight_numeric
-            end
-
-            unless @highlight_chars.empty?
-              kwargs[:highlights][:chars] = @highlight_chars
-            end
+            kwargs[:highlights] = hexdump_highlights_kwargs
           end
 
           return kwargs
+        end
+
+        #
+        # The hexdump `style:` keyword arguments.
+        #
+        # @return [Hash{Symbol => Object}]
+        #
+        def hexdump_style_kwargs
+          style = {}
+
+          if (index_style = options[:style_index])
+            style[:index] = index_style
+          end
+
+          if (numeric_style = options[:style_numeric])
+            style[:numeric] = numeric_style
+          end
+
+          if (chars_style = options[:style_chars])
+            style[:chars] = chars_style
+          end
+
+          return style
+        end
+
+        #
+        # The hexdump `highlights:` keyword arguments.
+        #
+        # @return [Hash{Symbol => Object}]
+        #
+        def hexdump_highlights_kwargs
+          highlights = {}
+
+          unless @highlight_index.empty?
+            highlights[:index] = @highlight_index
+          end
+
+          unless @highlight_numeric.empty?
+            highlights[:numeric] = @highlight_numeric
+          end
+
+          unless @highlight_chars.empty?
+            highlights[:chars] = @highlight_chars
+          end
+
+          return highlights
         end
 
       end
