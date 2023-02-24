@@ -184,6 +184,7 @@ module Ronin
         #
         def match_line(line,**kwargs)
           index = 0
+
           printed_prefix = false
           only_matching  = options[:only_matching]
 
