@@ -20,6 +20,9 @@ require 'ronin/cli/command'
 
 module Ronin
   class CLI
+    #
+    # Base class for all commands which process files.
+    #
     class FileProcessorCommand < Command
 
       argument :file, required: false,
