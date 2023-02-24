@@ -24,6 +24,9 @@ require 'ronin/support/crypto/cipher'
 module Ronin
   class CLI
     module Commands
+      #
+      # Base class for all commands which use ciphers.
+      #
       class CipherCommand < FileProcessorCommand
 
         include KeyOptions
