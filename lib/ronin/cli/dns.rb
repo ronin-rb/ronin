@@ -20,6 +20,9 @@ require 'ronin/support/network/dns'
 
 module Ronin
   class CLI
+    #
+    # Mixin for adding DNS support to commands.
+    #
     module DNS
       #
       # Adds the `-N,--nameserver HOST|IP` option to the command which is
