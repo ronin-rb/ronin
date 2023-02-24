@@ -37,7 +37,7 @@ module Ronin
       #     -M, --multiline                  Process each line separately
       #         --keep-newlines              Preserves newlines at the end of each line
       #     -A, --alphabet ABC...            Alphabet characters
-      #     -n, --modulu NUM                 Number of characters to rotate (Default: 13)
+      #     -n, --modulo NUM                 Number of characters to rotate (Default: 13)
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -55,7 +55,7 @@ module Ronin
                             @alphabets << str.chars
                           end
 
-        option :modulu, short: '-n',
+        option :modulo, short: '-n',
                         value: {
                           type:    Integer,
                           usage:   'NUM',

@@ -31,7 +31,7 @@ Rotates each character of data with an alphabet.
 `-A`, `--alphabet` `ABC...`
   Alphabet characters to rotate characters within.
 
-`-n`, `--modulu` *NUM*
+`-n`, `--modulo` *NUM*
   Number of characters to rotate forwards or backwards. Defaults to 13 if not
   given.
 
