@@ -62,7 +62,7 @@ module Ronin
                           default: 13
                         },
                         desc: 'Number of characters to rotate' do |num|
-                          @n = num
+                          @modulo = num
                         end
 
         description "Rotates each character of data within an alphabet"
@@ -72,7 +72,7 @@ module Ronin
         # The number of characters to rotate.
         #
         # @return [Integer]
-        attr_reader :n
+        attr_reader :modulo
 
         # The alphabets to rotate within.
         #
@@ -88,7 +88,7 @@ module Ronin
         def initialize(**kwargs)
           super(**kwargs)
 
-          @n = 13
+          @modulo    = 13
           @alphabets = []
         end
 
@@ -103,9 +103,9 @@ module Ronin
         #
         def process_string(string)
           unless @alphabets.empty?
-            Support::Crypto.rot(string,@n, alphabets: @alphabets)
+            Support::Crypto.rot(string,@modulo, alphabets: @alphabets)
           else
-            Support::Crypto.rot(string,@n)
+            Support::Crypto.rot(string,@modulo)
           end
         end
 
