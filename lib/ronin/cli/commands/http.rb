@@ -180,11 +180,9 @@ module Ronin
 
         option :user_agent, short: '-u',
                             value: {
-                              type: Hash[
-                                Support::Network::HTTP::UserAgents::ALIASES.keys.map { |key|
-                                  [key.to_s.tr('_','-'), key]
-                                }
-                              ]
+                              type: Support::Network::HTTP::UserAgents::ALIASES.transform_keys { |key|
+                                key.to_s.tr('_','-')
+                              }
                             },
                             desc: 'The User-Agent to use' do |name|
                               @user_agent = name

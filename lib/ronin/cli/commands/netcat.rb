@@ -137,11 +137,9 @@ module Ronin
                          desc: 'Specifies the SSL key file'
 
         option :ssl_verify, value: {
-                              type: Hash[
-                                Support::Network::SSL::VERIFY.keys.map { |key|
-                                  [key.to_s.tr('_','-'), key]
-                                }
-                              ]
+                              type: Support::Network::SSL::VERIFY.transform_keys { |key|
+                                key.to_s.tr('_','-')
+                              }
                             },
                             desc: 'SSL verification mode'
 
