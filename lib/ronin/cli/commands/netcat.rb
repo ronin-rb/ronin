@@ -323,6 +323,7 @@ module Ronin
                   print_data(data)
                 end
               rescue EOFError
+                # ignore EOFError
               ensure
                 finished.signal
               end
@@ -332,6 +333,7 @@ module Ronin
                   socket.write(data)
                 end
               rescue EOFError
+                # ignore EOFError
               ensure
                 finished.signal
               end
@@ -370,6 +372,7 @@ module Ronin
                   print_data(data)
                 end
               rescue EOFError
+                # ignore EOFError
               end
 
               clients.delete(socket)
@@ -384,6 +387,7 @@ module Ronin
                 clients.each { |client| client.write(data) }
               end
             rescue EOFError
+              # ignore EOFError
             ensure
               finished.signal
             end
