@@ -185,6 +185,7 @@ module Ronin
         def match_line(line,**kwargs)
           index = 0
           printed_prefix = false
+          only_matching  = options[:only_matching]
 
           while (match = line.match(@pattern,index))
             unless printed_prefix
@@ -195,13 +196,13 @@ module Ronin
             match_start, match_stop = match.offset(0)
 
             # print the text before the match, unless --only-matching is enabled
-            print(line[index...match_start]) unless options[:only_matching]
+            print(line[index...match_start]) unless only_matching
             print_match(match)
 
             index = match_stop
           end
 
-          unless options[:only_matching]
+          unless only_matching
             # print the rest of the line, if we've had at least one match
             puts(line[index..]) if index > 0
           end
