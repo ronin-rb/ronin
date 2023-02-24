@@ -135,12 +135,12 @@ module Ronin
                            desc: 'The query string for the URI'
 
         option :http, desc: 'Converts the IP address into a http:// URI' do
-          options[:uri] = true
+          options[:uri]        = true
           options[:uri_scheme] = 'http'
         end
 
         option :https, desc: 'Converts the IP address into a https:// URI' do
-          options[:uri] = true
+          options[:uri]        = true
           options[:uri_scheme] = 'https'
         end
 
