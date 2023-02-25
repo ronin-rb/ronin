@@ -17,6 +17,7 @@
 #
 
 require 'ronin/cli/value_processor_command'
+require 'ronin/cli/host_and_port'
 
 require 'ronin/support/network/tcp'
 
@@ -42,6 +43,8 @@ module Ronin
       #
       class BannerGrab < ValueProcessorCommand
 
+        include HostAndPort
+
         usage '[options] {HOST:PORT} ...'
 
         option :with_host_port, desc: 'Print the service with the banner'
@@ -62,8 +65,7 @@ module Ronin
         #   The `HOST:PORT` service pair.
         #
         def process_value(service)
-          host, port = service.split(':',2)
-          port = port.to_i
+          host, port = host_and_port(service)
 
           begin
             banner = Support::Network::TCP.banner(host,port)

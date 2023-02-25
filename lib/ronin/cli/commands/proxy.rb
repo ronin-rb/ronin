@@ -17,6 +17,7 @@
 #
 
 require 'ronin/cli/command'
+require 'ronin/cli/host_and_port'
 require 'ronin/core/cli/logging'
 
 require 'ronin/support/network/tcp/proxy'
@@ -76,6 +77,7 @@ module Ronin
       #
       class Proxy < Command
 
+        include HostAndPort
         include Core::CLI::Logging
 
         usage '[PROXY_HOST:]PROXY_PORT UPSTREAM_HOST:UPSTREAM_PORT'
@@ -294,14 +296,12 @@ module Ronin
           local, upstream = *args
 
           if local.include?(':')
-            proxy_host, proxy_port = local.split(':',2)
-            proxy_port = proxy_port.to_i
+            proxy_host, proxy_port = host_and_port(local)
           else
             proxy_port = local.to_i
           end
 
-          upstream_host, upstream_port = upstream.split(':',2)
-          upstream_port = upstream_port.to_i
+          upstream_host, upstream_port = host_and_port(upstream)
 
           if options[:hexdump]
             @hexdumper = Hexdump::Hexdump.new

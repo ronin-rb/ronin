@@ -17,6 +17,7 @@
 #
 
 require 'ronin/cli/value_processor_command'
+require 'ronin/cli/host_and_port'
 require 'ronin/support/crypto/cert'
 require 'ronin/support/network/ssl/mixin'
 
@@ -62,6 +63,7 @@ module Ronin
         include CommandKit::Printing::Indent
         include CommandKit::Printing::Fields
         include CommandKit::Printing::Lists
+        include HostAndPort
 
         usage '[options] {HOST:PORT | URL | FILE} ...'
 
@@ -100,14 +102,11 @@ module Ronin
         def process_value(value)
           case value
           when /\A[^:]+:\d+\z/
-            host, port = value.split(':',2)
-            port = port.to_i
+            host, port = host_and_port(value)
 
             print_cert(ssl_cert(host,port))
           when /\Ahttps:/
-            uri  = URI.parse(value)
-            host = uri.host
-            port = uri.port
+            host, port = host_and_port_from_url(value)
 
             print_cert(ssl_cert(host,port))
           else

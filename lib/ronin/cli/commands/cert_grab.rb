@@ -17,6 +17,7 @@
 #
 
 require 'ronin/cli/value_processor_command'
+require 'ronin/cli/host_and_port'
 require 'ronin/support/network/ssl/mixin'
 
 require 'uri'
@@ -49,6 +50,7 @@ module Ronin
       #
       class CertGrab < ValueProcessorCommand
 
+        include HostAndPort
         include Support::Network::SSL::Mixin
 
         usage '[options] {HOST:PORT | URL} ...'
@@ -77,14 +79,11 @@ module Ronin
         def process_value(value)
           case value
           when /\A[^:]+:\d+\z/
-            host, port = value.split(':',2)
-            port = port.to_i
+            host, port = host_and_port(value)
 
             grab_cert(host,port)
           when /\Ahttps:/
-            uri  = URI.parse(value)
-            host = uri.host
-            port = uri.port
+            host, port = host_and_port_from_url(value)
 
             grab_cert(host,port)
           else
