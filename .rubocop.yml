@@ -9,10 +9,13 @@ inherit_gem:
 #
 # ronin specific exceptions
 #
+
+# this rule does not take into account the spacing of commented out lines
 Layout/ExtraSpacing:
   Exclude:
     - 'Gemfile'
 
+# no need to add `frozen_string_literal: true` to new scripts/projects
 Style/FrozenStringLiteralComment:
   Exclude:
     - 'data/new/**/*'
