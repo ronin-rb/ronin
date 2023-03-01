@@ -12,3 +12,7 @@ inherit_gem:
 Layout/ExtraSpacing:
   Exclude:
     - 'Gemfile'
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'data/new/**/*'
