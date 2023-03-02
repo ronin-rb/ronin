@@ -1,3 +1,19 @@
+### 2.0.1 / 2023-03-01
+
+* Require [ronin-support] ~> 1.0, >= 1.0.1.
+* Require [ronin-core] ~> 0.1, >= 0.1.1.
+* Require [ronin-web] ~> 1.0, >= 1.0.1.
+* Require [ronin-payloads] ~> 0.1, >= 0.1.1.
+* Require [ronin-vulns] ~> 0.1, >= 0.1.2.
+* Require [ronin-exploits] ~> 1.0, >= 1.0.1.
+* Added {Ronin::CLI::HostAndPort} for common `host:port` parsing logic.
+* Minor bug fixes.
+* Improved documentation.
+
+#### CLI
+
+* Ensure that the `ronin http` command works with IDN host-names.
+
 ### 2.0.0 / 2023-02-01
 
 * Require `ruby` >= 3.0.0.
@@ -756,7 +772,7 @@
 * Require Spidr >= 0.1.3.
 * Moved Ronin::Parameters into the parameters 0.1.0 RubyGem.
 * Added a Ronin::Hexdump module:
-  * Provides Ronin::Hexdump.dump and Kernel#hexdump, which can hexdump any 
+  * Provides Ronin::Hexdump.dump and Kernel#hexdump, which can hexdump any
     object that supports the #each_byte method.
 * Refactored Ronin::Chars::CharSet:
   * Now inherites the SortedSet class.
