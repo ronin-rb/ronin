@@ -815,7 +815,7 @@ If you prefer using [Docker], there are also [Docker images] available:
 
 ```shell
 docker pull roninrb/ronin
-docker run -it ronin
+docker run -it roninrb/ronin
 ```
 
 Additionally, if you want to mount your home directory into the docker image:
