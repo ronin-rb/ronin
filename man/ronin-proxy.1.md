@@ -6,7 +6,7 @@
 
 ## DESCRIPTION
 
-Starts the Ronin TCP/UDP/SSL/TLS Proxy.
+Starts a TCP/UDP/SSL/TLS proxy server.
 
 ## ARGUMENTS
 

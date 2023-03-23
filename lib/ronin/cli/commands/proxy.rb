@@ -31,7 +31,7 @@ module Ronin
   class CLI
     module Commands
       #
-      # Starts a TCP/UDP intercept proxy.
+      # Starts a TCP/UDP/SSL/TLS intercept proxy server.
       #
       # ## Usage
       #
@@ -39,41 +39,37 @@ module Ronin
       #
       # ## Options
       #
-      #     -v, --[no-]verbose               Enable verbose output.
-      #     -q, --[no-]quiet                 Disable verbose output.
-      #         --[no-]silent                Silence all output.
-      #     -t, --[no-]tcp                   TCP Proxy.
-      #                                      Default: true
-      #     -S, --[no-]ssl                   SSL Proxy.
-      #     -T, --[no-]tls                   TLS Proxy.
-      #     -u, --[no-]udp                   UDP Proxy.
-      #     -x, --[no-]hexdump               Enable hexdump output.
-      #     -r, --rewrite [/REGEXP/:STRING] Rewrite rules.
-      #         --rewrite-client [/REGEXP/:STRING]
-      #                                      Client rewrite rules.
-      #         --rewrite-server [/REGEXP/:STRING]
-      #                                      Server rewrite rules.
-      #     -i, --ignore [/REGEXP/ [...]]    Ignore rules.
-      #         --ignore-client [/REGEXP/ [...]]
-      #                                      Client ignore rules.
-      #         --ignore-server [/REGEXP/ [...]]
-      #                                      Server ignore rules.
-      #     -C, --close [/REGEXP/ [...]]     Close rules.
-      #         --close-client [/REGEXP/ [...]]
-      #                                      Client close rules.
-      #         --close-server [/REGEXP/ [...]]
-      #                                      Server close rules.
-      #     -R, --reset [/REGEXP/ [...]]     Reset rules.
-      #         --reset-client [/REGEXP/ [...]]
-      #                                      Client reset rules.
-      #         --reset-server [/REGEXP/ [...]]
-      #                                      Server reset rules.
+      #     -t, --tcp                        TCP Proxy
+      #     -S, --ssl                        SSL Proxy
+      #     -T, --tls                        TLS Proxy
+      #     -u, --udp                        UDP Proxy
+      #     -x, --[no-]hexdump               Enable hexdump output
+      #     -r, --rewrite /REGEXP/:STRING    Rewrite rules
+      #         --rewrite-client /REGEXP/:STRING
+      #                                      Client rewrite rules
+      #         --rewrite-server /REGEXP/:STRING
+      #                                      Server rewrite rules
+      #     -i, --ignore /REGEXP/            Ignore rules
+      #         --ignore-client /REGEXP/     Client ignore rules
+      #         --ignore-server /REGEXP/     Server ignore rules
+      #     -C, --close /REGEXP/             Close rules
+      #         --close-client /REGEXP/      Client close rules
+      #         --close-server /REGEXP/      Server close rules
+      #     -R, --reset /REGEXP/             Reset rules
+      #         --reset-client /REGEXP/      Client reset rules
+      #         --reset-server /REGEXP/      Server reset rules
+      #     -h, --help                       Print help information
       #
       # ## Arguments
       #
       #     [PROXY_HOST:]PROXY_PORT          The local host and/or port to
       #                                      listen on.
       #     REMOTE_HOST:REMOTE_PORT          The remote server to proxy data to.
+      #
+      # ## Examples
+      #
+      #     ronin proxy 8080 google.com:80
+      #     ronin proxy --udp --hexdump 0.0.0.0:53 8.8.8.8:53
       #
       class Proxy < Command
 
@@ -185,7 +181,7 @@ module Ronin
         argument :upstream, usage: 'UPSTREAM_HOST:UPSTREAM_PORT',
                             desc:  'The upstream server to proxy data to'
 
-        description 'Starts a TCP/UDP/SSL/TLS intercept proxy'
+        description 'Starts a TCP/UDP/SSL/TLS intercept proxy server'
 
         examples [
           "8080 google.com:80",
