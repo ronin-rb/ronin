@@ -29,9 +29,9 @@ end
 #                                        branch: 'main'
 # gem 'ronin-repos',           '~> 0.1', github: 'ronin-rb/ronin-repos',
 #                                        branch: 'main'
-# gem 'ronin-db',              '~> 0.1', github: 'ronin-rb/ronin-db',
-#                                        branch: 'main'
-# gem 'ronin-db-activerecord', '~> 0.1', github: 'ronin-rb/ronin-db-activerecord',
+gem 'ronin-db',              '~> 0.2', github: "ronin-rb/ronin-db",
+                                       branch: '0.2.0'
+# gem 'ronin-db-activerecord', '~> 0.1', github: "ronin-rb/ronin-db-activerecord",
 #                                        branch: 'main'
 # gem 'ronin-fuzzer',          '~> 0.1', github: 'ronin-rb/ronin-fuzzer',
 #                                        branch: 'main'
@@ -57,6 +57,8 @@ end
 #                                        branch: 'main'
 
 gem 'ronin-dns-proxy', '~> 0.1', github: 'ronin-rb/ronin-dns-proxy',
+                                 branch: 'main'
+gem 'ronin-nmap',      '~> 0.1', github: 'ronin-rb/ronin-nmap',
                                  branch: 'main'
 
 group :development do
