@@ -101,6 +101,7 @@ dependencies:
   ronin-core: ~> 0.1, >= 0.1.1
   ronin-repos: ~> 0.1
   ronin-db: ~> 0.1
+  ronin-nmap: ~> 0.1
   ronin-fuzzer: ~> 0.1
   ronin-web: ~> 1.0, >= 1.0.1
   ronin-code-asm: ~> 1.0

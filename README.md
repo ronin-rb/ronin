@@ -788,6 +788,7 @@ $ ronin url --file urls.txt --status
 * [ronin-core] ~> 0.1
 * [ronin-repos] ~> 0.1
 * [ronin-db] ~> 0.1
+* [ronin-nmap] ~> 0.1
 * [ronin-fuzzer] ~> 0.1
 * [ronin-web] ~> 1.0
 * [ronin-code-asm] ~> 1.0
@@ -877,6 +878,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-core]: https://github.com/ronin-rb/ronin-core#readme
 [ronin-db]: https://github.com/ronin-rb/ronin-db#readme
 [ronin-db-synopsis]: https://github.com/ronin-rb/ronin-db#synopsis
+[ronin-nmap]: https://github.com/ronin-rb/ronin-nmap#readme
 [ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
 [ronin-web-server]: https://github.com/ronin-rb/ronin-web-server#readme
