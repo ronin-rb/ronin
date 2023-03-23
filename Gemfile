@@ -56,6 +56,9 @@ end
 # gem 'ronin-web',             '~> 1.0', github: "ronin-rb/ronin-web",
 #                                        branch: 'main'
 
+gem 'ronin-dns-proxy', '~> 0.1', github: 'ronin-rb/ronin-dns-proxy',
+                                 branch: 'main'
+
 group :development do
   gem 'rake'
   gem 'rubygems-tasks',  '~> 0.1'
