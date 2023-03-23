@@ -802,6 +802,7 @@ $ ronin url --file urls.txt --status
 * [async-io] ~> 1.0
 * [wordlist] ~> 1.0, >= 1.0.3
 * [ronin-support] ~> 1.0, >= 1.0.3
+* [ronin-dns-proxy] ~> 0.1
 * [ronin-core] ~> 0.1, >= 0.1.2
 * [ronin-repos] ~> 0.1
 * [ronin-db] ~> 0.1
@@ -889,6 +890,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [wordlist]: https://github.com/postmodern/wordlist.rb#readme
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
+[ronin-dns-proxy]: https://github.com/ronin-rb/ronin-dns-proxy#readme
 [ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
 [ronin-repos-synopsis]: https://github.com/ronin-rb/ronin-repos#synopsis
 [ronin-core]: https://github.com/ronin-rb/ronin-core#readme
