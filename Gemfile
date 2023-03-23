@@ -60,6 +60,8 @@ gem 'ronin-dns-proxy', '~> 0.1', github: 'ronin-rb/ronin-dns-proxy',
                                  branch: 'main'
 gem 'ronin-nmap',      '~> 0.1', github: 'ronin-rb/ronin-nmap',
                                  branch: 'main'
+gem 'ronin-masscan',   '~> 0.1', github: 'ronin-rb/ronin-masscan',
+                                 branch: 'main'
 
 group :development do
   gem 'rake'
