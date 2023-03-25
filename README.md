@@ -788,6 +788,7 @@ $ ronin url --file urls.txt --status
 * [ronin-core] ~> 0.1
 * [ronin-repos] ~> 0.1
 * [ronin-db] ~> 0.1
+* [ronin-exfil] ~> 0.1
 * [ronin-nmap] ~> 0.1
 * [ronin-masscan] ~> 0.1
 * [ronin-fuzzer] ~> 0.1
