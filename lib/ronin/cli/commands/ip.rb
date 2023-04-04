@@ -197,7 +197,9 @@ module Ronin
 
             puts "#{ip}/#{ip.prefix}"
           elsif options[:host]
-            puts ip.host
+            if (host = ip.host)
+              puts host
+            end
           elsif options[:port]
             puts "#{format_ip(ip)}:#{options[:port]}"
           elsif options[:uri]
