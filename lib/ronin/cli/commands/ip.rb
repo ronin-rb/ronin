@@ -241,15 +241,13 @@ module Ronin
           if options[:hex]
             "0x%x" % ip.to_i 
           elsif options[:hex_octet]
-            octets = ip.to_s.split(".").map!(&:to_i)
-            octets.map { |octet| octet.to_s(16) }.join(".")
+            ip.to_s.split(".").map { |octet| octet.to_i.to_s(16) }.join(".")
           elsif options[:decimal]
             "%u" % ip.to_i
           elsif options[:octal]
-            to_octal(ip.to_i)
+            "0%o" % ip.to_i
           elsif options[:octal_octet]
-            octets = ip.to_s.split(".").map!(&:to_i)
-            octets.map { |octet| to_octal(octet) }.join(".")
+            ip.to_s.split(".").map { |octet| "0%o" % octet.to_i }.join(".")
           elsif options[:binary]
             "%b" % ip.to_i
           elsif options[:ipv6_compat]
@@ -257,12 +255,6 @@ module Ronin
           else
             ip.to_s
           end
-        end
-
-        private
-
-        def to_octal(n)
-          "0%o" % n
         end
 
       end
