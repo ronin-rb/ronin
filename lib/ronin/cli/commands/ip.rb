@@ -94,13 +94,13 @@ module Ronin
                         desc:  'Converts the IP address to binary format'
 
         option :hex_octet,
-                       desc: 'Converts the IP address to hexadecimal format by octet'
-        
+               desc: 'Converts the IP address to hexadecimal format by octet'
+
         option :octal_octet,
-                       desc: 'Converts the IP address to octal format by octet'
-        
+               desc: 'Converts the IP address to octal format by octet'
+
         option :ipv6_compat,
-                       desc: 'Converts the IP address to an IPv6 compatible address'
+               desc: 'Converts the IP address to an IPv6 compatible address'
 
         option :cidr, short: '-C',
                       value: {
@@ -239,7 +239,7 @@ module Ronin
         #
         def format_ip(ip)
           if options[:hex]
-            "0x%x" % ip.to_i 
+            "0x%x" % ip.to_i
           elsif options[:hex_octet]
             ip.to_s.split(".").map { |octet| octet.to_i.to_s(16) }.join(".")
           elsif options[:decimal]
