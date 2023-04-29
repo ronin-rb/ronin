@@ -19,6 +19,7 @@
 require 'ronin/cli/value_processor_command'
 require 'ronin/support/network/ip'
 require 'uri'
+require 'ipaddr'
 
 module Ronin
   class CLI
@@ -40,6 +41,9 @@ module Ronin
       #     -D, --decimal                    Converts the IP address to decimal format
       #     -O, --octal                      Converts the IP address to octal format
       #     -B, --binary                     Converts the IP address to binary format
+      #         --hex-octet                  Converts the IP address to hexadecimal format by octet
+      #         --octal-octet                Converts the IP address to octal format by octet
+      #         --ipv6-compat                Converts the IP address to an IPv6 compatible address
       #     -C, --cidr NETMASK               Converts the IP address into a CIDR range
       #     -H, --host                       Converts the IP address to a host name
       #     -p, --port PORT                  Appends the port number to each IP
@@ -88,6 +92,15 @@ module Ronin
 
         option :binary, short: '-B',
                         desc:  'Converts the IP address to binary format'
+
+        option :hex_octet,
+               desc: 'Converts the IP address to hexadecimal format by octet'
+
+        option :octal_octet,
+               desc: 'Converts the IP address to octal format by octet'
+
+        option :ipv6_compat,
+               desc: 'Converts the IP address to an IPv6 compatible address'
 
         option :cidr, short: '-C',
                       value: {
@@ -225,12 +238,18 @@ module Ronin
         def format_ip(ip)
           if options[:hex]
             "0x%x" % ip.to_i
+          elsif options[:hex_octet]
+            ip.to_s.split(".").map { |octet| octet.to_i.to_s(16) }.join(".")
           elsif options[:decimal]
             "%u" % ip.to_i
           elsif options[:octal]
             "0%o" % ip.to_i
+          elsif options[:octal_octet]
+            ip.to_s.split(".").map { |octet| "0%o" % octet.to_i }.join(".")
           elsif options[:binary]
             "%b" % ip.to_i
+          elsif options[:ipv6_compat]
+            ip.ipv4_mapped.to_s
           else
             ip.to_s
           end
