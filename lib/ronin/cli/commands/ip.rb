@@ -251,7 +251,7 @@ module Ronin
           elsif options[:binary]
             "%b" % ip.to_i
           elsif options[:ipv6_compat]
-            IPAddr.new(ip.to_s).ipv4_mapped.to_s
+            ip.ipv4_mapped.to_s
           else
             ip.to_s
           end
