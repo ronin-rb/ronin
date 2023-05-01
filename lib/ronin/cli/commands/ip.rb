@@ -43,7 +43,8 @@ module Ronin
       #     -B, --binary                     Converts the IP address to binary format
       #         --hex-octet                  Converts the IP address to hexadecimal format by octet
       #         --octal-octet                Converts the IP address to octal format by octet
-      #         --ipv6-compat                Converts the IP address to an IPv6 compatible address
+      #         --ipv6-compat                Converts the IPv4 address to an IPv6 compatible address
+      #         --ipv6-expanded              Expands a shortened or compressed IPv6 address
       #     -C, --cidr NETMASK               Converts the IP address into a CIDR range
       #     -H, --host                       Converts the IP address to a host name
       #     -p, --port PORT                  Appends the port number to each IP
@@ -100,7 +101,10 @@ module Ronin
                desc: 'Converts the IP address to octal format by octet'
 
         option :ipv6_compat,
-               desc: 'Converts the IP address to an IPv6 compatible address'
+               desc: 'Converts the IPv4 address to an IPv6 compatible address'
+
+        option :ipv6_expanded,
+               desc: 'Expands a shortened or compressed IPv6 address'
 
         option :cidr, short: '-C',
                       value: {
@@ -236,10 +240,20 @@ module Ronin
         #   The formatted IP address.
         #
         def format_ip(ip)
+          if ip.ipv4?
+            format_ipv4(ip)
+          else
+            format_ipv6(ip)
+          end
+        end
+
+        private
+
+        def format_ipv4(ip)
           if options[:hex]
             "0x%x" % ip.to_i
           elsif options[:hex_octet]
-            ip.to_s.split(".").map { |octet| octet.to_i.to_s(16) }.join(".")
+            ipv4_hex_octet(ip)
           elsif options[:decimal]
             "%u" % ip.to_i
           elsif options[:octal]
@@ -250,11 +264,49 @@ module Ronin
             "%b" % ip.to_i
           elsif options[:ipv6_compat]
             ip.ipv4_mapped.to_s
+          elsif options[:ipv6_expanded]
+            print_error "called with --ipv6-expanded for #{ip}"
+            exit(1)
           else
             ip.to_s
           end
         end
 
+        def format_ipv6(ip)
+          if options[:decimal]
+            "%u" % ip.to_i
+          elsif options[:hex]
+            "0x%x" % ip.to_i
+          elsif options[:octal]
+            "0%o" % ip.to_i
+          elsif options[:octal_octet]
+            print_error "called with --octal-octet for #{ip}"
+            exit(1)
+          elsif options[:hex_octet]
+            # if ip.to_s.match?(/^\:\:/)
+            if ip.ipv4_mapped?
+              v6_compat_split    = ip.to_s.split(/(?<!\:)\:(?!\:)/) # split at the first single ":"
+              v6_compat_split[1] = ipv4_hex_octet(v6_compat_split[1])
+              v6_compat_split.join(":")
+            else
+              print_error "called with --hex-octet for #{ip}"
+              exit(1)
+            end
+          elsif options[:binary]
+            "%b" % ip.to_i
+          elsif options[:ipv6_expanded]
+            ip.canonical
+          elsif options[:ipv6_compat]
+            print_error "called with --ipv6-compat for #{ip}"
+            exit(1)
+          else
+            ip.to_s
+          end
+        end
+
+        def ipv4_hex_octet(ip)
+          ip.to_s.split(".").map { |octet| octet.to_i.to_s(16) }.join(".")
+        end
       end
     end
   end

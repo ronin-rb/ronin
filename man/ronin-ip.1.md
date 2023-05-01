@@ -39,6 +39,18 @@ Queries or processes IP addresses.
 `-B`, `--binary`
   Converts the IP address to binary format.
 
+`--hex-octet`
+  Converts the IP address to hexadecimal format by octet
+
+`--octal-octet`
+  Converts the IP address to octal format by octet
+
+`--ipv6-compat`
+  Converts the IPv4 address to an IPv6 compatible address
+
+`--ipv6-expanded`
+  Expands a shortened or compressed IPv6 address
+
 `-C`, `--cidr` *NETMASK*
   Converts the IP address into a CIDR range.
 
