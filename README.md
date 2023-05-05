@@ -783,7 +783,7 @@ $ ronin url --file urls.txt --status
 * [rouge] ~> 3.0
 * [async-io] ~> 1.0
 * [wordlist] ~> 1.0
-* [ronin-support] ~> 1.0
+* [ronin-support] ~> 1.1
 * [ronin-dns-proxy] ~> 0.1
 * [ronin-core] ~> 0.1
 * [ronin-repos] ~> 0.1
