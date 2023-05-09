@@ -100,11 +100,9 @@ module Ronin
         option :octal_octet,
                desc: 'Converts the IP address to octal format by octet'
 
-        option :ipv6_compat,
-               desc: 'Converts the IPv4 address to an IPv6 compatible address'
+        option :ipv6_compat, desc: 'Converts the IPv4 address to an IPv6 compatible address'
 
-        option :ipv6_expanded,
-               desc: 'Expands a shortened or compressed IPv6 address'
+        option :ipv6_expanded, desc: 'Expands a shortened or compressed IPv6 address'
 
         option :cidr, short: '-C',
                       value: {
@@ -249,6 +247,15 @@ module Ronin
 
         private
 
+        #
+        # Formats an IPv4 address.
+        #
+        # @param [Ronin::Support::Network::IP] ip
+        #   The IP address to format.
+        #
+        # @return [String]
+        #   The formatted IP address.
+        #
         def format_ipv4(ip)
           if options[:hex]
             "0x%x" % ip.to_i
@@ -272,6 +279,15 @@ module Ronin
           end
         end
 
+        #
+        # Formats an IPv6 address.
+        #
+        # @param [Ronin::Support::Network::IP] ip
+        #   The IP address to format.
+        #
+        # @return [String]
+        #   The formatted IP address.
+        #
         def format_ipv6(ip)
           if options[:decimal]
             "%u" % ip.to_i
@@ -283,7 +299,6 @@ module Ronin
             print_error "called with --octal-octet for #{ip}"
             exit(1)
           elsif options[:hex_octet]
-            # if ip.to_s.match?(/^\:\:/)
             if ip.ipv4_mapped?
               v6_compat_split    = ip.to_s.split(/(?<!\:)\:(?!\:)/) # split at the first single ":"
               v6_compat_split[1] = ipv4_hex_octet(v6_compat_split[1])
@@ -304,6 +319,15 @@ module Ronin
           end
         end
 
+        #
+        # Converts the octets of an IP address to hex
+        #
+        # @param [Ronin::Support::Network::IP] ip
+        #   The IP address to convert.
+        #
+        # @return [String]
+        #   The formatted IP address.
+        #
         def ipv4_hex_octet(ip)
           ip.to_s.split(".").map { |octet| octet.to_i.to_s(16) }.join(".")
         end
