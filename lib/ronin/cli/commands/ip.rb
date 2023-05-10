@@ -300,9 +300,7 @@ module Ronin
             exit(1)
           elsif options[:hex_octet]
             if ip.ipv4_mapped?
-              v6_compat_split    = ip.to_s.split(/(?<!\:)\:(?!\:)/) # split at the first single ":"
-              v6_compat_split[1] = ipv4_hex_octet(v6_compat_split[1])
-              v6_compat_split.join(":")
+              "::ffff:#{ipv4_hex_octet(ip.ipv4)}"
             else
               print_error "called with --hex-octet for #{ip}"
               exit(1)
