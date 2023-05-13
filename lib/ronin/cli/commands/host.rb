@@ -117,20 +117,20 @@ module Ronin
         option :has_records, short: '-H',
                              value: {
                                type: {
-                                 A: :a,
-                                 AAAA: :aaaa,
-                                 ANY: :any,
+                                 A:     :a,
+                                 AAAA:  :aaaa,
+                                 ANY:   :any,
                                  CNAME: :cname,
                                  HINFO: :hinfo,
-                                 LOC: :loc,
+                                 LOC:   :loc,
                                  MINFO: :minfo,
-                                 MX: :mx,
-                                 NS: :ns,
-                                 PTR: :ptr,
-                                 SOA: :soa,
-                                 SRV: :srv,
-                                 TXT: :txt,
-                                 WKS: :wks
+                                 MX:    :mx,
+                                 NS:    :ns,
+                                 PTR:   :ptr,
+                                 SOA:   :soa,
+                                 SRV:   :srv,
+                                 TXT:   :txt,
+                                 WKS:   :wks
                                }
                              },
                              desc: 'Filters hostnames that have a certain DNS record type'
