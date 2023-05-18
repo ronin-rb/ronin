@@ -87,4 +87,5 @@ group :development do
   gem 'stackprof',       require: false, platform: :mri
   gem 'rubocop',         require: false, platform: :mri
   gem 'rubocop-ronin',   require: false, platform: :mri
+  gem 'pry',             require: false
 end
