@@ -46,6 +46,9 @@ module Ronin
     command_aliases['dec'] = 'decode'
     command_aliases['nc']  = 'netcat'
 
+    command_aliases['tlds']            = 'tld-list'
+    command_aliases['public-suffixes'] = 'public-suffix-list'
+
     # Additional `ronin-` commands to checkout.
     ADDITIONAL_RONIN_COMMANDS = %w[
       ronin-repos
