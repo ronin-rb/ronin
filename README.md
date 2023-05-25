@@ -899,6 +899,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-core]: https://github.com/ronin-rb/ronin-core#readme
 [ronin-db]: https://github.com/ronin-rb/ronin-db#readme
 [ronin-db-synopsis]: https://github.com/ronin-rb/ronin-db#synopsis
+[ronin-listener]: https://github.com/ronin-rb/ronin-listener#readme
 [ronin-nmap]: https://github.com/ronin-rb/ronin-nmap#readme
 [ronin-masscan]: https://github.com/ronin-rb/ronin-masscan#readme
 [ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
