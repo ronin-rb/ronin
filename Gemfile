@@ -29,14 +29,14 @@ gem 'ronin-support',	       '~> 1.1', github: "ronin-rb/ronin-support",
 #                                        branch: 'main'
 # gem 'ronin-repos',           '~> 0.1', github: 'ronin-rb/ronin-repos',
 #                                        branch: 'main'
-gem 'ronin-db',              '~> 0.2', github: "ronin-rb/ronin-db",
-                                       branch: '0.2.0'
-gem 'ronin-exfil-dns',       '~> 0.1', github: "ronin-rb/ronin-exfil-dns",
-                                       branch: 'main'
-gem 'ronin-exfil-http',      '~> 0.1', github: "ronin-rb/ronin-exfil-http",
-                                       branch: 'main'
-gem 'ronin-exfil',           '~> 0.1', github: "ronin-rb/ronin-exfil",
-                                       branch: 'main'
+gem 'ronin-db',                 '~> 0.2', github: "ronin-rb/ronin-db",
+                                          branch: '0.2.0'
+gem 'ronin-listener-dns',       '~> 0.1', github: "ronin-rb/ronin-listener-dns",
+                                          branch: 'main'
+gem 'ronin-listener-http',      '~> 0.1', github: "ronin-rb/ronin-listener-http",
+                                          branch: 'main'
+gem 'ronin-listener',           '~> 0.1', github: "ronin-rb/ronin-listener",
+                                          branch: 'main'
 # gem 'ronin-db-activerecord', '~> 0.1', github: "ronin-rb/ronin-db-activerecord",
 #                                        branch: 'main'
 # gem 'ronin-fuzzer',          '~> 0.1', github: 'ronin-rb/ronin-fuzzer',
