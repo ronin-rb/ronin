@@ -23,37 +23,37 @@ group :database do
 end
 
 # Library dependencies
-# gem 'ronin-support',	       '~> 1.0', github: "ronin-rb/ronin-support",
+# gem 'ronin-support',	       '~> 1.0', github: 'ronin-rb/ronin-support',
 #                                        branch: 'main'
-# gem 'ronin-core',            '~> 0.1', github: "ronin-rb/ronin-core",
+# gem 'ronin-core',            '~> 0.1', github: 'ronin-rb/ronin-core',
 #                                        branch: 'main'
-# gem 'ronin-repos',           '~> 0.1', github: "ronin-rb/ronin-repos",
+# gem 'ronin-repos',           '~> 0.1', github: 'ronin-rb/ronin-repos',
 #                                        branch: 'main'
-# gem 'ronin-db',              '~> 0.1', github: "ronin-rb/ronin-db",
+# gem 'ronin-db',              '~> 0.1', github: 'ronin-rb/ronin-db',
 #                                        branch: 'main'
-# gem 'ronin-db-activerecord', '~> 0.1', github: "ronin-rb/ronin-db-activerecord",
+# gem 'ronin-db-activerecord', '~> 0.1', github: 'ronin-rb/ronin-db-activerecord',
 #                                        branch: 'main'
-# gem 'ronin-fuzzer',          '~> 0.1', github: "ronin-rb/ronin-fuzzer",
+# gem 'ronin-fuzzer',          '~> 0.1', github: 'ronin-rb/ronin-fuzzer',
 #                                        branch: 'main'
-# gem 'ronin-post_ex',         '~> 0.1', github: "ronin-rb/ronin-post_ex",
+# gem 'ronin-post_ex',         '~> 0.1', github: 'ronin-rb/ronin-post_ex',
 #                                        branch: 'main'
-# gem 'ronin-code-asm',        '~> 1.0', github: "ronin-rb/ronin-code-asm",
+# gem 'ronin-code-asm',        '~> 1.0', github: 'ronin-rb/ronin-code-asm',
 #                                        branch: 'main'
-# gem 'ronin-code-sql',        '~> 2.0', github: "ronin-rb/ronin-code-sql",
+# gem 'ronin-code-sql',        '~> 2.0', github: 'ronin-rb/ronin-code-sql',
 #                                        branch: 'main'
-# gem 'ronin-payloads',        '~> 0.1', github: "ronin-rb/ronin-payloads",
+# gem 'ronin-payloads',        '~> 0.1', github: 'ronin-rb/ronin-payloads',
 #                                        branch: 'main'
-# gem 'ronin-exploits',        '~> 1.0', github: "ronin-rb/ronin-exploits",
+# gem 'ronin-exploits',        '~> 1.0', github: 'ronin-rb/ronin-exploits',
 #                                        branch: 'main'
-# gem 'ronin-vulns',           '~> 0.1', github: "ronin-rb/ronin-vulns",
+# gem 'ronin-vulns',           '~> 0.1', github: 'ronin-rb/ronin-vulns',
 #                                        branch: 'main'
-# gem 'ronin-web-server',      '~> 0.1', github: "ronin-rb/ronin-web-server",
+# gem 'ronin-web-server',      '~> 0.1', github: 'ronin-rb/ronin-web-server',
 #                                        branch: 'main'
-# gem 'ronin-web-spider',      '~> 0.1', github: "ronin-rb/ronin-web-spider",
+# gem 'ronin-web-spider',      '~> 0.1', github: 'ronin-rb/ronin-web-spider',
 #                                        branch: 'main'
-# gem 'ronin-web-user_agents', '~> 0.1', github: "ronin-rb/ronin-web-user_agents",
+# gem 'ronin-web-user_agents', '~> 0.1', github: 'ronin-rb/ronin-web-user_agents',
 #                                        branch: 'main'
-# gem 'ronin-web',             '~> 1.0', github: "ronin-rb/ronin-web",
+# gem 'ronin-web',             '~> 1.0', github: 'ronin-rb/ronin-web',
 #                                        branch: 'main'
 
 group :development do
