@@ -386,13 +386,13 @@ Decrypt data:
 $ ronin decrypt --cipher aes-256-cbc --password "..." encrypted.bin
 ```
 
-Generates an HMAC for a file:
+Generates a HMAC for a file:
 
 ```shell
 $ ronin hmac --hash sha1 --password "too many secrets" data.txt
 ```
 
-Generates an HMAC for a string:
+Generates a HMAC for a string:
 
 ```shell
 $ ronin hmac --hash sha1 --password "too many secrets" --string "..."
