@@ -61,6 +61,10 @@ Encrypt a file using a raw key read from a file:
 
         $ ronin encrypt --cipher aes-256-cbc --key-file key.bin file.txt > encrypted.bin
 
+Specifying a custom IV (initialization vector):
+
+        $ ronin encrypt --cipher aes-256-cbc --key "..." --iv "..." file.txt > encrypted.bin
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
