@@ -657,6 +657,25 @@ example.com.bh
 ...
 ```
 
+Find all subdomains that have addresses:
+
+```shell
+$ ronin host --enum-subdomains subdomains.txt --has-addresses google.com
+www.google.com
+mail.google.com
+smtp.google.com
+ns1.google.com
+ns2.google.com
+m.google.com
+ns.google.com
+blog.google.com
+admin.google.com
+news.google.com
+vpn.google.com
+ns3.google.com
+...
+```
+
 Enumerate over every possible typosquat variation of a domain:
 
 ```shell
