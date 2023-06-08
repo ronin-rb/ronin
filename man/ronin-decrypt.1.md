@@ -47,6 +47,20 @@ Encrypts data.
 `-h`, `--help`
   Print help information.
 
+## EXAMPLES
+
+Decrypt a file using AES-256 (CBC mode) with a password:
+
+        $ ronin decrypt --cipher aes-256-cbc --password "..." encrypted.bin
+
+Decrypt a file using a raw key string:
+
+        $ ronin decrypt --cipher aes-256-cbc --key "12345abcdef..." encrypted.bin
+
+Decrypt a file using a raw key read from a file:
+
+        $ ronin decrypt --cipher aes-256-cbc --key-file key.bin encrypted.bin
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
