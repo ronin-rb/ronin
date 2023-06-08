@@ -10,7 +10,7 @@ Processes one or more email addresses.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
+`-f`, `--file` *FILE*
   Optional input file to read the email addresses from.
 
 `-O`, `--obfuscate`
@@ -46,7 +46,7 @@ Deobfuscates an email address:
 
 Extracts the domain name from a list of email addresses:
 
-        ronin email-addr --input emails.txt --domain
+        ronin email-addr --file emails.txt --domain
 
 ## AUTHOR
 
