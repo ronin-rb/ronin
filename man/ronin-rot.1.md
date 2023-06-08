@@ -38,6 +38,16 @@ Rotates each character of data with an alphabet.
 `-h`, `--help`
   Print help information.
 
+## EXAMPLES
+
+ROT-13 encode a string:
+
+        $ ronin rot --string "The quick brown fox jumps over the lazy dog"
+
+ROT encode a string with a custom rotation number:
+
+        $ ronin rot -n 3 --string "The quick brown fox jumps over the lazy dog"
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
