@@ -28,7 +28,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin dns [options] [HOST [...]]
+      #     ronin dns [options] {HOST ... | --file FILE}
       #
       # ## Options
       #
@@ -46,7 +46,7 @@ module Ronin
 
         include DNS
 
-        usage '[options] HOST'
+        usage '[options] {HOST ... | --file FILE}'
 
         option :type, short: '-t',
                       value: {
