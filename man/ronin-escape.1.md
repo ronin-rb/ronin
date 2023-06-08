@@ -16,7 +16,7 @@ Escapes each special character for a variety of encodings.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
+`-f`, `--file` *FILE*
   Optional input file to read from.
 
 `--string` *STRING*
