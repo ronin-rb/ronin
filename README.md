@@ -290,25 +290,6 @@ foo bar
 
 ### Text
 
-De-obfuscate an email address:
-
-```shell
-$ ronin email-addr --deobfuscate "john [dot] smith [at] example [dot] com"
-john.smith@example.com
-```
-
-Enumerate through all of the obfuscations of an email address:
-
-```shell
-$ ronin email-addr --enum-obfuscations john.smith@example.com
-john.smith @ example.com
-john.smith AT example.com
-john.smith at example.com
-john.smith[AT]example.com
-john.smith[at]example.com
-...
-```
-
 Extract high-entropy data from a file:
 
 ```shell
@@ -701,6 +682,25 @@ Find all of the unregistered typosquat domains for a valid domain:
 
 ```shell
 $ ronin typosquat --unregistered microsoft.com
+```
+
+De-obfuscate an email address:
+
+```shell
+$ ronin email-addr --deobfuscate "john [dot] smith [at] example [dot] com"
+john.smith@example.com
+```
+
+Enumerate through all of the obfuscations of an email address:
+
+```shell
+$ ronin email-addr --enum-obfuscations john.smith@example.com
+john.smith @ example.com
+john.smith AT example.com
+john.smith at example.com
+john.smith[AT]example.com
+john.smith[at]example.com
+...
 ```
 
 #### SSL/TLS Certs
