@@ -16,7 +16,7 @@ Calculates SHA256 hashes of data.
 
 ## OPTIONS
 
-`-i`, `--input` *FILE*
+`-f`, `--file` *FILE*
   Optional input file to read from.
 
 `--string` *STRING*
