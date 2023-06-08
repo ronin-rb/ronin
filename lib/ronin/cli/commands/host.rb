@@ -30,7 +30,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin host [options] [HOST ...]
+      #     ronin host [options] {HOST ... | --file FILE}
       #
       # ## Options
       #
@@ -63,7 +63,7 @@ module Ronin
 
         include DNS
 
-        usage '[options] [HOST ...]'
+        usage '[options] {HOST ... | --file FILE}'
 
         option :subdomain, value: {
                              type:  String,

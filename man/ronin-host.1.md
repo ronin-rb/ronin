@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin host` [*options*] [*HOST* ...]
+`ronin host` [*options*] {*HOST* ... \| `--file` *FILE*}
 
 ## DESCRIPTION
 
