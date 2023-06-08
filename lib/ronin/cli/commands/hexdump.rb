@@ -417,6 +417,7 @@ module Ronin
         # List of command `options` that directly map to the keyword arguments
         # of `Hexdump.hexdump`.
         HEXDUMP_OPTIONS = [
+          :type,
           :format,
           :offset,
           :length,
