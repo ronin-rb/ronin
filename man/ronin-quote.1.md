@@ -35,7 +35,7 @@ Produces quoted a string for a variety of programming languages.
   Quotes the data as a C string.
 
 `-j`, `--js`
-  JavaScript quotes the data.
+  quotes the data as a JavaScript string.
 
 `-S`, `--shell`
   Quotes the data as a Shell String.
