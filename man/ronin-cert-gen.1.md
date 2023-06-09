@@ -37,15 +37,21 @@ Generates a new X509 certificate.
 `-L`, `--locality` *NAME*
   The locality for the certificate.
 
-`-S`, `--state *XX*
+`-S`, `--state` *XX*
   The two-letter State (ST) code for the certificate.
 
 `-C`, `--country` *XX*
   The two-letter Country (C) code for the certificate.
 
-`-t`, `--key-type` rsa|ec`            The signing key type
-    --generate-key PATH          Generates and saves a random key (Default: key.pem)
--k, --key-file FILE              Loads the signing key from the FILE
+`-t`, `--key-type` rsa|ec`
+  The signing key type.
+
+`--generate-key` *PATH*
+  Generates and saves a random key. Defaults to `key.pem` if not given.
+
+`-k`, `--key-file` *FILE*
+  Loads the signing key from the *FILE*.
+
 `-H`, `--signing-hash` `sha256`\|`sha1`\|`md5`
   The hash algorithm to use for signing. Defaults to `sha256` if not given.
 
