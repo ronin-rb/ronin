@@ -4,7 +4,7 @@
 
 #### CLI
 
-*  Fixed a bug in the `ronin ip` command where empty lines would be printed
+* Fixed a bug in the `ronin ip` command where empty lines would be printed
   if the IP had no hostname.
 * Fixed a bug in the `ronin hexdump` command where the `--type` option was being
   ignored.
@@ -12,7 +12,8 @@
 * Fixed typos in the `ronin email-addr`, `ronin escape`, and `ronin sha256`
   man-pages.
 * Fixed formatting in the `ronin cert-gen` man-page.
-* Added more command examples and `EXAMPLES` sections to man-pages.
+* Added more examples to the `ronin rot`, `ronin encrypt`, and `ronin decrypt`
+  man-pages.
 
 ### 2.0.1 / 2023-03-01
 
