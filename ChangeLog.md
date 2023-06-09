@@ -1,3 +1,19 @@
+### 2.0.2 / 2023-06-09
+
+* Documentation fixes and improvements.
+
+#### CLI
+
+*  Fixed a bug in the `ronin ip` command where empty lines would be printed
+  if the IP had no hostname.
+* Fixed a bug in the `ronin hexdump` command where the `--type` option was being
+  ignored.
+* Fixed the `Usage:` of the `ronin host` and `ronin dns` commands.
+* Fixed typos in the `ronin email-addr`, `ronin escape`, and `ronin sha256`
+  man-pages.
+* Fixed formatting in the `ronin cert-gen` man-page.
+* Added more command examples and `EXAMPLES` sections to man-pages.
+
 ### 2.0.1 / 2023-03-01
 
 * Require [ronin-support] ~> 1.0, >= 1.0.1.
