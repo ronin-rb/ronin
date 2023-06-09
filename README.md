@@ -40,7 +40,7 @@ HTTP, [scanning for web vulnerabilities][ronin-vulns-synopsis],
 
 * A toolkit of useful commands.
 * A fully-loaded Ruby REPL.
-* An ecosystem of high-quality security related Ruby libraries, API, and
+* An ecosystem of high-quality security related Ruby libraries, APIs, and
   commands.
 
 ### What can you do with Ronin?
