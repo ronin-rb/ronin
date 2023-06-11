@@ -26,5 +26,6 @@ require 'open_namespace'
 
 module Ronin
   include Ronin::Support
+  extend Ronin::Support
   include OpenNamespace
 end
