@@ -1,3 +1,14 @@
+### 2.0.3 / 2023-06-12
+
+* Extend `Ronin::Support` into {Ronin} in order to make their Mixin instance
+  methods accessible to the `ronin irb` command which spawns an IRB session
+  within the `Ronin` namespace.
+
+#### CLI
+
+* Fixed a regression in the `ronin irb` command where the `ronin-support` Mixin
+  methods (ex: `http_get`) were missing from the `ronin irb` shell.
+
 ### 2.0.2 / 2023-06-09
 
 * Documentation fixes and improvements.
