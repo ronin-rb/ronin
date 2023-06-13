@@ -327,7 +327,15 @@ module Ronin
         #   The formatted IP address.
         #
         def ipv4_hex_octet(ip)
-          ip.to_s.split(".").map { |octet| octet.to_i.to_s(16) }.join(".")
+          ip_uint = ip.to_i
+
+          format(
+            "%<octet1>x.%<octet2>x.%<octet3>x.%<octet4>x",
+            octet1: (ip_uint & 0xff000000) >> 24,
+            octet2: (ip_uint & 0xff0000) >> 16,
+            octet3: (ip_uint & 0xff00) >> 8,
+            octet4: (ip_uint & 0xff)
+          )
         end
       end
     end
