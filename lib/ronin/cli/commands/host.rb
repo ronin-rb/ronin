@@ -196,7 +196,7 @@ module Ronin
 
             puts host unless records.empty?
           elsif options[:query]
-            print_records(query_records(host))
+            print_records(host.get_records(options[:query]))
           else
             puts host.name
           end
