@@ -18,7 +18,7 @@
 
 require 'ronin/cli/value_processor_command'
 require 'ronin/cli/char_set_options'
-require 'ronin/support/binary/core_ext/string'
+require 'ronin/support/binary/bit_flip/core_ext/string'
 require 'ronin/support/encoding/hex'
 
 require 'chars'
