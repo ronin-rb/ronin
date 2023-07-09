@@ -89,4 +89,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-typo(1) ronin-homoglyph(1)
+ronin-bitsquat(1) ronin-typo(1) ronin-homoglyph(1)
