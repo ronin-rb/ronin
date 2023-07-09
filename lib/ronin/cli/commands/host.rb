@@ -122,7 +122,7 @@ module Ronin
 
         option :query, short: '-t',
                        value: {
-                         type: [:A, :AAAA, :ANY, :CNAME, :HINFO, :LOC, :MINFO, :MX, :NS, :PTR, :SOA, :SRV, :TXT, :WKS]
+                         type: RECORD_TYPES
                        },
                        desc: 'Queries a specific type of DNS record'
 
