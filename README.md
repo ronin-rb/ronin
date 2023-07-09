@@ -785,7 +785,7 @@ $ ronin url --file urls.txt --status
 * [wordlist] ~> 1.0
 * [ronin-support] ~> 1.1
 * [ronin-dns-proxy] ~> 0.1
-* [ronin-core] ~> 0.1
+* [ronin-core] ~> 0.2
 * [ronin-repos] ~> 0.1
 * [ronin-db] ~> 0.1
 * [ronin-listener] ~> 0.1
