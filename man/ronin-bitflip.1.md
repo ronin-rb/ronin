@@ -15,6 +15,9 @@ Prints every bit-flip of the given string(s).
 
 ## OPTIONS
 
+`-f`, `--file` *FILE*
+  Optional file to read values from.
+
 `-N`, `--numeric`
   Searches for numeric characters (0-9).
 

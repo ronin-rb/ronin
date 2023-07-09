@@ -35,6 +35,7 @@ module Ronin
       #
       # ## Options
       #
+      #     -f, --file FILE                  Optional file to read values from
       #     -N, --numeric                    Searches for numeric characters (0-9)
       #     -O, --octal                      Searches for octal characters (0-7)
       #     -X, --upper-hex                  Searches for uppercase hexadecimal (0-9, A-F)
