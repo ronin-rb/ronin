@@ -24,6 +24,24 @@ module Ronin
     # Mixin for adding DNS support to commands.
     #
     module DNS
+      # Mapping of DNS record types and lowercase versions.
+      RECORD_TYPES = {
+        A:     :a,
+        AAAA:  :aaaa,
+        ANY:   :any,
+        CNAME: :cname,
+        HINFO: :hinfo,
+        LOC:   :loc,
+        MINFO: :minfo,
+        MX:    :mx,
+        NS:    :ns,
+        PTR:   :ptr,
+        SOA:   :soa,
+        SRV:   :srv,
+        TXT:   :txt,
+        WKS:   :wks
+      }
+
       #
       # Adds the `-N,--nameserver HOST|IP` option to the command which is
       # including {DNS}.
