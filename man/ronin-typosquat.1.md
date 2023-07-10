@@ -15,6 +15,9 @@ Finds typo squatted domains.
 
 ## OPTIONS
 
+`-f`, `--file` *FILE*
+  Optional file to read domains from.
+
 `--omit-chars`
   Toggles whether to omit repeated characters.
 

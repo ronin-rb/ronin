@@ -33,6 +33,7 @@ module Ronin
       #
       # ## Options
       #
+      #     -f, --file FILE                  Optional file to read values from
       #         --omit-chars                 Toggles whether to omit repeated characters
       #         --repeat-chars               Toggles whether to repeat single characters
       #         --swap-chars                 Toggles whether to swap certain common character pairs
