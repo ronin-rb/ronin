@@ -2,7 +2,7 @@
 
 ## SYNOPSIS
 
-`ronin typosquat` [*options*] DOMAIN
+`ronin typosquat` [*options*] [DOMAIN ...]
 
 ## DESCRIPTION
 
@@ -11,7 +11,7 @@ Finds typo squatted domains.
 ## ARGUMENTS
 
 *DOMAIN*
-  The domain to typo squat.
+  A domain to check for typo squats.
 
 ## OPTIONS
 

@@ -29,7 +29,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin typosquat [options] DOMAIN
+      #     ronin typosquat [options] [DOMAIN ...]
       #
       # ## Options
       #
@@ -51,7 +51,7 @@ module Ronin
 
         include TypoOptions
 
-        usage '[options] DOMAIN'
+        usage '[options] [DOMAIN ...]'
 
         option :has_addresses, desc: 'Print typo squat domains with addresses'
 
@@ -72,7 +72,7 @@ module Ronin
         # @param [String] domain
         #   A word argument to typo.
         #
-        def run(domain)
+        def process_value(domain)
           if options[:has_addresses]
             each_typo_squat(domain) do |typo_domain|
               if typo_domain.has_addresses?
