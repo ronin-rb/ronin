@@ -51,6 +51,8 @@ module Ronin
 
         include TypoOptions
 
+        usage '[options] DOMAIN'
+
         option :has_addresses, desc: 'Print typo squat domains with addresses'
 
         option :registered, desc: 'Print typo squat domains that are already registered'
