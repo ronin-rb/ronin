@@ -801,7 +801,7 @@ $ ronin url --file urls.txt --status
 * [open_namespace] ~> 0.4
 * [rouge] ~> 3.0
 * [async-io] ~> 1.0
-* [wordlist] ~> 1.0
+* [wordlist] ~> 1.0, >= 1.0.1
 * [ronin-support] ~> 1.0
 * [ronin-core] ~> 0.1
 * [ronin-repos] ~> 0.1
