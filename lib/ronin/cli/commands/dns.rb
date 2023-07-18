@@ -70,6 +70,23 @@ module Ronin
           print_records(query_records(host))
         end
 
+        #
+        # Queries the records for the given host name.
+        #
+        # @param [String] host
+        #   The host name to query.
+        #
+        # @return [Array<Resolv::DNS::Resource>]
+        #   The returned DNS resource records.
+        #
+        def query_records(host)
+          if options[:type]
+            resolver.get_records(host,options[:type].downcase)
+          else
+            resolver.get_a_records(host) + resolver.get_aaaa_records(host)
+          end
+        end
+
       end
     end
   end
