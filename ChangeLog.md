@@ -1,3 +1,19 @@
+### 2.0.4 / 2023-07-18
+
+* Require [wordlist] ~> 1.0, >= 1.0.2 for bug fixes.
+* Require [ronin-core] ~> 0.1, >= 0.1.2 for bug fixes to `ronin irb`.
+  * This fixes an issue with defining and then calling methods inside of the
+    `ronin irb` Ruby shell.
+
+#### CLI
+
+* Fixed the `ronin typosquat` command to accept multiple domain arguments.
+* Added missing `usage` string to the `ronin typosquat` command.
+* Added missing `-f`,`--file` option to the `ronin typosquat` command.
+* Fixed a bug in the `ronin host` command where the `-t`,`--query` option was
+  not being honored.
+* Added missing `--file` option to the `ronin bitflip` man-page and docs.
+
 ### 2.0.3 / 2023-06-12
 
 * Extend `Ronin::Support` into {Ronin} in order to make their Mixin instance
