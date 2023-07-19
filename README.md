@@ -803,7 +803,7 @@ $ ronin url --file urls.txt --status
 * [async-io] ~> 1.0
 * [wordlist] ~> 1.0, >= 1.0.1
 * [ronin-support] ~> 1.0
-* [ronin-core] ~> 0.1
+* [ronin-core] ~> 0.1, >= 0.1.2
 * [ronin-repos] ~> 0.1
 * [ronin-db] ~> 0.1
 * [ronin-fuzzer] ~> 0.1

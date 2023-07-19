@@ -97,7 +97,7 @@ dependencies:
   wordlist: ~> 1.0, >= 1.0.1
   # Ronin dependencies:
   ronin-support: ~> 1.0, >= 1.0.1
-  ronin-core: ~> 0.1, >= 0.1.1
+  ronin-core: ~> 0.1, >= 0.1.2
   ronin-repos: ~> 0.1
   ronin-db: ~> 0.1
   ronin-fuzzer: ~> 0.1
