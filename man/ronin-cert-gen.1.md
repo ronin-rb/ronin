@@ -43,7 +43,7 @@ Generates a new X509 certificate.
 `-C`, `--country` *XX*
   The two-letter Country (C) code for the certificate.
 
-`-t`, `--key-type `rsa`\|`ec`
+`-t`, `--key-type `rsa`\|`dsa`\|`ec`
   The signing key type.
 
 `--generate-key` *PATH*
