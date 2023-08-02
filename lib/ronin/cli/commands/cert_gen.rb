@@ -20,6 +20,7 @@ require 'ronin/cli/command'
 require 'ronin/support/crypto/cert'
 require 'ronin/support/crypto/key'
 require 'ronin/support/crypto/key/rsa'
+require 'ronin/support/crypto/key/dsa'
 require 'ronin/support/crypto/key/ec'
 require 'ronin/support/text/patterns'
 
@@ -48,7 +49,7 @@ module Ronin
       #     -L, --locality NAME              The locality for the certificate
       #     -S, --state XX                   The two-letter State (ST) code for the certificate
       #     -C, --country XX                 The two-letter Country (C) code for the certificate
-      #     -t, --key-type rsa|ec            The signing key type
+      #     -t, --key-type rsa|dsa|ec        The signing key type
       #         --generate-key PATH          Generates and saves a random key (Default: key.pem)
       #     -k, --key-file FILE              Loads the signing key from the FILE
       #     -H sha256|sha1|md5,              The hash algorithm to use for signing (Default: sha256)
@@ -150,7 +151,7 @@ module Ronin
 
         option :key_type, short: '-t',
                           value: {
-                            type: [:rsa, :ec]
+                            type: [:rsa, :dsa, :ec]
                           },
                           desc: 'The signing key type'
 
@@ -288,11 +289,13 @@ module Ronin
         # The `--key-type` key class.
         #
         # @return [Class<Ronin::Support::Key::RSA>,
+        #          Class<Ronin::Support::Key::DSA>,
         #          Class<Ronin::Support::Key::EC>, nil]
         #
         def key_class
           case options[:key_type]
           when :rsa then Support::Crypto::Key::RSA
+          when :dsa then Support::Crypto::Key::DSA
           when :ec  then Support::Crypto::Key::EC
           end
         end
