@@ -824,9 +824,10 @@ curl -o ronin-install.sh https://raw.githubusercontent.com/ronin-rb/scripts/main
 
 ### Manually
 
-```shell
-$ gem install ronin
-```
+See the [manual install][manual-instructions] instructions for how to install
+Ronin and it's additional dependencies on your platform.
+
+[manual-instructions]: https://ronin-rb.dev/install/#manual-instructions
 
 ### Docker
 
