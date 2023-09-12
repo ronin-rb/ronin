@@ -800,7 +800,7 @@ $ ronin url --file urls.txt --status
 * [open_namespace] ~> 0.4
 * [rouge] ~> 3.0
 * [async-io] ~> 1.0
-* [wordlist] ~> 1.0, >= 1.0.3
+* [wordlist] ~> 1.1
 * [ronin-support] ~> 1.1
 * [ronin-dns-proxy] ~> 0.1
 * [ronin-core] ~> 0.2
