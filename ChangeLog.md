@@ -1,3 +1,14 @@
+### 2.0.5 / 2023-09-19
+
+* Require [wordlist] ~> 1.0, >= 1.0.3 for macOS fixes.
+* Require [ronin-support] ~> 1.0, >= 1.0.3.
+
+#### CLI
+
+* Fixed a bug in `ronin cert-gen` that prevented generating a new certificate
+  signed with an EC key (ex: `ronin cert-gen --key-type ec ...`).
+* Fixed the formatting of the `ronin cert-gen` man-page.
+
 ### 2.0.4 / 2023-07-18
 
 * Require [wordlist] ~> 1.0, >= 1.0.2 for bug fixes.
