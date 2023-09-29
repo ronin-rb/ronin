@@ -18,6 +18,7 @@
 
 require 'ronin/cli/command'
 require 'ronin/support/crypto/cert'
+require 'ronin/support/crypto/key'
 require 'ronin/support/crypto/key/rsa'
 require 'ronin/support/crypto/key/ec'
 require 'ronin/support/text/patterns'
