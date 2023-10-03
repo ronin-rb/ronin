@@ -86,6 +86,32 @@ Encodes each character of the given data into a variety of formats.
 `-h`, `--help`
   Print help information.
 
+## EXAMPLES
+
+Encode a string to base 16:
+
+        ronin encode --base16 --string {{string_name}}
+
+Encode a string to http:
+
+        ronin encode --http --string {{string_name}}
+
+Encode a string to XML:
+
+        ronin encode --x --string {{string_name}}
+
+Encode a file to required format:
+
+        ronin encode --hex --f {{filename}}
+
+Zlib tool to compress data:
+
+        ronin encode -z hi.txt
+
+Encode a string to ruby:
+
+        ronin encode --ruby --string {{string_name}}
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
