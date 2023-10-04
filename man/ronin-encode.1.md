@@ -90,15 +90,18 @@ Encodes each character of the given data into a variety of formats.
 
 Encode the string `"hello world"` to base 16:
 
-        ronin encode --base16 --string "hello world"
+        $ ronin encode --base16 --string "hello world"
+        68656c6c6f20776f726c64
 
 Encode the string `"hello world"` to HTTP encoded characters:
 
-        ronin encode --http --string "hello world"
+        $ ronin encode --http --string "hello world"
+        %68%65%6C%6C%6F%20%77%6F%72%6C%64
 
 Encode the string `"hello world"` to XML encoded characters:
 
-        ronin encode --xml --string "hello world"
+        $ ronin encode --xml --string "hello world"
+        &#104;&#101;&#108;&#108;&#111;&#32;&#119;&#111;&#114;&#108;&#100;
 
 Hex encodes the contents of a file:
 
@@ -110,7 +113,8 @@ Compresses the file's contents using Zlib:
 
 Encode the string `"hello world"` to a Ruby hex-escaped string:
 
-        ronin encode --ruby --string "hello world"
+        $ ronin encode --ruby --string "hello world"
+        \x68\x65\x6C\x6C\x6F\x20\x77\x6F\x72\x6C\x64
 
 ## AUTHOR
 
