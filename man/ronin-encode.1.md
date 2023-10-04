@@ -107,6 +107,10 @@ Hex encodes the contents of a file:
 
         ronin encode --hex --file /path/to/file.txt
 
+Hex encodes every line of a file:
+
+        ronin encode --hex --multiline --file /path/to/file.txt
+
 Compresses the file's contents using Zlib and then Base64 encodes it:
 
         ronin encode --zlib --base64 --file hi.txt
