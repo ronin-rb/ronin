@@ -92,11 +92,11 @@ Encode the string `"hello world"` to base 16:
 
         ronin encode --base16 --string "hello world"
 
-Encode the string `"hello world"` to HTTP:
+Encode the string `"hello world"` to HTTP encoded characters:
 
         ronin encode --http --string "hello world"
 
-Encode the string `"hello world"` to XML:
+Encode the string `"hello world"` to XML encoded characters:
 
         ronin encode --xml --string "hello world"
 
@@ -108,7 +108,7 @@ Compresses the file's contents using Zlib:
 
         ronin encode --zlib --file hi.txt
 
-Encode the string `"hello world"` to ruby:
+Encode the string `"hello world"` to a Ruby hex-escaped string:
 
         ronin encode --ruby --string "hello world"
 
