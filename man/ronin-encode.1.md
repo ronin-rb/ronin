@@ -86,6 +86,32 @@ Encodes each character of the given data into a variety of formats.
 `-h`, `--help`
   Print help information.
 
+## EXAMPLES
+
+Encode a string `hello world` to base 16:
+
+        ronin encode --base16 --string "hello world"
+
+Encode a string `hello world` to HTTP:
+
+        ronin encode --http --string "hello world"
+
+Encode a string `hello world` to XML:
+
+        ronin encode --xml --string "hello world"
+
+Hex encodes the contents of a file:
+
+        ronin encode --hex --file /path/to/file.txt
+
+Compresses the file's contents using Zlib:
+
+        ronin encode --zlib --file hi.txt
+
+Encode a string `hello world` to ruby:
+
+        ronin encode --ruby --string "hello world"
+
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
