@@ -88,7 +88,7 @@ Encodes each character of the given data into a variety of formats.
 
 ## EXAMPLES
 
-Encode the string `"hello world"` to base 16:
+Encode the string `"hello world"` to Base16:
 
         $ ronin encode --base16 --string "hello world"
         68656c6c6f20776f726c64
