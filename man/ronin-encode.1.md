@@ -88,10 +88,10 @@ Encodes each character of the given data into a variety of formats.
 
 ## EXAMPLES
 
-Encode the string `"hello world"` to Base16:
+Encode the string `"hello world"` to Base64:
 
-        $ ronin encode --base16 --string "hello world"
-        68656c6c6f20776f726c64
+        $ ronin encode --base64 --string "hello world"
+        aGVsbG8gd29ybGQ=
 
 Encode the string `"hello world"` to HTTP encoded characters:
 
