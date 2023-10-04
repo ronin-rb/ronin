@@ -104,7 +104,7 @@ Hex encodes the contents of a file:
 
         ronin encode --hex --file /path/to/file.txt
 
-Compresses the file using Zlib:
+Compresses the file's contents using Zlib:
 
         ronin encode --zlib --file hi.txt
 
