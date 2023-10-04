@@ -88,25 +88,25 @@ Encodes each character of the given data into a variety of formats.
 
 ## EXAMPLES
 
-Encode a string to base 16:
+Encode a string `hello_world` to base 16:
 
-        ronin encode --base16 --string {{string_name}}
+        ronin encode --base16 --string "hello_world"
 
-Encode a string to http:
+Encode a string `hello_world` to HTTP:
 
-        ronin encode --http --string {{string_name}}
+        ronin encode --http --string "hello_world"
 
-Encode a string to XML:
+Encode a string `hello_world` string to XML:
 
-        ronin encode --x --string {{string_name}}
+        ronin encode --xml --string "hello_world"
 
-Encode a file to required format:
+Hex encodes the contents of a file:
 
-        ronin encode --hex --f {{filename}}
+        ronin encode --hex --file {{/path/to/file.txt}}
 
-Zlib tool to compress data:
+Compresses the file using Zlib:
 
-        ronin encode -z hi.txt
+        ronin encode --zlib --file hi.txt
 
 Encode a string to ruby:
 
