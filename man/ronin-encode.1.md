@@ -102,15 +102,15 @@ Encode a string `hello_world` string to XML:
 
 Hex encodes the contents of a file:
 
-        ronin encode --hex --file {{/path/to/file.txt}}
+    ronin encode --hex --file /path/to/file.txt
 
 Compresses the file using Zlib:
 
         ronin encode --zlib --file hi.txt
 
-Encode a string to ruby:
+Encode a string `hello_world` to ruby:
 
-        ronin encode --ruby --string {{string_name}}
+        ronin encode --ruby --string "hello_world"
 
 ## AUTHOR
 
