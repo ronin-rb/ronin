@@ -310,6 +310,31 @@ module Ronin
         end
       end
 
+      command :cookie, summary: 'Prints the Cookie value'
+
+      #
+      # The `cookie` shell command.
+      #
+      def cookie
+        if @http.cookie
+          puts @http.cookie
+        end
+      end
+
+      command :"set-cookie", method_name: :set_cookie,
+                             usage:       'NAME=VALUE; ...',
+                             summary:     'Sets the Cookie value'
+
+      #
+      # The `set-cookie` shell command.
+      #
+      # @param [Array<String>] params
+      #   The `NAME=VALUE` param pairs.
+      #
+      def set_cookie(*params)
+        @http.cookie = params.join(' ')
+      end
+
       #
       # Joins the given path with the {#base_url}.
       #
