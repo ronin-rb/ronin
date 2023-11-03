@@ -24,6 +24,10 @@ describe Ronin::CLI::Commands::Http do
       expect(subject.user_agent).to be(nil)
     end
 
+    it "must default #cookie to nil" do
+      expect(subject.cookie).to be(nil)
+    end
+
     it "must default #query_params to an empty Hash" do
       expect(subject.query_params).to eq({})
     end
@@ -38,6 +42,96 @@ describe Ronin::CLI::Commands::Http do
   subject { described_class.new(stdout: stdout) }
 
   describe "#option_parser" do
+    context "when the '--cookie \"...\"' option is parsed" do
+      let(:cookie_name1)  { 'a' }
+      let(:cookie_value1) { '1' }
+      let(:cookie_name2)  { 'b' }
+      let(:cookie_value2) { '2' }
+      let(:cookie) do
+        "#{cookie_name1}=#{cookie_value1}; #{cookie_name2}=#{cookie_value2}"
+      end
+
+      let(:argv) { ['--cookie', cookie] }
+
+      before { subject.option_parser.parse(argv) }
+
+      it "must set #cookie to the parsed Ronin::Support::Network::HTTP::Cookie" do
+        expect(subject.cookie).to be_kind_of(Ronin::Support::Network::HTTP::Cookie)
+        expect(subject.cookie.to_h).to eq(
+          {
+            cookie_name1 => cookie_value1,
+            cookie_name2 => cookie_value2
+          }
+        )
+      end
+
+      context "when #cookie is already set" do
+        let(:cookie_name3)  { 'c' }
+        let(:cookie_value3) { '3' }
+        let(:cookie_name4)  { 'a' }
+        let(:cookie_value4) { 'x' }
+        let(:cookie2) do
+          "#{cookie_name3}=#{cookie_value3}; #{cookie_name4}=#{cookie_value4}"
+        end
+
+        let(:argv) { ['--cookie', cookie, '--cookie', cookie2] }
+
+        it "must merged the parsed cookie params into #cookie" do
+          expect(subject.cookie).to be_kind_of(Ronin::Support::Network::HTTP::Cookie)
+          expect(subject.cookie.to_h).to eq(
+            {
+              cookie_name2 => cookie_value2,
+              cookie_name3 => cookie_value3,
+              cookie_name4 => cookie_value4
+            }
+          )
+        end
+      end
+    end
+
+    context "when the '--cookie-param name=value' option is parsed" do
+      let(:cookie_name)  { 'a' }
+      let(:cookie_value) { '1' }
+
+      let(:argv) { ['--cookie-param', "#{cookie_name}=#{cookie_value}"] }
+
+      before { subject.option_parser.parse(argv) }
+
+      it "must set #cookie to a Ronin::Support::Network::HTTP::Cookie containing the parsed name and param" do
+        expect(subject.cookie).to be_kind_of(Ronin::Support::Network::HTTP::Cookie)
+        expect(subject.cookie.to_h).to eq(
+          {
+            cookie_name => cookie_value
+          }
+        )
+      end
+
+      context "when #cookie is already set" do
+        let(:cookie_name2)  { 'b' }
+        let(:cookie_value2) { '2' }
+        let(:cookie_name3)  { 'a' }
+        let(:cookie_value3) { 'x' }
+
+        let(:argv) do
+          [
+            '--cookie-param', "#{cookie_name}=#{cookie_value}",
+            '--cookie-param', "#{cookie_name2}=#{cookie_value2}",
+            '--cookie-param', "#{cookie_name3}=#{cookie_value3}"
+          ]
+        end
+
+        it "must merged the parsed cookie params into #cookie" do
+          expect(subject.cookie).to be_kind_of(Ronin::Support::Network::HTTP::Cookie)
+          expect(subject.cookie.to_h).to eq(
+            {
+              cookie_name2 => cookie_value2,
+              cookie_name3 => cookie_value3
+            }
+          )
+        end
+      end
+    end
+
     context "when --shell is given a non-http URL" do
       it do
         expect {
@@ -123,6 +217,7 @@ describe Ronin::CLI::Commands::Http do
       expect(Ronin::Support::Network::HTTP).to receive(:request).with(
         subject.http_method, uri, proxy:        subject.proxy,
                                   user_agent:   subject.user_agent,
+                                  cookie:       subject.cookie,
                                   query_params: subject.query_params,
                                   headers:      subject.headers,
                                   body:         subject.body,

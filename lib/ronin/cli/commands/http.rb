@@ -20,6 +20,7 @@ require 'ronin/cli/value_processor_command'
 require 'ronin/cli/printing/http'
 require 'ronin/cli/http_shell'
 require 'ronin/support/network/http'
+require 'ronin/support/network/http/cookie'
 
 require 'command_kit/options/verbose'
 require 'addressable/uri'
@@ -60,6 +61,8 @@ module Ronin
       #     -u chrome-linux|chrome-macos|chrome-windows|chrome-iphone|chrome-ipad|chrome-android|firefox-linux|firefox-macos|firefox-windows|firefox-iphone|firefox-ipad|firefox-android|safari-macos|safari-iphone|safari-ipad|edge,
       #         --user-agent                 The User-Agent to use
       #     -H, --header "NAME: VALUE"       Adds a header to the request
+      #     -C, --cookie COOKIE              Sets the Cookie header
+      #     -c, --cookie-param NAME=VALUE    Sets an additional cookie param
       #     -B, --body STRING                The request body
       #     -F, --body-file FILE             Sends the file as the request body
       #     -f, --form-data NAME=VALUE       Adds a value to the form data
@@ -199,6 +202,35 @@ module Ronin
                           @headers[name] = value
                         end
 
+        option :cookie, short: '-C',
+                        value: {
+                          type:  String,
+                          usage: 'COOKIE'
+                        },
+                        desc: 'Sets the Cookie header' do |cookie|
+                          cookie = Support::Network::HTTP::Cookie.parse(cookie)
+
+                          if @cookie
+                            @cookie.merge!(cookie)
+                          else
+                            @cookie = cookie
+                          end
+                        end
+
+        option :cookie_param, short: '-c',
+                              value: {
+                                type:  /[^\s=]+=\w+/,
+                                usage: 'NAME=VALUE'
+                              },
+                              desc: 'Sets an additional cookie param' do |param|
+                                name, value = param.split('=',2)
+
+                                # lazy initialize the cookie
+                                @cookie ||= Support::Network::HTTP::Cookie.new
+
+                                @cookie[name] = value
+                              end
+
         option :body, short: '-B',
                       value: {
                         type:  String,
@@ -262,6 +294,11 @@ module Ronin
         # @return [Hash{String => String}]
         attr_reader :headers
 
+        # The optional `Cookie` header to send.
+        #
+        # @return [Ronin::Support::Network::HTTP::Cookie, nil]
+        attr_reader :cookie
+
         # Optional `User-agent` string to use.
         #
         # @return [String, nil]
@@ -294,6 +331,7 @@ module Ronin
           @proxy        = nil
           @http_method  = :get
           @headers      = {}
+          @cookie       = nil
           @user_agent   = nil
           @query_params = {}
           @form_data    = {}
@@ -347,6 +385,7 @@ module Ronin
           begin
             Support::Network::HTTP.request(
               @http_method, uri, proxy:        @proxy,
+                                 cookie:       @cookie,
                                  user_agent:   @user_agent,
                                  query_params: @query_params,
                                  headers:      @headers,
