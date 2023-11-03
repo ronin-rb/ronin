@@ -84,6 +84,12 @@ Send HTTP requests or spawn an interactive HTTP shell.
 `-H`, `--header` "*NAME*: *VALUE*"
   Adds a header to the request.
 
+`-C`, `--cookie` *COOKIE*
+  Sets the raw `Cookie` header.
+
+`-c`, `--cookie-param` *NAME*`=`*VALUE*
+  Sets an additional `Cookie` param using the given *NAME* and *VALUE*.
+
 `-B`, `--body` *STRING*
   The request body.
 
