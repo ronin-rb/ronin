@@ -47,7 +47,7 @@ module Ronin
 
           include Core::CLI::Generator
 
-          template_dir File.join(ROOT,'data','new','project')
+          template_dir File.join(ROOT,'data','templates','project')
 
           usage '[options] DIR'
 

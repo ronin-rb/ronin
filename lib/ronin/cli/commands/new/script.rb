@@ -39,7 +39,7 @@ module Ronin
 
           include Core::CLI::Generator
 
-          template_dir File.join(ROOT,'data','new')
+          template_dir File.join(ROOT,'data','templates')
 
           usage 'PATH'
 

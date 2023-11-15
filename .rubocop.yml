@@ -18,4 +18,4 @@ Layout/ExtraSpacing:
 # no need to add `frozen_string_literal: true` to new scripts/projects
 Style/FrozenStringLiteralComment:
   Exclude:
-    - 'data/new/**/*'
+    - 'data/templates/**/*'
