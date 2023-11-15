@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+require 'ronin/dns/proxy'
+
+Ronin::DNS::Proxy.run(<%= @host.inspect %>, <%= @port.inspect %>) do |server|
+  # server.add_rule :A, 'example.com', '10.0.0.1'
+  # server.add_rule :AAAA, 'example.com', 'dead:beef::1'
+
+  # return multiple values:
+  #
+  # server.add_rule :A, 'ftp.example.com', ['10.0.0.42', '10.0.0.43']
+
+  # match a query using a regex:
+  #
+  # server.add_rule :TXT, /^spf\./, "v=spf1 include:10.0.0.1 ~all"
+
+  # return an error for a valid hostname:
+  #
+  # server.add_rule :A, 'updates.example.com', :ServFail
+
+  # define a dynamic rule:
+  #
+  # server.add_rule :CNAME, /^www\./, ->(type,name,transaction) {
+  #   # append '.hax' to the domain name
+  #   names = name.split('.').push('hax')
+  #
+  #   transaction.respond!(names)
+  # }
+
+  # return MX records:
+  #
+  # server.add_rule :MX, 'example.com', ->(type,name,transaction) {
+  #   transaction.respond!(10, Resolv::DNS::Name.create('email.evil.com' ))
+  # }
+end

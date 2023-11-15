@@ -20,6 +20,10 @@ Creates a new project or script.
 
 ## COMMANDS
 
+*dns-proxy*
+  Generates a new `ronin-dns-proxy` script.
+  See https://github.com/ronin-rb/ronin-dns-proxy#readme
+
 *project*
   Generates a new project directory.
 
