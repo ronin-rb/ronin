@@ -68,6 +68,7 @@ generated_files:
  - man/ronin-md5.1
  - man/ronin-netcat.1
  - man/ronin-new.1
+ - man/ronin-new-dns-proxy.1
  - man/ronin-new-project.1
  - man/ronin-new-script.1
  - man/ronin-proxy.1
