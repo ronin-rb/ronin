@@ -189,6 +189,12 @@ Generate a [ronin-listener-dns] script:
 $ ronin new dns-listener my_dns_listener.rb
 ```
 
+Generate a [ronin-listener-http] script:
+
+```shell
+$ ronin new http-listener my_http_listener.rb
+```
+
 ### Binary
 
 Hexdumps data in a variety of formats:
@@ -928,6 +934,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-db-synopsis]: https://github.com/ronin-rb/ronin-db#synopsis
 [ronin-listener]: https://github.com/ronin-rb/ronin-listener#readme
 [ronin-listener-dns]: https://github.com/ronin-rb/ronin-listener-dns#readme
+[ronin-listener-http]: https://github.com/ronin-rb/ronin-listener-http#readme
 [ronin-nmap]: https://github.com/ronin-rb/ronin-nmap#readme
 [ronin-masscan]: https://github.com/ronin-rb/ronin-masscan#readme
 [ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
