@@ -183,6 +183,12 @@ Generate a new Ruby project with a `Gemfile`:
 $ ronin new project foo
 ```
 
+Generate a [ronin-listener-dns] script:
+
+```shell
+$ ronin new dns-listener my_dns_listener.rb
+```
+
 ### Binary
 
 Hexdumps data in a variety of formats:
@@ -921,6 +927,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-db]: https://github.com/ronin-rb/ronin-db#readme
 [ronin-db-synopsis]: https://github.com/ronin-rb/ronin-db#synopsis
 [ronin-listener]: https://github.com/ronin-rb/ronin-listener#readme
+[ronin-listener-dns]: https://github.com/ronin-rb/ronin-listener-dns#readme
 [ronin-nmap]: https://github.com/ronin-rb/ronin-nmap#readme
 [ronin-masscan]: https://github.com/ronin-rb/ronin-masscan#readme
 [ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
