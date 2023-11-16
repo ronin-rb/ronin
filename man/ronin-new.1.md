@@ -20,6 +20,10 @@ Creates a new project or script.
 
 ## COMMANDS
 
+*dns-listener*
+  Generates a new `ronin-listener-dns` script.
+  See https://github.com/ronin-rb/ronin-listener-dns#readme
+
 *dns-proxy*
   Generates a new `ronin-dns-proxy` script.
   See https://github.com/ronin-rb/ronin-dns-proxy#readme
