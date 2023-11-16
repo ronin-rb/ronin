@@ -189,6 +189,12 @@ Generate a [ronin-listener-dns] script:
 $ ronin new dns-listener my_dns_listener.rb
 ```
 
+Generate a [ronin-dns-proxy] script:
+
+```shell
+$ ronin new dns-proxy my_dns_proxy.rb
+```
+
 Generate a [ronin-listener-http] script:
 
 ```shell
