@@ -28,6 +28,10 @@ Creates a new project or script.
   Generates a new `ronin-exploits` script.
   See https://github.com/ronin-rb/ronin-exploits#readme
 
+*payload*
+  Generates a new `ronin-payloads` script.
+  See https://github.com/ronin-rb/ronin-payloads#readme
+
 *project*
   Generates a new project directory.
 
