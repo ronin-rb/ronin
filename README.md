@@ -195,6 +195,12 @@ Generate a [ronin-listener-http] script:
 $ ronin new http-listener my_http_listener.rb
 ```
 
+Generate a [ronin-exploits] script:
+
+```shell
+$ ronin new exploit my_exploit.rb
+```
+
 ### Binary
 
 Hexdumps data in a variety of formats:
