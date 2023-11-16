@@ -43,6 +43,8 @@ module Ronin
         #
         #     PATH                             The script file to create
         #
+        # @since 2.1.0
+        #
         class DnsProxy < Command
 
           include Core::CLI::Generator
