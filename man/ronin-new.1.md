@@ -28,6 +28,10 @@ Creates a new project or script.
   Generates a new `ronin-dns-proxy` script.
   See https://github.com/ronin-rb/ronin-dns-proxy#readme
 
+*http-listener*
+  Generates a new `ronin-listener-http` script.
+  See https://github.com/ronin-rb/ronin-listener-http#readme
+
 *exploit*
   Generates a new `ronin-exploits` script.
   See https://github.com/ronin-rb/ronin-exploits#readme
