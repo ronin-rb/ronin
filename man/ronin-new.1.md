@@ -24,6 +24,10 @@ Creates a new project or script.
   Generates a new `ronin-dns-proxy` script.
   See https://github.com/ronin-rb/ronin-dns-proxy#readme
 
+*exploit*
+  Generates a new `ronin-exploits` script.
+  See https://github.com/ronin-rb/ronin-exploits#readme
+
 *project*
   Generates a new project directory.
 
