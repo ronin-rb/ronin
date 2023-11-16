@@ -24,6 +24,8 @@ module Ronin
     module Commands
       class New < Command
         # An alias for `ronin-payloads new`.
+        #
+        # @since 2.1.0
         Payload = Ronin::Payloads::CLI::Commands::New
       end
     end
