@@ -54,6 +54,10 @@ Creates a new project or script.
   Generates a new `ronin-web-server` Ruby script.
   See https://github.com/ronin-rb/ronin-web-server#readme
 
+*web-app*
+  Generates a new `ronin-web-server` based web app.
+  See https://github.com/ronin-rb/ronin-web-server#readme
+
 *help*
   Lists available `ronin new` commands.
 
