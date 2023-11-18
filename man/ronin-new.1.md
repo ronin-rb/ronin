@@ -46,6 +46,10 @@ Creates a new project or script.
 *script*
   Generates a new standalone Ruby script.
 
+*nokogiri*
+  Generates a new Nokogiri Ruby script for parsing HTML/XML.
+  See https://nokogiri.org/
+
 *help*
   Lists available `ronin new` commands.
 
