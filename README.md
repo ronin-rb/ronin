@@ -171,74 +171,6 @@ $ ronin irb
 irb(ronin)>
 ```
 
-Generate a new Ruby script with [ronin-support] preloaded:
-
-```shell
-$ ronin new script foo.rb
-```
-
-Generate a new Ruby project with a `Gemfile`:
-
-```shell
-$ ronin new project foo
-```
-
-Generate a new [nokogiri] Ruby script for parsing HTML/XML:
-
-[nokogiri]: https://nokogiri.org/
-
-```shell
-$ ronin new nokogiri foo.rb
-```
-
-Generate a new [ronin-web-server] Ruby script:
-
-```shell
-$ ronin new web-server my_server.rb
-```
-
-Generate a new [ronin-web-server] based web app:
-
-```shell
-$ ronin new web-app my_app
-```
-
-Generate a new [ronin-web-spider] Ruby script:
-
-```shell
-$ ronin new web-spider --host=example.com my_spider.rb
-```
-
-Generate a [ronin-listener-dns] script:
-
-```shell
-$ ronin new dns-listener my_dns_listener.rb
-```
-
-Generate a [ronin-dns-proxy] script:
-
-```shell
-$ ronin new dns-proxy my_dns_proxy.rb
-```
-
-Generate a [ronin-listener-http] script:
-
-```shell
-$ ronin new http-listener my_http_listener.rb
-```
-
-Generate a [ronin-exploits] script:
-
-```shell
-$ ronin new exploit my_exploit.rb
-```
-
-Generate a [ronin-payloads] script:
-
-```shell
-$ ronin new payload my_payload.rb
-```
-
 ### Binary
 
 Hexdumps data in a variety of formats:
@@ -855,6 +787,76 @@ Print the HTTP status of every URL in a file:
 
 ```shell
 $ ronin url --file urls.txt --status
+```
+
+### Generators
+
+Generate a new Ruby script with [ronin-support] preloaded:
+
+```shell
+$ ronin new script foo.rb
+```
+
+Generate a new Ruby project with a `Gemfile`:
+
+```shell
+$ ronin new project foo
+```
+
+Generate a new [nokogiri] Ruby script for parsing HTML/XML:
+
+[nokogiri]: https://nokogiri.org/
+
+```shell
+$ ronin new nokogiri foo.rb
+```
+
+Generate a new [ronin-web-server] Ruby script:
+
+```shell
+$ ronin new web-server my_server.rb
+```
+
+Generate a new [ronin-web-server] based web app:
+
+```shell
+$ ronin new web-app my_app
+```
+
+Generate a new [ronin-web-spider] Ruby script:
+
+```shell
+$ ronin new web-spider --host=example.com my_spider.rb
+```
+
+Generate a [ronin-listener-dns] script:
+
+```shell
+$ ronin new dns-listener my_dns_listener.rb
+```
+
+Generate a [ronin-dns-proxy] script:
+
+```shell
+$ ronin new dns-proxy my_dns_proxy.rb
+```
+
+Generate a [ronin-listener-http] script:
+
+```shell
+$ ronin new http-listener my_http_listener.rb
+```
+
+Generate a [ronin-exploits] script:
+
+```shell
+$ ronin new exploit my_exploit.rb
+```
+
+Generate a [ronin-payloads] script:
+
+```shell
+$ ronin new payload my_payload.rb
 ```
 
 ### See Also
