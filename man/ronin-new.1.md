@@ -50,6 +50,10 @@ Creates a new project or script.
   Generates a new Nokogiri Ruby script for parsing HTML/XML.
   See https://nokogiri.org/
 
+*web-server*
+  Generates a new `ronin-web-server` Ruby script.
+  See https://github.com/ronin-rb/ronin-web-server#readme
+
 *help*
   Lists available `ronin new` commands.
 
