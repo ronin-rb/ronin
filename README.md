@@ -203,6 +203,12 @@ Generate a new [ronin-web-server] based web app:
 $ ronin new web-app my_app
 ```
 
+Generate a new [ronin-web-spider] Ruby script:
+
+```shell
+$ ronin new web-spider --host=example.com my_spider.rb
+```
+
 Generate a [ronin-listener-dns] script:
 
 ```shell
