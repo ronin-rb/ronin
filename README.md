@@ -183,6 +183,14 @@ Generate a new Ruby project with a `Gemfile`:
 $ ronin new project foo
 ```
 
+Generate a new [nokogiri] Ruby script for parsing HTML/XML:
+
+[nokogiri]: https://nokogiri.org/
+
+```shell
+$ ronin new nokogiri foo.rb
+```
+
 Generate a [ronin-listener-dns] script:
 
 ```shell
