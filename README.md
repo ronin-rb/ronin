@@ -869,7 +869,7 @@ $ ronin url --file urls.txt --status
 * [ronin-nmap] ~> 0.1
 * [ronin-masscan] ~> 0.1
 * [ronin-fuzzer] ~> 0.1
-* [ronin-web] ~> 1.0
+* [ronin-web] ~> 2.0
 * [ronin-code-asm] ~> 1.0
 * [ronin-code-sql] ~> 2.0
 * [ronin-payloads] ~> 0.1
