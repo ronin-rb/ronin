@@ -191,6 +191,12 @@ Generate a new [nokogiri] Ruby script for parsing HTML/XML:
 $ ronin new nokogiri foo.rb
 ```
 
+Generate a new [ronin-web-server] Ruby script:
+
+```shell
+$ ronin new web-server my_server.rb
+```
+
 Generate a [ronin-listener-dns] script:
 
 ```shell
