@@ -59,8 +59,14 @@ gem 'ronin-listener',           '~> 0.1', github: "ronin-rb/ronin-listener",
 #                                        branch: 'main'
 # gem 'ronin-web-user_agents', '~> 0.1', github: 'ronin-rb/ronin-web-user_agents',
 #                                        branch: 'main'
-# gem 'ronin-web',             '~> 1.0', github: 'ronin-rb/ronin-web',
-#                                        branch: 'main'
+gem 'ronin-support-web',        '~> 0.1', github: 'ronin-rb/ronin-support-web',
+                                          branch: 'main'
+gem 'ronin-web-browser',        '~> 0.1', github: 'ronin-rb/ronin-web-browser',
+                                          branch: 'main'
+gem 'ronin-web-session_cookie', '~> 0.1', github: 'ronin-rb/ronin-web-session_cookie',
+                                          branch: 'main'
+gem 'ronin-web',                '~> 2.0', github: 'ronin-rb/ronin-web',
+                                          branch: '2.0.0'
 
 gem 'ronin-dns-proxy', '~> 0.1', github: 'ronin-rb/ronin-dns-proxy',
                                  branch: 'main'
