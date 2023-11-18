@@ -197,6 +197,12 @@ Generate a new [ronin-web-server] Ruby script:
 $ ronin new web-server my_server.rb
 ```
 
+Generate a new [ronin-web-server] based web app:
+
+```shell
+$ ronin new web-app my_app
+```
+
 Generate a [ronin-listener-dns] script:
 
 ```shell
