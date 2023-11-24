@@ -247,6 +247,7 @@ module Ronin
               state:               options[:state],
               country:             options[:country]
             },
+            ca:         options[:ca],
             extensions: extensions
           )
 
@@ -352,28 +353,11 @@ module Ronin
         def extensions
           exts = {}
 
-          if (ext = basic_constraints_ext)
-            exts['basicConstraints'] = ext
-          end
-
           if (ext = subject_alt_name_ext)
             exts['subjectAltName'] = ext
           end
 
           exts unless exts.empty?
-        end
-
-        #
-        # Builds the `basicConstraints` extension.
-        #
-        # @return [(String, Boolean), nil]
-        #
-        def basic_constraints_ext
-          if options[:ca]
-            ['CA:TRUE', true]
-          elsif options[:ca_key] || options[:ca_cert]
-            ['CA:FALSE', true]
-          end
         end
 
         IP_REGEXP = Support::Text::Patterns::IP
