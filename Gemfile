@@ -29,6 +29,8 @@ gem 'ronin-core',              '~> 0.2', github: "ronin-rb/ronin-core",
                                          branch: '0.2.0'
 # gem 'ronin-repos',           '~> 0.1', github: "ronin-rb/ronin-repos",
 #                                        branch: 'main'
+gem 'ronin-db-activerecord',    '~> 0.2', github: "ronin-rb/ronin-db-activerecord",
+                                          branch: '0.2.0'
 gem 'ronin-db',                 '~> 0.2', github: "ronin-rb/ronin-db",
                                           branch: '0.2.0'
 gem 'ronin-listener-dns',       '~> 0.1', github: "ronin-rb/ronin-listener-dns",
@@ -37,8 +39,6 @@ gem 'ronin-listener-http',      '~> 0.1', github: "ronin-rb/ronin-listener-http"
                                           branch: 'main'
 gem 'ronin-listener',           '~> 0.1', github: "ronin-rb/ronin-listener",
                                           branch: 'main'
-# gem 'ronin-db-activerecord', '~> 0.1', github: "ronin-rb/ronin-db-activerecord",
-#                                        branch: 'main'
 # gem 'ronin-fuzzer',          '~> 0.1', github: 'ronin-rb/ronin-fuzzer',
 #                                        branch: 'main'
 # gem 'ronin-post_ex',         '~> 0.1', github: 'ronin-rb/ronin-post_ex',
@@ -75,6 +75,8 @@ gem 'ronin-nmap',      '~> 0.1', github: 'ronin-rb/ronin-nmap',
 gem 'ronin-masscan',   '~> 0.1', github: 'ronin-rb/ronin-masscan',
                                  branch: 'main'
 gem 'ronin-recon',     '~> 0.1', github: 'ronin-rb/ronin-recon',
+                                 branch: 'main'
+gem 'ronin-app',       '~> 0.1', github: 'ronin-rb/ronin-app',
                                  branch: 'main'
 
 group :development do

@@ -900,6 +900,7 @@ $ ronin new payload my_payload.rb
 * [ronin-payloads] ~> 0.1
 * [ronin-exploits] ~> 1.0
 * [ronin-vulns] ~> 0.1
+* [ronin-app] ~> 0.1
 
 ## Install
 
@@ -1003,3 +1004,4 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-exploits-examples]: https://github.com/ronin-rb/ronin-exploits#examples
 [ronin-vulns]: https://github.com/ronin-rb/ronin-vulns#readme
 [ronin-vulns-synopsis]: https://github.com/ronin-rb/ronin-vulns#synopsis
+[ronin-app]: https://github.com/ronin-rb/ronin-app#readme
