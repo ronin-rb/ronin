@@ -888,6 +888,7 @@ $ ronin new payload my_payload.rb
 * [ronin-listener] ~> 0.1
 * [ronin-nmap] ~> 0.1
 * [ronin-masscan] ~> 0.1
+* [ronin-recon] ~> 0.1
 * [ronin-fuzzer] ~> 0.1
 * [ronin-web] ~> 2.0
 * [ronin-code-asm] ~> 1.0
@@ -983,6 +984,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-listener-http]: https://github.com/ronin-rb/ronin-listener-http#readme
 [ronin-nmap]: https://github.com/ronin-rb/ronin-nmap#readme
 [ronin-masscan]: https://github.com/ronin-rb/ronin-masscan#readme
+[ronin-recon]: https://github.com/ronin-rb/ronin-recon#readme
 [ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
 [ronin-web-server]: https://github.com/ronin-rb/ronin-web-server#readme
