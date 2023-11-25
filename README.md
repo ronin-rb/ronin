@@ -128,6 +128,7 @@ Additional Ronin Commands:
     $ ronin-payloads
     $ ronin-exploits
     $ ronin-vulns
+    $ ronin-app
 ```
 
 List ronin commands:
