@@ -63,6 +63,7 @@ module Ronin
       ronin-payloads
       ronin-exploits
       ronin-vulns
+      ronin-app
     ]
 
     #
