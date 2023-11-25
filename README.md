@@ -122,6 +122,7 @@ Additional Ronin Commands:
     $ ronin-db
     $ ronin-web
     $ ronin-fuzzer
+    $ ronin-masscan
     $ ronin-nmap
     $ ronin-payloads
     $ ronin-exploits
