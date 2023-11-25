@@ -124,6 +124,7 @@ Additional Ronin Commands:
     $ ronin-fuzzer
     $ ronin-masscan
     $ ronin-nmap
+    $ ronin-recon
     $ ronin-payloads
     $ ronin-exploits
     $ ronin-vulns
