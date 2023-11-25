@@ -57,6 +57,7 @@ module Ronin
       ronin-db
       ronin-web
       ronin-fuzzer
+      ronin-nmap
       ronin-payloads
       ronin-exploits
       ronin-vulns
