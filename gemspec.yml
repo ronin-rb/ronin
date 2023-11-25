@@ -106,6 +106,7 @@ dependencies:
   ronin-listener: ~> 0.1
   ronin-nmap: ~> 0.1
   ronin-masscan: ~> 0.1
+  ronin-recon: ~> 0.1
   ronin-fuzzer: ~> 0.1
   ronin-web: ~> 2.0
   ronin-code-asm: ~> 1.0

@@ -55,8 +55,8 @@ gem 'ronin-listener',           '~> 0.1', github: "ronin-rb/ronin-listener",
 #                                        branch: 'main'
 # gem 'ronin-web-server',      '~> 0.1', github: 'ronin-rb/ronin-web-server',
 #                                        branch: 'main'
-# gem 'ronin-web-spider',      '~> 0.1', github: 'ronin-rb/ronin-web-spider',
-#                                        branch: 'main'
+gem 'ronin-web-spider',      '~> 0.2', github: 'ronin-rb/ronin-web-spider',
+                                       branch: '0.2.0'
 # gem 'ronin-web-user_agents', '~> 0.1', github: 'ronin-rb/ronin-web-user_agents',
 #                                        branch: 'main'
 gem 'ronin-support-web',        '~> 0.1', github: 'ronin-rb/ronin-support-web',
@@ -73,6 +73,8 @@ gem 'ronin-dns-proxy', '~> 0.1', github: 'ronin-rb/ronin-dns-proxy',
 gem 'ronin-nmap',      '~> 0.1', github: 'ronin-rb/ronin-nmap',
                                  branch: 'main'
 gem 'ronin-masscan',   '~> 0.1', github: 'ronin-rb/ronin-masscan',
+                                 branch: 'main'
+gem 'ronin-recon',     '~> 0.1', github: 'ronin-rb/ronin-recon',
                                  branch: 'main'
 
 group :development do
