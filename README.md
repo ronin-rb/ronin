@@ -24,7 +24,8 @@ HTTP, [scanning for web vulnerabilities][ronin-vulns-synopsis],
 [payloads][ronin-payloads], [run exploits][ronin-exploits-synopsis],
 [write new exploits][ronin-exploits-examples],
 [managing local databases][ronin-db-synopsis],
-[fuzzing data][ronin-fuzzer], and much more.
+[fuzzing data][ronin-fuzzer],
+[perform recon][ronin-recon-synopsis], and much more.
 
 ### Who is Ronin for?
 
@@ -985,6 +986,7 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-nmap]: https://github.com/ronin-rb/ronin-nmap#readme
 [ronin-masscan]: https://github.com/ronin-rb/ronin-masscan#readme
 [ronin-recon]: https://github.com/ronin-rb/ronin-recon#readme
+[ronin-recon-synopsis]: https://github.com/ronin-rb/ronin-recon#synopsis
 [ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
 [ronin-web-server]: https://github.com/ronin-rb/ronin-web-server#readme

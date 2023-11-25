@@ -7,7 +7,7 @@ description:
   IPs/hosts/URLs, querying ASNs, querying DNS, HTTP, scanning for web
   vulnerabilities, spidering websites, install 3rd party repositories of
   exploits and/or payloads, run exploits, generating new exploits, managing
-  local databases, fuzzing data, and much more.
+  local databases, fuzzing data, perform recon, and much more.
 
 license: GPL-3.0
 authors: Postmodern
