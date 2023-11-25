@@ -175,6 +175,12 @@ $ ronin irb
 irb(ronin)>
 ```
 
+Starts and opens the interactive Web UI for Ronin:
+
+```
+$ ronin-app
+```
+
 ### Binary
 
 Hexdumps data in a variety of formats:
