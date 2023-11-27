@@ -42,7 +42,7 @@ HTTP, [scanning for web vulnerabilities][ronin-vulns-synopsis],
 * A fully-loaded Ruby REPL.
 * An ecosystem of high-quality security related Ruby libraries, APIs, and
   commands.
-* A local web UI for exploring the database, performing recon/scans, and more.
+* A lightweight local web UI.
 
 ### What can you do with Ronin?
 
@@ -58,6 +58,7 @@ HTTP, [scanning for web vulnerabilities][ronin-vulns-synopsis],
 * Use common payloads or write your own using [ronin-payloads].
 * Write/run exploits using [ronin-exploits].
 * Scan for web vulnerabilities using [ronin-vulns].
+* Performs scans and browse the database in your browser using [ronin-app].
 
 ## Synopsis
 
