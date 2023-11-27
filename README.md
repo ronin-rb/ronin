@@ -54,6 +54,7 @@ HTTP, [scanning for web vulnerabilities][ronin-vulns-synopsis],
   using [ronin-repos].
 * Import and query data using the [ronin-db] database.
 * Fuzz data using [ronin-fuzzer].
+* Perform recon using [ronin-recon].
 * Use common payloads or write your own using [ronin-payloads].
 * Write/run exploits using [ronin-exploits].
 * Scan for web vulnerabilities using [ronin-vulns].
