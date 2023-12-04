@@ -12,12 +12,12 @@ COMMAND.
 ## ARGUMENTS
 
 *COMMAND*
-	The optional command to get detailed help information on.
+: The optional command to get detailed help information on.
 
 ## OPTIONS
 
 `-h`, `--help`
-  Print help information
+: Print help information
 
 ## AUTHOR
 

@@ -12,18 +12,18 @@ Supports a variety of formats, bases, and encodings.
 ## ARGUMENTS
 
 *FILE*
-  The optional path to the file to un-hexdump.
+: The optional path to the file to un-hexdump.
 
 ## OPTIONS
 
 `-o`, `--output` *FILE*
-  Optional path to the output file.
+: Optional path to the output file.
 
 `-f`, `--format` [`hexdump`\|`od`]
-  Specifies the hexdump format to parse.
+: Specifies the hexdump format to parse.
 
 `-t`, `--type` *TYPE*
-  The binary data type to decode the data as. Must be one of the following:
+: The binary data type to decode the data as. Must be one of the following:
 
   * `int8`
   * `uint8`
@@ -90,30 +90,30 @@ Supports a variety of formats, bases, and encodings.
   * `double_ne`
 
 `-b`, `--base` `2`|`8`|`10`|`16`
-  The numeric base to print hexdumped numbers in.
+: The numeric base to print hexdumped numbers in.
 
 `-A`, `--address-base` `2`|`8`|`10`|`16`
-  The numeric base to print the index addresses in.
+: The numeric base to print the index addresses in.
 
 `--[no-]named-chars`
-  Enables parsing of `od`-style named characters (ex: `nul`).
+: Enables parsing of `od`-style named characters (ex: `nul`).
 
 `-h`, `--help`
-  Prints help information.
+: Prints help information.
 
 ## EXAMPLES
 
 Unhexdump a `hexdump -C` hexdump:
 
-        ronin unhexdump -o raw.bin hexdump.txt
+    ronin unhexdump -o raw.bin hexdump.txt
 
 Unhexdump a `hexdump` hexdump:
 
-        ronin unhexdump -o raw.bin -t uint16_le hexdump.txt
+    ronin unhexdump -o raw.bin -t uint16_le hexdump.txt
 
 Unhexdump an `od` hexdump:
 
-        ronin unhexdump -o raw.bin -f od od.txt
+    ronin unhexdump -o raw.bin -f od od.txt
 
 ## AUTHOR
 
@@ -121,4 +121,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-hexdump(1), hexdump(1), od(1)
+[ronin-hexdump](ronin-hexdump.1.md) [hexdump](hexdump.1.md) [od](od.1.md)

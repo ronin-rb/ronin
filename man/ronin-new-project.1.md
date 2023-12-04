@@ -11,25 +11,25 @@ Creates a new Ruby project directory.
 ## ARGUMENTS
 
 *PATH*
-	The path to the new project directory.
+: The path to the new project directory.
 
 ## OPTIONS
 
 `--git`
-  Initializes a git repo.
+: Initializes a git repo.
 
 `--ruby-version` *VERSION*
-  The desired ruby version for the project. Defaults to the current `ruby`
+: The desired ruby version for the project. Defaults to the current `ruby`
   version if not specified.
 
 `--rakefile`
-  Creates a `Rakefile`.
+: Creates a `Rakefile`.
 
 `--dockerfile`
-  Adds a `Dockerfile` to the new project.
+: Adds a `Dockerfile` to the new project.
 
 `-h`, `--help`
-  Print help information
+: Print help information
 
 ## EXAMPLES
 
@@ -55,4 +55,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-new-script(1)
+[ronin-new-script](ronin-new-script.1.md)

@@ -11,80 +11,80 @@ Decodes each character of the given data from a variety of formats.
 ## ARGUMENTS
 
 *FILE*
-  The optional file to read and process. If no *FILE* arguments are given,
+: The optional file to read and process. If no *FILE* arguments are given,
   input will be read from `stdin`.
 
 ## OPTIONS
 
 `-f`, `--file` *FILE*
-  Optional file to process.
+: Optional file to process.
 
 `--string` *STRING*
-  Optional string to process.
+: Optional string to process.
 
 `-M`, `--multiline`
-  Process each line of input separately.
+: Process each line of input separately.
 
 `-n`, `--keep-newlines`
-  Preserves newlines at the end of each line.
+: Preserves newlines at the end of each line.
 
 `--base16`
-  Base16 decodes the data.
+: Base16 decodes the data.
 
 `--base32`
-  Base32 decodes the data.
+: Base32 decodes the data.
 
 `-b`, `--base64`[`=`*strict*\|*url*]
-  Base64 decodes the data. If the `strict` or `url` option value is given,
+: Base64 decodes the data. If the `strict` or `url` option value is given,
   it will enable `strict` or `url` Base64 encoding mode, respectively.
 
 `-z`, `--zlib`
-  Zlib uncompresses the data.
+: Zlib uncompresses the data.
 
 `-g`, `--gzip`
-  gzip uncompresses the data.
+: gzip uncompresses the data.
 
 `-c, `--c`
-  Decodes the data as a C string.
+: Decodes the data as a C string.
 
 `-X`, `--hex`
-  Hex decode the data (ex: `414141...`).
+: Hex decode the data (ex: `414141...`).
 
 `-H`, `--html`
-  HTML decodes the data.
+: HTML decodes the data.
 
 `-u`, `--uri`
-  URI decodes the data.
+: URI decodes the data.
 
 `--http`
-  HTTP decodes the data.
+: HTTP decodes the data.
 
 `-j`, `--js`
-  JavaScript decodes the data.
+: JavaScript decodes the data.
 
 `-S`, `--shell`
-  Decodes the data as a Shell String.
+: Decodes the data as a Shell String.
 
 `-P`, `--powershell`
-  Decodes the data as a PowerShell String.
+: Decodes the data as a PowerShell String.
 
 `--punycode`
-  Decodes the data as Punycode.
+: Decodes the data as Punycode.
 
 `-Q`, `--quoted-printable`
-  Decodes the data as Quoted Printable.
+: Decodes the data as Quoted Printable.
 
 `-R`, `--ruby`
-  Ruby decodes the data.
+: Ruby decodes the data.
 
 `--uudecode`
-  uudecodes the data.
+: uudecodes the data.
 
 `-x`, `--xml`
-  XML decodes the data.
+: XML decodes the data.
 
 `-h`, `--help`
-  Print help information.
+: Print help information.
 
 ## AUTHOR
 
@@ -92,4 +92,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-encode(1)
+[ronin-encode](ronin-encode.1.md)

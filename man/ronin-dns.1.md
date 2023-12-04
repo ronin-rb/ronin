@@ -11,21 +11,21 @@ Queries DNS records for the given host name.
 ## ARGUMENTS
 
 *HOST*
-  A host name argument to query.
+: A host name argument to query.
 
 ## OPTIONS
 
 `-f`, `--file` *FILE*
-  The optional file to read values from.
+: The optional file to read values from.
 
 `-N`, `--nameserver` *HOST*|*IP*
-  Send DNS queries to the nameserver.
+: Send DNS queries to the nameserver.
 
 `-t`, `--type` `A|AAAA|ANY|CNAME|HINFO|LOC|MINFO|MX|NS|PTR|SOA|SRV|TXT|WKS`
-  The type of record to query.
+: The type of record to query.
 
 `-h`, `--help`
-  Print help information.
+: Print help information.
 
 ## AUTHOR
 
