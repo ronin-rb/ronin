@@ -13,18 +13,18 @@ See https://github.com/ronin-rb/ronin-dns-proxy#readme
 ## ARGUMENTS
 
 *PATH*
-	The path to the new script file.
+: The path to the new script file.
 
 ## OPTIONS
 
 `-H`, `--host` *IP*
-  The IP to listen on. Defaults to `127.0.0.1` if not specified.
+: The IP to listen on. Defaults to `127.0.0.1` if not specified.
 
 `-p`, `--port` *PORT*
-  The port number to listen on. Defaults to `2345` if not specified.
+: The port number to listen on. Defaults to `2345` if not specified.
 
 `-h`, `--help`
-  Print help information
+: Print help information
 
 ## EXAMPLES
 
@@ -41,4 +41,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-new-script(1)
+[ronin-new-script](ronin-new-script.1.md)

@@ -11,13 +11,13 @@ Prints a random tip for how to use `ronin`.
 ## OPTIONS
 
 `--list-categories`
-	Print all category names.
+: Print all category names.
 
 `-c`, `--category` *CATEGORY*
-	Prints a random tip from the given category.
+: Prints a random tip from the given category.
 
 `-s`, `--search` *TEXT*
-	Searches and prints all tips containing the given text.
+: Searches and prints all tips containing the given text.
 
 ## AUTHOR
 

@@ -11,19 +11,19 @@ Syntax highlights the given files or input.
 ## ARGUMENTS
 
 *FILE*
-  The optional file to highlight. If no *FILE* arguments are given, then
+: The optional file to highlight. If no *FILE* arguments are given, then
   `ronin highlight` will read from standard input.
 
 ## OPTIONS
 
 `-s`, `--syntax`
-  Specifies the syntax to highlight.
+: Specifies the syntax to highlight.
 
 `-L`, `--less`
-  Display the output in a pager.
+: Display the output in a pager.
 
 `-h`, `--help`
-  Print help information.
+: Print help information.
 
 ## AUTHOR
 

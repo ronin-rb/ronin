@@ -11,24 +11,24 @@ Bitflips a domain and checks if it has any DNS records.
 ## ARGUMENTS
 
 *DOMAIN*
-  A domain to bitflip and query.
+: A domain to bitflip and query.
 
 ## OPTIONS
 
 `-f`, `--file` *FILE*
-  Optional file to read domains from.
+: Optional file to read domains from.
 
 `--has-addresses`
-  Print bitsquat domains with addresses.
+: Print bitsquat domains with addresses.
 
 `--registered`
-  Print bitsquat domains that are already registered.
+: Print bitsquat domains that are already registered.
 
 `--unregistered`
-  Print bitsquat domains that can be registered.
+: Print bitsquat domains that can be registered.
 
 `-h`, `--help`
-  Print help information.
+: Print help information.
 
 ## AUTHOR
 
@@ -36,4 +36,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-bitflip(1)
+[ronin-bitflip](ronin-bitflip.1.md)

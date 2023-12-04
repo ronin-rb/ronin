@@ -11,12 +11,12 @@ Creates a new standalone Ruby script.
 ## ARGUMENTS
 
 *PATH*
-	The path to the new script file.
+: The path to the new script file.
 
 ## OPTIONS
 
 `-h`, `--help`
-  Print help information
+: Print help information
 
 ## EXAMPLES
 
@@ -30,4 +30,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-new-project(1)
+[ronin-new-project](ronin-new-project.1.md)

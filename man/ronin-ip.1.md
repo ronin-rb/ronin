@@ -11,103 +11,103 @@ Queries or processes IP addresses.
 ## ARGUMENTS
 
 *IP*
-  An IP address argument to process.
+: An IP address argument to process.
 
 ## OPTIONS
 
 `-f`, `--file` *FILE*
-  The optional file to read values from.
+: The optional file to read values from.
 
 `-P`, `--public`
-  Gets the public IP address.
+: Gets the public IP address.
 
 `-L`, `--local`
-  Gets the local IP address.
+: Gets the local IP address.
 
 `-r`, `--reverse`
-  Prints the IP address in reverse name format.
+: Prints the IP address in reverse name format.
 
 `-X`, `--hex`
-  Converts the IP address to hexadecimal format.
+: Converts the IP address to hexadecimal format.
 
 `-D`, `--decimal`
-  Converts the IP address to decimal format.
+: Converts the IP address to decimal format.
 
 `-O`, `--octal`
-  Converts the IP address to octal format.
+: Converts the IP address to octal format.
 
 `-B`, `--binary`
-  Converts the IP address to binary format.
+: Converts the IP address to binary format.
 
 `--hex-octet`
-  Converts the IP address to hexadecimal format by octet
+: Converts the IP address to hexadecimal format by octet
 
 `--octal-octet`
-  Converts the IP address to octal format by octet
+: Converts the IP address to octal format by octet
 
 `--ipv6-compat`
-  Converts the IPv4 address to an IPv6 compatible address
+: Converts the IPv4 address to an IPv6 compatible address
 
 `--ipv6-expanded`
-  Expands a shortened or compressed IPv6 address
+: Expands a shortened or compressed IPv6 address
 
 `-C`, `--cidr` *NETMASK*
-  Converts the IP address into a CIDR range.
+: Converts the IP address into a CIDR range.
 
 `-H`, `--host`
-  Converts the IP address to a host name.
+: Converts the IP address to a host name.
 
 `-p`, `--port` *PORT*
-  Appends the port number to each IP.
+: Appends the port number to each IP.
 
 `-U`, `--uri`
-  Converts the IP address into a URI.
+: Converts the IP address into a URI.
 
 `--uri-scheme` *SCHEME*
-  The scheme for the URI. Defaults to `http` if not given.
+: The scheme for the URI. Defaults to `http` if not given.
 
 `--uri-port` *PORT*
-  The port for the URI.
+: The port for the URI.
 
 `--uri-path` /*PATH*
-  The absolute path for the URI. Defaults to `/` if not given.
+: The absolute path for the URI. Defaults to `/` if not given.
 
 `--uri-query` *STRING*
-  The query string for the URI.
+: The query string for the URI.
 
 `--http`
-  Converts the IP address into a http:// URI.
+: Converts the IP address into a http:// URI.
 
 `--https`
-  Converts the IP address into a https:// URI.
+: Converts the IP address into a https:// URI.
 
 `-h`, `--help`
-  Print help information.
+: Print help information.
 
 ## EXAMPLES
 
 Gets the machine's public IP address:
 
-        $ ronin ip --public
+    $ ronin ip --public
 
 Gets the machine's local network IP address:
 
-        $ ronin ip --local
+    $ ronin ip --local
 
 Converts the IP address(es) into unsigned integers:
 
-        $ ronin ip --decimal 1.2.3.4
-        16909060
+    $ ronin ip --decimal 1.2.3.4
+    16909060
 
 Converts the IP address(es) into CIDR ranges:
 
-        $ ronin ip --cidr 20 1.2.3.4
-        1.2.0.0/20
+    $ ronin ip --cidr 20 1.2.3.4
+    1.2.0.0/20
 
 Converts the IP address(es) into host names:
 
-        $ ronin ip --host 192.30.255.113
-        lb-192-30-255-113-sea.github.com
+    $ ronin ip --host 192.30.255.113
+    lb-192-30-255-113-sea.github.com
 
 ## AUTHOR
 
