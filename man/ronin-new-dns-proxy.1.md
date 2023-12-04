@@ -30,7 +30,7 @@ See https://github.com/ronin-rb/ronin-dns-proxy#readme
 
 Generate a new `ronin-dns-proxy` script:
 
-    ronin new dns-proxy proxy.rb
+    $ ronin new dns-proxy proxy.rb
 
 See https://github.com/ronin-rb/ronin-dns-proxy#examples for more
 `ronin-dns-proxy` examples.

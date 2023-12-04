@@ -69,11 +69,11 @@ Creates a new project or script.
 
 Generate a new Ruby script:
 
-    ronin new script file.rb
+    $ ronin new script file.rb
 
 Generate a new Ruby project:
 
-    ronin new project path/to/dir
+    $ ronin new project path/to/dir
 
 ## AUTHOR
 

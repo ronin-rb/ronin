@@ -53,27 +53,27 @@ the given *NUMBER*, *NAME*, or *COUNTRY* code.
 
 Print verbose output for all ASN records for `AS15133`:
 
-    ronin asn -v -n 15133
+    $ ronin asn -v -n 15133
 
 Print verbose output for the ASN record for the IP address `93.184.216.34`:
 
-    ronin asn -v -I 93.184.216.34
+    $ ronin asn -v -I 93.184.216.34
 
 Prints all ASN records for the given country code:
 
-    ronin asn -C US
+    $ ronin asn -C US
 
 Prints all ASN records for the given ISP:
 
-    ronin asn -N EDGECAST
+    $ ronin asn -N EDGECAST
 
 Enumerate over the IP addresses in the IP range for `AS15133`:
 
-    ronin asn --enum-ips -n 15133
+    $ ronin asn --enum-ips -n 15133
 
 Enumerate over all IP addresses for all ASN records belonging to the given ISP:
 
-    ronin asn --enum-ips -N EDGECAST
+    $ ronin asn --enum-ips -N EDGECAST
 
 ## ENVIRONMENT
 
