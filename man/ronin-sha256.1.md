@@ -11,25 +11,25 @@ Calculates SHA256 hashes of data.
 ## ARGUMENTS
 
 *FILE*
-  The optional file to read and process. If no *FILE* arguments are given,
+: The optional file to read and process. If no *FILE* arguments are given,
   input will be read from `stdin`.
 
 ## OPTIONS
 
 `-f`, `--file` *FILE*
-  Optional input file to read from.
+: Optional input file to read from.
 
 `--string` *STRING*
-  Optional string to process.
+: Optional string to process.
 
 `-M`, `--multiline`
-  Process each line of input separately.
+: Process each line of input separately.
 
 `-n`, `--keep-newlines`
-  Preserves newlines at the end of each line.
+: Preserves newlines at the end of each line.
 
 `-h`, `--help`
-  Print help information.
+: Print help information.
 
 ## AUTHOR
 
@@ -37,4 +37,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-md5(1), ronin-sha1(1), ronin-sha512(1)
+[ronin-md5](ronin-md5.1.md) [ronin-sha1](ronin-sha1.1.md) [ronin-sha512](ronin-sha512.1.md)

@@ -11,10 +11,10 @@ Start ronin's interactive Ruby shell.
 ## OPTIONS
 
 `-I`, `--include` *DIR*
-	Adds the `DIR` to `$LOAD_PATH`.
+: Adds the `DIR` to `$LOAD_PATH`.
 
 `-r`, `--require` *PATH*
-	Ruby files to require.
+: Ruby files to require.
 
 ## AUTHOR
 
@@ -22,4 +22,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin(1)
+[ronin](ronin.1.md)

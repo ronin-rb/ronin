@@ -11,30 +11,30 @@ Generates typos in words.
 ## ARGUMENTS
 
 *WORD*
-  The optional word to typo.
+: The optional word to typo.
 
 ## OPTIONS
 
 `-f`, `--file` *FILE*
-  Optional file to process.
+: Optional file to process.
 
 `--omit-chars`
-  Toggles whether to omit repeated characters.
+: Toggles whether to omit repeated characters.
 
 `--repeat-chars`
-  Toggles whether to repeat single characters.
+: Toggles whether to repeat single characters.
 
 `--swap-chars`
-  Toggles whether to swap certain common character pairs.
+: Toggles whether to swap certain common character pairs.
 
 `--change-suffix`
-  Toggles whether to change the suffix of words.
+: Toggles whether to change the suffix of words.
 
 `-E`, `--enum`
-  Enumerates over every possible typo of a word.
+: Enumerates over every possible typo of a word.
 
 `-h`, `--help`
-  Print help information.
+: Print help information.
 
 ## AUTHOR
 
@@ -42,4 +42,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-bitflip(1) ronin-homoglyph(1)
+[ronin-bitflip](ronin-bitflip.1.md) [ronin-homoglyph](ronin-homoglyph.1.md)

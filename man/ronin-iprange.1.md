@@ -12,21 +12,21 @@ command-line arguments or read from a file via the `--file` option.
 ## ARGUMENTS
 
 *IP_RANGE*
-  An IP range argument given in either CIDR or glob notation.
+: An IP range argument given in either CIDR or glob notation.
 
 ## OPTIONS
 
 `-f`, `--file` *FILE*
-  The optional file to read values from.
+: The optional file to read values from.
 
 `--start` *IP*
-  The starting IP address for the range.
+: The starting IP address for the range.
 
 `--stop` *IP*
-  The stopping IP address for the range.
+: The stopping IP address for the range.
 
 `-h`, `--help`
-  Print help information.
+: Print help information.
 
 ## AUTHOR
 

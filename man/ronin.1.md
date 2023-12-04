@@ -11,26 +11,26 @@ Runs a Ronin *COMMAND*.
 ## ARGUMENTS
 
 *COMMAND*
-	The Ronin command to execute.
+: The Ronin command to execute.
 
 ## OPTIONS
 
 `-h`, `--help`
-  Print help information
+: Print help information
 
 ## COMMANDS
 
 *console*
-  Starts ronin's interactive ruby console.
+: Starts ronin's interactive ruby console.
 
 *exec*
-  Executes a script or binary from a ronin repo.
+: Executes a script or binary from a ronin repo.
 
 *help*
-  Lists available commands or shows help about a specific command.
+: Lists available commands or shows help about a specific command.
 
 *net-proxy*
-  Starts a TCP/UDP intercept proxy.
+: Starts a TCP/UDP intercept proxy.
 
 ## AUTHOR
 
@@ -38,4 +38,4 @@ Postmodern <postmodern.mod3@gmail.com>
 
 ## SEE ALSO
 
-ronin-help(1)
+[ronin-help](ronin-help.1.md)
