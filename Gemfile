@@ -51,8 +51,8 @@ gem 'ronin-listener',           '~> 0.1', github: "ronin-rb/ronin-listener",
 #                                        branch: 'main'
 # gem 'ronin-exploits',        '~> 1.0', github: 'ronin-rb/ronin-exploits',
 #                                        branch: 'main'
-# gem 'ronin-vulns',           '~> 0.1', github: 'ronin-rb/ronin-vulns',
-#                                        branch: 'main'
+gem 'ronin-vulns',           '~> 0.2', github: 'ronin-rb/ronin-vulns',
+                                       branch: '0.2.0'
 # gem 'ronin-web-server',      '~> 0.1', github: 'ronin-rb/ronin-web-server',
 #                                        branch: 'main'
 gem 'ronin-web-spider',      '~> 0.2', github: 'ronin-rb/ronin-web-spider',

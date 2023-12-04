@@ -909,7 +909,7 @@ $ ronin new payload my_payload.rb
 * [ronin-code-sql] ~> 2.0
 * [ronin-payloads] ~> 0.1
 * [ronin-exploits] ~> 1.0
-* [ronin-vulns] ~> 0.1
+* [ronin-vulns] ~> 0.2
 * [ronin-app] ~> 0.1
 
 ## Install
