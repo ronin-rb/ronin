@@ -22,7 +22,7 @@ Creates a new standalone Ruby script.
 
 Generate a new Ruby script:
 
-    ronin new script file.rb
+    $ ronin new script file.rb
 
 ## AUTHOR
 
