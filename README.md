@@ -102,6 +102,7 @@ Commands:
     md5
     netcat, nc
     new
+    pack
     proxy
     public-suffix-list
     quote
