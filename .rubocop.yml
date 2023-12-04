@@ -15,6 +15,10 @@ Layout/ExtraSpacing:
   Exclude:
     - 'Gemfile'
 
+Layout/HeredocIndentation:
+  Exclude:
+    - 'lib/ronin/cli/commands/pack.rb'
+
 # no need to add `frozen_string_literal: true` to new scripts/projects
 Style/FrozenStringLiteralComment:
   Exclude:
