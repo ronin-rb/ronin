@@ -35,19 +35,19 @@ Creates a new Ruby project directory.
 
 Generate a new Ruby project:
 
-    ronin new project path/to/dir
+    $ ronin new project path/to/dir
 
 Set the desired ruby version for the project:
 
-    ronin new project --ruby-version 3.2.0 path/to/dir
+    $ ronin new project --ruby-version 3.2.0 path/to/dir
 
 Add a `Rakefile` to the project for defining automated tasks:
 
-    ronin new project --rakefile path/to/dir
+    $ ronin new project --rakefile path/to/dir
 
 Add a `Dockerfile` to the project:
 
-    ronin new project --dockerfile path/to/dir
+    $ ronin new project --dockerfile path/to/dir
 
 ## AUTHOR
 

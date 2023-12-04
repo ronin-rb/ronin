@@ -42,11 +42,11 @@ Processes one or more email addresses.
 
 Deobfuscates an email address:
 
-    ronin email-addr --deobfuscate "john{DOT}smith{AT}example{DOT}com"'
+    $ ronin email-addr --deobfuscate "john{DOT}smith{AT}example{DOT}com"'
 
 Extracts the domain name from a list of email addresses:
 
-    ronin email-addr --file emails.txt --domain
+    $ ronin email-addr --file emails.txt --domain
 
 ## AUTHOR
 
