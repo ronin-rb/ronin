@@ -149,6 +149,8 @@ module Ronin
         argument :file, required: false,
                         desc: 'Optional file to unhexdump'
 
+        description 'Decodes a hexdump back into raw data'
+
         man_page 'ronin-unhexdump.1'
 
         #
