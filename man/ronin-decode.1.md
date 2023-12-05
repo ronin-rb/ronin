@@ -1,5 +1,9 @@
 # ronin-decode 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-decode - Decodes each character of data from a variety of encodings
+
 ## SYNOPSIS
 
 `ronin decode ` [*options*] [*FILE* ...]

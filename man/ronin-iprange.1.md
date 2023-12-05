@@ -1,5 +1,9 @@
 # ronin-iprange 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-iprange - Enumerates over IP ranges
+
 ## SYNOPSIS
 
 `ronin iprange` [*options*] [*IP_RANGE* ... \| `--start` *IP* `--stop` *IP*]

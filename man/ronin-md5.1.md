@@ -1,5 +1,9 @@
 # ronin-md5 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-md5 - Calculates MD5 hashes of data
+
 ## SYNOPSIS
 
 `ronin md5` [*options*] [*FILE* ...]

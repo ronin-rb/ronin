@@ -1,5 +1,9 @@
 # ronin-tld-list 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-tld-list - Updates and parses the TLD list file
+
 ## SYNOPSIS
 
 `ronin tld-list` [*options*]

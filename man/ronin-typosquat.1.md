@@ -1,5 +1,9 @@
 # ronin-typosquat 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-typosquat - Finds typo squatted domains
+
 ## SYNOPSIS
 
 `ronin typosquat` [*options*] [DOMAIN ...]

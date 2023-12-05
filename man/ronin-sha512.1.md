@@ -1,5 +1,9 @@
 # ronin-sha512 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-sha512 - Calculates SHA512 hashes
+
 ## SYNOPSIS
 
 `ronin sha512` [*options*] [*FILE* ...]

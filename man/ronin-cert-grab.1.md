@@ -1,5 +1,9 @@
 # ronin-cert-grab 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-cert-grab - Downloads SSL/TLS certificates
+
 ## SYNOPSIS
 
 `ronin cert-grab` [*options*] {*HOST*:*PORT* \| *URL*} ...

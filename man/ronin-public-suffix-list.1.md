@@ -1,5 +1,9 @@
 # ronin-public-suffix-list 1 "2023-02-1" Ronin "User Manuals"
 
+## NAME
+
+ronin-public-suffix-list - Updates and parses the public suffix list file
+
 ## SYNOPSIS
 
 `ronin public-suffix-list` [*options*]

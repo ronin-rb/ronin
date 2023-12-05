@@ -1,5 +1,9 @@
 # ronin-rot 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-rot - Rotates each character of data within an alphabet
+
 ## SYNOPSIS
 
 `ronin rot` [*options*] [*FILE* ...]

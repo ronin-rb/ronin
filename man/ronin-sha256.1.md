@@ -1,5 +1,9 @@
 # ronin-sha256 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-sha256 - Calculates SHA256 hashes of data
+
 ## SYNOPSIS
 
 `ronin sha256` [*options*] [*FILE* ...]

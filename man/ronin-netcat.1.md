@@ -1,5 +1,9 @@
 # ronin-netcat 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-netcat - A netcat clone command
+
 ## SYNOPSIS
 
 `ronin netcat` [*options*] [`--tcp` \| `--udp` \| `--ssl` \| `--tls`] {*HOST* *PORT* \| `-l` [*HOST*] *PORT* \| `--unix` *PATH*}

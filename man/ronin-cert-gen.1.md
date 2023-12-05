@@ -1,5 +1,9 @@
 # ronin-cert-gen 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-cert-gen - Generates a new X509 certificate
+
 ## SYNOPSIS
 
 `ronin cert-gen` [*options*]

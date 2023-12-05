@@ -1,5 +1,9 @@
 # ronin-grep 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-grep - Searches files/input for common patterns
+
 ## SYNOPSIS
 
 `ronin grep` [*options*] [*FILE* ...]

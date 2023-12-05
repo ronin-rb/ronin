@@ -1,5 +1,9 @@
 # ronin-quote 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-quote - Produces quoted a string for a variety of programming languages
+
 ## SYNOPSIS
 
 `ronin quote` [*options*] [*FILE* ...]

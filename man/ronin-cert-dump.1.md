@@ -1,5 +1,9 @@
 # ronin-cert-dump 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-cert-dump - Prints SSL/TLS certificate information
+
 ## SYNOPSIS
 
 `ronin cert-dump` [*options*] {*HOST*:*PORT* \| *URL* \| *FILE*} ...
