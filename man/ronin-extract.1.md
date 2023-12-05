@@ -1,5 +1,9 @@
 # ronin-extract 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-extract - Extracts common patterns from files/input
+
 ## SYNOPSIS
 
 `ronin extract` [*options*] [*FILE* ...]

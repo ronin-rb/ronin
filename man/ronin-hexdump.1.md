@@ -1,5 +1,9 @@
 # ronin-hexdump 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-hexdump - Hexdumps data in a variaty of encodings and formats
+
 ## SYNOPSIS
 
 `ronin hexdump` [*options*] [*FILE* ...]

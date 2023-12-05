@@ -1,5 +1,9 @@
 # ronin 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin - A Ruby toolkit for security research and development
+
 ## SYNOPSIS
 
 `ronin` [*options*] [*COMMAND* [...]]

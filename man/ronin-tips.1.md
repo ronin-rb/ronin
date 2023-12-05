@@ -1,5 +1,9 @@
 # ronin-tips 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-tips - Prints a random tip on how to use ronin
+
 ## SYNOPSIS
 
 `ronin tips` [*options*]

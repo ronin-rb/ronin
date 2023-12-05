@@ -1,5 +1,9 @@
 # ronin-typo 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-typo - Generates typos in words
+
 ## SYNOPSIS
 
 `ronin typo` [*options*] [*WORD* ...]

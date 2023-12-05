@@ -1,5 +1,9 @@
 # ronin-dns 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-dns - Performs a variety of DNS queries
+
 ## SYNOPSIS
 
 `ronin dns` [*options*] {*HOST* ... \| `--file` *FILE*}

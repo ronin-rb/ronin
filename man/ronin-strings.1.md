@@ -1,5 +1,9 @@
 # ronin-strings 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-strings - Prints all strings within a file/stream belonging to the given character set
+
 ## SYNOPSIS
 
 `ronin strings` [*options*] [*FILE* ...]

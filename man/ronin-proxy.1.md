@@ -1,5 +1,9 @@
 # ronin-proxy 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-proxy - Starts a TCP/UDP/SSL/TLS intercept proxy server
+
 ## SYNOPSIS
 
 `ronin proxy` [*options*] [*PROXY_HOST*:]*PROXY_PORT* *UPSTREAM_HOST*:*UPSTREAM_PORT*

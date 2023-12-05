@@ -1,5 +1,9 @@
 # ronin-highlight 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-highlight - Syntax highlights file(s).
+
 ## SYNOPSIS
 
 `ronin highlight` [*options*] [*FILE* ...]

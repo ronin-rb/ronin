@@ -1,5 +1,9 @@
 # ronin-unescape 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-unescape - Unescapes each escaped character from a variety of encodings
+
 ## SYNOPSIS
 
 `ronin unescape` [*options*] [*FILE* ...]

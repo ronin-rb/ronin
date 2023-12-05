@@ -1,5 +1,9 @@
 # ronin-host 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-host - Processes hostname(s)
+
 ## SYNOPSIS
 
 `ronin host` [*options*] {*HOST* ... \| `--file` *FILE*}
