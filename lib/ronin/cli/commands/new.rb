@@ -23,7 +23,7 @@ module Ronin
   class CLI
     module Commands
       #
-      # Creates new projects or scripts.
+      # Creates new Ruby projects or scripts.
       #
       # ## Usage
       #
@@ -56,6 +56,8 @@ module Ronin
           'project foo',
           'script foo.rb'
         ]
+
+        description 'Creates a new Ruby project or a script'
 
         man_page 'ronin-new.1'
 
