@@ -155,6 +155,8 @@ module Ronin
         argument :post, required: false,
                         desc: 'The port to connect to'
 
+        description 'A netcat clone command'
+
         man_page 'ronin-netcat.1'
 
         # The protocol to use.
