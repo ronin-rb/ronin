@@ -1,5 +1,9 @@
 # ronin-encrypt 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-encrypt - Encrypts data
+
 ## SYNOPSIS
 
 `ronin encrypt` [*options*] [*FILE* ...]

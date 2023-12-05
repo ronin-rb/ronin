@@ -1,5 +1,9 @@
 # ronin-http 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-http - Send HTTP requests or spawn an interactive HTTP shell
+
 ## SYNOPSIS
 
 `ronin http` [*options*] [*URL* ...]

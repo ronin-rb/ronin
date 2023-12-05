@@ -1,5 +1,9 @@
 # ronin-bitsquat 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-bitsquat - Finds bit-flips of a domain
+
 ## SYNOPSIS
 
 `ronin bitsquat` [*options*] [*DOMAIN* ...]

@@ -1,5 +1,9 @@
 # ronin-unhexdump 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-unhexdump - Decodes a hexdump back into raw data
+
 ## SYNOPSIS
 
 `ronin unhexdump` [*options*] [*FILE*]`

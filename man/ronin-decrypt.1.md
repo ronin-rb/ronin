@@ -1,5 +1,9 @@
 # ronin-decrypt 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-decrypt - Decrypts data
+
 ## SYNOPSIS
 
 `ronin decrypt` [*options*] [*FILE* ...]

@@ -1,5 +1,9 @@
 # ronin-ip 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-ip - Queries or processes IP addresses
+
 ## SYNOPSIS
 
 `ronin ip` [*options*] [*IP* ...]

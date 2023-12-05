@@ -1,5 +1,9 @@
 # ronin-url 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-url - Parses URLs
+
 ## SYNOPSIS
 
 `ronin url` [*options*] [*URL* ...]

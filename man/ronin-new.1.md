@@ -1,5 +1,9 @@
 # ronin-new 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-new - Creates a new Ruby project or a script
+
 ## SYNOPSIS
 
 `ronin new` [*options*] [*COMMAND*]

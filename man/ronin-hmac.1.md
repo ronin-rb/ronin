@@ -1,5 +1,9 @@
 # ronin-hmac 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-hmac - Calculates a Hash-based Message Authentication Code (HMAC)
+
 ## SYNOPSIS
 
 `ronin hmac` [*options*] [*FILE* ...]

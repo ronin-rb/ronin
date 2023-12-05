@@ -1,5 +1,9 @@
 # ronin-homoglyph 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-homoglyph - Generates homoglyph equivalent words
+
 ## SYNOPSIS
 
 `ronin homoglyph` [*options*] [*WORD* ...]

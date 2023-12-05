@@ -1,5 +1,9 @@
 # ronin-banner-grab 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-banner-grab - Fetches the banner from one or more TCP services
+
 ## SYNOPSIS
 
 `ronin banner-grab` [*options*] {*HOST*:*PORT*} ...

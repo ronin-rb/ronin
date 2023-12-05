@@ -1,5 +1,9 @@
 # ronin-email-addr 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-email-addr - Processes email addresses
+
 ## SYNOPSIS
 
 `ronin email-addr` [*options*] [*EMAIL_ADDR* ...]

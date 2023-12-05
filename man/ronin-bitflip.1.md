@@ -1,5 +1,9 @@
 # ronin-bitflip 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-bitflip - Prints every bit-flip of the given string(s)
+
 ## SYNOPSIS
 
 `ronin bitflip` [*options*] [*STRING* ...]

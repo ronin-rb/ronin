@@ -1,5 +1,9 @@
 # ronin-unquote 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-unquote - Unquotes a double/single quoted string
+
 ## SYNOPSIS
 
 `ronin unquote` [*options*] [*FILE* ...]

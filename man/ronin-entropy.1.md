@@ -1,5 +1,9 @@
 # ronin-entropy 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-entropy - Filters lines by their entropy
+
 ## SYNOPSIS
 
 `ronin entropy` [*options*] [*FILE* ...]

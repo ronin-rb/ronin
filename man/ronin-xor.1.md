@@ -1,5 +1,9 @@
 # ronin-xor 1 "2023-02-01" Ronin "User Manuals"
 
+## NAME
+
+ronin-xor - XORs each character of data with a key.
+
 ## SYNOPSIS
 
 `ronin xor` [*options*] [*FILE* ...]
