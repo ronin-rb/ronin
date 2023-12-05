@@ -23,7 +23,7 @@ module Ronin
   class CLI
     module Commands
       #
-      # Hexdumps data in a variety of encodings and formats.
+      # Decodes a hexdump back into raw data.
       #
       # ## Usage
       #
