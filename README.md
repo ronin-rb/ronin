@@ -84,6 +84,7 @@ Commands:
     decode, dec
     decrypt
     dns
+    dns-proxy
     email-addr
     encode, enc
     encrypt
