@@ -86,6 +86,7 @@ generated_files:
  - man/ronin-typosquat.1
  - man/ronin-unescape.1
  - man/ronin-unhexdump.1
+ - man/ronin-unpack.1
  - man/ronin-unquote.1
  - man/ronin-url.1
  - man/ronin-xor.1
