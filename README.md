@@ -117,6 +117,7 @@ Commands:
     typosquat
     unescape
     unhexdump
+    unpack
     unquote
     url
     xor
