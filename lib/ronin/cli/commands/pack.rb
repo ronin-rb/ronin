@@ -17,8 +17,7 @@
 #
 
 require 'ronin/cli/command'
-
-require 'ronin/support/binary/template'
+require 'ronin/cli/binary_template'
 
 module Ronin
   class CLI
@@ -90,40 +89,7 @@ module Ronin
       #
       class Pack < Command
 
-        option :endian, short: '-E',
-                        value: {
-                          type: [:little, :big, :net]
-                        },
-                        desc: 'Sets the endianness'
-
-        option :arch, short: '-A',
-                      value: {
-                        type: [
-                          :x86, :x86_64,
-                          :ppc, :ppc64,
-                          :mips, :mips_le, :mips_be,
-                          :mips64, :mips64_le, :mips64_be,
-                          :arm, :arm_le, :arm_be,
-                          :arm64, :arm64_le, :arm64_be
-                        ]
-                      },
-                      desc: 'Sets the architecture'
-
-        option :os, short: '-O',
-                    value: {
-                      type: [
-                        :linux,
-                        :macos,
-                        :windows,
-                        :android,
-                        :apple_ios,
-                        :bsd,
-                        :freebsd,
-                        :openbsd,
-                        :netbsd
-                      ]
-                    },
-                    desc: 'Sets the OS'
+        include BinaryTemplate
 
         option :hexdump, short: '-x',
                          desc:  'Hexdumps the packed data, instead of writing it out' do
@@ -247,35 +213,6 @@ HELP
         end
 
         #
-        # Parses a type string.
-        #
-        # @param [String] string
-        #   The raw type signature to parse.
-        #
-        # @return [Symbol, (Symbol, Integer)]
-        #   The parsed type signature.
-        #
-        def parse_type(string)
-          unless (match = string.match(/\A(?<type>[a-z0-9_]+)(?:\[(?<array_size>\d*)\])?\z/))
-            print_error "invalid type: #{string}"
-            exit(-1)
-          end
-
-          type       = match[:type].to_sym
-          array_size = match[:array_size]
-
-          if array_size && array_size.empty?
-            # unbounded array
-            type = (type..)
-          elsif array_size
-            # sized array
-            type = [type, array_size.to_i]
-          end
-
-          return type
-        end
-
-        #
         # Performs a second parsing of the values based on their desired
         # C types.
         #
@@ -380,25 +317,6 @@ HELP
         rescue ArgumentError
           print_error "cannot parse float: #{string}"
           exit(-1)
-        end
-
-        #
-        # Builds a binary template for the given types and for the optional
-        # `--endian`, `--arch`, and `--os` options.
-        #
-        # @param [Array<Symbol, (Symbol, Integer)>] types
-        #   The types for each field in the binary template.
-        #
-        # @return [Ronin::Support::Binary::Template]
-        #   The binary template.
-        #
-        def build_template(types)
-          Support::Binary::Template.new(types, endian: options[:endian],
-                                               arch:   options[:arch],
-                                               os:     options[:os])
-        rescue ArgumentError => error
-          print_error(error.message)
-          exit(1)
         end
 
         #
