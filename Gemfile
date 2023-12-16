@@ -98,4 +98,6 @@ group :development do
   gem 'rubocop',         require: false, platform: :mri
   gem 'rubocop-ronin',   require: false, platform: :mri
   gem 'pry',             require: false
+
+  gem 'command_kit-completion', github: 'postmodern/command_kit-completion'
 end
