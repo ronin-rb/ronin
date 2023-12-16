@@ -26,7 +26,8 @@ module Ronin
         # An alias for `ronin-web new spider`.
         #
         # @since 2.1.0
-        WebSpider = Ronin::Web::CLI::Commands::New::Spider
+        class WebSpider < Ronin::Web::CLI::Commands::New::Spider
+        end
       end
     end
   end
