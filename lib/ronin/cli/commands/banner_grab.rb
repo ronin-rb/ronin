@@ -45,6 +45,8 @@ module Ronin
 
         include HostAndPort
 
+        command_name 'banner-grab'
+
         usage '[options] {HOST:PORT} ...'
 
         option :with_host_port, desc: 'Print the service with the banner'

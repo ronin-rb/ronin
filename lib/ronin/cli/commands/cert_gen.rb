@@ -72,6 +72,8 @@ module Ronin
 
         include Core::CLI::Logging
 
+        command_name 'cert-gen'
+
         option :version, value: {
                            type:    Integer,
                            usage:   'NUM',
