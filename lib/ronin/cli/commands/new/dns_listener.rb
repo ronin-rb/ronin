@@ -27,6 +27,9 @@ module Ronin
         #
         # @since 2.1.0
         class DnsListener < Ronin::Listener::CLI::Commands::New::Dns
+
+          command_name 'dns-listener'
+
         end
       end
     end

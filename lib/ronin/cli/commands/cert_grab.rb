@@ -53,6 +53,8 @@ module Ronin
         include HostAndPort
         include Support::Network::SSL::Mixin
 
+        command_name 'cert-grab'
+
         usage '[options] {HOST:PORT | URL} ...'
 
         argument :target, required: true,

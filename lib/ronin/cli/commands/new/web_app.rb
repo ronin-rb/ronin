@@ -27,6 +27,9 @@ module Ronin
         #
         # @since 2.1.0
         class WebApp < Ronin::Web::CLI::Commands::New::App
+
+          command_name 'web-app'
+
         end
       end
     end

@@ -46,6 +46,8 @@ module Ronin
         include CommandKit::Options::Verbose
         include Core::CLI::Logging
 
+        command_name 'tld-list'
+
         option :update, short: '-u',
                         desc: 'Updates the TLD list file'
 

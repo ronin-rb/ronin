@@ -27,6 +27,9 @@ module Ronin
         #
         # @since 2.1.0
         class WebServer < Ronin::Web::CLI::Commands::New::Server
+
+          command_name 'web-server'
+
         end
       end
     end

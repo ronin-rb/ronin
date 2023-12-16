@@ -27,6 +27,9 @@ module Ronin
         #
         # @since 2.1.0
         class HttpListener < Ronin::Listener::CLI::Commands::New::Http
+
+          command_name 'http-listener'
+
         end
       end
     end
