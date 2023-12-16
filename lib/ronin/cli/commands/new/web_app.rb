@@ -26,7 +26,8 @@ module Ronin
         # An alias for `ronin-web new app`.
         #
         # @since 2.1.0
-        WebApp = Ronin::Web::CLI::Commands::New::App
+        class WebApp < Ronin::Web::CLI::Commands::New::App
+        end
       end
     end
   end
