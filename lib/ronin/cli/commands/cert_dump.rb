@@ -64,6 +64,8 @@ module Ronin
         include CommandKit::Printing::Lists
         include HostAndPort
 
+        command_name 'cert-dump'
+
         usage '[options] {HOST:PORT | URL | FILE} ...'
 
         option :common_name, short: '-C',

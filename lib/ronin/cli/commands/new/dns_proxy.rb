@@ -51,6 +51,8 @@ module Ronin
 
           template_dir File.join(ROOT,'data','templates')
 
+          command_name 'dns-proxy'
+
           usage 'PATH'
 
           option :host, short: '-H',

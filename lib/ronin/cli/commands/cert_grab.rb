@@ -52,6 +52,8 @@ module Ronin
 
         include HostAndPort
 
+        command_name 'cert-grab'
+
         usage '[options] {HOST:PORT | URL} ...'
 
         argument :target, required: true,
