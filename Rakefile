@@ -46,5 +46,5 @@ require 'command_kit/completion/task'
 CommandKit::Completion::Task.new(
   class_file:  'ronin/cli',
   class_name:  'Ronin::CLI',
-  output_file: 'data/ronin-completion.sh'
+  output_file: 'data/completions/ronin'
 )
