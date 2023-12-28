@@ -18,7 +18,7 @@
 
 require 'ronin/cli/value_processor_command'
 require 'ronin/cli/host_and_port'
-require 'ronin/support/network/ssl/mixin'
+require 'ronin/support/network/ssl'
 
 require 'uri'
 
@@ -51,7 +51,6 @@ module Ronin
       class CertGrab < ValueProcessorCommand
 
         include HostAndPort
-        include Support::Network::SSL::Mixin
 
         usage '[options] {HOST:PORT | URL} ...'
 
@@ -116,7 +115,7 @@ module Ronin
         #   The port to connect to.
         #
         def grab_cert(host,port)
-          cert = ssl_cert(host,port)
+          cert = Support::Network::SSL.get_cert(host,port)
 
           cert.save(cert_file_for(host,port))
         end
