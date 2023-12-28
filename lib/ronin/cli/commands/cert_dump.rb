@@ -19,7 +19,7 @@
 require 'ronin/cli/value_processor_command'
 require 'ronin/cli/host_and_port'
 require 'ronin/support/crypto/cert'
-require 'ronin/support/network/ssl/mixin'
+require 'ronin/support/network/ssl'
 
 require 'command_kit/printing/indent'
 require 'command_kit/printing/fields'
@@ -59,7 +59,6 @@ module Ronin
       #
       class CertDump < ValueProcessorCommand
 
-        include Support::Network::SSL::Mixin
         include CommandKit::Printing::Indent
         include CommandKit::Printing::Fields
         include CommandKit::Printing::Lists
@@ -104,11 +103,11 @@ module Ronin
           when /\A[^:]+:\d+\z/
             host, port = host_and_port(value)
 
-            print_cert(ssl_cert(host,port))
+            grab_cert(host,port)
           when /\Ahttps:/
             host, port = host_and_port_from_url(value)
 
-            print_cert(ssl_cert(host,port))
+            grab_cert(host,port)
           else
             unless File.file?(value)
               print_error "no such file or directory: #{value}"
@@ -119,6 +118,21 @@ module Ronin
 
             print_cert(cert)
           end
+        end
+
+        #
+        # Gets the certs from the host and port, and then print it.
+        #
+        # @param [String] host
+        #
+        # @param [Integer] port
+        #
+        # @since 2.1.0
+        #
+        def grab_cert(host,port)
+          cert = Support::Network::SSL.get_cert(host,port)
+
+          print_cert(cert)
         end
 
         #
