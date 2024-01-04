@@ -14,8 +14,8 @@ if RUBY_VERSION >= '3.1.0'
   gem 'net-imap',   '~> 0.1', group: :net, platform: :mri
 end
 
-# gem 'command_kit', '~> 0.4', github: 'postmodern/command_kit.rb',
-#                              branch: '0.4.0'
+# gem 'command_kit', '~> 0.5', github: 'postmodern/command_kit.rb',
+#                              branch: 'main'
 
 group :database do
   gem 'sqlite3', '~> 1.0', platform: :mri
@@ -25,10 +25,10 @@ end
 # Library dependencies
 gem 'ronin-support',	       '~> 1.1', github: "ronin-rb/ronin-support",
                                          branch: '1.1.0'
-gem 'ronin-core',              '~> 0.2', github: "ronin-rb/ronin-core",
+gem 'ronin-core',              '~> 0.2', github: 'ronin-rb/ronin-core',
                                          branch: '0.2.0'
-# gem 'ronin-repos',           '~> 0.1', github: "ronin-rb/ronin-repos",
-#                                        branch: 'main'
+gem 'ronin-repos',             '~> 0.1', github: 'ronin-rb/ronin-repos',
+                                         branch: '0.2.0'
 gem 'ronin-db-activerecord',    '~> 0.2', github: "ronin-rb/ronin-db-activerecord",
                                           branch: '0.2.0'
 gem 'ronin-db',                 '~> 0.2', github: "ronin-rb/ronin-db",
@@ -39,18 +39,18 @@ gem 'ronin-listener-http',      '~> 0.1', github: "ronin-rb/ronin-listener-http"
                                           branch: 'main'
 gem 'ronin-listener',           '~> 0.1', github: "ronin-rb/ronin-listener",
                                           branch: 'main'
-# gem 'ronin-fuzzer',          '~> 0.1', github: 'ronin-rb/ronin-fuzzer',
-#                                        branch: 'main'
+gem 'ronin-fuzzer',             '~> 0.2', github: 'ronin-rb/ronin-fuzzer',
+                                          branch: '0.2.0'
 # gem 'ronin-post_ex',         '~> 0.1', github: 'ronin-rb/ronin-post_ex',
 #                                        branch: 'main'
 # gem 'ronin-code-asm',        '~> 1.0', github: 'ronin-rb/ronin-code-asm',
 #                                        branch: 'main'
 # gem 'ronin-code-sql',        '~> 2.0', github: 'ronin-rb/ronin-code-sql',
 #                                        branch: 'main'
-# gem 'ronin-payloads',        '~> 0.1', github: 'ronin-rb/ronin-payloads',
-#                                        branch: 'main'
-# gem 'ronin-exploits',        '~> 1.0', github: 'ronin-rb/ronin-exploits',
-#                                        branch: 'main'
+gem 'ronin-payloads',        '~> 0.2', github: 'ronin-rb/ronin-payloads',
+                                       branch: '0.2.0'
+gem 'ronin-exploits',        '~> 1.1', github: 'ronin-rb/ronin-exploits',
+                                       branch: '1.1.0'
 gem 'ronin-vulns',           '~> 0.2', github: 'ronin-rb/ronin-vulns',
                                        branch: '0.2.0'
 # gem 'ronin-web-server',      '~> 0.1', github: 'ronin-rb/ronin-web-server',
