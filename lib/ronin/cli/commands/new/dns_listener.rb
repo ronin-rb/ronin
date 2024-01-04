@@ -26,7 +26,11 @@ module Ronin
         # An alias for `ronin-listener new dns`.
         #
         # @since 2.1.0
-        DnsListener = Ronin::Listener::CLI::Commands::New::Dns
+        class DnsListener < Ronin::Listener::CLI::Commands::New::Dns
+
+          command_name 'dns-listener'
+
+        end
       end
     end
   end

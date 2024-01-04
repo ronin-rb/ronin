@@ -26,7 +26,11 @@ module Ronin
         # An alias for `ronin-listener new http`.
         #
         # @since 2.1.0
-        HttpListener = Ronin::Listener::CLI::Commands::New::Http
+        class HttpListener < Ronin::Listener::CLI::Commands::New::Http
+
+          command_name 'http-listener'
+
+        end
       end
     end
   end

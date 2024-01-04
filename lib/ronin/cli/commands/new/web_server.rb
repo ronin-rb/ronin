@@ -26,7 +26,11 @@ module Ronin
         # An alias for `ronin-web new server`.
         #
         # @since 2.1.0
-        WebServer = Ronin::Web::CLI::Commands::New::Server
+        class WebServer < Ronin::Web::CLI::Commands::New::Server
+
+          command_name 'web-server'
+
+        end
       end
     end
   end
