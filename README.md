@@ -125,6 +125,7 @@ Commands:
 
 Additional Ronin Commands:
     $ ronin-repos
+    $ ronin-wordlists
     $ ronin-db
     $ ronin-web
     $ ronin-fuzzer
@@ -879,6 +880,7 @@ $ ronin new payload my_payload.rb
 ### See Also
 
 * [ronin-repos](https://github.com/ronin-rb/ronin-repos#synopsis)
+* [ronin-wordlists](https://github.com/ronin-rb/ronin-wordlists#synopsis)
 * [ronin-db](https://github.com/ronin-rb/ronin-db#synopsis)
 * [ronin-web](https://github.com/ronin-rb/ronin-web#synopsis)
 * [ronin-fuzzer](https://github.com/ronin-rb/ronin-fuzzer#synopsis)
@@ -901,6 +903,7 @@ $ ronin new payload my_payload.rb
 * [ronin-dns-proxy] ~> 0.1
 * [ronin-core] ~> 0.2
 * [ronin-repos] ~> 0.1
+* [ronin-wordlists] ~> 0.1
 * [ronin-db] ~> 0.1
 * [ronin-listener] ~> 0.1
 * [ronin-nmap] ~> 0.1
@@ -994,6 +997,8 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [ronin-dns-proxy]: https://github.com/ronin-rb/ronin-dns-proxy#readme
 [ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
 [ronin-repos-synopsis]: https://github.com/ronin-rb/ronin-repos#synopsis
+[ronin-wordlists]: https://github.com/ronin-rb/ronin-wordlists#readme
+[ronin-wordlists-synopsis]: https://github.com/ronin-rb/ronin-wordlists#synopsis
 [ronin-core]: https://github.com/ronin-rb/ronin-core#readme
 [ronin-db]: https://github.com/ronin-rb/ronin-db#readme
 [ronin-db-synopsis]: https://github.com/ronin-rb/ronin-db#synopsis

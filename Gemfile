@@ -74,6 +74,8 @@ gem 'ronin-nmap',      '~> 0.1', github: 'ronin-rb/ronin-nmap',
                                  branch: 'main'
 gem 'ronin-masscan',   '~> 0.1', github: 'ronin-rb/ronin-masscan',
                                  branch: 'main'
+gem 'ronin-wordlists', '~> 0.1', github: 'ronin-rb/ronin-wordlists',
+                                 branch: 'main'
 gem 'ronin-recon',     '~> 0.1', github: 'ronin-rb/ronin-recon',
                                  branch: 'main'
 gem 'ronin-app',       '~> 0.1', github: 'ronin-rb/ronin-app',

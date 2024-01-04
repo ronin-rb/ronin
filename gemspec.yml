@@ -106,6 +106,7 @@ dependencies:
   ronin-dns-proxy: ~> 0.1
   ronin-core: ~> 0.2
   ronin-repos: ~> 0.2
+  ronin-wordlists: ~> 0.1
   ronin-db: ~> 0.2
   ronin-listener: ~> 0.1
   ronin-nmap: ~> 0.1
