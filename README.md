@@ -79,6 +79,7 @@ Commands:
     cert-dump
     cert-gen
     cert-grab
+    completion
     decode, dec
     decrypt
     dns

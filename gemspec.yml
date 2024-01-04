@@ -46,6 +46,7 @@ generated_files:
  - man/ronin-cert-dump.1
  - man/ronin-cert-gen.1
  - man/ronin-cert-grab.1
+ - man/ronin-completion.1
  - man/ronin-decode.1
  - man/ronin-decrypt.1
  - man/ronin-dns.1
@@ -104,13 +105,13 @@ dependencies:
   ronin-support: ~> 1.1
   ronin-dns-proxy: ~> 0.1
   ronin-core: ~> 0.2
-  ronin-repos: ~> 0.1
-  ronin-db: ~> 0.1
+  ronin-repos: ~> 0.2
+  ronin-db: ~> 0.2
   ronin-listener: ~> 0.1
   ronin-nmap: ~> 0.1
   ronin-masscan: ~> 0.1
   ronin-recon: ~> 0.1
-  ronin-fuzzer: ~> 0.1
+  ronin-fuzzer: ~> 0.2
   ronin-web: ~> 2.0
   ronin-code-asm: ~> 1.0
   ronin-code-sql: ~> 2.0
