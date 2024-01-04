@@ -18,6 +18,7 @@
 
 require 'ronin/core/cli/completion_command'
 require 'ronin/repos/cli/commands/completion'
+require 'ronin/wordlists/cli/commands/completion'
 require 'ronin/db/cli/commands/completion'
 require 'ronin/fuzzer/cli/commands/completion'
 require 'ronin/web/cli/commands/completion'
@@ -69,6 +70,7 @@ module Ronin
           File.join(ROOT,'data','completions','ronin'),
 
           Repos::CLI::Commands::Completion.completion_file,
+          Wordlists::CLI::Commands::Completion.completion_file,
           DB::CLI::Commands::Completion.completion_file,
           Fuzzer::CLI::Commands::Completion.completion_file,
           Web::CLI::Commands::Completion.completion_file,
