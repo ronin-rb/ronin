@@ -15,6 +15,9 @@ Runs a Ronin *COMMAND*.
 
 ## OPTIONS
 
+`-V`, `--version`
+: Prints the Ronin version and exits.
+
 `-h`, `--help`
   Print help information
 
