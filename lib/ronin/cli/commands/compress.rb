@@ -32,31 +32,36 @@ module Ronin
       #
       # ## Options
       #
-      #     -z, --zip                        zip archive the data
-      #     -t, --tar                        tar archive the data
+      #     -f, --file FILE                  Optional file to process
+      #         --string STRING              Optional string to process
       #     -g, --gzip                       gzip compresses the data
+      #     -z, --zlib                       zlib compress the data
+      #     -n, --name                       Compressed file name
       #
       # ## Arguments
       #
       #     [FILE ...]                       Optional file(s) to compress
       #
       class Compress < StringMethodsCommand
-        usage '[option] [FILE ...]'
+        usage '[options] [FILE ...]'
 
         option :gzip, short: '-g',
-                      desc:  'gzip compresses the data' do
-                        @format = :gzip
+                      desc: 'gzip compresses the data' do
+                        @compression_method = :gzip
                       end
 
-        option :tar, short: '-t',
-                     desc:  'tar archive the data' do
-                       @format = :tar
-                     end
+        option :zlib, short: '-z',
+                      desc: 'zlib compress the data' do
+                        @compression_method = :zlib_deflate
+                      end
 
-        option :zip, short: '-z',
-                     desc:  'zip archive the data' do
-                       @format = :zip
-                     end
+        option :name, short: '-n',
+                      value: {
+                        type: String
+                      },
+                      desc: 'compressed file name' do |name|
+                        @compressed_file_name = name
+                      end
 
         description 'Compress the data'
 
@@ -65,36 +70,92 @@ module Ronin
         #
         # The compression format.
         #
-        # @return Symbol
+        # @return [:gzip, :zlib_deflate]
         #
-        attr_reader :format
+        attr_reader :compression_method
 
+        #
+        # Initializes the `ronin compress` command.
+        #
+        # @param [Hash{Symbol => Object}] kwargs
+        #   Additional keyword arguments.
+        #
         def initialize(**kwargs)
           super(**kwargs)
 
-          @format = :gzip
+          @compression_method = :gzip
         end
 
-        def process_file(file)
-          compression_class.send(@format, "#{file}.#{extension}") do |c|
-            c.write File.read(file)
+        #
+        # Runs the `compress` sub-command.
+        #
+        # @param [Array<String>] files
+        #   File arguments.
+        #
+        def run(*files)
+          if files.empty?
+            super(*files)
+          else
+            raise "Files can be compressed using gzip only" if @compression_method != :gzip
+
+            Ronin::Support::Compression.gzip(compressed_file_name) do |gz|
+              files.each do |file|
+                File.open(file, 'rb') do |f|
+                  while (chunk = f.readpartial(4096))
+                    gz.write chunk
+                  end
+                end
+              rescue EOFError
+              rescue IOError => e
+                puts "Error reading file: #{e.message}"
+              end
+            end
           end
+        end
+
+        #
+        # Reads and processes file.
+        #
+        # @param [String] path
+        #   The path to the file.
+        #
+        def process_file(file)
+          raise "Files can be compressed using gzip only" if @compression_method != :gzip
+
+          Ronin::Support::Compression.gzip(compressed_file_name) do |gz|
+            File.open(file, 'rb') do |f|
+              while (chunk = f.readpartial(4096))
+                gz.write chunk
+              end
+            end
+          rescue EOFError
+          rescue IOError => e
+            puts "Error reading file: #{e.message}"
+          end
+        end
+
+        #
+        # Compress the string.
+        #
+        # @param [String] string
+        #   The input string.
+        #
+        # @return [String]
+        #   The compressed string.
+        #
+        def process_string(string)
+          string.send(@compression_method)
         end
 
         private
 
-        def compression_class
-          if @format == :gzip
-            Ronin::Support::Compression
-          else
-            Ronin::Support::Archive
-          end
-        end
-
-        def extension
-          return "gz" if @format == :gzip
-
-          @format.to_s
+        #
+        # The compressed file name.
+        #
+        # @return String
+        #
+        def compressed_file_name
+          @compressed_file_name || "ronin_compressed_#{Time.now.to_i}.gz"
         end
       end
     end
