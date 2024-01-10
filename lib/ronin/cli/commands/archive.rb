@@ -92,19 +92,13 @@ module Ronin
 
         def run(*files)
           unless files.empty?
-           filename = if options[:name]
-                        options[:name]
-                      else
-                        "#{files.first}.#{@archive_method}"
-                      end
+            filename = options[:name] || "#{files.first}.#{@archive_method}"
 
             Ronin::Support::Archive.send(@archive_method, filename) do |archive|
               files.each do |file|
                 archive.add_file(file) do |io|
                   File.open(file, 'rb') do |opened_file|
-                    until opened_file.eof?
-                      io.write opened_file.readpartial(4096)
-                    end
+                    io.write opened_file.readpartial(4096) until opened_file.eof?
                   end
                 end
               end
