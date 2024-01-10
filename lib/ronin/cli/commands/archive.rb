@@ -32,12 +32,12 @@ module Ronin
       # ## Options
       #
       #     -t, --tar                        tar archive the data
-      #     -z, --zip                        zip compress the data
+      #     -z, --zip                        zip archive the data
       #     -n, --name                       Archived file name
       #
       # ## Arguments
       #
-      #     [FILE ...]                       Optional file(s) to compress
+      #     [FILE ...]                       Optional file(s) to archive
       #
       class Archive < FileProcessorCommand
         usage '[options] [FILE ...]'
@@ -48,7 +48,7 @@ module Ronin
                       end
 
         option :zip, short: '-z',
-                      desc: 'zip compress the data' do
+                      desc: 'zip archive the data' do
                         @archive_method = :zip
                       end
 
@@ -62,7 +62,7 @@ module Ronin
 
         description 'Archive the data'
 
-        man_page 'ronin-compress.1'
+        man_page 'ronin-archive.1'
 
         #
         # The archive format.
