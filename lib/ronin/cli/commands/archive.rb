@@ -52,13 +52,11 @@ module Ronin
                         @archive_method = :zip
                       end
 
-        option :name, short: '-n',
-                      value: {
-                        type: String
-                      },
-                      desc: 'archived file name' do |name|
-                        @archived_file_name = name
-                      end
+        option :output, short: '-o',
+                        value: {
+                          type: String
+                        },
+                        desc: 'archived file name'
 
         description 'Archive the data'
 
@@ -92,13 +90,13 @@ module Ronin
 
         def run(*files)
           unless files.empty?
-            filename = options[:name] || "#{files.first}.#{@archive_method}"
+            filename = options[:output] || "#{files.first}.#{@archive_method}"
 
             Ronin::Support::Archive.send(@archive_method, filename) do |archive|
               files.each do |file|
                 archive.add_file(file) do |io|
                   File.open(file, 'rb') do |opened_file|
-                    io.write opened_file.readpartial(4096) until opened_file.eof?
+                    io.write(opened_file.readpartial(4096)) until opened_file.eof?
                   end
                 end
               end
