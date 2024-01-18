@@ -73,6 +73,7 @@ Arguments:
     [ARGS ...]                       Additional arguments for the command
 
 Commands:
+    archive
     asn
     banner-grab
     bitflip
@@ -875,6 +876,14 @@ Generate a [ronin-payloads] script:
 
 ```shell
 $ ronin new payload my_payload.rb
+```
+
+### Archive
+
+Archive a files:
+
+```shell
+$ ronin archive foo.txt bar.txt
 ```
 
 ### See Also
