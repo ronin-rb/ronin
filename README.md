@@ -116,6 +116,7 @@ Commands:
     tips
     typo
     typosquat
+    unarchive
     unescape
     unhexdump
     unpack
@@ -875,6 +876,13 @@ Generate a [ronin-payloads] script:
 
 ```shell
 $ ronin new payload my_payload.rb
+```
+
+### Archive
+
+Unarchive a files:
+```shell
+$ ronin unarchive foo.tar
 ```
 
 ### See Also
