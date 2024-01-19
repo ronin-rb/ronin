@@ -20,7 +20,8 @@ Archive the files.
 ## OPTIONS
 
 `-f`, `--format` `tar`\|`zip`
-: Archive format.
+: The archive format to use. If not specified the archive format will be
+  inferred from the output file's extension.
 
 `-o`, `--output` *PATH*
 : Path to the output file.
@@ -29,11 +30,15 @@ Archive the files.
 
 Archive files using tar format:
 
-    $ ronin archive -f tar -o archived.tar arch1.txt arch2.txt
+    $ ronin archive -o archived.tar arch1.txt arch2.txt
 
 Archive files using zip format:
 
-    $ ronin archive -f zip -o archived.zip arch1.txt arch2.txt
+    $ ronin archive -o archived.zip arch1.txt arch2.txt
+
+Explicitly specify the archive format:
+
+    $ ronin archive -f zip archive.jar file1.txt file2.txt
 
 ## AUTHOR
 
