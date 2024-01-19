@@ -43,7 +43,7 @@ module Ronin
           '.tar' => :untar,
           '.zip' => :unzip
         }
-        FORMAT_MAPPINGS = {
+        FORMAT_MAPPINGS     = {
           zip: :unzip,
           tar: :untar
         }
