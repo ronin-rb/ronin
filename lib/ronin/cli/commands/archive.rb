@@ -32,13 +32,14 @@ module Ronin
       # ## Options
       #
       #     -f, --format tar|zip             Archive format
-      #     -o, --output                     Archived file name
+      #     -o, --output PATH                Archived file path
       #
       # ## Arguments
       #
       #     [FILE ...]                       Optional file(s) to archive
       #
       class Archive < FileProcessorCommand
+
         usage '[options] [FILE ...]'
 
         option :format, short: '-f',
@@ -46,13 +47,14 @@ module Ronin
                           type: [:tar, :zip],
                           default: :zip
                         },
-                        desc: 'archive format'
+                        desc: 'Archive format'
 
         option :output, short: '-o',
                         value: {
-                          type: String
+                          type: String,
+                          usage: 'PATH'
                         },
-                        desc: 'archived file name'
+                        desc: 'Archived file path'
 
         description 'Archive the data'
 
@@ -66,10 +68,13 @@ module Ronin
         #
 
         def run(*files)
-          unless files.empty?
-            filename = options[:output] || "#{files.first}.#{options[:format]}"
+          unless options[:output]
+            print_error "must specify the --output option"
+            exit(-1)
+          end
 
-            Ronin::Support::Archive.send(options[:format], filename) do |archive|
+          unless files.empty?
+            Ronin::Support::Archive.send(options[:format], options[:output]) do |archive|
               files.each do |file|
                 archive.add_file(file) do |io|
                   File.open(file, 'rb') do |opened_file|

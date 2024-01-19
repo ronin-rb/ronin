@@ -6,7 +6,7 @@ ronin-archive - Archive the files.
 
 ## SYNOPSIS
 
-`ronin archive` [*options*] [`-t` \| `--tar`] [`-z` \| `--zip`]  {`-o`,`--output` *s/FILENAME/PATH/* } [*FILE* ...]
+`ronin archive` [*options*] {`-o`,`--output` *PATH* } [*FILE* ...]
 
 ## DESCRIPTION
 
@@ -17,30 +17,23 @@ Archive the files.
 *FILE*
 : A file to add to the output archive.
 
-*PATH*
-: A path to the output file.
-
 ## OPTIONS
 
 `-f`, `--format` `tar`\|`zip`
 : Archive format.
 
-`-o`, `--output`
-: Name of the output file.
+`-o`, `--output` *PATH*
+: Path to the output file.
 
 ## EXAMPLES
 
 Archive files using tar format:
 
-    $ ronin archive -f tar arch1.txt arch2.txt
+    $ ronin archive -f tar -o archived.tar arch1.txt arch2.txt
 
 Archive files using zip format:
 
-    $ ronin archive -f zip arch1.txt arch2.txt
-
-Archive files to the specified file:
-
-    $ ronin archive -o archived.zip arch1.txt arch2.txt
+    $ ronin archive -f zip -o archived.zip arch1.txt arch2.txt
 
 ## AUTHOR
 
