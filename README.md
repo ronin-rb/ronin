@@ -882,7 +882,12 @@ $ ronin new payload my_payload.rb
 
 Unarchive a files:
 ```shell
-$ ronin unarchive foo.tar
+$ ronin unarchive arch1.tar arch2.zip 
+```
+
+Unarchive a file with explicit format:
+```shell
+$ ronin unarchive -f tar arch2.tar 
 ```
 
 ### See Also
