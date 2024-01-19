@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 #
-# Copyright (c) 2006-2023 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2024 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # Ronin is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin unarchive [options] [FILE ...]
+      #     ronin unarchive [options] FILE ...
       #
       ## Options
       #
@@ -35,12 +35,12 @@ module Ronin
       #
       # ## Arguments
       #
-      #     [FILE ...]                       File(s) to unarchive
+      #     FILE ...                         File(s) to unarchive
       #
       class Unarchive < FileProcessorCommand
         ALLOWED_EXTENSIONS  = ['.tar', '.zip']
 
-        usage '[FILE ...]'
+        usage '[options] FILE ...'
 
         argument :file, required: true,
                         repeats:  true,
