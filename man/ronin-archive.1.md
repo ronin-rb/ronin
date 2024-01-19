@@ -6,7 +6,7 @@ ronin-archive - Archive the files.
 
 ## SYNOPSIS
 
-`ronin archive` [*options*] {`-o`,`--output` *PATH* } [*FILE* ...]
+`ronin archive` [*options*] {`-o`,`--output` *PATH* } *FILE* ...
 
 ## DESCRIPTION
 

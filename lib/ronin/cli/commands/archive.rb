@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 #
-# Copyright (c) 2006-2023 Hal Brodigan (postmodern.mod3 at gmail.com)
+# Copyright (c) 2006-2024 Hal Brodigan (postmodern.mod3 at gmail.com)
 #
 # Ronin is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ module Ronin
       #
       # ## Arguments
       #
-      #     [FILE ...]                       Optional file(s) to archive
+      #     FILE ...                         Optional file(s) to archive
       #
       class Archive < FileProcessorCommand
 
@@ -66,7 +66,6 @@ module Ronin
         # @param [Array<String>] files
         #   File arguments.
         #
-
         def run(*files)
           unless options[:output]
             print_error "must specify the --output option"
