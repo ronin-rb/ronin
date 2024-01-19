@@ -39,14 +39,6 @@ module Ronin
       #
       class Unarchive < FileProcessorCommand
         ALLOWED_EXTENSIONS  = ['.tar', '.zip']
-        EXTENSIONS_MAPPINGS = {
-          '.tar' => :untar,
-          '.zip' => :unzip
-        }
-        FORMAT_MAPPINGS     = {
-          zip: :unzip,
-          tar: :untar
-        }
 
         usage '[FILE ...]'
 
@@ -70,7 +62,6 @@ module Ronin
         # @param [Array<String>] files
         #   File arguments.
         #
-
         def run(*files)
           files.each do |file|
             extension = File.extname(file)
@@ -80,13 +71,32 @@ module Ronin
               next
             end
 
-            archive_format = FORMAT_MAPPINGS[options[:format]] || EXTENSIONS_MAPPINGS[extension]
-
-            Ronin::Support::Archive.send(archive_format, file) do |archived_files|
+            open_archive(file) do |archived_files|
               archived_files.each do |archived_file|
                 File.binwrite(archived_file.name, archived_file.read)
               end
             end
+          end
+        end
+
+        #
+        # Opens archive for read.
+        #
+        # @param [String] file
+        #   File to open.
+        #
+        # @yield [archived_file]
+        #   Yielded archived file.
+        #
+        # @yieldparam [Zip::Reader, Tar::Reader] reader
+        #   Zip or tar reader object.
+        #
+        def open_archive(file,&block)
+          case options[:format]
+          when :tar
+            Support::Archive.untar(file,&block)
+          when :zip
+            Support::Archive.unzip(file,&block)
           end
         end
       end
