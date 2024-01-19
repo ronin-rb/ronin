@@ -31,9 +31,8 @@ module Ronin
       #
       # ## Options
       #
-      #     -t, --tar                        tar archive the data
-      #     -z, --zip                        zip archive the data
-      #     -n, --name                       Archived file name
+      #     -f, --format tar|zip             Archive format
+      #     -o, --output                     Archived file name
       #
       # ## Arguments
       #
@@ -42,15 +41,12 @@ module Ronin
       class Archive < FileProcessorCommand
         usage '[options] [FILE ...]'
 
-        option :tar, short: '-t',
-                      desc: 'tar archive the data' do
-                        @archive_method = :tar
-                      end
-
-        option :zip, short: '-z',
-                      desc: 'zip archive the data' do
-                        @archive_method = :zip
-                      end
+        option :format, short: '-f',
+                        value: {
+                          type: [:tar, :zip],
+                          default: :zip
+                        },
+                        desc: 'archive format'
 
         option :output, short: '-o',
                         value: {
@@ -63,25 +59,6 @@ module Ronin
         man_page 'ronin-archive.1'
 
         #
-        # The archive format.
-        #
-        # @return [:tar, :zip]
-        #
-        attr_reader :archive_method
-
-        #
-        # Initializes the `ronin archive` command.
-        #
-        # @param [Hash{Symbol => Object}] kwargs
-        #   Additional keyword arguments.
-        #
-        def initialize(**kwargs)
-          super(**kwargs)
-
-          @archive_method = :tar
-        end
-
-        #
         # Runs the `archive` sub-command.
         #
         # @param [Array<String>] files
@@ -90,9 +67,9 @@ module Ronin
 
         def run(*files)
           unless files.empty?
-            filename = options[:output] || "#{files.first}.#{@archive_method}"
+            filename = options[:output] || "#{files.first}.#{options[:format]}"
 
-            Ronin::Support::Archive.send(@archive_method, filename) do |archive|
+            Ronin::Support::Archive.send(options[:format], filename) do |archive|
               files.each do |file|
                 archive.add_file(file) do |io|
                   File.open(file, 'rb') do |opened_file|

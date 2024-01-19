@@ -880,10 +880,22 @@ $ ronin new payload my_payload.rb
 
 ### Archive
 
-Archive a files:
+Archive files:
 
 ```shell
-$ ronin archive foo.txt bar.txt
+$ ronin archive arch1.txt arch2.txt
+```
+
+Archive files to the specified file:
+
+```shell
+$ ronin archive -o archived.zip arch1.txt arch2.txt
+```
+
+Archive files using tar format:
+
+```shell
+$ ronin archive -f tar arch1.txt arch2.txt
 ```
 
 ### See Also
