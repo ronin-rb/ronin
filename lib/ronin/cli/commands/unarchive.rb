@@ -27,7 +27,11 @@ module Ronin
       #
       # ## Usage
       #
-      #     ronin unarchive [FILE ...]
+      #     ronin unarchive [options] [FILE ...]
+      #
+      ## Options
+      #
+      #     -f, --format tar|zip             Explicit archive format
       #
       # ## Arguments
       #
@@ -39,8 +43,22 @@ module Ronin
           '.tar' => :untar,
           '.zip' => :unzip
         }
+        FORMAT_MAPPINGS = {
+          zip: :unzip,
+          tar: :untar
+        }
 
         usage '[FILE ...]'
+
+        argument :file, required: true,
+                        repeats:  true,
+                        desc:     'Archive files to unarchive'
+
+        option :format, short: '-f',
+                        value: {
+                          type: [:tar, :zip]
+                        },
+                        desc: 'Archive type'
 
         description 'Unarchive the data'
 
@@ -54,15 +72,19 @@ module Ronin
         #
 
         def run(*files)
-          unless files.empty?
-            files.each do |file|
-              extension = File.extname(file)
-              next unless ALLOWED_EXTENSIONS.include?(extension)
+          files.each do |file|
+            extension = File.extname(file)
 
-              Ronin::Support::Archive.send(EXTENSIONS_MAPPINGS[extension], file) do |archived_files|
-                archived_files.each do |archived_file|
-                  File.write(archived_file.name, archived_file.read)
-                end
+            unless ALLOWED_EXTENSIONS.include?(extension)
+              print_error("Invalid file '#{file}'.")
+              next
+            end
+
+            archive_format = FORMAT_MAPPINGS[options[:format]] || EXTENSIONS_MAPPINGS[extension]
+
+            Ronin::Support::Archive.send(archive_format, file) do |archived_files|
+              archived_files.each do |archived_file|
+                File.binwrite(archived_file.name, archived_file.read)
               end
             end
           end

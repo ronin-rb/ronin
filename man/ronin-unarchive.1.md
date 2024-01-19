@@ -6,7 +6,7 @@ ronin-unarchive - Unarchive the files.
 
 ## SYNOPSIS
 
-`ronin unarchive` [*FILE* ...]
+`ronin unarchive` [*options*] [*FILE* ...]
 
 ## DESCRIPTION
 
@@ -14,19 +14,23 @@ Unarchive the files.
 
 ## ARGUMENTS
 
-[*FILE* ...]
+*FILE*
 : Files to unarchive.
 
 ## OPTIONS
 
-`-f`, `--file` *FILE*
-: Optional file to unarchive
+`-f`, `--format`
+: Explicit archive format
 
 ## EXAMPLES
 
 Archive the file using tar:
 
     $ ronin unarchive foo.tar
+
+Archive the file using explicit format:
+
+    $ ronin unarchive -f tar foo.tar
 
 ## AUTHOR
 
