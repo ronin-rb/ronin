@@ -44,8 +44,7 @@ module Ronin
 
         option :format, short: '-f',
                         value: {
-                          type: [:tar, :zip],
-                          default: :zip
+                          type: [:tar, :zip]
                         },
                         desc: 'Archive format'
 
@@ -60,6 +59,12 @@ module Ronin
 
         man_page 'ronin-archive.1'
 
+        # Mapping of archive file extensions and their formats.
+        ARCHIVE_FORMATS = {
+          '.tar' => :tar,
+          '.zip' => :zip
+        }
+
         #
         # Runs the `archive` sub-command.
         #
@@ -67,13 +72,20 @@ module Ronin
         #   File arguments.
         #
         def run(*files)
-          unless options[:output]
+          unless (output = options[:output])
             print_error "must specify the --output option"
             exit(-1)
           end
 
+          format = options.fetch(:format) do
+                     ARCHIVE_FORMATS.fetch(File.extname(output)) do
+                       print_error "must either specify --format or a .tar or .zip output file"
+                       exit(1)
+                     end
+                   end
+
           unless files.empty?
-            Ronin::Support::Archive.send(options[:format], options[:output]) do |archive|
+            Ronin::Support::Archive.send(format,output) do |archive|
               files.each do |file|
                 archive.add_file(file) do |io|
                   File.open(file, 'rb') do |opened_file|
