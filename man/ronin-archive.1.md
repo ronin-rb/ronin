@@ -30,11 +30,11 @@ Archive the files.
 
 Archive files using tar format:
 
-    $ ronin archive -o archived.tar arch1.txt arch2.txt
+    $ ronin archive -o archived.tar file1.txt file2.txt
 
 Archive files using zip format:
 
-    $ ronin archive -o archived.zip arch1.txt arch2.txt
+    $ ronin archive -o archived.zip file1.txt file2.txt
 
 Explicitly specify the archive format:
 
