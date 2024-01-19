@@ -887,7 +887,7 @@ $ ronin unarchive arch1.tar arch2.zip
 
 Unarchive a file with explicit format:
 ```shell
-$ ronin unarchive -f tar arch2.zip
+$ ronin unarchive -f tar arch2.foo
 ```
 
 ### See Also

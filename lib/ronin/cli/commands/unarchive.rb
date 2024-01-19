@@ -38,6 +38,7 @@ module Ronin
       #     FILE ...                         File(s) to unarchive
       #
       class Unarchive < FileProcessorCommand
+
         ALLOWED_EXTENSIONS  = ['.tar', '.zip']
 
         usage '[options] FILE ...'
