@@ -39,8 +39,6 @@ module Ronin
       #
       class Unarchive < FileProcessorCommand
 
-        ALLOWED_EXTENSIONS  = ['.tar', '.zip']
-
         usage '[options] FILE ...'
 
         argument :file, required: true,
@@ -65,13 +63,6 @@ module Ronin
         #
         def run(*files)
           files.each do |file|
-            extension = File.extname(file)
-
-            unless ALLOWED_EXTENSIONS.include?(extension)
-              print_error("invalid file: #{file.inspect}")
-              next
-            end
-
             open_archive(file) do |archived_files|
               archived_files.each do |archived_file|
                 File.binwrite(archived_file.name, archived_file.read)
@@ -79,6 +70,12 @@ module Ronin
             end
           end
         end
+
+        # Archive file formats and archive types.
+        ARCHIVE_FORMATS = {
+          '.tar' => :tar,
+          '.zip' => :zip
+        }
 
         #
         # Opens archive for read.
@@ -93,7 +90,14 @@ module Ronin
         #   Zip or tar reader object.
         #
         def open_archive(file,&block)
-          case options[:format]
+          format = options.fetch(:format) do
+                     ARCHIVE_FORMATS.fetch(File.extname(file)) do
+                       print_error("invalid file: #{file.inspect}")
+                       return
+                     end
+                   end
+
+          case format
           when :tar
             Support::Archive.untar(file,&block)
           when :zip
