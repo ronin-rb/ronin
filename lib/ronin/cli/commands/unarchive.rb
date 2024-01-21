@@ -117,7 +117,7 @@ module Ronin
           when :zip
             Support::Archive.unzip(file,&block)
           when nil
-            print_error("invalid file: #{file.inspect}")
+            print_error("unknown archive format: #{file}")
           else
             raise(NotImplementedError,"archive format not supported: #{format.inspect}")
           end
