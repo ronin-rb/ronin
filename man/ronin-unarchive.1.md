@@ -35,3 +35,7 @@ Archive the file using explicit format:
 ## AUTHOR
 
 Postmodern <postmodern.mod3@gmail.com>
+
+## SEE ALSO
+
+[ronin-archive](ronin-archive.1.md)
