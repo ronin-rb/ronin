@@ -78,6 +78,22 @@ module Ronin
         }
 
         #
+        # Returns the format for the given archive path.
+        #
+        # @param [String] path
+        #   The path to the archive file.
+        #
+        # @return [:tar, :zip, nil]
+        #   The archive format. `nil` is returned if the format cannot be
+        #   guessed and the `--format` option was not given.
+        #
+        def format_for(path)
+          options.fetch(:format) do
+            ARCHIVE_FORMATS[File.extname(path)]
+          end
+        end
+
+        #
         # Opens archive for read.
         #
         # @param [String] file
@@ -91,18 +107,13 @@ module Ronin
         #   Zip or tar reader object.
         #
         def open_archive(file,&block)
-          format = options.fetch(:format) do
-                     ARCHIVE_FORMATS.fetch(File.extname(file)) do
-                       print_error("invalid file: #{file.inspect}")
-                       return
-                     end
-                   end
-
-          case format
+          case format_for(file)
           when :tar
             Support::Archive.untar(file,&block)
           when :zip
             Support::Archive.unzip(file,&block)
+          when nil
+            print_error("invalid file: #{file.inspect}")
           end
         end
       end
