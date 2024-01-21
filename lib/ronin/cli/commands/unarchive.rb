@@ -86,7 +86,8 @@ module Ronin
         # @yield [archived_file]
         #   Yielded archived file.
         #
-        # @yieldparam [Zip::Reader, Tar::Reader] reader
+        # @yieldparam [Ronin::Support::Archive::Zip::Reader,
+        #              Ronin::Support::Archive::Tar::Reader] reader
         #   Zip or tar reader object.
         #
         def open_archive(file,&block)
