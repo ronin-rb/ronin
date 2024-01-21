@@ -23,7 +23,7 @@ module Ronin
   class CLI
     module Commands
       #
-      # Unarchive the files.
+      # Unarchive the file(s).
       #
       # ## Usage
       #
@@ -53,7 +53,7 @@ module Ronin
                         },
                         desc: 'Archive type'
 
-        description 'Unarchive the data'
+        description 'Unarchive the archive file(s)'
 
         man_page 'ronin-unarchive.1'
 
