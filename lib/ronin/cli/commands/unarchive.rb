@@ -37,6 +37,8 @@ module Ronin
       #
       #     FILE ...                         File(s) to unarchive
       #
+      # @since 2.1.0
+      #
       class Unarchive < FileProcessorCommand
 
         usage '[options] FILE ...'
