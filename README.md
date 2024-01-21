@@ -894,11 +894,13 @@ $ ronin archive -o archive.tar file1.txt file2.txt
 ```
 
 Unarchive files:
+
 ```shell
 $ ronin unarchive arch1.tar arch2.zip
 ```
 
 Unarchive a file with explicit format:
+
 ```shell
 $ ronin unarchive -f tar arch2.foo
 ```
