@@ -107,13 +107,17 @@ module Ronin
         #   Zip or tar reader object.
         #
         def open_archive(file,&block)
-          case format_for(file)
+          format = format_for(file)
+
+          case format
           when :tar
             Support::Archive.untar(file,&block)
           when :zip
             Support::Archive.unzip(file,&block)
           when nil
             print_error("invalid file: #{file.inspect}")
+          else
+            raise(NotImplementedError,"archive format not supported: #{format.inspect}")
           end
         end
       end
