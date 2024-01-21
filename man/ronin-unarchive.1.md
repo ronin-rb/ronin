@@ -2,7 +2,7 @@
 
 ## NAME
 
-ronin-unarchive - Unarchive the files.
+ronin-unarchive - Unarchive the file(s).
 
 ## SYNOPSIS
 
@@ -10,7 +10,7 @@ ronin-unarchive - Unarchive the files.
 
 ## DESCRIPTION
 
-Unarchive the files.
+Unarchive one or more `.tar` or `.zip` files.
 
 ## ARGUMENTS
 
