@@ -15,7 +15,7 @@ Unarchive one or more `.tar` or `.zip` files.
 ## ARGUMENTS
 
 *FILE*
-: Files to unarchive.
+: A file to unarchive.
 
 ## OPTIONS
 
