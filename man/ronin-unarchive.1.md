@@ -30,7 +30,7 @@ Archive the file using tar:
 
 Archive the file using explicit format:
 
-    $ ronin unarchive -f tar foo.bar
+    $ ronin unarchive -f zip foo.jar
 
 ## AUTHOR
 
