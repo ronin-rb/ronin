@@ -38,6 +38,8 @@ module Ronin
       #
       #     FILE ...                         Optional file(s) to archive
       #
+      # @since 2.1.0
+      #
       class Archive < FileProcessorCommand
 
         usage '[options] [FILE ...]'
