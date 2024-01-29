@@ -6,12 +6,17 @@ gemspec
 
 gem 'jruby-openssl',	'~> 0.7', platforms: :jruby
 
-gem 'net-telnet', '~> 0.1', group: :net
-if RUBY_VERSION >= '3.1.0'
-  gem 'net-ftp',    '~> 0.1', group: :net, platform: :mri
-  gem 'net-smtp',   '~> 0.1', group: :net, platform: :mri
-  gem 'net-pop',    '~> 0.1', group: :net, platform: :mri
-  gem 'net-imap',   '~> 0.1', group: :net, platform: :mri
+group :net do
+  gem 'net-telnet', '~> 0.1'
+
+  platform :mri do
+    if RUBY_VERSION >= '3.1.0'
+      gem 'net-ftp',  '~> 0.1'
+      gem 'net-smtp', '~> 0.1'
+      gem 'net-pop',  '~> 0.1'
+      gem 'net-imap', '~> 0.1'
+    end
+  end
 end
 
 # gem 'command_kit', '~> 0.5', github: 'postmodern/command_kit.rb',
@@ -19,8 +24,11 @@ end
 
 group :database do
   gem 'sqlite3', '~> 1.0', platforms: [:mri, :truffleruby]
-  gem 'activerecord-jdbcsqlite3-adapter', '~> 70.0', platform: :jruby
-  gem 'activerecord', '< 7.1.0', platform: :jruby
+
+  platform :jruby do
+    gem 'activerecord-jdbcsqlite3-adapter', '~> 70.0'
+    gem 'activerecord', '< 7.1.0'
+  end
 end
 
 # Library dependencies
