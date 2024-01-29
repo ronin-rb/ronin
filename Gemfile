@@ -20,6 +20,7 @@ end
 group :database do
   gem 'sqlite3', '~> 1.0', platform: :mri
   gem 'activerecord-jdbcsqlite3-adapter', '~> 70.0', platform: :jruby
+  gem 'activerecord', '< 7.1.0', platform: :jruby
 end
 
 # Library dependencies
