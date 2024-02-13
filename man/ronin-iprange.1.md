@@ -29,6 +29,9 @@ command-line arguments or read from a file via the `--file` option.
 `--stop` *IP*
 : The stopping IP address for the range.
 
+`-s`, `--size`
+: Prints the size of the IP range instead of printing each IP in the range.
+
 `-h`, `--help`
 : Print help information.
 
