@@ -34,6 +34,7 @@ module Ronin
       #     -f, --file FILE                  Optional file to read values from
       #         --start IP                   Starting IP address
       #         --stop IP                    Stopping IP address
+      #     -s, --size                       Prints the size of the IP range
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -67,6 +68,9 @@ module Ronin
                       desc: 'Stopping IP address' do |ip|
                         @stop << ip
                       end
+
+        option :size, short: '-s',
+                      desc:  'Prints the size of the IP range'
 
         argument :ip_range, required: false,
                             repeats:  true,
@@ -127,8 +131,12 @@ module Ronin
         def process_value(ip_range)
           ip_range = Support::Network::IPRange.new(ip_range)
 
-          ip_range.each do |ip|
-            puts ip
+          if options[:size]
+            puts ip_range.size
+          else
+            ip_range.each do |ip|
+              puts ip
+            end
           end
         end
 
