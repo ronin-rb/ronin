@@ -114,9 +114,7 @@ module Ronin
             @start.zip(@stop).each do |(start,stop)|
               range = Support::Network::IPRange::Range.new(start,stop)
 
-              range.each do |ip|
-                puts ip
-              end
+              process_ip_range(range)
             end
           else
             super(*ip_ranges)
@@ -126,11 +124,22 @@ module Ronin
         #
         # Processes an IP range.
         #
-        # @param [String] ip_range
+        # @param [String] string
         #
-        def process_value(ip_range)
-          ip_range = Support::Network::IPRange.new(ip_range)
+        def process_value(string)
+          range = Support::Network::IPRange.new(string)
 
+          process_ip_range(range)
+        end
+
+        #
+        # Processes a parsed IP range object.
+        #
+        # @param [Ronin::Support::Network::IPRange,
+        #         Ronin::Support::Network::IPRange::Range] ip_range
+        #   The IP range to process.
+        #
+        def process_ip_range(ip_range)
           if options[:size]
             puts ip_range.size
           else
