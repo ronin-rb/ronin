@@ -71,7 +71,7 @@ describe Ronin::CLI::Commands::Iprange do
       let(:ip_range) { Ronin::Support::Network::IPRange::Range.new(first,last) }
       let(:addresses) do
         (127..255).map { |d| "10.0.0.#{d}" } +
-        (0..127).map { |d| "10.0.1.#{d}" }
+          (0..127).map { |d| "10.0.1.#{d}" }
       end
 
       include_context "#process_ip_range examples"
