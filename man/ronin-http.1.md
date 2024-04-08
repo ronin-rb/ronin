@@ -82,8 +82,8 @@ Send HTTP requests or spawn an interactive HTTP shell.
 `-U`, `--user-agent-string` *STRING*
 : The User-Agent string to use.
 
-`-u`, `--user-agent` *chrome-linux*\|*chrome-macos*\|*chrome-windows*\|*chrome-iphone*\|*chrome-ipad*\|*chrome-android*\|*firefox-linux*\|*firefox-macos*\|*firefox-windows*\|*firefox-iphone*\|*firefox-ipad*\|*firefox-android*\|*safari-macos*\|*safari-iphone*\|*safari-ipad*\|*edge*
-: The User-Agent to use.
+`-u`, `--user-agent` *random*\|*chrome*\|*firefox*\|*safari*\|*linux*\|*macos*\|*windows*\|*iphone*\|*ipad*\|*android*\|*chrome-linux*\|*chrome-macos*\|*chrome-windows*\|*chrome-iphone*\|*chrome-ipad*\|*chrome-android*\|*firefox-linux*\|*firefox-macos*\|*firefox-windows*\|*firefox-iphone*\|*firefox-ipad*\|*firefox-android*\|*safari-macos*\|*safari-iphone*\|*safari-ipad*\|*edge*
+: The User-Agent alias to use.
 
 `-H`, `--header` "*NAME*: *VALUE*"
 : Adds a header to the request.
