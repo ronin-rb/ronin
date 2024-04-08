@@ -58,8 +58,8 @@ module Ronin
       #         --shell URL                  Open an interactive HTTP shell
       #     -P, --proxy URL                  The proxy to use
       #     -U, --user-agent-string STRING   The User-Agent string to use
-      #     -u chrome-linux|chrome-macos|chrome-windows|chrome-iphone|chrome-ipad|chrome-android|firefox-linux|firefox-macos|firefox-windows|firefox-iphone|firefox-ipad|firefox-android|safari-macos|safari-iphone|safari-ipad|edge,
-      #         --user-agent                 The User-Agent to use
+      #     -u random|chrome|firefox|safari|linux|macos|windows|iphone|ipad|android|chrome_linux|chrome_macos|chrome_windows|chrome_iphone|chrome_ipad|chrome_android|firefox_linux|firefox_macos|firefox_windows|firefox_iphone|firefox_ipad|firefox_android|safari_macos|safari_iphone|safari_ipad|edge,
+      #         --user-agent                 The User-Agent alias to use
       #     -H, --header "NAME: VALUE"       Adds a header to the request
       #     -C, --cookie COOKIE              Sets the Cookie header
       #     -c, --cookie-param NAME=VALUE    Sets an additional cookie param
@@ -181,13 +181,46 @@ module Ronin
                                      @user_agent = ua
                                    end
 
+        # Mapping of user-agent aliases.
+        USER_AGENT_ALIASES = {
+          'random'  => :random,
+          'chrome'  => :chrome,
+          'firefox' => :firefox,
+          'safari'  => :safari,
+          'linux'   => :linux,
+          'macos'   => :macos,
+          'windows' => :windows,
+          'iphone'  => :iphone,
+          'ipad'    => :ipad,
+          'android' => :android,
+
+          'chrome_linux'   => :chrome_linux,
+          'chrome_macos'   => :chrome_macos,
+          'chrome_windows' => :chrome_windows,
+          'chrome_iphone'  => :chrome_iphone,
+          'chrome_ipad'    => :chrome_ipad,
+          'chrome_android' => :chrome_android,
+
+          'firefox_linux'   => :firefox_linux,
+          'firefox_macos'   => :firefox_macos,
+          'firefox_windows' => :firefox_windows,
+          'firefox_iphone'  => :firefox_iphone,
+          'firefox_ipad'    => :firefox_ipad,
+
+          'firefox_android' => :firefox_android,
+
+          'safari_macos'  => :safari_macos,
+          'safari_iphone' => :safari_iphone,
+          'safari_ipad'   => :safari_ipad,
+
+          'edge' => :edge
+        }
+
         option :user_agent, short: '-u',
                             value: {
-                              type: Support::Network::HTTP::UserAgents::ALIASES.transform_keys { |key|
-                                key.to_s.tr('_','-')
-                              }
+                              type: USER_AGENT_ALIASES
                             },
-                            desc: 'The User-Agent to use' do |name|
+                            desc: 'The User-Agent alias to use' do |name|
                               @user_agent = name
                             end
 
@@ -301,7 +334,7 @@ module Ronin
 
         # Optional `User-agent` string to use.
         #
-        # @return [String, nil]
+        # @return [String, Symbol, nil]
         attr_reader :user_agent
 
         # Additional URL query params.
