@@ -154,7 +154,7 @@ module Ronin
                          type:  URL_REGEX,
                          usage: 'URL'
                        },
-                       desc: 'Open an interactive HTTP shell' do |url,*|
+                       desc: 'Open an interactive HTTP shell' do |url|
                          options[:shell] = Addressable::URI.parse(url)
                        rescue Addressable::URI::InvalidURIError => error
                          raise(OptionParser::InvalidArgument,"invalid URL: #{error.message}")
