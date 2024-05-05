@@ -12,26 +12,26 @@ describe Ronin::CLI::Commands::Asn do
 
   let(:ip2asn_truncated) do
     <<~TSV
-    223.255.233.0\t223.255.233.255\t140694\tAU\tARAFURA-AS-AP Northern Technology Solutions
-    223.255.234.0\t223.255.234.255\t0\tNone\tNot routed
-    223.255.235.0\t223.255.235.255\t140694\tAU\tARAFURA-AS-AP Northern Technology Solutions
-    223.255.236.0\t223.255.239.255\t56000\tCN\tHERBALIFE-CNDC HERBALIFESHANGHAIMANAGEMENT CO.,LTD.
-    223.255.240.0\t223.255.243.255\t55649\tHK\tMETRONET-HK Flat C, 16F, Skyline Tower
-    223.255.244.0\t223.255.247.255\t45117\tIN\tINPL-IN-AP Ishans Network
-    223.255.248.0\t223.255.251.255\t63199\tUS\tCDSC-AS1
-    223.255.252.0\t223.255.253.255\t58519\tCN\tCHINATELECOM-CTCLOUD Cloud Computing Corporation
-    223.255.254.0\t223.255.254.255\t55415\tSG\tMBS-SG 4 Shenton Way
-    ::\t::1\t0\tNone\tNot routed
-    64:ff9b::1:0:0\t100::ffff:ffff:ffff:ffff\t0\tNone\tNot routed
-    100:0:0:1::\t2001:0:ffff:ffff:ffff:ffff:ffff:ffff\t0\tNone\tNot routed
-    2001:1::\t2001:4:111:ffff:ffff:ffff:ffff:ffff\t0\tNone\tNot routed
-    2001:4:112::\t2001:4:112:ffff:ffff:ffff:ffff:ffff\t112\tUS\t-Reserved AS-
-    2001:4:113::\t2001:1ff:ffff:ffff:ffff:ffff:ffff:ffff\t0\tNone\tNot routed
-    2001:200::\t2001:200:5ff:ffff:ffff:ffff:ffff:ffff\t2500\tJP\tWIDE-BB WIDE Project
-    2001:200:600::\t2001:200:6ff:ffff:ffff:ffff:ffff:ffff\t7667\tJP\tKDDLAB KDDI R&D Laboratories, INC.
-    2001:200:700::\t2001:200:8ff:ffff:ffff:ffff:ffff:ffff\t2500\tJP\tWIDE-BB WIDE Project
-    2001:200:900::\t2001:200:9ff:ffff:ffff:ffff:ffff:ffff\t7660\tJP\tAPAN-JP Asia Pacific Advanced Network - Japan
-    2001:200:a00::\t2001:200:dff:ffff:ffff:ffff:ffff:ffff\t2500\tJP\tWIDE-BB WIDE Project
+      223.255.233.0\t223.255.233.255\t140694\tAU\tARAFURA-AS-AP Northern Technology Solutions
+      223.255.234.0\t223.255.234.255\t0\tNone\tNot routed
+      223.255.235.0\t223.255.235.255\t140694\tAU\tARAFURA-AS-AP Northern Technology Solutions
+      223.255.236.0\t223.255.239.255\t56000\tCN\tHERBALIFE-CNDC HERBALIFESHANGHAIMANAGEMENT CO.,LTD.
+      223.255.240.0\t223.255.243.255\t55649\tHK\tMETRONET-HK Flat C, 16F, Skyline Tower
+      223.255.244.0\t223.255.247.255\t45117\tIN\tINPL-IN-AP Ishans Network
+      223.255.248.0\t223.255.251.255\t63199\tUS\tCDSC-AS1
+      223.255.252.0\t223.255.253.255\t58519\tCN\tCHINATELECOM-CTCLOUD Cloud Computing Corporation
+      223.255.254.0\t223.255.254.255\t55415\tSG\tMBS-SG 4 Shenton Way
+      ::\t::1\t0\tNone\tNot routed
+      64:ff9b::1:0:0\t100::ffff:ffff:ffff:ffff\t0\tNone\tNot routed
+      100:0:0:1::\t2001:0:ffff:ffff:ffff:ffff:ffff:ffff\t0\tNone\tNot routed
+      2001:1::\t2001:4:111:ffff:ffff:ffff:ffff:ffff\t0\tNone\tNot routed
+      2001:4:112::\t2001:4:112:ffff:ffff:ffff:ffff:ffff\t112\tUS\t-Reserved AS-
+      2001:4:113::\t2001:1ff:ffff:ffff:ffff:ffff:ffff:ffff\t0\tNone\tNot routed
+      2001:200::\t2001:200:5ff:ffff:ffff:ffff:ffff:ffff\t2500\tJP\tWIDE-BB WIDE Project
+      2001:200:600::\t2001:200:6ff:ffff:ffff:ffff:ffff:ffff\t7667\tJP\tKDDLAB KDDI R&D Laboratories, INC.
+      2001:200:700::\t2001:200:8ff:ffff:ffff:ffff:ffff:ffff\t2500\tJP\tWIDE-BB WIDE Project
+      2001:200:900::\t2001:200:9ff:ffff:ffff:ffff:ffff:ffff\t7660\tJP\tAPAN-JP Asia Pacific Advanced Network - Japan
+      2001:200:a00::\t2001:200:dff:ffff:ffff:ffff:ffff:ffff\t2500\tJP\tWIDE-BB WIDE Project
     TSV
   end
 
@@ -60,7 +60,7 @@ describe Ronin::CLI::Commands::Asn do
         subject.run
       end
     end
-    
+
     context "when options[:update] is true" do
       before do
         subject.options[:update] = true
@@ -100,7 +100,7 @@ describe Ronin::CLI::Commands::Asn do
       end
     end
 
-    # FIXME (cmhobbs) the use of #exit has caused this to be difficult to test
+    # FIXME: (cmhobbs) the use of #exit has caused this to be difficult to test
     pending "when given default options and an invalid IP address"
     # context "when given default options and an invalid IP address" do
     #   before do
@@ -116,7 +116,7 @@ describe Ronin::CLI::Commands::Asn do
     #     subject.run
     #   end
     # end
-    
+
     context "when given default options and no IP address" do
       before do
         allow(subject).to receive(:update)
@@ -146,10 +146,10 @@ describe Ronin::CLI::Commands::Asn do
     context "with default parameters" do
       let(:url)  { 'https://iptoasn.com/data/ip2asn-combined.tsv.gz' }
       let(:file) { "#{Dir.home}/.cache/ronin/ronin-support/ip2asn-combined.tsv.gz" }
-        
+
       it 'calls Support::Network::ASN::List.download with default parameters' do
         expect(Ronin::Support::Network::ASN::List).to receive(:download).with(
-          url: url, 
+          url: url,
           path: file
         )
         subject.download
@@ -160,14 +160,14 @@ describe Ronin::CLI::Commands::Asn do
       let(:url)  { 'http://example.com' }
       let(:file) { 'file' }
 
-      before do 
+      before do
         subject.options[:url]  = url
         subject.options[:file] = file
       end
 
       it 'calls Support::Network::ASN::List.download with optional parameters' do
         expect(Ronin::Support::Network::ASN::List).to receive(:download).with(
-          url: url, 
+          url: url,
           path: file
         )
         subject.download
@@ -234,20 +234,20 @@ describe Ronin::CLI::Commands::Asn do
     before do
       subject.options[:file] = ip2asn_file.path
     end
-    
+
     context "given the ipv4 option" do
       it "returns the ipv4 records" do
         subject.options[:ipv4] = true
-        records = subject.search_asn_records
+        records                = subject.search_asn_records
         expect(records).to be_a(Ronin::Support::Network::ASN::RecordSet)
         expect(records.to_a.length).to eq(9)
       end
     end
-    
+
     context "given the ipv6 option" do
       it "returns the ipv6 records" do
         subject.options[:ipv6] = true
-        records = subject.search_asn_records
+        records                = subject.search_asn_records
         expect(records).to be_a(Ronin::Support::Network::ASN::RecordSet)
         expect(records.to_a.length).to eq(11)
       end
@@ -256,7 +256,7 @@ describe Ronin::CLI::Commands::Asn do
     context "given a country code" do
       it "returns the records for the country code" do
         subject.options[:country_code] = 'JP'
-        records = subject.search_asn_records
+        records                        = subject.search_asn_records
         expect(records).to be_a(Ronin::Support::Network::ASN::RecordSet)
         expect(records.to_a.length).to eq(5)
       end
@@ -265,7 +265,7 @@ describe Ronin::CLI::Commands::Asn do
     context "given an ASN number" do
       it "returns the records for the ASN number" do
         subject.options[:number] = 140694
-        records = subject.search_asn_records
+        records                  = subject.search_asn_records
         expect(records).to be_a(Ronin::Support::Network::ASN::RecordSet)
         expect(records.to_a.length).to eq(2)
       end
@@ -274,7 +274,7 @@ describe Ronin::CLI::Commands::Asn do
     context "given an ASN name" do
       it "returns the records for the ASN name" do
         subject.options[:name] = 'WIDE-BB WIDE Project'
-        records = subject.search_asn_records
+        records                = subject.search_asn_records
         expect(records).to be_a(Ronin::Support::Network::ASN::RecordSet)
         expect(records.to_a.length).to eq(3)
       end
@@ -292,7 +292,7 @@ describe Ronin::CLI::Commands::Asn do
       expect(subject).to receive(:print_asn_record).exactly(20).times
       subject.print_asn_records(records)
     end
-  end  
+  end
 
   describe "#print_asn_record" do
     context "with the enum_ips option" do
@@ -317,8 +317,6 @@ describe Ronin::CLI::Commands::Asn do
       end
 
       it "prints the record in verbose format" do
-        record = subject.search_asn_records.first
-
         output(
           "[ AS140694 ]\n\n" \
           "ASN:      140694\n" \
@@ -338,7 +336,7 @@ describe Ronin::CLI::Commands::Asn do
         record = subject.search_asn_records.first
 
         expect { subject.print_asn_record(record) }.to output(
-          "223.255.233.0 - 223.255.233.255 AS140694\ (AU) ARAFURA-AS-AP Northern Technology Solutions\n"
+          "223.255.233.0 - 223.255.233.255 AS140694 (AU) ARAFURA-AS-AP Northern Technology Solutions\n"
         ).to_stdout
       end
     end
