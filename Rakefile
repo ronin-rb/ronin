@@ -48,3 +48,5 @@ CommandKit::Completion::Task.new(
   class_name:  'Ronin::CLI',
   output_file: 'data/completions/ronin'
 )
+
+task :setup => %w[man command_kit:completion]
