@@ -63,7 +63,7 @@ describe Ronin::CLI::Commands::Grep do
         subject.print_line_prefix(filename: filename, line_number: line_number)
 
         expect(stdout.string).to eq(
-          "#{magenta}#{filename}#{reset_color}#{cyan}:#{reset_color}" +
+          "#{magenta}#{filename}#{reset_color}#{cyan}:#{reset_color}" \
           "#{green}#{line_number}#{reset_color}#{cyan}:#{reset_color}"
         )
       end
