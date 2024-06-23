@@ -1,3 +1,50 @@
+### 2.1.0 / 2024-XX-XX
+
+* Require [Ruby] >- 3.1.0.
+* Require [wordlist] ~> 1.1.
+* Require [ronin-core] ~> 0.2.
+* Require [ronin-dns-proxy] ~> 0.1.
+* Require [ronin-listener] ~> 0.1.
+* Require [ronin-masscan] ~> 0.1.
+* Require [ronin-nmap] ~> 0.1.
+* Require [ronin-recon] ~> 0.1.
+* Require [ronin-support] ~> 1.1.
+* Require [ronin-vulns] ~> 0.2.
+* Require [ronin-web] ~> 2.0.
+* Require [ronin-wordlists] ~> 0.2.
+* Removed unused `Ronin::Config` module.
+
+#### CLI
+
+* Added the `ronin archive` command.
+* Added the `ronin unarchive` command.
+* Added the `ronin bitsquat` command.
+* Added the `ronin completion` command to install shell completion files
+  for all `ronin` and `ronin-*` commands for Bash and Zsh shells.
+* Added the `ronin dns-proxy` command.
+* Added the `ronin new dns-proxy` command.
+* Added the `ronin pack` command.
+* Added the `ronin unpack` command.
+* Added the `--hex-octet`, `--octal-octet`, and `--ipv6-compat` options to the
+  `ronin ip` command.
+* Added more accepted values to the `ronin http --user-agent` option.
+* Added the `--cookie` and `--cookie-param` options to the `ronin http` command.
+* Added the `cookie` and `set-cookie` commands to the `ronin http` shell.
+* Added the `-s,--size` option to the `ronin iprange` command.
+* Added support for `ronin cert-gen --key-type dsa`.
+* All `--help` options and the `ronin irb` command now displays the Ronin logo
+  ASCII art.
+* Alias `ronin tlds` to the `ronin tld-list` command.
+* Alias `ronin public-suffixes` to the `ronin public-suffix-list` command.
+* Alias `ronin new exploit` to the `ronin-exploits new` command.
+* Alias `ronin new payload` to the `ronin-payloads new` command.
+* Alias `ronin new dns-listener` to the `ronin-listener new dns` command.
+* Alias `ronin new http-listener` to the `ronin-listener new http` command.
+* Alias `ronin new web-app` to the `ronin-web new app` command.
+* Alias `ronin new nokogiri` to the `ronin-web new nokogiri` command.
+* Alias `ronin new web-server` to the `ronin-web new server` command.
+* Alias `ronin new web-spider` to the `ronin-web new spider` command.
+
 ### 2.0.5 / 2023-09-19
 
 * Require [wordlist] ~> 1.0, >= 1.0.3 for macOS fixes.
@@ -920,15 +967,21 @@
   * Auto-indentation enabled.
   * Pretty-Print loaded.
 
+[Ruby]: https://www.ruby-lang.org
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
 [rouge]: https://github.com/rouge-ruby/rouge#readme
 [async-io]: https://github.com/socketry/async-io#readme
 [wordlist]: https://github.com/postmodern/wordlist.rb#readme
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
-[ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
 [ronin-core]: https://github.com/ronin-rb/ronin-core#readme
+[ronin-repos]: https://github.com/ronin-rb/ronin-repos#readme
 [ronin-db]: https://github.com/ronin-rb/ronin-db#readme
+[ronin-dns-proxy]: https://github.com/ronin-rb/ronin-dns-proxy#readme
+[ronin-wordlists]: https://github.com/ronin-rb/ronin-wordlists#readme
+[ronin-listener]: https://github.com/ronin-rb/ronin-listener#readme
+[ronin-nmap]: https://github.com/ronin-rb/ronin-nmap#readme
+[ronin-masscan]: https://github.com/ronin-rb/ronin-masscan#readme
 [ronin-fuzzer]: https://github.com/ronin-rb/ronin-fuzzer#readme
 [ronin-web]: https://github.com/ronin-rb/ronin-web#readme
 [ronin-code-asm]: https://github.com/ronin-rb/ronin-code-asm#readme
@@ -936,3 +989,5 @@
 [ronin-payloads]: https://github.com/ronin-rb/ronin-payloads#readme
 [ronin-exploits]: https://github.com/ronin-rb/ronin-exploits#readme
 [ronin-vulns]: https://github.com/ronin-rb/ronin-vulns#readme
+[ronin-recon]: https://github.com/ronin-rb/ronin-recon#readme
+[ronin-app]: https://github.com/ronin-rb/ronin-app#readme
