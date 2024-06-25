@@ -11,7 +11,7 @@ ronin-dns-proxy - Starts a DNS proxy
 ## DESCRIPTION
 
 Starts a DNS proxy that can intercept DNS queries and forward other queries to
-update stream DNS nameservers.
+upstream DNS nameservers.
 
 ## ARGUMENTS
 
