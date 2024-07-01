@@ -19,7 +19,7 @@ and development. Ronin contains many different [CLI commands](#synopsis) and
 encoding/decoding data, filter IPs/hosts/URLs, querying ASNs, querying DNS,
 HTTP, [scanning for web vulnerabilities][ronin-vulns-synopsis],
 [spidering websites][ronin-web-spider],
-[install 3rd party repositories][ronin-repos-synopsis] of
+[install 3rd-party repositories][ronin-repos-synopsis] of
 [exploits][ronin-exploits] and/or
 [payloads][ronin-payloads], [running exploits][ronin-exploits-synopsis],
 [write new exploits][ronin-exploits-examples],
