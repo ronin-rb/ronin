@@ -6,7 +6,7 @@ ronin-pack - Packs values into binary data.
 
 ## SYNOPSIS
 
-`ronin pack` [*options*] {*TYPE*`:`*VALUE* | *TYPE*`[`*NUM*`]`:*VALUE*[`,`*VALUE*...] [...]
+`ronin pack` \[*options*\] {*TYPE*`:`*VALUE* \| *TYPE*`[`*NUM*`]`:*VALUE*\[`,`*VALUE*...\]} \[...\]
 
 ## DESCRIPTION
 
