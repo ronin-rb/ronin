@@ -17,6 +17,7 @@
 #
 
 require 'ronin/cli/command'
+require 'ronin/core/cli/logging'
 require 'ronin/dns/proxy'
 
 module Ronin
@@ -44,6 +45,8 @@ module Ronin
       # @since 2.1.0
       #
       class DnsProxy < Command
+
+        include Core::CLI::Logging
 
         usage '[options] [HOST] PORT'
 
@@ -104,6 +107,7 @@ module Ronin
         def run(host='127.0.0.1',port)
           port = port.to_i
 
+          log_info "Listening on #{host}:#{port} ..."
           DNS::Proxy.run(host,port,**proxy_kwargs)
         end
 
