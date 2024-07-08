@@ -2,11 +2,11 @@
 
 ## NAME
 
-ronin-completion - Manages shell completion rules for `ronin-repos`
+ronin-completion - Manages shell completion rules for `ronin`
 
 ## SYNOPSIS
 
-`ronin-repos completion` [*options*]
+`ronin completion` [*options*]
 
 ## DESCRIPTION
 
@@ -45,7 +45,7 @@ order to enable Zsh's Bash completion compatibility layer:
 
 *HOME*
 : Specifies the home directory of the user. Ronin will search for the
-  `~/.cache/ronin-repos` cache directory within the home directory.
+  `~/.cache/ronin` cache directory within the home directory.
 
 *XDG_DATA_HOME*
 : Specifies the data directory to use. Defaults to `$HOME/.local/share`.
@@ -70,7 +70,7 @@ order to enable Zsh's Bash completion compatibility layer:
 : Installs all shell completion rules for `ronin` and the other `ronin-*`
   commands.
 
-`ronin-repos completion --uninstall`
+`ronin completion --uninstall`
 : Uninstalls all shell completion rules for `ronin` and the other `ronin-*`
   commands.
 
