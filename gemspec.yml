@@ -6,7 +6,7 @@ description:
   a variety of security tasks, such as encoding/decoding data, filter
   IPs/hosts/URLs, querying ASNs, querying DNS, HTTP, scanning for web
   vulnerabilities, spidering websites, install 3rd-party repositories of
-  exploits and/or payloads, running exploits, generating new exploits, managing
+  exploits and/or payloads, running exploits, developing new exploits, managing
   local databases, fuzzing data, and much more.
 
 license: GPL-3.0
