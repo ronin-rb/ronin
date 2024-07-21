@@ -1,4 +1,4 @@
-### 2.1.0 / 2024-XX-XX
+### 2.1.0 / 2024-07-22
 
 * Require [Ruby] >- 3.1.0.
 * Require [wordlist] ~> 1.1.
