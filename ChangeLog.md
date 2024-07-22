@@ -2,16 +2,22 @@
 
 * Require [Ruby] >- 3.1.0.
 * Require [wordlist] ~> 1.1.
-* Require [ronin-core] ~> 0.2.
-* Require [ronin-dns-proxy] ~> 0.1.
-* Require [ronin-listener] ~> 0.1.
-* Require [ronin-masscan] ~> 0.1.
-* Require [ronin-nmap] ~> 0.1.
-* Require [ronin-recon] ~> 0.1.
 * Require [ronin-support] ~> 1.1.
+* Require [ronin-dns-proxy] ~> 0.1.
+* Require [ronin-core] ~> 0.2.
+* Require [ronin-repos] ~> 0.2.
+* Require [ronin-db] ~> 0.2.
+* Require [ronin-fuzzer] ~> 0.2.
+* Require [ronin-listener] ~> 0.1.
+* Require [ronin-nmap] ~> 0.1.
+* Require [ronin-masscan] ~> 0.1.
+* Require [ronin-payloads] ~> 0.2.
+* Require [ronin-exploits] ~> 1.1.
 * Require [ronin-vulns] ~> 0.2.
+* Require [ronin-recon] ~> 0.1.
 * Require [ronin-web] ~> 2.0.
 * Require [ronin-wordlists] ~> 0.2.
+* Require [ronin-app] ~> 0.1.
 * Removed unused `Ronin::Config` module.
 
 #### CLI
