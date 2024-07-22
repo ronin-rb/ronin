@@ -1,6 +1,6 @@
 ### 2.1.0 / 2024-07-22
 
-* Require [Ruby] >- 3.1.0.
+* Require [Ruby] >= 3.1.0.
 * Require [wordlist] ~> 1.1.
 * Require [ronin-support] ~> 1.1.
 * Require [ronin-dns-proxy] ~> 0.1.
