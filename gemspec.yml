@@ -9,7 +9,7 @@ description:
   exploits and/or payloads, running exploits, developing new exploits, managing
   local databases, fuzzing data, performing recon, and much more.
 
-license: GPL-3.0
+license: GPL-3.0-or-later
 authors: Postmodern
 email: postmodern.mod3@gmail.com
 homepage: https://ronin-rb.dev
