@@ -53,18 +53,18 @@ module Ronin
 
     # Additional `ronin-` commands to checkout.
     ADDITIONAL_RONIN_COMMANDS = %w[
-      ronin-repos
-      ronin-wordlists
+      ronin-app
       ronin-db
-      ronin-web
+      ronin-exploits
       ronin-fuzzer
       ronin-masscan
       ronin-nmap
-      ronin-recon
       ronin-payloads
-      ronin-exploits
+      ronin-recon
+      ronin-repos
       ronin-vulns
-      ronin-app
+      ronin-web
+      ronin-wordlists
     ]
 
     #
