@@ -16,8 +16,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/file_processor_command'
-require 'ronin/cli/pattern_options'
+require_relative '../file_processor_command'
+require_relative '../pattern_options'
 
 module Ronin
   class CLI

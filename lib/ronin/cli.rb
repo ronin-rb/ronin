@@ -16,12 +16,13 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/version'
 require 'ronin/core/cli/help/banner'
 
 require 'command_kit/commands'
 require 'command_kit/commands/auto_load'
 require 'command_kit/options/version'
+
+require_relative 'version'
 
 module Ronin
   #

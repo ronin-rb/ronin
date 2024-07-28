@@ -16,7 +16,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/printing/syntax_highlighting'
+require_relative 'syntax_highlighting'
 
 module Ronin
   class CLI

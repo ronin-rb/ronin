@@ -16,7 +16,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_processor_command'
+require_relative '../value_processor_command'
 require 'ronin/support/network/ip_range'
 
 module Ronin

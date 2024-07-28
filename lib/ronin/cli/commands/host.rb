@@ -16,8 +16,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_processor_command'
-require 'ronin/cli/dns'
+require_relative '../value_processor_command'
+require_relative '../dns'
 require 'ronin/support/network/host'
 
 require 'wordlist/file'

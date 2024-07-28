@@ -16,8 +16,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/file_processor_command'
-require 'ronin/cli/printing/syntax_highlighting'
+require_relative '../file_processor_command'
+require_relative '../printing/syntax_highlighting'
 
 require 'command_kit/pager'
 

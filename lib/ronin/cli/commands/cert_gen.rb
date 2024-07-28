@@ -16,7 +16,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
+require_relative '../command'
 require 'ronin/support/crypto/cert'
 require 'ronin/support/crypto/key'
 require 'ronin/support/crypto/key/rsa'

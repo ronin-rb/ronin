@@ -16,7 +16,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_processor_command'
+require_relative '../string_processor_command'
 
 require 'ronin/support/crypto'
 

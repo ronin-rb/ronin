@@ -16,8 +16,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_processor_command'
-require 'ronin/cli/typo_options'
+require_relative '../value_processor_command'
+require_relative '../typo_options'
 
 module Ronin
   class CLI

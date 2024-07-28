@@ -20,7 +20,7 @@
 # Loads up the full Ronin environment.
 #
 require 'ronin/support'
-require 'ronin/version'
+require_relative 'ronin/version'
 
 require 'open_namespace'
 

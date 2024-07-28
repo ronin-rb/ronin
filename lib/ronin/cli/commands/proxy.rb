@@ -16,8 +16,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
-require 'ronin/cli/host_and_port'
+require_relative '../command'
+require_relative '../host_and_port'
 require 'ronin/core/cli/logging'
 
 require 'ronin/support/network/tcp/proxy'

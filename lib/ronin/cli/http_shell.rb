@@ -17,7 +17,7 @@
 #
 
 require 'ronin/core/cli/command_shell'
-require 'ronin/cli/printing/http'
+require_relative 'printing/http'
 
 require 'ronin/support/network/http'
 

@@ -16,7 +16,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_processor_command'
+require_relative '../value_processor_command'
 
 require 'ronin/support/binary/bit_flip/core_ext/string'
 require 'ronin/support/text/patterns/network'

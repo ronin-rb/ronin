@@ -16,7 +16,7 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/cipher_command'
+require_relative '../cipher_command'
 
 module Ronin
   class CLI

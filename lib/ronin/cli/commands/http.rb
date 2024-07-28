@@ -16,9 +16,9 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/value_processor_command'
-require 'ronin/cli/printing/http'
-require 'ronin/cli/http_shell'
+require_relative '../value_processor_command'
+require_relative '../printing/http'
+require_relative '../http_shell'
 require 'ronin/support/network/http'
 require 'ronin/support/network/http/cookie'
 

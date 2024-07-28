@@ -16,8 +16,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/command'
-require 'ronin/cli/binary_template'
+require_relative '../command'
+require_relative '../binary_template'
 
 module Ronin
   class CLI

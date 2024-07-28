@@ -16,8 +16,8 @@
 # along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-require 'ronin/cli/string_processor_command'
-require 'ronin/cli/method_options'
+require_relative 'string_processor_command'
+require_relative 'method_options'
 
 module Ronin
   class CLI
