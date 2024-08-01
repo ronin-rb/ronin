@@ -929,7 +929,7 @@ $ ronin unarchive -f zip arch2.jar
 * [io-endpoint] ~> 0.15
 * [io-stream] ~> 0.8
 * [wordlist] ~> 1.1
-* [ronin-support] ~> 1.1
+* [ronin-support] ~> 1.2
 * [ronin-dns-proxy] ~> 0.1
 * [ronin-core] ~> 0.2
 * [ronin-repos] ~> 0.1
