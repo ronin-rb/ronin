@@ -32,8 +32,8 @@ group :database do
 end
 
 # Library dependencies
-# gem 'ronin-support',           '~> 1.1', github: "ronin-rb/ronin-support",
-#                                          branch: 'main'
+gem 'ronin-support',           '~> 1.2', github: "ronin-rb/ronin-support",
+                                         branch: '1.2.0'
 # gem 'ronin-core',              '~> 0.2', github: 'ronin-rb/ronin-core',
 #                                          branch: 'main'
 # gem 'ronin-repos',             '~> 0.1', github: 'ronin-rb/ronin-repos',
