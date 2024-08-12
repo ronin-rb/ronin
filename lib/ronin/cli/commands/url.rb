@@ -141,7 +141,11 @@ module Ronin
           elsif options[:fragment]
             puts uri.fragment
           elsif options[:status]
-            puts "#{uri.status} #{uri}"
+            begin
+              puts "#{uri.status} #{uri}"
+            rescue => error
+              stderr.puts "#{uri}: #{error.message}"
+            end
           else
             puts uri
           end
