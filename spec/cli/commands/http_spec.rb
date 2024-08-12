@@ -241,6 +241,19 @@ describe Ronin::CLI::Commands::Http do
 
       expect(stdout.string).to eq(expected_response_body)
     end
+
+    context "when a network exception occurs" do
+      let(:url) { "https://does.not.exist/" }
+      let(:error) do
+        "Failed to open TCP connection to does.not.exist:443 (getaddrinfo: Name or service not known)"
+      end
+
+      it "must print the URL and an error message to stderr" do
+        expect {
+          subject.process_value(url)
+        }.to output("#{subject.command_name}: #{url}: #{error}#{$/}").to_stderr
+      end
+    end
   end
 
   describe "#print_response" do
