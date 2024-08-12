@@ -144,7 +144,7 @@ module Ronin
             begin
               puts "#{uri.status} #{uri}"
             rescue StandardError => error
-              stderr.puts "#{uri}: #{error.message}"
+              print_error "#{uri}: #{error.message}"
             end
           else
             puts uri

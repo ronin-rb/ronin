@@ -119,7 +119,7 @@ describe Ronin::CLI::Commands::Url do
         it "must print the URL and an error message to stderr" do
           expect {
             subject.process_value(url)
-          }.to output("#{url}: #{error}#{$/}").to_stderr
+          }.to output("#{subject.command_name}: #{url}: #{error}#{$/}").to_stderr
         end
       end
     end
