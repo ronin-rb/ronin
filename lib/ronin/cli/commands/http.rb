@@ -430,8 +430,10 @@ module Ronin
               print_response(response)
             end
           rescue StandardError => error
-            if verbose? then print_exception(error)
-            else             print_error(error.message)
+            if verbose?
+              print_exception(error)
+            else
+              print_error "#{uri}: #{error.message}"
             end
           end
         end
