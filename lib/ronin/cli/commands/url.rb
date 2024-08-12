@@ -143,7 +143,7 @@ module Ronin
           elsif options[:status]
             begin
               puts "#{uri.status} #{uri}"
-            rescue => error
+            rescue StandardError => error
               stderr.puts "#{uri}: #{error.message}"
             end
           else
