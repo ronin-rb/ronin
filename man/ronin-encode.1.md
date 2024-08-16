@@ -23,7 +23,7 @@ Encodes each character of the given data into a variety of formats.
 `-f`, `--file` *FILE*
 : Optional file to process.
 
-`--string` *STRING*
+`-s`, `--string` *STRING*
 : Optional string to process.
 
 `-M`, `--multiline`

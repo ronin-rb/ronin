@@ -23,7 +23,7 @@ Calculates MD5 hashes of data.
 `-f`, `--file` *FILE*
 : Optional file to process.
 
-`--string` *STRING*
+`-s`, `--string` *STRING*
 : Optional string to process.
 
 `-M`, `--multiline`
