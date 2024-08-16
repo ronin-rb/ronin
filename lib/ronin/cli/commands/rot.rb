@@ -33,7 +33,7 @@ module Ronin
       # ## Options
       #
       #     -f, --file FILE                  Optional file to process
-      #         --string STRING              Optional string to process
+      #     -s, --string STRING              Optional string to process
       #     -M, --multiline                  Process each line separately
       #         --keep-newlines              Preserves newlines at the end of each line
       #     -A, --alphabet ABC...            Alphabet characters
