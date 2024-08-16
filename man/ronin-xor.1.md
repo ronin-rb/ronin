@@ -23,7 +23,7 @@ XORs each character of data with a key.
 `-f`, `--file` *FILE*
 : Optional file to process.
 
-`--string` *STRING*
+`-s`, `--string` *STRING*
 : Optional string to process.
 
 `-M`, `--multiline`
