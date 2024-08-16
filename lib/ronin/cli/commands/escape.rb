@@ -43,6 +43,7 @@ module Ronin
       #     -S, --shell                      Escapes the data as a Shell String
       #     -P, --powershell                 Escapes the data as a PowerShell String
       #     -Q, --quoted-printable           Escapes the data as Quoted Printable
+      #     -p, --php                        Escapes the data as a PHP String
       #     -R, --ruby                       Escapes the data as a Ruby String
       #     -x, --xml                        XML escapes the data
       #     -h, --help                       Print help information
@@ -105,6 +106,12 @@ module Ronin
                                     require 'ronin/support/encoding/quoted_printable'
                                     @method_calls << :quoted_printable_escape
                                   end
+
+        option :php, short: '-p',
+                     desc: 'Escapes the data as a PHP String' do
+                       require 'ronin/support/encoding/php'
+                       @method_calls << :php_escape
+                     end
 
         option :ruby, short: '-R',
                       desc: 'Escapes the data as a Ruby String' do
