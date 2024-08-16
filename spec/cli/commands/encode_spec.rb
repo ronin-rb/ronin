@@ -180,6 +180,18 @@ describe Ronin::CLI::Commands::Encode do
       end
     end
 
+    describe "--php" do
+      let(:argv) { %w[--php] }
+
+      it "must require 'ronin/support/encoding/php'" do
+        expect(require('ronin/support/encoding/php')).to be(false)
+      end
+
+      it "must add :ruby_encode to #method_calls" do
+        expect(subject.method_calls.last).to eq(:php_encode)
+      end
+    end
+
     describe "--ruby" do
       let(:argv) { %w[--ruby] }
 
