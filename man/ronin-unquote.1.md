@@ -23,7 +23,7 @@ Unquotes a double/single quoted string.
 `-f`, `--file` *FILE*
 : Optional file to process.
 
-`--string` *STRING*
+`-s`, `--string` *STRING*
 : Optional string to process.
 
 `-M`, `--multiline`

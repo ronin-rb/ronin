@@ -81,7 +81,8 @@ module Ronin
                       @input_values << FileValue.new(file)
                     end
 
-      option :string, value: {
+      option :string, short: '-s',
+                      value: {
                         type:  String,
                         usage: 'STRING'
                       },
