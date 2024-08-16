@@ -81,6 +81,9 @@ Encodes each character of the given data into a variety of formats.
 `--uuencode`
 : uuencodes the data.
 
+`-p`, `--php`
+: Encodes the data as a PHP String.
+
 `-R`, `--ruby`
 : Encodes the data as a Ruby String.
 

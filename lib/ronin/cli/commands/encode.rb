@@ -49,6 +49,7 @@ module Ronin
       #     -P, --powershell                 Encodes the data as a PowerShell String
       #         --punycode                   Encodes the data as Punycode
       #     -Q, --quoted-printable           Encodes the data as Quoted Printable
+      #     -p, --php                        Encodes the data as a PHP String
       #     -R, --ruby                       Encodes the data as a Ruby String
       #         --uuencode                   uuencodes the data
       #     -x, --xml                        XML encodes the data
@@ -154,6 +155,12 @@ module Ronin
                                     require 'ronin/support/encoding/quoted_printable'
                                     @method_calls << :quoted_printable_encode
                                   end
+
+        option :php, short: '-p',
+                     desc:  'Encodes the data as a PHP String' do
+                       require 'ronin/support/encoding/php'
+                       @method_calls << :php_encode
+                     end
 
         option :ruby, short: '-R',
                       desc: 'Encodes the data as a Ruby String' do
