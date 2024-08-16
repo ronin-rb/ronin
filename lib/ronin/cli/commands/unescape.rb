@@ -42,6 +42,7 @@ module Ronin
       #     -j, --js                         JavaScript unescapes the data
       #     -S, --shell                      Unescapes the data as a Shell String
       #     -P, --powershell                 Unescapes the data as a PowerShell String
+      #     -p, --php                        Unescapes the data as a PHP String
       #     -R, --ruby                       Unescapes the data as a Ruby String
       #     -Q, --quoted-printable           Unescapes the data as Quoted Printable
       #     -x, --xml                        XML unescapes the data
@@ -105,6 +106,12 @@ module Ronin
                                     require 'ronin/support/encoding/quoted_printable'
                                     @method_calls << :quoted_printable_unescape
                                   end
+
+        option :php, short: '-p',
+                     desc: 'Unescapes the data as a PHP String' do
+                       require 'ronin/support/encoding/php'
+                       @method_calls << :php_unescape
+                     end
 
         option :ruby, short: '-R',
                       desc: 'Unescapes the data as a Ruby String' do
