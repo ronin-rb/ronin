@@ -66,6 +66,9 @@ Decodes each character of the given data from a variety of formats.
 `-j`, `--js`
 : JavaScript decodes the data.
 
+`-n`, `--nodejs`
+: Node.js decodes the data.
+
 `-S`, `--shell`
 : Decodes the data as a Shell String.
 
