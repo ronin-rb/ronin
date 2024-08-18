@@ -66,6 +66,9 @@ Encodes each character of the given data into a variety of formats.
 `-j`, `--js`
 : JavaScript encodes the data.
 
+`-n`, `--nodejs`
+: Node.js encodes the data.
+
 `-S`, `--shell`
 : Encodes the data as a Shell String.
 
