@@ -20,7 +20,7 @@ require_relative '../value_processor_command'
 
 require 'uri'
 require 'uri/query_params'
-require 'ronin/support/network/http/core_ext/uri/http'
+require 'ronin/support/network/url'
 
 module Ronin
   class CLI
@@ -118,36 +118,36 @@ module Ronin
         # @param [String] url
         #
         def process_value(url)
-          uri = URI(url)
+          url = Support::Network::URL.parse(url)
 
           if options[:user]
-            puts uri.user
+            puts url.user
           elsif options[:password]
-            puts uri.password
+            puts url.password
           elsif options[:user_password]
-            puts "#{uri.user}:#{uri.password}"
+            puts "#{url.user}:#{url.password}"
           elsif options[:host]
-            puts uri.host
+            puts url.host
           elsif options[:host_port]
-            puts "#{uri.host}:#{uri.port}"
+            puts "#{url.host}:#{url.port}"
           elsif options[:path]
-            puts uri.path
+            puts url.path
           elsif options[:query]
-            puts uri.query
+            puts url.query
           elsif options[:path_query]
-            puts uri.request_uri
+            puts url.request_uri
           elsif options[:param]
-            puts uri.query_params[options[:param]]
+            puts url.query_params[options[:param]]
           elsif options[:fragment]
-            puts uri.fragment
+            puts url.fragment
           elsif options[:status]
             begin
-              puts "#{uri.status} #{uri}"
+              puts "#{url.status} #{url}"
             rescue StandardError => error
-              print_error "#{uri}: #{error.message}"
+              print_error "#{url}: #{error.message}"
             end
           else
-            puts uri
+            puts url
           end
         end
 
