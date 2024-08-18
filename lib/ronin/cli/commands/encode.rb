@@ -45,6 +45,7 @@ module Ronin
       #     -u, --uri                        URI encodes the data
       #         --http                       HTTP encodes the data
       #     -j, --js                         Encodes the data as a JavaScript string
+      #     -n, --nodejs                     Encodes the data as a Node.js string
       #     -S, --shell                      Encodes the data as a Shell string
       #     -P, --powershell                 Encodes the data as a PowerShell string
       #         --punycode                   Encodes the data as Punycode
@@ -135,6 +136,12 @@ module Ronin
                       require 'ronin/support/encoding/js'
                       @method_calls << :js_encode
                     end
+
+        option :nodejs, short: '-n',
+                        desc: 'Encodes the data as a Node.js string' do
+                          require 'ronin/support/encoding/node_js'
+                          @method_calls << :node_js_encode
+                        end
 
         option :shell, short: '-S',
                        desc: 'Encodes the data as a Shell string' do
