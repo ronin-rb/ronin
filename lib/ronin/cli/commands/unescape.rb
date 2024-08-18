@@ -40,6 +40,7 @@ module Ronin
       #     -u, --uri                        URI unescapes the data
       #         --http                       HTTP unescapes the data
       #     -j, --js                         Unescapes the data as a JavaScript string
+      #     -n, --nodejs                     Unescapes the data as a Node.js string
       #     -S, --shell                      Unescapes the data as a Shell string
       #     -P, --powershell                 Unescapes the data as a PowerShell string
       #     -p, --php                        Unescapes the data as a PHP string
@@ -88,6 +89,12 @@ module Ronin
                       require 'ronin/support/encoding/js'
                       @method_calls << :js_unescape
                     end
+
+        option :nodejs, short: '-n',
+                        desc: 'Unescapes the data as a Node.js string' do
+                          require 'ronin/support/encoding/node_js'
+                          @method_calls << :node_js_unescape
+                        end
 
         option :shell, short: '-S',
                        desc: 'Unescapes the data as a Shell string' do
