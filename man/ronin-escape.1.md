@@ -50,6 +50,9 @@ Escapes each special character for a variety of encodings.
 `-j`, `--js`
 : Escapes the data as a JavaScript string.
 
+`-n`, `--nodejs`
+: Escapes the data as a Node.js string.
+
 `-S`, `--shell`
 : Escapes the data as a Shell string.
 
