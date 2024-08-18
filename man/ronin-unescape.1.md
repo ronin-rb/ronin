@@ -50,6 +50,9 @@ Unescapes each escaped character from a variety of encodings.
 `-j`, `--js`
 : Unescapes the data as a JavaScript string.
 
+`-n`, `--nodejs`
+: Unescapes the data as a Node.js string.
+
 `-S`, `--shell`
 : Unescapes the data as a Shell string.
 

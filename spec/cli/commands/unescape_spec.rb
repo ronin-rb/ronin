@@ -80,6 +80,18 @@ describe Ronin::CLI::Commands::Unescape do
       end
     end
 
+    describe "--nodejs" do
+      let(:argv) { %w[--nodejs] }
+
+      it "must require 'ronin/support/encoding/node_js'" do
+        expect(require('ronin/support/encoding/node_js')).to be(false)
+      end
+
+      it "must add :node_js_unescape to #method_calls" do
+        expect(subject.method_calls.last).to eq(:node_js_unescape)
+      end
+    end
+
     describe "--shell" do
       let(:argv) { %w[--shell] }
 
