@@ -40,6 +40,7 @@ module Ronin
       #     -u, --uri                        URI escapes the data
       #         --http                       HTTP escapes the data
       #     -j, --js                         JavaScript escapes the data
+      #     -n, --nodejs                     Node.js escapes the data
       #     -S, --shell                      Escapes the data as a Shell String
       #     -P, --powershell                 Escapes the data as a PowerShell String
       #     -Q, --quoted-printable           Escapes the data as Quoted Printable
@@ -88,6 +89,12 @@ module Ronin
                       require 'ronin/support/encoding/js'
                       @method_calls << :js_escape
                     end
+
+        option :nodejs, short: '-n',
+                        desc: 'Node.js escapes the data' do
+                          require 'ronin/support/encoding/node_js'
+                          @method_calls << :node_js_escape
+                        end
 
         option :shell, short: '-S',
                        desc: 'Escapes the data as a Shell String' do
