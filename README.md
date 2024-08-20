@@ -930,7 +930,7 @@ $ ronin unarchive -f zip arch2.jar
 * [wordlist] ~> 1.1
 * [ronin-support] ~> 1.2
 * [ronin-dns-proxy] ~> 0.1
-* [ronin-core] ~> 0.2
+* [ronin-core] ~> 0.3
 * [ronin-repos] ~> 0.1
 * [ronin-wordlists] ~> 0.1
 * [ronin-db] ~> 0.1
