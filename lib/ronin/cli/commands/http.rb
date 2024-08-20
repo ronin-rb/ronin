@@ -451,7 +451,7 @@ module Ronin
         # @see HTTPMethods#print_response
         #
         def print_response(response)
-          super(response, show_headers: options[:verbose])
+          super(response, show_headers: verbose? || options[:head])
         end
 
       end
