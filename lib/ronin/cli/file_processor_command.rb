@@ -46,7 +46,7 @@ module Ronin
       #
       # Opens a file for reading.
       #
-      # @param [Stirng] path
+      # @param [String] path
       #   The path to the file to open.
       #
       # @param [String] mode

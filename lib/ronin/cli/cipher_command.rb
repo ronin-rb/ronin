@@ -98,7 +98,7 @@ module Ronin
         #
         # Opens the file in binary mode.
         #
-        # @param [Stirng] path
+        # @param [String] path
         #   The path to the file to open.
         #
         # @yield [file]
