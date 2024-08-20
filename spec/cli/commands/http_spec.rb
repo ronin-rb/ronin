@@ -300,5 +300,39 @@ describe Ronin::CLI::Commands::Http do
         )
       end
     end
+
+    context "when the --head option is given, but not --verbose" do
+      before do
+        subject.option_parser.parse(%w[--head])
+      end
+
+      let(:header_name1)  { 'X-Foo' }
+      let(:header_value1) { 'foo'   }
+      let(:header_name2)  { 'X-Bar' }
+      let(:header_value2) { 'bar'   }
+      let(:headers) do
+        {
+          header_name1 => header_value1,
+          header_name2 => header_value2
+        }
+      end
+
+      it "must print the headers as well as the body of the response" do
+        expect(response).to receive(:each_capitalized).and_yield(header_name1,header_value1).and_yield(header_name2,header_value2)
+        expect(response).to receive(:read_body).and_yield(chunk1).and_yield(chunk2)
+
+        subject.print_response(response)
+
+        expect(stdout.string).to eq(
+          [
+            "HTTP/#{http_version} #{status}",
+            "#{header_name1}: #{header_value1}",
+            "#{header_name2}: #{header_value2}",
+            '',
+            "#{chunk1}#{chunk2}"
+          ].join($/)
+        )
+      end
+    end
   end
 end
