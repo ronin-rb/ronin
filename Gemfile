@@ -25,8 +25,8 @@ end
 # Library dependencies
 gem 'ronin-support',           '~> 1.2', github: "ronin-rb/ronin-support",
                                          branch: '1.2.0'
-# gem 'ronin-core',              '~> 0.2', github: 'ronin-rb/ronin-core',
-#                                          branch: 'main'
+gem 'ronin-core',              '~> 0.3', github: 'ronin-rb/ronin-core',
+                                         branch: '0.3.0'
 # gem 'ronin-repos',             '~> 0.1', github: 'ronin-rb/ronin-repos',
 #                                          branch: 'main'
 # gem 'ronin-db-activerecord',    '~> 0.2', github: "ronin-rb/ronin-db-activerecord",
