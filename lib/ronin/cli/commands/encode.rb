@@ -73,13 +73,16 @@ module Ronin
         option :base64, short: '-b',
                         equals: true,
                         value: {
-                          type:     [:strict, :url],
+                          type: {
+                            'strict' => :strict,
+                            'url'    => :url_safe
+                          },
                           required: false
                         },
                         desc: 'Base64 encodes the data' do |mode=nil|
                           require 'ronin/support/encoding/base64'
                           @method_calls << if mode
-                                             [:base64_encode, [mode]]
+                                             [:base64_encode, [], {mode: mode}]
                                            else
                                              :base64_encode
                                            end

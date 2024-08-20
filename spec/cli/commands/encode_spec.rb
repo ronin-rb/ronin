@@ -32,6 +32,34 @@ describe Ronin::CLI::Commands::Encode do
       end
     end
 
+    describe "--base64=strict" do
+      let(:argv) { %w[--base64=strict] }
+
+      it "must require 'ronin/support/encoding/base64'" do
+        expect(require('ronin/support/encoding/base64')).to be(false)
+      end
+
+      it "must add [:base64_encode, [], {mode: :strict}] to #method_calls" do
+        expect(subject.method_calls.last).to eq(
+          [:base64_encode, [], {mode: :strict}]
+        )
+      end
+    end
+
+    describe "--base64=url" do
+      let(:argv) { %w[--base64=url] }
+
+      it "must require 'ronin/support/encoding/base64'" do
+        expect(require('ronin/support/encoding/base64')).to be(false)
+      end
+
+      it "must add [:base64_encode, [], {mode: :url_safe}] to #method_calls" do
+        expect(subject.method_calls.last).to eq(
+          [:base64_encode, [], {mode: :url_safe}]
+        )
+      end
+    end
+
     describe "--c" do
       let(:argv) { %w[--c] }
 
