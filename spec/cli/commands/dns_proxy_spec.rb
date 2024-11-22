@@ -128,7 +128,7 @@ describe Ronin::CLI::Commands::DnsProxy do
           if RUBY_ENGINE == 'truffleruby'
             expect {
               subject.parse_record_name(name)
-            }.to raise_error(OptionParser::InvalidArgument,"invalid argument: invalid Regexp: premature end of char-class (org.joni.exception.SyntaxException): /[abc/")
+            }.to raise_error(OptionParser::InvalidArgument,"invalid Regexp: premature end of char-class: /[abc/")
           else
             expect {
               subject.parse_record_name(name)
@@ -200,7 +200,7 @@ describe Ronin::CLI::Commands::DnsProxy do
           if RUBY_ENGINE == 'truffleruby'
             expect {
               subject.parse_rule(rule)
-            }.to raise_error(OptionParser::InvalidArgument,"invalid argument: invalid Regexp: premature end of char-class (org.joni.exception.SyntaxException): /[abc/")
+            }.to raise_error(OptionParser::InvalidArgument,"invalid Regexp: premature end of char-class: /[abc/")
           else
             expect {
               subject.parse_rule(rule)
