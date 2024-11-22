@@ -231,7 +231,7 @@ describe Ronin::CLI::Commands::Pack do
 
     context "when the C type is an unbounded array type" do
       let(:ctype) do
-        Ronin::Support::Binary::CTypes::UnboundedArrayType.new(
+        Ronin::Support::Binary::CTypes::FlexibleArrayType.new(
           Ronin::Support::Binary::CTypes::INT
         )
       end
@@ -287,7 +287,7 @@ describe Ronin::CLI::Commands::Pack do
 
     context "when the given C array type is unbounded" do
       let(:ctype) do
-        Ronin::Support::Binary::CTypes::UnboundedArrayType.new(
+        Ronin::Support::Binary::CTypes::FlexibleArrayType.new(
           Ronin::Support::Binary::CTypes::INT
         )
       end

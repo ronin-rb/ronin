@@ -245,7 +245,7 @@ HELP
           case ctype
           when Support::Binary::CTypes::ArrayType,
                Support::Binary::CTypes::ArrayObjectType,
-               Support::Binary::CTypes::UnboundedArrayType
+               Support::Binary::CTypes::FlexibleArrayType
             parse_array_value(ctype,string)
           when Support::Binary::CTypes::IntType,
                Support::Binary::CTypes::UIntType
