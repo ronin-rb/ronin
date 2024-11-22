@@ -78,6 +78,7 @@ generated_files:
  - man/ronin-proxy.1
  - man/ronin-public-suffix-list.1
  - man/ronin-quote.1
+ - man/ronin-refang.1
  - man/ronin-rot.1
  - man/ronin-sha1.1
  - man/ronin-sha256.1
