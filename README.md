@@ -109,6 +109,7 @@ Commands:
     proxy
     public-suffix-list
     quote
+    refang
     rot
     sha1
     sha256
@@ -499,6 +500,13 @@ $ ronin xor --key ABC --string "The quick brown fox jumps over the lazy dog"
 ```
 
 ### Networking
+
+Re-fangs a defanged URL:
+
+```shell
+$ ronin refang hxxps://www[.]evil[.]com/foo/bar/baz
+https://www.evil.com/foo/bar/baz
+```
 
 Query the ASN of an IP address:
 
