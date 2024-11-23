@@ -38,6 +38,7 @@ module Ronin
       #     -c, --c                          Quotes the data as a C string
       #     -J, --java                       Quotes the data as a Java string
       #     -j, --js                         Quotes the data as a JavaScript string
+      #     -n, --nodejs                     Quotes the data as a Node.js string
       #     -S, --shell                      Quotes the data as a Shell string
       #     -P, --powershell                 Quotes the data as a PowerShell string
       #         --perl                       Quotes the data as a Perl string
@@ -69,6 +70,12 @@ module Ronin
                         require 'ronin/support/encoding/java'
                         @method_calls << :java_string
                       end
+
+        option :nodejs, short: '-n',
+                        desc: 'Quotes the data as a Node.js string' do
+                          require 'ronin/support/encoding/node_js'
+                          @method_calls << :node_js_string
+                        end
 
         option :js, short: '-j',
                     desc: 'Quotes the data as a JavaScript string' do
