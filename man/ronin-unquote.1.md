@@ -47,6 +47,9 @@ Unquotes a double/single quoted string.
 `-P`, `--powershell`
 : Unquotes the PowerShell string.
 
+`--python`
+: Unquotes the Python string.
+
 `-R`, `--ruby`
 : Unquotes the Ruby string.
 
