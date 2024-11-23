@@ -48,7 +48,7 @@ Unescapes each escaped character from a variety of encodings.
 : HTTP unescapes the data.
 
 `-j`, `--js`
-: JavaScript unescapes the data.
+: Unescapes the data as a JavaScript string.
 
 `-S`, `--shell`
 : Unescapes the data as a Shell string.

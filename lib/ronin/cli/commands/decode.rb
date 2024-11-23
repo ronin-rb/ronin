@@ -44,7 +44,7 @@ module Ronin
       #     -H, --html                       HTML decodes the data
       #     -u, --uri                        URI decodes the data
       #         --http                       HTTP decodes the data
-      #     -j, --js                         JavaScript decodes the data
+      #     -j, --js                         Encodes the data as a JavaScript string
       #     -S, --shell                      Encodes the data as a Shell string
       #     -P, --powershell                 Encodes the data as a PowerShell string
       #         --punycode                   Decodes the data as Punycode
@@ -130,7 +130,7 @@ module Ronin
         end
 
         option :js, short: '-j',
-                    desc: 'JavaScript decodes the data' do
+                    desc: 'Encodes the data as a JavaScript string' do
                       require 'ronin/support/encoding/js'
                       @method_calls << :js_decode
                     end

@@ -64,7 +64,7 @@ Encodes each character of the given data into a variety of formats.
 : HTTP encodes the data.
 
 `-j`, `--js`
-: JavaScript encodes the data.
+: Encodes the data as a JavaScript string.
 
 `-S`, `--shell`
 : Encodes the data as a Shell string.

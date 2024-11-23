@@ -44,7 +44,7 @@ module Ronin
       #     -H, --html                       HTML encodes the data
       #     -u, --uri                        URI encodes the data
       #         --http                       HTTP encodes the data
-      #     -j, --js                         JavaScript encodes the data
+      #     -j, --js                         Encodes the data as a JavaScript string
       #     -S, --shell                      Encodes the data as a Shell string
       #     -P, --powershell                 Encodes the data as a PowerShell string
       #         --punycode                   Encodes the data as Punycode
@@ -130,7 +130,7 @@ module Ronin
         end
 
         option :js, short: '-j',
-                    desc: 'JavaScript encodes the data' do
+                    desc: 'Encodes the data as a JavaScript string' do
                       require 'ronin/support/encoding/js'
                       @method_calls << :js_encode
                     end
