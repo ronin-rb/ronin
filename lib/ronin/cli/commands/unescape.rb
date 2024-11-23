@@ -49,6 +49,7 @@ module Ronin
       #         --python                     Unescapes the data as a Python string
       #     -R, --ruby                       Unescapes the data as a Ruby string
       #     -Q, --quoted-printable           Unescapes the data as Quoted Printable
+      #         --smtp                       Alias for --quoted-printable
       #     -x, --xml                        XML unescapes the data
       #     -h, --help                       Print help information
       #
@@ -122,6 +123,11 @@ module Ronin
                                     require 'ronin/support/encoding/quoted_printable'
                                     @method_calls << :quoted_printable_unescape
                                   end
+
+        option :smtp, desc: 'Alias for --quoted-printable' do
+          require 'ronin/support/encoding/smtp'
+          @method_calls << :smtp_unescape
+        end
 
         option :perl, desc: 'Unescapes the data as a Perl String' do
                         require 'ronin/support/encoding/perl'

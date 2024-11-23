@@ -140,6 +140,18 @@ describe Ronin::CLI::Commands::Unescape do
       end
     end
 
+    describe "--smtp" do
+      let(:argv) { %w[--smtp] }
+
+      it "must require 'ronin/support/encoding/smtp'" do
+        expect(require('ronin/support/encoding/smtp')).to be(false)
+      end
+
+      it "must add :smtp_unescape to #method_calls" do
+        expect(subject.method_calls.last).to eq(:smtp_unescape)
+      end
+    end
+
     describe "--xml" do
       let(:argv) { %w[--xml] }
 
