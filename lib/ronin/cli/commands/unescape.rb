@@ -50,6 +50,7 @@ module Ronin
       #     -R, --ruby                       Unescapes the data as a Ruby string
       #     -Q, --quoted-printable           Unescapes the data as Quoted Printable
       #         --smtp                       Alias for --quoted-printable
+      #         --sql                        Unescapes the data as a SQL string
       #     -x, --xml                        XML unescapes the data
       #     -h, --help                       Print help information
       #
@@ -150,6 +151,11 @@ module Ronin
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_unescape
                       end
+
+        option :sql, desc: 'Unescapes the data as a SQL string' do
+          require 'ronin/support/encoding/sql'
+          @method_calls << :sql_unescape
+        end
 
         option :xml, short: '-x',
                      desc: 'XML unescapes the data' do
