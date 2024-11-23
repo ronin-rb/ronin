@@ -47,6 +47,9 @@ Unescapes each escaped character from a variety of encodings.
 `--http`
 : HTTP unescapes the data.
 
+`-J`, `--java`
+: Unescapes the data as a Java string.
+
 `-j`, `--js`
 : Unescapes the data as a JavaScript string.
 
