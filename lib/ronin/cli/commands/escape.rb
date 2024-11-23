@@ -40,10 +40,10 @@ module Ronin
       #     -u, --uri                        URI escapes the data
       #         --http                       HTTP escapes the data
       #     -j, --js                         JavaScript escapes the data
-      #     -S, --shell                      Escapes the data as a Shell String
-      #     -P, --powershell                 Escapes the data as a PowerShell String
+      #     -S, --shell                      Escapes the data as a Shell string
+      #     -P, --powershell                 Escapes the data as a PowerShell string
       #     -Q, --quoted-printable           Escapes the data as Quoted Printable
-      #     -R, --ruby                       Escapes the data as a Ruby String
+      #     -R, --ruby                       Escapes the data as a Ruby string
       #     -x, --xml                        XML escapes the data
       #     -h, --help                       Print help information
       #
@@ -89,13 +89,13 @@ module Ronin
                     end
 
         option :shell, short: '-S',
-                       desc: 'Escapes the data as a Shell String' do
+                       desc: 'Escapes the data as a Shell string' do
                          require 'ronin/support/encoding/shell'
                          @method_calls << :shell_escape
                        end
 
         option :powershell, short: '-P',
-                            desc: 'Escapes the data as a PowerShell String' do
+                            desc: 'Escapes the data as a PowerShell string' do
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_escape
                             end
@@ -107,7 +107,7 @@ module Ronin
                                   end
 
         option :ruby, short: '-R',
-                      desc: 'Escapes the data as a Ruby String' do
+                      desc: 'Escapes the data as a Ruby string' do
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_escape
                       end

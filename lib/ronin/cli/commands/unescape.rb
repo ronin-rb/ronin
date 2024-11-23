@@ -40,9 +40,9 @@ module Ronin
       #     -u, --uri                        URI unescapes the data
       #         --http                       HTTP unescapes the data
       #     -j, --js                         JavaScript unescapes the data
-      #     -S, --shell                      Unescapes the data as a Shell String
-      #     -P, --powershell                 Unescapes the data as a PowerShell String
-      #     -R, --ruby                       Unescapes the data as a Ruby String
+      #     -S, --shell                      Unescapes the data as a Shell string
+      #     -P, --powershell                 Unescapes the data as a PowerShell string
+      #     -R, --ruby                       Unescapes the data as a Ruby string
       #     -Q, --quoted-printable           Unescapes the data as Quoted Printable
       #     -x, --xml                        XML unescapes the data
       #     -h, --help                       Print help information
@@ -89,13 +89,13 @@ module Ronin
                     end
 
         option :shell, short: '-S',
-                       desc: 'Unescapes the data as a Shell String' do
+                       desc: 'Unescapes the data as a Shell string' do
                          require 'ronin/support/encoding/shell'
                          @method_calls << :shell_unescape
                        end
 
         option :powershell, short: '-P',
-                            desc: 'Unescapes the data as a PowerShell String' do
+                            desc: 'Unescapes the data as a PowerShell string' do
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_unescape
                             end
@@ -107,7 +107,7 @@ module Ronin
                                   end
 
         option :ruby, short: '-R',
-                      desc: 'Unescapes the data as a Ruby String' do
+                      desc: 'Unescapes the data as a Ruby string' do
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_unescape
                       end

@@ -39,16 +39,16 @@ Unquotes a double/single quoted string.
 : Unquotes the C string.
 
 `-j`, `--js`
-: Unquotes the JavaScript String.
+: Unquotes the JavaScript string.
 
 `-S`, `--shell`
 : Unquotes the Shell string.
 
 `-P`, `--powershell`
-: Unquotes the PowerShell String.
+: Unquotes the PowerShell string.
 
 `-R`, `--ruby`
-: Unquotes the Ruby String.
+: Unquotes the Ruby string.
 
 `-h`, `--help`
 : Print help information.

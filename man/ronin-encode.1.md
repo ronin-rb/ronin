@@ -67,10 +67,10 @@ Encodes each character of the given data into a variety of formats.
 : JavaScript encodes the data.
 
 `-S`, `--shell`
-: Encodes the data as a Shell String.
+: Encodes the data as a Shell string.
 
 `-P`, `--powershell`
-: Encodes the data as a PowerShell String.
+: Encodes the data as a PowerShell string.
 
 `--punycode`
 : Encodes the data as Punycode.
@@ -82,7 +82,7 @@ Encodes each character of the given data into a variety of formats.
 : uuencodes the data.
 
 `-R`, `--ruby`
-: Encodes the data as a Ruby String.
+: Encodes the data as a Ruby string.
 
 `-x`, `--xml`
 : XML encodes the data.

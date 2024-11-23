@@ -36,10 +36,10 @@ module Ronin
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -X, --hex                        Unquotes the Hex string
       #     -c, --c                          Unquotes the C string
-      #     -j, --js                         Unquotes the JavaScript String
-      #     -S, --shell                      Unquotes the Shell String
-      #     -P, --powershell                 Unquotes the PowerShell String
-      #     -R, --ruby                       Unquotes the Ruby String
+      #     -j, --js                         Unquotes the JavaScript string
+      #     -S, --shell                      Unquotes the Shell string
+      #     -P, --powershell                 Unquotes the PowerShell string
+      #     -R, --ruby                       Unquotes the Ruby string
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -61,25 +61,25 @@ module Ronin
                    end
 
         option :js, short: '-j',
-                    desc: 'Unquotes the JavaScript String' do
+                    desc: 'Unquotes the JavaScript string' do
                       require 'ronin/support/encoding/js'
                       @method_calls << :js_unquote
                     end
 
         option :shell, short: '-S',
-                       desc: 'Unquotes the Shell String' do
+                       desc: 'Unquotes the Shell string' do
                          require 'ronin/support/encoding/shell'
                          @method_calls << :shell_unquote
                        end
 
         option :powershell, short: '-P',
-                            desc: 'Unquotes the PowerShell String' do
+                            desc: 'Unquotes the PowerShell string' do
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_unquote
                             end
 
         option :ruby, short: '-R',
-                      desc: 'Unquotes the Ruby String' do
+                      desc: 'Unquotes the Ruby string' do
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_unquote
                       end

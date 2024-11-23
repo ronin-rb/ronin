@@ -51,16 +51,16 @@ Escapes each special character for a variety of encodings.
 : JavaScript escapes the data.
 
 `-S`, `--shell`
-: Escapes the data as a Shell String.
+: Escapes the data as a Shell string.
 
 `-P`, `--powershell`
-: Escapes the data as a PowerShell String.
+: Escapes the data as a PowerShell string.
 
 `-Q`, `--quoted-printable`
 : Escapes the data as Quoted Printable.
 
 `-R`, `--ruby`
-: Escapes the data as a Ruby String.
+: Escapes the data as a Ruby string.
 
 `-x`, `--xml`
 : XML escapes the data.

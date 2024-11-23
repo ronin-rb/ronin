@@ -36,10 +36,10 @@ module Ronin
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -X, --hex                        Quotes the data as a Hex string
       #     -c, --c                          Quotes the data as a C string
-      #     -j, --js                         JavaScript quotes the data
-      #     -S, --shell                      Quotes the data as a Shell String
-      #     -P, --powershell                 Quotes the data as a PowerShell String
-      #     -R, --ruby                       Quotes the data as a Ruby String
+      #     -j, --js                         Quotes the data as a JavaScript string
+      #     -S, --shell                      Quotes the data as a Shell string
+      #     -P, --powershell                 Quotes the data as a PowerShell string
+      #     -R, --ruby                       Quotes the data as a Ruby string
       #     -h, --help                       Print help information
       #
       # ## Arguments
@@ -61,25 +61,25 @@ module Ronin
                    end
 
         option :js, short: '-j',
-                    desc: 'JavaScript quotes the data' do
+                    desc: 'Quotes the data as a JavaScript string' do
                       require 'ronin/support/encoding/js'
                       @method_calls << :js_string
                     end
 
         option :shell, short: '-S',
-                       desc: 'Quotes the data as a Shell String' do
+                       desc: 'Quotes the data as a Shell string' do
                          require 'ronin/support/encoding/shell'
                          @method_calls << :shell_string
                        end
 
         option :powershell, short: '-P',
-                            desc: 'Quotes the data as a PowerShell String' do
+                            desc: 'Quotes the data as a PowerShell string' do
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_string
                             end
 
         option :ruby, short: '-R',
-                      desc: 'Quotes the data as a Ruby String' do
+                      desc: 'Quotes the data as a Ruby string' do
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_string
                       end

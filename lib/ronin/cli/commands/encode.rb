@@ -45,11 +45,11 @@ module Ronin
       #     -u, --uri                        URI encodes the data
       #         --http                       HTTP encodes the data
       #     -j, --js                         JavaScript encodes the data
-      #     -S, --shell                      Encodes the data as a Shell String
-      #     -P, --powershell                 Encodes the data as a PowerShell String
+      #     -S, --shell                      Encodes the data as a Shell string
+      #     -P, --powershell                 Encodes the data as a PowerShell string
       #         --punycode                   Encodes the data as Punycode
       #     -Q, --quoted-printable           Encodes the data as Quoted Printable
-      #     -R, --ruby                       Encodes the data as a Ruby String
+      #     -R, --ruby                       Encodes the data as a Ruby string
       #         --uuencode                   uuencodes the data
       #     -x, --xml                        XML encodes the data
       #     -h, --help                       Print help information
@@ -136,13 +136,13 @@ module Ronin
                     end
 
         option :shell, short: '-S',
-                       desc: 'Encodes the data as a Shell String' do
+                       desc: 'Encodes the data as a Shell string' do
                          require 'ronin/support/encoding/shell'
                          @method_calls << :shell_encode
                        end
 
         option :powershell, short: '-P',
-                            desc: 'Encodes the data as a PowerShell String' do
+                            desc: 'Encodes the data as a PowerShell string' do
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_encode
                             end
@@ -159,7 +159,7 @@ module Ronin
                                   end
 
         option :ruby, short: '-R',
-                      desc: 'Encodes the data as a Ruby String' do
+                      desc: 'Encodes the data as a Ruby string' do
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_encode
                       end
