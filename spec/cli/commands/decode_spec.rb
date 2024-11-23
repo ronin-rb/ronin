@@ -192,6 +192,18 @@ describe Ronin::CLI::Commands::Decode do
       end
     end
 
+    describe "--perl" do
+      let(:argv) { %w[--perl] }
+
+      it "must require 'ronin/support/encoding/perl'" do
+        expect(require('ronin/support/encoding/perl')).to be(false)
+      end
+
+      it "must add :perl_decode to #method_calls" do
+        expect(subject.method_calls.last).to eq(:perl_decode)
+      end
+    end
+
     describe "--php" do
       let(:argv) { %w[--php] }
 
