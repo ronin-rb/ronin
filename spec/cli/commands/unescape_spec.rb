@@ -152,6 +152,18 @@ describe Ronin::CLI::Commands::Unescape do
       end
     end
 
+    describe "--python" do
+      let(:argv) { %w[--python] }
+
+      it "must require 'ronin/support/encoding/python'" do
+        expect(require('ronin/support/encoding/python')).to be(false)
+      end
+
+      it "must add :python_unescape to #method_calls" do
+        expect(subject.method_calls.last).to eq(:python_unescape)
+      end
+    end
+
     describe "--ruby" do
       let(:argv) { %w[--ruby] }
 
