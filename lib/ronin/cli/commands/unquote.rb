@@ -36,6 +36,7 @@ module Ronin
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -X, --hex                        Unquotes the Hex string
       #     -c, --c                          Unquotes the C string
+      #     -J, --java                       Unquotes the Java string
       #     -j, --js                         Unquotes the JavaScript string
       #     -S, --shell                      Unquotes the Shell string
       #     -P, --powershell                 Unquotes the PowerShell string
@@ -62,6 +63,12 @@ module Ronin
                      require 'ronin/support/encoding/c'
                      @method_calls << :c_unquote
                    end
+
+        option :java, short: '-J',
+                      desc: 'Unquotes the Java string' do
+                        require 'ronin/support/encoding/java'
+                        @method_calls << :java_unquote
+                      end
 
         option :js, short: '-j',
                     desc: 'Unquotes the JavaScript string' do
