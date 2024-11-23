@@ -156,6 +156,18 @@ describe Ronin::CLI::Commands::Encode do
       end
     end
 
+    describe "--punycode" do
+      let(:argv) { %w[--punycode] }
+
+      it "must require 'ronin/support/encoding/punycode'" do
+        expect(require('ronin/support/encoding/punycode')).to be(false)
+      end
+
+      it "must add :punycode_encode to #method_calls" do
+        expect(subject.method_calls.last).to eq(:punycode_encode)
+      end
+    end
+
     describe "--quoted-printable" do
       let(:argv) { %w[--quoted-printable] }
 
