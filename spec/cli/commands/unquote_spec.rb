@@ -68,6 +68,18 @@ describe Ronin::CLI::Commands::Unquote do
       end
     end
 
+    describe "--php" do
+      let(:argv) { %w[--php] }
+
+      it "must require 'ronin/support/encoding/php'" do
+        expect(require('ronin/support/encoding/php')).to be(false)
+      end
+
+      it "must add :php_unquote to #method_calls" do
+        expect(subject.method_calls.last).to eq(:php_unquote)
+      end
+    end
+
     describe "--python" do
       let(:argv) { %w[--python] }
 
