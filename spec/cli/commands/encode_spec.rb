@@ -204,6 +204,18 @@ describe Ronin::CLI::Commands::Encode do
       end
     end
 
+    describe "--smtp" do
+      let(:argv) { %w[--smtp] }
+
+      it "must require 'ronin/support/encoding/smtp'" do
+        expect(require('ronin/support/encoding/smtp')).to be(false)
+      end
+
+      it "must add :smtp_encode to #method_calls" do
+        expect(subject.method_calls.last).to eq(:smtp_encode)
+      end
+    end
+
     describe "--perl" do
       let(:argv) { %w[--perl] }
 
