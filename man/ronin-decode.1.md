@@ -81,6 +81,9 @@ Decodes each character of the given data from a variety of formats.
 `-Q`, `--quoted-printable`
 : Decodes the data as Quoted Printable.
 
+`--perl`
+: Decodes the data as a Perl string.
+
 `-p`, `--php`
 : Decodes the data as a PHP string.
 
