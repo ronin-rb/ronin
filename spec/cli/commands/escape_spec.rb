@@ -152,6 +152,18 @@ describe Ronin::CLI::Commands::Escape do
       end
     end
 
+    describe "--python" do
+      let(:argv) { %w[--python] }
+
+      it "must require 'ronin/support/encoding/python'" do
+        expect(require('ronin/support/encoding/python')).to be(false)
+      end
+
+      it "must add :python_escape to #method_calls" do
+        expect(subject.method_calls.last).to eq(:python_escape)
+      end
+    end
+
     describe "--ruby" do
       let(:argv) { %w[--ruby] }
 
