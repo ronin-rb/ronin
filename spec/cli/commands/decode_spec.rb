@@ -204,6 +204,18 @@ describe Ronin::CLI::Commands::Decode do
       end
     end
 
+    describe "--python" do
+      let(:argv) { %w[--python] }
+
+      it "must require 'ronin/support/encoding/python'" do
+        expect(require('ronin/support/encoding/python')).to be(false)
+      end
+
+      it "must add :python_decode to #method_calls" do
+        expect(subject.method_calls.last).to eq(:python_decode)
+      end
+    end
+
     describe "--ruby" do
       let(:argv) { %w[--ruby] }
 
