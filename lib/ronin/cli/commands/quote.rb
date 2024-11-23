@@ -39,6 +39,7 @@ module Ronin
       #     -j, --js                         Quotes the data as a JavaScript string
       #     -S, --shell                      Quotes the data as a Shell string
       #     -P, --powershell                 Quotes the data as a PowerShell string
+      #         --python                     Quotes the data as a Python string
       #     -R, --ruby                       Quotes the data as a Ruby string
       #     -h, --help                       Print help information
       #
@@ -77,6 +78,11 @@ module Ronin
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_string
                             end
+
+        option :python, desc: 'Quotes the data as a Python string' do
+                          require 'ronin/support/encoding/python'
+                          @method_calls << :python_string
+                        end
 
         option :ruby, short: '-R',
                       desc: 'Quotes the data as a Ruby string' do
