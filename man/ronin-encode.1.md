@@ -87,6 +87,9 @@ Encodes each character of the given data into a variety of formats.
 `-p`, `--php`
 : Encodes the data as a PHP string.
 
+`--python`
+: Encodes the data as a Python string.
+
 `-R`, `--ruby`
 : Encodes the data as a Ruby string.
 
