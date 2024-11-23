@@ -68,6 +68,18 @@ describe Ronin::CLI::Commands::Unquote do
       end
     end
 
+    describe "--python" do
+      let(:argv) { %w[--python] }
+
+      it "must require 'ronin/support/encoding/python'" do
+        expect(require('ronin/support/encoding/python')).to be(false)
+      end
+
+      it "must add :python_unquote to #method_calls" do
+        expect(subject.method_calls.last).to eq(:python_unquote)
+      end
+    end
+
     describe "--ruby" do
       let(:argv) { %w[--ruby] }
 

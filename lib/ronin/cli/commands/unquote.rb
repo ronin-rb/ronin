@@ -39,6 +39,7 @@ module Ronin
       #     -j, --js                         Unquotes the JavaScript string
       #     -S, --shell                      Unquotes the Shell string
       #     -P, --powershell                 Unquotes the PowerShell string
+      #         --python                     Unquotes the Python string
       #     -R, --ruby                       Unquotes the Ruby string
       #     -h, --help                       Print help information
       #
@@ -77,6 +78,11 @@ module Ronin
                               require 'ronin/support/encoding/powershell'
                               @method_calls << :powershell_unquote
                             end
+
+        option :python, desc: 'Unquotes the Python string' do
+                          require 'ronin/support/encoding/python'
+                          @method_calls << :python_unquote
+                        end
 
         option :ruby, short: '-R',
                       desc: 'Unquotes the Ruby string' do
