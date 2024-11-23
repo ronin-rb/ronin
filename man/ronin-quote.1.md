@@ -44,6 +44,9 @@ Produces quoted a string for a variety of programming languages.
 `-j`, `--js`
 : Quotes the data as a JavaScript string.
 
+`-n`, `--nodejs`
+: Quotes the data as a Node.js string.
+
 `-S`, `--shell`
 : Quotes the data as a Shell string.
 
