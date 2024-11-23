@@ -63,6 +63,9 @@ Encodes each character of the given data into a variety of formats.
 `--http`
 : HTTP encodes the data.
 
+`-J`, `--java`
+: Encodes the data as a Java string.
+
 `-j`, `--js`
 : Encodes the data as a JavaScript string.
 
