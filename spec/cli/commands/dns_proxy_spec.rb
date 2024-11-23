@@ -199,7 +199,12 @@ describe Ronin::CLI::Commands::DnsProxy do
           # XXX: TruffleRuby's RegexpError exception message is different
           if RUBY_ENGINE == 'truffleruby'
             expect {
-              subject.parse_rule(rule)
+              begin
+                subject.parse_rule(rule)
+              rescue => error
+                p error.message.encoding
+                raise(error)
+              end
             }.to raise_error(OptionParser::InvalidArgument,"invalid Regexp: premature end of char-class: /[abc/")
           else
             expect {
