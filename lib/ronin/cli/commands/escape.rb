@@ -50,6 +50,7 @@ module Ronin
       #     -p, --php                        Escapes the data as a PHP string
       #         --python                     Escapes the data as a Python string
       #     -R, --ruby                       Escapes the data as a Ruby string
+      #         --sql                        Escapes the data as a SQL string
       #     -x, --xml                        XML escapes the data
       #     -h, --help                       Print help information
       #
@@ -150,6 +151,11 @@ module Ronin
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_escape
                       end
+
+        option :sql, desc: 'Escapes the data as a SQL string' do
+          require 'ronin/support/encoding/sql'
+          @method_calls << :sql_escape
+        end
 
         option :xml, short: '-x',
                      desc: 'XML escapes the data' do
