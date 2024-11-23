@@ -32,6 +32,18 @@ describe Ronin::CLI::Commands::Quote do
       end
     end
 
+    describe "--java" do
+      let(:argv) { %w[--java] }
+
+      it "must require 'ronin/support/encoding/java'" do
+        expect(require('ronin/support/encoding/java')).to be(false)
+      end
+
+      it "must add :java_string to #method_calls" do
+        expect(subject.method_calls.last).to eq(:java_string)
+      end
+    end
+
     describe "--js" do
       let(:argv) { %w[--js] }
 

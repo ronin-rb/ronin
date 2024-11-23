@@ -38,6 +38,9 @@ Produces quoted a string for a variety of programming languages.
 `-c`, `--c`
 : Quotes the data as a C string.
 
+`-J`, `--java`
+: Quotes the data as a Java string.
+
 `-j`, `--js`
 : Quotes the data as a JavaScript string.
 
