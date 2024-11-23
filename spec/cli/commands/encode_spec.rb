@@ -120,6 +120,18 @@ describe Ronin::CLI::Commands::Encode do
       end
     end
 
+    describe "--java" do
+      let(:argv) { %w[--java] }
+
+      it "must require 'ronin/support/encoding/java'" do
+        expect(require('ronin/support/encoding/java')).to be(false)
+      end
+
+      it "must add :java_encode to #method_calls" do
+        expect(subject.method_calls.last).to eq(:java_encode)
+      end
+    end
+
     describe "--js" do
       let(:argv) { %w[--js] }
 

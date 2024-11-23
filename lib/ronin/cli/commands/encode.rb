@@ -44,6 +44,7 @@ module Ronin
       #     -H, --html                       HTML encodes the data
       #     -u, --uri                        URI encodes the data
       #         --http                       HTTP encodes the data
+      #     -J, --java                       Encodes the data as a Java string
       #     -j, --js                         Encodes the data as a JavaScript string
       #     -n, --nodejs                     Encodes the data as a Node.js string
       #     -S, --shell                      Encodes the data as a Shell string
@@ -132,6 +133,12 @@ module Ronin
           require 'ronin/support/encoding/http'
           @method_calls << :http_encode
         end
+
+        option :java, short: '-J',
+                      desc:  'Java encodes the data' do
+                        require 'ronin/support/encoding/java'
+                        @method_calls << :java_encode
+                      end
 
         option :js, short: '-j',
                     desc: 'Encodes the data as a JavaScript string' do
