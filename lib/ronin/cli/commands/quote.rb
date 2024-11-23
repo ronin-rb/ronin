@@ -36,6 +36,7 @@ module Ronin
       #     -n, --keep-newlines              Preserves newlines at the end of each line
       #     -X, --hex                        Quotes the data as a Hex string
       #     -c, --c                          Quotes the data as a C string
+      #     -J, --java                       Quotes the data as a Java string
       #     -j, --js                         Quotes the data as a JavaScript string
       #     -S, --shell                      Quotes the data as a Shell string
       #     -P, --powershell                 Quotes the data as a PowerShell string
@@ -62,6 +63,12 @@ module Ronin
                      require 'ronin/support/encoding/c'
                      @method_calls << :c_string
                    end
+
+        option :java, short: '-J',
+                      desc: 'Quotes the data as a Java string' do
+                        require 'ronin/support/encoding/java'
+                        @method_calls << :java_string
+                      end
 
         option :js, short: '-j',
                     desc: 'Quotes the data as a JavaScript string' do
