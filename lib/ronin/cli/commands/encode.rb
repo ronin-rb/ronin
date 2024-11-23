@@ -51,6 +51,7 @@ module Ronin
       #     -P, --powershell                 Encodes the data as a PowerShell string
       #         --punycode                   Encodes the data as Punycode
       #     -Q, --quoted-printable           Encodes the data as Quoted Printable
+      #         --smtp                       Alias for --quoted-printable
       #         --perl                       Encodes the data as a Perl string
       #     -p, --php                        Encodes the data as a PHP string
       #         --python                     Encodes the data as a Python string
@@ -174,6 +175,11 @@ module Ronin
                                     require 'ronin/support/encoding/quoted_printable'
                                     @method_calls << :quoted_printable_encode
                                   end
+
+        option :smtp, desc: 'Alias for --quoted-printable' do
+          require 'ronin/support/encoding/smtp'
+          @method_calls << :smtp_encode
+        end
 
         option :perl, desc: 'Encodes the data as a Perl string' do
                         require 'ronin/support/encoding/perl'
