@@ -84,6 +84,9 @@ Decodes each character of the given data from a variety of formats.
 `-p`, `--php`
 : Decodes the data as a PHP string.
 
+`--python`
+: Decodes the data as a Python string.
+
 `-R`, `--ruby`
 : Decodes the data as a Ruby string.
 
