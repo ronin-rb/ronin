@@ -51,6 +51,7 @@ module Ronin
       #         --punycode                   Encodes the data as Punycode
       #     -Q, --quoted-printable           Encodes the data as Quoted Printable
       #     -p, --php                        Encodes the data as a PHP string
+      #         --python                     Encodes the data as a Python string
       #     -R, --ruby                       Encodes the data as a Ruby string
       #         --uuencode                   uuencodes the data
       #     -x, --xml                        XML encodes the data
@@ -171,6 +172,11 @@ module Ronin
                        require 'ronin/support/encoding/php'
                        @method_calls << :php_encode
                      end
+
+        option :python, desc: 'Encodes the data as a Python string' do
+                          require 'ronin/support/encoding/python'
+                          @method_calls << :python_encode
+                        end
 
         option :ruby, short: '-R',
                       desc: 'Encodes the data as a Ruby string' do
