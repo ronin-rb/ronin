@@ -65,6 +65,9 @@ Unescapes each escaped character from a variety of encodings.
 `-p`, `--php`
 : Unescapes the data as a PHP string.
 
+`--python`
+: Unescapes the data as a Python string.
+
 `-R`, `--ruby`
 : Unescapes the data as a Ruby string.
 
