@@ -79,7 +79,7 @@ Decodes each character of the given data from a variety of formats.
 : Decodes the data as Quoted Printable.
 
 `-R`, `--ruby`
-: Ruby decodes the data.
+: Decodes the data as a Ruby string.
 
 `--uudecode`
 : uudecodes the data.

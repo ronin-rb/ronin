@@ -49,7 +49,7 @@ module Ronin
       #     -P, --powershell                 Decodes the data as a PowerShell string
       #         --punycode                   Decodes the data as Punycode
       #     -Q, --quoted-printable           Decodes the data as Quoted Printable
-      #     -R, --ruby                       Ruby decodes the data
+      #     -R, --ruby                       Decodes the data as a Ruby string
       #         --uudecode                   uudecodes the data
       #     -x, --xml                        XML decodes the data
       #     -h, --help                       Print help information
@@ -159,7 +159,7 @@ module Ronin
                                   end
 
         option :ruby, short: '-R',
-                      desc: 'Ruby decodes the data' do
+                      desc: 'Decodes the data as a Ruby string' do
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_decode
                       end
