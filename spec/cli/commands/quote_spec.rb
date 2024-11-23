@@ -71,6 +71,10 @@ describe Ronin::CLI::Commands::Quote do
     describe "--ruby" do
       let(:argv) { %w[--ruby] }
 
+      it "must require 'ronin/support/encoding/ruby'" do
+        expect(require('ronin/support/encoding/ruby')).to be(false)
+      end
+
       it "must add :ruby_string to #method_calls" do
         expect(subject.method_calls.last).to eq(:ruby_string)
       end
