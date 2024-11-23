@@ -47,6 +47,9 @@ Escapes each special character for a variety of encodings.
 `--http`
 : HTTP escapes the data.
 
+`-J`, `--java`
+: Escapes the data as a Java string.
+
 `-j`, `--js`
 : Escapes the data as a JavaScript string.
 

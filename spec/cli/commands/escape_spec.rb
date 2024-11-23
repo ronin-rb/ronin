@@ -68,6 +68,18 @@ describe Ronin::CLI::Commands::Escape do
       end
     end
 
+    describe "--java" do
+      let(:argv) { %w[--java] }
+
+      it "must require 'ronin/support/encoding/java'" do
+        expect(require('ronin/support/encoding/java')).to be(false)
+      end
+
+      it "must add :java_escape to #method_calls" do
+        expect(subject.method_calls.last).to eq(:java_escape)
+      end
+    end
+
     describe "--js" do
       let(:argv) { %w[--js] }
 
