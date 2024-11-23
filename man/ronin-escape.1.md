@@ -62,6 +62,9 @@ Escapes each special character for a variety of encodings.
 `-Q`, `--quoted-printable`
 : Escapes the data as Quoted Printable.
 
+`--perl`
+: Escapes the data as a Perl string.
+
 `-p`, `--php`
 : Escapes the data as a PHP string.
 
