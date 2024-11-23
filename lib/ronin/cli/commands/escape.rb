@@ -39,6 +39,7 @@ module Ronin
       #     -H, --html                       HTML escapes the data
       #     -u, --uri                        URI escapes the data
       #         --http                       HTTP escapes the data
+      #     -J, --java                       Escapes the data as a Java string
       #     -j, --js                         Encodes the data as a JavaScript string
       #     -n, --nodejs                     Escapes the data as a Node.js string
       #     -S, --shell                      Escapes the data as a Shell string
@@ -85,6 +86,12 @@ module Ronin
           require 'ronin/support/encoding/http'
           @method_calls << :http_escape
         end
+
+        option :java, short: '-J',
+                      desc: 'Escapes the data as a Java string' do
+                        require 'ronin/support/encoding/java'
+                        @method_calls << :java_escape
+                      end
 
         option :js, short: '-j',
                     desc: 'Encodes the data as a JavaScript string' do
