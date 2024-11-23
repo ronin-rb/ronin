@@ -68,6 +68,18 @@ describe Ronin::CLI::Commands::Quote do
       end
     end
 
+    describe "--php" do
+      let(:argv) { %w[--php] }
+
+      it "must require 'ronin/support/encoding/php'" do
+        expect(require('ronin/support/encoding/php')).to be(false)
+      end
+
+      it "must add :php_string to #method_calls" do
+        expect(subject.method_calls.last).to eq(:php_string)
+      end
+    end
+
     describe "--python" do
       let(:argv) { %w[--python] }
 
