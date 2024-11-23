@@ -39,14 +39,14 @@ module Ronin
       #     -b, --base64=[strict|url]        Base64 decodes the data
       #     -z, --zlib                       Zlib compresses the data
       #     -g, --gzip                       gzip compresses the data
-      #     -c, --c                          Encodes the data as a C string
+      #     -c, --c                          Decodes the data as a C string
       #     -X, --hex                        Hex decode the data (ex: "414141...")
       #     -H, --html                       HTML decodes the data
       #     -u, --uri                        URI decodes the data
       #         --http                       HTTP decodes the data
-      #     -j, --js                         Encodes the data as a JavaScript string
-      #     -S, --shell                      Encodes the data as a Shell string
-      #     -P, --powershell                 Encodes the data as a PowerShell string
+      #     -j, --js                         Decodes the data as a JavaScript string
+      #     -S, --shell                      Decodes the data as a Shell string
+      #     -P, --powershell                 Decodes the data as a PowerShell string
       #         --punycode                   Decodes the data as Punycode
       #     -Q, --quoted-printable           Decodes the data as Quoted Printable
       #     -R, --ruby                       Ruby decodes the data
@@ -130,7 +130,7 @@ module Ronin
         end
 
         option :js, short: '-j',
-                    desc: 'Encodes the data as a JavaScript string' do
+                    desc: 'Decodes the data as a JavaScript string' do
                       require 'ronin/support/encoding/js'
                       @method_calls << :js_decode
                     end
