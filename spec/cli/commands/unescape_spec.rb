@@ -211,5 +211,17 @@ describe Ronin::CLI::Commands::Unescape do
         expect(subject.method_calls.last).to eq(:ruby_unescape)
       end
     end
+
+    describe "--sql" do
+      let(:argv) { %w[--sql] }
+
+      it "must require 'ronin/support/encoding/sql'" do
+        expect(require('ronin/support/encoding/sql')).to be(false)
+      end
+
+      it "must add :sql_unescape to #method_calls" do
+        expect(subject.method_calls.last).to eq(:sql_unescape)
+      end
+    end
   end
 end
