@@ -156,6 +156,18 @@ describe Ronin::CLI::Commands::Encode do
       end
     end
 
+    describe "--quoted-printable" do
+      let(:argv) { %w[--quoted-printable] }
+
+      it "must require 'ronin/support/encoding/quoted_printable'" do
+        expect(require('ronin/support/encoding/quoted_printable')).to be(false)
+      end
+
+      it "must add :quoted_printable_encode to #method_calls" do
+        expect(subject.method_calls.last).to eq(:quoted_printable_encode)
+      end
+    end
+
     describe "--ruby" do
       let(:argv) { %w[--ruby] }
 
