@@ -44,6 +44,7 @@ module Ronin
       #     -H, --html                       HTML decodes the data
       #     -u, --uri                        URI decodes the data
       #         --http                       HTTP decodes the data
+      #     -J, --java                       Decodes the data as a Java string
       #     -j, --js                         Decodes the data as a JavaScript string
       #     -n, --nodejs                     Decodes the data as a Node.js string
       #     -S, --shell                      Decodes the data as a Shell string
@@ -132,6 +133,12 @@ module Ronin
           require 'ronin/support/encoding/http'
           @method_calls << :http_decode
         end
+
+        option :java, short: '-J',
+                      desc: 'Decodes the data as a Java string' do
+                        require 'ronin/support/encoding/java'
+                        @method_calls << :java_decode
+                      end
 
         option :js, short: '-j',
                     desc: 'Decodes the data as a JavaScript string' do
