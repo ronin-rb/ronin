@@ -84,6 +84,9 @@ Encodes each character of the given data into a variety of formats.
 `--uuencode`
 : uuencodes the data.
 
+`--perl`
+: Encodes the data as a Perl string.
+
 `-p`, `--php`
 : Encodes the data as a PHP string.
 
