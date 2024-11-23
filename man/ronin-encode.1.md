@@ -102,6 +102,9 @@ Encodes each character of the given data into a variety of formats.
 `-R`, `--ruby`
 : Encodes the data as a Ruby string.
 
+`--sql`
+: Encodes the data as a SQL string.
+
 `-x`, `--xml`
 : XML encodes the data.
 
