@@ -80,6 +80,9 @@ Escapes each special character for a variety of encodings.
 `-R`, `--ruby`
 : Escapes the data as a Ruby string.
 
+`--sql`
+: Escapes the data as a SQL string.
+
 `-x`, `--xml`
 : XML escapes the data.
 
