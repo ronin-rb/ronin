@@ -45,6 +45,7 @@ module Ronin
       #     -S, --shell                      Escapes the data as a Shell string
       #     -P, --powershell                 Escapes the data as a PowerShell string
       #     -Q, --quoted-printable           Escapes the data as Quoted Printable
+      #         --smtp                       Alias for --quoted-printable
       #         --perl                       Escapes the data as a Perl string
       #     -p, --php                        Escapes the data as a PHP string
       #         --python                     Escapes the data as a Python string
@@ -122,6 +123,11 @@ module Ronin
                                     require 'ronin/support/encoding/quoted_printable'
                                     @method_calls << :quoted_printable_escape
                                   end
+
+        option :smtp, desc: 'Alias for --quoted-printable' do
+          require 'ronin/support/encoding/smtp'
+          @method_calls << :smtp_escape
+        end
 
         option :perl, desc: 'Escapes the data as a Perl string' do
                         require 'ronin/support/encoding/perl'
