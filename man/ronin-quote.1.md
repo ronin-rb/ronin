@@ -47,6 +47,9 @@ Produces quoted a string for a variety of programming languages.
 `-P`, `--powershell`
 : Quotes the data as a PowerShell string.
 
+`-p`, `--php`
+: Quotes the data as a PHP string.
+
 `--python`
 : Quotes the data as a Python string.
 
