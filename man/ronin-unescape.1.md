@@ -65,6 +65,9 @@ Unescapes each escaped character from a variety of encodings.
 `-Q`, `--quoted-printable`
 : Unescapes the data as Quoted Printable.
 
+`--smtp`
+: Alias for `--quoted-printable`.
+
 `--perl`
 : Unescapes the data as a Perl string.
 
