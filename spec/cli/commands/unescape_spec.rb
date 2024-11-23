@@ -104,6 +104,18 @@ describe Ronin::CLI::Commands::Unescape do
       end
     end
 
+    describe "--quoted-printable" do
+      let(:argv) { %w[--quoted-printable] }
+
+      it "must require 'ronin/support/encoding/quoted_printable'" do
+        expect(require('ronin/support/encoding/quoted_printable')).to be(false)
+      end
+
+      it "must add :quoted_printable_unescape to #method_calls" do
+        expect(subject.method_calls.last).to eq(:quoted_printable_unescape)
+      end
+    end
+
     describe "--xml" do
       let(:argv) { %w[--xml] }
 
