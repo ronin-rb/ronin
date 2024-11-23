@@ -56,6 +56,18 @@ describe Ronin::CLI::Commands::Quote do
       end
     end
 
+    describe "--nodejs" do
+      let(:argv) { %w[--nodejs] }
+
+      it "must require 'ronin/support/encoding/node_js'" do
+        expect(require('ronin/support/encoding/node_js')).to be(false)
+      end
+
+      it "must add :node_js_string to #method_calls" do
+        expect(subject.method_calls.last).to eq(:node_js_string)
+      end
+    end
+
     describe "--shell" do
       let(:argv) { %w[--shell] }
 
