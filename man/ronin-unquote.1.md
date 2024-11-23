@@ -44,6 +44,12 @@ Unquotes a double/single quoted string.
 `-j`, `--js`
 : Unquotes the JavaScript string.
 
+`-n`, `--nodejs`
+: Unquotes the Node.js string.
+
+`-n`, `--nodejs`
+: Unquotes the Node.js string.
+
 `-S`, `--shell`
 : Unquotes the Shell string.
 

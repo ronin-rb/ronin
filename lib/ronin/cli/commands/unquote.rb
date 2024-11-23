@@ -38,6 +38,7 @@ module Ronin
       #     -c, --c                          Unquotes the C string
       #     -J, --java                       Unquotes the Java string
       #     -j, --js                         Unquotes the JavaScript string
+      #     -n, --nodejs                     Unquotes the Node.js string
       #     -S, --shell                      Unquotes the Shell string
       #     -P, --powershell                 Unquotes the PowerShell string
       #         --perl                       Unquotes the Perl string
@@ -75,6 +76,12 @@ module Ronin
                       require 'ronin/support/encoding/js'
                       @method_calls << :js_unquote
                     end
+
+        option :nodejs, short: '-n',
+                        desc: 'Unquotes the Node.js string' do
+                          require 'ronin/support/encoding/node_js'
+                          @method_calls << :node_js_unquote
+                        end
 
         option :shell, short: '-S',
                        desc: 'Unquotes the Shell string' do
