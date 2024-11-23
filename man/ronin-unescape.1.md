@@ -62,6 +62,9 @@ Unescapes each escaped character from a variety of encodings.
 `-Q`, `--quoted-printable`
 : Unescapes the data as Quoted Printable.
 
+`--perl`
+: Unescapes the data as a Perl string.
+
 `-p`, `--php`
 : Unescapes the data as a PHP string.
 
