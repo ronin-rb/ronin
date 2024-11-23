@@ -65,6 +65,9 @@ Escapes each special character for a variety of encodings.
 `-p`, `--php`
 : Escapes the data as a PHP string.
 
+`--python`
+: Escapes the data as a Python string.
+
 `-R`, `--ruby`
 : Escapes the data as a Ruby string.
 
