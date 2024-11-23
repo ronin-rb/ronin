@@ -50,6 +50,7 @@ module Ronin
       #     -P, --powershell                 Decodes the data as a PowerShell string
       #         --punycode                   Decodes the data as Punycode
       #     -Q, --quoted-printable           Decodes the data as Quoted Printable
+      #         --perl                       Decodes the data as a Perl string
       #     -p, --php                        Decodes the data as a PHP string
       #         --python                     Decodes the data as a Python string
       #     -R, --ruby                       Decodes the data as a Ruby string
@@ -166,6 +167,11 @@ module Ronin
                                     require 'ronin/support/encoding/quoted_printable'
                                     @method_calls << :quoted_printable_decode
                                   end
+
+        option :perl, desc: 'Decodes the data as a Perl string' do
+                        require 'ronin/support/encoding/perl'
+                        @method_calls << :perl_decode
+                      end
 
         option :php, short: '-p',
                      desc: 'Decodes the data as a PHP string' do
