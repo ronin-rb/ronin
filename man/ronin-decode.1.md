@@ -84,6 +84,9 @@ Decodes each character of the given data from a variety of formats.
 `-Q`, `--quoted-printable`
 : Decodes the data as Quoted Printable.
 
+`--smtp`
+: Alias for `--quoted-printable`.
+
 `--perl`
 : Decodes the data as a Perl string.
 
