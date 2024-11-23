@@ -38,6 +38,9 @@ Unquotes a double/single quoted string.
 `-c`, `--c`
 : Unquotes the C string.
 
+`-J`, `--java`
+: Unquotes the Java string.
+
 `-j`, `--js`
 : Unquotes the JavaScript string.
 
