@@ -80,6 +80,9 @@ Unescapes each escaped character from a variety of encodings.
 `-R`, `--ruby`
 : Unescapes the data as a Ruby string.
 
+`--sql`
+: Unescapes the data as a SQL string.
+
 `-x`, `--xml`
 : XML unescapes the data.
 
