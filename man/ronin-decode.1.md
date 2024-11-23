@@ -63,6 +63,9 @@ Decodes each character of the given data from a variety of formats.
 `--http`
 : HTTP decodes the data.
 
+`-J`, `--java`
+: Decodes the data as a Java string.
+
 `-j`, `--js`
 : JavaScript decodes the data.
 
