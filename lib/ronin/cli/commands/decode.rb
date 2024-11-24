@@ -56,6 +56,7 @@ module Ronin
       #     -p, --php                        Decodes the data as a PHP string
       #         --python                     Decodes the data as a Python string
       #     -R, --ruby                       Decodes the data as a Ruby string
+      #         --sql                        Decodes the data as a SQL string
       #         --uudecode                   uudecodes the data
       #     -x, --xml                        XML decodes the data
       #     -h, --help                       Print help information
@@ -202,6 +203,11 @@ module Ronin
                         require 'ronin/support/encoding/ruby'
                         @method_calls << :ruby_decode
                       end
+
+        option :sql, desc: 'Decodes the data as a SQL string' do
+          require 'ronin/support/encoding/sql'
+          @method_calls << :sql_decode
+        end
 
         option :uudecode, desc: 'uudecodes the data' do
           require 'ronin/support/encoding/uuencoding'
