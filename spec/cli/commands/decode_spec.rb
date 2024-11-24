@@ -264,6 +264,18 @@ describe Ronin::CLI::Commands::Decode do
       end
     end
 
+    describe "--sql" do
+      let(:argv) { %w[--sql] }
+
+      it "must require 'ronin/support/encoding/sql'" do
+        expect(require('ronin/support/encoding/sql')).to be(false)
+      end
+
+      it "must add :sql_decode to #method_calls" do
+        expect(subject.method_calls.last).to eq(:sql_decode)
+      end
+    end
+
     describe "--xml" do
       let(:argv) { %w[--xml] }
 
