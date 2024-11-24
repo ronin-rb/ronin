@@ -102,6 +102,9 @@ Decodes each character of the given data from a variety of formats.
 `--uudecode`
 : uudecodes the data.
 
+`--sql`
+: Decodes the data as a SQL string.
+
 `-x`, `--xml`
 : XML decodes the data.
 
