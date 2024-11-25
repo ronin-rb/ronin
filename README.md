@@ -110,6 +110,7 @@ Commands:
     public-suffix-list
     quote
     refang
+    defang
     rot
     sha1
     sha256
@@ -506,6 +507,13 @@ Re-fangs a defanged URL:
 ```shell
 $ ronin refang hxxps://www[.]evil[.]com/foo/bar/baz
 https://www.evil.com/foo/bar/baz
+```
+
+De-fangs a URL:
+
+```shell
+$ ronin defang https://www.evil.com/foo/bar/baz
+hxxps://www[.]evil[.]com/foo/bar/baz
 ```
 
 Query the ASN of an IP address:
