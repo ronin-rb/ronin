@@ -832,6 +832,12 @@ Generate a new Ruby project with a `Gemfile`:
 $ ronin new project foo
 ```
 
+Generates a new [ronin-nmap] Ruby script:
+
+```shell
+$ ronin new nmap scan.rb
+```
+
 Generate a new [nokogiri] Ruby script for parsing HTML/XML:
 
 [nokogiri]: https://nokogiri.org/
