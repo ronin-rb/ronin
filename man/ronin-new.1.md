@@ -50,6 +50,10 @@ Creates a new project or script.
 *script*
 : Generates a new standalone Ruby script.
 
+*nmap*
+: Generates a new `ronin-nmap` Ruby script.
+  See https://github.com/ronin-rb/ronin-nmap#readme
+
 *nokogiri*
 : Generates a new Nokogiri Ruby script for parsing HTML/XML.
   See https://nokogiri.org/
