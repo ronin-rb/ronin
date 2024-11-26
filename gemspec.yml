@@ -49,6 +49,7 @@ generated_files:
  - man/ronin-completion.1
  - man/ronin-decode.1
  - man/ronin-decrypt.1
+ - man/ronin-defang.1 
  - man/ronin-dns.1
  - man/ronin-dns-proxy.1
  - man/ronin-email-addr.1
@@ -79,7 +80,6 @@ generated_files:
  - man/ronin-public-suffix-list.1
  - man/ronin-quote.1
  - man/ronin-refang.1
- - man/ronin-defang.1
  - man/ronin-rot.1
  - man/ronin-sha1.1
  - man/ronin-sha256.1
