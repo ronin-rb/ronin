@@ -83,6 +83,7 @@ Commands:
     completion
     decode, dec
     decrypt
+    defang
     dns
     dns-proxy
     email-addr
@@ -506,6 +507,13 @@ Re-fangs a defanged URL:
 ```shell
 $ ronin refang hxxps://www[.]evil[.]com/foo/bar/baz
 https://www.evil.com/foo/bar/baz
+```
+
+Defangs a URL:
+
+```shell
+$ ronin defang https://www.evil.com/foo/bar/baz
+hxxps://www[.]evil[.]com/foo/bar/baz
 ```
 
 Query the ASN of an IP address:
