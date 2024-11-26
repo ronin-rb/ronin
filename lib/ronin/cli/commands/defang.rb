@@ -24,7 +24,7 @@ module Ronin
   class CLI
     module Commands
       #
-      # De-fangs a URL, hostname, or IP address.
+      # Defangs a URL, hostname, or IP address.
       #
       # ## Usage
       #
@@ -55,7 +55,7 @@ module Ronin
         argument :value, required: false,
                          repeats:  true,
                          usage:    'URL | HOST | IP',
-                         desc:     'A refanged URL, hostname, or IP address'
+                         desc:     'A URL, hostname, or IP address'
 
         examples [
           'https://www.evil.com/foo/bar/baz',
