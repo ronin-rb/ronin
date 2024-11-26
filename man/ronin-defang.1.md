@@ -10,7 +10,7 @@ ronin-defang - Defangs a URLs, hostnames, or IP addresses
 
 ## DESCRIPTION
 
-De-fangs URL(s), hostname(s), or IP address(es).
+Defangs URL(s), hostname(s), or IP address(es).
 
 ## ARGUMENTS
 
@@ -34,19 +34,19 @@ De-fangs URL(s), hostname(s), or IP address(es).
 
 ## EXAMPLES
 
-De-fangs a URL:
+Defangs a URL:
 
     ronin defang https://www.evil.com/foo/bar/baz
 
-De-fangs a hostname:
+Defangs a hostname:
 
     ronin defang www.example.com
 
-De-fangs a IP address:
+Defangs a IP address:
 
     ronin defang 192.168.1.1
 
-De-fangs a file of URLs, hostnames, or IP addresses:
+Defangs a file of URLs, hostnames, or IP addresses:
 
     ronin defang --file urls.txt
 
