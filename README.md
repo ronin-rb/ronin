@@ -83,6 +83,7 @@ Commands:
     completion
     decode, dec
     decrypt
+    defang
     dns
     dns-proxy
     email-addr
@@ -110,7 +111,6 @@ Commands:
     public-suffix-list
     quote
     refang
-    defang
     rot
     sha1
     sha256
@@ -509,7 +509,7 @@ $ ronin refang hxxps://www[.]evil[.]com/foo/bar/baz
 https://www.evil.com/foo/bar/baz
 ```
 
-De-fangs a URL:
+Defangs a URL:
 
 ```shell
 $ ronin defang https://www.evil.com/foo/bar/baz
