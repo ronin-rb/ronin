@@ -832,6 +832,12 @@ Generate a new Ruby project with a `Gemfile`:
 $ ronin new project foo
 ```
 
+Generates a new [ronin-masscan] Ruby script:
+
+```shell
+$ ronin new masscan scan.rb
+```
+
 Generates a new [ronin-nmap] Ruby script:
 
 ```shell
