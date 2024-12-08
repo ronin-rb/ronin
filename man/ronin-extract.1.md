@@ -29,6 +29,27 @@ Extract common patterns in the given file(s) or input stream.
 `-V`, `--version-number`
 : Searches for all version numbers.
 
+`--alpha`
+: Searches for all alphabetic characters.
+
+`--uppercase`
+: Searches for all uppercase alphabetic characters.
+
+`--lowercase`
+: Searches for all lowercase alphabetic characters.
+
+`--alpha-numeric`
+: Searches for all alphanumeric characters.
+
+`--hex`
+: Searches for all hexadecimal characters.
+
+`--uppercase-hex`
+: Searches for all uppercase hexadecimal characters.
+
+`--lowercase-hex`
+: Searches for all lowercase hexadecimal characters.
+
 `-w`, `--word`
 : Searches for all words.
 
