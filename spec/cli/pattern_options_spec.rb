@@ -39,6 +39,55 @@ describe Ronin::CLI::PatternOptions do
       expect(subject.options[:version_number].desc).to eq('Searches for all version numbers')
     end
 
+    it "must define a '--alpha' option" do
+      expect(subject.options[:alpha]).to_not be(nil)
+      expect(subject.options[:alpha].short).to be(nil)
+      expect(subject.options[:alpha].value).to be(nil)
+      expect(subject.options[:alpha].desc).to eq('Searches for all alphabetic characters')
+    end
+
+    it "must define a '--uppercase' option" do
+      expect(subject.options[:uppercase]).to_not be(nil)
+      expect(subject.options[:uppercase].short).to be(nil)
+      expect(subject.options[:uppercase].value).to be(nil)
+      expect(subject.options[:uppercase].desc).to eq('Searches for all uppercase alphabetic characters')
+    end
+
+    it "must define a '--lowercase' option" do
+      expect(subject.options[:lowercase]).to_not be(nil)
+      expect(subject.options[:lowercase].short).to be(nil)
+      expect(subject.options[:lowercase].value).to be(nil)
+      expect(subject.options[:lowercase].desc).to eq('Searches for all lowercase alphabetic characters')
+    end
+
+    it "must define a '--alpha-numeric' option" do
+      expect(subject.options[:alpha_numeric]).to_not be(nil)
+      expect(subject.options[:alpha_numeric].short).to be(nil)
+      expect(subject.options[:alpha_numeric].value).to be(nil)
+      expect(subject.options[:alpha_numeric].desc).to eq('Searches for all alphanumeric characters')
+    end
+
+    it "must define a '--hex' option" do
+      expect(subject.options[:hex]).to_not be(nil)
+      expect(subject.options[:hex].short).to be(nil)
+      expect(subject.options[:hex].value).to be(nil)
+      expect(subject.options[:hex].desc).to eq('Searches for all hexadecimal characters')
+    end
+
+    it "must define a '--uppercase-hex' option" do
+      expect(subject.options[:uppercase_hex]).to_not be(nil)
+      expect(subject.options[:uppercase_hex].short).to be(nil)
+      expect(subject.options[:uppercase_hex].value).to be(nil)
+      expect(subject.options[:uppercase_hex].desc).to eq('Searches for all uppercase hexadecimal characters')
+    end
+
+    it "must define a '--lowercase-hex' option" do
+      expect(subject.options[:lowercase_hex]).to_not be(nil)
+      expect(subject.options[:lowercase_hex].short).to be(nil)
+      expect(subject.options[:lowercase_hex].value).to be(nil)
+      expect(subject.options[:lowercase_hex].desc).to eq('Searches for all lowercase hexadecimal characters')
+    end
+
     #
     # Language pattern options
     #
