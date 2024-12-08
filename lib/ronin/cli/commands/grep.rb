@@ -36,6 +36,13 @@ module Ronin
       #     -N, --number                     Searches for all numbers
       #     -X, --hex-number                 Searches for all hexadecimal numbers
       #     -V, --version-number             Searches for all version numbers
+      #         --alpha                      Searches for all alphabetic characters
+      #         --uppercase                  Searches for all uppercase alphabetic characters
+      #         --lowercase                  Searches for all lowercase alphabetic characters
+      #         --alpha-numeric              Searches for all alphanumeric characters
+      #         --hex                        Searches for all hexadecimal characters
+      #         --uppercase-hex              Searches for all uppercase hexadecimal characters
+      #         --lowercase-hex              Searches for all lowercase hexadecimal characters
       #     -w, --word                       Searches for all words
       #         --mac-addr                   Searches for all MAC addresses
       #     -4, --ipv4-addr                  Searches for all IPv4 addresses
