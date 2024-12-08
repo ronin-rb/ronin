@@ -129,6 +129,34 @@ module Ronin
                                         desc: 'Searches for all version numbers' do
                                           @pattern = VERSION_NUMBER
                                         end
+
+        command.option :alpha, desc: 'Searches for all alphabetic characters' do
+          @pattern = /[a-zA-Z]+/
+        end
+
+        command.option :uppercase, desc: 'Searches for all uppercase alphabetic characters' do
+          @pattern = /[A-Z]+/
+        end
+
+        command.option :lowercase, desc: 'Searches for all lowercase alphabetic characters' do
+          @pattern = /[a-z]+/
+        end
+
+        command.option :alpha_numeric, desc: 'Searches for all alphanumeric characters' do
+          @pattern = /[0-9a-zA-Z]+/
+        end
+
+        command.option :hex, desc: 'Searches for all hexadecimal characters' do
+          @pattern = /[0-9a-fA-F]+/
+        end
+
+        command.option :uppercase_hex, desc: 'Searches for all uppercase hexadecimal characters' do
+          @pattern = /[0-9A-F]+/
+        end
+
+        command.option :lowercase_hex, desc: 'Searches for all lowercase hexadecimal characters' do
+          @pattern = /[0-9a-f]+/
+        end
       end
 
       #
