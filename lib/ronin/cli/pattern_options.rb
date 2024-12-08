@@ -116,19 +116,67 @@ module Ronin
       #
       def self.define_numeric_options(command)
         command.option :number, short: '-N',
-                                desc: 'Searches for all numbers' do
-                                  @pattern = NUMBER
-                                end
+                                desc: 'Searches for all numbers',
+                                value: {
+                                  type: Regexp,
+                                  value: NUMBER
+                                }
 
         command.option :hex_number, short: '-X',
-                                    desc: 'Searches for all hexadecimal numbers' do
-                                      @pattern = HEX_NUMBER
-                                    end
+                                    desc: 'Searches for all hexadecimal numbers',
+                                    value: {
+                                      type: Regexp,
+                                      value: HEX_NUMBER
+                                    }
 
         command.option :version_number, short: '-V',
-                                        desc: 'Searches for all version numbers' do
-                                          @pattern = VERSION_NUMBER
-                                        end
+                                        desc: 'Searches for all version numbers',
+                                        value: {
+                                          type: Regexp,
+                                          value: VERSION_NUMBER
+                                        }
+
+        command.option :alpha, desc: 'Searches for all alphabetic characters',
+                              value: {
+                                type: Regexp,
+                                value: /[a-zA-Z]+/
+                              }
+
+        command.option :uppercase, desc: 'Searches for all uppercase alphabetic characters',
+                                      value: {
+                                        type: Regexp,
+                                        value: /[A-Z]+/
+                                      }
+
+        command.option :lowercase, desc: 'Searches for all lowercase alphabetic characters',
+                                      value: {
+                                        type: Regexp,
+                                        value: /[a-z]+/
+                                      }
+
+        command.option :alpha_numeric, desc: 'Searches for all alphanumeric characters',
+                                       value: {
+                                         type: Regexp,
+                                         value: /[0-9a-zA-Z]+/
+                                       }
+
+        command.option :hex, desc: 'Searches for all hexadecimal characters',
+                              value: {
+                                type: Regexp,
+                                value: /[0-9a-fA-F]+/
+                              }
+
+        command.option :uppercase_hex, desc: 'Searches for all uppercase hexadecimal characters',
+                                     value: {
+                                       type: Regexp,
+                                       value: /[0-9A-F]+/
+                                     }
+
+        command.option :lowercase_hex, desc: 'Searches for all lowercase hexadecimal characters',
+                                     value: {
+                                       type: Regexp,
+                                       value: /[0-9a-f]+/
+                                     }
       end
 
       #
