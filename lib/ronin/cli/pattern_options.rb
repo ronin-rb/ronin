@@ -117,18 +117,18 @@ module Ronin
       def self.define_numeric_options(command)
         command.option :number, short: '-N',
                                 desc: 'Searches for all numbers' do
-          @pattern = NUMBER
-        end
+                                  @pattern = NUMBER
+                                end
 
         command.option :hex_number, short: '-X',
                                     desc: 'Searches for all hexadecimal numbers' do
-          @pattern = HEX_NUMBER
-        end
+                                      @pattern = HEX_NUMBER
+                                    end
 
         command.option :version_number, short: '-V',
                                         desc: 'Searches for all version numbers' do
-          @pattern = VERSION_NUMBER
-        end
+                                          @pattern = VERSION_NUMBER
+                                        end
 
         command.option :alpha, desc: 'Searches for all alphabetic characters' do
           @pattern = /[a-zA-Z]+/
