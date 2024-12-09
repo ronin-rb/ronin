@@ -13,8 +13,7 @@ jobs:
           - '3.2'
           - '3.3'
           # - jruby
-          # NOTE: temporarily disable truffleruby due to weird rspec issue
-          # - truffleruby
+          - truffleruby
     name: Ruby ${{ matrix.ruby }}
     steps:
       - uses: actions/checkout@v4

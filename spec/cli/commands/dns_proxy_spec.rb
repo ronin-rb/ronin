@@ -124,16 +124,9 @@ describe Ronin::CLI::Commands::DnsProxy do
         let(:name) { '/[abc/' }
 
         it "must raise an OptionParser::InvalidArgument" do
-          # XXX: TruffleRuby's RegexpError exception message is different
-          if RUBY_ENGINE == 'truffleruby'
-            expect {
-              subject.parse_record_name(name)
-            }.to raise_error(OptionParser::InvalidArgument,"invalid argument: invalid Regexp: premature end of char-class (org.joni.exception.SyntaxException): /[abc/")
-          else
-            expect {
-              subject.parse_record_name(name)
-            }.to raise_error(OptionParser::InvalidArgument,"invalid argument: invalid Regexp: premature end of char-class: /[abc/")
-          end
+          expect {
+            subject.parse_record_name(name)
+          }.to raise_error(OptionParser::InvalidArgument,"invalid argument: invalid Regexp: premature end of char-class: /[abc/")
         end
       end
     end
@@ -196,16 +189,9 @@ describe Ronin::CLI::Commands::DnsProxy do
         let(:name) { '/[abc/' }
 
         it "must raise an OptionParser::InvalidArgument" do
-          # XXX: TruffleRuby's RegexpError exception message is different
-          if RUBY_ENGINE == 'truffleruby'
-            expect {
-              subject.parse_rule(rule)
-            }.to raise_error(OptionParser::InvalidArgument,"invalid argument: invalid Regexp: premature end of char-class (org.joni.exception.SyntaxException): /[abc/")
-          else
-            expect {
-              subject.parse_rule(rule)
-            }.to raise_error(OptionParser::InvalidArgument,"invalid argument: invalid Regexp: premature end of char-class: /[abc/")
-          end
+          expect {
+            subject.parse_rule(rule)
+          }.to raise_error(OptionParser::InvalidArgument,"invalid argument: invalid Regexp: premature end of char-class: /[abc/")
         end
       end
     end
