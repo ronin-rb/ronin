@@ -38,6 +38,7 @@ module Ronin
       #         --uppercase                  Searches for all uppercase alphabetic characters
       #         --lowercase                  Searches for all lowercase alphabetic characters
       #         --alpha-numeric              Searches for all alphanumeric characters
+      #         --digits                     Searches for all numeric characters
       #         --hex                        Searches for all hexadecimal characters
       #         --uppercase-hex              Searches for all uppercase hexadecimal characters
       #         --lowercase-hex              Searches for all lowercase hexadecimal characters
