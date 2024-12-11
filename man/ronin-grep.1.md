@@ -41,6 +41,9 @@ Greps for common patterns in the given file(s) or input stream.
 `--alpha-numeric`
 : Searches for all alphanumeric characters.
 
+`--digits`
+: Searches for all numeric characters.
+
 `--hex`
 : Searches for all hexadecimal characters.
 
