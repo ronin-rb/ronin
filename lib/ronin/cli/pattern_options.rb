@@ -147,23 +147,23 @@ module Ronin
       #
       def self.define_char_options(command)
         command.option :alpha, desc: 'Searches for all alphabetic characters' do
-          @pattern = /[a-zA-Z]+/
+          @pattern = /[[:alpha:]]+/
         end
 
         command.option :uppercase, desc: 'Searches for all uppercase alphabetic characters' do
-          @pattern = /[A-Z]+/
+          @pattern = /[[:upper:]]+/
         end
 
         command.option :lowercase, desc: 'Searches for all lowercase alphabetic characters' do
-          @pattern = /[a-z]+/
+          @pattern = /[[:lower:]]+/
         end
 
         command.option :alpha_numeric, desc: 'Searches for all alphanumeric characters' do
-          @pattern = /[0-9a-zA-Z]+/
+          @pattern = /[[:alnum:]]+/
         end
 
         command.option :hex, desc: 'Searches for all hexadecimal characters' do
-          @pattern = /[0-9a-fA-F]+/
+          @pattern = /[[:xdigit:]]+/
         end
 
         command.option :uppercase_hex, desc: 'Searches for all uppercase hexadecimal characters' do
