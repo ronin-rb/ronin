@@ -93,6 +93,7 @@ module Ronin
       #
       def self.included(command)
         define_numeric_options(command)
+        define_char_options(command)
         define_language_options(command)
         define_network_options(command)
         define_pii_options(command)
@@ -129,7 +130,15 @@ module Ronin
                                         desc: 'Searches for all version numbers' do
                                           @pattern = VERSION_NUMBER
                                         end
+      end
 
+      #
+      # Defines character set options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
+      def self.define_char_options(command)
         command.option :alpha, desc: 'Searches for all alphabetic characters' do
           @pattern = /[a-zA-Z]+/
         end
