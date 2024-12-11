@@ -32,6 +32,7 @@ module Ronin
     #         --uppercase                  Searches for all uppercase alphabetic characters
     #         --lowercase                  Searches for all lowercase alphabetic characters
     #         --alpha-numeric              Searches for all alphanumeric characters
+    #         --digits                     Searches for all numeric characters
     #         --hex                        Searches for all hexadecimal characters
     #         --uppercase-hex              Searches for all uppercase hexadecimal characters
     #         --lowercase-hex              Searches for all lowercase hexadecimal characters
@@ -160,6 +161,10 @@ module Ronin
 
         command.option :alpha_numeric, desc: 'Searches for all alphanumeric characters' do
           @pattern = /[[:alnum:]]+/
+        end
+
+        command.option :digits, desc: 'Searches for all numeric characters' do
+          @pattern = /[[:digit:]]+/
         end
 
         command.option :hex, desc: 'Searches for all hexadecimal characters' do
