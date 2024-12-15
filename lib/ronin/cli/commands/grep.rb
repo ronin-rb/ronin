@@ -34,7 +34,14 @@ module Ronin
       # ## Options
       #
       #     -N, --number                     Searches for all numbers
+      #         --float                      Searches for all floating point numbers
+      #         --octal-byte                 Searches for all octal bytes
+      #         --decimal-byte               Searches for all decimal bytes
       #     -X, --hex-number                 Searches for all hexadecimal numbers
+      #         --hex-byte                   Searches for all hexadecimal bytes
+      #         --hex-word                   Searches for all hexadecimal words
+      #         --hex-dword                  Searches for all hexadecimal double-words
+      #         --hex-qword                  Searches for all hexadecimal quad-words
       #         --alpha                      Searches for all alphabetic characters
       #         --uppercase                  Searches for all uppercase alphabetic characters
       #         --lowercase                  Searches for all lowercase alphabetic characters
