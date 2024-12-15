@@ -26,7 +26,14 @@ module Ronin
     # ## Options
     #
     #     -N, --number                     Searches for all numbers
+    #         --float                      Searches for all floating point numbers
+    #         --octal-byte                 Searches for all octal bytes
+    #         --decimal-byte               Searches for all decimal bytes
     #     -X, --hex-number                 Searches for all hexadecimal numbers
+    #         --hex-byte                   Searches for all hexadecimal bytes
+    #         --hex-word                   Searches for all hexadecimal words
+    #         --hex-dword                  Searches for all hexadecimal double-words
+    #         --hex-qword                  Searches for all hexadecimal quad-words
     #         --alpha                      Searches for all alphabetic characters
     #         --uppercase                  Searches for all uppercase alphabetic characters
     #         --lowercase                  Searches for all lowercase alphabetic characters
@@ -132,10 +139,38 @@ module Ronin
                                   @pattern = NUMBER
                                 end
 
+        command.option :float, desc: 'Searches for all floating point numbers' do
+                                 @pattern = FLOAT
+                               end
+
+        command.option :octal_byte, desc: 'Searches for all octal bytes' do
+                                      @pattern = OCTAL_BYTE
+                                    end
+
+        command.option :decimal_byte, desc: 'Searches for all decimal bytes' do
+                                        @pattern = DECIMAL_BYTE
+                                      end
+
         command.option :hex_number, short: '-X',
                                     desc: 'Searches for all hexadecimal numbers' do
                                       @pattern = HEX_NUMBER
                                     end
+
+        command.option :hex_byte, desc: 'Searches for all hexadecimal bytes' do
+                                    @pattern = HEX_BYTE
+                                  end
+
+        command.option :hex_word, desc: 'Searches for all hexadecimal words' do
+                                    @pattern = HEX_WORD
+                                  end
+
+        command.option :hex_dword, desc: 'Searches for all hexadecimal double-words' do
+                                     @pattern = HEX_DWORD
+                                   end
+
+        command.option :hex_qword, desc: 'Searches for all hexadecimal quad-words' do
+                                     @pattern = HEX_QWORD
+                                   end
       end
 
       #

@@ -23,8 +23,29 @@ Greps for common patterns in the given file(s) or input stream.
 `-N`, `--number`
 : Searches for all numbers.
 
+`--float`
+: Searches for all floating point numbers.
+
+`--octal-byte`
+: Searches for all bytes in octal format.
+
+`--decimal-byte`
+: Searches for all bytes in decimal format.
+
 `-X`, `--hex-number`
 : Searches for all hexadecimal numbers.
+
+`--hex-byte`
+: Searches for all bytes in hexadecimal format.
+
+`--hex-word`
+: Searches for all words in hexadecimal format.
+
+`--hex-dword`
+: Searches for all double-words in hexadecimal format.
+
+`--hex-qword`
+: Searches for all quad-words in hexadecimal format.
 
 `--alpha`
 : Searches for all alphabetic characters.

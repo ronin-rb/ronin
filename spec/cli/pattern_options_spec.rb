@@ -25,11 +25,46 @@ describe Ronin::CLI::PatternOptions do
       expect(subject.options[:number].desc).to eq('Searches for all numbers')
     end
 
+    it "must define a '--float' option" do
+      expect(subject.options[:float]).to_not be(nil)
+      expect(subject.options[:float].short).to be(nil)
+      expect(subject.options[:float].value).to be(nil)
+      expect(subject.options[:float].desc).to eq('Searches for all floating point numbers')
+    end
+
     it "must define a '-X,--hex-number' option" do
       expect(subject.options[:hex_number]).to_not be(nil)
       expect(subject.options[:hex_number].short).to eq('-X')
       expect(subject.options[:hex_number].value).to be(nil)
       expect(subject.options[:hex_number].desc).to eq('Searches for all hexadecimal numbers')
+    end
+
+    it "must define a '--hex-byte' option" do
+      expect(subject.options[:hex_byte]).to_not be(nil)
+      expect(subject.options[:hex_byte].short).to be(nil)
+      expect(subject.options[:hex_byte].value).to be(nil)
+      expect(subject.options[:hex_byte].desc).to eq('Searches for all hexadecimal bytes')
+    end
+
+    it "must define a '--hex-word' option" do
+      expect(subject.options[:hex_word]).to_not be(nil)
+      expect(subject.options[:hex_word].short).to be(nil)
+      expect(subject.options[:hex_word].value).to be(nil)
+      expect(subject.options[:hex_word].desc).to eq('Searches for all hexadecimal words')
+    end
+
+    it "must define a '--hex-dword' option" do
+      expect(subject.options[:hex_dword]).to_not be(nil)
+      expect(subject.options[:hex_dword].short).to be(nil)
+      expect(subject.options[:hex_dword].value).to be(nil)
+      expect(subject.options[:hex_dword].desc).to eq('Searches for all hexadecimal double-words')
+    end
+
+    it "must define a '--hex-qword' option" do
+      expect(subject.options[:hex_qword]).to_not be(nil)
+      expect(subject.options[:hex_qword].short).to be(nil)
+      expect(subject.options[:hex_qword].value).to be(nil)
+      expect(subject.options[:hex_qword].desc).to eq('Searches for all hexadecimal quad-words')
     end
 
     it "must define a '--alpha' option" do
@@ -592,8 +627,15 @@ describe Ronin::CLI::PatternOptions do
     #
     include_context "pattern option", '-N', :NUMBER
     include_context "pattern option", '--number', :NUMBER
+    include_context "pattern option", '--float', :FLOAT
+    include_context "pattern option", '--octal-byte', :OCTAL_BYTE
+    include_context "pattern option", '--decimal-byte', :DECIMAL_BYTE
     include_context "pattern option", '-X', :HEX_NUMBER
     include_context "pattern option", '--hex-number', :HEX_NUMBER
+    include_context "pattern option", '--hex-byte', :HEX_BYTE
+    include_context "pattern option", '--hex-word', :HEX_WORD
+    include_context "pattern option", '--hex-dword', :HEX_DWORD
+    include_context "pattern option", '--hex-qword', :HEX_QWORD
 
     #
     # Language pattern options
