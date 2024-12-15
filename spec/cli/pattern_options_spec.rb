@@ -32,13 +32,6 @@ describe Ronin::CLI::PatternOptions do
       expect(subject.options[:hex_number].desc).to eq('Searches for all hexadecimal numbers')
     end
 
-    it "must define a '-V,--version-number' option" do
-      expect(subject.options[:version_number]).to_not be(nil)
-      expect(subject.options[:version_number].short).to eq('-V')
-      expect(subject.options[:version_number].value).to be(nil)
-      expect(subject.options[:version_number].desc).to eq('Searches for all version numbers')
-    end
-
     it "must define a '--alpha' option" do
       expect(subject.options[:alpha]).to_not be(nil)
       expect(subject.options[:alpha].short).to be(nil)
@@ -544,6 +537,30 @@ describe Ronin::CLI::PatternOptions do
     end
 
     #
+    # Software options
+    #
+    it "must define a '-V,--version-number' option" do
+      expect(subject.options[:version_number]).to_not be(nil)
+      expect(subject.options[:version_number].short).to eq('-V')
+      expect(subject.options[:version_number].value).to be(nil)
+      expect(subject.options[:version_number].desc).to eq('Searches for all version numbers')
+    end
+
+    it "must define a '--version-constraint' option" do
+      expect(subject.options[:version_constraint]).to_not be(nil)
+      expect(subject.options[:version_constraint].short).to be(nil)
+      expect(subject.options[:version_constraint].value).to be(nil)
+      expect(subject.options[:version_constraint].desc).to eq('Searches for all version constraints')
+    end
+
+    it "must define a '--version-range' option" do
+      expect(subject.options[:version_range]).to_not be(nil)
+      expect(subject.options[:version_range].short).to be(nil)
+      expect(subject.options[:version_range].value).to be(nil)
+      expect(subject.options[:version_range].desc).to eq('Searches for all version ranges')
+    end
+
+    #
     # General options
     #
     it "must define a '-e,--regexp' option" do
@@ -577,7 +594,6 @@ describe Ronin::CLI::PatternOptions do
     include_context "pattern option", '--number', :NUMBER
     include_context "pattern option", '-X', :HEX_NUMBER
     include_context "pattern option", '--hex-number', :HEX_NUMBER
-    include_context "pattern option", '--version-number', :VERSION_NUMBER
 
     #
     # Language pattern options
@@ -681,6 +697,13 @@ describe Ronin::CLI::PatternOptions do
     include_context "pattern option", '--aws-secret-access-key', :AWS_SECRET_ACCESS_KEY
     include_context "pattern option", '--api-key', :API_KEY
     include_context "pattern option", '-A', :API_KEY
+
+    #
+    # Software pattern options
+    #
+    include_context "pattern option", '--version-number', :VERSION_NUMBER
+    include_context "pattern option", '--version-constraint', :VERSION_CONSTRAINT
+    include_context "pattern option", '--version-range', :VERSION_RANGE
 
     #
     # General options

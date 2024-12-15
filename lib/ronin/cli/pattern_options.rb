@@ -27,7 +27,6 @@ module Ronin
     #
     #     -N, --number                     Searches for all numbers
     #     -X, --hex-number                 Searches for all hexadecimal numbers
-    #     -V, --version-number             Searches for all version numbers
     #         --alpha                      Searches for all alphabetic characters
     #         --uppercase                  Searches for all uppercase alphabetic characters
     #         --lowercase                  Searches for all lowercase alphabetic characters
@@ -88,6 +87,9 @@ module Ronin
     #         --double-quoted-string       Searches for all double-quoted strings
     #     -S, --string                     Searches for all quoted strings
     #     -B, --base64                     Searches for all Base64 strings
+    #     -V, --version-number             Searches for all version numbers
+    #         --version-constraint         Searches for all version constraints
+    #         --version-range              Searches for all version ranges
     #     -e, --regexp /REGEXP/            Custom regular expression to search for
     #
     module PatternOptions
@@ -109,6 +111,7 @@ module Ronin
         define_source_code_options(command)
         define_crypto_options(command)
         define_credentials_options(command)
+        define_software_options(command)
 
         command.option :regexp, short: '-e',
                         value: {type: Regexp},
@@ -133,11 +136,6 @@ module Ronin
                                     desc: 'Searches for all hexadecimal numbers' do
                                       @pattern = HEX_NUMBER
                                     end
-
-        command.option :version_number, short: '-V',
-                                        desc: 'Searches for all version numbers' do
-                                          @pattern = VERSION_NUMBER
-                                        end
       end
 
       #
@@ -495,6 +493,27 @@ module Ronin
                                  desc: 'Searches for all API keys' do
                                    @pattern = API_KEY
                                  end
+      end
+
+      #
+      # Defines software pattern options.
+      #
+      # @param [Class<Command>] command
+      #   The command including {PatternOptions}.
+      #
+      def self.define_software_options(command)
+        command.option :version_number, short: '-V',
+                                        desc: 'Searches for all version numbers' do
+                                          @pattern = VERSION_NUMBER
+                                        end
+
+        command.option :version_constraint, desc: 'Searches for all version constraints' do
+          @pattern = VERSION_CONSTRAINT
+        end
+
+        command.option :version_range, desc: 'Searches for all version ranges' do
+          @pattern = VERSION_RANGE
+        end
       end
 
       # The pattern to search for.

@@ -35,7 +35,6 @@ module Ronin
       #
       #     -N, --number                     Searches for all numbers
       #     -X, --hex-number                 Searches for all hexadecimal numbers
-      #     -V, --version-number             Searches for all version numbers
       #         --alpha                      Searches for all alphabetic characters
       #         --uppercase                  Searches for all uppercase alphabetic characters
       #         --lowercase                  Searches for all lowercase alphabetic characters
@@ -106,6 +105,9 @@ module Ronin
       #         --ruby-comment               Searches for all Ruby comments
       #         --python-comment             Searches for all Python comments
       #         --comment                    Searches for all comments
+      #     -V, --version-number             Searches for all version numbers
+      #         --version-constraint         Searches for all version constraints
+      #         --version-range              Searches for all version ranges
       #     -e, --regexp /REGEXP/            Custom regular expression to search for
       #     -o, --only-matching              Only print the matching data
       #     -n, --line-number                Print the line number for each line
