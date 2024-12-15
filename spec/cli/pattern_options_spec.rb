@@ -509,8 +509,9 @@ describe Ronin::CLI::PatternOptions do
     shared_examples_for "pattern option" do |flag,constant|
       describe "when given '#{flag}'" do
         let(:flag) { flag }
+        let(:argv) { [flag] }
 
-        before { subject.option_parser.parse([flag]) }
+        before { subject.option_parser.parse(argv) }
 
         it "must set #pattern to Ronin::Support::Text::Patterns::#{constant}" do
           expect(subject.pattern).to be(
