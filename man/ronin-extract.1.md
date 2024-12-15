@@ -26,9 +26,6 @@ Extract common patterns in the given file(s) or input stream.
 `-X`, `--hex-number`
 : Searches for all hexadecimal numbers.
 
-`-V`, `--version-number`
-: Searches for all version numbers.
-
 `--alpha`
 : Searches for all alphabetic characters.
 
@@ -239,6 +236,15 @@ Extract common patterns in the given file(s) or input stream.
 
 `--comment`
 : Searches for all comments.
+
+`-V`, `--version-number`
+: Searches for all version numbers.
+
+`--version-constraint`
+: Searches for all version constraints.
+
+`--version-range`
+: Searches for all version ranges.
 
 `-e`, `--regexp` /*REGEXP*/
 : Custom regular expression to search for.
