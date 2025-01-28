@@ -993,7 +993,7 @@ docker run --mount type=bind,source="$HOME",target=/home/ronin -it ronin
 
 ## License
 
-Copyright (c) 2006-2024 Hal Brodigan (postmodern.mod3 at gmail.com)
+Copyright (c) 2006-2025 Hal Brodigan (postmodern.mod3 at gmail.com)
 
 Ronin is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
