@@ -1,3 +1,17 @@
+### 2.1.1 / 2025-02-14
+
+* Removed legacy 1.x `ronin/ui` Ruby file.
+* Use `require_relative` to improve load times.
+* Documentation improvements and fixes.
+
+#### CLI
+
+* Fixed handling of network exceptions in the `ronin url --status` command.
+* Fixed the `--base64={strict|url}` option in the `ronin encode` and
+  `ronin decode` commands.
+* Automatically display the HTTP headers if the `--head` option is given to the
+  `ronin http` command.
+
 ### 2.1.0 / 2024-07-22
 
 * Require [Ruby] >= 3.1.0.
