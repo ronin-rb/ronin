@@ -299,8 +299,8 @@ module Ronin
           end
         when nil
           unless @http.headers.empty?
-            @http.headers.each do |name,value|
-              puts "#{colors.bold(name)}: #{value}"
+            @http.headers.each do |header_name,header_value|
+              puts "#{colors.bold(header_name)}: #{header_value}"
             end
           else
             puts "No request headers set"
