@@ -272,7 +272,7 @@ module Ronin
                         summary: 'Manages the request headers'
 
       #
-      # The `set_header` shell command.
+      # The `headers` shell command.
       #
       # @param [String, nil] subcommand
       #   The optional sub-command (ex: `"set"` or `"unset"`).
