@@ -13,7 +13,7 @@ group :net do
     gem 'net-ftp',  '~> 0.1'
     gem 'net-smtp', '~> 0.1'
     gem 'net-pop',  '~> 0.1'
-    gem 'net-imap', '~> 0.1'
+    gem 'net-imap', ['~> 0.1', '>= 0.2.5']
   end
 end
 
