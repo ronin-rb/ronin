@@ -94,7 +94,7 @@ generated_files:
  - man/ronin-url.1
  - man/ronin-xor.1
 
-required_ruby_version: ">= 3.1.0"
+required_ruby_version: ">= 3.2.0"
 
 dependencies:
   # Library dependencies:

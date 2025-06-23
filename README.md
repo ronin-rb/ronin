@@ -923,7 +923,7 @@ $ ronin unarchive -f zip arch2.jar
 * [make]
 * [git]
 * [libsqlite3]
-* [Ruby] >= 3.1.0
+* [Ruby] >= 3.2.0
 * [open_namespace] ~> 0.4
 * [rouge] ~> 3.0
 * [io-endpoint] ~> 0.15
