@@ -26,9 +26,11 @@ module Ronin
   class CLI
     module Commands
       #
-      # A `netcat` clone written in Ruby using the [async-io] gem.
+      # A `netcat` clone written in Ruby using the [io-endpoint] and
+      # [io-stream] gems.
       #
-      # [async-io]: https://github.com/socketry/async-io#readme
+      # [io-endpoint]: https://github.com/socketry/io-endpoint#readme
+      # [io-stream]: https://github.com/socketry/io-stream#readme
       #
       # ## Usage
       #
@@ -252,9 +254,11 @@ module Ronin
         # Loads the async-io library.
         #
         def load_async
+          require 'async'
           require 'async/notification'
-          require 'async/io'
-          require 'async/io/stream'
+          require 'io/endpoint'
+          require 'io/endpoint/host_endpoint'
+          require 'io/stream'
         end
 
         #
@@ -275,26 +279,28 @@ module Ronin
         #
         # Creates the async endpoint object.
         #
-        # @return [Async::IO::Endpoint]
+        # @return [IO::Endpoint::HostEndpoint,
+        #          IO::Endpoint::UNIXEndpoint,]
+        #          IO::Endpoint::SSLEndpoint]
         #
         def async_endpoint
           case @protocol
-          when :tcp  then Async::IO::Endpoint.tcp(@host,@port)
-          when :udp  then Async::IO::Endpoint.udp(@host,@port)
-          when :unix then Async::IO::Endpoint.unix(options[:unix])
+          when :tcp  then IO::Endpoint.tcp(@host,@port)
+          when :udp  then IO::Endpoint.udp(@host,@port)
+          when :unix then IO::Endpoint.unix(options[:unix])
           when :ssl
-            Async::IO::Endpoint.ssl(@host,@port, hostname:    @host,
-                                                 ssl_context: ssl_context)
+            IO::Endpoint.ssl(@host,@port, hostname:    @host,
+                                          ssl_context: ssl_context)
           end
         end
 
         #
         # Creates the async stdin stream.
         #
-        # @return [Async::IO::Stream]
+        # @return [IO::Stream::Buffered]
         #
         def async_stdin
-          Async::IO::Stream.new(Async::IO::Generic.new(self.stdin))
+          IO::Stream::Buffered.wrap(self.stdin)
         end
 
         #
@@ -314,7 +320,7 @@ module Ronin
                        exit(1)
                      end
 
-            stream = Async::IO::Stream.new(socket)
+            stream = IO::Stream::Buffered.wrap(socket)
 
             begin
               client = task.async do
@@ -363,7 +369,7 @@ module Ronin
               end
 
               clients << socket
-              stream = Async::IO::Stream.new(socket)
+              stream = IO::Stream::Buffered.wrap(socket)
 
               begin
                 while (data = stream.read_partial(buffer_size))

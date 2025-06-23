@@ -926,7 +926,8 @@ $ ronin unarchive -f zip arch2.jar
 * [Ruby] >= 3.1.0
 * [open_namespace] ~> 0.4
 * [rouge] ~> 3.0
-* [async-io] ~> 1.0
+* [io-endpoint] ~> 0.15
+* [io-stream] ~> 0.8
 * [wordlist] ~> 1.1
 * [ronin-support] ~> 1.1
 * [ronin-dns-proxy] ~> 0.1
@@ -1019,7 +1020,8 @@ along with Ronin.  If not, see <https://www.gnu.org/licenses/>.
 [Ruby]: https://www.ruby-lang.org
 [open_namespace]: https://github.com/postmodern/open_namespace#readme
 [rouge]: https://github.com/rouge-ruby/rouge#readme
-[async-io]: https://github.com/socketry/async-io#readme
+[io-endpoint]: https://github.com/socketry/io-endpoint#readme
+[io-stream]: https://github.com/socketry/io-stream#readme
 [wordlist]: https://github.com/postmodern/wordlist.rb#readme
 
 [ronin-support]: https://github.com/ronin-rb/ronin-support#readme
