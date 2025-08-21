@@ -12,7 +12,6 @@ jobs:
           - '3.2'
           - '3.3'
           - '3.4'
-          # - jruby
           - truffleruby
     name: Ruby ${{ matrix.ruby }}
     steps:

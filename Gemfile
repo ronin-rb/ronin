@@ -4,8 +4,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'jruby-openssl',	'~> 0.7', platforms: :jruby
-
 group :net do
   gem 'net-telnet', '~> 0.1'
 
@@ -22,11 +20,6 @@ end
 
 group :database do
   gem 'sqlite3', '~> 1.0', platforms: [:mri, :truffleruby]
-
-  platform :jruby do
-    gem 'activerecord-jdbcsqlite3-adapter', '~> 70.0'
-    gem 'activerecord', '< 7.1.0'
-  end
 end
 
 # Library dependencies
