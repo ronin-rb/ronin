@@ -124,4 +124,4 @@ dependencies:
   ronin-app: ~> 0.1
 
 development_dependencies:
-  bundler: ~> 2.0
+  bundler: ">= 2.0.0"
